@@ -14,18 +14,20 @@ class UserTest {
     void getGroupUsersTest() {
         Map<Integer, List<User>> groupUsers = User.groupUsers(getUsers());
         Assertions.assertThat(groupUsers).isNotEmpty();
-        Assertions.assertThat(getUsers().get(0).getAge()).isEqualTo(34);
-        Assertions.assertThat(getUsers().get(1).getAge()).isEqualTo(24);
-        Assertions.assertThat(getUsers().get(2).getAge()).isEqualTo(54);
-        Assertions.assertThat(getUsers().get(3).getAge()).isEqualTo(40);
+        Assertions.assertThat(getUsers().get(0).getAge()).isEqualTo(25);
+        Assertions.assertThat(getUsers().get(1).getAge()).isEqualTo(25);
+        Assertions.assertThat(getUsers().get(2).getAge()).isEqualTo(30);
+        Assertions.assertThat(getUsers().get(3).getAge()).isEqualTo(30);
+        Assertions.assertThat(getUsers().get(4).getAge()).isEqualTo(5);
     }
 
     public List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("Max", 34, "Luxoft", "Moscow"));
-        users.add(new User("Melisa", 24, "Google", "NY"));
-        users.add(new User("Bob", 54, "Epum", "SF"));
-        users.add(new User("Valery", 40, "Amazon", "LA"));
+        users.add(new User("Вася", 25, "mesto", "LA"));
+        users.add(new User("коля", 25, "raboty", "Chita"));
+        users.add(new User("галина", 30, "rabotymesto", "Gorod"));
+        users.add(new User("champ", 30, "mestomesta", "neGorod"));
+        users.add(new User("Джордж", 5, null, "example"));
         return users;
     }
 }
