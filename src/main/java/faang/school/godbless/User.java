@@ -1,22 +1,25 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private final String name;
-
     private final int age;
     private final String workplace;
     private final String address;
+    static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    static final int LEGAL_AGE = 18;
 
     public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
+        if (name.isBlank() || age < LEGAL_AGE || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Incorrect data was transmitted");
+        } else {
+            this.name = name;
+            this.age = age;
+            this.workplace = workplace;
+            this.address = address;
+        }
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
