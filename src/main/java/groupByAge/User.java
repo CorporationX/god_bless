@@ -16,19 +16,17 @@ public class User {
     private String workPlace;
     private String address;
 
-    public static Map<Integer,List<User>> groupUsers (List<User> listUsers){
-        Map<Integer, List<User> > sortByAge = new HashMap<>();
-            for (User listUser : listUsers) {
-                int i = 0;
-                if(sortByAge.containsKey(listUser.getAge())){
-                    ArrayList<User> usersSameAge = new ArrayList<User>();
-                    usersSameAge.add(listUser);
-                    sortByAge.put(listUser.getAge(),usersSameAge);
-                }else{
-                    //   sortByAge.put(listUser.getAge(), .get(i));
-                }
-                i++;
+    public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
+        Map<Integer, List<User>> sortByAge = new HashMap<>();
+        for (User user : listUsers) {
+            if (sortByAge.containsKey(user.getAge())) {
+                sortByAge.get(user.getAge()).add(user);
+            } else {
+                ArrayList<User> usersSameAge = new ArrayList<>();
+                usersSameAge.add(user);
+                sortByAge.put(user.getAge(), usersSameAge);
             }
+        }
         return sortByAge;
     }
 }
