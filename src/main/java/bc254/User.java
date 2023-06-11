@@ -1,22 +1,18 @@
 package bc254;
 
+import lombok.Value;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Value
 public class User {
-    private final String name;
-    private final int age;
-    private final String placeWork;
-    private final String address;
-
-    public User(String name, int age, String placeWork, String address) {
-        this.name = name;
-        this.age = age;
-        this.placeWork = placeWork;
-        this.address = address;
-    }
+    String name;
+    int age;
+    String placeWork;
+    String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
@@ -32,10 +28,5 @@ public class User {
             }
         }
         return groupUsers;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Имя: %s, Возраст: %d, Место работы: %s, Адрес: %s", name, age, placeWork, address);
     }
 }
