@@ -16,9 +16,13 @@ public class User {
 
     public User(String name, int age, String placeOfWork, String address) {
         this.name = name;
-        this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
+        if(age < 0){
+            throw new IllegalArgumentException("Age cant be less then 0");
+        }else{
+            this.age = age;
+        }
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
