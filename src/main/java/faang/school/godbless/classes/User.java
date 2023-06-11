@@ -31,6 +31,9 @@ public class User {
         if (!VALID_ADDRESSES.contains(jobLocate)){
             throw new IllegalArgumentException("Такого места работы нет");
         }
-
+        this.name = name;
+        this.age = age;
+        this.jobLocate = jobLocate;
+        this.address = address;
     }
 }
