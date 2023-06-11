@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class User {
     private final String name;
+
     private final int age;
     private final String workplace;
     private final String address;
@@ -22,9 +23,9 @@ public class User {
         Map <Integer, List<User>> map = new HashMap<>();
 
         for (User user : users) {
-            List<User> list = map.containsKey(user.age) ? map.get(user.age) : new ArrayList<>();
+            List<User> list = map.containsKey(user.getAge()) ? map.get(user.getAge()) : new ArrayList<>();
             list.add(user);
-            map.put(user.age, list);
+            map.put(user.getAge(), list);
         }
         
         return map;
@@ -38,5 +39,9 @@ public class User {
                 ", workplace='" + workplace + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public int getAge() {
+        return age;
     }
 }
