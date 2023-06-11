@@ -1,48 +1,22 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@Data
+@AllArgsConstructor
 public class User {
     private final String name;
 
-    private final int age;
-    private final String workplace;
-    private final String address;
-
-    public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
+    private int age;
+    private String workplace;
+    private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map <Integer, List<User>> map = new HashMap<>();
-
-        for (User user : users) {
-            int userAge = user.getAge();
-            List<User> list = map.containsKey(userAge) ? map.get(userAge) : new ArrayList<>();
-            list.add(user);
-            map.put(userAge, list);
-        }
-        
-        return map;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + workplace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
-
-    public int getAge() {
-        return age;
+        return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }

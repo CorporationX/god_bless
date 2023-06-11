@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String... args) {
@@ -10,13 +10,7 @@ public class Application {
         User user4 = new User("Semen", 30, "Work2", "Address4");
         User user5 = new User("Liza", 5, null, "Address5");
 
-        ArrayList<User> list = new ArrayList<>(){{
-            add(user4);
-            add(user5);
-            add(user2);
-            add(user3);
-            add(user1);
-        }};
+        List<User> list = List.of(user1, user2, user3, user4, user5);
 
         System.out.println(User.groupUsers(list));
     }
