@@ -3,7 +3,6 @@ package faang.school.godbless.domain;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,14 +16,16 @@ class UserTest {
         Assertions.assertThat(getUsers().get(1).getAge()).isEqualTo(24);
         Assertions.assertThat(getUsers().get(2).getAge()).isEqualTo(54);
         Assertions.assertThat(getUsers().get(3).getAge()).isEqualTo(40);
+
+        Assertions.assertThat(getUsers().get(3)).isEqualTo(new User("Valery", 40, "Amazon", "LA"));
     }
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
-        users.add(new User("Max", 34, "Luxoft", "Moscow"));
-        users.add(new User("Melisa", 24, "Google", "NY"));
-        users.add(new User("Bob", 54, "Epum", "SF"));
-        users.add(new User("Valery", 40, "Amazon", "LA"));
-        return users;
+    private List<User> getUsers() {
+        return List.of(
+            new User("Max", 34, "Luxoft", "Moscow"),
+            new User("Melisa", 24, "Google", "NY"),
+            new User("Bob", 54, "Epum", "SF"),
+            new User("Valery", 40, "Amazon", "LA")
+        );
     }
 }
