@@ -2,10 +2,7 @@ package faang.school.godbless.task3;
 
 public class Warrior extends Character{
     public Warrior(String name) {
-        super(name);
-        super.setStrength(10);
-        super.setAgility(5);
-        super.setIntelligence(3);
+        super(name, 10, 5, 3);
     }
 
     @Override

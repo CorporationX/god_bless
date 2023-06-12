@@ -2,15 +2,12 @@ package faang.school.godbless.task3;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        super.setStrength(3);
-        super.setAgility(10);
-        super.setIntelligence(5);
+        super(name, 3, 10, 5);
     }
 
     @Override
     protected void attack(Character character) {
-        if (!character.isAlive()) {
+        if (character.isAlive()) {
             character.setHealth(character.getHealth() - this.getAgility());
             System.out.println(this.getName() + " has attacked " + character.getName() + ". "
                     + "And now " + character.getName() + " has " + character.getHealth() +
