@@ -24,11 +24,10 @@ public class User {
     }
 
     private static boolean isAgeJobAddressNonMatch(User user) {
-        if (user.getAge() > 18 || VALID_JOBS.stream().anyMatch(userJob -> userJob.equals(user.getJob())) ||
-            VALID_ADDRESSES.stream().anyMatch(userAddress -> userAddress.equals(user.getAddress()))) {
-            return true;
-        } else {
+        if (user.getAge() <= 18 && VALID_JOBS.stream().noneMatch(userJob -> userJob.equals(user.getJob())) &&
+            VALID_ADDRESSES.stream().noneMatch(userAddress -> userAddress.equals(user.getAddress()))) {
             throw new IllegalArgumentException("Age, job and address does not match");
         }
+        return true;
     }
 }
