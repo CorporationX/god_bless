@@ -20,10 +20,10 @@ public class User {
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String workPlace, String address) {
-        validName(name);
-        validAge(age);
-        validWorkPlace(workPlace);
-        validAddresses(address);
+        validateName(name);
+        validateAge(age);
+        validateWorkPlace(workPlace);
+        validateAddresses(address);
 
         this.name = name;
         this.age = age;
@@ -31,25 +31,25 @@ public class User {
         this.address = address;
     }
 
-    private void validName(String name) {
+    private void validateName(String name) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void validAge(int age) {
+    private void validateAge(int age) {
         if (age < 18) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void validWorkPlace(String workPlace) {
+    private void validateWorkPlace(String workPlace) {
         if (!VALID_JOBS.contains(workPlace)) {
             throw new IllegalArgumentException();
         }
     }
 
-    private void validAddresses(String address) {
+    private void validateAddresses(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException();
         }
@@ -58,8 +58,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
         Map<Integer, List<User>> sortByAge = new HashMap<>();
         for (User user : listUsers) {
-            int age = user.getAge();
-            sortByAge.computeIfAbsent(age, c -> new ArrayList<>()).add(user);
+            sortByAge.computeIfAbsent(user.getAge(), c -> new ArrayList<>()).add(user);
         }
         return sortByAge;
     }
