@@ -7,7 +7,7 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character character) {
-        System.out.printf("%s атакует %s!", getName(), character.getName());
+        System.out.printf("%s атакует %s!\n", getName(), character.getName());
         character.inflictDamage(this.getStrength());
     }
 }

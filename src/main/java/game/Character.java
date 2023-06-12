@@ -15,7 +15,11 @@ public abstract class Character {
     }
 
     public Character(String name, int strength, int dexterity, int intelligence) {
-        this.name = name;
+        if (name == null || name.isBlank()) {
+            this.name = "Unnamed";
+        } else {
+            this.name = name;
+        }
         this.strength = strength;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
@@ -24,10 +28,14 @@ public abstract class Character {
     abstract void attack(Character character);
 
     public void inflictDamage(int damage) {
+        if (health == 0) {
+            System.out.printf("%s уже мёртв!", name);
+            return;
+        }
         health -= damage;
         if (health < 0) {
             health = 0;
         }
-        System.out.printf("%s получил урон в количестве: %d\nУ %s осталось %d хп! ", name, damage, name, health);
+        System.out.printf("%s получил урон в количестве: %d\nУ %s осталось %d хп!\n\n", name, damage, name, health);
     }
 }
