@@ -22,4 +22,17 @@ abstract class Character {
     }
 
     abstract void attack(Character character);
+
+    public boolean isAlive(int damage) {
+        return this.health > damage;
+    }
+
+    protected static void dealDamage(Character enemy, int damage) {
+        if (enemy.isAlive(damage)) {
+            enemy.health -= damage;
+        } else {
+            enemy.health = 0;
+            System.out.println("Enemy is dead!");
+        }
+    }
 }

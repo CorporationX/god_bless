@@ -29,4 +29,23 @@ class WarriorTest {
 
         assertEquals(90, enemy.getHealth());
     }
+
+    @Test
+    void attackDeathEnemyTest() {
+        Character enemy = new Warrior("Enemy");
+
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+        warrior.attack(enemy);
+
+        assertEquals(0, enemy.getHealth());
+    }
 }
