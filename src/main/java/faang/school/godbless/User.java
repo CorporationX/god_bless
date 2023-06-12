@@ -29,11 +29,6 @@ public class User {
         return hobbies;
     }
 
-    public void setHobbies(List<String> hobbies) {
-        this.hobbies = hobbies;
-    }
-
-
     public User(String name, List<String> hobbies) {
         this.name = name;
         this.hobbies = hobbies;
