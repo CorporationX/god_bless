@@ -25,9 +25,9 @@ public class User {
             if (groupMap.containsKey(user.age)) {
                 groupMap.get(userAge).add(user);
             } else {
-                List<User> tempUsers = new ArrayList<>();
-                tempUsers.add(user);
-                groupMap.put(user.age, tempUsers);
+                List<User> group = new ArrayList<>();
+                group.add(user);
+                groupMap.put(user.age, group);
             }
         }
         return groupMap;
