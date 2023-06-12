@@ -49,6 +49,6 @@ class UserTest {
 
     @Test
     void wrongNameUserTest() {
-        assertThrows(IllegalArgumentException.class, () -> User.create("", 15, "Uber", "London"));
+        assertThrows(IllegalArgumentException.class, () -> User.create("", 20, "Uber", "London"));
     }
 }
