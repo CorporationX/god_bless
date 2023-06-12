@@ -26,4 +26,12 @@ class UserTest {
         assertEquals(2, map.get(1).size());
         assertEquals(1, map.get(2).size());
     }
+
+    @Test
+    void fieldsValidation() {
+        assertThrows(IllegalArgumentException.class, () -> new User("", 20, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Tim", 17, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Tim", 20, "Meta", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Tim", 20, "Google", "Moscow"));
+    }
 }
