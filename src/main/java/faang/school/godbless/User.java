@@ -22,8 +22,9 @@ public class User {
     }
 
     private void checkName(String name) {
-        if (null == name || name.isEmpty());
-        throw new IllegalArgumentException();
+        if (null == name || name.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
     }
 
     private void checkAge(int age) {
