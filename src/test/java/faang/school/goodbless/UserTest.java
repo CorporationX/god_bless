@@ -17,8 +17,8 @@ class UserTest {
         User user3 = new User("Eva", 30, "Work1", "Address3");
 
         Map<Integer, List<User>> expectedMap = Map.of(
-                25, List.of(user1, user2),
-                30, List.of(user3)
+            25, List.of(user1, user2),
+            30, List.of(user3)
         );
 
         assertEquals(expectedMap, User.groupUsers(List.of(user1, user2, user3)));
