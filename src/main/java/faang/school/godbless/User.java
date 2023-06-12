@@ -23,11 +23,11 @@ public class User {
         for (User user : userList) {
             int age = user.age;
             if (groupUsers.containsKey(age)) {
-                groupUsers.get(age);
+                groupUsers.get(age).add(user);
             } else {
                 List<User> anotherList = new ArrayList<>();
-                groupUsers.put(age, anotherList);
                 anotherList.add(user);
+                groupUsers.put(age, anotherList);
             }
         }
         return groupUsers;
