@@ -12,8 +12,8 @@ public class User {
   private int age;
   private String job;
   private String address;
-  private static Set<String> VALID_JOBS = new HashSet<>(List.of("Google", "Uber", "Amazon"));
-  private static Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
+  private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+  private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
   public static final int MIN_AGE = 18;
   public static final String REQUIRED_NAME_ERROR = "Name is required";
