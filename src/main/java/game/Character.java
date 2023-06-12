@@ -28,8 +28,8 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     protected void inflictDamage(int damage) {
-        if (health == 0) {
-            System.out.printf("%s уже мёртв!", name);
+        if (isDead()) {
+            System.out.printf("%s уже мёртв!\n", name);
             return;
         }
         health -= damage;
