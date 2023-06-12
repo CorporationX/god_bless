@@ -19,12 +19,11 @@ public class User {
     public static HashMap<Integer, List<User>> groupUsers(List<User> users) {
         HashMap<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
-            if (!result.containsKey(user.age)){
+            if (!result.containsKey(user.age)) {
                 List<User> usersWithBirthdayInOneDay = new ArrayList<>();
                 usersWithBirthdayInOneDay.add(user);
                 result.put(user.age, usersWithBirthdayInOneDay);
-            }
-            else {
+            } else {
                 List<User> usersWithBirthdayInOneDay = result.get(user.age);
                 usersWithBirthdayInOneDay.add(user);
                 result.put(user.age, usersWithBirthdayInOneDay);
