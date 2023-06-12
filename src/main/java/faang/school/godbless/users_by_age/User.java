@@ -1,13 +1,15 @@
 package faang.school.godbless.users_by_age;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-@Data
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class User {
 
