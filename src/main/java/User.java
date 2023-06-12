@@ -21,10 +21,10 @@ public class User {
             throw new IllegalArgumentException("Age can't be less than 18");
         }
         if (!isValidWorkplace(workplace)) {
-            throw new IllegalArgumentException("Invalid workplace.");
+            throw new IllegalArgumentException("Invalid workplace");
         }
         if (!isValidAddress(address)) {
-            throw new IllegalArgumentException("Invalid address.");
+            throw new IllegalArgumentException("Invalid address");
         }
 
         this.name = name;
