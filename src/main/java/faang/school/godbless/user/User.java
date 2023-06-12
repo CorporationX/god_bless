@@ -31,13 +31,13 @@ public class User {
     }
   }
 
-  private void validateInputJobs(String job) {
+  private void validateInputJob(String job) {
     if (!VALID_JOBS.stream().anyMatch(job::contains)) {
       throw new IllegalArgumentException(VALID_JOBS_ERROR);
     }
   }
 
-  private void validateInputAddresses(String job) {
+  private void validateInputAddress(String job) {
     if (!VALID_ADDRESSES.stream().anyMatch(job::contains)) {
       throw new IllegalArgumentException(VALID_ADDRESSES_ERROR);
     }
@@ -46,8 +46,8 @@ public class User {
   private void validateInputData(String name, int age, String job, String address) {
     validateInputName(name);
     validateInputAge(age);
-    validateInputJobs(job);
-    validateInputAddresses(address);
+    validateInputJob(job);
+    validateInputAddress(address);
   }
 
   public User(String name, int age, String job, String address) {
