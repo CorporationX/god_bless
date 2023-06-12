@@ -1,5 +1,6 @@
-package faang.school.godbless;
+package faang.school.goodbless;
 
+import faang.school.godbless.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
