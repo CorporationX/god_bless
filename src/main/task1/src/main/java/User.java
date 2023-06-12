@@ -6,31 +6,35 @@ import java.util.Map;
 public class User {
     private String name;
     private int age;
-    private String addressOfJob;
+    private String workPlace;
     private String address;
 
-    public User() {
-
+    public User(String name, int age, String workPlace, String address) {
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.address = address;
     }
 
     public int getAge() {
         return age;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> listUsers){
-        Map<Integer, List<User>> map = new HashMap<>();
 
-        for(User user : listUsers){
-            if(!map.containsKey(user.getAge())){
-                List<User> newListAdd= new ArrayList<>();
-                newListAdd.add(user);
-                map.put(user.getAge(), newListAdd);
+    public static Map<Integer, List<User>> groupUsers(List<User> users){
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
+
+        for(User user : users){
+            if(!groupedUsers.containsKey(user.getAge())){
+                List<User> addFirstUser= new ArrayList<>();
+                addFirstUser.add(user);
+                groupedUsers.put(user.getAge(), addFirstUser);
             } else {
-                List<User> listUserForAge = map.get(user.getAge());
-                listUserForAge.add(user);
-                map.put(user.getAge(), listUserForAge);
+                List<User> addOtherUsers = groupedUsers.get(user.getAge());
+                addOtherUsers.add(user);
+                groupedUsers.put(user.getAge(), addOtherUsers);
             }
         }
-        return map;
+        return groupedUsers;
     }
 }
