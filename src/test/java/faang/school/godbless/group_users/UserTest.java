@@ -8,6 +8,8 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -40,4 +42,47 @@ class UserTest {
         assertEquals(Arrays.asList(user7, user8, user9), testMap.get(30));
         assertEquals(Arrays.asList(user10), testMap.get(32));
     }
+
+    @Test
+    void testConstructorWithInvalidName() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("  ", 25, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("", 25, "Google", "London"));
+        assertThrows(NullPointerException.class, () ->
+                new User(null, 25, "Google", "London"));
+    }
+
+    @Test
+    void testConstructorWithInvalidAge() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("Alice", -25, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("Alice", 17, "Google", "London"));
+
+    }
+
+    @Test
+    void testConstructorWithInvalidWorkplace() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("Alice", 25, "Invalid workplace", "London"));
+
+    }
+
+    @Test
+    void testConstructorWithInvalidAddress() {
+        assertThrows(IllegalArgumentException.class, () ->
+                new User("Alice", 25, "Google", "Invalid Address"));
+    }
+
+    @Test
+    void testConstructorWithValidParameters() {
+        User user = new User("Alice", 18, "Google", "London");
+        assertNotNull(user);
+        assertEquals("Alice", user.getName());
+        assertEquals(18, user.getAge());
+        assertEquals("Google", user.getWorkplace());
+        assertEquals("London", user.getAddress());
+    }
+
 }
