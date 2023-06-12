@@ -9,13 +9,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-
 class TestUser {
-
-
     @Test
     void testGroupUsers() {
-
         User userOne = new User("NameOne", 21, "CompanyOne", "Main street");
         User userTwo = new User("NameTwo", 22, "CompanyTwo", "Main street");
         User userThree = new User("NameThree", 23, "CompanyThree", "Main street");
@@ -28,6 +24,5 @@ class TestUser {
         assertEquals(5, usersForCheck.size());
         assertTrue(usersForCheck.containsKey(23));
         assertTrue(usersForCheck.containsKey(22));
-
     }
 }
