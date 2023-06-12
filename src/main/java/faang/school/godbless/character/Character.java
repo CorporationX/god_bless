@@ -1,9 +1,24 @@
 package faang.school.godbless.character;
 
 public abstract class Character {
-    private String name;
+    protected String name;
     protected int strength;
     protected int agility;
+    protected int intelligence;
+    protected int health = 100;
+
+    Character(String name) {
+        this.name = name;
+    }
+
+    Character(String name, int strength, int agility, int intelligence) {
+        this.name = name;
+        this.strength = strength;
+        this.agility = agility;
+        this.intelligence = intelligence;
+    }
+
+    abstract public void attack(Character anotherCharacter);
 
     public int getStrength() {
         return strength;
@@ -40,20 +55,4 @@ public abstract class Character {
     public String getName() {
         return name;
     }
-
-    private int intelligence;
-    protected int health = 100;
-
-    Character(String name) {
-        this.name = name;
-    }
-
-    Character(String name, int strength, int agility, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
-    }
-
-    abstract public void attack(Character anotherCharacter);
 }
