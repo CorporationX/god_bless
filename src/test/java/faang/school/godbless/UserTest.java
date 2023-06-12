@@ -2,7 +2,6 @@ package faang.school.godbless;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,11 +15,10 @@ class UserTest {
         User user1 = new User("first", 1, "s", "s");
         User user2 = new User("second", 2, "s", "s");
         User user3 = new User("third", 1, "s", "s");
-        List<User> userList = new ArrayList<>();
-        userList.add(user1);
-        userList.add(user2);
-        userList.add(user3);
+        List<User> userList = List.of(user1, user2, user3);
+
         Map<Integer, List<User>> map = groupUsers(userList);
+
         assertNotNull(map);
         assertEquals(2, map.size());
         assertEquals(2, map.get(1).size());
