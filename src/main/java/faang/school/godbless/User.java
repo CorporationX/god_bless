@@ -4,9 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,7 +49,7 @@ public class User {
             Integer userAge = user.getAge();
 
             if (!usersMap.containsKey(userAge)) {
-                usersMap.put(userAge, new ArrayList<User>());
+                usersMap.put(userAge, new ArrayList<>());
             }
 
             usersMap.get(userAge).add(user);
