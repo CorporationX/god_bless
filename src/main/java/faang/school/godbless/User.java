@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class User {
     private String name;
@@ -12,19 +13,7 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
-        Map<Integer, List<User>> grouped = new HashMap<>();
-        userList.forEach(user -> {
-            grouped.computeIfPresent(user.getAge(), (key, value) -> {
-                value.add(user);
-                return value;
-            });
-            if (!grouped.containsKey(user.getAge())) {
-                List<User> users = new ArrayList<>();
-                users.add(user);
-                grouped.put(user.getAge(), users);
-            }
-        });
-        return grouped;
+        return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
     public User(String name, int age, String work, String address) {
