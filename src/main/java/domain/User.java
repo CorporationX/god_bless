@@ -1,4 +1,4 @@
-package bc254;
+package domain;
 
 import lombok.Value;
 
