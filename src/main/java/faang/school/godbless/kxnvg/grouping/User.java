@@ -24,7 +24,7 @@ public class User {
     public User(String userName, int userAge, String userJob, String userAddress) {
         this.userName = userName;
         if (userAge < 0) {
-            throw new IllegalArgumentException("Возраст должен быть не меньше 0.");
+            throw new IllegalArgumentException("Возраст должен быть не меньше 0...");
         } else {
             this.userAge = userAge;
         }
