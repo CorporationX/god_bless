@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 public class UserTest {
     @Test
-    public void shouldReturnException() {
+    public void shouldThrowException() {
         Assertions.assertThrows(IllegalArgumentException.class, () ->
                 new User("Sasha", 23, "Dark Project", "Berlin"));
         Assertions.assertThrows(IllegalArgumentException.class, () ->
@@ -17,7 +17,7 @@ public class UserTest {
     }
 
     @Test
-    public void shouldNotReturnException() {
+    public void shouldNotThrowException() {
         Assertions.assertDoesNotThrow(() ->
                 new User("Sasha", 23, "Google", "New York"));
         Assertions.assertDoesNotThrow(() ->
