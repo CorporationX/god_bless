@@ -23,8 +23,8 @@ public abstract class Character {
 
     protected abstract void attack(Character character);
 
-    public boolean isDead() {
-        return this.health <= 0;
+    public boolean isAlive() {
+        return this.health > 0;
     }
 
 }
