@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private final String name;
     private final int age;
     private final String workPlace;
@@ -16,6 +19,29 @@ public class User {
         this.age = age;
         this.workPlace = workPlace;
         this.address = address;
+    }
+
+    private void checkName(String name) {
+        if (null == name || name.isEmpty());
+        throw new IllegalArgumentException();
+    }
+
+    private void checkAge(int age) {
+        if (age < 18) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void checkValidJobs(String workPlace) {
+        if (!VALID_JOBS.contains(workPlace)) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private void checkValidAddress(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public static Map<Integer, List<User>> usersGroup(List<User> userList) {
