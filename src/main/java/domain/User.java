@@ -17,13 +17,11 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : users) {
-            int age = user.age;
-
-            if (groupUsers.containsKey(age))
-                groupUsers.get(age).add(user);
-            else {
+            if (groupUsers.containsKey(user.age)) {
+                groupUsers.get(user.age).add(user);
+            } else {
                 List<User> newGroup = new ArrayList<>();
-                groupUsers.put(age, newGroup);
+                groupUsers.put(user.age, newGroup);
                 newGroup.add(user);
             }
         }

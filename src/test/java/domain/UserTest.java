@@ -22,7 +22,7 @@ public class UserTest {
         Assertions.assertThat(getUsers().get(5).getAge()).isEqualTo(29);
     }
 
-    public static List<User> getUsers() {
+    private static List<User> getUsers() {
         List<User> users = new ArrayList<>();
         users.add(new User("Arman", 23, "programmer", "1212"));
         users.add(new User("Oleg", 23, "programmer", "1212"));
