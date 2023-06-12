@@ -17,18 +17,11 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer,List<User>> groupedMapByAge = new HashMap<>();
+        Map<Integer, List<User>> groupedMapByAge = new HashMap<>();
 
         for (User user : users) {
             int age = user.getAge();
-
-            if (groupedMapByAge.containsKey(age)) {
-                groupedMapByAge.get(age).add(user);
-            } else {
-                ArrayList<User> usersWithSameAge = new ArrayList<>();
-                usersWithSameAge.add(user);
-                groupedMapByAge.put(age,usersWithSameAge);
-            }
+            groupedMapByAge.computeIfAbsent(age, k -> new ArrayList<>()).add(user);
         }
         return groupedMapByAge;
     }
