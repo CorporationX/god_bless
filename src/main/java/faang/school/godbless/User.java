@@ -15,14 +15,27 @@ public class User {
         return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
-    public User(String name, int age, Jobs job, Addresses address) {
-        if (name == null || name.trim().length() == 0 || age < 18 || !Jobs.contains(job) || !Addresses.contains(address)) {
-            throw new IllegalArgumentException();
-        }
+    public User(String name, int age, String job, String address) {
+        validate(name,age,job,address);
         this.name = name;
         this.age = age;
-        this.job = Jobs.valueOf(job.name());
-        this.address = Addresses.valueOf(address.name());
+        this.job = Jobs.fromString(job);
+        this.address = Addresses.fromString(address);
+    }
+
+    private void validate(String name, int age, String job, String address) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("Name can't be empty");
+        }
+        if (age < 18 ){
+            throw new IllegalArgumentException("Age can't be less then 18");
+        }
+        if (!Jobs.contains(job)){
+            throw new IllegalArgumentException("Job should be Google, Uber, Amazon");
+        }
+        if (!Addresses.contains(address)){
+            throw new IllegalArgumentException("Address should be London, New York, Amsterdam");
+        }
     }
 
     public String getName() {

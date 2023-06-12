@@ -1,14 +1,29 @@
 package faang.school.godbless;
 
 public enum Jobs {
-    GOOGLE, UBER, AMAZON;
+    GOOGLE("Google"), UBER("Uber"), AMAZON("Amazon");
 
-    public static boolean contains(Jobs jobs) {
-        try {
-            Jobs.valueOf(String.valueOf(jobs));
-            return true;
-        } catch (Exception e) {
-            return false;
+    private final String name;
+
+    Jobs(String str) {
+        name = str;
+    }
+
+    public static boolean contains(String name) {
+        for (Jobs job : Jobs.values()) {
+            if (job.name.equalsIgnoreCase(name)) {
+                return true;
+            }
         }
+        return false;
+    }
+
+    public static Jobs fromString(String name) {
+        for (Jobs job : Jobs.values()) {
+            if (job.name.equalsIgnoreCase(name)) {
+                return job;
+            }
+        }
+        return null;
     }
 }
