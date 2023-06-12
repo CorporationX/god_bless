@@ -19,30 +19,6 @@ public class User {
         this.address = address;
     }
 
-    private void checkName(String name) {
-        if (null == name || name.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void checkAge(int age) {
-        if (age < 18) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void checkValidJobs(String workPlace) {
-        if (!VALID_JOBS.contains(workPlace)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    private void checkValidAddress(String address) {
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
-        }
-    }
-
     public static Map<Integer, List<User>> usersGroup(List<User> userList) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : userList) {
