@@ -18,15 +18,23 @@ public class User {
     private String address;
 
     public User(String name, int age, String workPlace, String address) {
-        if (name == null || age < 18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Invalid User object initialization");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("User name null or blank");
         }
-        else {
-            this.name = name;
-            this.age = age;
-            this.workPlace = workPlace;
-            this.address = address;
+        if (age < 18) {
+            throw new IllegalArgumentException("User age is not valid");
         }
+        if (!VALID_JOBS.contains(workPlace)) {
+            throw new IllegalArgumentException("User workPlace is not valid");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("User address is not valid");
+        }
+
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.address = address;
     }
 
     public int getAge() {
