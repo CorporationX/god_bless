@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 public class CharacterTest {
     private Character firstCharacter;
     private Character secondCharacter;
+
     @BeforeEach
     public void setUp() {
         firstCharacter = new Warrior("Warrior");
@@ -15,16 +16,23 @@ public class CharacterTest {
 
     @Test
     public void testToAttackAliveCharacter() {
-        int health = secondCharacter.getHealth();
+        int firstCharacterHealth = firstCharacter.getHealth();
+        int secondCharacterHealthBeforeAttack = secondCharacter.getHealth();
+
         firstCharacter.attack(secondCharacter);
-        Assertions.assertNotEquals(health, secondCharacter.getHealth());
+
+        Assertions.assertNotEquals(secondCharacterHealthBeforeAttack, secondCharacter.getHealth());
+        Assertions.assertEquals(90, secondCharacter.getHealth());
+        Assertions.assertEquals(100, firstCharacterHealth);
     }
 
     @Test
     public void testToAttackDeadCharacter() {
         secondCharacter.setHealth(0);
         int health = secondCharacter.getHealth();
+
         firstCharacter.attack(secondCharacter);
+
         Assertions.assertEquals(health, secondCharacter.getHealth());
     }
 }
