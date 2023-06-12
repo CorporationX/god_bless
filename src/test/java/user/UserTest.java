@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
   private User user;
@@ -33,33 +33,29 @@ public class UserTest {
 
   @Test
   public void testCorrectInputName() {
-    try {
-      User user = new User("", 22, "Google", "London");
-    } catch (Exception e) {
-      assertEquals(User.REQUIRED_NAME_ERROR, e.getMessage());
-    }
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new User("", 22, "Google", "London");
+    });
+
+    assertEquals(User.REQUIRED_NAME_ERROR, exception.getMessage());
   }
 
   @Test
   public void testCorrectInputAge() {
-    try {
-      User user = new User("Max", 15, "Google", "London");
-      // If code above will be executed without errors - it's a problem, we should have age validation
-      throw new IllegalArgumentException("Should not be executed");
-    } catch (Exception e) {
-      assertEquals(User.MIN_AGE_ERROR, e.getMessage());
-    }
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new User("Max", 15, "Google", "London");
+    });
+
+    assertEquals(User.MIN_AGE_ERROR, exception.getMessage());
   }
 
   @Test
   public void testCorrectInputJob() {
-    try {
-      User user = new User("Max", 25, "Twtitter", "London");
-      // If code above will be executed without errors - it's a problem, we should have age validation
-      throw new IllegalArgumentException("Should not be executed");
-    } catch (Exception e) {
-      assertEquals(User.VALID_JOBS_ERROR, e.getMessage());
-    }
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      new User("Max", 25, "Twtitter", "London");
+    });
+
+    assertEquals(User.VALID_JOBS_ERROR, exception.getMessage());
   }
 
   @Test

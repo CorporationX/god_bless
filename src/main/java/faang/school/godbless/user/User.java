@@ -4,14 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class User {
   private String name;
   private int age;
   private String job;
   private String address;
-  private static List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
-  private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+  private static Set<String> VALID_JOBS = new HashSet<>(List.of("Google", "Uber", "Amazon"));
+  private static Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
   public static final int MIN_AGE = 18;
   public static final String REQUIRED_NAME_ERROR = "Name is required";
@@ -38,7 +40,7 @@ public class User {
   }
 
   private void validateInputAddress(String job) {
-    if (!VALID_ADDRESSES.stream().anyMatch(job::contains)) {
+    if (!VALID_ADDRESSES.contains(job)) {
       throw new IllegalArgumentException(VALID_ADDRESSES_ERROR);
     }
   }
