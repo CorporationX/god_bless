@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless;
+package faang.school.godbless;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,11 +6,11 @@ import java.util.Map;
 
 public class Application {
     public static void main(String... args) {
-        User user1 = new User("Vasya", 20, "Sber", "Moscow");
-        User user2 = new User("Vasilisa", 25, "Tinkoff", "St. Petersburg");
+        User user1 = new User("Vasya", 20, "Uber", "New York");
+        User user2 = new User("Vasilisa", 25, "Google", "London");
         User user3 = new User("Vlad", 26, "Uber", "Amsterdam");
-        User user4 = new User("Nastya", 23, "Ozon", "Moscow");
-        User user5 = new User("Pasha", 20, "VK", "Krasnodar");
+        User user4 = new User("Nastya", 23, "Amazon", "New York");
+        User user5 = new User("Pasha", 20, "Google", "London");
 
         List<User> userList = new ArrayList<>();
         userList.add(user1);
