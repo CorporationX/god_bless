@@ -10,8 +10,49 @@ public class User {
   private int age;
   private String job;
   private String address;
+  private static List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+  private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+
+  public static final int MIN_AGE = 18;
+  public static final String REQUIRED_NAME_ERROR = "Name is required";
+  public static final String MIN_AGE_ERROR = "Age should be more than " + MIN_AGE;
+  public static final String VALID_JOBS_ERROR = "Job should be on of the: " + String.join(",", VALID_JOBS);
+  public static final String VALID_ADDRESSES_ERROR = "Job should be on of the: " + String.join(",", VALID_ADDRESSES);
+
+  private void validateInputName(String name) {
+    if (name.isEmpty()) {
+      throw new IllegalArgumentException(REQUIRED_NAME_ERROR);
+    }
+  }
+
+  private void validateInputAge(int age) {
+    if (age < MIN_AGE) {
+      throw new IllegalArgumentException(MIN_AGE_ERROR);
+    }
+  }
+
+  private void validateInputJobs(String job) {
+    if (!VALID_JOBS.stream().anyMatch(job::contains)) {
+      throw new IllegalArgumentException(VALID_JOBS_ERROR);
+    }
+  }
+
+  private void validateInputAddresses(String job) {
+    if (!VALID_ADDRESSES.stream().anyMatch(job::contains)) {
+      throw new IllegalArgumentException(VALID_ADDRESSES_ERROR);
+    }
+  }
+
+  private void validateInputData(String name, int age, String job, String address) {
+    validateInputName(name);
+    validateInputAge(age);
+    validateInputJobs(job);
+    validateInputAddresses(address);
+  }
 
   public User(String name, int age, String job, String address) {
+    validateInputData(name, age, job, address);
+
     this.name = name;
     this.age = age;
     this.job = job;
