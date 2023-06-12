@@ -38,7 +38,7 @@ public class User {
         userList.add(new User("Nadia", 13, "Apple", "Zhukova 28"));
         System.out.println(groupUsers(userList));
     }
-//
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersByYears = new HashMap<>();
         for (int i = 0; i < users.size(); i++) {
