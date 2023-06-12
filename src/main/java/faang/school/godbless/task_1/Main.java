@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.task_1;
 
 import java.util.ArrayList;
 import java.util.List;

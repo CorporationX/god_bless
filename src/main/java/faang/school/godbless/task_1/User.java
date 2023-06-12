@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.task_1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,11 +50,11 @@ public class User {
         for (User user : userList) {
             int age = user.age;
             if (groupUsers.containsKey(age)) {
-                groupUsers.get(age);
+                groupUsers.get(age).add(user);
             } else {
                 List<User> anotherList = new ArrayList<>();
-                groupUsers.put(age, anotherList);
                 anotherList.add(user);
+                groupUsers.put(age, anotherList);
             }
         }
         return groupUsers;
