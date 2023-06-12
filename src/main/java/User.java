@@ -14,8 +14,17 @@ public class User {
     private String address;
 
     public User(String name, int age, String workplace, String address) {
-        if (age <= 0) {
-            throw new IllegalArgumentException("Incorrect age");
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name can't be empty");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Age can't be less than 18");
+        }
+        if (!isValidWorkplace(workplace)) {
+            throw new IllegalArgumentException("Invalid workplace.");
+        }
+        if (!isValidAddress(address)) {
+            throw new IllegalArgumentException("Invalid address.");
         }
 
         this.name = name;
@@ -30,6 +39,7 @@ public class User {
 
     public static final Set<String> VALID_JOBS;
     public static final Set<String> VALID_ADDRESSES;
+
     static {
         VALID_JOBS = new HashSet<>();
         VALID_JOBS.add("Google");
@@ -40,6 +50,16 @@ public class User {
         VALID_ADDRESSES.add("London");
         VALID_ADDRESSES.add("New York");
         VALID_ADDRESSES.add("Amsterdam");
+    }
+
+    public static boolean isValidWorkplace(String workplace) {
+        return VALID_JOBS.stream()
+                .anyMatch(job -> job.equals(workplace));
+    }
+
+    public static boolean isValidAddress(String address) {
+        return VALID_ADDRESSES.stream()
+                .anyMatch(location -> location.equals(address));
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
