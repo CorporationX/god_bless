@@ -6,14 +6,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 public class AbstractionTest {
-    final Warrior warrior = new Warrior("Warrior");
-    final Archer archer = new Archer("Archer");
+
 
     @Test
     void attack() {
+        final Warrior warrior = new Warrior("Warrior");
+        final Archer archer = new Archer("Archer");
+
         archer.attack(warrior);
-        assertEquals(warrior.getHealth(), 90);
         warrior.attack(archer);
+
+        assertEquals(warrior.getHealth(), 90);
         assertEquals(archer.getHealth(), 90);
     }
 
