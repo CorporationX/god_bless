@@ -16,7 +16,7 @@ public abstract class Character {
 
     public Character(String name, int strength, int dexterity, int intelligence) {
         if (name == null || name.isBlank()) {
-            this.name = "Unnamed";
+            throw new IllegalArgumentException();
         } else {
             this.name = name;
         }
@@ -25,9 +25,9 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    abstract void attack(Character character);
+    public abstract void attack(Character character);
 
-    public void inflictDamage(int damage) {
+    protected void inflictDamage(int damage) {
         if (health == 0) {
             System.out.printf("%s уже мёртв!", name);
             return;
@@ -37,5 +37,9 @@ public abstract class Character {
             health = 0;
         }
         System.out.printf("%s получил урон в количестве: %d\nУ %s осталось %d хп!\n\n", name, damage, name, health);
+    }
+
+    public boolean isDead() {
+        return health == 0;
     }
 }
