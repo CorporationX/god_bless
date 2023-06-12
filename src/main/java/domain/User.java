@@ -32,9 +32,9 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : users) {
-            if (groupUsers.containsKey(user.age))
+            if (groupUsers.containsKey(user.age)) {
                 groupUsers.get(user.age).add(user);
-            else {
+            } else {
                 List<User> newGroup = new ArrayList<>();
                 groupUsers.put(user.age, newGroup);
                 newGroup.add(user);
