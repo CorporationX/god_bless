@@ -20,7 +20,30 @@ public class UserTest {
         Assertions.assertEquals(usersGroup.get(3), receivedSortUsers.get(19).get(1));
         Assertions.assertEquals(usersGroup.get(4), receivedSortUsers.get(25).get(0));
         Assertions.assertEquals(usersGroup.get(5), receivedSortUsers.get(29).get(0));
+    }
 
+    @Test
+    public void shouldThrowException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                new User("Sasha", 23, "Dark Project", "Berlin"));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                new User("Mark", 19, "Amazon", "Chili"));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                new User("Arman", 16, "Google", "New York"));
+        Assertions.assertThrows(IllegalArgumentException.class, () ->
+                new User(null, 23, "Google", "Moscow"));
+    }
+
+    @Test
+    public void shouldNotThrowException() {
+        Assertions.assertDoesNotThrow(() ->
+                new User("Sasha", 23, "Google", "New York"));
+        Assertions.assertDoesNotThrow(() ->
+                new User("Mark", 19, "Amazon", "Amsterdam"));
+        Assertions.assertDoesNotThrow(() ->
+                new User("Arman", 19, "Google", "New York"));
+        Assertions.assertDoesNotThrow(() ->
+                new User("Oleg", 23, "Google", "London"));
     }
 
     private static List<User> getUsers() {
