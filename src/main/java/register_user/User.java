@@ -17,7 +17,7 @@ public record User(String name, int age, String placeOfWork, String address) {
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
-        UserValidator.checkUser(this);
+        UserValidator.validateUser(this);
     }
 
     public static void main(String[] args) {

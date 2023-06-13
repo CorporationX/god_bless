@@ -1,13 +1,14 @@
 package register_user;
 
 
-public abstract class UserValidator {
-    public static void checkUser(User user){
+public class UserValidator {
+    public static void validateUser(User user) {
         checkName(user.name());
         checkAge(user.age());
         checkValidJobs(user.placeOfWork());
         checkValidAddresses(user.address());
     }
+
     private static void checkName(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("User name should not be empty");
