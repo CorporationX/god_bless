@@ -3,9 +3,12 @@ package faang.school.godbless;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @ToString
 public class User {
@@ -15,11 +18,30 @@ public class User {
     private String workPlace;
     private String address;
 
+    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "NewYork", "Amsterdam"));
+
     public User(String name, int age, String workPlace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workPlace = workPlace;
-        this.address = address;
+        if (name != null || name.isEmpty()){
+            this.name = name;
+        } else {
+            throw new IllegalArgumentException("Name is blank");
+        }
+        if (age >= 18){
+            this.age = age;
+        } else {
+            throw new IllegalArgumentException("Children can't work");
+        }
+        if (VALID_JOBS.contains(workPlace)){
+            this.workPlace = workPlace;
+        } else {
+            throw new IllegalArgumentException("Not valid workplace");
+        }
+        if (VALID_ADDRESSES.contains(address)){
+            this.address = address;
+        } else {
+            throw new IllegalArgumentException("Not valid address");
+        }
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
