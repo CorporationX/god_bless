@@ -25,4 +25,16 @@ public class TestCharacters {
         Assertions.assertEquals(90, warrior.getHealth());
     }
 
+    @Test
+    @DisplayName("AttackWithZeroHP")
+    public void attackWithZeroHP(){
+        Character character = new Archer("Someone");
+        character.setHealth(1);
+        warrior.attack(character);
+        Assertions.assertEquals(-9, character.getHealth());
+        character.setHealth(0);
+        warrior.attack(character);
+        Assertions.assertEquals(0, character.getHealth());
+    }
+
 }
