@@ -4,16 +4,17 @@ import lombok.Data;
 
 @Data
 abstract class Character {
-    private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
-    private int health = 100;
+    protected String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    protected int health = 100;
 
-    public Character(int strength, int agility, int intelligence) {
+    public Character(int strength, int agility, int intelligence, String name) {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+        this.name = name;
     }
 
     public Character(String name) {
