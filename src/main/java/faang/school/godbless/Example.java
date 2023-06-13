@@ -3,10 +3,17 @@ package faang.school.godbless;
 public class Example {
     public static int[] reverse(int[] array) {
         int n = array.length;
-        int[] reversed = new int[n];
-        for (int i = 0; i < n; i++) {
-            reversed[i] = array[n - i - 1];
+        int i = 0;
+        int j = n - 1;
+        while (i < n / 2) {
+            swap(array, i++, j--);
         }
-        return reversed;
+        return array;
+    }
+
+    private static void swap(int[] array, int i, int j) {
+        int temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }

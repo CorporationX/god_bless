@@ -12,10 +12,13 @@ class ExampleTest {
 
     @Test
     void reverseTest() {
-        int[] array = {1, 2, 3, 4, 5};
+        int[] odd = {1, 2, 3, 4, 5};
+        int[] even = {1, 2, 3, 4, 5, 6};
 
-        int[] reversed = reverse(array);
+        int[] reversedOdd = reverse(odd);
+        int[] reversedEven = reverse(even);
 
-        assertArrayEquals(new int[]{5, 4, 3, 2, 1}, reversed);
+        assertArrayEquals(new int[]{5, 4, 3, 2, 1}, reversedOdd);
+        assertArrayEquals(new int[]{6, 5, 4, 3, 2, 1}, reversedEven);
     }
 }
