@@ -12,28 +12,20 @@ import java.util.Map;
 @AllArgsConstructor
 public class User {
 
-    String name;
-    int age;
-    String workplace;
-    String address;
+    private String name;
+    private int age;
+    private String workplace;
+    private String address;
 
     private static Map<Integer, List<User>> userMap = new HashMap<>();
 
     public static Map<Integer, List<User>> groupUsersByAge(List<User> users){
-
-
         for (User user : users){
-            if (!userMap.containsKey(user.getAge())){
-                List<User> list = new ArrayList<>();
-                list.add(user);
-                userMap.put(user.getAge(), list);
-            } else {
-                List<User> list = userMap.get(user.getAge());
-                list.add(user);
-                userMap.put(user.getAge(), list);
-            }
-
+            List<User> list = userMap.getOrDefault(user.getAge(), new ArrayList<>());
+            list.add(user);
+            userMap.put(user.getAge(), list);
         }
+
         return userMap;
     }
 
@@ -44,6 +36,7 @@ public class User {
     }
 
     public static int getListSize(int key){
+
         return userMap.get(key).size();
     }
 }
