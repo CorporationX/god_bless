@@ -8,15 +8,13 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        int damage = this.getAgility();
-
-        character.setHealth(character.getHealth() - damage);
-        if (character.getHealth() > 0) {
-            System.out.println(this.getName() + " нанес " + damage + " едениц урона " + character.getName());
-            System.out.println("У " + character.getName() + " осталось " + character.getHealth() + " едениц здоровья");
+        character.setHealth(character.health - agility);
+        if (character.health > 0) {
+            System.out.println(this.name + " нанес " + agility + " едениц урона " + character.name);
+            System.out.println("У " + character.name + " осталось " + character.health + " едениц здоровья");
         } else {
             character.setHealth(0);
-            System.out.println(character.getName() + " был убит от руки " + this.getName());
+            System.out.println(character.name + " был убит от руки " + this.name);
         }
     }
 }
