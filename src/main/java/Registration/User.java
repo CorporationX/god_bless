@@ -27,30 +27,37 @@ public class User {
     public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
 
     public User(String name, Integer age, String workPlace, String address) {
+        checkName(name);
+        checkAge(age);
+        checkJob(workPlace);
+        checkAddress(address);
 
-        if (name.isEmpty()){
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.address = address;
+    }
+
+    public void checkName(String name){
+        if (name.isEmpty() || name == null) {
             throw new IllegalArgumentException("Name can't be empty!");
-        } else if (name == null) {
-            throw new IllegalArgumentException("Name can't be null!");
-        } else {
-            this.name = name;
         }
+    }
 
+    public void checkAge(int age){
         if (age < 18){
             throw new IllegalArgumentException("Age less than 18! " + age);
-        } else {
-            this.age = age;
         }
+    }
 
-        if (VALID_JOBS.toString().contains(workPlace)){
-            this.workPlace = workPlace;
-        } else {
+    public void checkJob(String workPlace){
+        if (!VALID_JOBS.contains(workPlace)){
             throw new IllegalArgumentException("The place of work is not included in the original composition!");
         }
+    }
 
-        if (VALID_ADDRESSES.toString().contains(address)){
-            this.address = address;
-        } else {
+    public void checkAddress(String address){
+        if (!VALID_ADDRESSES.contains(address)){
             throw new IllegalArgumentException("Your city is not included in the original composition!");
         }
     }
