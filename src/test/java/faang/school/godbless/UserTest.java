@@ -51,7 +51,7 @@ public class UserTest {
     private List<User> getUsers() {
         User user1 = new User(1, "Andrey", 22,
                 Set.of("Programming", "Gym", "Reading", "Playing games"));
-        User user2 = new User(2, "Denis", 22,
+        User user2 = new User(2, "Denis", 21,
                 Set.of("Gym", "Reading books", "Watching serials"));
         User user3 = new User(3, "Vlad", 22,
                 Set.of("Reading books", "Watching anime", "Playing computer games"));
