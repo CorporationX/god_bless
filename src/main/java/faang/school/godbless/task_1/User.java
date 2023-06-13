@@ -1,5 +1,6 @@
 package faang.school.godbless.task_1;
 
+import javax.lang.model.element.Name;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +20,16 @@ public class User {
         this.age = age;
         this.workPlace = workPlace;
         this.address = address;
+
+        checkName(name);
+        checkAge(age);
+        checkValidJobs(workPlace);
+        checkValidAddress(address);
     }
 
     private void checkName(String name) {
         if (null == name || name.isEmpty()) {
+            System.out.println("Name cannot be empty!");
             throw new IllegalArgumentException();
         }
     }
