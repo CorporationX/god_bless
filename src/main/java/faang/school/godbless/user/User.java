@@ -11,6 +11,7 @@ public class User {
   private int age;
   private String job;
   private String address;
+  private Set<String> activities;
   private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
   private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -51,13 +52,14 @@ public class User {
     validateInputAddress(address);
   }
 
-  public User(String name, int age, String job, String address) {
+  public User(String name, int age, String job, String address, Set<String> activities) {
     validateInputData(name, age, job, address);
 
     this.name = name;
     this.age = age;
     this.job = job;
     this.address = address;
+    this.activities = activities;
   }
 
   public static Map<Integer, List<User>> groupUsers(List<User> users) {
@@ -75,6 +77,20 @@ public class User {
     }
 
     return userAgeToUsers;
+  }
+
+  public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    Map<User, String> mapUserToActivity = new HashMap<>();
+
+    for (User user : users) {
+      for (String activity : activities) {
+        if (user.activities.contains(activity)) {
+          mapUserToActivity.put(user, activity);
+        }
+      }
+    }
+
+    return mapUserToActivity;
   }
 
   public String getName() {
