@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ArcherTest {
   private Archer archer;
   private static final String ARCHER_NAME = "Drow Ranger";
+
   @BeforeEach
   public void setUp() {
     archer = new Archer(ARCHER_NAME);
@@ -27,6 +28,6 @@ public class ArcherTest {
     Archer anotherPerson = new Archer("Arc warden");
     int nextHealthValue = anotherPerson.getHealth() - archer.getAgility();
     archer.attack(anotherPerson);
-    assertEquals(anotherPerson.getHealth(), nextHealthValue);
+    assertEquals(nextHealthValue, anotherPerson.getHealth());
   }
 }

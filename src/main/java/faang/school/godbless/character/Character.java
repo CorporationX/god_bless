@@ -7,7 +7,7 @@ public abstract class Character {
     protected int intelligence;
     protected int health = 100;
 
-    Character(String name) {
+    public Character(String name) {
         this.name = name;
     }
 
@@ -18,7 +18,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    abstract public void attack(Character anotherCharacter);
+    public abstract void attack(Character anotherCharacter);
 
     public int getStrength() {
         return strength;
