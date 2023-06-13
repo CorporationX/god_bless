@@ -1,5 +1,6 @@
 package faang.school.godbless.users_by_age;
 
+import faang.school.godbless.task.ageGroup.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
