@@ -28,7 +28,7 @@ public class User {
             throw new IllegalArgumentException("Username can't be blank");
         }
         if (age < USER_MIN_AGE) {
-            throw new IllegalArgumentException("User must be over 6 y.o.");
+            throw new IllegalArgumentException("User must be over " + USER_MIN_AGE + " y.o.");
         }
         if (!VALID_JOBS.contains(company)) {
             throw new IllegalArgumentException("Invalid company");
@@ -57,7 +57,7 @@ public class User {
 
     public void setAge(int age) {
         if (age < USER_MIN_AGE) {
-            throw new IllegalArgumentException("User must be over 6 y.o.");
+            throw new IllegalArgumentException("User must be over " + USER_MIN_AGE + " y.o.");
         }
         this.age = age;
     }
