@@ -8,17 +8,18 @@ import java.util.stream.Collectors;
 
 @Getter
 public class User {
-    private String userName;
+    private String name;
     private int age;
     private String userJob;
-    private String userAddress;
+    private String address;
+
     public User(String userName, int age, String userJob, String userAddress){
-        this.userName = userName;
+        this.name = userName;
         if(age<0){
             throw new IllegalArgumentException("age cannot be less 0");
         } else this.age = age;
         this.userJob = userJob;
-        this.userAddress = userAddress;
+        this.address = userAddress;
     }
     public static Map<Integer,List<User>> groupUsers(List<User> users){
         return users.stream()
