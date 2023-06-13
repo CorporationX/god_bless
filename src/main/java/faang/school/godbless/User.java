@@ -2,13 +2,16 @@ package faang.school.godbless;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class User {
     private String name;
     private int age;
-    private Jobs job;
-    private Addresses address;
+    private String job;
+    private String address;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
@@ -16,24 +19,24 @@ public class User {
     }
 
     public User(String name, int age, String job, String address) {
-        validate(name,age,job,address);
+        validate(name, age, job, address);
         this.name = name;
         this.age = age;
-        this.job = Jobs.fromString(job);
-        this.address = Addresses.fromString(address);
+        this.job = job;
+        this.address = address;
     }
 
     private void validate(String name, int age, String job, String address) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("Name can't be empty");
         }
-        if (age < 18 ){
+        if (age < 18) {
             throw new IllegalArgumentException("Age can't be less then 18");
         }
-        if (!Jobs.contains(job)){
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Job should be Google, Uber, Amazon");
         }
-        if (!Addresses.contains(address)){
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address should be London, New York, Amsterdam");
         }
     }
@@ -54,19 +57,19 @@ public class User {
         this.age = age;
     }
 
-    public Jobs getJob() {
+    public String getJob() {
         return job;
     }
 
-    public void setJob(Jobs job) {
+    public void setJob(String job) {
         this.job = job;
     }
 
-    public Addresses getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(Addresses address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -75,8 +78,8 @@ public class User {
         return "User{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", job=" + job +
-                ", address=" + address +
+                ", job='" + job + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
