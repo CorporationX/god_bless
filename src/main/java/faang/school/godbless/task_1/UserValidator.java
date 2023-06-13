@@ -14,7 +14,7 @@ public abstract class UserValidator {
     }
 
     private static void checkAge(int age) {
-        if (age < 18) {
+        if (age <= 18) {
             throw new IllegalArgumentException("User age must be 18 or over!");
         }
     }
