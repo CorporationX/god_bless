@@ -1,6 +1,5 @@
 package faang.school.godbless.task_1;
 
-import faang.school.godbless.task2.Checker;
 import lombok.ToString;
 
 import java.util.ArrayList;
