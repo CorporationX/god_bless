@@ -3,7 +3,6 @@ package faang.school.godbless;
 import java.util.List;
 import java.util.Map;
 
-
 public class Main {
     public static void main(String[] args) {
         User user1 = new User("a", 2, "a", "a");
