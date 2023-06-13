@@ -38,7 +38,7 @@ public class UserTest {
         User user4 = new User("Person", 30, "Amazon", "Amsterdam");
         User user5 = new User("Джордж", 24, "Amazon", "New York");
 
-        List<User> users = List.of(user1,user2,user3,user4,user5);
+        List<User> users = List.of(user1, user2, user3, user4, user5);
 
         Map<Integer, List<User>> expectedGroups = new HashMap<>();
 
@@ -52,12 +52,12 @@ public class UserTest {
     }
 
     @Test
-    public void testIllegalArgumentException(){
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User("", 25, "Uber", "London"));
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User("галина", 30, "Google", "Chita"));
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User("Person", 8, "Amazon", "Amsterdam"));
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User("Джордж", 24, "Apple", "New York"));
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User("    ", 24, "Apple", "New York"));
-        Assertions.assertThrows(IllegalArgumentException.class,() -> new User(null, 24, "Apple", "New York"));
+    public void testIllegalArgumentException() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User("", 25, "Uber", "London"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User("галина", 30, "Google", "Chita"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User("Person", 8, "Amazon", "Amsterdam"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User("Джордж", 24, "Apple", "New York"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User("    ", 24, "Apple", "New York"));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> new User(null, 24, "Apple", "New York"));
     }
 }
