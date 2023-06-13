@@ -13,7 +13,7 @@ public class User {
 
     public User(@NonNull String name, int age, String workPlace, String address) {
 
-        if (!(age < 18)) {
+        if (age >= 18) {
             this.age = age;
         } else if (VALID_JOBS.contains(workPlace)) {
             this.workPlace = workPlace;
@@ -23,8 +23,6 @@ public class User {
             throw new IllegalArgumentException();
         }
     }
-
-
 }
 
 
