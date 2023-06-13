@@ -1,10 +1,10 @@
 package faang.school.godbless.task_1;
 
+import faang.school.godbless.task2.Checker;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,27 +15,18 @@ public class User {
     private int age;
     private String placeOfWork;
     private String address;
-    public static final Set<String> VALID_JOBS = new HashSet<>();
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>();
-
-    static {
-        VALID_JOBS.add("Google");
-        VALID_JOBS.add("Uber");
-        VALID_JOBS.add("Amazon");
-        VALID_ADDRESSES.add("London");
-        VALID_ADDRESSES.add("New York");
-        VALID_ADDRESSES.add("Amsterdam");
-    }
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
-        if (!name.isBlank() && age >= 18 && VALID_JOBS.contains(placeOfWork) && VALID_ADDRESSES.contains(address)) {
-            this.name = name;
-            this.age = age;
-            this.placeOfWork = placeOfWork;
-            this.address = address;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        Checker.checkName(name);
+        Checker.checkAge(age);
+        Checker.checkValidJobs(placeOfWork);
+        Checker.checkValidAddresses(address);
+        this.name = name;
+        this.age = age;
+        this.placeOfWork = placeOfWork;
+        this.address = address;
     }
 
     public static void main(String[] args) {
