@@ -20,6 +20,7 @@ public class Main {
         checkUserValid("rinat", 32, "Uber", "Amsterdam");
         checkUserValid("anton", 23, "Amazon", "New York");
 
+        
         User.getGroupUserAge(users).forEach((key, value) -> {
             System.out.println(key);
             value.forEach(n -> System.out.println(n.toString()));
