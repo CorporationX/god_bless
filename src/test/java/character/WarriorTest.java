@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class WarriorTest {
-  public Warrior warrior;
+  private Warrior warrior;
   private static final String WARRIOR_NAME = "Bloodseeker";
   @BeforeEach
   public void setUp() {
