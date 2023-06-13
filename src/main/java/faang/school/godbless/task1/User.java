@@ -1,7 +1,6 @@
 package faang.school.godbless.task1;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,14 +11,13 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @Setter
-@EqualsAndHashCode
 public class User {
 
     private String name;
 
     private int age;
 
-    private String place_of_work;
+    private String workplace;
 
     private String address;
 
