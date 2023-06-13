@@ -3,7 +3,6 @@ package faang.school.godbless;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class User {
     private int id;
@@ -15,10 +14,10 @@ public class User {
         Map<User, String> map = new HashMap<>();
         for (User user : users) {
             List<String> userHobbies = user.getHobbies();
-            for (int j = 0; j < userHobbies.size(); j++) {
-                if (hobbies.contains(userHobbies.get(j))) {
-                    map.put(user, userHobbies.get(j));
-                    j = userHobbies.size();
+            for (String hobby : userHobbies) {
+                if (hobbies.contains(hobby)) {
+                    map.put(user, hobby);
+                    break;
                 }
             }
         }

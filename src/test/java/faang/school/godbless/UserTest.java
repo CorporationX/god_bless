@@ -20,13 +20,13 @@ class UserTest {
         List<User> users = Arrays.asList(user1, user2, user3);
         List<String> hobbies = Arrays.asList("Football", "Swimming");
 
-        Map<User,String> fhl = findHobbyLovers(users, hobbies);
+        Map<User,String> foundedHobbyLovers = findHobbyLovers(users, hobbies);
 
-        assertNotNull(fhl);
-        assertNotNull(fhl.get(user3));
-        assertNotNull(fhl.get(user1));
-        assertEquals("Football", fhl.get(user1));
-        assertEquals("Football", fhl.get(user3));
+        assertNotNull(foundedHobbyLovers);
+        assertNotNull(foundedHobbyLovers.get(user3));
+        assertNotNull(foundedHobbyLovers.get(user1));
+        assertEquals("Football", foundedHobbyLovers.get(user1));
+        assertEquals("Football", foundedHobbyLovers.get(user3));
     }
 
 }
