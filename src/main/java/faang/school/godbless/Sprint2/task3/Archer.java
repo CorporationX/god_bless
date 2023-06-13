@@ -2,10 +2,7 @@ package faang.school.godbless.Sprint2.task3;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        this.setPower(3);
-        this.setAgility(10);
-        this.setIntelligence(5);
+        super(name, 3, 10, 5);
     }
 
     @Override

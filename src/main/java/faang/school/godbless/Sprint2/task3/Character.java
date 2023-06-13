@@ -14,7 +14,8 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(int power, int agility, int intelligence) {
+    public Character(String name, int power, int agility, int intelligence) {
+        this.name = name;
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
