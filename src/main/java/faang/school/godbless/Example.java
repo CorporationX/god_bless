@@ -1,17 +1,28 @@
 package faang.school.godbless;
 
+import java.util.Arrays;
+
 public class Example {
     public int[] reverse(int[] arr) {
-        int[] result = new int[arr.length];
+
+        if (arr.length == 0) {
+            return new int[] {};
+        }
+
         int i = 0;
         int j = arr.length - 1;
 
-        while (i <= arr.length - 1) {
-            result[i] = arr[j];
+        while (i != j) {
+            System.out.println(i);
+            System.out.println(j);
+            int left = arr[i];
+            int right = arr[j];
+            arr[i] = right;
+            arr[j] = left;
             i++;
             j--;
         }
 
-        return result;
+        return arr;
     }
 }
