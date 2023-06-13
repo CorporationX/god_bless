@@ -11,7 +11,6 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public class User {
-
     private String name;
     private int age;
     private String workplace;
@@ -36,7 +35,6 @@ public class User {
     }
 
     public static int getListSize(int key){
-
         return userMap.get(key).size();
     }
 }

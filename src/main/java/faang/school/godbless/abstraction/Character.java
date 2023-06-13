@@ -26,7 +26,4 @@ public abstract class Character {
 
     public abstract String attack(Character character);
 
-
-
-
 }

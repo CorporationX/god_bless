@@ -2,10 +2,7 @@ package faang.school.godbless.abstraction;
 
 public class Warrior extends Character {
     public Warrior(String name){
-        super(name);
-        this.agility = 5;
-        this.intelligence = 3;
-        this.strength = 5;
+        super(name, 5, 5, 3);
     }
 
     @Override
