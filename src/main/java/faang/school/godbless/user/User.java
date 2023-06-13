@@ -4,14 +4,56 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class User {
   private String name;
   private int age;
   private String job;
   private String address;
+  private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+  private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+  public static final int MIN_AGE = 18;
+  public static final String REQUIRED_NAME_ERROR = "Name is required";
+  public static final String MIN_AGE_ERROR = "Age should be more than " + MIN_AGE;
+  public static final String VALID_JOBS_ERROR = "Job should be on of the: " + String.join(",", VALID_JOBS);
+  public static final String VALID_ADDRESSES_ERROR = "Job should be on of the: " + String.join(",", VALID_ADDRESSES);
+
+  private void validateInputName(String name) {
+    if (name.isEmpty()) {
+      throw new IllegalArgumentException(REQUIRED_NAME_ERROR);
+    }
+  }
+
+  private void validateInputAge(int age) {
+    if (age < MIN_AGE) {
+      throw new IllegalArgumentException(MIN_AGE_ERROR);
+    }
+  }
+
+  private void validateInputJob(String job) {
+    if (!VALID_JOBS.stream().anyMatch(job::contains)) {
+      throw new IllegalArgumentException(VALID_JOBS_ERROR);
+    }
+  }
+
+  private void validateInputAddress(String job) {
+    if (!VALID_ADDRESSES.contains(job)) {
+      throw new IllegalArgumentException(VALID_ADDRESSES_ERROR);
+    }
+  }
+
+  private void validateInputData(String name, int age, String job, String address) {
+    validateInputName(name);
+    validateInputAge(age);
+    validateInputJob(job);
+    validateInputAddress(address);
+  }
 
   public User(String name, int age, String job, String address) {
+    validateInputData(name, age, job, address);
+
     this.name = name;
     this.age = age;
     this.job = job;
