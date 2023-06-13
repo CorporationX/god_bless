@@ -6,6 +6,6 @@ public class Main {
 
     public static void main(String[] args) {
         warrior.attack(archer);
-        archer.attack(warrior);
+        warrior.attack(archer);
     }
 }
