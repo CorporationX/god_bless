@@ -1,7 +1,5 @@
 package faang.school.godbless;
 
-import java.util.Arrays;
-
 public class Example {
     public int[] reverse(int[] arr) {
 
