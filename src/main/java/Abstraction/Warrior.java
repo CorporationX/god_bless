@@ -1,13 +1,13 @@
 package Abstraction;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name);
     }
 
     public Warrior(String name, Integer strength, Integer dexterity, Integer intelligence) {
-        super(name, 10,5,3);
+        super(name, 10, 5, 3);
     }
 
     @Override
