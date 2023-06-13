@@ -13,8 +13,21 @@ public class User {
     private String address;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE_LIMIT = 18;
 
     public User(String name, int age, String corporation, String address) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Enter your name please");
+        }
+        if (age < AGE_LIMIT) {
+            throw new IllegalArgumentException("You're not old enough");
+        }
+        if (!VALID_JOBS.contains(corporation)) {
+            throw new IllegalArgumentException("Job location is incorrect");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Address is incorrect");
+        }
         this.name = name;
         this.age = age;
         this.corporation = corporation;
