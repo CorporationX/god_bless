@@ -1,8 +1,5 @@
 package faang.school.godbless.task_1;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -13,7 +10,6 @@ import java.util.Map;
 @ToString
 public class User {
     private String name;
-    @Getter
     private int age;
     private String placeOfWork;
     private String address;
@@ -40,20 +36,13 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> usersByYears = new HashMap<>();
-        for (int i = 0; i < users.size(); i++) {
-            int age = users.get(i).getAge();
-            if (!usersByYears.containsKey(age)) {
-                List<User> userList = new ArrayList<>();
-                for (int j = i; j < users.size(); j++) {
-                    int secondAge = users.get(j).getAge();
-                    if (age == secondAge) {
-                        userList.add(users.get(j));
-                    }
-                }
-                usersByYears.put(age, userList);
+        Map<Integer, List<User>> usersByAge = new HashMap<>();
+        for (User user : users) {
+            if (!usersByAge.containsKey(user.age)) {
+                usersByAge.computeIfAbsent(user.age, k -> new ArrayList<>());
             }
+            usersByAge.get(user.age).add(user);
         }
-        return usersByYears;
+        return usersByAge;
     }
 }
