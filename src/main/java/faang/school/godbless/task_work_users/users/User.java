@@ -12,9 +12,6 @@ public class User {
     private String company;
     private String city;
 
-    public User() {
-    }
-
     public User(String name, int age, String company, String city) {
         this.name = name;
         this.age = age;
