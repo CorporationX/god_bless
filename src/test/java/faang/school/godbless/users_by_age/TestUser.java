@@ -1,28 +1,36 @@
 package faang.school.godbless.users_by_age;
 
+import faang.school.godbless.User;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TestUser {
     @Test
-    void testGroupUsers() {
-        User userOne = new User("NameOne", 21, "CompanyOne", "Main street");
-        User userTwo = new User("NameTwo", 22, "CompanyTwo", "Main street");
-        User userThree = new User("NameThree", 23, "CompanyThree", "Main street");
-        User userFour = new User("NameFour", 24, "CompanyFour", "Main street");
-        User userFive = new User("NameFive", 25, "CompanyFive", "Main street");
-        List<User> users = Arrays.asList(userOne, userTwo, userThree, userFour, userFive);
+    public void testValidArguments() {
+        String name = "John Doe";
+        int age = 25;
+        String company = "Google";
+        String address = "London";
 
-        Map<Integer, List<User>> usersForCheck = User.groupUsers(users);
+        User user = new User(name, age, company, address);
 
-        assertEquals(5, usersForCheck.size());
-        assertTrue(usersForCheck.containsKey(23));
-        assertTrue(usersForCheck.containsKey(22));
+        assertEquals(name, user.getName());
+        assertEquals(age, user.getAge());
+        assertEquals(company, user.getCompany());
+        assertEquals(address, user.getAddress());
+    }
+
+    @Test
+    public void testInvalidName() {
+        String name = " ";
+        int age = 25;
+        String company = "Acme Corp";
+        String address = "123 Main St";
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            new User(name, age, company, address);
+        });
     }
 }
