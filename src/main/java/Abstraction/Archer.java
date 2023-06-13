@@ -7,17 +7,12 @@ public class Archer extends Character{
     }
 
     public Archer(String name, Integer strength, Integer dexterity, Integer intelligence) {
-        super(
-                name,
-                strength = 3,
-                dexterity = 10,
-                intelligence = 5
-        );
+        super(name,10,5,3);
     }
 
     @Override
-    public int attack(Character character) {
-        int archerAttack = dexterity;
-        return character.health - archerAttack;
+    public void attack(Character character) {
+        character.setHealth(character.getHealth() - this.getDexterity());
+        System.out.println(character.getHealth());
     }
 }

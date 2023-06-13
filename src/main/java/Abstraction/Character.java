@@ -1,5 +1,8 @@
 package Abstraction;
 
+import lombok.Data;
+
+@Data
 public abstract class Character {
 
     protected String name;
@@ -23,7 +26,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public int attack(Character character){
-        return 0;
+    public void attack(Character character){
+
     }
 }
