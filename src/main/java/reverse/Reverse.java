@@ -4,24 +4,24 @@ import java.util.Arrays;
 
 public class Reverse {
     public static void reverse(int[] nums) {
-        int head = 0;
-        int tail = nums.length - 1;
+        int left = 0;
+        int right = nums.length - 1;
 
-        while (head < tail) {
-            swap(nums, head, tail);
-            head++;
-            tail--;
+        while (left < right) {
+            swap(nums, left, right);
+            left++;
+            right--;
         }
     }
 
-    private static void swap(int[] nums, int head, int tail) {
-        int temp = nums[head];
-        nums[head] = nums[tail];
-        nums[tail] = temp;
+    private static void swap(int[] nums, int left, int right) {
+        int temp = nums[left];
+        nums[left] = nums[right];
+        nums[right] = temp;
     }
 
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4,5,6};
+        int[] arr = {1, 2, 3, 4, 5, 6};
         reverse(arr);
         System.out.println(Arrays.toString(arr));
     }
