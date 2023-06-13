@@ -42,7 +42,7 @@ class ExampleTest {
 
     @Test
     public void testReverseNull() {
-        assertThrows(NullPointerException.class, () -> {example.reverse(null);});
+        assertThrows(IllegalArgumentException.class, () -> {example.reverse(null);});
     }
 
 }

@@ -5,7 +5,8 @@ public class Example {
 
     public int[] reverse(int[] nums) {
         if (nums == null) {
-            throw new NullPointerException();
+            System.out.println("array cannot be null");
+            throw new IllegalArgumentException();
         }
         int left = 0;
         int right = nums.length - 1;
