@@ -9,14 +9,15 @@ import java.util.Set;
 
 @Data
 public class User {
-     private String name;
+    private static final Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon" );
+    private static final Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
+    private static final int AGE_FOR_WORK = 18;
+    private String name;
      private int age;
     private String workPlace;
     private String address;
 
-    private static final Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon" );
-    private static final Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
-    private static final int AGE_FOR_WORK = 18;
+
 
     public User(String name, int age, String workPlace, String address){
 
