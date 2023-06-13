@@ -14,10 +14,12 @@ public class User {
         Map<User, String> map = new HashMap<>();
         for (User user : users) {
             List<String> userHobbies = user.getHobbies();
-            for (String hobby : userHobbies) {
-                if (hobbies.contains(hobby)) {
-                    map.put(user, hobby);
-                    break;
+            if (userHobbies!=null){
+                for (String hobby : userHobbies) {
+                    if (hobbies.contains(hobby)) {
+                        map.put(user, hobby);
+                        break;
+                    }
                 }
             }
         }
