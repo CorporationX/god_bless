@@ -10,11 +10,13 @@ public class Example {
         int i = 0;
         int j = arr.length - 1;
 
-        while (i != j) {
+        while (i <= j) {
             int left = arr[i];
             int right = arr[j];
+
             arr[i] = right;
             arr[j] = left;
+
             i++;
             j--;
         }
