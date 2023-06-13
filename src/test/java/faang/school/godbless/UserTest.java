@@ -1,7 +1,7 @@
 package faang.school.godbless;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,9 +12,13 @@ public class UserTest {
 
     private List<User> users;
 
+    @BeforeEach
+    void setUp(){
+        users = getUsers();
+    }
+
     @Test
     void testGroupUsers(){
-        List<User> users = getUsers();
         Map<Integer, List<User>> resultGroupUsers = User.groupUsers(users);
 
         Assertions.assertEquals(users.get(0), resultGroupUsers.get(26).get(0));
