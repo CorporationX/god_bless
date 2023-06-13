@@ -15,7 +15,7 @@ public class ExampleTest {
     }
 
     @Test
-    public void reverseNotEmptyArray() {
+    public void testReverseNotEmptyArray() {
         int[] arr = new int[] {1, 2, 3, 4, 5};
 
         int[] result = example.reverse(arr);
@@ -24,7 +24,7 @@ public class ExampleTest {
     }
 
     @Test
-    public void reverseEmptyArray() {
+    public void testReverseEmptyArray() {
         int[] arr = new int[] {};
 
         int[] result = example.reverse(arr);
