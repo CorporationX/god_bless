@@ -19,6 +19,7 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users,
                                              Set<String> activities) {
         Map<User, String> usersMap = new HashMap<>();
+
         for (User user : users) {
             for (String activity : activities) {
                 if (user.getActivities().contains(activity)) {
