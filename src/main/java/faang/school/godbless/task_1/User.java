@@ -9,10 +9,10 @@ import java.util.Map;
 
 @ToString
 public class User {
-    private String name;
-    private int age;
-    private String placeOfWork;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String placeOfWork;
+    private final String address;
 
     public User(String name, int age, String placeOfWork, String address) {
         this.name = name;
@@ -38,10 +38,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersByAge = new HashMap<>();
         for (User user : users) {
-            if (!usersByAge.containsKey(user.age)) {
-                usersByAge.computeIfAbsent(user.age, k -> new ArrayList<>());
-            }
-            usersByAge.get(user.age).add(user);
+            usersByAge.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
         }
         return usersByAge;
     }
