@@ -39,6 +39,5 @@ public class User {
             }
         }
         return userGroups;
-
     }
 }
