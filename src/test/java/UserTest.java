@@ -52,7 +52,7 @@ public class UserTest {
     }
 
     @Test
-    public void testIllegalArgumentException() {
+    public void shouldThrownException() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> new User("", 25, "Uber", "London"));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new User("галина", 30, "Google", "Chita"));
         Assertions.assertThrows(IllegalArgumentException.class, () -> new User("Person", 8, "Amazon", "Amsterdam"));
