@@ -1,4 +1,4 @@
-package Grouping_by_age;
+package grouping.by.age;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ public class Main {
         User user4 = new User("Bika", 24, "KFC", "Matrosova 5");
         User user5 = new User("Alex", 12, "SpaceX", "Marksa 6");
         List<User> userList = List.of(user1, user2, user3, user4, user5);
-
         System.out.println(User.groupUsers(userList));
     }
 }

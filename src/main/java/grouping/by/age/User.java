@@ -1,4 +1,4 @@
-package Grouping_by_age;
+package grouping.by.age;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,18 +20,13 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> mapUser = new HashMap<>();
-        for (int i = 0; i < userList.size(); i++) {
-            if (mapUser.containsKey(userList.get(i).age)) {
-                mapUser.get(userList.get(i).age).add(userList.get(i));
-            }
-            else {
-                List<User> users1 = new ArrayList<>();
-                users1.add(userList.get(i));
-                mapUser.put(userList.get(i).age, users1);
-            }
+        for (User user:
+             userList) {
+            mapUser.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
         return mapUser;
     }
+
     @Override
     public String toString() {
         return "User{" +
