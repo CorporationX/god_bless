@@ -16,10 +16,11 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon" );
     private static final Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
+    private static final int AGE_FOR_WORK = 18;
 
     public User(String name, int age, String workPlace, String address){
 
-        if (name == null || name.isBlank() ||  age<18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
+        if (name == null || name.isBlank() ||  age<AGE_FOR_WORK || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException();
         }
         this.name = name;
