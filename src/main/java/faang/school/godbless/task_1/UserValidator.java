@@ -1,12 +1,13 @@
 package faang.school.godbless.task_1;
 
-public abstract class UserValidator {
-    public static void checkUser(User user){
+public class UserValidator {
+    public static void validateUser(User user) {
         checkName(user.getName());
         checkAge(user.getAge());
         checkValidJobs(user.getPlaceOfWork());
         checkValidAddresses(user.getAddress());
     }
+
     private static void checkName(String name) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("User name is null or empty!");

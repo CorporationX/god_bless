@@ -24,7 +24,7 @@ public class User {
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
-        UserValidator.checkUser(this);
+        UserValidator.validateUser(this);
     }
 
     public static void main(String[] args) {
