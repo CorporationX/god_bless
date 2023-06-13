@@ -25,12 +25,8 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users){
         Map<Integer,List<User>> groupUsers = new HashMap<>();
         for (User user: users){
-            if (groupUsers.containsKey(user.age)){
-                groupUsers.get(user.age).add(user);
-            } else {
-                groupUsers.put(user.age, new ArrayList<>());
-                groupUsers.get(user.age).add(user);
-            }
+            groupUsers.putIfAbsent(user.age, new ArrayList<>());
+            groupUsers.get(user.age).add(user);
         }
         return groupUsers;
     }
