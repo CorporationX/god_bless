@@ -13,8 +13,6 @@ public class Example {
         int j = arr.length - 1;
 
         while (i != j) {
-            System.out.println(i);
-            System.out.println(j);
             int left = arr[i];
             int right = arr[j];
             arr[i] = right;
