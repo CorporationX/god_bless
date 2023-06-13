@@ -3,15 +3,27 @@ package faang.school.godbless.task2;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.HashSet;
 
-@ToString(exclude = {"VALID_JOBS", "VALID_ADDRESSES"})
+@ToString
 public class User {
-    private final String VALID_JOBS = "Google, Uber, Amazon";
-    private final String VALID_ADDRESSES = "London, New York, Amsterdam";
+    private static final Set<String> VALID_JOBS = new HashSet<>();
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>();
+
+    private static void addSets() {
+        VALID_JOBS.add("Google");
+        VALID_JOBS.add("Uber");
+        VALID_JOBS.add("Amazon");
+
+        VALID_ADDRESSES.add("London");
+        VALID_ADDRESSES.add("New York");
+        VALID_ADDRESSES.add("Amsterdam");
+    }
 
     private String name;
     @Getter
@@ -20,27 +32,31 @@ public class User {
     private String address;
 
     public User(String name, int age, String worksPlace, String address) throws IllegalArgumentException {
-        if (!name.isEmpty() && VALID_JOBS.contains(worksPlace) && VALID_ADDRESSES.contains(address)) {
-            this.name = name;
-            this.age = age;
-            this.worksPlace = worksPlace;
-            this.address = address;
-        } else {
-            throw new IllegalArgumentException();
+        if (VALID_JOBS.isEmpty()) {
+            addSets();
         }
-
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Вы не указали имя");
+        }
+        if (age < 17 || age > 150) {
+            throw new IllegalArgumentException("Не верный возраст");
+        }
+        if (!VALID_JOBS.contains(worksPlace)) {
+            throw new IllegalArgumentException("Не верное место работы");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Не верной адрес");
+        }
+        this.name = name;
+        this.age = age;
+        this.worksPlace = worksPlace;
+        this.address = address;
     }
 
-    public static Map<Integer, LinkedList<User>> groupUsers(List<User> users) {
-        Map<Integer, LinkedList<User>> sortsUsers = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> sortsUsers = new HashMap<>();
         for (User i : users) {
-            if (sortsUsers.containsKey(i.getAge())) {
-                sortsUsers.get(i.getAge()).add(i);
-            } else {
-                LinkedList<User> newUser = new LinkedList<>();
-                newUser.add(i);
-                sortsUsers.put(i.getAge(), newUser);
-            }
+            sortsUsers.computeIfAbsent(i.getAge(), k -> new LinkedList<>()).add(i);
         }
         return sortsUsers;
     }
