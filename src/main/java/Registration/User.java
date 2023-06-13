@@ -28,30 +28,31 @@ public class User {
 
     public User(String name, Integer age, String workPlace, String address) {
 
-        if (name.equals("")){
-            throw new IllegalArgumentException("Имя не должно быть пустым! ");
+        if (name.isEmpty()){
+            throw new IllegalArgumentException("Name can't be empty!");
+        } else if (name == null) {
+            throw new IllegalArgumentException("Name can't be null!");
         } else {
             this.name = name;
         }
 
         if (age < 18){
-            throw new IllegalArgumentException("Возраст меньше 18! " + age);
+            throw new IllegalArgumentException("Age less than 18! " + age);
         } else {
             this.age = age;
         }
 
-        if (workPlace.contains(VALID_JOBS.toString())){
+        if (VALID_JOBS.toString().contains(workPlace)){
             this.workPlace = workPlace;
         } else {
-            throw new IllegalArgumentException("Место работы не входит в оригинальный состав!");
+            throw new IllegalArgumentException("The place of work is not included in the original composition!");
         }
 
-        if (address.contains(VALID_ADDRESSES.toString())){
+        if (VALID_ADDRESSES.toString().contains(address)){
             this.address = address;
         } else {
-            throw new IllegalArgumentException("Ваш город не входит в оригинальный состав!");
+            throw new IllegalArgumentException("Your city is not included in the original composition!");
         }
-
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
