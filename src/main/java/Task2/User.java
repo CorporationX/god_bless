@@ -19,7 +19,7 @@ import java.util.Set;
         private static final int EIGHTEEN = 18;
 
         public User(String name, int age, String placeOfWork, String address) {
-            if (name == null || age < EIGHTEEN || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)){
+            if (name == null || name.isBlank() || age < EIGHTEEN || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)){
                 throw new IllegalArgumentException();
             }
             this.name = name;
