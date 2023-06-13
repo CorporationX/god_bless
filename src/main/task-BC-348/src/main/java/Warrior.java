@@ -9,7 +9,6 @@ public class Warrior extends Character{
 
     @Override
     public void attack(Character archer) {
-        archer = new Archer("archer");
         archer.health = archer.health - power;
     }
 }
