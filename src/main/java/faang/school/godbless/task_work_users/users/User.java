@@ -1,10 +1,7 @@
 package faang.school.godbless.task_work_users.users;
 
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class User {
     private String name;
@@ -12,11 +9,22 @@ public class User {
     private String company;
     private String city;
 
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
     public User(String name, int age, String company, String city) {
-        this.name = name;
-        this.age = age;
-        this.company = company;
-        this.city = city;
+        validUser(name, age, company, city);
+    }
+
+    private void validUser(String name, int age, String company, String city) throws IllegalArgumentException {
+        if (!name.isBlank() && !(age < 18) && VALID_JOBS.contains(company) && VALID_ADDRESSES.contains(city)) {
+            this.name = name;
+            this.age = age;
+            this.company = company;
+            this.city = city;
+            return;
+        }
+        throw new IllegalArgumentException("не допустимые значения !!!");
     }
 
     public static Map<Integer, List<User>> getGroupUserAge(List<User> users) {
@@ -71,5 +79,10 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(name, age, company, city);
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + age;
     }
 }
