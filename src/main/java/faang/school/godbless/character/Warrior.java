@@ -8,6 +8,7 @@ public class Warrior extends Character {
   public Warrior(String name) {
     super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
   }
+
   @Override
   public void attack(Character anotherCharacter) {
     anotherCharacter.health -= DEFAULT_STRENGTH;
