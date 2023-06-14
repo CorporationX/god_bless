@@ -25,7 +25,9 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     public void takeDamage(int damage) {
-        this.health -= damage;
+        if(health > 0) {
+            health -= damage;
+        }
     }
 
     private void validateParameters(int parameter){
