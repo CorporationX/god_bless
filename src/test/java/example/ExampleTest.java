@@ -22,6 +22,6 @@ public class ExampleTest {
   public void testReverse() {
     List<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5));
     List<Integer> expectedNumbers = List.of(5, 4, 3, 2, 1);
-    assertEquals(expectedNumbers, example.reverse(numbers)); // - Doesn't work
+    assertEquals(expectedNumbers, example.reverse(numbers));
   }
 }
