@@ -13,8 +13,6 @@ public class User {
     private String workPlace;
     private String address;
 
-
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
