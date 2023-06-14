@@ -10,10 +10,10 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public class User {
-    int id;
-    String name;
-    int age;
-    List<String> setOfActivities;
+    private int id;
+    private String name;
+    private int age;
+    private List<String> setOfActivities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, List<String> hobbies) {
         Map<User, String> hobbyMap = new HashMap<>();
