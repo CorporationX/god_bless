@@ -32,14 +32,14 @@ public class User {
         this.address = address;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        return users.stream().collect(Collectors.groupingBy(User::getAge));
-    }
-
     public User(String name, int age, List<String> activities) {
         this.name = name;
         this.age = age;
         this.activities = activities;
+    }
+
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
     public Map<User, String> findHobbyLovers(User[] users, List<String> activities) {
@@ -54,6 +54,14 @@ public class User {
         }
 
         return map;
+    }
+
+    public static User create (String name, int age, String workplace, String address) {
+         return new User(name, age, workplace, address);
+    }
+
+    public static User create (String name, int age, List<String> activities) {
+        return new User(name, age, activities);
     }
 
     @Override
