@@ -20,26 +20,18 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
-        if (name != null) {
-            this.name = name;
-        }
-        if (age <= 18) {
-            this.age = age;
-        }
-        if (VALID_JOBS.contains(placeOfWork)) {
-            this.placeOfWork = placeOfWork;
-        }
-        if (VALID_ADDRESSES.contains(address)) {
-            this.address = address;
-        }
-        else {
+        if (name == null || age <= 18 || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException();
         }
+        this.name = name;
+        this.age = age;
+        this.placeOfWork = placeOfWork;
+        this.address = address;
 
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         return users.stream()
-                .collect(Collectors.groupingBy(User::getAge, Collectors.mapping(user -> user, Collectors.toList())));
+                .collect(Collectors.groupingBy(User::getAge));
     }
 }
