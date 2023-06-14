@@ -8,7 +8,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character character) {
         if (character.isAlive(character)) {
-            character.health -= strength;
+            character.health -= agility;
             return;
         }
         System.out.println(character.name + " is already dead");
