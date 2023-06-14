@@ -18,6 +18,7 @@ class ExampleTest {
         int[] nums = {1, 2, 3, 4};
         int[] expectedNums = {4, 3, 2, 1};
 
-        Assertions.assertArrayEquals(expectedNums, example.reverse(nums));
+        example.reverse(nums);
+        Assertions.assertArrayEquals(expectedNums, nums);
     }
 }
