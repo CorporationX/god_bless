@@ -8,10 +8,8 @@ public class Warrior extends Character{
         super(name, WARRIOR_STRENGTH, WARRIOR_AGILITY, WARRIOR_INTELLIGENCE);
     }
 
-
     @Override
     public void attack(Character enemy) {
         enemy.getDamage(getStrength());
     }
-
 }

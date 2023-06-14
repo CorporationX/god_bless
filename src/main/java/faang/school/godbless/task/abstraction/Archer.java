@@ -17,5 +17,4 @@ public class Archer extends Character {
             enemy.getDamage(getAgility());
         }
     }
-
 }
