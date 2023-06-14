@@ -13,13 +13,11 @@ public class TestCharacter {
         Character archer = new Archer("Legolas");
         warrior.attack(archer);
         assertEquals(90, archer.getHealth());
-        warrior.setStrength(8);
         warrior.attack(archer);
-        assertEquals(82, archer.getHealth());
+        assertEquals(80, archer.getHealth());
         archer.attack(warrior);
         assertEquals(90, warrior.getHealth());
-        archer.setAgility(1);
         archer.attack(warrior);
-        assertEquals(89, warrior.getHealth());
+        assertEquals(80, warrior.getHealth());
     }
 }
