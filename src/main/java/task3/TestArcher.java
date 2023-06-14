@@ -1,30 +1,24 @@
-package Task3;
+package task3;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class TestWarrior {
-    private Warrior warrior;
+class TestArcher {
+    private final Archer archer = new Archer("Archer");
     private final Character target = new Warrior("target");
 
-    @BeforeEach
-    public void setUp() {
-        this.warrior = new Warrior("Warrior");
-    }
-
     @Test
-    void testOtherWarriorAttack() {
-        warrior.attack(target);
+    void testOtherArcherAttack() {
+        Character target = new Archer("target");
+        archer.attack(target);
 
         assertEquals(90, target.getHealth());
     }
 
     @Test
-    void testArcherAttack() {
-        Character target = new Archer("target");
-        warrior.attack(target);
+    void testWarriorAttack() {
+        archer.attack(target);
 
         assertEquals(90, target.getHealth());
     }
@@ -32,7 +26,7 @@ class TestWarrior {
     @Test
     void testTargetDeath() {
         while (target.getHealth() > 0) {
-            warrior.attack(target);
+            archer.attack(target);
         }
         assertEquals(0, target.getHealth());
     }

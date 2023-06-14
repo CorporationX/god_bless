@@ -1,4 +1,4 @@
-package Task3;
+package task3;
 
 import lombok.Data;
 import org.jetbrains.annotations.NotNull;
