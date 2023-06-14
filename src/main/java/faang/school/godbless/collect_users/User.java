@@ -23,10 +23,12 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(@NonNull List<User> users, @NonNull Set<String> activities) {
         Map<User, String> result = new HashMap<>();
-        for (User user : users.stream().filter(Objects::nonNull).collect(Collectors.toSet())) {
+        Set <User> userSet = users.stream().filter(Objects::nonNull).collect(Collectors.toSet());
+        for (User user : userSet) {
             for (String activity : activities) {
                 if (user.getActivities().contains(activity)) {
                     result.put(user, activity);
+                    break;
                 }
             }
         }
