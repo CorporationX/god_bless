@@ -48,12 +48,12 @@ public class UserTest {
 
     private static List<User> getUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("Arman", 23, "Google", "1212"));
-        users.add(new User("Oleg", 23, "Google", "1212"));
-        users.add(new User("Gold", 19, "Amazon", "1212"));
-        users.add(new User("Mark", 19, "Google", "1212"));
-        users.add(new User("Sasha", 25, "Uber", "1212"));
-        users.add(new User("Olga", 29, "Google", "1212"));
+        users.add(new User("Arman", 23, "Google", "Amsterdam"));
+        users.add(new User("Oleg", 23, "Google", "New York"));
+        users.add(new User("Gold", 19, "Amazon", "Amsterdam"));
+        users.add(new User("Mark", 19, "Google", "Amsterdam"));
+        users.add(new User("Sasha", 25, "Uber", "New York"));
+        users.add(new User("Olga", 29, "Google", "Amsterdam"));
 
         return users;
     }
