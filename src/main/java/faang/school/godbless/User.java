@@ -3,8 +3,8 @@ package faang.school.godbless;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,48 +13,24 @@ import java.util.Set;
 @Builder
 public class User {
 
+    private long id;
     private String name;
+    private int age;
+    private Set<String> activities;
 
-    private Integer age;
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
 
-    private String company;
+        Map<User, String> usersByActivities = new HashMap<>();
 
-    private String address;
+        for (var user : users) {
+            Set<String> intersection = new HashSet<>(user.getActivities());
+            intersection.retainAll(activities);
 
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
-    private static final int LEGAL_WORKING_AGE = 18;
-
-
-    public User(String name, Integer age, String company, String address) {
-
-        if (name.isBlank() || age < LEGAL_WORKING_AGE || !VALID_JOBS.contains(company)
-                || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Please, enter only valid values");
-        }
-
-        this.name = name;
-        this.age = age;
-        this.company = company;
-        this.address = address;
-    }
-
-    public static Map<Integer, List<User>> groupUsersByAge(List<User> users) {
-
-        Map<Integer, List<User>> usersMap = new HashMap<>();
-
-        for (User user : users) {
-            Integer userAge = user.getAge();
-
-            if (!usersMap.containsKey(userAge)) {
-                usersMap.put(userAge, new ArrayList<>());
+            if (!intersection.isEmpty()) {
+                usersByActivities.put(user, intersection.iterator().next());
             }
-
-            usersMap.get(userAge).add(user);
         }
-        
-        return usersMap;
+
+        return usersByActivities;
     }
 }
