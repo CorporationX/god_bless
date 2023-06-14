@@ -1,10 +1,6 @@
 package faang.school.godbless.user;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class User {
   private String name;
@@ -77,6 +73,18 @@ public class User {
     }
 
     return userAgeToUsers;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User user)) return false;
+    return age == user.age && Objects.equals(name, user.name) && Objects.equals(job, user.job) && Objects.equals(address, user.address) && Objects.equals(activities, user.activities);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, age, job, address, activities);
   }
 
   public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
