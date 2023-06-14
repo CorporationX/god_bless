@@ -16,8 +16,8 @@ public class User {
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> userAndHobby = new HashMap<>();
         for (User user : users) {
-            Optional<String> optionalS = user.activities.stream().filter(activities::contains).findFirst();
-            optionalS.ifPresent(s -> userAndHobby.put(user, s));
+            Optional<String> value = user.activities.stream().filter(activities::contains).findFirst();
+            value.ifPresent(s -> userAndHobby.put(user, s));
         }
         return userAndHobby;
     }
