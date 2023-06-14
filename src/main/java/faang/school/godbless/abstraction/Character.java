@@ -15,10 +15,10 @@ public abstract class Character {
         this.health = 100;
     }
 
-    public Character(String name, int strength, int agility, int intellect) {
+    public Character(String name, int strength, int dexterity, int intellect) {
         this.name = name;
         this.strength = strength;
-        this.dexterity = agility;
+        this.dexterity = dexterity;
         this.intellect = intellect;
         this.health = 100;
     }
