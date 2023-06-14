@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,16 +31,12 @@ public class User {
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> similarUsers = new HashMap<>();
-        Set<User> copyUsers = new HashSet<>(users);
 
-        for (String activity : activities) {
-            Iterator<User> userIterator = copyUsers.iterator();
-            while (userIterator.hasNext()) {
-                User currentUser = userIterator.next();
-
-                if (currentUser.activities.contains(activity)) {
-                    similarUsers.put(currentUser, activity);
-                    userIterator.remove();
+        for (User user : users) {
+            for (String activity : activities) {
+                if (user.activities.contains(activity) && !similarUsers.containsKey(user)) {
+                    similarUsers.put(user, activity);
+                    break;
                 }
             }
         }
