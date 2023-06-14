@@ -1,19 +1,20 @@
 package faang.school.godbless.abstraction;
 
 public class Warrior extends Character {
-    public Warrior(String name){
-        super(name, 5, 5, 3);
+
+    private static final int STRENGTH = 10;
+    private static final int DEXTERITY = 5;
+    private static final int INTELLIGENCE = 3;
+
+    public Warrior(String name) {
+        super(name);
+        this.strength = STRENGTH;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
     }
 
     @Override
-    public String attack(Character character) {
-        int damage = this.strength;
-        if (character.health > damage){
-            character.health -= damage;
-            return String.format(Message.DAMAGE_DONE, damage, character.health);
-        }
-        character.health -= damage;
-
-        return String.format(Message.ENEMY_DEAD, damage);
+    public void attack(Character character) {
+        character.health -= this.strength;
     }
 }

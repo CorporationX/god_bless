@@ -2,40 +2,32 @@ package faang.school.godbless.abstraction;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CharacterTest {
-    private Character character1;
-    private Character character2;
+    private Character warrior;
+    private Character archer;
 
     @BeforeEach
-    void setUp(){
-        character1 = new Warrior("Warrior");
-        character2 = new Archer("Archer");
+    void setUp() {
+        warrior = new Warrior("Warrior");
+        archer = new Archer("Archer");
     }
 
     @Test
-    void archerAttackTest(){
-        String expected =  String.format(Message.DAMAGE_DONE, 10, 90) ;
-        String actual = character2.attack(character1);
+    void warriorAttackTest() {
+        warrior.attack(archer);
+        warrior.attack(archer);
 
-        assertEquals(expected, actual);
+        assertEquals(80, archer.health);
     }
 
     @Test
-    void warriorAttackTest(){
-        String expected =  String.format(Message.DAMAGE_DONE, 5, 95);
-        String actual = character1.attack(character2);
-
-        assertEquals(expected, actual);
+    void archerAttackTest() {
+        archer.attack(warrior);
+        archer.attack(warrior);
+        archer.attack(warrior);
+        assertEquals(70, warrior.health);
     }
-
-    @Test
-    void warriorDies(){
-        character1.setHealth(5);
-
-        String expected = String.format(Message.ENEMY_DEAD, 10);
-        String actual = character2.attack(character1);
-    }
-
 }

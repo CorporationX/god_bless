@@ -1,19 +1,20 @@
 package faang.school.godbless.abstraction;
 
 public class Archer extends Character {
-    public Archer (String name){
-        super(name, 3, 10, 5);
+
+    private static final int STRENGTH = 3;
+    private static final int DEXTERITY = 10;
+    private static final int INTELLIGENCE = 5;
+
+    public Archer(String name) {
+        super(name);
+        this.strength = STRENGTH;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
     }
 
     @Override
-    public String attack(Character character) {
-        int damage = this.agility;
-        if (character.health > damage){
-            character.health -= damage;
-            return String.format(Message.DAMAGE_DONE, damage, character.health);
-        }
-        character.health -= damage;
-
-        return String.format(Message.ENEMY_DEAD, damage);
+    public void attack(Character character) {
+        character.health -= this.dexterity;
     }
 }
