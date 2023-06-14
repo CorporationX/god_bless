@@ -12,9 +12,7 @@ public class AttackTest {
         war.attack(arch);
         arch.attack(war);
 
-        Assertions.assertEquals(90, war.getHealth());
-        Assertions.assertEquals(90, arch.getHealth());
-        //System.out.println(war);
-        //System.out.println(arch);
+        Assertions.assertEquals(90, war.health);
+        Assertions.assertEquals(90, arch.health);
     }
 }
