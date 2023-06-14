@@ -22,14 +22,14 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
-    abstract void attack(Character character);
+    public abstract void attack(Character character);
 
-    public boolean isAlive(int damage) {
+    public boolean  willSurvive(int damage) {
         return this.health > damage;
     }
 
     protected static void dealDamage(@NotNull Character enemy, int damage) {
-        if (enemy.isAlive(damage)) {
+        if (enemy. willSurvive(damage)) {
             enemy.health -= damage;
         } else {
             enemy.health = 0;

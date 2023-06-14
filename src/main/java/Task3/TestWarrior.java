@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TestWarrior {
     private Warrior warrior;
-    Character target = new Warrior("target");
+    private final Character target = new Warrior("target");
 
     @BeforeEach
     public void setUp() {

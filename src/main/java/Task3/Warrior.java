@@ -6,7 +6,7 @@ public class Warrior extends Character {
     }
 
     @Override
-    void attack(Character enemy) {
+    public void attack(Character enemy) {
         dealDamage(enemy, this.power);
     }
 }
