@@ -3,37 +3,34 @@ package faang.school.godbless;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @Builder
 public class User {
 
+    private long id;
     private String name;
+    private int age;
+    private Set<String> activities;
 
-    private Integer age;
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
 
-    private String company;
+        Map<User, String> usersByActivities = new HashMap<>();
 
-    private String address;
+        for (var user : users) {
+            Set<String> intersection = new HashSet<>(user.getActivities());
+            intersection.retainAll(activities);
 
-    public static Map<Integer, List<User>> groupUsersByAge(List<User> users) {
-
-        Map<Integer, List<User>> usersMap = new HashMap<>();
-
-        for (User user : users) {
-            Integer userAge = user.getAge();
-
-            if (!usersMap.containsKey(userAge)) {
-                usersMap.put(userAge, new ArrayList<User>());
+            if (!intersection.isEmpty()) {
+                usersByActivities.put(user, intersection.iterator().next());
             }
-
-            usersMap.get(userAge).add(user);
         }
 
-        return usersMap;
+        return usersByActivities;
     }
 }
