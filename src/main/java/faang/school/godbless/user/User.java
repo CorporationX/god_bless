@@ -86,6 +86,7 @@ public class User {
       for (String activity : activities) {
         if (user.activities.contains(activity)) {
           mapUserToActivity.put(user, activity);
+          break;
         }
       }
     }
