@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,10 +35,13 @@ public class User {
         Set<User> copyUsers = new HashSet<>(users);
 
         for (String activity : activities) {
-            for (User user : copyUsers) {
-                if (user.activities.contains(activity)) {
-                    similarUsers.put(user, activity);
-                    copyUsers.remove(user);
+            Iterator<User> userIterator = copyUsers.iterator();
+            while (userIterator.hasNext()) {
+                User currentUser = userIterator.next();
+
+                if (currentUser.activities.contains(activity)) {
+                    similarUsers.put(currentUser, activity);
+                    userIterator.remove();
                 }
             }
         }
