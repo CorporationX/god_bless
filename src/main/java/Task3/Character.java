@@ -36,5 +36,4 @@ public abstract class Character {
             System.out.println("Enemy is dead!");
         }
     }
-
 }
