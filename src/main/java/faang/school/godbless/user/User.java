@@ -1,16 +1,13 @@
 package faang.school.godbless.user;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class User {
   private String name;
   private int age;
   private String job;
   private String address;
+  private Set<String> activities;
   private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
   private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -51,13 +48,14 @@ public class User {
     validateInputAddress(address);
   }
 
-  public User(String name, int age, String job, String address) {
+  public User(String name, int age, String job, String address, Set<String> activities) {
     validateInputData(name, age, job, address);
 
     this.name = name;
     this.age = age;
     this.job = job;
     this.address = address;
+    this.activities = activities;
   }
 
   public static Map<Integer, List<User>> groupUsers(List<User> users) {
@@ -75,6 +73,33 @@ public class User {
     }
 
     return userAgeToUsers;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof User user)) return false;
+    return age == user.age && Objects.equals(name, user.name) && Objects.equals(job, user.job) && Objects.equals(address, user.address) && Objects.equals(activities, user.activities);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, age, job, address, activities);
+  }
+
+  public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    Map<User, String> mapUserToActivity = new HashMap<>();
+
+    for (User user : users) {
+      for (String activity : activities) {
+        if (user.activities.contains(activity)) {
+          mapUserToActivity.put(user, activity);
+          break;
+        }
+      }
+    }
+
+    return mapUserToActivity;
   }
 
   public String getName() {
