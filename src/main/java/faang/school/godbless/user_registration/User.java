@@ -4,7 +4,10 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Getter
@@ -42,5 +45,9 @@ public class User {
             throw new IllegalArgumentException("This address is not in the list");
         }
         return true;
+    }
+
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }
