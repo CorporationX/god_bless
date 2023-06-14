@@ -1,4 +1,4 @@
-package faang.school.godbless.task1;
+package faang.school.godbless.sprint2.task1;
 
 import org.junit.jupiter.api.Test;
 
