@@ -8,10 +8,17 @@ public class ExampleTest {
 
     //Positive
     @Test
-    @DisplayName("Reverse Test")
-    public void revertTest(){
+    @DisplayName("Reverse Test with even array length")
+    public void revertTestEvenArray(){
         int [] expected = {1, 2, 3, 4};
         Assertions.assertArrayEquals(expected, Example.reverse(new int[]{4, 3, 2, 1}));
+    }
+
+    @Test
+    @DisplayName("Reverse Test with odd array length")
+    public void revertTestOddArray(){
+        int [] expected = {1, 2, 3, 4, 5};
+        Assertions.assertArrayEquals(expected, Example.reverse(new int[]{5, 4, 3, 2, 1}));
     }
 
     @Test

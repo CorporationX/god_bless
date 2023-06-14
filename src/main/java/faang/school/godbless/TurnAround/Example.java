@@ -8,11 +8,13 @@ public class Example {
         if (ints.length == 1){
             return new int[]{ints[0]};
         }
-        int [] reversed = new int[ints.length];
-        int j = 0;
-        for (int i = ints.length-1; i >= 0; i--){
-            reversed[j++] = ints[i];
+        int j = ints.length-1;
+        for (int i = 0; i <= ints.length/2-1; i++){
+            int temp = ints[i];
+            ints[i] = ints[j];
+            ints[j] = temp;
+            j--;
         }
-        return reversed;
+        return ints;
     }
 }
