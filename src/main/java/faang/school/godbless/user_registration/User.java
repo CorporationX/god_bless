@@ -19,7 +19,7 @@ public class User {
     private String address;
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    public static final int ADULTHOOD = 18;
+    public static final int MIN_AGE = 18;
 
     public User(@NonNull String name, int age, @NonNull String placeOfWork, @NonNull String address) {
         if (dateValidate(name, age, placeOfWork, address)) {
@@ -35,7 +35,7 @@ public class User {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < ADULTHOOD) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age cannot be less than 18");
         }
         if (!VALID_JOBS.contains(company)) {
