@@ -23,6 +23,7 @@ public class User {
             for(String activity : activities){
                 if(user.getActivities().contains(activity)){
                     hobbyLovers.put(user, activity);
+                    break;
                 }
             }
         }
