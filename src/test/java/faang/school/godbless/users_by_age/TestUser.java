@@ -13,7 +13,6 @@ class TestUser {
         int age = 25;
         String company = "Google";
         String address = "London";
-
         User user = new User(name, age, company, address);
 
         assertEquals(name, user.getName());
@@ -26,11 +25,10 @@ class TestUser {
     public void testInvalidName() {
         String name = " ";
         int age = 25;
-        String company = "Acme Corp";
+        String company = "Google";
         String address = "123 Main St";
-
         assertThrows(IllegalArgumentException.class, () -> {
-            new User(name, age, company, address);
+            new User(name, 1, company, address);
         });
     }
 }

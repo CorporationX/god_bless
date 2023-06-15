@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -20,9 +19,12 @@ public class User {
     private String address;
 
     public User(String name, int age, String company, String address) {
-        if (Objects.equals(name, " ") || age < 18 || !VALID_JOBS.contains(company) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Some argument is incorrect");
-        }
+        UserValidator validator = new UserValidator();
+        validator.validateName(name);
+        validator.validateAge(age);
+        validator.validateCompany(company);
+        validator.validateAddress(address);
+
         this.name = name;
         this.age = age;
         this.company = company;
@@ -30,16 +32,10 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
-
         for (User user : users) {
             int userAge = user.getAge();
-            if (groupedUsers.containsKey(user.getAge())) {
-                groupedUsers.get(userAge).add(user);
-            } else {
-                groupedUsers.put(userAge, new ArrayList<>(List.of(user)));
-            }
+            groupedUsers.computeIfAbsent(userAge, ArrayList::new).add(user);
         }
         return groupedUsers;
     }
