@@ -2,6 +2,7 @@ package faang.school.godbless;
 
 import lombok.Getter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,7 +13,6 @@ public class User {
     private String name;
     private int age;
     private Set<String> activities;
-    private static Map<User, String> usersMap;
 
     public User(int id, String name, int age, Set<String> activities) {
         this.id = id;
@@ -22,6 +22,7 @@ public class User {
     }
 
     public static Map<User, String > findHobbyLovers(List<User> users, Set<String> activities){
+        Map<User, String> usersMap = new HashMap<>();
         for (User user: users){
             for(String activity: activities){
                 if (user.getActivities().contains(activity)){
