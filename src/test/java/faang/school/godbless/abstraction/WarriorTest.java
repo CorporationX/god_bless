@@ -44,6 +44,9 @@ class WarriorTest {
     void testAttack() {
         warrior.attack(archer);
         assertEquals(residualHealth, archer.health);
+        assertThrowsExactly(IllegalArgumentException.class, () -> {
+            for (int i = 0; i < 15; i++) warrior.attack(archer);
+        });
     }
 
     @Test

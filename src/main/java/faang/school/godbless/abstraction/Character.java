@@ -5,12 +5,11 @@ public abstract class Character {
     protected float force;
     protected float dexterity;
     protected float intelligence;
-    protected float health;
+    protected float health = 100;
 
     public Character(String name) {
         validateName(name);
         this.name = name;
-        health = 100;
     }
 
     public Character(String name, float force, float dexterity, float intelligence) {
@@ -18,6 +17,13 @@ public abstract class Character {
         this.force = force;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
+    }
+
+    public void setHealth(float hp) {
+        if (hp <= 0 ) {
+            throw new IllegalArgumentException("Health <= 0");
+        }
+        health = hp;
     }
 
     public abstract void attack(Character unit);
