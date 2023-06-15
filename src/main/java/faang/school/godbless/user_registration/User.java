@@ -22,7 +22,7 @@ public class User {
     public static final int MIN_AGE = 18;
 
     public User(@NonNull String name, int age, @NonNull String placeOfWork, @NonNull String address) {
-        if (dateValidate(name, age, placeOfWork, address)) {
+        if (validateDate(name, age, placeOfWork, address)) {
             this.name = name;
             this.age = age;
             this.placeOfWork = placeOfWork;
@@ -31,7 +31,7 @@ public class User {
     }
 
 
-    private boolean dateValidate(String name, int age, String company, String location) {
+    private boolean validateDate(String name, int age, String company, String location) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
