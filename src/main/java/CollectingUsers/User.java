@@ -1,5 +1,6 @@
 package CollectingUsers;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Arrays;
@@ -27,6 +28,7 @@ public class User {
             for (String activity : activities) {
                 if (user.getActivities().contains(activity)) {
                     hobby.put(user, activity);
+                    break;
                 }
             }
         }
