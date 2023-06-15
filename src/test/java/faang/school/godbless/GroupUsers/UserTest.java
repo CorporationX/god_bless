@@ -8,22 +8,48 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Stream;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
+    private String name;
+    private int age;
+    private String work;
+    private String city;
+
+    @BeforeEach
+    void setUp() {
+        name = "Pole";
+        age = 30;
+        work = "Amazon";
+        city = "New York";
+    }
+
+    @Test
+    void testCreateUser(){
+        assertDoesNotThrow(() -> new User(name, age, work, city));
+        User user = new User(name, age, work, city);
+        assertEquals(name, user.getName());
+        assertEquals(age, user.getAge());
+        assertEquals(work, user.getWork());
+        assertEquals(city, user.getCity());
+    }
+
     @Test
     void shouldThrowException() {
-        assertThrows(IllegalArgumentException.class, () -> new User("", 30, "", ""));
-        assertThrows(IllegalArgumentException.class, () -> new User("Name", -5, "", ""));
+        assertThrows(IllegalArgumentException.class, () -> new User("", 30,  work, city));
+        assertThrows(IllegalArgumentException.class, () -> new User(name, -5,  work, city));
+        assertThrows(IllegalArgumentException.class, () -> new User(name, 20,  "Yandex", city));
+        assertThrows(IllegalArgumentException.class, () -> new User(name, 20,  work, "NewYork"));
     }
 
     @Test
     void testGroupUsers() {
-        User userFirst = new User("Jason", 39, "Umbrella", "London");
-        User userSecond = new User("Will", 60, "Umbrella", "NY");
-        User userThird = new User("Arni", 60, "Umbrella", "NY");
-        User userFourth = new User("Pole", 39, "Umbrella", "NY");
+        User userFirst = new User("Jason", 39, work, city);
+        User userSecond = new User("Will", 60,  work, city);
+        User userThird = new User("Arni", 60,  work, city);
+        User userFourth = new User("Pole", 39,  work, city);
         List<User> users = Stream.of(userFirst, userSecond, userThird, userFourth).toList();
 
         Map<Integer, List<User>> expectedResult = new HashMap<>();
