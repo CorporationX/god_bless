@@ -14,11 +14,12 @@ dependencies {
     /**
      * Utils & Logging
      */
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.1")
     implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
-    implementation("org.projectlombok:lombok:1.18.26")
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    implementation("ch.qos.logback:logback-classic:1.4.7")
+    /**implementation("org.project-lombok:lombok:1.18.26")**/
+    implementation("junit:junit:4.13.2")
+    /**annotationProcessor("org.project-lombok:lombok:1.18.26")**/
 
     /**
      * Tests
