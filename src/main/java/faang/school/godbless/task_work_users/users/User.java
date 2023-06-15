@@ -13,18 +13,17 @@ public class User {
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String company, String city) {
-        validUser(name, age, company, city);
+        validate(name, age, company, city);
+        this.name = name;
+        this.age = age;
+        this.company = company;
+        this.city = city;
     }
 
-    private void validUser(String name, int age, String company, String city) throws IllegalArgumentException {
-        if (!name.isBlank() && !(age < 18) && VALID_JOBS.contains(company) && VALID_ADDRESSES.contains(city)) {
-            this.name = name;
-            this.age = age;
-            this.company = company;
-            this.city = city;
-            return;
+    private void validate(String name, int age, String company, String city) throws IllegalArgumentException {
+        if (name.isBlank() || (age < 18) || !VALID_JOBS.contains(company) || !VALID_ADDRESSES.contains(city)) {
+            throw new IllegalArgumentException("не допустимые значения !!!");
         }
-        throw new IllegalArgumentException("не допустимые значения !!!");
     }
 
     public static Map<Integer, List<User>> getGroupUserAge(List<User> users) {

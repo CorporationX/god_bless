@@ -18,7 +18,7 @@ public class Main {
         checkUserValid("pavel", 32, "Amazon", "New York");
         checkUserValid("leha", 32, "Google", "London");
         checkUserValid("rinat", 32, "Uber", "Amsterdam");
-        checkUserValid("anton", 23, "Amazon", "New York");
+        checkUserValid("anton", 23, "Amazonk", "New York");
 
 
         User.getGroupUserAge(users).forEach((key, value) -> {
