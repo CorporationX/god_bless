@@ -14,28 +14,24 @@ public class User {
     private int age;
     private String placeOfWork;
     private String address;
-    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
-        boolean isValidName = (name != null) & (name.length() > 0);
-        boolean isValidAge = age >= 18;
-        boolean isValidPOW = VALID_JOBS.contains(placeOfWork);
-        boolean isValidAddress = VALID_ADDRESSES.contains(address);
 
-        if (isValidName & isValidAge & isValidPOW & isValidAddress) {
+        if ((name == null) & (name.length() == 0)) {
+            throw new IllegalArgumentException("Invalid name");
+        } else if (age < 18) {
+            throw new IllegalArgumentException("Invalid age");
+        } else if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("Invalid placeOfWork");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        } else {
             this.name = name;
             this.age = age;
             this.placeOfWork = placeOfWork;
             this.address = address;
-        } else if (!isValidName) {
-            throw new IllegalArgumentException("Invalid name");
-        } else if (!isValidAge) {
-            throw new IllegalArgumentException("Invalid age");
-        } else if (!isValidPOW) {
-            throw new IllegalArgumentException("Invalid placeOfWork");
-        } else {
-            throw new IllegalArgumentException("Invalid address");
         }
     }
 
