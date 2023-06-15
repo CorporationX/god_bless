@@ -4,11 +4,15 @@ import lombok.Data;
 
 @Data
 public abstract class Character {
-    protected String name;
+    private String name;
     protected int force;
     protected int agility;
     protected int intelligence;
     private int health;
+
+    public int setHealth(int health) {
+        return this.health = health;
+    }
 
     public Character(String name) {
         this.name = name;
@@ -21,5 +25,6 @@ public abstract class Character {
         this.intelligence = intelligence;
         this.health = 100;
     }
+
     public abstract int attack(Character character);
 }
