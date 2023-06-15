@@ -1,11 +1,11 @@
 package faang.school.godbless;
 
 public abstract class Character {
-    private String name;
+    protected String name;
     protected int strength;
     protected int agility;
-    private int intelligence;
-    protected int health;
+    protected int intelligence;
+    protected int health = 100;
 
     public abstract void attack(Character character);
 
@@ -18,6 +18,5 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        health = 100;
     }
 }
