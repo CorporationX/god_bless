@@ -14,12 +14,20 @@ public class User {
     private String name;
     private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    public User(int id, int age, String name, Set<String> activities) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+        this.activities = activities;
+    }
+
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activitiesSet) {
         Map<User, String> matchedActivities = new HashMap<>();
         for (User user : users) {
-            for (String activity : activities) {
+            for (String activity : activitiesSet) {
                 if (user.activities.contains(activity)) {
                     matchedActivities.put(user, activity);
+                    break;
                 }
             }
         }
