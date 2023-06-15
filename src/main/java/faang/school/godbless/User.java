@@ -20,8 +20,9 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address){
+        validate(name, age);
         this.name = name;
-        this.age = validateAge(age);
+        this.age = age;
         this.job = job;
         this.address = address;
     }
@@ -30,9 +31,9 @@ public class User {
         return users.stream()
                 .collect(Collectors.groupingBy(User::getAge));
     }
-    private int validateAge(int age){
-         if(age < 0) throw new IllegalArgumentException();
-         if(age > 100) throw new IllegalArgumentException();
-         return age;
+    private void validate(String name, int age){
+         if(age < 0 || age > 100 || name == null || name.length() < 2) {
+             throw new IllegalArgumentException();
+         }
     }
 }

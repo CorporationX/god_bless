@@ -4,7 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,11 +30,12 @@ public class GroupTest {
     }
 
     @Test
-    public void testGroup(){
+    private void testUsersGroupedByAge(){
         Map<Integer, List<User>> result = user.groupUsers(createUsers());
-        assertEquals(resultOfGroup(), result);
+        assertEquals(expectedResultOfGroup(), result);
     }
-    public List<User> createUsers(){
+
+    private List<User> createUsers(){
         List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
@@ -43,8 +44,8 @@ public class GroupTest {
         users.add(user5);
         return users;
     }
-    public Map<Integer, List<User>> resultOfGroup(){
-        Map<Integer, List<User>> result = new LinkedHashMap<>();
+    private Map<Integer, List<User>> expectedResultOfGroup(){
+        Map<Integer, List<User>> result = new HashMap<>();
         List<User> users18 = new ArrayList<>();
         List<User> users22 = new ArrayList<>();
         List<User> users21 = new ArrayList<>();
