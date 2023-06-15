@@ -6,10 +6,11 @@ public abstract class Character {
     public int strength;
     public int agility;
     public int intelligence;
-    public int healthPoints = DEFAULT_HP;
+    public int healthPoints;
 
     public Character(String name) {
         this.name = name;
+        healthPoints = DEFAULT_HP;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
@@ -17,6 +18,7 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+        healthPoints = DEFAULT_HP;
     }
 
     public abstract void attack(Character character);
