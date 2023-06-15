@@ -7,21 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+@Getter
 @ToString(includeFieldNames = false)
 public class User {
     private static final int MIN_AGE = 18;
-    private static final Set<String> VALID_JOBS = Stream.of("Google", "Uber", "Amazon").collect(Collectors.toSet());
-    private static final Set<String> VALID_ADDRESSES = Stream.of("London", "New York", "Amsterdam").collect(Collectors.toSet());
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    @Getter
     private String name;
-    @Getter
     private int age;
-    @Getter
     private String work;
-    @Getter
     private String city;
 
     public User(String name, int age, String work, String city) {
