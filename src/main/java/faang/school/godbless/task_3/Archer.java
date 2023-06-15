@@ -7,7 +7,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.Health = character.Health - this.power;
-        System.out.println("character(archer) health: " + character.Health);
+        character.health = character.health - this.power;
+        System.out.println("character(archer) health: " + character.health);
     }
 }

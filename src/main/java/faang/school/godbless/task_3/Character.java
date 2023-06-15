@@ -6,7 +6,7 @@ abstract class Character {
     protected int power;
     protected int dexterity;
     protected int intelligence;
-    protected int Health = 100;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
