@@ -1,21 +1,21 @@
 package turn_around;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 public class Example {
 
     public static void main(String[] args) {
-        ArrayList<Integer> myArray = new ArrayList<>(Arrays.asList(1, 2, 8, 4, 5));
-        System.out.println(reverse(myArray));
+        int[] myArray = {4, 5, 8, 9, 10, 15};
+        System.out.println(Arrays.toString(reverse(myArray)));
     }
 
-    public static ArrayList<Integer> reverse(ArrayList<Integer> numbersArray) {
-        ArrayList<Integer> reverse = new ArrayList<>(numbersArray.size());
-        new LinkedList<>(numbersArray)
-                .descendingIterator()
-                .forEachRemaining(reverse::add);
-        return reverse;
+    public static int[] reverse(int[] numbersArray) {
+        int[] resultArray = new int[numbersArray.length];
+        int j = numbersArray.length - 1;
+        for (int i = 0; i < numbersArray.length; i++) {
+            resultArray[j] = numbersArray[i];
+            j--;
+        }
+        return resultArray;
     }
 }
