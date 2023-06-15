@@ -12,10 +12,15 @@ public class Archer extends Character{
 
     @Override
     public void attack(Character character) {
-        if (getHealth() > 0) {
-            character.setHealth(character.getHealth() - DEXTERITY);
+        if (character.getHealth() <= 0) {
+            System.out.println("Enemy is dead");
         } else {
-            System.out.println("Enemy is dead!");
+            if (getHealth() > 0) {
+                character.setHealth(character.getHealth() - DEXTERITY);
+            } else {
+                System.out.println("You can't attack, you are dead!");
+            }
         }
+
     }
 }
