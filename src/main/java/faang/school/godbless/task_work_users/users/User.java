@@ -22,7 +22,8 @@ public class User {
     public static Map<Integer, List<User>> getGroupUserAge(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         users.forEach(user -> {
-            map.merge(user.getAge(), users.stream().filter(n -> n.getAge() == user.getAge()).toList(),
+            map.merge(user.getAge(), users.stream()
+                            .filter(n -> n.getAge() == user.getAge()).toList(),
                     (key, value) -> value);
         });
         return map;
