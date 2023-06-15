@@ -25,10 +25,7 @@ public class User {
     }
 
     public User(String name, int age, String workplace, String address) {
-        ParameterValidation.validateName(name);
-        ParameterValidation.validateAge(age);
-        ParameterValidation.validateJob(workplace, VALID_JOBS);
-        ParameterValidation.validateAddress(address, VALID_ADDRESSES);
+        ParameterValidation.validateParameters(name, age, workplace, VALID_JOBS, address, VALID_ADDRESSES);
         this.name = name;
         this.age = age;
         this.workplace = workplace;
