@@ -20,6 +20,7 @@ public class User {
             for (String userActivity : activities) {
                 if (user.activities.contains(userActivity)) {
                     mapHobbyLovers.put(user, userActivity);
+                    break;
                 }
             }
         }
