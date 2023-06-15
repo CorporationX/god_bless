@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.CollectingUsers;
 
 import java.util.List;
 import java.util.Set;
