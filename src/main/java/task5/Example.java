@@ -1,9 +1,9 @@
 package task5;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Example {
-    public static ArrayList<Integer> reverse(ArrayList<Integer> numbers) {
+    public static List<Integer> reverse(List<Integer> numbers) {
         int n = numbers.size() - 1;
         for (int i = 0; i < numbers.size() / 2; i++) {
             int temp = numbers.get(i);

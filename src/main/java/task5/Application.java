@@ -1,6 +1,7 @@
 package task5;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Application {
@@ -12,7 +13,7 @@ public class Application {
         System.out.println(numbers);
     }
 
-    public static void init(ArrayList<Integer> numbers) {
+    public static void init(List<Integer> numbers) {
         for (int i = 0; i < 10; i++) {
             numbers.add(i);
         }
