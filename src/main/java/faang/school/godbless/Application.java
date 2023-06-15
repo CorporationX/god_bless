@@ -18,7 +18,6 @@ public class Application {
             }
             System.out.println();
         }
-
         Archer archer = new Archer("Robin Hood");
         Warrior warrior = new Warrior("Shrek");
         while(archer.health > 0 && warrior.health > 0) {
