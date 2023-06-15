@@ -6,10 +6,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
+    @Test
+    public void testUserConstructor() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new User(null, 20, "Google", "London");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            new User("John", 15, "Google", "London");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            new User("Bred", 24, "Apple", "London");
+        });
+        assertThrows(IllegalArgumentException.class, () -> {
+            new User("Billy", 20, "Google", "Moscow");
+        });
+        assertDoesNotThrow(() -> {
+            new User("John", 20, "Google", "London");
+        });
+    }
+
     @Test
     public void testGroupUsersByAge() {
         List<User> users = new ArrayList<>();
