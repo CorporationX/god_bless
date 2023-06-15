@@ -1,7 +1,6 @@
 package faang.school.godbless.collectors;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class User {
     private int id;
@@ -17,16 +16,11 @@ public class User {
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> map = new HashMap<>();
-        users.forEach(user -> {
-            Iterator<String> iterator = activities.iterator();
-            while (iterator.hasNext()) {
-                String activity = iterator.next();
-                if (user.getActivities().contains(activity)) {
-                    map.put(user, activity);
-                    break;
-                }
-            }
-        });
+        users.forEach(user -> activities
+                .stream()
+                .filter(activity -> user.getActivities().contains(activity))
+                .findFirst()
+                .ifPresent(activity -> map.put(user, activity)));
         return map;
     }
 
