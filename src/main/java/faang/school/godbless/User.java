@@ -25,9 +25,10 @@ public class User {
     }
 
     public User(String name, int age, String workplace, String address) {
-        if (name.length() < 1 || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Invalid input");
-        }
+        ParameterValidation.validateName(name);
+        ParameterValidation.validateAge(age);
+        ParameterValidation.validateJob(workplace, VALID_JOBS);
+        ParameterValidation.validateAddress(address, VALID_ADDRESSES);
         this.name = name;
         this.age = age;
         this.workplace = workplace;
