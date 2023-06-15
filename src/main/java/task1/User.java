@@ -16,9 +16,9 @@ public class User {
     public static Map<Integer, List<User>> groupUsers (List<User> userList) {
         Map<Integer, List<User>> map = new HashMap<>();
         for (User i : userList) {
-            int age1 = i.getAge();
-            map.putIfAbsent(age1, new ArrayList<>());
-            map.get(age1).add(i);
+            int userAge = i.getAge();
+            map.putIfAbsent(userAge, new ArrayList<>());
+            map.get(userAge).add(i);
         }
         return map;
     }
