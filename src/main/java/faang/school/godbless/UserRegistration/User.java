@@ -9,13 +9,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class User {
-    private String name;
-    private int age;
-    private String work;
-    private String address;
-    private final static Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private final static Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
-    private final static byte VALID_AGE = 18;
+    private final String name;
+    private final int age;
+    private final String work;
+    private final String address;
+    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final int VALID_AGE = 18;
 
     public User(String name, int age, String work, String address) {
         this.name = name;
@@ -26,8 +26,8 @@ public class User {
     }
 
     public void checkUser(User user) {
-        if (user.name == null) {
-            throw new IllegalArgumentException("Name can't be null");
+        if (user.name == null || user.name.equals("")) {
+            throw new IllegalArgumentException("Name can't be empty");
         }
         if (user.age < VALID_AGE) {
             throw new IllegalArgumentException("Age can't be under 18");
