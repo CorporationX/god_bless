@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 @ToString(includeFieldNames = false)
 public class User {
-    @Getter
     private String name;
     @Getter
     private int age;

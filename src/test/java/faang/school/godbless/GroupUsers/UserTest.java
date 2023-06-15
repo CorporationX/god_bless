@@ -6,18 +6,12 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserTest {
-    @BeforeEach
-    void setUp() {
-        User user = new User("Jason", 39, "Umbrella", "London");
-    }
-
     @Test
     void shouldThrowException() {
         assertThrows(IllegalArgumentException.class, () -> new User("", 30, "", ""));
