@@ -1,0 +1,17 @@
+package faang.school.godbless.abstraction_BC_406;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+
+class WarriorTest {
+
+        @Test
+        public void testAttackCorrectly() {
+            Archer archer = new Archer("Gabriel");
+            Warrior warrior = new Warrior("Mikhael");
+            int expected = 90;
+            int actual = warrior.attack(archer);
+
+            Assertions.assertEquals(expected, actual);
+        }
+    }
