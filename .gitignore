@@ -53,3 +53,4 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/test/java/faang/school/godbless/grouping_users_by_age_BC_404/
