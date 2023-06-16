@@ -10,10 +10,10 @@ import java.util.*;
 @Setter
 @AllArgsConstructor
 public class User {
-    String name;
-    int age;
-    String workplace;
-    String address;
+    private String name;
+    private int age;
+    private String workplace;
+    private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
