@@ -6,10 +6,10 @@ public class Example {
             throw new IllegalArgumentException("Пустой массив");
         }
         if (ints.length == 1){
-            return new int[]{ints[0]};
+            return ints;
         }
         int j = ints.length-1;
-        for (int i = 0; i <= ints.length/2-1; i++){
+        for (int i = 0; i <= j; i++){
             int temp = ints[i];
             ints[i] = ints[j];
             ints[j] = temp;
