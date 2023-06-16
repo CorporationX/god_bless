@@ -7,7 +7,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character unit) {
-        float hp = unit.health - force;
-        unit.setHealth(hp);
+        float healthPoints = unit.health - force;
+        unit.setHealth(healthPoints);
     }
 }

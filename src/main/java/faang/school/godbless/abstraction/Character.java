@@ -19,11 +19,11 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void setHealth(float hp) {
-        if (hp <= 0 ) {
+    public void setHealth(float healthPoints) {
+        if (healthPoints <= 0 ) {
             throw new IllegalArgumentException("Health <= 0");
         }
-        health = hp;
+        health = healthPoints;
     }
 
     public abstract void attack(Character unit);

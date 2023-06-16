@@ -7,7 +7,7 @@ public class Archer extends Character{
 
     @Override
     public void attack(Character unit) {
-        float hp = unit.health - dexterity;
-        unit.setHealth(hp);
+        float healthPoints = unit.health - dexterity;
+        unit.setHealth(healthPoints);
     }
 }
