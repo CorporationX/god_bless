@@ -38,12 +38,12 @@ public class User {
         return age;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> listUsers) {
-        Map<Integer, List<User>> sortByAge = new HashMap<>();
-        for (User user : listUsers) {
-            sortByAge.computeIfAbsent(user.getAge(), c -> new ArrayList<>()).add(user);
+    public static Map<Integer, List<User>> registrationUser(List<User> usersList) {
+        Map<Integer, List<User>> registrationUser = new HashMap<>();
+        for (User user : usersList) {
+            registrationUser.computeIfAbsent(user.getAge(), e -> new ArrayList<>()).add(user);
         }
-        return sortByAge;
+        return registrationUser;
     }
 
     @Override
