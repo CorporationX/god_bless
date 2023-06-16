@@ -5,18 +5,26 @@ import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
 @ToString(includeFieldNames = false)
 public class User {
+    private static final int MIN_AGE = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
     private String name;
-    @Getter
     private int age;
     private String work;
     private String city;
 
     public User(String name, int age, String work, String city) {
-        if (name.isBlank() || age < 0) {
+        if (name.isBlank() ||
+                age < MIN_AGE ||
+                !VALID_JOBS.contains(work) ||
+                !VALID_ADDRESSES.contains(city)) {
             throw new IllegalArgumentException("Не корректные данные для инициализации.");
         }
         this.name = name;
