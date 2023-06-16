@@ -26,13 +26,13 @@ public class Application {
             } else {
                 warrior.attack(archer);
             }
-            System.out.println(warrior.name + " health: " + warrior.health);
-            System.out.println(archer.name + " health: " + archer.health);
+            System.out.println(warrior.getName() + " health: " + warrior.health);
+            System.out.println(archer.getName() + " health: " + archer.health);
         }
         if (warrior.health == 0) {
-            System.out.println(archer.name + " win!");
+            System.out.println(archer.getName() + " win!");
         } else {
-            System.out.println(warrior.name + " win!");
+            System.out.println(warrior.getName() + " win!");
         }
     }
 }
