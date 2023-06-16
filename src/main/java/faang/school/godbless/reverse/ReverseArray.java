@@ -11,10 +11,19 @@ public class ReverseArray {
     }
 
     public static int[] reverse(int[] ints) {
-        int[] reverseNumbers = new int[ints.length];
-        for (int i = 0; i < reverseNumbers.length; i++) {
-            reverseNumbers[reverseNumbers.length - i - 1] = ints[i];
+        int i = 0;
+        int j = ints.length - 1;
+
+        while (i <= j) {
+            int left = ints[i];
+            int right = ints[j];
+
+            ints[i] = right;
+            ints[j] = left;
+
+            i++;
+            j--;
         }
-        return reverseNumbers;
+        return ints;
     }
 }
