@@ -1,5 +1,8 @@
 package faang.school.godbless.abstraction;
 
+import lombok.ToString;
+
+@ToString
 public class Warrior extends Character {
 
     public Warrior(String name) {
@@ -8,10 +11,11 @@ public class Warrior extends Character {
 
     @Override
     public String attack(Character character) {
-        if (character.getHeath() == 0) {
-            return character + " помер";
+        if (character.getHeath() <= 0) {
+            return character + " died";
         }
         int remainHealth = character.getHeath() - strength;
-        return "Здоровья осталось у " + remainHealth;
+        character.setHeath(remainHealth);
+        return "health is left " + character.getHeath();
     }
 }
