@@ -13,16 +13,13 @@ public class Archer extends Character {
     public String attack(Character character) {
         int remainHealth = character.getHeath() - agility;
 
-        if (character.getHeath() < 0) {
+        if (remainHealth < 0) {
             character.setHeath(0);
             return character + " died";
         }
         if (remainHealth > 0) {
             character.setHeath(remainHealth);
             return "health is left " + character.getHeath();
-        }
-        if (character.getHeath() == 0) {
-            return "it's over";
         }
         return "";
     }
