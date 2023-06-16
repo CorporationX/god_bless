@@ -1,6 +1,8 @@
 package task3;
 public abstract class Character {
-    private String name;
+    //чтобы было видно поля во всех наследниках,
+    // какой модификатор доступа на них нужно повесить
+    protected String name;
     protected int power;
     protected int cleverness;
     protected int intelligence;
@@ -22,6 +24,10 @@ public abstract class Character {
         this.power = power;
         this.cleverness = cleverness;
         this.intelligence = intelligence;
+    }
+
+    /*abstract*/ public static void attack (){
+
     }
 }
 
