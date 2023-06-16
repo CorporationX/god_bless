@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package main.java.faang.school.godbless;
 
 public class Application {
 
