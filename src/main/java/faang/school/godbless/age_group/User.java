@@ -21,13 +21,9 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         for (User user : users) {
-            if (!userAgeMap.containsKey(user.age)) {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                userAgeMap.put(user.age, userList);
-            } else {
-                userAgeMap.get(user.age).add(user);
-            }
+            List<User> userList = userAgeMap.getOrDefault(user.age, new ArrayList<>());
+            userList.add(user);
+            userAgeMap.put(user.age, userList);
         }
         return userAgeMap;
     }
