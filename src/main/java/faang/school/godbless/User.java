@@ -1,9 +1,6 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private String name;
@@ -15,7 +12,25 @@ public class User {
         return age;
     }
 
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_WORKING_AGE = 18;
+
     public User(String name, int age, String workplace, String address) {
+
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Поле Имя не может быть пустым");
+        }
+        if (age < MIN_WORKING_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(workplace)) {
+            throw new IllegalArgumentException("Место работы не может быть: " + workplace);
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес не может быть: " + address);
+        }
+
         this.name = name;
         this.age = age;
         this.workplace = workplace;
