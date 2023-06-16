@@ -18,4 +18,6 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
+    public abstract void attack (Character target);
+
 }
