@@ -39,11 +39,11 @@ public class User {
     }
 
     public static Map<Integer, List<User>> registrationUser(List<User> usersList) {
-        Map<Integer, List<User>> registrationUser = new HashMap<>();
+        Map<Integer, List<User>> registrationUsers = new HashMap<>();
         for (User user : usersList) {
-            registrationUser.computeIfAbsent(user.getAge(), e -> new ArrayList<>()).add(user);
+            registrationUsers.computeIfAbsent(user.getAge(), e -> new ArrayList<>()).add(user);
         }
-        return registrationUser;
+        return registrationUsers;
     }
 
     @Override
