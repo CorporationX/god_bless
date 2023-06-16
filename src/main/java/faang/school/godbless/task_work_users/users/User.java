@@ -1,14 +1,16 @@
 package faang.school.godbless.task_work_users.users;
 
-
 import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class User {
     private String name;
     private int age;
     private String company;
     private String city;
-
     private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
@@ -22,7 +24,7 @@ public class User {
 
     private void validate(String name, int age, String company, String city) throws IllegalArgumentException {
         if (name.isBlank() || (age < 18) || !VALID_JOBS.contains(company) || !VALID_ADDRESSES.contains(city)) {
-            throw new IllegalArgumentException("не допустимые значения !!!");
+            throw new IllegalArgumentException("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ !!!");
         }
     }
 
