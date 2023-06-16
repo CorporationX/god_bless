@@ -11,12 +11,20 @@ public class Archer extends Character {
 
     @Override
     public String attack(Character character) {
-        if (character.getHeath() <= 0) {
+        int remainHealth = character.getHeath() - agility;
+
+        if (character.getHeath() < 0) {
+            character.setHeath(0);
             return character + " died";
         }
-        int remainHealth = character.getHeath() - agility;
-        character.setHeath(remainHealth);
-        return "health is left " + character.getHeath();
+        if (remainHealth > 0) {
+            character.setHeath(remainHealth);
+            return "health is left " + character.getHeath();
+        }
+        if (character.getHeath() == 0) {
+            return "it's over";
+        }
+        return "";
     }
 
 

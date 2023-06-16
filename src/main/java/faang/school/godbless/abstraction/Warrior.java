@@ -11,7 +11,7 @@ public class Warrior extends Character {
 
     @Override
     public String attack(Character character) {
-        if (character.getHeath() <= 0) {
+        if (character.getHeath() < 0) {
             return character + " died";
         }
         int remainHealth = character.getHeath() - strength;
