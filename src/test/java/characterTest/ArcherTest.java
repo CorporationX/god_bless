@@ -1,8 +1,9 @@
 package characterTest;
 
+
 import faang.school.godbless.Abstraction.character.Archer;
-import faang.school.godbless.Abstraction.character.Warrior;
 import faang.school.godbless.Abstraction.character.Character;
+import faang.school.godbless.Abstraction.character.Warrior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
