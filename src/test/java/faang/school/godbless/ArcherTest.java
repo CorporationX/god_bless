@@ -7,22 +7,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ArcherTest {
     private Archer archer;
-    private Character character;
+    private Warrior warrior;
 
     @BeforeEach
-    public void Setup(){
+    public void setUp(){
         archer = new Archer("Archer");
-        character = new Character("Character") {
-            @Override
-            public void attack(Character character) {
-
-            }
-        };
+        warrior = new Warrior("Warrior");
     }
 
     @Test
     public void testArcherAttack(){
-        archer.attack(character);
-        assertEquals(90, character.healthPoints);
+        archer.attack(warrior);
+        assertEquals(90, warrior.healthPoints);
     }
 }
