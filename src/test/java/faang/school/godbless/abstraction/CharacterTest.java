@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CharacterTest {
     private Character warrior;
@@ -19,7 +20,6 @@ public class CharacterTest {
     void warriorAttackTest() {
         warrior.attack(archer);
         warrior.attack(archer);
-
         assertEquals(80, archer.health);
     }
 
