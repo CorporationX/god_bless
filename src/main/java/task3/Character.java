@@ -1,20 +1,13 @@
 package task3;
+
 public abstract class Character {
     //чтобы было видно поля во всех наследниках,
-    // какой модификатор доступа на них нужно повесить
+    //какой модификатор доступа на них нужно повесить (protected)
     protected String name;
-    protected int power;
-    protected int cleverness;
+    protected static int power;
+    protected static int cleverness;
     protected int intelligence;
-    protected static int health =100;
-
-//    public Character(String name, int power, int cleverness, int intelligence) {
-//        this.name = name;
-//        this.power = power;
-//        this.cleverness = cleverness;
-//        this.intelligence = intelligence;
-//        this.health = 100;
-//    }
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -26,8 +19,8 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    /*abstract*/ public static void attack (){
-
+    /*abstract*/
+    public void attack(Character anotherCharacter) {
     }
 }
 
