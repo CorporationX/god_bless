@@ -19,7 +19,7 @@ public class User {
         Map<User, String> result = new HashMap<>();
         for (User user : users) {
             for (String activity : activities) {
-                if (activities.contains(activity)) {
+                if (user.activities.contains(activity)) {
                     result.put(user, activity);
                     break;
                 }
