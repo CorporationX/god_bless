@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
-        User user1 = new User("Kevin", 17, "Uber", "Amsterdam");
+        User user1 = new User("Kevin", 19, "Uber", "Amsterdam");
         User user2 = new User("Alan", 35, "Google", "New York");
         User user3 = new User("Laura Bradley", 35, "Amazon", "London");
         User user4 = new User("Mr. Henderson", 40, "Uber", "London");
@@ -17,6 +17,23 @@ public class Application {
                 System.out.println(user.getName() + ": place of work - "+ user.getPlaceOfWork() + "; adress - " + user.getAddress());
             }
             System.out.println();
+        }
+
+        Archer archer = new Archer("Robin Hood");
+        Warrior warrior = new Warrior("Shrek");
+        while(archer.health > 0 && warrior.health > 0) {
+            if((Math.random() * 10) > 4) {
+                archer.attack(warrior);
+            } else {
+                warrior.attack(archer);
+            }
+            System.out.println(warrior.name + " health: " + warrior.health);
+            System.out.println(archer.name + " health: " + archer.health);
+        }
+        if (warrior.health == 0) {
+            System.out.println(archer.name + " win!");
+        } else {
+            System.out.println(warrior.name + " win!");
         }
     }
 }
