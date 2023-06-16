@@ -19,7 +19,7 @@ public class User {
     private String address;
 
     public User(String userName, int age, String job, String userAddress) {
-        if (name.isEmpty()) {
+        if (userName!=null && !userName.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty!");
         }
         if (age < 0) {
@@ -28,7 +28,7 @@ public class User {
         if (!(VALID_JOBS.contains(job))) {
             throw new IllegalArgumentException("Invalid job");
         }
-        if (!(VALID_ADDRESSES.contains(address))) {
+        if (!(VALID_ADDRESSES.contains(userAddress))) {
             throw new IllegalArgumentException("Invalid address");
         }
         this.name = userName;
