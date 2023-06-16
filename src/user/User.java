@@ -1,11 +1,11 @@
 package user;
 
-import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class User {
     private String name;
@@ -23,14 +23,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : usersList) {
-            int age = user.getAge();
-            if (groupedUsers.containsKey(age)) {
-                groupedUsers.get(age).add(user);
-            } else {
-                List<User> usersWithSameAge = new ArrayList<>();
-                usersWithSameAge.add(user);
-                groupedUsers.put(age, usersWithSameAge);
-            }
+            groupedUsers.computeIfAbsent(user.getAge(), e -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
     }
