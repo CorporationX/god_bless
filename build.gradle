@@ -1,5 +1,5 @@
 plugins {
-    java
+    id 'java'
 }
 
 group = "faang.school"
@@ -26,8 +26,6 @@ dependencies {
     testImplementation("org.assertj:assertj-core:3.24.2")
 }
 
-tasks.withType<Test> {
+test {
     useJUnitPlatform()
 }
-
-val test by tasks.getting(Test::class) { testLogging.showStandardStreams = true }
