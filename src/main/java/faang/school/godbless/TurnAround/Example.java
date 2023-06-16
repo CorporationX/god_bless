@@ -2,17 +2,19 @@ package faang.school.godbless.TurnAround;
 
 public class Example {
     public static int[] reverse(int[] ints) throws IllegalArgumentException {
-        if (ints == null || ints.length == 0){
-            throw new IllegalArgumentException("Пустой массив");
+        if (ints == null) {
+            throw new IllegalArgumentException("Массив не инициализирован");
         }
-        if (ints.length == 1){
+        if (ints.length <= 1) {
             return ints;
         }
-        int j = ints.length-1;
-        for (int i = 0; i <= j; i++){
+        int j = ints.length - 1;
+        int i = 0;
+        while (i < j) {
             int temp = ints[i];
             ints[i] = ints[j];
             ints[j] = temp;
+            i++;
             j--;
         }
         return ints;
