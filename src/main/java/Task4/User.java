@@ -13,7 +13,14 @@ public class User {
     private int age;
     private List<String> manyActivities;
 
-    public Map<User, String> findHobbyLovers(List<User> list, List<String> manyActivities) {
+    public User(int id, String name, int age, List<String> manyActivities) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.manyActivities = manyActivities;
+    }
+
+    public static Map<User, String> findHobbyLovers(List<User> list, List<String> manyActivities) {
         Map<User, String> map = new HashMap<>();
         for (User user : list) {
             for (String activities : manyActivities) {
