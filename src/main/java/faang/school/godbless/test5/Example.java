@@ -2,9 +2,9 @@ package faang.school.godbless.test5;
 
 public class Example {
     public static void reverse(int[] arr) {
-        int len = arr.length - 1;
-        for (int i = 0; i < len / 2 + 1; i++) {
-            swap(i, len - i, arr);
+        int len = arr.length;
+        for (int i = 0; i < len / 2; i++) {
+            swap(i, len - i-1, arr);
         }
     }
 
