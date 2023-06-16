@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class User {
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private String name;
     private int age;
     private String workplace;
@@ -22,23 +24,6 @@ public class User {
         this.workplace = workplace;
         this.address = address;
     }
-
-    public int getAge() {
-        return age;
-    }
-
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
-    public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
-        users.add(new User("Oleg", 17, "homeless", "London"));
-        users.add(new User("Gleb", 20, "Google", "New York"));
-        users.add(new User("Kirill", 40, "Microsoft", "St. Peterburg"));
-        users.add(new User("Nadya", 20, "SpaceX", "Rom"));
-
-    }
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         for (User user : users) {
@@ -51,25 +36,28 @@ public class User {
 
     public void checkName(String name) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("User name cannot be empty!");
         }
     }
 
     public void checkAge(int age) {
         if (age < 18) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Employee under 18");
         }
     }
 
     public void checkJobs(String workplace) {
         if (!VALID_JOBS.contains(workplace)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid job");
         }
     }
 
     public void checkAddress(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid address");
         }
+    }
+    public int getAge() {
+        return age;
     }
 }
