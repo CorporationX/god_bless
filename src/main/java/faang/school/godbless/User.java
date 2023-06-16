@@ -33,10 +33,6 @@ public class User {
         return map;
     }
 
-    public static User create (String name, int age, List<String> activities) {
-        return new User(name, age, activities);
-    }
-
     @Override
     public String toString() {
         return "User{" +
