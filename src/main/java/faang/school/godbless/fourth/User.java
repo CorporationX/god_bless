@@ -1,4 +1,4 @@
-package faang.school.godbless.CollectingUsers;
+package faang.school.godbless.fourth;
 
 import lombok.AllArgsConstructor;
 
