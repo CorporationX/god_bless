@@ -1,11 +1,13 @@
 package faang.school.godbless.Abstraction.model;
 
+import java.sql.SQLOutput;
+
 public abstract class Character {
     protected String name;
     protected int force;
     protected int dexterity;
     protected int intelligence;
-    protected int health = 100;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -20,5 +22,14 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
+    public int getHealth() {
+        return health;
+    }
 
+    public void setHealth(int health) {
+        if (health <= 0) {
+            throw new IllegalArgumentException("the enemy is dead");
+        }
+        this.health = health;
+    }
 }

@@ -4,16 +4,14 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CharacterTest {
+public class ArcherTest {
     @Test
-    public void testAttack() {
+    public void attack_shouldReturnReducedWarriorHealth() {
         Warrior warrior = new Warrior("Alderheart");
         Archer archer = new Archer("Artemis");
         archer.attack(warrior);
-        assertEquals(90, warrior.health);
-        warrior.attack(archer);
-        assertEquals(90, archer.health);
+        assertEquals(90, warrior.getHealth());
         archer.attack(warrior);
-        assertEquals(80, warrior.health);
+        assertEquals(80, warrior.getHealth());
     }
 }

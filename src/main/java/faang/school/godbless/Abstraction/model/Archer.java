@@ -7,11 +7,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character opponent) {
-        if (opponent.health > 0) {
-            opponent.health -= super.dexterity;
-        } else {
-            System.out.println("the enemy is dead");
-        }
+        opponent.setHealth(opponent.getHealth() - this.dexterity);
     }
 
 }
