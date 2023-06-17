@@ -22,6 +22,7 @@ dependencies {
 
     implementation("org.projectlombok:lombok:1.18.26")
     implementation("org.junit.jupiter:junit-jupiter:5.8.1")
+    implementation("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
 
     /**
