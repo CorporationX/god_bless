@@ -1,9 +1,6 @@
 package main.java.faang.school.godbless;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 public class Main {
     private static final Set<String> HOBBY = new HashSet<>(Arrays.asList("Music", "Sport", "Dancing", "Games", "Pole dance"));
@@ -14,7 +11,7 @@ public class Main {
         User user3 = new User(3, 40, "Pasha",new LinkedHashSet<>(Arrays.asList("Netflix", "Pole dance")));
         User user4 = new User(4, 26, "Zhenia", new LinkedHashSet<>(Arrays.asList("Music", "Games", "Pole dance")));
         User user5 = new User(5, 8, "Vitalii", new LinkedHashSet<>(Arrays.asList("Fishing")));
-        Set<User> userSet = new HashSet<>();
+        List<User> userSet = new ArrayList<>();
         userSet.add(user1);
         userSet.add(user2);
         userSet.add(user3);

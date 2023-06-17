@@ -17,7 +17,7 @@ public class User {
         this.activities = activities;
     }
 
-    public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
 
         for (User user : users) {
@@ -28,7 +28,6 @@ public class User {
                 }
             }
         }
-
         return result;
     }
 
