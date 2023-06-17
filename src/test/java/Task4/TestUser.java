@@ -4,37 +4,40 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class TestUser {
+
     @Test
     public void testCorrectOperationOfTheMethod() {
+        // поседел над тестами, пока нет идей
+
         List<User> testUser = new ArrayList<>();
-        List<String> manyActivities = new ArrayList<>();
+        Set<String> activities = new HashSet<>();
 
-        manyActivities.add("basketball");
-        manyActivities.add("sing");
-        manyActivities.add("soccer");
-        manyActivities.add("swim");
-        manyActivities.add("dance");
+        User nikita = new User(1, "John", 25, activities);
+        User anna = new User(2, "Alice", 30, activities);
+        User sofia = new User(3, "Bob", 20, activities);
+        User maksim = new User(4, "Emily", 28, activities);
 
-        testUser.add(new User(1, "Nikita", 22, manyActivities));
-        testUser.add(new User(2, "Anna", 23, manyActivities));
-        testUser.add(new User(3, "Sofia", 18, manyActivities));
-        testUser.add(new User(4, "Anton", 22, manyActivities));
-        testUser.add(new User(5, "Ben", 23, manyActivities));
-        testUser.add(new User(6, "Maksim", 18, manyActivities));
+        testUser.add(nikita);
+        testUser.add(anna);
+        testUser.add(sofia);
+        testUser.add(maksim);
 
-        Map<User, String> map = User.findHobbyLovers(testUser, manyActivities);
+        activities.add("basketball");
+        activities.add("dance");
+        activities.add("soccer");
 
-        Assertions.assertEquals(testUser.get(0).getManyActivities(), manyActivities);
-        Assertions.assertEquals(testUser.get(1).getManyActivities(), manyActivities);
-        Assertions.assertEquals(testUser.get(2).getManyActivities(), manyActivities);
-        Assertions.assertEquals(testUser.get(3).getManyActivities(), manyActivities);
-        Assertions.assertEquals(testUser.get(4).getManyActivities(), manyActivities);
-        Assertions.assertEquals(testUser.get(5).getManyActivities(), manyActivities);
+        Map<User, String> map = User.findHobbyLovers(testUser, activities);
 
+        Assertions.assertEquals(4, map.size());
+        Assertions.assertEquals("soccer", map.get(nikita));
+        Assertions.assertEquals("soccer", map.get(anna));
 
     }
 }
