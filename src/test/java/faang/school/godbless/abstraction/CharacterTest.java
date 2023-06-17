@@ -30,4 +30,20 @@ public class CharacterTest {
         archer.attack(warrior);
         assertEquals(70, warrior.health);
     }
+
+    @Test
+    void warriorDeadTest() {
+        for (int i = 0; i < 10; i++) {
+            archer.attack(warrior);
+        }
+        assertThrows(RuntimeException.class, () -> archer.attack(warrior));
+    }
+
+    @Test
+    void archerDeadTest() {
+        for (int i = 0; i < 10; i++) {
+            warrior.attack(archer);
+        }
+        assertThrows(RuntimeException.class, () -> warrior.attack(archer));
+    }
 }
