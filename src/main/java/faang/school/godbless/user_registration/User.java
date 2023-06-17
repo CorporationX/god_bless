@@ -1,5 +1,7 @@
 package faang.school.godbless.user_registration;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Getter
 public class User {
     private String name;
     private int age;
@@ -17,7 +20,7 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
     private static final int BORDERLINE_AGE = 18;
 
-    private static Map<Integer, List<User>> userMap = new HashMap<>();
+    private static Map<Integer, List<User>> userAgeMap = new HashMap<>();
 
     public User(String name, int age, String job, String address) {
         validateName(name);
@@ -31,40 +34,36 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        userMap = new HashMap<>();
+        userAgeMap = new HashMap<>();
         for (User user : users) {
-            if (!userMap.containsKey(user.age)) {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                userMap.put(user.age, userList);
-            } else {
-                userMap.get(user.age).add(user);
-            }
+            List<User> userList = userAgeMap.getOrDefault(user.age, new ArrayList<>());
+            userList.add(user);
+            userAgeMap.put(user.age, userList);
         }
-        return userMap;
+        return userAgeMap;
     }
 
     public static void validateName(String name) {
         if (name.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect name!");
         }
     }
 
     public static void validateAge(int age) {
         if (age < BORDERLINE_AGE) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect age!");
         }
     }
 
     public static void validateJob(String job) {
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect job!");
         }
     }
 
     public static void validateAddress(String address) {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect address!");
         }
     }
 }
