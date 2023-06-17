@@ -15,8 +15,6 @@ public class User {
     private int age;
     private String company;
     private String address;
-    private String addre2ss;
-
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
