@@ -17,17 +17,15 @@ public class User {
         this.name = name;
         this.age = age;
         this.userActivities = userActivities;
+        userMap = new HashMap<>();
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        userMap = new HashMap<>();
         for (User user : users) {
             for (String userActivity : user.userActivities) {
                 if (activities.contains(userActivity)) {
-                    if (userMap.containsKey(user)) {
-                        continue;
-                    }
                     userMap.put(user, userActivity);
+                    break;
                 }
             }
         }
