@@ -26,11 +26,11 @@ class TestUser {
         userFour = new User("Diana", 24, "Yahoo", "Gagarina street");
         userFive = new User("Vladimir", 25, "X5", "Pochtovaya street");
         users = Arrays.asList(userOne, userTwo, userThree, userFour, userFive);
-        usersForCheck = User.groupUsers(users);
     }
 
     @Test
     public void testGroupUsers() {
+        usersForCheck = User.groupUsers(users);
         assertEquals(4, usersForCheck.size());
     }
 }
