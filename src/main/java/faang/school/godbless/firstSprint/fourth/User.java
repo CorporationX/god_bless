@@ -1,4 +1,4 @@
-package faang.school.godbless.fourth;
+package faang.school.godbless.firstSprint.fourth;
 
 import lombok.AllArgsConstructor;
 

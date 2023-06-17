@@ -1,5 +1,6 @@
 package faang.school.godbless.fifth;
 
+import faang.school.godbless.firstSprint.fifth.Example;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

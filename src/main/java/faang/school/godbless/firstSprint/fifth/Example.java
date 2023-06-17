@@ -1,4 +1,4 @@
-package faang.school.godbless.fifth;
+package faang.school.godbless.firstSprint.fifth;
 
 public class Example {
     public static int[] reverse(int[] numbers) {

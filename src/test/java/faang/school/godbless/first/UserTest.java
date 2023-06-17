@@ -1,8 +1,8 @@
 package faang.school.godbless.first;
 
+import faang.school.godbless.firstSprint.first.User;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

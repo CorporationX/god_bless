@@ -1,4 +1,4 @@
-package faang.school.godbless.third;
+package faang.school.godbless.firstSprint.third;
 
 public class Archer extends Character {
     @Override

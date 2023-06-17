@@ -1,4 +1,4 @@
-package faang.school.godbless.second;
+package faang.school.godbless.firstSprint.second;
 
 import java.util.Set;
 

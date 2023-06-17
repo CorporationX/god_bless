@@ -1,4 +1,4 @@
-package faang.school.godbless.first;
+package faang.school.godbless.firstSprint.first;
 
 import java.util.HashMap;
 import java.util.List;
