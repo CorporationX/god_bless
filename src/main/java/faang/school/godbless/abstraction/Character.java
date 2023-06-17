@@ -36,6 +36,10 @@ public abstract class Character {
 
     protected void inflictDamage(int damage) {
         this.health -= damage;
+        if (health <= 0) {
+            System.out.println(name + "is dead");
+            health = 0;
+        }
     }
 
     private void checkNegativeValues(int parameter) {

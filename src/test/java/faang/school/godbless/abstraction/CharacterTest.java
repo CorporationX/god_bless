@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class CharacterTest {
-    Character warrior;
-    Character archer;
+    private Character warrior;
+    private Character archer;
     @BeforeEach
     void setUp() {
         warrior = new Warrior("Warrior");
