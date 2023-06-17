@@ -1,4 +1,4 @@
-package faang.school.godbless.model;
+package faang.school.godbless.task3;
 
 public class Warrior extends Character {
 

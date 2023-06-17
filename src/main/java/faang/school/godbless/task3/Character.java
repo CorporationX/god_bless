@@ -1,4 +1,4 @@
-package faang.school.godbless.model;
+package faang.school.godbless.task3;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

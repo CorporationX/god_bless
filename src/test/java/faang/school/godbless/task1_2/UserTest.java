@@ -1,6 +1,5 @@
-package faang.school.godbless.model;
+package faang.school.godbless.task1_2;
 
-import faang.school.godbless.model.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

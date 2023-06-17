@@ -1,6 +1,4 @@
-package faang.school.godbless.model;
-
-import lombok.EqualsAndHashCode;
+package faang.school.godbless.task3;
 
 public class Archer extends Character {
     public Archer(String name) {
