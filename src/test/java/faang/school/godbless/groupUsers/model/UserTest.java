@@ -2,54 +2,28 @@ package faang.school.godbless.groupUsers.model;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     @Test
-    public void testUserConstructor() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new User(null, 20, "Google", "London");
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new User("John", 15, "Google", "London");
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new User("Bred", 24, "Apple", "London");
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new User("Billy", 20, "Google", "Moscow");
-        });
-        assertDoesNotThrow(() -> {
-            new User("John", 20, "Google", "London");
-        });
+    public void findHobbyLovers_shouldReturnEmptyMap() {
+        var result = User.findHobbyLovers(List.of(
+                User.builder().hobbies(Set.of("reading")).build(),
+                User.builder().hobbies(Set.of("dancing")).build()
+        ), Set.of("running"));
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    public void testGroupUsersByAge() {
-        List<User> users = new ArrayList<>();
-        User user1 = new User("John", 23, "Amazon", "New York");
-        User user2 = new User("Alice", 30, "Uber", "Washington");
-        User user3 = new User("Bred", 23, "Apple", "Los Angeles");
-        User user4 = new User("Aron", 18, "Meta", "New York");
-        User user5 = new User("Justin", 30, "Google", "Los Angeles");
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
-        users.add(user5);
-        Map<Integer, List<User>> resultGroupsMap = User.groupUsersByAge(users);
-        assertEquals(3, resultGroupsMap.size());
-        List<User> groupBy23 = resultGroupsMap.get(23);
-        assertTrue(groupBy23.contains(user1));
-        assertTrue(groupBy23.contains(user3));
-        List<User> groupBy30 = resultGroupsMap.get(30);
-        assertTrue(groupBy30.contains(user2));
-        assertTrue(groupBy30.contains(user5));
-        List<User> groupBy18 = resultGroupsMap.get(18);
-        assertTrue(groupBy18.contains(user4));
+    public void findHobbyLovers_shouldReturnMatches() {
+        var result = User.findHobbyLovers(List.of(
+                User.builder().hobbies(Set.of("swimming", "games")).build(),
+                User.builder().hobbies(Set.of("eating", "reading")).build(),
+                User.builder().hobbies(Set.of("reading", "cooking")).build()
+        ), Set.of("cooking", "swimming"));
+        assertEquals(2, result.size());
     }
 }
