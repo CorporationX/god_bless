@@ -15,7 +15,6 @@ public class User {
     private int age;
     private String company;
     private String address;
-    private String test;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
