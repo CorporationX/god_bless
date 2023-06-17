@@ -15,6 +15,4 @@ class ExampleTest {
 
         assertArrayEquals(expected, nums);
     }
-
-
 }
