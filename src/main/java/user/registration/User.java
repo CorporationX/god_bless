@@ -21,16 +21,16 @@ public class User {
         this.job = job;
         this.address = address;
 
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
         if (age < 18) {
             throw new IllegalArgumentException("To work from the age of 18");
         }
-        if (!(VALID_JOBS.contains(job))) {
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("You can't work here");
         }
-        if (!(VALID_ADDRESSES.contains(address))) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("You can't live here");
         }
     }
