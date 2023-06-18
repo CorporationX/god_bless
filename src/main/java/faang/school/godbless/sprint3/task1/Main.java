@@ -1,4 +1,5 @@
-package faang.school.godbless.sprint3;
+package faang.school.godbless.sprint3.task1;
+
 
 import java.util.List;
 
