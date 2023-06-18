@@ -84,10 +84,5 @@ public class User {
         this.address = address;
     }
 
-    public static void main(String[] args) {
-        User user_1 = new User("Volodya", 30, "Meta", "Los-Angeles");
-        //User user_2 = new User("Irina", 27, "Amazon", "London");
-        System.out.println(user_1.getPlaceOfWork());
-        //System.out.println(user_2.getPlaceOfWork());
-    }
+
 }
