@@ -15,4 +15,14 @@ class TriangleTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    void testValidationZero() {
+        assertThrows(IllegalArgumentException.class, () -> Triangle.triangleArea(0, 2, 4));
+    }
+
+    @Test
+    void testValidationNotExistTriangle() {
+        assertThrows(IllegalArgumentException.class, () -> Triangle.triangleArea(1, 5, 7));
+    }
+
 }
