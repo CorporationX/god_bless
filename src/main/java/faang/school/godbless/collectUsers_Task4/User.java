@@ -10,7 +10,7 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> activities = new HashSet<>();
+    private Set<String> activities;
 
     public User(String name, int age, Set<String> activities) {
         this.id = userQuantity++;
@@ -19,7 +19,7 @@ public class User {
         this.activities = activities;
     }
 
-    private Map<User, String> findHobbyLovers(List<User> userList, Set<String> activities) {
+    public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> activities) {
         Map<User, String> resMap = new HashMap<>();
         for(User user : userList) {
             for(String activity : activities) {
