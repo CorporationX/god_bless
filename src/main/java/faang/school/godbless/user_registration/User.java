@@ -1,69 +1,82 @@
 package faang.school.godbless.user_registration;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
 public class User {
     private String name;
     private int age;
-    private String job;
+    private String jobLocation;
     private String address;
-    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
-    private static final int BORDERLINE_AGE = 18;
 
-    private static Map<Integer, List<User>> userAgeMap = new HashMap<>();
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    public User(String name, int age, String job, String address) {
-        validateName(name);
-        validateAge(age);
-        validateJob(job);
-        validateAddress(address);
+    public User(String name, int age, String jobLocation, String address) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(jobLocation)) {
+            throw new IllegalArgumentException("Неверное место работы");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Неверный адрес");
+        }
         this.name = name;
         this.age = age;
-        this.job = job;
+        this.jobLocation = jobLocation;
         this.address = address;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(String jobLocation) {
+        this.jobLocation = jobLocation;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        userAgeMap = new HashMap<>();
+        Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
-            List<User> userList = userAgeMap.getOrDefault(user.age, new ArrayList<>());
-            userList.add(user);
-            userAgeMap.put(user.age, userList);
+            List<User> usersGroup;
+            if (!result.containsKey(user.age)) {
+                usersGroup = new ArrayList<>();
+            } else {
+                usersGroup = result.get(user.age);
+            }
+            usersGroup.add(user);
+            result.put(user.age, usersGroup);
         }
-        return userAgeMap;
-    }
-
-    public static void validateName(String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Incorrect name!");
-        }
-    }
-
-    public static void validateAge(int age) {
-        if (age < BORDERLINE_AGE) {
-            throw new IllegalArgumentException("Incorrect age!");
-        }
-    }
-
-    public static void validateJob(String job) {
-        if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Incorrect job!");
-        }
-    }
-
-    public static void validateAddress(String address) {
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Incorrect address!");
-        }
+        return result;
     }
 }
