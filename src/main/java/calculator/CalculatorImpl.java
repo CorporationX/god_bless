@@ -31,7 +31,7 @@ public class CalculatorImpl {
         try {
             return calculate(nums, addition);
         } catch (IllegalArgumentException e) {
-            // Обработка ошибки, если список чисел пуст
+            System.out.println("List of numbers is empty");
             return 0;
         }
     }
