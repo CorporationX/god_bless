@@ -38,6 +38,14 @@ class AppTest {
         assertEquals(App.ARRAY_IS_EMPTY_EXCEPTION_MESSAGE, exception.getMessage());
     }
 
+    @Test
+    @DisplayName("List is null")
+    void calculate_ListIsNull(){
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> App.sum(null));
+        assertEquals(App.ARRAY_IS_NULL_EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
     private static Stream<Arguments> generateArrayForProduct() {
         List<Arguments> listWithArguments = List.of(
                 Arguments.of(48, List.of(2, 4, 6)),

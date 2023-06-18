@@ -6,6 +6,7 @@ import java.util.List;
 
 public class App {
     public final static String ARRAY_IS_EMPTY_EXCEPTION_MESSAGE = "Array is empty";
+    public final static String ARRAY_IS_NULL_EXCEPTION_MESSAGE = "Array is null";
 
     public static int product(List<Integer> nums) {
         return calculate(nums, ((a, b) -> a * b));
@@ -16,6 +17,9 @@ public class App {
     }
 
     public static int calculate(List<Integer> nums, Calculator calculator) {
+        if (nums == null){
+            throw new IllegalArgumentException(ARRAY_IS_NULL_EXCEPTION_MESSAGE);
+        }
         if (nums.isEmpty()) {
             throw new IllegalArgumentException(ARRAY_IS_EMPTY_EXCEPTION_MESSAGE);
         }
