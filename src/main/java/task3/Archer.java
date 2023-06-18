@@ -1,12 +1,8 @@
 package task3;
 
 public class Archer extends Character {
-    public Archer(String name) {
-        super(name);
-    }
-
-    public Archer(int power, int cleverness, int intelligence) {
-        super(3, 10, 5);
+    public Archer(String name, int power, int cleverness, int intelligence) {
+        super(name, 3, 10, 5);
     }
 
     //Когда переопределяем конструктор класса, то ключевое слово (Override)
@@ -16,6 +12,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character character) {
         //super.attack(Warrior);
-        Warrior.health -= this.cleverness;
+        //this это про Archer и character про Warrior, которого атакует Archer
+        character.health -= this.cleverness;
     }
 }
