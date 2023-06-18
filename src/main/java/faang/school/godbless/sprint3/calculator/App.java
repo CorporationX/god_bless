@@ -20,7 +20,7 @@ public class App {
             throw new IllegalArgumentException(ARRAY_IS_EMPTY_EXCEPTION_MESSAGE);
         }
         int result = nums.get(0);
-        for (int i = 1; i < nums.size(); i++){
+        for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
         }
 

@@ -32,7 +32,7 @@ class AppTest {
 
     @Test
     @DisplayName("Пустой лист")
-    void calculate_EmptyList(){
+    void calculate_EmptyList() {
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
                 () -> App.sum(Collections.emptyList()));
         assertEquals(App.ARRAY_IS_EMPTY_EXCEPTION_MESSAGE, exception.getMessage());
@@ -41,7 +41,7 @@ class AppTest {
     private static Stream<Arguments> generateArrayForProduct() {
         List<Arguments> listWithArguments = List.of(
                 Arguments.of(48, List.of(2, 4, 6)),
-                Arguments.of( 1, List.of(1)),
+                Arguments.of(1, List.of(1)),
                 Arguments.of(8, List.of(2, 4))
         );
         return listWithArguments.stream();
@@ -50,7 +50,7 @@ class AppTest {
     private static Stream<Arguments> generateArrayForSum() {
         List<Arguments> listWithArguments = List.of(
                 Arguments.of(12, List.of(2, 4, 6)),
-                Arguments.of( 1, List.of(1)),
+                Arguments.of(1, List.of(1)),
                 Arguments.of(6, List.of(2, 4))
         );
         return listWithArguments.stream();
