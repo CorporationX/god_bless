@@ -13,8 +13,8 @@ public class Warrior extends Character {
     //и передать туда всё необходимое
 
     @Override
-    public void attack(Character Archer) {
+    public void attack(Character character) {
         //super.attack(Archer);
-        Archer.health -= Warrior.power;
+        Archer.health -= this.power;
     }
 }

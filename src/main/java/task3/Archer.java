@@ -14,9 +14,8 @@ public class Archer extends Character {
     //и передать туда всё необходимое.
 
     @Override
-    //static метод нельзя было переопределять, а сейчас все можно)))
-    public void attack(Character Warrior) {
+    public void attack(Character character) {
         //super.attack(Warrior);
-        Warrior.health -= Archer.cleverness;
+        Warrior.health -= this.cleverness;
     }
 }
