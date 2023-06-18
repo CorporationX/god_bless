@@ -10,7 +10,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        //super.attack(Archer);
+        //Warrior.attack(Archer);
         character.health -= this.power;
     }
 }

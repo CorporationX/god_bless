@@ -11,8 +11,16 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        //super.attack(Warrior);
-        //this это про Archer и character про Warrior, которого атакует Archer
+        //Archer.attack(Warrior);
+        // this это про Archer и character про Warrior, которого атакует Archer
         character.health -= this.cleverness;
     }
 }
+
+
+
+
+
+
+
+
