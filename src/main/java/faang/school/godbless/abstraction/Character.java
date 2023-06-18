@@ -1,11 +1,11 @@
 package faang.school.godbless.abstraction;
 
 public abstract class Character {
-    String name;
-    int strength;
-    int agility;
-    int intelligence;
-    int health = 100;
+    private String name;
+    private int strength;
+    private int agility;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
@@ -19,6 +19,26 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
 
     @Override
     public String toString() {

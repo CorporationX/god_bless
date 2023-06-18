@@ -2,15 +2,14 @@ package faang.school.godbless.abstraction;
 
 public class Warrior extends Character {
     public Warrior(String name) {
-        super(name);
-        strength = 10;
-        agility = 5;
-        intelligence = 3;
+        super(name, 10, 5, 3);
     }
 
     @Override
-    public void attack(Character character) {
-        System.out.println(this.getClass().getSimpleName() + " атакует " + character.getClass().getSimpleName());
-        character.health -= this.strength;
+    public void attack(Character enemy) {
+        System.out.println(String.format("%s(класс %s) атакует %s(класс %s)", this.getName(),
+                this.getClass().getSimpleName(), enemy.getName(), enemy.getClass().getSimpleName()));
+        int newHealth = enemy.getHealth() - this.getStrength();
+        enemy.setHealth(newHealth);
     }
 }
