@@ -12,13 +12,16 @@ public class User {
     public int age;
     public List <String> actions;
 
-    public Map<User, String> findHobbyLovers(List<String> listOfUsers, List <String> actions){
+    public Map<User, String> findHobbyLovers(List<String> listOfUsers, List <String> overallActions){
         listOfUsers = new ArrayList<String>();
+        overallActions = new ArrayList<String>();
+        // overallActions - большой общий list с активностями
+        // а у каждого user есть свой (list) actions  его обственными активностями
         Map <User, String > map = new HashMap<>();
         for (String user: listOfUsers){
-            for (String action: actions) {
-                if ()
-                map.putIfAbsent(user, action);
+            for (String commonAction: overallActions) {
+                if (user.contains(commonAction))
+                map.putIfAbsent(user, commonAction);
             }
         }
         return map;
