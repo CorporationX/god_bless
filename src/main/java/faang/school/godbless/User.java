@@ -11,7 +11,7 @@ public class User {
     public int age;
     public ArrayList <String> actions;
 
-    public Map<User, String> findHobbyLovers(List<String> listOfUsers, ArrayList<String> actions){
+    public Map<User, String> findHobbyLovers(List<String> listOfUsers, ArrayList <String> actions){
         List<String> listOfUsers = new ArrayList<String>();
 
         Map <User, String > map = new HashMap<>();
