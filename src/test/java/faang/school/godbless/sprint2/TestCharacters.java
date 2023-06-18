@@ -1,6 +1,8 @@
-import faang.school.godbless.classes.Archer;
-import faang.school.godbless.classes.Character;
-import faang.school.godbless.classes.Warrior;
+package faang.school.godbless.sprint2;
+
+import faang.school.godbless.sprint2.classes.Archer;
+import faang.school.godbless.sprint2.classes.Character;
+import faang.school.godbless.sprint2.classes.Warrior;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;

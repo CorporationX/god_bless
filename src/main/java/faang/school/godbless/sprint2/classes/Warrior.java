@@ -1,6 +1,6 @@
-package faang.school.godbless.classes;
+package faang.school.godbless.sprint2.classes;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
     public Warrior(String name){
         super(name, 10, 5, 3);
     }

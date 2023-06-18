@@ -1,4 +1,4 @@
-package faang.school.godbless.TurnAround;
+package faang.school.godbless.sprint2.TurnAround;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

@@ -1,4 +1,4 @@
-package faang.school.godbless.classes;
+package faang.school.godbless.sprint2.classes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

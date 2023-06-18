@@ -1,4 +1,4 @@
-package faang.school.godbless.LRUCache.classes;
+package faang.school.godbless.sprint2.LRUCache.classes;
 
 import lombok.Getter;
 import lombok.NonNull;

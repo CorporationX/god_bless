@@ -1,4 +1,4 @@
-package faang.school.godbless.TurnAround;
+package faang.school.godbless.sprint2.TurnAround;
 
 public class Example {
     public static int[] reverse(int[] ints) throws IllegalArgumentException {

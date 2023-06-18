@@ -1,12 +1,9 @@
-package faang.school.godbless.LRUCache;
+package faang.school.godbless.sprint2.LRUCache;
 
-import faang.school.godbless.LRUCache.classes.Data;
-import lombok.Getter;
-import lombok.Setter;
+import faang.school.godbless.sprint2.LRUCache.classes.Data;
 
 import java.sql.Date;
 import java.time.Instant;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
