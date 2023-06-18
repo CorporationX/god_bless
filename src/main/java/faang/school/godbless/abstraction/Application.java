@@ -11,5 +11,6 @@ public class Application {
         war.attack(arch);
         System.out.println(war);
         System.out.println(arch);
+
     }
 }
