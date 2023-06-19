@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint2;
+package faang.school.godbless.sprint2.task5;
 
 public class Example {
     public static void reverse(int[] array) {
