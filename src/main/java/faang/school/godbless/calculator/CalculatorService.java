@@ -8,7 +8,7 @@ public class CalculatorService {
     }
 
     public static long multiply(List<Integer> digits) {
-        return CalculatorService.calculate(digits, (a, b) -> a * b);
+        return calculate(digits, (a, b) -> a * b);
     }
 
     private static long calculate(List<Integer> digits, Calculator<Integer> calculator) {
