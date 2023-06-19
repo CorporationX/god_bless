@@ -1,17 +1,20 @@
 package faang.school.godbless.sprint3.Calculator;
 
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public interface Calculator<T> {
 
+    Logger LOGGER = LoggerFactory.getLogger(Calculator.class);
+
     T calculate(T value1, T value2);
 
-    static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
-        if (nums == null) {
-            throw new IllegalArgumentException("list is null");
-        }
+    static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
         if (nums.isEmpty()) {
-            throw new IllegalArgumentException("empty list");
+            LOGGER.error("Empty list");
         }
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); ++i) {

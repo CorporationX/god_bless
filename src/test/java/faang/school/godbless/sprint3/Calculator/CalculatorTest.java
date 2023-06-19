@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,9 +16,7 @@ class CalculatorTest {
 
     @BeforeEach
     void setUp() {
-        nums = Stream
-                .of(5,2,1)
-                .collect(Collectors.toList());
+        nums = List.of(5, 2, 1);
     }
 
     @Test
@@ -49,9 +48,7 @@ class CalculatorTest {
         int a = 5;
         int b = 7;
         int expected = a + b;
-        assertEquals(
-                Calculator.sum(Stream.of(a, b).collect(Collectors.toList())),
-                expected);
+        assertEquals(expected, Calculator.sum(List.of(a, b)));
     }
 
     @Test
@@ -59,9 +56,7 @@ class CalculatorTest {
         int a = 5;
         int b = 7;
         int c = 13;
-        int expected = a + b + c;
-        assertEquals(
-                Calculator.sum(Stream.of(a, b, c).collect(Collectors.toList())),
-                expected);
+        int expected = a * b * c;
+        assertEquals(expected, Calculator.product(List.of(a, b, c)));
     }
 }
