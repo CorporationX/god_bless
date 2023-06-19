@@ -1,5 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.usersCollections;
 
+import faang.school.godbless.usersCollections.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,8 +10,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
     User andrey;
