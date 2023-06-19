@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.abstractionAbstraction;
 
 public abstract class Character {
 

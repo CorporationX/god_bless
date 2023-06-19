@@ -1,6 +1,8 @@
-package faang.school.godbless;
+package faang.school.godbless.abstractionAbstraction;
 
-public class Warrior extends Character{
+import faang.school.godbless.abstractionAbstraction.Character;
+
+public class Warrior extends Character {
     public Warrior(String name) {
         super(name,10,5,3);
     }
