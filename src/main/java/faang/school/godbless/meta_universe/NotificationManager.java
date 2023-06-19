@@ -1,20 +1,35 @@
 package faang.school.godbless.meta_universe;
 
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.function.Consumer;
+
+@Getter
 public class NotificationManager {
 
-//    Создайте класс NotificationManager с методами: registerHandler:
-//    принимает идентификатор оповещения и функциональный интерфейс (например, Consumer<Notification>),
-//    добавляет пару ключ-значение в Map;sendNotification: принимает объект типа Notification и вызывает
-//    соответствующий обработчик оповещения из Map.
+    private static final Set<String> NOTIFICATION_TYPES = Set.of("sms", "email", "push");
 
-//    Создайте несколько обработчиков оповещений, используя лямбда-выражения и стандартные функциональные интерфейсы Java;
+    private Map<String, Consumer<Notification>> handledNotifications = new HashMap<>();
 
-//    Подумайте, как ещё вы могли бы расширить эту систему,
-//    с помощью других коллекций обработчиков с дополнительными функциональными интерфейсами.
-//   Возможно, вы могли бы создать Map из фильтров содержания нотификаций, чтобы обнаруживать неприемлемый контент.
-//   А, возможно, даже обработчики, затем корректирующие этот контент с помощью Function…
-//   В Meta от вас ждут инициативности и находчивости в разработке собственных креативных решений.
-//   Этот пункт мы оставили специально свободным для вас, чтобы вы могли воплощать свои идеи!
+    public void registerHandler(String type, Consumer<Notification> consumer) {
+        validateType(type);
+        handledNotifications.put(type, consumer);
+    }
 
+    public void sendNotification(Notification notification) {
+        String type = notification.getType();
+        if (handledNotifications.containsKey(type)) {
+            Consumer<Notification> handler = handledNotifications.get(type);
+            handler.accept(notification);
+        }
+    }
 
+    private void validateType(String type) {
+        if (!NOTIFICATION_TYPES.contains(type.toLowerCase())) {
+            throw new IllegalArgumentException("Wrong notification type");
+        }
+    }
 }
