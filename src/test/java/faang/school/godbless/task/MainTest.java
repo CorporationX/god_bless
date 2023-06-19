@@ -9,20 +9,27 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class MainTest {
-
     @Test
-    void testSum() {
+    void testSumWithCorrectList() {
         int sum = Main.sum(List.of(1, 2, 3, 4));
         assertEquals(10, sum);
-
-        assertThrows(IllegalArgumentException.class, () -> Main.sum(new ArrayList<>()));
     }
 
     @Test
-    void testProduct() {
+    void testSumWithEmptyList() {
+        var exception = assertThrows(IllegalArgumentException.class, () -> Main.sum(new ArrayList<>()));
+        assertEquals(Main.EXCEPTION_MESSAGE, exception.getMessage());
+    }
+
+    @Test
+    void testProductWithCorrectData() {
         int product = Main.product(List.of(1, 2, 3, 4));
         assertEquals(24, product);
+    }
 
-        assertThrows(IllegalArgumentException.class, () -> Main.product(new ArrayList<>()));
+    @Test
+    void testProductWithEmptyList() {
+        var exception = assertThrows(IllegalArgumentException.class, () -> Main.product(new ArrayList<>()));
+        assertEquals(Main.EXCEPTION_MESSAGE, exception.getMessage());
     }
 }
