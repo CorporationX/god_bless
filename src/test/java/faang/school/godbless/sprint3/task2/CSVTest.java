@@ -34,4 +34,8 @@ class CSVTest {
         List<List<String>> matrix = new ArrayList<>();
         assertThrows(IllegalArgumentException.class, () -> CSV.toCsv(matrix));
     }
+    @Test
+    void testListNull() {
+        assertThrows(NullPointerException.class, () -> CSV.toCsv(null));
+    }
 }

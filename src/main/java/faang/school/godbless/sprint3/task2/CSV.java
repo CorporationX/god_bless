@@ -5,17 +5,25 @@ import java.util.List;
 public class CSV {
 
     public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
-        if (table.isEmpty()) {
-            throw new IllegalArgumentException();
+        if (table == null) {
+            throw new NullPointerException("Список не может быть null!");
         }
-
+        if (table.isEmpty()) {
+            throw new IllegalArgumentException("Список не может быть пустым!");
+        }
+        StringBuilder sb = new StringBuilder();
         VectorJoiner<String> vectorJoiner = vector -> String.join(", ", vector);
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
-            StringBuilder sb = new StringBuilder();
             for (List<String> vector : matrix) {
-                String join = vectorJoiner.join(vector);
-                sb.append(join).append("\n");
+                if (vector == null) {
+                    throw new NullPointerException("Список(внутренний) не может быть null!");
+                }
+                if (table.isEmpty()) {
+                    throw new IllegalArgumentException("Список(внутренний) не может быть пустым!");
+                }
+
+                sb.append(vectorJoiner.join(vector)).append("\n");
             }
             return sb.toString().trim();
         };
