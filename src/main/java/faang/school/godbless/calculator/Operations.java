@@ -3,7 +3,7 @@ package faang.school.godbless.calculator;
 import java.util.List;
 
 public class Operations {
-    static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
         if (nums == null) {
             throw new IllegalArgumentException("nums is null");
         }
@@ -18,7 +18,7 @@ public class Operations {
         return result;
     }
 
-    static int calculateUseStream(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculateUseStream(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
         if (nums == null) {
             throw new IllegalArgumentException("nums is null");
         }
@@ -28,19 +28,19 @@ public class Operations {
         return nums.stream().reduce(calculator::calculate).get();
     }
 
-    static int sum(List<Integer> nums) {
+    public static int sum(List<Integer> nums) {
         return calculate(nums, Integer::sum);
     }
 
-    static int sumUseStream(List<Integer> nums) {
+    public static int sumUseStream(List<Integer> nums) {
         return calculateUseStream(nums, Integer::sum);
     }
 
-    static int product(List<Integer> nums) {
+    public static int product(List<Integer> nums) {
         return calculate(nums, (val1, val2) -> val1 * val2);
     }
 
-    static int productUseStream(List<Integer> nums) {
+    public static int productUseStream(List<Integer> nums) {
         return calculateUseStream(nums, (val1, val2) -> val1 * val2);
     }
 }
