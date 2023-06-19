@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Method {
     public static int calculate(List<Integer> nums, Calculator calculator) {
-        if (nums.isEmpty() || nums == null) {
+        if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("List cannot be empty!");
         }
 
