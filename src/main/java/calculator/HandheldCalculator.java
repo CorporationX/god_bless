@@ -5,7 +5,7 @@ import java.util.List;
 public class HandheldCalculator {
     public static int calculate(List<Integer> nums, Calculator calculator) {
         if (nums.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Was got empty list");
         }
 
         int result = nums.get(0);
