@@ -30,6 +30,7 @@ public class Application {
         };
 
         return matrixJoiner.join(table);
+
     }
 
 }
