@@ -22,8 +22,10 @@ public class User {
         for (User user : userList) {
             Set<String> userActivity = user.getActivitySet();
             for (String activity : userActivity) {
-                if (activitySet.contains(activity))
+                if (activitySet.contains(activity)) {
                     map.put(user, activity);
+                    break;
+                }
             }
         }
 
