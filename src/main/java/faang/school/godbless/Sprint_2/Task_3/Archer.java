@@ -1,19 +1,18 @@
-package faang.school.godbless;
+package faang.school.godbless.Sprint_2.Task_3;
 
-public class Warrior extends Character {
-
-    public Warrior(String name) {
-        super(name, 10, 5 ,3);
+public class Archer extends Character {
+    public Archer(String name) {
+        super(name, 3, 10, 5);
     }
 
     @Override
     public void attack(Character character) {
-        character.health -= this.strength;
+        character.health -= this.agility;
     }
 
     @Override
     public String toString() {
-        return "Warrior{" +
+        return "Archer{" +
                 "name='" + name + '\'' +
                 ", strength=" + strength +
                 ", agility=" + agility +

@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Sprint_2.Task_3;
 
 public abstract class Character {
     protected String name;

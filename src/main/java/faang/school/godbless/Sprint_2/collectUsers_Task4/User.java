@@ -1,4 +1,4 @@
-package faang.school.godbless.collectUsers_Task4;
+package faang.school.godbless.Sprint_2.collectUsers_Task4;
 
 import lombok.Getter;
 
