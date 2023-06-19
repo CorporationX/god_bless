@@ -14,6 +14,7 @@ public class SpellCaster {
     }
     public static void cast(String nameSpell, SpellAction spellAction) {
         String result = spellAction.Spell(nameSpell);
+        System.out.println(spellAction.Spell(nameSpell));
     }
 
 }
