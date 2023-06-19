@@ -1,9 +1,8 @@
 package Sprint_3_Task2;
 
 public class SpellCaster {
-    void cast(String s,SpellAction spellAction){
-        System.out.println(spellAction.spellAction(s,));
-
+    void cast(String spell,SpellAction spellAction){
+        System.out.println(spellAction.spellAction(spell));
     }
 
     public static void main(String[] args) {
