@@ -1,23 +1,21 @@
-package faang.school.godbless;
+package task4;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     public int id;
     public String name;
     public int age;
-    public List<String> actions;
+    public Set<String> actions;
 
-    public Map<String, String> findHobbyLovers(List<String> listOfUsers, List<String> overallActions) {
-        listOfUsers = new ArrayList<String>();
-        overallActions = new ArrayList<String>();
+    public Map<User, String> findHobbyLovers(List<User> listOfUsers,
+                                             Set<String> overallActions) {
+        //listOfUsers = new ArrayList<String>();
+        //overallActions = new ArrayList<String>();
         // overallActions - большой общий list с активностями
         // а у каждого user есть свой (list) actions  его обственными активностями
-        Map<String, String> map = new HashMap<>();
-        for (String user : listOfUsers) {
+        Map<User, String> map = new HashMap<>();
+        for (User user : listOfUsers) {
             for (String userAction : actions) {
                 if (overallActions.contains(userAction))
                     map.putIfAbsent(user, userAction);
