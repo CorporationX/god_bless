@@ -8,10 +8,11 @@ import java.util.stream.Collectors;
 
 public class CSVHandler {
     private final static String SEPARATOR = ", ";
+    private final static String NEW_LINE = "\n";
 
     public static String toCsv(List<List<String>> table) {
         if (table.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Was got empty list");
         }
         VectorJoiner<String> vector = (list) -> list.stream().
                 map(String::toString).
@@ -19,7 +20,7 @@ public class CSVHandler {
 
         MatrixJoiner<String> matrix = (list) -> list.stream()
                 .map(vector::join)
-                .collect(Collectors.joining("\n"));
+                .collect(Collectors.joining(NEW_LINE));
         return matrix.join(table);
     }
 }
