@@ -2,6 +2,6 @@ package faang.school.godbless.calculator;
 
 @FunctionalInterface
 public interface Calculator {
-    int calculator(int a, int b);
+    int calculate(int a, int b);
 }
 
