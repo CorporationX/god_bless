@@ -1,11 +1,10 @@
 package faang.school.godbless.calculator;
 
 import java.util.List;
-import java.awt.*;
 
-public class CalculatorRealize {
+public class CalculatorRealization {
     public static int calculate(List<Integer> nums, Calculator calculator) {
-        if(nums.isEmpty()) {
+        if(nums.isEmpty() || nums == null) {
             throw new IllegalArgumentException("List is empty");
         }
         int result = nums.get(0);
