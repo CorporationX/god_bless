@@ -19,10 +19,10 @@ public class TestUser {
         List<User> testUser = new ArrayList<>();
         Set<String> activities = new HashSet<>();
 
-        User nikita = new User(1, "John", 25, activities);
-        User anna = new User(2, "Alice", 30, activities);
-        User sofia = new User(3, "Bob", 20, activities);
-        User maksim = new User(4, "Emily", 28, activities);
+        User nikita = new User(1, "Nikita", 25, activities);
+        User anna = new User(2, "Anna", 30, activities);
+        User sofia = new User(3, "Sofia", 20, activities);
+        User maksim = new User(4, "Maksim", 28, activities);
 
         testUser.add(nikita);
         testUser.add(anna);
