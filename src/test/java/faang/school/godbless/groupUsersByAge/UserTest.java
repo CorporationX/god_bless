@@ -1,5 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.groupUsersByAge;
 
+import faang.school.godbless.groupUsersByAge.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
