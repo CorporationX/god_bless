@@ -23,11 +23,14 @@ public class Main {
             }
             StringBuilder stringBuilder = new StringBuilder();
             vector.forEach(e -> stringBuilder.append(e).append(", "));
-            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length() - 1);
+            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
             return stringBuilder.toString();
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
+            if (matrix.isEmpty()) {
+                throw new IllegalArgumentException("Empty list");
+            }
             StringBuilder stringBuilder = new StringBuilder();
             matrix.forEach(e -> stringBuilder.append(vectorJoiner.join(e)).append("\n"));
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
