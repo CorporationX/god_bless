@@ -16,10 +16,7 @@ public class CSV {
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
             for (List<String> vector : matrix) {
-                if (vector == null) {
-                    throw new NullPointerException("Список(внутренний) не может быть null!");
-                }
-                if (table.isEmpty()) {
+                if (vector.isEmpty()) {
                     throw new IllegalArgumentException("Список(внутренний) не может быть пустым!");
                 }
 

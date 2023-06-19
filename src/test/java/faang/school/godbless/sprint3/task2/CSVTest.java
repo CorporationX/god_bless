@@ -38,4 +38,17 @@ class CSVTest {
     void testListNull() {
         assertThrows(NullPointerException.class, () -> CSV.toCsv(null));
     }
+
+    @Test
+    void testVectorEmpty() {
+        assertThrows(IllegalArgumentException.class, () -> CSV.toCsv(List.of(List.of())));
+    }
+    @Test
+    void testVectorNull() {
+        List<List<String>> matrix = new ArrayList<>();
+        matrix.add(List.of("1"));
+        matrix.add(null);
+        matrix.add(List.of("1"));
+        assertThrows(IllegalArgumentException.class, () -> CSV.toCsv(List.of(List.of())));
+    }
 }
