@@ -12,7 +12,10 @@ public class Main {
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
         if (nums == null) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Список не должен быть null!");
+        }
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("Список не должен быть пустым!");
         }
 
         int result = nums.get(0);

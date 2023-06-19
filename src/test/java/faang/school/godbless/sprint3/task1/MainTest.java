@@ -2,6 +2,7 @@ package faang.school.godbless.sprint3.task1;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,5 +30,10 @@ class MainTest {
     @Test
     void testCalculateNullList() {
         assertThrows(IllegalArgumentException.class, () -> Main.sum(null));
+    }
+
+    @Test
+    void testCalculateEmptyList() {
+        assertThrows(IllegalArgumentException.class, () -> Main.sum(new ArrayList<>()));
     }
 }
