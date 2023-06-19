@@ -2,10 +2,7 @@ package faang.school.godbless.calculator;
 
 import java.util.List;
 
-public final class ArithmeticOperations {
-
-    private ArithmeticOperations() {
-    }
+public class ArithmeticOperations {
 
     public static int calculate(List<Integer> nums, Calculator calculator) {
         listValidation(nums);
