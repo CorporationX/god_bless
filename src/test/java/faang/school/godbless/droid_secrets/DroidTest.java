@@ -18,6 +18,8 @@ class DroidTest {
     }
 
     @Test
+//    Здесь я решил затестить именно вывод в консоль, так как метод выполняет вывод в консоль.
+//    Такие тесты стоит делать или для более удобного теста можно переделать метод, чтобы он возвращал строку?
     void testReceiveEncryptedMessage() {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
