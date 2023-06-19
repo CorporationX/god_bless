@@ -30,6 +30,18 @@ class SpellCasterTest {
         SpellCaster spellCaster = new SpellCaster();
         spellCaster.cast("Alohomora", (spell) -> "The door is unlocked by " + spell);
 
-        assertEquals(expected, originalOut.toString());
+        assertEquals(expected, outContent.toString());
+    }
+
+    @Test
+    void testValidationIsBlank() {
+        SpellCaster spellCaster = new SpellCaster();
+        assertThrows(IllegalArgumentException.class, () -> spellCaster.cast(" ", (spell) -> "The door is unlocked by " + spell));
+    }
+
+    @Test
+    void testValidationIsNull() {
+        SpellCaster spellCaster = new SpellCaster();
+        assertThrows(NullPointerException.class, () -> spellCaster.cast(null, (spell) -> "The door is unlocked by " + spell));
     }
 }
