@@ -1,7 +1,9 @@
 package task4;
 
-import java.util.*;
+import lombok.Data;
 
+import java.util.*;
+@Data
 public class User {
     public int id;
     public String name;
@@ -16,7 +18,7 @@ public class User {
         // а у каждого user есть свой (list) actions  его обственными активностями
         Map<User, String> map = new HashMap<>();
         for (User user : listOfUsers) {
-            for (String userAction : actions) {
+            for (String userAction : user.getActions()) {
                 if (overallActions.contains(userAction))
                     map.putIfAbsent(user, userAction);
             }
