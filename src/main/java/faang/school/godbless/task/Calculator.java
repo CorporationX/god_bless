@@ -1,2 +1,6 @@
-package faang.school.godbless.task;public class Calculator {
+package faang.school.godbless.task;
+
+@FunctionalInterface
+public interface Calculator {
+    int calc(int a, int b);
 }
