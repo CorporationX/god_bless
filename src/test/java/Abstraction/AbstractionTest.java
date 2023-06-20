@@ -1,5 +1,7 @@
-import faang.school.godbless.Archer;
-import faang.school.godbless.Warrior;
+package Abstraction;
+
+import faang.school.godbless.Abstraction.Archer;
+import faang.school.godbless.Abstraction.Warrior;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
