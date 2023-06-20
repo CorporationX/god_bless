@@ -42,6 +42,6 @@ class SpellCasterTest {
     @Test
     void testValidationIsNull() {
         SpellCaster spellCaster = new SpellCaster();
-        assertThrows(NullPointerException.class, () -> spellCaster.cast(null, (spell) -> "The door is unlocked by " + spell));
+        assertThrows(IllegalArgumentException.class, () -> spellCaster.cast(null, (spell) -> "The door is unlocked by " + spell));
     }
 }
