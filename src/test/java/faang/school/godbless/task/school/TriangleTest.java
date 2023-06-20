@@ -22,4 +22,10 @@ class TriangleTest {
         exception = assertThrows(IllegalArgumentException.class, () -> Triangle.triangleArea(2.0, -0.01, 4.0));
         assertEquals(Triangle.EXCEPTION_MESSAGE, exception.getMessage());
     }
+
+    @Test
+    void triangleArea_setInvalidSideSizes() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> Triangle.triangleArea(1.0, 2.0, 50.0));
+        assertEquals(Triangle.EXCEPTION_MESSAGE, exception.getMessage());
+    }
 }
