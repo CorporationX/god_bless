@@ -8,11 +8,18 @@ import java.util.function.Predicate;
 public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
+        validateCharacter(character);
+        validateItem(item);
+        validateConsumer(consumer);
+
         character.getInventory().add(item);
         consumer.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
+        validateCharacter(character);
+        validatePredicate(predicate);
+
         List<Item> inventory = character.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             if (predicate.test(inventory.get(i))) {
@@ -23,6 +30,10 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+        validateCharacter(character);
+        validatePredicate(predicate);
+        validateFunction(function);
+
         List<Item> inventory = character.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             if (predicate.test(inventory.get(i))) {
@@ -34,22 +45,33 @@ public class InventoryManager {
         }
     }
 
-    public static void main(String[] args) {
-        Character frodo = new Character("Frodo");
-        Item ring = new Item("The One Ring", 1000);
+    public void validateCharacter(Character character) {
+        if (character == null) {
+            throw new NullPointerException("Character не может быть null");
+        }
+    }
 
-        InventoryManager manager = new InventoryManager();
+    public void validateItem(Item item) {
+        if (item == null) {
+            throw new NullPointerException("Item не может быть null");
+        }
+    }
 
-// Добавляем предмет в инвентарь
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
+    public void validateConsumer(Consumer<Item> consumer) {
+        if (consumer == null) {
+            throw new NullPointerException("Consumer не может быть null");
+        }
+    }
 
-// Удаляем предмет из инвентаря
-        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+    public void validatePredicate(Predicate<Item> predicate) {
+        if (predicate == null) {
+            throw new NullPointerException("Predicate не может быть null");
+        }
+    }
 
-// Добавляем предмет в инвентарь
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
-
-// Обновляем предмет в инвентаре
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+    public void validateFunction(Function<Item, Item> function) {
+        if (function == null) {
+            throw new NullPointerException("Function не может быть null");
+        }
     }
 }
