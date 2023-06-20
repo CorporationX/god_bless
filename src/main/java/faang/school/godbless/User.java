@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-
 import java.util.*;
 
 public class User {
