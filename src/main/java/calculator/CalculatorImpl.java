@@ -3,7 +3,7 @@ package calculator;
 import java.util.List;
 
 public class CalculatorImpl {
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
         if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("The list of numbers is empty");
         }
@@ -18,21 +18,11 @@ public class CalculatorImpl {
 
     public static int product(List<Integer> nums) {
         Calculator<Integer> multiplication = (a, b) -> a * b;
-        try {
-            return calculate(nums, multiplication);
-        } catch (IllegalArgumentException e) {
-            System.out.println("List of numbers is empty");
-            return 0;
-        }
+        return calculate(nums, multiplication);
     }
 
     public static int sum(List<Integer> nums) {
         Calculator<Integer> addition = Integer::sum;
-        try {
-            return calculate(nums, addition);
-        } catch (IllegalArgumentException e) {
-            System.out.println("List of numbers is empty");
-            return 0;
-        }
+        return calculate(nums, addition);
     }
 }

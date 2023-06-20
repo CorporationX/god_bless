@@ -4,48 +4,53 @@ import calculator.CalculatorImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class CalculatorTest {
-
     @Test
-    public void testProduct() {
-        List<Integer> numbers = List.of(2, 3, 4, 5);
+    public void testProduct_WithNonEmptyList_ShouldCalculateProduct() {
+        // Given
+        List<Integer> nums = Arrays.asList(2, 3, 4);
 
-        int expectedResult = 2 * 3 * 4 * 5;
-        int actualResult = CalculatorImpl.product(numbers);
+        // When
+        int result = CalculatorImpl.product(nums);
 
-        Assertions.assertEquals(expectedResult, actualResult);
+        // Then
+        int expected = 2 * 3 * 4;
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    public void testProductWithEmptyList() {
-        List<Integer> numbers = Collections.emptyList();
+    public void testProduct_WithEmptyList_ShouldThrowIllegalArgumentException() {
+        // Given
+        List<Integer> nums = Collections.emptyList();
 
-        int expectedResult = 0;
-        int actualResult = CalculatorImpl.product(numbers);
+        // When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> CalculatorImpl.product(nums));
+    }
 
-        Assertions.assertEquals(expectedResult, actualResult);
+
+    @Test
+    public void testSum_WithNonEmptyList_ShouldCalculateSum() {
+        // Given
+        List<Integer> nums = Arrays.asList(1, 2, 3);
+
+        // When
+        int result = CalculatorImpl.sum(nums);
+
+        // Then
+        int expected = 1 + 2 + 3;
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    public void testSum() {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+    public void testSum_WithEmptyList_ShouldThrowIllegalArgumentException() {
+        // Given
+        List<Integer> nums = Collections.emptyList();
 
-        int expectedResult = 1 + 2 + 3 + 4 + 5;
-        int actualResult = CalculatorImpl.sum(numbers);
-
-        Assertions.assertEquals(expectedResult, actualResult);
-    }
-
-    @Test
-    public void testSumWithEmptyList() {
-        List<Integer> numbers = Collections.emptyList();
-
-        int expectedResult = 0;
-        int actualResult = CalculatorImpl.sum(numbers);
-
-        Assertions.assertEquals(expectedResult,actualResult);
+        // When
+        Assertions.assertThrows(IllegalArgumentException.class, () -> CalculatorImpl.sum(nums));
     }
 }
