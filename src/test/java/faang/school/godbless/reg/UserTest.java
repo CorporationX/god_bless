@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import faang.school.godbless.Sprint_2.Task_1_2.reg.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

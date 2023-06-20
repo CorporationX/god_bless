@@ -1,4 +1,4 @@
-package faang.school.godbless.hogwarts;
+package faang.school.godbless.Sprint_3.hogwarts;
 
 public class Application {
     public static void main(String... args) {
