@@ -4,10 +4,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class Application {
+public class App {
     public static void main(String... args) {
-        int x = calculate(List.of(1, 2, 3, 4, 5), Application::sum);
-        int y = calculate(List.of(5, 5, 8), Application::power);
+        int x = calculate(List.of(1, 2, 3, 4, 5), App::sum);
+        int y = calculate(List.of(5, 5, 8), App::power);
 
         System.out.println("Сумма: " + x);
         System.out.println("Произведение: " + y);
