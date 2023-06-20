@@ -4,7 +4,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class Application implements Calculator<Integer> {
+public class Application {
     public static void main(String... args) {
         int x = calculate(List.of(1, 2, 3, 4, 5), Application::sum);
         int y = calculate(List.of(5, 5, 8), Application::power);
@@ -23,10 +23,5 @@ public class Application implements Calculator<Integer> {
 
     public static int sum(@NotNull List<Integer> nums) {
         return nums.stream().mapToInt(Integer::intValue).sum();
-    }
-
-    @Override
-    public Integer calculate(List<Integer> nums) {
-        return null;
     }
 }
