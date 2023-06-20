@@ -1,18 +1,29 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Hogwarts.SpellCaster;
+import faang.school.godbless.FilteringSpam.MessageFilter;
+import faang.school.godbless.FilteringSpam.MessageProcessor;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
     public static void main(String... args) {
 
-        SpellCaster spellCaster = new SpellCaster();
+        MessageProcessor messageProcessor = new MessageProcessor();
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+// Создание фильтров
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
+        MessageFilter lengthFilter = message -> message.length() <= 10;
+        MessageFilter emojiFilter = message -> !message.contains("😀");
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+        List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
+
+// Обработка сообщений
+        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
+
+        for (String message : messages) {
+            boolean isFiltered = messageProcessor.processMessage(message, filters);
+            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
+        }
     }
 }
