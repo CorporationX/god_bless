@@ -12,15 +12,9 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (!(notifications.containsKey(notification.getType()))){
-            throw new IllegalArgumentException("Message");
+        if (!(notifications.containsKey(notification.getType()))) {
+            throw new IllegalArgumentException("The service does not provide for processing by " + notification.getType());
         }
         notifications.get(notification.getType()).accept(notification);
-//        if (notifications.containsKey(notification.getType())) {
-//            notifications.get(notification.getType()).accept(notification);
-//        } else {
-//            System.out.println("Message");
-//        }
     }
-
 }

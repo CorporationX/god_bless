@@ -9,8 +9,8 @@ public class Main {
                 System.out.println("Отправка по электронной почте: " + notification.getMessage()));
         notificationManager.registerHandler("sms", (notification) ->
                 System.out.println("Отправка SMS: " + notification.getMessage()));
-//        notificationManager.registerHandler("push", (notification) ->
-//                System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler("push", (notification) ->
+                System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
 // Отправка оповещений
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
@@ -20,6 +20,5 @@ public class Main {
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
-
     }
 }
