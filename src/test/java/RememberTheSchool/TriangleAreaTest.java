@@ -1,3 +1,5 @@
+package RememberTheSchool;
+
 import org.junit.jupiter.api.Test;
 
 import static faang.school.godbless.RememberTheSchool.Application.triangleArea;
