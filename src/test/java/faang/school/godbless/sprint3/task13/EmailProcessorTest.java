@@ -33,24 +33,25 @@ class EmailProcessorTest {
     @Test
     void testProcessEmails() {
         EmailProcessor emailProcessor = new EmailProcessor();
-        String expected = "false\r\n" +
-                "Обработано письмо: Письмо 1\r\n" +
-                "ТЕКСТ ПИСЬМА 1\r\n";
+        String expected = "Обработано письмо: Письмо 1\r\n";
+        String expectedBody = "ТЕКСТ ПИСЬМА 1";
 
 // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false)
+                new Email("Письмо 1", "Текст письма 1", true)
         );
 
 // Создание фильтров, обработчиков и преобразователей
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Predicate<Email> importantFilter = Email::isImportant;
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+
 
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         assertEquals(expected, outContent.toString());
+        assertEquals(expectedBody, emails.get(0).getBody());
     }
 
     @Test

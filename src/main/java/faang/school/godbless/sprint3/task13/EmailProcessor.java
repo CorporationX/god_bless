@@ -10,15 +10,16 @@ public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> predicate,
                               Consumer<Email> consumer, Function<Email, String> function) {
         if (emails.isEmpty()) {
-            throw new NullPointerException("Список не может быть пустым!");
+            throw new IllegalArgumentException("Список не может быть пустым!");
         }
         if (consumer == null || predicate == null || function == null) {
             throw new NullPointerException("Функциональные интерфейсы не могут быть пустыми!");
         }
         for (Email email : emails) {
-            System.out.println(predicate.test(email));
-            consumer.accept(email);
-            System.out.println(function.apply(email));
+            if (predicate.test(email)) {
+                email.setBody(function.apply(email));
+                consumer.accept(email);
+            }
         }
     }
 }
