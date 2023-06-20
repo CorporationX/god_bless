@@ -11,7 +11,7 @@ public interface Calculator<U> {
             throw new IllegalArgumentException("No nums in the list");
         }
         int result = nums.stream()
-                .reduce(identity,calculator::calculate);
+                .reduce(identity, calculator::calculate);
         return result;
     }
 

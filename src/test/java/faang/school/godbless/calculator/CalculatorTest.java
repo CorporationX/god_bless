@@ -23,7 +23,7 @@ public class CalculatorTest {
     }
 
     @Test
-    void multipyTest(){
+    void multiplyTest(){
         int expected = 12;
         int actual = Calculator.multiply(nums);
 
