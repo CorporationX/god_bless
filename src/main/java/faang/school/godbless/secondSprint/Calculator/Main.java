@@ -37,7 +37,7 @@ public class Main {
     }
 
     @FunctionalInterface
-    public interface Calculator<T> {
+    public interface Calculator<T extends Number> {
         T doOperation(T a, T b);
     }
 }
