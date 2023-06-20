@@ -9,7 +9,7 @@ public class MessageProcessor {
         validateFiltersList(messageFilters);
 
         for (MessageFilter messageFilter : messageFilters) {
-            messageFilter.filter(message);
+           return messageFilter.filter(message);
         }
 
         return true;
