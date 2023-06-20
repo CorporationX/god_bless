@@ -8,18 +8,18 @@ import java.util.function.Consumer;
 
 @Data
 public class NotificationManager {
-    Map<String, Consumer<Notification>> map = new HashMap<>();
+    Map<String, Consumer<Notification>> handlers = new HashMap<>();
 
-    public void registerHandler(String s, Consumer<Notification> consumer) {
-        map.put(s, consumer);
+    public void registerHandler(String alertID, Consumer<Notification> consumer) {
+        handlers.put(alertID, consumer);
     }
 
     public void sendNotification(Notification notification) {
-        if (map.isEmpty() || map.containsKey(notification.getType())){
-        Consumer<Notification> consumer = map.get(notification.getType());
+        Consumer<Notification> consumer = handlers.get(notification.getType());
+        if (consumer != null){
         consumer.accept(notification);
         }else
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Handler not found for required notification type");
     }
 
     public static void main(String[] args) {
