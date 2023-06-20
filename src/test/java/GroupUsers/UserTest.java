@@ -1,11 +1,12 @@
-package faang.school.godbless;
+package GroupUsers;
 
+import faang.school.godbless.GroupUsers.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
 
-import static faang.school.godbless.User.groupUsers;
+import static faang.school.godbless.GroupUsers.User.groupUsers;
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
