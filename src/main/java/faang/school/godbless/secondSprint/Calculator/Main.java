@@ -7,28 +7,37 @@ public class Main {
     public static void main(String[] args) {
     }
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
-        if (nums.isEmpty()) {
+    public static <T extends Number> T calculate(List<T> nums, Calculator<T> calculator)
+            throws IllegalArgumentException {
+        if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("Empty list");
         }
 
-        int result = nums.get(0);
+        T result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.doOperation(result, nums.get(i));
         }
         return result;
     }
 
-    public static int product(List<Integer> nums) {
+    public static int productInt(List<Integer> nums) {
         return calculate(nums, (a, b) -> a * b);
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a + b);
+    public static double productDouble(List<Double> nums) {
+        return calculate(nums, (a, b) -> a * b);
+    }
+
+    public static int sumInt(List<Integer> nums) {
+        return calculate(nums, Integer::sum);
+    }
+
+    public static double sumDouble(List<Double> nums) {
+        return calculate(nums, Double::sum);
     }
 
     @FunctionalInterface
-    public interface Calculator<T> {
+    public interface Calculator<T extends Number> {
         T doOperation(T a, T b);
     }
 }
