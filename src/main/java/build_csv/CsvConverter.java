@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class CsvConverter {
 
-    public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
+    public static String toCsv(List<List<String>> table) {
         if (table == null || table.isEmpty()) {
             throw new IllegalArgumentException("Table cannot be null or empty.");
         }
