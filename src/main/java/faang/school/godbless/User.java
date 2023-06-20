@@ -12,15 +12,17 @@ public class User {
         return age;
     }
 
-    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_WORKING_AGE = 18;
 
     public User(String name, int age, String workplace, String address) {
 
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Поле Имя не может быть пустым");
         }
-        if (age < 18) {
+        if (age < MIN_WORKING_AGE) {
+
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
         if (!VALID_JOBS.contains(workplace)) {
