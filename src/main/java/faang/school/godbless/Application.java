@@ -1,18 +1,26 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Hogwarts.SpellCaster;
+import faang.school.godbless.GoogleTranslator.DictionaryProcessor;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class Application {
     public static void main(String... args) {
 
-        SpellCaster spellCaster = new SpellCaster();
+        DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+// Создание словаря
+        Map<String, String> dictionary = new HashMap<>();
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+// Создание BiConsumer для сохранения слова и его перевода в словарь
+        BiConsumer<String, String> addWordToDictionary = (word, translation) -> dictionary.put(word, translation);
+
+// Добавление слов и их переводов
+        dictionaryProcessor.processWord("привет", "hello", addWordToDictionary);
+        dictionaryProcessor.processWord("мир", "world", addWordToDictionary);
+        dictionaryProcessor.processWord("программирование", "programming", addWordToDictionary);
+
+        System.out.println("Словарь: " + dictionary);
     }
 }
