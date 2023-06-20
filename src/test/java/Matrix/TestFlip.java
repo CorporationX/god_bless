@@ -1,7 +1,9 @@
-import faang.school.godbless.FlipDirection;
+package Matrix;
+
+import faang.school.godbless.Matrix.FlipDirection;
 import org.junit.jupiter.api.Test;
 
-import static faang.school.godbless.Application.flipMatrix;
+import static faang.school.godbless.Matrix.Application.flipMatrix;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TestFlip {
