@@ -69,4 +69,24 @@ class LocationSearchEngineTest {
 
         assertArrayEquals(expected.toArray(), actual.toArray());
     }
+
+    @Test
+    void testValidationFilterLocations() {
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.filterLocations(null, null));
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.filterLocations(locations, null));
+    }
+
+    @Test
+    void testValidationProcessLocations() {
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.processLocations(null, null));
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.processLocations(locations, null));
+    }
+
+    @Test
+    void testValidationCalculateDistances() {
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.calculateDistances(null, null));
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.calculateDistances(locations, null));
+        locations.add(null);
+        assertThrows(IllegalArgumentException.class, () -> searchEngine.calculateDistances(locations, null));
+    }
 }
