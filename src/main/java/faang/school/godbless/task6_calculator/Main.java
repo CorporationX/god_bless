@@ -11,8 +11,8 @@ public class Main {
     }
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
-        if (nums.isEmpty()) {
-            throw new IllegalArgumentException("empty");
+        if (nums.isEmpty() || nums==null) {
+            throw new IllegalArgumentException("List is null or empty");
         }
 
         int res = nums.get(0);
@@ -23,10 +23,18 @@ public class Main {
     }
 
     public static int sum(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a + b);
+        try {
+            return calculate(nums, (a, b) -> a + b);
+        } catch (IllegalArgumentException e){
+            return 0;
+        }
     }
 
     public static int product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
+        try {
+            return calculate(nums, (a, b) -> a * b);
+        } catch (IllegalArgumentException e){
+            return 0;
+        }
     }
 }
