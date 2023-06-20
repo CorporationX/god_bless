@@ -15,6 +15,5 @@ public class Main {
         dictionaryProcessor.processWord("пока", "bye", biConsumer);
 
         System.out.println("Словарь: " + dictionary);
-
     }
 }

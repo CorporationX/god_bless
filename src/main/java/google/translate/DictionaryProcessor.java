@@ -6,6 +6,7 @@ import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 
 public class DictionaryProcessor {
+
     public void processWord(String word, String translation, BiConsumer<String, String> dictionary) {
         dictionary.accept(word, translation);
     }
