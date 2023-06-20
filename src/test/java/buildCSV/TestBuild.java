@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 import java.util.List;
 
-public class testBuild {
+public class TestBuild {
     @Test
     public void shouldReturnCorrectString() {
-        String actualString = buildCSV.toCsv(
+        String actualString = CsvBuilder.toCsv(
                 List.of(
                         List.of("1", "2", "3", "4", "5"),
                         List.of("6", "7", "8", "9", "10"),
@@ -25,6 +25,6 @@ public class testBuild {
 
     @Test
     public void shouldThrowException() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> buildCSV.toCsv(new LinkedList<>()));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> CsvBuilder.toCsv(new LinkedList<>()));
     }
 }

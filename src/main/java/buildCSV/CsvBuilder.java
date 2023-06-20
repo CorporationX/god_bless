@@ -3,11 +3,11 @@ package buildCSV;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
-public class buildCSV {
-    public static final String SEPARATOR = ", ";
+public class CsvBuilder {
+    private static final String SEPARATOR = ", ";
+    private static final String NEXT_LINE = "\n";
 
     public static String toCsv(@NotNull List<List<String>> table) throws IllegalArgumentException {
         if (table.isEmpty()) {
@@ -17,14 +17,9 @@ public class buildCSV {
                 .map(String::toString)
                 .collect(Collectors.joining(SEPARATOR));
 
-        MatrixJoiner<String> matrix = (list) -> {
-            StringJoiner joiner = new StringJoiner("\n");
-            for (List<String> strings : list) {
-                String join = vector.join(strings);
-                joiner.add(join);
-            }
-            return joiner.toString();
-        };
-        return  matrix.join(table);
+        MatrixJoiner<String> matrix = (list) -> list.stream()
+                .map(vector::join)
+                .collect(Collectors.joining(NEXT_LINE));
+        return matrix.join(table);
     }
 }
