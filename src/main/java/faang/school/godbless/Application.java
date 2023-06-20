@@ -1,18 +1,31 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Hogwarts.SpellCaster;
+import faang.school.godbless.GmailRichFilters.Email;
+import faang.school.godbless.GmailRichFilters.EmailProcessor;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Application {
     public static void main(String... args) {
 
-        SpellCaster spellCaster = new SpellCaster();
+        EmailProcessor emailProcessor = new EmailProcessor();
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+// Создание списка входящих писем
+        List<Email> emails = Arrays.asList(
+                new Email("Письмо 1", "Текст письма 1", false),
+                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Спам", "Текст спама", false)
+        );
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+// Создание фильтров, обработчиков и преобразователей
+        Predicate<Email> importantFilter = email -> email.isImportant();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+
+// Обработка писем
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 }
