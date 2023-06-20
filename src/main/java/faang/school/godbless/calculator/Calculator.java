@@ -6,7 +6,7 @@ import java.util.List;
 public interface Calculator<U> {
     U calculate (U firstNum, U secondNum);
 
-    public static int calculate(List<Integer> nums, int identity, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> nums, int identity, Calculator<Integer> calculator) {
         if (nums.isEmpty()){
             throw new IllegalArgumentException("No nums in the list");
         }
@@ -16,8 +16,7 @@ public interface Calculator<U> {
     }
 
     public static int sum(List<Integer> nums) {
-        int result = calculate(nums, 0, (a, b) -> a + b);
-        return result;
+        return calculate(nums, 0, (a, b) -> a + b);
     }
 
     public static int multiply(List<Integer> nums) {
