@@ -2,6 +2,6 @@ package Calculator;
 
 import java.util.List;
 
-public interface Calculator<T> {
+public interface Calc<T> {
     T calculate(List<Integer> nums);
 }

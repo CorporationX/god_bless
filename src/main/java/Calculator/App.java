@@ -13,7 +13,7 @@ public class App {
         System.out.println("Произведение: " + y);
     }
 
-    public static int calculate(List<Integer> nums, @NotNull Calculator<Integer> calculator) {
+    public static int calculate(List<Integer> nums, @NotNull Calc<Integer> calculator) {
         return calculator.calculate(nums);
     }
 
