@@ -19,8 +19,10 @@ class MainTest {
 
     @Test
     public void testTriangleAreaThrowExc() {
-        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(0, 2 , 3));
-        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(1, -2 , 3));
-        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(1, 2 , 0));
+        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(0, 2, 3));
+        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(1, -2, 3));
+        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(1, 2, 0));
+        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(3, 2, 1));
+        assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(5, 8, 2));
     }
 }

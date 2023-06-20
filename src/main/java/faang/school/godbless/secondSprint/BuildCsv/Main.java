@@ -16,18 +16,25 @@ public class Main {
     }
 
     public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
-
         VectorJoiner<String> vectorJoiner = vector -> {
-            if (vector.isEmpty()) {
+            if (vector == null || vector.isEmpty()) {
                 throw new IllegalArgumentException("Empty list");
             }
             StringBuilder stringBuilder = new StringBuilder();
-            vector.forEach(e -> stringBuilder.append(e).append(", "));
-            stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length() - 1);
+            for (int i = 0; i < vector.size(); i++) {
+                if (i < vector.size() - 1) {
+                    stringBuilder.append(vector.get(i)).append(", ");
+                } else {
+                    stringBuilder.append(vector.get(i));
+                }
+            }
             return stringBuilder.toString();
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
+            if (matrix == null || matrix.isEmpty()) {
+                throw new IllegalArgumentException("Empty matrix");
+            }
             StringBuilder stringBuilder = new StringBuilder();
             matrix.forEach(e -> stringBuilder.append(vectorJoiner.join(e)).append("\n"));
             stringBuilder.deleteCharAt(stringBuilder.length() - 1);
