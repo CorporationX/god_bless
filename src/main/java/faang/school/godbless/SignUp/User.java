@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.SignUp;
 
 import java.util.List;
 import java.util.Map;
