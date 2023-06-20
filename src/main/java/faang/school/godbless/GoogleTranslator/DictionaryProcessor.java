@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.GoogleTranslator;
 
 import java.util.function.BiConsumer;
 
