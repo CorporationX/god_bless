@@ -1,4 +1,4 @@
-package faang.school.godbless.Hogwarts;
+package faang.school.godbless.hogwarts;
 
 public class SpellCaster {
     public static void main(String[] args) {
@@ -12,8 +12,9 @@ public class SpellCaster {
         spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
         spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
+
     public static void cast(String nameSpell, SpellAction spellAction) {
-        String result = spellAction.Spell(nameSpell);
+        String result = spellAction.spell(nameSpell);
         System.out.println(result);
     }
 
