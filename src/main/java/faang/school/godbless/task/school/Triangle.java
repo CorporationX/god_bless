@@ -5,7 +5,7 @@ import java.util.function.Function;
 public class Triangle {
     public static final String EXCEPTION_MESSAGE = "Invalid size of triangle side";
 
-    public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public static Double triangleArea(double a, double b, double c) {
         if ((a <= 0) || (b <= 0) || (c <= 0)
                 || (a + b <= c) || (a + c <= b) || (b + c <= a)) {
             throw new IllegalArgumentException(EXCEPTION_MESSAGE);
