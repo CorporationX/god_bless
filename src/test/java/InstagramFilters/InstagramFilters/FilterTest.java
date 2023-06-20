@@ -1,5 +1,7 @@
-import faang.school.godbless.FilterProcessor;
-import faang.school.godbless.Image;
+package InstagramFilters.InstagramFilters;
+
+import faang.school.godbless.InstagramFilters.FilterProcessor;
+import faang.school.godbless.InstagramFilters.Image;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;
