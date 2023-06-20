@@ -22,6 +22,9 @@ public class ActionStatistics {
 
         return map.entrySet()
                 .stream()
+                .sorted(Map.Entry.<Integer, List<UserAction>>comparingByValue(
+                        Comparator.comparingInt(List::size))
+                        .reversed())
                 .map(Map.Entry::getKey)
                 .limit(10)
                 .toList();
@@ -42,12 +45,11 @@ public class ActionStatistics {
     }
 
     public List<Integer> getTop3Commenters(List<UserAction> list){
-        ZonedDateTime now = ZonedDateTime.now();
-        ZonedDateTime start = now.minusMonths(1);
-        Instant startInstant = start.toInstant();
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime start = now.minusMonths(1);
         Map<Integer, List<UserAction>> map = list.stream()
                 .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
-                .filter(userAction -> userAction.getActionDate().isAfter(Instant.from(start)))
+                .filter(userAction -> userAction.getActionDate().isAfter(LocalDateTime.from(start)))
                 .collect(Collectors.groupingBy(UserAction::getUserId));
 
         return map.entrySet().stream()

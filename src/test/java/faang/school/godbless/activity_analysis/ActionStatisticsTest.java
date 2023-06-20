@@ -3,8 +3,10 @@ package faang.school.godbless.activity_analysis;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,24 +19,25 @@ public class ActionStatisticsTest {
     void setUp(){
         actionStatistics = new ActionStatistics();
         actionList = new ArrayList<>(List.of(
-                new UserAction(1," ", ActionType.LIKE, Instant.now()),
-                new UserAction(2,"#sport", ActionType.COMMENT, Instant.now()),
-                new UserAction(3,"#sport #film", ActionType.POST, Instant.now()),
-                new UserAction(1,"#sport ", ActionType.SHARE, Instant.now()),
-                new UserAction(2,"#music ", ActionType.COMMENT, Instant.now()),
-                new UserAction(3,"#music ", ActionType.COMMENT, Instant.now()),
-                new UserAction(3,"#books ", ActionType.COMMENT, Instant.now()),
-                new UserAction(1," ", ActionType.LIKE, Instant.now()),
-                new UserAction(2," ", ActionType.COMMENT, Instant.now()),
-                new UserAction(4,"#sport ", ActionType.SHARE, Instant.now()),
-                new UserAction(5,"#music ", ActionType.POST, Instant.now()),
-                new UserAction(6,"#music ", ActionType.POST, Instant.now()),
-                new UserAction(7," ", ActionType.LIKE, Instant.now()),
-                new UserAction(8,"#sport #film", ActionType.POST, Instant.now()),
-                new UserAction(9,"#sport ", ActionType.SHARE, Instant.now()),
-                new UserAction(10,"#music ", ActionType.POST, Instant.now()),
-                new UserAction(11,"#sport ", ActionType.SHARE, Instant.now()),
-                new UserAction(12,"#music ", ActionType.COMMENT, Instant.now())
+                new UserAction(1," ", ActionType.LIKE, LocalDateTime.now()),
+                new UserAction(2,"#sport", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(3,"#sport #film", ActionType.POST, LocalDateTime.now()),
+                new UserAction(1,"#sport ", ActionType.SHARE, LocalDateTime.now()),
+                new UserAction(2,"#music ", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(3,"#music ", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(3,"#books ", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(1," ", ActionType.LIKE, LocalDateTime.now()),
+                new UserAction(2," ", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(4,"#sport ", ActionType.SHARE, LocalDateTime.now()),
+                new UserAction(5,"#music ", ActionType.POST, LocalDateTime.now()),
+                new UserAction(6,"#music ", ActionType.POST, LocalDateTime.now()),
+                new UserAction(7," ", ActionType.LIKE, LocalDateTime.now()),
+                new UserAction(8,"#sport #film", ActionType.POST, LocalDateTime.now()),
+                new UserAction(9,"#sport ", ActionType.SHARE, LocalDateTime.now()),
+                new UserAction(10,"#music ", ActionType.POST, LocalDateTime.now()),
+                new UserAction(11,"#sport ", ActionType.SHARE, LocalDateTime.now()),
+                new UserAction(12,"#music ", ActionType.COMMENT, LocalDateTime.now()),
+                new UserAction(3,"#music ", ActionType.COMMENT, LocalDateTime.now())
                 ));
     }
 
@@ -45,6 +48,8 @@ public class ActionStatisticsTest {
         List<Integer> resultList = actionStatistics.getTop10ActiveUsers(actionList);
 
         assertEquals(expectedListSize, resultList.size());
+        System.out.println(resultList.get(0));
+        assertTrue(resultList.get(0) == 3);
     }
 
     @Test
