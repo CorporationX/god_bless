@@ -1,10 +1,22 @@
-package faang.school.godbless;
+package faang.school.godbless.uber;
+
+import faang.school.godbless.FareCalculator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
 
-public class Application {
-    public static void main(String... args) {
-        FareCalculator fareCalculator = new FareCalculator();
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public class FareCalculatorTest {
+
+    FareCalculator fareCalculator;
+    @BeforeEach
+    public void setUp() {
+        fareCalculator= new FareCalculator();
+    }
+    @Test
+    public void testCalculateFare() {
 
         BiFunction<Double, Double, Double> economyFare = (distance, time) -> 1.0 * distance + 0.5 * time;
         BiFunction<Double, Double, Double> comfortFare = (distance, time) -> 1.5 * distance + 0.8 * time;
@@ -17,8 +29,9 @@ public class Application {
         double comfortTripCost = fareCalculator.calculateFare(distance, time, comfortFare);
         double premiumTripCost = fareCalculator.calculateFare(distance, time, premiumFare);
 
-        System.out.println("Стоимость поездки на тарифе Economy: " + economyTripCost);
-        System.out.println("Стоимость поездки на тарифе Comfort: " + comfortTripCost);
-        System.out.println("Стоимость поездки на тарифе Premium: " + premiumTripCost);
+        assertEquals(17.5, economyTripCost);
+        assertEquals(27.0, comfortTripCost);
+        assertEquals(42.5, premiumTripCost);
     }
+
 }
