@@ -1,4 +1,4 @@
-package faang.school.godbless.SignUp;
+package SignUp;
 
 import faang.school.godbless.SignUp.User;
 import org.junit.jupiter.api.Test;
