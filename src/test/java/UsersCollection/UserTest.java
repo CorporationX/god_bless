@@ -1,12 +1,13 @@
-package faang.school.godbless;
+package UsersCollection;
 
+import faang.school.godbless.UsersCollection.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static faang.school.godbless.User.findHobbyLovers;
+import static faang.school.godbless.UsersCollection.User.findHobbyLovers;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
