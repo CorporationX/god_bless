@@ -1,9 +1,11 @@
+package Calculator;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static faang.school.godbless.Application.product;
-import static faang.school.godbless.Application.sum;
+import static faang.school.godbless.Calculator.Application.product;
+import static faang.school.godbless.Calculator.Application.sum;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
