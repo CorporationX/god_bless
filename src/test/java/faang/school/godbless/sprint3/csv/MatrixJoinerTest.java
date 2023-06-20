@@ -1,5 +1,6 @@
-package sprint3.csv;
+package faang.school.godbless.sprint3.csv;
 
+import faang.school.godbless.sprint3.csv.MatrixJoiner;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;

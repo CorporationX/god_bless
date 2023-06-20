@@ -1,7 +1,7 @@
-package faang.school.godbless.task3;
+package faang.school.godbless.sprint2.task3;
 
-import faang.school.godbless.task3.Archer;
-import faang.school.godbless.task3.Character;
+import faang.school.godbless.sprint2.task3.Archer;
+import faang.school.godbless.sprint2.task3.Character;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

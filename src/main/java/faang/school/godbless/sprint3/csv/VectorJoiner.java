@@ -1,4 +1,4 @@
-package sprint3.csv;
+package faang.school.godbless.sprint3.csv;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

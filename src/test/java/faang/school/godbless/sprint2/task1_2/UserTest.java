@@ -1,5 +1,6 @@
-package faang.school.godbless.task1_2;
+package faang.school.godbless.sprint2.task1_2;
 
+import faang.school.godbless.sprint2.task1_2.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

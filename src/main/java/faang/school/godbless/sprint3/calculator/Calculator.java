@@ -1,6 +1,5 @@
-package faang.school.godbless.sprint3.Calculator;
+package faang.school.godbless.sprint3.calculator;
 
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

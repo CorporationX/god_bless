@@ -1,8 +1,9 @@
-package faang.school.godbless.task3;
+package faang.school.godbless.sprint2.task3;
 
-public class Archer extends Character {
-    public Archer(String name) {
-        super(name, 3, 10, 5);
+public class Warrior extends Character {
+
+    public Warrior(String name) {
+        super(name, 10, 5, 3);
     }
 
     @Override
