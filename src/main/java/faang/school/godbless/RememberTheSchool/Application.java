@@ -1,7 +1,5 @@
-package faang.school.godbless;
+package faang.school.godbless.RememberTheSchool;
 
-import java.util.List;
-import java.util.Objects;
 import java.util.function.Function;
 
 public class Application {

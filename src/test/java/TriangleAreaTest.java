@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.Test;
 
-import static faang.school.godbless.Application.triangleArea;
+import static faang.school.godbless.RememberTheSchool.Application.triangleArea;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TriangleAreaTest {
     @Test
