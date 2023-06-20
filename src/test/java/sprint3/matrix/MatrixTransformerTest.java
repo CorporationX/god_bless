@@ -7,10 +7,9 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class MatrixTransformerTest {
-
     @ParameterizedTest
     @MethodSource("getParams")
     void flipMatrix_arraysShouldMatch(
@@ -30,44 +29,33 @@ class MatrixTransformerTest {
     }
 
     static Stream<Arguments> getParams() {
-        int [][] matrix1 = getMatrix(3, 3);
-        int [][] matrix2 = getMatrix(5, 5);
+        int[][] matrix = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+        int[][] verticalRotatedMatrix = {
+                {7, 8, 9},
+                {4, 5, 6},
+                {1, 2, 3}
+        };
+        int[][] horizontalRotatedMatrix = {
+                {3, 2, 1},
+                {6, 5, 4},
+                {9, 8, 7}
+        };
+
         return Stream.of(
                 Arguments.of(
-                        matrix1,
-                        getRotatedMatrix(matrix1, MatrixTransformer.FlipDirection.VERTICAL),
+                        matrix,
+                        verticalRotatedMatrix,
                         MatrixTransformer.FlipDirection.VERTICAL
                 ),
                 Arguments.of(
-                        matrix2,
-                        getRotatedMatrix(matrix2, MatrixTransformer.FlipDirection.HORIZONTAL),
+                        matrix,
+                        horizontalRotatedMatrix,
                         MatrixTransformer.FlipDirection.HORIZONTAL
                 )
         );
-    }
-
-    static int[][] getMatrix(int x, int y) {
-        int[][] matrix = new int[x][y];
-        int count = 1;
-        for (int i = 0; i < matrix.length; ++i) {
-            for (int j = 0; j < matrix[0].length; ++j) {
-                matrix[i][j] = count++;
-            }
-        }
-        return matrix;
-    }
-
-    static int[][] getRotatedMatrix(int[][] matrix, MatrixTransformer.FlipDirection direction) {
-        int[][] rotatedMatrix = new int[matrix.length][matrix[0].length];
-        for (int i = 0; i < rotatedMatrix.length; ++i) {
-            for (int j = 0; j < rotatedMatrix[0].length; ++j) {
-                if (direction == MatrixTransformer.FlipDirection.VERTICAL) {
-                    rotatedMatrix[i][j] = matrix[matrix.length - 1 - i][j];
-                } else {
-                    rotatedMatrix[i][j] = matrix[i][matrix.length - 1 - j];
-                }
-            }
-        }
-        return rotatedMatrix;
     }
 }
