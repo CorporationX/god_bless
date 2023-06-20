@@ -10,6 +10,11 @@ public class Triangle {
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
+        Double abSum = sum.apply(a).apply(b);
+        if (abSum < c) {
+           throw new IllegalArgumentException("Сумма двух сторон должна быть больше третей");
+        }
+
         //полупериметр
         Double ab = sum.apply(a).apply(b);
         Double abc = sum.apply(ab).apply(c);
