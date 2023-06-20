@@ -1,14 +1,18 @@
 package faang.school.godbless.age_group;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserTest {
-
-    private User user;
-
     @Test
     void groupUsersByAgeTest(){
         List<User> users = List.of(
