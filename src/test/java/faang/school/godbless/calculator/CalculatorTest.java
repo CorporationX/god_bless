@@ -11,10 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
     List<Integer> nums;
+    List<Integer> zeroNums;
 
     @BeforeEach
     public void init() {
         nums = List.of(10, 5, 24);
+        zeroNums = List.of();
     }
 
     @Test

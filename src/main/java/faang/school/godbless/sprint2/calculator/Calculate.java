@@ -5,7 +5,7 @@ import java.util.List;
 public class Calculate {
     public static int calculate(List<Integer> nums, Calculator calculator) {
         if (nums == null || nums.isEmpty()) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("Лист не может быть пустым");
         }
 
         int result = nums.get(0);
@@ -21,7 +21,7 @@ public class Calculate {
     }
 
     public static int product(List<Integer> nums) {
-        return calculate(nums, ((a, b) -> a * b));
+        return calculate(nums, (a, b) -> a * b);
     }
 
 }
