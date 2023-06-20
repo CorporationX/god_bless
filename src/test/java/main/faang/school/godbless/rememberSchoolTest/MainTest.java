@@ -17,7 +17,6 @@ class MainTest {
 
     @Test
     public void testTriangleAreaTrowException() {
-
         assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(-1, 6, 10));
         assertThrows(IllegalArgumentException.class, () -> Main.triangleArea(0, 6, 10));
 
