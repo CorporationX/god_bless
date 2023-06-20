@@ -21,12 +21,7 @@ public class InventoryManager {
         validatePredicate(predicate);
 
         List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            if (predicate.test(inventory.get(i))) {
-                inventory.remove(i);
-                break;
-            }
-        }
+        inventory.removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
@@ -35,25 +30,24 @@ public class InventoryManager {
         validateFunction(function);
 
         List<Item> inventory = character.getInventory();
+
         for (int i = 0; i < inventory.size(); i++) {
             if (predicate.test(inventory.get(i))) {
                 Item item = function.apply(inventory.get(i));
-                inventory.remove(i);
-                character.getInventory().add(item);
-                break;
+                inventory.set(i, item);
             }
         }
     }
 
     public void validateCharacter(Character character) {
         if (character == null) {
-            throw new NullPointerException("Character не может быть null");
+            throw new IllegalArgumentException("Character не может быть null");
         }
     }
 
     public void validateItem(Item item) {
         if (item == null) {
-            throw new NullPointerException("Item не может быть null");
+            throw new IllegalArgumentException("Item не может быть null");
         }
     }
 

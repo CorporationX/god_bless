@@ -68,20 +68,20 @@ class InventoryManagerTest {
 
     @Test
     void testValidationAddItemIsNull() {
-        assertThrows(NullPointerException.class, () -> manager.addItem(null, ring, null));
-        assertThrows(NullPointerException.class, () -> manager.addItem(frodo, null, null));
+        assertThrows(IllegalArgumentException.class, () -> manager.addItem(null, ring, null));
+        assertThrows(IllegalArgumentException.class, () -> manager.addItem(frodo, null, null));
         assertThrows(NullPointerException.class, () -> manager.addItem(frodo, ring, null));
     }
 
     @Test
     void testValidationRemoveItemIsNull() {
-        assertThrows(NullPointerException.class, () -> manager.removeItem(null, null));
+        assertThrows(IllegalArgumentException.class, () -> manager.removeItem(null, null));
         assertThrows(NullPointerException.class, () -> manager.removeItem(frodo, null));
     }
 
     @Test
     void testValidationUpdateItemIsNull() {
-        assertThrows(NullPointerException.class, () -> manager.updateItem(null, null, null));
+        assertThrows(IllegalArgumentException.class, () -> manager.updateItem(null, null, null));
         assertThrows(NullPointerException.class, () -> manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), null));
         assertThrows(NullPointerException.class, () -> manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), null));
     }
