@@ -10,21 +10,27 @@ public class Email {
     private boolean isImportant;
 
     public Email(String subject, String body, boolean isImportant) {
-        validateArgument(subject, "Subject");
-        validateArgument(body, "Body");
+        validateArgument(subject);
+        validateArgument(body);
 
         this.subject = subject;
         this.body = body;
         this.isImportant = isImportant;
     }
 
-    private void validateArgument(String argument, String argumentType) {
+    public void setBody(String body) {
+        validateArgument(body);
+
+        this.body = body;
+    }
+
+    private void validateArgument(String argument) {
         if (argument.isBlank()) {
-            throw new IllegalArgumentException(argumentType + " can't be empty");
+            throw new IllegalArgumentException("Argument can't be empty");
         }
 
         if (argument == null) {
-            throw new IllegalArgumentException(argumentType + " can't be null");
+            throw new IllegalArgumentException("Argument can't be null");
         }
     }
 }

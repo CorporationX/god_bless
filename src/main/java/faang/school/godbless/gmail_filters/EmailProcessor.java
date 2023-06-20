@@ -15,8 +15,9 @@ public class EmailProcessor {
         for (Email email : emails) {
 
             if (filter.test(email)) {
+                String transformedBody = mapper.apply(email);
+                email.setBody(transformedBody);
                 consumer.accept(email);
-                mapper.apply(email);
             }
         }
     }
