@@ -15,11 +15,6 @@ public class Main {
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(dangerous);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
-
         notificationManager.addMessages(notification -> notification.getMessage().contains("бонус"));
 
         notificationManager.checkMessages(emailNotification);
@@ -27,5 +22,9 @@ public class Main {
         notificationManager.checkMessages(smsNotification);
         notificationManager.checkMessages(pushNotification);
 
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(dangerous);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
     }
 }
