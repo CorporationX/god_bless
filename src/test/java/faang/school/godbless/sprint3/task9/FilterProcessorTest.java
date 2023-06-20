@@ -37,19 +37,19 @@ class FilterProcessorTest {
     @Test
     void testApplyFilterValidationImageIsNull() {
         FilterProcessor filterProcessor = new FilterProcessor();
-        assertThrows(NullPointerException.class, () -> filterProcessor.applyFilter(null,
+        assertThrows(IllegalArgumentException.class, () -> filterProcessor.applyFilter(null,
                 (i) -> new Image(i.getName() + "_grayscale", "Фильтр: черно-белый")));
     }
 
     @Test
     void testApplyFilterValidationFunctionIsNull() {
         FilterProcessor filterProcessor = new FilterProcessor();
-        assertThrows(NullPointerException.class, () -> filterProcessor.applyFilter(new Image("1", "1"), null));
+        assertThrows(IllegalArgumentException.class, () -> filterProcessor.applyFilter(new Image("1", "1"), null));
     }
 
     @Test
     void testCombineFilterValidationFunctionIsNull() {
         FilterProcessor filterProcessor = new FilterProcessor();
-        assertThrows(NullPointerException.class, () -> filterProcessor.combineFilters(null, null));
+        assertThrows(IllegalArgumentException.class, () -> filterProcessor.combineFilters(null, null));
     }
 }

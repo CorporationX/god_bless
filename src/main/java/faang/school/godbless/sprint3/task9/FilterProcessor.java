@@ -4,20 +4,20 @@ import java.util.function.Function;
 
 public class FilterProcessor {
 
-    public Image applyFilter(Image image, Function<Image, Image> function) {
+    public Image applyFilter(Image image, Function<Image, Image> filter) {
         if (image == null) {
-            throw new NullPointerException("Image не может быть null!");
+            throw new IllegalArgumentException("Image не может быть null!");
         }
-        if (function == null) {
-            throw new NullPointerException("Function не может быть null!");
+        if (filter == null) {
+            throw new IllegalArgumentException("Filter не может быть null!");
         }
-        return function.apply(image);
+        return filter.apply(image);
     }
 
-    public Function<Image,Image> combineFilters(Function<Image,Image> function1, Function<Image,Image> function2) {
-        if (function1 == null || function2 == null) {
-            throw new NullPointerException("Function не может быть null!");
+    public Function<Image,Image> combineFilters(Function<Image,Image> filter1, Function<Image,Image> filter2) {
+        if (filter1 == null || filter2 == null) {
+            throw new IllegalArgumentException("Filter не может быть null!");
         }
-        return function1.andThen(function2);
+        return filter1.andThen(filter2);
     }
 }
