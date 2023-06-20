@@ -2,20 +2,14 @@ package faang.school.godbless.BC_161;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Application {
     public static void main(String... args) {
-        List<User> userList = List.of(
-                new User("Adam", 34, "Sysadmin", "Grozny"),
-                new User("Salman", 30, "Student", "Urus"),
-                new User("Mamed", 38, "Student", "Goiti"),
-                new User("Adam2", 34, "Sysadmin", "Grozny"),
-                new User("Salman2", 30, "Student", "Urus"),
-                new User("Mamed2", 38, "Student", "Goiti")
+        List<String> activities = List.of("str1", "activity88", "activity16");
+        List<User> userList = List.of(new User(1, "Adam", 35, List.of("str1", "str2", "str3")),
+                                      new User(2, "Adam2", 35, List.of("str4", "str5", "str6"))
         );
-
-        for (Map.Entry key : User.groupUsers(userList).entrySet()) {
-            System.out.println(key.getKey() + " = " + key.getValue());
-        }
+        System.out.println(User.findHobbyLovers(userList, activities));
     }
 }
