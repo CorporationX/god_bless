@@ -1,4 +1,4 @@
-package faang.school.godbless.Matrix;
+package faang.school.godbless.BuildCSV;
 
 import java.util.List;
 
