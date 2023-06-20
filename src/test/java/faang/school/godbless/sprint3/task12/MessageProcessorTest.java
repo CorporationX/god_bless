@@ -25,10 +25,11 @@ class MessageProcessorTest {
     @ParameterizedTest
     @MethodSource("provider")
     void processorMessage(List<MessageFilter> filters, String[] messages) {
-        assertTrue(messageProcessor.processMessage(messages[0], filters));
+        assertFalse(messageProcessor.processMessage(messages[0], filters));
         assertFalse(messageProcessor.processMessage(messages[1], filters));
-        assertTrue(messageProcessor.processMessage(messages[2], filters));
+        assertFalse(messageProcessor.processMessage(messages[2], filters));
         assertFalse(messageProcessor.processMessage(messages[3], filters));
+        assertTrue(messageProcessor.processMessage(messages[4], filters));
     }
 
     @Test
@@ -38,7 +39,7 @@ class MessageProcessorTest {
 
     @Test
     void testValidationListMessageFiltersIsNull() {
-        assertThrows(NullPointerException.class, () -> messageProcessor.processMessage("hello", null));
+        assertThrows(IllegalArgumentException.class, () -> messageProcessor.processMessage("hello", null));
     }
 
     @Test
@@ -57,7 +58,7 @@ class MessageProcessorTest {
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
         // Обработка сообщений
-        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
+        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи", "Hello world!"};
         return Stream.of(
                 Arguments.of(filters, messages)
         );

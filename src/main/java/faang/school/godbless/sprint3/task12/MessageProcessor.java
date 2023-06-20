@@ -9,15 +9,17 @@ public class MessageProcessor {
             throw new IllegalArgumentException("Message не может быть пустым!");
         }
         if (messageFilters == null) {
-            throw new NullPointerException("список MessageFilter не может быть null!");
+            throw new IllegalArgumentException("список MessageFilter не может быть null!");
         }
 
         for (MessageFilter filter : messageFilters) {
             if (filter == null) {
                 throw new NullPointerException("MessageFilter не может быть null!");
             }
-            return filter.filter(message);
+            if (!filter.filter(message)) {
+                return false;
+            }
         }
-        return false;
+        return true;
     }
 }
