@@ -1,14 +1,18 @@
 package faang.school.godbless.sprint3.school;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.function.Function;
 
 public class School {
-    Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    private static final Logger LOGGER = LoggerFactory.getLogger(School.class);
+    public Double triangleArea(double a, double b, double c) {
         if (a == 0 || b == 0 || c == 0) {
-            throw new IllegalArgumentException("Sides of a triangle cannot be zero");
+            LOGGER.error("Sides of a triangle cannot be zero");
         }
         if (a >= b + c || b >= a + c || c >= a + b) {
-            throw new IllegalArgumentException("Invalid input data");
+            LOGGER.error("Invalid input data");
         }
 
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
