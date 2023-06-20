@@ -3,12 +3,12 @@ package Sprint_3_Task4;
 import java.util.function.Function;
 
 public class FilterProcessor {
-    public Image applyFilter(Image image, Function<Image, Image> function) {
-        return function.apply(image);
+    public Image applyFilter(Image image, Function<Image, Image> filter) {
+        return filter.apply(image);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> function1, Function<Image, Image> function2) {
-        return function1.andThen(function2);
+    public Function<Image, Image> combineFilters(Function<Image, Image> filterOne, Function<Image, Image> filterTwo) {
+        return filterOne.andThen(filterTwo);
     }
 
     public static void main(String[] args) {
@@ -26,5 +26,11 @@ public class FilterProcessor {
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+
+        System.out.println(grayscaleImage);
+        System.out.println(sepiaImage);
+        System.out.println(vignetteImage);
+        System.out.println(combinedImage);
+
     }
 }
