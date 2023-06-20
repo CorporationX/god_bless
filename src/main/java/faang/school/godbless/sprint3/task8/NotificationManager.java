@@ -5,23 +5,20 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> map = new HashMap<>();
+    private final Map<String, Consumer<Notification>> handlers = new HashMap<>();
 
-    public void registerHandler(String message, Consumer<Notification> consumer) {
-        if (message == null) {
-            throw new NullPointerException("Сообщение не может быть пустым!");
-        }
-        if (message.isBlank()) {
+    public void registerHandler(String type, Consumer<Notification> consumer) {
+        if (type == null || type.isBlank()) {
             throw new IllegalArgumentException("Сообщение не может быть пустым!");
         }
-        map.put(message, consumer);
+        handlers.put(type, consumer);
     }
 
     public void sendNotification(Notification notification) {
         if (notification == null) {
-            throw new NullPointerException("Notification не может быть null");
+            throw new IllegalArgumentException("Notification не может быть null");
         }
-        Consumer<Notification> notificationConsumer = map.get(notification.getType());
+        Consumer<Notification> notificationConsumer = handlers.get(notification.getType());
         notificationConsumer.accept(notification);
     }
 
@@ -29,7 +26,7 @@ public class NotificationManager {
         NotificationManager notificationManager = new NotificationManager();
 
 // Регистрация обработчиков оповещений
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+        notificationManager.registerHandler(null, (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
         notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
         notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 

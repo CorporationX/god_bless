@@ -35,18 +35,21 @@ class NotificationManagerTest {
     }
 
     @Test
-    void testValidationIsNull() {
+    void testValidationRegisterHandler() {
         NotificationManager notificationManager = new NotificationManager();
+        String type = null;
 
-        assertThrows(NullPointerException.class, () -> notificationManager
-                .registerHandler(null, (notification) -> System.out.println(" " + notification.getMessage())));
+        assertThrows(IllegalArgumentException.class, () -> notificationManager
+                .registerHandler(type, (notification) -> System.out.println(" " + notification.getMessage())));
+        assertThrows(IllegalArgumentException.class, () -> notificationManager
+                .registerHandler("  ", (notification) -> System.out.println(" " + notification.getMessage())));
     }
 
     @Test
-    void testValidationIsBlank() {
+    void testValidationSendNotification() {
         NotificationManager notificationManager = new NotificationManager();
 
         assertThrows(IllegalArgumentException.class, () -> notificationManager
-                .registerHandler(" ", (notification) -> System.out.println(" " + notification.getMessage())));
+                .sendNotification(null));
     }
 }
