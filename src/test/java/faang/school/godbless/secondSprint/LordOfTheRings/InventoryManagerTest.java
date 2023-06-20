@@ -35,7 +35,8 @@ class InventoryManagerTest {
 
     @Test
     public void testUpdateItem() {
-        inventoryManager.updateItem(frodo, item -> "The One Ring".equals(item.getName()), item ->
+        String itemName = "The One Ring";
+        inventoryManager.updateItem(frodo, item -> itemName.equals(item.getName()), item ->
                 new Item(item.getName(), item.getValue() * 2));
 
         assertEquals(1, frodo.getInventory().size());
