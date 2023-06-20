@@ -22,6 +22,7 @@ public class User {
             throw new IllegalArgumentException("Поле Имя не может быть пустым");
         }
         if (age < MIN_WORKING_AGE) {
+
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
         }
         if (!VALID_JOBS.contains(workplace)) {
