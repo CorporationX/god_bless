@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.function.Function;
 
@@ -9,7 +10,7 @@ public class Application {
 
     public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
         //S=sqrt(p⋅(p−a)⋅(p−b)⋅(p−c))
-        validate(a,b,c);
+        validate(a, b, c);
 
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
@@ -29,5 +30,9 @@ public class Application {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Values should be more then 0");
         }
+        if (a + b <= c || a + c <= b || b + c <= a) {
+            throw new IllegalArgumentException("There can't be a triangle with such sides");
+        }
+
     }
 }
