@@ -7,26 +7,25 @@ import java.util.List;
 
 public class BuildCSV {
 
-    private static final VectorJoiner<String> vectorJoiner = list -> {
-        if (list.isEmpty()) {
+    private static final VectorJoiner<String> VECTORJOINER = list -> {
+        if (!(list == null) && list.isEmpty()) {
             throw new IllegalArgumentException("empty list");
         }
-        StringBuilder strings = new StringBuilder();
-        list.forEach(element -> strings.append(element).append(',').append(" "));
-        return strings.substring(0, strings.length() - 2);
+        StringBuilder vectors = new StringBuilder();
+        list.forEach(element -> vectors.append(element).append(',').append(" "));
+        return vectors.substring(0, vectors.length() - 2);
     };
 
-    private static final MatrixJoiner<String> matrixJoiner = list -> {
+    private static final MatrixJoiner<String> MATRIXJOINER = list -> {
         StringBuilder builder = new StringBuilder();
-        list.stream().map(vectorJoiner::join).forEach(string -> builder.append(string).append("\n"));
+        list.stream().map(VECTORJOINER::join).forEach(string -> builder.append(string).append("\n"));
         return builder.toString();
     };
 
-
     public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
-        if (table.isEmpty()) {
+        if (!(table == null) && table.isEmpty()) {
             throw new IllegalArgumentException("empty list");
         }
-        return matrixJoiner.join(table);
+        return MATRIXJOINER.join(table);
     }
 }
