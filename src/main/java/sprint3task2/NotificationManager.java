@@ -1,19 +1,22 @@
 package sprint3task2;
 
+import lombok.Data;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
+@Data
 public class NotificationManager {
     Map <String, Consumer<Notification>> map = new HashMap<>();
-    public void registerHandler (String notificationIdentificator, Consumer<Notification> Nikita){
-        map.put(notificationIdentificator, Nikita);
+    public void registerHandler (String notificationIdentification, Consumer<Notification> Nikita){
+        //индентификатор оповещений; функц интерфейс)
+        map.put(notificationIdentification, Nikita);
+        //add
     }
-
     public void sendNotification (Notification notification) {
-        Consumer<Notification> consumer = ;
+        //вызывает соответствующий обработчик оповещения из Map
+        //обработчики - функциональные интерфейсы Java
+        Consumer<Notification> consumer = map.entrySet().getValue();
     }
-
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
