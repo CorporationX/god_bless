@@ -19,7 +19,7 @@ public class EmailProcessor {
         );
 
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getBody());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
@@ -27,11 +27,21 @@ public class EmailProcessor {
     }
 
     private void processEmails(List<Email> emails, Predicate<Email> filtration, Consumer<Email> processing, Function<Email, String> transformation) {
-        Consumer<Email> consumer = (email) -> {
+        for (Email email : emails) {
+            if (filtration.test(email)){
+                String body = transformation.apply(email);
+                email.setBody(body);
+                processing.accept(email);
+            }
+        }
+
+       /* Consumer<Email> consumer = (email) -> {
             filtration.test(email);
             processing.accept(email);
             transformation.apply(email);
         };
-        emails.forEach(consumer);
+        emails.stream(email -> e);
+
+        */
     }
 }
