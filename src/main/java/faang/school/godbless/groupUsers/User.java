@@ -61,8 +61,8 @@ public class User {
         Map<Integer, List<User>> arrayUsers = new HashMap<>();
         for (User elementUser : users) {
             List<User> groupedUsers = arrayUsers.getOrDefault(elementUser.getAge(), new ArrayList<>());
+            groupedUsers.add(elementUser);
             arrayUsers.put(elementUser.getAge(), groupedUsers);
-            arrayUsers.get(elementUser.getAge()).add(elementUser);
         }
         return arrayUsers;
     }
