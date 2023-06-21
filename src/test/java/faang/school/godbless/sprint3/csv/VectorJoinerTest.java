@@ -1,6 +1,7 @@
 package faang.school.godbless.sprint3.csv;
 
-import org.junit.jupiter.api.Assertions;
+
+import faang.school.godbless.sprint3.csv.VectorJoiner;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -24,7 +25,8 @@ class VectorJoinerTest {
     @ParameterizedTest
     @MethodSource("getParams")
     void toCsv_shouldMatch(List<String> vector, String expected) {
-        Assertions.assertEquals(expected, VectorJoiner.toCsv(vector));
+
+        assertEquals(expected, VectorJoiner.toCsv(vector));
     }
 
     @Test

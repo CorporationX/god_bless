@@ -1,6 +1,5 @@
 package faang.school.godbless.sprint3.csv;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
@@ -19,7 +18,8 @@ class MatrixJoinerTest {
                 16, 17, 18, 19, 20
                 21, 22, 23, 24, 25""";
 
-        Assertions.assertEquals(expected, MatrixJoiner.toCsv(
+
+        assertEquals(expected, MatrixJoiner.toCsv(
                 List.of(
                         List.of("1", "2", "3", "4", "5"),
                         List.of("6", "7", "8", "9", "10"),
