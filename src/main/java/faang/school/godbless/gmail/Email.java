@@ -1,9 +1,9 @@
 package faang.school.godbless.gmail;
 
 public class Email {
-  String subject;
-  String body;
-  Boolean important;
+  private String subject;
+  private String body;
+  private Boolean important;
 
   public Email(String subject, String body, Boolean isImportant) {
     this.subject = subject;
