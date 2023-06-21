@@ -3,14 +3,8 @@ package remember_school;
 import java.util.function.Function;
 
 public class Triangle {
-    // Given three sides of a triangle, calculate its area
-    public Double triangleArea(double a, double b, double c) {
-        Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
-        Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
-        Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
-        Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
-        Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
+    public Double triangleArea(double a, double b, double c) {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Triangle sides must be positive");
         }
@@ -18,6 +12,12 @@ public class Triangle {
         if (a + b <= c || a + c <= b || b + c <= a) {
             throw new IllegalArgumentException("Invalid triangle sides");
         }
+
+        Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
+        Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
+        Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
+        Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
+        Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
         double pDiv2 = div.apply(
                 sum.apply(
@@ -30,7 +30,6 @@ public class Triangle {
         double pDiv2MinusB = sub.apply(pDiv2).apply(b);
         double pDiv2MinusC = sub.apply(pDiv2).apply(c);
 
-        // Calculate the area using Geron's formula
         double area = sqrt.apply(
                 mul.apply(
                         mul.apply(
