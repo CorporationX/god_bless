@@ -4,8 +4,12 @@ import java.util.function.Function;
 
 public class TriangleSquareCounter {
 
-    Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    Double triangleArea(double a, double b, double c){
         boolean isValid = isTriangle(a, b, c);
+        if(!isValid){
+            throw new IllegalArgumentException("Invalid triangle");
+        }
+
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
@@ -39,6 +43,7 @@ public class TriangleSquareCounter {
 
     public static void main(String[] args) {
         TriangleSquareCounter triangleSquareCounter = new TriangleSquareCounter();
+        System.out.println(triangleSquareCounter.triangleArea(1, 1, 1));
 
         System.out.println(triangleSquareCounter.triangleArea(3, 5, 5));
     }
