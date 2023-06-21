@@ -5,9 +5,9 @@ public class Droid {
         DroidMessageEncryptor droidMessageEncryptor = (m, k) -> {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < m.length(); i++) {
-                char ch = m.charAt(i);
-                char newCh = (char) ((int) ch + k);
-                result.append(newCh);
+                char oldChar = m.charAt(i);
+                char newChar = (char) ((int) oldChar + k);
+                result.append(newChar);
             }
             return result.toString();
         };
