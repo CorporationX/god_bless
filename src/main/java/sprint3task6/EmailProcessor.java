@@ -15,7 +15,7 @@ public class EmailProcessor {
     //Predicate для фильтрации писем, Consumer для обработки писем и
     //Function для преобразования писем.
     public void processEmails(List<Email> emails, Predicate<Email> filter,
-                              Consumer<Email> handling,
+                              Consumer<List<Email>> handling,
                               Function<Email, String> converting) {
 
         List<Email> filteredEmails = new ArrayList();
@@ -24,8 +24,8 @@ public class EmailProcessor {
                 filteredEmails.add(emails.get(i));
             }
         }
-        Email handledFilteredEmails = handling.accept(filteredEmails);
-        String convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
+        List <Email> handledFilteredEmails = handling.accept(filteredEmails);
+        List <String> convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
     }
 
     public static void main(String[] args) {
