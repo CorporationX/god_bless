@@ -5,6 +5,7 @@ import lombok.Data;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -12,13 +13,13 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private List<String> userActivities;
+    private Set<String> userActivities;
 
-    public static Map<User, String> findHobbyLovers(List<User>listUsers, List<String> manyActivities) {
+    public static Map<User, String> findHobbyLovers(List<User>listUsers, Set<String> setActivities) {
         Map<User, String> userStringMap = new HashMap<>();
         for (User user: listUsers) {
             for (String userActivity : user.getUserActivities()) {
-                if (manyActivities.contains(userActivity)) {
+                if (setActivities.contains(userActivity)) {
                       userStringMap.put(user, userActivity);
                       break;
                 }
