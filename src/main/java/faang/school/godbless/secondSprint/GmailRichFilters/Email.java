@@ -1,12 +1,14 @@
 package faang.school.godbless.secondSprint.GmailRichFilters;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
+import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
-@ToString
+@Setter
+@EqualsAndHashCode
 public class Email {
     private String subject;
     private String body;
