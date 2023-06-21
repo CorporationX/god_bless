@@ -54,4 +54,18 @@ public class LocationSearchEngineTest {
         assertTrue(printedNames.contains("Great Wall of China"));
 
     }
+
+    @Test
+    public void calculateDistancesTest() {
+        double baseLatitude = 37.4220;
+        double baseLongitude = -122.0841;
+        List<Double> result = searchEngine.calculateDistances(locations, (location) -> {
+            double latitudeDiff = Math.abs(location.getLatitude() - baseLatitude);
+            double longitudeDiff = Math.abs(location.getLongitude() - baseLongitude);
+            return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
+        });
+        List<Double> expected = List.of(124.90327210653851, 48.150573869892774, 238.67347960814584);
+
+        assertEquals(expected, result);
+    }
 }

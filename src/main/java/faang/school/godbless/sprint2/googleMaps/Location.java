@@ -2,11 +2,13 @@ package faang.school.godbless.sprint2.googleMaps;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Value;
 
 @Data
 @AllArgsConstructor
+@Value
 public class Location {
-    private String name;
-    private double latitude;
-    private double longitude;
+    String name;
+    double latitude;
+    double longitude;
 }
