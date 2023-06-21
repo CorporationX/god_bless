@@ -5,16 +5,16 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 public class Main {
-    public static final DictionaryProcessor processor = new DictionaryProcessor();
-    private static final Map<String, String> dictionary = new HashMap<>();
+    private static final DictionaryProcessor PROCESSOR = new DictionaryProcessor();
+    private static final Map<String, String> DICTIONARY = new HashMap<>();
 
     public static void main(String[] args) {
-        BiConsumer<String, String> handler = dictionary::put;
+        BiConsumer<String, String> handler = DICTIONARY::put;
 
-        processor.processWord("Нить", "Thread", handler);
-        processor.processWord("Земля", "Earth", handler);
-        processor.processWord("Камень", "Stone", handler);
+        PROCESSOR.processWord("Нить", "Thread", handler);
+        PROCESSOR.processWord("Земля", "Earth", handler);
+        PROCESSOR.processWord("Камень", "Stone", handler);
 
-        System.out.println("Великие буковы: " + dictionary);
+        System.out.println("Великие буковы: " + DICTIONARY);
     }
 }
