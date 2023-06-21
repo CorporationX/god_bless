@@ -11,8 +11,8 @@ public class EmailProcessor {
                               Function<Email, String> function) {
         emailList.forEach((email) -> {
             if (predicate.test(email)) {
-                consumer.accept(email);
                 email.setBody(function.apply(email));
+                consumer.accept(email);
             }
         });
     }
