@@ -6,12 +6,11 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HandleErrorsTest {
-    String expected = "Test1";
-    String expected2 = "Test2";
     @Test
     public void tesWithErrorHandling_SuccessfulAction() {
+        String expected = "Test";
         String result = HandleErrors.withErrorHandling(
-                () -> "Test1",
+                () -> "Test",
                 e -> null
         );
 
@@ -20,11 +19,12 @@ public class HandleErrorsTest {
 
     @Test
     public void testWithErrorHandling_ExceptionInAction() {
+        String expected2 = "Test";
         String result = HandleErrors.withErrorHandling(
                 () -> {
                     throw new IllegalArgumentException();
                 },
-                e -> "Test2"
+                e -> "Test"
         );
 
         assertEquals(expected2, result);
