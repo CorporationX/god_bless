@@ -20,9 +20,3 @@ public class Solution {
         return calculate(nums, ((a, b) -> a * b));
     }
 }
-
-@FunctionalInterface
-interface Calculator {
-    int compute(int a, int b);
-}
-
