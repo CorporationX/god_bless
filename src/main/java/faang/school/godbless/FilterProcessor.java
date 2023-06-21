@@ -9,11 +9,6 @@ public class FilterProcessor {
 
     public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter,
                                                  Function<Image, Image> secondFilter){
-        return new Function<Image, Image>() {
-            @Override
-            public Image apply(Image image) {
-                return firstFilter.apply(secondFilter.apply(image));
-            }
-        };
+        return firstFilter.andThen(secondFilter);
     }
 }

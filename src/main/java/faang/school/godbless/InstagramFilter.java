@@ -10,9 +10,15 @@ public class InstagramFilter {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         // Создание фильтров
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName() + "_grayscale", image.getDescription().contains("Фильтр") ? "Фильтр: черно-белый" + " +" + image.getDescription().substring(7) : "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", image.getDescription().contains("Фильтр") ? "Фильтр: сепия" + " +" + image.getDescription().substring(7) : "Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName() + "_vignette", image.getDescription().contains("Фильтр") ? "Фильтр: виньетка" + " +" + image.getDescription().substring(7) : "Фильтр: виньетка");
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getName() + "_grayscale", image.getDescription().contains("Фильтр") ?
+                        "Фильтр: черно-белый" + " +" + image.getDescription().substring(7) : "Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getName() + "_sepia", image.getDescription().contains("Фильтр") ?
+                        "Фильтр: сепия" + " +" + image.getDescription().substring(7) : "Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) ->
+                new Image(image.getName() + "_vignette", image.getDescription().contains("Фильтр") ?
+                        "Фильтр: виньетка" + " +" + image.getDescription().substring(7) : "Фильтр: виньетка");
 
         // Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
