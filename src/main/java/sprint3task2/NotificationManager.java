@@ -49,7 +49,7 @@ public class NotificationManager {
 // Отправка оповещений
         //сохдаем объекты класса Notification для их использования в sendNotification
         //здесь сотворяются объекты notification, чтобы их использовать для
-        // сотворения лямбды в notificationManager.sendNotification(...);
+        //сотворения лямбды в notificationManager.sendNotification(...);
 
 
         ///// объекты для метода в котором вызов лямбы (!!!!!!!!)
