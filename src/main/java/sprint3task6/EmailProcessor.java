@@ -2,23 +2,32 @@ package sprint3task6;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
 @Data
 //настраивать фильтры для обработки входящих писем.
 public class EmailProcessor {
     //Predicate для фильтрации писем, Consumer для обработки писем и
     //Function для преобразования писем.
-       public void processEmails (List<Email> emails, Predicate<List<Email>> filter,
-                                  Consumer<List <Email>> handling,
-                                  Function<List <Email>, String> converting){
-           boolean filteredEmails = filter.test(emails);
-           List<Email> handledFilteredEmails = (List<Email>) handling.accept(filteredEmails);
-           String convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
+    public void processEmails(List<Email> emails, Predicate<Email> filter,
+                              Consumer<Email> handling,
+                              Function<Email, String> converting) {
+
+        List<Email> filteredEmails = new ArrayList();
+        for (int i = 0; i < emails.size(); i++) {
+            if (filter.test(emails.get(i))) {
+                filteredEmails.add(emails.get(i));
+            }
+        }
+        Email handledFilteredEmails = handling.accept(filteredEmails);
+        String convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
     }
+
     public static void main(String[] args) {
 
         EmailProcessor emailProcessor = new EmailProcessor();
