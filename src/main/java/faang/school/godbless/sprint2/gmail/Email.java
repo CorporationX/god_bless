@@ -2,11 +2,13 @@ package faang.school.godbless.sprint2.gmail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Value;
 
 @Data
 @AllArgsConstructor
+@Value
 public class Email {
-   private String subject;
-   private String body;
-   private boolean isImportant;
+    String subject;
+    String body;
+    boolean isImportant;
 }
