@@ -11,8 +11,8 @@ public class Main {
         System.out.println(second);
     }
 
-    public static int calculate(List<Integer> values, Calculator calculator) throws IllegalArgumentException {
-        if (values.isEmpty()) {
+    public static int calculate(List<Integer> values, Calculator calculator) {
+        if (values.isEmpty() || values == null) {
             throw new IllegalArgumentException("List is empty");
         }
 
