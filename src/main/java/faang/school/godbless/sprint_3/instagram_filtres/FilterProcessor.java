@@ -11,7 +11,8 @@ public class FilterProcessor {
     public Function<Image, Image> combineFilters(Function<Image, Image> first, Function<Image, Image> second) {
         return first.andThen(second);
     }
-    public void showCurrentFilter(Image image,Consumer<Image> consumer){
+
+    public void showCurrentFilter(Image image, Consumer<Image> consumer) {
         consumer.accept(image);
     }
 }

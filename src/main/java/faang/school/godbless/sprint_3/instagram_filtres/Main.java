@@ -5,21 +5,19 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         FilterProcessor filterProcessor = new FilterProcessor();
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        Image originalImage = new Image("original.jpg", "Original image");
 
-        Function<Image, Image> function = image -> new Image(image.getName() + "grayscale", "Фильтр: черно-белый");
+        Function<Image, Image> function = image -> new Image(image.getName() + "_grayscale", "Filter: white-black");
         Image result = filterProcessor.applyFilter(originalImage, function);
 
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName() + "_grayscale", "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", "Фильтр: серия");
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName() + "_grayscale", "Filter: white-black");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", "Filter: series");
 
         Function<Image, Image> function1 = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
 
-        Image second = filterProcessor.applyFilter(originalImage, function1);
+        Image filteredImage = filterProcessor.applyFilter(originalImage, function1);
 
-        Image consumerImage = new Image("original.jpeg", "Оригинальная фотография");
-
-        filterProcessor.showCurrentFilter(consumerImage, consumer -> System.out.println(consumer.getName() + "-----" + consumer.getDescription()));
+        filterProcessor.showCurrentFilter(filteredImage, consumer -> System.out.println(consumer.getName() + "-----" + consumer.getDescription()));
 
     }
 }
