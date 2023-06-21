@@ -1,25 +1,6 @@
 package faang.school.godbless.transformation;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-class Coordinates {
-    private int x;
-    private int y;
-
-}
-
-@FunctionalInterface
-interface MatrixTransformer {
-    Coordinates transform(int x, int y);
-}
-
 public class Transformation {
-    public enum FlipDirection {
-        HORIZONTAL, VERTICAL,
-    }
 
     private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         int rows = matrix.length;
