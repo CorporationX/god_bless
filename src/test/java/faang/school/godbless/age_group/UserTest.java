@@ -21,6 +21,7 @@ public class UserTest {
                 new User("Bob", 35, "Google", "London"),
                 new User("Emily", 35, "Google", "London")
         );
+
         int expectedMapSize = 2;
         int expectedListSize = 1;
         int resultedMapSize = User.groupUsersByAge(users).size();
@@ -29,7 +30,7 @@ public class UserTest {
         assertEquals(expectedMapSize,resultedMapSize);
         assertEquals(expectedListSize, resultedListSize);
     }
-
+}
     @Test
     void addUnderageUserTest(){
         IllegalArgumentException exception = assertThrows(UserException.class,
