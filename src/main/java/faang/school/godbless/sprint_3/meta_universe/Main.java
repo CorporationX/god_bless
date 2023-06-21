@@ -15,8 +15,8 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(emailNotification);
 
-        notificationManager.filteredNotification(notification -> notification.getMessage().contains("adidas"));
-        notificationManager.filteredNotification(notification -> notification.getMessage().contains("crack.com"));
+        notificationManager.filteredNotifications(notification -> notification.getMessage().contains("adidas"));
+        notificationManager.filteredNotifications(notification -> notification.getMessage().contains("crack.com"));
 
 
         notificationManager.filter(adidas);

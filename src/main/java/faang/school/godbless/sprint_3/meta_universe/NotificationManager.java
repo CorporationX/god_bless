@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint_3.meta_universe;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,26 +10,28 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> map = new HashMap<>();
-    List<Predicate<Notification>> consumerList = new ArrayList<>();
+    @Getter
+    Map<String, Consumer<Notification>> notificationsList = new HashMap<>();
+    @Getter
+    List<Predicate<Notification>> predicatesList = new ArrayList<>();
 
     public void registerHandler(String notificationId, Consumer<Notification> consumer) {
-        map.put(notificationId, consumer);
+        notificationsList.put(notificationId, consumer);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> handler = map.get(notification.getType());
+        Consumer<Notification> handler = notificationsList.get(notification.getType());
         if (handler != null) {
             handler.accept(notification);
         }
     }
 
-    public void filteredNotification(Predicate<Notification> notification) {
-        consumerList.add(notification);
+    public void filteredNotifications(Predicate<Notification> notification) {
+        predicatesList.add(notification);
     }
 
     public void filter(Notification notification) {
-        consumerList.stream().filter(notificationPredicate -> notificationPredicate.test(notification))
+        predicatesList.stream().filter(notificationPredicate -> notificationPredicate.test(notification))
                 .forEach(value -> System.out.println("Ваше сообщение имеет запрещенное слово: " + notification.getType()));
     }
 }
