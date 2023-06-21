@@ -17,7 +17,7 @@ public class UserTest {
     private static List<User> userList;
 
     @BeforeEach
-    private void setUpUserList() {
+    void setUpUserList() {
         userList = new ArrayList<>();
         for (int i = 0; i < 30; i++) {
             userList.add(new User(
