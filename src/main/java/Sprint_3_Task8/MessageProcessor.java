@@ -7,7 +7,7 @@ public class MessageProcessor {
 
     public boolean processMessage(String message, List<MessageFilter> messageFiltersList) {
         for (MessageFilter messanger : messageFiltersList) {
-            if (messanger.filter(message)) {
+            if (!messanger.filter(message)) {
                 return false;
             }
         }
@@ -17,9 +17,7 @@ public class MessageProcessor {
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-        // была такая строчка MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
-        //я исправил
-        MessageFilter spamFilter = message -> message.toLowerCase().contains("спам");
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("Nikita");
         MessageFilter lengthFilter = message -> message.length() > 10;
         MessageFilter emojiFilter = message -> !message.contains("😀");
 
