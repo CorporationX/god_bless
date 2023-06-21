@@ -1,10 +1,14 @@
 package sprint3task6;
+
+import lombok.Data;
+
+@Data
 public class Email {
     private String subject;
     private String body;
-    private String isImportant;
+    private boolean isImportant;
 
-    public Email(String subject, String body, String isImportant) {
+    public Email(String subject, String body, boolean isImportant) {
         this.subject = subject;
         this.body = body;
         this.isImportant = isImportant;
