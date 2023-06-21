@@ -6,12 +6,14 @@ import java.util.List;
 
 public class MessageProcessor {
     public boolean processMessage(String message, List<MessageFilter> filters) {
-        List<Boolean> isFiltered = new ArrayList<>();
-        for(MessageFilter anotherFilter : filters) {
-            isFiltered.add(anotherFilter.filter(message));
+        boolean isFiltered = false;
+        for (MessageFilter anotherFilter : filters) {
+            if (anotherFilter.filter(message)) {
+                isFiltered = true;
             }
-        return !isFiltered.contains(true);
         }
+        return isFiltered;
+    }
 
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
