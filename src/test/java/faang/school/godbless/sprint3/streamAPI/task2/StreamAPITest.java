@@ -97,4 +97,10 @@ class StreamAPITest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    void testValidation(){
+        assertThrows(IllegalArgumentException.class, () -> StreamAPI.checkCondition(null));
+        assertThrows(IllegalArgumentException.class, () -> StreamAPI.checkCondition(List.of()));
+    }
 }
