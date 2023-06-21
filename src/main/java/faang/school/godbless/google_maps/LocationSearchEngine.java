@@ -13,8 +13,8 @@ public class LocationSearchEngine {
         return locations.stream().filter(predicate).toList();
     }
 
-    public static List<Location> processLocations(List<Location> locations, Consumer<Location> consumer) {
-        return locations.stream().peek(consumer).toList();
+    public static void processLocations(List<Location> locations, Consumer<Location> consumer) {
+        locations.forEach(consumer);
     }
 
     public static List<Double> calculateDistances(List<Location> locations, Function<Location, Double> function) {
