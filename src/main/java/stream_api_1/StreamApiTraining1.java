@@ -33,7 +33,7 @@ public class StreamApiTraining1 {
                 .count();
     }
 
-    public static List<String> filterBySybstring(List<String> strings, String substring) {
+    public static List<String> filterBySubstring(List<String> strings, String substring) {
        return strings.stream()
                 .filter(s -> s.contains(substring))
                 .toList();
