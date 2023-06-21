@@ -8,7 +8,6 @@ import java.util.function.BiConsumer;
 
 public class Application {
     public static void main(String... args) {
-
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
 // Создание словаря
