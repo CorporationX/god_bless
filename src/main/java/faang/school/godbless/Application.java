@@ -1,12 +1,12 @@
 package faang.school.godbless;
 
+feature/kxnvg-BC-941
 import faang.school.godbless.kxnvg.uber.FareCalculator;
 
 import java.util.function.BiFunction;
 
 public class Application {
     public static void main(String... args) {
-
         FareCalculator fareCalculator = new FareCalculator();
 
 // Создание тарифов
