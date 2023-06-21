@@ -4,6 +4,7 @@ import java.util.function.Function;
 
 public class TriangleFunc {
     Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+        validate(a,b,c);
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
@@ -16,6 +17,12 @@ public class TriangleFunc {
         Double perMinusC = sub.apply(polyPerimetr).apply(c);
 
         return sqrt.apply(mul.apply(polyPerimetr).apply((mul.apply(perMinusA)).apply(mul.apply(perMinusB).apply(perMinusC))));
+    }
+
+    private void validate(double a, double b, double c){
+        if(a <= 0 || b <= 0 || c <= 0 || a+b <= c || a+c <= b || b+c <= a){
+            throw new IllegalArgumentException();
+        }
     }
 
 }
