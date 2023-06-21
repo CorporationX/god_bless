@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Sprint_2.Task_1_2.reg;
 
 import lombok.Getter;
 
