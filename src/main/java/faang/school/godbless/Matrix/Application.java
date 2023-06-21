@@ -1,10 +1,6 @@
 package faang.school.godbless.Matrix;
 
 public class Application {
-    public static void main(String... args) {
-
-    }
-
     public static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         if (matrix == null) {
             throw new IllegalArgumentException("Empty matrix");
@@ -20,6 +16,9 @@ public class Application {
     }
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+        if (matrix.length == 0) {
+            throw new IllegalArgumentException("Empty matrix");
+        }
         if (flipDirection.equals(FlipDirection.HORIZONTAL)) {
             return transformMatrix(matrix, ((row, column) -> new Coordinates(row, matrix[row].length - column - 1)));
         } else {
