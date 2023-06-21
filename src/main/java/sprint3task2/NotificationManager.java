@@ -13,7 +13,6 @@ public class NotificationManager {
         //тут функц интерфейс - значит тут будет лямбда.
         //то есть тут вообще можно делать лямбду тк есть функц интерф в параметрах
         map.put(notificationIdentification, Nikita);
-        //add
     }
     public void sendNotification (Notification notification) {
         //вызывает соответствующий обработчик оповещения из Map
