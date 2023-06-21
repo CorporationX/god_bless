@@ -1,5 +1,6 @@
 package faang.school.godbless.task6_calculator;
 
+import faang.school.godbless.sprint3.task6_calculator.Main;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package faang.school.godbless.task6_calculator;
+package faang.school.godbless.sprint3.task6_calculator;
 
 @FunctionalInterface
 public interface Calculator {
