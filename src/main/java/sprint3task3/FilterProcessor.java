@@ -4,7 +4,7 @@ package sprint3task3;
 // применять их к своим фотографиям
 
 import lombok.Data;
-
+///
 import java.util.function.Function;
 
 @Data
@@ -15,6 +15,7 @@ public class FilterProcessor {
     public Image applyFilter(Image photo, Function<Image, Image> filter) {
         //возвращает новый объект типа Image с применённым фильтром
         //применение сразу скомбинированных двух фильтров??
+        //фильтр это лямбда!!!!!
         Image filteredPhoto = ;
         Function<Image, Image> filter =
     }
