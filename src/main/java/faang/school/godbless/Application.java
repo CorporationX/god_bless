@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+feature/kxnvg-BC-923
 import faang.school.godbless.kxnvg.meta.Notification;
 import faang.school.godbless.kxnvg.meta.NotificationManager;
 
