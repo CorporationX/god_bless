@@ -1,7 +1,7 @@
 package faang.school.godbless.Meta;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         NotificationManager notificationManager = new NotificationManager();
 
 // Регистрация обработчиков оповещений
