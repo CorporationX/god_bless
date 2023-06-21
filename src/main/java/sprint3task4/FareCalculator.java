@@ -1,19 +1,16 @@
 package sprint3task4;
-
 //создать систему, которая будет принимать расстояние и время
 //поездки, а затем вычислять стоимость на основе различных тарифов
-
 import java.util.function.BiFunction;
-
 //класс FareCalculator, который будет использовать
 //BiFunction для подсчёта стоимости поездки.
 public class FareCalculator {
     //public double distance;
     //public double time;
     //будет использовать BiFunction для подсчёта стоимости поездки
-
-    private double calculateFare(double distance, double time, BiFunction <Double, Double, Double>) {
-        BiFunction<Double, Double, Double> fare = ;
+    private double calculateFare(double distance, double time,
+                                 BiFunction <Double, Double, Double> fare) {
+        BiFunction <Double, Double, Double> fare = fare.apply(distance, time);
     }
 
 
