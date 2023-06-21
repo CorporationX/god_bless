@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+feature/kxnvg-BC-939
 import faang.school.godbless.kxnvg.instagram.FilterProcessor;
 import faang.school.godbless.kxnvg.instagram.Image;
 
@@ -7,7 +8,6 @@ import java.util.function.Function;
 
 public class Application {
     public static void main(String... args) {
-
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
         FilterProcessor filterProcessor = new FilterProcessor();
@@ -22,7 +22,7 @@ public class Application {
         Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
 
-        // Создание и применение комбинированного фильтра
+// Создание и применение комбинированного фильтра
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
 
