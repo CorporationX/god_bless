@@ -8,12 +8,12 @@ import java.util.function.BiFunction;
 //класс FareCalculator, который будет использовать
 //BiFunction для подсчёта стоимости поездки.
 public class FareCalculator {
-    public double distance;
-    public double time;
+    //public double distance;
+    //public double time;
     //будет использовать BiFunction для подсчёта стоимости поездки
 
-    private int calculateFare() {
-
+    private double calculateFare(double distance, double time, BiFunction <Double, Double, Double>) {
+        BiFunction<Double, Double, Double> fare = ;
     }
 
 
