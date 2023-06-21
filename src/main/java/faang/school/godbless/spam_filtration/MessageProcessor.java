@@ -5,33 +5,21 @@ import java.util.List;
 public class MessageProcessor {
 
     public boolean processMessage(String message, List<MessageFilter> messageFilters) {
-        validateMessage(message);
-        validateFiltersList(messageFilters);
+        validateArguments(message, messageFilters);
 
         for (MessageFilter messageFilter : messageFilters) {
-           return messageFilter.filter(message);
+            boolean isFiltered = messageFilter.filter(message);
+            if (!isFiltered) {
+                return false;
+            }
         }
 
         return true;
     }
 
-    private void validateMessage(String message) {
-        if (message.isBlank()) {
-            throw new IllegalArgumentException("Message can't be empty");
-        }
-
-        if (message == null) {
-            throw new IllegalArgumentException("Message can't be null");
-        }
-    }
-
-    private void validateFiltersList(List<MessageFilter> filtersList){
-        if(filtersList.isEmpty()){
-            throw new IllegalArgumentException("Filters list can't be empty");
-        }
-
-        if(filtersList == null){
-            throw new IllegalArgumentException("Filters list can't be null");
+    private void validateArguments(String message, List<MessageFilter> filtersList) {
+        if (message.isBlank() || filtersList.isEmpty()) {
+            throw new IllegalArgumentException("Arguments can't be empty");
         }
     }
 }

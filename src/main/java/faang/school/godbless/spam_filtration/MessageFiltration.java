@@ -8,7 +8,6 @@ public class MessageFiltration {
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 10;
         MessageFilter emojiFilter = message -> !message.contains("😀");
