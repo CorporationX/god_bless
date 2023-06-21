@@ -14,7 +14,9 @@ public class FilterProcessor {
 
     public Image applyFilter(Image photo, Function<Image, Image> filter) {
         //возвращает новый объект типа Image с применённым фильтром
+        //применение сразу скомбинированных двух фильтров??
         Image filteredPhoto = ;
+        Function<Image, Image> filter =
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image>, Function<Image, Image>) {
@@ -34,7 +36,7 @@ public class FilterProcessor {
         Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", "Фильтр: сепия");
         Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName() + "_vignette", "Фильтр: виньетка");
 
-// Применение фильтров
+// Применение фильтров (1)
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
