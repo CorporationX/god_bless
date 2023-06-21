@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.meta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,9 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> notice = notificationMap.get(notification.getType());
-        notice.accept(notification);
+        if(notificationMap.containsValue(notification.getType())) {
+            Consumer<Notification> notice = notificationMap.get(notification.getType());
+            notice.accept(notification);
+        }
     }
 }

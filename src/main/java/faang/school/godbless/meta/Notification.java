@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.meta;
 
 import lombok.Data;
 import lombok.NonNull;
