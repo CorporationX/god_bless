@@ -25,26 +25,26 @@ public class StreamAPI {
                 .getAverage();
     }
 
-    public static List<String> findStringsStartWith(List<String> numbers) {
-        return numbers.stream()
+    public static List<String> findStringsStartWith(List<String> strings) {
+        return strings.stream()
                 .filter(x -> x.startsWith("W"))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> findStringsContainsSubstring(List<String> numbers) {
-        return numbers.stream()
+    public static List<String> findStringsContainsSubstring(List<String> strings) {
+        return strings.stream()
                 .filter(x -> x.contains("in"))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> sortLength(List<String> numbers) {
-        return numbers.stream()
+    public static List<String> sortLength(List<String> strings) {
+        return strings.stream()
                 .sorted((x1, x2) -> x2.length() - x1.length())
                 .collect(Collectors.toList());
     }
 
-    public static List<String> checkCondition(List<String> numbers) {
-        return numbers.stream()
+    public static List<String> checkCondition(List<String> strings) {
+        return strings.stream()
                 .filter(s -> s.length() > 5)
                 .collect(Collectors.toList());
     }
@@ -56,8 +56,8 @@ public class StreamAPI {
                 .getMin();
     }
 
-    public static List<Integer> convertStringsToStringLength(List<String> numbers) {
-        return numbers.stream()
+    public static List<Integer> convertStringsToStringLength(List<String> strings) {
+        return strings.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
     }
