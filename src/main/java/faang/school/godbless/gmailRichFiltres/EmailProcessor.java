@@ -27,16 +27,6 @@ public class EmailProcessor {
     }
 
     private void processEmails(List<Email> emails, Predicate<Email> filtration, Consumer<Email> processing, Function<Email, String> transformation) {
-       /* for (Email email : emails) {
-            if (filtration.test(email)){
-                String body = transformation.apply(email);
-                email.setBody(body);
-                processing.accept(email);
-            }
-        }
-
-        */
-
        Consumer<Email> consumer = (email) -> {
             if (filtration.test(email)) {
                 String body = transformation.apply(email);
@@ -44,6 +34,6 @@ public class EmailProcessor {
                 processing.accept(email);
             }
         };
-        emails.forEach(email -> consumer.accept(email));
+        emails.forEach(consumer);
     }
 }
