@@ -2,11 +2,7 @@ package faang.school.godbless.ErrorProcessing;
 
 import java.util.function.Supplier;
 
-public class Application {
-    public static void main(String... args) {
-
-    }
-
+public class ExceptionUtil {
     public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
         T res;
         try {
@@ -16,6 +12,4 @@ public class Application {
         }
         return res;
     }
-
-    ;
 }

@@ -1,17 +1,15 @@
 package ErrorProcessing;
 
-import faang.school.godbless.ErrorProcessing.ExceptionHandler;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Supplier;
 
-import static faang.school.godbless.ErrorProcessing.Application.withErrorHandling;
+import static faang.school.godbless.ErrorProcessing.ExceptionUtil.withErrorHandling;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ProcessingTest {
     @Test
     void processingTest() {
-
         Supplier<String> stringSupplier = () -> "Hello".concat(" World!");
 
         String exceptionHandlerTest = withErrorHandling(() -> {
