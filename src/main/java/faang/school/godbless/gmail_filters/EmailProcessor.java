@@ -6,9 +6,15 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public static List<Email> processEmails(List<Email> emails, Predicate<Email> checkEmail,
-                                            Consumer<Email> processEmail,
-                                            Function<Email, Email> convertEmail) {
-        return emails.stream().filter(checkEmail).peek(processEmail).map(convertEmail).toList();
+    public static void processEmails(List<Email> emails, Predicate<Email> checkEmail,
+                                     Consumer<Email> processEmail,
+                                     Function<Email, Email> convertEmail) {
+        for (int i = 0; i < emails.size(); i++) {
+            Email email = emails.get(i);
+            if (checkEmail.test(email)) {
+                processEmail.accept(email);
+                emails.set(i, convertEmail.apply(email));
+            }
+        }
     }
 }

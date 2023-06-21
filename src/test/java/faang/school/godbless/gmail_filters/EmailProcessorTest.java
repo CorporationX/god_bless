@@ -24,9 +24,9 @@ class EmailProcessorTest {
         Function<Email, Email> toUpperCase = email ->
                 new Email(email.getSubject().toUpperCase(), email.getBody(), email.isImportant());
 
-        List<Email> processedEmails = EmailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        EmailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        assertEquals(1, processedEmails.size());
-        assertEquals("œ»—‹ÃŒ 2", processedEmails.get(0).getSubject());
+        assertEquals(3, emails.size());
+        assertEquals("œ»—‹ÃŒ 2", emails.get(1).getSubject());
     }
 }
