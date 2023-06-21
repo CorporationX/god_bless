@@ -1,6 +1,5 @@
 package faang.school.godbless.reverse;
 
-import faang.school.godbless.Example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
