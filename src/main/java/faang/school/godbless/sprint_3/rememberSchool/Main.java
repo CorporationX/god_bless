@@ -4,11 +4,15 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        Double result = triangleArea(5, 10, 10);
+        Main main = new Main();
+        Double result = main.triangleArea(5, 10, 10);
         System.out.println(result);
     }
 
-    static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public Double triangleArea(double a, double b, double c) {
+        if (a + b <= c || a + c <= b || b + c <= a) {
+            throw new IllegalArgumentException("Неравенство треугольника не выполняется.");
+        }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
