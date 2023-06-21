@@ -12,8 +12,8 @@ public class EmailProcessor {
                               Function<Email, String> transformation){
         for (Email mail : mails) {
             if(filterEmails.test(mail)) {
-                handling.accept(mail);
                 transformation.apply(mail);
+                handling.accept(mail);
             }
         }
     }
