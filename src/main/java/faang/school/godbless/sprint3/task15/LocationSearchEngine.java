@@ -12,9 +12,12 @@ public class LocationSearchEngine {
         if (locations == null || predicate == null) {
             throw new IllegalArgumentException("Параметры метода не могут быть null!");
         }
-
-        locations.removeIf(predicate);
-        return locations;
+        List<Location> copyLocations = new ArrayList<>(locations);
+        copyLocations.removeIf(predicate);
+        return copyLocations;
+//        return locations.stream()
+//                .filter(predicate)
+//                .collect(Collectors.toList());
     }
 
     public void processLocations(List<Location> locations, Consumer<Location> consumer) {
