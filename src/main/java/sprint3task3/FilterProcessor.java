@@ -23,6 +23,7 @@ public class FilterProcessor {
     public Function<Image, Image> combineFilters(Function<Image, Image>, Function<Image, Image>) {
         //возвращает новую функцию высокого порядка, которая последовательно
         //применяет обе функции
+        //делаем новую лямбду(фильтр) которая состоит из двух лямбд
         Function<Image, Image> unitedFilters =
     }
 
