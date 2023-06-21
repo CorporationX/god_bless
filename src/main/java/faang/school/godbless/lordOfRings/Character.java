@@ -28,11 +28,10 @@ public class Character {
   }
 
   public void updateItem(Predicate<Item> predicate, Function<Item, Item> getUpdatedValue) {
-    Optional<Item> candidate = inventory.stream().filter(predicate).findFirst();
-
-    if (candidate.isPresent()) {
-      int candidateIndex = inventory.indexOf(candidate.get());
-      inventory.set(candidateIndex, getUpdatedValue.apply(candidate.get()));
+    for (int i =0; i < inventory.size(); i++) {
+      if (predicate.test(inventory.get(i))) {
+        inventory.set(i, getUpdatedValue.apply(inventory.get(i)));
+      }
     }
   }
 }
