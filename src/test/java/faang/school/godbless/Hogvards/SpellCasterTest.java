@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SpellCasterTest {
     SpellCaster spellCaster = new SpellCaster();
-
     @Test
     void testCastAlohomora() {
         String res = spellCaster.cast("Alohomora", thisSpell -> "The door is unlocked by " + thisSpell);
