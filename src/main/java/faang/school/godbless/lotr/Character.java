@@ -28,27 +28,21 @@ public class Character {
     }
 
     public void updateItemIf(Predicate<Item> condition, Function<Item, Item> update) {
+        int index = 0;
         for (Item item : inventory) {
 
             if (condition.test(item)) {
                 Item updatedItem = update.apply(item);
-                updateItem(item, updatedItem);
+                inventory.set(index,updatedItem);
             }
-        }
-    }
 
-    private void updateItem(Item toUpdate, Item updated) {
-        toUpdate.setName(updated.getName());
-        toUpdate.setValue(updated.getValue());
+            index++;
+        }
     }
 
     private void validateName(String name){
         if(name.isBlank()){
             throw new IllegalArgumentException("Name can't be empty.");
-        }
-
-        if(name == null){
-            throw new IllegalArgumentException("Name can't be null");
         }
     }
 }

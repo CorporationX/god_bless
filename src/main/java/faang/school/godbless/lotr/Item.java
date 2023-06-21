@@ -20,25 +20,9 @@ public class Item {
         this.value = value;
     }
 
-    public void setValue(int value) {
-        validateValue(value);
-
-        this.value = value;
-    }
-
-    public void setName(String name) {
-        validateName(name);
-
-        this.name = name;
-    }
-
     private void validateName(String name) {
         if (name.isBlank()) {
-            throw new IllegalArgumentException("Arguments can't be empty.");
-        }
-
-        if (name == null) {
-            throw new IllegalArgumentException("Arguments can't be null");
+            throw new IllegalArgumentException("Name can't be empty.");
         }
     }
 
