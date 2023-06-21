@@ -20,7 +20,5 @@ class ErrorHandlingTest {
                 (() -> Integer.parseInt("123abc"), ex -> {
                     throw new NumberFormatException();
                 }));
-
-
     }
 }
