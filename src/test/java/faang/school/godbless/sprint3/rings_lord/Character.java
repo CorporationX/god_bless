@@ -1,13 +1,11 @@
 package faang.school.godbless.sprint3.rings_lord;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 public class Character {
     private String name;
     private List<Item> inventory;
