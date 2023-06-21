@@ -10,7 +10,7 @@ public class NotificationManager {
     Map <String, Consumer<Notification>> map = new HashMap<>();
     public void registerHandler (String notificationIdentification, Consumer<Notification> Nikita){
         //индентификатор оповещений; функц интерфейс = обработчик оповещений
-        //тут функц интерфейс - значит тут будет лямбда
+        //тут функц интерфейс - значит тут будет лямбда.
         //то есть тут вообще можно делать лямбду тк есть функц интерф в параметрах
         map.put(notificationIdentification, Nikita);
         //add
