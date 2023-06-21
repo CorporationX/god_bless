@@ -1,5 +1,8 @@
 package faang.school.godbless.gmail_rich_filters;
 
+import lombok.Setter;
+
+@Setter
 public class Email {
     private String subject;
     private String body;

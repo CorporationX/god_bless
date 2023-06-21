@@ -13,8 +13,9 @@ public class EmailProcessor {
         }
         for(Email email : emails) {
             if(predicate.test(email)) {
+                String temp = function.apply(email);
+                email.setBody(temp);
                 consumer.accept(email);
-                function.apply(email);
             }
         }
     }
@@ -22,14 +23,14 @@ public class EmailProcessor {
     public static void main(String[] args) {
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Письмо 2", "text of message 2", true),
                 new Email("Спам", "Текст спама", false)
         );
 
         EmailProcessor emailProcessor = new EmailProcessor();
 
         Predicate<Email> importantFilter = email -> email.getIsImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject() + " - " + email.getBody());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
