@@ -1,6 +1,5 @@
 package faang.school.godbless.sprint2.task4;
 
-import faang.school.godbless.sprint2.task4.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
