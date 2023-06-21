@@ -1,8 +1,6 @@
 package sprint3task6;
-
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -12,22 +10,24 @@ import java.util.function.Predicate;
 @Data
 //настраивать фильтры для обработки входящих писем.
 public class EmailProcessor {
-    //Predicate для фильтрации писем, Consumer для обработки писем и
-    //Function для преобразования писем.
+//Predicate для фильтрации писем, Consumer для обработки писем и
+//Function для преобразования писем.
+
     public void processEmails(List<Email> emails, Predicate<Email> filter,
-                              Consumer<List<Email>> handling,
+                              Consumer<Email> handling,
                               Function<Email, String> converting) {
 
-        List<Email> filteredEmails = new ArrayList();
-        for (int i = 0; i < emails.size(); i++) {
-            if (filter.test(emails.get(i))) {
-                filteredEmails.add(emails.get(i));
-            }
-        }
-        List <Email> handledFilteredEmails = handling.accept(filteredEmails);
-        List <String> convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
-    }
+//List<Email> filteredEmails = new ArrayList();
+        for (Email oneExactEmail : emails) {
+//for (int i = 0; i < emails.size(); i++) {
+            if (filter.test(oneExactEmail)) {
+                //filteredEmails.add(emails.get(i));
+                handling.accept(oneExactEmail);
+                converting.apply(oneExactEmail);
 
+            }//List <String> convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
+        }
+    }
     public static void main(String[] args) {
 
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -45,5 +45,4 @@ public class EmailProcessor {
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
-
 }
