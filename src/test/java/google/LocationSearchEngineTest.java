@@ -14,15 +14,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LocationSearchEngineTest {
-  List<Location> locations = new ArrayList<>(Arrays.asList(
+  private List<Location> locations = new ArrayList<>(Arrays.asList(
       new Location("Eiffel Tower", 48.8584, 2.2945),
       new Location("Statue of Liberty", 40.6892, -74.0445),
       new Location("Great Wall of China", 40.4319, 116.5704)
   ));
 
-  LocationSearchEngine searchEngine = new LocationSearchEngine();
+  private LocationSearchEngine searchEngine = new LocationSearchEngine();
 
-  private static final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+  private static ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
 
   @BeforeAll
   public static void setUp() {
