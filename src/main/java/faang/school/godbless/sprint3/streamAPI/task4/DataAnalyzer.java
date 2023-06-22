@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class DataAnalyzer {
 
     public List<String> getMostPopularSkills(List<Job> jobs, int limit) {
+        checkValidation(jobs);
         return jobs.stream()
                 .flatMap(job -> job.getSkills().stream())
                 .collect(Collectors.groupingBy(x -> x, Collectors.counting()))
@@ -22,6 +23,7 @@ public class DataAnalyzer {
     }
 
     public List<String> getMostPopularPositions(List<Job> jobs, int limit) {
+        checkValidation(jobs);
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()))
                 .entrySet()
@@ -33,6 +35,7 @@ public class DataAnalyzer {
     }
 
     public Map<String, Long> getSalaryByVacancies(List<Job> jobs) {
+        checkValidation(jobs);
         return jobs.stream()
                 .collect(Collectors.groupingBy(e->Math.ceil(e.getSalary()/50000.0), Collectors.counting()))
                 .entrySet()
@@ -43,6 +46,7 @@ public class DataAnalyzer {
     }
 
     public List<String> getMostPopularLocations(List<Job> jobs, int limit) {
+        checkValidation(jobs);
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
                 .entrySet()
@@ -54,6 +58,16 @@ public class DataAnalyzer {
     }
 
     public Map<String, Map<String, List<String>>> analyzeTrends(List<Job> jobs, LocalDate startDate, LocalDate endDate, TrendGranularity granularity) {
+        checkValidation(jobs);
+        if (startDate == null) {
+            startDate = LocalDate.of(2000, 1, 1);
+        }
+        if (endDate == null) {
+            startDate = LocalDate.now();
+        }
+        if (granularity == null) {
+            granularity = TrendGranularity.MONTHLY;
+        }
         long plusDays = selectHowDaysToPlus(granularity);
         Map<String, Map<String, List<String>>>  statistics = new LinkedHashMap<>();
         long count = 0;
@@ -90,5 +104,11 @@ public class DataAnalyzer {
         return jobs.stream()
                 .filter(job -> job.getDate().isAfter(startDate.minusDays(1)) && job.getDate().isBefore(endDate))
                 .collect(Collectors.toList());
+    }
+
+    private static void checkValidation(List<Job> jobs) {
+        if (jobs == null || jobs.isEmpty()) {
+            throw new IllegalArgumentException("Список не может быть пустым!");
+        }
     }
 }
