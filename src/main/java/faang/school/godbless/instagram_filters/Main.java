@@ -6,6 +6,7 @@ public class Main {
     public static void main(String[] args) {
         FilterProcessor filterProcessor = new FilterProcessor();
 
+        
         Image image = new Image("cap.jpg", "Оригинальное изображение");
 
         Function<Image, Image> combinetFilter = filterProcessor.combineFilters(filterProcessor.grayScaleFilter, filterProcessor.sepiaFilter);
