@@ -19,11 +19,11 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
 
         //for (Item oddItem : character.getInventory()) {
-            //if (predicate.test(oddItem)) {
+        //if (predicate.test(oddItem)) {
         System.out.println(character.getInventory().removeIf(predicate));
-                //character.getInventory().remove(oddItem);
-         //   }
-       // }
+        //character.getInventory().remove(oddItem);
+        //   }
+        // }
         //if (character.getInventory().contains(oddItem)) {
     }
 
@@ -46,13 +46,13 @@ public class InventoryManager {
         InventoryManager manager = new InventoryManager();
 
 // Добавляем предмет в инвентарь
-        manager.addItem(frodo, ring, (item) ->System.out.println(item.getName() + " was added to the inventory."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         manager.addItem(frodo, ring5, (item) ->
                 System.out.println(item.getName() + " was added to the inventory."));
 
 // Удаляем предмет из инвентаря
         manager.removeItem(frodo, (item) ->
-               item.getName().equals("The One Ring"));
+                item.getName().equals("The One Ring"));
 
 // Обновляем предмет в инвентаре
         manager.updateItem(frodo, (item) ->
