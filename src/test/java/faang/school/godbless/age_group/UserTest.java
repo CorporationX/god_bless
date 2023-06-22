@@ -21,7 +21,6 @@ public class UserTest {
                 new User("Bob", 35, "Google", "London"),
                 new User("Emily", 35, "Google", "London")
         );
-
         int expectedMapSize = 2;
         int expectedListSize = 1;
         int resultedMapSize = User.groupUsersByAge(users).size();
@@ -30,11 +29,11 @@ public class UserTest {
         assertEquals(expectedMapSize,resultedMapSize);
         assertEquals(expectedListSize, resultedListSize);
     }
-}
+
     @Test
     void addUnderageUserTest(){
         IllegalArgumentException exception = assertThrows(UserException.class,
-                () -> user = new User("Vasya", 17, "Google", "London"));
+                () -> new User("Vasya", 17, "Google", "London"));
         String expectedMessage = Message.UNDERAGE;
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -43,7 +42,7 @@ public class UserTest {
     @Test
     void addWrongAddressTest(){
         IllegalArgumentException exception = assertThrows(UserException.class,
-                () -> user = new User("Vasya", 18, "Google", "Roma"));
+                () -> new User("Vasya", 18, "Google", "Roma"));
         String expectedMessage = Message.WRONG_ADDRESS;
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -52,7 +51,7 @@ public class UserTest {
     @Test
     void addWrongWorkplaceTest(){
         IllegalArgumentException exception = assertThrows(UserException.class,
-                () -> user = new User("Vasya", 18, "Yandex", "London"));
+                () -> new User("Vasya", 18, "Yandex", "London"));
         String expectedMessage = Message.WRONG_WORKPLACE;
 
         assertEquals(expectedMessage, exception.getMessage());
@@ -61,7 +60,7 @@ public class UserTest {
     @Test
     void addNullNameTest(){
         IllegalArgumentException exception = assertThrows(UserException.class,
-                () -> user = new User(null, 18, "Google", "London"));
+                () -> new User(null, 18, "Google", "London"));
         String expectedMessage = Message.NULL_NAME;
 
         assertEquals(expectedMessage, exception.getMessage());
