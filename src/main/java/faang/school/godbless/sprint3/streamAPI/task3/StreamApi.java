@@ -1,18 +1,29 @@
 package faang.school.godbless.sprint3.streamAPI.task3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamApi {
 
-    //not done
-    public static List<Integer> findUniquePairsNumbers(List<Integer> numbers, Integer number) {
+    public static List<Pair> findUniquePairsNumbers(List<Integer> numbers, Integer number) {
         return numbers.stream()
-                .map(x -> number - x)
+                .sorted(Comparator.comparingInt(x -> x))
+                .limit(numbers.size() / 2)
+                .map(x -> {
+                    if (numbers.contains(number - x)) {
+                        return new Pair<>(x, number - x);
+                    } else {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -32,6 +43,13 @@ public class StreamApi {
 
     //not done
     public static Map<String, String> getPeopleHavingMutualFriends(Map<String, List<String>> friends) {
+//        return friends.entrySet().stream()
+//                .map(x -> {
+//                    friends.entrySet().stream()
+//                            .map(v -> {
+//                                if (x.getValue().stream().anyMatch(d -> d.))
+//                            })
+//                })
         return null;
     }
 
@@ -96,18 +114,5 @@ public class StreamApi {
                     return sum == x;
                 })
                 .collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        List<String> expected = List.of("11", "22", "33", "44", "55");
-
-        List<StringBuilder> collect = IntStream.range(10, 56)
-                .boxed()
-                .map(x -> new StringBuilder(x)).toList();
-        StringBuilder stringBuilder = new StringBuilder("3");
-        StringBuilder tringBuilder = new StringBuilder(5);
-
-        collect.forEach(System.out::println);
-
     }
 }

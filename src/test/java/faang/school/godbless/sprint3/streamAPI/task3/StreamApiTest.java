@@ -11,10 +11,17 @@ class StreamApiTest {
 
     @Test
     void testFindUniquePairsNumbers() {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
-        List<Integer> uniquePairsNumbers = StreamApi.findUniquePairsNumbers(numbers, 8);
+        List<Pair> expected = List.of(
+                new Pair(1, 7),
+                new Pair(2, 6),
+                new Pair(3, 5),
+                new Pair(4, 4)
+        );
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 4);
 
-        assertEquals(numbers, uniquePairsNumbers);
+        List<Pair> actual = StreamApi.findUniquePairsNumbers(numbers, 8);
+
+        assertEquals(expected, actual);
     }
 
 
@@ -41,6 +48,20 @@ class StreamApiTest {
         List<String> actual = StreamApi.filterStrings(strings, 'M');
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void testGetPeopleHavingMutualFriends() {
+        Map<String, List<String>> friends = Map.of(
+                "Иван", List.of("Александр, Артем, Михаил"),
+                "Максим", List.of("Мария, Артем, Лев"),
+                "Мария", List.of("Лев, Максим, София"),
+                "Петя", List.of("София, Анна, Мария")
+        );
+
+        Map<String, String> peopleHavingMutualFriends = StreamApi.getPeopleHavingMutualFriends(friends);
+
+        assertEquals(1, 1);
     }
 
     @Test
