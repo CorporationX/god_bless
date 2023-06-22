@@ -1,8 +1,6 @@
 package faang.school.godbless.sprint3.streamAPI.task4;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -20,14 +18,6 @@ class DataAnalyzerTest {
     @BeforeEach
     void setUp() {
         dataAnalyzer = new DataAnalyzer();
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
-
-    @Test
-    void getMostPopularSkills() {
     }
 
     @ParameterizedTest
@@ -72,7 +62,7 @@ class DataAnalyzerTest {
     void testGetMostPopularLocations(List<Job> jobs){
         List<String> expected = List.of("Москва", "Нижний Новгород", "Санкт-Петербург");
 
-        List<String> actual = dataAnalyzer.getMostPopularLocations(jobs, 5);
+        List<String> actual = dataAnalyzer.getMostPopularLocations(jobs, 3);
 
         assertEquals(expected, actual);
     }
@@ -121,7 +111,6 @@ class DataAnalyzerTest {
                 new Job("Intern java developer", List.of("Java 8"), 30_000, "Санкт-Петербург", LocalDate.of(2023, 5, 3)),
                 new Job("Intern java developer", List.of("Java 8"), 30_000, "Нижний Новгород", LocalDate.of(2023, 5, 1))
         );
-
         return Stream.of(Arguments.of(jobs));
     }
 }

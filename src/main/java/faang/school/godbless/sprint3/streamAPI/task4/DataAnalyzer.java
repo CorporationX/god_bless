@@ -54,15 +54,9 @@ public class DataAnalyzer {
     }
 
     public Map<String, Map<String, List<String>>> analyzeTrends(List<Job> jobs, LocalDate startDate, LocalDate endDate, TrendGranularity granularity) {
-
-        int plusDays = 0;
-        switch (granularity) {
-            case DAILY -> plusDays = 1;
-            case WEEKLY -> plusDays = 7;
-            case MONTHLY -> plusDays = 30;
-        }
+        long plusDays = selectHowDaysToPlus(granularity);
         Map<String, Map<String, List<String>>>  statistics = new LinkedHashMap<>();
-        int count = 0;
+        long count = 0;
         LocalDate end;
         do {
             LocalDate start = startDate.plusDays(count * plusDays);
@@ -82,21 +76,19 @@ public class DataAnalyzer {
         return statistics;
     }
 
+    private static long selectHowDaysToPlus(TrendGranularity granularity) {
+        int plusDays = 0;
+        switch (granularity) {
+            case DAILY -> plusDays = 1;
+            case WEEKLY -> plusDays = 7;
+            case MONTHLY -> plusDays = 30;
+        }
+        return plusDays;
+    }
+
     private List<Job> jobsBetweenStartAndEnd(List<Job> jobs, LocalDate startDate, LocalDate endDate) {
         return jobs.stream()
                 .filter(job -> job.getDate().isAfter(startDate.minusDays(1)) && job.getDate().isBefore(endDate))
                 .collect(Collectors.toList());
-    }
-
-    public static void main(String[] args) {
-        LocalDate start = LocalDate.of(2023, 6, 15);
-        LocalDate end = LocalDate.of(2023, 6, 16);
-        LocalDate between = LocalDate.of(2023, 6, 15);
-        if (between.isAfter(start.minusDays(1)) && between.isBefore(end)) {
-            System.out.println("kek");
-        } else {
-            System.out.println("no kek");
-        }
-
     }
 }
