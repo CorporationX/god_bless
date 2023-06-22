@@ -13,9 +13,11 @@ public class EmailProcessor {
         validateFunction(mapper);
 
         for (Email email: emails){
-            filter.test(email);
-            consumer.accept(email);
-            mapper.apply(email);
+            if(email.isImportant()) {
+                mapper.apply(email);
+                filter.test(email);
+                consumer.accept(email);
+            }
         }
     }
 
