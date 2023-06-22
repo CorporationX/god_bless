@@ -22,7 +22,7 @@ public class Main {
 
 //Отправка отфильтрованных сообщений
         Predicate<Notification> isEmail = notification -> notification.getType().equals("email");
-        notificationManager.filterAndSendNotification(emailNotification,isEmail);
-        notificationManager.filterAndSendNotification(smsNotification,isEmail);
+        notificationManager.filterAndSendNotification(emailNotification, isEmail);
+        notificationManager.filterAndSendNotification(smsNotification, isEmail);
     }
 }
