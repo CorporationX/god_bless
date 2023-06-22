@@ -2,7 +2,6 @@ package faang.school.godbless.sprint3.GoogleTranslate.classes;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DictionaryProcessorTest {
     private static final String EMPTY_STRING = "";
-    private static Map<String, String> dictionary = new HashMap<>();
+    private static final String NULL_STRING = null;
+    private static final Map<String, String> dictionary = new HashMap<>();
     private static DictionaryProcessor dictionaryProcessor;
 
     private static BiConsumer<String, String> consumer;
@@ -38,32 +38,29 @@ class DictionaryProcessorTest {
         );
     }
 
-    @Test
-    @DisplayName("Word is null")
-    void processWord_wordIsNull() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> dictionaryProcessor.processWord(null, "blank", consumer));
-        assertEquals(DictionaryProcessor.NULLABLE_VALUE_EXCEPTION, exception.getMessage());
+    @ParameterizedTest
+    @MethodSource("getEmptyOrNullString")
+    @DisplayName("Word is null or empty")
+    void processWord_WordIsNullOrEmpty(String word) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> dictionaryProcessor.processWord(word, "some", consumer));
+        assertEquals(DictionaryProcessor.WORD_IS_EMPTY_OR_NULL, exception.getMessage());
     }
 
-    @Test
-    @DisplayName("Word is empty")
-    void processWord_wordIsEmpty() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> dictionaryProcessor.processWord(EMPTY_STRING, "blank", consumer));
-        assertEquals(DictionaryProcessor.EMPTY_VALUE_EXCEPTION, exception.getMessage());
+    @ParameterizedTest
+    @MethodSource("getEmptyOrNullString")
+    @DisplayName("Translate word is null or empty")
+    void processWord_TranslateIsNullOrEmpty(String word) {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> dictionaryProcessor.processWord("some", word, consumer));
+        assertEquals(DictionaryProcessor.TRANSLATE_IS_EMPTY_OR_NULL, exception.getMessage());
     }
 
-    @Test
-    @DisplayName("Translate is null")
-    void processWord_translateIsNull() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> dictionaryProcessor.processWord("blank", null, consumer));
-        assertEquals(DictionaryProcessor.NULLABLE_VALUE_EXCEPTION, exception.getMessage());
-    }
-
-    @Test
-    @DisplayName("Translate is empty")
-    void processWord_translateIsEmpty() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> dictionaryProcessor.processWord("blank", EMPTY_STRING, consumer));
-        assertEquals(DictionaryProcessor.EMPTY_VALUE_EXCEPTION, exception.getMessage());
+    public static Stream<Arguments> getEmptyOrNullString() {
+        return Stream.of(
+                Arguments.of(EMPTY_STRING),
+                Arguments.of(NULL_STRING)
+        );
     }
 
     private static Stream<Arguments> getWords() {

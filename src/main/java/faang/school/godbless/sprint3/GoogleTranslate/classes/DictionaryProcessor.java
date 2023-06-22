@@ -3,14 +3,15 @@ package faang.school.godbless.sprint3.GoogleTranslate.classes;
 import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {
-    public static final String NULLABLE_VALUE_EXCEPTION = "Nullable value";
-    public static final String EMPTY_VALUE_EXCEPTION = "Empty value";
+    public static final String WORD_IS_EMPTY_OR_NULL = "Word is empty or null";
+    public static final String TRANSLATE_IS_EMPTY_OR_NULL = "Translate word is empty or null";
+
     public void processWord(String word, String translate, BiConsumer<String, String> consumer) {
-        if (word == null || translate == null){
-            throw new IllegalArgumentException(NULLABLE_VALUE_EXCEPTION);
+        if (word == null || word.isEmpty()) {
+            throw new IllegalArgumentException(WORD_IS_EMPTY_OR_NULL);
         }
-        if (word.isEmpty() || translate.isEmpty()){
-            throw  new IllegalArgumentException(EMPTY_VALUE_EXCEPTION);
+        if (translate == null || translate.isEmpty()) {
+            throw new IllegalArgumentException(TRANSLATE_IS_EMPTY_OR_NULL);
         }
         consumer.accept(word, translate);
     }
