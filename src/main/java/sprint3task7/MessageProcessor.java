@@ -21,7 +21,7 @@ public class MessageProcessor {
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 10;
         MessageFilter emojiFilter = message -> !message.contains("😀");
-        MessageFilter emojiFilter2 = message -> message.contains("Nikita");
+        MessageFilter emojiFilter2 = message -> message.contains("N");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter, emojiFilter2);
 
