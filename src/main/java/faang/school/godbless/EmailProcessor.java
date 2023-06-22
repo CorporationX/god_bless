@@ -1,18 +1,20 @@
 package faang.school.godbless;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> handler, Function<Email, String> converter){
-        for(Email email : emails){
-            if(filter.test(email)){
-                handler.accept(email);
+    public  List<String> processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> handler, Function<Email, String> converter) {
+        List<String> emailHandlers = new ArrayList<>();
+        for (Email email : emails) {
+            if (filter.test(email)) {
+                String emailHandler = handler.apply(email);
                 String convertedBody = converter.apply(email);
-                System.out.println("Преобразованное тело письма: " + convertedBody);
+                emailHandlers.add(emailHandler + " " + convertedBody);
             }
         }
+        return emailHandlers;
     }
 }

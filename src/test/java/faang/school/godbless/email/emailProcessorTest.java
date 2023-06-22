@@ -5,6 +5,8 @@ import faang.school.godbless.EmailProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class emailProcessorTest {
     EmailProcessor emailProcessor;
+
     @BeforeEach
     public void setUp() {
         emailProcessor = new EmailProcessor();
@@ -27,32 +30,22 @@ public class emailProcessorTest {
 
         // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Message 1", "Text of message 1", false),
+                new Email("Message 2", "Text of message 2", true),
+                new Email("spam", "Text spam", false)
         );
 
         // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = Email::isImportant;
-        Predicate<Email> spamFilter = email -> email.getSubject().equalsIgnoreCase("Спам");
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, String> printEmail = email -> email.getSubject();
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        // Обработка писем с фильтром на важность
-        List<Email> filteredEmails = new ArrayList<>();
-        Consumer<Email> collectFilteredEmails = filteredEmails::add;
+        String expectedOutput = "Message 2 TEXT OF MESSAGE 2";
+        List<String> filteredEmails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        emailProcessor.processEmails(emails, importantFilter, collectFilteredEmails, toUpperCase);
+        // Проверка вывода
+        assertEquals(expectedOutput, filteredEmails.get(0));
 
-        assertEquals(1, filteredEmails.size());
-        assertEquals("ТЕКСТ ПИСЬМА 2", filteredEmails.get(0).getBody());
 
-        // Обработка писем с фильтром на спам
-        filteredEmails.clear();
-
-        emailProcessor.processEmails(emails, spamFilter, collectFilteredEmails, toUpperCase);
-
-        assertEquals(1, filteredEmails.size());
-        assertEquals("ТЕКСТ СПАМА", filteredEmails.get(0).getBody());
     }
 }

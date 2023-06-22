@@ -12,17 +12,20 @@ public class Application {
 
         // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Message 1", "Text of message 1", false),
+                new Email("Message 2", "Text of message 2", true),
+                new Email("Spam", "Text of spam", false)
         );
 
         // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, String> printEmail = email -> "Messages: " + email.getSubject();
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        List<String> filteredEmails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        for(String email : filteredEmails){
+            System.out.println(email);
+        }
     }
 }
