@@ -9,16 +9,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class CalculatorProcessorTest {
 
     @Test
-    void emptyListCalculator() {
+    void testEmptyListCalculationIsInvalid() {
         List<Integer> emptyList = List.of();
-        Calculator calculator = new Calculator() {
-            @Override
-            public int calculateFunction(int a, int b) {
-                return 0;
-            }
-        };
 
-        assertThrows(IllegalArgumentException.class, () -> CalculatorProcessor.calculate(emptyList, calculator));
+        assertThrows(IllegalArgumentException.class, () -> CalculatorProcessor.calculate(emptyList, (a,b)->0));
     }
 
     @Test
