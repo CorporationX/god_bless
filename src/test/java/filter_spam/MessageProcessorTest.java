@@ -25,13 +25,13 @@ class MessageProcessorTest {
     void processMessage_AllowedMessage_ReturnsTrue() {
         String message = "Long message without emoji";
         boolean isFiltered = messageProcessor.processMessage(message, filters);
-        assertFalse(isFiltered);
+        assertTrue(isFiltered);
     }
 
     @Test
     void processMessage_FilteredMessage_ReturnsFalse() {
         String message = "This is spam!";
         boolean isFiltered = messageProcessor.processMessage(message, filters);
-        assertTrue(isFiltered);
+        assertFalse(isFiltered);
     }
 }
