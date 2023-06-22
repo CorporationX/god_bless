@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DictionaryProcessorTest {
+
     private static final String EMPTY_STRING = "";
     private static final String NULL_STRING = null;
     private static final Map<String, String> dictionary = new HashMap<>();
