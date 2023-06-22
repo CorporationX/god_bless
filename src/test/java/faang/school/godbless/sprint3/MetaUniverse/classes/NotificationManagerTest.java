@@ -58,6 +58,14 @@ class NotificationManagerTest {
         Assertions.assertEquals(expected, outputStream.toString());
     }
 
+    @Test
+    @DisplayName("Test with null")
+    void sendNotification_testWithNull(){
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> notificationManager.sendNotification(null));
+        Assertions.assertEquals(NotificationManager.NOTIFICATION_IS_NULL_MESSAGE, exception.getMessage());
+    }
+
 
     private static Stream<Arguments> getNotifications() {
         return Stream.of(
