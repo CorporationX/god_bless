@@ -11,7 +11,6 @@ public class Application {
     public static void main(String... args) {
         EmailProcessor emailProcessor = new EmailProcessor();
 
-
 // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", true),
