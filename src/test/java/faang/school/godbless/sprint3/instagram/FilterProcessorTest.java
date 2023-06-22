@@ -1,13 +1,10 @@
 package faang.school.godbless.sprint3.instagram;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.provider.Arguments;
 
 import java.util.function.Function;
-import java.util.stream.Stream;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FilterProcessorTest {
     private FilterProcessor filterProcessor;
