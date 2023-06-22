@@ -8,7 +8,6 @@ public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer){
         character.getItems().add(item);
         consumer.accept(item);
-
     }
 
     public void removeItem(Character character, Predicate<Item> predicate){
