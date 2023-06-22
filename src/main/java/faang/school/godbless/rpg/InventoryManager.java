@@ -33,11 +33,10 @@ public class InventoryManager {
 
         checkInventory(inventory);
 
-        for (Item item : inventory) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (filter.test(item)) {
-                inventory.remove(item);
-                Item appliedItem = updater.apply(item);
-                inventory.add(appliedItem);
+                inventory.set(i, updater.apply(item));
             }
         }
     }
