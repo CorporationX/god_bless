@@ -20,10 +20,12 @@ public class Item {
     public void setValue(int value) {
         this.value = value;
     }
-    public Item(){
+
+    public Item() {
 
     }
-    public Item(String name, int value){
+
+    public Item(String name, int value) {
         this.name = name;
         this.value = value;
     }

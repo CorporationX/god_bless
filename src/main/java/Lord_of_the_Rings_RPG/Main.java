@@ -13,18 +13,11 @@ public class Main {
         System.out.println(frodo);
 
 // Обновляем предмет в инвентаре
-        manager.updateItem(frodo, (item) -> item.getName()!=null &&
-                        item.getName().equals("The One Ring"),
-                (item) -> {
-                    frodo.setInventory(new Item(item.getName(), item.getValue() * 2));
-                    return frodo.getInventory();
-                });
+        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
         System.out.println(frodo);
 
 // Удаляем предмет из инвентаря
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
         System.out.println(frodo);
-
-
     }
 }
