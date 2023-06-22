@@ -1,5 +1,8 @@
 package faang.school.godbless.sprint3.streamAPI.task4;
 
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -48,5 +51,52 @@ public class DataAnalyzer {
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    public Map<String, Map<String, List<String>>> analyzeTrends(List<Job> jobs, LocalDate startDate, LocalDate endDate, TrendGranularity granularity) {
+
+        int plusDays = 0;
+        switch (granularity) {
+            case DAILY -> plusDays = 1;
+            case WEEKLY -> plusDays = 7;
+            case MONTHLY -> plusDays = 30;
+        }
+        Map<String, Map<String, List<String>>>  statistics = new LinkedHashMap<>();
+        int count = 0;
+        LocalDate end;
+        do {
+            LocalDate start = startDate.plusDays(count * plusDays);
+            end = startDate.plusDays((count + 1) * plusDays);
+            count++;
+            String interval = "Отчет за " + start + " - " + end;
+            List<Job> jobsInterval = jobsBetweenStartAndEnd(jobs, start, end);
+
+            Map<String, List<String>> analysis = new HashMap<>();
+            analysis.put("Популярные скиллы", getMostPopularSkills(jobsInterval, 3));
+            analysis.put("Популярные вакансии", getMostPopularPositions(jobsInterval, 3));
+            analysis.put("Популярные локации", getMostPopularLocations(jobsInterval, 3));
+            statistics.put(interval, analysis);
+
+        } while (end.isBefore(endDate));
+
+        return statistics;
+    }
+
+    private List<Job> jobsBetweenStartAndEnd(List<Job> jobs, LocalDate startDate, LocalDate endDate) {
+        return jobs.stream()
+                .filter(job -> job.getDate().isAfter(startDate.minusDays(1)) && job.getDate().isBefore(endDate))
+                .collect(Collectors.toList());
+    }
+
+    public static void main(String[] args) {
+        LocalDate start = LocalDate.of(2023, 6, 15);
+        LocalDate end = LocalDate.of(2023, 6, 16);
+        LocalDate between = LocalDate.of(2023, 6, 15);
+        if (between.isAfter(start.minusDays(1)) && between.isBefore(end)) {
+            System.out.println("kek");
+        } else {
+            System.out.println("no kek");
+        }
+
     }
 }
