@@ -17,5 +17,4 @@ public class NotificationManager {
         }
         handlers.get(notification.getType()).accept(notification);
     }
-
 }
