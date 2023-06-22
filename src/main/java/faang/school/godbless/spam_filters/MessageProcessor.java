@@ -8,12 +8,11 @@ public class MessageProcessor {
         boolean isValid = true;
         for (MessageFilter<String> filter : messageFilterList){
             if(!filter.filter(message)){
-                isValid = false;
-                break;
+                return false;
             }
         }
 
-        return isValid;
+        return true;
     }
 
     public static void main(String[] args) {
