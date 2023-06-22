@@ -1,8 +1,8 @@
 package faang.school.godbless;
 
 public class SpellCaster {
-    public void cast(String str, SpellAction spellAction){
-        System.out.println(spellAction.spellMethod(str));
+    public void cast(String spell, SpellAction spellAction){
+        System.out.println(spellAction.spell(spell));
     }
 
     public static void main(String[] args) {
@@ -12,8 +12,8 @@ public class SpellCaster {
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.cast(alohomora, (string) -> "The door is unlocked by " + string);
-        spellCaster.cast(lumos, (string) -> "A beam of light is created by " + string);
-        spellCaster.cast(expelliarmus, (string) -> "The opponent is disarmed by " + string);
+        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
+        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
 }
