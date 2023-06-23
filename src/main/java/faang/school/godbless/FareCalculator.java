@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-import javax.swing.*;
 import java.util.function.BiFunction;
 
 public class FareCalculator {
