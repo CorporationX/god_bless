@@ -7,11 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class EnvironmentalImpactAnalyzer {
-
     private final CompanyDataLoader companyDataLoader;
-
     private final StatisticsAggregator statisticsAggregator;
-
 
     public EnvironmentalImpactAnalyzer() {
         companyDataLoader = new CompanyDataLoader();
@@ -37,7 +34,7 @@ public class EnvironmentalImpactAnalyzer {
 
     public void printStatisticsConsumptionEnergyCompany(String pathCSV, LocalDate end) {
         String format = "%1$-16s%2$-20s%3$-25s%4$-25s";
-        System.out.printf((format) + "%n", "Сompany", "totalConsumption", "avgConsumption/month", "minConsumption/month");
+        System.out.printf((format) + "%n", "Company", "totalConsumption", "avgConsumption/month", "minConsumption/month");
         LocalDate start = end.minusYears(1);
         List<EnvironmentalImpact> environmentalImpacts = companyDataLoader.readCSV(pathCSV);
         Map<String, Double> totalEmissionsAndConsumption =
@@ -79,11 +76,17 @@ public class EnvironmentalImpactAnalyzer {
         }
     }
 
-    private Map<String, Double> analiseConsumptionEnergyCompanyPerLastYear(String pathCSV, String companyName, LocalDate now) {
+    private Map<String, Double> analiseConsumptionEnergyCompanyPerLastYear(String pathCSV, String companyName, LocalDate end) {
         List<EnvironmentalImpact> environmentalImpacts = companyDataLoader.readCSV(pathCSV);
-        LocalDate end = now;
-        if (now == null) {
+        if (end == null) {
             end = LocalDate.now();
+        }
+        boolean contains = Company.companies.stream()
+                .map(Company::getCompanyName)
+                .toList()
+                .contains(companyName);
+        if (!contains) {
+            throw new IllegalArgumentException("Компании " + companyName + " не существует!");
         }
         LocalDate start = end.withDayOfMonth(1);
         Map<String, Double> statPerMonth = new LinkedHashMap<>();
@@ -100,7 +103,6 @@ public class EnvironmentalImpactAnalyzer {
             end = start.minusDays(1);
             start = start.minusMonths(1);
         }
-
         return statPerMonth;
     }
 
