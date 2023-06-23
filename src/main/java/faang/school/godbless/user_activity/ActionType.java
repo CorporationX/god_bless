@@ -13,5 +13,5 @@ public enum ActionType {
     LIKE("like"),
     SHARE("share");
 
-    private String action;
+    private final String action;
 }
