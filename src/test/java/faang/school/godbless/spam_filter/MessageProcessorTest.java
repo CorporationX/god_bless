@@ -12,12 +12,12 @@ class MessageProcessorTest {
 
     @Test
     void testProcessMessage() {
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("spam");
         MessageFilter lengthFilter = message -> message.length() > 10;
         MessageFilter emojiFilter = message -> !message.contains(":)");
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
-        String[] messages = {"Привет!", "Это спам!", "Как дела? :)", "Длинное сообщение без спама и эмодзи"};
+        String[] messages = {"Hello!", "It's spam!", "How are you? :)", "Long message without emoji"};
         List<String> filteredMessages = new ArrayList<>();
         for (String message : messages) {
             boolean isFiltered = MessageProcessor.processMessage(message, filters);
@@ -26,8 +26,8 @@ class MessageProcessorTest {
             }
         }
 
-        assertEquals(2, filteredMessages.size());
-        assertTrue(filteredMessages.contains("Привет!"));
-        assertFalse(filteredMessages.contains("Это спам!"));
+        assertEquals(1, filteredMessages.size());
+        assertTrue(filteredMessages.contains("Long message without emoji"));
+        assertFalse(filteredMessages.contains("Hello!"));
     }
 }
