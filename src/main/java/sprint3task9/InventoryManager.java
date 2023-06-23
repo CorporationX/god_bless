@@ -2,7 +2,6 @@ package sprint3task9;
 
 import lombok.Data;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -12,19 +11,19 @@ public class InventoryManager {
     public void addItem(Character character, Item item,
                         Consumer<Item> consumer) {
         character.getInventory().add(item);
-        //добавляет предмет в инвентарь персонажа
         consumer.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
+        character.getInventory().removeIf(predicate);
 
         //for (Item oddItem : character.getInventory()) {
         //if (predicate.test(oddItem)) {
-        System.out.println(character.getInventory().removeIf(predicate));
         //character.getInventory().remove(oddItem);
         //   }
         // }
-        //if (character.getInventory().contains(oddItem)) {
+        //removeIf (убирает элемент, если тот проходит проверку на тесте предикатора)
+        //remove () удаляет значение по index, либо первое соответствие из пары одинаковых элементов
     }
 
     public void updateItem(Character character, Predicate<Item> predicate,
@@ -32,12 +31,12 @@ public class InventoryManager {
         for (Item removingItem : character.getInventory()) {
             if (predicate.test(removingItem)) {
                 //function.apply(removingItem);
+                //сверху неверно, тк обновляем айтем, но не сохраняем его, т.е. не кладем его на место старого айтема в листе инвентори.
                 character.getInventory().set(character.getInventory().indexOf(removingItem), function.apply(removingItem));
-//Nikita
+//N
             }
         }
     }
-
     public static void main(String[] args) {
         Character frodo = new Character();
         Item ring = new Item("The One Ring", 1000);
@@ -62,3 +61,18 @@ public class InventoryManager {
     }
 }
 
+//
+//@FunctionalInterface
+//public interface Consumer<T> {
+//    void accept(T t);
+//}
+//
+//@FunctionalInterface
+//public interface Predicate<T> {
+//    boolean test(T t);
+//
+//}
+//@FunctionalInterface
+//public interface Function<T, R> {
+//    R apply(T t);
+//}
