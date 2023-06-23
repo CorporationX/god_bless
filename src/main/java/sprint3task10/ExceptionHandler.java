@@ -7,15 +7,3 @@ public interface ExceptionHandler <Exception> {
 
 }
 
-@FunctionalInterface
-public interface Consumer<T> {
-    void accept(T param);
-}
-
-    // Лямбда – потребим данные, и выведем в консоль
-    Consumer<Object> consumer = param -> {
-        System.out.println("Consumed – " + param.toString());
-    };
-
-// Передадим значение в объект Consumer и вызовем метод accept()
-consumer.accept("Hello world!"); // выводит "Consumed – Hello world!"

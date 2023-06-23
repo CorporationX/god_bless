@@ -1,6 +1,7 @@
 package sprint3task10;
 public class ClassForTask10 {
- RemoteService remoteService = new RemoteService();
+    RemoteService remoteService = new RemoteService();
+
     public static void main(String[] args) {
         //нужно написать метод, который будет писать:
         try {
@@ -10,24 +11,23 @@ public class ClassForTask10 {
             return "DEFAULT";
         }
     }
-    public T withErrorHandling (lambda1, lambda2 ){
+    public static T withErrorHandling(U lambda1, V ExceptionHandler lambda2, RemoteService param) {
 //Первая лямбда - то, что нужно сделать; вызов удаленного сервиса remoteService.call(param);
-
+        if (remoteService.lambda1) {
+            call(param)
+//.call = .test ?
+        }
 // Вторая лямбда - то, что нужно сделать при ошибке первого действия.
-
-        ExceptionHandler<Exception> lambda2 = ohNo -> {
-            System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение"+ "DEFAULT");
-        };
-
-// Передадим значение в объект Consumer и вызовем метод accept()
-        consumer.accept("Hello world!"); // выводит "Consumed – Hello world!"
-
-
+        else {
+            ExceptionHandler<Exception> lambda2 = ohNo -> {
+                System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение") +
+                return "DEFAULT";
+            };
+            lambda2.handlingWithException();
+        }
     }
 
-
 }
-
 
 
 //лямбда сидит на функциональных интерфейсах
