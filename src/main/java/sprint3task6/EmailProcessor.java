@@ -22,8 +22,9 @@ public class EmailProcessor {
 //for (int i = 0; i < emails.size(); i++) {
             if (filter.test(oneExactEmail)) {
                 //filteredEmails.add(emails.get(i));
+                String apply1 = converting.apply(oneExactEmail);
+                oneExactEmail.setBody(apply1);
                 handling.accept(oneExactEmail);
-                converting.apply(oneExactEmail);
 
             }//List <String> convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
         }
@@ -39,7 +40,7 @@ public class EmailProcessor {
         );
 // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getBody());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
 // Обработка писем
