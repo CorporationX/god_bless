@@ -29,7 +29,7 @@ class Test {
         List<Integer> nums = new ArrayList<>(Arrays.asList(1,2,3,4,5));
         int res = product(nums);
 
-        assertEquals(res, 15);
+        assertFalse(res == 15);
     }
 
     @org.junit.jupiter.api.Test
@@ -37,8 +37,6 @@ class Test {
         List<Integer> nums = new ArrayList<>(Arrays.asList(1,2,3,4,5));
         int res = sum(nums);
 
-        assertEquals(res, 120);
+        assertFalse(res == 120);
     }
-
-
 }

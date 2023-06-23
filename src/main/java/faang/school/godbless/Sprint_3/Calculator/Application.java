@@ -5,11 +5,16 @@ import java.util.List;
 public class Application {
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
-        int res = 1;
-        for(int x : nums) {
-            res = calculator.operate(res, x);
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException();
         }
-        return res;
+        int result = nums.get(0);
+
+        for (int i = 1; i < nums.size(); i++) {
+            result = calculator.operate(result, nums.get(i));
+        }
+
+        return result;
     }
 
     public static int product(List<Integer> nums) {
@@ -18,8 +23,8 @@ public class Application {
     }
 
     public static int sum(List<Integer> nums) {
-        Calculator productCalculator = (int a, int b) -> a + b;
-        return calculate(nums, productCalculator) - 1;
+        Calculator sumCalculator = (int a, int b) -> a + b;
+        return calculate(nums, sumCalculator);
     }
 
 }
