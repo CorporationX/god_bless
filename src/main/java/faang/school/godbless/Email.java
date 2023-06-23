@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-@Getter
+@Data
 public class Email {
     private String subject;
     private String body;

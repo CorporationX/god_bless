@@ -13,9 +13,9 @@ public class EmailProcessor {
         validateFunction(mapper);
 
         for (Email email: emails){
-            if(email.isImportant()) {
-                mapper.apply(email);
-                filter.test(email);
+            if(filter.test(email)) {
+                String result = mapper.apply(email);
+                email.setBody(result);
                 consumer.accept(email);
             }
         }
