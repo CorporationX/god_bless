@@ -6,16 +6,16 @@ public class ClassForCalculator {
     public static int calculate
             (List<Integer> nums, Calculator calculator)
             throws IllegalArgumentException {
-        //необходимо получить в итоге одно число, а не list.
+        //Необходимо получить в итоге одно число, а не list.
         //2 3 4 5 6  получается 140 (150).
-        //не так рядком 2 5 9...140 , а сразу одно единственое число 140.
+        //не так рядком 2 5 9...140 , а сразу одно единственное число 140.
         int temp = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             temp = calculator.calculateIt(temp, nums.get(i));
             //temp = nums.get(i)*nums.get(i-1);
             //nums.get(i)= temp;
             //задумка про то, чтобы получить list с переумноженными и пересложенными
-            //друг с другом перемеными, но тут надо не так.
+            //друг с другом переменными, но тут надо не так.
         }
         return temp;
     }
