@@ -1,9 +1,10 @@
 package sprint3task10;
+import java.util.function.Supplier;
+
 public class ClassForTask10 {
     RemoteService remoteService = new RemoteService();
-
     public static void main(String[] args) {
-        //нужно написать метод, который будет писать:
+        //нужен метод, который будет писать:
         try {
             return remoteService.call(param);
         } catch (Exception e) {
@@ -11,23 +12,30 @@ public class ClassForTask10 {
             return "DEFAULT";
         }
     }
-    public static T withErrorHandling(U lambda1, V ExceptionHandler lambda2, RemoteService param) {
+    public static <T> T withErrorHandling
+            (Supplier<T>  lambda1, V ExceptionHandler <T> lambda2, RemoteService param) {
+//Внутри withErrorHandling нужно написать try/catch.
+//Внутри try использовать action, внутри catch использовать onError
+//и передать туда пойманный Exception.
+
 //Первая лямбда - то, что нужно сделать; вызов удаленного сервиса remoteService.call(param);
-        if (remoteService.lambda1) {
-            call(param)
-//.call = .test ?
+        try {
+            Supplier<T> lambda1 = param -> {
+                remoteService.call(param);};
+            return lambda1;
         }
+//.call = .get ?
 // Вторая лямбда - то, что нужно сделать при ошибке первого действия.
-        else {
-            ExceptionHandler<Exception> lambda2 = ohNo -> {
+        catch (Exception e) {
+            ExceptionHandler<T> lambda2 = ohNo -> {
                 System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение") +
                 return "DEFAULT";
             };
             lambda2.handlingWithException();
         }
+        return null;
     }
-
 }
 
 
-//лямбда сидит на функциональных интерфейсах
+
