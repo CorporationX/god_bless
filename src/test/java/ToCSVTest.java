@@ -6,7 +6,7 @@ import java.util.List;
 import static faang.school.godbless.buildCSV.ToCSV.toCSV;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ToCSV {
+public class ToCSVTest {
     List<List<String>> list;
 
     @BeforeEach
