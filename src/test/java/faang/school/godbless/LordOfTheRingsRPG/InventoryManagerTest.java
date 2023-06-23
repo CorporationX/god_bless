@@ -35,6 +35,6 @@ class InventoryManagerTest {
     @Test
     public void updateItemTest() {
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
-        assertEquals(2000, frodo.getInventory().get(0).value);
+        assertEquals(2000, frodo.getInventory().get(0).getValue());
     }
 }

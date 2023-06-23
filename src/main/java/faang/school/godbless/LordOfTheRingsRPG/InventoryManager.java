@@ -17,7 +17,7 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> predicateUpdate, Function<Item, Item> itemFunction) {
         character.getInventory().stream()
                 .filter(predicateUpdate) // filter - отработает по заданному условию
-                .findFirst()// findFirst - первое знач. которое подходит по условию и стоит первым
+                .findFirst()// findFirst - первое знач. которое подходит по условию
                 .ifPresent(f -> character.getInventory().set(character.getInventory().indexOf(f), itemFunction.apply(f)));
                 // ifPresent - если есть здесь что-то => выполнить условие
     }
