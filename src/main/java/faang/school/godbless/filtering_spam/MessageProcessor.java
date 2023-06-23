@@ -6,19 +6,18 @@ import java.util.List;
 
 public class MessageProcessor {
     public boolean processMessage(String message, List<MessageFilter> filters) {
-        boolean isFiltered = false;
         for (MessageFilter anotherFilter : filters) {
-            if (anotherFilter.filter(message)) {
-                isFiltered = true;
+            if (!anotherFilter.filter(message)) {
+                return false;
             }
         }
-        return isFiltered;
+        return true;
     }
 
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-        MessageFilter spamFilter = message -> message.toLowerCase().contains("spam");
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("spam");
         MessageFilter lengthFilter = message -> message.length() > 10;
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter);
