@@ -7,7 +7,7 @@ public class Main {
         System.out.println(triangleArea(3, 4, 5));
     }
 
-    static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("The values must be non-negative or zero");
         }
@@ -19,11 +19,11 @@ public class Main {
 
         double halfMeter = div.apply(sum.apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);
 
-        double MeterMinusA = sub.apply(halfMeter).apply(a);
-        double MeterMinusB = sub.apply(halfMeter).apply(b);
-        double MeterMinusC = sub.apply(halfMeter).apply(c);
+        double meterMinusA = sub.apply(halfMeter).apply(a);
+        double meterMinusB = sub.apply(halfMeter).apply(b);
+        double meterMinusC = sub.apply(halfMeter).apply(c);
 
-        double result = sqrt.apply(mul.apply(mul.apply(mul.apply(halfMeter).apply(MeterMinusA)).apply(MeterMinusB)).apply(MeterMinusC));
+        double result = sqrt.apply(mul.apply(mul.apply(mul.apply(halfMeter).apply(meterMinusA)).apply(meterMinusB)).apply(meterMinusC));
 
         return result;
     }
