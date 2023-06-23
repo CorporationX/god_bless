@@ -1,8 +1,8 @@
 package faang.school.godbless.flip_the_matrix;
 
-public class FlipMatrix {
+public class MatrixFlipper {
 
-  public int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+    public int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         MatrixTransformer transformer;
 
         if (flipDirection == FlipDirection.HORIZONTAL) {
@@ -17,6 +17,10 @@ public class FlipMatrix {
     }
 
     private int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
+        if (matrix.length == 0) {
+            return new int[0][0];
+        }
+
         int[][] transformedMatrix = new int[matrix.length][matrix[0].length];
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[i].length; j++) {
