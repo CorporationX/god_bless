@@ -1,4 +1,4 @@
-package faang.school.godbless.task3;
+package faang.school.godbless.Sprint2.task3;
 
 public class Archer extends Character {
 

@@ -1,4 +1,4 @@
-package faang.school.godbless.task6_calculator;
+package faang.school.godbless.sprint3.task6_calculator;
 
 import java.util.Arrays;
 import java.util.List;
