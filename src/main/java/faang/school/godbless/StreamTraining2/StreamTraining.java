@@ -1,32 +1,17 @@
 package faang.school.godbless.StreamTraining2;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamTraining {
     //На вход дан список целых чисел и число. Найдите все уникальные пары чисел, сумма которых равна заданному числу.
-    public static Map<Integer, Integer> uniquePairs(List<Integer> list, Integer num) {
-        Map<Integer, Integer> pairs = new HashMap<>();
-        List<Integer> indexes = new ArrayList<>();
-
-        for (int i = 0; i < list.size(); i++) {
-            if (!pairs.containsKey(list.get(i))) {
-                for (int j = i + 1; j < list.size(); j++) {
-                    if (list.get(i) + list.get(j) == num && !indexes.contains(list.indexOf(list.get(i))) && !indexes.contains(list.indexOf(list.get(j)))) {
-                        pairs.put(list.get(i), list.get(j));
-                        indexes.add(list.indexOf(list.get(i)));
-                        indexes.add(list.indexOf(list.get(j)));
-                    }
-                }
-            }
-        }
-        return pairs;
+    public static Set<List<Integer>> uniquePairs(List<Integer> list, Integer num) {
+        return list.stream()
+                .filter(e -> list.contains(num - e))
+                .map(e -> Arrays.asList(e, num - e))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
     }
 
     //На вход получаем мапу с названиями стран и их столицами. Отсортируйте страны по алфавиту, а затем выведите названия их столиц в виде списка.
@@ -34,7 +19,7 @@ public class StreamTraining {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey(Comparator.naturalOrder()))
                 .map(Map.Entry::getValue)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     //Получаем список строк и букву в виде char. Отфильтруйте строки, которые начинаются с заданной буквы, и отсортируйте их по длине в порядке возрастания, и верните список этих строк.
@@ -46,41 +31,30 @@ public class StreamTraining {
     }
 
     //Дана мапа, где ключами являются имена людей, а значениями — списки их друзей. Найдите все пары людей, которые не являются друзьями, но у них есть общие друзья.
-    public static Map<String, String> friendsOfFriends(Map<String, List<String>> friendList) {
-        Map<String, String> friendsOfFriends = new HashMap<>();
-
-        friendList.forEach((main, friends) -> friends.forEach(friend -> {
-            friendList.forEach((k, v) -> {
-                if (!k.equals(main) && v.contains(friend) && !friends.contains(k) && !v.contains(main)) {
-                    if (friendsOfFriends.containsKey(k)) {
-                        if (!friendsOfFriends.get(k).contains(main)) {
-                            friendsOfFriends.put(main, k);
-                        }
-                    } else {
-                        friendsOfFriends.put(main, k);
-                    }
-                }
-            });
-        }));
-
-        return friendsOfFriends;
+    public static Set<List<String>> friendsOfFriends(Map<String, List<String>> friendList) {
+        return friendList.keySet()
+                .stream()
+                .flatMap(name1 -> friendList.keySet()
+                        .stream()
+                        .filter(name2 -> !friendList.get(name1).contains(name2)
+                                && !friendList.get(name2).contains(name1)
+                                && friendList.get(name1).stream().anyMatch(friendList.get(name2)::contains))
+                        .map(name2 -> Arrays.asList(name2, name1))
+                        .filter(list -> !Objects.equals(list.get(0), list.get(1)))
+                        .peek(Collections::sort)
+                ).collect(Collectors.toSet());
     }
 
     //Получаем список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел. Найдите среднюю зарплату для каждого отдела. Должна получится map с именем отдела и средней зарплатой.
     public static Map<String, Double> averageSalary(List<Employee> list) {
         return list.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment))
-                .entrySet()
-                .stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> e.getValue().stream().mapToDouble(Employee::getSalary).average().orElseThrow()));
+                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
     }
 
     //Дан список строк. Отфильтруйте строки, которые содержат только буквы заданного алфавита, и отсортируйте их в порядке возрастания длины строк.
     public static List<String> alphabetContains(List<String> list, String alphabet) {
         return list.stream()
-                .filter(str -> Set.of(alphabet.split("")).containsAll(List.of(str.replaceAll(" ", "").split(""))))
+                .filter(str -> str.replaceAll(" ", "").toLowerCase().matches("[" + alphabet + "]+"))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }

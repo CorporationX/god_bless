@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static faang.school.godbless.StreamTraining2.StreamTraining.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -14,9 +15,9 @@ public class StreamTrainingTest {
     void uniquePairsTest() {
         List<Integer> list = List.of(2, 5, 7, 1, 3, 9, 6, 8, 4, 0, 2, 4, 0, 3, 1);
 
-        Map<Integer, Integer> pairs = uniquePairs(list, 4);
+        Set<List<Integer>> pairs = uniquePairs(list, 4);
 
-        assertEquals(Map.of(1, 3, 2, 2, 4, 0), pairs);
+        assertEquals(Set.of(List.of(2, 2), List.of(1, 3), List.of(0, 4)), pairs);
     }
 
     @Test
@@ -53,7 +54,7 @@ public class StreamTrainingTest {
                 "Sauron", List.of("Saruman", "Gandlaf"));
 
 
-        Map<String, String> result = friendsOfFriends(map);
+        Set<List<String>> result = friendsOfFriends(map);
 
         System.out.println(result);
         assertNotNull(result);
@@ -78,8 +79,8 @@ public class StreamTrainingTest {
     @Test
     void alphabetContainsTest() {
         String str = "abc";
-        String str1 = "cba a b b";
-        String str2 = "aaa";
+        String str1 = "cba a B b";
+        String str2 = "aaA";
         String str3 = "";
         String str4 = "WaNg";
         List<String> list = List.of(str, str1, str2, str3, str4);
@@ -87,7 +88,7 @@ public class StreamTrainingTest {
 
         List<String> result = alphabetContains(list, alphabet);
 
-        assertEquals(List.of("abc", "aaa", "cba a b b"), result);
+        assertEquals(List.of("abc", "aaA", "cba a B b"), result);
     }
 
     @Test
