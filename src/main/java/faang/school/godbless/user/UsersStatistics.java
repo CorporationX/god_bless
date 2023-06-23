@@ -14,8 +14,8 @@ public class UsersStatistics {
     this.userActions = userActions;
   }
 
+  // Найти топ-10 самых активных пользователей (по количеству действий: посты, комментарии, лайки и репосты).
   public List<String> getMostActiveUsers(int usersCount) {
-    // Найти топ-10 самых активных пользователей (по количеству действий: посты, комментарии, лайки и репосты).
     Map<String, List<UserAction>> map = userActions.stream()
         .collect(Collectors.groupingBy(UserAction::getUserId));
 
@@ -30,6 +30,7 @@ public class UsersStatistics {
         .toList();
   }
 
+  // Определить Топ-5 наиболее популярных тем обсуждения (по количеству упоминаний хештегов в постах и комментариях.
   public List<String> getPopularTopics(int topicAmount) {
     Map<String, Long> hashtagMap = userActions
         .stream()
@@ -37,7 +38,6 @@ public class UsersStatistics {
         .flatMap((userAction) -> Arrays.stream(userAction.getContent().split(" ")))
         .filter(word -> word.startsWith("#"))
         .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-
 
     return hashtagMap
         .entrySet()
@@ -48,6 +48,7 @@ public class UsersStatistics {
         .toList();
   }
 
+  // Найти Топ-3 пользователей, которые оставили наибольшее количество комментариев в последний месяц
   public List<String> getTopUsers(int topUsersCount) {
     LocalDateTime now = LocalDateTime.now();
     LocalDateTime start = now.minusMonths(1);
@@ -68,6 +69,7 @@ public class UsersStatistics {
         .toList();
   }
 
+  // Вычислить процент действий (посты, комментарии, лайки и репосты) для каждого типа действий
   public  Map<ActionType, Float> getActivityPercentage() {
     Map<ActionType, Integer> mapActionTypeToCount = userActions.stream()
         .collect(Collectors.groupingBy(UserAction::getActionType, summingInt(x -> 1)));
