@@ -13,9 +13,9 @@ public class ClassForTask10 {
 //            return "DEFAULT";
 //        }
 
-        String url = "1234";
+        String remoteServiceUrl = "url:262642";
         String result = withErrorHandling1(
-                ()->{ System.out.println("Вызываем " + url);
+                () -> { System.out.println("Вызываем удаленный сервис (remoteService) по URL:" + remoteServiceUrl);
                     return "Успех";},
                 (ohNo) -> { System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение");
                 return url;
