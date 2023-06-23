@@ -12,8 +12,8 @@ public class Application {
                 new Email("Спам", "Текст спама", false));
 
         Predicate<Email> filterEmail = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.subject());
-        Function<Email, String> convertingEmail = email -> email.body().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject() + " " + email.getBody());
+        Function<Email, String> convertingEmail = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emailList, filterEmail, printEmail, convertingEmail);
     }
