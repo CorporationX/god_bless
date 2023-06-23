@@ -1,16 +1,15 @@
 package faang.school.godbless.user;
 
-import java.util.Date;
-import java.util.List;
+import java.time.LocalDateTime;
 
 public class UserAction {
   private String userId;
   private String userName;
   private ActionType actionType;
-  private Date actionDate;
+  private LocalDateTime actionDate;
   private String content;
 
-  public UserAction(String userId, String userName, ActionType actionType, Date actionDate, String content) {
+  public UserAction(String userId, String userName, ActionType actionType, LocalDateTime actionDate, String content) {
     this.userId = userId;
     this.userName = userName;
     this.actionType = actionType;
@@ -32,5 +31,9 @@ public class UserAction {
 
   public String getContent() {
     return content;
+  }
+
+  public LocalDateTime getActionDate() {
+    return actionDate;
   }
 }

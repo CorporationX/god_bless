@@ -1,11 +1,11 @@
 package faang.school.godbless.user;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.summingInt;
 
 public class UsersStatistics {
   private List<UserAction> userActions;
@@ -31,8 +31,6 @@ public class UsersStatistics {
   }
 
   public List<String> getPopularTopics(int topicAmount) {
-    // Определить Топ-5 наиболее популярных тем обсуждения (по количеству упоминаний хештегов в постах и комментариях.
-
     Map<String, Long> hashtagMap = userActions
         .stream()
         .filter((userAction -> userAction.getActionType() == ActionType.POST || userAction.getActionType() == ActionType.COMMENT))
@@ -48,21 +46,40 @@ public class UsersStatistics {
         .map(Map.Entry::getKey)
         .limit(topicAmount)
         .toList();
-
-    // 1. У нас есть ActionType COMMENT и POST
-    // 2. Найти все возможные hashtag в контенте
-    // 3. сгруппировать их по кол-ву, хештег->кол-во
-    // 4. Отсортировать
-    // 5. Взять последние N
-
-
   }
 
-  public void getTopUsers() {
-    //  Найти Топ-3 пользователей, которые оставили наибольшее количество комментариев в последний месяц. Отдельный метод класса.
+  public List<String> getTopUsers(int topUsersCount) {
+    LocalDateTime now = LocalDateTime.now();
+    LocalDateTime start = now.minusMonths(1);
+
+    Map<String, List<UserAction>> userIdToActivities = userActions.stream()
+        .filter((userAction -> userAction.getActionType() == ActionType.COMMENT))
+        .filter(userAction -> userAction.getActionDate().isAfter(LocalDateTime.from(start)))
+        .collect(Collectors.groupingBy(UserAction::getUserId));
+
+    return userIdToActivities.entrySet()
+        .stream()
+        .sorted(Map.Entry.<String, List<UserAction>>comparingByValue(
+                Comparator.comparingInt(List::size))
+            .reversed()
+        )
+        .limit(topUsersCount)
+        .map(Map.Entry::getKey)
+        .toList();
   }
 
-  public void getActivityPercantage() {
-    //   Вычислить процент действий (посты, комментарии, лайки и репосты) для каждого типа действий. Отдельный метод класса.
+  public  Map<ActionType, Float> getActivityPercentage() {
+    Map<ActionType, Integer> mapActionTypeToCount = userActions.stream()
+        .collect(Collectors.groupingBy(UserAction::getActionType, summingInt(x -> 1)));
+
+    int totalActivitiesCount = mapActionTypeToCount.values().stream().reduce(0, Integer::sum);
+    Map<ActionType, Float> mapActivitiesToPercentage = new HashMap<>();
+
+    for (ActionType actionType : ActionType.values()) {
+      if (!mapActionTypeToCount.containsKey(actionType)) continue;
+      mapActivitiesToPercentage.put(actionType, ((float) mapActionTypeToCount.get(actionType) * 100 / totalActivitiesCount));
+    }
+
+    return mapActivitiesToPercentage;
   }
 }
