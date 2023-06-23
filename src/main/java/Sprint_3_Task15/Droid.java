@@ -34,6 +34,8 @@ public class Droid {
         return strBox.toString();
     }
 
+
+
     public static void main(String[] args) {
         Droid r2d2 = new Droid();
         Droid c3po = new Droid();
