@@ -1,7 +1,8 @@
 package faang.school.godbless.sprint_3.google_translator;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.function.BiConsumer;
 
@@ -14,25 +15,46 @@ class DictionaryProcessorTest {
     @BeforeEach
     void init() {
         processor = new DictionaryProcessor();
-        addWord = ((word, translate) -> DictionaryProcessor.dictionary.put(word, translate));
+        addWord = (writeWord, writeTranslate) -> processor.dictionary.put(writeWord, writeTranslate);
     }
 
-    @Test
-    void processWordTest() {
-        processor.processWord("table", "стол", addWord);
-        processor.processWord("home", "дом", addWord);
+    @ParameterizedTest
+    @CsvSource({"table, стол"})
+    void processWordFirstScenarioTest(String word, String translate) {
+        processor.processWord(word, translate, addWord);
 
-        String expected = "стол";
-        String result = DictionaryProcessor.dictionary.get("table");
+        String result = processor.dictionary.get(word);
 
-        assertTrue(DictionaryProcessor.dictionary.containsKey("home"));
-        assertEquals(2, DictionaryProcessor.dictionary.size());
-        assertEquals(expected, result);
+        assertEquals(translate, result);
     }
 
-    @Test
-    void processWordThrowIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> processor.processWord(null, null, null));
-        assertThrows(IllegalArgumentException.class, () -> processor.processWord("   ", "", addWord));
+    @ParameterizedTest
+    @CsvSource({", стол"})
+    void testProcessWordWithNullWordThrowException(String word, String translate) {
+        assertThrows(IllegalArgumentException.class, () -> processor.processWord(word, translate, addWord));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"home,"})
+    void testProcessWordWithNullTranslationThrowException(String word, String translate) {
+        assertThrows(IllegalArgumentException.class, () -> processor.processWord(word, translate, addWord));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"  , дом"})
+    void testProcessWordWithEmptyWordThrowException(String word, String translate) {
+        assertThrows(IllegalArgumentException.class, () -> processor.processWord(word, translate, addWord));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"home,  "})
+    void testProcessWordWithEmptyTranslationThrowException(String word, String translate) {
+        assertThrows(IllegalArgumentException.class, () -> processor.processWord(word, translate, addWord));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"home, дом"})
+    void testProcessWordWithNullAddWordThrowException(String word, String translate) {
+        assertThrows(IllegalArgumentException.class, () -> processor.processWord(word, translate, null));
     }
 }

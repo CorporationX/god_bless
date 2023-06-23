@@ -6,14 +6,11 @@ import java.util.function.BiConsumer;
 
 
 public class DictionaryProcessor {
-    public static Map<String, String> dictionary = new HashMap<>();
+    public Map<String, String> dictionary = new HashMap<>();
 
     public void processWord(String word, String translate, BiConsumer<String, String> consumer) {
-
-        if (isNullOrEmpty(word) || isNullOrEmpty(translate)) {
-            throw new IllegalArgumentException("Invalid word or translation");
-        } else if (dictionary.containsKey(word)) {
-            return;
+        if (isNullOrEmpty(word) || isNullOrEmpty(translate) || consumer == null) {
+            throw new IllegalArgumentException("Consumer is null, or word/it translation is null or empty");
         }
         consumer.accept(word, translate);
     }
