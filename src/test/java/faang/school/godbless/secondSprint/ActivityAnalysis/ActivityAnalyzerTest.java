@@ -21,7 +21,7 @@ class ActivityAnalyzerTest {
 
         for (int i = 0; i < 11; i++) {
             actions.add(new UserAction(1, "Pasha", ActionType.COMMENT,
-                    LocalDate.of(2023, 5, 15), "#1"));
+                    LocalDate.of(2023, 5, 15), "#1 #12 dsad"));
             if (i < 10) {
                 actions.add(new UserAction(2, "Dima", ActionType.COMMENT,
                         LocalDate.of(2023, 6, 22), "#2"));
@@ -60,14 +60,14 @@ class ActivityAnalyzerTest {
             }
             if (i < 1) {
                 actions.add(new UserAction(11, "Sasha", ActionType.POST,
-                        LocalDate.of(2023, 6, 22), "#11"));
+                        LocalDate.of(2023, 6, 22), "#11 #12"));
             }
         }
     }
 
     @Test
     public void testFindMostActiveUsers() {
-        List<String> result = activityAnalyzer.findMostActiveUsers(actions);
+        List<String> result = activityAnalyzer.findMostActiveUsers(actions, 10);
         List<String> expected = List.of("Pasha", "Dima", "Ilya", "Maks", "Sergey", "Kolya", "Anton", "Rinat", "Igor",
                 "Nikita");
 
@@ -76,15 +76,15 @@ class ActivityAnalyzerTest {
 
     @Test
     public void testFindMostPopularTopic() {
-        List<String> result = activityAnalyzer.findMostPopularTopic(actions);
-        List<String> expected = List.of("#1", "#2", "#3", "#4", "#5");
+        List<String> result = activityAnalyzer.findMostPopularTopic(actions, 5);
+        List<String> expected = List.of("#12", "#1", "#2", "#3", "#4");
 
         assertEquals(expected, result);
     }
 
     @Test
     public void testFindMostActiveCommentator() {
-        List<String> result = activityAnalyzer.findMostActiveCommentator(actions);
+        List<String> result = activityAnalyzer.findMostActiveCommentator(actions, 1, 3);
         List<String> expected = List.of("Dima", "Ilya", "Igor");
 
         assertEquals(expected, result);

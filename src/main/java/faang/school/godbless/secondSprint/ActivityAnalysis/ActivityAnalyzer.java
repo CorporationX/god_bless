@@ -7,36 +7,37 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ActivityAnalyzer {
-    public List<String> findMostActiveUsers(List<UserAction> actions) {
+    public List<String> findMostActiveUsers(List<UserAction> actions, int limit) {
         Map<String, Long> users = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()));
 
         return users.entrySet().stream()
                 .sorted((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()))
-                .limit(10)
+                .limit(limit)
                 .map(Map.Entry::getKey).toList();
     }
 
-    public List<String> findMostPopularTopic(List<UserAction> actions) {
+    public List<String> findMostPopularTopic(List<UserAction> actions, int limit) {
         Map<String, Long> hashtags = actions.stream()
-                .flatMap(action -> Arrays.stream(action.getContent().split(" ")))
+                .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
+                .filter(string -> string.startsWith("#"))
                 .collect(Collectors.groupingBy(tag -> tag, Collectors.counting()));
 
         return hashtags.entrySet().stream()
                 .sorted((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()))
-                .limit(5)
+                .limit(limit)
                 .map(Map.Entry::getKey).toList();
     }
 
-    public List<String> findMostActiveCommentator(List<UserAction> actions) {
+    public List<String> findMostActiveCommentator(List<UserAction> actions, int monthCount, int limit) {
         Map<String, Long> commentators = actions.stream()
                 .filter(action -> action.getActionType() == ActionType.COMMENT)
-                .filter(action -> action.getActionDate().isAfter(LocalDate.of(2023, 5, 22)))
+                .filter(action -> action.getActionDate().isAfter(LocalDate.now().minusMonths(monthCount)))
                 .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()));
 
         return commentators.entrySet().stream()
                 .sorted((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()))
-                .limit(3)
+                .limit(limit)
                 .map(Map.Entry::getKey).toList();
     }
 
