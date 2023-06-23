@@ -20,18 +20,8 @@ public class MatrixManager {
         if (!(flipDirection.equals(FlipDirection.VERTICAL) || flipDirection.equals(FlipDirection.HORIZONTAL))) {
             throw new IllegalArgumentException();
         }
-        MatrixTransformer horizontalTransform = (a, b) -> {
-            if (b > 0) {
-                return new Coordinates(a, b - 1);
-            }
-            return new Coordinates(a, b + 1);
-        };
-        MatrixTransformer verticalTransform = (a, b) -> {
-            if (a > 0) {
-                return new Coordinates(a - 1, b);
-            }
-            return new Coordinates(a + 1, b);
-        };
+        MatrixTransformer horizontalTransform = (a, b) -> new Coordinates(a, matrix.length - b - 1);
+        MatrixTransformer verticalTransform = (a, b) -> new Coordinates(matrix.length - a - 1, b);
         if (flipDirection.equals(FlipDirection.HORIZONTAL)) {
             return transformMatrix(matrix, horizontalTransform);
         } else {
