@@ -8,20 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static void main(String[] args) {
-        List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
-        System.out.println(findPairs(nums, 10));
-        Map<String, String> capital = Map.of("B", "1", "A", "2");
-        System.out.println(findCapitals(capital));
-        Map<String, List<String>> friends = Map.of(
-                "1", List.of("2", "3", "4"),
-                "2", List.of("1"),
-                "3", List.of("1"),
-                "4", List.of("1")
-        );
-        System.out.println(findFamiliarPeople(friends));
-    }
-
     public static List<List<Integer>> findPairs(List<Integer> nums, int sum) {
         List<List<Integer>> uniquePairs = new ArrayList<>();
 
