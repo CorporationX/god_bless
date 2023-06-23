@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.BuildCSV.interfaces;
+package faang.school.godbless.sprint3.lambdas.BuildCSV.interfaces;
 
 import java.util.List;
 

@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.BuildCSV;
 
+import faang.school.godbless.sprint3.lambdas.BuildCSV.App;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

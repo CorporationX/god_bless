@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.GoogleTranslate.classes;
 
+import faang.school.godbless.sprint3.lambdas.GoogleTranslate.DictionaryProcessor;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.Uber.classes;
+package faang.school.godbless.sprint3.lambdas.Uber;
 
 import java.util.function.BiFunction;
 

@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.RememberSchool;
+package faang.school.godbless.sprint3.lambdas.RememberSchool;
 
 import java.util.function.Function;
 

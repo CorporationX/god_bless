@@ -1,6 +1,7 @@
 package faang.school.godbless.sprint3.filterSpam.classes;
 
-import faang.school.godbless.sprint3.filterSpam.interfaces.MessageFilter;
+import faang.school.godbless.sprint3.lambdas.filterSpam.classes.MessageProcessor;
+import faang.school.godbless.sprint3.lambdas.filterSpam.interfaces.MessageFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

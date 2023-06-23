@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.calculator;
 
+import faang.school.godbless.sprint3.lambdas.calculator.App;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

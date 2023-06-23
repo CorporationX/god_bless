@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.MetaUniverse.classes;
+package faang.school.godbless.sprint3.lambdas.MetaUniverse;
 
 import lombok.Getter;
 

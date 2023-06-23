@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.calculator.interfaces;
+package faang.school.godbless.sprint3.lambdas.calculator.interfaces;
 
 @FunctionalInterface
 public interface Calculator {

@@ -1,7 +1,7 @@
-package faang.school.godbless.sprint3.BuildCSV;
+package faang.school.godbless.sprint3.lambdas.BuildCSV;
 
-import faang.school.godbless.sprint3.BuildCSV.interfaces.MatrixJoiner;
-import faang.school.godbless.sprint3.BuildCSV.interfaces.VectorJoiner;
+import faang.school.godbless.sprint3.lambdas.BuildCSV.interfaces.MatrixJoiner;
+import faang.school.godbless.sprint3.lambdas.BuildCSV.interfaces.VectorJoiner;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package faang.school.godbless.sprint3.Hogwarts.classes;
+package faang.school.godbless.sprint3.lambdas.Hogwarts.classes;
 
-import faang.school.godbless.sprint3.Hogwarts.interfaces.SpellAction;
+import faang.school.godbless.sprint3.lambdas.Hogwarts.interfaces.SpellAction;
 
 public class SpellCaster {
     public static final String SPELL_IS_NULL_EXCEPTION = "Spell is null";

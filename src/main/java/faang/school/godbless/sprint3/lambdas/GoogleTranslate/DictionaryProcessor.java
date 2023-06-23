@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.GoogleTranslate.classes;
+package faang.school.godbless.sprint3.lambdas.GoogleTranslate;
 
 import java.util.function.BiConsumer;
 

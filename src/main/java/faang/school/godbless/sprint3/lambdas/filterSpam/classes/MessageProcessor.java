@@ -1,6 +1,6 @@
-package faang.school.godbless.sprint3.filterSpam.classes;
+package faang.school.godbless.sprint3.lambdas.filterSpam.classes;
 
-import faang.school.godbless.sprint3.filterSpam.interfaces.MessageFilter;
+import faang.school.godbless.sprint3.lambdas.filterSpam.interfaces.MessageFilter;
 
 import java.util.List;
 

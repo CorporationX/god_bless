@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.Hogwarts.interfaces;
+package faang.school.godbless.sprint3.lambdas.Hogwarts.interfaces;
 
 @FunctionalInterface
 public interface SpellAction {

@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.filterSpam.interfaces;
+package faang.school.godbless.sprint3.lambdas.filterSpam.interfaces;
 
 @FunctionalInterface
 public interface MessageFilter {

@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.Hogwarts.classes;
 
+import faang.school.godbless.sprint3.lambdas.Hogwarts.classes.SpellCaster;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

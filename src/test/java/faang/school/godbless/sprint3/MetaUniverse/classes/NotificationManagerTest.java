@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.MetaUniverse.classes;
 
+import faang.school.godbless.sprint3.lambdas.MetaUniverse.Notification;
+import faang.school.godbless.sprint3.lambdas.MetaUniverse.NotificationManager;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;

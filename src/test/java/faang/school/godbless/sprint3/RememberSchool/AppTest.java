@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.RememberSchool;
 
+import faang.school.godbless.sprint3.lambdas.RememberSchool.App;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

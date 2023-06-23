@@ -1,6 +1,6 @@
-package faang.school.godbless.sprint3.calculator;
+package faang.school.godbless.sprint3.lambdas.calculator;
 
-import faang.school.godbless.sprint3.calculator.interfaces.Calculator;
+import faang.school.godbless.sprint3.lambdas.calculator.interfaces.Calculator;
 
 import java.util.List;
 
