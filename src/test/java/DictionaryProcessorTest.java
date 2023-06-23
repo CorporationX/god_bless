@@ -26,5 +26,12 @@ public class DictionaryProcessorTest {
         String expected = "Здрасте";
         assertEquals(expected, dictionary.get("Hello"));
     }
+    @Test
+    public void addWordToDictionaryTest() {
+        dictionaryProcessor.processWord("Hello", "Здрасте", addWordToDictionary);
+        int size = dictionary.size();
+        int expected = 1;
+        assertEquals(expected, size);
+    }
 
 }
