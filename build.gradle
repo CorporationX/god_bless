@@ -19,12 +19,10 @@ dependencies {
     implementation 'com.mikemybytes:junit5-formatted-source:0.2.0'
     annotationProcessor("org.projectlombok:lombok:1.18.26")
 
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
+    testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-params:5.9.2")
-
-    implementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    implementation 'org.junit.jupiter:junit-jupiter-params:5.9.2.jar'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
 }
 
