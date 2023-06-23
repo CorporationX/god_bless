@@ -18,7 +18,7 @@ public class DictionaryProcessorTest {
     public void init() {
         dictionaryProcessor = new DictionaryProcessor();
         dictionary = new HashMap<>();
-        addWordToDictionary = (word, translation) -> dictionary.put(word, translation);
+        addWordToDictionary = (word, translation) -> dictionary.put(word, translation); // добавляем слово + перевод в мапу
     }
     @Test
     public void DictionaryProcessorTest() {
