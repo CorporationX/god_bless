@@ -8,11 +8,7 @@ public class Main {
         try {
             return action.get();
         }catch (Exception e){
-            onError.handle(e);
-            return null;
+            return onError.handle(e);
         }
-    }
-    public static void main(String[] args) {
-
     }
 }
