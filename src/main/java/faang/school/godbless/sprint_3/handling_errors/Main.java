@@ -8,10 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        String firstBuy = withErrorHandling(() -> main.getOrder(3), exception -> {
-            exception.printStackTrace();
-            return "Bottle of water";
-        });
+        String firstBuy = withErrorHandling(
+                () -> main.getOrder(3), exception -> {
+                    exception.printStackTrace();
+                    return "Bottle of water";
+                });
         System.out.println(firstBuy);
     }
 
@@ -19,7 +20,7 @@ public class Main {
         try {
             return supplier.get();
         } catch (Exception e) {
-            return handler.accept(e);
+            return handler.handle(e);
         }
     }
 

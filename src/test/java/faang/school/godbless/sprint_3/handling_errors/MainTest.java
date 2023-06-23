@@ -9,15 +9,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
     Main main;
-    Supplier<String> firstSupplier;
-    Supplier<String> secondSupplier;
     ExceptionHandler<String> handler;
 
     @BeforeEach
     public void init() {
         main = new Main();
-        firstSupplier = () -> main.getOrder(0);
-        secondSupplier = () -> main.getOrder(7);
         handler = exception -> {
             exception.printStackTrace();
             return "Bottle of water";
@@ -25,15 +21,29 @@ class MainTest {
     }
 
     @Test
-    public void withErrorHandlingTest() {
-        String firstExpected = "Duck";
-        String secondExpected = "Bottle of water";
+    void withErrorHandlingFirstTest() {
+        Supplier<String> firstSupplier = () -> main.getOrder(0);
 
-        String firstResult = Main.withErrorHandling(firstSupplier, handler);
+        String expected = "Duck";
+        String result = Main.withErrorHandling(firstSupplier, handler);
+
+        assertEquals(expected, result);
+
+    }
+
+    @Test
+    void withErrorHandlingSecondTest() {
+        Supplier<String> secondSupplier = () -> main.getOrder(7);
+
+        String secondExpected = "Bottle of water";
         String secondResult = Main.withErrorHandling(secondSupplier, handler);
 
-        assertEquals(firstExpected, firstResult);
         assertEquals(secondExpected, secondResult);
+    }
+
+    @Test
+    void withErrorHandlingThrowArrayIndexOutOfBoundsException() {
+
         assertThrows(ArrayIndexOutOfBoundsException.class, () -> main.getOrder(7));
     }
 }
