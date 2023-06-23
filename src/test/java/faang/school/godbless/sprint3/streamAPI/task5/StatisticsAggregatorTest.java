@@ -43,20 +43,4 @@ class StatisticsAggregatorTest {
 
         assertEquals(1, 1);
     }
-
-    public static void main(String[] args) {
-        LocalDate localDate = LocalDate.now();
-
-        System.out.println(localDate);
-
-        int value = localDate.getMonth().getValue();
-        System.out.println(value);
-        LocalDate localDate1 = localDate.withDayOfMonth(1);
-        System.out.println(localDate1);
-
-        LocalDate start = LocalDate.now();
-        System.out.println(start);
-        LocalDate now = start.withDayOfMonth(1);
-        System.out.println(now);
-    }
 }

@@ -24,14 +24,15 @@ public class EnvironmentalImpactAnalyzer {
 
         System.out.println("CompanyName: " + companyName);
         System.out.println("Today's date: " + end);
-        System.out.println("Month  EnergyConsumption");
+        System.out.println("Month     EnergyConsumption");
 
         double totalConsumption = 0.0;
+        String format = "%1$-10s%2$-17s";
         for (var entry : statPerMonth.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
+            System.out.printf((format) + "%n", entry.getKey(), entry.getValue());
             totalConsumption += entry.getValue();
         }
-        System.out.println("Total    " + totalConsumption);
+        System.out.println("Total     " + totalConsumption);
     }
 
     public void printStatisticsConsumptionEnergyCompany(String pathCSV, LocalDate end) {
@@ -44,7 +45,7 @@ public class EnvironmentalImpactAnalyzer {
         for (var entry : totalEmissionsAndConsumption.entrySet()) {
             String companyName = entry.getKey();
             double totalEnergyConsumption = entry.getValue();
-            double avgEnergyConsumption = entry.getValue() / 12;
+            double avgEnergyConsumption = Math.round((entry.getValue() / 12) * 100) / 100.0;
             double minConsumption = Double.MAX_VALUE;
             Map<String, Double> statPerMonth = analiseConsumptionEnergyCompanyPerLastYear(pathCSV, entry.getKey(), end);
             for (var entryStatPerMonth : statPerMonth.entrySet()) {
@@ -73,11 +74,10 @@ public class EnvironmentalImpactAnalyzer {
                     .map(Company::getTotalEmployees)
                     .toList()
                     .get(0);
-            double consumptionPerEmployee = totalEnergyConsumption / employees;
+            double consumptionPerEmployee = Math.round((totalEnergyConsumption / employees) * 100) / 100.0;
             System.out.printf((format) + "%n", companyName, totalEnergyConsumption, employees, consumptionPerEmployee);
         }
     }
-
 
     private Map<String, Double> analiseConsumptionEnergyCompanyPerLastYear(String pathCSV, String companyName, LocalDate now) {
         List<EnvironmentalImpact> environmentalImpacts = companyDataLoader.readCSV(pathCSV);
@@ -104,18 +104,4 @@ public class EnvironmentalImpactAnalyzer {
         return statPerMonth;
     }
 
-    public static void main(String[] args) {
-//        LocalDate end = LocalDate.now();
-//        LocalDate start = end.withDayOfMonth(1);
-//        for (int i = 0; i < 12; i++) {
-//            System.out.print(i + " : " + start);
-//            System.out.println(" - " + end);
-//            end = start.minusDays(1);
-//            start = start.minusMonths(1);
-//        }
-        EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer();
-        analyzer.printConsumptionEnergyCompany("new.csv", "FuriousCompany");
-        analyzer.printStatisticsConsumptionEnergyCompany("new.csv", LocalDate.now());
-        analyzer.printConsumptionPerEmployee("new.csv", LocalDate.now());
-    }
 }
