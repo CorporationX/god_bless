@@ -11,9 +11,10 @@ public class EmailProcessor {
             throw new IllegalArgumentException("List is empty");
         }
         for (Email email : emailList) {
-            emailPredicate.test(email);
-            emailConsumer.accept(email);
-            emailFunction.apply(email);
+            if (emailPredicate.test(email)){
+                emailConsumer.accept(email);
+                emailFunction.apply(email);
+            }
         }
     }
 
