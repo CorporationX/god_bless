@@ -10,8 +10,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class Location {
-    private String name;
-    private double latitude;
-    private double longitude;
+    private final String name;
+    private final double latitude;
+    private final double longitude;
 
 }
