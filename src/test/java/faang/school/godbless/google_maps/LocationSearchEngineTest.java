@@ -26,11 +26,11 @@ public class LocationSearchEngineTest {
         int actualOutput = filterLocations.size();
         int expectedOutput = 0;
 
-        assertEquals(expectedOutput,actualOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
-    void testCalculateDistance(){
+    void testCalculateDistance() {
         double baseLatitude = 37.4220;
         double baseLongitude = -122.0841;
 
@@ -43,6 +43,6 @@ public class LocationSearchEngineTest {
         double actualOutput = distances.get(0);
         double expectedOutput = 48.150573869892774;
 
-        assertEquals(expectedOutput,actualOutput);
+        assertEquals(expectedOutput, actualOutput);
     }
 }

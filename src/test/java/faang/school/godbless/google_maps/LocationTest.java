@@ -10,6 +10,6 @@ public class LocationTest {
     void testLocationConstructor_ShouldThrowException_IfNameIsEmpty() {
         String message = "Name can't be empty";
 
-        assertThrows(IllegalArgumentException.class,()-> new Location(" ", 12.1123,-2),message);
+        assertThrows(IllegalArgumentException.class, () -> new Location(" ", 12.1123, -2), message);
     }
 }
