@@ -1,12 +1,19 @@
 package VacancyAnalyzer;
 
+import faang.school.godbless.VacancyAnalyzer.Job;
+import faang.school.godbless.VacancyAnalyzer.JobStreamProcessor;
+import faang.school.godbless.VacancyAnalyzer.Statistics;
+import faang.school.godbless.VacancyAnalyzer.TrendGranularity;
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
-import static faang.school.godbless.VacancyAnalyzer.DataAnalyzer.mostPopularSkills;
-import static faang.school.godbless.VacancyAnalyzer.DataAnalyzer.mostPopularTitles;
+import static faang.school.godbless.VacancyAnalyzer.DataAnalyzer.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class VacancyAnalyzerTest {
     String job1 = "{" +
@@ -26,7 +33,7 @@ public class VacancyAnalyzerTest {
             "Python" +
             "]," +
             "'salary': 1500," +
-            "'location': 'Moscow'," +
+            "'location': 'Rio'," +
             "'createdAt': '2023-06-13'" +
             "}";
     String job3 = "{" +
@@ -36,7 +43,7 @@ public class VacancyAnalyzerTest {
             "'C#'" +
             "]," +
             "'salary': 1000," +
-            "'location': 'Paris'," +
+            "'location': 'Rio'," +
             "'createdAt': '2023-06-15'" +
             "}";
     String job4 = "{" +
@@ -57,22 +64,47 @@ public class VacancyAnalyzerTest {
             "'Everything'" +
             "]," +
             "'salary': 5000," +
-            "'location': 'Saint-Petersburg'," +
+            "'location': 'Seoul'," +
             "'createdAt': '2023-06-11'" +
             "}";
-    List<String> list = List.of(job1, job2, job3, job4, job5);
+    List<String> stringList = List.of(job1, job2, job3, job4, job5);
+    List<Job> list = JobStreamProcessor.process(stringList.stream());
 
     @Test
     void mostPopularSkillsTest() {
-        List<String> result = mostPopularSkills(list);
+        List<String> result = mostRequiredSkills(list);
 
         assertEquals("SQL", result.get(0));
     }
 
     @Test
-    void mostPopularTitlesTest(){
+    void mostPopularTitlesTest() {
         List<String> result = mostPopularTitles(list);
 
         assertEquals("Developer", result.get(0));
+    }
+
+    @Test
+    void rangeOfSalariesTest() {
+        Map<String, Integer> result = rangeOfSalaries(list);
+
+        assertEquals(Map.of("Less then 1000", 2, "1001-2000", 2, "More then 2001", 1), result);
+    }
+
+    @Test
+    void mostPopularLocationsTest() {
+        List<String> result = mostPopularLocations(list);
+
+        assertEquals("Rio", result.get(0));
+        assertEquals("Seoul", result.get(1));
+    }
+
+    @Test
+    void analyzeTrendsTest() {
+        List<Statistics> statistics = analyzeTrends(Date.from(Instant.parse("2023-06-01T00:00:00.00Z")),
+                Date.from(Instant.parse("2023-06-30T00:00:00.00Z")), TrendGranularity.WEEK, list);
+
+       assertNotNull(statistics);
+       assertEquals(5,statistics.size());
     }
 }

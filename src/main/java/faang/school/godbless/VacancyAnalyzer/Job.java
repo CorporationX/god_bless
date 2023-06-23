@@ -16,5 +16,4 @@ public class Job {
     private int salary;
     private String location;
     private Date createdAt;
-
 }
