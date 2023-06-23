@@ -13,14 +13,14 @@ public class Calc {
         nums.add(5);
         nums.add(9);
 
-        System.out.println("3 * 5 * 9 = " + Calc.product(nums));
-        System.out.println("3 + 5 + 9 + " + Calc.sum(nums));
+        System.out.println("3 * 5 * 9 = " + product(nums));
+        System.out.println("3 + 5 + 9 = " + sum(nums));
     }
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException{
-        Integer result = 1;
-        for (Integer num : nums) {
-            result = calculator.calculate(num, result);
+        Integer result = nums.get(0);
+        for (int i = 1; i < nums.size(); i++) {
+            result = calculator.calculate(nums.get(i), result);
         }
         return result;
     }
@@ -32,7 +32,7 @@ public class Calc {
 
     public static int sum(List<Integer> nums){
         Calculator sum = (Integer::sum);
-        return calculate(nums, sum) -1;
+        return calculate(nums, sum);
     }
 
 }
