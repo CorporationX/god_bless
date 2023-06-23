@@ -8,20 +8,20 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FareCalculatorTest {
     FareCalculator fareCalculator;
-    double distanceRide;
-    double timeRide;
+    double rideDistance;
+    double rideTime;
     BiFunction<Double, Double, Double> biFunction;
     @BeforeEach
     public void init() {
         fareCalculator = new FareCalculator();
         biFunction = (distanceRide, timeRide) -> 1.0 * distanceRide + 0.5 * timeRide;
-        distanceRide = 10.0;
-        timeRide = 15.0;
+        rideDistance = 10.0;
+        rideTime = 15.0;
     }
 
     @Test
     public void fareCalculatorTest() {
-        double costRide = fareCalculator.calculateFare(distanceRide, timeRide, biFunction);
+        double costRide = fareCalculator.calculateFare(rideDistance, rideTime, biFunction);
         double expected = 17.5;
         assertEquals(expected, costRide);
     }
