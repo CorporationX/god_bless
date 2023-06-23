@@ -18,15 +18,15 @@ public class MessageProcessorTest {
     public void init() {
         messageProcessor = new MessageProcessor();
 
+        // Обработка сообщений
+        messages = new String[]{"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
+
         // Создание фильтров
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
-        MessageFilter lengthFilter = message -> message.length() > 10;
+        MessageFilter lengthFilter = message -> message.length() < 10;
         MessageFilter emojiFilter = message -> !message.contains("😀");
 
         messageFilters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
-
-        // Обработка сообщений
-        messages = new String[]{"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, messageFilters);
@@ -39,7 +39,7 @@ public class MessageProcessorTest {
         boolean secondFilteredMessage = messageProcessor.processMessage(messages[1], messageFilters);
         boolean thirdFilteredMessage = messageProcessor.processMessage(messages[2], messageFilters);
         boolean fourthFilteredMessage = messageProcessor.processMessage(messages[3], messageFilters);
-        assertFalse(firstFilteredMessage);
+        assertTrue(firstFilteredMessage);
         assertFalse(secondFilteredMessage);
         assertFalse(thirdFilteredMessage);
         assertFalse(fourthFilteredMessage);
