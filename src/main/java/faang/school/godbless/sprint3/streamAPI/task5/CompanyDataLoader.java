@@ -42,8 +42,15 @@ public class CompanyDataLoader {
 
     public static void main(String[] args) {
         List<EnvironmentalImpact> environmentalImpacts = List.of(
-                new EnvironmentalImpact(1, 2, 3.4, LocalDate.now(), Type.GAS_EMISSION),
-                new EnvironmentalImpact(2, 1, 3.4, LocalDate.now(), Type.ENERGY_CONSUMPTION)
+                new EnvironmentalImpact(1, 2, 3.4, LocalDate.of(2023, 1, 8), Type.GAS_EMISSION),
+                new EnvironmentalImpact(2, 1, 3.4, LocalDate.of(2023, 5, 15), Type.ENERGY_CONSUMPTION),
+                new EnvironmentalImpact(3, 1, 2.4, LocalDate.of(2023, 6, 10), Type.ENERGY_CONSUMPTION),
+                new EnvironmentalImpact(4, 2, 6.4, LocalDate.of(2023, 3, 6), Type.GAS_EMISSION),
+                new EnvironmentalImpact(5, 1, 10.4, LocalDate.of(2023, 4, 24), Type.ENERGY_CONSUMPTION),
+                new EnvironmentalImpact(6, 3, 10.4, LocalDate.of(2023, 3, 13), Type.ENERGY_CONSUMPTION),
+                new EnvironmentalImpact(7, 3, 16.8, LocalDate.of(2023, 4, 30), Type.GAS_EMISSION),
+                new EnvironmentalImpact(8, 3, 1.4, LocalDate.of(2023, 5, 1), Type.ENERGY_CONSUMPTION),
+                new EnvironmentalImpact(9, 3, 12.5, LocalDate.of(2023, 6, 12), Type.GAS_EMISSION)
         );
         CompanyDataLoader companyDataLoader = new CompanyDataLoader();
         companyDataLoader.writeCSV(environmentalImpacts, "new.csv");
