@@ -31,9 +31,10 @@ public class Service {
         return avgGradeSubject(students)
                 .entrySet()
                 .stream()
-                .sorted((x1, x2) -> (int) (x2.getValue() - x1.getValue())).toList()
-                .get(0)
-                .getKey();
+                .sorted((x1, x2) -> (int) (x1.getValue() * 100 - x2.getValue() * 100))
+                .map(Map.Entry::getKey)
+                .toList()
+                .get(0);
     }
 
     private void checkValidation(List<Student> students) {

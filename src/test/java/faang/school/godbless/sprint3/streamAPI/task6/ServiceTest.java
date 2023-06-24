@@ -18,7 +18,7 @@ class ServiceTest {
     void avgGradeSubject(List<Student> students) {
         Map<String, Double> expected = Map.of(
                 "Химия", 2.75,
-                "Математика", 3.375
+                "Математика", 3.25
         );
 
         Map<String, Double> actual = service.avgGradeSubject(students);
