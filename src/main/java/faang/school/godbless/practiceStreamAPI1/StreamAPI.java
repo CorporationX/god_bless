@@ -1,11 +1,7 @@
 package faang.school.godbless.practiceStreamAPI1;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.OptionalDouble;
-import java.util.OptionalInt;
-
-import static java.util.stream.Collectors.toList;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class StreamAPI {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
@@ -14,14 +10,18 @@ public class StreamAPI {
                 .reduce(Integer::sum).get();
     }
 
-    public static OptionalInt findMaxValue(List<Integer> numbers) {
+    public static int findMaxValue(List<Integer> numbers) {
         return numbers.stream()
-                .mapToInt(Integer::intValue).max();
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElseThrow(() -> new IllegalArgumentException("List is empty!"));
     }
 
-    public static OptionalDouble findMediumValue(List<Integer> numbers) {
+    public static double findMediumValue(List<Integer> numbers) {
         return numbers.stream()
-                .mapToInt(Integer::intValue).average();
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new IllegalArgumentException("List is empty!"));
     }
 
     public static long findCountOfRows(List<String> rows) {
@@ -49,6 +49,24 @@ public class StreamAPI {
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
+    public static boolean checkAllElements(List<Integer> elements, Predicate<Integer> predicate) {
+        return elements.stream().allMatch(predicate);
+    }
 
+
+    public static Optional<Integer> findMinIntThanValue(List<Integer> elements) {
+        return elements.stream()
+                .filter(e -> e > 10).min(Integer::compareTo);
+    }
+
+    public static Optional<Integer> findMinIntThanValueSecondSolution(List<Integer> elements, int value) {
+        return elements.stream()
+                .filter(e -> e > value).min(Integer::compareTo);
+    }
+
+    public static List<Integer> convertStringToLength(List<String> strings) {
+        return strings.stream()
+                .map(String::length).toList();
+    }
 
 }
