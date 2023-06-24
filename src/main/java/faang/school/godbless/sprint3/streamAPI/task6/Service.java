@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 public class Service {
 
     public Map<String, Double> avgGradeSubject(List<Student> students) {
+        checkValidation(students);
         return students.stream()
                 .flatMap(x -> x.getCourses().entrySet().stream())
                 .collect(Collectors.groupingBy(
@@ -14,20 +15,30 @@ public class Service {
                         Collectors.flatMapping(x -> x.getValue().stream(), Collectors.averagingDouble(x -> x))));
     }
 
-    public Map<String, Double> avgGradeSubjectForStudent(List<Student> students, String firstName, String lastName) {
+    public Map<String, Integer> avgGradeSubjectForStudent(List<Student> students, String firstName, String lastName) {
+        checkValidation(students);
         List<Student> filterStudent = students.stream()
                 .filter(x -> x.getFirstName().equals(firstName) && x.getLastName().equals(lastName))
                 .collect(Collectors.toList());
-        return avgGradeSubject(filterStudent);
+        return avgGradeSubject(filterStudent)
+                .entrySet()
+                .stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> (int) Math.round(e.getValue())));
     }
 
     public String findHardSubject(List<Student> students) {
-
+        checkValidation(students);
         return avgGradeSubject(students)
                 .entrySet()
                 .stream()
                 .sorted((x1, x2) -> (int) (x2.getValue() - x1.getValue())).toList()
                 .get(0)
                 .getKey();
+    }
+
+    private void checkValidation(List<Student> students) {
+        if (students == null || students.isEmpty()) {
+            throw new IllegalArgumentException("Список пуст!");
+        }
     }
 }

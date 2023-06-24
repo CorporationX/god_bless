@@ -1,7 +1,5 @@
 package faang.school.godbless.sprint3.streamAPI.task6;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -14,14 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ServiceTest {
     private final Service service = new Service();
-
-    @BeforeEach
-    void setUp() {
-    }
-
-    @AfterEach
-    void tearDown() {
-    }
 
     @ParameterizedTest
     @MethodSource("providerStudents")
@@ -39,12 +29,12 @@ class ServiceTest {
     @ParameterizedTest
     @MethodSource("providerStudents")
     void avgGradeSubjectForStudent(List<Student> students) {
-        Map<String, Double> expected = Map.of(
-                "Химия", 2.75,
-                "Математика", 2.5
+        Map<String, Integer> expected = Map.of(
+                "Химия", 3,
+                "Математика", 2
         );
 
-        Map<String, Double> actual = service.avgGradeSubjectForStudent(students, "Иван", "Иванов");
+        Map<String, Integer> actual = service.avgGradeSubjectForStudent(students, "Иван", "Иванов");
 
         assertEquals(expected, actual);
     }
@@ -59,12 +49,11 @@ class ServiceTest {
         assertEquals(expected, actual);
     }
 
-
     static Stream<Arguments> providerStudents() {
         List<Student> students = List.of(
                 new Student("Иван", "Иванов", Map.of(
                         "Химия", List.of(2, 3, 2, 4),
-                        "Математика", List.of(2, 2, 2, 4)
+                        "Математика", List.of(2, 2, 2, 3)
                 )),
                 new Student("Петя", "Петров", Map.of(
                         "Химия", List.of(3, 3, 2, 3),
@@ -73,6 +62,4 @@ class ServiceTest {
         );
         return Stream.of(Arguments.of(students));
     }
-
-
 }
