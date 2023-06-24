@@ -7,6 +7,7 @@ public class RemoteService {
         }
         System.out.println("call received: the question is " + string);
     }
+
     public static void main(String[] args) {
         RemoteService remoteService = new RemoteService();
         remoteService.call("");
