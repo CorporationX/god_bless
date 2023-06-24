@@ -11,7 +11,9 @@ public class Droid {
         DroidMessageEncryptor encryptor = (m, k) -> {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < m.length(); i++) {
-                result.append((char) (m.charAt(i) + k));
+                int ch = m.charAt(i) + k;
+                if (ch > 126) ch = 32;
+                result.append((char) ch);
             }
             return result.toString();
         };
@@ -24,7 +26,9 @@ public class Droid {
         DroidMessageEncryptor decoder = (m, k) -> {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < m.length(); i++) {
-                result.append((char) (m.charAt(i) - k));
+                int ch = m.charAt(i) - k;
+                if (ch < 32) ch = 126;
+                result.append((char) ch);
             }
             return result.toString();
         };
@@ -34,7 +38,7 @@ public class Droid {
 
     private static void checkArgs(String message, Integer key) {
         if (message.isEmpty() || key < 1) {
-            throw new IllegalArgumentException("Переданы неверные данные");
+            throw new IllegalArgumentException("Incorrect data was transmitted");
         }
     }
 }
