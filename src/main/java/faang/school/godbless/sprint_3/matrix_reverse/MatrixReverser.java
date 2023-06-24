@@ -10,7 +10,7 @@ public class MatrixReverser {
 
         for (int i = 0; i < massive.length; i++) {
             for (int j = 0; j < massive[i].length; j++) {
-                Coordinates coordinates = transformer.change(i, j);
+                Coordinates coordinates = transformer.transform(i, j);
                 newMassive[coordinates.getX()][coordinates.getY()] = massive[i][j];
             }
         }
