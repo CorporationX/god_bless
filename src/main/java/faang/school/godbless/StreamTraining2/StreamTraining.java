@@ -17,7 +17,7 @@ public class StreamTraining {
     //На вход получаем мапу с названиями стран и их столицами. Отсортируйте страны по алфавиту, а затем выведите названия их столиц в виде списка.
     public static List<String> capitals(Map<String, String> map) {
         return map.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey(Comparator.naturalOrder()))
+                .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
