@@ -1,23 +1,32 @@
 package faang.school.godbless.sprint3.streamAPI.task3;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.OptionalInt;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class StreamApi {
 
+    //работает только с уникальными числами
     public static List<Pair> findUniquePairsNumbers(List<Integer> numbers, Integer number) {
+        OptionalInt min = numbers.stream()
+                .mapToInt(Math::toIntExact)
+                .min();
+        int filterNumber;
+        if (min.getAsInt() < 0) {
+            filterNumber = (number - min.getAsInt()) / 2;
+        } else {
+            filterNumber = number / 2;
+        }
         return numbers.stream()
-                .sorted(Comparator.comparingInt(x -> x))
-                .limit(numbers.size() / 2)
+                .filter(x -> x < filterNumber)
                 .map(x -> {
-                    if (numbers.contains(number - x)) {
+                    if (numbers.contains(number - x) && x != (number / 2) + 1) {
                         return new Pair<>(x, number - x);
                     } else {
                         return null;
@@ -42,15 +51,19 @@ public class StreamApi {
     }
 
     //not done
-    public static Map<String, String> getPeopleHavingMutualFriends(Map<String, List<String>> friends) {
-//        return friends.entrySet().stream()
-//                .map(x -> {
-//                    friends.entrySet().stream()
-//                            .map(v -> {
-//                                if (x.getValue().stream().anyMatch(d -> d.))
-//                            })
-//                })
-        return null;
+    public static Map<String, String> getPeopleHavingMutualFriends(Map<String, List<String>> map) {
+        Map<String, String> result = new HashMap<>();
+        map.forEach((user, friends) -> {
+            map.forEach((another, anotherFriends) -> {
+                if (!user.equals(another) && !friends.contains(another)) {
+                    friends.stream()
+                            .filter(anotherFriends::contains)
+                            .findFirst()
+                            .ifPresent(friend -> result.put(user, another));
+                }
+            });
+        });
+        return result;
     }
 
     public static Map<String, Double> getAvgSalaryDepartment(List<Employee> employees) {

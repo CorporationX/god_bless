@@ -12,14 +12,14 @@ class StreamApiTest {
     @Test
     void testFindUniquePairsNumbers() {
         List<Pair> expected = List.of(
-                new Pair(1, 7),
-                new Pair(2, 6),
-                new Pair(3, 5),
-                new Pair(4, 4)
+                new Pair(-1, 8),
+                new Pair(1, 6),
+                new Pair(2, 5),
+                new Pair(3, 4)
         );
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6, 7, 4);
+        List<Integer> numbers = List.of(-1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        List<Pair> actual = StreamApi.findUniquePairsNumbers(numbers, 8);
+        List<Pair> actual = StreamApi.findUniquePairsNumbers(numbers, 7);
 
         assertEquals(expected, actual);
     }
@@ -53,15 +53,21 @@ class StreamApiTest {
     @Test
     void testGetPeopleHavingMutualFriends() {
         Map<String, List<String>> friends = Map.of(
-                "Иван", List.of("Александр, Артем, Михаил"),
-                "Максим", List.of("Мария, Артем, Лев"),
-                "Мария", List.of("Лев, Максим, София"),
-                "Петя", List.of("София, Анна, Мария")
+                "Иван", List.of("Александр", "Артем", "Михаил"),
+                "Максим", List.of("Мария", "Артем", "Лев"),
+                "Мария", List.of("Лев", "Максим", "София"),
+                "Петя", List.of("София", "Анна", "Мария")
+        );
+        Map<String, String> expected = Map.of(
+                "Мария", "Петя",
+                "Максим", "Иван",
+                "Иван", "Максим",
+                "Петя", "Максим"
         );
 
-        Map<String, String> peopleHavingMutualFriends = StreamApi.getPeopleHavingMutualFriends(friends);
+        Map<String, String> actual = StreamApi.getPeopleHavingMutualFriends(friends);
 
-        assertEquals(1, 1);
+        assertEquals(expected, actual);
     }
 
     @Test
