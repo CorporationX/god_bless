@@ -1,12 +1,13 @@
 package faang.school.godbless.stream_practise2;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public final class CollectionManipulator {
+public final class StreamPractise {
 
     //    На вход дан список целых чисел и число. Найдите все уникальные пары чисел, сумма которых равна заданному числу.
 
@@ -14,7 +15,11 @@ public final class CollectionManipulator {
         return numbers.stream()
                 .flatMap(num1 -> numbers.stream()
                         .filter(num2 -> num1 != num2 && num1 + num2 == numberToCompare)
-                        .map(num2 -> num1 + " + " + num2)) // Convert pairs to strings
+                        .map(num2 -> {
+                            int smallerNum = Math.min(num1, num2);
+                            int largerNum = Math.max(num1, num2);
+                            return smallerNum + " + " + largerNum;
+                        }))
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -42,14 +47,19 @@ public final class CollectionManipulator {
 //    Дана мапа, где ключами являются имена людей, а значениями — списки их друзей.
 //    Найдите все пары людей, которые не являются друзьями, но у них есть общие друзья.
 
-    public static List<String[]> findNonFriendPairsWithCommonFriends(Map<String, List<String>> friendsMap) {
-        return friendsMap.entrySet().stream()
-                .flatMap(entry1 -> friendsMap.entrySet().stream()
-                        .filter(entry2 -> !entry1.getKey().equals(entry2.getKey()))
-                        .filter(entry2 -> !entry1.getValue().contains(entry2.getKey()))
-                        .filter(entry2 -> haveCommonFriends(entry1.getValue(), entry2.getValue()))
-                        .map(entry2 -> new String[]{entry1.getKey(), entry2.getKey()})
+    public static List<List<String>> findNonFriendPairsWithCommonFriends(Map<String, List<String>> friends) {
+        return friends.entrySet().stream()
+                .flatMap(entry -> friends.entrySet().stream()
+                        .filter(e -> !entry.getKey().equals(e.getKey()))
+                        .filter(e -> !entry.getValue().contains(e.getKey()))
+                        .filter(e -> haveCommonFriends(entry.getValue(), e.getValue()))
+                        .map(e -> {
+                            List<String> pair = new ArrayList<>(List.of(entry.getKey(), e.getKey()));
+                            pair.sort(String::compareTo);
+                            return pair;
+                        })
                 )
+                .distinct()
                 .collect(Collectors.toList());
     }
 
@@ -76,11 +86,17 @@ public final class CollectionManipulator {
     }
 
     private static boolean containsOnlyAlphabet(String str, String alphabet) {
-        String lowercaseAlphabet = alphabet.toLowerCase();
-        return str.toLowerCase().chars()
-                .allMatch(c -> lowercaseAlphabet.indexOf(c) != -1);
-    }
+        String lowerCaseStr = str.toLowerCase();
 
+        for (char c : lowerCaseStr.toCharArray()) {
+
+            if (!alphabet.contains(String.valueOf(c))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 
 //    Написать метод, который преобразует список целых чисел в список строк,
 //    где каждое число записано в двоичном виде.
@@ -93,9 +109,10 @@ public final class CollectionManipulator {
 
     //    Написать метод, который найдет все числа-палиндромы (читающиеся одинаково слева направо и справа налево)
     //    в заданном диапазоне. На вход получаем число для начала диапазона и число для второй границы диапазона.
+
     public static List<Integer> findPalindromeNumbers(int start, int end) {
         return IntStream.rangeClosed(start, end)
-                .filter(CollectionManipulator::isPalindrome)
+                .filter(StreamPractise::isPalindrome)
                 .boxed()
                 .collect(Collectors.toList());
     }
