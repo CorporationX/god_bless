@@ -11,7 +11,7 @@ public class EmailProcessor {
         if (!(emailList == null) && emailList.isEmpty()) {
             throw new IllegalArgumentException("empty list");
         }
-        assert emailList != null;
+
         emailList.stream().filter(filter).forEach(email -> {
             email.setBody(function.apply(email));
             handler.accept(email);
