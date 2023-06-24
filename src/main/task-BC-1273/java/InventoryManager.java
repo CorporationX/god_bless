@@ -15,8 +15,9 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
 
-        character.getInventory().stream().filter(predicate).forEach(item -> item.setValue(function.apply(item).getValue()));
-
-
+        character.getInventory().stream().filter(predicate).forEach(item -> {
+            item.setValue(function.apply(item).getValue());
+            item.setName(function.apply(item).getName());
+        });
     }
 }
