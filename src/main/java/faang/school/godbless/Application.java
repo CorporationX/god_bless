@@ -1,17 +1,24 @@
 package faang.school.godbless;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 public class Application {
     public static void main(String... args) {
-        DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
-        Map<String, String> dictionary = new HashMap<>();
-        BiConsumer<String, String> addWordToDictionary = dictionary::put;
-        dictionaryProcessor.processWord("Салам", "Salam", addWordToDictionary);
-        System.out.printf("Словарь " + dictionary);
+        MessageProcessor messageProcessor = new MessageProcessor();
+
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам".toLowerCase());
+        MessageFilter lengthFilter = message -> message.length() > 10;
+        MessageFilter emojiFilter = message -> !message.contains("смайл");
+
+        List<MessageFilter> filters = List.of(spamFilter, lengthFilter, emojiFilter);
+
+        String[] messages = {"Привет!", "Это спам!", "Как дела? смайл", "Длинное сообщение без спама и эмодзи"};
+
+        for (String message : messages) {
+            List<Boolean> isFiltered = messageProcessor.processMassage(message, filters);
+            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
+//        }
+        }
     }
 }
