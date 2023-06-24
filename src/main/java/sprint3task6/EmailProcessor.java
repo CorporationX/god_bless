@@ -25,6 +25,10 @@ public class EmailProcessor {
                 String apply1 = converting.apply(oneExactEmail);
                 oneExactEmail.setBody(apply1);
                 handling.accept(oneExactEmail);
+//N
+//изменили верхние две строчки, чтобы все-таки выводилось капсом body сообщения.
+//и все-таки сначала идет функц.интерфейс Function, а потом Consumer.
+//плюс см. строку 48.
 
             }//List <String> convertedHandledFilteredEmails = converting.apply(handledFilteredEmails);
         }
@@ -41,6 +45,7 @@ public class EmailProcessor {
 // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = email -> email.isImportant();
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getBody());
+//для корректной работы должен быть email.getBody() вместо email.getSubject()
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
 // Обработка писем
