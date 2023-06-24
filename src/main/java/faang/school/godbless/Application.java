@@ -1,4 +1,4 @@
-package faang.school.godbless.BC_161;
+package faang.school.godbless;
 
 import java.util.List;
 import java.util.Set;
