@@ -1,25 +1,28 @@
 package faang.school.godbless;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Consumer;
+
+
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class Application {
-    public static void main(String... args) {
-        List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
-        );
-        EmailProcessor emailProcessor = new EmailProcessor();
+    public static void main(String[] args) {
+        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        FilterProcessor filterProcessor = new FilterProcessor();
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getFileName() + "_grayscale", "Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getFileName() + "_sepia", "Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) ->
+                new Image(image.getFileName() + "_vignette", "Фильтр: виньетка");
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
+        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
+        System.out.println(grayscaleImage.toString());
+
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        System.out.println(combinedImage.toString());
     }
 }
