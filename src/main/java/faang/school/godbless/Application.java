@@ -1,28 +1,10 @@
 package faang.school.godbless;
 
-
-
-import java.util.function.Function;
+import java.util.List;
+import java.util.Set;
 
 public class Application {
-    public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
-        FilterProcessor filterProcessor = new FilterProcessor();
+    public static void main(String... args) {
 
-        Function<Image, Image> grayscaleFilter = (image) ->
-                new Image(image.getFileName() + "_grayscale", "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) ->
-                new Image(image.getFileName() + "_sepia", "Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) ->
-                new Image(image.getFileName() + "_vignette", "Фильтр: виньетка");
-
-        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
-        System.out.println(grayscaleImage.toString());
-
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage.toString());
     }
 }
