@@ -13,7 +13,7 @@ public class UserAction {
     @NonNull
     private final ActionType actionType;
     @NonNull
-    private final Date actoinDate;
+    private final Date actionDate;
     @NonNull
     private final String content;
 
