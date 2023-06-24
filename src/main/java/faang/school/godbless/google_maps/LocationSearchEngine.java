@@ -10,13 +10,13 @@ import java.util.stream.Collectors;
 
 public class LocationSearchEngine {
     public static List<Location> filterLocation(List<Location> locations, Predicate<Location> locationFilter) {
-        return locations.stream().filter(location -> locationFilter.test(location)).collect(Collectors.toList());
+        return locations.stream().filter(location -> locationFilter.test(location)).toList();
     }
     public void processLocation(List<Location> locations, Consumer<Location> handler) {
-        locations.stream().forEach(location -> handler.accept(location));
+        locations.stream().forEach(handler);
     }
     public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> calculator) {
-        return locations.stream().map(location -> calculator.apply(location)).collect(Collectors.toList());
+        return locations.stream().map(location -> calculator.apply(location)).toList();
     }
 
     public static void main(String[] args) {
