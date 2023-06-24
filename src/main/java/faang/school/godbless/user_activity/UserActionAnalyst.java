@@ -63,10 +63,9 @@ public class UserActionAnalyst {
         long totalActions = userActions.size();
 
         Map<String, Long> actionTypeCount = userActions.stream()
-                .collect(Collectors.groupingBy(UserAction::toString, Collectors.counting()));
+                .collect(Collectors.groupingBy(action -> action.getActionType().toString(), Collectors.counting()));
 
-        return actionTypeCount.entrySet()
-                .stream()
+        return actionTypeCount.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> (entry.getValue() * 100.0) / totalActions
