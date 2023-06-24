@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 
 public class Application {
     public static void main(String... args) {
-
         EmailProcessor emailProcessor = new EmailProcessor();
 
         List<Email> emails = Arrays.asList(
