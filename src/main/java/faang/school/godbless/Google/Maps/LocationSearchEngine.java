@@ -1,7 +1,6 @@
 package faang.school.godbless.Google.Maps;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -20,7 +19,7 @@ public class LocationSearchEngine {
     }
 
     public void processLocations(List<Location> locationList, Consumer<Location> consumer) {
-        for (Location location: locationList){
+        for (Location location : locationList) {
             consumer.accept(location);
         }
     }
@@ -28,7 +27,7 @@ public class LocationSearchEngine {
     public List<Double> calculateDistances(List<Location> locationList, Function<Location, Double> function) {
         List<Double> distances = new ArrayList<>();
 
-        for (Location location: locationList){
+        for (Location location : locationList) {
             distances.add(function.apply(location));
         }
         return distances;
