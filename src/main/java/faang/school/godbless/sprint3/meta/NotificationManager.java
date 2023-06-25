@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.meta;
 
+import java.util.Objects;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -7,8 +8,10 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Slf4j
 public class NotificationManager {
     private Map<String, Consumer<Notification>> handlerMap;
     private Map<String, Predicate<String>> filterMap;
@@ -23,7 +26,11 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        handlerMap.get(notification.getType()).accept(notification);
+       if (Objects.nonNull(handlerMap.get(notification.getType()))) {
+            handlerMap.get(notification.getType()).accept(notification);
+        } else {
+           log.warn("No suitable handler");
+       }
     }
 
     public void registerFilter(String notificationType, Predicate<String> filter) {
@@ -31,8 +38,12 @@ public class NotificationManager {
     }
 
     public void filter(Notification notification, Function<String, String> function) {
-        if (filterMap.get(notification.getType()).test(notification.getMessage())) {
-            notification.setMessage(function.apply(notification.getMessage()));
+        if (Objects.nonNull(filterMap.get(notification.getType()))) {
+            if (filterMap.get(notification.getType()).test(notification.getMessage())) {
+                notification.setMessage(function.apply(notification.getMessage()));
+            }
+        } else {
+            log.warn("No suitable filter");
         }
     }
 }
