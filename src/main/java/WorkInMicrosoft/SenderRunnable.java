@@ -8,10 +8,11 @@ import lombok.Data;
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
+
     @Override
     public void run() {
-        for (int i=startIndex; i<=endIndex; i++){
-            System.out.println("Письмо номер " + i + " отправлено из потока" + Thread.currentThread().getName());
+        for (int i = startIndex; i <= endIndex; i++) {
+            System.out.println("Письмо номер " + i + " отправлено из потока " + Thread.currentThread().getName());
         }
     }
 }
