@@ -28,7 +28,7 @@ public class Main {
         service.shutdown();
 
         if (service.awaitTermination(60, TimeUnit.SECONDS)) {
-            System.out.println("=======   Программа завершила работу!   =======");
+            System.out.println("=======    Программа завершила работу!    =======");
         }
     }
 }
