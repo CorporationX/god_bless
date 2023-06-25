@@ -2,9 +2,19 @@ plugins {
     id 'java'
 }
 
+compileJava.options.encoding = 'UTF-8'
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+test {
+    systemProperty "file.encoding", "utf-8"
+    useJUnitPlatform()
+}
+
 group = "faang.school"
 version = "1.0"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_19
 
 repositories {
     mavenCentral()
@@ -25,8 +35,4 @@ dependencies {
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.9.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
-}
-
-test {
-    useJUnitPlatform()
 }
