@@ -2,21 +2,20 @@ package faang.school.godbless;
 
 import java.util.List;
 import java.util.Set;
+import java.util.function.Supplier;
 
 public class Application {
-    public static void main(String[] args) {
-        Character frodo = new Character("frodo");
-        Item ring = new Item("The One Ring", 1000);
+    public static void main(String... args) {
+       RemoteService remoteService = new RemoteService();
+       String res = withErrorHandling(() -> remoteService.call(""), Throwable::getMessage);
+       System.out.println(res);
+    }
 
-        InventoryManager manager = new InventoryManager();
-
-        manager.addItem(frodo, ring, item -> System.out.println(item.getName() + " was added to the inventory"));
-
-        // manager.removeItem(frodo, item -> item.getName().equals("The One Ring"));
-
-        manager.updateItem(frodo, item -> item.getName().equals("The One Ring"),
-                item -> new Item(item.getName(), item.getValue() * 2));
-
-        System.out.println(frodo.getInventory().toString());
+    static<T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> onError) {
+        try {
+            return  action.get();
+        } catch (Exception ex) {
+            return onError.handle(ex);
+        }
     }
 }
