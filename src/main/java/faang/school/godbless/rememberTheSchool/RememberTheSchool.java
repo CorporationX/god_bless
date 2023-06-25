@@ -5,7 +5,7 @@ import java.util.function.Function;
 public class RememberTheSchool {
     // Даны три стороны треугольника, вычислить его площадь
     Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
-        if (a + b <= c || a + c <= b || b + c <= a) {
+        if (a + b <= c || a + c <= b || b + c <= a || a <= 0.0 || b <= 0.0 || c <= 0.0) {
             throw new IllegalArgumentException("Треугольник с данными сторонами не существует!");
         }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
