@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import java.util.Arrays;
-import java.util.function.Consumer;
 
 public class Application {
     public static void main(String... args) {
