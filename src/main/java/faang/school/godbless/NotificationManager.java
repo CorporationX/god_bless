@@ -18,7 +18,13 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> notificationConsumer = data.get(notification.getType());
-        notificationConsumer.accept(notification);
+        Consumer<Notification> notificationConsumer = null;
+
+        try {
+            notificationConsumer = data.get(notification.getType());
+            notificationConsumer.accept(notification);
+        } catch (NullPointerException e) {
+            System.out.println("Нет такого типа нотификаций");
+        }
     }
 }
