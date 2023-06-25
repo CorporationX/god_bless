@@ -13,5 +13,6 @@ class InventoryManagerTest {
     void addItemTestNotNull() {
         manager.addItem(frodo, ring, item -> System.out.println(item.getName() + " was added to the inventory."));
         assertFalse(frodo.getItemList().isEmpty());
+        assertEquals(1, frodo.getItemList().size());
     }
 }
