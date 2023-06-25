@@ -16,5 +16,8 @@ public class StreamAPI {
                 .sorted(Map.Entry.comparingByKey(Comparator.naturalOrder()))
                 .map(Map.Entry::getValue).toList();
     }
-
+    public static Map<String, Boolean> averageSalary(List<Employee> list) { // отдел, сред зарплата
+        return list.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
 }
