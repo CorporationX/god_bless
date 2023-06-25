@@ -2,11 +2,11 @@ package faang.school.godbless.sprint2.transformMatrix;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class MatrixFlipperTest {
     @Test
-    public void matrixFlipperVerticalTest(){
+    public void matrixFlipperVerticalTest() {
         int[][] matrix = {
                 {1, 2},
                 {3, 4}
@@ -20,8 +20,9 @@ class MatrixFlipperTest {
         int[][] result = MatrixFlipper.flipMatrix(matrix, FlipDirection.VERTICAL);
         assertArrayEquals(expected, result);
     }
+
     @Test
-    public void matrixFlipperHorizontalTest(){
+    public void matrixFlipperHorizontalTest() {
         int[][] matrix = {
                 {1, 2, 3},
                 {4, 5, 6},
