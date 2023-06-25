@@ -53,13 +53,19 @@ public class StreamApi {
     //not done
     public static Map<String, String> getPeopleHavingMutualFriends(Map<String, List<String>> map) {
         Map<String, String> result = new HashMap<>();
+
         map.forEach((user, friends) -> {
             map.forEach((another, anotherFriends) -> {
                 if (!user.equals(another) && !friends.contains(another)) {
                     friends.stream()
                             .filter(anotherFriends::contains)
                             .findFirst()
-                            .ifPresent(friend -> result.put(user, another));
+                            .ifPresent(friend -> {
+                                        if (!result.containsKey(another) || !result.get(another).equals(user)) {
+                                            result.put(user, another);
+                                        }
+                                    }
+                            );
                 }
             });
         });
@@ -128,4 +134,5 @@ public class StreamApi {
                 })
                 .collect(Collectors.toList());
     }
+
 }
