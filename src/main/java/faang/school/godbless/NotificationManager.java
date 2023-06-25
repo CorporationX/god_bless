@@ -18,7 +18,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> notificationConsumer = null;
+        Consumer<Notification> notificationConsumer;
 
         try {
             notificationConsumer = data.get(notification.getType());
