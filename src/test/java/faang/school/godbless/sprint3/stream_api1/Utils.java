@@ -12,7 +12,8 @@ public class Utils<T> {
 
     public static int max(List<Integer> nums) {
         return nums.stream()
-                .max(Comparator.naturalOrder())
+                .mapToInt(Integer::intValue)
+                .max()
                 .orElseThrow();
     }
 
