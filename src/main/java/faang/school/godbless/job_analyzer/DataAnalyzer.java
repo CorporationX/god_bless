@@ -9,7 +9,7 @@ public class DataAnalyzer {
 
     public List<String> getTop5CommonSkillRequirements(List<Job> jobs) {
         Map<String, Long> countedSkills = jobs.stream()
-                .flatMap(job -> job.getSkillRequirements().stream())
+                .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(String::toLowerCase, Collectors.counting()));
 
         return countedSkills.entrySet().stream()
@@ -21,7 +21,7 @@ public class DataAnalyzer {
 
     public List<String> getMostCommonJobPositions(List<Job> jobs, int quantity) {
         Map<String, Long> countedJobPositions = jobs.stream()
-                .collect(Collectors.groupingBy(Job::getJobPosition, Collectors.counting()));
+                .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()));
 
         return countedJobPositions.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
@@ -33,14 +33,14 @@ public class DataAnalyzer {
     public Map<String, Long> getSalaryDistribution(List<Job> jobs) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(job -> {
-                    int salary = job.getSalaryProposition();
-                    if (salary < 50000) {
+                    int salary = job.getSalary();
+                    if (salary <= 50000) {
                         return "0-50k";
-                    } else if (salary < 100000) {
+                    } else if (salary <= 100000) {
                         return "50k-100k";
-                    } else if (salary < 150000) {
+                    } else if (salary <= 150000) {
                         return "100k-150k";
-                    } else if (salary < 200000) {
+                    } else if (salary <= 200000) {
                         return "150k-200k";
                     } else {
                         return "200k+";
@@ -50,7 +50,7 @@ public class DataAnalyzer {
 
     public List<String> getTop5Locations(List<Job> jobs) {
         Map<String, Long> countedJobLocations = jobs.stream()
-                .collect(Collectors.groupingBy(Job::getJobLocation, Collectors.counting()));
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
 
         return countedJobLocations.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))

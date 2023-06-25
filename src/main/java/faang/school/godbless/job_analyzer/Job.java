@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -12,9 +11,12 @@ import java.util.List;
 @ToString
 public class Job {
 
-    private String jobPosition;
-    private List<String> skillRequirements;
-    private int salaryProposition;
-    private String jobLocation;
-    private LocalDate vacancyAddedDate;
+    private String position;
+    private List<String> requirements;
+    private int salary;
+    private String location;
+    private String dateAdded;
+
+    public Job() {
+    }
 }

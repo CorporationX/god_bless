@@ -20,6 +20,4 @@ public class JobStreamProcessor {
 
         return new JList<>(jobListModel);
     }
-
-
 }
