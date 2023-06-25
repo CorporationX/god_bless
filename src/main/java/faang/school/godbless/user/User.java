@@ -1,5 +1,6 @@
 package faang.school.godbless.user;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +51,9 @@ public class User {
 
     public static Map<Integer, List<User>> group(List<User> userList) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
+        if (userList.isEmpty()) {
+            return Map.of();
+        }
         for (User user: userList) {
             groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
