@@ -19,23 +19,15 @@ class ResourceAnalyticsTest {
     }
 
     @Test
-    void testMultiplication() {
-        try {
-            int actual = resourceAnalytics.calculate(Arrays.asList(2, 3, 4), (a, b) -> a * b);
-            assertEquals(24, actual);
-        } catch (IllegalAccessException e) {
-            assertEquals(1, 0);
-        }
+    void testMultiplication() throws IllegalAccessException {
+        int actual = resourceAnalytics.calculate(Arrays.asList(2, 3, 4), (a, b) -> a * b);
+        assertEquals(24, actual);
     }
 
     @Test
-    void testAddition() {
-        try {
-            int actual = resourceAnalytics.calculate(Arrays.asList(1, 2, 3), Integer::sum);
-            assertEquals(6, actual);
-        } catch (IllegalAccessException e) {
-            assertEquals(1, 0);
-        }
+    void testAddition() throws IllegalAccessException {
+        int actual = resourceAnalytics.calculate(Arrays.asList(0, 2, 3), Integer::sum);
+        assertEquals(5, actual);
     }
 
     @Test
