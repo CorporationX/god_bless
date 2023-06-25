@@ -58,27 +58,21 @@ public class DataAnalyzer {
         return popularPositions(limit, false, null, null);
     }
 
-
     public Map<String, Integer> salaryDistribution(int start, int end, int step) {
         Map<String, Integer> result = new HashMap<>();
         int[] ranges = IntStream.iterate(start, i -> i + step)
                 .limit((end - start) / step + 1)
                 .toArray();
-
         int i = 1;
         for (; i < ranges.length; i++) {
             int rangeStart = ranges[i - 1];
             int rangeEnd = ranges[i];
-
             String range = String.format("%s-%s", rangeStart, rangeEnd);
-
             int jobsCount = (int) jobs.stream()
                     .filter(job -> rangeStart < job.getSalary() && job.getSalary() <= rangeEnd)
                     .count();
-
             result.put(range, jobsCount);
         }
-
         return result;
     }
 
