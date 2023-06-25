@@ -7,21 +7,20 @@ import java.util.function.Consumer;
 public class NotificationManager {
     private Map<String, Consumer<Notification>> map = new HashMap<>();
 
-    public void registerHandler(String message, Consumer<Notification> consumer) {
-        if (!map.containsKey(message)) {
-            map.put(message, consumer);
+    public void registerHandler(String type, Consumer<Notification> consumer) {
+        if (!map.containsKey(type)) {
+            map.put(type, consumer);
         }
     }
 
-    public void sendNotification(Notification notification) {
-        for (Map.Entry<String, Consumer<Notification>> entry : map.entrySet()) {
-            if (notification.getType().equals(entry.getKey())) {
-                System.out.println(entry.getValue());
-            }
+    public void sendNotification(Notification notification)  {
+        if (map.containsKey(notification.getType())) {
+            throw new IllegalArgumentException("notification not found");
         }
+        map.get(notification.getType()).accept(notification);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
         NotificationManager notificationManager = new NotificationManager();
 
 
