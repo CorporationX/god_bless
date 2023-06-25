@@ -10,14 +10,14 @@ public class Application {
         User user2 = new User("Vasilisa", 25, "Google", "London");
         User user3 = new User("Vlad", 26, "Uber", "Amsterdam");
         User user4 = new User("Nastya", 23, "Amazon", "New York");
-        User user5 = new User("Pasha", 20, "Google", "Kjas");
+        //User user5 = new User("Pasha", 20, "Google", "Kjas");
 
         List<User> userList = new ArrayList<>();
         userList.add(user1);
         userList.add(user2);
         userList.add(user3);
         userList.add(user4);
-        userList.add(user5);
+        //userList.add(user5);
 
         System.out.println("List: " + userList.toString());
 

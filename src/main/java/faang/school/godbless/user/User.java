@@ -50,14 +50,15 @@ public class User {
     }
 
     public static Map<Integer, List<User>> group(List<User> userList) {
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        if (userList.isEmpty()) {
+        if (userList == null) {
             return Map.of();
         }
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user: userList) {
             groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
+
     }
 
     public static void printGrouped(Map<Integer, List<User>> groupedList) {
