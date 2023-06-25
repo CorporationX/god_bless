@@ -25,7 +25,7 @@ public class RecommendationService {
 
     private final List<Product> products = List.of(
             new Product(1, "Футбольный мяч", "Спортивные товары", 2000, List.of("Спорт", "Футбол")),
-            new Product(2, "Хоббит", "Фантастика", 700, List.of("Фэнтези", "Книги")),
+            new Product(2, "Хоббит", "Фэнтези", 700, List.of("Фэнтези", "Книги")),
             new Product(3, "Ботинки для сноуборда", "Спортивные товары", 700, List.of("Спорт", "Сноубординг", "Зимний спорт")),
             new Product(4, "Ведьмак 3", "Видеоигры", 2000, List.of("Фэнтези", "Видеоигры")),
             new Product(5, "Клюшка", "Спортивные товары", 2000, List.of("Хоккей"))
@@ -49,25 +49,8 @@ public class RecommendationService {
         List<String> interests = userProfile.getInterests();
 
         return products.stream()
-                .sorted((x1, x2) -> {
-                    List<String> strings = interests.stream()
-                            .filter(o -> x1.getTags().contains(o))
-                            .toList();
-                    List<String> strings1 = interests.stream()
-                            .filter(o -> x2.getTags().contains(o))
-                            .toList();
-                    int a = 0;
-                    int b = 0;
-
-                    if (!strings.isEmpty()) {
-                        a = 1;
-                    }
-                    if (!strings1.isEmpty()) {
-                        b = 1;
-                    }
-                    return b - a;
-                })
-                .toList();
+                .filter(x -> interests.stream().anyMatch(y -> x.getTags().contains(y)))
+                .collect(Collectors.toList());
     }
 
     public List<String> getPopularProducts(int userId) {
@@ -79,14 +62,14 @@ public class RecommendationService {
                 .filter(x -> x.getLocation().equals(userProfileById.getLocation()))
                 .toList();
 
-        List<ProductOrder> popularProductOrders = userProfilesFiltered.stream()
+        List<ProductOrder> orderProfiles = userProfilesFiltered.stream()
                 .map(x -> productOrders.stream()
                         .filter(y -> y.getUserId() == x.getUserId())
                         .toList())
                 .flatMap(Collection::stream)
                 .toList();
 
-        List<String> collect = popularProductOrders.stream()
+        return orderProfiles.stream()
                 .collect(Collectors.groupingBy(ProductOrder::getProductId, Collectors.counting()))
                 .entrySet()
                 .stream()
@@ -100,45 +83,35 @@ public class RecommendationService {
                 .flatMap(Collection::stream)
                 .map(Product::getName)
                 .toList();
-        return collect;
     }
 
     public String getCategoryForPersonalDiscount(int userId) {
         UserProfile userProfileById = getUserProfileById(userId);
 
-        List<ProductOrder> productOrders1 = productOrders.stream()
+        List<ProductOrder> ordersUser = productOrders.stream()
                 .filter(x -> x.getUserId() == userId)
                 .toList();
 
         Map<String, Integer> result = new HashMap<>();
 
-        List<ProductOrder> productOrderStream = userProfileById.getInterests().stream()
-                .map(up ->
-                        products.stream()
-                                .filter(prods -> prods.getTags().contains(up))
-                                .map(p ->
-                                        productOrders1.stream()
-                                                .filter(x -> x.getProductId() == p.getProductId())
-                                                .peek(f -> {
-                                                    result.merge(p.getCategory(), 1, Integer::sum);
-                                                })
-                                                .toList())
-                )
+        userProfileById.getInterests().stream()
+                .map(up -> products.stream()
+                        .filter(prods -> prods.getTags().contains(up))
+                        .map(p -> ordersUser.stream()
+                                .filter(x -> x.getProductId() == p.getProductId())
+                                .peek(f -> result.merge(p.getCategory(), 1, Integer::sum))
+                                .toList()))
                 .flatMap(x -> x.flatMap(Collection::stream))
                 .toList();
 
-
-        return result.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .findFirst()
+        return result.entrySet().stream().min(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .get().getKey();
     }
 
     private UserProfile getUserProfileById(int userId) {
-        UserProfile userProfile = userProfiles.stream()
+        return userProfiles.stream()
                 .filter(x -> x.getUserId() == userId)
                 .toList()
                 .get(0);
-        return userProfile;
     }
 }

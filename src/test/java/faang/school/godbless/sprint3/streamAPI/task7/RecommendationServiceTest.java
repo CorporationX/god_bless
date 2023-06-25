@@ -9,15 +9,14 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RecommendationServiceTest {
 
-    private RecommendationService recommendationService = new RecommendationService();
+    private final RecommendationService recommendationService = new RecommendationService();
 
     @Test
     void testSortedProducts() {
         List<Product> expected = List.of(
-                new Product(2, "Хоббит", "Фантастика", 700, List.of("Фантастика", "Книги")),
+                new Product(2, "Хоббит", "Фэнтези", 700, List.of("Фэнтези", "Книги")),
                 new Product(3, "Ботинки для сноуборда", "Спортивные товары", 700, List.of("Спорт", "Сноубординг", "Зимний спорт")),
-                new Product(4, "Ведьмак 3", "Видеоигры", 2000, List.of("Фантастика", "Видеоигры")),
-                new Product(1, "Футбольный мяч", "Спортивные товары", 2000, List.of("Спорт", "Футбол"))
+                new Product(4, "Ведьмак 3", "Видеоигры", 2000, List.of("Фэнтези", "Видеоигры"))
         );
 
         List<Product> actual = recommendationService.sortedProducts(1);
@@ -27,11 +26,8 @@ class RecommendationServiceTest {
 
     @Test
     void testGetPopularProducts() {
-        List<Product> expected = List.of(
-                new Product(2, "Хоббит", "Фантастика", 700, List.of("Фантастика", "Книги")),
-                new Product(3, "Ботинки для сноуборда", "Спортивные товары", 700, List.of("Спорт", "Сноубординг", "Зимний спорт")),
-                new Product(4, "Ведьмак 3", "Видеоигры", 2000, List.of("Фантастика", "Видеоигры")),
-                new Product(1, "Футбольный мяч", "Спортивные товары", 2000, List.of("Спорт", "Футбол"))
+        List<String> expected = List.of(
+                "Футбольный мяч", "Ведьмак 3", "Хоббит", "Ботинки для сноуборда", "Клюшка"
         );
 
         List<String> actual = recommendationService.getPopularProducts(1);
@@ -41,12 +37,7 @@ class RecommendationServiceTest {
 
     @Test
     void testGetCategoryForPersonalDiscount() {
-        List<Product> expected = List.of(
-                new Product(2, "Хоббит", "Фантастика", 700, List.of("Фантастика", "Книги")),
-                new Product(3, "Ботинки для сноуборда", "Спортивные товары", 700, List.of("Спорт", "Сноубординг", "Зимний спорт")),
-                new Product(4, "Ведьмак 3", "Видеоигры", 2000, List.of("Фантастика", "Видеоигры")),
-                new Product(1, "Футбольный мяч", "Спортивные товары", 2000, List.of("Спорт", "Футбол"))
-        );
+        String expected = "Спортивные товары";
 
         String actual = recommendationService.getCategoryForPersonalDiscount(5);
 
