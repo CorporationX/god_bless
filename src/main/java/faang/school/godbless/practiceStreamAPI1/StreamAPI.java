@@ -29,19 +29,9 @@ public class StreamAPI {
                 .filter(s -> s.startsWith("hello")).count();
     }
 
-    public static long findCountOfRowsSecondSolution(List<String> rows, char chars) {
-        return rows.stream()
-                .filter(s -> s.charAt(0) == chars).count();
-    }
-
     public static List<String> filterListOfRows(List<String> rows) {
         return rows.stream()
                 .filter(s -> s.contains("hello")).toList();
-    }
-
-    public static List<String> filterListOfRowsSecondSolution(List<String> rows, String str) {
-        return rows.stream()
-                .filter(s -> s.contains(str)).toList();
     }
 
     public static List<String> sortListOfRowsByLength(List<String> rows) {
@@ -57,11 +47,6 @@ public class StreamAPI {
     public static int findMinIntThanValue(List<Integer> elements, int number) {
         return elements.stream()
                 .filter(e -> e > 4).min(Integer::compareTo).orElseThrow();
-    }
-
-    public static Optional<Integer> findMinIntThanValueSecondSolution(List<Integer> elements, int value) {
-        return elements.stream()
-                .filter(e -> e > value).min(Integer::compareTo);
     }
 
     public static List<Integer> convertStringToLength(List<String> strings) {
