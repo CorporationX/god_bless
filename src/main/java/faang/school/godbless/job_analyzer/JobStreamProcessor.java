@@ -1,19 +1,18 @@
 package faang.school.godbless.job_analyzer;
 
+import java.io.File;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 public class JobStreamProcessor {
-    private JobScraper<Job> jobScraper;
+    private JobScraper jobScraper;
 
     public JobStreamProcessor() {
-        this.jobScraper = new JobScraper<>(Job.class);
+        this.jobScraper = new JobScraper();
     }
 
-    public List<Job> processJob(Stream<String> jobStream) {
-        return jobStream
-                .map(jobScraper::parse)
+    public List<Job> processJob(File json) {
+        return jobScraper.parse(json).stream()
                 .filter(Objects::nonNull)
                 .peek(this::sendNotification)
                 .toList();
@@ -26,5 +25,6 @@ public class JobStreamProcessor {
         System.out.printf("\tSalary: %s", job.getSalary());
         System.out.printf("\tLocation: %s", job.getLocation());
         System.out.printf("\tDate: %s", job.getDate());
+        System.out.println();
     }
 }

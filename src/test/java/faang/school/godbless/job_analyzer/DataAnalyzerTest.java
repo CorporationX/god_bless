@@ -1,17 +1,10 @@
 package faang.school.godbless.job_analyzer;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
 import java.io.File;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,15 +16,9 @@ class DataAnalyzerTest {
     @BeforeEach
     void setUp() {
         String filePath = "src/main/java/faang/school/godbless/job_analyzer/vacancies.json";
-        List<Job> jobs = new ArrayList<>();
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.registerModule(new JavaTimeModule());
-        try {
-            jobs = objectMapper.readValue(new File(filePath), new TypeReference<>() {
-            });
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        File json = new File(filePath);
+        JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
+        List<Job> jobs = jobStreamProcessor.processJob(json);
         dataAnalyzer = new DataAnalyzer(jobs);
     }
 

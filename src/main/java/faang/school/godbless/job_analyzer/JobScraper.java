@@ -1,19 +1,24 @@
 package faang.school.godbless.job_analyzer;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-public class JobScraper<T> {
+import java.io.File;
+import java.util.List;
+
+class JobScraper {
     private final ObjectMapper objectMapper;
-    private final Class<T> targetClass;
 
-    public JobScraper(Class<T> targetClass) {
-        this.targetClass = targetClass;
+    JobScraper() {
         this.objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
-    public T parse(String json) {
+    List<Job> parse(File json) {
         try {
-            return objectMapper.readValue(json, targetClass);
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
         } catch (Exception e) {
             e.printStackTrace();
             return null;
