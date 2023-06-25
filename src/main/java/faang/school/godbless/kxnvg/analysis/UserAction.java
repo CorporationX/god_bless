@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
@@ -14,6 +14,6 @@ public class UserAction {
     private int id;
     private String name;
     private ActionType actionType;
-    private LocalDateTime actionDate;
+    private LocalDate actionDate;
     private String content;
 }

@@ -1,7 +1,6 @@
 package faang.school.godbless.kxnvg.analysis;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -15,9 +14,9 @@ public class ActivityAnalysisRunner {
                 Collectors.groupingBy(UserAction::getId, Collectors.counting())
                 )
                 .entrySet().stream()
-                .sorted(Collections.reverseOrder())
+                .sorted((e1, e2) -> (int) (e2.getValue() - e1.getValue()))
                 .limit(10)
-                .map(Map.Entry::getKey).collect(Collectors.toList());
+                .map(Map.Entry::getKey).toList();
 
     }
 
@@ -25,24 +24,24 @@ public class ActivityAnalysisRunner {
         return userActions.stream().filter(action -> action.getActionType().equals(COMMENT) || action.getActionType().equals(POST))
                 .collect(Collectors.groupingBy(UserAction::getContent, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Collections.reverseOrder())
+                .sorted((e1, e2) -> (int) (e2.getValue() - e1.getValue()))
                 .limit(5)
                 .map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
     public static List<Integer> searchTop3UsersWithLargestNumberOfComments(List<UserAction> userActions) {
-        LocalDateTime filterTime = LocalDateTime.now().minusMonths(1);
+        LocalDate filterTime = LocalDate.now().minusMonths(1);
 
         return userActions.stream().filter(action -> action.getActionType().equals(COMMENT))
                 .filter(action -> action.getActionDate().isAfter(filterTime))
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Collections.reverseOrder())
+                .sorted((e1, e2) -> (int) (e2.getValue() - e1.getValue()))
                 .limit(3)
                 .map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
-    public static Map<ActionType, Double> calculatePercentageOfActions(List<UserAction> userActions) {
+    public static Map<ActionType, Double> calculatePercentAgeOfActions(List<UserAction> userActions) {
         Map<ActionType, Long> sortedActionTypesMap = userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
 
