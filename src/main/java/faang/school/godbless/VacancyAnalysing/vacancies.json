@@ -1,0 +1,72 @@
+[
+  {
+    "position": "Software Developer",
+    "skills": ["Java", "JavaScript", "SQL"],
+    "salary": 50000.0,
+    "location": "New York",
+    "date": "2022-01-01"
+  },
+  {
+    "position": "Data Analyst",
+    "skills": ["Python", "SQL", "Statistics"],
+    "salary": 45000.0,
+    "location": "London",
+    "date": "2022-02-15"
+  },
+  {
+    "position": "Software Engineer",
+    "skills": ["Java", "C++", "Agile"],
+    "salary": 55000.0,
+    "location": "San Francisco",
+    "date": "2022-03-10"
+  },
+  {
+    "position": "Frontend Developer",
+    "skills": ["JavaScript", "HTML", "CSS"],
+    "salary": 400000.0,
+    "location": "New York",
+    "date": "2022-04-20"
+  },
+  {
+    "position": "Software Developer",
+    "skills": ["Java", "JavaScript", "SQL"],
+    "salary": 48000.0,
+    "location": "Seattle",
+    "date": "2022-04-05"
+  },
+  {
+    "position": "Data Analyst",
+    "skills": ["Python", "SQL", "Statistics"],
+    "salary": 420000.0,
+    "location": "London",
+    "date": "2022-06-30"
+  },
+  {
+    "position": "Product Manager",
+    "skills": ["Agile", "Business Strategy", "Leadership"],
+    "salary": 60000.0,
+    "location": "San Francisco",
+    "date": "2022-07-15"
+  },
+  {
+    "position": "Frontend Developer",
+    "skills": ["JavaScript", "HTML", "CSS"],
+    "salary": 38000.0,
+    "location": "New York",
+    "date": "2022-08-25"
+  },
+  {
+    "position": "Software Developer",
+    "skills": ["Java", "JavaScript", "SQL"],
+    "salary": 520000.0,
+    "location": "Seattle",
+    "date": "2022-09-10"
+  },
+  {
+    "position": "Data Analyst",
+    "skills": ["Python", "SQL", "Statistics"],
+    "salary": 440000.0,
+    "location": "London",
+    "date": "2022-10-31"
+  }
+]
