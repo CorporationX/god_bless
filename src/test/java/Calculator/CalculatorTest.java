@@ -41,7 +41,6 @@ public class CalculatorTest {
     @Test
     @DisplayName("test method productTest")
     void productTest() {
-
         int result = Main.product(numbers);
         int expected = 3628800;
 

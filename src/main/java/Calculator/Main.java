@@ -3,7 +3,6 @@ package Calculator;
 import java.util.List;
 
 public class Main {
-
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("List is empty!");
