@@ -20,7 +20,7 @@ class UserActionTest {
     void testFindTopTenUserAction(List<UserAction> userActions) {
         List<Integer> expected = List.of(1, 20, 2, 4, 15, 16, 17, 18, 19, 3);
 
-        List<Integer> actual = UserAction.findTopTenUserAction(userActions);
+        List<Integer> actual = ServiceUserActions.findTopTenUserAction(userActions);
 
         assertEquals(expected, actual);
     }
@@ -30,7 +30,7 @@ class UserActionTest {
     void testFindTopFiveContent(List<UserAction> userActions) {
         List<String> expected = List.of("#java", "#top", "#spring", "#python", "#javascript");
 
-        List<String> actual = UserAction.findTopFiveContent(userActions);
+        List<String> actual = ServiceUserActions.findTopFiveContent(userActions);
 
         assertEquals(expected, actual);
     }
@@ -40,7 +40,7 @@ class UserActionTest {
     void testFindTopThreeUserComment(List<UserAction> userActions) {
         List<Integer> expected = List.of(20, 1, 4);
 
-        List<Integer> actual = UserAction.findTopThreeUserComment(userActions);
+        List<Integer> actual = ServiceUserActions.findTopThreeUserComment(userActions);
 
         assertEquals(expected, actual);
     }
@@ -55,7 +55,7 @@ class UserActionTest {
                 ActionType.SHARE, 4.545454545454546
         );
 
-        Map<ActionType, Double> actual = UserAction.calculatePercentageActionsType(userActions);
+        Map<ActionType, Double> actual = ServiceUserActions.calculatePercentageActionsType(userActions);
 
         assertEquals(expected.get(ActionType.POST), actual.get(ActionType.POST));
         assertEquals(expected.get(ActionType.COMMENT), actual.get(ActionType.COMMENT));
@@ -67,8 +67,8 @@ class UserActionTest {
     void testValidation() {
         List<UserAction> listEmpty = new ArrayList<>();
         List<UserAction> listNull = null;
-        assertThrows(IllegalArgumentException.class, () -> UserAction.findTopTenUserAction(listEmpty));
-        assertThrows(IllegalArgumentException.class, () -> UserAction.findTopTenUserAction(listNull));
+        assertThrows(IllegalArgumentException.class, () -> ServiceUserActions.findTopTenUserAction(listEmpty));
+        assertThrows(IllegalArgumentException.class, () -> ServiceUserActions.findTopTenUserAction(listNull));
     }
 
 
