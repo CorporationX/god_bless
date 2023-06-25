@@ -13,7 +13,5 @@ public class MailSender {
         thirdThread.start();
         forthThread.start();
         fifthThread.start();
-
-
     }
 }
