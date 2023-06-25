@@ -10,8 +10,7 @@ public class Triangle {
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-        Double abSum = sum.apply(a).apply(b);
-        if (abSum < c) {
+        if ((a > b + c) || (b > a + c) || (c > a + b)) {
            throw new IllegalArgumentException("Сумма двух сторон должна быть больше третей");
         }
 
