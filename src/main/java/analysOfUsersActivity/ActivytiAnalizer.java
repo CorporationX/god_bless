@@ -27,7 +27,8 @@ public class ActivytiAnalizer {
         return hashtags.entrySet().stream()
                 .sorted((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()))
                 .limit(limit)
-                .map(Map.Entry::getKey).toList();
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public List<String> findMostActiveCommentator(List<UserAction> actions, int monthCount, int limit) {
@@ -39,7 +40,8 @@ public class ActivytiAnalizer {
         return commentators.entrySet().stream()
                 .sorted((entry1, entry2) -> (int) (entry2.getValue() - entry1.getValue()))
                 .limit(limit)
-                .map(Map.Entry::getKey).toList();
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public Map<ActionType, Double> calculatePercentOfEachActions(List<UserAction> actions) {
