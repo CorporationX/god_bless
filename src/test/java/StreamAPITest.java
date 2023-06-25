@@ -14,7 +14,7 @@ public class StreamAPITest {
     @BeforeEach
     public void init() {
         numbers = List.of(3, 6, 8, 9, 2);
-        strings = List.of("Misha", "Madrid", "Iphone", "BMW", "hello");
+        strings = List.of("Madrid", "Iphone 11", "BMW", "hello");
     }
 
     @Test
@@ -37,10 +37,32 @@ public class StreamAPITest {
         double test = StreamAPI.findMediumValue(numbers);
         assertEquals(expected, test);
     }
+
     @Test
     public void findCountOfRows() {
         long expected = 1;
         long test = StreamAPI.findCountOfRows(strings);
         assertEquals(expected, test);
     }
+
+    @Test
+    public void filterListOfRows() {
+        List<String> test = StreamAPI.filterListOfRows(strings);
+        assertEquals(List.of("hello"), test);
+    }
+
+    @Test
+    public void sortListOfRowsByLength() {
+        List<String> test = StreamAPI.sortListOfRowsByLength(strings);
+        List<String> expected = List.of("BMW", "hello", "Madrid", "Iphone 11");
+        assertEquals(expected, test);
+    }
+
+    @Test
+    public void findMinIntThanValue() {
+        int expected = 6;
+        int test = StreamAPI.findMinIntThanValue(numbers, 3);
+        assertEquals(expected, test);
+    }
+
 }

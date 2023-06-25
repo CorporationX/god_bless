@@ -7,7 +7,7 @@ public class StreamAPI {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .filter(value -> value % 2 == 0)
-                .reduce(Integer::sum).get();
+                .reduce(Integer::sum).orElseThrow(IllegalArgumentException::new);
     }
 
     public static int findMaxValue(List<Integer> numbers) {
@@ -54,9 +54,9 @@ public class StreamAPI {
     }
 
 
-    public static Optional<Integer> findMinIntThanValue(List<Integer> elements) {
+    public static int findMinIntThanValue(List<Integer> elements, int number) {
         return elements.stream()
-                .filter(e -> e > 10).min(Integer::compareTo);
+                .filter(e -> e > 4).min(Integer::compareTo).orElseThrow();
     }
 
     public static Optional<Integer> findMinIntThanValueSecondSolution(List<Integer> elements, int value) {
