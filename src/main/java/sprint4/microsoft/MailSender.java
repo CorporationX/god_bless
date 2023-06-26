@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender {
-    static List<String> mails = new ArrayList<>();
+    private static final List<String> MAILS = new ArrayList<>();
 
     static {
         fillList();
     }
     private static final List<Thread> THREAD_LIST = List.of(
-            new Thread(new SenderRunnable(mails.subList(0, 200))),
-            new Thread(new SenderRunnable(mails.subList(200, 400))),
-            new Thread(new SenderRunnable(mails.subList(400, 600))),
-            new Thread(new SenderRunnable(mails.subList(600, 800))),
-            new Thread(new SenderRunnable(mails.subList(800, 1000)))
+            new Thread(new SenderRunnable(MAILS.subList(0, 200))),
+            new Thread(new SenderRunnable(MAILS.subList(200, 400))),
+            new Thread(new SenderRunnable(MAILS.subList(400, 600))),
+            new Thread(new SenderRunnable(MAILS.subList(600, 800))),
+            new Thread(new SenderRunnable(MAILS.subList(800, 1000)))
     );
 
     public static void main(String[] args) {
@@ -40,7 +40,7 @@ public class MailSender {
 
     private static void fillList() {
         for (int i = 0; i < 1000; i++) {
-            mails.add("Mail ¹" + i);
+            MAILS.add("Mail ¹" + i);
         }
     }
 }
