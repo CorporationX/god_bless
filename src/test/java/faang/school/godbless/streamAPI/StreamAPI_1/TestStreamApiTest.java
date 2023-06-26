@@ -52,10 +52,10 @@ class TestStreamApiTest {
 
     @Test
     void getFilterLength() {
-        List<String> expected = List.of("Протокольный");
+        List<String> expected = List.of("Тарантул");
         List<String> result = TestStreamApi.getFilterLength(stringList, 10);
 
-        assertEquals(expected.size(), result.size());
+        assertEquals(expected.get(0), result.get(0));
     }
 
     @Test

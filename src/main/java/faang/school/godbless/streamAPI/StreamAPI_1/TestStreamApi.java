@@ -1,7 +1,7 @@
 package faang.school.godbless.streamAPI.StreamAPI_1;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class TestStreamApi {
@@ -50,7 +50,7 @@ public class TestStreamApi {
             throw new NullPointerException("empty");
         }
 
-        return strings.stream().filter(s -> s.length() > length).collect(Collectors.toList());
+        return strings.stream().sorted(Comparator.comparing(String::length)).toList();
     }
 
     public static int getMinFromListButMoreNumber(List<Integer> numbers, int num) {
@@ -58,12 +58,7 @@ public class TestStreamApi {
             throw new NullPointerException("empty");
         }
 
-        Optional<Integer> opt = numbers.stream().filter(integer -> integer > num).min(Integer::compare);
-        if (opt.isEmpty()) {
-            throw new NullPointerException("numbers less than a given number");
-        }
-
-        return opt.get();
+        return numbers.stream().filter(integer -> integer > num).min(Integer::compareTo).orElseThrow();
     }
 
     public static List<Integer> getMapStringLength(List<String> strings) {
