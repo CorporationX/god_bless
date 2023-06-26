@@ -56,16 +56,10 @@ public class StreamApi {
 
         map.forEach((user, friends) -> {
             map.forEach((another, anotherFriends) -> {
-                if (!user.equals(another) && !friends.contains(another)) {
-                    friends.stream()
-                            .filter(anotherFriends::contains)
-                            .findFirst()
-                            .ifPresent(friend -> {
-                                        if (!result.containsKey(another) || !result.get(another).equals(user)) {
-                                            result.put(user, another);
-                                        }
-                                    }
-                            );
+                if (!user.equals(another) && !friends.contains(another) && friends.stream().anyMatch(anotherFriends::contains)) {
+                    if (!result.containsKey(another) || !result.get(another).equals(user)) {
+                        result.put(user, another);
+                    }
                 }
             });
         });
@@ -74,10 +68,10 @@ public class StreamApi {
 
     public static Map<String, Double> getAvgSalaryDepartment(List<Employee> employees) {
         return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.summarizingDouble(Employee::getSalary)))
+                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)))
                 .entrySet()
                 .stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().getAverage()));
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     public static List<String> getFilteredStringsContainsCharacterAlphabet(List<String> strings, String alphabet) {
@@ -134,5 +128,4 @@ public class StreamApi {
                 })
                 .collect(Collectors.toList());
     }
-
 }

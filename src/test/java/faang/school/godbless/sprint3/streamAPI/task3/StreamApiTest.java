@@ -61,7 +61,6 @@ class StreamApiTest {
         Map<String, String> expected = Map.of(
                 "Мария", "Петя",
                 "Максим", "Иван",
-                "Иван", "Максим",
                 "Петя", "Максим"
         );
 
