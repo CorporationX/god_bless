@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -25,16 +26,22 @@ public class RecommendationService {
     public List<Product> findMostPopularProduct(int userId) {
         UserProfile rightUser = findRightUser(userId);
 
-        List<Integer> similarUsersId = users.stream()
+        List<Integer> similarUsersIds = users.stream()
                 .filter(user -> user.age() == rightUser.age() && user.gender().equals(rightUser.gender())
                         && user.location().equals(rightUser.location()) && user.userId() != userId)
                 .map(UserProfile::userId)
                 .toList();
 
         Map<Product, Long> groupedProducts = orders.stream()
-                .filter(order -> similarUsersId.contains(order.userId()))
-                .map(ProductOrder::productId)
-                .flatMap(productId -> products.stream().filter(product -> product.productId() == productId))
+                .filter(order -> similarUsersIds.contains(order.userId()))
+                .map(order -> {
+                    for (Product product : products) {
+                        if (product.productId() == order.productId()) {
+                            return product;
+                        }
+                    }
+                    throw new IllegalArgumentException("Incorrect orders list");
+                })
                 .collect(Collectors.groupingBy(product -> product, Collectors.counting()));
 
         return groupedProducts.entrySet().stream()
@@ -44,17 +51,17 @@ public class RecommendationService {
                 .toList();
     }
 
-    public String findCategoryForDiscount(int userId) {
+    public Optional<String> findCategoryForDiscount(int userId) {
         UserProfile user = findRightUser(userId);
 
-        List<Product> rightUserProduct = orders.stream()
+        List<Product> rightUserProducts = orders.stream()
                 .filter(order -> order.userId() == userId)
                 .flatMap(order -> products.stream().filter(product -> product.productId() == order.productId()))
                 .toList();
 
         Map<String, Integer> sortedCategory = new HashMap<>();
 
-        rightUserProduct.forEach(product -> {
+        rightUserProducts.forEach(product -> {
             if (product.tags().stream().anyMatch(tag -> user.interest().contains(tag))) {
                 String category = product.category();
                 if (sortedCategory.containsKey(category)) {
@@ -68,8 +75,7 @@ public class RecommendationService {
         return sortedCategory.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(Map.Entry::getKey)
-                .findFirst()
-                .orElse("");
+                .findFirst();
     }
 
     private UserProfile findRightUser(int userId) {
