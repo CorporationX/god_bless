@@ -27,6 +27,7 @@ public class RocketLaunch implements Runnable {
             throw new RuntimeException(e);
         }
         System.out.println(name + " has launched!");
+
     }
 
     public static void planRocketLaunches(List<RocketLaunch> rocketLaunches) {
@@ -36,6 +37,11 @@ public class RocketLaunch implements Runnable {
             executorService.schedule(rocketLaunch, delay, TimeUnit.MILLISECONDS);
         }
         executorService.shutdown();
+        try {
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
 }
