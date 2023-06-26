@@ -12,8 +12,7 @@ public class Example {
     }
 
     public static int getMax(List<Integer> list){
-        Optional<Integer> optional = list.stream().max(Integer::compareTo);
-        return optional.orElse(0);
+        return list.stream().max(Integer::compareTo).orElse(0);
     }
 
     public static double getAverage(List<Integer> list){
@@ -26,7 +25,7 @@ public class Example {
     }
 
     public static List<String> filterBySubstring(List<String> list, String subString){
-        return list.stream().filter(s -> s.toLowerCase().contains(subString)).collect(Collectors.toList());
+        return list.stream().filter(s -> s.toLowerCase().contains(subString)).toList();
     }
 
     public static List<String> sortByStringLenght(List<String> list){
