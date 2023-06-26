@@ -37,20 +37,23 @@ public class DataAnalyzer {
     }
 
     public Map<String, Integer> getSalaryDistribution(Stream<String> jsonStream) {
+        String range1 = "0 - 50.000";
+        String range2 = "50.001 - 100.000";
+        String range3 = "100.001 - 500.000";
         List<Job> jobs = JobStreamProcessor.convertJsonToJob(jsonStream);
 
         Map<String, Integer> salaryDistribution = new HashMap<>();
-        salaryDistribution.put("0 - 50.000", 0);
-        salaryDistribution.put("50.001 - 100.000", 0);
-        salaryDistribution.put("100.001 - 500.000", 0);
+        salaryDistribution.put(range1, 0);
+        salaryDistribution.put(range2, 0);
+        salaryDistribution.put(range3, 0);
 
         jobs.forEach(job -> {
             if (job.salary() < 50000) {
-                salaryDistribution.put("0 - 50.000", salaryDistribution.get("0 - 50.000") + 1);
+                salaryDistribution.put(range1, salaryDistribution.get(range1) + 1);
             } else if (job.salary() > 100000) {
-                salaryDistribution.put("100.001 - 500.000", salaryDistribution.get("100.001 - 500.000") + 1);
+                salaryDistribution.put(range3, salaryDistribution.get(range3) + 1);
             } else {
-                salaryDistribution.put("50.001 - 100.000", salaryDistribution.get("50.001 - 100.000") + 1);
+                salaryDistribution.put(range2, salaryDistribution.get(range2) + 1);
             }
         });
 

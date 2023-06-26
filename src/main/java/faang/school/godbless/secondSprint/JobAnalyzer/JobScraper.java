@@ -5,10 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 public class JobScraper {
-    public static Job transformJsonToJob(String json) throws JsonProcessingException {
+    public static Job transformJsonToJob(String json) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.registerModule(new JavaTimeModule());
 
-        return mapper.readValue(json, Job.class);
+        try {
+            return mapper.readValue(json, Job.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
