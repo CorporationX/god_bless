@@ -29,9 +29,9 @@ public class TransformMatrix {
                 int flippedCol;
                 if (flipDirection == FlipDirection.HORIZONTAL) {
                     flippedRow = i;
-                    flippedCol = matrix[0].length - j - 1;
+                    flippedCol = matrix[0].length - j -1;
                 } else {
-                    flippedRow = matrix.length - i - 1;
+                    flippedRow = matrix.length - i -1;
                     flippedCol = j;
                 }
                 flipDirectionMatrix[i][j] = matrix[flippedRow][flippedCol];
@@ -41,7 +41,9 @@ public class TransformMatrix {
     }
 
     public static void main(String[] args) {
-        int[][] matrix = {{1, 2}, {3, 4}};
+        int[][] matrix = {
+                {1, 2},
+                {3, 4}};
         MatrixTransformer transformer = (x, y) -> new Coordinates(y, x);
         int[][] transformedMatrix = transformMatrix(matrix, transformer);
         System.out.println(Arrays.deepToString(transformedMatrix));
