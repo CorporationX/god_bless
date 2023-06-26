@@ -1,16 +1,14 @@
 import faang.school.godbless.pracriceStreamAPI2.Employee;
 import faang.school.godbless.pracriceStreamAPI2.StreamAPI;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StreamAPITest {
+public class StreamAPITest2 {
     @Test
     public void setOfUniqCouplesOfNumbersTest() {
         List<Integer> integerList = List.of(1, 3, 4, 6, 9);
