@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Sprint2;
 
 public class Example {
     public int[] reverse(int[] numbers) {
