@@ -1,9 +1,6 @@
-package faang.school.godbless.work_in_microsoft;
+package faang.school.godbless.work_at_microsoft;
 
 import lombok.AllArgsConstructor;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 @AllArgsConstructor
 public class SenderRunnable implements Runnable{
@@ -16,6 +13,4 @@ public class SenderRunnable implements Runnable{
             System.out.println("Email " + i + " is sent. " + Thread.currentThread().getName());
         }
     }
-
-
 }

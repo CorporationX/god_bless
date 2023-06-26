@@ -1,4 +1,4 @@
-package faang.school.godbless.work_in_microsoft;
+package faang.school.godbless.work_at_microsoft;
 
 import java.util.List;
 
@@ -26,5 +26,4 @@ public class MailSender {
         });
         System.out.println("DONE!");
     }
-
 }
