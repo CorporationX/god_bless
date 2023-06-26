@@ -9,7 +9,6 @@ public class GriffinsFoodDelivery {
     private static final int LIMIT_OF_ORDERED_FOOD = 50;
     private static final int NUMBER_THREADS = 3;
 
-
     public static void main(String[] args) {
         ExecutorService service = Executors.newFixedThreadPool(NUMBER_THREADS);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
