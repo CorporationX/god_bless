@@ -29,14 +29,14 @@ public class MainTest {
 
     @Test
     public void testFilters() {
-        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter); // обычное фото и фильтр
         String expected = "original.jpg_grayscale";
         assertEquals(expected, grayscaleImage.getNameFile());
     }
 
     @Test
     public void testCombinedFilter() {
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter); // фото и комбинированный фильтр
         String expected = "original.jpg_grayscale_sepia";
         assertEquals(expected, combinedImage.getNameFile());
     }
