@@ -18,11 +18,11 @@ public class Main {
         );
 
         // Создание фильтров, обработчиков и преобразователей
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Predicate<Email> emailPredicate = email -> email.isImportant();
+        Consumer<Email> emailConsumer = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, Email> emailFunction = email -> new Email(email.getSubject().toUpperCase(), email.getBody().toLowerCase(), email.isImportant());
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        List<Email> test = EmailProcessor.processEmails(emails, emailPredicate, emailConsumer, emailFunction);
     }
 }

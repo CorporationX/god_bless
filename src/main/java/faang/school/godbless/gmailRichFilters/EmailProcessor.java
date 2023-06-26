@@ -6,9 +6,10 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> emailPredicate, Consumer<Email> emailConsumer, Function<Email, String> emailFunction) {
-        emails.forEach(emailPredicate::test);
-        emails.forEach(emailConsumer);
-        emails.forEach(emailFunction::apply);
+    public static List<Email> processEmails(List<Email> emails, Predicate<Email> emailPredicate, Consumer<Email> emailConsumer, Function<Email, Email> emailFunction) {
+        return emails.stream()
+                .filter(emailPredicate)
+                .peek(emailConsumer)
+                .map(emailFunction).toList();
     }
 }
