@@ -14,7 +14,7 @@ public class DataAnalyzer {
                 .sorted(Comparator.comparingLong(entry -> -entry.getValue()))
                 .limit(limit)
                 .map(entry -> entry.getKey())
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> sortJobsByPopularity(List<Job> jobs){
@@ -23,10 +23,10 @@ public class DataAnalyzer {
                 .entrySet().stream()
                 .sorted(Comparator.comparingLong(entry -> -entry.getValue()))
                 .map(entry -> entry.getKey())
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public static Map<String, Long> getSalaryRange(List<Job> jobs, int step){
+    public static Map<String, Long> getSalaryRange(List<Job> jobs){
         return jobs.stream()
                 .collect(Collectors.groupingBy(e->Math.ceil(e.getSalary()/50000.0), Collectors.counting()))
                 .entrySet()
@@ -45,6 +45,6 @@ public class DataAnalyzer {
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(num)
                 .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+                .toList();
     }
 }

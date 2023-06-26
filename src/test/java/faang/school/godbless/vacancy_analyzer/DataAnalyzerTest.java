@@ -48,7 +48,7 @@ public class DataAnalyzerTest {
 
     @Test
     void getSalaryRangeTest(){
-        Map<String, Long> result = DataAnalyzer.getSalaryRange(jobs, 50000);
+        Map<String, Long> result = DataAnalyzer.getSalaryRange(jobs);
         Map<String, Long> expected = Map.of("50000-100000", 3L, "100000-150000", 2L,"0-50000",1L);
         Assertions.assertEquals(expected, result);
     }
