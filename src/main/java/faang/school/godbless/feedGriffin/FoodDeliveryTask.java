@@ -6,7 +6,7 @@ import lombok.NonNull;
 import java.util.Random;
 
 @Data
-public class FoodDeliveryTask implements Runnable{
+public class FoodDeliveryTask implements Runnable {
     @NonNull
     private String character;
     @NonNull
@@ -16,7 +16,7 @@ public class FoodDeliveryTask implements Runnable{
     public void run() {
         System.out.println(character + " получает " + foodAmount + " " + getFoodType());
         try {
-            Thread.sleep((int) Math.ceil(Math.random()*5));
+            Thread.sleep((int) Math.ceil(Math.random() * 5));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
