@@ -18,27 +18,43 @@ class DroidTest {
 
     @Test
     void testEncryption() {
-        message = "abc";
+        message = "AaZz1_";
         var encryptedMessage = r2d2.sendEncryptedMessage(message, encryptionKey, (mes, key) -> {
             StringBuilder result = new StringBuilder();
+            char currentChar;
             for (int i = 0; i < mes.length(); i++) {
-                result.append((char) (mes.charAt(i) + key));
+                currentChar = mes.charAt(i);
+                if (Character.toLowerCase(currentChar) >= 97 && Character.toLowerCase(currentChar) <= 122) {
+                    currentChar += key;
+                }
+                if ("zZ".contains(String.valueOf((char) (currentChar - 1)))) {
+                    currentChar -= 26;
+                }
+                result.append(currentChar);
             }
             return result.toString();
         });
-        assertEquals(encryptedMessage, "bcd");
+        assertEquals(encryptedMessage, "BbAa1_");
     }
 
     @Test
     void testDecryption() {
-        message = "bcd";
+        message = "AazZ1_0";
         var encryptedMessage = r2d2.receiveEncryptedMessage(message, encryptionKey, (mes, key) -> {
             StringBuilder result = new StringBuilder();
+            char currentChar;
             for (int i = 0; i < mes.length(); i++) {
-                result.append((char) (mes.charAt(i) - key));
+                currentChar = mes.charAt(i);
+                if (Character.toLowerCase(currentChar) >= 97 && Character.toLowerCase(currentChar) <= 122) {
+                    currentChar -= key;
+                }
+                if ("Aa".contains(String.valueOf((char) (currentChar + 1)))) {
+                    currentChar += 26;
+                }
+                result.append(currentChar);
             }
             return result.toString();
         });
-        assertEquals(encryptedMessage, "abc");
+        assertEquals(encryptedMessage, "ZzyY1_0");
     }
 }
