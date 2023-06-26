@@ -12,8 +12,10 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> condition) {
-        Optional<Item> itemForRemove = character.getInventory().stream().filter(condition).findFirst();
-        itemForRemove.ifPresent(item -> character.getInventory().remove(item));
+        character.getInventory().stream()
+                .filter(condition)
+                .findFirst()
+                .ifPresent(character.getInventory()::remove);
     }
 
     public void removeAllItemsThatMatchCondition(Character character, Predicate<Item> condition) {

@@ -16,6 +16,7 @@ class InventoryManagerTest {
     private InventoryManager manager;
     private Character character;
     private Item stick;
+    private Item stick2;
     private Item sword;
     private Consumer<Item> consumer;
     private Predicate<Item> condition;
@@ -27,6 +28,7 @@ class InventoryManagerTest {
         manager = new InventoryManager();
         character = new Character("Gandalf");
         stick = new Item("Stick", 1);
+        stick2 = new Item("Stick", 1);
         sword = new Item("Sword", 1);
         consumer = (item) -> System.out.println(item.getName() + " was added to the inventory.");
         updateItem = (item) -> new Item(item.getName(), item.getValue() * 2);
@@ -44,7 +46,7 @@ class InventoryManagerTest {
 
     @Test
     void testRemoveItem() {
-        expectedInventory = Arrays.asList(stick, sword);
+        expectedInventory = Arrays.asList(stick2, sword);
         fillInventory();
         manager.removeItem(character, condition);
         assertEquals(expectedInventory, character.getInventory());
@@ -70,7 +72,7 @@ class InventoryManagerTest {
 
     private void fillInventory(){
         manager.addItem(character, stick, consumer);
-        manager.addItem(character, stick, consumer);
+        manager.addItem(character, stick2, consumer);
         manager.addItem(character, sword, consumer);
     }
 }
