@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Droid {
     private String name;
+
     public String sendEncryptedMessage(String originMsg, int encryptionKey) {
         DroidMessageEncryptor encryptor = (message, key) -> {
             StringBuilder stringBuilder = new StringBuilder();

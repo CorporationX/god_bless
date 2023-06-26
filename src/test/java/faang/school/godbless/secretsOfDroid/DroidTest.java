@@ -3,7 +3,7 @@ package faang.school.godbless.secretsOfDroid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DroidTest {
     private Droid r2d2;
