@@ -20,7 +20,7 @@ class StreamAPI2Test {
         var data = Arrays.asList(1, 2, 3, 4, 5);
         int targetSum = 6;
         var result = taskManager.findUniquePairs(data, targetSum);
-        var expectedData = new HashSet<>(Arrays.asList(new StreamAPI2.Pair<Integer>(5, 1), new StreamAPI2.Pair<Integer>(4, 2)));
+        var expectedData = new HashSet<>(Arrays.asList(new Pair<Integer>(5, 1), new Pair<Integer>(4, 2)));
 
         assertEquals(result, expectedData);
     }
@@ -59,9 +59,9 @@ class StreamAPI2Test {
 
     @Test
     void testStringFilter() {
-        List<String> strings = Arrays.asList("1234", "23e4", "4e56", "we", "333");
-        var result = taskManager.stringFilter(strings, "1234");
-        assertEquals(result, Arrays.asList("333", "1234"));
+        List<String> strings = Arrays.asList("1234", "23e4", "4e56", "we", "we12", "333");
+        var result = taskManager.stringFilter(strings, "we");
+        assertEquals(result, List.of("we"));
     }
 
     @Test
@@ -77,4 +77,16 @@ class StreamAPI2Test {
         var expected = Arrays.asList(11, 22, 33, 44);
         assertEquals(expected, result);
     }
+
+    @Test
+    void testFindPossibleFriends() {
+        Map<String, List<String>> fr = Map.of(
+                "1", List.of("3"),
+                "2", List.of("3"),
+                "3", Arrays.asList("1", "2")
+        );
+        var result = taskManager.findPossibleFriends(fr);
+        assertEquals(1, result.size());
+    }
+
 }

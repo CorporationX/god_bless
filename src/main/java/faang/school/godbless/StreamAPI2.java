@@ -5,15 +5,21 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class StreamAPI2 {
-    public Set<Pair<Integer>> findUniquePairs(List<Integer> nums, int targetSum) {
-        return nums.stream().flatMap(
-                num1 -> nums.stream()
-                        .filter(num2 -> num1 + num2 == targetSum && !num1.equals(num2))
-                        .map(num2 -> new Pair<Integer>(Integer.max(num2, num1), Integer.min(num2, num1)))
-        ).collect(Collectors.toSet());
-    }
 
-    public record Pair<T>(T firstValue, T secondValue) {}
+    public Set<Pair<Integer>> findUniquePairs(List<Integer> nums, int targetSum) {
+        Set<Integer> processedNumbers = new HashSet<>();
+        Set<Pair<Integer>> pairs = new HashSet<>();
+        nums.forEach(
+                number -> {
+                    if (processedNumbers.contains(targetSum - number)) {
+                        pairs.add(new Pair<Integer>(Integer.max(number, targetSum - number), Integer.min(number, targetSum - number)));
+                    } else {
+                        processedNumbers.add(number);
+                    }
+                }
+        );
+        return pairs;
+    }
 
     public List<String> sortCountries(Map<String, String> counties) {
         return counties.entrySet().stream()
@@ -27,21 +33,22 @@ public class StreamAPI2 {
                 .filter(word -> !word.isBlank() && word.charAt(0) == firstSymbol)
                 .sorted(Comparator.comparing(String::length)).toList();
     }
-    // Задача меня победила, не ворк
+
+    //Понял, осознал, благодарю :)
     public Set<Pair<String>> findPossibleFriends(Map<String, List<String>> userFriends) {
-        var possibleFriends = userFriends.entrySet().stream()
+        Set<String> processedFriend = new HashSet<>();
+        return userFriends.entrySet().stream()
                 .flatMap(entry1 -> userFriends.entrySet().stream()
-                        .filter(entry2 -> !entry2.getKey().equals(entry1.getKey()))
-                        .filter(entry2 -> !entry2.getValue().contains(entry1.getKey()))
+                        .filter(entry2 -> !entry1.getKey().equals(entry2.getKey()))
                         .filter(entry2 -> !entry1.getValue().contains(entry2.getKey()))
+                        .filter(entry2 -> !entry2.getValue().contains(entry1.getKey()))
                         .filter(entry2 -> entry1.getValue().stream().anyMatch(entry2.getValue()::contains))
-                        .map(entry2 ->
-                                entry2.getKey().compareTo(entry1.getKey()) > 0 ?
-                                        new Pair<>(entry1.getKey(), entry2.getKey()) :
-                                        new Pair<>(entry2.getKey(), entry1.getKey())
-                        )
+                        .filter(entry2 -> !processedFriend.contains(entry2.getKey()))
+                        .map(entry2 -> {
+                            processedFriend.add(entry1.getKey());
+                            return new Pair<String>(entry1.getKey(), entry2.getKey());
+                        })
                 ).collect(Collectors.toSet());
-        return possibleFriends;
     }
 
 
@@ -57,13 +64,14 @@ public class StreamAPI2 {
         List<String> alphabetList = Collections.singletonList(alphabet);
         return strings.stream()
                 .filter(s -> s.matches("[" + alphabet + "]+"))
+                .filter(s -> s.matches("[a-zA-Z]+"))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
     public List<String> intToString(List<Integer> numbers) {
         return numbers.stream()
-                .map(number -> Integer.toString(number, 2))
+                .map(Integer::toBinaryString)
                 .toList();
     }
 
@@ -71,8 +79,22 @@ public class StreamAPI2 {
         var result = Stream.iterate(start, c -> c + 1)
                 .limit(end - start + 1)
                 .filter(
-                        num -> Integer.toString(num).contentEquals(new StringBuilder(Integer.toString(num)).reverse())
+                        num -> {
+                            String str = Integer.toString(num);
+                            int left = 0;
+                            int right = str.length() - 1;
+
+                            while (left < right) {
+                                if (str.charAt(left) != str.charAt(right)) {
+                                    return false;
+                                }
+                                left++;
+                                right--;
+                            }
+                            return true;
+                        }
                 ).toList();
         return result;
     }
+
 }
