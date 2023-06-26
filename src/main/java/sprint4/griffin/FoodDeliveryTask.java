@@ -3,6 +3,7 @@ package sprint4.griffin;
 import java.util.Random;
 
 public record FoodDeliveryTask(String character, int foodAmount) implements Runnable {
+    private static final String[] FOOD_TYPES = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
     @Override
     public void run() {
         String foodType = getFoodType();
@@ -16,7 +17,6 @@ public record FoodDeliveryTask(String character, int foodAmount) implements Runn
     }
 
     private String getFoodType() {
-        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return FOOD_TYPES[new Random().nextInt(FOOD_TYPES.length)];
     }
 }
