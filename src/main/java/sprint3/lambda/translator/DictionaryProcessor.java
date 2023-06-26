@@ -1,4 +1,4 @@
-package translator;
+package sprint3.lambda.translator;
 
 import java.util.function.BiConsumer;
 
