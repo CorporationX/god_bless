@@ -1,6 +1,7 @@
 package faang.school.godbless.stream_api1;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -9,17 +10,20 @@ import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
 
+import static java.util.stream.Collectors.toList;
+
 public class ListHandler {
     static int sumEven(List<Integer> nums) {
         return nums.stream().filter(n -> n % 2 == 0).mapToInt(Integer::intValue).sum();
     }
 
-    static OptionalInt findMax(List<Integer> nums) {
-        return nums.stream().mapToInt(Integer::intValue).max();
+    static int findMax(List<Integer> nums) {
+
+        return nums.stream().mapToInt(Integer::intValue).max().orElse(0);
     }
 
-    static OptionalDouble findMean(List<Integer> nums) {
-        return nums.stream().mapToInt(Integer::intValue).average();
+    static double findMean(List<Integer> nums) {
+        return nums.stream().mapToInt(Integer::intValue).average().orElse(0.0);
     }
 
     static long findWords(List<String> strings, char character) {
@@ -31,7 +35,7 @@ public class ListHandler {
     }
 
     static List<String> sortLength(List<String> strings) {
-        return strings.stream().sorted((s1, s2) -> s1.length() - s2.length()).collect(Collectors.toList());
+        return strings.stream().sorted(Comparator.comparing(String::length)).toList();
     }
 
     static <T> boolean allMatch(List<T> values, Predicate<T> condition) {
