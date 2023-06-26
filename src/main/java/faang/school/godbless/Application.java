@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-import faang.school.godbless.groupUsersByAge.User;
+import faang.school.godbless.basicJava.groupUsersByAge.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
