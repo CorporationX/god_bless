@@ -1,10 +1,12 @@
 package sprint4.microsoft;
 
-public record SenderRunnable(int startIndex, int endIndex) implements Runnable {
+import java.util.List;
+
+public record SenderRunnable(List<String> mails) implements Runnable {
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
-            System.out.printf("%s was successfully justified from %s\n", MailSender.mails.get(i),
+        for (String mail : mails) {
+            System.out.printf("%s was successfully justified from %s\n", mail,
                     Thread.currentThread().getName());
         }
         System.out.printf("\n%s completed\n\n", Thread.currentThread().getName());

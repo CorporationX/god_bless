@@ -5,15 +5,20 @@ import java.util.List;
 
 public class MailSender {
     static List<String> mails = new ArrayList<>();
-    private static final List<Thread> THREAD_LIST = List.of(
-            new Thread(new SenderRunnable(0, 200)),
-            new Thread(new SenderRunnable(200, 400)),
-            new Thread(new SenderRunnable(400, 600)),
-            new Thread(new SenderRunnable(600, 800)),
-            new Thread(new SenderRunnable(800, 1000))
-    );
-    public static void main(String[] args) {
+
+    static {
         fillList();
+    }
+    private static final List<Thread> THREAD_LIST = List.of(
+            new Thread(new SenderRunnable(mails.subList(0, 200))),
+            new Thread(new SenderRunnable(mails.subList(200, 400))),
+            new Thread(new SenderRunnable(mails.subList(400, 600))),
+            new Thread(new SenderRunnable(mails.subList(600, 800))),
+            new Thread(new SenderRunnable(mails.subList(800, 1000)))
+    );
+
+    public static void main(String[] args) {
+
         for (Thread thread : THREAD_LIST) {
             thread.start();
         }
