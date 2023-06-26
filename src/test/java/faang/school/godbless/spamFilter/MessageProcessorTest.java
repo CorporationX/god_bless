@@ -1,7 +1,6 @@
 package faang.school.godbless.spamFilter;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -10,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MessageProcessorTest {
     private MessageProcessor messageProcessor;
@@ -18,6 +17,7 @@ class MessageProcessorTest {
     private MessageFilter lengthFilter;
     private MessageFilter emojiFilter;
     private List<MessageFilter> filters;
+
     @BeforeEach
     void setUp(){
         messageProcessor = new MessageProcessor();
@@ -26,6 +26,7 @@ class MessageProcessorTest {
         emojiFilter = message -> message.contains("\\uD83D\\uDE00");
         filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
     }
+
     @ParameterizedTest
     @MethodSource("prepareData")
     void testProcessMessage(String message, boolean expected) {
