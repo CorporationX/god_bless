@@ -1,5 +1,8 @@
-package faang.school.godbless.sprint3.lordsOfTheRings.classes;
+package faang.school.godbless.sprint3.lambdas.classes;
 
+import faang.school.godbless.sprint3.lordsOfTheRings.classes.Character;
+import faang.school.godbless.sprint3.lordsOfTheRings.classes.InventoryManager;
+import faang.school.godbless.sprint3.lordsOfTheRings.classes.Item;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

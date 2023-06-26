@@ -1,5 +1,7 @@
-package faang.school.godbless.sprint3.InstagramsFilters.classes;
+package faang.school.godbless.sprint3.lambdas.classes;
 
+import faang.school.godbless.sprint3.InstagramsFilters.classes.FilterProcessor;
+import faang.school.godbless.sprint3.InstagramsFilters.classes.Image;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,5 +1,6 @@
-package faang.school.godbless.sprint3.errorHandler.classes;
+package faang.school.godbless.sprint3.lambdas.classes;
 
+import faang.school.godbless.sprint3.errorHandler.classes.RemoteService;
 import faang.school.godbless.sprint3.errorHandler.interfaces.ExceptionHandler;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;

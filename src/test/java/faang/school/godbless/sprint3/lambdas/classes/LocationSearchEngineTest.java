@@ -1,5 +1,7 @@
-package faang.school.godbless.sprint3.googleMaps.classes;
+package faang.school.godbless.sprint3.lambdas.classes;
 
+import faang.school.godbless.sprint3.googleMaps.classes.Location;
+import faang.school.godbless.sprint3.googleMaps.classes.LocationSearchEngine;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
