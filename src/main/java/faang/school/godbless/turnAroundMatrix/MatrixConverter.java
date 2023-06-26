@@ -8,9 +8,7 @@ public class MatrixConverter {
 
         if (flipDirection.equals(FlipDirection.HORIZONTAL)) {
             flipMatrix = transformMatrix(matrix, horizontalTransform);
-        }
-
-        if (flipDirection.equals(FlipDirection.VERTICAL)) {
+        } else {
             flipMatrix = transformMatrix(matrix, verticalTransform);
         }
         return flipMatrix;
@@ -30,6 +28,4 @@ public class MatrixConverter {
         }
         return transformMatrix;
     }
-
-
 }
