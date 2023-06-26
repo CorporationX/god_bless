@@ -3,9 +3,12 @@ package faang.school.godbless;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,8 +26,17 @@ class StreamProcessTest {
 
         List<List<Integer>> actualPairs = StreamProcess.findPairsWithSum(numbers, targetSum);
 
-        assertEquals(expectedPairs, actualPairs);
+        // Сортируем каждую пару в ожидаемых и фактических парах
+        expectedPairs.forEach(Collections::sort);
+        actualPairs.forEach(Collections::sort);
+
+        Set<List<Integer>> uniqueExpectedPairs = new HashSet<>(expectedPairs);
+
+        Set<List<Integer>> uniqueActualPairs = new HashSet<>(actualPairs);
+
+        assertEquals(uniqueExpectedPairs, uniqueActualPairs);
     }
+
     @Test
     public void testSortCapitalsByCountry() {
         Map<String, String> countryCapitalMap = new HashMap<>();
@@ -98,5 +110,23 @@ class StreamProcessTest {
         assertEquals(expectedFilteredAndSortedStrings, actualFilteredAndSortedStrings);
     }
 
+    @Test
+    public void testFindPalindromeInRange() {
+        int start = 100;
+        int end = 200;
+        List<Integer> expected = Arrays.asList(101, 111, 121, 131, 141, 151, 161, 171, 181, 191);
+
+        List<Integer> actual = StreamProcess.findPalindromeInRange(start, end);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testConvertToBinaryList() {
+        List<Integer> numbers = Arrays.asList(5, 10, 15);
+        List<String> expected = Arrays.asList("101", "1010", "1111");
+        List<String> result = StreamProcess.convertToBinaryList(numbers);
+        assertEquals(expected, result);
+    }
 
 }

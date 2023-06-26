@@ -9,21 +9,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamProcess {
     public static List<List<Integer>> findPairsWithSum(List<Integer> numbers, int targetSum) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-        Set<List<Integer>> uniquePairs = new HashSet<>();
 
-        for (int num : numbers) {
-            int diff = targetSum - num;
-            if (uniqueNumbers.contains(diff)) {
-                List<Integer> pair = Arrays.asList(num, diff);
-                Collections.sort(pair);
-                uniquePairs.add(pair);
-            }
-        }
-        return new ArrayList<>(uniquePairs);
+        return numbers.stream()
+                .flatMap(num -> {
+                    int diff = targetSum - num;
+                    return uniqueNumbers.contains(diff) ? Stream.of(Arrays.asList(num, diff)) : Stream.empty();
+                })
+                .map(pair -> {
+                    Collections.sort(pair);
+                    return pair;
+                })
+                .collect(Collectors.toList());
     }
 
     public static List<String> sortCapitalByCountry(Map<String, String> capitals) {
@@ -41,62 +44,50 @@ public class StreamProcess {
     }
 
     public static List<List<String>> findNonFriendPairs(Map<String, List<String>> friendships) {
-        List<List<String>> nonFriendsPair = new ArrayList<>();
+        List<String> people = new ArrayList<>(friendships.keySet());
 
-        Set<String> allPeople = friendships.keySet();
-        for (String person1 : allPeople) {
-            for (String person2 : allPeople) {
-                if (!person1.equals(person2) && !friendships.get(person1).contains(person2)) {
-                    List<String> pair = Arrays.asList(person1, person2);
-                    Collections.sort(pair);
-                    if (!nonFriendsPair.contains(pair)) {
-                        nonFriendsPair.add(pair);
-                    }
-                }
-            }
-        }
-        return nonFriendsPair;
+        return people.stream()
+                .flatMap(person1 -> people.stream()
+                        .filter(person2 -> !person1.equals(person2))
+                        .filter(person2 -> !friendships.get(person1).contains(person2))
+                        .filter(person2 -> haveCommonFriends(person1, person2, friendships))
+                        .map(person2 -> Arrays.asList(person1, person2).stream().sorted().collect(Collectors.toList())))
+                .distinct()
+                .collect(Collectors.toList());
+    }
+
+    private static boolean haveCommonFriends(String person1, String person2, Map<String, List<String>> friendships) {
+        List<String> person1Friends = friendships.get(person1);
+        List<String> person2Friends = friendships.get(person2);
+        return person1Friends.stream().anyMatch(person2Friends::contains);
     }
 
     public static Map<String, Double> calculateAverageWageByDepartment(List<Employee> employees) {
-        Map<String, List<Double>> departmentWageMap = new HashMap<>();
+        Map<String, List<Double>> departmentWageMap = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.mapping(Employee::getWage, Collectors.toList())));
 
-        for(Employee employee : employees){
-            String department = employee.getDepartment();
-            double wage = employee.getWage();
-            departmentWageMap.computeIfAbsent(department, k -> new ArrayList<>()).add(wage);
-        }
-
-        Map<String, Double> averageWageMap = new HashMap<>();
-        for(Map.Entry<String,List<Double>> entry : departmentWageMap.entrySet()){
-            String department = entry.getKey();
-            List<Double> wages = entry.getValue();
-            double averageWage = wages.stream().mapToDouble(Double::doubleValue).average().orElse(0.0);
-            averageWageMap.put(department, averageWage);
-        }
+        Map<String, Double> averageWageMap = departmentWageMap.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        entry -> entry.getValue().stream().mapToDouble(Double::doubleValue).average().orElse(0.0)));
 
         return averageWageMap;
     }
 
-    public static List<String> filterAndSortAlphabeticStrings(List<String> strings, String alphabet){
-        return strings.stream().filter(s-> s.matches("[" + alphabet + "]+"))
+    public static List<String> filterAndSortAlphabeticStrings(List<String> strings, String alphabet) {
+        return strings.stream().filter(s -> s.matches("[" + alphabet + "]+"))
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
-    public static List<String> convertToBinaryList(List<Integer> numbers){
+    public static List<String> convertToBinaryList(List<Integer> numbers) {
         return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
-    public static List<Integer> findPalindromeInRange(int start, int end){
-        List<Integer> palindromes = new ArrayList<>();
-
-        for(int num = start; num <= end; num++){
-            if(isPalindrome(num))
-            {
-                palindromes.add(num);
-            }
-        }
-        return palindromes;
+    public static List<Integer> findPalindromeInRange(int start, int end) {
+        return IntStream.rangeClosed(start, end)
+                .filter(StreamProcess::isPalindrome)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     private static boolean isPalindrome(int number) {
