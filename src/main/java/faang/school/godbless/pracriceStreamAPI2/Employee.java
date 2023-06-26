@@ -1,8 +1,8 @@
 package faang.school.godbless.pracriceStreamAPI2;
 
-import lombok.Data;
+import lombok.Value;
 
-@Data
+@Value
 public class Employee {
     private String name;
     private double salary;
