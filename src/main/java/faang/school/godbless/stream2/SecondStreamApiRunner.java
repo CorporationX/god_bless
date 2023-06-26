@@ -4,15 +4,22 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class SecondStreamApiRunner {
 
-    public static Set<Integer> searchPairOfDigits(List<Integer> numbers, int value) {
-        return numbers.stream().filter(num -> numbers.contains(value - num))
-                .collect(Collectors.toSet());
+    public static List<String> searchPairOfDigits(List<Integer> numbers, int value) {
+        return numbers.stream()
+                .flatMap(num1 -> numbers.stream()
+                        .filter(num2 -> num1 != num2 && num1 + num2 == value)
+                        .map(num2 -> {
+                            int smallerNum = Math.min(num1, num2);
+                            int largerNum = Math.max(num1, num2);
+                            return smallerNum + " + " + largerNum;
+                        }))
+                .distinct()
+                .toList();
     }
 
     public static List<String> getCountryCapitals(Map<String, String> map) {
