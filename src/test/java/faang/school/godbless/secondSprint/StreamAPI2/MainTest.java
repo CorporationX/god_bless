@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,10 +12,13 @@ class MainTest {
     @Test
     public void testFindPairs() {
         List<Integer> nums = List.of(1, 2, 3, 4, 5);
-        List<List<Integer>> result = Main.findPairs(nums, 6);
-        List<List<Integer>> expected = List.of(List.of(2, 4), List.of(1, 5));
+        Set<List<Integer>> result = Main.findPairs(nums, 6);
+        List<Integer> expectedList1 = List.of(2, 4);
+        List<Integer> expectedList2 = List.of(1, 5);
 
-        assertEquals(expected, result);
+        assertTrue(result.contains(expectedList1));
+        assertTrue(result.contains(expectedList2));
+        assertEquals(2, result.size());
     }
 
     @Test
@@ -72,7 +76,7 @@ class MainTest {
     @Test
     public void testFilterStringByAlphabet() {
         List<String> result = Main.filterStringByAlphabet(List.of("abbaab", "avb", "ab", "kek"),
-                List.of((char) 97, (char) 98));
+                List.of('a', 'b'));
         List<String> expected = List.of("ab", "abbaab");
 
         assertEquals(expected, result);

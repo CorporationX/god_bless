@@ -2,21 +2,26 @@ package faang.school.godbless.secondSprint.StreamAPI2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static List<List<Integer>> findPairs(List<Integer> nums, int sum) {
-        List<List<Integer>> uniquePairs = new ArrayList<>();
+    public static Set<List<Integer>> findPairs(List<Integer> nums, int sum) {
+        Set<Integer> numbers = new HashSet<>(nums);
+        Set<List<Integer>> uniquePairs = new HashSet<>();
 
-        nums.forEach(num -> {
-            int goodNumber = sum - num;
-            if (nums.contains(goodNumber) && goodNumber < num) {
-                uniquePairs.add(List.of(goodNumber, num));
-            }
-        });
+        Set<Integer> rightNumbers = numbers.stream()
+                .map(num -> sum - num)
+                .collect(Collectors.toSet());
+
+        numbers.stream()
+                .filter(num -> rightNumbers.contains(num) && (sum - num) > num)
+                .forEach(num -> uniquePairs.add(List.of(num, sum - num)));
+
         return uniquePairs;
     }
 
@@ -58,14 +63,8 @@ public class Main {
 
     public static List<String> filterStringByAlphabet(List<String> strings, List<Character> alphabet) {
         return strings.stream()
-                .filter(string -> {
-                    for (int i = 0; i < string.length(); i++) {
-                        if (!alphabet.contains(string.charAt(i))) {
-                            return false;
-                        }
-                    }
-                    return true;
-                }).sorted(Comparator.comparing(String::length))
+                .filter(str-> str.matches("[a-zA-Z]+") && str.matches("["+alphabet+"]+"))
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
@@ -78,9 +77,17 @@ public class Main {
     public static List<Integer> findPalindromeNums(int first, int last) {
         return IntStream.range(first, last)
                 .filter(num -> {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append(num).reverse();
-                    return stringBuilder.toString().equals(String.valueOf(num));
+                    String str = String.valueOf(num);
+                    int left = 0;
+                    int right = str.length() - 1;
+                    while (left < right) {
+                        if (str.charAt(left) != str.charAt(right)) {
+                            return false;
+                        }
+                        left++;
+                        right--;
+                    }
+                    return true;
                 }).boxed()
                 .toList();
     }
