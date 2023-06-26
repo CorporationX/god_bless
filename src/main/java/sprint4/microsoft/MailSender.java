@@ -5,7 +5,7 @@ import java.util.List;
 
 public class MailSender {
     static List<String> mails = new ArrayList<>();
-    private static final List<Thread> threadPool = List.of(
+    private static final List<Thread> THREAD_LIST = List.of(
             new Thread(new SenderRunnable(0, 200)),
             new Thread(new SenderRunnable(200, 400)),
             new Thread(new SenderRunnable(400, 600)),
@@ -14,7 +14,7 @@ public class MailSender {
     );
     public static void main(String[] args) {
         fillList();
-        for (Thread thread : threadPool) {
+        for (Thread thread : THREAD_LIST) {
             thread.start();
         }
         joinInWorkThreads();
@@ -22,7 +22,7 @@ public class MailSender {
     }
 
     private static void joinInWorkThreads() {
-        for (Thread thread : threadPool) {
+        for (Thread thread : THREAD_LIST) {
             if (!thread.isInterrupted()) {
                 try {
                     thread.join();
