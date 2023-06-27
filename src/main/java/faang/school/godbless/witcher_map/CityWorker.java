@@ -29,10 +29,10 @@ public class CityWorker implements Runnable {
 
     private Monster findNearestMonster() {
         Monster nearestMonster = null;
-        int shortestDistance = Integer.MAX_VALUE;
+        double shortestDistance = Integer.MAX_VALUE;
 
         for (Monster monster : monsters) {
-            int distance = getDistanceToMonster(monster);
+            double distance = getDistanceToMonster(monster.getLocation());
             if (distance < shortestDistance) {
                 shortestDistance = distance;
                 nearestMonster = monster;
@@ -42,12 +42,17 @@ public class CityWorker implements Runnable {
         return nearestMonster;
     }
 
-    private int getDistanceToMonster(Monster monster) {
+    private double getDistanceToMonster(Location monsterLocation) {
+        double baseLatitude = city.getLocation().getLatitude();
+        double baseLongitude = city.getLocation().getLongitude();
 
+        double latitudeDiff = Math.abs(monsterLocation.getLatitude() - baseLatitude);
+        double longitudeDiff = Math.abs(monsterLocation.getLongitude() - baseLongitude);
+        return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
     }
 
     private int calculateTravelTime(Monster monster) {
-        return getDistanceToMonster(monster) * 10;
+        return (int) getDistanceToMonster(monster.getLocation()) + 5;
     }
 
     private int calculateKillTime(Monster monster) {

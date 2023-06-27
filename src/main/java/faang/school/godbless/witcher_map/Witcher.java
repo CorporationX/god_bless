@@ -2,7 +2,8 @@ package faang.school.godbless.witcher_map;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Witcher {
 
@@ -20,7 +21,13 @@ public class Witcher {
         cities.add(new City("Vizima",new Location("Velen",89,341)));
         cities.add(new City("Kaer Morhen",new Location("White Orchard", 234, -43)));
 
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
+        for (City city : cities) {
+            CityWorker cityWorker = new CityWorker(city,monsters);
+            executorService.submit(cityWorker);
+        }
 
+        executorService.shutdown();
     }
 }
