@@ -1,6 +1,6 @@
 package main.java.faang.school.godbless.hogwarts;
 
-public class Hogwarts {
+public class Main{
     public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
 
