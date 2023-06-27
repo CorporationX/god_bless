@@ -1,6 +1,6 @@
 package main.java.faang.school.godbless.meta;
 
-public class Meta {
+public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
