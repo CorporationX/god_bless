@@ -24,7 +24,7 @@ public class Main {
 
         final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 6; i++) {
-            executorService.schedule(house::findAllFood,3, SECONDS);
+            executorService.schedule(house::findAllFood,30, SECONDS);
         }
         executorService.shutdown();
         try {
