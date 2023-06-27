@@ -13,14 +13,14 @@ public class NotificationManager {
         }
     }
 
-    public void sendNotification(Notification notification)  {
+    public void sendNotification(Notification notification) {
         if (map.containsKey(notification.getType())) {
             throw new IllegalArgumentException("notification not found");
         }
         map.get(notification.getType()).accept(notification);
     }
 
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
 
