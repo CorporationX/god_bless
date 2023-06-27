@@ -68,6 +68,15 @@ public class StreamMethods {
         return nums.stream().map(Integer::toBinaryString).toList();
     }
 
+    /* Решение Светы
+    return IntStream.rangeClosed(start, end)
+                .filter(i -> {
+                    String number = Integer.toString(i);
+                    return IntStream.range(0, number.length() / 2)
+                            .allMatch(j -> number.charAt(j) == number.charAt(number.length() - j - 1));
+                })
+                .boxed()
+                .toList();*/
     public static List<Integer> getPalindromeNumbers(int start, int end) {
         List<Integer> nums = IntStream.range(start, end).boxed().toList();
         Predicate<Integer> isPalindrome = num -> {
