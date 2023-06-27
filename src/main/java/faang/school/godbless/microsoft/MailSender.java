@@ -20,6 +20,10 @@ public class MailSender {
       int startIndex = i * COUNT_PER_MAIL;
       int endIndex = startIndex + COUNT_PER_MAIL;
 
+      if (endIndex > mails.size() - 1) {
+        endIndex = mails.size() - 1;
+      }
+
       Thread thread = new Thread(new SenderRunnable(mails, startIndex, endIndex));
       threads.add(thread);
     }

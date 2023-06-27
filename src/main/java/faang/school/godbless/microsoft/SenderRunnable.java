@@ -3,9 +3,9 @@ package faang.school.godbless.microsoft;
 import java.util.List;
 
 public class SenderRunnable implements Runnable {
-  List<Number> mails;
-  int startIndex;
-  int endIndex;
+  private List<Number> mails;
+  private int startIndex;
+  private int endIndex;
 
   public SenderRunnable(List<Number> mails, int startIndex, int endIndex) {
     this.mails = mails;
