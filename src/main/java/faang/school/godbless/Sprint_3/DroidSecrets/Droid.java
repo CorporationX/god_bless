@@ -5,9 +5,19 @@ public class Droid {
         DroidMessageEncryptor droidMessageEncryptor = (mess, k) -> {
             StringBuilder cifer = new StringBuilder();
             for (int i = 0; i < mess.length(); i++) {
-                char oldChar = mess.charAt(i);
-                char newChar = (char) ((int) oldChar + k);
-                cifer.append(newChar);
+                int oldChar = mess.charAt(i);
+                int newChar = oldChar + k;
+                if(oldChar >=  65 && oldChar <= 90)  {
+                    while (newChar > 90) {
+                        newChar = newChar - 90 + 64;
+                    }
+                    cifer.append((char)newChar);
+                } else if (oldChar >=  97 && oldChar <= 122) {
+                    while (newChar > 122) {
+                        newChar = newChar - 122 + 96;
+                    }
+                    cifer.append((char)newChar);
+                } else cifer.append((char)oldChar);
             }
             return cifer.toString();
         };

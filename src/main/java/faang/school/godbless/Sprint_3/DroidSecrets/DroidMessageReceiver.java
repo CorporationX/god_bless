@@ -6,9 +6,19 @@ public class DroidMessageReceiver {
             StringBuilder uncifer = new StringBuilder();
 
             for (int i = 0; i < mess.length(); i++) {
-                char oldChar = mess.charAt(i);
-                char newChar = (char) ((int) oldChar - k);
-                uncifer.append(newChar);
+                int oldChar = mess.charAt(i);
+                int newChar = oldChar - k;
+                if(oldChar >=  65 && oldChar <= 90)  {
+                    while (newChar < 65 || newChar > 90) {
+                        newChar = 65 - newChar + 89;
+                    }
+                    uncifer.append((char)newChar);
+                } else if (oldChar >=  97 && oldChar <= 122) {
+                    while (newChar < 97 || newChar > 122) {
+                        newChar = 97 - newChar + 121;
+                    }
+                    uncifer.append((char)newChar);
+                } else uncifer.append((char)oldChar);
             }
             return uncifer.toString();
         };
