@@ -1,4 +1,4 @@
-package faang.school.godbless.analysisOfUserActivity;
+package faang.school.godbless.streamAPI.analysisOfUserActivity;
 
 import faang.school.godbless.streamAPI.analysisOfUserActivity.ActionType;
 import faang.school.godbless.streamAPI.analysisOfUserActivity.UserAction;
