@@ -1,4 +1,4 @@
-package faang.school.godbless.trainigStreamAPI2;
+package faang.school.godbless.streamAPI.trainigStreamAPI2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

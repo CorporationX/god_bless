@@ -1,5 +1,8 @@
 package faang.school.godbless.analysisOfUserActivity;
 
+import faang.school.godbless.streamAPI.analysisOfUserActivity.ActionType;
+import faang.school.godbless.streamAPI.analysisOfUserActivity.UserAction;
+import faang.school.godbless.streamAPI.analysisOfUserActivity.UserActivity;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

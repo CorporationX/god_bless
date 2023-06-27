@@ -1,4 +1,4 @@
-package faang.school.godbless.analysisOfUserActivity;
+package faang.school.godbless.streamAPI.analysisOfUserActivity;
 
 import java.time.LocalDate;
 import java.util.Arrays;
