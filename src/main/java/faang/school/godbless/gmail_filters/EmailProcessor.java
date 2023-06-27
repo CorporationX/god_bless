@@ -12,8 +12,9 @@ public class EmailProcessor {
         for (int i = 0; i < emails.size(); i++) {
             Email email = emails.get(i);
             if (checkEmail.test(email)) {
-                processEmail.accept(email);
-                emails.set(i, convertEmail.apply(email));
+                Email converted = convertEmail.apply(email);
+                emails.set(i, converted);
+                processEmail.accept(converted);
             }
         }
     }
