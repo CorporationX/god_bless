@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class Task implements Runnable {
 
-    private String name;
+    private final String name;
     private String task;
 
     @SneakyThrows
