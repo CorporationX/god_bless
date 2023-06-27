@@ -21,14 +21,11 @@ public class Main {
         for (CashierThread cashierThread : cashierThreads) {
             try {
                 cashierThread.join();
+                totalSum += cashierThread.getTotalSum();
+                countItems += cashierThread.getCountItems();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
-
-        for (CashierThread cashierThread : cashierThreads) {
-            totalSum += cashierThread.getTotalSum();
-            countItems += cashierThread.getCountItems();
         }
 
         System.out.println("Total sum: " + totalSum + ", count items: " + countItems);
