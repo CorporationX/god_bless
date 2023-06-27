@@ -1,5 +1,6 @@
 package faang.school.godbless.analysisOfUserActivity;
 
+import lombok.Data;
 import lombok.Value;
 
 import java.time.LocalDateTime;

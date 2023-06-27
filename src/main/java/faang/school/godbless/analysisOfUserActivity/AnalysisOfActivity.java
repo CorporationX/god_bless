@@ -9,7 +9,10 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class analysisOfActivity {
+import static java.util.Map.entry;
+import static java.util.stream.Collectors.toList;
+
+public class AnalysisOfActivity {
     public List<Integer> top10ActiveUsers(List<User> listOfUsers) {
         Map<Integer, List<User>> map = listOfUsers.stream()
                 .collect(Collectors.groupingBy(User::getId));
@@ -23,7 +26,7 @@ public class analysisOfActivity {
 
     public List<String> top5MostPopularTopics(List<User> users) {
         Map<String, Long> nameTopicAndCount = users.stream()
-                .flatMap(a -> Arrays.stream(a.getContent().split("\\a")))
+                .flatMap(a -> Arrays.stream(a.getContent().split("\\s")))
                 .filter(c -> c.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
@@ -34,19 +37,19 @@ public class analysisOfActivity {
                 .toList();
     }
 
-    public List<String> top3UsersLeftMostComments(List<User> users) {
+    public List<Integer> top3UsersLeftMostComments(List<User> users) {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime monthAgo = now.minusMonths(1);
-        Map<String, List<User>> userAndCountComments = users.stream()
+        Map<Integer, List<User>> userAndCountComments = users.stream()
                 .filter(user -> user.getActionType().equals(actionType.COMMENT))
-                .filter(user -> user.getActionDate().isAfter(LocalDateTime.from(now)))
-                .collect(Collectors.groupingBy(User::getName));
+                .filter(user -> user.getActionDate().isAfter(LocalDateTime.from(monthAgo)))
+                .collect(Collectors.groupingBy(User::getId));
 
         return userAndCountComments.entrySet().stream()
                 .sorted(Comparator.comparingInt(entry -> entry.getValue().size()))
                 .limit(3)
                 .map(Map.Entry::getKey)
-                .toList();
+                .collect(toList());
 
     }
 
@@ -61,7 +64,7 @@ public class analysisOfActivity {
                     actionType actionType = u.getKey();
                     List<User> listWhoUsedThatTypeOfAction = u.getValue();
                     double percentage = (double) listWhoUsedThatTypeOfAction.size() / countOfUsers * 100;
-                    return actionType +  ": " + decimalFormat.format(percentage) + "%";
-                }).collect(Collectors.toList());
+                    return actionType +  ": " + decimalFormat.format(percentage) + "%"; // ("share: 00%", "comm: 00%");
+                }).collect(toList());
     }
 }
