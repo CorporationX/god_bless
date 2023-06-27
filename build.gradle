@@ -20,6 +20,9 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
+
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.15.2'
+
 }
 
 test {
