@@ -7,7 +7,7 @@ import java.util.Random;
 
 @Data
 @AllArgsConstructor
-public class FoodDeliveryTask implements Runnable{
+public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
 
