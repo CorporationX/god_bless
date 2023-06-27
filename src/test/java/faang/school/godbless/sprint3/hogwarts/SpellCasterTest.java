@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3;
+package faang.school.godbless.sprint3.hogwarts;
 
 import faang.school.godbless.sprint3.hogwarts.SpellCaster;
 import org.junit.jupiter.api.Test;
