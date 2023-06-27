@@ -17,9 +17,7 @@ public class EnvironmentalImpactAnalyzer {
         AtomicReference<Double> total = new AtomicReference<>(0.0);
         environmentalImpacts.stream()
                 .filter(impact -> impact.getType() == EType.ENERGY_CONSUMPTION && impact.getCompanyId() == companyId)
-                .collect(Collectors.groupingBy(impact -> impact.getDate().toInstant()
-                        .atZone(ZoneId.systemDefault())
-                        .toLocalDate(), Collectors.toList()))
+                .collect(Collectors.groupingBy(EnvironmentalImpact::getDate))
                 .entrySet()
                 .stream()
                 .collect(Collectors.groupingBy(entry -> Double.parseDouble(entry.getKey().getYear() + "." + entry.getKey().getMonthValue())))/*.forEach((k,v) -> System.out.println(k + "/" + v));*/
@@ -37,21 +35,61 @@ public class EnvironmentalImpactAnalyzer {
         System.out.println("Total    " + total);
     }
 
-    public void mostImpact(String file, Date currentDate) {
+    public void mostImpact(String file, LocalDate currentDate) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> environmentalImpacts = dataLoader.dataLoad(file);
+        collectVolumes(environmentalImpacts,currentDate)
+                .entrySet()
+                .stream()
+                .map(e -> Arrays.asList(
+                        Companies.getById(e.getKey()).getCompanyName(),
+                        e.getValue().values().stream().mapToDouble(vol -> vol).sum(),
+                        e.getValue().values().stream().mapToDouble(vol -> vol).average().orElseThrow(),
+                        e.getValue().values().stream().min(Comparator.comparingDouble(vol -> vol)).orElseThrow()
+                ))
+                .toList()
+                .stream()
+                .sorted(Collections.reverseOrder(Comparator.comparingDouble(list -> Double.parseDouble(list.get(1).toString()))))
+                .limit(3)
+                .toList()
+                .forEach(System.out::println);
+    }
 
-        System.out.println(        environmentalImpacts.stream()
+    public void averageEnergy(String file, LocalDate currentDate) {
+        CompanyDataLoader dataLoader = new CompanyDataLoader();
+        List<EnvironmentalImpact> environmentalImpacts = dataLoader.dataLoad(file);
+        collectVolumes(environmentalImpacts,currentDate)
+                .entrySet()
+                .stream()
+                .map(e -> Arrays.asList(
+                        Companies.getById(e.getKey()).getCompanyName(),
+                        e.getValue().values().stream().mapToDouble(vol -> vol).sum(),
+                        Companies.getById(e.getKey()).getTotalEmployees(),
+                        e.getValue().values().stream().mapToDouble(vol -> vol).sum() / Companies.getById(e.getKey()).getTotalEmployees()
+                ))
+                .toList()
+                .stream()
+                .sorted(Collections.reverseOrder(Comparator.comparingDouble(list -> Double.parseDouble(list.get(1).toString()))))
+                .limit(3)
+                .toList()
+                .forEach(System.out::println);
+    }
+
+    private static Map<Integer, Map<String, Double>> collectVolumes(List<EnvironmentalImpact> environmentalImpacts,LocalDate currentDate) {
+        return environmentalImpacts.stream()
+                .filter(environmentalImpact -> environmentalImpact.getDate().isBefore(currentDate) && environmentalImpact.getDate().isAfter(currentDate.minusYears(1)))
                 .collect(Collectors.groupingBy(EnvironmentalImpact::getCompanyId))
                 .entrySet()
                 .stream()
-                .map(entry -> Arrays.asList(entry.getKey(), entry.getValue().stream().mapToDouble(EnvironmentalImpact::getVolume).sum()))
-                .collect(Collectors.toList()));
-
+                .collect(Collectors.toMap(Map.Entry::getKey, impact -> impact.getValue()
+                                .stream()
+                                .collect(Collectors.groupingBy(envImp -> envImp.getDate().getYear() + "." + envImp.getDate().getMonthValue()))
+                                .entrySet()
+                                .stream()
+                                .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().stream().mapToDouble(EnvironmentalImpact::getVolume).average().orElseThrow()))
+                        )
+                );
     }
-
-    public void averageEnergy(String file, Date currentDate) {
-
-    }
-
 }
+
+

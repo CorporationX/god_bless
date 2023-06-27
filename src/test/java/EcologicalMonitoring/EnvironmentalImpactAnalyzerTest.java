@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,12 +21,11 @@ public class EnvironmentalImpactAnalyzerTest {
 
     @Test
     void mostImpactTest() {
-        SimpleDateFormat pattern = new SimpleDateFormat("yyyy.MM.dd");
-        try {
-            environmentalImpactAnalyzer.mostImpact("./src/main/java/faang/school/godbless/EcologicalMonitoring/CSVs/overall.csv", pattern.parse("2023.08.08"));
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
+        environmentalImpactAnalyzer.mostImpact("./src/main/java/faang/school/godbless/EcologicalMonitoring/CSVs/overall.csv", LocalDate.of(2023, 8, 8));
+    }
 
+    @Test
+    void averageEnergyTest() {
+        environmentalImpactAnalyzer.averageEnergy("./src/main/java/faang/school/godbless/EcologicalMonitoring/CSVs/overall.csv", LocalDate.of(2023, 8, 8));
     }
 }
