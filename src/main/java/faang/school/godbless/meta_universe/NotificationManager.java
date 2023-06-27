@@ -16,6 +16,9 @@ public class NotificationManager {
     }
 
     public static void sendNotification(Notification notification) {
+        if (!handlers.containsKey(notification.getType())) {
+            throw new RuntimeException("No handler for type: " + notification.getType());
+        }
         handlers.get(notification.getType()).accept(notification);
     }
 

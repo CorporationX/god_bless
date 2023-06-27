@@ -19,7 +19,7 @@ class NotificationManagerTest {
     void setIp() {
         emailNotification = new Notification("email", "Verify your email");
         smsNotification = new Notification("sms", "You have successfully changed your password");
-        pushNotification = new Notification("push", "New post from JohnDoe - Fuck this...");
+        pushNotification = new Notification("qwe", "New post from JohnDoe - Fuck this...");
     }
 
     @Test
