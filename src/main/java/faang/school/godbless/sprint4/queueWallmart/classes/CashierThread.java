@@ -15,7 +15,6 @@ public class CashierThread extends Thread {
 
     @Override
     public void run() {
-
         Arrays.stream(customerItems)
                 .forEach(item -> {
                     totalSum += item;
