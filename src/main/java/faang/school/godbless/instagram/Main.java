@@ -2,7 +2,7 @@ package main.java.faang.school.godbless.instagram;
 
 import java.util.function.Function;
 
-public class Instagram {
+public class Main {
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
