@@ -71,7 +71,56 @@ class StreamApiFunctionsTest {
         stringList.add("Водка");
         stringList.add("Роман");
 
-        List<String> resultList = StreamApiFunctions.filterStrings(stringList, "ро");
+        List<String> resultList = StreamApiFunctions.filterStringsBySubstring(stringList, "ро");
         assertEquals(List.of("Россия", "Роман"), resultList);
+    }
+
+    @Test
+    void filterStringsByLengthTest() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("Россияsadkl");
+        stringList.add("Путин;'adfs");
+        stringList.add("вон");
+        stringList.add("Водкаdflka");
+        stringList.add("Роман");
+
+
+        List<String> resultList = StreamApiFunctions.filterStringsByLength(stringList, 5);
+        assertEquals(List.of("Россияsadkl", "Путин;'adfs", "Водкаdflka"), resultList);
+    }
+
+    @Test
+    void checkAllMatchTestNullList() {
+        boolean result = StreamApiFunctions.checkAllMatch(null, integer -> integer > 5);
+        assertTrue(result);
+    }
+    @Test
+    void checkAllMatchTest() {
+        List<Integer> integerList1 = new ArrayList<>(Arrays.asList(21, -5, 0, 3));
+        List<Integer> integerList2 = new ArrayList<>(Arrays.asList(500, -200, 2, 21));
+
+
+        boolean result1 = StreamApiFunctions.checkAllMatch(integerList1, integer -> integer > 5);
+        boolean result2 = StreamApiFunctions.checkAllMatch(integerList2, integer -> integer > -201);
+        assertFalse(result1);
+        assertTrue(result2);
+    }
+
+    @Test
+    void findMinMoreThanTest() {
+        List<Integer> integerList1 = new ArrayList<>(Arrays.asList(500, -200, 2, 21, 15, -21, 321));
+        Integer result = StreamApiFunctions.findMinMoreThan(integerList1, 5);
+        assertEquals(15, result);
+    }
+
+    @Test
+    void stringsToLengthTest() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("вон");
+        stringList.add("Водкаа");
+        stringList.add("Роман");
+
+        List<Integer> lengthsOfStrings = StreamApiFunctions.stringsToLength(stringList);
+        assertEquals(List.of(3, 6, 5), lengthsOfStrings);
     }
 }
