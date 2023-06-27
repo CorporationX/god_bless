@@ -21,6 +21,7 @@ public class Army {
         }
         try {
             service.awaitTermination(1, TimeUnit.SECONDS);
+            service.shutdownNow();
         } catch (InterruptedException e) {
             System.out.println("Работа была прервана");
         }

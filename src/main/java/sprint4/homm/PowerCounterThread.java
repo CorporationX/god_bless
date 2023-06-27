@@ -7,8 +7,8 @@ import sprint4.homm.unit.Unit;
 @Value
 @EqualsAndHashCode(callSuper = true)
 public class PowerCounterThread extends Thread {
-    private volatile static int totalPower = 0;
-    Unit unit;
+    private static int totalPower = 0;
+    private Unit unit;
 
     @Override
     public void run() {
