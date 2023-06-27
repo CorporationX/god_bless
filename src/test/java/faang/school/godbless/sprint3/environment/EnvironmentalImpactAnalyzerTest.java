@@ -14,7 +14,7 @@ class EnvironmentalImpactAnalyzerTest {
 
     @Test
     void printEnergyConsumptionByMonths() {
-        analyzer.printEnergyConsumptionByMonthsForComapny(
+        analyzer.printEnergyConsumptionByMonthsForCompany(
                 "src/main/java/faang/school/godbless/sprint3/environment/file.csv",
                 "company1"
         );
@@ -25,6 +25,15 @@ class EnvironmentalImpactAnalyzerTest {
         analyzer.printEnergyConsumptionByCompanies(
                 "src/main/java/faang/school/godbless/sprint3/environment/file.csv",
                 LocalDate.now()
+        );
+    }
+
+    @Test
+    void printStatisticsForEmployeePerYear() {
+        analyzer.printStatisticsForEmployeePerYear(
+                "src/main/java/faang/school/godbless/sprint3/environment/file.csv",
+                LocalDate.now(),
+                new Company(1, "company1", 1000)
         );
     }
 }
