@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Application {
@@ -27,10 +28,9 @@ public class Application {
                 )
                 .flatMap(
                         action -> Arrays.stream(action.getContent().split(" "))
-                        .filter(word -> word.startsWith("#"))
                 )
-                // Не смог понять какую еще функцию применить для группировки
-                .collect(Collectors.groupingBy(String::toString, Collectors.counting()))
+                .filter(word -> word.startsWith("#"))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
@@ -53,15 +53,13 @@ public class Application {
     }
 
     public Map<ActionType, Double> getAveragePercentageForAction(List<UserAction> actions) {
-        // Что-то не смог полностью через стрим организовать метод
         Map<ActionType, Long> actionMap = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
 
-        Map<ActionType, Double> result = new HashMap<>();
-
-        for (Map.Entry<ActionType, Long> entry : actionMap.entrySet()) {
-            result.put(entry.getKey(), (double) entry.getValue() / actions.size() * 100);
-        }
-        return result;
+        return actionMap.entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (double) entry.getValue() / actions.size() * 100)
+                );
     }
 }
