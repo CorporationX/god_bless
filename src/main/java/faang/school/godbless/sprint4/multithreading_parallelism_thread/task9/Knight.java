@@ -22,10 +22,6 @@ public class Knight {
     }
 
     public List<Thread> startTrials() {
-        List<Thread> threads = new ArrayList<>();
-        for (Trial trial : trials) {
-            threads.add(new Thread(trial));
-        }
-        return threads;
+        return new ArrayList<>(trials);
     }
 }
