@@ -3,6 +3,7 @@ package faang.school.godbless.MetaUniverse;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -24,6 +25,9 @@ public class NotificationManager {
     //Реализация не очень. Сделал просто чтобы показать, что понимаю о чем речь
     public void sendNotification(Notification notification) {
         Consumer<Notification> notificationConsumer = notificationMap.get(notification.getType());
+        if (Objects.isNull(notificationConsumer)) {
+            throw new IllegalArgumentException("No handler found for type " + notification.getType());
+        }
         if (notificationFilters.values().stream().allMatch(filter -> filter.test(notification))) {
             notificationConsumer.accept(notification);
         } else {
@@ -37,5 +41,4 @@ public class NotificationManager {
             notificationConsumer.accept(function.apply(notification));
         }
     }
-
 }
