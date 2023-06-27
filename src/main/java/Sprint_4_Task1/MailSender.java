@@ -10,9 +10,9 @@ public class MailSender {
             int endIndex = startIndex + 200;
             thread = new Thread(new SenderRunnable(startIndex,endIndex));
             thread.start();
-            
+
         }
-        thread.join();
+        thread.join(100000);
         System.out.println(" Поле");
     }
 }
