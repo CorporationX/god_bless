@@ -10,18 +10,18 @@ public class StudentService {
         return students.stream()
                 .flatMap(student -> student.getCourses()
                         .entrySet()
-                        .stream()
-                        .map(entry -> Arrays.asList(entry.getKey(), entry.getValue().stream().mapToDouble(e -> e).average().orElseThrow())))
-                .collect(Collectors.groupingBy(list -> list.get(0).toString(), Collectors.averagingDouble(list -> Double.parseDouble(list.get(1).toString()))));
-
+                        .stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, Collectors.flatMapping(entry -> entry.getValue().stream(), Collectors.averagingDouble(Integer::doubleValue))));
     }
 
     public static Map<String, Integer> finalGrade(List<Student> students, String firstName, String lastName) {
         return students.stream()
                 .filter(student -> student.getFirstName().equals(firstName) && student.getLastName().equals(lastName))
                 .map(Student::getCourses)
-                .map(map -> map.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, (entry -> entry.getValue().stream().mapToDouble(e -> e).average().getAsDouble()))))
                 .flatMap(map -> map.entrySet().stream())
+                .collect(Collectors.groupingBy(Map.Entry::getKey, (Collectors.flatMapping(entry -> entry.getValue().stream(), (Collectors.averagingDouble(Integer::doubleValue))))))
+                .entrySet()
+                .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> (int) Math.round(entry.getValue())));
     }
 
