@@ -7,7 +7,6 @@ public class Main {
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-// Создание фильтров
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 5;
         MessageFilter emojiFilter = message -> !message.contains("😀");
@@ -15,7 +14,6 @@ public class Main {
 
         List<MessageFilter> filters = Arrays.asList(spamFilter,lengthFilter, emojiFilter, spammFilter);
 
-// Обработка сообщений
         String[] messages = {"Привет!", "Это Жук", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
 
         for (String message : messages) {
