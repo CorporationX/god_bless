@@ -3,12 +3,13 @@ package faang.school.godbless.spacex;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.time.Duration;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Getter
 @AllArgsConstructor
@@ -21,19 +22,16 @@ public class RocketLaunch {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
         for (RocketLaunch rocketLaunch : launchPlan) {
-            Duration delay = Duration.between(LocalDateTime.now(), rocketLaunch.getLaunchTime());
-
-            executorService.submit(() -> {
-                try {
-                    Thread.sleep(delay.toMillis());
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                rocketLaunch.launch();
-            });
+            executorService.submit(rocketLaunch::launch);
         }
 
         executorService.shutdown();
+
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public void launch() {
