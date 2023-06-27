@@ -1,25 +1,21 @@
 package sprint3.stream.training.two;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class StreamTrainer {
     public static Set<Pair> findPairNumbers(List<Integer> nums, int sum) {
-        Set<Pair> result = new HashSet<>();
-        int wrongNum = sum + 1;
-        List<Integer> filtredList = nums.stream()
-                .filter(num -> num <= sum)
-                .toList();
-
-        for (int i = 0; i < filtredList.size(); i++) {
-            int foundSum = findSum(filtredList, sum, i);
-            if (foundSum != wrongNum) {
-                result.add(new Pair(filtredList.get(i), foundSum));
-            }
-        }
-        return result;
+        Set<Pair> pairs;
+        Set<Integer> set = new HashSet<>(nums);
+        pairs = nums.stream()
+                .filter(num -> set.contains(sum - num))
+                .map(num -> new Pair(num, sum - num))
+                .collect(Collectors.toSet());
+        return pairs;
     }
 
     public static void sortStringMapAndPrint(Map<String, String> countries) {
@@ -29,12 +25,11 @@ public class StreamTrainer {
                 .forEach(System.out::println);
     }
 
-    private static int findSum(List<Integer> nums, int sum, int listElement) {
-        int wrongNum = sum + 1;
-        return nums.stream()
-                .takeWhile(num -> nums.get(listElement) + num == sum)
-                .findFirst()
-                .orElse(wrongNum);
+    public static List<String> sortStringsByFirstLetterAndLength(List<String> strings, char firstLetter) {
+        return strings.stream()
+                .filter(str -> str.charAt(0) == firstLetter)
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 
     record Pair(int first, int second) {
