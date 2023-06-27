@@ -6,8 +6,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class PlanRocketLaunches {
-    private List<RocketLaunch> rocketLaunches = List.of(new RocketLaunch("Falcon", LocalDateTime.now().plusMinutes(2))
-            ,new RocketLaunch("Starship", LocalDateTime.now().plusMinutes(2)));
+    private List<RocketLaunch> rocketLaunches = List.of(new RocketLaunch("Falcon", LocalDateTime.now().plusSeconds(30))
+            ,new RocketLaunch("Starship", LocalDateTime.now().plusSeconds(3)));
 
     public static void main(String[] args) {
         PlanRocketLaunches planRocketLaunches = new PlanRocketLaunches();

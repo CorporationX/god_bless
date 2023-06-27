@@ -1,7 +1,9 @@
 package faang.school.godbless.SpaceX;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -20,7 +22,12 @@ public class RocketLaunch implements Runnable {
     }
 
     @Override
+    @SneakyThrows
     public void run() {
+        if (date.isAfter(LocalDateTime.now())){
+            Duration duration = Duration.between(LocalDateTime.now(),date);
+            Thread.sleep(duration.toMillis());
+        }
         long startTime = System.currentTimeMillis();
         launch();
         long timeSpent = System.currentTimeMillis() - startTime;
