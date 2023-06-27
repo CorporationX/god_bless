@@ -71,16 +71,7 @@ public class DataAnalyzer {
     }
 
     public static List<Statistics> analyzeTrends(Date startDate, Date endDate, TrendGranularity granularity, List<Job> jobList) {
-        int daysInGranularity = granularity.getDays();
-        List<Date> datesInRange = groupDates(startDate, endDate);
-        Map<List<Date>, List<Job>> groupedDates = makeMapWithGroupDates(datesInRange, daysInGranularity);
-        jobList.forEach(job -> {
-            groupedDates.forEach((dates, jobs) -> {
-                if (dates.stream().map(Date::getDate).toList().contains(job.getCreatedAt().getDate())) {
-                    jobs.add(job);
-                }
-            });
-        });
+        Map<List<Date>, List<Job>> groupedDates = getGroupedDates(startDate, endDate, granularity, jobList);
         return groupedDates.entrySet()
                 .stream()
                 .map(entry -> {
@@ -93,6 +84,20 @@ public class DataAnalyzer {
                     return statistics;
                 })
                 .collect(Collectors.toList());
+    }
+
+    private static Map<List<Date>, List<Job>> getGroupedDates(Date startDate, Date endDate, TrendGranularity granularity, List<Job> jobList) {
+        int daysInGranularity = granularity.getDays();
+        List<Date> datesInRange = groupDates(startDate, endDate);
+        Map<List<Date>, List<Job>> groupedDates = makeMapWithGroupDates(datesInRange, daysInGranularity);
+        jobList.forEach(job -> {
+            groupedDates.forEach((dates, jobs) -> {
+                if (dates.stream().map(Date::getDate).toList().contains(job.getCreatedAt().getDate())) {
+                    jobs.add(job);
+                }
+            });
+        });
+        return groupedDates;
     }
 
     private static Calendar getCalendarWithoutTime(Date date) {
