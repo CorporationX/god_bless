@@ -24,6 +24,11 @@ public class Person {
     }
 
     @Override
+    public String toString() {
+        return "name: " + name + " surname: " + surname + " age: " + age + " workplace: " + workplace;
+    }
+
+    @Override
     public int hashCode() {
         int num = 31;
         return num * Objects.hash(name, surname, age, workplace);
