@@ -42,7 +42,7 @@ class LocationSearchEngineTest {
         List<Location> expected = List.of(new Location("Eiffel Tower", 48.8584, 2.2945),
                 new Location("Great Wall of China", 40.4319, 116.5704));
 
-        List<Location> actual = searchEngine.filterLocations(locations, (location) -> location.getLongitude() < 0);
+        List<Location> actual = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
 
         assertArrayEquals(expected.toArray(), actual.toArray());
     }
