@@ -2,8 +2,6 @@ import java.util.Arrays;
 
 public class Application {
 
-    static MatrixTransformer matrixTransformer = (x, y) -> new Coordinates(y, x);
-
     public static void main(String[] args) {
         int[][] matrix =
                 {
@@ -14,6 +12,7 @@ public class Application {
 
 
         System.out.println(Arrays.deepToString(flipMatrix(matrix, FlipDirection.VERTICAL)));
+        System.out.println(Arrays.deepToString(flipMatrix(matrix, FlipDirection.HORIZONTAL)));
     }
 
     static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
@@ -32,23 +31,14 @@ public class Application {
         if (matrix.length == 0) {
             return new int[0][0];
         }
-
-        int[][] newMatrix = new int[matrix.length][matrix[0].length];
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                int row;
-                int column;
-                if (flipDirection.equals(FlipDirection.HORIZONTAL)) {
-                    row = i;
-                    column = matrix.length - j - 1;
-                } else {
-                    column = j;
-                    row = matrix.length - i - 1;
-                }
-                newMatrix[i][j] = matrix[row][column];
-            }
-        }
-        return newMatrix;
+        return switch (flipDirection) {
+            case VERTICAL -> transformMatrix(matrix, (x, y) ->
+                    new Coordinates(matrix.length - x - 1, y)
+            );
+            case HORIZONTAL -> transformMatrix(matrix, (x, y) ->
+                    new Coordinates(x, matrix[0].length - y - 1)
+            );
+        };
     }
 
 
