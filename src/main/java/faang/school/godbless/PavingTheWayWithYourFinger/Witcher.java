@@ -24,6 +24,5 @@ public class Witcher {
             executorService.execute(cityWorker);
         }
         executorService.shutdown();
-        System.out.println("Single thread");
     }
 }
