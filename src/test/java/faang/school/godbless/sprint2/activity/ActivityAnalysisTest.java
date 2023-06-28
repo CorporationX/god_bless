@@ -18,24 +18,24 @@ class ActivityAnalysisTest {
     void init() {
         activityAnalysis = new ActivityAnalysis();
         actionList = (List.of(
-                new User(1, "Pavel", actionType.SHARE, LocalDateTime.now(), "#running"),
-                new User(2, "Antony", actionType.COMMENT, LocalDateTime.now(), "#coding"),
-                new User(3, "Ivan", actionType.COMMENT, LocalDateTime.now(), "#music"),
-                new User(4, "Vlad", actionType.POST, LocalDateTime.now(), "#music"),
-                new User(5, "Viktor", actionType.COMMENT, LocalDateTime.now(), "coding"),
-                new User(6, "Mark", actionType.LIKE, LocalDateTime.now(), ""),
-                new User(7, "Raf", actionType.POST, LocalDateTime.now(), "#running"),
-                new User(8, "Mike", actionType.SHARE, LocalDateTime.now(), "#music"),
-                new User(9, "Stepan", actionType.POST, LocalDateTime.now(), "#coding"),
-                new User(10, "Artem", actionType.POST, LocalDateTime.now(), "#coding"),
+                new User(1, "Pavel", ActionType.SHARE, LocalDateTime.now(), "#running"),
+                new User(2, "Antony", ActionType.COMMENT, LocalDateTime.now(), "#coding"),
+                new User(3, "Ivan", ActionType.COMMENT, LocalDateTime.now(), "#music"),
+                new User(4, "Vlad", ActionType.POST, LocalDateTime.now(), "#music"),
+                new User(5, "Viktor", ActionType.COMMENT, LocalDateTime.now(), "coding"),
+                new User(6, "Mark", ActionType.LIKE, LocalDateTime.now(), ""),
+                new User(7, "Raf", ActionType.POST, LocalDateTime.now(), "#running"),
+                new User(8, "Mike", ActionType.SHARE, LocalDateTime.now(), "#music"),
+                new User(9, "Stepan", ActionType.POST, LocalDateTime.now(), "#coding"),
+                new User(10, "Artem", ActionType.POST, LocalDateTime.now(), "#coding"),
 
-                new User(7, "Raf", actionType.COMMENT, LocalDateTime.now(), "#eating"),
-                new User(5, "Viktor", actionType.POST, LocalDateTime.now(), "#eating"),
-                new User(3, "Ivan", actionType.COMMENT, LocalDateTime.now(), "#swiming"),
-                new User(4, "Vlad", actionType.COMMENT, LocalDateTime.now(), "#music"),
-                new User(6, "Mark", actionType.COMMENT, LocalDateTime.now(), "#coding"),
-                new User(7, "Raf", actionType.LIKE, LocalDateTime.now(), ""),
-                new User(9, "Stepan", actionType.SHARE, LocalDateTime.now(), "#coding")
+                new User(7, "Raf", ActionType.COMMENT, LocalDateTime.now(), "#eating"),
+                new User(5, "Viktor", ActionType.POST, LocalDateTime.now(), "#eating"),
+                new User(3, "Ivan", ActionType.COMMENT, LocalDateTime.now(), "#swiming"),
+                new User(4, "Vlad", ActionType.COMMENT, LocalDateTime.now(), "#music"),
+                new User(6, "Mark", ActionType.COMMENT, LocalDateTime.now(), "#coding"),
+                new User(7, "Raf", ActionType.LIKE, LocalDateTime.now(), ""),
+                new User(9, "Stepan", ActionType.SHARE, LocalDateTime.now(), "#coding")
         ));
     }
 

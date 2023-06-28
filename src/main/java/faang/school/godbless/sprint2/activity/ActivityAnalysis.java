@@ -19,7 +19,10 @@ public class ActivityAnalysis {
 
         return groupUser.entrySet().stream()
                 .sorted(Map.Entry.<Integer, List<User>>comparingByValue(Comparator.comparingInt(List::size))
-                        .reversed()).map(Map.Entry::getKey).limit(10).toList();
+                .reversed())
+                .map(Map.Entry::getKey)
+                .limit(10)
+                .toList();
     }
 
     public List<String> findTop5Theme(List<User> list) {
@@ -39,7 +42,7 @@ public class ActivityAnalysis {
         LocalDateTime now = LocalDateTime.now();
         LocalDateTime start = now.minusMonths(3);
         Map<Integer, List<User>> map = list.stream()
-                .filter(user -> user.getActionType().equals(actionType.COMMENT))
+                .filter(user -> user.getActionType().equals(ActionType.COMMENT))
                 .filter(user -> user.getActionDate().isAfter(LocalDateTime.from(start)))
                 .collect(Collectors.groupingBy(User::getId));
 
@@ -54,11 +57,11 @@ public class ActivityAnalysis {
         int userActionNumber = list.size();
         DecimalFormat decimalFormat = new DecimalFormat("0.0");
 
-        Map<actionType, List<User>> actionTypeMap = list.stream()
+        Map<ActionType, List<User>> actionTypeMap = list.stream()
                 .collect(Collectors.groupingBy(User::getActionType));
         return actionTypeMap.entrySet().stream()
                 .map(f -> {
-                    actionType actionType = f.getKey();
+                    ActionType actionType = f.getKey();
                     List<User> userActions = f.getValue();
                     double percentage = (double) userActions.size() / userActionNumber * 100;
                     return actionType + ": " + decimalFormat.format(percentage) + "%";

@@ -1,6 +1,6 @@
 package faang.school.godbless.sprint2.activity;
 
-public enum actionType {
+public enum ActionType {
     POST("post"),
     COMMENT("comment"),
     LIKE("like"),
@@ -8,7 +8,7 @@ public enum actionType {
 
     private final String actionType;
 
-    private actionType(String type) {
+    private ActionType(String type) {
         this.actionType = type;
     }
 

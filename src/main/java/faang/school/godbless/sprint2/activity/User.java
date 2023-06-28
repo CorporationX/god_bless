@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
     private String name;
-    private actionType actionType;
+    private ActionType actionType;
     private LocalDateTime actionDate;
     private String content;
 
