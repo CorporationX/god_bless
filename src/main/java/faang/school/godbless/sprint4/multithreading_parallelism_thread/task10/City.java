@@ -10,11 +10,11 @@ public class City {
 
     private String cityName;
 
-    private int location;
+    private Location location;
 
-    public static Map<String, Integer> durationToCity = new HashMap<>();
+    public static Map<String, Location> durationToCity = new HashMap<>();
 
-    public City(String cityName, int location) {
+    public City(String cityName, Location location) {
         this.cityName = cityName;
         this.location = location;
         durationToCity.put(cityName, location);

@@ -23,22 +23,16 @@ public class CityWorker implements Runnable {
     private Monster searchNearestMonster() {
         int minDuration = Integer.MAX_VALUE;
         Monster nearestMonster = null;
-        int coordinateCity = 0;
-        int coordinateMonster = 0;
-        for (var entry : City.durationToCity.entrySet()) {
-            if (city.getCityName().equals(entry.getKey())) {
-                coordinateCity = entry.getValue();
-                System.out.println(entry.getKey() + " координата города: " + coordinateCity);
-                break;
+        Location locationCity = city.getLocation();
+
+        for (int i = 0; i < monsters.size(); i++) {
+            Location locationMonster = getLocationCoordinates(monsters.get(i).getLocation());
+            if (minDuration > calculateDuration(locationCity, locationMonster)) {
+                minDuration = calculateDuration(locationCity, locationMonster);
+                nearestMonster = monsters.get(i);
             }
         }
-        for (Monster monster : monsters) {
-            coordinateMonster = monster.getLocation();
-            if (Math.abs(coordinateCity - coordinateMonster) < minDuration) {
-                minDuration = coordinateMonster;
-                nearestMonster = monster;
-            }
-        }
+
         return nearestMonster;
     }
 
@@ -61,5 +55,31 @@ public class CityWorker implements Runnable {
         long end = System.currentTimeMillis();
 
         return end - start;
+    }
+
+    private Location getLocationCoordinates(String location) {
+        switch (location) {
+            case "Velen" -> {
+                return new Location(10, 20);
+            }
+            case "Toussaint" -> {
+                return new Location(40, 50);
+            }
+            case "White Orchard" -> {
+                return new Location(100, 10);
+            }
+            case "Skellige" -> {
+                return new Location(80, 120);
+            }
+            default -> {
+                return new Location(0, 0);
+            }
+        }
+    }
+
+    private int calculateDuration(Location start, Location end) {
+        int x = Math.abs(start.getX() - end.getX());
+        int y = Math.abs(start.getY() - end.getY());
+        return x + y;
     }
 }

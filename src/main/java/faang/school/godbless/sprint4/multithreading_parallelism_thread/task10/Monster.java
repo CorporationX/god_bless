@@ -8,7 +8,7 @@ import lombok.Getter;
 public class Monster {
     private String name;
 
-    private int location;
+    private String location;
 
     @Override
     public String toString() {

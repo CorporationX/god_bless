@@ -10,10 +10,10 @@ public class Witcher {
 
     public static void main(String[] args) throws InterruptedException {
         List<City> cities = new ArrayList<>();
-        City Novigrad = new City("Novigrad", 0);
-        City Oxenfurt = new City("Oxenfurt", 60);
-        City Vizima = new City("Vizima", 120);
-        City KaerMorhen = new City("Kaer Morhen", 180);
+        City Novigrad = new City("Novigrad", new Location(0, 60));
+        City Oxenfurt = new City("Oxenfurt", new Location(60, 0));
+        City Vizima = new City("Vizima", new Location(120, 50));
+        City KaerMorhen = new City("Kaer Morhen", new Location(180, 70));
         cities.add(Novigrad);
         cities.add(Oxenfurt);
         cities.add(Vizima);
@@ -21,12 +21,12 @@ public class Witcher {
 
         List<Monster> monsters = new ArrayList<>();
 
-        monsters.add(new Monster("Griffin", 0));
-        monsters.add(new Monster("Basilisk", 60));
-        monsters.add(new Monster("Cockatrice", 120));
-        monsters.add(new Monster("Chort", 180));
+        monsters.add(new Monster("Griffin", "Velen"));
+        monsters.add(new Monster("Basilisk", "Toussaint"));
+        monsters.add(new Monster("Cockatrice", "White Orchard"));
+        monsters.add(new Monster("Chort", "Skellige"));
 
-        int NUM_THREADS = 1;
+        int NUM_THREADS = 3;
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
@@ -36,9 +36,10 @@ public class Witcher {
         }
 
         executor.shutdown();
-        long end = System.currentTimeMillis();
 
         while (!executor.awaitTermination(5, TimeUnit.MILLISECONDS)){}
+
+        long end = System.currentTimeMillis();
 
         System.out.println("Время работы программы: " + (end - start));
     }
