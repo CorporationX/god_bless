@@ -1,5 +1,7 @@
 package LambdaStream.bc324;
 
+import lombok.NonNull;
+
 import java.util.Set;
 
 public class User {
