@@ -1,17 +1,20 @@
 package Multithreading.bc2017;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MailSender {
-    public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+    public static void main(String[] args) throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
             int startIndex = i * 200 + 1;
             int endIndex = startIndex + 200;
 
-            executorService.submit(new SenderRunnable(startIndex, endIndex));
+            threads.add(new Thread(new SenderRunnable(startIndex, endIndex)));
         }
-        executorService.shutdown();
+        for (Thread thread : threads) {
+            thread.start();
+            thread.join();
+        }
     }
 }
