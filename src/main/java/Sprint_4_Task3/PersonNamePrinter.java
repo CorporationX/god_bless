@@ -1,16 +1,16 @@
 package Sprint_4_Task3;
 
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+import java.util.List;
+@AllArgsConstructor
+@Data
 public class PersonNamePrinter implements Runnable {
     private List<Person> persons;
 
-    public PersonNamePrinter(List<Person> persons) {
-        this.persons = persons;
-    }
-
     @Override
     public void run() {
-
+        System.out.println(Thread.currentThread().getName() + ": " + persons.size());
     }
 }
