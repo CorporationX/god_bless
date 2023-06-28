@@ -1,16 +1,21 @@
 package faang.school.godbless.multithreading.microsoft;
 
+import java.util.List;
+import java.util.stream.IntStream;
+
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 5; i++) {
-            int start = i * 10 + 1;
-            int end = start + 10;
+        List<Thread> threads = IntStream.range(0, 5)
+                .mapToObj(i -> new Thread(
+                        new SenderRunnable(i * 10 + 1, (i * 10 + 1) + 10),
+                        "Sender-" + (i + 1)))
+                .peek(Thread::start)
+                .toList();
 
-            Thread thread = new Thread(new SenderRunnable(start, end), "Sender-" + (i + 1));
-            thread.start();
+        for (Thread thread : threads) {
             thread.join();
-
-            System.out.println("Messages by " + thread.getName() +  " have been successfully sent");
         }
+
+        System.out.println("All messages have been successfully sent");
     }
 }
