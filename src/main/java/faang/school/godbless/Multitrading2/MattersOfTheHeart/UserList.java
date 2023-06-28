@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserList {
-    private static List<User> users = new ArrayList<>();
+    private static final List<User> userList = new ArrayList<>();
 
-    public static void addUser(User user){
-        users.add(user);
+    public void addUser(User user) {
+        userList.add(user);
     }
 
-    public static List<User> getOnlineUsers(){
-        return users.stream()
-                .filter(User::isOnline)
-                .toList();
+    public static List<User> getOnlineUsers() {
+        List<User> onlineUsers = new ArrayList<>();
+        for (User user : userList) {
+            if (user.isOnline()) {
+                onlineUsers.add(user);
+            }
+        }
+        return onlineUsers;
     }
 }

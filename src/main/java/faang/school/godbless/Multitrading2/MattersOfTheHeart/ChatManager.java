@@ -34,23 +34,24 @@ public class ChatManager {
     }
 
     public synchronized Chat waitForChat(User user) {
-            Chat chat;
-            chat = findChat(user);
-            while (chat == null) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        Chat chat;
+        chat = findChat(user);
+        while (chat == null) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            chat = findChat(user);
-            return chat;
+        }
+        chat = findChat(user);
+        return chat;
     }
 
     public synchronized void endChat(Chat chat) {
         chats.remove(chat);
         notifyAll();
     }
+
     private Chat findChat(User user) {
 
         for (Chat chat : chats) {

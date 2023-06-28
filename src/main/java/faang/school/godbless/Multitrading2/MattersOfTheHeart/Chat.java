@@ -26,17 +26,8 @@ public class Chat {
         }
     }
 
-    public boolean getUserInChat(User user){
+    public boolean getUserInChat(User user) {
         return this.user.getName().equals(user.getName());
     }
 
-    public void addMessage(String message) {
-        this.messages.add(message);
-    }
-
-    public void printMessages() {
-        for (String message : messages) {
-            System.out.println(message);
-        }
-    }
 }
