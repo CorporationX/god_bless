@@ -7,11 +7,6 @@ public class MailSender {
     public void sendEmails(List<Thread> threads) {
         for (Thread thread : threads) {
             thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
     }
 
@@ -26,5 +21,14 @@ public class MailSender {
 
         MailSender sender = new MailSender();
         sender.sendEmails(threadList);
+
+        for (Thread thread : threadList){
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        System.out.println("All threads complete sending messages !");
     }
 }
