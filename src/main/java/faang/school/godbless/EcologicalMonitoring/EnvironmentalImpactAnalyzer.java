@@ -15,16 +15,15 @@ public class EnvironmentalImpactAnalyzer {
         System.out.println("Today's date: " + LocalDate.now());
         System.out.println("Month  EnergyConsumption");
         AtomicReference<Double> total = new AtomicReference<>(0.0);
-        environmentalImpacts.stream()
+        Map<Double, List<EnvironmentalImpact>> impactGroupedByMonth = environmentalImpacts.stream()
                 .filter(impact -> impact.getType() == EType.ENERGY_CONSUMPTION && impact.getCompanyId() == companyId)
-                .collect(Collectors.groupingBy(EnvironmentalImpact::getDate))
+                .collect(Collectors.groupingBy(impact -> Double.parseDouble(impact.getDate().getYear() + "." + impact.getDate().getMonthValue())));
+        Map<Double, Double> totalVolumeByMonth = impactGroupedByMonth
                 .entrySet()
                 .stream()
-                .collect(Collectors.groupingBy(entry -> Double.parseDouble(entry.getKey().getYear() + "." + entry.getKey().getMonthValue())))/*.forEach((k,v) -> System.out.println(k + "/" + v));*/
-                .entrySet()
-                .stream()
-                .flatMap(entry -> entry.getValue().stream().flatMap(list -> list.getValue().stream().map(impact -> Arrays.asList(entry.getKey(), impact.getVolume()))))
-                .collect(Collectors.toMap(list -> list.get(0), list -> Double.parseDouble(list.get(1).toString()), Double::sum))
+                .flatMap(entry -> entry.getValue().stream().map(impact -> Arrays.asList(entry.getKey(), impact.getVolume())))
+                .collect(Collectors.toMap(list -> list.get(0), list -> Double.parseDouble(list.get(1).toString()), Double::sum));
+        totalVolumeByMonth
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
@@ -38,16 +37,18 @@ public class EnvironmentalImpactAnalyzer {
     public void mostImpact(String file, LocalDate currentDate) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> environmentalImpacts = dataLoader.dataLoad(file);
-        collectVolumes(environmentalImpacts,currentDate)
+        Map<Integer, Map<String, Double>> summarizedVolumesGroupedByDateAndCompany = collectVolumes(environmentalImpacts, currentDate);
+        List<List<String>> listOfFinalValues = summarizedVolumesGroupedByDateAndCompany
                 .entrySet()
                 .stream()
                 .map(e -> Arrays.asList(
                         Companies.getById(e.getKey()).getCompanyName(),
-                        e.getValue().values().stream().mapToDouble(vol -> vol).sum(),
-                        e.getValue().values().stream().mapToDouble(vol -> vol).average().orElseThrow(),
-                        e.getValue().values().stream().min(Comparator.comparingDouble(vol -> vol)).orElseThrow()
+                        String.valueOf(e.getValue().values().stream().mapToDouble(vol -> vol).sum()),
+                        String.valueOf(e.getValue().values().stream().mapToDouble(vol -> vol).average()),
+                        e.getValue().values().stream().min(Comparator.comparingDouble(vol -> vol)).orElseThrow().toString()
                 ))
-                .toList()
+                .toList();
+        listOfFinalValues
                 .stream()
                 .sorted(Collections.reverseOrder(Comparator.comparingDouble(list -> Double.parseDouble(list.get(1).toString()))))
                 .limit(3)
@@ -58,27 +59,28 @@ public class EnvironmentalImpactAnalyzer {
     public void averageEnergy(String file, LocalDate currentDate) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> environmentalImpacts = dataLoader.dataLoad(file);
-        collectVolumes(environmentalImpacts,currentDate)
-                .entrySet()
+        Map<Integer, Map<String, Double>> summarizedVolumesGroupedByDateAndCompany = collectVolumes(environmentalImpacts, currentDate);
+        List<List<String>> listOfFinalValues = summarizedVolumesGroupedByDateAndCompany.entrySet()
                 .stream()
                 .map(e -> Arrays.asList(
                         Companies.getById(e.getKey()).getCompanyName(),
-                        e.getValue().values().stream().mapToDouble(vol -> vol).sum(),
-                        Companies.getById(e.getKey()).getTotalEmployees(),
-                        e.getValue().values().stream().mapToDouble(vol -> vol).sum() / Companies.getById(e.getKey()).getTotalEmployees()
+                        String.valueOf(e.getValue().values().stream().mapToDouble(vol -> vol).sum()),
+                        String.valueOf(Companies.getById(e.getKey()).getTotalEmployees()),
+                        String.valueOf(e.getValue().values().stream().mapToDouble(vol -> vol).sum() / Companies.getById(e.getKey()).getTotalEmployees())
                 ))
-                .toList()
-                .stream()
+                .toList();
+        listOfFinalValues.stream()
                 .sorted(Collections.reverseOrder(Comparator.comparingDouble(list -> Double.parseDouble(list.get(1).toString()))))
                 .limit(3)
                 .toList()
                 .forEach(System.out::println);
     }
 
-    private static Map<Integer, Map<String, Double>> collectVolumes(List<EnvironmentalImpact> environmentalImpacts,LocalDate currentDate) {
-        return environmentalImpacts.stream()
+    private static Map<Integer, Map<String, Double>> collectVolumes(List<EnvironmentalImpact> environmentalImpacts, LocalDate currentDate) {
+        Map<Integer, List<EnvironmentalImpact>> impactGroupedByCompanyId = environmentalImpacts.stream()
                 .filter(environmentalImpact -> environmentalImpact.getDate().isBefore(currentDate) && environmentalImpact.getDate().isAfter(currentDate.minusYears(1)))
-                .collect(Collectors.groupingBy(EnvironmentalImpact::getCompanyId))
+                .collect(Collectors.groupingBy(EnvironmentalImpact::getCompanyId));
+        return impactGroupedByCompanyId
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, impact -> impact.getValue()
