@@ -1,7 +1,7 @@
 package faang.school.godbless.Multitrading2.TelegramBot;
 
 public class TelegramBot {
-    private int REQUEST_LIMIT;
+    private final int REQUEST_LIMIT;
     private int requestCounter;
     private long lastRequestTime;
 
