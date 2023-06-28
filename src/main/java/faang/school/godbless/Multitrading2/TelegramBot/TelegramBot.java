@@ -15,7 +15,7 @@ public class TelegramBot {
         long leftTime = currentTime - lastRequestTime;
         if (leftTime < 1000){
             ++requestCounter;
-            if (currentTime > REQUEST_LIMIT){
+            if (requestCounter > REQUEST_LIMIT){
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
