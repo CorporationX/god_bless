@@ -6,16 +6,12 @@ import java.util.function.Supplier;
 
 public class Application {
     public static void main(String... args) {
-       RemoteService remoteService = new RemoteService();
-       String res = withErrorHandling(() -> remoteService.call(""), Throwable::getMessage);
-       System.out.println(res);
-    }
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+        List<String> stringList = List.of("Adam", "Me", "My");
+        System.out.println(UtilStream.findSumsEvenNumbers(numbers));
+        System.out.println(UtilStream.findMaxNumber(numbers));
+        System.out.println(UtilStream.findAverageNumber(numbers));
+        System.out.println(UtilStream.findNumberLinesStartingWithSpecChar(stringList, 'm'));
 
-    static<T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> onError) {
-        try {
-            return  action.get();
-        } catch (Exception ex) {
-            return onError.handle(ex);
-        }
     }
 }
