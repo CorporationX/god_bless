@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static faang.school.godbless.Sprint_3.Calculator.Application.product;
-import static faang.school.godbless.Sprint_3.Calculator.Application.sum;
+import static faang.school.godbless.Sprint_3.Lambda.Calculator.Application.product;
+import static faang.school.godbless.Sprint_3.Lambda.Calculator.Application.sum;
 import static org.junit.jupiter.api.Assertions.*;
 
 class Test {

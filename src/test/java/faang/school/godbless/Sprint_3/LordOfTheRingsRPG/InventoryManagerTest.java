@@ -1,5 +1,8 @@
 package faang.school.godbless.Sprint_3.LordOfTheRingsRPG;
 
+import faang.school.godbless.Sprint_3.Lambda.LordOfTheRingsRPG.Character;
+import faang.school.godbless.Sprint_3.Lambda.LordOfTheRingsRPG.InventoryManager;
+import faang.school.godbless.Sprint_3.Lambda.LordOfTheRingsRPG.Item;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

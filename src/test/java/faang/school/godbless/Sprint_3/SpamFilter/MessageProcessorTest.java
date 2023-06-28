@@ -1,5 +1,7 @@
 package faang.school.godbless.Sprint_3.SpamFilter;
 
+import faang.school.godbless.Sprint_3.Lambda.SpamFilter.MessageFilter;
+import faang.school.godbless.Sprint_3.Lambda.SpamFilter.MessageProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

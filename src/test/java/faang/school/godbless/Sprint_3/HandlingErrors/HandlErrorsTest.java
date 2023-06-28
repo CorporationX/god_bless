@@ -1,5 +1,6 @@
 package faang.school.godbless.Sprint_3.HandlingErrors;
 
+import faang.school.godbless.Sprint_3.Lambda.HandlingErrors.HandlErrors;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

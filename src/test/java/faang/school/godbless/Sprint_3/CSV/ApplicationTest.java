@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static faang.school.godbless.Sprint_3.CSV.Application.toCSV;
+import static faang.school.godbless.Sprint_3.Lambda.CSV.Application.toCSV;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest {

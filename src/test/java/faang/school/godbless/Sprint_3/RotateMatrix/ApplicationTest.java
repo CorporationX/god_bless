@@ -1,12 +1,9 @@
 package faang.school.godbless.Sprint_3.RotateMatrix;
 
+import faang.school.godbless.Sprint_3.Lambda.RotateMatrix.Application;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
-import static faang.school.godbless.Sprint_3.RotateMatrix.Application.flipMatrix;
+import static faang.school.godbless.Sprint_3.Lambda.RotateMatrix.Application.flipMatrix;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationTest {

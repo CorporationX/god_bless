@@ -1,5 +1,7 @@
 package faang.school.godbless.Sprint_3.GoogleMaps;
 
+import faang.school.godbless.Sprint_3.Lambda.GoogleMaps.Location;
+import faang.school.godbless.Sprint_3.Lambda.GoogleMaps.LocationSearchEngine;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
