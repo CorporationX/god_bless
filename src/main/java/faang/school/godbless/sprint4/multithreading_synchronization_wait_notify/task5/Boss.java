@@ -10,7 +10,7 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) throws InterruptedException {
-        if (currentPlayers >= maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             System.out.println(player.getName() + " ожидает битвы");
             wait();
         }
@@ -23,6 +23,6 @@ public class Boss {
         currentPlayers--;
         System.out.println("Игроков в бою: D" + currentPlayers);
         System.out.println(player.getName() + " покинул битву с боссом");
-        notify();
+        notifyAll();
     }
 }

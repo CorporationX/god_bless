@@ -2,11 +2,10 @@ package faang.school.godbless.sprint4.multithreading_synchronization_wait_notify
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Boss boss = new Boss(3);
         Player player1 = new Player("Петер");
         Player player2 = new Player("Иван");
@@ -25,9 +24,6 @@ public class Main {
         executor.execute(() -> player2.deleteBattle(boss));
         executor.execute(() -> player6.startBattle(boss));
         executor.shutdown();
-
-//        while (executor.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
-//        }
 
         System.out.println("Done!");
     }
