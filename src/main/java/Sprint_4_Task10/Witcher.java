@@ -1,7 +1,10 @@
 package Sprint_4_Task10;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Witcher {
     public static void main(String[] args) {
@@ -13,13 +16,18 @@ public class Witcher {
         monsters.add(new Monster("Cockatrice", "White Orchard"));
         monsters.add(new Monster("Chort", "Skellige"));
 
-
-
         List<City> cities = new ArrayList<>();
 
-        cities.add(new City("Novigrad", 0, 60, 120, 180));
-        cities.add(new City("Oxenfurt", 60, 0, 50, 70));
-        cities.add(new City("Vizima", 120, 50, 0, 30));
-        cities.add(new City("Kaer Morhen", 180, 70, 30, 0));
+        cities.add(new City("Novigrad",10,new HashMap<>()));
+        cities.add(new City("Oxenfurt",20,new HashMap<>()));
+        cities.add(new City("Vizima",30,new HashMap<>()));
+        cities.add(new City("Kaer Morhen",40,new HashMap<>()));
+
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+
+        for (City city : cities) {
+            executorService.execute(new CityWorker(city, monsters));
+        }
+        executorService.shutdown();
     }
 }
