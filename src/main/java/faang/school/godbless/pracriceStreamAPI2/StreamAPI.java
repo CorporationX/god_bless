@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 public class StreamAPI {
     public static Set<List<Integer>> setOfUniqCouplesOfNumbers(List<Integer> numbersList, Integer number) { //1
         return numbersList.stream()
-                .filter(nl -> numbersList.contains(number - nl))
+                .filter(nl -> numbersList.contains(number - nl)) // непон как через set сделать
                 .map(n -> Arrays.asList(n, number - n))
                 .peek(Collections::sort).collect(Collectors.toSet());
     }
