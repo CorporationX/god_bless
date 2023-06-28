@@ -1,4 +1,4 @@
-package Finally_normal_game;
+package finally_normal_game;
 
 public class ThreeLittlePigs {
     public static void main(String[] args) {
