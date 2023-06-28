@@ -1,0 +1,22 @@
+package faang.school.godbless.Sprint_3.Multythreading.TheBigBangTheory;
+
+public class Task implements Runnable {
+    private String name;
+    private String task;
+
+    public Task(String name, String task) {
+        this.name = name;
+        this.task = task;
+    }
+
+    @Override
+    public void run() {
+        System.out.printf("%s now doing %s\n", name, task);
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.printf("Task %s by %s is completed\n", task, name);
+    }
+}
