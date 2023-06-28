@@ -7,8 +7,8 @@ public class Main {
         String message = "May the Force be with you!";
         int encryptionKey = 3;
 
-        String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
-        String msg = c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
+        String encryptedMsg = r2d2.sendOrReceiveMessage(message, encryptionKey, r2d2.getSendEncrypted());
+        String msg = c3po.sendOrReceiveMessage(encryptedMsg, encryptionKey, c3po.getReceiveEncrypted());
 
         System.out.println(encryptedMsg);
         System.out.println(msg);
