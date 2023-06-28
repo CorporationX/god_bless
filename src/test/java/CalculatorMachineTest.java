@@ -1,6 +1,10 @@
+import LambdaStream.bc641.CalculatorMachine;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -15,7 +19,7 @@ class CalculatorMachineTest {
 
     @Test
     public void productTest() {
-        assertEquals(875_000, CalculatorMachine.product(nums));
+        Assertions.assertEquals(875_000, CalculatorMachine.product(nums));
     }
 
     @Test

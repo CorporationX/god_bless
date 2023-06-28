@@ -28,6 +28,7 @@ dependencies {
      */
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
     testImplementation("org.assertj:assertj-core:3.24.2")
+    testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
 }
 
 tasks.withType<Test> {

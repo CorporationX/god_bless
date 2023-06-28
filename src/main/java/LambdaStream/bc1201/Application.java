@@ -9,11 +9,11 @@ public class Application {
 
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
+        MessageFilter emojiFilter = message -> !message.contains("1");
 
         List<MessageFilter> messageFilters = List.of(spamFilter, lengthFilter, emojiFilter);
 
-        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без сппама и эмодзи"};
+        String[] messages = {"Привет!", "Это спам!", "Как дела? ", "Длинное сообщение без сппама и эмодзи"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, messageFilters);
