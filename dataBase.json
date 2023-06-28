@@ -1,0 +1,37 @@
+[
+  {
+    "position": "Front Desk Receptionist",
+    "requirements": ["Customer Service", "Communication", "Organizational Skills"],
+    "salary": 3000.0,
+    "location": "Moscow",
+    "dateAdded": "2023-06-25"
+  },
+  {
+    "position": "Housekeeping Supervisor",
+    "requirements": ["Cleaning", "Team Management", "Attention to Detail"],
+    "salary": 10000.0,
+    "location": "Samara",
+    "dateAdded": "2023-06-26"
+  },
+  {
+    "position": "Hotel Manager",
+    "requirements": ["Hospitality Management", "Leadership", "Revenue Management"],
+    "salary": 300.0,
+    "location": "Tula",
+    "dateAdded": "2023-06-27"
+  },
+  {
+    "position": "Chef de Cuisine",
+    "requirements": ["Culinary Arts", "Menu Planning", "Kitchen Management"],
+    "salary": 20000.0,
+    "location": "Samara",
+    "dateAdded": "2023-06-28"
+  },
+  {
+    "position": "Event Coordinator",
+    "requirements": ["Event Planning", "Negotiation", "Vendor Management"],
+    "salary": 100000.0,
+    "location": "Moscow",
+    "dateAdded": "2023-06-29"
+  }
+]
