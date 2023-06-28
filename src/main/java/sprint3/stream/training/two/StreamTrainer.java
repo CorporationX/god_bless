@@ -1,5 +1,6 @@
 package sprint3.stream.training.two;
 
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +33,21 @@ public class StreamTrainer {
                 .collect(Collectors.toList());
     }
 
+    public static Map<String, String> filterUsersByMutualFriends(Map<String, List<String>> users) {
+        return null;
+    }
+
+    public static Map<String, Double> getAverageSalary(List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::department,
+                        Collectors.averagingInt(Employee::salary)
+                ));
+    }
+
     record Pair(int first, int second) {
+    }
+
+    record Employee(String name, int salary, String department) {
     }
 }
