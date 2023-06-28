@@ -8,5 +8,12 @@ import lombok.Getter;
 public class Monster {
     private String name;
 
-    private String location;
+    private int location;
+
+    @Override
+    public String toString() {
+        return "Monster{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
