@@ -1,3 +1,5 @@
+package LambdaStream.bc1557;
+
 import java.util.Arrays;
 
 public class Application {
