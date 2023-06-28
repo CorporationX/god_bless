@@ -29,6 +29,13 @@ public class StreamAPITest2 {
     }
 
     @Test
+    public void sortLinesThatStartsWithLetterTest() {
+        List<String> linesTest = List.of("Africa", "Android", "Airplane"); //6,7,8
+        List<String> testMethod = StreamAPI.sortLinesThatStartsWithLetter(List.of("Airplane", "Android", "Africa"), 'A');
+        assertEquals(linesTest, testMethod);
+    }
+
+    @Test
     public void creatMapWithAverageSalaryTest() {
         List<Employee> listOfEmployeesTest = List.of(
                 new Employee("Boris", 10, "Marketing"),
@@ -42,9 +49,23 @@ public class StreamAPITest2 {
     }
 
     @Test
+    public void sortedLinesByLettersTest() {
+        String alphabet = "abcde";
+        List<String> listOfWords = List.of("ab", "abc", "abd", "a");
+        List<String> testMethod = StreamAPI.sortedLinesByLetters(listOfWords, alphabet);
+        assertEquals(List.of("a", "ab", "abc", "abd"), testMethod);
+    }
+
+    @Test
     public void intToStringTest() {
         List<String> listOfStringsTest = StreamAPI.intToString(List.of(2, 4, 7, 9));
         List<String> expected = List.of("10", "100", "111", "1001");
         assertEquals(expected, listOfStringsTest);
+    }
+    @Test
+    public void findPalindromesTest() {
+        List<Integer> expectedList = List.of(55, 66, 77, 88, 99, 101, 111);
+        List<Integer> testMethod = StreamAPI.findPalindromes(55, 111);
+        assertEquals(expectedList, testMethod);
     }
 }
