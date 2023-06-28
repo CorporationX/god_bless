@@ -1,4 +1,4 @@
-package Army_of_heroes_of_might_and_magic;
+package army_of_heroes_of_might_and_magic;
 
 public class PowerCalculatorThread extends Thread {
     private Hero hero;
