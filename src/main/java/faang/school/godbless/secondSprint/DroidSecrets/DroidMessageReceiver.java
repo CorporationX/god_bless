@@ -5,11 +5,11 @@ public class DroidMessageReceiver {
         DroidMessageEncryptor messageEncryptor = (m, k) -> {
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < m.length(); i++) {
-                char letter = (char) (m.charAt(i) - k);
-                if (letter < 32) {
-                    letter = 32;
-                } else if (letter < 65 || letter > 90 && letter < 97) {
-                    letter += 26;
+                char letter = m.charAt(i);
+                if (Character.isLowerCase(letter)) {
+                    letter = (char) ((letter - key - 'a' + 26) % 26 + 'a');
+                } else if (Character.isUpperCase(letter)) {
+                    letter = (char) ((letter - key - 'A' + 26) % 26 + 'A');
                 }
                 stringBuilder.append(letter);
             }

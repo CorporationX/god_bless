@@ -8,11 +8,11 @@ public class Droid {
         DroidMessageEncryptor messageEncryptor = (m, k) -> {
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < m.length(); i++) {
-                char letter = (char) (m.charAt(i) + k);
-                if (letter < 50) {
-                    letter = 32;
-                } else if (letter > 122 || letter < 97 && letter > 90) {
-                    letter -= 26;
+                char letter = m.charAt(i);
+                if (Character.isLowerCase(letter)) {
+                    letter = (char) ((letter + k - 'a') % 26 + 'a');
+                } else if (Character.isUpperCase(letter)) {
+                    letter = (char) ((letter + k - 'A') % 26 + 'A');
                 }
                 stringBuilder.append(letter);
             }
