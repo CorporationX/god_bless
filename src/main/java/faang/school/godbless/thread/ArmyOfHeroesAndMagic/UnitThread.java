@@ -10,11 +10,7 @@ public class UnitThread extends Thread {
 
     @Override
     public void run() {
-        sumPower(unit.getPower());
-    }
-
-    private static void sumPower(int power) {
-        sumPower += power;
+        sumPower += unit.getPower();
     }
 
     public static int getTotalPower() {
