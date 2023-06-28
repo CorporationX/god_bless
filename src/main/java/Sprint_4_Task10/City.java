@@ -9,7 +9,6 @@ import java.util.Map;
 @Data
 public class City {
     private String name;
-    private int x;
-    private Map<String,Integer> map;
+    private Location location;
 
 }

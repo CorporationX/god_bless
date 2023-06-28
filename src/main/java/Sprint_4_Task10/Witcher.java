@@ -1,13 +1,18 @@
 package Sprint_4_Task10;
 
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
+    @SneakyThrows
     public static void main(String[] args) {
+        int NUM_THREADS = 3;
 
         List<Monster> monsters = new ArrayList<>();
 
@@ -18,16 +23,21 @@ public class Witcher {
 
         List<City> cities = new ArrayList<>();
 
-        cities.add(new City("Novigrad",10,new HashMap<>()));
-        cities.add(new City("Oxenfurt",20,new HashMap<>()));
-        cities.add(new City("Vizima",30,new HashMap<>()));
-        cities.add(new City("Kaer Morhen",40,new HashMap<>()));
+        cities.add(new City("Novigrad",new Location(10, 20)));
+        cities.add(new City("Oxenfurt",new Location(10, 20)));
+        cities.add(new City("Vizima",new Location(10, 20)));
+        cities.add(new City("Kaer Morhen",new Location(10, 20)));
 
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        long startTime = System.currentTimeMillis();
 
         for (City city : cities) {
-            executorService.execute(new CityWorker(city, monsters));
+            executor.execute(new CityWorker(city, monsters));
         }
-        executorService.shutdown();
+
+        executor.shutdown();
+        executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
+        long endTime = System.currentTimeMillis();
+        System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
 }
