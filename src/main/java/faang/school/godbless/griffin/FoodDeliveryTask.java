@@ -9,13 +9,20 @@ import java.util.Random;
 @Data
 @AllArgsConstructor
 
-public class FoodDeliveryTask implements Runnable{
+public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
 
     @Override
     public void run() {
-        System.out.println();
+        String food = getFoodType();
+        System.out.println(character + " получает " + foodAmount + " " + food);
+        try {
+            Thread.sleep(foodAmount* 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(character + " получил " + foodAmount + " " + food);
     }
 
     private String getFoodType() {
