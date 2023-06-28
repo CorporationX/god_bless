@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class StreamApi {
 
@@ -35,13 +34,13 @@ public class StreamApi {
     public static List<String> getStringsWhichContainSubStrings(List<String> strings, String subString) {
         return strings.stream()
                 .filter(string -> string.contains(subString))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> getSortedByLength(List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static boolean isListMetCondition(List<String> strings, Predicate<String> predicate) {
@@ -59,7 +58,7 @@ public class StreamApi {
     public static List<Integer> getListOfLength(List<String> strings) {
         return strings.stream()
                 .map(String::length)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static void main(String[] args) {
