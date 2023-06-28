@@ -1,4 +1,4 @@
-package Feed_Peter_Griffin;
+package feed_peter_griffin;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;

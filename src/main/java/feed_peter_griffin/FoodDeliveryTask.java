@@ -1,10 +1,11 @@
-package Feed_Peter_Griffin;
+package feed_peter_griffin;
 
 import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
+    private final String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -12,7 +13,6 @@ public class FoodDeliveryTask implements Runnable {
     }
 
     private String getFoodType() {
-        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
     }
 
