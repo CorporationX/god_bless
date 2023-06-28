@@ -1,3 +1,5 @@
+package LambdaStream.bc324;
+
 import java.util.function.BiFunction;
 
 public class FareCalculator {

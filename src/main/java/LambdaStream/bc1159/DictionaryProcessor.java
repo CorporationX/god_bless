@@ -1,3 +1,5 @@
+package LambdaStream.bc1159;
+
 import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {

@@ -1,3 +1,5 @@
+package LambdaStream.bc895;
+
 import java.util.function.Function;
 
 public class FilterProcessor {

@@ -1,7 +1,9 @@
+package LambdaStream.bc1273;
+
 public class Application {
     public static void main(String[] args) {
 
-        Character frodo = new Character("Frodo");
+        java.lang.Character frodo = new java.lang.Character("Frodo");
         Item ring = new Item("The One Ring", 1000);
 
         InventoryManager manager = new InventoryManager();

@@ -1,3 +1,5 @@
+package LambdaStream.bc1273;
+
 import lombok.Data;
 
 @Data

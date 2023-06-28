@@ -1,3 +1,5 @@
+package LambdaStream.bc1273;
+
 import lombok.Data;
 
 import java.util.ArrayList;

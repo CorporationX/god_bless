@@ -1,3 +1,5 @@
+package LambdaStream.bc1441;
+
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -9,7 +11,7 @@ public class LocationSearchEngine {
     }
 
     public void processLocations(List<Location> locations, Consumer<Location> consumer){
-        locations.stream().forEach(consumer);
+        locations.forEach(consumer);
     }
 
     public List<Double> calculateDistances(List<Location> locations, Function<Location, Double> function){

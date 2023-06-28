@@ -1,6 +1,8 @@
+package LambdaStream.bc895;
+
 import java.util.function.Function;
 
-public class Main {
+public class Application {
     public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 

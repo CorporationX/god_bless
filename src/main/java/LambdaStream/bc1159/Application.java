@@ -1,3 +1,5 @@
+package LambdaStream.bc1159;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;

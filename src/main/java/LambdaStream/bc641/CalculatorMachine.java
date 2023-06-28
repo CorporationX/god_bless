@@ -1,3 +1,5 @@
+package LambdaStream.bc641;
+
 import java.util.List;
 
 public class CalculatorMachine {
