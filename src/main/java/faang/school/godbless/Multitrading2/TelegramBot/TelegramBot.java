@@ -29,7 +29,7 @@ public class TelegramBot {
                 lastRequestTime = 0;
                 this.notifyAll();
             }
+            System.out.println("Send message: " + message);
         }
-        System.out.println("Send message: " + message);
     }
 }
