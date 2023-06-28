@@ -16,11 +16,11 @@ public class RecommendationService {
     private List<ProductOrder> productOrders;
 
 
-    public List<Product> intersList(int userId) {
+    public List<Product> findUserInterestedProducts(int userId) {
 
         List<String> usersInterests = userProfileList.stream()
                 .filter(a -> a.getUserId() == userId)
-                .findFirst().get().getInterests();
+                .findFirst().orElseThrow(IllegalArgumentException::new).getInterests();
 
         return productList.stream()
                 .filter(product -> product.getTags()
@@ -28,46 +28,59 @@ public class RecommendationService {
     }
 
     public List<Product> findMostPopularProducts(int userId) {
-        UserProfile currentUser = userProfileList.stream().filter(userProfile -> userProfile.getUserId() == userId).findFirst().orElseThrow(IllegalArgumentException::new);
+        UserProfile currentUser = userProfileList.stream()
+                .filter(userProfile -> userProfile.getUserId() == userId)
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new);
 
         List<Integer> userProfilesId = userProfileList.stream()
                 .filter(userProfile -> userProfile.getAge() == currentUser.getAge()
                         && Objects.equals(userProfile.getGender(), currentUser.getGender())
                         && Objects.equals(userProfile.getLocation(), currentUser.getLocation())
-                        && userProfile.getUserId() != currentUser.getUserId()).map(UserProfile::getUserId)
+                        && userProfile.getUserId() != currentUser.getUserId())
+                .map(UserProfile::getUserId)
                 .toList();
 
         Map<Product, Long> map = productOrders.stream()
                 .filter(product -> userProfilesId.contains(product.getUserId()))
                 .map(ProductOrder::getProductId)
-                .flatMap(productOrder4 -> productList.stream().filter(product -> product.getProductId() == productOrder4))
+                .flatMap(productOrder4 -> productList.stream()
+                        .filter(product -> product.getProductId() == productOrder4))
                 .collect(Collectors.groupingBy(product -> product, Collectors.counting()));
 
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .limit(5)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
 
-    public String findPersonalSale(int userId) {
+    public String userOrderedProducts(int userId) {
         List<Product> getProducts = productOrders.stream()
                 .filter(c -> c.getUserId() == userId)
-                .flatMap(a -> productList.stream().filter(product -> product.getProductId() == a.getProductId())).toList();
-
-        Map<String, Long> map;
+                .flatMap(a -> productList.stream()
+                .filter(product -> product.getProductId() == a.getProductId()))
+                .toList();
 
         List<String> usersInterests = userProfileList.stream()
                 .filter(a -> a.getUserId() == userId)
-                .findFirst().get().getInterests();
+                .findFirst()
+                .orElseThrow(IllegalArgumentException::new)
+                .getInterests();
 
         List<Product> list2 = getProducts.stream()
-                .filter(a -> usersInterests.stream().anyMatch(f -> f.contains(a.getTags().get(0)))).toList();
+                .filter(a -> usersInterests.stream().anyMatch(f -> f.contains(a.getTags().get(0))))
+                .toList();
 
-        map = list2.stream().map(Product::getCategory).collect(Collectors.groupingBy(a -> a, Collectors.counting()));
+        Map<String, Long> productToCount;
+        productToCount = list2.stream()
+                .map(Product::getCategory)
+                .collect(Collectors
+                .groupingBy(a -> a, Collectors.counting()));
 
 
-        return map.entrySet().stream()
+        return productToCount.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .map(Map.Entry::getKey)
                 .findFirst()

@@ -31,7 +31,7 @@ class RecommendationServiceTest {
     @Test
     public void interestListTest() {
         List<Product> expected = List.of(new Product(1, "keyboard", "device", 100.0, List.of("coding", "games")));
-        List<Product> result = recommendationService.intersList(1);
+        List<Product> result = recommendationService.findUserInterestedProducts(1);
         assertEquals(expected.get(0), result.get(0));
     }
 
@@ -45,7 +45,7 @@ class RecommendationServiceTest {
     @Test
     public void findPersonalSaleTest() {
         String expected = "device";
-        String result = recommendationService.findPersonalSale(1);
+        String result = recommendationService.userOrderedProducts(1);
         assertEquals(expected, result);
     }
 
