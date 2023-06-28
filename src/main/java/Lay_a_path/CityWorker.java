@@ -14,11 +14,11 @@ public class CityWorker implements Runnable {
     private Monster findTheNearestMonster() {
         Monster nearestMonster = null;
         int minDistance = Integer.MAX_VALUE;
-        for (Monster monster : monsters) {
-            int distance = city.getDistance()[monsters.indexOf(monster)];
+        for (int i = 0; i < monsters.size(); i++) {
+            int distance = city.getDistance()[i];
             if (distance < minDistance) {
                 minDistance = distance;
-                nearestMonster = monster;
+                nearestMonster = monsters.get(i);
             }
         }
         return nearestMonster;
