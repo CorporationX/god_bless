@@ -6,17 +6,17 @@ public class Main {
     public static void main(String[] args) {
         MessageProcessor processor = new MessageProcessor();
 
-        MessageFilter spamFilter = message -> message.contains("spam");
-        MessageFilter lengthFile = message -> message.length() > 14;
-        MessageFilter emojiFilter = message -> message.contains("r");
+        MessageFilter spamFilter = message -> !message.contains("spam");
+        MessageFilter lengthFile = message -> (message.length() > 14);
+        MessageFilter emojiFilter = message -> !message.contains("r");
 
         List<MessageFilter> filters = List.of(spamFilter, lengthFile, emojiFilter);
 
-        String[] messages = {"Привет", "Это spam!", "Как дела? r", "Длинное сообщение без спама и эмодзи", "Привет Павел"};
+        String[] messages = {"РџСЂРёРІРµС‚", "Р­С‚Рѕ spam!", "РљР°Рє РґРµР»Р°? r", "Р”Р»РёРЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Р±РµР· СЃРїР°РјР° Рё СЌРјРѕРґР·Рё", "РџСЂРёРІРµС‚"};
 
         for (String message : messages) {
             boolean isFiltered = processor.processorMessage(message, filters);
-            System.out.println("Сообщение: " + message + " | Пропущенно: " + isFiltered);
+            System.out.println("РЎРѕРѕР±С‰РµРЅРёРµ: " + message + " | РџСЂРѕРїСѓС‰РµРЅРѕ: " + isFiltered);
         }
     }
 }
