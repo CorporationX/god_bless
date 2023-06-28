@@ -10,11 +10,13 @@ public class Task implements Runnable{
     @Override
     public void run() {
         System.out.println(name + " has started: " + task);
+
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             System.out.println(task + " has been interrupted");
         }
+
         System.out.println(name + " has ended: " + task);
     }
 }
