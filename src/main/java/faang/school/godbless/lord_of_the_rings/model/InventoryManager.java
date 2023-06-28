@@ -9,15 +9,13 @@ import java.util.function.Predicate;
 public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        if (character.inventory != null) {
-            character.inventory.add(item);
+            character.addItem(item);
             consumer.accept(item);
-        }
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
         emptyCheck(character);
-        Iterator<Item> itemIterator = character.inventory.iterator();
+        Iterator<Item> itemIterator = character.getInventory().iterator();
         while (itemIterator.hasNext()) {
             Item item = itemIterator.next();
             if (predicate.test(item)) {
@@ -28,7 +26,7 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         emptyCheck(character);
-        ListIterator<Item> itemIterator = character.inventory.listIterator();
+        ListIterator<Item> itemIterator = character.getInventory().listIterator();
         while (itemIterator.hasNext()) {
             Item item = itemIterator.next();
             if (predicate.test(item)) {
@@ -38,7 +36,7 @@ public class InventoryManager {
     }
 
     private void emptyCheck(Character character) {
-        if (character.inventory == null || character.inventory.isEmpty()) {
+        if (character.getInventory() == null || character.getInventory().isEmpty()) {
             throw new IllegalArgumentException("inventory is empty");
         }
     }

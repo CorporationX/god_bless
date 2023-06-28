@@ -2,13 +2,18 @@ package faang.school.godbless.lord_of_the_rings.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Character {
     private String name;
-    public List<Item> inventory = new ArrayList<>();
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
+    }
+
+    public void addItem(Item item) {
+        inventory.add(item);
     }
 
     @Override
@@ -17,5 +22,13 @@ public class Character {
                 "name='" + name + '\'' +
                 ", inventory=" + inventory.toString() +
                 '}';
+    }
+
+    public List<Item> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Item> inventory) {
+        this.inventory = inventory;
     }
 }
