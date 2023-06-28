@@ -1,3 +1,5 @@
+package bc641;
+
 import LambdaStream.bc641.CalculatorMachine;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;

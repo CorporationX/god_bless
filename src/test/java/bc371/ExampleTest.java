@@ -1,3 +1,5 @@
+package bc371;
+
 import LambdaStream.bc371.Example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -1,0 +1,42 @@
+Условия задачи
+1. Даны функциональные интерфейсы:
+
+@FunctionalInterface
+public interface VectorJoiner<T> {
+		// Соединяет список элементов типа T в один элемент типа T
+    T join(List<T> vector);
+}
+
+@FunctionalInterface
+public interface MatrixJoiner<T> {
+		// Соединяет список списков элементов типа T в один элемент типа T
+    T join(List<List<T>> matrix);
+}
+2. Реализовать функцию, которая преобразует двумерный массив в csv формат.
+
+public static String toCsv(List<List<String>> table) throws IllegalArgumentException
+
+3. Нужно использовать VectorJoiner, чтобы преобразовать список List<String> в одну строку,
+в которой элементы будут разделены через запятую.
+
+4. Внутри MatrixJoiner использовать замыкание созданной лямбды VectorJoiner,
+чтобы работать вместе с List<T>, а не List<List<T>>.
+
+5. Например, на такой вызов:
+
+toCsv(
+      List.of(
+              List.of("1", "2", "3", "4", "5"),
+              List.of("6", "7", "8", "9", "10"),
+              List.of("11", "12", "13", "14", "15"),
+              List.of("16", "17", "18", "19", "20"),
+              List.of("21", "22", "23", "24", "25")
+      )
+);
+Должны получить в точности:
+
+1, 2, 3, 4, 5
+6, 7, 8, 9, 10
+11, 12, 13, 14, 15
+16, 17, 18, 19, 20
+21, 22, 23, 24, 25
