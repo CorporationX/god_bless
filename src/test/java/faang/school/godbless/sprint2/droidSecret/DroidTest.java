@@ -9,8 +9,15 @@ class DroidTest {
     public void sendEncryptedMessageTest() {
         Droid droid = new Droid();
         Droid droid1 = new Droid();
-        String result = droid.sendEncryptedMessage(droid1, "hello", 3);
-        String expected = "khoor";
+        String result = droid.sendEncryptedMessage(droid1, "hellz", 3);
+        String expected = "khooc";
+        assertEquals(expected, result);
+    }
+    @Test
+    public void receiveEncryptedMessageTest() {
+        DroidMessageReceiver droidMessageReceiver = new DroidMessageReceiver();
+        String result = droidMessageReceiver.receiveEncryptedMessage("khooc", 3);
+        String expected = "hellz";
         assertEquals(expected, result);
     }
 }
