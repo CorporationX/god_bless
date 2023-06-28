@@ -17,7 +17,7 @@ public class Army implements Runnable {
 
     @Override
     public void run() {
-        Thread
+        System.out.println("Total army power: " + calculateTotalPower());
     }
 
     public static void main(String[] args) {
