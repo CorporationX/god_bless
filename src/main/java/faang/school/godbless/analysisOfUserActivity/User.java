@@ -1,6 +1,5 @@
 package faang.school.godbless.analysisOfUserActivity;
 
-import lombok.Data;
 import lombok.Value;
 
 import java.time.LocalDateTime;
@@ -10,7 +9,7 @@ import java.time.LocalDateTime;
 public class User {
     private int id;
     private String name;
-    private actionType actionType; // тип активности
+    private ActionType actionType; // тип активности
     private LocalDateTime actionDate; // время деятельности
     private String content; // какой контент потребляет
 }

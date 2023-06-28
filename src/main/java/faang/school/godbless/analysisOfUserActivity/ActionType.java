@@ -1,6 +1,6 @@
 package faang.school.godbless.analysisOfUserActivity;
 
-public enum actionType {
+public enum ActionType {
     POST("post"),
     COMMENT("comment"),
     LIKE("like"),
@@ -8,11 +8,7 @@ public enum actionType {
 
     private final String actionType;
 
-    actionType(String type) {
+    ActionType(String type) {
         this.actionType = type;
-    }
-
-    public String getActionType() {
-        return actionType;
     }
 }
