@@ -24,7 +24,7 @@ class ApplicationTest {
 
     @Test
     void sum() {
-        Assertions.assertEquals(13, Application.sum(nums));
+        Assertions.assertEquals(8, Application.sum(nums));
     }
 
     @Test

@@ -10,7 +10,7 @@ public class Application {
 
     //    Найти сумму четных чисел в списке. На вход получаем список чисел, на выходе должны получать int;
     static public int sum(List<Integer> nums) {
-        return nums.stream().reduce(0, Integer::sum);
+        return nums.stream().filter(num -> num % 2 == 0).reduce(0, Integer::sum);
     }
 
     //    Найти максимальный элемент в списке чисел;
