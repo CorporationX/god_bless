@@ -1,6 +1,7 @@
 package bc1807;
 
 import LambdaStream.bc1807.Application;
+import LambdaStream.bc1807.Employee;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -18,11 +19,11 @@ class ApplicationTest {
     @Test
     void countryCapital() {
         Map<String, String> countryCapital = new HashMap<>();
-        countryCapital.put("Россия", "Москва");
-        countryCapital.put("Германия", "Берлин");
-        countryCapital.put("Франция", "Париж");
-        countryCapital.put("италия", "Рим");
-        countryCapital.put("Япония", "Токио");
+        countryCapital.put("Russia", "Moscow");
+        countryCapital.put("Germany", "Berlin");
+        countryCapital.put("France", "Paris");
+        countryCapital.put("Italy", "Rome");
+        countryCapital.put("Japan", "Tokyo");
         System.out.println(Application.countryCapital(countryCapital));
     }
 
@@ -41,5 +42,37 @@ class ApplicationTest {
         peoples.put("David", List.of("Alice", "Bob", "Charlie", "Eve"));
         peoples.put("Eve", List.of("David"));
         System.out.println(Application.pairFriends(peoples));
+    }
+
+    @Test
+    void filterRegex() {
+        List<String> strings = List.of("Petya", "Oleg1", "Andrei", "Den-Ч", "Alex", "Ali5");
+        System.out.println(Application.filterRegex(strings));
+    }
+
+    @Test
+    void integerToString() {
+        List<Integer> numbers = List.of(5, 10, 15, 20);
+        System.out.println(Application.integerToString(numbers));
+    }
+
+    @Test
+    void numberPalindrom() {
+        System.out.println(Application.numberPalindrom(1, 1000));
+    }
+
+    @Test
+    void averageSalary() {
+        List<Employee> employees = List.of(
+                new Employee("John", 3000.0, "IT"),
+                new Employee("Jane", 4000.0, "HR"),
+                new Employee("Bob", 3500.0, "IT"),
+                new Employee("Alice", 5000.0, "HR"),
+                new Employee("Mike", 3800.0, "IT")
+        );
+        Map<String, Double> statistics = Application.averageSalary(employees);
+        for (Map.Entry<String, Double> statistic : statistics.entrySet()) {
+            System.out.println(statistic.getKey() + " = " + Math.floor(statistic.getValue()));
+        }
     }
 }
