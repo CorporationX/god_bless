@@ -13,7 +13,7 @@ public class ClassForTask {
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
-        /*
+
         //a+b
         sum.apply(a).apply(b);
         //b+c
@@ -38,16 +38,39 @@ public class ClassForTask {
         double GeronPerimeter = sqrt.apply(thirdMultiplication);
 
         return GeronPerimeter;
-        */
+    }
+
 //Решение с разбора Влада
+
+        /*
         //a+b
         sum.apply(a).apply(b);
         //a+b+c
-        sum.apply(sum.apply(a).apply(b)).apply(c);
+        double perimeter = sum.apply(
+                        sum.apply(a).apply(b)
+                ).apply(c);
+
+        double halfperimeter = div.apply(sum.apply(
+                        sum.apply(a).apply(b))
+                .apply(c)).apply(2.0);
+
+        double subA = sub.apply(halfperimeter).apply(a);
+        double subB = sub.apply(halfperimeter).apply(b);
+        double subC = sub.apply(halfperimeter).apply(c);
+
+        mul.apply(mul.apply
+                (mul.apply(halfperimeter).apply(subA)
+                ).apply(subB)
+        ).apply(subC);
+        double area = sqrt.apply(mul.apply(mul.apply(mul.apply(halfperimeter).apply(subA)).apply(subB)).apply(subC));
+        return area;
     }
+
+    */
+
     public static void main(String[] args) {
-        double a = 4;
-        double d = 3;
+        double a = 6;
+        double d = 2;
         double q = 5;
         double methodResult = triangleArea(a, d, q);
         System.out.println(methodResult);
