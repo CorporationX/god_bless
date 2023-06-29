@@ -11,6 +11,6 @@ public class PersonNamePrinter implements Runnable {
 
     @Override
     public void run() {
-        persons.forEach(System.out::println);
+        persons.forEach(person -> System.out.println("Workplace: " + person.getWorkplace()));
     }
 }
