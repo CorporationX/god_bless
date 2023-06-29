@@ -10,11 +10,9 @@ public class MailSender {
             int startIndex = i * 200 + 1;
             int endIndex = startIndex + 200;
 
-            threads.add(new Thread(new SenderRunnable(startIndex, endIndex)));
+            threads.add(i, new Thread(new SenderRunnable(startIndex, endIndex)));
+            threads.get(i).start();
         }
-        for (Thread thread : threads) {
-            thread.start();
-            thread.join();
-        }
+        System.out.println("All messages was sent");
     }
 }
