@@ -3,7 +3,6 @@ package Sprint_4_Task10;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,10 +22,10 @@ public class Witcher {
 
         List<City> cities = new ArrayList<>();
 
-        cities.add(new City("Novigrad",new Location(10, 20)));
-        cities.add(new City("Oxenfurt",new Location(10, 20)));
-        cities.add(new City("Vizima",new Location(10, 20)));
-        cities.add(new City("Kaer Morhen",new Location(10, 20)));
+        cities.add(new City("Novigrad",new Location(10, 600)));
+        cities.add(new City("Oxenfurt",new Location(60, 0)));
+        cities.add(new City("Vizima",new Location(120, 50)));
+        cities.add(new City("Kaer Morhen",new Location(180, 120)));
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         long startTime = System.currentTimeMillis();
@@ -36,7 +35,7 @@ public class Witcher {
         }
 
         executor.shutdown();
-        executor.awaitTermination(1000, TimeUnit.MILLISECONDS);
+        executor.awaitTermination(10000, TimeUnit.MILLISECONDS);
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
