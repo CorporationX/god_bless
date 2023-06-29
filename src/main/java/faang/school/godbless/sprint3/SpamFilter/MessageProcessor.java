@@ -6,7 +6,7 @@ public class MessageProcessor {
     public boolean processMessage(String message, List<MessageFilter> handlers) {
         boolean answer = true;
         for(MessageFilter handler : handlers) {
-            answer = answer & handler.filter(message);
+            answer &= handler.filter(message);
         }
         return answer;
     }
