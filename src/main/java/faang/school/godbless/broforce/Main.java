@@ -9,13 +9,13 @@ public class Main {
         Game game = new Game(0, 5);
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
-        while(game.getLives()>0){
+        for (int i = 0; i < 5; i++) {
             executor.submit(game::update);
         }
         executor.shutdown();
 
         try{
-            if(executor.awaitTermination(1, TimeUnit.SECONDS)){
+            if(executor.awaitTermination(50, TimeUnit.SECONDS)){
                 System.out.println("Программа завершена");
             }
         } catch (InterruptedException e){

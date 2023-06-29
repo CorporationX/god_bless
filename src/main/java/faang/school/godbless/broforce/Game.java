@@ -4,8 +4,8 @@ import lombok.Getter;
 
 @Getter
 public class Game{
-    private volatile int score;
-    private volatile int lives;
+    private  int score;
+    private  int lives;
     final Object lockForScore = new Object();
     final Object lockForLives = new Object();
 
@@ -14,21 +14,33 @@ public class Game{
         this.lives = lives;
     }
 
+    public int getLives(){
+        synchronized (lockForLives) {
+            return this.lives;
+        }
+    }
+
     public void update(){
         synchronized (lockForScore){
             if (lives == 0){
                 System.out.println("Игра закончена");
                 gameOver();
-                try {
-                    lockForScore.wait();
-                } catch (InterruptedException e){
-                    e.printStackTrace();
-                    Thread.currentThread().interrupt();
-                }
+//                try {
+//                    lockForScore.wait(500);
+//                } catch (InterruptedException e){
+//                    e.printStackTrace();
+//                    Thread.currentThread().interrupt();
+//                }
 
             } else {
                 lives--;
                 System.out.println("Количество жизней - " + lives);
+                try{
+                    Thread.sleep(2000);
+                } catch (InterruptedException e){
+                    e.printStackTrace();
+                    Thread.currentThread().interrupt();
+                }
             }
         }
         synchronized (lockForLives){
@@ -44,5 +56,12 @@ public class Game{
 
     private void gameOver(){
         System.out.println("GameOver");
+        try {
+            lockForScore.wait(500);
+            lockForLives.wait(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
     }
 }
