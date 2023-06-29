@@ -12,4 +12,8 @@ public class Player {
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
     }
+
+    public void deletePlayer(Boss boss) {
+        boss.deletePlayer(this);
+    }
 }
