@@ -41,6 +41,9 @@ public class CityWorker implements Runnable {
     }
 
     private int getKillTime(String monsterName) {
+        if (!monsterBookWithRanks.containsKey(monsterName)) {
+            throw new IllegalArgumentException("Монстра как " + monsterName + " не существует в книге");
+        }
         Rank curentMonsterRank = monsterBookWithRanks.get(monsterName);
         return curentMonsterRank.getRank();
     }
@@ -53,10 +56,18 @@ public class CityWorker implements Runnable {
     }
 
     private String getCityName() {
-        return getNearestEnemyNameAndLocation().getCityName();
+        String cityName = getNearestEnemyNameAndLocation().getCityName();
+        if (!currentCity.getNearestCities().containsKey(cityName)) {
+            throw new IllegalArgumentException("Города как " + cityName + " не существует в списке городов");
+        } else
+            return cityName;
     }
 
     private String getMonsterName() {
-        return getNearestEnemyNameAndLocation().getMonsterName();
+        String monsterName = getNearestEnemyNameAndLocation().getMonsterName();
+        if (!monsterBookWithRanks.containsKey(monsterName)) {
+            throw new IllegalArgumentException("Монстра как " + monsterName + " не существует в книге");
+        } else
+            return monsterName;
     }
 }
