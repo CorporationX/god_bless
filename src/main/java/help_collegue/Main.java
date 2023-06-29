@@ -13,7 +13,7 @@ public class Main {
             people.add(new Person("Person" + i, "Surname" + i, i, "Workplace" + i));
         }
 
-        final int threads = 10;
+        final int threads = 16;
         ExecutorService executorService = Executors.newFixedThreadPool(threads);
 
         final int batchSize = people.size() / threads;

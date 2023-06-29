@@ -11,7 +11,7 @@ public class PersonNamePrinter implements Runnable {
     @Override
     public void run() {
         for (Person person : people) {
-            System.out.println(person.name());
+            System.out.println(person.workplace());
         }
     }
 }
