@@ -1,6 +1,6 @@
 package faang.school.godbless.normalGame;
 
-public class PigThread extends Thread {
+public abstract class PigThread extends Thread {
   private String pigName;
   private Materials material;
 
@@ -15,5 +15,18 @@ public class PigThread extends Thread {
 
   public Materials getMaterial() {
     return material;
+  }
+
+  abstract protected void build() throws InterruptedException;
+
+  @Override
+  public void run() {
+    try {
+      System.out.println(getPigName() + " build house from " + getMaterial());
+      build();
+      System.out.println(getPigName() + " has finished building the house.");
+    } catch (Exception e) {
+      throw new RuntimeException(e);
+    }
   }
 }

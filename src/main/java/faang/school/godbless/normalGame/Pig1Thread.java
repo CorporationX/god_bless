@@ -6,6 +6,11 @@ public class Pig1Thread extends PigThread {
   }
 
   @Override
+  protected void build() throws InterruptedException {
+    Thread.sleep(2000);
+  }
+
+  @Override
   public void run() {
     try {
       System.out.println(getPigName() + " build house from " + getMaterial());
