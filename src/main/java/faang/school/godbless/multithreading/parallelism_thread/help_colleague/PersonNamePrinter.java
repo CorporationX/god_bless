@@ -3,14 +3,14 @@ package faang.school.godbless.multithreading.parallelism_thread.help_colleague;
 import java.util.List;
 
 public class PersonNamePrinter implements Runnable {
-    private List<Person> nameList;
+    private List<Person> employees;
 
     public PersonNamePrinter(List<Person> nameList) {
-        this.nameList = nameList;
+        this.employees = nameList;
     }
 
     @Override
     public void run() {
-        nameList.forEach(employee -> System.out.println(employee.getName()));
+        employees.forEach(employee -> System.out.println(employee.getName()));
     }
 }
