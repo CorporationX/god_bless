@@ -10,10 +10,9 @@ public class SkyNet {
         Robot robotB = new Robot(ivan, "Dark");
 
         ExecutorService service = Executors.newFixedThreadPool(2);
-        service.execute(() -> {
-            while(!robotA.attack()) {
-                System.out.printf("%s ");
-            }
-        });
+        service.execute(robotA);
+        service.execute(robotB);
+
+        service.shutdown();
     }
 }
