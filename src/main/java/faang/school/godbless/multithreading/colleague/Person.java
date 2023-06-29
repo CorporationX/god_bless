@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading;
+package faang.school.godbless.multithreading.colleague;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

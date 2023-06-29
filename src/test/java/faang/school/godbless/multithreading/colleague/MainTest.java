@@ -1,5 +1,6 @@
-package faang.school.godbless.multithreading;
+package faang.school.godbless.multithreading.colleague;
 
+import faang.school.godbless.multithreading.colleague.Main;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import org.junit.jupiter.api.AfterEach;
