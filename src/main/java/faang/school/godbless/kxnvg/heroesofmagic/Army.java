@@ -1,9 +1,11 @@
 package faang.school.godbless.kxnvg.heroesofmagic;
 
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
 
@@ -26,21 +28,16 @@ public class Army {
         return divisions.size();
     }
 
-    @SneakyThrows
     public int calculateTotalPower() {
+        ExecutorService service = Executors.newFixedThreadPool(totalQuantityUnits());
         List<PowerThread> threads = new ArrayList<>();
-        int result = 0;
+        AtomicInteger result = new AtomicInteger(0);
 
-        for (Unit unit : divisions) {
-            PowerThread powerThread = new PowerThread(unit);
+        divisions.forEach(unit -> threads.add(new PowerThread(unit)));
+        threads.forEach(thread -> service.execute(thread));
 
-            threads.add(powerThread);
-            powerThread.start();
-            powerThread.join();
-        }
-        for (PowerThread thread : threads) {
-            result += thread.getUnitPower();
-        }
-        return result;
+        service.shutdown();
+        threads.forEach(thread -> result.addAndGet(thread.getUnitPower()));
+        return result.get();
     }
 }
