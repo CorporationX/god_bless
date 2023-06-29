@@ -15,11 +15,18 @@ public class Boss {
 
     @SneakyThrows
     public void joinBattle(Player player) {
-        if (currentPlayers > maxPlayers) {
-            System.out.println(Thread.currentThread().getName() + " " + player.getName() + " is out of battle");
-            player.wait();
+        synchronized (this) {
+            if (currentPlayers > maxPlayers) {
+                System.out.println(Thread.currentThread().getName() + " " + player.getName() + " is out of battle");
+                player.wait();
+            }
+            currentPlayers++;
+            System.out.println(Thread.currentThread().getName() + " " + "Player " + player.getName() + " joined the battle");
         }
-        currentPlayers++;
-        System.out.println(Thread.currentThread().getName() + " " + "Player " + player.getName() + " joined the battle");
+        synchronized (this) {
+            currentPlayers--;
+            System.out.println(Thread.currentThread().getName() + " " + "Player " + player.getName() + " left the battle");
+            notify();
+        }
     }
 }
