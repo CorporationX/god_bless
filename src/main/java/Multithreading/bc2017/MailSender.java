@@ -13,6 +13,13 @@ public class MailSender {
             threads.add(i, new Thread(new SenderRunnable(startIndex, endIndex)));
             threads.get(i).start();
         }
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
         System.out.println("All messages was sent");
     }
 }
