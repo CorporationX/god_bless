@@ -1,5 +1,4 @@
 package faang.school.godbless.feedPeterGriffin;
-import lombok.Getter;
 
 import java.util.Random;
 
