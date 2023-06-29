@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Microsoft;
 
 public class SenderRunnable implements Runnable {
     private final int startIndex;
