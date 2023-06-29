@@ -1,42 +1,43 @@
 package sprint4.telegram;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+
 @Data
-@AllArgsConstructor
 public class TelegramBot {
     private static final int SECOND = 1000;
     private final int requestLimit;
-    private long lastRequestTime;
+    private LocalDateTime lastRequestTime;
     private int requestCounter;
 
-    public TelegramBot(int requestLimit, long lastRequestTime) {
+    public TelegramBot(int requestLimit, LocalDateTime lastRequestTime) {
         this.requestLimit = requestLimit;
         this.lastRequestTime = lastRequestTime;
     }
 
     public synchronized void sendMessage(String message) {
-        waitIfLimitIsExceeded();
-        resetRequestTimeAndCounter();
-        requestCounter++;
-        System.out.printf("Message sent via Telegram API: %s\n", message);
+        long timeSinceLastRequestInMillis = Duration.between(lastRequestTime, LocalDateTime.now()).toMillis();
 
+        if (timeSinceLastRequestInMillis < SECOND) {
+            requestCounter++;
+            waitIfLimitIsExceeded(timeSinceLastRequestInMillis);
+        } else {
+            requestCounter = 0;
+        }
+        lastRequestTime = LocalDateTime.now();
+
+        System.out.printf("Message sent via Telegram API: %s\n", message);
     }
 
-    private void waitIfLimitIsExceeded() {
+    private void waitIfLimitIsExceeded(long timeSinceLastRequestInMillis) {
         if (requestCounter == requestLimit) {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000 - timeSinceLastRequestInMillis);
             } catch (InterruptedException e) {
                 System.out.println("Work interrupted");
             }
-        }
-    }
-
-    private void resetRequestTimeAndCounter() {
-        if ((lastRequestTime - System.currentTimeMillis()) >= SECOND) {
-            lastRequestTime = System.currentTimeMillis();
             requestCounter = 0;
         }
     }
