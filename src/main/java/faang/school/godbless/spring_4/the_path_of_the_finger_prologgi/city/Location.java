@@ -4,9 +4,16 @@ public class Location {
     private final int x;
     private final int y;
 
+    private final int sumLoc;
+
     public Location(int x, int y) {
         this.x = x;
         this.y = y;
+        sumLoc = x + y;
+    }
+
+    public int getSumLoc() {
+        return sumLoc;
     }
 
     public int getX() {
