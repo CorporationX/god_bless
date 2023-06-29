@@ -1,0 +1,37 @@
+[
+  {
+    "position": "Front Desk Receptionist",
+    "requirements": ["Customer Service", "Communication", "Organizational Skills"],
+    "salary": 15.0,
+    "location": "New York",
+    "dateAdded": "2023-06-25"
+  },
+  {
+    "position": "Housekeeping Supervisor",
+    "requirements": ["Cleaning", "Team Management", "Attention to Detail"],
+    "salary": 20.0,
+    "location": "Los Angeles",
+    "dateAdded": "2023-06-26"
+  },
+  {
+    "position": "Hotel Manager",
+    "requirements": ["Hospitality Management", "Leadership", "Revenue Management"],
+    "salary": 30.0,
+    "location": "Miami",
+    "dateAdded": "2023-06-27"
+  },
+  {
+    "position": "Chef de Cuisine",
+    "requirements": ["Culinary Arts", "Menu Planning", "Kitchen Management"],
+    "salary": 25.0,
+    "location": "Chicago",
+    "dateAdded": "2023-06-28"
+  },
+  {
+    "position": "Event Coordinator",
+    "requirements": ["Event Planning", "Negotiation", "Vendor Management"],
+    "salary": 18.0,
+    "location": "Las Vegas",
+    "dateAdded": "2023-06-29"
+  }
+]
