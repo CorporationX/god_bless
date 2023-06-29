@@ -29,10 +29,4 @@ public class InventoryManager {
 
         }
     }
-
-    public void printInventory(Character character) {
-        for (Item item : character.getInventory()) {
-            System.out.println(item.getName() + " " + item.getValue());
-        }
-    }
 }
