@@ -8,7 +8,7 @@ import java.util.List;
 public class StreamMethodsTest {
     @Test
     public void testSumList() {
-        Assertions.assertEquals(15, StreamMethods.getListSum(List.of(1, 3, 2, 4, 5)));
+        Assertions.assertEquals(15, StreamMethods.getListSum(List.of(1, 2, 3, 4, 5)));
     }
 
     @Test
