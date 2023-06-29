@@ -7,7 +7,8 @@ public class PowerThread extends Thread {
     this.power = power;
   }
 
-  public int getPower() {
-    return power;
+  @Override
+  public void run() {
+    Statistics.setTotalPower(power);
   }
 }

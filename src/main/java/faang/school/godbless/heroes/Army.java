@@ -11,15 +11,11 @@ public class Army {
   }
 
   public int calculateTotalPower() {
-    int totalPower = 0;
-
     for (Unit unit : units) {
       PowerThread thread = new PowerThread(unit.getPower());
       thread.start();
-
-      totalPower += thread.getPower();
     }
 
-    return totalPower;
+    return Statistics.getTotalPower();
   }
 }
