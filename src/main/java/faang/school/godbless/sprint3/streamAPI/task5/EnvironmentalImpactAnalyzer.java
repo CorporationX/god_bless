@@ -16,7 +16,7 @@ public class EnvironmentalImpactAnalyzer {
     }
 
     public void printConsumptionEnergyCompany(String pathCSV, String companyName) {
-        LocalDate end = LocalDate.now();
+        LocalDate end = LocalDate.of(2023, 6, 23);
         Map<String, Double> statPerMonth = analiseConsumptionEnergyCompanyPerLastYear(pathCSV, companyName, end);
 
         System.out.println("CompanyName: " + companyName);
@@ -42,7 +42,8 @@ public class EnvironmentalImpactAnalyzer {
         for (var entry : totalEmissionsAndConsumption.entrySet()) {
             String companyName = entry.getKey();
             double totalEnergyConsumption = entry.getValue();
-            double avgEnergyConsumption = Math.round((entry.getValue() / 12) * 100) / 100.0;
+            int monthsPerYear = 12;
+            double avgEnergyConsumption = Math.round((entry.getValue() / monthsPerYear) * 100) / 100.0;
             double minConsumption = Double.MAX_VALUE;
             Map<String, Double> statPerMonth = analiseConsumptionEnergyCompanyPerLastYear(pathCSV, entry.getKey(), end);
             for (var entryStatPerMonth : statPerMonth.entrySet()) {
@@ -61,8 +62,11 @@ public class EnvironmentalImpactAnalyzer {
         Map<String, Double> totalEmissionsAndConsumption =
                 statisticsAggregator.getTotalEmissionsAndConsumption(start, end, environmentalImpacts, Type.ENERGY_CONSUMPTION);
 
-        System.out.printf((format) + "%n", "Сompany", "TotalEnergyConsumption", "Employees", "ConsumptionPerEmployee");
+        printConsumtionPerEmployeesExtracts(format, totalEmissionsAndConsumption);
+    }
 
+    private void printConsumtionPerEmployeesExtracts(String format, Map<String, Double> totalEmissionsAndConsumption) {
+        System.out.printf((format) + "%n", "Сompany", "TotalEnergyConsumption", "Employees", "ConsumptionPerEmployee");
         for (var entry : totalEmissionsAndConsumption.entrySet()) {
             String companyName = entry.getKey();
             double totalEnergyConsumption = entry.getValue();
@@ -72,7 +76,7 @@ public class EnvironmentalImpactAnalyzer {
                     .toList()
                     .get(0);
             double consumptionPerEmployee = Math.round((totalEnergyConsumption / employees) * 100) / 100.0;
-            System.out.printf((format) + "%n", companyName, totalEnergyConsumption, employees, consumptionPerEmployee);
+            System.out.printf(format + "%n", companyName, totalEnergyConsumption, employees, consumptionPerEmployee);
         }
     }
 
@@ -81,13 +85,7 @@ public class EnvironmentalImpactAnalyzer {
         if (end == null) {
             end = LocalDate.now();
         }
-        boolean contains = Company.companies.stream()
-                .map(Company::getCompanyName)
-                .toList()
-                .contains(companyName);
-        if (!contains) {
-            throw new IllegalArgumentException("Компании " + companyName + " не существует!");
-        }
+        checkIfCompanyExists(companyName);
         LocalDate start = end.withDayOfMonth(1);
         Map<String, Double> statPerMonth = new LinkedHashMap<>();
         for (int i = 0; i < 12; i++) {
@@ -104,6 +102,16 @@ public class EnvironmentalImpactAnalyzer {
             start = start.minusMonths(1);
         }
         return statPerMonth;
+    }
+
+    private void checkIfCompanyExists(String companyName) {
+        boolean contains = Company.companies.stream()
+                .map(Company::getCompanyName)
+                .toList()
+                .contains(companyName);
+        if (!contains) {
+            throw new IllegalArgumentException("Компании " + companyName + " не существует!");
+        }
     }
 
 }
