@@ -3,6 +3,7 @@ package faang.school.godbless.thirdSprint.Witcher;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     public static void main(String[] args) {
@@ -29,6 +30,11 @@ public class Witcher {
         }
         service.shutdown();
 
+        try {
+            service.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         long after = System.currentTimeMillis();
         System.out.println(after - before);
     }
