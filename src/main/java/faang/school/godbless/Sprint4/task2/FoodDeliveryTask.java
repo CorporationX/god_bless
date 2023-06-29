@@ -6,7 +6,7 @@ import java.util.Random;
 
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
-    private String Character;
+    private String сharacter;
     private int foodAmount;
 
     private String getFoodType() {
@@ -17,12 +17,12 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         String foodType = getFoodType();
-        System.out.println(Character + " gets " + foodAmount + " " + foodType);
+        System.out.println(сharacter + " gets " + foodAmount + " " + foodType);
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(Character + " eats " + foodAmount + " " + foodType);
+        System.out.println(сharacter + " eats " + foodAmount + " " + foodType);
     }
 }
