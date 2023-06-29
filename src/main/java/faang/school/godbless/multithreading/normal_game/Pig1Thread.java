@@ -7,14 +7,14 @@ public class Pig1Thread extends PigThread {
 
     @Override
     public void run() {
-        System.out.println("Поросенок " + pigName + " строит дом из материала - " + material);
+        super.run();
 
         try {
-            Thread.sleep(500);
+            Thread.sleep(200);
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
 
-        System.out.println("Поросенок " + pigName + " построил свой дом из материала - " + material);
+        super.done();
     }
 }

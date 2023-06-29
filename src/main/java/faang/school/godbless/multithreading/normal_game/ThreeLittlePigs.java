@@ -10,9 +10,7 @@ public class ThreeLittlePigs {
                 new Pig3Thread("Наф-наф", "кирпичи")
         );
 
-        for (PigThread pigThread : pigThreads) {
-            pigThread.start();
-        }
+        pigThreads.forEach(PigThread::start);
 
         for (PigThread pigThread : pigThreads) {
             pigThread.join();
