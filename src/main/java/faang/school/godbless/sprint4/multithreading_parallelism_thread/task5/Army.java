@@ -11,16 +11,22 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        int totalPower = 0;
+        List<Thread> threads = new ArrayList<>();
+        List<CalculationPowerThread> calculationPowerThreads = new ArrayList<>();
         for (Character character : army) {
-            CalculationPowerThread thread = new CalculationPowerThread(character);
-            Thread t = new Thread(thread);
+            CalculationPowerThread calculationPowerThread = new CalculationPowerThread(character);
+            calculationPowerThreads.add(calculationPowerThread);
+            Thread t = new Thread(calculationPowerThread);
+            threads.add(t);
             t.start();
             System.out.println(t.getName() + " started");
-            t.join();
-            totalPower += thread.getPower();
         }
-        return totalPower;
+        for (Thread thread : threads) {
+            thread.join();
+        }
+        return calculationPowerThreads.stream()
+                .mapToInt(CalculationPowerThread::getPower)
+                .sum();
     }
 
     public void addUnit(Character character) {

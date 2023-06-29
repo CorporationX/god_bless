@@ -1,6 +1,6 @@
 package faang.school.godbless.sprint4.multithreading_parallelism_thread.task5;
 
-public class CalculationPowerThread implements Runnable {
+public class CalculationPowerThread extends Thread {
     private int power;
 
     private Character character;
