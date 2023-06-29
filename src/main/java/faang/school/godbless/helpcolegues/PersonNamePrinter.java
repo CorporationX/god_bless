@@ -1,11 +1,13 @@
 import lombok.AllArgsConstructor;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class PersonNamePrinter implements Runnable {
-    private String name;
+    private List<Person> personList;
 
     @Override
     public void run() {
-        System.out.println(name);
+        personList.forEach(person -> System.out.println(person.getWorkplace()));
     }
 }

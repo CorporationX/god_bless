@@ -16,13 +16,13 @@ public class Main {
             personList.add(person);
         }
 
-        ExecutorService executor = newFixedThreadPool(50);
+        ExecutorService executor = newFixedThreadPool(5);
 
         for (int i = 0; i < 10; i++) {
-            for (Person person : personList.subList(i * 1000, 1000 * (i + 1))) {
-                PersonNamePrinter personNamePrinter = new PersonNamePrinter(person.getName());
-                executor.submit(personNamePrinter);
-            }
+
+            PersonNamePrinter personNamePrinter = new PersonNamePrinter(personList.subList(i * 1000, 1000 * (i + 1)));
+            executor.submit(personNamePrinter);
+
         }
 
         executor.awaitTermination(3, TimeUnit.SECONDS);
