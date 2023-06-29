@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int personsForOneThread = 1000;
         List<Person> listOfPersons = new ArrayList<>(10000);
         for (int i = 0; i < 10000; i++) {
@@ -25,6 +26,8 @@ public class Main {
                 executor.submit(new PersonNamePrinter(person));
             }
         }
+        executor.awaitTermination(10, TimeUnit.SECONDS);
         executor.shutdown();
+        System.out.println("Program is done!");
     }
 }
