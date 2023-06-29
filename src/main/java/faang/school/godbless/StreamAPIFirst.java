@@ -36,7 +36,8 @@ public class StreamAPIFirst {
     public static List<String> filteredList (List<String> words, String substring){
         validateList(words);
         return words.stream()
-                .filter(substring::equals).toList();
+                .filter(x -> x.equals(substring))
+                .toList();
     }
 
     public static List<String> lengthFiltered (List<String> words){
