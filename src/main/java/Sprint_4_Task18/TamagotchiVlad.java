@@ -1,17 +1,23 @@
 package Sprint_4_Task18;
 
-public class TamagotchiVlad {
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    public void feed(){
-        System.out.println("Vlad is eating");
+@Data
+@AllArgsConstructor
+public class TamagotchiVlad {
+    private String name;
+
+    public synchronized void feed(){
+        System.out.println(Thread.currentThread().getName() + " Vlad is eating " + getName());
     }
-    public void play(){
-        System.out.println("Vlad is playing");
+    public synchronized void play(){
+        System.out.println(Thread.currentThread().getName() + " Vlad is playing " + getName());
     }
-    public void clean(){
-        System.out.println("Vlad is cleaning");
+    public synchronized void clean(){
+        System.out.println(Thread.currentThread().getName() + " Vlad is cleaning " + getName());
     }
-    public void sleep(){
-        System.out.println("Vlad is sleeping");
+    public synchronized void sleep(){
+        System.out.println(Thread.currentThread().getName() + " Vlad is sleeping " + getName());
     }
 }

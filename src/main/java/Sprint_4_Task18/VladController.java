@@ -1,17 +1,38 @@
 package Sprint_4_Task18;
 
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+@Data
 public class VladController {
+    List<TamagotchiVlad> tamagotchiVladList;
+
+    public VladController() {
+        this.tamagotchiVladList = new ArrayList<>();
+    }
+
     public void feedAll(){
-        System.out.println("Vlad is eating Controller");
+        tamagotchiVladList.forEach(TamagotchiVlad::feed);
     }
     public void playAll(){
-        System.out.println("Vlad is playing Controller");
+        tamagotchiVladList.forEach(TamagotchiVlad::play);
     }
     public void cleanAll(){
-        System.out.println("Vlad is cleaning Controller");
+       tamagotchiVladList.forEach(TamagotchiVlad::clean);
     }
     public void sleepAll(){
-        System.out.println("Vlad is sleeping Controller");
+        tamagotchiVladList.forEach(TamagotchiVlad::sleep);
+    }
+    public void addTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
+       tamagotchiVladList.add(tamagotchiVlad);
+    }
+    public void removeTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
+        if (tamagotchiVladList.contains(tamagotchiVlad)){
+            tamagotchiVladList.remove(tamagotchiVlad);
+        }else {
+            System.out.println("TamagotchiVlad not found");
+        }
     }
 
 }
