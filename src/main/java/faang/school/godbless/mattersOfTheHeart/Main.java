@@ -2,6 +2,7 @@ package faang.school.godbless.mattersOfTheHeart;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -25,5 +26,13 @@ public class Main {
             });
         }
         executor.shutdown();
+
+        try{
+            if(executor.awaitTermination(3, TimeUnit.SECONDS)){
+                System.out.println("Программа завершена");
+            }
+        } catch (InterruptedException e){
+            e.printStackTrace();
+        }
     }
 }
