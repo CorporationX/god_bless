@@ -1,42 +1,63 @@
 package faang.school.godbless.sprint4.multithreading_synchronization_wait_notify.task11;
 
+import lombok.Getter;
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Getter
 public class ChatManager {
 
-    private List<Chat> chatList = new ArrayList<>();
+    private final List<Chat> chatList = new ArrayList<>();
 
-    private UserList userList;
+    private final UserList userList;
 
     public ChatManager(UserList userList) {
         this.userList = userList;
     }
 
+    @SneakyThrows
     public synchronized void startChat(User user) {
         userList.deleteOfflineUser();
 
-        Optional<User> userChat = userList.getOnlineUsers().stream()
-                .filter(x -> !x.equals(user))
-                .findAny();
-        if (!userChat.isPresent()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        Optional<User> userChat = getUserWantToChat(user);
+        while (userChat.isEmpty()) {
+            System.out.println(user + " ждет других пользователей для чата ..." );
+            wait();
+            userChat = getUserWantToChat(user);
         }
 
-        Chat chat = new Chat(user, userChat.get());
+        User otherUser = userChat.get();
+        System.out.println(user + " и " + otherUser + " начали чат");
+        Chat chat = new Chat(user, otherUser);
+        user.setWantToStartChat(false);
+        otherUser.setWantToStartChat(false);
         chatList.add(chat);
-
     }
 
-    public void waitForChat(User user) {
+    @SneakyThrows
+    public synchronized void waitForChat(User user) {
+        boolean userInChat = chatList.stream()
+                .anyMatch(chat -> chat.getUser1().equals(user) || chat.getUser2().equals(user));
+        while (!userInChat) {
+            System.out.println(user + " не участвует ни в одном чате");
+            wait();
+        }
     }
 
-    public void endChat() {
+    public synchronized void endChat(Chat chat) {
+        System.out.println(chat.getUser1() + " и " + chat.getUser2() + " закончили чат");
+        chatList.remove(chat);
+        chat.removeUserChat();
+        notifyAll();
+    }
 
+    private Optional<User> getUserWantToChat(User user) {
+        return userList.getOnlineUsers().stream()
+                .filter(x -> !x.equals(user))
+                .filter((User::isWantToStartChat))
+                .findAny();
     }
 }

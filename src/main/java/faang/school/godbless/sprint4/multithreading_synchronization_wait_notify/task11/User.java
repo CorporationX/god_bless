@@ -11,6 +11,16 @@ public class User {
 
     private String name;
 
+    private boolean wantToStartChat;
 
+    public User(String name, boolean online, boolean wantToStartChat) {
+        this.online = online;
+        this.name = name;
+        this.wantToStartChat = wantToStartChat;
+    }
 
+    @Override
+    public String toString() {
+        return name;
+    }
 }

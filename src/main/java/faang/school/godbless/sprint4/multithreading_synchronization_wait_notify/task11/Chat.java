@@ -12,4 +12,11 @@ public class Chat {
     private User user1;
 
     private User user2;
+
+    public void removeUserChat() {
+        user1.setWantToStartChat(true);
+        user2.setWantToStartChat(true);
+        user1 = null;
+        user2 = null;
+    }
 }

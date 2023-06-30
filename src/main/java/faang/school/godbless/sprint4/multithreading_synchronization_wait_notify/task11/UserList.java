@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserList {
-    private List<User> onlineUsers;
+    private final List<User> onlineUsers;
 
     public UserList() {
         this.onlineUsers = new ArrayList<>();
     }
 
     public List<User> getOnlineUsers() {
+        deleteOfflineUser();
         return onlineUsers;
     }
 
@@ -20,5 +21,6 @@ public class UserList {
 
     public void deleteOfflineUser() {
         onlineUsers.removeIf(user -> !user.isOnline());
+//        onlineUsers.forEach(System.out::println);
     }
 }
