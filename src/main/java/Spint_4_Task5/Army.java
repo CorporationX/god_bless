@@ -1,23 +1,34 @@
 package Spint_4_Task5;
 
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Army implements Runnable {
+public class Army {
     List<Entity> entityList;
 
     public Army() {
         this.entityList = new ArrayList<>();
     }
 
+
+    @SneakyThrows
     public int calculateTotalPower() {
-
-        return 0;
-    }
-
-    @Override
-    public void run() {
-        System.out.println("Total army power: " + calculateTotalPower());
+        List<Thread> treedArrayList = new ArrayList<>();
+        List<TreedPower> treedPowerArrayList = new ArrayList<>();
+        for (Entity entity : entityList) {
+            TreedPower treed = new TreedPower(entity);
+            treedPowerArrayList.add(treed);
+            treedArrayList.add(new Thread(treed));
+        }
+        for (Thread thread : treedArrayList) {
+            thread.start();
+        }
+        for (Thread thread : treedArrayList) {
+            thread.join();
+        }
+        return treedPowerArrayList.stream().mapToInt(TreedPower::getPower).sum();
     }
 
     public static void main(String[] args) {
@@ -29,6 +40,7 @@ public class Army implements Runnable {
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Total army power: " + totalPower);
+
     }
 
     private void addUnit(Entity entity) {
