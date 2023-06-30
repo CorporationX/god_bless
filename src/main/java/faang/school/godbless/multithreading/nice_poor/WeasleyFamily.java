@@ -20,5 +20,6 @@ public class WeasleyFamily {
         service.shutdown();
         service.awaitTermination(10, TimeUnit.SECONDS);
         service.shutdownNow();
+        System.out.println("All tasks done");
     }
 }
