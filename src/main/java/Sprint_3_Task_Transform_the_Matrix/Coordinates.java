@@ -1,4 +1,4 @@
-package Sprint_3_Task_Transfork_the_Matrix;
+package Sprint_3_Task_Transform_the_Matrix;
 
 import lombok.Data;
 
