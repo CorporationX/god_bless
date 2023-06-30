@@ -12,4 +12,9 @@ public class Player {
             boss.joinBattle(this);
         }
     }
+    public void liftBattles(Boss boss) {
+        synchronized (boss) {
+            boss.liftBattle(this);
+        }
+    }
 }
