@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int PROCESSORS_COUNT = Runtime.getRuntime().availableProcessors();
-    private static final List<Person> PERSON_LIST = createPersons(1000);
-    private static final int PERSONS_CHUNK_SIZE = (int) Math.ceil((double) PERSON_LIST.size() / PROCESSORS_COUNT);
+    private static  List<Person> personList = createPersons(1000);
+    private static final int chunkSize = (int) Math.ceil((double) personList.size() / PROCESSORS_COUNT);
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(PROCESSORS_COUNT);
@@ -23,14 +23,14 @@ public class Main {
 
     private static void processPersonListChunks(ExecutorService executorService){
         for (int i = 0; i < PROCESSORS_COUNT; i++) {
-            int start = i * PERSONS_CHUNK_SIZE;
-            int end = (i + 1) * PERSONS_CHUNK_SIZE;
+            int start = i * chunkSize;
+            int end = (i + 1) * chunkSize;
 
             if (i == PROCESSORS_COUNT - 1) {
-                end = PERSON_LIST.size();
+                end = personList.size();
             }
 
-            List<Person> batch = PERSON_LIST.subList(start, end);
+            List<Person> batch = personList.subList(start, end);
             executorService.submit(new PersonNamePrinter(batch));
         }
     }
