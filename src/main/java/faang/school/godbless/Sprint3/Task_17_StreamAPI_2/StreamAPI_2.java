@@ -3,6 +3,7 @@ package faang.school.godbless.Sprint3.Task_17_StreamAPI_2;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamAPI_2 {
 
@@ -54,5 +55,12 @@ public class StreamAPI_2 {
                 .toList();
     }
 
+    public static List<Integer> findPalindromeNumbers (int start, int end) {
+
+        return  IntStream.rangeClosed(start, end)
+                .filter(integer -> String.valueOf(integer).equals(new StringBuilder(String.valueOf(integer)).reverse().toString()))
+                .boxed()
+                .toList();
+    }
 }
 
