@@ -1,9 +1,5 @@
 package faang.school.godbless.VacancyAnalyzer;
 
-import com.google.gson.Gson;
-
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -13,7 +9,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
