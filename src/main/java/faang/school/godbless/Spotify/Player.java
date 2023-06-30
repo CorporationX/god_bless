@@ -12,10 +12,10 @@ public class Player {
     public void play() {
         synchronized (lock) {
             if (isPlaying) {
-                System.out.println(lock + " is already playing");
+                System.out.println("Music is already playing");
             } else {
                 isPlaying = true;
-                System.out.println(lock + " is playing");
+                System.out.println("Music is playing");
             }
         }
     }
@@ -24,9 +24,9 @@ public class Player {
         synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
-                System.out.println(lock + " is stopped");
+                System.out.println("Music is stopped");
             } else {
-                System.out.println(lock + " is already stopped");
+                System.out.println("Music is already stopped");
             }
         }
     }
@@ -34,14 +34,14 @@ public class Player {
     public void skip() {
         synchronized (lock) {
             isPlaying = true;
-            System.out.println("Next " + lock);
+            System.out.println("Next track");
         }
     }
 
     public void previous() {
         synchronized (lock) {
             isPlaying = true;
-            System.out.println("Previous " + lock);
+            System.out.println("Previous track");
         }
     }
 }
