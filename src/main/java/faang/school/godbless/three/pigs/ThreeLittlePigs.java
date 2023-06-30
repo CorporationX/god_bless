@@ -2,9 +2,9 @@ package faang.school.godbless.three.pigs;
 
 public class ThreeLittlePigs {
     public static void main(String[] args) throws InterruptedException {
-        Pig1Thread pig1Thread = new Pig1Thread("ÕËÙ-ÕËÙ", 10);
-        Pig2Thread pig2Thread = new Pig2Thread("ÕÛÙ-ÕÛÙ", 40);
-        Pig3Thread pig3Thread = new Pig3Thread("Õ‡Ù-Õ‡Ù", 60);
+        Pig1Thread pig1Thread = new Pig1Thread("–ù–∏—Ñ-–ù–∏—Ñ", 2);
+        Pig2Thread pig2Thread = new Pig2Thread("–ù—É—Ñ-–ù—É—Ñ", 4);
+        Pig3Thread pig3Thread = new Pig3Thread("–ù–∞—Ñ-–ù–∞—Ñ", 5);
 
         pig1Thread.start();
         pig2Thread.start();
@@ -13,5 +13,7 @@ public class ThreeLittlePigs {
         pig1Thread.join();
         pig2Thread.join();
         pig3Thread.join();
+
+        System.out.println("–¥–æ–º–∞ –ø–æ—Å—Ç—Ä–æ–µ–Ω—ã");
     }
 }

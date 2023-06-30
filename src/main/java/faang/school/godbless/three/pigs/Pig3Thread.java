@@ -9,13 +9,6 @@ public class Pig3Thread extends PigThread {
 
     @Override
     public void run() {
-        for (int i = 0; i < getMaterial(); i++) {
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            System.out.println("дом поросёнка " + getPigName() + " " + " построен на " + i);
-        }
+        super.run();
     }
 }

@@ -12,7 +12,21 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @ToString
-public class PigThread extends Thread {
+public abstract class PigThread extends Thread {
     private String pigName;
     private int material;
+
+    @Override
+    public void run() {
+        for (int i = 0; i < getMaterial(); i++) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+
+            System.out.println("дом поросёнка " + getPigName() + " " + " построен на " + i);
+
+        }
+    }
 }
