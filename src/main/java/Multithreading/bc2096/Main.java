@@ -31,12 +31,14 @@ public class Main {
                 executorService.submit(new PersonNamePrinter(persons.get(i)));
             }
         }
+
+        executorService.shutdown();
+
         boolean isFinished = executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
-        if(isFinished){
-            executorService.shutdown();
+
+        if (isFinished) {
             System.out.println("Program finished");
         }
-
 
 
     }
