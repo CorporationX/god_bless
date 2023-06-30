@@ -1,21 +1,47 @@
 package Multithreading.bc2157;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
-@AllArgsConstructor
+
 @Getter
 public class Army {
-    private List<Hero> armyList;
 
-    public void calculateTotalPower() {
+    List<HeroThread> archers = new ArrayList<>();
+    List<HeroThread> mages = new ArrayList<>();
+    List<HeroThread> swordsmans = new ArrayList<>();
+    private final List<Hero> heroes;
 
+    public Army(List<Hero> heroes) {
+        this.heroes = heroes;
     }
 
-    public void addUnit(Hero unit) {
-        getArmyList().add(unit);
+
+    public int calculateTotalPower() throws InterruptedException {
+        for (Hero hero : heroes) {
+            if (hero.isArcher()) {
+                archers.add(new HeroThread(hero));
+            } else if (hero.isMage()) {
+                mages.add(new HeroThread(hero));
+            } else if (hero.isSwordsman()) {
+                swordsmans.add(new HeroThread(hero));
+            }
+        }
+        int archersPowers = powerHeroes(archers);
+        int magesPowers = powerHeroes(mages);
+        int swordsmanPowers = powerHeroes(swordsmans);
+
+        return archersPowers + magesPowers + swordsmanPowers;
     }
 
-
+    private int powerHeroes(List<HeroThread> heroes) throws InterruptedException {
+        int result = 0;
+        for (HeroThread hero : heroes) {
+            hero.start();
+            hero.join();
+            result += hero.getPower();
+        }
+        return result;
+    }
 }
