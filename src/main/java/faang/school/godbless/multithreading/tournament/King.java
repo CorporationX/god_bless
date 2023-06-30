@@ -17,7 +17,6 @@ public class King {
                 .forEach(knight::addTrial));
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-
         knights.forEach(knight -> executorService.execute(knight::startTrials));
         executorService.shutdown();
 
