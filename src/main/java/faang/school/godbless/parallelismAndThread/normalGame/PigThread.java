@@ -16,7 +16,7 @@ public class PigThread extends Thread{
         buildHouse();
     }
 
-    public void buildHouse() {
+    private void buildHouse() {
         System.out.println("Поток: " + Thread.currentThread().getName() + ": " + pigName + " начинает строительство дома из материала " + material);
         try {
             Thread.sleep((long) (Math.random() * 5000) + 1000);
