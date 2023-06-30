@@ -19,9 +19,9 @@ public class Analytics {
     public static List<String> mostPopularTopics(List<UserAction> userActions) {
         return userActions.stream()
                 .map(UserAction::getContent)
-                .flatMap(str -> Arrays.stream(str.split(" ")))
+                .flatMap(str -> Arrays.stream(str.split("\\s")))
                 .filter(word -> word.startsWith("#"))
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+                .collect(Collectors.groupingBy(word -> word, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(5)
