@@ -8,17 +8,17 @@ import java.util.List;
 @Getter
 public class House {
 
-    private String nameHouse;
+    private final String nameHouse;
 
-    private int totalRolesKnight;
+    private final int totalRolesKnight;
 
-    private int totalRolesMage;
+    private final int totalRolesMage;
 
-    private int totalRolesLords;
+    private final int totalRolesLords;
 
-    private List<Role> rolesKnight = new ArrayList<>();
-    private List<Role> rolesMage = new ArrayList<>();
-    private List<Role> rolesLords = new ArrayList<>();
+    private final List<Role> rolesKnight = new ArrayList<>();
+    private final List<Role> rolesMage = new ArrayList<>();
+    private final List<Role> rolesLords = new ArrayList<>();
 
     public House(String nameHouse, int totalRolesKnight, int totalRolesMage, int totalRolesLords) {
         this.nameHouse = nameHouse;
@@ -33,15 +33,12 @@ public class House {
         if (rolesLords.size() < totalRolesLords) {
             possibleRoles.add(Role.LORD);
         }
-
         if (rolesMage.size() < totalRolesMage) {
             possibleRoles.add(Role.MAGE);
         }
-
         if (rolesKnight.size() < totalRolesKnight) {
             possibleRoles.add(Role.KNIGHT);
         }
-
         return possibleRoles;
     }
 

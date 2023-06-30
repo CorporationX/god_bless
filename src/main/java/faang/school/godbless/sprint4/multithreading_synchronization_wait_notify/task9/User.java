@@ -17,18 +17,19 @@ public class User {
 
     private String name;
 
-    private House house;
+    private final House house;
 
     private Role role;
 
-    public User(String name) {
+    public User(String name, House house) {
         this.name = name;
+        this.house = house;
     }
 
     @SneakyThrows
-    public void joinHouse(House house) {
+    public void joinHouse() {
         synchronized (house) {
-            System.out.println(house.checkRole());
+            System.out.println(Thread.currentThread().getName() + " " + house.checkRole());
             while (house.checkRole().isEmpty()) {
                 System.out.println(name + " ожидает свободную роль");
                 house.wait();
@@ -40,29 +41,30 @@ public class User {
         }
     }
 
-    public void leaveHouse(House house) {
+    public synchronized void leaveHouse() {
         synchronized (house) {
+            System.out.println(name + " покинул " + house.getNameHouse());
             house.removeRole(role);
             role = null;
-            System.out.println(name + " покинул " + house.getNameHouse());
             house.notifyAll();
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House("Дом старков", 1, 0, 1);
-        User user1 = new User("Эддард Старк");
-        User user2 = new User("Роб Старк");
-        User user3 = new User("Джон Сноу");
-        User user4 = new User("Бран");
+        User user1 = new User("Эддард Старк", house);
+        User user2 = new User("Роб Старк", house);
+        User user3 = new User("Джон Сноу", house);
+        User user4 = new User("Бран", house);
+        User user5 = new User("Арья", house);
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.execute(() -> user1.joinHouse(house));
-        executor.execute(() -> user2.joinHouse(house));
-        executor.execute(() -> user3.joinHouse(house));
-        executor.execute(() -> user1.leaveHouse(house));
-        executor.execute(() -> user2.leaveHouse(house));
-        executor.execute(() -> user4.joinHouse(house));
+        ExecutorService executor = Executors.newFixedThreadPool(3);
+        executor.execute(user1::joinHouse);
+        executor.execute(user2::joinHouse);
+        executor.execute(user3::joinHouse);
+        executor.execute(user5::joinHouse);
+        executor.execute(user1::leaveHouse);
+        executor.execute(user4::joinHouse);
 
         executor.shutdown();
 
