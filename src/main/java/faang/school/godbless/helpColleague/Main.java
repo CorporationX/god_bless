@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         List<Person> people = fillPersonList();
-        final int THREAD_QUANTITY = 10;
+        final int THREAD_QUANTITY = 8;
         final int PEOPLE_PER_THREAD = people.size() / THREAD_QUANTITY;
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_QUANTITY);
 
@@ -34,8 +34,7 @@ public class Main {
 
         for (int i = 0; i < 10000; i++) {
             people.add(
-                    new Person(
-                            "Name " + i, "Surname " + i, i, "Workplace " + i)
+                    new Person("Name " + i, "Surname " + i, i, "Workplace " + i)
             );
         }
 
