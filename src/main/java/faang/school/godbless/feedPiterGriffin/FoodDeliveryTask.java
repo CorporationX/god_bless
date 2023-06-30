@@ -15,11 +15,13 @@ public class FoodDeliveryTask implements Runnable{
     public void run() {
         String foodType = getFoodType();
         System.out.println(character + " will eat " + foodAmount + " " + foodType);
+
         try {
             Thread.sleep(new Random().nextInt(1000, 5000));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         System.out.println(character + " is eating " + foodAmount + " " + foodType);
     }
 
