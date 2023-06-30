@@ -1,6 +1,5 @@
 package Sprint_4_Task17;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.SneakyThrows;
 
