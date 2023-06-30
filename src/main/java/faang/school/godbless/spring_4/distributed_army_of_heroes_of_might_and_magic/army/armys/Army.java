@@ -21,7 +21,6 @@ public class Army {
 
         for (Divisions division : divisions) {
             answers.add(pool.submit(new GatheringPower(division)));
-            pool.submit(new GatheringPower(division));
         }
 
         terminationOfThreads();
