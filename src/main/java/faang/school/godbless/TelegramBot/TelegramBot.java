@@ -10,24 +10,29 @@ public class TelegramBot {
     private Integer requestCounter;
     private long lastRequestTime;
 
-    public TelegramBot(int requestCounter, long lastRequestTime) {
-        this.requestCounter = requestCounter;
-        this.lastRequestTime = lastRequestTime;
+    public TelegramBot() {
+        this.requestCounter = 0;
+        this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public synchronized void sendMessage(String message) throws InterruptedException {
-            long start = System.currentTimeMillis();
-            long timePassed = lastRequestTime - start;
-            if (timePassed < 1000) {
-                requestCounter++;
-                if (requestCounter > REQUEST_LIMIT) {
-                    message.wait(1000 - timePassed);
+    public synchronized void sendMessage(String message) {
+        long start = System.currentTimeMillis();
+        long timePassed = start - lastRequestTime;
+        if (timePassed < 1000) {
+            requestCounter++;
+            if (requestCounter > REQUEST_LIMIT) {
+                try {
+                    Thread.sleep((1000 - timePassed));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
                 }
-            } else {
-                requestCounter = 0;
-                lastRequestTime = 0;
+                requestCounter = 1;
+                lastRequestTime = start;
             }
-            System.out.println(message + " sent at " + LocalDateTime.now());
-            message.notify();
+        } else {
+            requestCounter = 1;
+            lastRequestTime = start;
         }
+        System.out.println(message + " sent at " + LocalDateTime.now() + " / " + "RequestCounter:" + requestCounter + " / " + "Time passed: " + timePassed);
+    }
 }
