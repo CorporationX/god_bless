@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<Division> divisions;
-    private Integer totalPower;
+    private final List<Division> divisions;
+    private volatile int totalPower;
 
     public Army() {
-        this.totalPower = 0;
         this.divisions = new ArrayList<>();
     }
 
@@ -29,7 +28,7 @@ public class Army {
         return totalPower;
     }
 
-    public void addPower(int powerToAdd) {
+    public synchronized void addPower(int powerToAdd) {
         this.totalPower += powerToAdd;
     }
 
