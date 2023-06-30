@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 public class StreamAPI3 {
 
-    public static List<Integer> FindTheTop10MostActiveUsers(List<UserAction> userActions) {
+    public static List<Map.Entry<Integer, Long>> FindTheTop10MostActiveUsers(List<UserAction> userActions) {
         //        Найти топ-10 самых активных пользователей (по количеству действий: посты, комментарии, лайки и репосты).
         //        Отдельный метод класса.
         return userActions.stream()
@@ -17,7 +17,8 @@ public class StreamAPI3 {
                 .stream()
                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
                 .limit(10)
-                .map(Map.Entry::getKey).collect(Collectors.toList());
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+                .toList();
     }
 
     public static List<String> Top5MostPopularUsers(List<UserAction> userActions) {
@@ -59,7 +60,8 @@ public class StreamAPI3 {
                 .entrySet()
                 .stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, entry -> entry.getValue().intValue() * 100 / userActions.size()))
-                .entrySet().stream()
+                .entrySet()
+                .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .toList();
     }
