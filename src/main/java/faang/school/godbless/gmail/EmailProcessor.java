@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> email, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function){
         if (email == null || email.isEmpty()){
-            throw new IllegalArgumentException("Пустой лист");
+            throw new IllegalArgumentException("email list is null or empty");
         }
 
         for (Email emailll : email){
