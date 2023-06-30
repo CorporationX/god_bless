@@ -22,10 +22,10 @@ public class Witcher {
 
         List<City> cities = new ArrayList<>();
 
-        cities.add(new City("Novigrad",new Location(10, 600)));
+        cities.add(new City("Novigrad",new Location(10, 60)));
         cities.add(new City("Oxenfurt",new Location(60, 0)));
         cities.add(new City("Vizima",new Location(120, 50)));
-        cities.add(new City("Kaer Morhen",new Location(180, 120)));
+        cities.add(new City("Kaer Morhen",new Location(180, 0)));
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         long startTime = System.currentTimeMillis();

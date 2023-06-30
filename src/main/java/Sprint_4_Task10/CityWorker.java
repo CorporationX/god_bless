@@ -17,8 +17,9 @@ public class CityWorker implements Runnable{
     public void run() {
         Monster monster = findNearestMonster();
         System.out.println(Thread.currentThread().getName() + " Самый близкий монстр: " + monster);
-        System.out.println(Thread.currentThread().getName() + " Время битвы с монстрам: " + getKillTime());
         System.out.println(Thread.currentThread().getName() + " Дистанция до монстра: " + getJourneyDistance());
+        System.out.println(Thread.currentThread().getName() + " Время битвы с монстрам: " + getKillTime());
+
     }
     public Monster findNearestMonster(){
         int minDistance = Integer.MAX_VALUE;
@@ -31,6 +32,8 @@ public class CityWorker implements Runnable{
                 nearestMonster = monster.get(i);
             }
         }
+        System.out.println("Thread: " + Thread.currentThread().getName() +
+                " Самый близкий монстр: " + nearestMonster + " локация: " + city.getName() + " " + location);
         return nearestMonster;
     }
     @SneakyThrows
