@@ -1,4 +1,4 @@
-package faang.school.godbless.finally_normal_game;
+package faang.school.godbless.multithreading.finally_normal_game;
 
 public class Pig3Thread extends PigThread {
     public Pig3Thread() {

@@ -1,6 +1,6 @@
-package faang.school.godbless.distributed_army;
+package faang.school.godbless.multithreading.distributed_army;
 
-import faang.school.godbless.distributed_army.creature.Creature;
+import faang.school.godbless.multithreading.distributed_army.creature.Creature;
 
 import java.util.ArrayList;
 import java.util.List;

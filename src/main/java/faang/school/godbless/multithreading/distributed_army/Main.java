@@ -1,8 +1,8 @@
-package faang.school.godbless.distributed_army;
+package faang.school.godbless.multithreading.distributed_army;
 
-import faang.school.godbless.distributed_army.creature.Archer;
-import faang.school.godbless.distributed_army.creature.Mage;
-import faang.school.godbless.distributed_army.creature.Swordsman;
+import faang.school.godbless.multithreading.distributed_army.creature.Archer;
+import faang.school.godbless.multithreading.distributed_army.creature.Mage;
+import faang.school.godbless.multithreading.distributed_army.creature.Swordsman;
 
 public class Main {
     public static void main(String[] args) {

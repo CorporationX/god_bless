@@ -1,4 +1,4 @@
-package faang.school.godbless.help_colleague;
+package faang.school.godbless.multithreading.help_colleague;
 
 import lombok.Getter;
 @Getter

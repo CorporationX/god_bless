@@ -1,4 +1,4 @@
-package faang.school.godbless.finally_normal_game;
+package faang.school.godbless.multithreading.finally_normal_game;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

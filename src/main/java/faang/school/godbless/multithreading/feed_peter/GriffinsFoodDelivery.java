@@ -1,4 +1,4 @@
-package faang.school.godbless.feed_peter;
+package faang.school.godbless.multithreading.feed_peter;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
