@@ -12,26 +12,30 @@ public class NotificationManager {
     List<Predicate<Notification>> list = new ArrayList<>();
 
     public void registerHandler(String type, Consumer<Notification> handler) {
-        if (type == null && type.isEmpty()) {
-            throw new IllegalArgumentException("Пустая строка");
+        if (type == null || type.isEmpty()) {
+            throw new IllegalArgumentException("type is null or empty");
         }
         map.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> hdl = map.get(notification.getType());
-        map.get(notification.getType());
-        hdl.accept(notification);
+        Consumer<Notification> handler = map.get(notification.getType());
+        if (handler == null) {
+            throw new IllegalArgumentException();
+        }
+        handler.accept(notification);
     }
 
     void fillList(Predicate<Notification> nn) {
         list.add(nn);
     }
 
-    public void filter(Notification notification) {
+    public boolean filter(Notification notification) {
         for (Predicate<Notification> loopi : list) {
-            if (!loopi.test(notification))
-                throw new IllegalArgumentException();
+            if (!loopi.test(notification)) {
+                return false;
+            }
         }
+        return true;
     }
 }
