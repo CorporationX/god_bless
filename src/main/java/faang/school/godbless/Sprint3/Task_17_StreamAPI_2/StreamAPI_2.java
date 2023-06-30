@@ -47,5 +47,12 @@ public class StreamAPI_2 {
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
+
+    public static List<String> convertNumbersToStrings (List<Integer> numbers) {
+        return numbers.stream()
+                .map(Integer::toBinaryString)
+                .toList();
+    }
+
 }
 
