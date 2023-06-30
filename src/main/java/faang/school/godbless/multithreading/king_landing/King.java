@@ -21,6 +21,5 @@ public class King {
             service.shutdownNow();
         }
         System.out.println("Knights completed all trials");
-
     }
 }
