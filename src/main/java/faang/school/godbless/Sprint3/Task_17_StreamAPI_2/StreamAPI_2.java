@@ -2,6 +2,7 @@ package faang.school.godbless.Sprint3.Task_17_StreamAPI_2;
 
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StreamAPI_2 {
 
@@ -32,5 +33,11 @@ public class StreamAPI_2 {
                 .filter(string -> string.charAt(0) == letter)
                 .sorted((string1, string2) -> string1.length() - string2.length())
                 .toList();
+    }
+
+    public static Map<String, Double> calculateAverageSalary (List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingDouble(Employee::getSalary)));
     }
 }
