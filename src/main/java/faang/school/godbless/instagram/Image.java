@@ -1,10 +1,9 @@
 package main.java.faang.school.godbless.instagram;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
+import lombok.Value;
+
+@Value
 class Image{
         String name;
         String description;
