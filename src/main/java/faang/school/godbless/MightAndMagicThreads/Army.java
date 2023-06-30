@@ -13,13 +13,19 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-            for (Division division : divisions) {
-                Thread thread = new Thread(() -> {
-                    addPower(division.getPower());
-                });
-                thread.start();
-                thread.join();
+        List<Thread> threads = new ArrayList<>();
+        for (Division division : divisions) {
+            Thread thread = new Thread(() -> {
+                addPower(division.getPower());
+            });
+            threads.add(thread);
+            thread.start();
         }
+
+        for (Thread thread : threads) {
+            thread.join();
+        }
+
         return totalPower;
     }
 

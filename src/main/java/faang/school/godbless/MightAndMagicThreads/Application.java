@@ -9,6 +9,7 @@ public class Application {
         army.addUnit(new Mage(20));
 
         int totalPower = army.calculateTotalPower();
+
         System.out.println("Total army power: " + totalPower);
     }
 }
