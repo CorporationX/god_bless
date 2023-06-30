@@ -30,7 +30,9 @@ public class Army {
         }
         return treedPowerArrayList.stream().mapToInt(TreedPower::getPower).sum();
     }
-
+    private void addUnit(Entity entity) {
+        entityList.add(entity);
+    }
     public static void main(String[] args) {
         Army army = new Army();
         army.addUnit(new Archer(25)); // считаем в потоке 1
@@ -43,7 +45,5 @@ public class Army {
 
     }
 
-    private void addUnit(Entity entity) {
-        entityList.add(entity);
-    }
+
 }
