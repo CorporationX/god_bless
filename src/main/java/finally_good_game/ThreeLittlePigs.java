@@ -1,22 +1,26 @@
 package finally_good_game;
 
+import java.util.Arrays;
+
 public class ThreeLittlePigs {
     public static void main(String[] args) {
-        Pig1Thread nifNif = new Pig1Thread("nif nif", "straw");
-        Pig2Thread nafNaf = new Pig2Thread("naf naf", "sticks");
-        Pig3Thread nufNuf = new Pig3Thread("nuf nuf", "bricks");
+        PigThread[] pigs = {
+                new PigThread("nif nif", "straw",2000),
+        new PigThread("naf naf", "sticks", 3000),
+        new PigThread("nuf nuf", "bricks", 4000)
+        };
 
-        nifNif.start();
-        nafNaf.start();
-        nufNuf.start();
-
-        try {
-            nifNif.join();
-            nafNaf.join();
-            nufNuf.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (PigThread pig : pigs) {
+            pig.start();
         }
+
+        Arrays.stream(pigs).forEach(t -> {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
         System.out.println("Pigs built all house successfully");
     }
