@@ -4,21 +4,21 @@ import java.util.List;
 
 public class MessageProcessor {
 
-    public void isValid(String stroke, List<MessageFilter> filter){
-        if (stroke == null || stroke.isEmpty()){
+    public void isValid(String line, List<MessageFilter> filters){
+        if (line == null || line.isEmpty()){
             throw new IllegalArgumentException("Пустая строка");
-        } else if (filter == null || filter.isEmpty()) {
+        } else if (filters == null || filters.isEmpty()) {
             throw new IllegalArgumentException("Пустой лист");
         }
     }
-    public void processMessage(String stroke, List<MessageFilter> filter) {
-        isValid(stroke, filter);
+    public void processMessage(String line, List<MessageFilter> filters) {
+        isValid(line, filters);
         int count = 1;
-        for (MessageFilter message : filter) {
-            if (!message.filter(stroke)){
-                throw new IllegalArgumentException("Строка: " + stroke+ " не прошел " + count + " фильтр");
+        for (MessageFilter message : filters) {
+            if (!message.filter(line)){
+                throw new IllegalArgumentException("Строка: " + line+ " не прошел " + count + " фильтр");
             }else {
-                System.out.println("Строка: " + stroke+ " прошла " + count + " фильтр");
+                System.out.println("Строка: " + line+ " прошла " + count + " фильтр");
                 count++;
             }
         }
