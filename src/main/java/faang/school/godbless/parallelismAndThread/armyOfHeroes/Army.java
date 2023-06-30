@@ -32,21 +32,16 @@ public class Army {
             System.out.println("Поток " + thread.getName() + " запущен!");
         });
 
-        threadList.forEach(calculateThread -> {
+        int summ = 0;
+        for (CalculateThread calculateThread : threadList) {
             try {
                 calculateThread.join();
+                summ += calculateThread.getPower();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-        });
+        }
 
-        return threadList.stream()
-                .map(CalculateThread::getPower)
-                .reduce(0, Integer::sum);
-
-        //Почему нельзя сделать так? Ругается на summ + thread.getPower()
-        //return threadList.stream()
-        //        .reduce(0, (summ, thread) -> summ + thread.getPower());
-
+        return summ;
     }
 }

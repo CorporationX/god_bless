@@ -19,7 +19,7 @@ public class CalculateThread extends Thread {
         sumPowerOfUnit();
     }
 
-    public synchronized void sumPowerOfUnit() {
+    public void sumPowerOfUnit() {
         power += unit.getPower();
     }
 }
