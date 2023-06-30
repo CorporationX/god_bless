@@ -22,7 +22,7 @@ public class Application {
         VERTICAL,
     }
 
-    static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+    public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         if (flipDirection == FlipDirection.HORIZONTAL) {
             return transformMatrix(matrix, (i, j) -> new Coordinates(i, matrix[i].length - j - 1));
         }
