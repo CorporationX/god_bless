@@ -2,6 +2,7 @@ package faang.school.godbless.Sprint4.SpaceX;
 
 import lombok.AllArgsConstructor;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -26,17 +27,18 @@ public class RocketLaunch implements Runnable{
         System.out.println("Запуск ракеты " + nameLaunch);
         Thread.sleep(1000);
         System.out.println(nameLaunch+" в пути ");
-
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) throws InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        launches.stream()
+        LocalDateTime now = LocalDateTime.now();
+        launches = launches.stream()
                 .sorted((a, b) -> a.timeLaunch.compareTo(b.timeLaunch))
                 .collect(Collectors.toList());
 
         for (RocketLaunch launch : launches) {
-            Thread.sleep(launch.timeLaunch.getSecond()-LocalDateTime.now().getSecond());
+            long duration = Duration.between(LocalDateTime.now(),launch.timeLaunch ).toMillis();
+            Thread.sleep(duration);
             executor.execute(launch);
         }
         executor.shutdown();
