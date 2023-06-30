@@ -26,13 +26,13 @@ public class MessageProcessor {
 // Создание фильтров
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
+        MessageFilter emojiFilter = message -> !message.contains("");
         MessageFilter emojiFilter2 = message -> message.contains("N");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter, emojiFilter2);
 
 // Обработка сообщений
-        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи", "NNNNNNNNNNNN"};
+        String[] messages = {"Привет!", "Это спам!", "Как дела? ", "Длинное сообщение без спама и эмодзи", "NNNNNNNNNNNN"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);

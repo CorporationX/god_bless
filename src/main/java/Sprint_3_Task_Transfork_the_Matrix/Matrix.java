@@ -1,5 +1,4 @@
 package Sprint_3_Task_Transfork_the_Matrix;
-
 import java.util.Arrays;
 
 public class Matrix {
@@ -18,7 +17,7 @@ public class Matrix {
         return newMatrix;
     }
 
-    static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection){
+    static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
         if (matrix.length == 0) {
             return new int[0][0];
         }
@@ -29,13 +28,14 @@ public class Matrix {
                 int z;
                 int a;
 
-                if (flipDirection == FlipDirection.HORIZONTAL){
-                    z=i;
-                    a= matrix[0].length -j-1;
+                if (flipDirection == FlipDirection.HORIZONTAL) {
+                    z = i;
+                    a = matrix[0].length - j - 1;
                 } else {
-
+                    z = j;
+                    a = matrix.length - i - 1;
                 }
-                newMatrix [i][j] = matrix [z][a];
+                newMatrix[i][j] = matrix[z][a];
             }
         }
         return newMatrix;
@@ -43,7 +43,7 @@ public class Matrix {
 
     public static void main(String[] args) {
 
-        int[][] matrix = {{1, 2}, {3, 4}};
+        int[][] matrix = {{17, 27, 5, 7}, {37, 74, 7, 67}, {32, 41, 73, 7}};
 
         MatrixTransformer transformer = (x, y) -> new Coordinates(y, x);
         int[][] transformedMatrix = transformMatrix(matrix, transformer);
