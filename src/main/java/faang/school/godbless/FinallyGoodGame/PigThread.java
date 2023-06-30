@@ -9,14 +9,12 @@ public abstract class PigThread extends Thread {
         this.material = material;
     }
 
-    public String getPigName() {
-        return pigName;
-    }
-
     public String getMaterial() {
         return material;
     }
 
-    public void buildHouse() throws InterruptedException {
+    @Override
+    public void run() {
+        super.run();
     }
 }

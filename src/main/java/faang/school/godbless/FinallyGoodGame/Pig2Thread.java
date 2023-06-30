@@ -1,12 +1,17 @@
 package faang.school.godbless.FinallyGoodGame;
 
 public class Pig2Thread extends PigThread{
-    public Pig2Thread(String pigName, String material) {
-        super(pigName, material);
+    public Pig2Thread(String pigName) {
+        super(pigName, "sticks");
     }
 
-    public void buildHouse() throws InterruptedException {
-        Thread.sleep(300);
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(600);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println("Building " + this.getMaterial() + " house");
     }
 }
