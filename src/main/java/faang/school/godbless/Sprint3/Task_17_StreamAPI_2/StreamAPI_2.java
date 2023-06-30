@@ -18,13 +18,19 @@ public class StreamAPI_2 {
     }
 
     public static List<String> showCapitals (Map<String, String> countries) {
-        List<String> capitals = new ArrayList<>();
 
-        countries.entrySet().stream()
+        return  countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
 
-        return capitals;
+    }
+
+    public static List<String> filterAndSortStrings (List<String> strings, char letter) {
+
+        return strings.stream()
+                .filter(string -> string.charAt(0) == letter)
+                .sorted((string1, string2) -> string1.length() - string2.length())
+                .toList();
     }
 }
