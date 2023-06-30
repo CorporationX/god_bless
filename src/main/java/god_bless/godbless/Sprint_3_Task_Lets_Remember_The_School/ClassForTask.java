@@ -1,7 +1,4 @@
 package god_bless.godbless.Sprint_3_Task_Lets_Remember_The_School;
-
-import org.w3c.dom.ls.LSOutput;
-
 import java.util.function.Function;
 
 public class ClassForTask {
@@ -35,9 +32,9 @@ public class ClassForTask {
         //(p * (p - a) * (p - b)) * (p - c)
         double thirdMultiplication = mul.apply(secondMultiplication).apply(p_c);
         //Формула Герона sqrt(p * (p - a) * (p - b) * (p - c))
-        double GeronPerimeter = sqrt.apply(thirdMultiplication);
+        double GeronSquare = sqrt.apply(thirdMultiplication);
 
-        return GeronPerimeter;
+        return GeronSquare;
     }
 
 //Решение с разбора Влада
@@ -65,7 +62,6 @@ public class ClassForTask {
         double area = sqrt.apply(mul.apply(mul.apply(mul.apply(halfperimeter).apply(subA)).apply(subB)).apply(subC));
         return area;
     }
-
     */
 
     public static void main(String[] args) {
