@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Getter
-public class RocketLaunch implements Runnable{
+public class RocketLaunch implements Runnable {
 
     private String name;
     private LocalDateTime launchTime;
 
     public void launch() {
-//        System.out.println(Duration.between(launchTime, LocalDateTime.now()).toMillis());
+
 
         try {
             Thread.sleep(Duration.between(LocalDateTime.now(), launchTime).toMillis());
