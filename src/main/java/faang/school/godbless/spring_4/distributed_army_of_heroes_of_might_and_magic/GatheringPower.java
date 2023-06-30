@@ -2,8 +2,9 @@ package faang.school.godbless.spring_4.distributed_army_of_heroes_of_might_and_m
 
 import faang.school.godbless.spring_4.distributed_army_of_heroes_of_might_and_magic.army.Divisions;
 
-public class GatheringPower extends Thread {
-    private static int powers = 0;
+import java.util.concurrent.Callable;
+
+public class GatheringPower implements Callable<Integer> {
 
     private final Divisions divisions;
 
@@ -11,17 +12,12 @@ public class GatheringPower extends Thread {
         this.divisions = divisions;
     }
 
+    public int getPowers() {
+        return divisions.getPower();
+    }
+
     @Override
-    public void run() {
-        getPowerDivision();
+    public Integer call() {
+        return getPowers();
     }
-
-    public static int getPower() {
-        return powers;
-    }
-
-    private synchronized void getPowerDivision() {
-        powers += divisions.getPower();
-    }
-
 }

@@ -5,16 +5,43 @@ import faang.school.godbless.spring_4.distributed_army_of_heroes_of_might_and_ma
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 
 public class Army {
+    private int sizePool = 4;
+    private final ExecutorService pool = Executors.newFixedThreadPool(sizePool);
     private final List<Divisions> divisions = new ArrayList<>();
 
-    public int calculateTotalPower() {
+    public void setSizePool(int sizePool) {
+        this.sizePool = sizePool;
+    }
+
+    public int calculateTotalPower() throws InterruptedException, ExecutionException {
+        List<Future<Integer>> answers = new ArrayList<>();
+
         for (Divisions division : divisions) {
-            new Thread(new GatheringPower(division));
+            answers.add(pool.submit(new GatheringPower(division)));
+            pool.submit(new GatheringPower(division));
         }
 
-        return GatheringPower.getPower();
+        terminationOfThreads();
+        int count = 0;
+        for (Future<Integer> answer : answers) {
+            count += answer.get();
+        }
+
+        return count;
+    }
+
+    private void terminationOfThreads() {
+        pool.shutdown();
+        try {
+            if (!pool.awaitTermination(1, TimeUnit.SECONDS)) {
+                pool.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            pool.shutdownNow();
+        }
     }
 
     public void addUnit(Divisions division) throws InterruptedException {
