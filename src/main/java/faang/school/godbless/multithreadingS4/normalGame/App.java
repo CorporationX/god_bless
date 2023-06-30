@@ -11,11 +11,10 @@ public class App {
                 new Pig3Thread()
         );
 
-        List<Thread> threads = pigs.stream().map(Thread::new).toList();
 
-        threads.forEach(Thread::start);
+        pigs.forEach(Thread::start);
 
-        threads.forEach(thread -> {
+        pigs.forEach(thread -> {
             try {
                 thread.join();
             } catch (Exception e){

@@ -8,14 +8,13 @@ import java.util.Random;
 @Getter
 @AllArgsConstructor
 public class PigThread extends Thread {
-    private final static Random RANDOM = new Random();
     private final static int COEFF_SLEEP = 1000;
     private String pigName;
     private String material;
 
     @Override
     public void run() {
-        int sleepTime = RANDOM.nextInt(50) * COEFF_SLEEP;
+        int sleepTime = new Random().nextInt(50) * COEFF_SLEEP;
         System.out.printf("%s began to build a house from %s.\n" +
                 "\t\tSleep time %d\n", pigName, material, sleepTime);
         try {
