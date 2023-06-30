@@ -25,12 +25,6 @@ public class Game{
             if (lives == 0){
                 System.out.println("Игра закончена");
                 gameOver();
-//                try {
-//                    lockForScore.wait(500);
-//                } catch (InterruptedException e){
-//                    e.printStackTrace();
-//                    Thread.currentThread().interrupt();
-//                }
 
             } else {
                 lives--;
