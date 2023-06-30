@@ -14,7 +14,7 @@ public class PigThread extends Thread {
         buildHouse();
     }
 
-    private synchronized void buildHouse() {
+    private void buildHouse() {
         System.out.printf("%s started building a house out of %s (%s)\n",
                 pigName, material, Thread.currentThread().getName());
         try {
