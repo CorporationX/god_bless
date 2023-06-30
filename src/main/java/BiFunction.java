@@ -1,5 +1,4 @@
 @FunctionalInterface
-public interface BiFunction <U, V, R> {
-    R apply(U p1, V p2);
-
+public interface BiFunction <T, U, R> {
+    R apply(T p1, U p2);
 }
