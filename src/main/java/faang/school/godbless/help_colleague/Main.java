@@ -11,23 +11,26 @@ public class Main {
     public static void main(String[] args) {
         List<Person> persons = IntStream
                 .rangeClosed(1, 10000)
-                .mapToObj(i -> new Person(String.valueOf(i)))
+                .mapToObj(i -> new Person(String.valueOf(i), String.valueOf(i)))
                 .toList();
-        final int THREAD_COUNT = 10; // Размер каждой части
+        final int THREAD_COUNT = 12;
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         List<List<Person>> partitions = new ArrayList<>(1000);
+
         for (int i = 0; i < persons.size(); i += THREAD_COUNT) {
             int end = Math.min(i + THREAD_COUNT, persons.size());
             List<Person> partition = persons.subList(i, end);
             partitions.add(partition);
         }
+
         for (List<Person> personList : partitions) {
             executorService.submit(new PersonNamePrinter(personList));
         }
+
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(10, TimeUnit.SECONDS))
-                executorService.shutdown();
+                executorService.shutdownNow();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

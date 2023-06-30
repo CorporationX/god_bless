@@ -11,7 +11,8 @@ public class PersonNamePrinter implements Runnable {
     @Override
     public void run() {
         for (Person person : persons) {
-            System.out.printf("Person: %s (%s)\n", person.getName(), Thread.currentThread().getName());
+            System.out.printf("Person: %s works at %s (%s)\n",
+                    person.getName(), person.getWorkplace(), Thread.currentThread().getName());
         }
     }
 }
