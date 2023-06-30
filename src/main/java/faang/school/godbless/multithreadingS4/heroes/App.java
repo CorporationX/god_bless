@@ -9,6 +9,6 @@ public class App {
         army.addUnit(new Mage(20)); // считаем в потоке 4
 
         int totalPower = army.calculateTotalPower();
-        System.out.println("Total army power: " + totalPower);
+        System.out.println("\tTotal army power: " + totalPower);
     }
 }
