@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 public class LocationSearchEngine {
 
-    public List<Location> filterLocations (List<Location> locations, Predicate<Location> filter) {
+    public List<Location> filterLocations(List<Location> locations, Predicate<Location> filter) {
         List<Location> filteredLocations = new ArrayList<>();
         for (Location location : locations) {
             if (filter.test(location)) {
@@ -19,17 +19,17 @@ public class LocationSearchEngine {
         return filteredLocations;
     }
 
-    public List<Location> processLocations (List<Location> filteredLocations, Consumer<Location> handling) {
+    public List<Location> processLocations(List<Location> filteredLocations, Consumer<Location> handling) {
         List<Location> processedLocations = new ArrayList<>();
         for (Location filteredLocation : filteredLocations) {
-            processedLocations.add(handling.accept(filteredLocation));
-            //handling.accept(filteredLocation);
+            processedLocations.add((Location) handling.accept(filteredLocation));
+            //handling.accept(filteredLocation); типа void.
 
             return processedLocations;
         }
     }
 
-    public List<Double> calculateDistances (List<Location> processedLocations, Function<Location, Double> distanceCalculator) {
+    public List<Double> calculateDistances(List<Location> processedLocations, Function<Location, Double> distanceCalculator) {
         List<Double> distances = new ArrayList<>();
         for (Location processedLocation : processedLocations) {
             distances.add(distanceCalculator.apply(processedLocation));
@@ -47,13 +47,13 @@ public class LocationSearchEngine {
 
         LocationSearchEngine searchEngine = new LocationSearchEngine();
 
-        // Фильтруем местоположения по долготе
+// Фильтруем местоположения по долготе
         List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
 
 // Выводим названия отфильтрованных местоположений
         searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
 
-        // Вычисляем расстояния от заданной точки до каждого местоположения
+// Вычисляем расстояния от заданной точки до каждого местоположения
         double baseLatitude = 37.4220;
         double baseLongitude = -122.0841;
         List<Double> distances = searchEngine.calculateDistances(locations, (location) -> {
