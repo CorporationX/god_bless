@@ -6,7 +6,7 @@ import lombok.Setter;
 @Setter
 public class Robot {
     private String name;
-    private String target;
+    private final String target;
     private int energy;
 
     public Robot(String name, String target, int energy) {
