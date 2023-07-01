@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 public class StreamAPI3 {
 
-    public static List<Map.Entry<Integer, Long>> FindTheTop10MostActiveUsers(List<UserAction> userActions) {
+    public static List<Map.Entry<Integer, Long>> findTheTop10MostActiveUsers(List<UserAction> userActions) {
         //        Найти топ-10 самых активных пользователей (по количеству действий: посты, комментарии, лайки и репосты).
         //        Отдельный метод класса.
         return userActions.stream()
@@ -20,10 +20,11 @@ public class StreamAPI3 {
                 .toList();
     }
 
-    public static List<String> Top5MostPopularUsers(List<UserAction> userActions) {
+    public static List<String> top5MostPopularUsers(List<UserAction> userActions) {
 //        Определить Топ-5 наиболее популярных тем обсуждения (по количеству упоминаний хештегов в постах и комментариях.
 //        Хэштег — слово, начинающееся с символа #).Отдельный метод класса.
         return userActions.stream()
+                .filter(x -> x.getActionType().equals(ActionType.post) || x.getActionType().equals(ActionType.comment))
                 .flatMap(userAction -> Arrays.stream(userAction.getContent().split(" ")))
                 .filter(str -> str.startsWith("#"))
                 .collect(Collectors.toMap(key -> key, val -> 1, Integer::sum))
@@ -35,7 +36,7 @@ public class StreamAPI3 {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> FindTop3UserByComment(List<UserAction> userActions) {
+    public static List<String> findTop3UserByComment(List<UserAction> userActions) {
 //        Найти Топ-3 пользователей, которые оставили наибольшее количество комментариев в последний месяц.
 //        Отдельный метод класса.
         return userActions.stream()
@@ -51,7 +52,7 @@ public class StreamAPI3 {
                 .toList();
     }
 
-    public static List<Map.Entry<ActionType, Integer>> CalculatePercentageOfActions(List<UserAction> userActions) {
+    public static List<Map.Entry<ActionType, Integer>> calculatePercentageOfActions(List<UserAction> userActions) {
 //        Вычислить процент действий (посты, комментарии, лайки и репосты) для каждого типа действий.
 //        Отдельный метод класса.
         return userActions.stream()
@@ -81,15 +82,17 @@ public class StreamAPI3 {
                 new UserAction(8, "Zlata", ActionType.share, LocalDate.now(), "#HelloZlata"),
                 new UserAction(8, "Zlata", ActionType.comment, LocalDate.now(), "#HelloZlata"),
                 new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "Hello Maria"),
-                new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "#Hello Maria"),
+                new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "#Hello #Maria"),
+                new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "#Hello #Maria"),
+                new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "#Hello #Maria"),
                 new UserAction(9, "Maria", ActionType.post, LocalDate.now(), "#HelloMaria"),
                 new UserAction(10, "Maksim", ActionType.comment, LocalDate.now(), "Hello Maksim"),
                 new UserAction(11, "Mark", ActionType.like, LocalDate.now(), "Hello Mark"),
                 new UserAction(12, "Bob", ActionType.share, LocalDate.now(), "Hello Bob")
         );
-        System.out.println(StreamAPI3.FindTheTop10MostActiveUsers(userActions));
-        System.out.println(StreamAPI3.Top5MostPopularUsers(userActions));
-        System.out.println(StreamAPI3.FindTop3UserByComment(userActions));
-        System.out.println(StreamAPI3.CalculatePercentageOfActions(userActions));
+        System.out.println(StreamAPI3.findTheTop10MostActiveUsers(userActions));
+        System.out.println(StreamAPI3.top5MostPopularUsers(userActions));
+        System.out.println(StreamAPI3.findTop3UserByComment(userActions));
+        System.out.println(StreamAPI3.calculatePercentageOfActions(userActions));
     }
 }
