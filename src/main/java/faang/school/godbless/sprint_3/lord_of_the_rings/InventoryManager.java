@@ -21,14 +21,12 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        if (!character.getInventory().isEmpty()) {
-            character.getInventory().stream()
-                    .filter(predicate)
-                    .forEach(item -> {
-                        Item newItem = function.apply(item);
-                        int index = character.getInventory().indexOf(item);
-                        character.getInventory().set(index, newItem);
-                    });
-        }
+        character.getInventory().stream()
+                .filter(predicate)
+                .forEach(item -> {
+                    Item newItem = function.apply(item);
+                    int index = character.getInventory().indexOf(item);
+                    character.getInventory().set(index, newItem);
+                });
     }
 }
