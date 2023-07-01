@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
-    List<Hero> heroes;
+   private final List<Hero> heroes;
 
     public Army() {
         this.heroes = new ArrayList<>();
