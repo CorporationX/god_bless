@@ -3,6 +3,7 @@ package faang.school.godbless.BroForce;
 import lombok.Data;
 
 import java.util.Random;
+
 @Data
 public class Game {
     private int score;
@@ -26,6 +27,7 @@ public class Game {
                 System.out.println("Score: " + score + "| Lives: " + lives);
             }
         }
+
         System.out.println("Round #" + i + "\n");
     }
 
