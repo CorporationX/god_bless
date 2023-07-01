@@ -25,12 +25,11 @@ public class Main {
 
         ChatManager chatManager = new ChatManager(userList);
 
-        ExecutorService executor = Executors.newFixedThreadPool(4);
+        ExecutorService executor = Executors.newFixedThreadPool(3);
 
         executor.execute(() -> chatManager.startChat(user1));
-        executor.execute(() -> chatManager.waitForChat(user2));
-        executor.execute(() -> chatManager.startChat(user5));
         executor.execute(() -> chatManager.startChat(user3));
+        executor.execute(() -> chatManager.startChat(user5));
         executor.execute(() -> chatManager.endChat(chatManager.getChatList().get(0)));
 
         executor.shutdown();

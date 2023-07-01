@@ -22,11 +22,10 @@ public class ChatManager {
     public synchronized void startChat(User user) {
         userList.deleteOfflineUser();
 
-        Optional<User> userChat = getUserWantToChat(user);
-        while (userChat.isEmpty()) {
-            System.out.println(user + " ждет других пользователей для чата ..." );
+        Optional<User> userChat;
+        while ((userChat = getUserWantToChat(user)).isEmpty()) {
+            System.out.println(user + " ждет других пользователей для чата ...");
             wait();
-            userChat = getUserWantToChat(user);
         }
 
         User otherUser = userChat.get();
