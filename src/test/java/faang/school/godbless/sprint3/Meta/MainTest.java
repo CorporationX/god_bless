@@ -1,7 +1,5 @@
 package faang.school.godbless.sprint3.Meta;
 
-import faang.school.godbless.sprint3.Meta.Notification;
-import faang.school.godbless.sprint3.Meta.NotificationManager;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
