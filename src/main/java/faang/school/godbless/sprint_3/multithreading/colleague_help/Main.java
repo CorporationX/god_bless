@@ -19,13 +19,11 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (int i = 0; i < 5; i++) {
             int startIndex = i * 2000;
-            int lastIndex = (i + 1) * 2000 - 1;
+            int lastIndex = (i + 1) * 2000;
             List<Person> parts = personList.subList(startIndex, lastIndex);
-            for (Person person : parts) {
-                executorService.submit(new PersonNamePrinter(person));
-            }
+            executorService.submit(new PersonNamePrinter(parts));
         }
-        executorService.close();
+        executorService.shutdown();
         try {
             if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
                 System.out.println("Все задачи выполнены!");
