@@ -13,6 +13,7 @@ public class Main {
         double distance = 10.0;
         double time = 15.0;
 
+
         double economyTripCost = fareCalculator.calculateFare(distance, time, economyFare);
         double comfortTripCost = fareCalculator.calculateFare(distance, time, comfortFare);
         double premiumTripCost = fareCalculator.calculateFare(distance, time, premiumFare);
