@@ -9,5 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Room {
     private List<Food> foods;
-    private boolean isDone;
+
+    public void deleteFood() {
+        foods = null;
+    }
 }
