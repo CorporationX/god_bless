@@ -16,11 +16,12 @@ public class Main {
         for (int i = 1; i <= numberOfPersons; i++) {
             persons.add(new Person("Name" + i, "Surname" + i, getRandomAge(), "Place work" + i));
         }
+        List<Person> a = persons.subList(0, 2000);
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
         for (int i = 0; i < numberOfPersons; i++) {
             if (i < count) {
-                executorService.submit(new PersonNamePrinter(persons.get(i)));
+                executorService.submit(new PersonNamePrinter(a));
             } else if (i >= count && i < count * 2) {
                 executorService.submit(new PersonNamePrinter(persons.get(i)));
             } else if (i >= count * 2 && i < count * 3) {
