@@ -134,14 +134,12 @@ public class ElectronicDiary {
     }
 
     private double calculateOverallGrade(Map<String, Integer> subjectGrades) {
-        double totalGrades = 0;
-        int totalSubjects = 0;
+        int totalGrades = subjectGrades.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
 
-        for (int grade : subjectGrades.values()) {
-            totalGrades += grade;
-            totalSubjects++;
-        }
+        int totalSubjects = subjectGrades.size();
 
-        return totalGrades / totalSubjects;
+        return (double) totalGrades / totalSubjects;
     }
 }
