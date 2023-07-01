@@ -8,6 +8,6 @@ import lombok.Getter;
 public class Email {
     private String subject;
     private String body;
-    boolean isImportant;
+    private boolean isImportant;
 
 }
