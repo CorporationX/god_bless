@@ -15,7 +15,6 @@ public class Example {
                         .filter(m -> m < num && m != n && m + n == num && nums.indexOf(m) > nums.indexOf(n))
                         .map(m -> Arrays.asList(n, m))
                         .distinct())
-                        //.sorted(Comparator.comparingInt(pair -> pair.get(0))))
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -25,7 +24,7 @@ public class Example {
                 .map( x -> x.getValue())
                 .sorted()
                 .peek(System.out::println)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public static List<String> sortStringsBySize(List<String> list, Character ch){
