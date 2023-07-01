@@ -3,15 +3,16 @@ package faang.school.godbless.Sprint_3.Multythreading.HelpingColleague;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import static java.util.concurrent.Executors.newFixedThreadPool;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Person> persons = new ArrayList<>(); // 10 000 people
-        persons.add(new Person("John", "Neon", 18, "Corporation X"));
-        persons.add(new Person("Lex", "Lox", 12, "Corporation Xxx"));
-        persons.add(new Person("hong", "hol", 84, "Corporation Xx"));
+        for(int i = 0; i < 10000; ++i) {
+            persons.add(new Person(i));
+        }
         int threads = persons.size() / 1000;
         if(threads == 0 && persons.size() > 0) threads = 1;
         ExecutorService executor = newFixedThreadPool(threads);
@@ -29,6 +30,8 @@ public class Main {
                 startIndex = endIndex;
             }
         }
+        executor.awaitTermination(3000, TimeUnit.MILLISECONDS);
         executor.shutdown();
+        System.out.println("Program finished");
     }
 }
