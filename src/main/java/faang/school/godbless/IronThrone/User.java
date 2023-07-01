@@ -10,7 +10,6 @@ public class User {
     private House house;
     private String role;
 
-
     public User(String name) {
         this.name = name;
     }
@@ -36,17 +35,20 @@ public class User {
     public synchronized void leaveHouse() {
         this.house.addRole(this.role);
         System.out.println(this.name + " leaved house and " + this.role + " is available now");
+
         this.setHouse(null);
         this.setRole("");
     }
 
     public void emulateJoinLeave(House house){
         this.joinHouse(house);
+
         try {
             Thread.sleep(new Random().nextInt(1000, 3000));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         this.leaveHouse();
     }
 }
