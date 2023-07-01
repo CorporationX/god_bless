@@ -1,0 +1,13 @@
+1. Даны функциональные интерфейсы:
+VectorJoiner  MatrixJoiner
+
+2. Реализовать функцию, которая преобразует двумерный массив
+в csv формат.
+public static String toCsv(List<List<String>> table)
+throws IllegalArgumentException
+
+3. Нужно использовать VectorJoiner, чтобы преобразовать список
+List<String> в одну строку, в которой элементы будут разделены через запятую.
+
+4. Внутри MatrixJoiner использовать замыкание созданной лямбды VectorJoiner,
+чтобы работать вместе с List<T>, а не List<List<T>>.
