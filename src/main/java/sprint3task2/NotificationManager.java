@@ -13,7 +13,7 @@ public class NotificationManager {
     Map<String, Consumer<Notification>> map = new HashMap<>();
 
     public void registerHandler(String notificationIdentification, Consumer<Notification> consumer) {
-//В параметрах (Идентификатор оповещений, функциональный интерфейс (о же обработчик оповещений))
+//В параметрах (Идентификатор оповещений, функциональный интерфейс (он же обработчик оповещений)
 //Тут функциональный интерфейс - значит отсюда пойдет лямбда.
 //То есть тут в принципе возможно делать лямбду, тк есть функциональный интерфейс привносится в параметрах.
         map.put(notificationIdentification, consumer);
