@@ -9,7 +9,7 @@ public class Chore implements Runnable {
     private String chore;
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName() + " выполняет задачу " + chore);
+        System.out.printf("%s выполняет задачу %s\n", Thread.currentThread().getName(), chore);
 
         try {
             Thread.sleep(500);
@@ -17,6 +17,6 @@ public class Chore implements Runnable {
             System.out.println("Работа прервана");
         }
 
-        System.out.println(Thread.currentThread().getName() + " завершает задачу " + chore);
+        System.out.printf("%s завершает задачу %s\n", Thread.currentThread().getName(), chore);
     }
 }

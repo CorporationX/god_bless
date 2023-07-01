@@ -1,6 +1,5 @@
 package faang.school.godbless.multithreading.weasley;
 
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -10,10 +9,9 @@ public class WeasleyFamily {
 
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        Arrays.stream(chores)
-                .parallel()
-                .map(Chore::new)
-                .forEach(executorService::execute);
+        for (String chore : chores) {
+            executorService.execute(new Chore(chore));
+        }
 
         executorService.shutdown();
     }
