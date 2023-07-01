@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final List<Food> COLLECTED_FOOD = new ArrayList<>();
 
-    public static void main(String[] args) {
-        ScheduledExecutorService pool = Executors.newScheduledThreadPool(5);
+    public static void main(String[] args) throws InterruptedException {
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(4);
 
         List<Food> foods = List.of(
                 new Food("Bacon"), new Food("Beef"), new Food("Chicken"), new Food("Duck"), new Food("Ham"), new Food("Lamb")
@@ -25,20 +25,25 @@ public class House {
         for (List<Room> roomList : twoRooms) {
             pool.schedule(() -> {
                 collectFood(roomList);
-            }, 2, TimeUnit.SECONDS);
+            }, 5, TimeUnit.SECONDS);
         }
 
         andStreams(pool);
+
         System.out.println("The food is collected");
+
+        System.out.println(COLLECTED_FOOD.size());
+
         COLLECTED_FOOD.forEach(food -> System.out.println(food.getFood()));
 
         twoRooms.forEach(food -> food.forEach(food1 -> System.out.println(food1.getFoods())));
     }
 
-    private static void andStreams(ScheduledExecutorService pool) {
+    private static void andStreams(ScheduledExecutorService pool) throws InterruptedException {
+        Thread.sleep(10000);
         pool.shutdown();
         try {
-            if (!pool.awaitTermination(10, TimeUnit.SECONDS)) {
+            while (!pool.awaitTermination(20, TimeUnit.SECONDS)) {
                 pool.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -59,7 +64,7 @@ public class House {
 
         for (int i = 0; i < sizeFor; i++) {
             roomsList.add(new ArrayList<>(rooms.subList(fromIndex, toIndex)));
-            if (checkSize && i == sizeFor - 1) {
+            if (checkSize & i == sizeFor - 1) {
                 toIndex += 1;
             } else {
                 toIndex += 2;
@@ -73,6 +78,6 @@ public class House {
         for (Room room : rooms) {
             COLLECTED_FOOD.addAll(room.getFoods());
         }
-        rooms.removeAll(rooms);
+        // rooms.removeAll(rooms);
     }
 }
