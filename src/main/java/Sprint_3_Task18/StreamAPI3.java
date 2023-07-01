@@ -17,7 +17,6 @@ public class StreamAPI3 {
                 .stream()
                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
                 .limit(10)
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .toList();
     }
 
