@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Application {
     public static void main(String[] args) {
@@ -74,13 +75,37 @@ public class Application {
 //    Получаем список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел.
 //    Найдите среднюю зарплату для каждого отдела. Должна получится map с именем отдела и средней зарплатой.
 
-//    Дан список строк. Отфильтруйте строки, которые содержат только буквы заданного алфавита,
+    public static Map<String, Double> averageSalary(List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors
+                        .groupingBy(Employee::getDepartment, Collectors
+                                .averagingDouble(Employee::getSalary)));
+    }
+
+    //    Дан список строк. Отфильтруйте строки, которые содержат только буквы заданного алфавита,
 //    и отсортируйте их в порядке возрастания длины строк.
+    public static List<String> filterRegex(List<String> strings) {
+        return strings.stream()
+                .filter(str -> str.matches("[a-zA-Z]+"))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
 
 //    Написать метод, который преобразует список целых чисел в список строк, где каждое число записано в двоичном виде.
 
+    public static List<String> integerToString(List<Integer> nums) {
+        return nums.stream().map(Integer::toBinaryString).toList();
+    }
+
 //    Написать метод, который найдет все числа-палиндромы (читающиеся одинаково слева направо и справа налево)
 //    в заданном диапазоне. На вход получаем число для начала диапазона и число для второй границы диапазона.
+
+    public static List<Integer> numberPalindrom(int start, int end) {
+        return IntStream.rangeClosed(start, end).filter(num -> {
+            String str = String.valueOf(num);
+            return str.equals(new StringBuilder(str).reverse().toString());
+        }).boxed().toList();
+    }
 
 //    Доп задание: Написать метод, который найдёт все подстроки в строке, которые являются палиндромами.
 //    На вход получаем строку, а вернуть должны список строк.
