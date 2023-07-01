@@ -10,7 +10,7 @@ class StreamApiTwoTest {
 
 
     @Test
-    void getUniqueCoupleWhereSumEqualsGiven() {
+    void testGetUniqueCoupleWhereSumEqualsGiven() {
         List<Integer> numbers = Arrays.asList(4, 2, 3, 4, 6, 2);
         int sum = 6;
 
@@ -22,7 +22,7 @@ class StreamApiTwoTest {
     }
 
     @Test
-    void getCapitals() {
+    void testGetCapitals() {
         Map<String, String> countriesAndCapitals = new HashMap<>();
         countriesAndCapitals.put("Belarus", "Minsk");
         countriesAndCapitals.put("Poland", "Warsaw");
@@ -37,7 +37,7 @@ class StreamApiTwoTest {
     }
 
     @Test
-    void filterStringsByCharAndOrder() {
+    void testFilterStringsByCharAndOrder() {
         List<String> strings = List.of("McGregor", "Nurmagomedov", "Masvidal", "Adesanya");
         char firstChar = 'M';
 
@@ -51,7 +51,7 @@ class StreamApiTwoTest {
 
 
     @Test
-    void getAverageSalaryForEveryDepartment() {
+    void testGetAverageSalaryForEveryDepartment() {
         List<Employee> employees = Arrays.asList(
                 new Employee("John", 5000, "Engineering"),
                 new Employee("Jane", 6000, "Engineering"),
@@ -73,7 +73,7 @@ class StreamApiTwoTest {
 
 
     @Test
-    void convertToBinary() {
+    void testConvertToBinary() {
         List<Integer> numbers = Arrays.asList(2, 4, 6, 8, 10);
 
         List<String> expected = Arrays.asList("10", "100", "110", "1000", "1010");
@@ -83,7 +83,7 @@ class StreamApiTwoTest {
     }
 
     @Test
-    void findPalindromeNumbers() {
+    void testFindPalindromeNumbers() {
         int start = 1;
         int end = 100;
 
