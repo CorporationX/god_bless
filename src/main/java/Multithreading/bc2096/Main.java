@@ -11,28 +11,21 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         int numberOfThreads = 5;
         int numberOfPersons = 10000;
-        int count = numberOfPersons / numberOfThreads;
+        int listPartSize = numberOfPersons / numberOfThreads;
+
         List<Person> persons = new ArrayList<>();
+
         for (int i = 1; i <= numberOfPersons; i++) {
             persons.add(new Person("Name" + i, "Surname" + i, getRandomAge(), "Place work" + i));
         }
-        List<Person> a = persons.subList(0, 2000);
 
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
-        for (int i = 0; i < numberOfPersons; i++) {
-            if (i < count) {
-                executorService.submit(new PersonNamePrinter(a));
-            } else if (i >= count && i < count * 2) {
-                executorService.submit(new PersonNamePrinter(persons.get(i)));
-            } else if (i >= count * 2 && i < count * 3) {
-                executorService.submit(new PersonNamePrinter(persons.get(i)));
-            } else if (i >= count * 3 && i < count * 4) {
-                executorService.submit(new PersonNamePrinter(persons.get(i)));
-            } else if (i >= count * 4 && i < numberOfPersons) {
-                executorService.submit(new PersonNamePrinter(persons.get(i)));
-            }
-        }
+        for (int i = 0; i < numberOfThreads; i++) {
+            int startIndex = i * listPartSize;
+            int endIndex = startIndex + listPartSize;
+            executorService.submit(new PersonNamePrinter(persons.subList(startIndex, endIndex)));
 
+        }
         executorService.shutdown();
 
         boolean isFinished = executorService.awaitTermination(5000, TimeUnit.MILLISECONDS);
@@ -40,8 +33,6 @@ public class Main {
         if (isFinished) {
             System.out.println("Program finished");
         }
-
-
     }
 
     private static int getRandomAge() {
