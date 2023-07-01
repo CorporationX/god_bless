@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
+    private int armyPower;
     private List<Unit> army;
 
     public Army() {
@@ -15,17 +16,20 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        List<Thread> threads = army.stream().map(unit -> new Thread(new CounterPower(unit))).toList();
+        List<CounterPower> threads = army.stream().map(CounterPower::new).toList();
+
         threads.forEach(Thread::start);
-        threads.forEach(thread -> {
+
+        threads.forEach(counterPower -> {
             try {
-                thread.join();
+                counterPower.join();
+                armyPower += counterPower.getPowerUnit(); // Почему я могу так сделать в лямбда?
             } catch (InterruptedException e) {
-                System.out.printf("%s has been interrupted", thread.getName());
+                System.out.printf("%s has been interrupted", counterPower.getName());
                 e.getStackTrace();
             }
         });
 
-        return CounterPower.getFullPowerArmy();
+        return armyPower;
     }
 }
