@@ -24,7 +24,7 @@ public class TelegramBot {
 
     private void waitToSecondEnds(long timeSpend) {
         try {
-            requestCounter.wait(1000 - timeSpend);
+            Thread.sleep(1000 - timeSpend);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
