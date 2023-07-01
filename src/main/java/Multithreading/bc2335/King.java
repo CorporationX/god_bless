@@ -18,13 +18,13 @@ public class King {
         knight1.startTrials(executorService);
         knight2.startTrials(executorService);
 
-
+        executorService.shutdown();
         try {
-            boolean isFinished = executorService.awaitTermination(5, TimeUnit.SECONDS);
+            boolean isFinished = executorService.awaitTermination(10, TimeUnit.SECONDS);
             if (isFinished) {
 
                 System.out.println("Trials finished");
-            }executorService.shutdown();
+            }
         } catch (InterruptedException e) {
             System.out.println("The knight failed the trial");
             throw new RuntimeException(e);
