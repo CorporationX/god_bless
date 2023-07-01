@@ -58,7 +58,7 @@ public class Main {
         listValidation(list);
         return list.stream()
                 .filter(number -> number > value)
-                .min(Comparator.comparingInt(integer -> integer))
+                .min(Integer::compareTo)
                 .orElse(0);
     }
 
@@ -68,8 +68,8 @@ public class Main {
     }
 
     public <T> void listValidation(List<T> list) {
-        if (list.isEmpty()) {
-            throw new IllegalArgumentException("Your list is Empty");
+        if (list == null || list.isEmpty()) {
+            throw new IllegalArgumentException("Your list is Empty or null");
         }
     }
 }

@@ -1,6 +1,5 @@
 package faang.school.godbless.sprint_3.stream_api1;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -17,10 +16,6 @@ class MainTest {
     static List<Integer> plusNumberlist = List.of(1, 2, 3, 4, 5);
     static List<Integer> minusNumberList = List.of(-1, -2, -3, -4, -5);
     static List<String> list = List.of("!Hello hommie", "It's me Jimmy", "!Your Jimmy friend - friend ", "Do you remember me 15?", "Jimmy, I think you are not, hommie");
-
-    @BeforeEach
-    void init() {
-    }
 
     @ParameterizedTest
     @MethodSource("calculateSumOfEvenNumbersMethod")
