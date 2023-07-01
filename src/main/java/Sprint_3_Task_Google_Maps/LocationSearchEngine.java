@@ -20,17 +20,20 @@ public class LocationSearchEngine {
     }
 
     public void processLocations(List<Location> filteredLocations, Consumer<Location> handling) {
-        List<Location> processedLocations = new ArrayList<>();
+        //List<Location> processedLocations = new ArrayList<>();
         for (Location filteredLocation : filteredLocations) {
             handling.accept(filteredLocation);
-            //handling.accept(filteredLocation); типа void.
-
+            //не надо ничего возвращать от Consumer. void
+            //метод ведь просто делает это:
+            //searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
+            //Consumer только вбирает в себя значение. void accept(T t);. Молча забирает значение и сидит с ним, любуется.
+            //а потом, через лямбду уже говорим, что будем делать с этим взятым значением.
         }
     }
 
-    public List<Double> calculateDistances(List<Location> processedLocations, Function<Location, Double> distanceCalculator) {
+    public List<Double> calculateDistances(List<Location> filteredLocations, Function<Location, Double> distanceCalculator) {
         List<Double> distances = new ArrayList<>();
-        for (Location processedLocation : processedLocations) {
+        for (Location processedLocation : filteredLocations) {
             distances.add(distanceCalculator.apply(processedLocation));
         }
         return distances;
@@ -60,5 +63,7 @@ public class LocationSearchEngine {
             double longitudeDiff = Math.abs(location.getLongitude() - baseLongitude);
             return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
         });
+
+        System.out.println(distances);
     }
 }
