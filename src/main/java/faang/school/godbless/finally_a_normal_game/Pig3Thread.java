@@ -4,15 +4,12 @@ import lombok.SneakyThrows;
 
 public class Pig3Thread extends PigThread{
     public Pig3Thread() {
-        super("Наф-Наф", "кирпичи");
+        super("Наф-Наф", "кирпичи",7000);
     }
 
     @Override
     @SneakyThrows
     public void run() {
-        System.out.println(super.getPigName() + " начал строить дом из " + super.getMaterial());
-        Thread.sleep(5000);
-        System.out.println(super.getPigName() + " построил дом из " + super.getMaterial() + "!");
-
+        super.run();
     }
 }
