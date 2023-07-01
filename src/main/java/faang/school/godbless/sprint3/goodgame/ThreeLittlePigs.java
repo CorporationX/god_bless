@@ -1,16 +1,16 @@
 package faang.school.godbless.sprint3.goodgame;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class ThreeLittlePigs {
     public static void main(String[] args) throws InterruptedException {
-        List<String> pigs = Arrays.asList("Ниф-Ниф", "Нуф-Нуф", "Наф-Наф");
+        List<String> pigs = List.of("Ниф-Ниф", "Нуф-Нуф", "Наф-Наф");
+        Thread thread = null;
         for (int i = 0; i < 3; i++) {
-            Thread thread = new Thread(new Pig1Thread(pigs.get(i), i));
+            thread = new Thread(new Pig1Thread(pigs.get(i), i));
             thread.start();
-            thread.join();
         }
+        thread.join();
         System.out.println("Игра завершена!");
     }
 }
