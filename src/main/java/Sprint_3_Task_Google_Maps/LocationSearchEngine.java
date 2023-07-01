@@ -19,13 +19,12 @@ public class LocationSearchEngine {
         return filteredLocations;
     }
 
-    public List<Location> processLocations(List<Location> filteredLocations, Consumer<Location> handling) {
+    public void processLocations(List<Location> filteredLocations, Consumer<Location> handling) {
         List<Location> processedLocations = new ArrayList<>();
         for (Location filteredLocation : filteredLocations) {
-            processedLocations.add((Location) handling.accept(filteredLocation));
+            handling.accept(filteredLocation);
             //handling.accept(filteredLocation); типа void.
 
-            return processedLocations;
         }
     }
 
