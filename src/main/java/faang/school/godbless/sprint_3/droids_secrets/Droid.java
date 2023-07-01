@@ -22,6 +22,8 @@ public class Droid {
                     char base = Character.isUpperCase(c) ? 'A' : 'a';
                     int index = c - base;
                     int shiftedIndex = (index + key) % 26;
+                    if (shiftedIndex < 0)
+                        shiftedIndex += 26;
                     char shiftedChar = (char) (base + shiftedIndex);
                     result[i] = shiftedChar;
                 } else {
@@ -37,7 +39,6 @@ public class Droid {
         if (encryptedMessage == null || encryptedMessage.isEmpty()) {
             throw new IllegalArgumentException("Incoming encryptedMessage is Empty");
         }
-        int n = encryptedMessage.length();
         char[] chars = encryptedMessage.toCharArray();
 
         for (int i = 0; i < encryptedMessage.length(); i++) {
