@@ -9,7 +9,7 @@ public class ThreeLittlePigs {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         List<PigThread> pigThreads = List.of(new Pig1Thread(), new Pig2Thread(), new Pig3Thread());
-        pigThreads.forEach(pigThread -> executorService.execute(pigThread));
+        pigThreads.forEach(executorService::execute);
         executorService.shutdown();
         try {
             executorService.awaitTermination(10, TimeUnit.SECONDS);
