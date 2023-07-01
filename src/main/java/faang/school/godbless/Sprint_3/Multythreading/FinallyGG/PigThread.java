@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PigThread extends Thread {
     private String pigName;
-    private int material;
+    private String material;
 
     @Override
     public void run() {
