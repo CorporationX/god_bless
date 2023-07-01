@@ -14,6 +14,6 @@ public class HeroThread extends Thread {
 
     @Override
     public void run() {
-        this.power = hero.getPower();
+        power = hero.getPower();
     }
 }

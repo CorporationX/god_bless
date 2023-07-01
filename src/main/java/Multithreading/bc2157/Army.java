@@ -21,24 +21,34 @@ public class Army {
     public int calculateTotalPower() throws InterruptedException {
         for (Hero hero : heroes) {
             if (hero.isArcher()) {
-                archers.add(new HeroThread(hero));
+                startThreads(hero, archers);
+
             } else if (hero.isMage()) {
-                mages.add(new HeroThread(hero));
+                startThreads(hero, mages);
             } else if (hero.isSwordsman()) {
-                swordsmans.add(new HeroThread(hero));
+                startThreads(hero, swordsmans);
             }
         }
         int archersPowers = powerHeroes(archers);
         int magesPowers = powerHeroes(mages);
         int swordsmanPowers = powerHeroes(swordsmans);
 
+        System.out.println("Archers have power = " + archersPowers);
+        System.out.println("Mages have power = " + magesPowers);
+        System.out.println("Swordsmans have power = " + swordsmanPowers);
+
         return archersPowers + magesPowers + swordsmanPowers;
+    }
+
+    private void startThreads(Hero hero, List<HeroThread> heroes) {
+        HeroThread heroThread = new HeroThread(hero);
+        heroes.add(heroThread);
+        heroThread.start();
     }
 
     private int powerHeroes(List<HeroThread> heroes) throws InterruptedException {
         int result = 0;
         for (HeroThread hero : heroes) {
-            hero.start();
             hero.join();
             result += hero.getPower();
         }
