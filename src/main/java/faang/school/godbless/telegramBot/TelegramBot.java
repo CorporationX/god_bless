@@ -11,7 +11,7 @@ public class TelegramBot {
         this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public void sendMessage(String message) {
+    public synchronized void sendMessage(String message) {
         long expired = System.currentTimeMillis() - lastRequestTime;
         System.out.println(expired);
 
@@ -28,6 +28,8 @@ public class TelegramBot {
             requestCounter = 0;
             lastRequestTime = 0;
         }
+
+        notify();
 
         System.out.println(message);
     }
