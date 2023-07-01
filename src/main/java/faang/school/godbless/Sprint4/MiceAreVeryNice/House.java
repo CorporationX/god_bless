@@ -16,12 +16,15 @@ public class House implements Runnable {
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
+
         house.initialize();
         System.out.println("Данно: " + house.rooms);
+
         ScheduledExecutorService executors = Executors.newScheduledThreadPool(house.quantity);
         executors.schedule(house, 5, TimeUnit.SECONDS);
         executors.shutdown();
         executors.awaitTermination(10, TimeUnit.SECONDS);
+
         System.out.printf("Вся еда собрана\nСобрали:");
         house.collegiateFood.entrySet().stream()
                 .forEach(e -> System.out.println(e.getKey() + "в количестве" + e.getValue()));
