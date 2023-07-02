@@ -8,7 +8,6 @@ import lombok.Data;
 public class SenderRunnable implements Runnable {
 
     private int startIndex;
-
     private int endIndex;
 
     @Override

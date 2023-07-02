@@ -9,7 +9,6 @@ public class MailSender {
             for (int i = 0; i < threadCount; i++) {
                 int start = i * packSize;
                 int end = start + packSize;
-
                 Thread thread = new Thread(new SenderRunnable(start, end));
                 thread.start();
                 thread.join();
