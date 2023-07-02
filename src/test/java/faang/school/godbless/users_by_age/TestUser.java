@@ -1,5 +1,7 @@
 package faang.school.godbless.users_by_age;
 
+
+import faang.school.godbless.UserRegistration.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
