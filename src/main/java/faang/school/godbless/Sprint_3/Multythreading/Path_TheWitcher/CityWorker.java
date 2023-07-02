@@ -24,13 +24,13 @@ public class CityWorker implements Runnable {
                 throw new RuntimeException(e);
             }
             System.out.println(monster.getName() + " is dead!");
-            monsters.remove(monster);
+            //monsters.remove(monster);
             city = findNearestCity(cities, monster);
         }
     }
 
     public Monster findNearestMonster(City city, List<Monster> monsters) {
-        long distance = 1000000;
+        long distance = Long.MAX_VALUE;
         Monster nearestMonster = null;
         Location cur = city.getLocation();
         for (Monster monster : monsters) {

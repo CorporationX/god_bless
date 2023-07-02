@@ -35,8 +35,9 @@ public class Witcher {
         long end = System.currentTimeMillis();
         try {
             if (executor.awaitTermination(100, TimeUnit.SECONDS)) {
-                System.out.println("ffffffffffffffffff");
                 System.out.println(end - start);
+            } else {
+                System.out.println("GG");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
