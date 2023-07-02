@@ -15,6 +15,6 @@ public class Player {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        boss.reducePlayer(this);
+        boss.leaveBattle(this);
     }
 }

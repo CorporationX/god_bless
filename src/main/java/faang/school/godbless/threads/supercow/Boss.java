@@ -8,36 +8,39 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Boss {
     private int maxPlayers;
-    private int count;
-    private final Integer currentPlayers = Integer.valueOf(count);
+    private Object lock = new Object();
+    private int currentPlayers;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
-        this.count = 0;
+        this.currentPlayers = 0;
     }
 
     public void joinBattle(Player player) {
-        synchronized (currentPlayers) {
+        synchronized (lock) {
             if (currentPlayers == maxPlayers) {
                 System.out.println("Ожидаем, когда освободится слот ...");
                 try {
-                    currentPlayers.wait();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-            count++;
+            currentPlayers++;
             System.out.println("Присоединился игрок " + player.getName());
         }
     }
 
-    public void reducePlayer(Player player) {
-        synchronized (currentPlayers) {
-            count--;
+    public void leaveBattle(Player player) {
+        synchronized (lock) {
+            currentPlayers--;
             System.out.println("Игрок " + player.getName() + " вышел из игры");
+            lock.notify();
         }
     }
 }
