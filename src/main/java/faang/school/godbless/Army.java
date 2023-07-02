@@ -15,17 +15,24 @@ public class Army {
     @Setter
     private List<Character> army = new ArrayList<>();
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower(){
+        List<Thread> threads = new ArrayList<>();
         AtomicInteger totalPower = new AtomicInteger();
         for (var unit : army) {
             Thread thread = new Thread(() -> totalPower.addAndGet(unit.getPower()));
             thread.start();
-            thread.join();
+            threads.add(thread);
         }
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+            }
+        });
         return totalPower.get();
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         Army a = new Army();
         a.setArmy(Arrays.asList(
                 new Archer("archer", 25),
