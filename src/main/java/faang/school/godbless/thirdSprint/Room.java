@@ -1,19 +1,16 @@
 package faang.school.godbless.thirdSprint;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@RequiredArgsConstructor
 public class Room {
-    private String name;
-    private List<Food> foodInsideRoom;
-
-    public Room(String name) {
-        this.name = name;
-        foodInsideRoom = new ArrayList<>();
-    }
+    private final String name;
+    private final List<Food> foodInsideRoom = new ArrayList<>();
 
     public void removeFood() {
         foodInsideRoom.clear();

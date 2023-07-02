@@ -1,18 +1,16 @@
 package faang.school.godbless.thirdSprint;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@RequiredArgsConstructor
 public class House {
-    private List<Food> collectedFood;
-    private List<Room> rooms;
-
-    public House(List<Room> rooms) {
-        this.rooms = rooms;
-        collectedFood = new ArrayList<>();
-    }
+    private final List<Room> rooms;
+    private final List<Food> collectedFood = new ArrayList<>();
 
     public void startFoodCollection() {
         var service = Executors.newScheduledThreadPool(5);
