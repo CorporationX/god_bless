@@ -14,9 +14,10 @@ public class Task implements Runnable {
         System.out.printf("%s now doing %s\n", name, task);
         try {
             Thread.sleep(4000);
+            System.out.printf("Task %s by %s is completed\n", task, name);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван");
         }
-        System.out.printf("Task %s by %s is completed\n", task, name);
+
     }
 }
