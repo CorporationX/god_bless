@@ -20,7 +20,7 @@ public class Main {
         for (int i = 0; i < numberThreads; i++) {
             int numberForEachThread = countPerson / numberThreads;
             int startIndex = i * numberForEachThread;
-            int endIndex = (i + 1) * numberForEachThread - 1;
+            int endIndex = (i + 1) * numberForEachThread;
             executorService.submit(new PersonNamePrinter(startIndex, endIndex, personList));
         }
         executorService.shutdown();
