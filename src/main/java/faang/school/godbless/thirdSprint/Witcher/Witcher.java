@@ -11,10 +11,10 @@ public class Witcher {
         long before = System.currentTimeMillis();
 
         List<Monster> monsters = List.of(
-                new Monster("Griffin", "Velen", new Location(0, 50)),
-                new Monster("Basilisk", "Toussaint", new Location(120, 50)),
-                new Monster("Cockatrice", "White Orchard", new Location(20, 40)),
-                new Monster("Chort", "Skellige", new Location(150, 0))
+                new Monster("Griffin", new Location(0, 50)),
+                new Monster("Basilisk", new Location(120, 50)),
+                new Monster("Cockatrice", new Location(20, 40)),
+                new Monster("Chort", new Location(150, 0))
         );
 
         List<City> cities = List.of(
@@ -33,7 +33,8 @@ public class Witcher {
         try {
             service.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван");
+            return;
         }
         long after = System.currentTimeMillis();
         System.out.println(after - before);

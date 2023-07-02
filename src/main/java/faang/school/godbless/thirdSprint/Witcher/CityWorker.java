@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @AllArgsConstructor
 public class CityWorker implements Runnable {
@@ -43,8 +43,7 @@ public class CityWorker implements Runnable {
 
 
     public long getKillTime() {
-        Random random = new Random();
-        return random.nextLong(2000);
+        return ThreadLocalRandom.current().nextInt(2000);
     }
 
     public long getJourneyDistance() {
