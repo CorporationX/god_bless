@@ -1,18 +1,15 @@
 package faang.school.godbless.sprint_3.multithreading.distributed_army;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-
-public class NumberHolder extends Thread {
+@RequiredArgsConstructor
+public class NumbersThreadProcessor extends Thread {
     @Getter
     @Setter
     private int power;
-    Character character;
-
-    public NumberHolder(Character character) {
-        this.character = character;
-    }
+    private final Character character;
 
     @Override
     public void run() {

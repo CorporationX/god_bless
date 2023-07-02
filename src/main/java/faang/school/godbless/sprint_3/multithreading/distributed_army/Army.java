@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<Character> departments = new ArrayList<>();
+    private final List<Character> departments = new ArrayList<>();
 
     public int calculateTotalPower() {
-        List<NumberHolder> threads = new ArrayList<>();
+        List<NumbersThreadProcessor> threads = new ArrayList<>();
         int result = 0;
-        for (Character character : departments) {
-            NumberHolder holder = new NumberHolder(character);
+        departments.forEach(character -> {
+            NumbersThreadProcessor holder = new NumbersThreadProcessor(character);
             threads.add(holder);
             holder.start();
+        });
+        threads.forEach(thread -> {
             try {
-                holder.join();
+                thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
-        }
-        for (NumberHolder holder : threads) {
+        });
+        for (NumbersThreadProcessor holder : threads) {
             result += holder.getPower();
         }
         return result;
