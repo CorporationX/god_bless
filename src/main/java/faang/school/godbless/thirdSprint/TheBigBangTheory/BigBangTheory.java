@@ -23,7 +23,8 @@ public class BigBangTheory {
         try {
             service.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток был прерван");
+            return;
         }
 
         System.out.println("Все задачи были успешно выполнены!");
