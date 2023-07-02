@@ -8,7 +8,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 public class Knight {
     private String name;
-    List<Trial> trials;
+    private List<Trial> trials;
 
     public Knight(String name) {
         this.name = name;
@@ -21,9 +21,9 @@ public class Knight {
 
     public void startTrials() {
         ExecutorService executorService = Executors.newFixedThreadPool(this.trials.size());
-        for (Trial trial : this.trials) {
+        for (Trial trial : trials) {
             executorService.execute(trial);
-            executorService.shutdown();
         }
+            executorService.shutdown();
     }
 }
