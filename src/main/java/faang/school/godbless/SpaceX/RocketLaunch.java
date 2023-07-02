@@ -25,7 +25,7 @@ public class RocketLaunch implements Runnable {
     }
 
     @SneakyThrows
-    public void planRocketLaunches(List<RocketLaunch> launches) {
+    public static void planRocketLaunches(List<RocketLaunch> launches) {
         var order = launches.stream()
                 .sorted(Comparator.comparing(RocketLaunch::getDate))
                 .toList();
@@ -33,16 +33,5 @@ public class RocketLaunch implements Runnable {
         order.forEach(executor::submit);
         executor.shutdown();
         executor.awaitTermination(10, TimeUnit.SECONDS);
-    }
-
-    public static void main(String[] args) {
-        List<RocketLaunch> rocketLaunches = List.of(
-                new RocketLaunch("Falcon 9", LocalDateTime.now().plusSeconds(554)),
-                new RocketLaunch("Starship", LocalDateTime.now().plusMonths(10)),
-                new RocketLaunch("Dragon", LocalDateTime.now().plusSeconds(3)),
-                new RocketLaunch("Kraken", LocalDateTime.now().minusDays(10))
-        );
-        rocketLaunches.get(0).planRocketLaunches(rocketLaunches);
-        System.out.println("Done");
     }
 }
