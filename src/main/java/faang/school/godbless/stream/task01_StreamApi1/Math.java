@@ -60,7 +60,7 @@ public class Math {
                 .min(Integer::compareTo)
                 .orElse(0); //ошибок не выдает, но кажется что неправильно что-то
     }
-    public List<Integer> convertingListStringToListLength(List<String> stringList){ //слишком длинное название?
+    public List<Integer> convertingListStringToListLength(List<String> stringList){ //слишком длинное название ?
         listException(stringList);
         return stringList.stream()
                 .map(String::length)
