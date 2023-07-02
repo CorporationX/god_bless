@@ -1,12 +1,15 @@
 package faang.school.godbless.sprint_3.multithreading.finaly_good_game;
 
 public class Pig3Thread extends PigThread {
+    public Pig3Thread(String name, int material) {
+        super(name, material);
+    }
+
     @Override
     public void run() {
-        PigThread pig = new PigThread("Наф-Наф", 3);
-        String pigName = pig.getPigName();
-        int materialNumber = pig.getMaterial() - 1;
-        String material = pig.getHomeMaterials().get(materialNumber);
+        String pigName = super.getPigName();
+        int materialNumber = super.getMaterial() - 1;
+        String material = super.getHomeMaterials().get(materialNumber);
         System.out.printf("%s начинает постройку дома в котором есть только %s....%n", pigName, material);
         try {
             Thread.sleep(3000);
