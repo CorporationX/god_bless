@@ -19,7 +19,7 @@ public class Main {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            executor.schedule(() -> house.collectFood(), i * 30, TimeUnit.SECONDS);
+            executor.schedule(() -> house.collectFood(), i * 5, TimeUnit.SECONDS);
         }
 
         executor.shutdown();
