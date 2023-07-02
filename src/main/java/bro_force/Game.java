@@ -33,11 +33,11 @@ public class Game {
         System.out.println("Game Over");
     }
 
-    private synchronized boolean isRunning() {
+    private boolean isRunning() {
         return isRunning;
     }
 
-    private synchronized void setRunning(boolean running) {
+    private void setRunning(boolean running) {
         isRunning = running;
     }
 
