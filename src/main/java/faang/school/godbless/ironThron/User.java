@@ -9,7 +9,7 @@ public class User {
     this.name = name;
   }
 
-  public synchronized void joinHouse(House house, Role role) {
+  public void joinHouse(House house, Role role) {
     this.house = house;
 
     synchronized (house) {
@@ -28,7 +28,7 @@ public class User {
     }
   }
 
-  public synchronized  void leaveHouse() {
+  public void leaveHouse() {
     synchronized (house) {
       house.removeRole(role);
       System.out.println("User has successfully leaved from the house named " + house.getName() + "with role: " + role);
