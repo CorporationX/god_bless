@@ -4,22 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<Unit> units = new ArrayList<>();
+    private final List<Unit> UNITS = new ArrayList<>();
 
     public void addUnitsToList(Unit unit) {
-        units.add(unit);
+        UNITS.add(unit);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower() {
         List<UnitThread> calculatePowerOfUnits = new ArrayList<>(); // юнеты
-        for (Unit unit: units) {
+        for (Unit unit : UNITS) {
             UnitThread thread = new UnitThread(unit.getPower()); // поток - юзер с силой
             calculatePowerOfUnits.add(thread);
             System.out.println("calculated...");
-            Thread.sleep(1000);
             thread.start(); // запуск
         }
         return calculatePowerOfUnits.stream()
+                .peek(unitThread -> {
+                    try {
+                        unitThread.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                })
                 .mapToInt(UnitThread::getTotalPower)
                 .sum();
     }
