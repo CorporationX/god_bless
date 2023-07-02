@@ -3,6 +3,7 @@ package faang.school.godbless.multithreading.mice;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class HouseTest {
 
@@ -25,5 +26,6 @@ class HouseTest {
         }
 
         assertEquals(expected, house.getCollectedFood().size());
+        house.getRooms().forEach(room -> assertTrue(room.getFoodList().isEmpty()));
     }
 }

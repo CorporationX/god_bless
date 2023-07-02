@@ -11,11 +11,11 @@ public class Main {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < house.getRooms().size() / 2; i++) {
-            executor.schedule(house::collectFood, i * 2, TimeUnit.SECONDS);
+            executor.schedule(house::collectFood, i * 30L, TimeUnit.SECONDS);
         }
         executor.shutdown();
 
-        if (executor.awaitTermination(30, TimeUnit.SECONDS)) {
+        if (executor.awaitTermination(155, TimeUnit.SECONDS)) {
             System.out.println("Вся еда в доме собрана!");
         }
 
