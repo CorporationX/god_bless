@@ -21,7 +21,6 @@ public class Main {
         for (int i = 0; i < 5; i++) {
             executor.schedule(() -> house.collectFood(), i * 5, TimeUnit.SECONDS);
         }
-
         executor.shutdown();
         try {
             executor.awaitTermination(1, TimeUnit.MINUTES);
