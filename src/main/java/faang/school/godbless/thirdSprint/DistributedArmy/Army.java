@@ -5,9 +5,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.List;
 
 public class Army {
-    private List<Archer> archers = new ArrayList<>();
-    private List<Swordsman> swordsmen = new ArrayList<>();
-    private List<Mage> mages = new ArrayList<>();
+    private final List<Archer> archers = new ArrayList<>();
+    private final List<Swordsman> swordsmen = new ArrayList<>();
+    private final List<Mage> mages = new ArrayList<>();
 
     public void addUnit(Archer archer) {
         archers.add(archer);
@@ -58,7 +58,7 @@ public class Army {
 
     public <T extends Unit> int calculateTotalPower(List<T> units) {
         return units.stream()
-                .map(Unit::getPower)
-                .reduce(0, Integer::sum);
+                .mapToInt(Unit::getPower)
+                .sum();
     }
 }
