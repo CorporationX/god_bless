@@ -1,4 +1,4 @@
-package faang.school.godbless.task03_abstraction;
+package faang.school.godbless.start.task03_abstraction;
 
 import lombok.Data;
 

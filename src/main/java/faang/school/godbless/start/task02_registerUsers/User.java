@@ -1,4 +1,4 @@
-package faang.school.godbless.task02_registerUsers;
+package faang.school.godbless.start.task02_registerUsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

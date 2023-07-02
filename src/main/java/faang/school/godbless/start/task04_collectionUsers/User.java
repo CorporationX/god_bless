@@ -1,4 +1,4 @@
-package faang.school.godbless.task04_collectionUsers;
+package faang.school.godbless.start.task04_collectionUsers;
 
 import java.util.HashMap;
 import java.util.List;
