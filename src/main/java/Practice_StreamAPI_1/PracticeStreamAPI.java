@@ -1,45 +1,31 @@
 package Practice_StreamAPI_1;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 public class PracticeStreamAPI {
 
     //Найти сумму четных чисел в списке.
     public static int findSumOfEvenNumbers(List<Integer> numbers) {
-        int sum = 0;
-        Optional<Integer> optionalSum = numbers.stream()
+        return numbers.stream()
                 .filter(number -> number % 2 == 0)
-                .reduce((sumOfNums, number) -> sumOfNums + number);
-        if (optionalSum.isPresent()) {
-            sum = optionalSum.get();
-        }
-        return sum;
+                .reduce((sumOfNums, number) -> sumOfNums + number)
+                .orElse(0);
     }
 
     //Найти максимальный элемент в списке чисел
     public static int findMaxElement(List<Integer> numbers) {
-        int maxElement = numbers.get(0);
-        Optional<Integer> maxElementOptional = numbers.stream()
-                .max((n1, n2) -> n1 - n2);
-        if (maxElementOptional.isPresent()) {
-            maxElement = maxElementOptional.get();
-        }
-        return maxElement;
+        return numbers.stream()
+                .max((n1, n2) -> n1 - n2)
+                .orElse(numbers.get(0));
     }
 
     //Найти среднее значение чисел в списке
     public static double findAverageValue(List<Integer> numbers) {
-        double result = numbers.get(0);
-        OptionalDouble optionalResult = numbers.stream()
+        return numbers.stream()
                 .mapToInt(value -> value)
-                .average();
-        if (optionalResult.isPresent()) {
-            result = optionalResult.getAsDouble();
-        }
-        return result;
+                .average()
+                .orElse(numbers.get(0));
     }
 
     //Найти количество строк, начинающихся с определённого символа в списке строк
@@ -71,14 +57,10 @@ public class PracticeStreamAPI {
 
     //Найти наименьший элемент в списке, который больше заданного числа
     public static int findMinMoreThenNumber(List<Integer> numbers, int number) {
-        int min = numbers.get(0);
-        Optional<Integer> optionalMin = numbers.stream()
+        return numbers.stream()
                 .filter(num -> num > number)
-                .min((n1, n2) -> n1 - n2);
-        if (optionalMin.isPresent()) {
-            min = optionalMin.get();
-        }
-        return min;
+                .min((n1, n2) -> n1 - n2)
+                .orElse(numbers.get(0));
     }
 
     //Преобразовать список строк в список их длин
