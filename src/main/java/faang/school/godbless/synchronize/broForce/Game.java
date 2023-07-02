@@ -7,8 +7,7 @@ import java.util.Random;
 
 @Data
 public class Game {
-    private int score;
-    private int lives;
+    private long lives;
 
     private List<Bro> bros;
 
@@ -17,30 +16,36 @@ public class Game {
 
     public Game(List<Bro> bros) {
         this.bros = bros;
-        this.lives = bros.stream().mapToInt(Bro::getLives).sum();
+        this.lives = bros.stream().filter(Bro::isAlive).count();
     }
 
     public void update() {
-        while (lives > 0) {
+        while (lives > 1) {
             for (Bro bro : bros) {
-                boolean isWin = new Random().nextBoolean();
-                if (isWin) {
-                    synchronized (scoreLock) {
-                        bro.setScore(bro.getScore() + 1);
-                        System.out.println(bro.getName() + " score " + bro.getScore());
-                    }
-                } else {
-                    synchronized (livesLock) {
-                        if (bro.getLives() <= 0) {
-                            gameOver(bro);
-                            return;
+                if (bro.isAlive()) {
+                    boolean isWin = new Random().nextInt(100) % 2 == 0;
+                    if (isWin) {
+                        synchronized (scoreLock) {
+                            bro.setScore(bro.getScore() + 1);
+                            System.out.println(bro.getName() + " score " + bro.getScore());
                         }
-                        bro.setLives(bro.getLives() - 1);
-                        lives--;
+                    } else {
+                        synchronized (livesLock) {
+                            bro.setLives(bro.getLives() - 1);
+                            if (bro.getLives() <= 0) {
+                                gameOver(bro);
+                                bro.setAlive(false);
+                                lives--;
+                            }
+                        }
                     }
                 }
             }
         }
+
+        Bro winner = bros.stream().filter(Bro::isAlive).findFirst().orElse(null);
+        assert winner != null;
+        System.out.println(winner.getName() + " is the winner with " + winner.getScore() + " points");
     }
 
     private void gameOver(Bro bro) {
