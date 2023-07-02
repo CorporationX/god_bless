@@ -8,11 +8,10 @@ import java.util.List;
 
 @Data
 public class Character {
-    private String name;
-    private List<Item> inventory;
+    private final String name;
+    private final List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
-        this.inventory = new ArrayList<>();
     }
 }

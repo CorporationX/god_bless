@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class InventoryManagerTest {
-    private InventoryManager inventoryManager = new InventoryManager();
-    private Character tester = new Character("Tester");
+    private final InventoryManager inventoryManager = new InventoryManager();
+    private final Character tester = new Character("Tester");
 
     @Test
     public void testAdd() {
@@ -32,6 +32,4 @@ class InventoryManagerTest {
                 item -> new Item(item.getName(), 2 * item.getValue()));
         assertEquals(tester.getInventory().get(0), new Item("ring", 200));
     }
-
-
 }

@@ -1,11 +1,11 @@
 package faang.school.godbless.sprint3.LordOfTheRings;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Value;
 
-@Data
 @AllArgsConstructor
+@Value
 public class Item {
-    private String name;
-    private int value;
+    String name;
+    int value;
 }
