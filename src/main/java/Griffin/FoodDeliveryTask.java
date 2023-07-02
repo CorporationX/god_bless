@@ -11,21 +11,22 @@ public class FoodDeliveryTask implements Runnable {
     private String characters;
     private int foodAmount;
 
-    private String getFoodType() {
-        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
-    }
-
     @Override
     public void run() {
-        System.out.println(characters + " is getting " + foodAmount + " " + getFoodType());
+        String food = getFoodType();
+        System.out.printf("%s is getting his %d %s.", characters, foodAmount, food);
 
         try {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println(characters + " is eating " + foodAmount + " " + getFoodType());
+        System.out.printf("%s is eating his %d %s.", characters, foodAmount, food);
+    }
+
+    private String getFoodType() {
+        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
+        return foodTypes[new Random().nextInt(foodTypes.length)];
     }
 }

@@ -10,7 +10,7 @@ public class GriffinsFoodDelivery {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         for (String name : characterNames) {
-            executor.submit(new FoodDeliveryTask(name, new Random().nextInt(10) + 1));
+            executor.execute(new FoodDeliveryTask(name, new Random().nextInt(10) + 1));
         }
         executor.shutdown();
     }
