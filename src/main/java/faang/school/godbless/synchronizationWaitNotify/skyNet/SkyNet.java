@@ -12,11 +12,8 @@ public class SkyNet {
                 new Robot("Alex", new Target("target2"))
         );
 
-        List<Thread> threadList = new ArrayList<>();
-
         for (int i = 0; i < NUMBER_OF_THREADS; i++) {
-            threadList.add(new Thread(robots.get(i)::attack));
-            threadList.get(i).start();
+            new Thread(robots.get(i)::attack).start();
         }
     }
 }
