@@ -1,6 +1,6 @@
 package faang.school.godbless.thirdSprint.NormalGame;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Pig3Thread extends PigThread {
     public Pig3Thread() {
@@ -9,14 +9,15 @@ public class Pig3Thread extends PigThread {
 
     @Override
     public void run() {
-        super.run();
-        Random random = new Random();
+        logPigThreadStarted();
+        int randomNum1 = ThreadLocalRandom.current().nextInt(2000);
+        int randomNum2 = ThreadLocalRandom.current().nextInt(500);
         try {
-            Thread.sleep(random.nextInt(2000));
+            Thread.sleep(randomNum1);
             System.out.println(getPigName() + " привёз все " + getMaterial() + " и уже готов ложить фундамент");
-            Thread.sleep(random.nextInt(500));
+            Thread.sleep(randomNum2);
             System.out.println(getPigName() + " с невероятной скоростью положил фундамент и построил стены");
-            Thread.sleep(random.nextInt(500));
+            Thread.sleep(randomNum2);
             System.out.println("Готово! " + getPigName() + " построил свой дом.");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

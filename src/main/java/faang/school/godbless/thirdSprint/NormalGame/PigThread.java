@@ -10,7 +10,9 @@ public abstract class PigThread extends Thread {
     private String material;
 
     @Override
-    public void run() {
+    public abstract void run();
+
+    protected void logPigThreadStarted() {
         System.out.println(getPigName() + " начал строить свои дом из " + getMaterial());
     }
 }
