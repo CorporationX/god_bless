@@ -20,5 +20,3 @@ public class Main {
         System.out.println(User.findHobbyLovers(userSet, HOBBY));
     }
 }
-
-
