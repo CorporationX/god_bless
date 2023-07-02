@@ -1,13 +1,11 @@
 package faang.school.godbless.Sprint_3.Multythreading.Tournament;
 
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public class Trial implements Runnable{
     private String knightName;
     private String trialName;
-
-    public Trial(String knightName, String trialName) {
-        this.knightName = knightName;
-        this.trialName = trialName;
-    }
 
     @Override
     public void run() {
