@@ -1,4 +1,13 @@
 package faang.school.godbless.Sprint4Future.WOW;
 
-public record Player(String name, int level, int experience) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Player {
+
+    private String name;
+    private int level;
+    private int experience;
 }
