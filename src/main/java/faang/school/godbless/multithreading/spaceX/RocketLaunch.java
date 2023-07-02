@@ -14,6 +14,7 @@ import java.util.concurrent.TimeUnit;
 public class RocketLaunch {
     private String name;
     private LocalDateTime launchTime;
+    private static ScheduledExecutorService service;
 
     public void launch() {
         try {
@@ -25,7 +26,7 @@ public class RocketLaunch {
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
-        ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
+        service = Executors.newSingleThreadScheduledExecutor();
         LocalDateTime currentTime;
         LocalDateTime launchTime;
 
@@ -33,13 +34,16 @@ public class RocketLaunch {
             currentTime = LocalDateTime.now();
             launchTime = rocket.getLaunchTime();
             long delay = currentTime.until(launchTime, TimeUnit.SECONDS.toChronoUnit());
-            if (delay>1){
-                service.schedule(()->rocket.launch(), delay, TimeUnit.SECONDS);
-            }
-            else {
+            if (delay > 1) {
+                service.schedule(rocket::launch, delay, TimeUnit.SECONDS);
+            } else {
                 rocket.launch();
             }
         }
         service.shutdown();
+    }
+
+    public static ScheduledExecutorService getService() {
+        return service;
     }
 }
