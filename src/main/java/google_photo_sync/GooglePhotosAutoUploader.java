@@ -25,13 +25,11 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        synchronized (lock) {
-            for (String photoPath : photosToUpload) {
-                System.out.println("Uploading photo " + photoPath);
-                uploadedPhotos.add(photoPath);
-            }
-            photosToUpload.clear();
+        for (String photoPath : photosToUpload) {
+            System.out.println("Uploading photo " + photoPath);
+            uploadedPhotos.add(photoPath);
         }
+        photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {
