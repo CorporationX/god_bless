@@ -2,11 +2,13 @@ package faang.school.godbless.sprint4.spaceProgramSpaceX.classes;
 
 import lombok.AllArgsConstructor;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
 public class RocketLaunch {
@@ -23,23 +25,31 @@ public class RocketLaunch {
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
-        long start = System.currentTimeMillis();
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
         launches = launches.stream()
                 .sorted(Comparator.comparing(a -> a.timeOfLaunch))
                 .toList();
 
-        for (RocketLaunch launch : launches) {
-            while (!executor.isTerminated()) {
-                LocalDateTime now = LocalDateTime.now();
-                while (now.isAfter(launch.timeOfLaunch)) {
-                    executor.submit(launch::launch);
-                }
-            }
-        }
+        long start = System.currentTimeMillis();
 
+        for (RocketLaunch launch : launches) {
+            LocalDateTime now = LocalDateTime.now();
+            Duration duration = Duration.between(now, launch.timeOfLaunch);
+            long millis = duration.toMillis();
+            executor.schedule(launch::launch, millis, TimeUnit.MILLISECONDS);
+        }
         executor.shutdown();
+        try {
+            if (executor.awaitTermination(20, TimeUnit.SECONDS)) {
+                System.out.println("All launches are completed");
+            }
+        } catch (InterruptedException e) {
+            System.out.println(Thread.currentThread().getName() + " is interrupted");
+            Thread.currentThread().interrupt();
+        }
+        long end = System.currentTimeMillis();
+
+        System.out.println(end - start);
     }
 }
