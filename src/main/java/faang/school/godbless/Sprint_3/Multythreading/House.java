@@ -1,28 +1,44 @@
 package faang.school.godbless.Sprint_3.Multythreading;
 
+import lombok.RequiredArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 
+@RequiredArgsConstructor
 public class House {
-    private List<Room> rooms;
+    private final List<Room> rooms;
     private List<Food> collectedFoods = new ArrayList<>();
 
-    public House(List<Room> rooms) {
-        this.rooms = rooms;
-    }
-
-    public void collectFood() {
-        for (Room room : rooms) {
+    public synchronized void collectFood() {
+        //for (Room room : rooms) {
+        for (int i = 0; i < rooms.size(); i++) {
+            Room room = rooms.get(i);
+            System.out.printf("We now in the %s\n", room.getName());
             List<Food> temp = room.getFoodInRoom();
             if (temp.isEmpty()) continue;
             temp.stream()
                     .forEach(food -> {
+                        try {
+                            System.out.println("Collecting...");
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            System.out.println("Sleep Error");
+                        }
                         System.out.printf("%d of %s was collected from the %s\n", food.getAmount(), food.getName(), room.getName());
                     });
-            room.removeFood();
+            System.out.printf("%s was collected\n", room.getName());
+            try {
+                System.out.println("Going to the next room");
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                System.out.println("sleep");
+            }
+            rooms.get(i).removeFood();
             collectedFoods.addAll(temp);
         }
+
         System.out.println(collectedFoods.toString());
     }
 
@@ -33,11 +49,11 @@ public class House {
 
         House house = new House(List.of(new Room("Living room", foods1), new Room("Bedroom", foods2), new Room("Kitchen", foods3)));
 
-        final int CORE_POOL_SIZE = 5;
+        final int CORE_POOL_SIZE = 3;
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
 
         for (int i = 0; i < CORE_POOL_SIZE; ++i) {
-            executor.schedule(house::collectFood, i * 30000, TimeUnit.MILLISECONDS);
+            executor.schedule(house::collectFood, i * 3000, TimeUnit.MILLISECONDS);
         }
 
         executor.shutdown();
