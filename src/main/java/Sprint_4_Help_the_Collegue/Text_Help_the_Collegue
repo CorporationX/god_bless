@@ -29,3 +29,7 @@
 awaitTermination() объекта ExecutorService.
 
 Выведите сообщение о завершении работы программы в консоль.
+
+Подсказка:
+Чтобы разделить список на несколько частей,
+можно использовать List<Person> batch = persons.subList(startIndex, endIndex);.
