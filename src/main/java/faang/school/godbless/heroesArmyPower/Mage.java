@@ -1,12 +1,12 @@
 package faang.school.godbless.heroesArmyPower;
 
-public class Mage extends Unit{
-    public Mage(int power){
+public class Mage extends Unit {
+    public Mage(int power) {
         super(power);
     }
 
     @Override
-    public boolean isMage(){
+    public boolean isMage() {
         return true;
     }
 }

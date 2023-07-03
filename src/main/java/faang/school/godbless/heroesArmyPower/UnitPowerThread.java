@@ -1,17 +1,17 @@
 package faang.school.godbless.heroesArmyPower;
 
-public class UnitPowerThread extends Thread{
+public class UnitPowerThread extends Thread {
     private final Unit unit;
 
-    UnitPowerThread(Unit unit){
+    public UnitPowerThread(Unit unit) {
         this.unit = unit;
     }
 
     @Override
-    public void run(){
-        int power = unit.getPower();
+    public void run() {
     }
-    int getPower(){
+
+    public int getPower() {
         return unit.getPower();
     }
 }

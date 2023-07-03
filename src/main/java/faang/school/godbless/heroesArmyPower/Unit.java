@@ -8,15 +8,15 @@ import lombok.Getter;
 public abstract class Unit {
     private int power;
 
-    public boolean isArcher(){
+    public boolean isArcher() {
         return false;
     }
 
-    public boolean isSwordsman(){
+    public boolean isSwordsman() {
         return false;
     }
 
-    public boolean isMage(){
+    public boolean isMage() {
         return false;
     }
 }
