@@ -1,53 +1,51 @@
 package faang.school.godbless.bro_force;
 
+import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Getter
 public class Game {
     private int score;
     private int lives;
-    private Object lock1 = new Object();
-    private Object lock2 = new Object();
+    private List<Bro> bros = new ArrayList<>();
+    private Object scoresLock = new Object();
+    private Object livesLock = new Object();
 
-    public Game () {
-        this.score = 0;
-        this.lives = 5;
+    public void addBro(Bro bro) {
+        bros.add(bro);
     }
 
-    public void update() {
-        synchronized (lock1) {
-            if(lives < 1) {
-                gameOver();
+
+    public boolean update() {
+        Random random = new Random();
+        int randomIndex = random.nextInt(bros.size());
+        Bro bro = bros.get(randomIndex);
+        synchronized (livesLock) {
+            if (bro.getDamage() == true) {
+                bro.setBroLives(bro.getBroLives() - 1);
+                lives++;
+                System.out.println(bro.getName() + "lives - " + bro.getBroLives());
+                if (bro.getBroLives() == 0) {
+                    System.out.println("lives lost - " + lives);
+                    return gameOver();
+                }
             } else {
-                lives--;
-                System.out.println("Lives: " + lives);
+                synchronized (scoresLock) {
+                    bro.setBroScores(bro.getBroScores() + 1);
+                    score++;
+                }
             }
         }
-
-        synchronized (lock1) {
-            if(lives < 1) {
-                gameOver();
-            } else {
-                score++;
-                System.out.println("Score: " + score);
-                System.out.println();
-            }
-
-        }
+        return false;
     }
-
-    private void gameOver() {
-        synchronized (lock2) {
-            System.out.println(Thread.currentThread().getName() + " YOU DIED");
-        }
-
-    }
-
-    public static void main(String[] args) {
-        Game game = new Game();
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
-        for(int i = 0; i < 10; i++) {
-            executorService.execute(() -> game.update());
-        }
+    private boolean gameOver() {
+        System.out.println("BRO DIED");
+        System.out.println("scores - " + score);
+        return true;
     }
 }
