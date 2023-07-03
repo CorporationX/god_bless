@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 
 import java.time.Duration;
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 @RequiredArgsConstructor
 @Getter
@@ -14,20 +14,20 @@ public class TelegramBot {
     private static final Integer REQUEST_LIMIT = 5;
     private Integer requestCounter = 0;
     @NonNull
-    private LocalDateTime lastRequestTime;
+    private Instant lastRequestTime;
 
     @SneakyThrows
-    public void sendMessage(String message) {
-        var time = LocalDateTime.now();
-        var delta = Duration.between(lastRequestTime, time).getSeconds();
-        if (delta < 1) {
+    public synchronized void sendMessage(String message) {
+        var time = Instant.now();
+        var delta = Duration.between(lastRequestTime, time);
+        if (delta.getSeconds() < 1) {
             requestCounter++;
             if (requestCounter > REQUEST_LIMIT) {
-                Thread.sleep(1000);
+                Thread.sleep(Duration.ofSeconds(1).minus(delta).toMillis());
             }
         } else {
             requestCounter = 0;
-            lastRequestTime = LocalDateTime.now();
+            lastRequestTime = Instant.now();
         }
         System.out.println(message + " is sent");
     }
