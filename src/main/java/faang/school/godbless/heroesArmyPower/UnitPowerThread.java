@@ -7,10 +7,6 @@ public class UnitPowerThread extends Thread {
         this.unit = unit;
     }
 
-    @Override
-    public void run() {
-    }
-
     public int getPower() {
         return unit.getPower();
     }
