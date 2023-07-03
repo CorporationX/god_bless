@@ -3,48 +3,43 @@ package Multithreading.bc2621;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
-public class TelegramBot implements Runnable {
+public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
-    private Message message;
     private int requestCounter;
     private long lastRequestTime;
 
-    public TelegramBot(Message message, long lastRequestTime) {
-        this.message = message;
+    public TelegramBot() {
         this.requestCounter = 0;
-        this.lastRequestTime = lastRequestTime;
+        this.lastRequestTime = System.currentTimeMillis();
     }
 
     public synchronized void sendMessage(Message message) throws InterruptedException {
+        long currentTime = System.currentTimeMillis();
+        long betweenTime = currentTime - lastRequestTime;
 
-        long last = lastRequestTime;
-        long betweenTime = System.currentTimeMillis() - last;
-        System.out.println(betweenTime);
+
         if (betweenTime < 1000) {
-            requestCounter++;
-            if (requestCounter > REQUEST_LIMIT) {
+            while (requestCounter == REQUEST_LIMIT) {
+                System.out.println("Need wait");
                 wait(1000 - betweenTime);
-                requestCounter = 0;
+
+                if (System.currentTimeMillis() - lastRequestTime > 1000) {
+                    requestCounter = 0;
+                    lastRequestTime = System.currentTimeMillis();
+                }
             }
         } else {
             requestCounter = 0;
-            lastRequestTime = System.currentTimeMillis();
+            lastRequestTime = currentTime;
             System.out.println("I'm here");
         }
-        notifyAll();
-        System.out.println(message.getMessage());
+
+        requestCounter++;
+        System.out.println(message.getMessage() + " " + requestCounter);
+        notify();
     }
 
-    @Override
-    public void run() {
-        try {
-            sendMessage(message);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
 }
 
