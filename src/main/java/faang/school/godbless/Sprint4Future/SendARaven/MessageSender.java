@@ -1,6 +1,7 @@
 package faang.school.godbless.Sprint4Future.SendARaven;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 public class MessageSender {
 
@@ -8,20 +9,22 @@ public class MessageSender {
         MessageSender sender = new MessageSender();
         Kingdom lanisters = new Kingdom("Lanisters");
         Kingdom starks = new Kingdom("Starks");
-
-        CompletableFuture<U> uCompletableFuture = CompletableFuture.supplyAsync(() -> sender.sendRaven(lanisters, starks));
-
-        sender.sendRaven(lanisters,starks);
-        System.out.println(lanisters.getMessage());
-        System.out.println(starks.getMessage());
+        sender.sendRaven(lanisters,starks,"Hi Starks");
     }
 
-    public void sendRaven(Kingdom kingdomFrom, Kingdom kingdomTo){
+    public CompletableFuture<String> sendRaven(Kingdom kingdomFrom, Kingdom kingdomTo, String message){
+        CompletableFuture<String> sendingMessage = kingdomFrom.sendMessage(kingdomTo, message);
         try {
-            kingdomFrom.sendMessage(kingdomTo);
-            System.out.println("Message delivered");
-        } catch (NullPointerException e){
-            e.printStackTrace();
+            System.out.println(sendingMessage.get());
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
         }
+        return sendingMessage.handle((sentMessage, exception) -> {
+            if (message != null){
+                return message;
+            } else {
+                return exception.getMessage();
+            }
+        });
     }
 }
