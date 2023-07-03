@@ -10,6 +10,6 @@ import lombok.Getter;
 public class Chat {
     private User first;
     private User second;
-    private String name;
+    private String chatName;
 
 }
