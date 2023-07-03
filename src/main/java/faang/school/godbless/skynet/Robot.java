@@ -8,15 +8,17 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @AllArgsConstructor
 public class Robot {
-    private String target;
+    private final String target;
 
-    public synchronized void attack() {
-        log.info("Robot attacking target: " + target);
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    public void attack() {
+        synchronized(target) {
+            log.info("Robot attacking target: " + target);
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            log.info("Robot finished attacking target: " + target);
         }
-        log.info("Robot finished attacking target: " + target);
     }
 }
