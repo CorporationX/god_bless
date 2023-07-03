@@ -1,4 +1,5 @@
 package Sprint_4_SpaceX;
+
 public class RocketLaunch {
     private String launchName;
     private String launchTime;
@@ -7,6 +8,7 @@ public class RocketLaunch {
         this.launchName = launchName;
         this.launchTime = launchTime;
     }
+
     public void launch() {
         try {
             Thread.sleep(1000);

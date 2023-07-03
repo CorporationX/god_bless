@@ -24,6 +24,9 @@ public class Space {
             int finalI = i;
             executor.execute(() -> rocketLaunch.get(finalI).launch());
             //executor.execute(rocketLaunch.get(i));
+            //не дает написать просто executor.execute(() -> rocketLaunch.get(i).launch());
+            //наверное, это избегаем замыкание, хотя, по сути, ничего не изменилось
+
         }
         executor.shutdown();
     }
