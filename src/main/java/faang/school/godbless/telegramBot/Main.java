@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        TelegramBot bot1 = new TelegramBot(5, new Date());
-        TelegramBot bot2 = new TelegramBot(5, new Date());
-        TelegramBot bot3 = new TelegramBot(5, new Date());
-        TelegramBot bot4 = new TelegramBot(5, new Date());
+        TelegramBot bot1 = new TelegramBot(System.currentTimeMillis());
+        TelegramBot bot2 = new TelegramBot(System.currentTimeMillis());
+        TelegramBot bot3 = new TelegramBot(System.currentTimeMillis());
+        TelegramBot bot4 = new TelegramBot(System.currentTimeMillis());
         List<TelegramBot> bots = new ArrayList<>();
         bots.add(bot1);
         bots.add(bot2);
