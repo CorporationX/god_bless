@@ -7,6 +7,8 @@ public class MessageProcessor{
         for (MessageFilter messageList: filters) {
             messageList.filter(message);
         }
-        return false;
+            return message;
+        }
+
     }
 }
