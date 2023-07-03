@@ -1,13 +1,15 @@
 package faang.school.godbless.skyNet;
 
 public class Robot {
-  private String target;
+  private Target target;
 
-  public Robot(String target) {
+  public Robot(Target target) {
     this.target = target;
   }
 
-  public synchronized void attack() {
-    System.out.println("Attacking: " + target);
+  public void attack() {
+    synchronized (target) {
+      System.out.println("Attacking: " + target.getName());
+    }
   }
 }
