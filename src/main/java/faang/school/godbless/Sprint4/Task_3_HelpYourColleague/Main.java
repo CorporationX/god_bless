@@ -15,5 +15,24 @@ public class Main {
         }
 
         ExecutorService executor = Executors.newFixedThreadPool(8);
+
+        for (int i = 0; i < 8; i++) {
+            int startIndex = i * 1250;
+            int endIndex = (i + 1) * 1250;
+            List<Person> batch = people.subList(startIndex, endIndex);
+
+            PersonNamePrinter batchNamePrinter = new PersonNamePrinter(batch);
+            executor.submit(batchNamePrinter);
+        }
+
+        executor.shutdown();
+
+        try {
+            executor.awaitTermination(5000, TimeUnit.MILLISECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println("Выполнение программы успешно завершено!");
     }
 }

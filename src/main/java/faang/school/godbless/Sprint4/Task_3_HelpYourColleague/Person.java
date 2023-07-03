@@ -9,9 +9,6 @@ public class Person {
     public String getName() {
         return name;
     }
-    public String getWorkplace() {
-        return workplace;
-    }
 
     public Person(String name, String surname, int age, String workplace) {
         this.name = name;
