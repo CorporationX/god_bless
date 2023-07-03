@@ -38,7 +38,7 @@ public class Boss {
                 System.out.println("Player " + player.name() + " has left the battle");
                 currentPlayers--;
                 players.remove(player);
-                lock.notify();
+                lock.notifyAll();
             }
         }
     }
