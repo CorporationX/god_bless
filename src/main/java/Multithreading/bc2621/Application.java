@@ -7,14 +7,15 @@ import java.util.concurrent.Executors;
 public class Application {
     public static void main(String[] args) throws InterruptedException {
         List<Message> messages = List.of(new Message("Hello"), new Message("Privet"),
-                new Message("Buy"), new Message("How are you"), new Message("I'm fine"));
+                new Message("Buy"), new Message("How are you"), new Message("I'm fine"), new Message("Hi"),
+                new Message("Go"));
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 5; i++) {
-            executorService.execute(new TelegramBot(messages.get(i), i+3, System.currentTimeMillis()));
+        for (int i = 0; i < 7; i++) {
+            executorService.execute(new TelegramBot(messages.get(i), System.currentTimeMillis()));
         }
         executorService.shutdown();
-        Thread.sleep(3000);
+        Thread.sleep(1000);
         System.out.println("Task is done");
     }
 }

@@ -1,10 +1,9 @@
 package Multithreading.bc2621;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 public class TelegramBot implements Runnable {
@@ -13,22 +12,29 @@ public class TelegramBot implements Runnable {
     private int requestCounter;
     private long lastRequestTime;
 
+    public TelegramBot(Message message, long lastRequestTime) {
+        this.message = message;
+        this.requestCounter = 0;
+        this.lastRequestTime = lastRequestTime;
+    }
 
     public synchronized void sendMessage(Message message) throws InterruptedException {
 
         long last = lastRequestTime;
         long betweenTime = System.currentTimeMillis() - last;
-
+        System.out.println(betweenTime);
         if (betweenTime < 1000) {
             requestCounter++;
-            if (getRequestCounter() > REQUEST_LIMIT) {
+            if (requestCounter > REQUEST_LIMIT) {
                 wait(1000 - betweenTime);
+                requestCounter = 0;
             }
         } else {
             requestCounter = 0;
-            lastRequestTime = 0;
-            notify();
+            lastRequestTime = System.currentTimeMillis();
+            System.out.println("I'm here");
         }
+        notifyAll();
         System.out.println(message.getMessage());
     }
 
