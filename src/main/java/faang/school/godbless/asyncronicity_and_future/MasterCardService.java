@@ -31,8 +31,8 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<Integer> collectedPayment = service.submit(this::collectPayment);
-        CompletableFuture<Integer> sentAnalitics = CompletableFuture.supplyAsync(this::sendAnalytics);
-        sentAnalitics.thenAccept(result -> System.out.println("Analytics result: " + result));
+        CompletableFuture<Integer> sentAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics);
+        sentAnalytics.thenAccept(result -> System.out.println("Analytics result: " + result));
 
         try {
             System.out.println("Collected payment result: " + collectedPayment.get());
