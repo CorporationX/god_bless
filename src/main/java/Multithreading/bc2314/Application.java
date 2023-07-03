@@ -12,11 +12,12 @@ public class Application {
 
         for (int i = 0; i < customers.length; i++) {
             cashiers[i] = new CashierThread(i + 1, customers[i]);
+            cashiers[i].start();
         }
         int totalItems = 0;
         int totalPrice = 0;
+
         for (CashierThread thread : cashiers) {
-            thread.start();
             thread.join();
             totalItems += thread.getCountItem();
             totalPrice += thread.getPrice();
@@ -26,7 +27,5 @@ public class Application {
         System.out.println();
         System.out.println("Total items: " + totalItems);
         System.out.println("Total price: " + totalPrice);
-
-
     }
 }
