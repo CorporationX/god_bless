@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     public static void main(String[] args) throws InterruptedException {
-        List<Task> tasks = List.of(new Task("Sheldon","Making theory"),
-                new Task("Leonard","Modeling experiment"),
+        List<Task> tasks = List.of(new Task("Sheldon", "Making theory"),
+                new Task("Leonard", "Modeling experiment"),
                 new Task("Howard", "Making instruments"),
                 new Task("Rajesh", "Data analysis"));
 
