@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class King {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Knight knight1 = new Knight("Artur");
         Knight knight2 = new Knight("Leopold");
 
@@ -17,6 +17,7 @@ public class King {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         knight1.startTrials(executorService);
         knight2.startTrials(executorService);
+        Thread.sleep(3000);
 
         executorService.shutdown();
         try {
