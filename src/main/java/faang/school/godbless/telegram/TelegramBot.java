@@ -14,7 +14,7 @@ public class TelegramBot {
     this.requestCounter = 0;
   }
 
-  public void sendMessage(String message) {
+  public synchronized void sendMessage(String message) {
     LocalDateTime currentTime = LocalDateTime.now();
     Duration timeSinceTheLastRequest = Duration.between(lastRequestTime, currentTime);
     long millisSinceTheLastRequest = timeSinceTheLastRequest.toMillis();
