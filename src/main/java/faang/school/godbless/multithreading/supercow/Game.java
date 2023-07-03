@@ -1,7 +1,6 @@
 package faang.school.godbless.multithreading.supercow;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.IntStream;
 
 public class Game {
@@ -17,25 +16,5 @@ public class Game {
 
         playerThreads.forEach(thread -> System.out.println(thread.getName()));
         playerThreads.forEach(Thread::start);
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-        }
-
-        System.out.println(boss.getPlayers());
-
-        boss.leaveBattle(boss.getPlayers().get(new Random().nextInt(boss.getCurrentPlayers())));
-        boss.leaveBattle(boss.getPlayers().get(new Random().nextInt(boss.getCurrentPlayers())));
-
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.err.println(e.getMessage());
-        }
-
-        boss.stopGame();
-        System.out.println(boss.getPlayers());
     }
 }
