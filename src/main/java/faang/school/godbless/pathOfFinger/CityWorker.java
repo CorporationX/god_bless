@@ -20,8 +20,9 @@ public class CityWorker implements Runnable{
         Monster requiredMonster = null;
         int minDistance = Integer.MAX_VALUE;
         for (var monster : monsters){
-            if(minDistance>(city.getLocation())-city.getDistances().get(monster.getLocation())) {
-                minDistance = Math.min(minDistance, (city.getLocation()) - city.getDistances().get(monster.getLocation()));
+            int distanceToMonster = city.getDistances().get(monster.getLocation());
+            if(minDistance>(city.getLocation())-distanceToMonster) {
+                minDistance = Math.min(minDistance, (distanceToMonster));
                 requiredMonster = monster;
             }
         }
@@ -36,6 +37,8 @@ public class CityWorker implements Runnable{
         return (int)(Math.random()*10);
     }
     public int getTimeForJourney(){
-        return getTimeForKillMonster() + Math.abs((city.getLocation()) - city.getDistances().get(searchNearestMonster().getLocation()))/4;
+        final int MOVESPEED = 4;
+        int distanceToNearestMonster = city.getDistances().get(searchNearestMonster().getLocation());
+        return getTimeForKillMonster() + Math.abs(city.getLocation() - distanceToNearestMonster)/MOVESPEED;
     }
 }
