@@ -7,9 +7,10 @@ public class SenderRunnable implements Runnable {
         this.startIndex = startIndex;
         this.endIndex = endIndex;
     }
-
     @Override
     public void run() {
-        System.out.println("Все письма отправлены!");
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.println("Успешно отправлено письмо №" + (i + 1));
+        }
     }
 }
