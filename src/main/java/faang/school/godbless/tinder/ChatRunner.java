@@ -8,15 +8,12 @@ import java.util.concurrent.Executors;
 public class ChatRunner {
 
     public static void main(String[] args) {
-
         UserList userList = new UserList();
-
         List<User> users = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             users.add(new User(i, "User " + i, true, false));
         }
-
 
         for (int i = 0; i < 10; i++) {
             User user = users.get(i);
@@ -29,14 +26,15 @@ public class ChatRunner {
         ChatManager chatManager = new ChatManager(userList);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
+            User chatUser = chatManager.getOnlineUsers().get(i);
 
-
-            for (User user : userList.getUsers()) {
-                Runnable chatTask = () -> chatManager.startChat(user);
-                executorService.submit(chatTask);
-            }
+            Runnable chatTask = () -> chatManager.startChat(chatUser);
+            executorService.submit(chatTask);
+            Runnable endTask = () -> chatManager.endChat(chatUser);
+            executorService.submit(endTask);
         }
+
         executorService.shutdown();
     }
 }

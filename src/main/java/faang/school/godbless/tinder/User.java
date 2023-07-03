@@ -14,9 +14,9 @@ public class User {
     private int userId;
     private String name;
     private boolean isOnline;
+    private boolean hiddenStatus;
     @Setter
     private List<User> likedUsers = new ArrayList<>();
-    private boolean hiddenStatus;
     @Setter
     private int waitingCounter = 0;
 
@@ -44,7 +44,7 @@ public class User {
         return likedUsers.contains(user);
     }
 
-    public void incrementCounter(){
+    public void incrementCounter() {
         waitingCounter++;
     }
 }
