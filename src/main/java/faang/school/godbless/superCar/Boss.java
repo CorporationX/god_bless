@@ -17,4 +17,10 @@ public class Boss {
     currentPlayers++;
     System.out.println(player.getName() + " joined to the game. Total player count: " + currentPlayers);
   }
+
+  public synchronized void leaveBattle(Player player) {
+      currentPlayers--;
+      System.out.println(player.getName() + " finished playing with boss");
+      notify();
+  }
 }

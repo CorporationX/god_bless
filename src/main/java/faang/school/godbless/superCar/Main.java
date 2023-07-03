@@ -3,6 +3,7 @@ package faang.school.godbless.superCar;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
   public static void main(String[] args) {
@@ -20,8 +21,17 @@ public class Main {
     ExecutorService executor = Executors.newFixedThreadPool(3);
 
     for (Player player : players) {
-      player.startBattle(boss);
+      executor.submit(() -> player.startBattle(boss));
     }
+
+    try {
+      executor.awaitTermination(10, TimeUnit.SECONDS);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+
+    executor.submit(() -> players.get(0).finishBattle(boss));
+    executor.submit(() -> players.get(1).finishBattle(boss));
 
     executor.shutdown();
 

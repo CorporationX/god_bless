@@ -18,4 +18,8 @@ public class Player {
       throw new RuntimeException(e);
     }
   }
+
+  public void finishBattle(Boss boss) {
+    boss.leaveBattle(this);
+  }
 }
