@@ -35,7 +35,7 @@ public class Main {
 
         newBot(botEvgen, message);
 
-        newBot(botStepan, message);
+        // newBot(botStepan, message);
 
         POOL.shutdown();
 

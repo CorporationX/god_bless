@@ -1,7 +1,7 @@
 package faang.school.godbless.spring_4.telegram_bot;
 
 public class TelegramBot {
-    private final int REQUEST_LIMIT = 5;
+    private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
     private long lastRequestTime;
 
@@ -17,16 +17,15 @@ public class TelegramBot {
             if (checkTime < 1000) {
                 requestCounter++;
                 if (requestCounter > REQUEST_LIMIT) {
-                    while (checkTime < 1000) {
-                        checkTime = System.currentTimeMillis() - checkTime;
-                    }
+                    wait(1000);
                 }
             } else {
                 zeroize();
             }
-            notifyAll();
+            System.out.println(message);
+            lastRequestTime = System.currentTimeMillis();
         }
-        System.out.println(message);
+
     }
 
     private void zeroize() {
