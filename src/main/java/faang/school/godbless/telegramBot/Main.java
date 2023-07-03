@@ -6,8 +6,10 @@ public class Main {
         Thread firstThread = new Thread(() -> telegramBot.sendMessage("Hi!"));
         Thread secondThread = new Thread(() -> telegramBot.sendMessage("Hello"));
         Thread thirdThread = new Thread(() -> telegramBot.sendMessage("Hola"));
+        Thread fourthThread = new Thread(() -> telegramBot.sendMessage("Привет"));
         firstThread.start();
         secondThread.start();
         thirdThread.start();
+        fourthThread.start();
     }
 }
