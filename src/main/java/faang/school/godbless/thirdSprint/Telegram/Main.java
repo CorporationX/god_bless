@@ -2,6 +2,7 @@ package faang.school.godbless.thirdSprint.Telegram;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,5 +14,11 @@ public class Main {
             service.submit(() -> bot.sendMessage("Message №" + finalI));
         }
         service.shutdown();
+
+        try {
+            service.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println("Thread has been interrupted");
+        }
     }
 }
