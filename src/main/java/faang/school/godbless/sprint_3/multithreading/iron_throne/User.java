@@ -3,50 +3,37 @@ package faang.school.godbless.sprint_3.multithreading.iron_throne;
 import lombok.Getter;
 import lombok.SneakyThrows;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class User {
-    private String name;
-    private final House house;
+    private final String NAME;
+    private final House HOUSE;
     private String role;
 
     public User(String name, House house) {
-        this.name = name;
-        this.house = house;
+        this.NAME = name;
+        this.HOUSE = house;
     }
 
     @SneakyThrows
     public void joinHouse() {
-        synchronized (house) {
-            List<String> freeRoles = house.getFreeRolesList();
-            if (house.getFreeRolesCount() > 0) {
-                int chose = new Random().nextInt(freeRoles.size());
-                role = freeRoles.get(chose);
-                freeRoles.remove(role);
-                house.addRole();
-                System.out.printf("%s присоединяется к дому%n", name);
-            } else {
+        synchronized (HOUSE) {
+            while (HOUSE.getFreeRolesCount() <= 0) {
                 System.out.println("Нету свободных ролей в доме");
-                house.wait();
-                int chose = new Random().nextInt(freeRoles.size());
-                role = freeRoles.get(chose);
-                freeRoles.remove(role);
-                house.addRole();
-                System.out.printf("%s присоединяется к дому%n", name);
+                HOUSE.wait();
             }
+            int random = HOUSE.getFreeRolesList().size();
+            int chose = new Random().nextInt(random);
+            role = HOUSE.addRole(chose);
+            System.out.printf("%s присоединяется к дому%n", NAME);
         }
     }
 
     public void leaveHouse() {
-        synchronized (house) {
-            System.out.printf("%s покидает дом.%n", name);
-            house.getFreeRolesList().add(role);
-            house.removeRole();
+        synchronized (HOUSE) {
+            System.out.printf("%s покидает дом.%n", NAME);
+            HOUSE.removeRole(role);
         }
     }
 }

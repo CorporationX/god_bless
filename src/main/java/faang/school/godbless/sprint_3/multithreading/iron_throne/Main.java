@@ -1,7 +1,5 @@
 package faang.school.godbless.sprint_3.multithreading.iron_throne;
 
-import lombok.SneakyThrows;
-
 import java.util.ArrayList;
 import java.util.List;
 

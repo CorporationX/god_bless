@@ -14,16 +14,20 @@ public class House {
         freeRolesCount = freeRolesList.size();
     }
 
-    public void addRole() {
+    public String addRole(int index) {
         synchronized (this) {
+            String role = freeRolesList.get(index);
+            freeRolesList.remove(index);
             freeRolesCount -= 1;
+            return role;
         }
     }
 
-    public void removeRole() {
+    public void removeRole(String role) {
         synchronized (this) {
+            freeRolesList.add(role);
             freeRolesCount += 1;
-            this.notify();
+            this.notifyAll();
         }
     }
 }
