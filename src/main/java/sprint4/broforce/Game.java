@@ -12,7 +12,6 @@ public class Game {
     private static final int POINTS_RANGE = 100;
 
     private final Object scoreLock = new Object();
-    private final Object livesLock = new Object();
     private boolean gameContinues;
     private int score = 0;
     private int lives = 5;
@@ -23,14 +22,10 @@ public class Game {
 
     public void update() {
         boolean someAction = RANDOM_ACTION.nextBoolean();
-        synchronized (livesLock) {
-            if (scoreCheck(someAction)) {
-                return;
-            }
+        if (scoreCheck(someAction)) {
+            return;
         }
-        synchronized (livesLock) {
-            lifeCheck(someAction);
-        }
+        lifeCheck(someAction);
     }
 
     private boolean scoreCheck(boolean someAction) {
@@ -45,13 +40,14 @@ public class Game {
     }
 
     private void lifeCheck(boolean someAction) {
-        if (someAction == LOSING_LIFE && lives > 0) {
-            synchronized (scoreLock) {
+        synchronized (scoreLock) {
+            if (someAction == LOSING_LIFE && lives > 0) {
                 lives--;
                 System.out.printf("Life is lost! There's %d left!\n", lives);
             }
-        } else if (gameContinues){
-            gameOver();
+            if (lives == 0 && gameContinues) {
+                gameOver();
+            }
         }
     }
 
