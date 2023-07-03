@@ -3,12 +3,11 @@ package Sprint_4_Task14;
 import lombok.SneakyThrows;
 
 public class TelegramBot {
-    private int REQUEST_LIMIT;
+    private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
     private long lastRequestTime;
 
-    public TelegramBot(int REQUEST_LIMIT, long lastRequestTime) {
-        this.REQUEST_LIMIT = REQUEST_LIMIT;
+    public TelegramBot( long lastRequestTime) {
         this.requestCounter = 0;
         this.lastRequestTime = lastRequestTime;
     }
