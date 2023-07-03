@@ -35,6 +35,7 @@ public class MasterCardService {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> future = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+
         completableFuture.thenAccept(num -> System.out.println("Analytics: " + num));
         System.out.println("Collected payment: " + future.get());
     }
