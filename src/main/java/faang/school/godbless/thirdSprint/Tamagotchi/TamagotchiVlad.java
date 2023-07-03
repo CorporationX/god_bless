@@ -1,8 +1,10 @@
 package faang.school.godbless.thirdSprint.Tamagotchi;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class TamagotchiVlad {
     private final int vladId;
     private boolean isHungry;

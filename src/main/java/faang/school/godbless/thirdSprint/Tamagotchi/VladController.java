@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class VladController {
-    List<TamagotchiVlad> vlads = new ArrayList<>();
+    private final List<TamagotchiVlad> vlads = new ArrayList<>();
 
     public synchronized void addVlad(TamagotchiVlad vlad) {
         vlads.add(vlad);
