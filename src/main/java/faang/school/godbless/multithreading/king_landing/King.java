@@ -14,12 +14,10 @@ public class King {
         luke.addTrial(new Trial("Luke", "Horse racing"));
         ExecutorService service = Executors.newFixedThreadPool(2);
 
-        service.execute(() -> richard.startTrials());
-        service.execute(() -> luke.startTrials());
+        service.execute(richard::startTrials);
+        service.execute(luke::startTrials);
         service.shutdown();
-        if (!service.awaitTermination(5, TimeUnit.SECONDS)) {
-            service.shutdownNow();
-        }
+        service.awaitTermination(5, TimeUnit.SECONDS);
         System.out.println("Knights completed all trials");
     }
 }
