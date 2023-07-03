@@ -8,7 +8,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class UserList {
-
     List<User> userList;
 
     public List<User> getOnlineUsers() {
