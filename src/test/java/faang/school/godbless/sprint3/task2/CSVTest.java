@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.task2;
 
+import faang.school.godbless.sprint3.lambda.task2.CSV;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

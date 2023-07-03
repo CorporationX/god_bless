@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task12;
 
+import faang.school.godbless.sprint3.lambda.task12.MessageFilter;
+import faang.school.godbless.sprint3.lambda.task12.MessageProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;

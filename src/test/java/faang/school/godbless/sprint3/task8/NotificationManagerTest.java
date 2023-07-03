@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task8;
 
+import faang.school.godbless.sprint3.lambda.task8.Notification;
+import faang.school.godbless.sprint3.lambda.task8.NotificationManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

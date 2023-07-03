@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.task3;
 
+import faang.school.godbless.sprint3.lambda.task3.Triangle;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

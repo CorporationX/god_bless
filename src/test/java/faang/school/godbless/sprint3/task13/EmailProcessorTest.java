@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task13;
 
+import faang.school.godbless.sprint3.lambda.task13.Email;
+import faang.school.godbless.sprint3.lambda.task13.EmailProcessor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

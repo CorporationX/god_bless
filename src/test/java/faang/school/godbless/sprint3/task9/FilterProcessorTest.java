@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task9;
 
+import faang.school.godbless.sprint3.lambda.task9.FilterProcessor;
+import faang.school.godbless.sprint3.lambda.task9.Image;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.Function;

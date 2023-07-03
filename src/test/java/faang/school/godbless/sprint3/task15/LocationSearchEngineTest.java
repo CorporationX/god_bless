@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task15;
 
+import faang.school.godbless.sprint3.lambda.task15.Location;
+import faang.school.godbless.sprint3.lambda.task15.LocationSearchEngine;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

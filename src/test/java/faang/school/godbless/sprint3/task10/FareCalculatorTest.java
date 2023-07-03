@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.task10;
 
+import faang.school.godbless.sprint3.lambda.task10.FareCalculator;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;

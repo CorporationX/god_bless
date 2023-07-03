@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.task6;
 
+import faang.school.godbless.sprint3.lambda.task6.Droid;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

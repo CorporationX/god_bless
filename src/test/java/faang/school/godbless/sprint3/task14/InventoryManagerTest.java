@@ -1,5 +1,8 @@
 package faang.school.godbless.sprint3.task14;
 
+import faang.school.godbless.sprint3.lambda.task14.Character;
+import faang.school.godbless.sprint3.lambda.task14.InventoryManager;
+import faang.school.godbless.sprint3.lambda.task14.Item;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

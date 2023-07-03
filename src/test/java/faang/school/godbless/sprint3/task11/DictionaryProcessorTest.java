@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.task11;
 
+import faang.school.godbless.sprint3.lambda.task11.DictionaryProcessor;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;

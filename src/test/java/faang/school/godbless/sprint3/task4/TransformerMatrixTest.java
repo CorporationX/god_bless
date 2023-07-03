@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.task4;
 
+import faang.school.godbless.sprint3.lambda.task4.FlipDirection;
+import faang.school.godbless.sprint3.lambda.task4.TransformerMatrix;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
