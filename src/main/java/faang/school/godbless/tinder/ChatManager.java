@@ -45,7 +45,6 @@ public class ChatManager {
             if (chat != null) {
                 chats.remove(chat);
                 System.out.println("Chat ended between " + chat.getUser().getName() + " and " + chat.getUserToChat().getName());
-                userList.notifyAll();
             }
         }
     }
@@ -65,7 +64,6 @@ public class ChatManager {
             } else {
                 System.out.println(user.getName() + " you should try again");
                 user.setWaitingCounter(0);
-                userList.notifyAll();
             }
         }
     }
