@@ -33,11 +33,11 @@ public class User {
             throw new IllegalArgumentException("Invalid address!");
         }
     }
-
+  
     public int getAge() {
         return age;
     }
-
+  
     public static Map<Integer, List<User>> registrationUser(List<User> usersList) {
         Map<Integer, List<User>> registrationUsers = new HashMap<>();
         for (User user : usersList) {
