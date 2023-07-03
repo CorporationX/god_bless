@@ -11,15 +11,14 @@ public class Music {
                 new Thread(player::skip),
                 new Thread(player::previous)
         );
+        threads.forEach(Thread::start);
         threads.forEach(thread -> {
-            thread.start();
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
         });
-
         System.out.println("Done");
     }
 }
