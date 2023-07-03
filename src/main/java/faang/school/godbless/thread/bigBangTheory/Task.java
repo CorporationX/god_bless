@@ -8,13 +8,11 @@ import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
-@Data
 public class Task implements Runnable {
 
-    private final String name;
+    private String name;
     private String task;
 
-    @SneakyThrows
     @Override
     public void run() {
         try {
@@ -22,8 +20,7 @@ public class Task implements Runnable {
             TimeUnit.SECONDS.sleep(new Random().nextInt(1, 30));
             System.out.printf("%s закончил задание %s\n", name, task);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.println("Задание прервано!");
+            System.out.println("Задание прервано!" + name);
         }
     }
 }
