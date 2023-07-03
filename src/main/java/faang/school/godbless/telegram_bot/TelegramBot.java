@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class TelegramBot {
 
+    private static final long ONE_SECOND = 1_000L;
     private static final int REQUEST_LIMIT = 5;
     private int requestCounter = 0;
     private LocalDateTime lastRequestTime = LocalDateTime.now();
@@ -15,29 +16,22 @@ public class TelegramBot {
     public synchronized void sendMessage(String message) {
         LocalDateTime currentTime = LocalDateTime.now();
         long timePassed = Duration.between(lastRequestTime, currentTime).toMillis();
-        long oneSecond = 1000;
 
-
-        if (timePassed < oneSecond) {
+        if (timePassed < ONE_SECOND) {
             requestCounter++;
 
             if (requestCounter > REQUEST_LIMIT) {
                 try {
-                    wait(oneSecond - timePassed);
+                    wait(ONE_SECOND - timePassed);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-
         } else {
-            requestCounter = 0;
             lastRequestTime = currentTime;
+            requestCounter = 0;
         }
 
         System.out.println("Sending message: " + message);
-
-        if (requestCounter == REQUEST_LIMIT) {
-            notifyAll();
-        }
     }
 }
