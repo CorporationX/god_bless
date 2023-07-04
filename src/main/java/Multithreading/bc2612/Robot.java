@@ -17,7 +17,7 @@ public class Robot implements Runnable {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Target" + getTarget() + "kill");
+            System.out.println("Target " + getTarget() + " kill");
         }
     }
 
