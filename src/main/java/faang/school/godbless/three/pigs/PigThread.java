@@ -24,9 +24,7 @@ public abstract class PigThread extends Thread {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-
             System.out.println("дом поросёнка " + getPigName() + " " + " построен на " + i);
-
         }
     }
 }
