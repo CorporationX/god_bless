@@ -39,6 +39,7 @@ public class House {
         }
     }
 
+
     public void addRoom(Room room) {
         rooms.add(room);
     }
