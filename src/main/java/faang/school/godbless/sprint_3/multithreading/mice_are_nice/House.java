@@ -13,11 +13,11 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @Setter
 public class House {
-    private List<Room> roomsList;
+    private List<Room> rooms;
     private List<Food> allFood;
 
     public House(List<Room> rooms) {
-        this.roomsList = rooms;
+        this.rooms = rooms;
     }
 
     public void collectFood(List<Room> rooms) {
@@ -32,9 +32,9 @@ public class House {
 
         try (ScheduledExecutorService service = Executors.newScheduledThreadPool(5)) {
             int batchSize = 2;
-            for (int i = 0; i < house.roomsList.size(); i += batchSize) {
-                int endIndex = Math.min(i + batchSize, house.roomsList.size());
-                List<Room> sublist = house.roomsList.subList(i, endIndex);
+            for (int i = 0; i < house.rooms.size(); i += batchSize) {
+                int endIndex = Math.min(i + batchSize, house.rooms.size());
+                List<Room> sublist = house.rooms.subList(i, endIndex);
                 service.scheduleAtFixedRate(() -> house.collectFood(sublist), 0, 30, TimeUnit.SECONDS);
             }
             service.shutdown();
