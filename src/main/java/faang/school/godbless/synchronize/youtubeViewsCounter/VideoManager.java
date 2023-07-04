@@ -14,10 +14,6 @@ public class VideoManager {
         System.out.println(videoId + " view added");
     }
     public synchronized int getViewCount(String videoId) {
-        int result = 0;
-        if (viewsMap.containsKey(videoId)) {
-            result = viewsMap.get(videoId);
-        }
-        return result;
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
