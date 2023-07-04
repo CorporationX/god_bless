@@ -12,7 +12,7 @@ public class GriffinsFoodDelivery {
         ExecutorService deliveryService = Executors.newFixedThreadPool(AMOUNT_OF_THREAD);
 
         for (String character : CHARACTER_NAMES) {
-            int foodAmount = new Random().nextInt(5);
+            int foodAmount = new Random().nextInt(5) + 1;
             deliveryService.submit(new FoodDeliveryTask(character, foodAmount));
         }
         deliveryService.shutdown();

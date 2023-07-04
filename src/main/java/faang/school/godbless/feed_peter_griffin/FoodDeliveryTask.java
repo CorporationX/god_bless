@@ -3,10 +3,9 @@ package faang.school.godbless.feed_peter_griffin;
 import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
-
     private final String character;
     private final int foodAmount;
-    private final String[] FOOD_TYPES = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
+    private static final String[] FOOD_TYPES = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -28,5 +27,4 @@ public class FoodDeliveryTask implements Runnable {
     private String getFoodType() {
         return FOOD_TYPES[new Random().nextInt(FOOD_TYPES.length)];
     }
-
 }
