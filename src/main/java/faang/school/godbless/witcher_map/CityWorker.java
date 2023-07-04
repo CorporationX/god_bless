@@ -18,13 +18,13 @@ public class CityWorker implements Runnable {
         int travelTime = calculateTravelTime(nearestMonster);
         int killTime = calculateKillTime(nearestMonster);
         int totalTime = travelTime + killTime;
+        String monsterName = nearestMonster.getName();
 
         System.out.println("City: " + city.getName());
-        System.out.println("Nearest Monster: " + nearestMonster.getName());
-        System.out.println("Travel Time: " + travelTime + " minutes");
-        System.out.println("Kill Time: " + killTime + " minutes");
-        System.out.println("Total Time: " + totalTime + " minutes");
-        System.out.println();
+        System.out.println("Nearest Monster: " + monsterName);
+        System.out.println("Travel Time to the " + monsterName + " is: " + travelTime + " minutes");
+        System.out.println("Time to kill the " + monsterName + " is: " + killTime + " minutes");
+        System.out.println("Total time for reaching and killing the " + monsterName + " is: " + totalTime + " minutes");
     }
 
     private Monster findNearestMonster() {
