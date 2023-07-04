@@ -53,9 +53,9 @@ public class ListHandler {
     public static void main(String[] args) {
         List<Integer> nums = List.of(1, 3, 5, 2);
         List<String> strings = List.of("auto", "uf", "auf");
-        System.out.println(findMax(nums).getAsInt());
+        System.out.println(findMax(nums));
         System.out.println(sumEven(nums));
-        System.out.println(findMean(nums).getAsDouble());
+        System.out.println(findMean(nums));
         System.out.println(findWords(strings, 'a'));
         System.out.println(filter(strings, "uf"));
         System.out.println(sortLength(strings));
