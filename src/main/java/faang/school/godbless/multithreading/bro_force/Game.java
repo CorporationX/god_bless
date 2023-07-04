@@ -7,8 +7,8 @@ import lombok.Getter;
 
 @Getter
 public class Game {
-    private Random random;
-    private List<Bro> bros;
+    private final Random random;
+    private final List<Bro> bros;
     private int lives;
     private int score;
     private final Object livesLock;
@@ -17,7 +17,8 @@ public class Game {
     public Game() {
         livesLock = new Object();
         scoreLock = new Object();
-        init();
+        random = new Random();
+        bros = new ArrayList<>();
     }
 
     public boolean update() {
@@ -26,7 +27,7 @@ public class Game {
 
         if (!isAliveAfterFight) {
             synchronized (livesLock) {
-                bro.setLives(bro.getLives() - 1);
+                bro.decreaseLives();
                 lives++;
                 System.out.println(bro.getName() + " Killed, lives: " + bro.getLives());
                 if (bro.getLives() == 0) {
@@ -35,7 +36,7 @@ public class Game {
             }
         } else {
             synchronized (scoreLock) {
-                bro.setScore(bro.getScore() + 1);
+                bro.increaseScore();
                 score++;
             }
         }
@@ -51,14 +52,7 @@ public class Game {
         bros.add(bro);
     }
 
-    public Bro getRandomBro() {
+    private Bro getRandomBro() {
         return bros.get(random.nextInt(bros.size()));
-    }
-
-    public void init() {
-        random = new Random();
-        bros = new ArrayList<>();
-        lives = 0;
-        score = 0;
     }
 }

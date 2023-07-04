@@ -15,11 +15,11 @@ public class Main {
         Game game = new Game();
         bros.forEach(game::addBro);
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(bros.size());
 
         for (int i = 0; i < bros.size(); i++) {
-            executor.submit(() -> {
-                while (bros.get(0).getLives() > 0 && bros.get(1).getLives() > 0) {
+            executor.execute(() -> {
+                while(bros.stream().allMatch(bro -> bro.getLives() > 0)) {
                     boolean isGameOver = game.update();
                     System.out.println("Is anybody dead: " + isGameOver);
                 }
