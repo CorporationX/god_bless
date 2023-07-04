@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -54,7 +53,17 @@ public class House {
             executorService.schedule(() -> house.collectFood(room1), 3000, TimeUnit.MILLISECONDS);
             executorService.schedule(() -> house.collectFood(room2), 3000, TimeUnit.MILLISECONDS);
         }
+
+
         executorService.shutdown();
+        //еееее
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println();
+        System.out.println("Еда в доме собрана! Но только множество раз одноврменно всеми потоками");
 
     }
 

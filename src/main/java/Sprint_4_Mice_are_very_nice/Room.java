@@ -12,7 +12,4 @@ public class Room {
         this.roomName = roomName;
         this.foodForRoom = foodForRoom;
     }
-
-
-
 }
