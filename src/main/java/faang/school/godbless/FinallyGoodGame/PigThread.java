@@ -12,9 +12,4 @@ public abstract class PigThread extends Thread {
     public String getMaterial() {
         return material;
     }
-
-    @Override
-    public void run() {
-        super.run();
-    }
 }

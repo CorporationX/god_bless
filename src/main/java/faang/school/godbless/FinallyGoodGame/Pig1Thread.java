@@ -4,7 +4,6 @@ public class Pig1Thread extends PigThread{
     public Pig1Thread(String pigName) {
         super(pigName, "straw");
     }
-
     @Override
     public void run() {
         try {

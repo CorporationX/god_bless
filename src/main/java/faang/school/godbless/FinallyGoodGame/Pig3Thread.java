@@ -1,7 +1,6 @@
 package faang.school.godbless.FinallyGoodGame;
 
 public class Pig3Thread extends PigThread {
-
     public Pig3Thread(String pigName) {
         super(pigName, "bricks");
     }
