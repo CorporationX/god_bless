@@ -5,10 +5,9 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
-        TelegramBot telegramBot = new TelegramBot(System.currentTimeMillis());
+    public static void main(String[] args) {TelegramBot telegramBot = new TelegramBot(System.currentTimeMillis());
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 10; i++) {
             int j = i;
             Thread thread = new Thread(() -> {
                 try {
@@ -30,4 +29,5 @@ public class Main {
             }
         }
     }
+
 }

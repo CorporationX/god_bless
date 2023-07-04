@@ -4,21 +4,24 @@ public class TelegramBot {
 
     private final int REQUEST_LIMIT;
 
+    private final int requestTime = 1000;
+
     private int requestCounter;
 
     private long lastRequestTime;
 
     public TelegramBot(long lastRequestTime) {
-        this.REQUEST_LIMIT = 5;
+        this.REQUEST_LIMIT = 3;
         this.lastRequestTime = lastRequestTime;
     }
 
     public synchronized void sendMessage(String message) throws InterruptedException {
         long duration = System.currentTimeMillis() - lastRequestTime;
-        while (duration <= 3000 && requestCounter == REQUEST_LIMIT) {
-            wait(3000 - duration);
+        while (duration < requestTime && requestCounter == REQUEST_LIMIT) {
+            System.out.println("message: " + message + " ждет обнуление счетчика");
+            wait(requestTime - duration);
             duration = System.currentTimeMillis() - lastRequestTime;
-            if (duration > 3000 || requestCounter == REQUEST_LIMIT) {
+            if (duration >= requestTime && requestCounter == REQUEST_LIMIT) {
                 System.out.println("обнуление счетчика");
                 requestCounter = 0;
             }
