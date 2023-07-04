@@ -16,28 +16,39 @@ public class VladController {
     public static void main(String[] args) {
         for (int i = 1; i <= 5; i++) {
             tamagotchiVladList.add(new TamagotchiVlad(i));
-        }
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
-        executorService.execute(() -> {
-            vladController.sleepAll();
-            vladController.removeTamagochi(1);
-            vladController.playAll();
-            vladController.removeTamagochi(1);
-            vladController.cleanAll();
-            vladController.addTamagochi(new TamagotchiVlad(8));
-            vladController.feedAll();
-        });
 
+        }
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        for (int i = 0; i < 2; i++) {
+            executorService.execute(() -> {
+                vladController.sleepAll();
+                vladController.sleepAll();
+                vladController.cleanAll();
+                vladController.sleepAll();
+                vladController.removeTamagochi(0);
+                vladController.playAll();
+                vladController.removeTamagochi(0);
+                vladController.removeTamagochi(0);
+                vladController.removeTamagochi(0);
+                vladController.cleanAll();
+                vladController.addTamagochi(new TamagotchiVlad(8));
+                vladController.feedAll();
+            });
+        }
         executorService.shutdown();
     }
 
-    public void addTamagochi(TamagotchiVlad tamagotchiVlad) {
+    public synchronized void addTamagochi(TamagotchiVlad tamagotchiVlad) {
         tamagotchiVladList.add(tamagotchiVlad);
+        System.out.println("Add one tamagochi " + tamagotchiVlad.getId());
     }
 
-    public void removeTamagochi(int index) {
-        tamagotchiVladList.remove(index);
-        System.out.println("Delete " + index);
+    public synchronized void removeTamagochi(int index) {
+        if (!tamagotchiVladList.isEmpty()) {
+            TamagotchiVlad vlad = tamagotchiVladList.get(index);
+            tamagotchiVladList.remove(index);
+            System.out.println(Thread.currentThread().getName() + " Delete " + vlad.getId());
+        }
     }
 
     public synchronized void feedAll() {
