@@ -11,6 +11,6 @@ public class WeasleyFamily {
             Chore chore = new Chore(stroke);
             executorService.submit(chore);
         }
-        executorService.close();
+        executorService.shutdown();
     }
 }
