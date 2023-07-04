@@ -11,6 +11,7 @@ public class SuperheroBattle {
     public List<Future<Superhero>> runCompetitions(List<AbstractMap.SimpleEntry<Superhero, Superhero>> pairList) {
         List<Future<Superhero>> result = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(pairList.size());
+
         pairList.forEach(pair -> {
             result.add(executorService.submit(() -> {
                 if (pair.getKey().getStrength() + pair.getKey().getAgility() > pair.getValue().getAgility() + pair.getValue().getStrength()) {
