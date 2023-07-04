@@ -1,4 +1,4 @@
-package main.java.faang.school.sprints.sprint2.collecting_users;
+package main.java.faang.school.sprints.sprint2.turn_around;
 
 import java.util.Arrays;
 
