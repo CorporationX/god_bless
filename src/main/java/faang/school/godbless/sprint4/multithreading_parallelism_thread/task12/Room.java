@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint4.multithreading_parallelism_thread.task11;
+package faang.school.godbless.sprint4.multithreading_parallelism_thread.task12;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
