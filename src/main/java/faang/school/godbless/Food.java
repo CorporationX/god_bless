@@ -8,3 +8,4 @@ import lombok.Data;
 public class Food {
     private String name;
 }
+
