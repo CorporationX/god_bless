@@ -48,7 +48,6 @@ public class House {
         List<Food> thirdRoom = List.of(new Food("Coca-Cola"), new Food("Water"));
         List<Food> fourthRoom = List.of(new Food("bottle of wine"), new Food("sandwich"));
 
-
         Room first = new Room("First", firstRoom);
         Room second = new Room("Second", secondRoom);
         Room third = new Room("Third", thirdRoom);
