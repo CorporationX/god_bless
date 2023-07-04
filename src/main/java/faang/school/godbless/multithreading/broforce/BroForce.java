@@ -7,9 +7,11 @@ import java.util.concurrent.TimeUnit;
 public class BroForce {
     public static void main(String[] args) throws InterruptedException {
         Game game = new Game();
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        for (int i = 0; i <= 10; i++) {
-            service.submit(game::update);
+        final int NUM_THREADS = 4;
+        ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
+
+        for (int i = 0; i < NUM_THREADS; i++) {
+            service.execute(game::startGame);
         }
         service.shutdown();
         service.awaitTermination(10, TimeUnit.MINUTES);
