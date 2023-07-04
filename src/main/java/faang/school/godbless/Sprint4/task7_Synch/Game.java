@@ -4,8 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class Game {
-    private final Object scoreLock = new Object();
-    private final Object livesLock = new Object();
+    private final Object updateLock = new Object();
     private int score;
     private int lives;
 
@@ -14,30 +13,19 @@ public class Game {
     }
 
     public void update() {
-        increaseScore();
-        reduceLives();
-    }
-
-    private void increaseScore() {
-        synchronized (livesLock) {
-            score++;
-            System.out.println("Current score: " + score);
-        }
-    }
-
-    private void reduceLives() {
-        synchronized (livesLock) {
-            lives--;
-            System.out.println("Current lives: " + lives);
+        synchronized (updateLock) {
             if (lives == 0) {
                 gameOver();
+            } else {
+                score++;
+                System.out.println("Current score: " + score);
+                lives--;
+                System.out.println("Current lives: " + lives);
             }
         }
     }
 
     private void gameOver() {
-        synchronized (livesLock) {
-            System.out.println("Game over");
-        }
+        System.out.println("Game over");
     }
 }

@@ -9,7 +9,7 @@ public class Main {
         Game game = new Game(15);
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < game.getLives(); i++) {
+        for (int i = 0; i < 20; i++) {
             executor.submit(game::update);
         }
 
