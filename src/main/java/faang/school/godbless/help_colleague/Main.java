@@ -11,15 +11,7 @@ public class Main {
     private static final int COUNTS_OF_THREAD = 10;
 
     public static void main(String[] args) {
-        List<Person> people = IntStream.range(0, 10000)
-                .mapToObj(i -> {
-                    String name = "Person " + i;
-                    String surname = "Surname " + i;
-                    int age = i % 100;
-                    String workplace = "Workplace " + i;
-                    return new Person(name, surname, age, workplace);
-                })
-                .collect(Collectors.toList());
+        List<Person> people = createPeople();
 
         ExecutorService executorService = Executors.newFixedThreadPool(COUNTS_OF_THREAD);
         int onePartOfList = people.size() / COUNTS_OF_THREAD;
@@ -36,10 +28,27 @@ public class Main {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            boolean terminated = executorService.awaitTermination(1, TimeUnit.SECONDS);
+            if (terminated) {
+                System.out.println("All tasks have completed successfully.");
+            } else {
+                System.out.println("Timeout occurred before all tasks completed.");
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         System.out.println("Workplace info have been sent");
+    }
+
+    private static List<Person> createPeople() {
+        return IntStream.range(0, 10000)
+                .mapToObj(i -> {
+                    String name = "Person " + i;
+                    String surname = "Surname " + i;
+                    int age = i % 100;
+                    String workplace = "Workplace " + i;
+                    return new Person(name, surname, age, workplace);
+                })
+                .collect(Collectors.toList());
     }
 }

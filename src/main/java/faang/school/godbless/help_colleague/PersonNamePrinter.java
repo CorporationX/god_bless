@@ -6,7 +6,8 @@ import java.util.List;
 
 @AllArgsConstructor
 public class PersonNamePrinter implements Runnable {
-    List<Person> workers;
+    private List<Person> workers;
+
     @Override
     public void run() {
         for (Person person : workers) {
