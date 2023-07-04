@@ -11,5 +11,11 @@ public class School {
     private String name;
     private List<Student> team;
 
-    public void getTotalPoints(){}
+    public Integer getTotalPoints() {
+        return team.stream().mapToInt(Student::getPoints).sum();
+    }
+
+    public void addPointsToTeam(Integer reward){
+        team.forEach(student -> student.setPoints(student.getPoints() + reward));
+    }
 }
