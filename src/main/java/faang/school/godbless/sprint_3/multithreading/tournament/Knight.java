@@ -1,6 +1,7 @@
 package faang.school.godbless.sprint_3.multithreading.tournament;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,13 +10,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Getter
+@RequiredArgsConstructor
 public class Knight {
-    private String name;
+    private final String name;
     private List<Trial> trials = new ArrayList<>();
-
-    public Knight(String name) {
-        this.name = name;
-    }
 
     public void addTrial(Trial trial) {
         trials.add(trial);
@@ -28,7 +26,7 @@ public class Knight {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
