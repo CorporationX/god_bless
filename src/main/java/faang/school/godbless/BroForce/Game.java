@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @Data
 public class Game {
@@ -13,38 +12,38 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
     private boolean gameIsNotOver = true;
-    private List<Player> players;
+    private List<Bro> bros;
 
-    public Game(List<Player> players) {
-        this.players = players;
+    public Game(List<Bro> bros) {
+        this.bros = bros;
     }
 
     public void update(int i) {
-        int randomIndex = new Random().nextInt(players.size());
+        int randomIndex = new Random().nextInt(bros.size());
+
         if (new Random().nextBoolean()) {
             synchronized (livesLock) {
-                List<Integer> playerLives = players.stream().mapToInt(Player::getLives).boxed().toList();
+                List<Integer> playerLives = bros.stream().mapToInt(Bro::getLives).boxed().toList();
                 if (playerLives.stream().allMatch(live -> live > 0)) {
-                    players.get(randomIndex).decrementLives();
+                    bros.get(randomIndex).decrementLives();
                     lives++;
-                    players.forEach(player -> {
-                        System.out.printf("Player: %s | Score: %s | Lives: %s \n", player.getName(), player.getScore(), player.getLives());
-                    });
                 } else {
                     gameOver();
                 }
             }
         } else {
             synchronized (scoreLock) {
-                players.get(randomIndex).incrementScore();
+                bros.get(randomIndex).incrementScore();
                 score++;
-                players.forEach(player -> {
-                    System.out.printf("Player: %s | Score: %s | Lives: %s \n", player.getName(), player.getScore(), player.getLives());
-                });
             }
         }
 
-        System.out.println("Round #" + i + "\n");
+        if (gameIsNotOver){
+            bros.forEach(bro -> {
+                System.out.printf("Bro: %s | Score: %s | Lives: %s \n", bro.getName(), bro.getScore(), bro.getLives());
+            });
+            System.out.println("Round #" + i + "\n");
+        }
     }
 
     private void gameOver() {
