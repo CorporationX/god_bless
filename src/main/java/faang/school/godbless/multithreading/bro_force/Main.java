@@ -17,14 +17,13 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(bros.size());
 
-        for (int i = 0; i < bros.size(); i++) {
-            executor.execute(() -> {
-                while(bros.stream().allMatch(bro -> bro.getLives() > 0)) {
-                    boolean isGameOver = game.update();
-                    System.out.println("Is anybody dead: " + isGameOver);
-                }
-            });
-        }
+        executor.execute(() -> {
+            while(bros.stream().allMatch(bro -> bro.getLives() > 0)) {
+                boolean isGameOver = game.update();
+                System.out.println("Is anybody dead: " + isGameOver);
+            }
+        });
+
         executor.shutdown();
     }
 }

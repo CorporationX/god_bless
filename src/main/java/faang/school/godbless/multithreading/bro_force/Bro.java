@@ -11,13 +11,10 @@ public class Bro {
     private String name;
     private int lives;
     private int score;
-    private boolean alive;
 
     public Bro(String name, int lives) {
         this.name = name;
         this.lives = lives;
-        score = 0;
-        alive = true;
         random = new Random();
     }
 
@@ -27,9 +24,7 @@ public class Bro {
 
     public void decreaseLives() {
         if (lives > 0) {
-            this.lives--;
-        } else {
-            this.alive = false;
+            lives--;
         }
     }
 
