@@ -14,14 +14,12 @@ public class App {
             CashierThread cashierThread = new CashierThread(i, customers[i]);
             cashiers.add(cashierThread);
             cashierThread.start();
-
             try {
                 cashierThread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-
         System.out.println("All customers are served");
     }
 }

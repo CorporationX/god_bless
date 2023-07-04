@@ -4,7 +4,6 @@ import lombok.Getter;
 
 @Getter
 public class CashierThread extends Thread {
-
     private final int cashierId;
     private final int[] customerItems;
 
