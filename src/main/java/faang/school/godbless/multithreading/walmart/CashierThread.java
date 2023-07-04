@@ -22,7 +22,7 @@ public class CashierThread extends Thread {
             totalPrice += item.getPrice();
         }
 
-        System.out.println("Кассир-" + cashierId + " обработал " + customerItems.length + " товаров");
-        System.out.println("Кассир-" + cashierId + " обработал товаров на сумму: " + totalPrice);
+        System.out.printf("Кассир-%d обработал %d товаров на сумму: %d\n",
+                cashierId, customerItems.length, totalPrice);
     }
 }

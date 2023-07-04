@@ -3,21 +3,12 @@ package faang.school.godbless.multithreading.walmart;
 public class Main {
     public static void main(String[] args) {
         Item[][] customers = initCustomers();
-        CashierThread[] cashiers = new CashierThread[4];
+        CashierThread[] cashiers = new CashierThread[customers.length];
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < cashiers.length; i++) {
             cashiers[i] = new CashierThread(i + 1, customers[i]);
             cashiers[i].start();
         }
-
-        for (CashierThread cashier : cashiers) {
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-
     }
 
     private static Item[][] initCustomers() {
