@@ -32,14 +32,14 @@ public class House {
             pool.schedule(task, 5L * i, TimeUnit.SECONDS);
         }
 
-        andStreams(pool);
+        finish(pool);
 
         System.out.println("The food is collected");
 
         System.out.println(COLLECTED_FOOD.size());
     }
 
-    private static void andStreams(ScheduledExecutorService pool) throws InterruptedException {
+    private static void finish(ScheduledExecutorService pool) throws InterruptedException {
         pool.shutdown();
         try {
             if (!pool.awaitTermination(20, TimeUnit.SECONDS)) {
@@ -51,25 +51,20 @@ public class House {
     }
 
     private static List<List<Room>> weDivideIntoTwoRooms(List<Room> rooms) {
+
         List<List<Room>> roomsList = new ArrayList<>();
+
         int fromIndex = 0;
         int toIndex = 2;
-        int sizeFor = rooms.size() / 2;
-        boolean checkSize = false;
-        if (rooms.size() % 2 == 1) {
-            sizeFor += 1;
-            checkSize = true;
-        }
+
+        int sizeFor = (rooms.size() + 1) / 2;
 
         for (int i = 0; i < sizeFor; i++) {
             roomsList.add(new ArrayList<>(rooms.subList(fromIndex, toIndex)));
-            if (checkSize & i == sizeFor - 1) {
-                toIndex += 1;
-            } else {
-                toIndex += 2;
-            }
             fromIndex += 2;
+            toIndex += 2;
         }
+
         return roomsList;
     }
 
