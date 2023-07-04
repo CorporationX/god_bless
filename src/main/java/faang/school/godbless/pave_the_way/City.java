@@ -10,7 +10,4 @@ import lombok.Setter;
 public class City {
     private String name;
     Location location;
-
-
-
 }

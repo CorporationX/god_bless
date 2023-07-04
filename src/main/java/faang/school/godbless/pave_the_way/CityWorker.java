@@ -21,12 +21,13 @@ public class CityWorker implements Runnable {
         Location location = city.getLocation();
         for(Monster monster : monsterList) {
             Location monsterLocation = monster.getLocationCoordinates(monster.getLocation());
-            int distance = (int)(Math.sqrt(Math.pow((monsterLocation.getX() - location.getX()), 2) + Math.pow((monsterLocation.getY() - location.getY()), 2)));
+            int distance = (int)this.calculateDistance(location, monsterLocation);
             if(distance < distanceForEquals) {
                 distanceForEquals = distance;
                 nearestMonster = monster;
             }
         }
+        System.out.println();
         return nearestMonster;
     }
 
@@ -36,15 +37,23 @@ public class CityWorker implements Runnable {
 
     public long getJourneyDistance() {
         City start = new City("Kaer Morhen", new Location(180, 70));
-        Location firstMonsterLocation = monsterList.get(0).getLocationCoordinates(monsterList.get(0).getLocation());
+        Location startCityLocation = start.getLocation();
+        Monster firstMonster = monsterList.get(0);
+        Location firstMonsterLocation = firstMonster.getLocationCoordinates(firstMonster.getLocation());
         int betweenMonsters = 0;
-        int toFirstMonster = (int)(Math.sqrt(Math.pow((firstMonsterLocation.getX() - start.getLocation().getX()), 2) + Math.pow((firstMonsterLocation.getY() - start.getLocation().getY()), 2)));
+        int toFirstMonster = (int)calculateDistance(startCityLocation, firstMonsterLocation);
         for(int i = 0; i < monsterList.size() - 1; i++) {
-            Location currentMonsterLocation = monsterList.get(i).getLocationCoordinates(monsterList.get(i).getLocation());
-            Location nextMonsterLocation = monsterList.get(i+1).getLocationCoordinates(monsterList.get(i+1).getLocation());
-            int distance = (int)(Math.sqrt(Math.pow((currentMonsterLocation.getX() - nextMonsterLocation.getX()), 2) + Math.pow((currentMonsterLocation.getY() - nextMonsterLocation.getY()), 2)));
+            Monster currentMonster = monsterList.get(i);
+            Location currentMonsterLocation = currentMonster.getLocationCoordinates(currentMonster.getLocation());
+            Monster nextMonster = monsterList.get(i + 1);
+            Location nextMonsterLocation = nextMonster.getLocationCoordinates(nextMonster.getLocation());
+            int distance = (int)calculateDistance(currentMonsterLocation, nextMonsterLocation);
             betweenMonsters = betweenMonsters + distance;
         }
         return betweenMonsters + toFirstMonster;
+    }
+
+    public long calculateDistance(Location fromLocation, Location toLocation) {
+        return (long)(Math.sqrt(Math.pow((toLocation.getX() - fromLocation.getX()), 2) + Math.pow((toLocation.getY() - fromLocation.getY()), 2)));
     }
 }
