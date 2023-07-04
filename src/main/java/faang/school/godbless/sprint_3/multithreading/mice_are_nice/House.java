@@ -37,7 +37,6 @@ public class House {
                 List<Room> sublist = house.rooms.subList(i, endIndex);
                 service.scheduleAtFixedRate(() -> house.collectFood(sublist), 0, 30, TimeUnit.SECONDS);
             }
-            service.shutdown();
             System.out.println("Еда собрана!");
         }
     }
