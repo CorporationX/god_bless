@@ -10,7 +10,9 @@ public class Robot {
     private String name;
     private String target;
 
-    public synchronized void attack() {
-        System.out.println("Робот " + name + " атаковал цель: " + target);
+    public void attack() {
+        synchronized (target) {
+            System.out.println("Робот " + name + " атаковал цель: " + target);
+        }
     }
 }
