@@ -18,7 +18,7 @@ public class House {
         this.food = food;
     }
 
-    public void collectFood(Room room) {
+    public synchronized void collectFood(Room room) {
 
 //        System.out.println(Thread.currentThread().getName() + " Начался сбор " + food);
 //        food = rooms.stream()
