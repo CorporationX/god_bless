@@ -17,14 +17,13 @@ public class House {
     List<Food> foods;
 
     public void collectFood() {
-
-        System.out.println(Thread.currentThread().getName() + " Начался сбор");
+        System.out.println(Thread.currentThread().getName() + " Начался сбор еды : " + rooms);
         rooms.stream()
                 .flatMap(room -> room.getFood().stream())
                 .toList();
-        System.out.println(Thread.currentThread().getName() + " Закончился сбор");
+        System.out.println(Thread.currentThread().getName() + " Закончился сбор еды : " + rooms);
         rooms.forEach(room -> room.setFood(new ArrayList<>()));
-        System.out.println(Thread.currentThread().getName() + " Уничтожил еду");
+        System.out.println(Thread.currentThread().getName() + " Уничтожил еду " + rooms);
     }
 
     @SneakyThrows
@@ -35,7 +34,6 @@ public class House {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            Thread.sleep(1000);
             executorService.schedule(house::collectFood, 3, TimeUnit.SECONDS);
         }
         executorService.shutdown();
