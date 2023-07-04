@@ -7,6 +7,7 @@ public class CalculateTheNumberOfPI {
 
     public static double calculatePi(int inside) {
         int all = CompletableFuture.supplyAsync(() -> {
+            System.out.println(Thread.currentThread().getName() + " Pi: ");
             int count = 0;
             for (int i = 0; i < inside; i++) {
                 Point point = point();

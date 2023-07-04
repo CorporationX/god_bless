@@ -19,6 +19,6 @@ public class Main {
         for (Double p : pif) {
             counttt += p;
         }
-        System.out.println("Pi: " + counttt/10);
+        System.out.println(Thread.currentThread().getName() + " Pi: " + counttt/10);
     }
 }
