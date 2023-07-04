@@ -1,15 +1,13 @@
 package faang.school.godbless.TheBigBangTheory;
 
+import lombok.AllArgsConstructor;
+
 import java.util.Random;
 
-public class Task implements Runnable{
+@AllArgsConstructor
+public class Task implements Runnable {
     private String name;
     private String task;
-
-    public Task(String name, String task) {
-        this.name = name;
-        this.task = task;
-    }
 
     @Override
     public void run() {
@@ -17,7 +15,8 @@ public class Task implements Runnable{
         try {
             Thread.sleep(new Random().nextInt(5));
         } catch (InterruptedException e) {
-            throw new RuntimeException("Task interrupted");
+            System.out.println("Task interrupted");
         }
+        System.out.println(this.name + "finished" + task);
     }
 }
