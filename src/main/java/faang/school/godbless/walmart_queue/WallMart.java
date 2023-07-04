@@ -15,21 +15,10 @@ public class WallMart {
         for (int i = 0; i < customers.size(); i++) {
             CashierThread cashier = new CashierThread(i, customers.get(i));
             cashiers.add(cashier);
-
-            cashier.start();
-
-            try {
-                cashier.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
 
-        System.out.println("All cashiers have finished processing.");
-
         for (CashierThread cashier : cashiers) {
-            System.out.println(
-                    "Cashier №" + cashier.getCashierId() + "  have processed in total " + cashier.getTotalItems() + " items, total cost of which equals to " + cashier.getTotalCost());
+            cashier.start();
         }
     }
 }

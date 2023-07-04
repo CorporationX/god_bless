@@ -33,5 +33,8 @@ public class CashierThread extends Thread {
 
             System.out.println("Cashier №" + cashierId + " scanned " + totalItems + " items, total cost is " + totalCost);
         }
+
+        System.out.println(
+                "Cashier №" + cashierId + "  have processed in total " + totalItems + " items, total cost of which equals to " + totalCost);
     }
 }
