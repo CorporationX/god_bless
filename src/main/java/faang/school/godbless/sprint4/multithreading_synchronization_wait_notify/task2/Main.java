@@ -1,18 +1,18 @@
 package faang.school.godbless.sprint4.multithreading_synchronization_wait_notify.task2;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
-        TelegramBot telegramBot = new TelegramBot(5, LocalDateTime.now());
+        TelegramBot telegramBot = new TelegramBot(System.currentTimeMillis());
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
+            int j = i;
             Thread thread = new Thread(() -> {
                 try {
-                    telegramBot.sendMessage("Message #" + Thread.currentThread().getName());
+                    telegramBot.sendMessage("Message " + j);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }

@@ -1,44 +1,32 @@
 package faang.school.godbless.sprint4.multithreading_synchronization_wait_notify.task2;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-
 public class TelegramBot {
 
     private final int REQUEST_LIMIT;
 
     private int requestCounter;
 
-    private LocalDateTime lastRequestTime;
+    private long lastRequestTime;
 
-    public TelegramBot(int REQUEST_LIMIT, LocalDateTime lastRequestTime) {
-        this.REQUEST_LIMIT = REQUEST_LIMIT;
+    public TelegramBot(long lastRequestTime) {
+        this.REQUEST_LIMIT = 5;
         this.lastRequestTime = lastRequestTime;
     }
 
-    public void sendMessage(String message) throws InterruptedException {
-        ZonedDateTime zdt = ZonedDateTime.of(lastRequestTime, ZoneId.systemDefault());
-        long last = zdt.toInstant().toEpochMilli();
-        LocalDateTime now = LocalDateTime.now();
-        zdt = ZonedDateTime.of(now, ZoneId.systemDefault());
-        long current = zdt.toInstant().toEpochMilli();
-        long duration = current - last;
-        System.out.println("Duration: " + duration);
-
-        synchronized (this) {
-            if (duration < 1000) {
-                requestCounter++;
-                System.out.println("requestCounter: " + requestCounter);
-                if (requestCounter > REQUEST_LIMIT) {
-                    this.wait(1_000 - duration);
-                    requestCounter = 0;
-                    lastRequestTime = lastRequestTime.minusMinutes(2);
-                    this.notifyAll();
-                }
+    public synchronized void sendMessage(String message) throws InterruptedException {
+        long duration = System.currentTimeMillis() - lastRequestTime;
+        while (duration <= 3000 && requestCounter == REQUEST_LIMIT) {
+            wait(3000 - duration);
+            duration = System.currentTimeMillis() - lastRequestTime;
+            if (duration > 3000 || requestCounter == REQUEST_LIMIT) {
+                System.out.println("обнуление счетчика");
+                requestCounter = 0;
             }
         }
-
-        System.out.println("Sending message: " + message);
+        requestCounter++;
+        lastRequestTime = System.currentTimeMillis();
+        System.out.println(message + " lastRequestTime: " + lastRequestTime + " requestCounter: " + requestCounter);
+        notifyAll();
     }
 }
+
