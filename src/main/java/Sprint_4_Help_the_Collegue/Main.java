@@ -13,8 +13,8 @@ public class Main {
             people.add(new Person("name = " + i, "surname = " + i, i, "workplace = " + i));
         }
         ExecutorService executorService = Executors.newFixedThreadPool(10);
-        for (int i=0; i<10; i++){
-            executorService.submit(new PersonNamePrinter(people.subList(i*10_000/10, (i+1)*10_000/10)));
+        for (int i = 0; i < 10; i++) {
+            executorService.submit(new PersonNamePrinter(people.subList(i * 10_000 / 10, (i + 1) * 10_000 / 10)));
         }
         executorService.shutdown();
 
