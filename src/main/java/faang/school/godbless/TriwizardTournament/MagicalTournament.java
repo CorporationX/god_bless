@@ -26,7 +26,6 @@ public class MagicalTournament {
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
-        // Обработка результатов заданий
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
