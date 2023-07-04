@@ -7,16 +7,18 @@ import lombok.Getter;
 @Getter
 public class Robot implements Runnable {
     private String name;
-    private String target;
+    private final String target;
 
     public void attack() {
-        try {
-            System.out.println(getName() + " attack target: " + getTarget());
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        synchronized (target) {
+            try {
+                System.out.println(getName() + " attack target: " + getTarget());
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Target" + getTarget() + "kill");
         }
-        System.out.println("Target" + getTarget() + "kill");
     }
 
     @Override
