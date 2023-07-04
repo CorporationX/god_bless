@@ -15,7 +15,6 @@ public class Main {
     for (int i = 0; i < NOTIFICATION_LENGTH; i++) {
       futures.add(notificationManager.fetchNotification(i+1));
     }
-    futures.forEach(CompletableFuture::join);
 
     CompletableFuture<Void> tasks = CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 
