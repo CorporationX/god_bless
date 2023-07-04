@@ -9,20 +9,19 @@ public class Boss {
     private int maxPlayers;
     private int currentPlayers;
 
-    public void joinBattle(Player player) throws InterruptedException {
-        if (currentPlayers <= maxPlayers) {
-            currentPlayers++;
-            System.out.println(player.name() + " add to battle " + currentPlayers);
-        } else {
+    public synchronized void joinBattle(Player player) throws InterruptedException {
+        while (currentPlayers >= maxPlayers) {
             System.out.println("I'm here");
-            player.wait();
+            wait();
         }
+        currentPlayers++;
+        System.out.println(player.name() + " add to battle " + currentPlayers);
     }
 
-    public void endBattle(Player player) throws InterruptedException {
-        Thread.sleep(2000);
+    public synchronized void endBattle(Player player) throws InterruptedException {
+        Thread.sleep(1000);
         System.out.println(player.name() + " finished battle");
         currentPlayers--;
-        player.notify();
+        notify();
     }
 }

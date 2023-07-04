@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException {
-        Boss boss = new Boss(5, 0);
+        Boss boss = new Boss(2, 0);
         List<Player> players = new ArrayList<>();
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 3; i++) {
             players.add(new Player("Player" + i));
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(7);
         for (Player player : players) {
             executorService.execute(() -> {
                 try {
