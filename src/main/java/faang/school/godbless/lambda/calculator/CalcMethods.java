@@ -4,6 +4,10 @@ import java.util.List;
 
 public class CalcMethods {
     private static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("List is empty!");
+        }
+
         int sum = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             sum = calculator.calcMethod(sum, nums.get(i));
