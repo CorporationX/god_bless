@@ -23,20 +23,22 @@ public class CashierThread extends Thread {
         }
         for (CashierThread thread : cashiers) {
             thread.start();
+            int quantity = thread.getCustomerItems().length;
+            int cost = new Random().nextInt(700) + 800;
+            System.out.printf("Кассир: %s -> Вы купили %d наименований и с Вас %d RUB %n", thread.cashierId, quantity, cost);
+        }
+        for (CashierThread thread : cashiers) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            int quantity = thread.getCustomerItems().length;
-            int cost = new Random().nextInt(700) + 800;
-            System.out.printf("Кассир: %s -> Вы купили %d наименований и с Вас %d RUB %n", thread.cashierId, quantity, cost);
         }
     }
 
     public void run() {
         for (String stroke : customerItems) {
-            System.out.println(String.format("Кассир: %d взял в руки %s и пробил этот товар.", cashierId, stroke));
+            System.out.printf("Кассир: %d взял в руки %s и пробил этот товар.%n", cashierId, stroke);
         }
     }
 }
