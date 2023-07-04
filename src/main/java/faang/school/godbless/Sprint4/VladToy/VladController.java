@@ -17,48 +17,55 @@ public class VladController {
         tamagotchies.remove(tamagotchi);
     }
 
-    public void feedAll(){
+    public void feedAll() {
         for (TamagotchiVlad tamagotchi : tamagotchies) {
-            executors.execute(()-> {
+            executors.execute(() -> {
                 try {
                     tamagotchi.feed();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
             });
         }
     }
-    public void playAll(){
+
+    public void playAll() {
         for (TamagotchiVlad tamagotchi : tamagotchies) {
-            executors.execute(()-> {
+            executors.execute(() -> {
                 try {
                     tamagotchi.play();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
             });
         }
     }
-    public void cleanAll(){
+
+    public void cleanAll() {
         for (TamagotchiVlad tamagotchi : tamagotchies) {
-            executors.execute(()-> {
+            executors.execute(() -> {
                 try {
                     tamagotchi.clean();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
             });
         }
     }
-    public void sleepAll(){
+
+    public void sleepAll() {
         for (TamagotchiVlad tamagotchi : tamagotchies) {
-            executors.execute(()-> {
+            executors.execute(() -> {
                 try {
                     tamagotchi.sleep();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println(e.getMessage());
                 }
             });
         }
+    }
+
+    public void executorsEnd() {
+        executors.shutdown();
     }
 }

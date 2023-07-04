@@ -13,6 +13,7 @@ public class Main {
         controller.playAll();
         controller.cleanAll();
         controller.sleepAll();
+        controller.executorsEnd();
 
     }
 }
