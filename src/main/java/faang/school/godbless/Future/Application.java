@@ -10,7 +10,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        ExecutorService executor = Executors.newFixedThreadPool(6);
+        ExecutorService executor = Executors.newSingleThreadExecutor();
 
         try {
             doAll(executor, new MasterCardService());
