@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless;
+package main.java.faang.school.sprints.sprint2.collecting_users;
 
 public class Example {
     public static void reverse(int[] nums){

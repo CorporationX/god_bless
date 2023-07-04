@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless;
+package main.java.faang.school.sprints.sprint2.collecting_users;
 
 import java.util.Arrays;
 
