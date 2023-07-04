@@ -19,7 +19,7 @@ public class Game {
                 .toList();
 
         AtomicInteger total = new AtomicInteger(0);
-        CompletableFuture.allOf(potionsFutures.toArray(new CompletableFuture[potionsFutures.size()]))
+        CompletableFuture.allOf(potionsFutures.toArray(new CompletableFuture[0]))
                 .thenRun(() -> {
                             for (CompletableFuture<Integer> potion : potionsFutures) {
                                 try {
