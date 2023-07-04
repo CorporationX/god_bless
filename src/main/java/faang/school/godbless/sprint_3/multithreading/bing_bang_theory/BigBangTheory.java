@@ -14,7 +14,7 @@ public class BigBangTheory {
         executorService.submit(second);
         executorService.submit(third);
         executorService.submit(fourth);
-        executorService.close();
+        executorService.shutdown();
         System.out.println("Task is over!");
     }
 }
