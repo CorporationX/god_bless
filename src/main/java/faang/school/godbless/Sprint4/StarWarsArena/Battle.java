@@ -9,7 +9,7 @@ public class Battle {
         Future<Robot> rob1 = executor.submit(()->bit(robot1,robot2));
         Future<Robot> rob2 = executor.submit(()->bit(robot2,robot1));
 
-        while (!rob1.isDone() || !rob2.isDone()) {
+        while (!rob1.isDone() && !rob2.isDone()) {
 
         }
         executor.shutdown();
@@ -25,7 +25,7 @@ public class Battle {
 
     private Robot bit(Robot attacker, Robot defender) throws InterruptedException {
         while (defender.getHealth()>0){
-            defender.setHealth(attacker.getHealth()-defender.getAttackPower()+defender.getDefensePower());
+            defender.setHealth(defender.getHealth()-attacker.getAttackPower()+defender.getDefensePower());
             System.out.println("HP"+defender.getName()+" is "+defender.getHealth());
             Thread.sleep((long) (Math.random()*1000));
         }
