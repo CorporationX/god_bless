@@ -6,7 +6,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class PersonNamePrinter implements Runnable {
-    List<Person> people;
+    private List<Person> people;
 
     @Override
     public void run() {
