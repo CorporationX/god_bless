@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.abstraction;
+package faang.school.godbless.sprint2.abstraction;
 
 abstract class Character {
         protected String name;

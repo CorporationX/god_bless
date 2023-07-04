@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless;
+package faang.school.godbless.sprint2;
 
 import lombok.Data;
 

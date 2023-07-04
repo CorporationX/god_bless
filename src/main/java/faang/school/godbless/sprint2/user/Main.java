@@ -1,4 +1,4 @@
-package user;
+package faang.school.godbless.sprint2.user;
 
 import java.util.ArrayList;
 import java.util.HashMap;

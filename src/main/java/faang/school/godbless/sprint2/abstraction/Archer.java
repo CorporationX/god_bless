@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.abstraction;
+package faang.school.godbless.sprint2.abstraction;
     class Archer extends Character {
         public Archer(String name) {
             super(name, 3, 10, 5);
