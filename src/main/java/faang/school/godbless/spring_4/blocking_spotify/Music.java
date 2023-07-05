@@ -4,10 +4,23 @@ public class Music {
     public static void main(String[] args) {
         Player player = new Player();
 
-        new Thread(player::play);
-        new Thread(player::pause);
-        new Thread(player::skip);
-        new Thread(player::previous);
+        Thread play = new Thread(player::play);
+        Thread pause = new Thread(player::pause);
+        Thread skip = new Thread(player::skip);
+        Thread previous = new Thread(player::previous);
 
+        play.start();
+        pause.start();
+        skip.start();
+        previous.start();
+
+        try {
+            play.join();
+            pause.join();
+            skip.join();
+            previous.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException();
+        }
     }
 }

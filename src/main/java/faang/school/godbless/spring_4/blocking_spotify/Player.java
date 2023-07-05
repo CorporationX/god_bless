@@ -17,11 +17,11 @@ public class Player {
         }
     }
 
-    public void skip() {
+    public synchronized void skip() {
 
     }
 
-    public void previous() {
+    public synchronized void previous() {
 
     }
 }
