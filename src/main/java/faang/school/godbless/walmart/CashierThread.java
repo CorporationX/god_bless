@@ -12,10 +12,11 @@ public class CashierThread extends Thread {
     @Override
     public void run() {
         int sumCost = 0;
+        int sumItems = 0;
         for (int customerItem : customerItems) {
             sumCost += customerItem;
-            System.out.println(customerItem);
+            sumItems += 1;
         }
-        System.out.println("total " + sumCost);
+        System.out.println("Items " + sumItems + " Total " + sumCost);
     }
 }

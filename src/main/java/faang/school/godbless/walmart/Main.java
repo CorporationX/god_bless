@@ -1,19 +1,21 @@
 package faang.school.godbless.walmart;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int[][] customers = {{5, 7, 3, 2}, {1, 2, 3}, {6, 5, 2}, {10, 2, 1, 3, 5}};
 
-        CashierThread[] cashiers = new CashierThread[customers.length];
-
+        List<CashierThread> list = new ArrayList<>(customers.length);
         for (int i = 0; i < customers.length; i++) {
-            for (int[] customer : customers) {
-                CashierThread cashierThread = new CashierThread(i, customer);
-                cashiers[i] = cashierThread;
-            }
+            list.add(new CashierThread(i, customers[i]));
         }
 
-        for (CashierThread cashier : cashiers) {
+        for (CashierThread cashier : list) {
+            Thread.sleep(2000);
             cashier.start();
         }
     }
