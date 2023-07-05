@@ -25,14 +25,15 @@ public class Game {
         Random random = new Random();
         int randomIndex = random.nextInt(bros.size());
         Bro bro = bros.get(randomIndex);
-        synchronized (livesLock) {
             if (bro.getDamage() == true) {
-                bro.setBroLives(bro.getBroLives() - 1);
-                lives++;
-                System.out.println(bro.getName() + "lives - " + bro.getBroLives());
-                if (bro.getBroLives() == 0) {
-                    System.out.println("lives lost - " + lives);
-                    return gameOver();
+                synchronized (livesLock) {
+                    bro.setBroLives(bro.getBroLives() - 1);
+                    lives++;
+                    System.out.println(bro.getName() + "lives - " + bro.getBroLives());
+                    if (bro.getBroLives() == 0) {
+                        System.out.println("lives lost - " + lives);
+                        return gameOver();
+                    }
                 }
             } else {
                 synchronized (scoresLock) {
@@ -40,7 +41,6 @@ public class Game {
                     score++;
                 }
             }
-        }
         return false;
     }
     private boolean gameOver() {
