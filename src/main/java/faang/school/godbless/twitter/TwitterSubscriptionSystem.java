@@ -5,8 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class TwitterSubscriptionSystem {
-  private synchronized void addFollower(TwitterAccount twitterAccount) {
-    twitterAccount.setFollowersCount(twitterAccount.getFollowersCount() + 1);
+  private void addFollower(TwitterAccount twitterAccount) {
+    synchronized (twitterAccount) {
+      twitterAccount.setFollowersCount(twitterAccount.getFollowersCount() + 1);
+    }
   }
 
   public CompletableFuture<Void> followAccount(TwitterAccount twitterAccount) {

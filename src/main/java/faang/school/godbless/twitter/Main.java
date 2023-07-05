@@ -6,14 +6,14 @@ import java.util.concurrent.CompletableFuture;
 
 public class Main {
   public static void main(String[] args) {
-    final int FOLLOWERS = 2000;
+    final int followers = 2000;
 
     TwitterSubscriptionSystem twitterSubscriptionSystem = new TwitterSubscriptionSystem();
     TwitterAccount vladTwitterAccount = new TwitterAccount("Vlad Mishustin", 200_000);
 
     List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-    for (int i = 0; i < FOLLOWERS; i++) {
+    for (int i = 0; i < followers; i++) {
       futures.add(twitterSubscriptionSystem.followAccount(vladTwitterAccount));
     }
 
