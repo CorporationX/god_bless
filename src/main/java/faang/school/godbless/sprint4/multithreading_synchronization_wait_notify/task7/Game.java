@@ -9,9 +9,9 @@ public class Game {
 
     private int lives;
 
-    private Object lock1 = new Object();
+    private Object lockScore = new Object();
 
-    private Object lock2 = new Object();
+    private Object lockLives = new Object();
 
     public Game(int score, int lives) {
         this.score = score;
@@ -19,7 +19,7 @@ public class Game {
     }
 
     public void update() {
-        synchronized (lock1) {
+        synchronized (lockScore) {
             if (lives <= 1) {
                 lives--;
                 gameOver();
