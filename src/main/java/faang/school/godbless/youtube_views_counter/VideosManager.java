@@ -9,21 +9,17 @@ import java.util.Set;
 public class VideosManager {
     private Map<String, Integer> viewsMap;
 
-    public void addView(String videoId) {
-        synchronized (viewsMap) {
-            viewsMap.compute(videoId, (a, b) -> b + 1);
-            notifyAll();
-        }
+    public  synchronized void addView(String videoId) {
+        viewsMap.compute(videoId, (a, b) -> b + 1);
+        notifyAll();
     }
 
-    public int getViewCount(String videoId) {
-        synchronized (viewsMap) {
-            if (viewsMap.containsKey(videoId)) {
-                try {
-                    viewsMap.wait(1);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    public synchronized int getViewCount(String videoId) {
+        if (viewsMap.containsKey(videoId)) {
+            try {
+                wait(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
         return viewsMap.get(videoId);
