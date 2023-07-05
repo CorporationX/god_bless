@@ -17,13 +17,9 @@ public class Kingdom {
     return CompletableFuture.supplyAsync(() -> {
       if (Math.random() > 0.5){
         return "Message " + message +  " delivered to " + otherKingdom.getName();
-      } else {
-        try {
-          throw new RuntimeException("Message failed");
-        } catch (Exception e) {
-          return e.getMessage();
-        }
       }
+
+      return "Message failed";
     });
   }
 }
