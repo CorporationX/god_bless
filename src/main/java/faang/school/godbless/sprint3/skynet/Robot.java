@@ -1,6 +1,5 @@
 package faang.school.godbless.sprint3.skynet;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
@@ -15,10 +14,12 @@ public class Robot {
 
     }
 
-    public synchronized String attack(Robot target) {
-        target.setHealth(target.getHealth() - this.getStrength());
-        System.out.println("Target health" + target.getHealth());
-        return "Target health" + target.getHealth();
+    public String attack(Robot target) {
+        synchronized (target) {
+            target.setHealth(target.getHealth() - this.getStrength());
+            System.out.println("Target health" + target.getHealth());
+            return "Target health" + target.getHealth();
+        }
     }
 
 }
