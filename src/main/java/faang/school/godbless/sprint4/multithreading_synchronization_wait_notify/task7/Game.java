@@ -20,7 +20,7 @@ public class Game {
 
     public void update() {
         synchronized (lock1) {
-            if (lives  <= 1) {
+            if (lives <= 1) {
                 lives--;
                 gameOver();
             } else {
@@ -33,9 +33,7 @@ public class Game {
     }
 
     public void gameOver() {
-        synchronized (lock2) {
-            System.out.println(Thread.currentThread().getName() + " Game Over");
-        }
+        System.out.println(Thread.currentThread().getName() + " Game Over");
     }
 
     public static void main(String[] args) {
