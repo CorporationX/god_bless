@@ -1,32 +1,32 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Main {
-    public static void main(String[] args) {
-        List<Location> locations = new ArrayList<>(Arrays.asList(
-                new Location("Eiffel Tower", 48.8584, 2.2945),
-                new Location("Statue of Liberty", 40.6892, -74.0445),
-                new Location("Great Wall of China", 40.4319, 116.5704)
-        ));
+    public static void main(String[] args) throws InterruptedException {
+        List<Person> personList = new ArrayList<>();
+        for (int i = 0; i < 10000; i++) {
+            personList.add(new Person("Person" + i, "surname", 30, "workplace"));
+        }
+        ExecutorService executor = Executors.newFixedThreadPool(4);
 
-        LocationSearchEngine searchEngine = new LocationSearchEngine();
+        PersonNamePrinter printer1 = new PersonNamePrinter(0,2500);
+        PersonNamePrinter printer2 = new PersonNamePrinter(2500,5000);
+        PersonNamePrinter printer3 = new PersonNamePrinter(5000,7500);
+        PersonNamePrinter printer4 = new PersonNamePrinter(7500,10000);
 
-// Фильтруем местоположения по долготе
-        List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
+        executor.submit(printer1);
+        executor.submit(printer2);
+        executor.submit(printer3);
+        executor.submit(printer4);
 
-// Выводим названия отфильтрованных местоположений
-        searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
+        executor.shutdown();
 
-// Вычисляем расстояния от заданной точки до каждого местоположения
-        double baseLatitude = 37.4220;
-        double baseLongitude = -122.0841;
-        List<Double> distances = searchEngine.calculateDistances(locations, (location) -> {
-            double latitudeDiff = Math.abs(location.getLatitude() - baseLatitude);
-            double longitudeDiff = Math.abs(location.getLongitude() - baseLongitude);
-            return Math.sqrt(Math.pow(latitudeDiff, 2) + Math.pow(longitudeDiff, 2));
-        });
-    }
-}
+        boolean isDone = executor.awaitTermination(2, SECONDS);
+        System.out.println("Program complete all tasks ? - " + isDone);
+
