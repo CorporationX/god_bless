@@ -24,10 +24,10 @@ public class VladController {
     public void sleepAll(){
         tamagotchiVladList.forEach(TamagotchiVlad::sleep);
     }
-    public void addTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
+    public synchronized void addTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
        tamagotchiVladList.add(tamagotchiVlad);
     }
-    public void removeTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
+    public synchronized void removeTamagotchiVladList(TamagotchiVlad tamagotchiVlad){
         if (tamagotchiVladList.contains(tamagotchiVlad)){
             tamagotchiVladList.remove(tamagotchiVlad);
         }else {
