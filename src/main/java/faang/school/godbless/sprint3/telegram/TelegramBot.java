@@ -10,11 +10,11 @@ public class TelegramBot {
         this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public void sendMessage(String message) {
+    public synchronized void sendMessage(String message) {
         long timeNow = System.currentTimeMillis();
         if (timeNow - lastRequestTime < 1000) {
             ++requestCounter;
-            if (requestCounter < REQUEST_LIMIT) {
+            if (requestCounter > REQUEST_LIMIT) {
                 try {
                     Thread.sleep(1000);
                 }catch (InterruptedException e) {
