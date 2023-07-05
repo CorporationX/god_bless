@@ -6,7 +6,7 @@ import java.util.concurrent.Future;
 
 public class Battle {
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public Future<Robot> fight(Robot attacker, Robot defender) {
         attacker.setTarget(defender);
@@ -15,7 +15,7 @@ public class Battle {
         return executorService.submit(() -> {
             while (attacker.isAlive() && defender.isAlive()) {
                 attacker.attack(defender);
-                if (defender.isAlive()) {
+                if   (defender.isAlive()) {
                     defender.attack(attacker);
                 }
             }
