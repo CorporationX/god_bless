@@ -11,5 +11,4 @@ public class Robot {
     private String name;
     private int attackPower;
     private int defensePower;
-
 }
