@@ -5,11 +5,14 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Robot{
-    private String target;
+public class Robot {
+    private final String target;
 
-    public synchronized void attack() {
-        System.out.println(Thread.currentThread().getName() + " attack " + target);
+    public void attack() {
+        synchronized (target) {
+            System.out.println(Thread.currentThread().getName() + " attack " + target);
+        }
+
     }
 
 }
