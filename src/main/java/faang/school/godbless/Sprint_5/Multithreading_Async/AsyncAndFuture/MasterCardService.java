@@ -29,8 +29,8 @@ public class MasterCardService {
 
         CompletableFuture<Integer> analystics = CompletableFuture.supplyAsync(() -> sendAnalystics());
 
-        int pay = payment.get();
         int analystic = analystics.get();
+        int pay = payment.get();
         System.out.printf("Analystics: %d\n", analystic);
         System.out.printf("Payment: %d\n", pay);
     }
