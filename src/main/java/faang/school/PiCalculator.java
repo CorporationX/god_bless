@@ -5,25 +5,24 @@ import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
 public class PiCalculator {
-    private static final int POINTS_COUNT = 111000;
+    private static final int POINTS_COUNT = 1101000;
 
     public static void main(String[] args) {
         var insidePoints = Stream.iterate(0, i -> i + 1)
                 .limit(POINTS_COUNT)
-                .map(i -> CompletableFuture.supplyAsync(() -> new Point().isInside()))
+                .map(i -> CompletableFuture.supplyAsync(() -> Point.getRandomPoint().isInside()))
                 .toList();
 
-        var res = CompletableFuture.allOf(insidePoints.toArray(CompletableFuture[]::new));
-        res.thenRun(() -> {
-            var percent = calculatePercents(insidePoints.stream().filter(i -> {
-                try {
-                    return i.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-            }).toList().size(), POINTS_COUNT);
-            System.out.println(percent);
-        }).join();
+        int insidePointsCount = (int) insidePoints.stream().map(futurePoint -> {
+            try {
+                return futurePoint.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        }).filter(isInside -> isInside).count();
+
+        System.out.println(calculatePercents(insidePointsCount, POINTS_COUNT));
+        System.out.println("Done");
     }
 
     private static double calculatePercents(int inside, int all) {

@@ -1,15 +1,17 @@
 package faang.school;
 
+import lombok.AllArgsConstructor;
+
 import java.util.concurrent.ThreadLocalRandom;
 
+@AllArgsConstructor
 public class Point {
     private double x;
     private double y;
 
-    Point() {
+    public static Point getRandomPoint() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        this.x = random.nextDouble();
-        this.y = random.nextDouble();
+        return new Point(random.nextDouble(), random.nextDouble());
     }
 
     public boolean isInside() {
