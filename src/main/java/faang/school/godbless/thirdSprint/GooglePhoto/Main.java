@@ -7,11 +7,7 @@ public class Main {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
         List<String> photos = List.of("я на море", "красивый закат", "мой обед");
 
-        Thread thread1 = new Thread(() -> {
-            while (true) {
-                uploader.startAutoUpload();
-            }
-        });
+        Thread thread1 = new Thread(uploader::startAutoUpload);
 
         Thread thread2 = new Thread(() -> {
             for (String photo : photos) {
