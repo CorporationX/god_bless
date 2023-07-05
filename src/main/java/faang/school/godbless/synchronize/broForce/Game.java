@@ -43,8 +43,8 @@ public class Game {
             }
         }
 
-        Bro winner = bros.stream().filter(Bro::isAlive).findFirst().orElse(null);
-        assert winner != null;
+        Bro winner = bros.stream().filter(Bro::isAlive).findFirst().orElseThrow();
+
         System.out.println(winner.getName() + " is the winner with " + winner.getScore() + " points");
     }
 
