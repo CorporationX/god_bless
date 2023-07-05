@@ -38,10 +38,16 @@ public class Main {
     ExecutorService executor = Executors.newFixedThreadPool(4);
     List<User> users = userList.getUsers();
 
-    for (int i = 0; i < 3; i ++) {
+    int i = 0;
+
+    while (i < 3) {
       User currentUser = users.get(i);
+      if (!currentUser.isWaitingForChat()) continue;
+
       executor.execute(() -> chatManager.startChat(currentUser));
+      i++;
     }
+
 
 
     // executor.execute(() -> chatManager.endChat(chatManager.getChatList().get(0)));

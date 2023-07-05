@@ -13,14 +13,9 @@ public class ChatManager {
   }
 
   private User getNextWaitingUser(String currentUserName) {
-    User currUser =  userList.getOnlineUsers()
-
-        .filter((user -> user.isWaitingForChat() && !user.getName().equals(currentUserName))
-
-        )
-        .peek(test -> System.out.println(test.getName())).findFirst().orElse(null);
-
-    return currUser;
+    return userList.getOnlineUsers()
+        .filter((user -> user.isWaitingForChat() && !user.getName().equals(currentUserName)))
+            .findFirst().orElse(null);
   }
 
   public void startChat(User user) {
