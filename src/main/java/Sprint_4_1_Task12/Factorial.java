@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Factorial {
@@ -18,7 +19,7 @@ public class Factorial {
             }
             return result;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("больше 12");
         }
     }
 
@@ -30,7 +31,8 @@ public class Factorial {
             }
             return result;
         } else {
-           throw new IllegalArgumentException();
+            return factorialInt(n);
+//           throw new IllegalArgumentException("больше 19");
         }
     }
 
@@ -62,16 +64,25 @@ public class Factorial {
         System.out.println(factorialBig(25));
 
         List<Integer> numbers = List.of(
-                50, 100, 200, 300, 400, 10, 25, 10000
+                50, 100, 200, 300,5,2,8, 400, 10, 25, 10000
         );
         List<CompletableFuture<BigInteger>> result = factorials(numbers);
         var counter = new AtomicInteger(0);
         for (int i = 0; i < result.size(); ++i) {
+            CompletableFuture<BigInteger> resultFactorial = result.get(i);
             new Thread(
-//                    counter::incrementAndGet
+                    () ->{
+                        try {
+                            System.out.println(resultFactorial.get());
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        } catch (ExecutionException e) {
+                            throw new RuntimeException(e);
+                        }
+                        counter.incrementAndGet();
+            }
             ).start();
         }
-
         int awaitCounter = 0;
         while (counter.get() != numbers.size()) {
             awaitCounter++;
