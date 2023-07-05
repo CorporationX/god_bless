@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     public static void main(String[] args) {
-        ExecutorService service = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
 
         List<Task> tasks = List.of(
                 new Task("Sheldon", "theory preparation"),
@@ -15,16 +15,19 @@ public class BigBangTheory {
                 new Task("Howard", "development of tools"),
                 new Task("Rajesh", "data analysis")
         );
-        for (Task task : tasks) {
-            service.submit(task);
-        }
 
-        service.shutdown();
+        tasks.forEach(executorService::execute);
+        executorService.shutdown();
 
         try {
-            service.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-            System.out.println("\nEveryone has completed their tasks");
+            if (executorService.awaitTermination(120, TimeUnit.SECONDS)) {
+                System.out.println("\nExecutor service terminated successfully.");
+            } else {
+                executorService.shutdownNow();
+                System.out.println("Executor service terminated forcibly");
+            }
         } catch (InterruptedException e) {
+            executorService.shutdownNow();
             e.getStackTrace();
         }
 
