@@ -19,7 +19,6 @@ public class Game {
             score++;
             lives--;
             System.out.println("Update");
-
         }
         if (lives == 0) {
             gameOver();
