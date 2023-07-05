@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,21 +21,13 @@ public class House {
 
     public synchronized void collectFood(Room room) {
 
-//        System.out.println(Thread.currentThread().getName() + " Начался сбор " + food);
-//        food = rooms.stream()
-//                .flatMap(room -> room.getFoodForRoom().stream())
-//                .toList();
-//        food.forEach(System.out::println);
-//        System.out.println(Thread.currentThread().getName() + " Закончился сбор "+ food);
-//        rooms.forEach(room -> room.setFoodForRoom(new ArrayList<>()));
-//        System.out.println(Thread.currentThread().getName() + " Уничтожил еду " + food);
-
         //for (int i = 0; i < rooms.size(); i++) {
 
-            food.addAll(room.getFoodForRoom());
-            System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Все фрукты получил "+ food);
-            room.setFoodForRoom(new ArrayList<>());
-            System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Фрукты собраны " + room.getFoodForRoom());
+        food.addAll(room.getFoodForRoom());
+        System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Все фрукты получил " + food);
+        System.out.println(Thread.currentThread().getName());
+        room.setFoodForRoom(new ArrayList<>());
+        System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Фрукты собраны " + room.getFoodForRoom());
         //}
     }
 
@@ -52,25 +45,31 @@ public class House {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
 
         //for (int i = 0; i < 3; i++) {
-            executorService.schedule(() -> house.collectFood(room1), 3000, TimeUnit.MILLISECONDS);
-            executorService.schedule(() -> house.collectFood(room2), 3000, TimeUnit.MILLISECONDS);
-            executorService.schedule(() -> house.collectFood(room3), 3000, TimeUnit.MILLISECONDS);
-            executorService.schedule(() -> house.collectFood(room4), 3000, TimeUnit.MILLISECONDS);
-            executorService.schedule(() -> house.collectFood(room5), 3000, TimeUnit.MILLISECONDS);
-            executorService.schedule(() -> house.collectFood(room6), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room1), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room2), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room3), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room4), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room5), 3000, TimeUnit.MILLISECONDS);
+        executorService.schedule(() -> house.collectFood(room6), 3000, TimeUnit.MILLISECONDS);
         //}
 
-
         executorService.shutdown();
-        //еееее
+
+//        try {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        System.out.println(Thread.currentThread().getName());
         try {
-            Thread.sleep(6000);
+            executorService.awaitTermination(100_000,TimeUnit.MILLISECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println();
+
+        System.out.println(Thread.currentThread().getName());
+
         System.out.println("Еда в доме собрана!");
-
     }
-
 }
