@@ -15,6 +15,9 @@ public class Main {
     CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
     CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
+    player1Quest.join();
+    player2Quest.join();
+
     player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
     player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
   }
