@@ -5,15 +5,16 @@ import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Data
-public class GooglePhotosAutoUploader{
+public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
 
     @SneakyThrows
-    public void startAutoUpload(){
-        while (true){
+    public void startAutoUpload() {
+        while (true) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
                     System.out.println(Thread.currentThread().getName() + " Ждет фото");
@@ -23,6 +24,7 @@ public class GooglePhotosAutoUploader{
             uploadPhotos();
         }
     }
+
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
@@ -30,16 +32,15 @@ public class GooglePhotosAutoUploader{
             lock.notifyAll();
         }
     }
+
     public void uploadPhotos() {
         synchronized (lock) {
             for (String photo : photosToUpload) {
                 System.out.println(Thread.currentThread().getName() + " Загружаем фото " + photo);
             }
             photosToUpload.clear();
-            lock.notifyAll();
         }
     }
-
 
     @SneakyThrows
     public static void main(String[] args) {
@@ -57,7 +58,6 @@ public class GooglePhotosAutoUploader{
 
         Thread.sleep(2000);
 
-        System. exit(0);
+        System.exit(0);
     }
-
 }
