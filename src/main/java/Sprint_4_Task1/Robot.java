@@ -12,7 +12,5 @@ public class Robot {
         synchronized (target) {
             System.out.println(Thread.currentThread().getName() + " attack " + target);
         }
-
     }
-
 }
