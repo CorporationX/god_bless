@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     static int collectPayment() {
@@ -18,7 +19,7 @@ public class MasterCardService {
         }
     }
 
-    static int sendAnalystics() {
+    static int sendAnalytics() {
         try {
             Thread.sleep(1_000);
             return 1_000;
@@ -30,9 +31,9 @@ public class MasterCardService {
 
     public static void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> future =  executor.submit(MasterCardService::collectPayment);
+        Future<Integer> future = executor.submit(MasterCardService::collectPayment);
 
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalystics);
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
         analyticsFuture.join();
 
         System.out.println("Результат sendAnalytics: " + analyticsFuture.get());
@@ -42,6 +43,7 @@ public class MasterCardService {
             e.printStackTrace();
         }
         executor.shutdown();
+        executor.awaitTermination(5, TimeUnit.SECONDS);
     }
 
 }
