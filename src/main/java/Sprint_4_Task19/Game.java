@@ -13,12 +13,14 @@ import java.util.concurrent.TimeUnit;
 public class Game {
     private int score;
     private int lives;
+    private final Object scoreLock = new Object();
+    private final Object scoreLock2 = new Object();
 
     private void update() {
-        synchronized (this) {
+        synchronized (scoreLock) {
             System.out.println(Thread.currentThread().getName() + " Score: " + score++);
         }
-        synchronized (this) {
+        synchronized (scoreLock2) {
             System.out.println(Thread.currentThread().getName() + " Lives: " + lives--);
             if (lives == 0){
                 gameOver();
@@ -26,9 +28,7 @@ public class Game {
         }
     }
     private void gameOver() {
-        synchronized (this) {
             System.out.println("Game Over");
-        }
     }
 
     @SneakyThrows
