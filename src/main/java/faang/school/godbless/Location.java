@@ -1,14 +1,10 @@
 package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-import javax.swing.*;
-
-@Data
 @AllArgsConstructor
+@Getter
 public class Location {
-    private String name;
-    private double latitude;
-    private double longitude;
-}
+    private int x;
+    private int y;
