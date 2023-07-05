@@ -11,6 +11,7 @@ public class Player {
         synchronized (object) {
             isPlaying = true;
             System.out.println("Music playing...");
+            System.out.println("Is music paying: " + isPlaying());
         }
     }
 
@@ -18,6 +19,7 @@ public class Player {
         synchronized (object) {
             isPlaying = false;
             System.out.println("Music stopped");
+            System.out.println("Is music paying: " + isPlaying());
         }
     }
 
@@ -25,6 +27,7 @@ public class Player {
         synchronized (object) {
             isPlaying = false;
             System.out.println("Music skipped");
+            System.out.println("Is music paying: " + isPlaying());
         }
     }
 
@@ -32,6 +35,7 @@ public class Player {
         synchronized (object) {
             isPlaying = false;
             System.out.println("Music switched at previous");
+            System.out.println("Is music paying: " + isPlaying());
         }
     }
 }

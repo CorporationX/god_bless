@@ -10,12 +10,8 @@ public class Music {
         Thread previousThread = new Thread(player::previous);
 
         playThread.start();
-        System.out.println("Is music paying: " + player.isPlaying());
         pauseThread.start();
-        System.out.println("Is music paying: " + player.isPlaying());
         skipThread.start();
-        System.out.println("Is music paying: " + player.isPlaying());
         previousThread.start();
-        System.out.println("Is music paying: " + player.isPlaying());
     }
 }
