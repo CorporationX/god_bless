@@ -9,9 +9,9 @@ public class Game {
 
     private int lives;
 
-    private Object lockScore = new Object();
+    private final Object lockScore = new Object();
 
-    private Object lockLives = new Object();
+    private final Object lockLives = new Object();
 
     public Game(int score, int lives) {
         this.score = score;
@@ -19,11 +19,13 @@ public class Game {
     }
 
     public void update() {
-        synchronized (lockScore) {
-            if (lives <= 1) {
+        if (lives <= 1) {
+            synchronized (lockLives) {
                 lives--;
                 gameOver();
-            } else {
+            }
+        } else {
+            synchronized (lockScore) {
                 score++;
                 System.out.println(Thread.currentThread().getName() + " Score: " + score);
                 lives--;
