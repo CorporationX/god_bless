@@ -18,19 +18,21 @@ public class House {
         this.numberOfAvailableRoles = numberOfAvailableRoles;
     }
 
-    public synchronized void addRole(String role) {
+    public void addRole(String role) {
         availableRoles.add(role);
         numberOfAvailableRoles--;
-        notifyAll();
     }
 
-    public synchronized void removeRole(String role) {
+    public void removeRole(String role) {
         availableRoles.remove(role);
         numberOfAvailableRoles++;
-        notifyAll();
     }
 
-    public synchronized boolean hasAvailableRole() {
+    public boolean hasAvailableRole() {
         return numberOfAvailableRoles > 0;
+    }
+
+    public int getNumberOfAvailableRoles() {
+        return numberOfAvailableRoles;
     }
 }

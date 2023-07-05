@@ -4,12 +4,18 @@ public class User {
     private String name;
     private House house;
     private String selectedRole;
+    private boolean willBeDead;
+
+    public boolean isWillBeDead() {
+        return willBeDead;
+    }
 
     public String getName() {
         return name;
     }
 
-    public User(String name) {
+    public User(String name, boolean willBeDead) {
+        this.willBeDead = willBeDead;
         this.name = name;
         house = null;
         selectedRole = null;
@@ -27,7 +33,7 @@ public class User {
             System.out.println(name + " joined House " + house.getName() + " as " + role);
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -38,11 +44,12 @@ public class User {
                 house = null;
                 selectedRole = null;
                 System.out.println(name + " left house");
-            }else{
+            } else {
                 wait();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+        notifyAll();
     }
 }
