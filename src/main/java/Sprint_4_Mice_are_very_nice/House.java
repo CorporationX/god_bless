@@ -29,30 +29,36 @@ public class House {
 //        rooms.forEach(room -> room.setFoodForRoom(new ArrayList<>()));
 //        System.out.println(Thread.currentThread().getName() + " Уничтожил еду " + food);
 
-        for (int i = 0; i < rooms.size(); i++) {
+        //for (int i = 0; i < rooms.size(); i++) {
 
             food.addAll(room.getFoodForRoom());
-            System.out.println(Thread.currentThread().getName() + " Все фрукты получил "+ food);
+            System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Все фрукты получил "+ food);
             room.setFoodForRoom(new ArrayList<>());
-            System.out.println(Thread.currentThread().getName() + " Фрукты собраны " + room.getFoodForRoom());
-        }
+            System.out.println(Thread.currentThread().getName() + ": " + room.getRoomName() + " Фрукты собраны " + room.getFoodForRoom());
+        //}
     }
 
     public static void main(String[] args) {
 
         List<Food> collectedFood = new ArrayList<>();
-        Room room1 = new Room("кухня",
-                List.of(new Food("фрукты"), new Food("авокадо")));
-        Room room2 = new Room("ванная",
-                List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
-        House house = new House(List.of(room1, room2), collectedFood);
+        Room room1 = new Room("кухня-1", List.of(new Food("фрукты"), new Food("авокадо")));
+        Room room2 = new Room("гостинная-2", List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
+        Room room3 = new Room("прихожая-3", List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
+        Room room4 = new Room("детская-4", List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
+        Room room5 = new Room("взрослая-5", List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
+        Room room6 = new Room("балкон-6", List.of(new Food("черри"), new Food("овощи"), new Food("нут")));
+        House house = new House(List.of(room1, room2, room3, room4, room5, room6), collectedFood);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(3);
 
-        for (int i = 0; i < 5; i++) {
+        //for (int i = 0; i < 3; i++) {
             executorService.schedule(() -> house.collectFood(room1), 3000, TimeUnit.MILLISECONDS);
             executorService.schedule(() -> house.collectFood(room2), 3000, TimeUnit.MILLISECONDS);
-        }
+            executorService.schedule(() -> house.collectFood(room3), 3000, TimeUnit.MILLISECONDS);
+            executorService.schedule(() -> house.collectFood(room4), 3000, TimeUnit.MILLISECONDS);
+            executorService.schedule(() -> house.collectFood(room5), 3000, TimeUnit.MILLISECONDS);
+            executorService.schedule(() -> house.collectFood(room6), 3000, TimeUnit.MILLISECONDS);
+        //}
 
 
         executorService.shutdown();
@@ -63,7 +69,7 @@ public class House {
             throw new RuntimeException(e);
         }
         System.out.println();
-        System.out.println("Еда в доме собрана! Но только множество раз одноврменно всеми потоками");
+        System.out.println("Еда в доме собрана!");
 
     }
 
