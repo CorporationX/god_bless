@@ -6,13 +6,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
-
+    private static final ExecutorService SERVICE = Executors.newFixedThreadPool(1);
 
     public Future<Robot> fight(Robot firstRobot, Robot secondRobot) {
-        ExecutorService service = Executors.newFixedThreadPool(1);
-        Future<Robot> winner = service.submit(getRobotFightsCallable(firstRobot, secondRobot));
-        service.shutdown();
-        return winner;
+        return SERVICE.submit(getRobotFightsCallable(firstRobot, secondRobot));
+    }
+
+    public void shutdownBattle() {
+        SERVICE.shutdown();
     }
 
     private Callable<Robot> getRobotFightsCallable(Robot firstRobot, Robot secondRobot) {

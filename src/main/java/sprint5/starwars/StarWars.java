@@ -15,6 +15,7 @@ public class StarWars {
 
         Future<Robot> firstWinnerFuture = battle.fight(r2d2, c3po);
         Future<Robot> secondWinnerFuture = battle.fight(newRobot, oldRobot);
+        battle.shutdownBattle();
 
         checkWinner(firstWinnerFuture);
         checkWinner(secondWinnerFuture);
