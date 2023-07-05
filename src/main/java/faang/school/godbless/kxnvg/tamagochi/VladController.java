@@ -32,7 +32,7 @@ public class VladController {
         tamagotchies.add(tamagotchiVlad);
     }
 
-    public boolean deleteTamagotchi(TamagotchiVlad tamagotchiVlad) {
+    public synchronized boolean deleteTamagotchi(TamagotchiVlad tamagotchiVlad) {
         if (tamagotchies.contains(tamagotchiVlad)) {
             tamagotchies.remove(tamagotchiVlad);
             return true;
