@@ -1,8 +1,10 @@
 package faang.school.godbless.sprint3.heroes;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class CalculatePower extends Thread {
 
