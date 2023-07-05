@@ -3,7 +3,7 @@ package Multithreading;
 import Multithreading.bc2765.GooglePhotosAutoUploader;
 
 public class Application {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader googlePhoto = new GooglePhotosAutoUploader();
 
         Thread threadToAdded = new Thread(() -> {
@@ -21,7 +21,6 @@ public class Application {
         Thread threadStartToUpload = new Thread(() -> {
             try {
                 Thread.sleep(1000);
-                googlePhoto.startAutoUpload();
                 googlePhoto.oneNewPhotoAdded("Some photo6");
                 googlePhoto.startAutoUpload();
             } catch (InterruptedException e) {
@@ -31,7 +30,6 @@ public class Application {
         Thread threadStartToUpload1 = new Thread(() -> {
             try {
                 Thread.sleep(1000);
-                googlePhoto.startAutoUpload();
                 googlePhoto.oneNewPhotoAdded("Some photo7");
                 googlePhoto.startAutoUpload();
             } catch (InterruptedException e) {
@@ -42,5 +40,7 @@ public class Application {
         threadToAdded.start();
         threadStartToUpload.start();
         threadStartToUpload1.start();
+        Thread.sleep(5000);
+        System.exit(0);
     }
 }
