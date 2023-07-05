@@ -21,16 +21,11 @@ public class Witcher {
         City vizima = new City("Vizima", new Location(10, 20), 520);
         City kaerMorhen = new City("Kaer Morhen", new Location(120, 80), 0);
 
-        cities.add(novigrad);
-        cities.add(oxenfurt);
-        cities.add(vizima);
-        cities.add(kaerMorhen);
+        cities.addAll(List.of(novigrad, oxenfurt, vizima, kaerMorhen));
     }
 
     public static void cityNearestMonster(int threadCount) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
-
-        long startTime = System.currentTimeMillis();
 
         for (City city : cities) {
             executorService.execute(new CityWorker(city, monsters));
@@ -38,18 +33,22 @@ public class Witcher {
 
         executorService.shutdown();
 
-        if (executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-            executorService.shutdownNow();
+        if (executorService.awaitTermination(5, TimeUnit.MINUTES)) {
+            System.out.println("The nearest monsters were found and killed");
         }
-
-        long endTime = System.currentTimeMillis();
-        System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
 
     public static void main(String[] args) {
         try {
+            long startTime = System.currentTimeMillis();
             cityNearestMonster(4);
+            long endTime = System.currentTimeMillis();
+            System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
+
+            startTime = System.currentTimeMillis();
             cityNearestMonster(1);
+            endTime = System.currentTimeMillis();
+            System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
