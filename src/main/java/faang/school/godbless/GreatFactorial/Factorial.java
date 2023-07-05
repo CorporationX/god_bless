@@ -12,7 +12,6 @@ public class Factorial {
     private static final int MAX_LONG_FACTORIAL = 19;
 
     public static void main(String[] args) {
-
         List<Integer> numbers = List.of(
                 50, 100, 200, 300, 400, 10, 25, 10000
         );
