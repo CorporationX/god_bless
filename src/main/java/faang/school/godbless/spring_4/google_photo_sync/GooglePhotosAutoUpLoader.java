@@ -5,37 +5,28 @@ import java.util.Queue;
 
 public class GooglePhotosAutoUpLoader {
 
+    private final Object lock = new Object();
+
     private final Queue<String> photosToUpload = new LinkedList<>();
 
-    public synchronized void startAutoUpload() {
+    public void startAutoUpload() {
 
         while (photosToUpload.isEmpty()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("tralala");
-            }
         }
 
-        uploadPhotos();
-        notify();
+        synchronized (lock) {
+            uploadPhotos();
+        }
     }
 
     private void uploadPhotos() {
         System.out.println(photosToUpload.poll());
     }
 
-    public synchronized void onNewPhotoAdded(String photoPath) {
+    public void onNewPhotoAdded(String photoPath) {
 
-        while (!photosToUpload.isEmpty()) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("tralala");
-            }
+        synchronized (lock) {
+            photosToUpload.add(photoPath);
         }
-
-        photosToUpload.add(photoPath);
-        notify();
     }
 }
