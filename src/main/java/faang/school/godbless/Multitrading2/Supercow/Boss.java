@@ -34,10 +34,10 @@ public class Boss {
 
     public void leaveBattle(Player player){
         synchronized (lock){
-            lock.notify();
             currentPlayers--;
             System.out.println(player + " leave");
             System.out.println("Players in battle " + currentPlayers);
+            lock.notify();
         }
     }
 }
