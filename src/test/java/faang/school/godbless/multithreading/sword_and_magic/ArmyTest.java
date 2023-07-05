@@ -13,6 +13,13 @@ class ArmyTest {
         army.addUnit(new Swordsman(20));
         army.addUnit(new Mage(13));
         army.addUnit(new Archer(22));
-        System.out.println(army.calculateTotalPower());
+
+        int expected = 70;
+        try {
+            System.out.println(army.calculateTotalPower());
+            assertEquals(expected, army.calculateTotalPower());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

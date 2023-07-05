@@ -14,18 +14,15 @@ public class Army {
         army.add(unit);
     }
 
-    public int calculateTotalPower() {
-//        Не пойму, почему в таком случае, не считает нормально, выдает 0)
-//        return army.parallelStream()
-//                .map(UnitThread::new)
-//                .peek(Thread::start)
-//                .mapToInt(UnitThread::getUnitPower)
-//                .sum();
-
-        List<UnitThread> unitThreads = army.parallelStream()
+    public int calculateTotalPower() throws InterruptedException {
+        List<UnitThread> unitThreads = army.stream()
                 .map(UnitThread::new)
                 .peek(Thread::start)
                 .toList();
+
+        for (UnitThread unitThread : unitThreads) {
+            unitThread.join();
+        }
 
         return unitThreads.stream()
                 .mapToInt(UnitThread::getUnitPower)
