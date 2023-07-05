@@ -38,7 +38,6 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.forEach(photo -> System.out.println("Uploading photo " + photo));
             photosToUpload.clear();
-            lock.notifyAll();
         }
     }
 }
