@@ -35,13 +35,7 @@ public class MasterCardService {
             Thread.currentThread().interrupt();
         }
 
-        while (!payment.isDone()) {
-            System.out.println("Waiting for payment...");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+        while (!payment.isDone()) {//wait
         }
 
         int paymentResult = 0;
@@ -55,5 +49,12 @@ public class MasterCardService {
         System.out.println("Payment result: " + paymentResult);
 
         executor.shutdown();
+        try {
+            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Executor terminated");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
