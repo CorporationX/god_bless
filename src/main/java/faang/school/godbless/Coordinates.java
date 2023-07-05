@@ -1,10 +1,11 @@
 package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
+@Data
 @AllArgsConstructor
-@Getter
-public class Location {
+public class Coordinates {
     private int x;
     private int y;
+}
