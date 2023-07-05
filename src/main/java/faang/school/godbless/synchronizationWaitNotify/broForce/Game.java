@@ -1,6 +1,5 @@
 package faang.school.godbless.synchronizationWaitNotify.broForce;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,6 @@ public class Game {
 
     public Game() {
         characters = new ArrayList<>();
-        isOver = false;
     }
 
     public synchronized void addCharacter(Character character) {
@@ -41,13 +39,10 @@ public class Game {
         boolean isAlive = character.isAlive();
 
         if (!isAlive) {
+            if (isOver)
+                return;
             synchronized (livesLock) {
-                //не придумал как нормально отловить случай, когда игра завершилась в одном из потоков,
-                //а другие просто ждали перед входом
-                if (isOver)
-                    return;
-
-                boolean isDeath = character.takeAwayLife();
+                boolean isDeath = character.decrementAndCheckLives();
                 this.lives++;
                 System.out.println(Thread.currentThread().getName() + ": " + character.getName() + " lives: " + character.getLives());
                 if (isDeath) {

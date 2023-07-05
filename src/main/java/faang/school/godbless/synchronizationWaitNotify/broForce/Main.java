@@ -22,7 +22,7 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 
         for (int i = 0; i < game.getCharacters().size(); i++) {
-            executorService.submit(() -> {
+            executorService.execute(() -> {
                 while (!game.isOver()) {
                     game.update();
                 }

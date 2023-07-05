@@ -24,7 +24,7 @@ public class Character {
         this.score++;
     }
 
-    public boolean takeAwayLife() {
+    public boolean decrementAndCheckLives() {
         this.lives--;
         return lives == 0;
     }
