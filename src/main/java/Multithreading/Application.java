@@ -22,6 +22,18 @@ public class Application {
             try {
                 Thread.sleep(1000);
                 googlePhoto.startAutoUpload();
+                googlePhoto.oneNewPhotoAdded("Some photo6");
+                googlePhoto.startAutoUpload();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        Thread threadStartToUpload1 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                googlePhoto.startAutoUpload();
+                googlePhoto.oneNewPhotoAdded("Some photo7");
+                googlePhoto.startAutoUpload();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -29,5 +41,6 @@ public class Application {
 
         threadToAdded.start();
         threadStartToUpload.start();
+        threadStartToUpload1.start();
     }
 }
