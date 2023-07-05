@@ -12,21 +12,30 @@ public class Factorial {
     private static final int MAX_LONG_FACTORIAL = 19;
 
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(
-                5, 10, 20, 40, 80, 160, 320, 640
-        );
-        List<CompletableFuture<BigInteger>> result = factorials(numbers);
 
+        List<Integer> numbers = List.of(
+                50, 100, 200, 300, 400, 10, 25, 10000
+        );
+        List<CompletableFuture<BigInteger>> result = Factorial.factorials(numbers);
+        AtomicInteger counter = new AtomicInteger(0);
         for (int i = 0; i < result.size(); ++i) {
             int j = i;
-            new Thread(() -> {
-                try {
-                    System.out.println(result.get(j).get());
-                } catch (InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
+            new Thread(
+                    () -> {
+                        try {
+                            System.out.println((j + 1) + " - " + result.get(j).get());
+                            counter.addAndGet(1);
+                        } catch (InterruptedException | ExecutionException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            ).start();
         }
+        int awaitCounter = 0;
+        while (counter.get() != numbers.size()) {
+            awaitCounter++;
+        }
+        System.out.println("Awaited all asynchronous tasks, counter = " + awaitCounter);
     }
 
     public synchronized static int factorialInt(int n) throws IllegalArgumentException {
