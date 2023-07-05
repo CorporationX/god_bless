@@ -4,9 +4,21 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Robot {
-    private String target;
+    private String name;
+    private Target target;
 
-    public synchronized void attack() {
-            System.out.println(target + " destroyed!");
+    public void attack() {
+        synchronized (target) {
+            if(target.isAlive()) {
+                System.out.println(name + " destroyed " + target.getName());
+                target.setAlive(false);
+            } else {
+                try {
+                    target.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 }
