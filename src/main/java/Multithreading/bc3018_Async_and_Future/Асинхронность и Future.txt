@@ -1,0 +1,42 @@
+Условия задачи
+Представьте, что вы работаете в Stripe и интегрируетесь с каким-нибудь
+внешним сервисом приема платежей. Например, MasterCard.
+
+1. Создает экземпляр класса MasterCardService, у которого есть
+методы int collectPayment() и int sendAnalytics().
+
+2. Реализуйте метод doAll, который:
+
+Вызывает метод collectPayment параллельно, и получает Future;
+
+Вызывает метод sendAnalytics параллельно, и получает CompletableFuture;
+
+Сначала ожидает завершения sendAnalytics и выводит результат. Кто ожидает?
+Поток, который и запустил задачу, т.е. основной поток, в котором и
+выполняется метод doAll, но никаких ожиданий через Thread.sleep!
+Нужно “присоединиться” к тому потоку, завершения которого ждём.
+Какой метод может помочь?
+
+Потом дожидается collectPayment и выводит результат.
+
+3. Содержимое collectPayment и sendAnalytics может быть следующим:
+
+static int collectPayment() {
+    try {
+        Thread.sleep(10_000);
+        return 10_000;
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+        throw new RuntimeException();
+    }
+}
+
+static int sendAnalystics() {
+    try {
+        Thread.sleep(1_000);
+        return 1_000;
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+        throw new RuntimeException();
+    }
+}
