@@ -8,9 +8,7 @@ public class VideoManager {
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String view) {
-        synchronized (viewsMap) {
-            viewsMap.put(view, viewsMap.getOrDefault(view, 0) + 1);
-        }
+        viewsMap.put(view, viewsMap.getOrDefault(view, 0) + 1);
     }
 
     public synchronized int getViewCount(String videoName) {
@@ -22,10 +20,8 @@ public class VideoManager {
                 e.printStackTrace();
             }
         }
-        synchronized (viewsMap) {
-            integer = viewsMap.get(videoName);
-            System.out.println(videoName + " имеет " + integer + " просмотров");
-        }
+        integer = viewsMap.get(videoName);
+        System.out.println(videoName + " имеет " + integer + " просмотров");
         return integer;
     }
 
