@@ -9,12 +9,13 @@ import java.util.concurrent.TimeUnit;
 public class SkyNet {
     public static void main(String[] args) {
         List<Robot> robots = new ArrayList<>();
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 1000000; i++) {
             robots.add(new Robot("Sara"));
         }
 
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        for (int i = 0; i < 100000; i++) {
+        ExecutorService service = Executors.newFixedThreadPool(100);
+        long time = System.currentTimeMillis();
+        for (int i = 0; i < 1000000; i++) {
             service.execute(robots.get(i)::attack);
         }
         service.shutdown();
@@ -23,6 +24,7 @@ public class SkyNet {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(System.currentTimeMillis() - time);
         System.out.println(Robot.getCountMurders());
     }
 }
