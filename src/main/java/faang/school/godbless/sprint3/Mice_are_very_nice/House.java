@@ -1,6 +1,7 @@
 package faang.school.godbless.sprint3.Mice_are_very_nice;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -8,6 +9,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Data
+@RequiredArgsConstructor
 public class House implements Runnable {
     private List<Room> rooms = List.of();
     private List<Food> foods = List.of();
@@ -52,9 +54,9 @@ public class House implements Runnable {
         executorService.shutdown();
 
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Interrupted in main");
         }
 
         System.out.println("Food collected: " + house.getCollectedFood());
