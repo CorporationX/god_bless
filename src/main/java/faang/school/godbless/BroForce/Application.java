@@ -15,7 +15,7 @@ public class Application {
 
         executorService.execute(() -> {
             int i = 0;
-            while (game.isGameIsNotOver()) {
+            while (!game.isGameOver()) {
                 game.update(i++);
             }
         });

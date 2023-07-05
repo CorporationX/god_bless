@@ -11,7 +11,7 @@ public class Game {
     private int lives;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
-    private boolean gameIsNotOver = true;
+    private boolean isGameOver;
     private List<Bro> bros;
 
     public Game(List<Bro> bros) {
@@ -38,7 +38,11 @@ public class Game {
             }
         }
 
-        if (gameIsNotOver){
+        printMessage(i);
+    }
+
+    private void printMessage(int i) {
+        if (!isGameOver){
             bros.forEach(bro -> {
                 System.out.printf("Bro: %s | Score: %s | Lives: %s \n", bro.getName(), bro.getScore(), bro.getLives());
             });
@@ -47,7 +51,7 @@ public class Game {
     }
 
     private void gameOver() {
-        gameIsNotOver = false;
+        isGameOver = true;
         System.out.println("Game over");
     }
 }
