@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @Data
 public class Knight {
@@ -20,13 +21,13 @@ public class Knight {
         trials.add(trial);
     }
 
-    public void startTrials() {
+    public void startTrials() throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(trials.size());
 
         for (Trial trial : trials) {
             executorService.submit(trial);
         }
-
+        executorService.awaitTermination(5, TimeUnit.SECONDS);
         executorService.shutdown();
     }
 }

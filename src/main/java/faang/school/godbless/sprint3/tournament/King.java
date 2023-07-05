@@ -1,7 +1,7 @@
 package faang.school.godbless.sprint3.tournament;
 
 public class King {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Knight knight1 = new Knight("Pavel");
         Knight knight2 = new Knight("Anton");
 
