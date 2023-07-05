@@ -16,13 +16,12 @@ public class Wow {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(player -> System.out.printf(COMPLETE_QUEST, player.getName(), player.getExperience()));
-        player2Quest.thenAccept(player -> System.out.printf(COMPLETE_QUEST, player.getName(), player.getExperience()));
+        CompletableFuture<Void> player1Result = player1Quest.thenAccept(player ->
+                System.out.printf(COMPLETE_QUEST, player.getName(), player.getExperience()));
+        CompletableFuture<Void> player2Result = player2Quest.thenAccept(player ->
+                System.out.printf(COMPLETE_QUEST, player.getName(), player.getExperience()));
 
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        player1Result.join();
+        player2Result.join();
     }
 }
