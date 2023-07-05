@@ -29,5 +29,4 @@ public class Main {
 
         boolean isDone = executor.awaitTermination(2, SECONDS);
         System.out.println("Program complete all tasks ? - " + isDone);
-    }
-}
+
