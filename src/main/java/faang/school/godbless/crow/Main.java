@@ -1,5 +1,6 @@
 package faang.school.godbless.crow;
 
+import java.io.Serializable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
@@ -12,7 +13,7 @@ public class Main {
 
     System.out.println("Sending message...");
 
-    promise.handle((result, error) -> {
+    CompletableFuture<Serializable> resultLambda = promise.handle((result, error) -> {
       if (error != null) {
         return error;
       }
@@ -21,7 +22,7 @@ public class Main {
     });
 
     try {
-      System.out.println(promise.get());
+      System.out.println(resultLambda.get());
     } catch (InterruptedException | ExecutionException e) {
       throw new RuntimeException(e);
     }
