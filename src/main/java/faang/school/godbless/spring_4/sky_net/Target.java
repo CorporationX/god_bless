@@ -1,13 +1,13 @@
 package faang.school.godbless.spring_4.sky_net;
 
 public class Target {
-    private int target = 100;
+    private int health = 100;
 
     public int getTarget() {
-        return target;
+        return health;
     }
 
-    public synchronized void setTarget(int attack) {
-        target -= attack;
+    public synchronized void takeAwayHealth(int attack) {
+        health -= attack;
     }
 }

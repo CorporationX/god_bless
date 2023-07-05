@@ -10,7 +10,7 @@ public class Robot {
     }
 
     public void attack() {
-        target.setTarget(attack);
+        target.takeAwayHealth(attack);
     }
 
     public void setAttack(int attack) {
