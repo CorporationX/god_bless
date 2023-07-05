@@ -3,34 +3,35 @@ package faang.school.godbless.telegram_bot;
 import lombok.AllArgsConstructor;
 import lombok.SneakyThrows;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 
 
 public class TelegramBot {
-    private final int REQUEST_LIMIT = 5;
+    private static final int REQUEST_LIMIT = 5;
     private int requestCounter = 0;
-    private long lastRequestTime;
-    public TelegramBot() {
-        this.lastRequestTime = System.currentTimeMillis();
+    private LocalDateTime lastRequestTime;
+
+    public TelegramBot (LocalDateTime lastRequestTime) {
+        this.lastRequestTime = lastRequestTime;
     }
+
 
     @SneakyThrows
     public synchronized void sendMessage(String message) {
-        long currentTime = System.currentTimeMillis();
-        long timeFromLastRequest = currentTime - lastRequestTime;
-
+        long timeFromLastRequest = Duration.between(lastRequestTime, LocalDateTime.now()).toMillis();
         if(timeFromLastRequest < 1000) {
-            requestCounter++;
-            if(requestCounter > REQUEST_LIMIT) {
-                Thread.sleep(1000 - timeFromLastRequest);
+            if(requestCounter == REQUEST_LIMIT) {
+                wait(3000 - timeFromLastRequest);
+                requestCounter = 0;
             }
-        } else if (timeFromLastRequest >= 1000) {
+        } else {
             requestCounter = 0;
-            lastRequestTime = System.currentTimeMillis();
         }
-
+        lastRequestTime = LocalDateTime.now();
         System.out.println("Send message: " + message);
+        requestCounter++;
     }
 }
