@@ -20,9 +20,9 @@ public class ThreeLittlePigs {
     }
 
     private static List<PigThread> createPigsThreads() {
-        Pig1Thread pigNif = new Pig1Thread("Nif-Nif", "Straw");
-        Pig2Thread pigNuf = new Pig2Thread("Nuf-Nuf", "Sticks");
-        Pig3Thread pigNaf = new Pig3Thread("Naf-Naf", "Bricks");
+        PigThread pigNif = new PigThread("Nif-Nif", "Straw");
+        PigThread pigNuf = new PigThread("Nuf-Nuf", "Sticks");
+        PigThread pigNaf = new PigThread("Naf-Naf", "Bricks");
         return List.of(pigNif, pigNuf, pigNaf);
     }
 }
