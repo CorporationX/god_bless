@@ -40,6 +40,7 @@ public class SuperHeroBattle {
                 throw new RuntimeException(e);
             }
         }
+        executorService.shutdown();
         return winHeroes;
     }
 }
