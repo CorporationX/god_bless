@@ -6,10 +6,10 @@ import java.util.List;
 
 @AllArgsConstructor
 public class PersonNamePrinter implements Runnable {
-    List<Person> persons;
+    private List<Person> persons;
 
     @Override
     public void run() {
-        persons.forEach(System.out::println);
+        persons.forEach(person -> System.out.println(person.getWorkplace()));
     }
 }

@@ -7,12 +7,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-
-    public static final int FIXED_THREAD_COUNT = 100;
-    public static final int PERSONS_COUNT = 10_000;
+    private static final int FIXED_THREAD_COUNT = 5;
+    private static final int PERSONS_COUNT = 10_000;
 
     public static void main(String[] args) {
-
         List<Person> persons = new ArrayList<>(PERSONS_COUNT);
 
         for (int i = 1; i <= PERSONS_COUNT; i++) {
@@ -20,26 +18,24 @@ public class Main {
             persons.add(new Person(iStr, iStr, i, iStr));
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(FIXED_THREAD_COUNT);
         List<List<Person>> splitPersons = new ArrayList<>(FIXED_THREAD_COUNT);
 
         for (int i = 0; i < PERSONS_COUNT; i += FIXED_THREAD_COUNT) {
             splitPersons.add(persons.subList(i, i + FIXED_THREAD_COUNT));
         }
 
+        ExecutorService executorService = Executors.newFixedThreadPool(FIXED_THREAD_COUNT);
         for (var splitPersonsChunk : splitPersons) {
-            PersonNamePrinter namePrinter = new PersonNamePrinter(splitPersonsChunk);
-            executorService.submit(namePrinter);
+            executorService.submit(new PersonNamePrinter(splitPersonsChunk));
         }
 
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-                executorService.shutdownNow();
-            }
+            executorService.awaitTermination(5, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             executorService.shutdownNow();
+            System.out.println(e.getMessage());
         }
     }
 }
