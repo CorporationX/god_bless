@@ -9,12 +9,12 @@ public class Main {
 
         MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 5;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
+        MessageFilter emojiFilter = message -> !message.contains("");
         MessageFilter spammFilter = message -> !message.contains("spam");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter,lengthFilter, emojiFilter, spammFilter);
 
-        String[] messages = {"Привет!", "Это Жук", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
+        String[] messages = {"Привет!", "Это Жук", "Как дела?", "Длинное сообщение без спама и эмодзи"};
 
         for (String message : messages) {
             messageProcessor.processMessage(message, filters);
