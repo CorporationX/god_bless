@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.spam;
+package faang.school.godbless.sprint3_lambda.spam;
 
 import java.util.Arrays;
 import java.util.List;

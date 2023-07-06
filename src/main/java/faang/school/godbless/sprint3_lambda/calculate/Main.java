@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.calculate;
+package faang.school.godbless.sprint3_lambda.calculate;
 
 import java.util.List;
 

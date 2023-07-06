@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.instagram;
+package faang.school.godbless.sprint3_lambda.instagram;
 
 
 import lombok.Value;

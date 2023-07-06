@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.meta;
+package faang.school.godbless.sprint3_lambda.meta;
 
 import java.util.ArrayList;
 import java.util.HashMap;

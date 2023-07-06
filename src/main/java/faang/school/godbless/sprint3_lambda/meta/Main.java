@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.meta;
+package faang.school.godbless.sprint3_lambda.meta;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,8 +15,31 @@ public class Main {
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+
+
     }
 }
+
+//        Notification notification = new Notification("mail", "sup");
+//        Consumer<Notification> notificationConsumer = (param) -> {
+//            System.out.println("sup" + param.getMessage());
+//        };
+//        notificationConsumer.accept(notification);
+
+//    Predicate<String> not = (param) -> {
+//        if (param == null) {
+//            System.out.println("hyi");
+//            return false;
+//        }else {
+//            System.out.println("her");
+//            return true;
+//        }
+//    };
+
+//    Consumer<Double> ii = (dob) -> {
+//        dob *= 2;
+//        System.out.println(dob);
+//    }
 
 
 
