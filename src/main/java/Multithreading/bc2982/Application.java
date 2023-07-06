@@ -7,8 +7,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Application {
-    static final int NUM_THREADS = 100;
-    static final int NUM_VIDEOS = 300;
+    static final int NUM_THREADS = 2;
+    static final int NUM_VIDEOS = 6;
 
     public static void main(String[] args) throws InterruptedException {
         VideoManager videoManager = new VideoManager();
@@ -23,18 +23,18 @@ public class Application {
             executorService.execute(() -> {
                 videoManager.addView(video);
                 int count = videoManager.getViewCount(video);
-                System.out.println(video + " views: " + count);
+//                System.out.println(video + " views: " + count);
             });
             executorService.execute(() -> {
                 videoManager.addView(video);
                 int count = videoManager.getViewCount(video);
-                System.out.println(video + " views: " + count);
+//                System.out.println(video + " views: " + count);
             });
-            executorService.execute(() -> {
-                videoManager.addView(video);
-                int count = videoManager.getViewCount(video);
-                System.out.println(video + " views: " + count);
-            });
+//            executorService.execute(() -> {
+//                videoManager.addView(video);
+//                int count = videoManager.getViewCount(video);
+//                System.out.println(video + " views: " + count);
+//            });
 
         }
         executorService.shutdown();

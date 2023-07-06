@@ -6,24 +6,27 @@ import java.util.Map;
 public class VideoManager {
     final Map<String, Integer> viewsMap = new HashMap<>();
 
-    public void addView(String videoId) {
-        synchronized (viewsMap) {
-            if (viewsMap.containsKey(videoId)) {
-                int count = viewsMap.get(videoId);
-                viewsMap.put(videoId, count + 1);
-            } else {
-                viewsMap.put(videoId, 1);
-            }
+    public synchronized void addView(String videoId) {
+
+        if (viewsMap.containsKey(videoId)) {
+            int count = viewsMap.get(videoId);
+            viewsMap.put(videoId, count + 1);
+
+        } else {
+            viewsMap.put(videoId, 1);
         }
+        System.out.println(videoId + " add view " + viewsMap.get(videoId));
+
     }
 
-    public int getViewCount(String videoId) {
-        synchronized (viewsMap) {
-            int result = 0;
-            if (viewsMap.containsKey(videoId)) {
-                result = viewsMap.get(videoId);
-            }
-            return result;
+    public synchronized int getViewCount(String videoId) {
+
+        int result = 0;
+        if (viewsMap.containsKey(videoId)) {
+            result = viewsMap.get(videoId);
         }
+        System.out.println(videoId + " " + result);
+        return result;
+
     }
 }
