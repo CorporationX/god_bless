@@ -1,7 +1,11 @@
 package faang.school.godbless.fanout_fanin;
 
+
+import lombok.Getter;
+
 import java.util.concurrent.atomic.AtomicLong;
 
+@Getter
 public class ResultConsumer {
     private final AtomicLong sumOfSquaredNumbers;
 
