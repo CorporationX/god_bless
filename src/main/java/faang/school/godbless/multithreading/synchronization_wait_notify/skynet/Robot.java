@@ -1,21 +1,21 @@
 package faang.school.godbless.multithreading.synchronization_wait_notify.skynet;
 
 public class Robot {
-    private int id;
-    private String target;
+    private String model;
+    private Target target;
 
-    public Robot(int id, String target) {
-        this.id = id;
-        this.target = target;
+    public Robot(String model) {
+        this.model = model;
     }
 
-    public synchronized void attack() {
-        System.out.println("Robot " + id + " attack " + target);
-        try {
-            Thread.sleep(2000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println("Robot " + id + " destroyed " + target);
+    public void attack() {
+        System.out.println("Robot " + model + " attack " + target.getName());
+        if (!target.isStatus()) throw new IllegalArgumentException(target.getName() + " already is destroyed");
+        target.setStatus(false);
+        System.out.println("Robot " + model + " destroyed " + target.getName());
+    }
+
+    public void setTarget(Target target) {
+        this.target = target;
     }
 }
