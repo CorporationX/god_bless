@@ -27,28 +27,30 @@ public class PostService {
     }
 
     public Post getPostById(int id) {
-        return posts.get(id);
+        synchronized (posts) {
+            return posts.get(id);
+        }
     }
 
     public void deletePost(Post post, String author) {
-        if (post.getAuthor().equals(author)) {
-            synchronized (posts) {
+        synchronized (posts) {
+            if (post.getAuthor().equals(author)) {
                 posts.remove(post);
                 System.out.println("Пост " + post + " удален пользователем " + author);
+            } else {
+                System.out.println("Вы не можете удалить пост другого пользователя!");
             }
-        } else {
-            System.out.println("Вы не можете удалить пост другого пользователя!");
         }
     }
 
     public void deleteComment(int id, Comment comment, String author) {
-        if (comment.getAuthor().equals(author)) {
-            synchronized (posts) {
+        synchronized (posts) {
+            if (comment.getAuthor().equals(author)) {
                 posts.get(id).getComments().remove(comment);
                 System.out.println("Комментарий " + comment + " удален пользователем " + author + " от поста " + id);
+            } else {
+                System.out.println("Вы не можете удалить комментарий от другого пользователя!");
             }
-        } else {
-            System.out.println("Вы не можете удалить комментарий от другого пользователя!");
         }
     }
 }
