@@ -34,18 +34,20 @@ public class Game {
                 score++;
                 System.out.println(Thread.currentThread().getName() + " Score: " + score);
             } else if (lives <= 1) {
-                lives--;
-                gameOver();
+                synchronized (lock1) {
+                    lives--;
+                    gameOver();
+                }
             } else {
-                lives--;
-                System.out.println(Thread.currentThread().getName() + " Lives: " + lives);
+                synchronized (lock1) {
+                    lives--;
+                    System.out.println(Thread.currentThread().getName() + " Lives: " + lives);
+                }
             }
         }
     }
 
     private void gameOver() {
-        synchronized (lock1) {
-            System.out.println(Thread.currentThread().getName() + " Game Over");
-        }
+        System.out.println(Thread.currentThread().getName() + " Game Over");
     }
 }
