@@ -5,12 +5,18 @@ import java.util.List;
 
 public class MainTelegramBot {
     public static void main(String[] args) {
-        TelegramBot bot1 = new TelegramBot(0,0);
+        TelegramBot bot1 = new TelegramBot(System.currentTimeMillis(),0);
 
         List<Thread> threadList = new ArrayList<>();
 
-        for (int i = 0; i < 10; i++) {
-            Thread thread = new Thread(() -> bot1.sendMessage(Thread.currentThread().getId() + " Misha"));
+        for (int i = 0; i < 20; i++) {
+            Thread thread = new Thread(() -> {
+                try {
+                    bot1.sendMessage(Thread.currentThread().getName() + " Misha");
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            });
             threadList.add(thread);
             thread.start();
         }
@@ -22,7 +28,6 @@ public class MainTelegramBot {
                 e.printStackTrace();
             }
         }
-
         System.out.println("All messages have been sent !");
     }
 }
