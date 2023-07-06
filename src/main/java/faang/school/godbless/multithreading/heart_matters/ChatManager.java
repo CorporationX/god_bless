@@ -18,10 +18,10 @@ public class ChatManager {
         user.setWantsToChat(true);
         this.notifyAll();
 
-        List<User> waitToChatUsers = getWantsToChatUsers(user);
+        List<User> waitToChatUsers = getWaitToChatUsers(user);
 
         if (waitToChatUsers.isEmpty()) {
-            System.out.println("There are no users want to chat");
+            System.out.println("No users waiting to chat");
             waitForChat(user);
         } else {
             Chat chat = new Chat(user, waitToChatUsers.get(0));
@@ -39,9 +39,7 @@ public class ChatManager {
     }
 
     public synchronized void waitForChat(User user) {
-        Chat activeChatWithUser = getAvailableChatForUser(user);
-
-        if (activeChatWithUser == null) {
+        if (!isUserInActiveChat(user)) {
             System.out.println("Waiting for an available chat for " + user.getName());
             try {
                 this.wait();
@@ -59,18 +57,16 @@ public class ChatManager {
         this.notifyAll();
     }
 
-    private List<User> getWantsToChatUsers(User user) {
+    private List<User> getWaitToChatUsers(User user) {
         return userList.getOnlineUsers(user).stream()
                 .filter(User::isWantsToChat)
                 .filter(u -> !Objects.equals(u.getId(), user.getId()))
                 .toList();
     }
 
-    private Chat getAvailableChatForUser(User user) {
+    private boolean isUserInActiveChat(User user) {
         return chats.stream()
-                .filter(chat -> Objects.equals(chat.getUser1().getId(), user.getId())
-                        || Objects.equals(chat.getUser2().getId(), user.getId()))
-                .findAny()
-                .orElse(null);
+                .anyMatch(chat -> Objects.equals(chat.getUser1().getId(), user.getId())
+                        || Objects.equals(chat.getUser2().getId(), user.getId()));
     }
 }
