@@ -15,8 +15,8 @@ public class Main {
             throw new IllegalArgumentException("numbers list is empty");
         }
 
-        int result = nums.get(0);
-        for (int i = 1; i < nums.size(); ++i) {
+        int result = nums.get(0);       // берем index 0 из List nums и присваивыем result
+        for (int i = 1; i < nums.size(); ++i) {     // .size use with list; .length use with array
             result = calculator.apply(result, nums.get(i));
         }
         return result;
