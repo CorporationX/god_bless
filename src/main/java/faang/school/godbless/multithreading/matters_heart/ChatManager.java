@@ -12,6 +12,10 @@ public class ChatManager {
 
     public void startChat(User user1) {
         synchronized (lock) {
+            if (user1.isInChat()) {
+                System.out.println(user1.getName() + " already in chat");
+                return;
+            }
             user1.setWantsToChat(true);
             User user2 = waitForChat(user1);
             if (user2 == null) {
@@ -21,6 +25,8 @@ public class ChatManager {
             Chat chat = new Chat(user1, user2);
             user1.setChat(chat);
             user2.setChat(chat);
+            user1.setInChat(true);
+            user2.setInChat(true);
             chats.add(chat);
             System.out.printf("%s starts chat with %s\n", user1.getName(), user2.getName());
         }

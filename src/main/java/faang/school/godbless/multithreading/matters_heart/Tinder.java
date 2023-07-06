@@ -18,6 +18,11 @@ public class Tinder {
         ExecutorService service = Executors.newCachedThreadPool();
         service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(0)));
         service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(1)));
+        service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(2)));
+        service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(3)));
+        service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(4)));
+        service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(5)));
+        service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(5)));
         service.shutdown();
         service.awaitTermination(1, TimeUnit.MINUTES);
         chatManager.endChat(userList.getOnlineUsers().get(0));
