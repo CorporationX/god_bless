@@ -11,7 +11,7 @@ public class Post {
     private int id;
     private String title;
     private String text;
-    private String author;
+    private int authorId;
     private List<Comment> commentList;
 
     public void addComment(Comment comment) {

@@ -10,5 +10,5 @@ public class Comment {
     private int id;
     private String text;
     private LocalDateTime dateTime;
-    private String author;
+    private int authorId;
 }

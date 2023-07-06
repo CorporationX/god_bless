@@ -30,7 +30,6 @@ public class PostService {
                 throw new RuntimeException(e);
             }
         }
-
         lock.unlock();
     }
 
@@ -44,7 +43,7 @@ public class PostService {
     }
 
     public synchronized Comment findCommentById(int id) {
-        if (lock.isLocked() || posts.stream()
+        if (posts.stream()
                 .flatMap(post -> post.getCommentList().stream()).
                 noneMatch(comment -> comment.getId() == id)) {
             try {
@@ -62,7 +61,7 @@ public class PostService {
     }
 
     public synchronized Post findPostById(int id) {
-        if (lock.isLocked() || posts.stream().noneMatch(post -> post.getId() == id)) {
+        if (posts.stream().noneMatch(post -> post.getId() == id)) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -75,7 +74,7 @@ public class PostService {
                 .orElseThrow();
     }
 
-    public synchronized void deletePost(int id) {
+    public synchronized void deletePost(int id, int author) {
         lock.lock();
         if (posts.stream().noneMatch(post -> post.getId() == id)) {
             try {
@@ -84,12 +83,22 @@ public class PostService {
                 throw new RuntimeException(e);
             }
         }
-        posts.removeIf(post -> post.getId() == id);
-        System.out.printf("Post with id %s was deleted\n", id);
+
+        Post post = posts.stream()
+                .filter(e -> e.getId() == id)
+                .findFirst()
+                .orElseThrow();
+
+        if (post.getAuthorId() != author) {
+            System.out.println("You are not owner of post");
+        } else {
+            posts.remove(post);
+            System.out.printf("Post with id %s was deleted\n", id);
+        }
         lock.unlock();
     }
 
-    public synchronized void deleteComment(int id) {
+    public synchronized void deleteComment(int id, int author) {
         lock.lock();
         if (posts.stream()
                 .flatMap(post -> post.getCommentList().stream()).
@@ -100,9 +109,17 @@ public class PostService {
                 throw new RuntimeException(e);
             }
         }
-        posts.forEach(post -> post.getCommentList()
-                .removeIf(comment -> comment.getId() == id));
-        System.out.printf("Comment with id %s was deleted\n", id);
+
+        if (posts.stream()
+                .flatMap(post -> post.getCommentList().stream())
+                .filter(e -> e.getId() == id)
+                .noneMatch(e -> e.getAuthorId() == author)) {
+            System.out.println("You are not owner of this comment");
+        } else {
+            posts.forEach(post -> post.getCommentList()
+                    .removeIf(comment -> comment.getId() == id));
+            System.out.printf("Comment with id %s was deleted\n", id);
+        }
         lock.unlock();
     }
 }
