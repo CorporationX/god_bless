@@ -8,4 +8,9 @@ import lombok.Getter;
 public class Chat {
     private User user1;
     private User user2;
+
+    public void close(){
+        user1.setWantsToChat(false);
+        user2.setWantsToChat(false);
+    }
 }

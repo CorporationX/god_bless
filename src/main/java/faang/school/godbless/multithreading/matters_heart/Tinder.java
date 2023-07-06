@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class Tinder {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<User> users = new ArrayList<>(IntStream.rangeClosed(1, 10)
                 .boxed()
                 .map(i -> new User("User" + i, true))
@@ -18,5 +19,7 @@ public class Tinder {
         service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(0)));
         service.execute(() -> chatManager.startChat(userList.getOnlineUsers().get(1)));
         service.shutdown();
+        service.awaitTermination(1, TimeUnit.MINUTES);
+        chatManager.endChat(userList.getOnlineUsers().get(0));
     }
 }

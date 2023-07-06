@@ -18,14 +18,20 @@ public class ChatManager {
                 return;
             }
             lock.notify();
-            chats.add(new Chat(user1, user2));
+            Chat chat = new Chat(user1, user2);
+            user1.setChat(chat);
+            user2.setChat(chat);
+            chats.add(chat);
             System.out.printf("%s starts chat with %s\n", user1.getName(), user2.getName());
         }
     }
 
-    public void endChat(Chat chat) {
+    public void endChat(User user) {
+        Chat chat = user.getChat();
         if (chats.contains(chat)) {
             chats.remove(chat);
+            chat.close();
+            System.out.printf("Chat %s - %s ended\n", chat.getUser1().getName(), chat.getUser2().getName());
         } else {
             System.out.println("There are no such chat");
         }
