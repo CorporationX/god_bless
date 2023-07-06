@@ -5,10 +5,10 @@ import lombok.SneakyThrows;
 
 @Data
 public class TreedPower implements Runnable {
-    private Entity entity;
+    private Unit entity;
     private int power;
 
-    public TreedPower(Entity entity) {
+    public TreedPower(Unit entity) {
         this.entity = entity;
     }
 

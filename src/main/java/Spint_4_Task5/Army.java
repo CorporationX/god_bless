@@ -6,32 +6,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<Entity> entityList;
+    List<Unit> units;
 
     public Army() {
-        this.entityList = new ArrayList<>();
+        this.units = new ArrayList<>();
     }
 
 
     @SneakyThrows
     public int calculateTotalPower() {
-        List<Thread> treedArrayList = new ArrayList<>();
-        List<TreedPower> treedPowerArrayList = new ArrayList<>();
-        for (Entity entity : entityList) {
-            TreedPower treed = new TreedPower(entity);
-            treedPowerArrayList.add(treed);
-            treedArrayList.add(new Thread(treed));
+        List<Thread> threads = new ArrayList<>();
+        List<TreedPower> treedPowers = new ArrayList<>();
+        for (Unit unit : units) {
+            TreedPower treed = new TreedPower(unit);
+            treedPowers.add(treed);
+            threads.add(new Thread(treed));
         }
-        for (Thread thread : treedArrayList) {
+        for (Thread thread : threads) {
             thread.start();
         }
-        for (Thread thread : treedArrayList) {
+        for (Thread thread : threads) {
             thread.join();
         }
-        return treedPowerArrayList.stream().mapToInt(TreedPower::getPower).sum();
+        return treedPowers.stream().mapToInt(TreedPower::getPower).sum();
     }
-    private void addUnit(Entity entity) {
-        entityList.add(entity);
+    private void addUnit(Unit entity) {
+        units.add(entity);
     }
     public static void main(String[] args) {
         Army army = new Army();

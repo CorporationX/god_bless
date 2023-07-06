@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public abstract class Entity {
+public abstract class Unit {
     public int power;
 }
