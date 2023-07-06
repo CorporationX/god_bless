@@ -14,7 +14,7 @@ public class Army {
         int totalPower = 0;
         List<PowerThread> threads = new ArrayList<>();
         for (Unit unit : units) {
-            PowerThread thread = new PowerThread(units);
+            PowerThread thread = new PowerThread(unit);
             thread.start();
             threads.add(thread);
         }
