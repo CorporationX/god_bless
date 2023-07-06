@@ -3,6 +3,7 @@ package Sprint_4_1_Task5;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -26,25 +27,24 @@ public class SquareRequest {
         }
     }
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer){
-        ExecutorService executorService = Executors.newFixedThreadPool(requests.size());
-        CompletableFuture.runAsync( () -> {
-            requests.forEach(request -> request.longTimeSquare(resultConsumer));
-        });
+        ExecutorService executor = Executors.newFixedThreadPool(requests.size());
+
+        List<CompletableFuture<Void>> completableFutures = requests.stream()
+                .map(squareRequest ->
+                        CompletableFuture.runAsync(() -> squareRequest.longTimeSquare(resultConsumer), executor))
+                .toList();
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[completableFutures.size()]));
+        executor.shutdown();
+        return resultConsumer.getSumOfSquaredNumbers().get();
     }
-    public void launch(){
+    public static void launch(Long init){
         List<SquareRequest> requests = new ArrayList<>();
-        for (long i = 1; i <= 1000; i++) {
+        for (long i = 1; i <= init; i++) {
             requests.add(new SquareRequest(i));
         }
-        for (SquareRequest request : requests) {
-            fanOutFanIn(requests, resultConsumer);
-        }
-
+        System.out.println(fanOutFanIn(requests, new ResultConsumer(0L)));
     }
-
     public static void main(String[] args) {
-
-
-        CompletableFuture.allOf().join();
+        launch(10L);
     }
 }
