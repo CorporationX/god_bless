@@ -1,10 +1,11 @@
 package faang.school.godbless;
 
 public class Game {
+    final private Object scoreLock;
+    final private Object livesLock;
     private int score;
     private int lives;
-    private Object scoreLock;
-    private Object livesLock;
+
     public Game() {
         score = 0;
         lives = 10;
@@ -13,12 +14,12 @@ public class Game {
     }
 
     public void update() {
-        synchronized (scoreLock) {
-            score++;
-        }
-
-        synchronized (livesLock) {
-            if (lives > 0) {
+        if (lives > 0) {
+            synchronized (scoreLock) {
+                score++;
+            }
+        } else {
+            synchronized (livesLock) {
                 lives--;
             }
         }
@@ -43,8 +44,12 @@ public class Game {
     public void displayLives() {
         synchronized (livesLock) {
             System.out.println("Lives: " + lives);
+            lives--;
         }
     }
 
+    public int getLives() {
+        return lives;
+    }
 
 }

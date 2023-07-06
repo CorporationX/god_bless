@@ -4,14 +4,12 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
 
-        while(true){
+        while (game.getLives() > 0) {
             game.displayScore();
             game.displayLives();
 
             game.update();
 
-            game.displayScore();
-            game.displayLives();
         }
 
 
