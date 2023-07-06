@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="faang.school.godbless.streamAPI.StreamAPI_1.TestStreamApiTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-06-26T14:43:07" hostname="DESKTOP-CCKSM76" time="0.021">
-  <properties/>
-  <testcase name="getMinFromListButMoreNumber()" classname="faang.school.godbless.streamAPI.StreamAPI_1.TestStreamApiTest" time="0.021"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
