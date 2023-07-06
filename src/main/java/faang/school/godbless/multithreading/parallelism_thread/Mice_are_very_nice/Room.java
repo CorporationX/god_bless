@@ -1,7 +1,6 @@
-package faang.school.godbless.multithreading.parallelism_thread.tom_jerry;
+package faang.school.godbless.multithreading.parallelism_thread.Mice_are_very_nice;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Room {

@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading.parallelism_thread.tom_jerry;
+package faang.school.godbless.multithreading.parallelism_thread.Mice_are_very_nice;
 
 import java.util.ArrayList;
 import java.util.List;
