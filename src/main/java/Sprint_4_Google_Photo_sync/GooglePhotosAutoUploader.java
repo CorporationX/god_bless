@@ -10,10 +10,19 @@ public class GooglePhotosAutoUploader {
     private Object lock = new Object();
     List<String> photosToUpload = new ArrayList();
 
+    public void onNewPhotoAdded(String photoPath) {
+        synchronized (lock) {
+            photosToUpload.add(photoPath);
+            System.out.println(Thread.currentThread().getName() + " Добавил фотку: " + photoPath);
+            lock.notifyAll();
+        }
+    }
+
     public void startAutoUpload() {
         while (true) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
+                    System.out.println(Thread.currentThread().getName() + " ээ я здесь");
                     try {
                         lock.wait();
                     } catch (InterruptedException e) {
@@ -21,6 +30,7 @@ public class GooglePhotosAutoUploader {
                     }
                 } else {
                     uploadPhotos(photosToUpload);
+                    System.out.println(Thread.currentThread().getName() + " я молодец, я загрузил фотки: " + photosToUpload.toString());
                 }
             }
         }
@@ -28,23 +38,32 @@ public class GooglePhotosAutoUploader {
 
     public void uploadPhotos(List<String> photosToUpload) {
         synchronized (lock) {
-            //фор ич для каждой фоточки
-            System.out.println("Загрузил фотки: " + photosToUpload.toString());
+            //for each можно для каждой фоточки
+            System.out.println(Thread.currentThread().getName() + " Загрузил фотки: " + photosToUpload.toString());
             photosToUpload.removeAll(photosToUpload);
-        }
-    }
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            photosToUpload.add(photoPath);
-            System.out.println("Добавил фотку: " + photoPath);
-            lock.notify();
+            System.out.println(Thread.currentThread().getName() + " Ниче нет: " + photosToUpload.toString());
         }
     }
 
     public static void main(String[] args) {
 
         GooglePhotosAutoUploader googlePhoto = new GooglePhotosAutoUploader();
-        Thread firstThread = new Thread(new GooglePhotosAutoUploader(googlePhoto));
-        Thread secondThread = new Thread(new GooglePhotosAutoUploader(googlePhoto));
+        Thread zeroThread = new Thread(() -> googlePhoto.onNewPhotoAdded("kotEk.jpg"));
+        Thread firstThread = new Thread(() -> googlePhoto.onNewPhotoAdded("kotИk.jpg"));
+        Thread secondThread = new Thread(() -> googlePhoto.onNewPhotoAdded("kotЁk.jpg"));
+        Thread thirdThread = new Thread(() -> googlePhoto.startAutoUpload());
+        Thread forthThread = new Thread(() -> googlePhoto.startAutoUpload());
+
+        zeroThread.start();
+        firstThread.start();
+        secondThread.start();
+        thirdThread.start();
+        forthThread.start();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.exit(0);
     }
 }
