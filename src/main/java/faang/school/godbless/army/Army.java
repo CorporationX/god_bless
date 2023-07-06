@@ -10,11 +10,12 @@ public class Army {
         unitList.add(unit);
     }
 
-    public synchronized int calculateTotalPower() {
+    public synchronized int calculateTotalPower() throws InterruptedException {
         int total = 0;
         for (Unit unit : unitList) {
-            PowerThread thread = new PowerThread(unit.getPower());
+            PowerThread thread = new PowerThread(unit);
             thread.start();
+            thread.join();
 
             total += thread.getPower();
         }

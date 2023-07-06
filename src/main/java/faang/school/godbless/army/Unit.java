@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Unit {
-    int power;
+    private int power;
 }

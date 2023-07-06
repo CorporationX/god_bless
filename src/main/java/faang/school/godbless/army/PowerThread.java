@@ -7,6 +7,14 @@ import lombok.Getter;
 @Getter
 public class PowerThread extends Thread{
     private int power;
+    private Unit unit;
 
+    public PowerThread(Unit unit){
+        this.unit = unit;
+    }
 
+    @Override
+    public void run() {
+        power = unit.getPower();
+    }
 }
