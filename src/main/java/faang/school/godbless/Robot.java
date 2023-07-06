@@ -8,7 +8,10 @@ import lombok.Data;
 public class Robot {
     private String target;
 
-    public synchronized void attack(){
-        System.out.println("Attack the target: " + target);
+    public void attack() {
+        synchronized (target) {
+            System.out.println("Attack the target: " + target);
+
+        }
     }
 }
