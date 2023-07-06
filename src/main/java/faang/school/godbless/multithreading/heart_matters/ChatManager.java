@@ -21,7 +21,7 @@ public class ChatManager {
         List<User> waitToChatUsers = getWantsToChatUsers(user);
 
         if (waitToChatUsers.isEmpty()) {
-            System.out.println("There are no users that wants to chat");
+            System.out.println("There are no users want to chat");
             waitForChat(user);
         } else {
             Chat chat = new Chat(user, waitToChatUsers.get(0));
