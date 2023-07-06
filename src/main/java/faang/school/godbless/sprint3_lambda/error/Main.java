@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.error;
+package faang.school.godbless.sprint3_lambda.error;
 
 import java.util.List;
 import java.util.Random;

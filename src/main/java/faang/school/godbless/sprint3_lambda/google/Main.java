@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.google;
+package faang.school.godbless.sprint3_lambda.google;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +9,8 @@ public class Main {
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
         Map<String, String> dictionary = new HashMap<>();
-        BiConsumer<String, String> addWordToDictionary = (word, translation) -> dictionary.put(word, translation);
+//        BiConsumer<String, String> translator = (word, translation) -> dictionary.put(word, translation);
+        BiConsumer<String, String> addWordToDictionary = dictionary::put; // (word, translation) -> dictionary.put(word, translation);
 
         dictionaryProcessor.processWord("привет", "hello", addWordToDictionary);
         dictionaryProcessor.processWord("мир", "world", addWordToDictionary);

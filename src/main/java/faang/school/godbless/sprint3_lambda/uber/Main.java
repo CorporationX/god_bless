@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.uber;
+package faang.school.godbless.sprint3_lambda.uber;
 
 import java.util.function.BiFunction;
 
@@ -9,6 +9,13 @@ public class Main {
         BiFunction<Double, Double, Double> economyFare = (distance, time) -> 1.0 * distance + 0.5 * time;
         BiFunction<Double, Double, Double> comfortFare = (distance, time) -> 1.5 * distance + 0.8 * time;
         BiFunction<Double, Double, Double> premiumFare = (distance, time) -> 2.0 * distance + 1.5 * time;
+//        BiFunction<String, String, String> goldFare = (param, paramM) -> {
+//            if (param.length()>paramM.length()){
+//                return param+paramM;
+//            }else {
+//               return paramM+param;
+//            }
+//        };
 
         double distance = 10.0;
         double time = 15.0;

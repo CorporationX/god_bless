@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.gmail;
+package faang.school.godbless.sprint3_lambda.gmail;
 
 import java.util.List;
 import java.util.function.Consumer;

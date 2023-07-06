@@ -1,4 +1,4 @@
-package main.java.faang.school.godbless.sprint3_lambda.maps;
+package faang.school.godbless.sprint3_lambda.maps;
 
 import java.util.ArrayList;
 import java.util.Arrays;
