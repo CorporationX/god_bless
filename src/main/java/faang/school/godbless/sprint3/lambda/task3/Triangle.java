@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public class Triangle {
 
-    static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Значения не могут быть 0 или меньше 0");
         }
