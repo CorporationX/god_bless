@@ -8,18 +8,16 @@ public class MagicalTournament {
         Tournament tournament = new Tournament();
 
         // Создание студентов, волшебных школ и заданий (пропущено, так как они предоставлены)
-        School hogwarts = new School("Hogwarts", List.of(new Student[]{
-                new Student("Harry Potter", 1, 100),
-                new Student("Ron Weasley", 1, 100),
-                new Student("Hermione Granger", 1, 100),
-        }));
-        School beauxbatons = new School("Beauxbatons", List.of(new Student[]{
-                new Student("Draco Malfoy", 2, 100),
-                new Student("Albus Dumbledore", 2, 100),
-                new Student("Severus Snape", 2, 100),
-        }));
+        School hogwarts = new School("Hogwarts", List.of(
+                new Student("Harry Potter", 15, 120),
+                new Student("Ron Weasley", 15, 50),
+                new Student("Hermione Granger", 14, 200)));
+        School beauxbatons = new School("Beauxbatons", List.of(
+                new Student("Draco Malfoy", 14, 100),
+                new Student("Albus Dumbledore", 15, 140),
+                new Student("Severus Snape", 14, 70)));
         Task task1 = new Task("Task 1", 1, 100);
-        Task task2 = new Task("Task 2", 2, 100);
+        Task task2 = new Task("Task 2", 2, 200);
         // Запуск заданий
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);

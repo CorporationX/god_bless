@@ -9,7 +9,7 @@ import java.util.List;
 public class School {
     private String name;
     private List<Student> team;
-    public void getTotalPoints(){
-
+    public int getTotalPoints(){
+        return team.stream().mapToInt(Student::getPoints).sum();
     }
 }
