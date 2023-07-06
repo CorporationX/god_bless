@@ -11,6 +11,8 @@ public class Main {
         for (int i = 0; i < customers.length; i++) {
             cashiers.add(new CashierThread(i, customers[i]));
             cashiers.get(i).start();
+        }
+        for (int i = 0; i < customers.length; i++) {
             try {
                 cashiers.get(i).join();
             } catch (InterruptedException e) {
