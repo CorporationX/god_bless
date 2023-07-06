@@ -8,7 +8,7 @@ import java.util.Map;
 public class VideoManager {
     private Map<Video, Integer> viewsMap = new HashMap<>();
 
-    public void addView(Video video) {
+    public synchronized void addView(Video video) {
         viewsMap.putIfAbsent(video, 0);
         viewsMap.put(video, viewsMap.get(video) + 1);
     }
