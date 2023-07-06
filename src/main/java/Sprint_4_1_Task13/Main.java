@@ -9,16 +9,16 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         int n = 10000000;
-        List<Double> pif = new ArrayList<>();
+        List<Double> piFuture = new ArrayList<>();
         double pi;
         for (int i = 0; i < 10; i++) {
              pi = CalculateTheNumberOfPI.calculatePi(n);
-             pif.add(pi);
+             piFuture.add(pi);
         }
-        double counttt = 0;
-        for (Double p : pif) {
-            counttt += p;
+        double result = 0;
+        for (Double p : piFuture) {
+            result += p;
         }
-        System.out.println(Thread.currentThread().getName() + " Pi: " + counttt/10);
+        System.out.println(Thread.currentThread().getName() + " Pi: " + result/10);
     }
 }
