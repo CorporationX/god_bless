@@ -24,10 +24,6 @@ public class BigBangTheory {
         tasks.add(task4);
 
         for (int i = 0; i < THREAD_COUNT; i++) {
-//            executor.submit(task1);
-//            executor.submit(task2);
-//            executor.submit(task3);
-//            executor.submit(task4);
             executor.submit(tasks.get(i));
         }
         executor.shutdown();
