@@ -38,9 +38,8 @@ public class ChatManager {
 
     @SneakyThrows
     public synchronized void waitForChat(User user) {
-        boolean userInChat = chatList.stream()
-                .anyMatch(chat -> chat.getUser1().equals(user) || chat.getUser2().equals(user));
-        while (!userInChat) {
+        while (chatList.stream()
+                .noneMatch(chat -> chat.getUser1().equals(user) || chat.getUser2().equals(user))) {
             System.out.println(user + " не участвует ни в одном чате");
             wait();
         }

@@ -11,9 +11,9 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
         User user1 = new User("Икакий", true, true);
-        User user2 = new User("Везерис", true, true);
-        User user3 = new User("Рикард", true, true);
-        User user4 = new User("Игорь", true, true);
+        User user2 = new User("Везерис", true, false);
+        User user3 = new User("Рикард", true, false);
+        User user4 = new User("Игорь", true, false);
         User user5 = new User("Симпсон", true, true);
 
         UserList userList = new UserList();
