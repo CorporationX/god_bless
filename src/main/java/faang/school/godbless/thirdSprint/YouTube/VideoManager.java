@@ -1,21 +1,16 @@
 package faang.school.godbless.thirdSprint.YouTube;
 
-import lombok.Setter;
-
+import java.util.HashMap;
 import java.util.Map;
 
-@Setter
 public class VideoManager {
-    private Map<Integer, Video> videos;
-    private Map<Video, Integer> viewsMap;
+    private final Map<Integer, Integer> viewsMap = new HashMap<>();
 
-    public void addView(int videoId) {
-        Video video = videos.get(videoId);
-        viewsMap.put(video, viewsMap.get(video) + 1);
+    public synchronized void addView(int videoId) {
+        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
     }
 
-    public int getViewCount(int videoId) {
-        Video video = videos.get(videoId);
-        return viewsMap.get(video);
+    public synchronized int getViewCount(int videoId) {
+        return viewsMap.get(videoId);
     }
 }
