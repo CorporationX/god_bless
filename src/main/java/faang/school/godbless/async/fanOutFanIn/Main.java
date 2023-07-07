@@ -13,13 +13,9 @@ public class Main {
     private static AtomicLong fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService pool = Executors.newFixedThreadPool(requests.size());
 
-        CompletableFuture<Void> future =  CompletableFuture.runAsync(() -> {
-            for (SquareRequest request : requests) {
-                request.longTimeSquare(resultConsumer);
-            }
-        }, pool);
+        List<CompletableFuture<Void>> completableFutureList = requests.stream().map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), pool)).toList();
 
-        CompletableFuture.allOf(future).join();
+        CompletableFuture.allOf(completableFutureList.toArray(new CompletableFuture[0])).join();
 
         pool.shutdown();
 
@@ -28,7 +24,7 @@ public class Main {
 
     private static void launch() {
         List<SquareRequest> requests = new ArrayList<>();
-        for (long i = 1; i <= 15; i++) {
+        for (long i = 1; i <= 1000; i++) {
             requests.add(new SquareRequest(i));
         }
 
