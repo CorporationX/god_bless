@@ -11,7 +11,7 @@ public class Player {
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            Thread.sleep((long) (Math.random() * 3000));
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
