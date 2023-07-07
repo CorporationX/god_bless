@@ -20,6 +20,6 @@ public class UserList {
     }
 
     public boolean doesAnyWantChat() {
-        return userList.stream().anyMatch(user -> user.isPrepareToChat() == true);
+        return userList.stream().anyMatch(user -> user.isPrepareToChat());
     }
 }

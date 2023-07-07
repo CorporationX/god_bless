@@ -26,14 +26,21 @@ public class ChatManager {
             if(users.doesAnyWantChat()) {
                 for(User user1 : onlineUsers) {
                     Chat chat = new Chat(user, user1);
+                    synchronized (users) {
+                        user.setPrepareToChat(false);
+                        user1.setPrepareToChat(false);
+                        users.deleteUser(user);
+                        users.deleteUser(user1);
+                        users.notifyAll();
+                    }
                     chats.add(chat);
                     chat.chatting();
                     break;
                 }
             } else {
                 try {
-                    System.out.println("while no one is ready to chat");
-                    chats.wait();
+                    chats.wait(5000);
+                    System.out.println("While no one is ready to chat with " + user.getName());
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -47,25 +54,19 @@ public class ChatManager {
                 anyMatch(chat -> chat.getUser2() == user || chat.getUser1() == user);
         if(!isInChats) {
             System.out.println(user.getName() + " - is not in the chat list!");
-            //wait();
         }
     }
 
     public void endChat(Chat chat) {
         synchronized (chats) {
             chats.remove(chat);
+            synchronized (users) {
+                users.addUser(chat.getUser1());
+                users.addUser(chat.getUser2());
+                users.notifyAll();
+            }
             System.out.println("Chat of " + chat.getUser1().getName() + " and " + chat.getUser2().getName() + " has been deleted");
             chats.notifyAll();
-
-            //if(!chats.isEmpty()) {
-                //List<Chat> chatOf = chats.stream().filter(chat1 -> chat1.getUser1().equals(user1) && chat1.getUser2().equals(user2)).toList();
-                //Chat usersChat = chatOf.get(0);
-                //chats.remove(usersChat);
-                //chats.notifyAll();
-                //System.out.println(user1.getName() + " deleted chat with " + user2.getName());
-            //} else {
-                //System.out.println("this chat does not exist");
-            //}
         }
     }
 }

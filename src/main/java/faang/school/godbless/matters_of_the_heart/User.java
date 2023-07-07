@@ -13,20 +13,41 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void exit() {
-        isOnline = false;
-        System.out.println(this.getName() + " exited the app");
+    public void exit() {
+        synchronized(this) {
+            isOnline = false;
+            prepareToChat = false;
+            System.out.println(this.getName() + " exited the app");
+            this.notifyAll();
+        }
+
     }
 
-    public synchronized void connect() {
-        isOnline = true;
+    public void connect() {
+        synchronized (this) {
+            isOnline = true;
+            this.notifyAll();
+        }
     }
 
     public synchronized void searchChat() {
-        prepareToChat = true;
+        synchronized (this) {
+            if(!this.isOnline) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            prepareToChat = true;
+            notifyAll();
+        }
     }
 
     public synchronized void toDoNotDisturb() {
-        prepareToChat = false;
+        synchronized (this) {
+            prepareToChat = false;
+            notifyAll();
+        }
     }
 }
