@@ -24,12 +24,12 @@ public class House {
         freeRoles = roles.size();
     }
 
-    public synchronized void addRole(Role role) {
+    public void addRole(Role role) {
         roles.add(role);
         freeRoles++;
     }
 
-    public synchronized boolean removeRole(Role role) {
+    public boolean removeRole(Role role) {
         if (roles.contains(role)) {
             roles.remove(role);
             freeRoles--;

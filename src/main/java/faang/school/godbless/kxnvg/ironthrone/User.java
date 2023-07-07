@@ -15,29 +15,32 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House desiredHouse) {
+    public void joinHouse(House desiredHouse) {
         house = desiredHouse;
-        if (house.getFreeRoles() == 0) {
-            try {
-                System.out.println(name + " ожидает свободной роли в доме " + house.getName());
-                wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        synchronized (house) {
+            if (house.getFreeRoles() == 0) {
+                try {
+                    System.out.println(name + " ожидает свободной роли в доме " + house.getName());
+                    house.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
+            int value = house.getFreeRoles();
+            role = house.getRoles().get(new Random().nextInt(value));
+            house.removeRole(role);
+            System.out.println(name + " выбирает роль " + role + " в доме " + house.getName());
         }
-        int value = house.getFreeRoles();
-        role = house.getRoles().get(new Random().nextInt(value));
-        house.removeRole(role);
-        System.out.println(name + " выбирает роль " + role + " в доме " + house.getName());
     }
 
-    public synchronized void leaveHouse() {
-        if (role != null) {
-            System.out.println(name + " покидает дом " + house.getName() + " и освобождает свою роль " + role);
-            house.addRole(role);
-            house = null;
-            role = null;
-            notifyAll();
+    public void leaveHouse() {
+        synchronized (house) {
+            if (role != null) {
+                System.out.println(name + " покидает дом " + house.getName() + " и освобождает свою роль " + role);
+                house.addRole(role);
+                role = null;
+                house.notifyAll();
+            }
         }
     }
 }
