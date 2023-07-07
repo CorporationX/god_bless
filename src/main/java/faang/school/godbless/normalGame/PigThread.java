@@ -16,4 +16,16 @@ public class PigThread extends Thread{
     public int getMaterial() {
         return material;
     }
+
+    @Override
+    public void run() {
+        try {
+            System.out.println(getPigName() + " started building a house from " + getMaterial());
+            Thread.sleep(1000);
+            System.out.println(getPigName() + " built a house out of " + getMaterial());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
