@@ -1,4 +1,4 @@
-package faang.school.godbless.Sprint5_1.tast2;
+package faang.school.godbless.Sprint5_1.task2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

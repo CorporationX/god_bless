@@ -1,4 +1,4 @@
-package faang.school.godbless.Sprint5_1.tast2;
+package faang.school.godbless.Sprint5_1.task2;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
