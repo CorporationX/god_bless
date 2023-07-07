@@ -1,4 +1,4 @@
-package faang.school.godbless.Sprint5_1.task4;
+package faang.school.godbless.Sprint5_1.task5;
 
 import java.util.concurrent.ThreadLocalRandom;
 
