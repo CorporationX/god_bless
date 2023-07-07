@@ -4,11 +4,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class Kingdom {
     private String name;
-
     public Kingdom(String name) {
         this.name = name;
     }
-
     public String getName() {
         return name;
     }
@@ -18,7 +16,13 @@ public class Kingdom {
     }
 
     public static CompletableFuture<String> sendRaven(Kingdom sendingKingdom, Kingdom receivingKingdom) {
-        return CompletableFuture.supplyAsync(() -> sendMessage(receivingKingdom));
+        boolean notDelivered = false;
+        return CompletableFuture.supplyAsync(() -> {
+            if (notDelivered) {
+                throw new RuntimeException("Сообщение не может быть доставлено");
+            }
+            return sendMessage(receivingKingdom);
+        });
     }
 
     public static void main(String[] args) {
@@ -31,9 +35,9 @@ public class Kingdom {
                     if (exception == null) {
                         System.out.println(sendMessage(kingdom2));
                     } else {
-                        System.out.println("Сообщение не может быть доставлено");
+                        System.out.println(exception.getMessage());
                     }
-                    return "Сообщение доставлено";
+                    return "Доставка завершена";
                 }).join();
 
         // Отправляем сообщение от королевства 2 к королевству 1
@@ -42,9 +46,9 @@ public class Kingdom {
                     if (exception == null) {
                         System.out.println(sendMessage(kingdom1));
                     } else {
-                        System.out.println("Сообщение не может быть доставлено");
+                        System.out.println(exception.getMessage());
                     }
-                    return "Сообщение доставлено";
+                    return "Доставка завершена";
                 }).join();
     }
 }
