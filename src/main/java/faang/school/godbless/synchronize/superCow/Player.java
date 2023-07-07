@@ -11,11 +11,15 @@ public class Player {
     private String name;
 
     public void startBattle(Boss boss) {
+        boss.joinBattle(this);
+        System.out.println(name + " has joined the battle");
+        doBattle();
+        boss.finishBattle(this);
+    }
+
+    private static void doBattle() {
         try {
-            boss.joinBattle(this);
-            System.out.println(name + " has joined the battle");
             TimeUnit.SECONDS.sleep(5);
-            boss.finishBattle(this);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
