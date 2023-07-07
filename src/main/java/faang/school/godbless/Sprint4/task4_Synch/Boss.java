@@ -27,6 +27,4 @@ public class Boss {
         System.out.println(player.getName() + " end the battle " + "[" + Thread.currentThread().getName() + "]");
         notify();
     }
-
-
 }
