@@ -1,11 +1,9 @@
 package faang.school.godbless.multithreading.alchemy;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.IntStream;
 
 public class Alchemist {
     private final AtomicInteger totalIngredients;
@@ -14,26 +12,6 @@ public class Alchemist {
     public Alchemist() {
         totalIngredients = new AtomicInteger(0);
         totalIngredientsAnother = new AtomicInteger(0);
-    }
-
-
-    public static void main(String[] args) {
-        Alchemist alchemist = new Alchemist();
-        Random random = new Random();
-
-        List<Potion> potions = IntStream.rangeClosed(1, 7)
-                .mapToObj(i -> new Potion("Potion " + i, random.nextInt(3, 15)))
-                .toList();
-
-        alchemist.brewPotions(potions);
-
-        int expected = potions.stream()
-                .mapToInt(Potion::getRequiredIngredients)
-                .sum();
-
-        System.out.println(expected);
-
-        alchemist.brewPotionsAnother(potions);
     }
 
     public CompletableFuture<Integer> gatherIngredients(Potion potion) {
