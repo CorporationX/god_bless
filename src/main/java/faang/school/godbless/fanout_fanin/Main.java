@@ -9,8 +9,11 @@ import java.util.concurrent.Executors;
 public class Main {
 
     public static void main(String[] args) {
-
+        ResultConsumer resultConsumer = new ResultConsumer(0L);
         List<SquareRequest> squareRequests = new ArrayList<>();
+        launch(squareRequests);
+        long answer = fanOutFanIn(squareRequests,resultConsumer);
+        System.out.println(answer);
     }
 
     public static void launch(List<SquareRequest> list) {
