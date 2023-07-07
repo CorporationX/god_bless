@@ -1,4 +1,4 @@
-package faang.school.godbless.task2;
+package faang.school.godbless.sprint2.task2;
 
 public class Archer extends Character {
     public Archer(String name) {

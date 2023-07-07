@@ -1,4 +1,4 @@
-package faang.school.godbless.task3;
+package faang.school.godbless.sprint2.task3;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
