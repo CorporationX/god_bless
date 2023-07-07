@@ -12,18 +12,21 @@ public class House {
     private static List<Food> availableFood;
 
     public static void main(String[] args) {
-        roomList = new ArrayList<>();
-        availableFood = new ArrayList<>();
+
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        roomList = new ArrayList<>();
+
         fillInHouse();
 
         for (int i = 0; i < roomList.size(); i++){
-            executor.schedule(House::collectFood, 5, TimeUnit.SECONDS);
+            executor.schedule(House::collectFood, 30 * i, TimeUnit.SECONDS);
         }
 
         executor.shutdown();
+
+        availableFood = new ArrayList<>();
         try {
-            executor.awaitTermination(15, TimeUnit.SECONDS);
+            executor.awaitTermination(5, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -49,10 +52,8 @@ public class House {
     private static List<Food> fillInRooms(){
         String[] availableFood = {"cheese", "bread", "cookies", "chocolate", "chips"};
         List<Food> food = new ArrayList<>();
-        int i = 0;
-        while (i <= 10){
+        for (int i = 0; i <= 10; i++){
             food.add(new Food(availableFood[new Random().nextInt(availableFood.length)]));
-            i++;
         }
 
         return food;
