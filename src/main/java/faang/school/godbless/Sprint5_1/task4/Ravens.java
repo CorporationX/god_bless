@@ -6,7 +6,7 @@ public class Ravens {
     public static CompletableFuture<String> sendRaven(Kingdom senderKingdom, Kingdom recipientKingdom) {
         CompletableFuture<String> completableFuture = CompletableFuture.supplyAsync(() -> {
             if (Math.random() < 0.3) {
-                throw new RuntimeException("Plane shot down the raven flying rom " + senderKingdom.getName() +
+                throw new RuntimeException("Plane shot down the raven flying from " + senderKingdom.getName() +
                         " to " + recipientKingdom.getName());
             } else {
                 return senderKingdom.sendMessage(recipientKingdom);
