@@ -22,10 +22,10 @@ public class GooglePhotosAutoUploader {
                     } catch (InterruptedException e) {
                         System.err.println("Error occurred while waiting for new photos: " + e.getMessage());
                     }
-                } else {
-                    uploadPhotos();
                 }
             }
+
+            uploadPhotos();
         }
     }
 
