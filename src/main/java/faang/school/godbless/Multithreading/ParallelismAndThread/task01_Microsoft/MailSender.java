@@ -1,4 +1,4 @@
-package faang.school.godbless.Multithreading.ParallelismAndThread;
+package faang.school.godbless.Multithreading.ParallelismAndThread.task01_Microsoft;
 
 public class MailSender {
     private static final int threadCount = 5;
