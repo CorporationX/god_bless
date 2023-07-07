@@ -3,12 +3,13 @@ package faang.school.godbless.googlePhoto;
 
 import lombok.SneakyThrows;
 
+import java.util.Collections;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private Object lock = new Object();
 
-    private List<String> photosToUpload = List.of();
+    private List<String> photosToUpload = Collections.emptyList();
 
     @SneakyThrows
     public void startAutoUpload() {
