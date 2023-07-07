@@ -7,13 +7,14 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
+        List<String> starksRoles = new ArrayList<>();
+        starksRoles.add("Knight");
+        starksRoles.add("Lord");
+        starksRoles.add("Maester");
+        starksRoles.add("Сook");
+        starksRoles.add("Hunky");
 
-        House starkHouse = new House("Stark");
-        starkHouse.getRoles().add("Knight");
-        starkHouse.getRoles().add("Lord");
-        starkHouse.getRoles().add("Maester");
-        starkHouse.getRoles().add("Сook");
-        starkHouse.getRoles().add("Hunky");
+        House starkHouse = new House("Stark", starksRoles);
 
         List<User> users = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
@@ -32,7 +33,6 @@ public class Main {
         });
 
         Thread thread2 = new Thread(() -> {
-            users.get(4).leaveHouse(starkHouse);
             users.get(0).leaveHouse(starkHouse);
             users.get(6).joinHouse(starkHouse, "Hunky");
         });

@@ -9,16 +9,20 @@ import java.util.List;
 public class House {
     private String name;
     public List<String> roles;
-    private int availableRoles = 5;
+    private int availableRoles;
 
-    public House(String name) {
+    public House(String name, List<String> roles) {
         this.name = name;
-        this.roles = new ArrayList<>();
+        this.roles = roles;
+        this.availableRoles = 5;
+    }
+    public House() {
+
     }
 
 
-    public void addRole(String role) {
-        roles.remove(role);
+    public void addRole(String userRole) {
+        roles.remove(userRole);
         availableRoles--;
     }
 

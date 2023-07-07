@@ -6,7 +6,6 @@ import lombok.Getter;
 
 @Getter
 public class User {
-    private final Object lock = new Object();
     private String userName;
     private House userHouse;
     private String userRole;
@@ -15,29 +14,30 @@ public class User {
         this.userName = userName;
     }
 
-    public synchronized void joinHouse(House desiredHouse, String desiredRole) {
-        synchronized (lock) {
-            if(desiredHouse.getAvailableRoles() > 0 && desiredHouse.getRoles().contains(desiredRole)) {
-                userHouse = desiredHouse;
-                userRole = desiredRole;
-                desiredHouse.addRole(desiredRole);
-                System.out.println("New player " + userName + " become a " + userRole + " of the " + userHouse.getName() + " house!");
-            } else {
+    public void joinHouse(House userHouse, String userRole) {
+        synchronized (userHouse) {
+            if(userHouse.getAvailableRoles() == 0 || !userHouse.getRoles().contains(userRole)) {
                 try {
-                    lock.wait(100);
+                    userHouse.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            this.userHouse = userHouse;
+            this.userRole = userRole;
+            userHouse.addRole(userRole);
+            System.out.println("New player " + userName + " become a " + userRole + " of the " + userHouse.getName() + " house!");
         }
     }
 
-    public synchronized void leaveHouse(House houseForLeave) {
-        synchronized (lock) {
+
+    public void leaveHouse(House userHouse) {
+        synchronized (userHouse) {
             if(userHouse != null) {
-                houseForLeave.removeRole(userRole);
+                userHouse.removeRole(this.getUserRole());
                 System.out.println(userName + " leave the house of " + userHouse.getName());
-                lock.notifyAll();
+                this.userHouse = null;
+                userHouse.notify();
             }
         }
     }
