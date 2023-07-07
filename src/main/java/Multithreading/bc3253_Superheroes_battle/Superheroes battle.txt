@@ -1,0 +1,59 @@
+Условия задачи
+Описание: Вы являетесь разработчиком системы для анализа силы супергероев Marvel.
+Вам необходимо создать систему, которая определит сильнейшего супергероя в серии
+соревнований, сражающихся в парах. Вы должны использовать коллекцию Future в Java
+для асинхронного определения победителей.
+
+Цель: Создайте класс SuperheroBattle, который будет использовать ExecutorService
+для асинхронного запуска соревнований между парами супергероев и возвращать
+результаты с использованием коллекции Future.
+
+Требования:
+
+Создайте класс Superhero с полями name, strength и agility.
+
+Создайте класс SuperheroBattle с методом runCompetitions, который принимает список
+пар супергероев (например, List<Pair<Superhero, Superhero>>) и возвращает список
+Future<Superhero> с победителями каждой пары.
+
+Метод runCompetitions должен использовать ExecutorService для асинхронного запуска
+соревнований между парами супергероев и добавлять результаты в коллекцию Future.
+
+Создайте несколько супергероев и запустите несколько соревнований, используя
+созданный класс SuperheroBattle.
+
+Обработайте результаты соревнований, используя коллекцию Future.
+
+Задание со звездочкой. После получения победителей всех пар, рандомно сформируйте
+из них новые пары и снова запустите ту же самую логику для получения новых победителей.
+Т.о. у нас получается своего рода рекурсия. Запускайте её до тех пор,
+пока не останется ровно один — сильнейший герой.
+
+Пример использования:
+
+SuperheroBattle superheroBattle = new SuperheroBattle();
+
+// Создание супергероев
+Superhero ironMan = new Superhero("Iron Man", 9, 6);
+Superhero captainAmerica = new Superhero("Captain America", 8, 8);
+Superhero thor = new Superhero("Thor", 10, 7);
+Superhero hulk = new Superhero("Hulk", 10, 4);
+
+// Создание списка пар супергероев
+List<Pair<Superhero, Superhero>> superheroPairs = Arrays.asList(
+    new Pair<>(ironMan, captainAmerica),
+    new Pair<>(thor, hulk)
+);
+
+// Запуск серии соревнований
+List<Future<Superhero>> winnersFutures = superheroBattle.runCompetitions(superheroPairs);
+
+// Обработка результатов соревнований
+for (int i = 0; i < winnersFutures.size(); i++) {
+    try {
+        Superhero winner = winnersFutures.get(i).get();
+        System.out.println("Победитель соревнования " + (i + 1) + ": " + winner.getName());
+    } catch (InterruptedException | ExecutionException e) {
+        e.printStackTrace();
+    }
+}
