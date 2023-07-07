@@ -13,6 +13,7 @@ public class User {
 
     public User(String name) {
         this.name = name;
+        actualChat = null;
         isOnline = false;
     }
 

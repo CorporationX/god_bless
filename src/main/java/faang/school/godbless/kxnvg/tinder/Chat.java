@@ -18,6 +18,8 @@ public class Chat {
 
     public void finishChating() {
         System.out.println("Чат между пользователями: " + firstUser.getName() + " и " + secondUser.getName() + " завершен");
+        firstUser.setActualChat(null);
+        secondUser.setActualChat(null);
         firstUser = null;
         secondUser = null;
     }
