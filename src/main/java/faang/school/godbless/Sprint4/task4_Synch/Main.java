@@ -5,10 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private static final int MAX_PLAYERS = 5;
+    private static final int MAX_PLAYERS = 2;
 
     public static void main(String[] args) {
-        Boss boss = new Boss(2);
+        Boss boss = new Boss(MAX_PLAYERS);
 
         List<Player> players = List.of(new Player("Player1"),
                 new Player("Player2"),
@@ -17,7 +17,7 @@ public class Main {
                 new Player("Player5")
         );
 
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_PLAYERS);
+        ExecutorService executor = Executors.newFixedThreadPool(5);
 
         for (Player player : players) {
             executor.submit(() -> player.startBattle(boss));
