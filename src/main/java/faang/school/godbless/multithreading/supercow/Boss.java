@@ -13,7 +13,7 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) {
-        while (currentPlayers == maxPlayers) {
+        while (currentPlayers >= maxPlayers) {
             try {
                 wait();
             } catch (InterruptedException e) {

@@ -11,10 +11,9 @@ public class Game {
 
         List<Thread> playerThreads = IntStream.rangeClosed(1, 7)
                 .mapToObj(i -> new Player("Player-" + i))
-                .map(player -> new Thread(() -> player.startBattle(boss), player.getName()))
+                .map(player -> new Thread(() -> player.startBattle(boss)))
                 .toList();
 
-        playerThreads.forEach(thread -> System.out.println(thread.getName()));
         playerThreads.forEach(Thread::start);
     }
 }
