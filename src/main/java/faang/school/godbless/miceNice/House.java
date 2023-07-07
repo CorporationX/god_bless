@@ -22,9 +22,9 @@ public class House {
 
 
     public synchronized void collectFood() {
-        synchronized (rooms) {
-            for (Room room : rooms) {
-                List<Food> roomFood = room.getFood();
+        for (Room room : rooms) {
+            List<Food> roomFood = room.getFood();
+            synchronized (roomFood) {
                 collectedFood.addAll(roomFood);
                 roomFood.clear();
             }
