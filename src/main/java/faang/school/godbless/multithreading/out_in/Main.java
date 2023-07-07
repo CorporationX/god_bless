@@ -30,8 +30,7 @@ public class Main {
                 )
         );
 
-        CompletableFuture<Void> result = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        result.join();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         executorService.shutdown();
 
