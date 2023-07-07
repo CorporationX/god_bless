@@ -26,25 +26,19 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ExecutorService executorService = Executors.newCachedThreadPool();
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         List<Future<Integer>> results = new ArrayList<>();
 
         for (Archer archer : archers) {
-            Callable<Integer> task = archer::getPower;
-            Future<Integer> result = executorService.submit(task);
-            results.add(result);
+            results.add(submitTask(executorService, archer::getPower));
         }
 
         for (Swordsman swordsman : swordsman) {
-            Callable<Integer> task = swordsman::getPower;
-            Future<Integer> result = executorService.submit(task);
-            results.add(result);
+            results.add(submitTask(executorService, swordsman::getPower));
         }
 
         for (Mage mage : mages) {
-            Callable<Integer> task = mage::getPower;
-            Future<Integer> result = executorService.submit(task);
-            results.add(result);
+            results.add(submitTask(executorService, mage::getPower));
         }
 
         int totalPower = 0;
@@ -60,4 +54,9 @@ public class Army {
 
         return totalPower;
     }
+
+    private Future<Integer> submitTask(ExecutorService executorService, Callable<Integer> task) {
+        return executorService.submit(task);
+    }
+
 }
