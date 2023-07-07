@@ -1,36 +1,40 @@
 package Sprint_4_Telegram_bot;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import lombok.Data;
+import lombok.SneakyThrows;
 
+@Data
 public class TelegramBot {
-    private final int REQUEST_LIMIT;
+    private final static int REQUEST_LIMIT = 5;
     private int requestCounter;
-    private int lastRequestTime;
+    private long lastRequestTime;
 
-    public TelegramBot(int lastRequestTime) {
-        REQUEST_LIMIT = 5;
+    public TelegramBot(long lastRequestTime) {
         this.requestCounter = 0;
         this.lastRequestTime = lastRequestTime;
     }
+
+    @SneakyThrows
     public void sendMessage(String message) {
 
         synchronized (this) {
-            System.currentTimeMillis();
-
-            System.out.println("отправка сообщения " );
-
-
-        DateFormat.now();
+            long currentTime = System.currentTimeMillis();
+            long timeDifference = currentTime - lastRequestTime;
+            if (timeDifference < 1000) {
+                requestCounter++;
+                if (requestCounter > REQUEST_LIMIT) {
+                    Thread.sleep(1500 - timeDifference);
+                    requestCounter = 1;
+                }
+                System.out.println(requestCounter);
+            } else {
+                requestCounter = 1;
+            }
+            lastRequestTime = System.currentTimeMillis();
+            System.out.println("Отправлено сообщение через API Telegram");
+        }
     }
-    }
-
-    public static void main(String[] args) {
-        TelegramBot bot = new TelegramBot(0);
-
-        ExecutorService executorService = Executors.newFixedThreadPool(15);
-        executorService.execute(bot::sendMessage);
-    }
+//            LocalDateTime currentTime LocalDateTime.now();
+//            getLastRequestTime();
+//            LocalDateTime timeDifference = currentTime - lastRequestTime;
 }
