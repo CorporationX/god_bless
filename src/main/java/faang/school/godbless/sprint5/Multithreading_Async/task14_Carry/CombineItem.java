@@ -8,10 +8,14 @@ import java.util.concurrent.CompletableFuture;
 public class CombineItem {
     private Inventory inventory;
 
-    public void putInTheInventory(Item item1, Item item2) {
-        CompletableFuture<Item> itemCompletableFuture = combineItems(item1, item2);
-        itemCompletableFuture
-                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItems(item)));
+    public void getAsyncCombineItems(Item item1, Item item2) {
+        CompletableFuture<Item> itemFromChest = getItemFromChest(item1);
+        CompletableFuture<Item> itemFromStore = getItemFromStore(item2);
+        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(itemFromChest, itemFromStore);
+        voidCompletableFuture
+                .thenCompose(d -> itemFromChest.thenCombine(itemFromStore, inventory::combineItems))
+                .thenAccept(item -> inventory.addItems(item))
+                .join();
     }
 
     public static void main(String[] args) {
@@ -20,7 +24,7 @@ public class CombineItem {
         Item item1 = new Item("Item 1", 100);
         Item item2 = new Item("Item 2", 120);
 
-        combineItem.putInTheInventory(item1, item2);
+        combineItem.getAsyncCombineItems(item1, item2);
         System.out.println(gabeInventory);
     }
 
@@ -32,9 +36,5 @@ public class CombineItem {
         return CompletableFuture.supplyAsync(() -> item);
     }
 
-    private CompletableFuture<Item> combineItems(Item item1, Item item2) {
-        CompletableFuture<Item> itemFromChest = getItemFromChest(item1);
-        CompletableFuture<Item> itemFromStore = getItemFromStore(item2);
-        return itemFromChest.thenCombine(itemFromStore, inventory::combineItems);
-    }
+
 }
