@@ -3,13 +3,12 @@ package faang.school.godbless.DataCollectionForTheReport;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
-@Data
-@AllArgsConstructor
-public class ReportGenerator {
-    private DataCollector dataCollector;
+import java.util.concurrent.ConcurrentHashMap;
 
-    public void generateReport(){
-        dataCollector.
+public class ReportGenerator {
+    public void generateReport(List<SalesData> salesDataList) {
+        salesDataList.forEach(System.out::println);
     }
 }
