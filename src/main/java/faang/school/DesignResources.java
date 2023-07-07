@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DesignResources {
-    //    private final List<String> paths = new CopyOnWriteArrayList<>();
-    private final List<String> paths = new ArrayList<>();
+    private final List<String> paths = new CopyOnWriteArrayList<>();
 
     public synchronized void addPath(String path) {
         paths.add(path);
