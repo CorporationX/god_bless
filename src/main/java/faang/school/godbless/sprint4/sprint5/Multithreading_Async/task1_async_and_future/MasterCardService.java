@@ -35,11 +35,8 @@ public class MasterCardService {
         Future<Integer> future = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> integerCompletableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
         executor.shutdown();
-        while (!integerCompletableFuture.isDone()) {}
 
         System.out.println(integerCompletableFuture.get());
-
-        while (!future.isDone()) {}
 
         System.out.println(future.get());
     }
