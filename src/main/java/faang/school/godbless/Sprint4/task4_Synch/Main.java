@@ -17,7 +17,6 @@ public class Main {
                 new Player("Player5")
         );
 
-
         ExecutorService executor = Executors.newFixedThreadPool(MAX_PLAYERS);
 
         for (Player player : players) {
@@ -25,8 +24,5 @@ public class Main {
         }
 
         executor.shutdown();
-//        for (Player player : players) {
-//            executor.submit(() -> player.endOneBattle(player));
-//        }
     }
 }

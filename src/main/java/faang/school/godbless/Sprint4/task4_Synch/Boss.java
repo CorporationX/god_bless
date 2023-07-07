@@ -9,28 +9,24 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) {
         if (currentPlayers < maxPlayers) {
-            addPlayer(player);
+            currentPlayers++;
+            System.out.println(player.getName() + " joined the battle " + "[" + Thread.currentThread().getName() + "]");
         } else {
             try {
                 wait();
-                addPlayer(player);
+                currentPlayers++;
+                System.out.println(player.getName() + " is waiting " + "[" + Thread.currentThread().getName() + "]");
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
-    private void addPlayer(Player player) {
-        currentPlayers++;
-        System.out.println("Player " + player.getName() + " joined the battle " + Thread.currentThread().getName());
-    }
-
     public synchronized void endOneBattle(Player player) {
-        System.out.println("Player " + player.getName() + " end the battle " + Thread.currentThread().getName());
         currentPlayers--;
+        System.out.println(player.getName() + " end the battle " + "[" + Thread.currentThread().getName() + "]");
         notify();
     }
-
 
 
 }
