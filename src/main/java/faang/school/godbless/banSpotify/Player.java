@@ -18,7 +18,7 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            isPlaying = false;
+            isPlaying = true;
         }
         System.out.println("Music skipped!");
     }
