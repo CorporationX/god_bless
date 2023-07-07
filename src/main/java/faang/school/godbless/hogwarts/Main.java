@@ -3,6 +3,7 @@ package faang.school.godbless.hogwarts;
 import faang.school.godbless.hogwarts.model.SpellCaster;
 
 public class Main {
+
     public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
 
