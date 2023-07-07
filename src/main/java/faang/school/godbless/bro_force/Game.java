@@ -1,13 +1,13 @@
 package faang.school.godbless.bro_force;
 
 public class Game {
-    private final Object score_lock = new Object();
-    private final Object lives_lock = new Object();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
     private int score = 5;
     private int lives = 5;
 
     public synchronized void update(){
-        synchronized (score_lock){
+        synchronized (scoreLock){
             if (lives > 0){
                 lives--;
                 System.out.println("Lives: " + lives);
@@ -15,7 +15,8 @@ public class Game {
                 gameOver();
             }
         }
-        synchronized (lives_lock){
+
+        synchronized (livesLock){
             score++;
             System.out.println("Score: " + score);
         }
