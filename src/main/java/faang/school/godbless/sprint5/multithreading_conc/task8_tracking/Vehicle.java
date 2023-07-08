@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint5.multithreading_conc.task8_traking;
+package faang.school.godbless.sprint5.multithreading_conc.task8_tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,6 +15,9 @@ public class Vehicle {
     @Setter
     private volatile Status status;
 
-    @Setter
     private volatile Location location;
+
+    public void setLocation() {
+        location = location.getNewLocation();
+    }
 }

@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint5.multithreading_conc.task8_traking;
+package faang.school.godbless.sprint5.multithreading_conc.task8_tracking;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

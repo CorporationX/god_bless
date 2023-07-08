@@ -1,10 +1,13 @@
-package faang.school.godbless.sprint5.multithreading_conc.task8_traking;
+package faang.school.godbless.sprint5.multithreading_conc.task8_tracking;
+
+import lombok.Getter;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+@Getter
 public class TransportManagementSystem {
 
-    private ConcurrentHashMap<Integer, Vehicle> vehicles;
+    private final ConcurrentHashMap<Integer, Vehicle> vehicles;
 
     public TransportManagementSystem() {
         this.vehicles = new ConcurrentHashMap<>();
@@ -34,7 +37,7 @@ public class TransportManagementSystem {
     }
 
     public void updateVehicleLocation(int id) {
-        vehicles.get(id).setLocation(
-                vehicles.get(id).getLocation().getNewLocation());
+        System.out.println("Vehicle №" + id + " location is " + getVehicleLocation(id) + " updated");
+        vehicles.get(id).setLocation();
     }
 }
