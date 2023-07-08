@@ -18,13 +18,16 @@ public class Game {
 
     public void update() {
         synchronized (scoreLock) {
-            synchronized (livesLock) {
-                if (lives > 0) {
-                    score++;
-                    lives--;
-                } else {
-                    gameOver();
-                }
+            if (lives > 0) {
+                score++;
+            }
+        }
+
+        synchronized (livesLock) {
+            if (lives > 0) {
+                lives--;
+            } else {
+                gameOver();
             }
         }
     }
