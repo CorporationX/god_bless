@@ -55,5 +55,4 @@ public class Player {
     public static void endGame() {
         gameIsRunning.set(false);
     }
-
 }
