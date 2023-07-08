@@ -15,11 +15,9 @@ public class Tamagotchi {
         vladController.cleanAll(); //это демонстрирует последний исполненный метод, который выполняется 5 секунд.
         vladController.feedAll();
         vladController.playAll();
-        vladController.stop();
-
-        TamagotchiVlad vlad4 = new TamagotchiVlad();
-        vladController.addVlad(vlad4);
         vladController.removeVlad(vlads.get(2));
+
+        vladController.stop();
         vladController.getHappiness();
     }
 }

@@ -24,12 +24,7 @@ public class VladController {
     public void removeVlad(TamagotchiVlad vlad) {
         synchronized (vlad) {
             if (vlad.isWorking()) {
-                System.out.println(vlad.getName() + " is in work, it cannot be deleted. Wait..");
-                try {
-                    vlad.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                vlad.notifyAll();
             }
         }
         synchronized (vlads) {
@@ -39,8 +34,8 @@ public class VladController {
     }
 
     public void stop() {
-        service.shutdown();
         try {
+            service.shutdown();
             service.awaitTermination(1, TimeUnit.HOURS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
