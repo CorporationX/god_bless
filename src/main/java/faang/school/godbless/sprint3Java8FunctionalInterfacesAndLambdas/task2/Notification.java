@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.task2;
+package faang.school.godbless.sprint3Java8FunctionalInterfacesAndLambdas.task2;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 

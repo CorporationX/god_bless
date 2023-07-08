@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint2.task2;
+package faang.school.godbless.sprint2JavaCore.task2;
 
 public class Warrior extends Character {
     public Warrior(String name) {

@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint2.task4;
+package faang.school.godbless.sprint2JavaCore.task4;
 
 public class Example {
     public static int[] reverse(int[] nums) {

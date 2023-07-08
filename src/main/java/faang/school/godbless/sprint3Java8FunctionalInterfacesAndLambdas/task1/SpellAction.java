@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.task1;
+package faang.school.godbless.sprint3Java8FunctionalInterfacesAndLambdas.task1;
 
 @FunctionalInterface
 public interface SpellAction {

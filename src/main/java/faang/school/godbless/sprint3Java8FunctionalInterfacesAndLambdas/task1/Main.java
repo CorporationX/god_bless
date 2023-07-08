@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3.task1;
+package faang.school.godbless.sprint3Java8FunctionalInterfacesAndLambdas.task1;
 
 public class Main {
     public static void main(String[] args) {
