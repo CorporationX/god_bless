@@ -46,19 +46,19 @@ public class VladController {
         vlads.forEach(vlad -> System.out.println(vlad.getName() + " happiness: " + vlad.getHappiness()));
     }
 
-    public void feedAll() {
+    public synchronized void feedAll() {
         vlads.forEach(vlad -> service.execute(vlad::feed));
     }
 
-    public void playAll() {
+    public synchronized void playAll() {
         vlads.forEach(vlad -> service.execute(vlad::play));
     }
 
-    public void cleanAll() {
+    public synchronized void cleanAll() {
         vlads.forEach(vlad -> service.execute(vlad::clean));
     }
 
-    public void sleepAll() {
+    public synchronized void sleepAll() {
         vlads.forEach(vlad -> service.execute(vlad::sleep));
     }
 }
