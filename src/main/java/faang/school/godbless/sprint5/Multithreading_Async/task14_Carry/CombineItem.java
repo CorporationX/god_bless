@@ -14,8 +14,7 @@ public class CombineItem {
         CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(itemFromChest, itemFromStore);
         voidCompletableFuture
                 .thenCompose(d -> itemFromChest.thenCombine(itemFromStore, inventory::combineItems))
-                .thenAccept(item -> inventory.addItems(item))
-                .join();
+                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItems(item)));
     }
 
     public static void main(String[] args) {
