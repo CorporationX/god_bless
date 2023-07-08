@@ -8,7 +8,7 @@ import java.util.Random;
 
 @Data
 public class TamagotchiController {
-    List<TamagotchiVlad> list = new ArrayList<>();
+    private List<TamagotchiVlad> list = new ArrayList<>();
 
     public synchronized void add() {
         TamagotchiVlad tamagotchiVlad = new TamagotchiVlad(new Random(1000).nextInt());
