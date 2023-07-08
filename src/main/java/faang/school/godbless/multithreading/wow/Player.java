@@ -44,13 +44,16 @@ public class Player {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        synchronized (this) {
-            experience += quest.getReward();
-            notifyAll();
-        }
+        updateExp(quest.getReward());
+    }
+
+    private synchronized void updateExp(int experience) {
+        this.experience += experience;
+        notifyAll();
     }
 
     public static void endGame() {
         gameIsRunning.set(false);
     }
+
 }
