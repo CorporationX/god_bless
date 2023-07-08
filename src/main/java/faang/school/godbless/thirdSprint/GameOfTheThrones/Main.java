@@ -17,9 +17,9 @@ public class Main {
         }});
 
         for (int i = 0; i < NUM_THREADS; i++) {
-            User user = new User("User" + i, "knight");
+            User user = new User("User" + i, "knight", house);
             service.execute(() -> {
-                user.joinHouse(house);
+                user.joinHouse();
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
