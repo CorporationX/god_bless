@@ -6,17 +6,20 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.List;
 @Data
-@AllArgsConstructor
-public class UserList {
-    List<User> userList;
 
-    public List<User> getOnlineUsers() {
-        List<User> usersOnline = new ArrayList<>();
-        for (User user : userList) {
-            if (user.isOnline()) {
-                usersOnline.add(user);
-            }
-        }
-        return usersOnline;
+public class UserList {
+    private List<User> userList = new ArrayList<>();
+
+
+    public List<User> getOnlineUsers(User users) {
+        return userList.stream()
+                .filter(user -> !user.getAllIsChatting() && !user.equals(users))
+                .toList();
+    }
+    public void addUser(User user){
+        userList.add(user);
+    }
+    public List<User> getOnlineUsers(){
+        return userList;
     }
 }
