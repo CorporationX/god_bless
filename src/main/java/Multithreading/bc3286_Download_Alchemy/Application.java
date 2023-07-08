@@ -19,13 +19,13 @@ public class Application {
                 .map(potion -> potion.gatherIngredients(potion))
                 .toList();
 
-        AtomicInteger atomicInteger = new AtomicInteger(0);
+        AtomicInteger sumOfIngredients = new AtomicInteger(0);
         CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]))
-                .thenRun(() -> {
-                    completableFutures.forEach(integerCompletableFuture -> atomicInteger
-                            .addAndGet(integerCompletableFuture.join()));
-                }).join();
+                .thenRun(() ->
+                        completableFutures.forEach(integerCompletableFuture -> sumOfIngredients
+                                .addAndGet(integerCompletableFuture.join()))
+                ).join();
 
-        System.out.println(atomicInteger);
+        System.out.println(sumOfIngredients);
     }
 }
