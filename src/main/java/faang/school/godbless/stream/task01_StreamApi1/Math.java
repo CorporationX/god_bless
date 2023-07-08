@@ -53,12 +53,12 @@ public class Math {
 //                .filter(integer -> integer > 5) //я просто такое условие придумал, мб его можно будет задать через Predicate?
 //                .mapToInt(Integer); //этот метод скорее всего неправильный
 //    }
-    public List<Integer> ifElseList(List<Integer> integerList){
-        listException(integerList);
-        return integerList.stream()
-                .filter(integer -> integer > 5) //я просто такое условие придумал, мб его можно будет задать через Predicate?
-                .mapToInt(Integer); //этот метод скорее всего неправильный
-    }
+//    public List<Integer> ifElseList(List<Integer> integerList){
+//        listException(integerList);
+//        return integerList.stream()
+//                .filter(integer -> integer > 5) //я просто такое условие придумал, мб его можно будет задать через Predicate?
+//                .mapToInt(Integer); //этот метод скорее всего неправильный
+//    }
     public int minNumberPredicate(List<Integer> integerList, Predicate<Integer> integerPredicate){
         listException(integerList);
         return integerList.stream()
