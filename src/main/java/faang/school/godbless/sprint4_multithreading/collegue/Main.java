@@ -16,7 +16,7 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(10);
         for (int i = 0; i < 10; i++) {
             int startIndex = i * 1000;
-            int endIndex = startIndex + 1000;
+            int endIndex = startIndex + 1000 + 1;
             executorService.submit(new PersonNamePrinter(personList.subList(startIndex, endIndex)));
         }
         executorService.shutdown();
