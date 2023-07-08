@@ -32,7 +32,7 @@ public class Boss {
 
     public synchronized void finishBattle(Player player) {
         currentPlayers.remove(player);
-        notify();
+        notifyAll();
         System.out.println(player + " finished battle | Total: " + currentPlayers.size() + "/" + maxPlayers);
     }
 }
