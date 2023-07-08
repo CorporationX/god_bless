@@ -15,8 +15,8 @@ public class Main {
         users.add(new User("Suga", 25, "BangtanTv", "Pusan"));
         users.add(new User("Jimin", 30, "Ramen", "Krasnodar"));
 
-        Map<Integer, List<User>> userByAge = User.groupUsers(users);
-        System.out.println(userByAge);
+//        Map<Integer, List<User>> userByAge = User.groupUsers(users);
+//        System.out.println(userByAge);
     }
 }
 
