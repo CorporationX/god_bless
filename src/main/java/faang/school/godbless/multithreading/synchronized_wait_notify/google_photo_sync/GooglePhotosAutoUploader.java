@@ -6,7 +6,7 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
-    private boolean isUploading;
+    private boolean isReadyToUpload;
 
     public void startAutoUpload() {
         while (true) {
@@ -27,7 +27,7 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
@@ -35,13 +35,12 @@ public class GooglePhotosAutoUploader {
         photosToUpload.forEach(photo -> {
             System.out.println("uploading...");
             try {
-                Thread.sleep(2000L);
+                Thread.sleep(1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             System.out.println(photo + " is uploaded to server.");
         });
-//        System.out.println("Your photos is uploaded to server.");
         photosToUpload.clear();
     }
 
