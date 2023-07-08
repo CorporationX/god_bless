@@ -14,23 +14,37 @@ public class Bank {
     }
 
     public boolean transfer(Account from, Account to, int amount) {
-        if (from.equals(to)) {
-            throw new IllegalArgumentException("Нельзя переводить с самого себя");
+        if (from.getId() < to.getId()) {
+            from.getLock().lock();
+            to.getLock().lock();
+        } else {
+            to.getLock().lock();
+            from.getLock().lock();
         }
-        if (from.getBalance() < amount) {
-            System.out.println("На аккаунте №" + from.getId() + " недостаточно средств");
-            return false;
+
+        try {
+            if (from.equals(to)) {
+                throw new IllegalArgumentException("Нельзя переводить с самого себя");
+            }
+            if (from.getBalance().get() < amount) {
+                System.out.println("На аккаунте №" + from.getId() + " недостаточно средств");
+                return false;
+            }
+            from.withdraw(amount);
+            to.deposit(amount);
+            System.out.println("С аккаунта № " + from.getId() + " на аккаунт № " + to.getId() + " сумма " + amount + " успешно переведена." +
+                    " " + "Новый баланс аккаунта № " + to.getId() + " равен " + to.getBalance().get() + " и аккаунта № " + from.getId() + " равен " + from.getBalance().get());
+            return true;
+        } finally {
+            from.getLock().unlock();
+            to.getLock().unlock();
         }
-        from.withdraw(amount);
-        to.deposit(amount);
-        System.out.println("С аккаунта № " + from.getId() + " на аккаунт № " + to.getId() + " сумма " + amount + " успешно переведена");
-        return true;
 
     }
 
     public int getTotalBalance() {
          int totalBalance = accounts.values().stream()
-                .mapToInt(Account::getBalance)
+                .mapToInt(i -> i.getBalance().get())
                 .sum();
         System.out.println(" Общий баланс в банке: " + totalBalance);
         return totalBalance;

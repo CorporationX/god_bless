@@ -20,18 +20,11 @@ public class App {
         bank.addAccount(account4);
         bank.addAccount(account5);
 
-        ExecutorService executor = Executors.newFixedThreadPool(6);
-        executor.execute(() -> bank.transfer(account1, account2, 100));
-        executor.execute(() -> bank.transfer(account2, account1, 500));
-        executor.execute(() -> bank.transfer(account1, account2, 500));
-        executor.execute(() -> bank.transfer(account2, account1, 700));
+        ExecutorService executor = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 1_000_000; i++) {
             executor.execute(() -> bank.transfer(account1, account2, 500));
             executor.execute(() -> bank.transfer(account2, account1, 500));
-            executor.execute(() -> bank.transfer(account2, account3, 500));
-            executor.execute(() -> bank.transfer(account3, account2, 500));
-            executor.execute(() -> bank.transfer(account1, account3, 500));
-            executor.execute(() -> bank.transfer(account3, account1, 500));
+
         }
 
         executor.shutdown();
