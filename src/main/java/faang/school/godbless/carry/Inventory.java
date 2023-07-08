@@ -28,10 +28,18 @@ public class Inventory {
         return combinedItem;
     }
 
-    public Item getRandomItem(){
+    public CompletableFuture<Item> getRandomItem(){
         Random random = new Random();
         int num = random.nextInt(items.size());
 
-        return items.get(num);
+        return CompletableFuture.supplyAsync(() ->{
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    return items.get(num);
+                }
+        );
     }
 }

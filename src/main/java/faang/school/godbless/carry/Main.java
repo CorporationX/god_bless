@@ -15,17 +15,13 @@ public class Main {
 
         Inventory inventory = new Inventory(items);
 
-        CompletableFuture<Item> futureItem1 = CompletableFuture.supplyAsync(inventory::getRandomItem);
-        CompletableFuture<Item> futureItem2 = CompletableFuture.supplyAsync(inventory::getRandomItem);
+        CompletableFuture<Item> futureItem1 = inventory.getRandomItem();
+        CompletableFuture<Item> futureItem2 = inventory.getRandomItem();
 
-        if (futureItem1.isDone() && futureItem2.isDone()){
-            CompletableFuture<Void> combinedItemFuture = futureItem1
-                    .thenCombine(futureItem2, inventory::combineItems)
-                    .thenCompose(inventory::addItem);
-            combinedItemFuture.join();
-        }
-
-        CompletableFuture.allOf(futureItem1,futureItem2).join();
+        CompletableFuture<Void> combinedItemFuture = futureItem1
+                .thenCombine(futureItem2, inventory::combineItems)
+                .thenCompose(inventory::addItem);
+        combinedItemFuture.join();
 
         inventory.getItems().forEach(System.out::println);
     }
