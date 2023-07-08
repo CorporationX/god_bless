@@ -48,18 +48,9 @@ public class Inventory {
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
-        CompletableFuture<Item> fromChest = inventory.getFromChest();
-        CompletableFuture<Item> bought = inventory.buy();
-
-//        CompletableFuture.allOf(fromChest, bought)
-//                .thenApply(v -> inventory.combineItems(fromChest.join(), bought.join()))
-//                .thenAccept(item -> System.out.println("Combined item: " + item));
-//
-//        fromChest.thenCombine(bought, (r1, r2) -> inventory.combineItems(r1, r2))
-//                .thenAccept(item -> System.out.println("Combined item" + item));
-
-        fromChest.thenCombine(bought, inventory::combineItems)
-                .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.add(item)));
+        inventory.getFromChest()
+                .thenCombine(inventory.buy(), inventory::combineItems)
+                .thenCompose(item -> CompletableFuture.runAsync(()-> inventory.add(item)));
 
     }
 }
