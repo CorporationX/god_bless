@@ -20,7 +20,6 @@ public class GooglePhotosAutoUploader {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                } else {
                     uploadPhotos();
                 }
             }

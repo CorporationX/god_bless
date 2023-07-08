@@ -9,14 +9,14 @@ public class GooglePhoto {
 
     public static void main(String[] args) {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
-        Thread uploadThread = new Thread(() -> {
-            googlePhotosAutoUploader.onNewPhotoAdded("Path1");
-            googlePhotosAutoUploader.onNewPhotoAdded("Path2");
-            googlePhotosAutoUploader.onNewPhotoAdded("Path3");
-            googlePhotosAutoUploader.onNewPhotoAdded("Path4");
-            googlePhotosAutoUploader.onNewPhotoAdded("Path5");
-            googlePhotosAutoUploader.startAutoUpload();
-        });
+        Thread uploadThread = new Thread(googlePhotosAutoUploader::startAutoUpload);
+
+        Thread thread1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Path1"));
+        Thread thread2 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Path2"));
+        Thread thread3 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Path3"));
+        Thread thread4 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Path4"));
+        Thread thread5 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Path5"));
+
         Thread watchThread = new Thread(() -> {
             try {
                 Thread.sleep(1000);
@@ -27,6 +27,11 @@ public class GooglePhoto {
         });
 
         uploadThread.start();
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        thread4.start();
+        thread5.start();
         watchThread.start();
     }
 }
