@@ -6,15 +6,23 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
-        List<String> photosToUpload = IntStream.rangeClosed(1, 20)
+        List<String> photosToUploadOne = IntStream.rangeClosed(1, 10)
+                .mapToObj(i -> "photo-" + i)
+                .toList();
+
+        List<String> photosToUploadTwo = IntStream.rangeClosed(11, 20)
                 .mapToObj(i -> "photo-" + i)
                 .toList();
 
         Thread uploaderThread = new Thread(uploader::startAutoUpload, "uploaderThread");
-        Thread watcherThread = new Thread(() -> photosToUpload.forEach(uploader::onNewPhotoAdded), "watcherThread");
+        Thread adderThreadOne = new Thread(
+                () -> photosToUploadOne.forEach(uploader::onNewPhotoAdded), "adderThread-1");
+        Thread adderThreadTwo = new Thread(
+                () -> photosToUploadTwo.forEach(uploader::onNewPhotoAdded), "adderThread-2");
 
         uploaderThread.start();
-        watcherThread.start();
+        adderThreadOne.start();
+        adderThreadTwo.start();
 
         Thread.sleep(3000);
 

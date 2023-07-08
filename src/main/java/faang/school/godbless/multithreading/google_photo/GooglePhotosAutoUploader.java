@@ -7,17 +7,17 @@ public class GooglePhotosAutoUploader {
     private final Object lock;
     private final List<String> photosToUpload;
     private final List<String> googlePhotos;
-    private boolean stop;
+    private boolean isRunning;
 
     public GooglePhotosAutoUploader() {
         lock = new Object();
         photosToUpload = new ArrayList<>();
         googlePhotos = new ArrayList<>();
-        stop = false;
+        isRunning = true;
     }
 
     public void startAutoUpload() {
-        while (!stop) {
+        while (isRunning) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
                     try {
@@ -56,7 +56,7 @@ public class GooglePhotosAutoUploader {
 
     public void stop() {
         synchronized (lock) {
-            stop = true;
+            isRunning = false;
             lock.notify();
         }
     }
