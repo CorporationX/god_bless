@@ -16,7 +16,7 @@ public class Main {
             try {
                 for (int i = 0; i < PHOTO_THREADS_NUM; i++) {
                     Thread.sleep(1000);
-                    uploader.onNewPhotoAdded("photo " + i);
+                    uploader.onNewPhotoAdded("path " + i);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();

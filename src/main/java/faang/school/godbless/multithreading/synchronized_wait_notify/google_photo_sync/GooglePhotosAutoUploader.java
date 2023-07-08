@@ -45,9 +45,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void initialize() {
-        photosToUpload.add("Path123");
-        photosToUpload.add("Path32");
-        photosToUpload.add("Path1234");
-        photosToUpload.add("Path12124");
+        photosToUpload.add("Path 123");
+        photosToUpload.add("Path 32");
+        photosToUpload.add("Path 1234");
+        photosToUpload.add("Path 12124");
     }
 }
