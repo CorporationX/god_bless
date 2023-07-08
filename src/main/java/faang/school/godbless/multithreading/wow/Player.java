@@ -1,6 +1,5 @@
 package faang.school.godbless.multithreading.wow;
 
-
 import lombok.Getter;
 
 import java.util.concurrent.ExecutorService;
