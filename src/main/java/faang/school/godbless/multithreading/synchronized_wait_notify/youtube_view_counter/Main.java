@@ -15,9 +15,6 @@ public class Main {
 
         for (int i = 1; i <= NUM_VIDEOS; i++) {
             videoManager.getViewsMap().put(Integer.toString(i), 0);
-        }
-
-        for (int i = 1; i <= NUM_VIDEOS; i++) {
             for (int j = 1; j <= NUM_THREADS / NUM_VIDEOS; j++) {
                 int videoId = i;
                 executor.execute(() -> {
