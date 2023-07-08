@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Getter
 public class House {
+    @Getter
     private String name;
     private List<String> availableRoles;
 
@@ -16,11 +16,28 @@ public class House {
         availableRoles = new ArrayList<>(Arrays.asList("Lord", "Knight", "Mage"));
     }
 
-    public void removeAvailableRole(String role) {
+    private void removeAvailableRole(String role) {
         availableRoles.remove(role);
     }
 
-    public void addAvailableRole(String role) {
+    private void addAvailableRole(String role) {
         availableRoles.add(role);
+    }
+
+    public synchronized void selectRole(String role) {
+        while (!availableRoles.contains(role)) {
+            System.out.printf("%s is not available in the %s house. Wait..\n", role, name);
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        removeAvailableRole(role);
+    }
+
+    public synchronized void releaseRole(String role) {
+        addAvailableRole(role);
+        notifyAll();
     }
 }

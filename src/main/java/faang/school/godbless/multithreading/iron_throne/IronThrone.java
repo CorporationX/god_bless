@@ -1,23 +1,29 @@
 package faang.school.godbless.multithreading.iron_throne;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class IronThrone {
     public static void main(String[] args) throws InterruptedException {
         House house = new House("Westors");
-        User user1 = new User("Tom");
-        User user2 = new User("Bob");
-        User user3 = new User("Peter");
-        User user4 = new User("Alice");
+        List<User> users = setUp(house);
         ExecutorService service = Executors.newCachedThreadPool();
 
-        service.execute(()-> user1.joinHouse(house, "Lord"));
-        service.execute(()-> user2.joinHouse(house, "Knight"));
-        service.execute(()-> user3.joinHouse(house, "Mage"));
-        service.execute(()-> user4.joinHouse(house, "Lord"));
+        for (User user : users) {
+            service.execute(user);
+        }
+
         service.shutdown();
-        Thread.sleep(2000);
-        user1.leaveHouse();
+        service.awaitTermination(1, TimeUnit.MINUTES);
+    }
+
+    private static List<User> setUp(House house) {
+        return List.of(
+                new User("Tom", house, "Lord"),
+                new User("Bob", house, "Knight"),
+                new User("Peter", house, "Mage"),
+                new User("Alice", house, "Lord"));
     }
 }
