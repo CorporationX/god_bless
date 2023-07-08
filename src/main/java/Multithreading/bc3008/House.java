@@ -1,19 +1,25 @@
 package Multithreading.bc3008;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.List;
 
+@AllArgsConstructor
+@Getter
 public class House {
-    List<String> list = new ArrayList<>();
+    List<String> roles;
     private int countFreeRole;
 
 
-    public void addRole() {
-        countFreeRole--;
-    }
-
-    public void removeRole() {
+    public synchronized void addRole(String role) {
+        roles.add(role);
         countFreeRole++;
         notifyAll();
+    }
+
+    public synchronized void removeRole(String role) {
+        roles.remove(role);
+        countFreeRole--;
     }
 }
