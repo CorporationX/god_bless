@@ -15,10 +15,10 @@ public class Main {
         MasterCardService cardService = new MasterCardService();
         ExecutorService service = Executors.newFixedThreadPool(1);
         Future<Integer> first = service.submit(cardService::collectPayment);
+        service.shutdown();
         CompletableFuture<Integer> second = CompletableFuture.supplyAsync(cardService::sendAnalytics);
         int firstValue = second.join();
         System.out.println(firstValue);
-        service.shutdown();
         try {
             int secondValue = first.get();
             System.out.println(secondValue);
