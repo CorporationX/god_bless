@@ -5,9 +5,10 @@ import java.time.temporal.ChronoUnit;
 
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
+    private static final long REQUEST_TIME = 1000;
+
     private static int requestCounter;
     private static LocalDateTime lastRequestTime;
-    private Object lock = new Object();
 
     public TelegramBot() {
         this.requestCounter = 0;
@@ -17,13 +18,13 @@ public class TelegramBot {
     public synchronized void sendMessage(String msg) {
         var requestTime = LocalDateTime.now();
         var difference = lastRequestTime.until(requestTime, ChronoUnit.MILLIS);
-        if (difference < 5000L) {
+        if (difference < REQUEST_TIME) {
             System.out.println(Thread.currentThread().getName()
                     + ", request count: " + requestCounter + " diff : "
                     + difference);
             if (requestCounter >= REQUEST_LIMIT) {
                 try {
-                    wait(5000L - difference);
+                    wait(REQUEST_TIME - difference);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -39,5 +40,6 @@ public class TelegramBot {
                 + msg + " " + Thread.currentThread().getName()
                 + ", request count: " + requestCounter);
         lastRequestTime = LocalDateTime.now();
+
     }
 }

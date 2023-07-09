@@ -1,5 +1,6 @@
 package faang.school.godbless.multithreading.synchronized_wait_notify.telegram_bot;
 
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -9,7 +10,7 @@ public class Main {
 
         for (int i = 0; i < 100; i++) {
             try {
-                Thread.sleep(1000L);
+                Thread.sleep(new Random().nextLong(2000) + 1);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -17,19 +18,5 @@ public class Main {
             Thread thread = new Thread(() -> bot.sendMessage("hello " + finalI));
             thread.start();
         }
-
-
-
-//        ExecutorService executor = Executors.newFixedThreadPool(100);
-
-//        for (int i = 0; i < 10; i++) {
-//            for (int j = 0; j < 10; j++) {
-//                int msgIndex = j;
-//                executor.execute(() -> {
-//                    bot.sendMessage("hello " + msgIndex);
-//                });
-//            }
-//        }
-//        executor.shutdown();
     }
 }
