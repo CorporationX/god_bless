@@ -6,11 +6,11 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        TelegramBot telegramBot = new TelegramBot(0, LocalDateTime.now());
+        TelegramBot telegramBot = new TelegramBot(0, LocalDateTime.now().minusSeconds(2));
 
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 20; i++) {
             Thread thread = new Thread
                     (() -> telegramBot.sendMessage("thread number " + Thread.currentThread().getName() + " completed"));
             threads.add(thread);
