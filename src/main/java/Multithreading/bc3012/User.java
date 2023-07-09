@@ -1,15 +1,14 @@
 package Multithreading.bc3012;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class User {
     private String name;
     private boolean isOnline;
 
-
+    public User(String name) {
+        this.name = name;
+        this.isOnline = true;
+    }
 }

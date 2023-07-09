@@ -1,26 +1,28 @@
 package Multithreading.bc3012;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.List;
 
+@AllArgsConstructor
+@Data
 public class UserList {
-    List<User> users = new ArrayList<>();
+    private List<User> users;
 
-    public void addUser(User user) {
-        users.add(user);
+    public synchronized void addUsersToChat(User user1, User user2) {
+        users.remove(user1);
+        users.remove(user2);
     }
 
-    public void removeUser(User user) {
-        users.remove(user);
+    public synchronized void addUsersToList(Chat chat) {
+        users.add(chat.getUser1());
+        users.add(chat.getUser2());
     }
 
     public List<User> getOnlineUsers() {
-        List<User> usersOnline = new ArrayList<>();
-        for (User user : users) {
-            if (user.isOnline()) {
-                usersOnline.add(user);
-            }
-        }
-        return usersOnline;
+        return users.stream()
+                .filter(User::isOnline)
+                .toList();
     }
 }
