@@ -1,9 +1,7 @@
 package faang.school.godbless.sprint_3.multithreading.spotify_blocked;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public class Player {
-    private final Object lock = new ReentrantLock();
+    private final Object lock = new Object();
     private boolean isPlaying = false;
 
     public void play() {
