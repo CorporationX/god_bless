@@ -3,8 +3,8 @@ package matters_of_the_heart;
 import java.util.Objects;
 
 public class Chat {
-    private final User user1;
-    private final User user2;
+    private User user1;
+    private User user2;
 
     public Chat(User user1, User user2) {
         this.user1 = user1;

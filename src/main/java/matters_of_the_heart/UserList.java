@@ -12,7 +12,7 @@ public class UserList {
 
     public List<User> getUsersEligibleToStartChat(User user) {
         return userList.stream()
-                .filter(u -> u.isOnline() && u.isWantsToShowOnline() && u.isWantsToChat() && !u.isChatting() && !u.equals(user))
+                .filter(u -> u.isEligible() && !u.equals(user))
                 .toList();
     }
 

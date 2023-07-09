@@ -1,27 +1,38 @@
 package matters_of_the_heart;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ChatManager {
     private UserList userList;
-    private List<Chat> chatList;
+    private Set<Chat> chatList;
+    private Lock lock = new ReentrantLock();
 
     public ChatManager(UserList userList) {
         this.userList = userList;
-        this.chatList = new ArrayList<>();
+        this.chatList = new HashSet<>();
     }
 
     public synchronized void startChat(User user) {
-        while (userList.getUsersEligibleToStartChat(user).isEmpty() || chatList.contains(user.getChat())) {
-            waitForChat();
+        lock.lock();
+        try {
+            List<User> eligibleUsers = userList.getUsersEligibleToStartChat(user);
+            while (eligibleUsers.isEmpty() || chatList.contains(user.getChat())) {
+                waitForChat();
+                eligibleUsers = userList.getUsersEligibleToStartChat(user);
+            }
+            User otherUser = eligibleUsers.get(0);
+            Chat chat = new Chat(user, otherUser);
+            chatList.add(chat);
+            user.setChat(chat);
+            otherUser.setChat(chat);
+            System.out.println(user.getName() + " start chat with " + otherUser.getName());
+        } finally {
+            lock.unlock();
         }
-        User otherUser = userList.getUsersEligibleToStartChat(user).get(0);
-        Chat chat = new Chat(user, otherUser);
-        chatList.add(chat);
-        user.setChat(chat);
-        otherUser.setChat(chat);
-        System.out.println(user.getName() + " start chat with " + otherUser.getName());
     }
 
     private void waitForChat(){
