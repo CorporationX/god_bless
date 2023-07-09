@@ -1,14 +1,13 @@
 package faang.school.godbless.sprint_3.multithreading.tamagochi_vlad;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class VladController {
-    Set<TamagotchiVlad> list = new HashSet<>();
+    List<TamagotchiVlad> list = new ArrayList<>();
 
     public synchronized void addVlad(TamagotchiVlad tamagotchi) {
         list.add(tamagotchi);
-
     }
 
     public synchronized void removeVlad(TamagotchiVlad tamagotchi) {
