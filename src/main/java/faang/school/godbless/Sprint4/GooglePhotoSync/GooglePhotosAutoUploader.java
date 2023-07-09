@@ -10,7 +10,7 @@ public class GooglePhotosAutoUploader {
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
             if (photosToUpload.isEmpty()) {
-                photosToUpload.wait();
+                lock.wait();
                 uploadPhotos();
             }
         }
@@ -26,7 +26,27 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded (String photoPath){
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            photosToUpload.notify();
+            lock.notify();
         }
+    }
+
+    public static void main(String[] args) {
+        GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
+
+        Thread uploadThread = new Thread(() -> {
+            try {
+                uploader.startAutoUpload();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        Thread watchThread = new Thread(() -> {
+            uploader.onNewPhotoAdded("C:/photos/photo1.jpg");
+            uploader.onNewPhotoAdded("C:/photos/photo2.jpg");
+        });
+
+        uploadThread.start();
+        watchThread.start();
     }
 }
