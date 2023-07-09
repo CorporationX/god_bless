@@ -7,33 +7,33 @@ import java.util.Random;
 
 @Getter
 public class User {
-    private final String NAME;
-    private final House HOUSE;
+    private final String name;
+    private final House house;
     private String role;
 
     public User(String name, House house) {
-        this.NAME = name;
-        this.HOUSE = house;
+        this.name = name;
+        this.house = house;
     }
 
     @SneakyThrows
     public void joinHouse() {
-        synchronized (HOUSE) {
-            while (HOUSE.getFreeRolesCount() <= 0) {
+        synchronized (house) {
+            while (house.getFreeRolesCount() <= 0) {
                 System.out.println("Нету свободных ролей в доме");
-                HOUSE.wait();
+                house.wait();
             }
-            int random = HOUSE.getFreeRolesList().size();
+            int random = house.getFreeRolesList().size();
             int chose = new Random().nextInt(random);
-            role = HOUSE.addRole(chose);
-            System.out.printf("%s присоединяется к дому%n", NAME);
+            role = house.addRole(chose);
+            System.out.printf("%s присоединяется к дому%n", name);
         }
     }
 
     public void leaveHouse() {
-        synchronized (HOUSE) {
-            System.out.printf("%s покидает дом.%n", NAME);
-            HOUSE.removeRole(role);
+        synchronized (house) {
+            System.out.printf("%s покидает дом.%n", name);
+            house.removeRole(role);
         }
     }
 }

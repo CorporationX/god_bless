@@ -6,7 +6,7 @@ import java.util.List;
 
 @Getter
 public class House {
-    private List<String> freeRolesList;
+    private final List<String> freeRolesList;
     private int freeRolesCount;
 
     public House(List<String> roles) {
@@ -15,12 +15,9 @@ public class House {
     }
 
     public String addRole(int index) {
-        synchronized (this) {
-            String role = freeRolesList.get(index);
-            freeRolesList.remove(index);
-            freeRolesCount -= 1;
-            return role;
-        }
+        String role = freeRolesList.remove(index);
+        freeRolesCount -= 1;
+        return role;
     }
 
     public void removeRole(String role) {
