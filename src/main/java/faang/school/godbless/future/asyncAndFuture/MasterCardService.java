@@ -1,10 +1,15 @@
 package faang.school.godbless.future.asyncAndFuture;
 
-import java.util.concurrent.*;
+import java.util.concurrent.Future;
+import java.util.concurrent.Executors;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
 
 public class MasterCardService {
 
-    static int collectPayment() {
+    private int collectPayment() {
         try {
             Thread.sleep(10_000);
             return 10_000;
@@ -14,7 +19,7 @@ public class MasterCardService {
         }
     }
 
-    static int sendAnalystics() {
+    private int sendAnalytic() {
         try {
             Thread.sleep(1_000);
             return 1_000;
@@ -27,8 +32,9 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
-        Future<Integer> future1 = executorService.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(MasterCardService::sendAnalystics);
+        Future<Integer> future1 = executorService.submit(this::collectPayment);
+        executorService.shutdown();
+        CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(this::sendAnalytic);
 
         try {
             while (!future1.isDone()) {
@@ -41,8 +47,6 @@ public class MasterCardService {
             int payment = future1.get();
 
             System.out.println(payment + " - payment");
-
-            executorService.shutdown();
 
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
