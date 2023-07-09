@@ -2,7 +2,7 @@ package faang.school.godbless.sprint_3.multithreading.super_cow;
 
 public class Main {
     public static void main(String[] args) {
-        Boss medusa = new Boss(5, 4);
+        Boss medusa = new Boss(5, 3);
         Player first = new Player("Alucard");
         Player second = new Player("Vanguard");
         Player third = new Player("Phoenix");

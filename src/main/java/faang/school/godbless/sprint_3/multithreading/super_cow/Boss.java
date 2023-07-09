@@ -16,10 +16,11 @@ public class Boss {
             if (currentPlayers < maxPlayers) {
                 currentPlayers++;
                 System.out.printf("%s присоединяется к битве!%n", player.getName());
+            } else {
+                System.out.println("Сейчас нету свободных слотов....");
+                this.wait();
+                System.out.println("Появился свободный слот");
             }
-            System.out.println("Сейчас нету свободных слотов....");
-            this.wait();
-            System.out.println("Появился свободный слот");
         }
     }
 
