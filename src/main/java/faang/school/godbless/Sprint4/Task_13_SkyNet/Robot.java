@@ -1,8 +1,8 @@
 package faang.school.godbless.Sprint4.Task_13_SkyNet;
 
 public class Robot {
-    private String target;
-    private Object lock;
+    private final String target;
+    private final Object lock;
 
     public Robot(String target) {
         this.target = target;
@@ -11,7 +11,7 @@ public class Robot {
 
     public void attack() {
         synchronized (lock) {
-            System.out.println("Robot " + Thread.currentThread().getId() + " is attacking target: " + target);
+            System.out.println("Robot " + Thread.currentThread().getName() + " is attacking target: " + target);
         }
     }
 }
