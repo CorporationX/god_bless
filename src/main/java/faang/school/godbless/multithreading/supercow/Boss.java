@@ -5,21 +5,21 @@ import java.util.List;
 
 public class Boss {
     private String name;
-    private final int MAX_PLAYERS;
-    private static final Object lock = new Object();
+    private final int maxPlayers;
+    private static final Object LOCK = new Object();
     private List<Player> currentPlayers;
 
-    public Boss(String name, int MAX_PLAYERS) {
+    public Boss(String name, int maxPlayers) {
         this.name = name;
-        this.MAX_PLAYERS = MAX_PLAYERS;
-        currentPlayers = new ArrayList<>(MAX_PLAYERS);
+        this.maxPlayers = maxPlayers;
+        currentPlayers = new ArrayList<>(maxPlayers);
     }
 
     public void joinBattle(Player player) {
-        synchronized (lock) {
-            if (currentPlayers.size() >= MAX_PLAYERS) {
+        synchronized (LOCK) {
+            if (currentPlayers.size() >= maxPlayers) {
                 try {
-                    lock.wait();
+                    LOCK.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -32,14 +32,14 @@ public class Boss {
     }
 
     public void leaveBattle(Player player) {
-        synchronized (lock) {
+        synchronized (LOCK) {
             if (currentPlayers.size() < 1) {
                 System.out.println("There are no players here");
             } else {
                 currentPlayers.remove(player);
                 System.out.printf("PLayer %s left | Current players %s | %s (%s)\n",
                         player.getName(), currentPlayers.size(), name, Thread.currentThread().getName());
-                lock.notify();
+                LOCK.notifyAll();
             }
         }
     }
