@@ -1,54 +1,51 @@
 package faang.school.godbless.miceNice;
 
-import lombok.Getter;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Random;
 
-@Getter
-@Setter
 public class House {
-    private final List<Room> rooms;
-    private List<Food> collectedFood;
-    private int completedThreads;
+    private final List<Room> rooms = new ArrayList<>();
+    private final List<Food> collectedFood = new ArrayList<>();
+    private final Object lock = new Object();
 
-    public House() {
-        rooms = new ArrayList<>();
-        collectedFood = new ArrayList<>();
-        completedThreads = 0;
+    public List<Room> getRooms() {
+        return rooms;
     }
 
+    public void collectFood(Room room) {
+        synchronized (lock) {
+            List<Food> foodList = room.getFoodList();
+            int roomId = rooms.indexOf(room);
+            int threadId = (int) Thread.currentThread().getId();
 
-    public synchronized void collectFood() {
-        for (Room room : rooms) {
-            List<Food> roomFood = room.getFood();
-            synchronized (roomFood) {
-                collectedFood.addAll(roomFood);
-                roomFood.clear();
-            }
+            System.out.println(threadId + " поток собрал еду в " + roomId + " комнате");
+
+            collectedFood.addAll(foodList);
+            foodList.clear();
         }
-        System.out.println("Collected food removed from food lists in rooms");
-        completedThreads++;
-        if (completedThreads == 5) {
-            System.out.println("The food in the house is collected!");
+    }
+
+    public void collectFoodFromTwoRooms(Room room1, Room room2) {
+        synchronized (lock) {
+            collectFood(room1);
+            collectFood(room2);
         }
     }
 
     public void initialize() {
         Random random = new Random();
-        int numRooms = random.nextInt(5) + 1;
-        for (int i = 0; i < numRooms; i++) {
+
+        for (int i = 0; i < 8; i++) {
             Room room = new Room();
-            int numFood = random.nextInt(10) + 1;
-            for (int j = 0; j < numFood; j++) {
-                Food food = new Food("Food" + (i * numFood + j));
-                room.getFood().add(food);
+
+            int foodCount = random.nextInt(5) + 1;
+            for (int j = 0; j < foodCount; j++) {
+                Food food = new Food("Еда " + (j + 1));
+                room.getFoodList().add(food);
             }
+
             rooms.add(room);
         }
-        System.out.println("Room and food lists are completed");
     }
 
 }
