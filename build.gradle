@@ -18,6 +18,7 @@ dependencies {
     implementation("org.projectlombok:lombok:1.18.26")
     implementation 'com.mikemybytes:junit5-formatted-source:0.2.0'
     implementation 'com.mikemybytes:junit5-formatted-source:0.2.0'
+    implementation 'in.yajnesh.util:java-util:1.0.0'
     annotationProcessor("org.projectlombok:lombok:1.18.26")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
