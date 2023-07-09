@@ -1,9 +1,9 @@
 package faang.school.godbless.thread.tournament;
 
 public enum Result {
-    SUCCESS("ПОБЕДА"),
-    DRAW("НИЧЬЯ"),
-    LOSE("ПОРАЖЕНИЕ");
+    SUCCESS("SUCCESS"),
+    DRAW("DRAW"),
+    LOSE("LOSE");
 
     public final String name;
 
