@@ -11,7 +11,7 @@ public class MasterCardService {
         doAll();
     }
 
-    public static int collectPayment() {
+    private static int collectPayment() {
         try {
             Thread.sleep(3000);
             return 3000;
@@ -21,7 +21,7 @@ public class MasterCardService {
         }
     }
 
-    public static int sendAnalytics() {
+    private static int sendAnalytics() {
         try {
             Thread.sleep(1000);
             return 1000;
@@ -38,5 +38,7 @@ public class MasterCardService {
 
         completableFuture.thenAccept(num -> System.out.println("Analytics: " + num));
         System.out.println("Collected payment: " + future.get());
+
+        executor.shutdown();
     }
 }
