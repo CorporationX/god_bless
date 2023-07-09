@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Data
 public class PostService {
-    private volatile List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
 
     public synchronized void addComment(int postId, Comment comment) {
         if (postId >= posts.size()) {
@@ -37,10 +37,10 @@ public class PostService {
         posts.add(post);
     }
 
-    public synchronized void deletePost(int postId) {
-        if (postId >= posts.size()) {
+    public synchronized void deletePost(Post post) {
+        if (!posts.contains(post)) {
             throw new IllegalArgumentException("There is no such post");
         }
-        posts.remove(postId);
+        posts.remove(post);
     }
 }
