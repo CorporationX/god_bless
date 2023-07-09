@@ -15,9 +15,9 @@ public class User {
     }
 
     public synchronized void joinHouse(House house) {
-        int random = new Random().nextInt(0, house.roles.size());
+        int random = new Random().nextInt(0, house.getRoles().size() - 1);
         if (house.getCountFreeRole() > 0) {
-            String getRole = house.roles.get(random);
+            String getRole = house.getRoles().get(random);
 
             this.setHouse(house);
             this.setRole(getRole);

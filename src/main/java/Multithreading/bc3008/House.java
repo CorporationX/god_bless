@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 public class House {
-    List<String> roles;
+    private List<String> roles;
     private int countFreeRole;
 
 
