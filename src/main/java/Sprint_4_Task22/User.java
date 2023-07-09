@@ -1,4 +1,5 @@
 package Sprint_4_Task22;
+
 public class User {
     private String name;
     private boolean isOnline;
@@ -6,6 +7,7 @@ public class User {
     private boolean waitingToOnline;
     private boolean isChatting;
     private Chat chat;
+
     public User(String name, boolean isOnline, boolean waitingForChat, boolean waitingToOnline, boolean isChatting) {
         this.name = name;
         this.isOnline = isOnline;
@@ -67,14 +69,13 @@ public class User {
         this.chat = chat;
         this.isChatting = true;
     }
+
     public void removeChatting() {
         this.chat = null;
         this.isChatting = false;
     }
+
     public boolean getAllIsChatting() {
-        return !isChatting && isOnline &&waitingToOnline && waitingForChat;
+        return !isChatting && isOnline && waitingToOnline && waitingForChat;
     }
-
-
-
 }

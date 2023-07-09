@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 
 import java.util.HashSet;
 import java.util.Set;
+
 @Data
 public class ChatManager {
     private UserList userList;
@@ -26,10 +27,12 @@ public class ChatManager {
         chatUser.setChattingTrue(chat);
         System.out.println(user.getName() + " и " + chatUser.getName() + " начали чат");
     }
+
     @SneakyThrows
     public void waitForChat() {
         wait();
     }
+
     public synchronized void endChat(User user) {
         Chat chat = user.getChat();
         chats.remove(chat);
