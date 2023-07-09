@@ -1,6 +1,4 @@
-package Multithreading;
-
-import Multithreading.bc2765.GooglePhotosAutoUploader;
+package Multithreading.bc2765;
 
 public class Application {
     public static void main(String[] args) throws InterruptedException {
