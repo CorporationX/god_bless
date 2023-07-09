@@ -10,16 +10,13 @@ public class ChatManager {
 
     @SneakyThrows
     public synchronized void startChat(User user) {
-        List<User> onlineUsers = UserList.getOnlineUsers().stream()
-                .filter(x -> !x.equals(user))
-                .filter(x -> x.getActualChat() == null)
-                .toList();
+        List<User> availableUsers = getAvailableUsers(user);
 
-        if (onlineUsers.isEmpty()) {
-            System.out.println(user.getName() + " ждет других пользователей для создания чата...");
-            wait();
+        if (availableUsers.isEmpty()) {
+            waitForChat(user);
         }
-        User otherUser = onlineUsers.get(new Random().nextInt(onlineUsers.size()));
+        availableUsers = getAvailableUsers(user);
+        User otherUser = availableUsers.get(new Random().nextInt(availableUsers.size()));
 
         Chat chat = new Chat(user, otherUser);
         chat.startOfChating();
@@ -43,5 +40,12 @@ public class ChatManager {
             System.out.println(user.getName() + " ожидает свободного собеседника...");
             wait();
         }
+    }
+
+    private List<User> getAvailableUsers(User user) {
+        return UserList.getOnlineUsers().stream()
+                .filter(x -> !x.equals(user))
+                .filter(x -> x.getActualChat() == null)
+                .toList();
     }
 }
