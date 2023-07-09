@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 @Data
 public class Inventory {
@@ -37,13 +36,7 @@ public class Inventory {
     }
 
     public CompletableFuture<Item> combineItem(CompletableFuture<Item> firstItem, CompletableFuture<Item> secondItem) {
-        return firstItem.thenCombine(CompletableFuture.supplyAsync(() -> {
-            try {
-                return secondItem.get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        }), (item1, item2) -> {
+        return firstItem.thenCombine(secondItem, (item1, item2) -> {
             String combineName = item1.name() + " - " + item2.name();
             Item combineItem = new Item(combineName, item1.power() + item2.power());
             removeItem(item1);
