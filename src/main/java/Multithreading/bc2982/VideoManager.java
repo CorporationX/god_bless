@@ -16,7 +16,6 @@ public class VideoManager {
             viewsMap.put(videoId, 1);
         }
         System.out.println(videoId + " add view " + viewsMap.get(videoId));
-
     }
 
     public synchronized int getViewCount(String videoId) {
@@ -25,8 +24,6 @@ public class VideoManager {
         if (viewsMap.containsKey(videoId)) {
             result = viewsMap.get(videoId);
         }
-        System.out.println(videoId + " " + result);
         return result;
-
     }
 }

@@ -23,19 +23,18 @@ public class Application {
             executorService.execute(() -> {
                 videoManager.addView(video);
                 int count = videoManager.getViewCount(video);
-//                System.out.println(video + " views: " + count);
+                System.out.println(video + " views: " + count);
             });
             executorService.execute(() -> {
                 videoManager.addView(video);
                 int count = videoManager.getViewCount(video);
-//                System.out.println(video + " views: " + count);
+                System.out.println(video + " views: " + count);
             });
-//            executorService.execute(() -> {
-//                videoManager.addView(video);
-//                int count = videoManager.getViewCount(video);
-//                System.out.println(video + " views: " + count);
-//            });
-
+            executorService.execute(() -> {
+                videoManager.addView(video);
+                int count = videoManager.getViewCount(video);
+                System.out.println(video + " views: " + count);
+            });
         }
         executorService.shutdown();
         if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
