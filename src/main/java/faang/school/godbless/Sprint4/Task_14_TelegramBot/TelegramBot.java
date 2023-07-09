@@ -20,13 +20,14 @@ public class TelegramBot {
             requestCounter++;
             if (requestCounter > REQUEST_LIMIT) {
                 try {
-                    Thread.sleep(1000 - elapsedTime);
+                    wait(1000 - elapsedTime);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 requestCounter = 0;
             }
         } else {
+            notifyAll();
             requestCounter = 0;
             lastRequestTime = LocalDateTime.now();
         }
