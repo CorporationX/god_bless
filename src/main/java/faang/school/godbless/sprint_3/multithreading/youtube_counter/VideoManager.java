@@ -11,21 +11,13 @@ public class VideoManager {
 
     public void addView(String videoId) {
         synchronized (viewsMap) {
-            if (!viewsMap.containsKey(videoId)) {
-                viewsMap.put(videoId, 1);
-                return;
-            }
-            int oldViews = viewsMap.get(videoId);
-            viewsMap.put(videoId, oldViews + 1);
+            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 1) + 1);
         }
     }
 
     public int getViewCount(String videoId) {
         synchronized (viewsMap) {
-            if (!viewsMap.containsKey(videoId)) {
-                return 0;
-            }
-            return viewsMap.get(videoId);
+            return viewsMap.getOrDefault(videoId, 0);
         }
     }
 }
