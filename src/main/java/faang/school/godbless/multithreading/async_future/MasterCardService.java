@@ -5,46 +5,43 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class MasterCardService {
     static int collectPayment() {
         try {
             Thread.sleep(1000);
             return 3000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             throw new RuntimeException();
         }
     }
 
-    static int sendAnalytics() {
+    private int sendAnalytics() {
         try {
             Thread.sleep(3000);
             return 1000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
             throw new RuntimeException();
         }
     }
 
-    static void doALL() throws ExecutionException, InterruptedException {
+    public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         Future<Integer> collectPaymentRes = executor.submit(MasterCardService::collectPayment);
         executor.shutdown();
 
-        CompletableFuture<Integer> sendAnalyticsRes = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture<Integer> sendAnalyticsRes = CompletableFuture.supplyAsync(this::sendAnalytics);
 
         System.out.println(sendAnalyticsRes.join());
-        System.out.println(collectPaymentRes.get());
-
-    }
-
-    public static void main(String[] args) {
         try {
-            doALL();
-        } catch (ExecutionException | InterruptedException e) {
-            System.err.println(e.getMessage());
+            System.out.println(collectPaymentRes.get());
+        } catch (InterruptedException | ExecutionException e) {
+            log.error(e.getMessage());
         }
     }
 }
