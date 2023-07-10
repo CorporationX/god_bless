@@ -3,11 +3,12 @@ package faang.school.godbless.FanOutFanIn;
 import lombok.Data;
 
 import java.util.concurrent.atomic.AtomicLong;
+
 @Data
 public class ResultConsumer {
     private final AtomicLong sumOfSquaredNumbers;
 
-    ResultConsumer(Long init) {
+    public ResultConsumer(Long init) {
         sumOfSquaredNumbers = new AtomicLong(init);
     }
 

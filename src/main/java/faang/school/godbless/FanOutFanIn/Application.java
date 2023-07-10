@@ -26,7 +26,9 @@ public class Application {
                         CompletableFuture.runAsync(() -> squareRequest.longTimeSquare(resultConsumer), executor))
                 .toList();
 
-        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[completableFutures.size()]));
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).join();
+        executor.shutdown();
+
         return resultConsumer.getSumOfSquaredNumbers().get();
     }
 }
