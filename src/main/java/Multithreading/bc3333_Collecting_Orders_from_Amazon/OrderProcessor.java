@@ -11,17 +11,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public CompletableFuture<Order> processOrder(Order order) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CompletableFuture<Order> completableFuture = CompletableFuture.supplyAsync(() -> {
+    public CompletableFuture<Void> processOrder(Order order) {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             order.setStatus("Processed");
-            totalProcessedOrders.addAndGet(1);
-            return order;
+            totalProcessedOrders.incrementAndGet();
+
         }, executorService);
 
         executorService.shutdown();

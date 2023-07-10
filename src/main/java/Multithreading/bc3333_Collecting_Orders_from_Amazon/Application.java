@@ -16,16 +16,18 @@ public class Application {
         }
         System.out.println();
 
-        List<CompletableFuture<Order>> futureOrders = orders.stream()
+        List<CompletableFuture<Void>> futureOrders = orders.stream()
                 .map(orderProcessor::processOrder)
                 .toList();
 
-        CompletableFuture.allOf(futureOrders.toArray(new CompletableFuture[0]))
-                .thenRun(() -> {
-                    futureOrders.stream().map(CompletableFuture::join)
-                            .forEach(order -> System.out.println("Get Order: ID: " + order.getId() + " Status: " + order.getStatus()));
-                    System.out.println("Number of processed orders: " + orderProcessor.getTotalProcessedOrders());
-                }).join();
+        CompletableFuture.allOf(futureOrders.toArray(new CompletableFuture[0])).join();
+
+        System.out.println("After processed");
+
+        orders.forEach(order -> System.out.println("Get Order: ID: " + order.getId() + " Status: " + order.getStatus()));
+
+        System.out.println("Number of processed orders: " + orderProcessor.getTotalProcessedOrders());
+
         System.out.println("Finished");
     }
 }
