@@ -15,8 +15,6 @@ public class Application {
             futureNotifications.add(notificationManager.fetchNotification());
         }
 
-        futureNotifications.forEach(CompletableFuture::join);
-
         CompletableFuture.allOf(futureNotifications.toArray(new CompletableFuture[0]))
                 .thenRun(() ->
                         futureNotifications.forEach(notification -> {
