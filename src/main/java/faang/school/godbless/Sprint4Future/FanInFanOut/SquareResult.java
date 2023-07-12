@@ -19,16 +19,11 @@ public class SquareResult {
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService service = Executors.newFixedThreadPool(requests.size());
         long startTime = System.currentTimeMillis();
-        for (SquareRequest request : requests) {
-            Runnable runnable = ()-> request.longTimeSquare(resultConsumer);
-            CompletableFuture.runAsync(runnable, service);
-        }
-        service.shutdown();
-        try {
-            service.awaitTermination(10, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        CompletableFuture.allOf(
+                requests.stream()
+                        .map(request -> CompletableFuture
+                                .runAsync(() -> request.longTimeSquare(resultConsumer), service))
+                        .toArray(CompletableFuture[]::new)).join();
         long endTime = (System.currentTimeMillis() - startTime) / 1000;
         System.out.println(endTime + " sec");
         return resultConsumer.getSumOfSquaredNumbers().get();
