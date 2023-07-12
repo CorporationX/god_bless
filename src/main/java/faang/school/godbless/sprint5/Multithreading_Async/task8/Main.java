@@ -20,16 +20,15 @@ public class Main {
 
         CompletableFuture<Void> allTaskCompletableFuture = CompletableFuture.allOf(futureArray);
 
-        Integer sum = allTaskCompletableFuture.thenApply(v -> {
-            AtomicInteger summ = new AtomicInteger(0);
+        AtomicInteger sum = new AtomicInteger(0);
+        allTaskCompletableFuture.thenRun(() -> {
             for (int i = 0; i < futureArray.length; i++) {
                 try {
-                    summ.addAndGet(futureArray[i].get());
+                    sum.addAndGet(futureArray[i].get());
                 } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
             }
-            return summ.get();
         }).join();
 
         System.out.println(sum);
