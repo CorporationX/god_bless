@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class TamagochiVlad {
-    private String name;
+    private final String name;
     private Condition condition;
 
     public TamagochiVlad(String name) {
@@ -29,12 +29,5 @@ public class TamagochiVlad {
 
     public void getCondition() {
         System.out.println(name + " is "  + condition + " | current thread is " + Thread.currentThread().getName());
-    }
-
-    public enum Condition {
-        EATING,
-        PLAYING,
-        CLEANING,
-        SLEEPING
     }
 }

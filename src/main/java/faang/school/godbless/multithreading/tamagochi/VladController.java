@@ -26,19 +26,19 @@ public class VladController {
         }
     }
 
-    public void feedALL() {
+    public synchronized void feedALL() {
         tamagochiVladList.forEach(TamagochiVlad::feed);
     }
 
-    public void playALL() {
+    public synchronized void playALL() {
         tamagochiVladList.forEach(TamagochiVlad::play);
     }
 
-    public void cleanALL() {
+    public synchronized void cleanALL() {
         tamagochiVladList.forEach(TamagochiVlad::clean);
     }
 
-    public void sleepALL() {
+    public synchronized void sleepALL() {
         tamagochiVladList.forEach(TamagochiVlad::sleep);
     }
 }
