@@ -10,20 +10,10 @@ public class FanOutFanIn {
 
     @SneakyThrows
     public Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        List<CompletableFuture<Integer>> completableFutures = new ArrayList<>();
-        for (SquareRequest request : requests) {
-            CompletableFuture<Integer> resultConsumerCompletableFuture = CompletableFuture.supplyAsync(() -> {
-                request.longTimeSquare(resultConsumer);
-                return 1;
-            });
-            completableFutures.add(resultConsumerCompletableFuture);
-        }
-        CompletableFuture[] squareRequestsArray = new CompletableFuture[completableFutures.size()];
-        completableFutures.toArray(squareRequestsArray);
-        CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(squareRequestsArray);
-
-        voidCompletableFuture.join();
-
+        List<CompletableFuture<Void>> completableFutures = requests.stream()
+                .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)))
+                .toList();
+        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[completableFutures.size()])).join();
         return resultConsumer.getSumOfSquaredNumbers().get();
     }
 
