@@ -1,11 +1,10 @@
 package faang.school.godbless.multithreading.out_in;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 public class Main {
 
@@ -23,14 +22,12 @@ public class Main {
     private static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executorService = Executors.newFixedThreadPool(requests.size());
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
-        requests.forEach(
-                request -> futures.add(
-                        CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executorService)
-                )
-        );
-
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(
+                requests.stream()
+                        .map(request -> CompletableFuture.runAsync(
+                                () -> request.longTimeSquare(resultConsumer), executorService))
+                        .toArray(CompletableFuture[]::new)
+        ).join();
 
         executorService.shutdown();
 
@@ -38,8 +35,8 @@ public class Main {
     }
 
     public static void launch() {
-        List<SquareRequest> requests = IntStream.range(1, 1000)
-                .mapToObj(i -> new SquareRequest((long) i))
+        List<SquareRequest> requests = LongStream.rangeClosed(1, 1000)
+                .mapToObj(SquareRequest::new)
                 .toList();
 
         long result = fanOutFanIn(requests, new ResultConsumer(0L));
