@@ -37,7 +37,7 @@ public class PotionAlchemy {
                 .toList();
         AtomicInteger i = new AtomicInteger();
         CompletableFuture<Void> voidCompletableFuture = CompletableFuture.allOf(collect.toArray(new CompletableFuture[potionList.size()]));
-        voidCompletableFuture.thenApply((x) -> {
+        voidCompletableFuture.thenRun(() -> {
             collect.forEach((f) -> {
                 try {
                     i.addAndGet(f.get());
@@ -45,7 +45,6 @@ public class PotionAlchemy {
                     throw new RuntimeException(e);
                 }
             });
-            return null;
         }).join();
         System.out.println(i);
     }
