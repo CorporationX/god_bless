@@ -20,7 +20,7 @@ public class Main {
 
         CompletableFuture<Void> uCompletableFuture = CompletableFuture.allOf(futures);
 
-        uCompletableFuture.thenApply((v) -> {
+        uCompletableFuture.thenRun(() -> {
             AtomicInteger result = new AtomicInteger(0);
             for (int i = 0; i < futures.length; i++) {
                 try {
@@ -30,7 +30,6 @@ public class Main {
                 }
             }
             System.out.println(result.get());
-            return result.get();
         }).join();
     }
 }
