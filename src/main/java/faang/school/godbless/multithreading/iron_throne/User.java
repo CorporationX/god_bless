@@ -6,8 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class User {
-    private Random random;
+public class User implements Runnable{
     private final String name;
     private final House house;
     private String role;
@@ -15,27 +14,14 @@ public class User {
     public User(String name, House house) {
         this.name = name;
         this.house = house;
-        this.random = new Random();
     }
 
-    public void joinHouse() {
-        synchronized (house) {
-            while (house.getAvailableRolesCount() == 0) {
-                try {
-                    house.wait();
-                } catch (InterruptedException e) {
-                    System.err.println(e.getMessage());
-                }
-            }
-
-            role = house.getRoles().get(random.nextInt(house.getRoles().size()));
-            System.out.println(name + " chooses role: " + role);
-
-            house.addRole();
-        }
+    @Override
+    public void run() {
+        joinHouse();
 
         try {
-            Thread.sleep(random.nextInt(1000, 5000));
+            Thread.sleep(new Random().nextInt(1000, 5000));
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
         }
@@ -43,11 +29,29 @@ public class User {
         leaveHouse();
     }
 
+    public void joinHouse() {
+        synchronized (house) {
+            while (house.getAvailableRolesCount().get() == 0) {
+                try {
+                    house.wait();
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+
+            role = house.getRoles().get(new Random().nextInt(house.getRoles().size()));
+            System.out.println(name + " chooses role: " + role);
+
+            house.addRole();
+        }
+    }
+
     public void leaveHouse() {
         synchronized (house) {
             System.out.println(name + " leaves the house");
             house.removeRole();
             role = null;
+            house.notifyAll();
         }
     }
 }

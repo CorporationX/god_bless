@@ -1,6 +1,7 @@
 package faang.school.godbless.multithreading.iron_throne;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -9,14 +10,13 @@ import lombok.Getter;
 public class House {
 
     private List<String> roles;
-    private long availableRolesCount;
+    private AtomicInteger availableRolesCount;
 
     public void addRole() {
-        availableRolesCount--;
+        availableRolesCount.decrementAndGet();
     }
 
     public void removeRole() {
-        availableRolesCount++;
-        this.notifyAll();
+        availableRolesCount.incrementAndGet();
     }
 }
