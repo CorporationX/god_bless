@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Getter
 public class Player {
-    private final Lock lock;
+    private final Object lock;
     private boolean isPlaying;
 
     public Player() {
-        lock = new ReentrantLock();
+        lock = new Object();
     }
 
     public void play() {
