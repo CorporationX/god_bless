@@ -8,8 +8,8 @@ public class Main {
         Battle battle = new Battle();
 
         // Создание роботов
-        Robot r2d2 = new Robot("R2-D2", 5, 7);
-        Robot c3po = new Robot("C-3PO", 4, 8);
+        Robot r2d2 = new Robot("R2-D2", 10, 5);
+        Robot c3po = new Robot("C-3PO", 5, 7);
 
         // Запуск битвы
         Future<Robot> winnerFuture = battle.fight(r2d2, c3po);

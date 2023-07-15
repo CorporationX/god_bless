@@ -12,8 +12,10 @@ public class Battle {
             robotSecond.setDefensePower(robotFirst.getDefensePower() - robotSecond.getAttackPower());
             if (robotFirst.getDefensePower() > robotSecond.getDefensePower()) {
                 return robotFirst;
-            } else {
+            } else if (robotFirst.getDefensePower() < robotSecond.getDefensePower()) {
                 return robotSecond;
+            } else {
+                return null;
             }
         });
         executor.shutdown();
