@@ -33,12 +33,12 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> result = executor.submit(() -> collectPayment());
-        int realResult = result.get();
 
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(() -> sendAnalytics());
         completableFuture.join();
 
-        System.out.println(realResult);
+        System.out.println(completableFuture.get());
+        System.out.println(result.get());
 
         executor.shutdown();
         executor.awaitTermination(1, TimeUnit.SECONDS);
