@@ -15,9 +15,11 @@ public class Robot {
         return countMurders;
     }
 
-    public synchronized void attack() {
-        System.out.println("Robot attacked " + target + " " + Thread.currentThread().getName());
-        System.out.println("Target " + target + " is dead");
-        countMurders.incrementAndGet();
+    public void attack() {
+        synchronized (target) {
+            System.out.println("Robot attacked " + target + " " + Thread.currentThread().getName());
+            System.out.println("Target " + target + " is dead");
+            countMurders.incrementAndGet();
+        }
     }
 }
