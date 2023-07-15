@@ -35,7 +35,7 @@ public class StreamAPI {
 
     public static List<String> sortedLinesByLetters(List<String> lines, String alphabet) { //6
         return lines.stream()
-                .filter(str -> str.replaceAll(" ", "").toLowerCase().matches("[" + alphabet + "]+"))
+                .filter(str -> str.replaceAll("\\s+", "").toLowerCase().matches("[" + alphabet + "]+"))
                 .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
