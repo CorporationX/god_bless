@@ -1,0 +1,61 @@
+Условия задачи
+Описание: Вы являетесь разработчиком системы для магического турнира в мире Гарри Поттера.
+Вам необходимо создать систему, которая моделирует выполнение заданий командами из разных
+волшебных школ и определение победителя турнира. Вы должны использовать CompletableFuture
+в Java для асинхронного выполнения заданий и обработки результатов.
+Ваша задача: использовать метод allOf для объединения результатов всех заданий и
+определения победителя.
+
+Цель: Создайте класс Tournament, который будет использовать CompletableFuture
+для асинхронного запуска заданий команд из разных волшебных школ,
+а затем использовать метод allOf для объединения результатов всех заданий
+и определения победителя турнира.
+
+Требования:
+
+Создайте класс School с полями name и team (список студентов) и методом getTotalPoints.
+
+Создайте класс Student с полями name, year, и points.
+
+Создайте класс Task с полями name, difficulty, и reward.
+
+Создайте класс Tournament с методом startTask, который принимает объекты School и Task,
+и возвращает CompletableFuture<School>.
+
+Метод startTask должен использовать CompletableFuture для асинхронного выполнения
+задания и обновления очков всех студентов команды после его завершения.
+
+Создайте несколько волшебных школ, студентов и заданий, а затем запустите
+задания с использованием созданного класса Tournament.
+
+Обработайте результаты заданий, используя метод CompletableFuture.allOf
+для объединения всех CompletableFuture, и определите победителя турнира.
+
+Пример использования:
+
+public class MagicalTournament {
+    public static void main(String[] args) {
+        Tournament tournament = new Tournament();
+
+        // Создание студентов, волшебных школ и
+        заданий (пропущено, так как они предоставлены)
+
+        // Запуск заданий
+        CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
+        CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
+
+        // Обработка результатов заданий
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
+        allTasks.thenRun(() -> {
+            if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
+                System.out.println("The winner of the magical tournament is "
+                + hogwarts.getName() + " with " + hogwarts.getTotalPoints() + " points.");
+            } else if (beauxbatons.getTotalPoints() > hogwarts.getTotalPoints()) {
+                System.out.println("The winner of the magical tournament is "
+                + beauxbatons.getName() + " with " + beauxbatons.getTotalPoints() + " points.");
+            } else {
+                System.out.println("The magical tournament ended in a tie!");
+            }
+        }).join();
+    }
+}
