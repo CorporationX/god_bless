@@ -20,6 +20,6 @@ public class Main {
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "
                 + player.getExperience() + " experience points."));
 
-        //ничего не выводится на экран(
+        //ура оно работает
     }
 }
