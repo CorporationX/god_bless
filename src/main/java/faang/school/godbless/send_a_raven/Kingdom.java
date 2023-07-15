@@ -26,7 +26,7 @@ public class Kingdom {
                 }
                 return kingdomSender.sendMessage("Hello", kingdomRecipient);
             } else {
-                throw new RuntimeException();
+                throw new RuntimeException("The raven did not deliver the letter");
             }
         }).handle((result, exception) -> {
             if(result != null) {

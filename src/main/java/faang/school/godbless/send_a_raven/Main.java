@@ -14,9 +14,6 @@ public class Main {
         CompletableFuture<String> sendResult = sendRaven(baratheonHouse, starkHouse);
         CompletableFuture<String> sendResult2 = sendRaven(starkHouse, baratheonHouse);
 
-
-
-
         try {
             sendResult2.get();
             sendResult.get();
@@ -25,6 +22,5 @@ public class Main {
         } catch (ExecutionException e) {
             throw new RuntimeException(e);
         }
-
     }
 }
