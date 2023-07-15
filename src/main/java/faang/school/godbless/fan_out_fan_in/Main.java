@@ -19,15 +19,11 @@ public class Main {
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executorService = Executors.newFixedThreadPool(requests.size());
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
-        for(SquareRequest request : requests) {
-            CompletableFuture<Void> calc = CompletableFuture.runAsync(() -> {
-                request.longTimeSquare(resultConsumer);
-            }, executorService);
-            futures.add(calc);
-        }
+        List<CompletableFuture<Void>> futures = requests.stream().map(request -> CompletableFuture.runAsync(() ->
+                request.longTimeSquare(resultConsumer), executorService)).toList();
 
-        futures.forEach(CompletableFuture :: join);
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        executorService.shutdown();
 
         return resultConsumer.getSumOfSquaredNumbers().get();
     }
