@@ -7,7 +7,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 public class QuestSystem {
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        CompletableFuture<Player> playerOnQuest = CompletableFuture.supplyAsync(() -> {
+         return CompletableFuture.supplyAsync(() -> {
             Random random = new Random();
             if(player.getLevel() > quest.getDifficulty()) {
                 try {
@@ -21,6 +21,6 @@ public class QuestSystem {
             }
             return player;
         });
-        return playerOnQuest;
     }
 }
+
