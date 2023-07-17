@@ -25,11 +25,13 @@ public class TelegramBot {
                     throw new RuntimeException(e);
                 }
             }
-        } else {
+        } else if (requestCounter > REQUEST_LIMIT) {
             requestCounter = 2;
-            lastRequestTime = currentTime;
+        } else {
+            requestCounter = 1;
         }
 
+        lastRequestTime = currentTime;
         System.out.println("Message sent: " + message);
     }
 }
