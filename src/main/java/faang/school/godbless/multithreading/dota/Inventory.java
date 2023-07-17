@@ -14,7 +14,6 @@ public class Inventory {
     private final String[] chestItems;
     private final String[] storeItems;
 
-
     public Inventory() {
         items = new ArrayList<>();
         random = new Random();
