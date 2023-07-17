@@ -1,6 +1,5 @@
 package faang.school.godbless.multithreading.heart_matters;
 
-import java.util.Random;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +13,5 @@ public class Chat {
 
     public void startChat() {
         System.out.println(user1.getName() + " and " + user2.getName() + " started the chat");
-
     }
 }

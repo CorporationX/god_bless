@@ -16,8 +16,17 @@ public class Tinder {
         ChatManager chatManager = new ChatManager(userList);
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        executorService.execute(() -> chatManager.startChat(users.get(0)));
-        executorService.execute(() -> chatManager.startChat(users.get(1)));
+        executorService.execute(() -> {
+            User user = users.get(0);
+            user.setWantsToChat(true);
+            chatManager.startChat(user);
+        });
+        Thread.sleep(1000);
+        executorService.execute(() -> {
+            User user = users.get(1);
+            user.setWantsToChat(true);
+            chatManager.startChat(user);
+        });
 
         executorService.shutdown();
     }

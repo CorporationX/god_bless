@@ -15,30 +15,29 @@ public class ChatManager {
     }
 
     public synchronized void startChat(User user) {
-        user.setWantsToChat(true);
-        this.notifyAll();
-
         List<User> waitToChatUsers = getWaitToChatUsers(user);
+        if (waitToChatUsers.isEmpty()) {
+            waitForChat(user);
+        }
 
         if (waitToChatUsers.isEmpty()) {
-            System.out.println("No users waiting to chat");
-            waitForChat(user);
-        } else {
-            Chat chat = new Chat(user, waitToChatUsers.get(0));
-            chats.add(chat);
-            chat.startChat();
-
-            try {
-                Thread.sleep(new Random().nextInt(1000, 5000));
-            } catch (InterruptedException e) {
-                System.err.println(e.getMessage());
-            }
-
-            endChat(chat);
+            return;
         }
+
+        Chat chat = new Chat(user, waitToChatUsers.get(0));
+        chats.add(chat);
+        chat.startChat();
+
+        try {
+            Thread.sleep(new Random().nextInt(1000, 5000));
+        } catch (InterruptedException e) {
+            System.err.println(e.getMessage());
+        }
+
+        endChat(chat);
     }
 
-    public synchronized void waitForChat(User user) {
+    private synchronized void waitForChat(User user) {
         if (!isUserInActiveChat(user)) {
             System.out.println("Waiting for an available chat for " + user.getName());
             try {
@@ -49,7 +48,7 @@ public class ChatManager {
         }
     }
 
-    public synchronized void endChat(Chat chat) {
+    private synchronized void endChat(Chat chat) {
         System.out.printf("%s and %s ended the chat\n", chat.getUser1().getName(), chat.getUser2().getName());
         chat.getUser1().setWantsToChat(false);
         chat.getUser2().setWantsToChat(false);
