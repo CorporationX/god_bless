@@ -18,10 +18,7 @@ public class Huston {
         getRocketLaunches().forEach(executor::submit);
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(4, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
-                System.out.println("Запуск отменен");
-            }
+            executor.awaitTermination(1, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             System.err.println(e.getMessage());
         }
