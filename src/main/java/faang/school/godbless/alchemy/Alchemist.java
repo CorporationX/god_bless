@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Alchemist {
     public static void main(String[] args) {
@@ -21,15 +22,20 @@ public class Alchemist {
 
         CompletableFuture<Void> allIngredientsTask = CompletableFuture.allOf(ingredientTasks);
 
-        CompletableFuture<Integer> totalIngredientsTask = allIngredientsTask.thenApply(
-                v -> Arrays.stream(ingredientTasks)
-                        .map(CompletableFuture::join)
-                        .reduce(0, Integer::sum)
+        AtomicInteger totalIngredients = new AtomicInteger(0);
+
+        CompletableFuture<Void> updateTotalIngredientsTask = allIngredientsTask.thenAccept(
+                v -> {
+                    int sum = Arrays.stream(ingredientTasks)
+                            .map(CompletableFuture::join)
+                            .reduce(0, Integer::sum);
+                    totalIngredients.set(sum);
+                }
         );
 
         try {
-            int totalIngredients = totalIngredientsTask.get();
-            System.out.println("Total ingredients collected: " + totalIngredients);
+            updateTotalIngredientsTask.get();
+            System.out.println("Total ingredients collected: " + totalIngredients.get());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -43,7 +49,7 @@ public class Alchemist {
                 e.printStackTrace();
             }
 
-            System.out.println("Ingredients gathered for: " + potion.getName());
+            System.out.println("Ingredients gathered for " + potion.getName());
             return potion.getRequiredIngredients();
         });
     }
