@@ -18,9 +18,4 @@ public class Order {
                 ", status=" + status +
                 '}';
     }
-
-    public enum Status {
-        NEW,
-        PROCESSED
-    }
 }

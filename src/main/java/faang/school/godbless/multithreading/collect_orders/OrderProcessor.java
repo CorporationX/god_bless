@@ -24,7 +24,7 @@ public class OrderProcessor {
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
             }
-            order.setStatus(Order.Status.PROCESSED);
+            order.setStatus(Status.PROCESSED);
             totalProcessedOrders.incrementAndGet();
         });
     }

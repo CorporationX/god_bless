@@ -10,7 +10,7 @@ public class Main {
         OrderProcessor processor = new OrderProcessor();
 
         List<Order> orders = IntStream.rangeClosed(1, 10)
-                .mapToObj(i -> new Order(i, Order.Status.NEW))
+                .mapToObj(i -> new Order(i, Status.NEW))
                 .toList();
 
         List<CompletableFuture<Void>> orderFutures = orders.stream()
@@ -23,7 +23,5 @@ public class Main {
                     System.out.println(processor.getTotalProcessedOrders().get() + " orders have been processed");
                 })
                 .join();
-
-
     }
 }
