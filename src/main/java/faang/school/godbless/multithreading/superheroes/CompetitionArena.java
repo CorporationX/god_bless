@@ -12,7 +12,7 @@ public class CompetitionArena {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         SuperheroBattle superheroBattle = new SuperheroBattle();
 
-        List<Pair<Superhero, Superhero>> superheroPairs = getSuperheroPairs();
+        List<Pair<Superhero>> superheroPairs = getSuperheroPairs();
         List<Future<Superhero>> winnersFutures;
 
         while (true) {
@@ -34,10 +34,10 @@ public class CompetitionArena {
         superheroBattle.shutdown();
     }
 
-    private static List<Pair<Superhero, Superhero>> getNewRandomPairs(List<Future<Superhero>> winnersFutures)
+    private static List<Pair<Superhero>> getNewRandomPairs(List<Future<Superhero>> winnersFutures)
             throws ExecutionException, InterruptedException {
         List<Future<Superhero>> winnersFuturesCopy = new ArrayList<>(winnersFutures);
-        List<Pair<Superhero, Superhero>> superheroPairs = new ArrayList<>();
+        List<Pair<Superhero>> superheroPairs = new ArrayList<>();
 
         while (winnersFuturesCopy.size() > 1) {
             int indexFirst = RANDOM.nextInt(winnersFuturesCopy.size());
@@ -54,7 +54,7 @@ public class CompetitionArena {
         return superheroPairs;
     }
 
-    private static List<Pair<Superhero, Superhero>> getSuperheroPairs() {
+    private static List<Pair<Superhero>> getSuperheroPairs() {
         Superhero ironMan = new Superhero("Iron Man", 9, 6);
         Superhero captainAmerica = new Superhero("Captain America", 8, 8);
         Superhero thor = new Superhero("Thor", 10, 7);

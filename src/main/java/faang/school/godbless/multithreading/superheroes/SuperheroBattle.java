@@ -12,13 +12,13 @@ public class SuperheroBattle {
         executorService = Executors.newCachedThreadPool();
     }
 
-    public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> superheroes) {
+    public List<Future<Superhero>> runCompetitions(List<Pair<Superhero>> superheroes) {
         return superheroes.stream()
                 .map(pair -> executorService.submit(() -> getWinner(pair)))
                 .toList();
     }
 
-    private Superhero getWinner(Pair<Superhero, Superhero> pair) {
+    private Superhero getWinner(Pair<Superhero> pair) {
         return pair.first().getTotalPower() > pair.second().getTotalPower() ? pair.first() : pair.second();
     }
 
