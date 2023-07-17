@@ -25,13 +25,13 @@ public class CityWorker implements Runnable {
         );
     }
 
-    public Monster findNearestMonster() {
+    private Monster findNearestMonster() {
         return monsters.stream()
                 .min(Comparator.comparingInt(monster -> city.getLocation().getDistance(monster.getVillageLocation())))
                 .orElseThrow();
     }
 
-    public long getKillTime() {
+    private long getKillTime() {
         return new Random().nextLong(2, 10);
     }
 

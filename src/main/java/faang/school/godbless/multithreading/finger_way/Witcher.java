@@ -12,7 +12,6 @@ public class Witcher {
         executeAndCheckTime(NUM_THREADS);
         System.out.println();
         executeAndCheckTime(1);
-
     }
 
     private static void executeAndCheckTime(int threadsCount) throws InterruptedException {
@@ -25,7 +24,6 @@ public class Witcher {
         cities.forEach(city -> executorService.submit(new CityWorker(city, monsters)));
         executorService.shutdown();
         executorService.awaitTermination(3, TimeUnit.SECONDS);
-
 
         long end = System.currentTimeMillis();
         System.out.println(end - start);
