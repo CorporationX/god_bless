@@ -1,14 +1,11 @@
 package sprint2.domain;
 
-import lombok.Value;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Value
 public class User {
     String name;
     int age;
