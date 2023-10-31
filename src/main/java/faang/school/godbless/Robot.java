@@ -1,12 +1,21 @@
 package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
 @AllArgsConstructor
 public class Robot {
     private String name;
-    private int attackPower;
-    private int defencePower;
+    private String target;
+
+    public void attack() {
+        synchronized (target) {
+            System.out.println("Robot " + name + " found a target " + target);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("Robot " + name + " destroyed the " + target);
+        }
+    }
 }
