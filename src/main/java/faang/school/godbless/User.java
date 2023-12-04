@@ -11,6 +11,36 @@ public class User {
     private String userPlaceWork;
     private String userAddress;
 
+    private static final int VALID_AGE = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+
+    public User(String userName, int userAge, String userPlaceWork, String userAddress) {
+        if (!userName.isEmpty()) {
+            this.userName = userName;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        if (userAge >=  VALID_AGE) {
+            this.userAge = userAge;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        if (VALID_JOBS.contains(userPlaceWork)) {
+            this.userPlaceWork = userPlaceWork;
+        } else {
+            throw new IllegalArgumentException();
+        }
+
+        if (VALID_ADDRESS.contains(userAddress)) {
+            this.userAddress = userAddress;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUser= new HashMap<>();
 
