@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class User {
-    private String name;
-    private static int age;
-    private String  work_place;
-    private String address;
+    public String name;
+    public static int age;
+    public String  work_place;
+    public String address;
 
     public static HashMap<Integer,ArrayList> groupUsers(ArrayList<User> users){
         ArrayList<User> us = users;
