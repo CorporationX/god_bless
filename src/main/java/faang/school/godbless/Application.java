@@ -9,7 +9,7 @@ public class Application {
         User user2 = new User("petia", 15, "zavod","lenina");
         User user3 = new User("lena", 16, "pecarnia","perspectivnaia");
 
-        List<User> users = new ArrayList<>(List.of(user1, user2, user3));
+        List<User> users = List.of(user1, user2, user3);
 
         System.out.println(User.groupUsers(users));
 

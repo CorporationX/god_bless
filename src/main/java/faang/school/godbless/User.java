@@ -1,23 +1,18 @@
 package faang.school.godbless;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.*;
 
 @Data
+@AllArgsConstructor
 public class User {
 
     private String userName;
     private int userAge;
     private String userPlaceWork;
     private String userAddress;
-
-    public User(String userName, int userAge, String userPlaceWork, String userAddress) {
-        this.userName = userName;
-        this.userAge = userAge;
-        this.userPlaceWork = userPlaceWork;
-        this.userAddress = userAddress;
-    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUser= new HashMap<>();
