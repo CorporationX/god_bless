@@ -1,14 +1,21 @@
 package faang.school.godbless.BJS2_402;
 
 import lombok.Data;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
 
 @Data
 public class User {
-
     public final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    private String name;
+    private int age;
+    private String job;
+    private String address;
 
     public User (String name, int age, String job, String address) {
         if (name.isEmpty()
@@ -22,11 +29,6 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
-    private String name;
-    private int age;
-    private String job;
-    private String address;
 
     public User (String name, int age) {
         this.name = name;
