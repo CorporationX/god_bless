@@ -1,7 +1,14 @@
 package faang.school.godbless.user_registration;
 
-import java.util.*;
+import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@Data
 public class User {
 
     private String name;
@@ -16,7 +23,11 @@ public class User {
 
         if(name.isBlank() || age < WORKING_AGE || !VALID_JOBS.contains(workplace)
                 || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Please, enter only valid values! \n" +
+                    "1. User name cannot be null or empty \n" +
+                    "2. Age should be more than " + WORKING_AGE + "\n" +
+                    "3. Job or address does not match \n"
+                );
         }
         this.name = name;
         this.age = age;
@@ -26,14 +37,12 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-        Map<Integer, List<User>> usersMap = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
         for (User user : users) {
-            if (!usersMap.containsKey(user.age)) {
-                usersMap.put(user.age, new ArrayList<>());
-            }
-            usersMap.get(user.age).add(user);
+            groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
+            groupedUsers.get(user.getAge()).add(user);
         }
-        return usersMap;
+        return groupedUsers;
     }
 }
