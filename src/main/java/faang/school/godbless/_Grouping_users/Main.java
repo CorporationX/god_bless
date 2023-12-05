@@ -7,8 +7,12 @@ public class Main {
         User user = new User();
         user.age=5;
         user.name="Jason";
+        User user1 = new User();
+        user1.name="Rick";
+        user1.age=6;
         ArrayList<User> users=new ArrayList<>();
         users.add(user);
+        users.add(user1);
         User.groupUsers(users);
     }
 }
