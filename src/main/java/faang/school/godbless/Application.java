@@ -1,7 +1,10 @@
 package faang.school.godbless;
 
+import java.util.Arrays;
+
 public class Application {
     public static void main(String... args) {
-        System.out.println("Hello world");
+        int[] number = {1,2,3,4,5};
+        System.out.println(Arrays.toString(Example.reverse(number)));
     }
 }
