@@ -32,9 +32,4 @@ public class User {
         }
         return hobbyLoversMap;
     }
-
-    public static void main(String[] args) {
-
-
-    }
 }
