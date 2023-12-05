@@ -35,8 +35,8 @@ public class User {
             value.add(user);
             result.put(key, value);
         }
-        for (Map.Entry<Integer, List<User>> qwe : result.entrySet()) {
-            System.out.println(qwe.getKey()+": "+qwe.getValue());
+        for (Map.Entry<Integer, List<User>> asd : result.entrySet()) {
+            System.out.println(asd.getKey()+": "+asd.getValue());
         }
         return result;
     }
