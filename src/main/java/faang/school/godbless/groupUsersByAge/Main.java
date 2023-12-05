@@ -24,20 +24,24 @@ public class Main {
     }
     private static List<User> createUsers() {
         List<User> users = new ArrayList<>();
-        users.add(new User("John", 32, "Amazon", "New-York"));
-        users.add(new User("Erick", 32, "Facebook", "Los-Angeles"));
 
-        users.add(new User("Bred", 31, "Amazon", "New-York"));
-        users.add(new User("John", 31, "Facebook", "Los-Angeles"));
+        users.add(new User("John", 32, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.Amsterdam));
+        users.add(new User("Erick", 32, User.VALID_JOBS.Google, User.VALID_ADDRESS.New_York));
 
-        users.add(new User("Seth", 30, "Amazon", "New-York"));
-        users.add(new User("Palmer", 30, "Facebook", "Las-Vegas"));
+        users.add(new User("Bred", 31, User.VALID_JOBS.Uber, User.VALID_ADDRESS.London));
+        users.add(new User("John", 31,  User.VALID_JOBS.Google, User.VALID_ADDRESS.New_York));
 
-        users.add(new User("Eddy", 35, "Amazon", "Las-Vegas"));
-        users.add(new User("Christopher", 35, "Facebook", "Los-Angeles"));
+        users.add(new User("Seth", 30, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.Amsterdam));
+        users.add(new User("Palmer", 30, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.New_York));
 
-        users.add(new User("Kenny", 28, "Amazon", "Las-Vegas"));
-        users.add(new User("Collin", 28, "Facebook", "Las-Vegas"));
+        users.add(new User("Eddy", 35, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.Amsterdam));
+        users.add(new User("Christopher", 35, User.VALID_JOBS.Google, User.VALID_ADDRESS.New_York));
+
+        users.add(new User("Kenny", 28, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.Amsterdam));
+        users.add(new User("Collin", 28, User.VALID_JOBS.Google, User.VALID_ADDRESS.New_York));
+
+//        users.add(new User("Little", 17, User.VALID_JOBS.Amazon, User.VALID_ADDRESS.Amsterdam));
+
 
         return users;
     }
