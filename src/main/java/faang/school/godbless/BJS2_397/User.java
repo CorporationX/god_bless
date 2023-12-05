@@ -2,11 +2,13 @@ package faang.school.godbless.BJS2_397;
 
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data
 public class User {
-
     private String name;
     private int age;
     private String job;
@@ -19,20 +21,14 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers (List<User> userList) {
 
-        Map<Integer, List<User>> groupUserMap = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
-        for (User x : userList) {
-
-            int currentUserAge = x.getAge();
-
-            List<User> userSet =
-                    groupUserMap.getOrDefault(x.getAge(), new ArrayList<>());
-
-            userSet.add(x);
-            groupUserMap.put(currentUserAge, userSet);
-
+        for (User user : userList) {
+            int currentUserAge = user.getAge();
+            groupedUsers.putIfAbsent(currentUserAge, new ArrayList<>());
+            groupedUsers.get(currentUserAge).add(user);
         }
 
-        return groupUserMap;
+        return groupedUsers;
     }
 }
