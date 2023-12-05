@@ -13,7 +13,10 @@ public abstract class Character {
     }
 
     public Character (String name, int power, int dexterity, int intellect) {
-        this.name = name; this.power = power; this.dexterity = dexterity; this.intellect = intellect;
+        this.name = name;
+        this.power = power;
+        this.dexterity = dexterity;
+        this.intellect = intellect;
     }
 
     public abstract void attack (Character character);
