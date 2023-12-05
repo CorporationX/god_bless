@@ -1,22 +1,30 @@
-package faang.school.godbless.group_by;
+package faang.school.godbless.registration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class User {
     private String name;
-    private Integer age;
+    private int age;
     private String work;
     private String adress;
 
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    public User(String name, Integer age, String work, String adress) {
-        this.name = name;
-        this.age = age;
-        this.work = work;
-        this.adress = adress;
+    public User(String name, Integer age, String work, String adress) throws IllegalArgumentException {
+
+        if ((name.isBlank()) || (age < 18) || (!VALID_JOBS.contains(work)) || (!VALID_ADDRESSES.contains(adress))) {
+          throw new IllegalArgumentException("Warning! check data entry!");
+        } else {
+            this.name = name;
+            this.age = age;
+            this.work = work;
+            this.adress = adress;
+        }
     }
 
     @Override
