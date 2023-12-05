@@ -1,12 +1,14 @@
 package faang.school.godbless.user_registration;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Data
 @AllArgsConstructor
 public class User {
 
@@ -17,14 +19,12 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-        Map<Integer, List<User>> usersMap = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
         for (User user : users) {
-            if (!usersMap.containsKey(user.age)) {
-                usersMap.put(user.age, new ArrayList<>());
-            }
-            usersMap.get(user.age).add(user);
+            groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
+            groupedUsers.get(user.getAge()).add(user);
         }
-        return usersMap;
+        return groupedUsers;
     }
 }

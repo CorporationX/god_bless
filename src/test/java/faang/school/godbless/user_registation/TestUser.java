@@ -19,7 +19,7 @@ public class TestUser {
         User testUser4 = new User("TestName4", 20, "TestCompany1", "TestAddress5");
         User testUser5 = new User("TestName5", 25, "TestCompany2", "TestAddress5");
 
-        List<User> testUserList = Arrays.asList(testUser1, testUser2, testUser3, testUser3, testUser4, testUser5);
+        List<User> testUserList = Arrays.asList(testUser1, testUser2, testUser3, testUser4, testUser5);
 
         Map<Integer, List<User>> testUsersMap = User.groupUsers(testUserList);
 
