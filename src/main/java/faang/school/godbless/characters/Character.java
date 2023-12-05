@@ -1,11 +1,11 @@
 package faang.school.godbless.characters;
 
 public abstract class Character {
-    public String name;
-    public int strength;
-    public int agility;
-    public int intelligence;
-    public int health = 100;
+    protected String name;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;

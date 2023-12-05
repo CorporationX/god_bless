@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class testAttack {
+public class TestAttack {
     @Test
     public void doDamage() {
         Warrior warrior = new Warrior("VOIN");
