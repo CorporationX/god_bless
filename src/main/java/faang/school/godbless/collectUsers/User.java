@@ -19,7 +19,7 @@ public class User {
     private int age;
     Set<String> activities;
 
-    Map<User, String> findHobbyLovers(List<User> usersList, List<String> activities){
+    static Map<User, String> findHobbyLovers(List<User> usersList, List<String> activities){
         Map<User, String> hobbyLovers = new HashMap<>();
         Iterator iterator;
         iterator = usersList.iterator();
