@@ -1,7 +1,7 @@
 package faang.school.godbless.javahashmap;
 
 public class Swordman extends  Creature{
-    public Swordman(String name, int level, int attack, int defend, int speed) {
-        super(name, level, 7, 10, 2);
+    public Swordman(String name, int level) {
+        super(name, level, 210, 10, 2);
     }
 }
