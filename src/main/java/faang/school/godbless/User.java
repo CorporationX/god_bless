@@ -1,32 +1,38 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+@AllArgsConstructor
+@EqualsAndHashCode
+@NoArgsConstructor
 public class User {
 
+    private int id;
     private String name;
     private int age;
-    private String placeOfWork;
-    private String address;
+    private Set<String> hobbies;
 
-    public static Map<Integer, List> groupUsers(List<User> users) {
-        Map<Integer, List> usersByAge = new HashMap<>();
+    public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbiesSet) {
+        Map<User, String> hobbyLovers = new HashMap<>();
+
         for (User user : users) {
-            int userAge = user.getAge();
-            if(usersByAge.containsKey(userAge)){
-                usersByAge.get(userAge).add(user);
-            }else{
-                usersByAge.put(userAge, new ArrayList(Arrays.asList(user)));
+            for (String hobby : user.hobbies) {
+                if (hobbiesSet.contains(hobby)) {
+                    if (!hobbyLovers.containsKey(user)) {
+                        hobbyLovers.put(user, hobby);
+                    }
+                }
             }
         }
-        return usersByAge;
+        return hobbyLovers;
     }
 
-    public int getAge() {
-        return age;
-    }
 }
