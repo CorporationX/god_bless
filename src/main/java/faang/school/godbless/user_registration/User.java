@@ -1,5 +1,7 @@
 package faang.school.godbless.user_registration;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -9,12 +11,14 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class User {
 
     private String name;
     private int age;
     private String workplace;
     private String address;
+
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int WORKING_AGE = 18;
