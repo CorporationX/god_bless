@@ -1,7 +1,6 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task1;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Value;
 
 import java.util.Objects;
