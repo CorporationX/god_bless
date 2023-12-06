@@ -1,6 +1,5 @@
 package users;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class User {
@@ -18,6 +16,20 @@ public class User {
     private int age;
     private String workplace;
     private String address;
+
+    public User () {
+        name = "Nikita";
+        age = 27;
+        workplace = "Home";
+        address = "-";
+    }
+
+    public User (String name, int age, String workplace, String address) {
+        this.name = name;
+        this.age = age;
+        this.workplace = workplace;
+        this.address = address;
+    }
 
     public static HashMap<Integer, List<User>> groupUsers (List<User> users) {
         Set<Integer> usersAgeSet = new HashSet<>();
