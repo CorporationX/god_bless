@@ -37,6 +37,5 @@ public abstract class Character {
         return health;
     }
 
-    public void attack (Character character) {
-    }
+    public abstract void attack(Character character);
 }

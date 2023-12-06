@@ -3,9 +3,6 @@ package faang.school;
 import abstraction.Archer;
 import abstraction.Warrior;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
         Warrior warrior = new Warrior("war");
