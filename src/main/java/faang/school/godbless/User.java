@@ -3,7 +3,7 @@ package faang.school.godbless;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.naming.Name;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,11 +16,16 @@ public class User {
     private String WorkName;
     private String Address;
 
-    //Перетруться если возраст одинаковый, но наверное это не важно
-    public static Map<Long, String> groupUsers(List<User> userList){
-        Map<Long, String> map = new HashMap<>();
+    public static Map<Long, List<User>> groupUsers(List<User> userList){
+        Map<Long, List<User>> map = new HashMap<>();
         for(User u: userList){
-            map.put(u.Age,u.Name);
+            if(map.containsKey(u.getAge())){
+                map.get(u.getAge()).add(u);
+            }else{
+                List<User> users = new ArrayList<>();
+                users.add(u);
+                map.put(u.getAge(),users);
+            }
         }
         return map;
     }
