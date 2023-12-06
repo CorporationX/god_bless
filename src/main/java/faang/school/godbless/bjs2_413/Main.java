@@ -1,6 +1,5 @@
 package faang.school.godbless.bjs2_413;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -23,12 +22,11 @@ public class Main {
                 .build();
 
 
-        List<User> users = new ArrayList<>();
-        users.add(user1);
-        users.add(user2);
-        users.add(user3);
-        users.add(user4);
+        List<User> users = List.of(user1, user2, user3, user4);
 
-        System.out.println(User.groupUsers(users));
+        User.groupUsers(users);
+        for (User user : users) {
+            System.out.println(user.getAge() + " - " + user.getName());
+        }
     }
 }
