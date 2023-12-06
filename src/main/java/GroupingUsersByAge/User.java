@@ -11,16 +11,23 @@ public class User {
     private String workCompany;
     private String address;
 
-    public static Map groupUsers (List<User> users){
+    public User(String name, int age, String workCompany, String address) {
+        this.name = name;
+        this.age = age;
+        this.workCompany = workCompany;
+        this.address = address;
+    }
+
+    public static Map<Integer, List<User>> groupUsers (List<User> users){
         //Создаем мапу, которую выведем в конце метода
-        Map groupedUsers = new HashMap<Integer, List<User>>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
         //Создаем временное хранилище для добавления пользователей
         List <User> temp;
 
         for(User user : users){
             //Получаем доступ к листу по текущему ключу
-            temp = (List<User>) groupedUsers.getOrDefault(user.getAge(), new ArrayList<User>());
+            temp = groupedUsers.getOrDefault(user.getAge(), new ArrayList<>());
             temp.add(user);
             groupedUsers.put(user.getAge(), temp);
         }
