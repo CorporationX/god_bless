@@ -26,14 +26,8 @@ public class User {
         Map<Integer, List<User>> groupUsers = new HashMap();
         for (User user: users) {
             int key = user.getAge();
-            List<User> value = groupUsers.get(key);
-
-            if (value == null) {
-                value = new ArrayList<>();
-            }
-
-            value.add(user);
-            groupUsers.put(user.getAge(), value);
+            groupUsers.putIfAbsent(key, new ArrayList<>());
+            groupUsers.get(key).add(user);
         }
 
         return groupUsers;
