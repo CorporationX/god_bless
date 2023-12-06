@@ -1,5 +1,6 @@
 package faang.school.godbless.group_by;
 
+import faang.school.godbless.registration.User;
 import java.util.List;
 
 public class Main {
