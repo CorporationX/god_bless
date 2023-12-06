@@ -12,6 +12,17 @@ public class User {
     private String job;
     private String address;
 
+    public static Map<Integer, List<User>> groupUsers(List<User> users){
+        Map<Integer, List<User>> usersGroups = new HashMap<>();
+        for (User user: users) {
+            if (!(usersGroups.containsKey(user.getAge()))){
+                usersGroups.put(user.getAge(), new ArrayList<>());
+            }
+            usersGroups.get(user.getAge()).add(user);
+        }
+        return usersGroups;
+    }
+
     public void setName(String name) {
         if ((!name.equals(" ")) && (!name.equals("")) && (name!=null))
             this.name = name;
@@ -46,18 +57,5 @@ public class User {
 
     public String getAddress() {
         return address;
-    }
-
-    static public Map<Integer, List<User>> groupUsers(List<User> users){
-        Map<Integer, List<User>> usersReturn = new HashMap<Integer, List<User>>();
-        for (User user: users) {
-            if (usersReturn.containsKey(user.getAge())){
-                usersReturn.get(user.getAge()).add(user);
-            } else {
-                usersReturn.put(user.getAge(), new ArrayList<User>());
-                usersReturn.get(user.getAge()).add(user);
-            }
-        }
-        return usersReturn;
     }
 }
