@@ -19,25 +19,25 @@ public class User {
         if (!userName.isEmpty()) {
             this.userName = userName;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Имя не должно быть пустым");
         }
 
         if (userAge >=  VALID_AGE) {
             this.userAge = userAge;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Возраст должен быть не меньше 18");
         }
 
         if (VALID_JOBS.contains(userPlaceWork)) {
             this.userPlaceWork = userPlaceWork;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Место работы должно быть из валидного списка");
         }
 
         if (VALID_ADDRESS.contains(userAddress)) {
             this.userAddress = userAddress;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Адресс должен быть из валидного списка");
         }
     }
 
