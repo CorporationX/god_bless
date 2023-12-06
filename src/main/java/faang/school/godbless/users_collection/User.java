@@ -3,9 +3,7 @@ package faang.school.godbless.users_collection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,7 +23,7 @@ public class User {
         for (User user : users) {
             for (String activity : activities) {
                 if(user.getActivities().contains(activity)) {
-                    hobbyLoversMap.putIfAbsent(user, activity);
+                    hobbyLoversMap.put(user, activity);
                     break;
                 }
             }
