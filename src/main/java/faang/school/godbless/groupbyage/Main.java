@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.groupbyage;
 
 import java.util.List;
 
