@@ -1,13 +1,14 @@
 package reverseArray;
 
-import java.util.Arrays;
-
 public class Example {
     public static int[] reverse(int[] array) {
-        int[] reverseArray = Arrays.copyOf(array, array.length);
-        int y = 0;
-        for (int i = array.length - 1; i >= 0; i--, y++) {
-            array[i] = reverseArray[y];
+
+        int len = array.length;
+
+        for (int i = 0; i < len / 2; i++) {
+            int val = array[i];
+            array[i] = array[len - 1 - i];
+            array[len - 1 - i] = val;
         }
         return array;
     }
