@@ -14,13 +14,14 @@ import java.util.stream.Collectors;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MINIMAL_VALID_AGE = 18;
 
     private String name;
-    private Integer age;
+    private int age;
     private String job;
     private String address;
 
-    public User(String name, Integer age, String job, String address) {
+    public User(String name, int age, String job, String address) {
         validateConstructor(name, age, job, address);
         this.name = name;
         this.age = age;
@@ -32,7 +33,7 @@ public class User {
         return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
-    private void validateConstructor(String name, Integer age, String job, String address) {
+    private void validateConstructor(String name, int age, String job, String address) {
         validateName(name);
         validateAge(age);
         validateJob(job);
@@ -45,9 +46,8 @@ public class User {
         }
     }
 
-    private void validateAge(Integer age) {
-        Integer minimalValidAge = 18;
-        if (age < minimalValidAge) {
+    private void validateAge(int age) {
+        if (age < MINIMAL_VALID_AGE) {
             throw new IllegalArgumentException("User age can not be less than 18");
         }
     }
