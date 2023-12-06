@@ -2,8 +2,11 @@ package faang.school.godbless.BJS2_511;
 
 import faang.school.godbless.BJS2_511.creatures.Creature;
 import lombok.Data;
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.ArrayList;
 
 @Data
 public class Hero {
