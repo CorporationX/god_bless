@@ -1,6 +1,7 @@
 package faang.school.godbless.groupUsersByAge;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,7 @@ public class User {
             if (groupedUsers.containsKey(user.getAge())) {
                 groupedUsers.get(user.getAge()).add(user);
             } else {
-                groupedUsers.put(user.getAge(),new ArrayList<>());
-                groupedUsers.get(user.getAge()).add(user);
+                groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>(Arrays.asList(user)));
             }
         }
     return groupedUsers;
