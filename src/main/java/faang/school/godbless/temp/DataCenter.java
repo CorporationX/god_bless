@@ -11,7 +11,7 @@ import java.util.List;
 public class DataCenter {
     private static DataCenter instance;
     private List<Server> serverList;
-    private int count;
+    private int size;
     private DataCenter () {
         serverList = new ArrayList<>();
     }
@@ -25,15 +25,21 @@ public class DataCenter {
 
     public void add (Server server) {
         serverList.add(server);
-        count++;
+        size++;
     }
-
+    public void add (double maxLoad, int amount) {
+        int count = 0;
+        while (count < amount) {
+            add(new Server(maxLoad));
+            count++;
+        }
+    }
     public void remove (Server server) {
         serverList.remove(server);
-        count--;
+        size--;
     }
     public void remove (int index) {
         serverList.remove(index);
-        count--;
+        size--;
     }
 }

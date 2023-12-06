@@ -9,7 +9,7 @@ public class BraindeadOptimizationStrategyImpl implements OptimizationStrategy{
     public void optimize(DataCenter dataCenter) {
 
         Random random = new Random(1337);
-        int deleteIndex = random.nextInt(0, dataCenter.getCount()-1);
+        int deleteIndex = random.nextInt(0, dataCenter.getSize()-1);
 
         dataCenter.remove(deleteIndex);
     }

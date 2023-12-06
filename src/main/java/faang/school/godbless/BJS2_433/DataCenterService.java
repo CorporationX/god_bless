@@ -1,15 +1,15 @@
 package faang.school.godbless.BJS2_433;
 
 import faang.school.godbless.BJS2_433.optimization.BraindeadOptimizationStrategyImpl;
+import faang.school.godbless.BJS2_433.optimization.OptimizationStrategy;
 import faang.school.godbless.temp.DataCenter;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@Data
 public class DataCenterService{
 
     private final DataCenter dataCenter = DataCenter.getInstance();
+    private final OptimizationStrategy strategy = new BraindeadOptimizationStrategyImpl();
 
 
     public void addServer (Server server) {
@@ -18,15 +18,15 @@ public class DataCenterService{
 
     public double getTotalEnergyConsumption () {
         double total = 0;
-        for (Server x : dataCenter.getServerList()) {
-            total += x.getEnergyConsumption();
+        for (Server server : dataCenter.getServerList()) {
+            total += server.getEnergyConsumption();
         }
         return total;
     }
 
     public void optimizeEveryRequestedMinutes (int minutes) {
-        BraindeadOptimizationStrategyImpl braindeadOptimizationStrategy = new BraindeadOptimizationStrategyImpl();
 
+        strategy.optimize(this.dataCenter);
         /////
 
     }
@@ -35,7 +35,8 @@ public class DataCenterService{
     public boolean allocateResources(ResourceRequest request) {
 
 
-        return true;
+
+        return false;
     }
 
     public boolean releaseResources(ResourceRequest request) {
