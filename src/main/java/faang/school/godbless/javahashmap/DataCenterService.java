@@ -1,6 +1,6 @@
 package faang.school.godbless.javahashmap;
 
-public class DataCenterService {
+public class DataCenterService implements OptimizationStrategy{
     public static void addServer(Server server) {
         DataCenter.getServers().add(server);
     }
@@ -41,6 +41,24 @@ public class DataCenterService {
                 return;
             }
         }
-        System.out.println("Невозможно освободить запрошенные ресурсы. Недостаточно выделенных ресурсов.");
+        System.out.println("Невозможно высвободить запрошенные ресурсы. Недостаточно выделенных ресурсов.");
+    }
+
+    @Override
+    public void optimize(DataCenter dataCenter) {
+        while (true) {
+            for (Server server: DataCenter.getServers()) {
+                if (server.getLoad() > server.getMaxLoad()*0.8) {
+                    server.setLoad(server.getLoad() * 0.9);
+                    server.setEnergyConsumption(server.getLoad() * 10 / server.getMaxLoad());
+                }
+            }
+
+            try {
+                Thread.sleep(18*10^5);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }

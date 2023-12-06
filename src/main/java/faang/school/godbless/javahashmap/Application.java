@@ -12,11 +12,13 @@ public class Application {
         DataCenterService.addServer(server2);
         DataCenterService.addServer(server3);
 
-        ResourceRequest request = new ResourceRequest(47);
+        ResourceRequest request = new ResourceRequest(1300);
 
         DataCenterService.allocateResources(request);
         DataCenterService.releaseResources(request);
 
+
         System.out.println("Общее энергопотребление: " + DataCenterService.getTotalEnergyConsumption());
+
     }
 }
