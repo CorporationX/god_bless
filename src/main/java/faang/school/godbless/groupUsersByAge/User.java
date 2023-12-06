@@ -1,5 +1,7 @@
 package faang.school.godbless.groupUsersByAge;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,6 +10,7 @@ import java.util.Map;
 
 public class User {
     private String name;
+    @Getter
     private int age;
     private String work;
     private String address;
@@ -17,23 +20,13 @@ public class User {
         this.age = age;
     }
 
-    public User() {
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public static Map<Integer,List<User>> groupUsers(List<User> users){
-        Map<Integer,List<User>> groupedUsers = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            if (groupedUsers.containsKey(user.getAge())) {
-                groupedUsers.get(user.getAge()).add(user);
-            } else {
-                groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>(Arrays.asList(user)));
-            }
+            groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>(Arrays.asList()));
+            groupedUsers.get(user.getAge()).add(user);
         }
-    return groupedUsers;
+        return groupedUsers;
     }
 
     @Override
