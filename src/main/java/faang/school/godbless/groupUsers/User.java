@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class User {
     private String name;
-    private int age;
+    private Integer age;
     private String job;
     private String address;
 
-    public User(String name, int age, String job, String address) {
+    public User(String name, Integer age, String job, String address) {
         this.name = name;
         this.age = age;
         this.job = job;
@@ -23,27 +23,19 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap();
+        Map<Integer, List<User>> newUsersList = new HashMap();
         for (User user: users) {
             int key = user.getAge();
-            List<User> value = groupUsers.get(key);
+            List<User> value = newUsersList.get(key);
 
             if (value == null) {
                 value = new ArrayList<>();
             }
 
             value.add(user);
-            groupUsers.put(user.getAge(), value);
+            newUsersList.put(user.getAge(), value);
         }
 
-        return groupUsers;
-    }
-
-    @Override
-    public String toString() {
-        return "name='" + name + '\'' +
-                ", age=" + age +
-                ", workplace='" + job + '\'' +
-                ", adress='" + address;
+        return newUsersList;
     }
 }
