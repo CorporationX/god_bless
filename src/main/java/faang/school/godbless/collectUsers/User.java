@@ -18,26 +18,30 @@ public class User {
         this.activity = activity;
     }
 
-    public User(){};
-
     public Set<String> getActivity() {
         return activity;
     }
-    Map<User,String> findHobbyLovers(List<User> users, Set<String> setOfActivity){
-        Map<User,String> userStringMapResult = new HashMap<>();
+
+    static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        Map<User, String> usersHobbies = new HashMap<>();
         for (User user : users) {
-            for (String action : setOfActivity) {
+            for (String action : activities) {
                 if (user.getActivity().contains(action)) {
-                    userStringMapResult.put(user,action);
+                    usersHobbies.put(user, action);
                     break;
                 }
             }
         }
-        return userStringMapResult;
+        return usersHobbies;
     }
 
     @Override
     public String toString() {
-        return name + ", activity=" + activity;
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", activity=" + activity +
+                '}';
     }
 }
