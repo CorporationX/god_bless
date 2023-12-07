@@ -29,7 +29,7 @@ public class Battlefield {
                     creature = new Angel();
                     break;
             }
-            if (i < 10){
+            if (i < 10) {
                 hero1.addCreature(creature, 1);
             } else {
                 hero2.addCreature(creature, 1);
@@ -52,12 +52,12 @@ public class Battlefield {
         // ЦИКЛ (пока во всех армиях есть хотя бы 1 живое существо)
         while (true) {
 
-            if (hero1.getCurrentArmySize() <= 0 || hero2.getCurrentArmySize() <= 0){
+            if (hero1.getCurrentArmySize() <= 0 || hero2.getCurrentArmySize() <= 0) {
                 break;
             }
 
             // ПО ОЧЕРЕДИ Выбираем атакующего/защищающегося:
-            if (moveCounter % 2 == 0){
+            if (moveCounter % 2 == 0) {
                 attackHero = hero1;
                 defenceHero = hero2;
                 // определяем атакующее существо
@@ -77,7 +77,7 @@ public class Battlefield {
 
             // наносим урон
             // ЕСЛИ урон >= ХП - существо умерло - удаляем из списка
-            if (damage >= defenceCreature.getHealth()){
+            if (damage >= defenceCreature.getHealth()) {
                 defenceHero.removeCreature(defenceCreature, 1);
             } else {
                 defenceCreature.setHealth(defenceCreature.getHealth() - damage);
@@ -85,7 +85,7 @@ public class Battlefield {
             moveCounter++;
         }
         // Выводим сообщение о победителе
-        if (hero1.getCurrentArmySize() == 0){
+        if (hero1.getCurrentArmySize() == 0) {
             System.out.println("Player2 won!");
         } else {
             System.out.println("Player1 won!");

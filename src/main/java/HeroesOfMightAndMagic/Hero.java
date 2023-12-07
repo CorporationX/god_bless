@@ -22,26 +22,25 @@ public class Hero {
         this.army = new ArrayList<>(ARMY_MAX_VALUE);
     }
 
-    public void addCreature (Creature creature, int quantity){
-            for (int i = 0; i < quantity; i++) {
-                if (currentArmySize == ARMY_MAX_VALUE){
-                    System.out.println("Army is full");
-                }
-                army.add(creature);
-                currentArmySize++;
+    public void addCreature(Creature creature, int quantity) {
+        for (int i = 0; i < quantity; i++) {
+            if (currentArmySize == ARMY_MAX_VALUE) {
+                System.out.println("Army is full");
             }
+            army.add(creature);
+            currentArmySize++;
+        }
     }
 
-    public void removeCreature (Creature creature, int quantity){
+    public void removeCreature(Creature creature, int quantity) {
         for (int i = 0; i < quantity; i++) {
-            if (currentArmySize == 0){
+            if (currentArmySize == 0) {
                 System.out.println("Army is empty");
             }
             army.remove(creature);
             currentArmySize--;
         }
     }
-
 
 
     public String getName() {
