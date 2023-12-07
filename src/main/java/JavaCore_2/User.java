@@ -3,7 +3,7 @@ package JavaCore_2;
 import java.util.*;
 
 public class User {
-    
+
     public void User(String name, int age, String job, String address) {
         if ((!name.equals(" ")) && (!name.equals("")) && (name!=null) && (age>=18) && (VALID_JOBS.equals(job)) && (VALID_ADDRESSES.equals(address))) {
             this.name = name;
