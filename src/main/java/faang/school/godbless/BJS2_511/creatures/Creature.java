@@ -6,6 +6,7 @@ import java.util.Objects;
 
 @Data
 public abstract class Creature {
+    private static final double COEFFICIENT = 0.5;
     private String name;
     private int level;
     private int attack;
@@ -27,7 +28,8 @@ public abstract class Creature {
     }
 
     public int getDamage() {
-        return ((this.attack + this.speed) * this.level) * quantity;
+        int baseDamage = this.attack + this.speed;
+        return (int) ((baseDamage + baseDamage * COEFFICIENT * (this.level - 1)) * quantity);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package faang.school.godbless.BJS2_511;
 
-import faang.school.godbless.BJS2_511.Hero;
 import faang.school.godbless.BJS2_511.creatures.Creature;
 import lombok.Data;
-
 import java.util.List;
 import java.util.Random;
 
@@ -21,17 +19,21 @@ public class Battlefield {
         int power1 = powerCalculator(hero1.getArmy());
         int power2 = powerCalculator(hero2.getArmy());
 
+        return power1 > power2 ? hero1
+             : power1 < power2 ? hero2
+             : new Random().nextBoolean() ? hero1 : hero2;
+
+        /*
         if (power1 > power2) return hero1;
         if (power1 < power2) return hero2;
-
-        return new Random().nextBoolean() ? hero1 : hero2;
+        return new Random().nextBoolean() ? hero1 : hero2;*/
     }
 
     private int powerCalculator(List<Creature> armyList) {
         int totalPower = 0;
 
         for (Creature creature : armyList) {
-            totalPower += creature.getDefence() + creature.getDefence();
+            totalPower += creature.getDefence() + creature.getDamage();
         }
 
         return totalPower;
