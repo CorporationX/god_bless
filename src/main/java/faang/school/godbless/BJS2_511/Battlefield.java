@@ -23,10 +23,11 @@ public class Battlefield {
              : power1 < power2 ? hero2
              : new Random().nextBoolean() ? hero1 : hero2;
 
-        /*
+        /*or like this:
         if (power1 > power2) return hero1;
         if (power1 < power2) return hero2;
-        return new Random().nextBoolean() ? hero1 : hero2;*/
+        return new Random().nextBoolean() ? hero1 : hero2;
+        */
     }
 
     private int powerCalculator(List<Creature> armyList) {

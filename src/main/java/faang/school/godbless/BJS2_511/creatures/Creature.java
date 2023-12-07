@@ -15,9 +15,8 @@ public abstract class Creature {
     private int quantity;
 
     public Creature(String name, int level, int damage, int defence, int speed, int quantity) {
-        if (level < 1 || damage < 0 || defence < 0 || speed < 1 || quantity < 0) {
+        if (name == null || level < 1 || damage < 0 || defence < 0 || speed < 1 || quantity < 0)
             throw new IllegalArgumentException("Invalid parameter values");
-        }
 
         this.name = name;
         this.level = level;
@@ -26,25 +25,22 @@ public abstract class Creature {
         this.speed = speed;
         this.quantity = quantity;
     }
-
     public int getDamage() {
         int baseDamage = this.attack + this.speed;
         return (int) ((baseDamage + baseDamage * COEFFICIENT * (this.level - 1)) * quantity);
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || this.getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Creature creature = (Creature) o;
-        return name.equals(creature.name)
-                && level == creature.level
+        return level == creature.level
                 && attack == creature.attack
                 && defence == creature.defence
                 && speed == creature.speed
-                && quantity == creature.quantity;
+                && quantity == creature.quantity
+                && name.equals(creature.name);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(name, level, attack, defence, speed, quantity);
