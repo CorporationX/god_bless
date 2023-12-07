@@ -11,6 +11,6 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character character) {
-        character.setHealth(character.getHealth() - this.getHealth());
+        character.setHealth(character.getHealth() - this.getStrength());
     }
 }
