@@ -1,6 +1,9 @@
 package faang.school.godbless.bjs2_413;
 
-import lombok.*;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,13 +21,13 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
+        Map<Integer, List<User>> usersByAge = new HashMap<>();
         for (User user : users) {
-            if (!groupUsers.containsKey(user.getAge())) {
-                groupUsers.put(user.getAge(), new ArrayList<>());
+            if (!usersByAge.containsKey(user.getAge())) {
+                usersByAge.put(user.getAge(), new ArrayList<User>());
             }
-            groupUsers.get(user.getAge()).add(user);
+            usersByAge.get(user.getAge()).add(user);
         }
-        return groupUsers;
+        return usersByAge;
     }
 }

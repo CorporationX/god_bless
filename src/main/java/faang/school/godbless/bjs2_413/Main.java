@@ -1,6 +1,7 @@
 package faang.school.godbless.bjs2_413;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,12 +22,18 @@ public class Main {
                 .age(23)
                 .build();
 
-
         List<User> users = List.of(user1, user2, user3, user4);
 
-        User.groupUsers(users);
-        for (User user : users) {
-            System.out.println(user.getAge() + " - " + user.getName());
+//        for (Map.Entry<Integer, List<User>> entry : User.groupUsers(users).entrySet()) {
+//            System.out.println( entry.getKey() +" - " + entry.getValue());
+//        }
+        Map<Integer, List<User>> groupAge = User.groupUsers(users);
+        for (Map.Entry<Integer, List<User>> entry : groupAge.entrySet()) {
+            System.out.print(entry.getKey() + " - ");
+            for (User user : entry.getValue()) {
+                System.out.print(user.getName() + " ");
+            }
+            System.out.println("\n");
         }
     }
 }
