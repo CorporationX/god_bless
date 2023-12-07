@@ -9,7 +9,8 @@ public class Angel extends Creature {
     public static final int ANGEL_DEFAULT_QUANTITY = 1;
 
     public Angel(int quantity) {
-        super(ANGEL_DEFAULT_NAME, ANGEL_DEFAULT_LEVEL, ANGEL_DEFAULT_DAMAGE, ANGEL_DEFAULT_DEFENSE, ANGEL_DEFAULT_SPEED, quantity);
+        super(ANGEL_DEFAULT_NAME, ANGEL_DEFAULT_LEVEL, ANGEL_DEFAULT_DAMAGE, ANGEL_DEFAULT_DEFENSE, ANGEL_DEFAULT_SPEED
+                , quantity);
     }
 
     @Override
