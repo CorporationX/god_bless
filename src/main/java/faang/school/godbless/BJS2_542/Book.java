@@ -27,4 +27,11 @@ public class Book {
     public int hashCode() {
         return Objects.hash(title, author, year);
     }
+
+    @Override
+    public String toString() {
+        return "title: " + title + ", "+
+               "author " + author + ", " +
+               "year " + year;
+    }
 }
