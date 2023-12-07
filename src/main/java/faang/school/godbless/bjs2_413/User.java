@@ -21,13 +21,13 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> usersByAge = new HashMap<>();
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : users) {
-            if (!usersByAge.containsKey(user.getAge())) {
-                usersByAge.put(user.getAge(), new ArrayList<User>());
+            if (!groupUsers.containsKey(user.getAge())) {
+                groupUsers.put(user.getAge(), new ArrayList<User>());
             }
-            usersByAge.get(user.getAge()).add(user);
+            groupUsers.get(user.getAge()).add(user);
         }
-        return usersByAge;
+        return groupUsers;
     }
 }
