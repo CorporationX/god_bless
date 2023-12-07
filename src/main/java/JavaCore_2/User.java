@@ -3,18 +3,15 @@ package JavaCore_2;
 import java.util.*;
 
 public class User {
-
-    public User() {}
-
-    public IllegalArgumentException User(String name, int age, String job, String address) {
+    
+    public void User(String name, int age, String job, String address) {
         if ((!name.equals(" ")) && (!name.equals("")) && (name!=null) && (age>=18) && (VALID_JOBS.equals(job)) && (VALID_ADDRESSES.equals(address))) {
             this.name = name;
             this.age = age;
             this.job = job;
             this.address = address;
         } else
-            return new IllegalArgumentException();
-        return null;
+            throw new IllegalArgumentException();
     }
 
     private String name;
@@ -34,38 +31,6 @@ public class User {
             usersGroups.get(user.getAge()).add(user);
         }
         return usersGroups;
-    }
-
-    public IllegalArgumentException setName(String name) {
-        if ((!name.equals(" ")) && (!name.equals("")) && (name!=null))
-            this.name = name;
-        else
-            return new IllegalArgumentException();
-        return null;
-    }
-
-    public IllegalArgumentException setAge(int age) {
-        if (age>=18)
-            this.age = age;
-        else
-            return new IllegalArgumentException();
-        return null;
-    }
-
-    public IllegalArgumentException setJob(String job) {
-        if (VALID_JOBS.equals(job))
-            this.job = job;
-        else
-            return new IllegalArgumentException();
-        return null;
-    }
-
-    public IllegalArgumentException setAddress(String address) {
-        if (VALID_ADDRESSES.equals(address))
-            this.address = address;
-        else
-            return new IllegalArgumentException();
-        return null;
     }
 
     public String getName() {
