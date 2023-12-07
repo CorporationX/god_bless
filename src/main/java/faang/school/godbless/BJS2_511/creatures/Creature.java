@@ -14,6 +14,10 @@ public abstract class Creature {
     private int quantity;
 
     public Creature(String name, int level, int damage, int defence, int speed, int quantity) {
+        if (level < 1 || damage < 0 || defence < 0 || speed < 1 || quantity < 0) {
+            throw new IllegalArgumentException("Invalid parameter values");
+        }
+
         this.name = name;
         this.level = level;
         this.attack = damage;
