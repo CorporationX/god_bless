@@ -1,10 +1,14 @@
 package faang.school.godbless.BJS2_542;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.util.Objects;
 
 //@EqualsAndHashCode
+@AllArgsConstructor
+@Data
 public class Book {
     private String title;
     private String author;
