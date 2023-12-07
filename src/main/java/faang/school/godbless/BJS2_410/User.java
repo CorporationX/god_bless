@@ -3,16 +3,20 @@ package faang.school.godbless.BJS2_410;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
+import java.util.HashMap;
+
 
 @Data
 @AllArgsConstructor
 public class User {
 
-    private long id;
+    //private static final AtomicLong idGenerator = new AtomicLong(1);
+    //private final long id;
+    private final UUID id;
     private String name;
     private int age;
     private Set<String> activities;
@@ -21,8 +25,8 @@ public class User {
         this.name = name;
         this.age = age;
         this.activities = activities;
-
-        this.id = (long)name.hashCode() + age;
+        //this.id = idGenerator.getAndIncrement();
+        this.id = UUID.randomUUID();
     }
 
     public static Map<User, String> findHobbyLovers (List<User> userList, Set<String> activitySet) {
@@ -39,5 +43,4 @@ public class User {
         }
         return resultMap;
     }
-
 }
