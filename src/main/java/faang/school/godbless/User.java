@@ -47,6 +47,7 @@ public class User {
         return name;
     }
 
+    @Override
     public String toString(){
         return getName();
     }
