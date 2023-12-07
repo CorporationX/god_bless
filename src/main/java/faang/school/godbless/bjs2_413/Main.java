@@ -25,14 +25,14 @@ public class Main {
         List<User> users = List.of(user1, user2, user3, user4);
 
 //        for (Map.Entry<Integer, List<User>> entry : User.groupUsers(users).entrySet()) {
-//            System.out.println( entry.getKey() +" - " + entry.getValue());
-//        }
+//            System.out.println( entry.getKey() +" - " + entry.getValue().toString());
+////        }
         Map<Integer, List<User>> groupAge = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : groupAge.entrySet()) {
             System.out.print(entry.getKey() + " - ");
             for (User user : entry.getValue()) {
                 System.out.print(user.getName() + " ");
-            }
+              }
             System.out.println("\n");
         }
     }
