@@ -1,17 +1,17 @@
 package userCollection;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class User {
     private int id;
     private String name;
     private int age;
-    private String[] activity;
+    private Set<String> activity;
 
-    public User(int id, String name, int age, String[] activity) {
+    public User(int id, String name, int age, Set<String> activity) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -42,11 +42,11 @@ public class User {
         this.age = age;
     }
 
-    public String[] getActivity() {
+    public Set<String> getActivity() {
         return activity;
     }
 
-    public void setActivity(String[] activity) {
+    public void setActivity(Set<String> activity) {
         this.activity = activity;
     }
 
@@ -56,18 +56,16 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
-                ", activity=" + Arrays.toString(activity) +
+                ", activity=" + activity +
                 '}';
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, String[] act) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> act) {
 
         Map<User, String> result = new HashMap<>();
-        Arrays.sort(act);
-
         for (User u : users) {
             for (String a : act) {
-                if (Arrays.binarySearch(u.activity, a) > -1) {
+                if (u.activity.contains(a)) {
                     result.put(u, a);
                     break;
                 }
