@@ -10,12 +10,13 @@ import java.util.stream.Collectors;
 
 @Getter
 public class User {
-    private final String name;
-    private final int age;
-    private final String workplace;
-    private final String address;
     private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+
+    private String name;
+    private int age;
+    private String workplace;
+    private String address;
 
     public User(String name, int age, String workplace, String address) {
         validateUserInput(name, age, workplace, address);
@@ -52,7 +53,9 @@ public class User {
     }
 
     private static void validateAge(final int age) {
-        if (age < 18) {
+        boolean isUserAdult = age >= 18;
+
+        if (!isUserAdult) {
             throw new IllegalArgumentException("You're too young for this, bud");
         }
     }
