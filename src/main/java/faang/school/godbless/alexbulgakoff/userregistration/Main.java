@@ -22,7 +22,7 @@ public class Main {
 
         try {
             User exceptionUser = new User(
-                    "Alex", 17, "Uber", "Amsterdam");
+                    "Alex", 18, "Uber", "");
             System.out.println(exceptionUser);
             Thread.sleep(5000);
         } catch (InterruptedException e) {
