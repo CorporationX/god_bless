@@ -1,30 +1,26 @@
 package faang.school.godbless.users;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Getter
 public class User {
-    private final String name;
-    private final int age;
-    private final String workplace;
-    private final String address;
-
-    public User() {
-        name = "Nikita";
-        age = 27;
-        workplace = "Home";
-        address = "-";
-    }
+    private String name;
+    private int age;
+    private String workplace;
+    private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> usersGroupByAge = users.stream()
                 .collect(Collectors.groupingBy(User::getAge,
                         Collectors.toList()));
 
+        System.out.println(usersGroupByAge);
         return usersGroupByAge;
     }
 }
