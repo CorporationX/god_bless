@@ -12,14 +12,13 @@ public class Hero {
     protected String fraction;
     protected int experience;
     protected int level;
-    protected Map<Creature, Integer> heroArmy;
+    protected Map<Creature, Integer> heroArmy = new HashMap<>();
 
     public Hero(String name, String fraction, int experience, int level) {
         this.name = name;
         this.fraction = fraction;
         this.experience = experience;
         this.level = level;
-        this.heroArmy = new HashMap<>();
     }
 
     public void addCreature(Creature creature, int quantity) {
@@ -39,5 +38,12 @@ public class Hero {
 
     public Map<Creature, Integer> getArmy() {
         return heroArmy;
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
