@@ -19,9 +19,9 @@ public class Main {
         addIndexWebPage(listWebPage.get(2));
 
         removeIndexWebPage("несущуствующий url");
-        removeIndexWebPage("https://example.com/page1");
+        removeIndexWebPage("https://example.com/page3");
 
-        System.out.println(returnIndexWebPage("страница") + "\n");
+        System.out.println(returnIndexWebPage("web") + "\n");
 
         infoIndexWebPage("https://example.com/page2");
     }
@@ -29,12 +29,12 @@ public class Main {
         WebPage page1 = new WebPage();
         page1.setUrl("https://example.com/page1");
         page1.setTitle("Page 1 Title");
-        page1.setContent("Эта страница содержит интересную информацию о программировании.");
+        page1.setContent("Эта web страница содержит интересную информацию о программировании.");
 
         WebPage page2 = new WebPage();
         page2.setUrl("https://example.com/page2");
         page2.setTitle("Page 2 Title");
-        page2.setContent("На этой страница вы найдете полезные советы по обучению новым технологиям.");
+        page2.setContent("На этой web страницe вы найдете полезные советы по обучению новым технологиям.");
 
         WebPage page3 = new WebPage();
         page3.setUrl("https://example.com/page3");
@@ -52,7 +52,7 @@ public class Main {
         String content = webPage.getContent();
 
         List<String> keyWords = Arrays.stream(content.toLowerCase().split("\\s+"))
-                .map(x -> x.replaceAll("[^а-яА-Я]", "")).distinct().toList();
+                .map(x -> x.replaceAll("[^a-zA-Zа-яА-Я]", "")).distinct().toList();
 
         for (String keyWord: keyWords) {
             if (!indexWebPages.containsKey(keyWord)) {
