@@ -1,4 +1,4 @@
-package users;
+package faang.school.godbless.users;
 
 import java.util.ArrayList;
 import java.util.List;
