@@ -59,7 +59,6 @@ public class Hero {
     public List<String> getArmy() {
         return listArmy;
     }
-
     public static int getCreatureAtrack(String creatureName) {
         switch (creatureName) {
             case "Swordman":
