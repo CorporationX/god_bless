@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,7 +32,11 @@ public class User {
         users.forEach(user -> {
             user.getActivities().stream()
                     .filter(activities::contains)
-                    .forEach(activity -> result.put(user, user.getActivities().iterator().next()));
+                    .map(activity -> new HashSet<>(activities))
+                    .forEachOrdered(retain -> {
+                retain.retainAll(user.getActivities());
+                result.put(user, retain.iterator().next());
+            });
         });
 
         return result;
