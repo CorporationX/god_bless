@@ -1,11 +1,10 @@
 package faang.school.godbless.Hiroes;
 
 import lombok.Getter;
-
+//@Getter
 public abstract class Creature {
     protected String name;
     protected int level;
-    @Getter
     protected int damage;
     protected int defence;
     protected int speed;

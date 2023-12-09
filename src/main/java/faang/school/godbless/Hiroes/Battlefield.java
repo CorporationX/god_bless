@@ -27,7 +27,7 @@ public class Battlefield {
             move++;
 
         }
-        if (armyHero.size() == 0) {
+        if (armyHero.isEmpty()) {
             return hero1;
         } else {
             return hero;
