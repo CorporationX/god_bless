@@ -1,7 +1,7 @@
 package faang.school.godbless.abstraction;
 
 public class Main {
-    public static void main(String [] args){
+    public static void main(String[] args) {
         Warrior warrior = new Warrior("воин");
         Archer archer = new Archer("лучник");
         warrior.attack(archer);
