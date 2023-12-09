@@ -24,9 +24,6 @@ public class Main {
         products = Set.of(pen, pencil, pan, pot, spoon, shirt, jeans);
 
         getAllProducts(groupProductsByCategory(products));
-
-
-
     }
 
     public static Map<String, List<Product>> groupProductsByCategory(Set<Product> set) {
