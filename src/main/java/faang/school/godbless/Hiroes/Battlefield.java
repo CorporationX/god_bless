@@ -18,7 +18,7 @@ public class Battlefield {
 
     public Hero battle() {
         int move = 0;
-        for (int i = 0; i<armyHero.size() || i< armyHero1.size(); i++){
+        for (int i = 0; i < armyHero.size() || i < armyHero1.size(); i++) {
             if (move % 2 == 0) {
                 armyHero.remove(armyHero.get(1));
             } else {

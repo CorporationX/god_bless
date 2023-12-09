@@ -23,19 +23,14 @@ public class Hero {
     }
 
     public void addCreature(Creature creature, int quantity) {
-                for (int i = 0; i < quantity; i++) {
-                    if(army.size()<MAX_ARMY) {
-                        army.add(creature);
-                    }else {
-                        throw new IllegalArgumentException("The " + name + "'s maximum size of the army has been reached");
+        for (int i = 0; i < quantity; i++) {
+            if (army.size() < MAX_ARMY) {
+                army.add(creature);
+            } else {
+                throw new IllegalArgumentException("The " + name + "'s maximum size of the army has been reached");
 
-                    }
-                }
-
-    }
-
-    public void removeCreature(Creature creature, int quantity) {
-        army.remove(creature);
+            }
+        }
 
     }
 
