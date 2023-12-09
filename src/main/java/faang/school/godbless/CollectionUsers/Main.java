@@ -1,9 +1,9 @@
-package faang.school.godbless;
+package faang.school.godbless.CollectionUsers;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static faang.school.godbless.User.findHobbyLovers;
+import static faang.school.godbless.CollectionUsers.User.findHobbyLovers;
 
 public class Main {
     public static void main(String[] args) {
