@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Reverse;
 
 public class Example {
     public static void reverse(int[] array) {
