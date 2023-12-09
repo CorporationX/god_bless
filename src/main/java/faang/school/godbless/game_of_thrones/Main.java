@@ -32,9 +32,10 @@ public class Main {
     }
 
     public static void getHouseInfo(House house) {
-        if (houseMap.containsKey(house.getName())) {
-            System.out.println(houseMap.get(house.getName()).getName() + " sigil is " +
-                    houseMap.get(house.getName()).getSigil());
+        String houseName = house.getName();
+        if (houseMap.containsKey(houseName)) {
+            System.out.println(houseMap.get(houseName).getName() + " sigil is " +
+                    houseMap.get(houseName).getSigil());
         } else {
             System.out.println("The house was not found!");
         }
