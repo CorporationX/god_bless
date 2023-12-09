@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.javahashmap.t;
 
 import java.util.*;
 
@@ -13,7 +13,7 @@ public class Main {
         userList.add(user2);
         userList.add(user3);
 
-        Set<String> targetActivities = new HashSet<>(Arrays.asList("Reading", "Music"));
+        Set<String> targetActivities = Set.of("Reading", "Music");
 
         print(User.findHobbyLovers(userList, targetActivities));
 
