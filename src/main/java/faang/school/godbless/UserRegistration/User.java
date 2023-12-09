@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.UserRegistration;
 
 import lombok.Getter;
 import lombok.ToString;
