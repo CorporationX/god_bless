@@ -4,7 +4,7 @@ public class Archer extends Character{
 
     @Override
     protected void attack(Character character) {
-        character.Health=character.Health-this.Force;
+        character.health=character.health-this.force;
     }
 
     public Archer(String name) {

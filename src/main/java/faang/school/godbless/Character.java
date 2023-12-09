@@ -6,20 +6,20 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    protected String Name;
-    protected Long Force;
-    protected Long Dexterity;
-    protected Long Intelligence;
-    protected Long Health = 100l;
+    protected String name;
+    protected long force;
+    protected long dexterity;
+    protected long intelligence;
+    protected long health = 100l;
 
     public Character(String name) {
-        Name = name;
+        this.name = name;
     }
 
-    public Character(Long force, Long dexterity, Long intelligence) {
-        Force = force;
-        Dexterity = dexterity;
-        Intelligence = intelligence;
+    public Character(long force, long dexterity, long intelligence) {
+        this.force = force;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
     }
 
     protected abstract void attack(Character character);
