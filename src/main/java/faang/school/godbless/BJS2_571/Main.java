@@ -1,10 +1,13 @@
 package faang.school.godbless.BJS2_571;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
-    public static Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
-    public static Map<String, List<StreamEvent>> streamEventByTypeMap = new HashMap<>();
+    public static Map<Integer, StreamEvent> streamEvents = new HashMap<>();
+    public static Map<String, List<StreamEvent>> streamEventsByType = new HashMap<>();
 
     public static void main(String[] args) {
         StreamEvent streamEvent1 = new StreamEvent("some event", "data data");
@@ -13,7 +16,6 @@ public class Main {
         StreamEvent streamEvent4 = new StreamEvent("another event", "another data");
         StreamEvent streamEvent5 = new StreamEvent("some event", "data data");
         StreamEvent streamEvent6 = new StreamEvent("same type", "ATAD");
-
 
         addEvent(streamEvent1);
         addEvent(streamEvent2);
@@ -29,34 +31,32 @@ public class Main {
         infoAllStreamEvent();
     }
 
-    public static void addEvent (StreamEvent streamEvent) {
-        streamEventMap.put(streamEvent.getId(), streamEvent);
+    public static void addEvent(StreamEvent streamEvent) {
+        streamEvents.put(streamEvent.getId(), streamEvent);
 
-        streamEventByTypeMap.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>())
+        streamEventsByType.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>())
                 .add(streamEvent);
     }
-    public static StreamEvent findById (int id) {
-        return streamEventMap.get(id);
-    }
-    public static List<StreamEvent> findByEventType (String eventType) {
-        return streamEventByTypeMap.get(eventType);
-    }
-    public static void removeStreamEventById(int id) {
-        StreamEvent removedEvent = streamEventMap.remove(id);
-        if (removedEvent == null)
-            throw new NoSuchElementException();
 
-        streamEventByTypeMap.get(removedEvent.getEventType()).remove(removedEvent);
+    public static StreamEvent findById(int id) {
+        return streamEvents.get(id);
     }
-    public static void infoAllStreamEvent () {
-        for (var entry : streamEventMap.entrySet()) {
-            StreamEvent currentEvent = entry.getValue();
-            System.out.printf("id: %s. Event type: %s. Event data: %s.%n",
-                    currentEvent.getId(), currentEvent.getEventType(), currentEvent.getData());
+
+    public static List<StreamEvent> findByEventType(String eventType) {
+        return streamEventsByType.get(eventType);
+    }
+
+    public static void removeStreamEventById(int id) {
+        StreamEvent removedEvent = streamEvents.remove(id);
+        if (removedEvent != null) {
+            streamEventsByType.get(removedEvent.getEventType()).remove(removedEvent);
         }
-        /*streamEventMap.values().forEach(currentEvent ->
+    }
+
+    public static void infoAllStreamEvent() {
+        streamEvents.values().forEach(event ->
                 System.out.printf("id: %s. Event type: %s. Event data: %s.%n"
-                        , currentEvent.getId(), currentEvent.getEventType(), currentEvent.getData())
-        );*/
+                        , event.getId(), event.getEventType(), event.getData())
+        );
     }
 }
