@@ -1,4 +1,4 @@
-package faang.school.godbless.userregistration;
+package faang.school.godbless.javacore.userregistration;
 
 public class RegistrationApp {
 
