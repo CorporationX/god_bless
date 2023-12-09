@@ -18,9 +18,11 @@ public class Main {
 
         infoAllBook();
     }
+
     public static void addBook (Book book, String location) {
         library.put(book, location);
     }
+
     public static void removeBook(String title, String author, int year) {
         library.remove(new Book(title, author, year));
     }
@@ -33,6 +35,7 @@ public class Main {
 
         System.out.printf("Location of book: %s is: \" %s \"", book, location);
     }
+
     public static void infoAllBook() {
         System.out.println("Here are all the books: \n");
         library.forEach((book, location) -> System.out.printf("Location of book \"%s\" is: \"%s\"%n", book, location));
