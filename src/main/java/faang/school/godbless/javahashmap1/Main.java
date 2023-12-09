@@ -1,4 +1,6 @@
-package faang.school.godbless.javahashmap.t;
+package faang.school.godbless.javahashmap1;
+
+import faang.school.godbless.javahashmap1.User;
 
 import java.util.*;
 
