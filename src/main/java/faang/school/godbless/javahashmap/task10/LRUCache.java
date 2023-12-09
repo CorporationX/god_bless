@@ -1,13 +1,15 @@
 package faang.school.godbless.javahashmap.task10;
 
 import java.util.HashMap;
+
 @lombok.Data
 public class LRUCache {
 
-    public int CACHE_SIZE = 3;
+    public int CACHE_SIZE = 4;
     public HashMap<Integer, Node> cache;
     public Node head;
     public Node tail;
+
     public LRUCache() {
         this.cache = new HashMap<>();
         this.head = new Node(-1, null);
@@ -19,16 +21,14 @@ public class LRUCache {
     }
 
     public Data get(int key) {
-        if(!cache.containsKey(key)){
+        if (!cache.containsKey(key)) {
             return null;
         }
         Node node = cache.get(key);
         moveToHead(node);
+
         return node.getData();
     }
-
-
-
 
     public void add(Data data) {
         int key = data.getId();
@@ -46,6 +46,7 @@ public class LRUCache {
             cache.put(key, node);
         }
     }
+
 
     public void moveToHead(Node node) {
         remove(node);
