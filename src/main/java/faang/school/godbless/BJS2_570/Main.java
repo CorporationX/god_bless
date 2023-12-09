@@ -26,8 +26,10 @@ public class Main {
     }
 
     public static String getWeatherData(String city) {
+        String pattern = "city: %s, temperature: %.2f, humidity: %.2f";
+
         return Optional.of(weatherDataMap.computeIfAbsent(city, key -> WeatherService.fetchWeatherData(key)))
-                .map(data -> String.format("city: %s, temperature: %.2f, humidity: %.2f", data.getCity(), data.getTemperature(), data.getHumidity()))
+                .map(data -> String.format(pattern, data.getCity(), data.getTemperature(), data.getHumidity()))
                 .orElse("Data not found");
     }
 
@@ -41,11 +43,5 @@ public class Main {
 
     public static void infoAllCitiesData() {
         weatherDataMap.keySet().forEach(city -> System.out.println(getWeatherData(city)));
-    }
-}
-
-class WeatherService {
-    public static WeatherData fetchWeatherData(String city) {
-        return new WeatherData(city, 15.5, 57.0);
     }
 }
