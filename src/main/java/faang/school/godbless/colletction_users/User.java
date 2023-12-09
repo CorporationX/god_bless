@@ -26,6 +26,7 @@ public class User {
                 if (strings.contains(str)) {
                     map.put(user, str);
                 }
+                break;
             }
         }
         return map;
