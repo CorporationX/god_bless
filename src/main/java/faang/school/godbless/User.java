@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
+@AllArgsConstructor
 public class User {
     private int id;
     private String name;
