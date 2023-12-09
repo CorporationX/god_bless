@@ -1,8 +1,9 @@
 package faang.school.godbless.javahashmap;
 
-public class Pikeman extends Creature{
+import lombok.Data;
 
+public class Pikeman extends Creature{
     public Pikeman(String name, int level) {
-        super(name, level, 169, 7, 3);
+        super(name, level, 100, 20, 7, 3);
     }
 }
