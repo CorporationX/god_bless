@@ -9,7 +9,7 @@ public abstract class Creature {
     protected int level;
     @Getter
     protected int attack;
-    protected int Armor;
+    protected int armor;
     protected int speed;
     @Getter
     protected int amount;
@@ -18,7 +18,7 @@ public abstract class Creature {
         this.name = name;
         this.level = level;
         this.attack = attack;
-        Armor = armor;
+        this.armor = armor;
         this.speed = speed;
         this.amount = amount;
     }
@@ -31,13 +31,13 @@ public abstract class Creature {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Creature creature)) return false;
-        return level == creature.level && attack == creature.attack && Armor == creature.Armor
-                && speed == creature.speed && amount == creature.amount && Objects.equals(name, creature.name);
+        return level == creature.level && attack == creature.attack && armor == creature.armor
+                && speed == creature.speed && Objects.equals(name, creature.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, level, attack, Armor, speed, amount);
+        return Objects.hash(name, level, attack, armor, speed);
     }
 
     @Override

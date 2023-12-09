@@ -10,6 +10,7 @@ public class Swordman extends Creature {
     public String toString() {
         return "Swordman{" +
                 "name='" + name + '\'' +
+                ", amount=" + amount +
                 '}';
     }
 }

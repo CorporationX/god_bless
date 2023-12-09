@@ -18,11 +18,21 @@ public class Battlefield {
         while (true) {
             (getAttackItem(army1)).getDamage(getAttackItem(army2));
             if (getAttackItem(army1) == null) {
+                updateArmy(secondHero, army2);
                 return secondHero;
             }
             (getAttackItem(army2)).getDamage(getAttackItem(army1));
             if (getAttackItem(army2) == null) {
+                updateArmy(firstHero, army1);
                 return firstHero;
+            }
+        }
+    }
+
+    private void updateArmy(Hero hero, List<Creature> army) {
+        for (Creature creature : army) {
+            if (creature.getAmount() < 0) {
+                hero.removeCreature(creature, 1);
             }
         }
     }
