@@ -1,4 +1,4 @@
-package faang.school.godbless.task_1;
+package faang.school.godbless.HeroesOfMagic;
 
 public class Angel extends Creature{
     public Angel(int quantity) {

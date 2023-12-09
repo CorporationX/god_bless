@@ -1,4 +1,4 @@
-package faang.school.godbless.task_1;
+package faang.school.godbless.HeroesOfMagic;
 
 public class Griffin extends Creature{
     public Griffin(int quantity) {

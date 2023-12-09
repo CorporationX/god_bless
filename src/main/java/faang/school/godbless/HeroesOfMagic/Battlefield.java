@@ -1,4 +1,4 @@
-package faang.school.godbless.task_1;
+package faang.school.godbless.HeroesOfMagic;
 
 public class Battlefield {
     public void battle(Hero hero1, Hero hero2) {
