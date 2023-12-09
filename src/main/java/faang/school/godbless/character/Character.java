@@ -10,14 +10,14 @@ public abstract class Character {
     private int strength;
     private int agility;
     private int intelligence;
-    @Setter(AccessLevel.PROTECTED) private int health = 100;
+    @Setter(AccessLevel.PROTECTED)
+    private int health = 100;
 
-    public Character (
+    public Character(
             String name,
             int strength,
             int agility,
-            int intelligence)
-    {
+            int intelligence) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
