@@ -18,14 +18,13 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> resultMap = new HashMap<>();
-        users.stream()
-                .filter(user -> user.getActivities().stream().anyMatch(activities::contains))
-                .forEach(user -> user.getActivities()
-                        .forEach(activity -> {
-                            if (activities.contains(activity)) {
-                                resultMap.put(user, activity);
-                            }
-                        }));
+        for(User user: users) {
+            for (String activity: user.getActivities()) {
+                if (activities.contains(activity)) {
+                    resultMap.put(user, activity);
+                }
+            }
+        }
         return resultMap;
     }
 
