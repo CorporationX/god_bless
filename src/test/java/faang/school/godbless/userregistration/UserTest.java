@@ -1,5 +1,6 @@
 package faang.school.godbless.userregistration;
 
+import faang.school.godbless.javacore.userregistration.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
