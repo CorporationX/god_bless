@@ -1,5 +1,6 @@
 package faang.school.godbless.alexbulgakoff.gameofthrones;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +14,6 @@ public interface HouseService {
 
     void searchHouse(String name);
 
-    void getAllHouse(Map<String, House> houses);
-
+    List<Map<String, House>> getAllHouse();
 
 }

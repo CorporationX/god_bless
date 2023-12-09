@@ -22,13 +22,13 @@ public class Main {
         houseService.addHouse(lannister);
         houseService.addHouse(baration);
 
-        houseService.getAllHouse(vesterosHouse);
+        System.out.println(houseService.getAllHouse());
 
         houseService.deleteHouseByName("Baration");
 
         System.out.println("All houses after remove");
         System.out.println();
-        houseService.getAllHouse(vesterosHouse);
+        System.out.println(houseService.getAllHouse());
 
         System.out.println();
         houseService.searchHouse("lannister");

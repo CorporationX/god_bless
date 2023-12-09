@@ -1,5 +1,7 @@
 package faang.school.godbless.alexbulgakoff.gameofthrones;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,8 +36,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public void getAllHouse(Map<String, House> houses) {
-        houses.forEach((key, value) ->
-                System.out.println("House name: " + key + "\n" + "Sigil: " + value.getSigil() + "\n"));
+    public List<Map<String, House>> getAllHouse() {
+        List<Map<String, House>> result = new ArrayList<>();
+
+        result.add(houses);
+
+        return result;
     }
 }
