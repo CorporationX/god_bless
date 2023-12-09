@@ -12,7 +12,7 @@ public interface HouseService {
 
     void deleteHouseByName(String name);
 
-    void searchHouse(String name);
+    String searchHouse(String name);
 
     List<Map<String, House>> getAllHouse();
 
