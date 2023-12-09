@@ -15,7 +15,6 @@ public class Main {
         Set<String> activityUser1 = Set.of("guitar", "football", "programming");
         Set<String> activityUser2 = Set.of("drawing", "skateboarding", "singing");
         Set<String> activityUser3 = Set.of("swimming", "running", "wrestling");
-
         Set<String> activityUser4 = Set.of("drawing");
         Set<String> activityUser5 = Set.of("wrestling");
 

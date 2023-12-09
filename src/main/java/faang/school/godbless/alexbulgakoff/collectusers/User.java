@@ -1,11 +1,11 @@
 package faang.school.godbless.alexbulgakoff.collectusers;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +15,7 @@ import java.util.Set;
  */
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode
 @ToString
 public class User {
 
@@ -29,15 +30,13 @@ public class User {
     static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> result = new HashMap<>();
 
-        users.forEach(user -> {
-            user.getActivities().stream()
-                    .filter(activities::contains)
-                    .map(activity -> new HashSet<>(activities))
-                    .forEachOrdered(retain -> {
-                retain.retainAll(user.getActivities());
-                result.put(user, retain.iterator().next());
-            });
-        });
+        for (User user:users) {
+            for (String activity: activities) {
+                if (user.getActivities().contains(activity)) {
+                    result.put(user, activity);
+                }
+            }
+        }
 
         return result;
     }
