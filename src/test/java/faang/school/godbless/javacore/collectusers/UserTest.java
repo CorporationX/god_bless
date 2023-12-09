@@ -28,8 +28,8 @@ class UserTest {
                 TEST_USERS.get(3), "Cooking",
                 TEST_USERS.get(4), "Gaming",
                 TEST_USERS.get(5), "Swimming",
-                TEST_USERS.get(6), "Cooking",
-                TEST_USERS.get(7), "Cooking",
+                TEST_USERS.get(6), "Swimming",
+                TEST_USERS.get(7), "Gaming",
                 TEST_USERS.get(8), "Gaming"
         );
         Set<String> activities = Set.of("Gaming", "Swimming", "Cooking");

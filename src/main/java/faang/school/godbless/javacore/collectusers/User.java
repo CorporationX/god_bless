@@ -3,10 +3,10 @@ package faang.school.godbless.javacore.collectusers;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -17,16 +17,16 @@ public class User {
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        return users.stream()
+        Map<User, String> resultMap = new HashMap<>();
+        users.stream()
                 .filter(user -> user.getActivities().stream().anyMatch(activities::contains))
-                .collect(Collectors.toMap(
-                        user -> user,
-                        user -> user.getActivities().stream()
-                                .sorted()
-                                .filter(activities::contains)
-                                .findFirst()
-                                .get()
-                ));
+                .forEach(user -> user.getActivities()
+                        .forEach(activity -> {
+                            if (activities.contains(activity)) {
+                                resultMap.put(user, activity);
+                            }
+                        }));
+        return resultMap;
     }
 
 }
