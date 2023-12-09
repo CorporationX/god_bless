@@ -17,27 +17,19 @@ public class Battlefield {
     }
 
     public Hero battle() {
-        int damageArmyHero = 0;
-        int defenceArmyHero = 0;
-        for (Creature creature : armyHero) {
-            for (int i = 0; i < armyHero.size(); i++) {
-                damageArmyHero += creature.damage;
-                defenceArmyHero += creature.defence;
+        int move = 0;
+        for (int i = 0; i<armyHero.size() || i< armyHero1.size(); i++){
+            if (move % 2 == 0) {
+                armyHero.remove(armyHero.get(1));
+            } else {
+                armyHero1.remove(armyHero1.get(1));
             }
+            move++;
+
         }
-        int powerArmyHero =damageArmyHero+defenceArmyHero;
-        int damageArmyHero1=0;
-        int defenceArmyHero1=0;
-        for (Creature creature : armyHero1){
-            for (int i = 0; i < armyHero1.size(); i++) {
-                damageArmyHero1+=creature.damage;
-                defenceArmyHero1+=creature.defence;
-            }
-        }
-        int powerArmyHero1=damageArmyHero1+defenceArmyHero1;
-        if(powerArmyHero1>powerArmyHero){
+        if (armyHero.size() == 0) {
             return hero1;
-        }else {
+        } else {
             return hero;
         }
     }

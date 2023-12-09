@@ -1,8 +1,11 @@
 package faang.school.godbless.Hiroes;
 
+import lombok.Getter;
+
 public abstract class Creature {
     protected String name;
-    protected int level;
+    protected  int level;
+    @Getter
     protected int damage;
     protected int defence;
     protected int speed;
@@ -14,10 +17,6 @@ public abstract class Creature {
         this.damage = damage;
         this.defence = defence;
         this.speed = speed;
-    }
-
-    public int getDamage() {
-        return damage;
     }
 
     @Override

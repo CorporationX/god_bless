@@ -1,14 +1,17 @@
 package faang.school.godbless.Hiroes;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Hero {
-    private static final int MAX_ARMY = 10;
+    private static final int MAX_ARMY = 20;
     private String name;
     private String fraction;
     private int experience;
     private int lvl;
+    @Getter
     private List<Creature> army = new ArrayList<>(MAX_ARMY);
 
     public Hero(String name, String fraction, int experience, int lvl) {
@@ -34,10 +37,6 @@ public class Hero {
     public void removeCreature(Creature creature, int quantity) {
         army.remove(creature);
 
-    }
-
-    public List<Creature> getArmy() {
-        return army;
     }
 
     @Override
