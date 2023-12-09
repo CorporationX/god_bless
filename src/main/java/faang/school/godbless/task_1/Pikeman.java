@@ -1,8 +1,10 @@
 package faang.school.godbless.task_1;
 
 public class Pikeman extends Creature{
-    @Override
-    public int getDamage() {
-        return 0;
+
+    public Pikeman(int quantity) {
+        super("Pikeman", 2, 5, 8, 4, 10, quantity);
     }
+
+
 }
