@@ -34,6 +34,7 @@ public class User {
             for (String activity: activities) {
                 if (user.getActivities().contains(activity)) {
                     result.put(user, activity);
+                    break;
                 }
             }
         }
