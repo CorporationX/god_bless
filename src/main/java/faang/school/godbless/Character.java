@@ -20,6 +20,7 @@ public abstract class Character {
         this.force = force;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
+
     }
 
     protected abstract void attack(Character character);
