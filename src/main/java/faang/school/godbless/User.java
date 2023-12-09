@@ -16,6 +16,12 @@ public class User {
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User(String userName, int userAge, String userPlaceWork, String userAddress) {
+        if (!(userName == null)) {
+            this.userName = userName;
+        } else {
+            throw new IllegalArgumentException("Имя не должно быть пустым");
+        }
+
         if (!userName.isEmpty()) {
             this.userName = userName;
         } else {

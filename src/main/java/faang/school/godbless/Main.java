@@ -8,7 +8,7 @@ public class Main {
         System.out.println("Пользователь создан успешно.");
 
         try {
-            User invalidNameUser = new User("", 30, "Uber", "New York");
+            User invalidNameUser = new User(null, 30, "Uber", "New York");
         } catch (IllegalArgumentException e) {
             System.out.println("Ошибка при создании пользователя: " + e.getMessage());
         }
