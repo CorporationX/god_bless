@@ -1,8 +1,8 @@
-package faang.school.godbless.groupUsers;
+package faang.school.godbless.javaCore.groupUsers;
 
 import java.util.List;
 
-import static faang.school.godbless.groupUsers.User.groupUsers;
+import static faang.school.godbless.javaCore.groupUsers.User.groupUsers;
 
 public class GroupUserApp {
     public static void main(String... args) {

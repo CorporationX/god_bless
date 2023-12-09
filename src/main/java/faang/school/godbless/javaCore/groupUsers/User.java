@@ -1,4 +1,4 @@
-package faang.school.godbless.groupUsers;
+package faang.school.godbless.javaCore.groupUsers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
