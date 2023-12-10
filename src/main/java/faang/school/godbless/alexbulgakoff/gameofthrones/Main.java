@@ -31,6 +31,6 @@ public class Main {
         System.out.println(houseService.getAllHouse());
 
         System.out.println();
-        System.out.println(houseService.searchHouse("lannister"));
+        System.out.println(houseService.searchHouse("Lannister"));
     }
 }
