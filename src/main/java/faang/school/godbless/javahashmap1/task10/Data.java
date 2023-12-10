@@ -1,10 +1,10 @@
-package faang.school.godbless.javahashmap.task10;
+package faang.school.godbless.javahashmap1.task10;
 
 import java.time.LocalDateTime;
 
 
 @lombok.Data
-public class Data{
+public class Data {
     private int id;
     private int value;
     private LocalDateTime timestamp;

@@ -1,18 +1,13 @@
-package faang.school.godbless.javahashmap.task10;
+package faang.school.godbless.javahashmap1.task10;
 
 @lombok.Data
 public class Node {
-    int key;
-    Data data;
-    Node nodeRight, nodeLeft;
+    private int key;
+    private Data data;
+    private Node nodeRight, nodeLeft;
 
     public Node(Data data){
         this.key = data.getId();
-        this.data = data;
-    }
-
-    public Node(int key, Data data){
-        this.key = key;
         this.data = data;
     }
 
