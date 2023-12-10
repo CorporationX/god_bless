@@ -17,20 +17,16 @@ public class Main {
         students.add(new Student("Min", "Math", 2020));
         students.add(new Student("Bob", "IT", 2021));
 
-        Main.showSortStudents(sortedStudentsByFacultyYear(students));
-        Main.addStudent("Jerry", "IT", 2021);
-        Main.removeStudent("Bob", "IT", 2021);
+        showSortStudents(sortedStudentsByFacultyYear(students));
+        addStudent("Jerry", "IT", 2021);
+        removeStudent("Bob", "IT", 2021);
         System.out.println();
-        Main.showSortStudents(sortedStudentsByFacultyYear(students));
+        showSortStudents(sortedStudentsByFacultyYear(students));
         System.out.println();
         System.out.println("IT faculty students 2021");
-        for (Student student : Main.getStudentsByFacultyYear("IT", 2021)) {
+        for (Student student : sortedStudentsByFacultyYear(students).get("IT 2021")) {
             System.out.println(student);
         }
-    }
-
-    private static List<Student> getStudentsByFacultyYear(String faculty, int year) {
-        return Main.sortedStudentsByFacultyYear(students).get(faculty + " " + year);
     }
 
     private static void removeStudent(String name, String faculty, int year) {
