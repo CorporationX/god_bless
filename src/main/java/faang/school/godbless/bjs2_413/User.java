@@ -8,20 +8,17 @@ import java.util.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-
     private String name;
     private int age;
     private String placeWork;
-
     private String address;
 
     public User(String name, int age, String placeWork, String address) {
-        if (name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
         if (age < 18) {
