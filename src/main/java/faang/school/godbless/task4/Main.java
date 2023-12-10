@@ -80,7 +80,6 @@ class Student {
             }
         }
     }
-    
 
     public static void removeStudenYear(List<Student> students, int year) {
         Iterator<Student> iterator = students.iterator();
