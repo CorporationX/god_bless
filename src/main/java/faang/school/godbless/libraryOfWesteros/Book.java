@@ -8,9 +8,9 @@ import java.util.Objects;
 @Getter
 @AllArgsConstructor
 public class Book {
-    String title;
-    String author;
-    int year;
+    private String title;
+    private String author;
+    private int year;
 
     @Override
     public boolean equals(Object o) {
