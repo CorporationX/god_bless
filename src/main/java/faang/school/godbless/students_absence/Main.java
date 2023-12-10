@@ -9,6 +9,7 @@ public class Main {
 
     private static List<Student> students;
     private static Map<String, List<Student>> studentMap;
+    private static String yearOfFaculty;
 
     public static void main(String[] args) {
         Student student1 = new Student("Alice", "Engineering", 2019);
@@ -28,22 +29,21 @@ public class Main {
 
     public static Map<String, List<Student>> sortStudentsByFaculty(List<Student> list) {
 
-        Map<String, List<Student>> sortedByFacultyMap = new HashMap<>();
+        Map<String, List<Student>> sortedByFaculty = new HashMap<>();
 
         for (Student student : list) {
-            sortedByFacultyMap.putIfAbsent(student.getFaculty() + " " +
-                    student.getYear(), new ArrayList<>());
-            sortedByFacultyMap.get(student.getFaculty() + " " +
-                    student.getYear()).add(student);
+            yearOfFaculty = student.getFaculty() + " " + student.getYear();
+            sortedByFaculty.putIfAbsent(yearOfFaculty, new ArrayList<>());
+            sortedByFaculty.get(yearOfFaculty).add(student);
         }
-        return sortedByFacultyMap;
+        return sortedByFaculty;
     }
 
     public static void addStudent(Student student) {
-        studentMap.putIfAbsent(student.getFaculty() + " " +
-                student.getYear(), new ArrayList<>());
-        studentMap.get(student.getFaculty() + " " +
-                student.getYear()).add(student);
+        yearOfFaculty = student.getFaculty() + " " + student.getYear();
+        studentMap.putIfAbsent(yearOfFaculty, new ArrayList<>());
+        studentMap.get(yearOfFaculty).add(student);
+        students.add(student);
     }
 
     public static void deleteStudent(Student student) {
@@ -52,7 +52,7 @@ public class Main {
 
     public static void getStudentByFacultyAndYear(String faculty, int year) {
         for (Map.Entry<String, List<Student>> entry : studentMap.entrySet()) {
-            if(entry.getKey().equals(faculty + " " + year)) {
+            if (entry.getKey().equals(faculty + " " + year)) {
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
         }
@@ -60,7 +60,7 @@ public class Main {
 
     public static void getAllGroupedStudent() {
         for (Map.Entry<String, List<Student>> entry : studentMap.entrySet()) {
-           System.out.println(entry.getKey() + ": ");
+            System.out.println(entry.getKey() + ": ");
             for (Student s : entry.getValue()) {
                 System.out.println(s.getName());
             }

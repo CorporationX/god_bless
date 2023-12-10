@@ -2,7 +2,6 @@ package faang.school.godbless.students_absence;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.ToString;
 
 @Data
 @AllArgsConstructor
