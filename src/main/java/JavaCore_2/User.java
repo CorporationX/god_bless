@@ -4,16 +4,6 @@ import java.util.*;
 
 public class User {
 
-    public void User(String name, int age, String job, String address) {
-        if ((!name.equals(" ")) && (!name.equals("")) && (name!=null) && (age>=18) && (VALID_JOBS.equals(job)) && (VALID_ADDRESSES.equals(address))) {
-            this.name = name;
-            this.age = age;
-            this.job = job;
-            this.address = address;
-        } else
-            throw new IllegalArgumentException();
-    }
-
     private String name;
     private int age;
     private String job;
@@ -21,6 +11,17 @@ public class User {
 
     private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    public User(String name, int age, String job, String address) {
+        if ((name!=null) && (!name.isBlank()) && (age>=18) && (VALID_JOBS.equals(job)) && (VALID_ADDRESSES.equals(address))) {
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            this.address = address;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
         Map<Integer, List<User>> usersGroups = new HashMap<>();
