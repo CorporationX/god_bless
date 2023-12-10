@@ -9,16 +9,16 @@ public class User {
     private String address;
     private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private final static int MAX_AGE = 18;
+    private final static int MIN_AGE = 18;
 
     public User(String name, int age, String work_place, String address) {
-        if (!name.isEmpty() && age >= MAX_AGE && VALID_JOBS.contains(work_place) && VALID_ADDRESSES.contains(address)) {
+        if (name!=null||!name.isEmpty() && age >= MIN_AGE && VALID_JOBS.contains(work_place) && VALID_ADDRESSES.contains(address)) {
             this.name = name;
             this.age = age;
             this.work_place = work_place;
             this.address = address;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect validation");
         }
     }
 
