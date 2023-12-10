@@ -19,8 +19,11 @@ public class Main {
         dataCenterService.allocateResources(rr2);
         dataCenterService.allocateResources(rr3);
         dataCenterService.allocateResources(rr4);
+        dataCenterService.allocateResources(rr5);
 
         dataCenterService.releaseResources(rr5);
+
+
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(() -> dataCenterService.optimize(new LoadBalancingOptimizationStrategy()), 0, 30, TimeUnit.MINUTES);

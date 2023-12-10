@@ -14,6 +14,6 @@ public class Server {
     public Server(double load) {
         this.load = load;
         this.availableLoad = maxLoad - load;
-        energyConsumption = load * 5;
+        energyConsumption = load * 3;
     }
 }

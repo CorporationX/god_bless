@@ -41,10 +41,11 @@ public class DataCenterService {
         if (serverList != null && serverList.isEmpty()) {
             createNewServer(request);
         } else {
+            // Делаю сортировку в порядке убывания
             if (serverList.size() > 1) {
                 serverList.sort((s1, s2) -> Double.compare(s2.getAvailableLoad(), s1.getAvailableLoad()));
             }
-            //Самый незагруженный сервер
+            //первый элемент самый незагруженный сервер
             server = serverList.get(0);
             // Если не хватает доступного места на сервере, создаем новый
             if (server.getAvailableLoad() < request.getLoad()) {
@@ -52,6 +53,7 @@ public class DataCenterService {
             } else {
                 server.setLoad(server.getLoad() + request.getLoad());
                 server.setAvailableLoad(server.getAvailableLoad() - request.getLoad());
+                server.setEnergyConsumption(server.getEnergyConsumption() + request.getLoad() * 3);
             }
         }
     }
@@ -68,6 +70,7 @@ public class DataCenterService {
         if (server != null) {
             server.setLoad(server.getLoad() - request.getLoad());
             server.setAvailableLoad(server.getAvailableLoad() + request.getLoad());
+            server.setEnergyConsumption(server.getEnergyConsumption() - request.getLoad() * 3);
         } else {
             throw new IllegalArgumentException("Server not found for request: " + request.getId());
         }
