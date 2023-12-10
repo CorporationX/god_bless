@@ -45,8 +45,9 @@ public class Main {
     }
 
     private static WeatherData getweather(String city) {
-        if (cache.get(city) != null) {
-            return cache.get(city);
+        WeatherData weather = cache.get(city);
+        if (weather != null) {
+            return weather;
         }
         cache.put(city, WeatherServer.getWeatherData(city));
         return cache.get(city);
