@@ -3,12 +3,14 @@ package faang.school.godbless.example;
 public class Example {
 
     public static int[] reverse(int[] array) {
+        int arrayMaxLength = array.length - 1;
+
         for (int i = 0; i < array.length / 2; i++) {
             int min = array[i];
-            int max = array[array.length - i - 1];
+            int max = array[arrayMaxLength - i];
 
             array[i] = max;
-            array[array.length - i - 1] = min;
+            array[arrayMaxLength - i] = min;
         }
 
         return array;
