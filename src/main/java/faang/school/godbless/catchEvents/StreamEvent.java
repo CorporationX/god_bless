@@ -6,9 +6,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class StreamEvent {
-    int id;
-    String eventType;
-    String data;
+    private int id;
+    private String eventType;
+    private String data;
 
     @Override
     public String toString() {
