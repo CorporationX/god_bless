@@ -2,9 +2,13 @@ package faang.school.godbless.groupUsersByAge;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.Set;
 
 @Getter
 public class User {
@@ -14,35 +18,47 @@ public class User {
     private final String placeWork;
     private final String address;
 
-    private static final int ADULT_AGE = 18;
-    enum VALID_JOBS {Google, Uber, Amazon}
-    enum VALID_ADDRESS {London, New_York, Amsterdam}
+    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New_York", "Amsterdam"));
 
-    public User(String name, int age, VALID_JOBS placeWork, VALID_ADDRESS address) {
-        if(!name.isBlank()) {
+    private static final int ADULT_AGE = 18;
+
+    public User(String name, int age, String placeWork, String address) {
+        if (!name.isBlank()) {
             this.name = name;
         } else {
             throw new IllegalArgumentException();
         }
-        if(age >= ADULT_AGE) {
+        if (age >= ADULT_AGE) {
             this.age = age;
         } else {
             throw new IllegalArgumentException();
         }
-        if(VALID_JOBS.valueOf(String.valueOf(placeWork)).equals(placeWork)) {
-            this.placeWork = String.valueOf(placeWork);
+        if (VALID_JOBS.contains(placeWork)) {
+            this.placeWork = placeWork;
         } else {
             throw new IllegalArgumentException();
         }
-        if(VALID_ADDRESS.valueOf(String.valueOf(address)).equals(address)) {
-            this.address = String.valueOf(address);
+        if (VALID_ADDRESS.contains(address)) {
+            this.address = address;
         } else {
             throw new IllegalArgumentException();
         }
     }
 
-    public static HashMap<Integer, List<User>> groupUsers(List<User> list) {
-        return (HashMap<Integer, List<User>>) list.stream()
-                .collect(Collectors.groupingBy(User::getAge));
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> mapGroupUsers = new HashMap<>();
+        for (User u : users) {
+            List<User> listUsersByAge = new ArrayList<>();
+            int age = u.getAge();
+            for (User us : users) {
+                int ageAnotherUser = us.getAge();
+                if (age == ageAnotherUser) {
+                    listUsersByAge.add(us);
+                }
+            }
+            mapGroupUsers.put(age, listUsersByAge);
+        }
+        return mapGroupUsers;
     }
 }
