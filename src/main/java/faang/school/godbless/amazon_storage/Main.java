@@ -2,7 +2,6 @@ package faang.school.godbless.amazon_storage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,13 +12,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Product pen = new Product(1, "Pen", "Office");
-        Product pencil = new Product(2, "Pencil", "Office");
-        Product pan = new Product(3, "Pan", "Kitchen");
-        Product pot = new Product(4, "Pot", "Kitchen");
-        Product spoon = new Product(5, "Spoon", "Kitchen");
-        Product shirt = new Product(6, "Shirt", "Cloth");
-        Product jeans = new Product(7, "Jeans", "Cloth");
+        Product pen = new Product("Pen", "Office");
+        Product pencil = new Product( "Pencil", "Office");
+        Product pan = new Product("Pan", "Kitchen");
+        Product pot = new Product("Pot", "Kitchen");
+        Product spoon = new Product("Spoon", "Kitchen");
+        Product shirt = new Product("Shirt", "Cloth");
+        Product jeans = new Product("Jeans", "Cloth");
 
         products = Set.of(pen, pencil, pan, pot, spoon, shirt, jeans);
 
