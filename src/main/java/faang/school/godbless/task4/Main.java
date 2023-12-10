@@ -33,7 +33,6 @@ public class Main {
         System.out.println("*********************");
         Student.removeStudenYear(students, 3);
         System.out.println(students);
-
     }
 }
 
@@ -59,52 +58,38 @@ class Student {
 
     public static void addStudentsForList(List<Student> students, String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
-        if (students.isEmpty()) {
-            List<Student> newStudents = new ArrayList<>();
-            newStudents.add(student);
-        }
         students.add(student);
     }
 
     public static void removeStudentName(List<Student> students, String name) {
         Iterator<Student> iterator = students.iterator();
-        if (!students.isEmpty()) {
-            while (iterator.hasNext()) {
-                Student student = iterator.next();
-                if (student.getName().equalsIgnoreCase(name)) {
-                    iterator.remove();
-                    System.out.println(students + " " + name + " Delete");
-                }
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            if (student.getName().equalsIgnoreCase(name)) {
+                iterator.remove();
             }
         }
-        System.out.println("Student absent ");
     }
 
     public static void removeStudentFaculty(List<Student> students, String faculty) {
         Iterator<Student> iterator = students.iterator();
-        if (!students.isEmpty()) {
-            while (iterator.hasNext()) {
-                Student student = iterator.next();
-                if (student.getFaculty().equalsIgnoreCase(faculty)) {
-                    iterator.remove();
-                    System.out.println(students + " " + faculty + " Delete");
-                }
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            if (student.getFaculty().equalsIgnoreCase(faculty)) {
+                iterator.remove();
             }
         }
-        System.out.println("Student absent ");
     }
+    
 
     public static void removeStudenYear(List<Student> students, int year) {
         Iterator<Student> iterator = students.iterator();
-        if (!students.isEmpty()) {
-            while (iterator.hasNext()) {
-                Student student = iterator.next();
-                if (student.getYear() == year) {
-                    iterator.remove();
-                }
+        while (iterator.hasNext()) {
+            Student student = iterator.next();
+            if (student.getYear() == year) {
+                iterator.remove();
             }
         }
-        System.out.println("Student absent ");
     }
 
     public static void showInfo(Map<KeyMap, List<Student>> mapy) {
@@ -115,9 +100,9 @@ class Student {
 
     public static List<Student> searchStudentFacultyAndYear(Map<KeyMap, List<Student>> map, String faculty, int year) { //static
         List<Student> groupStudentsFaculty = new ArrayList<>();
-        KeyMap tempKeyMapForSearch = new KeyMap(faculty, year);
-        if (map.containsKey(tempKeyMapForSearch)) {
-            groupStudentsFaculty.addAll(map.get(tempKeyMapForSearch));
+        KeyMap tempKey = new KeyMap(faculty, year);
+        if (map.containsKey(tempKey)) {
+            groupStudentsFaculty.addAll(map.get(tempKey));
         }
         return groupStudentsFaculty;
     }
