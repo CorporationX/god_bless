@@ -3,7 +3,6 @@ package faang.school.godbless.counting_absenteeism;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,10 +19,10 @@ public class Student {
     }
 
     public static void removeStudent(List<Student> students, String name, String faculty, int year) {
-        Iterator<Student> student = students.iterator();
-        while (student.hasNext()) {
-            if (student.next().getYear() == year && student.next().getName().equals(name) && student.next().getFaculty().equals(faculty)) {
-                students.remove(student.next());
+
+        for (Student student : students) {
+            if (student.getYear() == year && student.getName().equals(name) && student.getFaculty().equals(faculty)) {
+                students.remove(student);
                 break;
             }
         }

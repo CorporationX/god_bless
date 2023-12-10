@@ -11,14 +11,13 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        List<Student> students = List.of(
-                new Student("Вася", "Факультет1", 2),
-                new Student("Петя", "Факультет2", 1),
-                new Student("Сеня", "Факультет1", 2),
-                new Student("Коля", "Факультет2", 1));
+        List<Student> students = new ArrayList<>();
+        students.add(new Student("Вася", "Факультет1", 2));
+        students.add(new Student("Петя", "Факультет2", 1));
+        students.add(new Student("Сеня", "Факультет1", 2));
+        students.add(new Student("Коля", "Факультет2", 1));
 
-
-        //Student.removeStudent(students,"Коля","Факультет2",1);
+        Student.removeStudent(students, "Коля", "Факультет2", 1);
         Student.infoGroupedStudents(Main.sortStudents(students));
         System.out.println(Student.searchAllStudentsGroup(students, "Факультет2", 1));
     }
