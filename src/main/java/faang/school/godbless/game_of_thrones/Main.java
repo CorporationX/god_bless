@@ -1,14 +1,13 @@
 package faang.school.godbless.game_of_thrones;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
 
     private static HashMap<String, House> houseMap = new HashMap<>();
-    
+
     public static void main(String[] args) {
-        
+
         House lannister = new House("House Lannister", "The golden lion");
         House baratheon = new House("House Baratheon", "The black crowned deer");
         House stark = new House("House Stark", "The head of grey dx irewolf");
@@ -34,7 +33,7 @@ public class Main {
     public static void getHouseInfo(House house) {
         String houseName = house.getName();
         if (houseMap.containsKey(houseName)) {
-            System.out.println(houseMap.get(houseName).getName() + " sigil is " +
+            System.out.println(houseMap.get(houseName) + " sigil is " +
                     houseMap.get(houseName).getSigil());
         } else {
             System.out.println("The house was not found!");
