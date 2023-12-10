@@ -28,14 +28,7 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public String searchHouse(String name) {
-        StringBuilder searchingSigil = new StringBuilder();
-
-        for (Map.Entry<String, House> entry : houses.entrySet()) {
-            if (entry.getKey().equalsIgnoreCase(name)) {
-                searchingSigil.append(entry.getValue().getSigil());
-            }
-        }
-        return searchingSigil.toString();
+        return houses.get(name).getSigil();
     }
 
     @Override
