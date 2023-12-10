@@ -21,10 +21,9 @@ public class User {
 
     static Map<User, String> findHobbyLovers(List<User> usersList, List<String> activities){
         Map<User, String> hobbyLovers = new HashMap<>();
-        Iterator iterator;
-        iterator = usersList.iterator();
+        Iterator<User> iterator = usersList.iterator();
         while (iterator.hasNext()){
-            User  user = (User) iterator.next();
+            User  user = iterator.next();
             Set<String> userActivities = user.getActivities();
             for (String activity : userActivities){
                 if (activities.contains(activity)){
