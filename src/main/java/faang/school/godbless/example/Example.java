@@ -1,17 +1,16 @@
 package faang.school.godbless.example;
 
-import java.util.Arrays;
-
 public class Example {
 
     public static int[] reverse(int[] array) {
-        int[] reversedArray = Arrays.copyOf(array, array.length);
-
         for (int i = 0; i < array.length / 2; i++) {
-            reversedArray[array.length - i - 1] = array[i];
-            reversedArray[i] = array[array.length - i - 1];
+            int min = array[i];
+            int max = array[array.length - i - 1];
+
+            array[i] = max;
+            array[array.length - i - 1] = min;
         }
 
-        return reversedArray;
+        return array;
     }
 }
