@@ -9,18 +9,18 @@ public class Main {
     public static void main(String[] args) {
 
         library = new HashMap<>();
-        Main.addBook(new Book("Том Сойер", "Марк Твен", 2020), "10-1");
-        Main.addBook(new Book("Гекльберри Финн", "Марк Твен", 2022), "11-1");
-        Main.addBook(new Book("Том Сойер - сыщик", "Марк Твен", 2017), "10-2");
-        Main.showAllBook();
-        Main.removeBook("Том Сойер", "Марк Твен", 2020);
+        addBook(new Book("Том Сойер", "Марк Твен", 2020), "10-1");
+        addBook(new Book("Гекльберри Финн", "Марк Твен", 2022), "11-1");
+        addBook(new Book("Том Сойер - сыщик", "Марк Твен", 2017), "10-2");
+        showAllBook();
+        removeBook("Том Сойер", "Марк Твен", 2020);
         System.out.println();
         Main.showAllBook();
         System.out.println();
-        System.out.println(Main.findBy("Гекльберри Финн", "Марк Твен", 2022));
+        System.out.println(Main.findByNameAuthorAndYear("Гекльберри Финн", "Марк Твен", 2022));
     }
 
-    private static String findBy(String bookName, String author, int year) {
+    private static String findByNameAuthorAndYear(String bookName, String author, int year) {
         return library.get(new Book(bookName, author, year));
     }
 
