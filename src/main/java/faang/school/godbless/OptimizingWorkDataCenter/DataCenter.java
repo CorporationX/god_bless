@@ -2,10 +2,10 @@ package faang.school.godbless.OptimizingWorkDataCenter;
 
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DataCenter {
     @Getter
-    private static Set<Server> serverSet = new HashSet<>();
+    private final List<Server> serverSet = new ArrayList<>();
 }

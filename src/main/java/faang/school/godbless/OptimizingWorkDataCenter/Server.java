@@ -1,10 +1,12 @@
 package faang.school.godbless.OptimizingWorkDataCenter;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
+import lombok.ToString;
 
 @AllArgsConstructor
-@Getter
+@Data
+@ToString
 public class Server {
     private double load; //отражает текущцю нагрузку на сервер
     private double maxLoad; //отражает максимальную нагрузку на сервер
