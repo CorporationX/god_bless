@@ -18,14 +18,11 @@ public class Example {
     }
 
     public  static int[] reverse(int[] arr) {
-        int[] temp = new int[arr.length];
-
-        for (int i = arr.length - 1; i > 0;) {
-            for (int j = 0; j < arr.length; j++) {
-                temp[j] = arr[i];
-                i--;
-            }
+        for (int i = 0; i < arr.length / 2; i++) {
+            int temp = arr[i];
+            arr[i] = arr[arr.length - i - 1];
+            arr[arr.length - i - 1] = temp;
         }
-        return temp;
+        return arr;
     }
 }
