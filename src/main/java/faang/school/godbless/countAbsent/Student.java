@@ -8,9 +8,9 @@ import java.util.Objects;
 @AllArgsConstructor
 @Getter
 public class Student {
-    String name;
-    String faculty;
-    int year;
+    private String name;
+    private String faculty;
+    private int year;
 
     @Override
     public String toString() {
