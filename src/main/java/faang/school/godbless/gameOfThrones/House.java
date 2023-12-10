@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class House {
-    String name;
-    String sigil;
+    private String name;
+    private String sigil;
 }

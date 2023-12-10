@@ -19,19 +19,19 @@ public class Main {
         System.out.println(Main.getSigil("Старки"));
     }
 
-    static void addHouse(House house) {
+    private static void addHouse(House house) {
         vesteros.put(house.getName(), house);
     }
 
-    static void removeHouse(String houseName) {
+    private static void removeHouse(String houseName) {
         vesteros.remove(houseName);
     }
 
-    static String getSigil(String houseName) {
+    private static String getSigil(String houseName) {
         return vesteros.get(houseName).getSigil();
     }
 
-    static void viewAllHouse() {
+    private static void viewAllHouse() {
         for (Map.Entry<String, House> house : vesteros.entrySet()) {
             System.out.println(house);
         }
