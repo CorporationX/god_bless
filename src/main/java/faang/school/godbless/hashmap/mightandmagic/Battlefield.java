@@ -15,25 +15,25 @@ public class Battlefield {
         sortArmiesBySpeed(armyX, armyY);
 
         while (true) {
-            attack(armyX, armyY);
+            attack(armyX, heroY);
             if(armyY.isEmpty()) {
                 return heroX;
             }
-            attack(armyY, armyX);
+            attack(armyY, heroX);
             if(armyX.isEmpty()) {
                 return heroY;
             }
         }
     }
 
-    private void attack(LinkedList<Creature> attackingArmy, LinkedList<Creature> attackedArmy) {
+    private void attack(LinkedList<Creature> attackingArmy, Hero attackedHero) {
         Creature attackingCreature = attackingArmy.pollFirst();
-        Creature attackedCreature = rollAttackedCreature(attackedArmy);
+        Creature attackedCreature = rollAttackedCreature(attackedHero.getArmy());
 
         attackedCreature.takeDamage(attackingCreature.getDamage());
         attackingArmy.offerLast(attackingCreature);
         if(attackedCreature.getQuantity() <= 0) {
-            attackedArmy.remove(attackedCreature);
+            attackedHero.removeDeadCreature(attackedCreature);
         }
     }
 

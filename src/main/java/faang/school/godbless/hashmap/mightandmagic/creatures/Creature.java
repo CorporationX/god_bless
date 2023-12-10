@@ -38,18 +38,18 @@ public abstract class Creature {
 
     public void takeDamage(int damage) {
         defenceBasedModifyDamage(damage);
-        this.overallHp -= damage;
-        if (this.overallHp <= 0) {
-            this.quantity = 0;
+        overallHp -= damage;
+        if (overallHp <= 0) {
+            quantity = 0;
         } else {
-            this.quantity = this.overallHp % this.hp == 0
-                    ? this.overallHp / this.hp
-                    : this.overallHp / this.hp + 1;
+            quantity = overallHp % hp == 0
+                    ? overallHp / hp
+                    : overallHp / hp + 1;
         }
     }
 
     private void defenceBasedModifyDamage(int damage) {
-        int overallDefence = this.defense * this.quantity;
+        int overallDefence = defense * quantity;
         if (overallDefence < damage) {
             damage += (damage - overallDefence) / 2;
         } else if (overallDefence > damage) {
@@ -59,12 +59,12 @@ public abstract class Creature {
 
     public void increaseQuantity(int quantity) {
         this.quantity += quantity;
-        this.overallHp += quantity * this.hp;
+        overallHp += quantity * hp;
     }
 
     public void reduceQuantity(int quantity) {
         this.quantity -= quantity;
-        this.overallHp -= quantity * this.hp;
+        overallHp -= quantity * hp;
     }
 
 }

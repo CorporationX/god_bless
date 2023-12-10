@@ -6,8 +6,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,16 +28,15 @@ public class Hero {
         this.fraction = fraction;
         this.experience = experience;
         this.level = level;
-        this.army = new LinkedList<>();
+        army = new LinkedList<>();
     }
 
     public void addCreature(Creature creature) {
-        if (this.army.contains(creature)) {
-            this.army
-                    .get(this.army.indexOf(creature))
+        if (army.contains(creature)) {
+            army.get(army.indexOf(creature))
                     .increaseQuantity(creature.getQuantity());
         } else {
-            this.army.add(creature);
+            army.add(creature);
         }
     }
 
@@ -44,14 +45,19 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature) {
-        if (this.army.contains(creature)) {
-            Creature currentCreature = this.army.get(this.army.indexOf(creature));
+        int index = army.indexOf(creature);
+        if (index != -1) {
+            Creature currentCreature = army.get(index);
             if (currentCreature.getQuantity() - creature.getQuantity() > 0) {
                 currentCreature.reduceQuantity(creature.getQuantity());
             } else {
-                this.army.remove(creature);
+                army.remove(creature);
             }
         }
+    }
+
+    public void removeDeadCreature(Creature creature) {
+        army.remove(creature);
     }
 
 }
