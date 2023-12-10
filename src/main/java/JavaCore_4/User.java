@@ -10,19 +10,42 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> activePul;
+    private Set<String> actives;
 
-    public static Map<User, String> findHobbyLovers(List<User> user, Set<String> actives){
-        HashMap<User, String> check = new HashMap<>();
-        for (User userCheck: user) {
-            for (String activeCheck: userCheck.getActivePul()){
-                if (actives.contains(activeCheck)){
-                    check.put(userCheck, activeCheck);
+    public User(int id, String name, int age, Set<String> actives) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.actives = actives;
+    }
+
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> actives){
+        HashMap<User, String> coincidence = new HashMap<>();
+        for (User user: users) {
+            for (String active: user.getActives()){
+                if (actives.contains(active)){
+                    coincidence.put(user, active);
                     break;
                 }
             }
         }
-        return check;
+        return coincidence;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setActives(Set<String> actives) {
+        this.actives = actives;
     }
 
     public int getId() {
@@ -37,8 +60,8 @@ public class User {
         return age;
     }
 
-    public Set<String> getActivePul() {
-        return activePul;
+    public Set<String> getActives() {
+        return actives;
     }
 
 }
