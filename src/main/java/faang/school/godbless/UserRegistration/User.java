@@ -12,8 +12,8 @@ public class User {
     private int age;
     private String workplace;
     private String address;
-    final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
         Map<Integer, List<User>> usersMap = new HashMap<>();
@@ -31,8 +31,8 @@ public class User {
     }
 
     public User(String name, int age, String workplace, String address) {
-        if (name.equals("") || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)){
-            throw new IllegalArgumentException();
+        if (name.isEmpty() || name == null || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)){
+            throw new IllegalArgumentException("Введены неверные данные");
         }
         this.name = name;
         this.age = age;
