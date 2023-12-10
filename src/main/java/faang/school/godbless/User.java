@@ -8,7 +8,6 @@ import java.util.*;
 
 @Getter
 @Setter
-@NonNull
 public class User {
     private static final List<String> VALID_JOBS = Collections.unmodifiableList(
             new ArrayList<String>() {{
@@ -23,55 +22,40 @@ public class User {
                 add("Amsterdam");
             }});
 
-    private String Name;
-    private Long Age;
-    private String WorkName;
-    private String Address;
+    private String name;
+    private Long age;
+    private String workName;
+    private String address;
 
-    //Не уверен что правильно применил lombok
-    public User(@NonNull String name, Long age, String workName, String address) {
-        Name = name;
-        Age = AgeTest(age);
-        WorkName = WorkNameTest(workName);
-        Address = AddressTest(address);
-    }
-
-//    public String NameTest(String name){
-//        if(name==null){
-//            throw new IllegalArgumentException("negative value!");
-//        }else{
-//            return name;
-//        }
-//    }
-
-    public Long AgeTest(Long age){
+    public User(String name, Long age, String workName, String address) {
+        if(name==null||name.isEmpty()){
+            throw new IllegalArgumentException("negative value!");
+        }else{
+            this.name = name;
+        }
         if(age<18){
             throw new IllegalArgumentException("negative value!");
         }else{
-            return age;
+            this.age = age;
         }
-    }
-    public String WorkNameTest(String workName) {
         if (VALID_JOBS.contains(workName)) {
-            return workName;
+            this.workName = workName;
         }else{
             throw new IllegalArgumentException("negative value!");
         }
-    }
-    public String AddressTest(String address) {
         if (VALID_ADDRESSES.contains(address)) {
-            return address;
+            this.address = address;
         }else{
             throw new IllegalArgumentException("negative value!");
         }
     }
 
-    //Перетруться если возраст одинаковый, но наверное это не важно
-    public static Map<Long, String> groupUsers(List<User> userList){
-        Map<Long, String> map = new HashMap<>();
-        for(User u: userList){
-            map.put(u.Age,u.Name);
-        }
-        return map;
-    }
+//    //Перетруться если возраст одинаковый, но наверное это не важно
+//    public static Map<Long, String> groupUsers(List<User> userList){
+//        Map<Long, String> map = new HashMap<>();
+//        for(User u: userList){
+//            map.put(u.age,u.name);
+//        }
+//        return map;
+//    }
 }
