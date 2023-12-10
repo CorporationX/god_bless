@@ -1,7 +1,6 @@
 package faang.school.godbless.bjs2_413;
 
 import lombok.*;
-
 import java.util.*;
 
 @Getter
