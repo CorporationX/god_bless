@@ -10,18 +10,20 @@ public class User {
     private String name;
     private int age;
     private Set<String> activities;
-    public Set<String> getActivities() {
-        return activities;
-    }
-    public Map<User, String> findHobbyLovers (List<User> users, Set<String> hobbies){
-    Map<User, String> hobbyLovers = new HashMap<>();
-    for (User user : users){
-        for (String hobby : user.getActivities()){
-            if (hobbies.contains(hobby))
-                hobbyLovers.put(user, hobby);
+
+    public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = new HashMap<>();
+        for (User user : users) {
+            for (String hobby : user.getActivities()) {
+                if (hobbies.contains(hobby))
+                    hobbyLovers.put(user, hobby);
+            }
             break;
         }
+        return hobbyLovers;
     }
-    return hobbyLovers;
+
+    public Set<String> getActivities() {
+        return activities;
     }
 }
