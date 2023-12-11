@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap1.task10;
+package faang.school.godbless.javahashmap.task12;
 
 
 public class Main {
