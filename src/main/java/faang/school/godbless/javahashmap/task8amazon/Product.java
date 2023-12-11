@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap.task7;
+package faang.school.godbless.javahashmap.task8amazon;
 
 import lombok.Data;
 
