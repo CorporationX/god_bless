@@ -1,9 +1,6 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task5herous_magic;
 
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Data
 public class Battlefield {

@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task5herous_magic;
 
 public class Angel extends Creature{
 

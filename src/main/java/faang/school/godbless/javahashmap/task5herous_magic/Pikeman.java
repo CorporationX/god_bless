@@ -1,6 +1,4 @@
-package faang.school.godbless.javahashmap;
-
-import lombok.Data;
+package faang.school.godbless.javahashmap.task5herous_magic;
 
 public class Pikeman extends Creature{
     public Pikeman(String name, int level) {

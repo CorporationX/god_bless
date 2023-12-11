@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task5herous_magic;
 
 public class Griffin extends  Creature{
     public Griffin(String name, int level) {
