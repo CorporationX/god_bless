@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap.task6;
+package faang.school.godbless.javahashmap.task11catch_events;
 
 import lombok.Data;
 
