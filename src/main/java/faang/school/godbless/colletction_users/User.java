@@ -25,8 +25,9 @@ public class User {
             for (String str : user.active) {
                 if (strings.contains(str)) {
                     map.put(user, str);
+                    break;
                 }
-                break;
+
             }
         }
         return map;
