@@ -1,4 +1,4 @@
-package faang.school.godbless.hashmap.task2;
+package faang.school.godbless.javahashmap.task1proguli;
 
 import java.util.ArrayList;
 import java.util.HashMap;
