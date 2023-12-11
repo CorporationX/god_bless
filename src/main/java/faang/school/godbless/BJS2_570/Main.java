@@ -1,8 +1,6 @@
 package faang.school.godbless.BJS2_570;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class Main {
     public static Map<String, WeatherData> weatherDataMap = new HashMap<>();
@@ -28,7 +26,7 @@ public class Main {
     public static String getWeatherData(String city) {
         String pattern = "city: %s, temperature: %.2f, humidity: %.2f";
 
-        return Optional.of(weatherDataMap.computeIfAbsent(city, key -> WeatherService.fetchWeatherData(key)))
+        return Optional.of(weatherDataMap.computeIfAbsent(city, WeatherDataService::fetchWeatherData))
                 .map(data -> String.format(pattern, data.getCity(), data.getTemperature(), data.getHumidity()))
                 .orElse("Data not found");
     }

@@ -10,4 +10,3 @@ public class WeatherData {
     private double temperature;
     private double humidity;
 }
-
