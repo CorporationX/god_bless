@@ -8,6 +8,6 @@ public class Main {
         int encryptionKey = 3;
 
         String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
-        String msg = c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
+        c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
     }
 }
