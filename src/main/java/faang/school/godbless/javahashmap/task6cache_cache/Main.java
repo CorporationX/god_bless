@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap.task8;
+package faang.school.godbless.javahashmap.task6cache_cache;
 
 import java.util.*;
 

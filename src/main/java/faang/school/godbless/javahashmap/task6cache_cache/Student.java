@@ -1,15 +1,17 @@
-package faang.school.godbless.javahashmap.task8;
+package faang.school.godbless.javahashmap.task6cache_cache;
 
 import lombok.Data;
 
 @Data
-public class Subject {
+public class Student {
     private int id;
     private String name;
     private static int count = 0;
 
-    public Subject( String name) {
+    public Student( String name) {
         this.id = ++count;
         this.name = name;
     }
+
+
 }
