@@ -1,12 +1,9 @@
-package faang.school.godbless.hashmap.task5;
+package faang.school.godbless.javahashmap.task4index_elk;
 
 import lombok.Data;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
+
 @Data
 public class Query {
     private int id;
