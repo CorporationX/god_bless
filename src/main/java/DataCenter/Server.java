@@ -1,5 +1,10 @@
 package DataCenter;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Server {
     private double load;
     private double maxLoad;
@@ -11,27 +16,4 @@ public class Server {
         this.energyConsumption = load * 100;
     }
 
-    public double getLoad() {
-        return load;
-    }
-
-    public void setLoad(double load) {
-        this.load = load;
-    }
-
-    public double getMaxLoad() {
-        return maxLoad;
-    }
-
-    public void setMaxLoad(double maxLoad) {
-        this.maxLoad = maxLoad;
-    }
-
-    public double getEnergyConsumption() {
-        return energyConsumption;
-    }
-
-    public void setEnergyConsumption(double energyConsumption) {
-        this.energyConsumption = energyConsumption;
-    }
 }
