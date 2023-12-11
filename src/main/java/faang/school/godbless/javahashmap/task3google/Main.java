@@ -1,10 +1,8 @@
-package faang.school.godbless.javahashmap.task4;
+package faang.school.godbless.javahashmap.task3google;
 
 import lombok.Data;
-import lombok.Getter;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Data
 public class Main {
