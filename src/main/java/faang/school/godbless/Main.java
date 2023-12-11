@@ -5,11 +5,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> listOfUsers = new ArrayList<>();
-        listOfUsers.add(new User(20, "Jackson", "Google", "New York"));
-        listOfUsers.add(new User(35, "Don", "Uber", "Amsterdam"));
-        listOfUsers.add(new User(18, "Rauan", "Amazon", "London"));
-        listOfUsers.add(new User(18, "Fedor", "Amazon", "Amsterdam"));
-        System.out.println(User.groupUsers(listOfUsers));
+        SpellCaster spellCaster = new SpellCaster();
+        String alohomora = "Alohomora";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
+        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
+        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
 }
