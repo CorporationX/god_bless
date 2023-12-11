@@ -12,18 +12,12 @@ public class User {
     private String name;
     private String workplace;
     private String address;
-    private static final Set<String> VALID_JOBS= new HashSet<>();
-    private static final Set<String> VALID_ADDRESSES= new HashSet<>();
+    private static final Set<String> VALID_JOBS= new HashSet<>(List.of("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES= new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
     public User(int age, String name, String workplace, String address){
-        VALID_JOBS.add("Google");
-        VALID_JOBS.add("Uber");
-        VALID_JOBS.add("Amazon");
-        VALID_ADDRESSES.add("London");
-        VALID_ADDRESSES.add("New York");
-        VALID_ADDRESSES.add("Amsterdam");
-        if(name.isEmpty() || age<18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)){
-            throw new IllegalArgumentException();
+        if(name == null || name.isEmpty() || age<18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)){
+            throw new IllegalArgumentException("Validation failed");
         }
         else{
             this.age = age;
