@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.random.RandomGenerator;
 
 @Getter
 @Setter
@@ -54,6 +52,22 @@ public class Hero {
                 army.remove(creature);
             }
         }
+    }
+
+    public void sortArmyForBattle() {
+        army.sort(Comparator.comparingInt(Creature::getSpeed).reversed());
+    }
+
+    public Creature rollAttackedCreature() {
+        return army.get(RandomGenerator.getDefault().nextInt(0, army.size()));
+    }
+
+    public Creature getNextAttackingCreature() {
+        return army.pollFirst();
+    }
+
+    public void returnCreatureToQueue(Creature creature) {
+        army.offerLast(creature);
     }
 
     public void removeDeadCreature(Creature creature) {
