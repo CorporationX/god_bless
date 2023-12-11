@@ -1,10 +1,12 @@
 package faang.school.godbless.bjs2_413;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.*;
 
 @Getter
-@Setter
 @ToString
 @EqualsAndHashCode
 public class User {
