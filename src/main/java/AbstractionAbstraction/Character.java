@@ -1,6 +1,7 @@
 package AbstractionAbstraction;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public abstract class Character {
@@ -8,12 +9,12 @@ public abstract class Character {
     protected int strength;
     protected int dexterity;
     protected int intelligence;
-    protected int health;
+    @Setter
+    protected int health = 100;
 
 
     public Character(String name){
         this.name = name;
-        this.health = 100;
     }
 
     public Character(String name, int strength, int dexterity, int intelligence){
@@ -26,23 +27,4 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStrength(int strength) {
-        this.strength = strength;
-    }
-
-    public void setDexterity(int dexterity) {
-        this.dexterity = dexterity;
-    }
-
-    public void setIntelligence(int intelligence) {
-        this.intelligence = intelligence;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
 }
