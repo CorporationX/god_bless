@@ -1,8 +1,16 @@
 package faang.school.godbless.lambda.task8RPG;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class Character {
-    List<Item> inventory = new ArrayList<>();
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
+
+    public Character(String name) {
+        this.name = name;
+    }
 }
