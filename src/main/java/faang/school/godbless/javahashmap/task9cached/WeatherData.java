@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap.task3;
+package faang.school.godbless.javahashmap.task9cached;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
