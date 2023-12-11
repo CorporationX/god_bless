@@ -2,11 +2,7 @@ package faang.school.godbless;
 
 import faang.school.godbless.BJS2_433.DataCenterService;
 import faang.school.godbless.BJS2_433.Server;
-import faang.school.godbless.BJS2_433.optimization.LoadBalancingOptimizationStrategy;
-import faang.school.godbless.temp.DataCenter;
-
-import java.awt.*;
-import java.util.List;
+import faang.school.godbless.BJS2_433.optimization.PercentageServerLoadOptimizationStrategy;
 
 public class Application {
     public static void main(String... args) {
@@ -25,11 +21,11 @@ public class Application {
         dataCenterService.addServer(server2);
         dataCenterService.addServer(server3);
 
-        LoadBalancingOptimizationStrategy loadBalancingOptimizationStrategy = new LoadBalancingOptimizationStrategy(
+        PercentageServerLoadOptimizationStrategy percentageServerLoadOptimizationStrategy = new PercentageServerLoadOptimizationStrategy(
                 10, 0.5
         );
 
-        loadBalancingOptimizationStrategy.optimize(dataCenterService.getDataCenter());
+        percentageServerLoadOptimizationStrategy.optimize(dataCenterService.getDataCenter());
 
         System.out.println(dataCenterService.getDataCenter().getServerList());
     }

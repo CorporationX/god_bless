@@ -1,8 +1,13 @@
 package faang.school.godbless.BJS2_433;
 
-import lombok.Data;
+class ResourceRequest {
+    private final double load;
 
-@Data
-public class ResourceRequest {
-    private double load;
+    public ResourceRequest(double load) {
+        this.load = load;
+    }
+
+    public double getLoad() {
+        return load;
+    }
 }

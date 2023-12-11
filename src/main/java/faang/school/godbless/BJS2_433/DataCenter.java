@@ -1,7 +1,5 @@
-package faang.school.godbless.temp;
+package faang.school.godbless.BJS2_433;
 
-import faang.school.godbless.BJS2_433.DataCenterService;
-import faang.school.godbless.BJS2_433.Server;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -12,33 +10,37 @@ public class DataCenter {
     private static DataCenter instance;
     private List<Server> serverList;
     private int size;
-    private DataCenter () {
+
+    private DataCenter() { //singleton
         serverList = new ArrayList<>();
     }
 
-    public static DataCenter getInstance () {
+    public static DataCenter getInstance() {
         if (instance == null) {
             instance = new DataCenter();
         }
         return instance;
     }
 
-    public void add (Server server) {
+    public void add(Server server) {
         serverList.add(server);
         size++;
     }
-    public void add (double maxLoad, int amount) {
+
+    public void add(double maxLoad, int amount) {
         int count = 0;
         while (count < amount) {
             add(new Server(maxLoad));
             count++;
         }
     }
-    public void remove (Server server) {
+
+    public void remove(Server server) {
         serverList.remove(server);
         size--;
     }
-    public void remove (int index) {
+
+    public void remove(int index) {
         serverList.remove(index);
         size--;
     }
