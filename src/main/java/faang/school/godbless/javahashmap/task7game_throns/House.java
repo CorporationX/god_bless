@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task7game_throns;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

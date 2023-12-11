@@ -1,10 +1,6 @@
-package faang.school.godbless.javahashmap;
-
-import lombok.Data;
-import lombok.Getter;
+package faang.school.godbless.javahashmap.task7game_throns;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     private static HashMap<String,House> houses = new HashMap<>();
