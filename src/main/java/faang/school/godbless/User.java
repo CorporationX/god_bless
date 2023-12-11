@@ -22,7 +22,6 @@ public class User {
         }
         return hobbyLovers;
     }
-
     public Set<String> getActivities() {
         return activities;
     }
