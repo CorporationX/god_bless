@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task2dataserver;
 
 public class DataCenterService implements OptimizationStrategy{
     public static void addServer(Server server) {

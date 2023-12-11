@@ -1,4 +1,4 @@
-package faang.school.godbless.javahashmap;
+package faang.school.godbless.javahashmap.task2dataserver;
 
 import lombok.Data;
 import lombok.Getter;
