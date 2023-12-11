@@ -9,6 +9,7 @@ public class Griffin extends Creature {
     public String toString() {
         return "Griffin{" +
                 "name='" + name + '\'' +
+                ", health=" + health +
                 '}';
     }
 }

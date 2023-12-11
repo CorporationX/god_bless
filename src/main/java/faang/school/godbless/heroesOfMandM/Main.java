@@ -1,7 +1,5 @@
 package faang.school.godbless.heroesOfMandM;
 
-import java.util.Map;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -14,14 +12,10 @@ public class Main {
         player2.addCreature(new Swordman("Light"), 1);
         player1.addCreature(new Pikeman("RedStrong"), 2);
 
-        for (Creature creature : player2.getArmy()) {
-            System.out.println(creature);
-        }
-        System.out.println();
+        Hero winner = new Battlefield(player1, player2).battle();
+        System.out.println(winner.getName() + " Winner!");
 
-        System.out.println(new Battlefield(player1, player2).battle().getName() + " Winner!");
-
-        for (Creature creature : player2.getArmy()) {
+        for (Creature creature : winner.getArmyByItem()) {
             System.out.println(creature);
         }
     }

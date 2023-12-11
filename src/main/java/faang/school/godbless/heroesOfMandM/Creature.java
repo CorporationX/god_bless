@@ -13,6 +13,9 @@ public abstract class Creature {
     protected int speed;
     @Getter
     protected int amount;
+    protected int health;
+    @Getter
+    protected boolean isDeath;
 
     public Creature(String name, int level, int attack, int armor, int speed, int amount) {
         this.name = name;
@@ -21,10 +24,11 @@ public abstract class Creature {
         this.armor = armor;
         this.speed = speed;
         this.amount = amount;
+        this.health = 100;
     }
 
-    void getDamage(Creature creature) {
-        amount = amount - creature.getAttack();
+    void getDamageFrom(Creature creature) {
+        setHealth(health - creature.getAttack()*creature.getAmount());
     }
 
     @Override
@@ -45,5 +49,12 @@ public abstract class Creature {
         return "Creature{" +
                 "name='" + name + '\'' +
                 '}';
+    }
+
+    public void setHealth(int health) {
+        if (health <=0) {
+            isDeath = true;
+        }
+        this.health = health;
     }
 }

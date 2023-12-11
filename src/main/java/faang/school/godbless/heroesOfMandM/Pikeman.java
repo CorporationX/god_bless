@@ -9,7 +9,7 @@ public class Pikeman extends Creature {
     public String toString() {
         return "Pikeman{" +
                 "name='" + name + '\'' +
-                ", amount=" + amount +
+                ", health=" + health +
                 '}';
     }
 }

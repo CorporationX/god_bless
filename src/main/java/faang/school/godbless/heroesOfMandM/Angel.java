@@ -9,6 +9,7 @@ public class Angel extends Creature {
     public String toString() {
         return "Angel{" +
                 "name='" + name + '\'' +
+                ", health=" + health +
                 '}';
     }
 }
