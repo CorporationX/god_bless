@@ -15,16 +15,9 @@ import static java.util.HashSet.newHashSet;
 @Getter
 @Setter
 public class User {
-    private static final Set<String> VALID_JOBS = new HashSet<>() {{
-        add("Google");
-        add("Uber");
-        add("Amazon");
-    }};
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>() {{
-        add("London");
-        add("New York");
-        add("Amsterdam");
-    }};
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private String name;
     private int age;
@@ -32,7 +25,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String workCompany, String address) throws IllegalArgumentException {
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name must not be empty");
         } else {
             this.name = name;
