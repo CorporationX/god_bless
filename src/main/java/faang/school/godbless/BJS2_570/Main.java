@@ -28,7 +28,7 @@ public class Main {
     public static String getWeatherData(String city) {
         String pattern = "city: %s, temperature: %.2f, humidity: %.2f";
 
-        return Optional.of(weatherDataMap.computeIfAbsent(city, key -> WeatherService.fetchWeatherData(key)))
+        return Optional.of(weatherDataMap.computeIfAbsent(city, key -> WeatherDataService.fetchWeatherData(key)))
                 .map(data -> String.format(pattern, data.getCity(), data.getTemperature(), data.getHumidity()))
                 .orElse("Data not found");
     }
