@@ -1,7 +1,10 @@
 package faang.school.godbless.game_of_trones;
 
+import lombok.Data;
+
+@Data
 public class House {
-    private  String name;
+    private String name;
     private String emblem;
 
     public House(String name, String emblem) {

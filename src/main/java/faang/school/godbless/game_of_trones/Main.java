@@ -10,26 +10,38 @@ public class Main {
         House stark = new House("Starks", "direwolf");
         House barateon = new House("Barateons", "deer");
         House lanister = new House("Lanisters", "lion");
-        Main.addHouse("Starks", stark);
-        Main.addHouse("Lanisters", lanister);
-        Main.addHouse("Barateons", barateon);
-        Main.removeHouse("Starks");
-        House house = Main.searchHouse("Lanisters");
-        System.out.println(house);
-        System.out.println(getAllHouses());
+        addHouse("Starks", stark);
+        addHouse("Lanisters", lanister);
+        addHouse("Barateons", barateon);
+        removeHouse("Starks");
+        String emblem = searchHouse("Lanisters");
+        System.out.println(emblem);
+        getAllHouses();
 
     }
+
     public static void addHouse(String nameHouse, House house) {
         houses.put(nameHouse, house);
     }
+
     public static void removeHouse(String nameHouse) {
         houses.remove(nameHouse);
 
     }
-    public static House searchHouse(String nameHouse) {
-        return houses.get(nameHouse);
+
+    public static String searchHouse(String nameHouse) {
+        String emblem = null;
+        for (Map.Entry<String, House> entry : houses.entrySet()) {
+            if (entry.getKey().equals(nameHouse)) {
+                emblem = entry.getValue().getEmblem();
+            }
+        }
+        return emblem;
     }
-    public static Map<String, House> getAllHouses() {
-        return houses;
+
+    public static void getAllHouses() {
+        for (Map.Entry<String, House> entry : houses.entrySet()) {
+            System.out.println(entry.getKey() + "--> " + entry.getValue());
+        }
     }
 }
