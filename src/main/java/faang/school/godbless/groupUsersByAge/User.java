@@ -1,6 +1,7 @@
 package faang.school.godbless.groupUsersByAge;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,38 +12,39 @@ import java.util.Map;
 import java.util.Set;
 
 @Getter
+@ToString
 public class User {
 
-    private final String name;
-    private final int age;
-    private final String placeWork;
-    private final String address;
-
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New_York", "Amsterdam"));
-
+    private static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New-York", "Amsterdam"));
     private static final int ADULT_AGE = 18;
 
+    private String name;
+    private int age;
+    private String placeWork;
+    private String address;
+
+
     public User(String name, int age, String placeWork, String address) {
-        if (!name.isBlank()) {
+        if (name != null && !name.isBlank()) {
             this.name = name;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect name.");
         }
         if (age >= ADULT_AGE) {
             this.age = age;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect age.");
         }
-        if (VALID_JOBS.contains(placeWork)) {
+        if (placeWork != null && VALID_JOBS.contains(placeWork)) {
             this.placeWork = placeWork;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect job.");
         }
-        if (VALID_ADDRESS.contains(address)) {
+        if (address != null && VALID_ADDRESS.contains(address)) {
             this.address = address;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Incorrect address.");
         }
     }
 
