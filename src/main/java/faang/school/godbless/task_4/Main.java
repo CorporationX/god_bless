@@ -1,28 +1,29 @@
 package faang.school.godbless.task_4;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
+    private static List<Student> studentList = createStudents();
+
     public static void main(String[] args) {
-        List<Student> studentsList = createStudents();
-        System.out.println(University.getUniversityMap(studentsList));
+
 
         System.out.println();
 
         Student newStudent = new Student("Ivan Serov", "Economy", "Economist");
         Student searchStudent = new Student("Alexey Shelehov", "Economy", "Creditor");
-        System.out.println(Student.getAllStudents(studentsList));
-        Student.addStudent(newStudent);
-        System.out.println(Student.getAllStudents(studentsList));
-        Student.removeStudent(newStudent);
-        Student.searchStudent(searchStudent);
-        System.out.println(Student.getAllStudents(studentsList));
+
+        printStudentsByFacultyAndCourse();
 
 
     }
 
     static List<Student> createStudents() {
-        return List.of(
+        return Arrays.asList(
                 new Student("Ivan Ivanov", "Economy", "Economist"),
                 new Student("Sergey Petrov", "Economy", "Economist"),
 
@@ -38,5 +39,47 @@ public class Main {
                 new Student("Pavel Volya", "Jurisprudence", "Judge"),
                 new Student("Artur Pirojkov", "Jurisprudence", "Judge")
         );
+    }
+
+    public static void addStudent(Student student) {
+        studentList.add(student);
+    }
+
+    public static void removeStudent(String name, String faculty, String course) {
+        for (Student student : studentList) {
+            if (student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getCourse().equals(course)) {
+                studentList.remove(student);
+            }
+        }
+    }
+
+    public static List<Student> searchStudent(String faculty, String course) {
+        List<Student> students = new ArrayList<>();
+        for (Student student : studentList) {
+            if (student.getFaculty().equals(faculty) && student.getCourse().equals(course)) {
+                students.add(student);
+            }
+        }
+        return students;
+    }
+
+    public static void printStudentsByFacultyAndCourse() {
+        getStudentsMap().forEach((stringStringEntry, studentList1) -> {
+            System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue() + " : '\n'" + studentList1);
+        });
+    }
+
+    public static Map<Map.Entry<String, String>, List<Student>> getStudentsMap() {
+        Map<Map.Entry<String, String>, List<Student>> mapStudentsOnCourse = new HashMap<>();
+        List<Student> studentsOnCourse;
+        for (Student st : studentList) {
+            String faculty = st.getFaculty();
+            String course = st.getCourse();
+            Map.Entry<String, String> mapEntry = Map.entry(faculty, course);
+            studentsOnCourse = mapStudentsOnCourse.getOrDefault(mapEntry, new ArrayList<>());
+            studentsOnCourse.add((st));
+            mapStudentsOnCourse.put(mapEntry, studentsOnCourse);
+        }
+        return mapStudentsOnCourse;
     }
 }
