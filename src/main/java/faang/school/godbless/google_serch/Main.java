@@ -1,4 +1,4 @@
-package faang.school.godbless.task5;
+package faang.school.godbless.google_serch;
 
 import lombok.*;
 
@@ -13,7 +13,7 @@ import java.util.Map;
 public class Main {
     private static Map<String, List<WebPage>> indexPage = new HashMap<>();
 
-    public static void methodIndex (WebPage webPage) {
+    public static void methodIndex(WebPage webPage) {
         String[] contextSplit = webPage.getContent().split(" ");
         for (String word : contextSplit) {
             List<WebPage> webPagesList = indexPage.getOrDefault(word, new ArrayList<>());
