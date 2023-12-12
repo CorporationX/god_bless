@@ -8,12 +8,12 @@ import java.util.Map;
 import java.util.Set;
 
 public class User {
+    private static final Set<String> VALID_JOBS= new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES= new HashSet<>(Set.of("London", "New York", "Amsterdam"));
     private int age;
     private String name;
     private String workplace;
     private String address;
-    private static final Set<String> VALID_JOBS= new HashSet<>(List.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES= new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
     public User(int age, String name, String workplace, String address){
         if(name == null || name.isEmpty() || age<18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)){
@@ -27,7 +27,19 @@ public class User {
         }
 
     }
-
+    public static Map<Integer, List<User>> groupUsers(List<User> listOfUsers){
+        Map<Integer, List<User>> result = new HashMap<>();
+        for (User user : listOfUsers) {
+            int key = user.getAge();
+            List<User> value = result.getOrDefault(key, new ArrayList<>());
+            value.add(user);
+            result.put(key, value);
+        }
+        for (Map.Entry<Integer, List<User>> asd: result.entrySet()) {
+            System.out.println(asd.getKey()+": "+asd.getValue());
+        }
+        return  result;
+    }
 
     public String getAddress() {
         return address;
@@ -47,21 +59,6 @@ public class User {
 
     public String toString(){
         return getAge()+" "+getName()+", "+getWorkplace()+", "+getAddress();
-    }
-
-
-    public static Map<Integer, List<User>> groupUsers(List<User> listOfUsers){
-        Map<Integer, List<User>> result = new HashMap<>();
-        for (User user : listOfUsers) {
-            int key = user.getAge();
-            List<User> value = result.getOrDefault(key, new ArrayList<>());
-            value.add(user);
-            result.put(key, value);
-        }
-        for (Map.Entry<Integer, List<User>> asd: result.entrySet()) {
-            System.out.println(asd.getKey()+": "+asd.getValue());
-        }
-        return  result;
     }
 }
 
