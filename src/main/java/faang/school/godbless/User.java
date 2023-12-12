@@ -12,7 +12,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String work, String address) {
-        if (name.isBlank() || name == null)
+        if (name == null || name.isBlank())
             throw new IllegalArgumentException("Enter your name");
         if (age < 18)
             throw new IllegalArgumentException("You are still young");
