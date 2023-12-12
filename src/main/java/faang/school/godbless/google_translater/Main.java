@@ -16,7 +16,6 @@ public class Main {
         dictionaryProcessor.processWord("мир", "word", addWordDictionary);
         dictionaryProcessor.processWord("программировние", "programming", addWordDictionary);
         dictionaryProcessor.processWord("ложь", "false", addWordDictionary);
-
         System.out.println("словарь" + dictionary);
     }
 }
