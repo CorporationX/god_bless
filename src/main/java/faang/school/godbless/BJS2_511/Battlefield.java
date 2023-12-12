@@ -42,8 +42,8 @@ public class Battlefield {
             Map.Entry<Creature, Integer> unit1 = army1Iterator.next();
             Map.Entry<Creature, Integer> unit2 = army2Iterator.next();
 
-            double power1 = unit1.getKey().getDamage() * unit1.getValue(); //creature damage * quantity
-            double power2 = unit2.getKey().getDamage() * unit2.getValue();
+            double power1 = unit1.getKey().getPower() * unit1.getValue(); //creature power * quantity
+            double power2 = unit2.getKey().getPower() * unit2.getValue();
 
             boolean isFirstWinner = power1 > power2;
             double powerRatio = isFirstWinner ? power1 / power2 : power2 / power1;
