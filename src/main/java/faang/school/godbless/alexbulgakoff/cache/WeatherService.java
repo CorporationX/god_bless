@@ -30,10 +30,25 @@ public class WeatherService {
         cacheWeather.put("Munich", weatherMunich);
 
         System.out.println(weatherService.getWeatherByCity("Amsterdam"));
-
+        //get all city
         System.out.println(weatherService.getAllCityInCache());
 
+        //Add city in cache
         System.out.println(weatherService.getWeatherByCity("Barcelona"));
+        System.out.println();
+
+        //Update
+        System.out.println(weatherService.getWeatherByCity("Saint-Petersburg"));
+
+        weatherService.updateWeatherInfoByCity("Saint-Petersburg", 12, 79);
+
+        System.out.println(weatherService.getWeatherByCity("Saint-Petersburg"));
+        System.out.println();
+
+        //Remove weather
+        System.out.println(cacheWeather);
+        weatherService.removeWeatherInfoByCity("Barcelona");
+        System.out.println(cacheWeather);
     }
 
 
@@ -45,12 +60,17 @@ public class WeatherService {
         return cacheWeather.get(city);
     }
 
-    void updateWeatherInfoByCity(String city) {
-
-    }
-
     public List<String> getAllCityInCache() {
         return new ArrayList<>(cacheWeather.keySet());
+    }
+
+    void updateWeatherInfoByCity(String city, double temperature, int humidity) {
+        cacheWeather.get(city).setTemperature(temperature);
+        cacheWeather.get(city).setHumidity(humidity);
+    }
+
+    void removeWeatherInfoByCity(String city) {
+        cacheWeather.remove(city);
     }
 
     private WeatherData getOutService(String city) {
