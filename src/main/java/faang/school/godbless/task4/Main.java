@@ -22,7 +22,7 @@ public class Main {
                 new Student("Alexey", "IT", 4)
         ));
 
-        Map<Pair<String, Integer>, List<Student>> sortStudent = Student.groupMapFacultyYear(students);
+        Map<Map.Entry<String, Integer>, List<Student>> sortStudent = Student.groupMapFacultyYear(students);
         System.out.println("*********************");
         Student.showInfo(sortStudent);
         System.out.println("*********************");
@@ -93,8 +93,8 @@ class Student {
         }
     }
 
-    public static void showInfo(Map<Pair<String, Integer>, List<Student>> mapy) {
-        for (Map.Entry<Pair<String, Integer>, List<Student>> entry : mapy.entrySet()) {
+    public static void showInfo(Map<Map.Entry<String, Integer>, List<Student>> mapy) {
+        for (Map.Entry<Map.Entry<String, Integer>, List<Student>> entry : mapy.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
