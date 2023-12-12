@@ -42,7 +42,7 @@ public class StudentService {
     }
 
     public static void addNewStudent(Student newStudent) {
-        if (newStudent != null) {
+        if (newStudent != null && !students.contains(newStudent)) {
             students.add(newStudent);
         }
     }
@@ -61,6 +61,4 @@ public class StudentService {
         });
         return map;
     }
-
-
 }
