@@ -22,9 +22,25 @@ public class Main {
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
 
 // Создание и применение комбинированного фильтра
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        Function<Image, Image> combinedFilterGrayscaleSepia =
+                filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Function<Image, Image> combinedFilterVignetteGrayscale =
+                filterProcessor.combineFilters(vignetteFilter, grayscaleFilter);
+        Function<Image, Image> combinedFilterSepiaVignette =
+                filterProcessor.combineFilters(sepiaFilter, vignetteFilter);
 
-        System.out.println(combinedImage);
+        Image combinedImageGrayscaleSepia = filterProcessor.applyFilter(originalImage, combinedFilterGrayscaleSepia);
+        Image combinedImageVignetteGrayscale = filterProcessor.applyFilter(originalImage, combinedFilterVignetteGrayscale);
+        Image combinedImageSepiaVignette = filterProcessor.applyFilter(originalImage, combinedFilterSepiaVignette);
+
+        System.out.println(combinedImageGrayscaleSepia);
+        System.out.println(combinedImageVignetteGrayscale);
+        System.out.println(combinedImageSepiaVignette);
+
+        System.out.println();
+
+        System.out.println(grayscaleImage);
+        System.out.println(sepiaImage);
+        System.out.println(vignetteImage);
     }
 }
