@@ -1,5 +1,4 @@
 package faang.school.godbless;
-
 import java.util.Arrays;
 
 public class Main {
