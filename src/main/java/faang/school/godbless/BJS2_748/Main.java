@@ -1,5 +1,7 @@
 package faang.school.godbless.BJS2_748;
 
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
@@ -9,11 +11,18 @@ public class Main {
         notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
         notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
+        notificationManager.censoredHandler(List.of("дурак", "козел", "идиот"), (notification -> {
+            notification.setMessage("Сообщение было удалено!");
+            return notification;
+        }));
+
         // Отправка оповещений
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
         Notification callNotification = new Notification("call", "Входящий вызов от пользователя: Vlad Mishustin");
+
+
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
