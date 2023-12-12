@@ -1,6 +1,6 @@
 package faang.school.godbless.task4;
 
-import lombok.AllArgsConstructor;
+import ch.qos.logback.core.joran.sanity.Pair;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -22,11 +22,11 @@ public class Main {
                 new Student("Alexey", "IT", 4)
         ));
 
-        Map<KeyMap, List<Student>> sortStudent = Student.groupMapFacultyYear(students);
+        Map<Pair<String, Integer>, List<Student>> sortStudent = Student.groupMapFacultyYear(students);
         System.out.println("*********************");
         Student.showInfo(sortStudent);
         System.out.println("*********************");
-        System.out.println(Student.searchStudentFacultyAndYear(Student.groupMapFacultyYear(students), "IT", 5));
+        System.out.println(Student.searchStudentsByFacultyAndYear(students, "IT", 5));
         System.out.println("*********************");
         Student.addStudentsForList(students, "Gennady", "Aviation", 4);
         System.out.println(students);
@@ -40,18 +40,20 @@ public class Main {
 @Getter
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
 class Student {
     private String name;
     private String faculty;
     private int year;
 
-    public static Map<KeyMap, List<Student>> groupMapFacultyYear(List<Student> students) {
-        Map<KeyMap, List<Student>> groupingMap = new HashMap<>();
+    public Student(String name, String faculty, int year) {
+    }
+
+    public static Map<Map.Entry<String, Integer>, List<Student>> groupMapFacultyYear(List<Student> students) {
+        Map<Map.Entry<String, Integer>, List<Student>> groupingMap = new HashMap<>();
         for (Student student : students) {
-            KeyMap keyMap = new KeyMap(student.getFaculty(), student.getYear());
-            groupingMap.putIfAbsent(keyMap, new ArrayList<>());
-            groupingMap.get(keyMap).add(student);
+            Map.Entry<String, Integer> key = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
+            groupingMap.putIfAbsent(key, new ArrayList<>());
+            groupingMap.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
         return groupingMap;
     }
@@ -91,28 +93,18 @@ class Student {
         }
     }
 
-    public static void showInfo(Map<KeyMap, List<Student>> mapy) {
-        for (Map.Entry<KeyMap, List<Student>> entry : mapy.entrySet()) {
+    public static void showInfo(Map<Pair<String, Integer>, List<Student>> mapy) {
+        for (Map.Entry<Pair<String, Integer>, List<Student>> entry : mapy.entrySet()) {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
     }
 
-    public static List<Student> searchStudentFacultyAndYear(Map<KeyMap, List<Student>> map, String faculty, int year) { //static
+    public static List<Student> searchStudentsByFacultyAndYear(List<Student> students, String faculty, int year) {
         List<Student> groupStudentsFaculty = new ArrayList<>();
-        KeyMap tempKey = new KeyMap(faculty, year);
-        if (map.containsKey(tempKey)) {
-            groupStudentsFaculty.addAll(map.get(tempKey));
-        }
+        for (Student student : students)
+            if (student.getFaculty().equalsIgnoreCase(faculty) && student.getYear() == year) {
+                groupStudentsFaculty.add(student);
+            }
         return groupStudentsFaculty;
     }
-}
-
-
-@Getter
-@ToString
-@EqualsAndHashCode
-@AllArgsConstructor
-class KeyMap {
-    private String faculty;
-    private int year;
 }
