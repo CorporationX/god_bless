@@ -6,21 +6,12 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
+
     protected String name;
-
-
     protected int strength;
-
     protected int agility;
-
     protected int intellect;
-
     protected int health;
-
-    public Character(String name) {
-        this.name = name;
-        this.health = 100;
-    }
 
     public Character(String name, int strength, int agility, int intellect) {
         this.name = name;

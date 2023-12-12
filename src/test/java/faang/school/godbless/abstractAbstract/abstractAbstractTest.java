@@ -8,8 +8,8 @@ public class abstractAbstractTest {
 
     @Test
     void testAttack(){
-        Archer archer = new Archer("Evan");
-        Warrior warrior = new Warrior("BloodSeeker");
+        Archer archer = new Archer("Evan", 3, 10, 5);
+        Warrior warrior = new Warrior("BloodSeeker", 10, 5, 3);
 
         archer.attack(warrior);
 

@@ -2,8 +2,8 @@ package faang.school.godbless.abstractAbstract;
 
 public class Main {
     public static void main(String[] args) {
-        Character archer = new Archer("Archer");
-        Character warrior = new Warrior("Warrior");
+        Character archer = new Archer("Archer", 3, 10, 5);
+        Character warrior = new Warrior("Warrior", 10, 5, 3);
 
         archer.attack(warrior);
         System.out.println(warrior.getHealth());
