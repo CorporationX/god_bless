@@ -24,16 +24,14 @@ public class Main {
     static WeatherData getWeatherData(String city) {
         if (city == null) throw new IllegalArgumentException("args is null");
         WeatherData weatherData = null;
-        boolean callExtSer = true;
         for (Map.Entry<String, WeatherData> entry : weatherDataMap.entrySet()) {
             if (entry.getKey().equals(city)) {
                 weatherData = entry.getValue();
-                callExtSer = false;
                 break;
             }
         }
 
-        if (callExtSer) {
+        if (weatherData == null) {
             weatherData = getExternalWD(city);
             weatherDataMap.put(weatherData.getCity(), weatherData);
         }
