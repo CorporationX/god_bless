@@ -11,7 +11,7 @@ public class Main {
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
         double result = 0;
-        if(a > 0 && b > 0 && c > 0) {
+        if((a > 0 && b > 0 && c > 0) && (a + b > c && a + c > b && b + c > a)) {
             double half = div.apply(sum.apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);
             double halfMinusA = sub.apply(half).apply(a);
             double halfMinusB = sub.apply(half).apply(b);
@@ -24,6 +24,6 @@ public class Main {
 
     public static void main(String[] args) {
         Main main = new Main();
-        System.out.println(main.triangleArea(30,10,10));
+        System.out.println(main.triangleArea(30,59,30));
     }
 }
