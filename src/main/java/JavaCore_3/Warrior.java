@@ -1,6 +1,6 @@
 package JavaCore_3;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name, 10, 5, 3);
@@ -8,6 +8,8 @@ public class Warrior extends Character{
 
     @Override
     public void attack(Character character) {
-        character.health = character.health - super.strength;
+        character.health -= strength;
     }
 }
+
+
