@@ -11,11 +11,11 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        if ()
-            character.getInventory().remove();
+            character.getInventory().remove(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+        if(predicate.test())
         character.getInventory().
     }
 }
