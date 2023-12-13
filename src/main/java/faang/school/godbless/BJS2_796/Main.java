@@ -22,6 +22,7 @@ public class Main {
         if (nums == null) {
             throw new IllegalArgumentException("List is null");
         }
-        return nums.stream().reduce((a, b) -> calculator.operate(a, b)).orElse(0);
+        return nums.stream().reduce((a, b) -> Math.toIntExact(calculator.operate(a, b)))
+                .orElse(0);
     }
 }
