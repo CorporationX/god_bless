@@ -5,20 +5,16 @@ import java.util.function.Consumer;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+        Notification emailNotification = new Notification("email", "new email!");
+        Notification messageNotification = new Notification("message", "new message!");
 
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
-        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
-        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
-
-
-
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
-
+        notificationManager.registerHandler("email", (notification) ->
+                System.out.println("you have received a " + notification.getMessage()));
+        notificationManager.registerHandler("message", (notification) ->
+                System.out.println("you have received a " + notification.getMessage()));
         notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(messageNotification);
+
 
     }
 }
