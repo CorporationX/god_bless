@@ -5,21 +5,21 @@ import java.util.function.Supplier;
 public class Main {
     public static void main(String... args) {
 
-        Exception exception = withErrorHandling(() -> {
-            return 5 / 0;
+        var result = withErrorHandling(() -> {
+            return 5 / 2;
         }, (pod) -> {
             return pod;
         });
-        System.out.println(exception);
+        System.out.println(result);
     }
 
-    public static Exception withErrorHandling(Supplier<Integer> supplier, ExceptionHandler<Exception> exceptionHandler) {
-        Exception ds = null;
+    public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
+        T result;
         try {
-            System.out.println(supplier.get());
+            result = supplier.get();
         } catch (Exception r) {
-            ds = exceptionHandler.handler(r);
+            result = exceptionHandler.handler(r);
         }
-        return ds;
+        return result;
     }
 }
