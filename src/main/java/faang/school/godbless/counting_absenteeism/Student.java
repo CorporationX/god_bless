@@ -17,30 +17,4 @@ public class Student {
         this.faculty = faculty;
         this.year = year;
     }
-
-    public static void removeStudent(List<Student> students, String name, String faculty, int year) {
-
-        for (Student student : students) {
-            if (student.getYear() == year && student.getName().equals(name) && student.getFaculty().equals(faculty)) {
-                students.remove(student);
-                break;
-            }
-        }
-    }
-
-    public static List<Student> searchAllStudentsGroup(List<Student> students, String faculty, int year) {
-        List<Student> allStudentsGroup = new ArrayList<>();
-        for (Student student : students) {
-            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                allStudentsGroup.add(student);
-            }
-        }
-        return allStudentsGroup;
-    }
-
-    public static void infoGroupedStudents(Map<Map.Entry<String, Integer>, List<Student>> groupedStudents) {
-        for (Map.Entry<Map.Entry<String, Integer>, List<Student>> entry : groupedStudents.entrySet()) {
-            System.out.println(entry.getKey() + "-->" + entry.getValue());
-        }
-    }
 }
