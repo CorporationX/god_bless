@@ -2,6 +2,7 @@ package faang.school.godbless.LordOfTheRingsRPG;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -11,5 +12,6 @@ public class Character {
 
     public Character(String name) {
         this.name = name;
+        this.inventory = new ArrayList<>();
     }
 }
