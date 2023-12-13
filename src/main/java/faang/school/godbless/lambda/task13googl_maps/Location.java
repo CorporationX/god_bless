@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda.task13google_maps;
+package faang.school.godbless.lambda.task13googl_maps;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
