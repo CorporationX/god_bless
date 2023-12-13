@@ -5,21 +5,18 @@ import java.util.function.Supplier;
 public class Main {
     public static void main(String... args) {
 
-        var result = withErrorHandling(() -> {
-            return 5 / 2;
-        }, (pod) -> {
-            return pod;
+        var result = withErrorHandling(() -> 5 / 0, (exception) -> {
+            System.err.println("Ошибка: " + exception.getMessage());
+            return 0;
         });
         System.out.println(result);
     }
 
     public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
-        T result;
         try {
-            result = supplier.get();
-        } catch (Exception r) {
-            result = exceptionHandler.handler(r);
+            return supplier.get();
+        } catch (Exception exception) {
+            return exceptionHandler.handler(exception);
         }
-        return result;
     }
 }

@@ -2,5 +2,5 @@ package faang.school.godbless.Exceptions;
 
 @FunctionalInterface
 public interface ExceptionHandler<T> {
-    T handler(Exception r);
+    T handler(Exception exception);
 }
