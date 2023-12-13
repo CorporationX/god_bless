@@ -27,10 +27,9 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new TreeMap<>();
         for (User user : users) {
-            if (!groupUsers.containsKey(user.getAge())) {
-                groupUsers.put(user.getAge(), new ArrayList<>());
-            }
-            groupUsers.get(user.getAge()).add(user);
+            int userAge = user.getAge();
+            groupUsers.putIfAbsent(userAge, new ArrayList<>());
+            groupUsers.get(userAge).add(user);
         }
         return groupUsers;
     }
