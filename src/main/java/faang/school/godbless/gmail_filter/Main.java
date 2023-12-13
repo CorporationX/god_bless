@@ -20,8 +20,8 @@ public class Main {
                 new Email("Письмо 4", "Текст письма 4", true)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
         Consumer<Email> printEmail = email -> System.out.println("Обработанно письмо " + email.getSubject());
+        Predicate<Email> importantFilter = (email) -> email.isImportant();
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.proccesEmails(emails, importantFilter, printEmail, toUpperCase);
@@ -38,8 +38,6 @@ class Email {
 }
 
 
-@Data
-@AllArgsConstructor
 class EmailProcessor {
     public void proccesEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
         for (Email email : emails) {
