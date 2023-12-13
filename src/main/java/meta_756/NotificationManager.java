@@ -12,7 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notice) {
-        Consumer<Notification> consumer = notifications.get(notice.getType());
-        consumer.accept(notice);
+        String key = notice.getType();
+        if (notifications.containsKey(key)) {
+            Consumer<Notification> consumer = notifications.get(key);
+            consumer.accept(notice);
+        } else throw new IllegalArgumentException("Введите корректный тип сообщения");
     }
 }
