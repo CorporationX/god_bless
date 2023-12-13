@@ -10,40 +10,30 @@ public class Main {
     public static Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
 
     public static void main(String[] args) {
-        // Создаем несколько студентов
         Student student1 = new Student("John Doe");
         Student student2 = new Student("Jane Doe");
 
-        // Создаем несколько предметов
         Subject math = new Subject("Math");
         Subject physics = new Subject("Physics");
 
-        // Добавляем предметы и оценки для студентов
         addSubjectsAndGradesWithStudent(student1, Map.of(math, 90, physics, 85));
         addSubjectsAndGradesWithStudent(student2, Map.of(math, 95, physics, 88));
 
-        // Выводим информацию обо всех студентах и их оценках
         System.out.println("All Students and Their Grades:");
         showAllStudentsAndGrades();
 
-        // Добавляем новый предмет и студентов, изучающих его
         addSubjectAndStudents(physics, new ArrayList<>(List.of(student1, student2)));
 
-        // Выводим информацию о студентах, изучающих каждый предмет
         System.out.println("\nAll Subjects and Students:");
         showStudentsBySubject();
 
-        // Добавляем нового студента к существующему предмету(student1, student2)
         addSubjectToStudent(student2, math);
 
-        // Выводим обновленную информацию о студентах, изучающих каждый предмет
         System.out.println("\nAfter adding a new student to Math:");
         showStudentsBySubject();
 
-        // Удаляем студента и его оценки
         removeStudentAndGrades(student1);
 
-        // Выводим обновленную информацию обо всех студентах и их оценках
         System.out.println("\nAfter removing John Doe:");
         showAllStudentsAndGrades();
     }
@@ -77,7 +67,6 @@ public class Main {
         });
     }
 
-    ////////////////////
     public static void addSubjectAndStudents(Subject subject, List<Student> students) {
         studentsBySubject.put(subject, students);
     }
