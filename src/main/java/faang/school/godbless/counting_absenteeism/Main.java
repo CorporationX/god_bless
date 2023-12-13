@@ -2,6 +2,7 @@ package faang.school.godbless.counting_absenteeism;
 
 import lombok.Data;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -18,21 +19,19 @@ public class Main {
         students.add(new Student("Коля", "Факультет2", 1));
 
         Student.removeStudent(students, "Коля", "Факультет2", 1);
-        Student.infoGroupedStudents(Main.sortStudents(students));
+        Student.infoGroupedStudents(sortStudents(students));
         System.out.println(Student.searchAllStudentsGroup(students, "Факультет2", 1));
     }
 
-    public static Map<Course, List<Student>> sortStudents(List<Student> students) {
-        Map<Course, List<Student>> classmates = new HashMap<>();
+    public static Map<Map.Entry<String, Integer>, List<Student>> sortStudents(List<Student> students) {
+        Map<Map.Entry<String, Integer>, List<Student>> classmates = new HashMap<>();
         for (Student student : students) {
-            Course course = new Course(student.getFaculty(), student.getYear());
-            classmates.putIfAbsent(course, new ArrayList<>());
-            classmates.get(course).add(student);
+            Map.Entry<String, Integer> key = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
+            classmates.putIfAbsent(key, new ArrayList<>());
+            classmates.get(key).add(student);
         }
         return classmates;
     }
-
-
 }
 
 

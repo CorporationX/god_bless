@@ -26,7 +26,6 @@ public class Student {
                 break;
             }
         }
-
     }
 
     public static List<Student> searchAllStudentsGroup(List<Student> students, String faculty, int year) {
@@ -39,11 +38,9 @@ public class Student {
         return allStudentsGroup;
     }
 
-    public static void infoGroupedStudents(Map<Course, List<Student>> groupedStudents) {
-        for (Map.Entry<Course, List<Student>> entry : groupedStudents.entrySet()) {
+    public static void infoGroupedStudents(Map<Map.Entry<String, Integer>, List<Student>> groupedStudents) {
+        for (Map.Entry<Map.Entry<String, Integer>, List<Student>> entry : groupedStudents.entrySet()) {
             System.out.println(entry.getKey() + "-->" + entry.getValue());
         }
-
     }
-
 }
