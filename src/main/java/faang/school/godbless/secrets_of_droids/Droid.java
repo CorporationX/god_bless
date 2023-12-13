@@ -4,28 +4,28 @@ public class Droid {
 
     public String sendEncryptedMessage(String message, int encryptionKey) {
 
-        DroidMessageEncryptor df = (msg, shift) -> {
-            StringBuilder s = new StringBuilder();
+        DroidMessageEncryptor encrypt = (msg, shift) -> {
+            StringBuilder encryptedMsg = new StringBuilder();
             int len = msg.length();
             for (int x = 0; x < len; x++) {
-                s.append((char) (msg.charAt(x) + shift));
+                encryptedMsg.append((char) (msg.charAt(x) + shift));
             }
-            return s.toString();
+            return encryptedMsg.toString();
         };
-        return df.encryption(message, encryptionKey);
+        return encrypt.encryption(message, encryptionKey);
     }
 
     public String receiveEncryptedMessage(String encryptedMsg, int encryptionKey) {
-        DroidMessageEncryptor df = (msg, shift) -> {
-            StringBuilder s = new StringBuilder();
+        DroidMessageEncryptor unEncrypt = (msg, shift) -> {
+            StringBuilder unEncryptedMsg = new StringBuilder();
             int len = msg.length();
             for (int x = 0; x < len; x++) {
-                s.append((char) (msg.charAt(x) - shift));
+                unEncryptedMsg.append((char) (msg.charAt(x) - shift));
             }
-            return s.toString();
+            return unEncryptedMsg.toString();
         };
 
-        return df.encryption(encryptedMsg, encryptionKey);
+        return unEncrypt.encryption(encryptedMsg, encryptionKey);
     }
 }
 
