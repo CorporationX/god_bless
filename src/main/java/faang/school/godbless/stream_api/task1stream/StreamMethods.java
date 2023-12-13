@@ -1,6 +1,7 @@
 package faang.school.godbless.stream_api.task1stream;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class StreamMethods {
     public static int chetNumber(List<Integer> numbers) {
@@ -41,9 +42,8 @@ public class StreamMethods {
                 toList();
     }
 
-    public static boolean containsStrAll(List<String> strings, String strParam) {
-        return strings.stream().
-                allMatch(str -> str.contains(strParam));
+    public static boolean containsStrAll(List<String> strings, Predicate<String> strParam) {
+        return strings.stream().allMatch(strParam);
     }
 
     public static int findMinNumber(List<Integer> numbers, int numParam) {

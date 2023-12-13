@@ -13,7 +13,7 @@ public class Main {
         System.out.println(StreamMethods.countStartStr(strings, 'd'));
         System.out.println(StreamMethods.countContainsStr(strings, "ddd"));
         System.out.println(StreamMethods.sortStr(strings));
-        System.out.println(StreamMethods.containsStrAll(strings, "dd"));
+        System.out.println(StreamMethods.containsStrAll(strings, x -> x.startsWith("d")));
         System.out.println(StreamMethods.findMinNumber(numbers, 3));
         System.out.println(StreamMethods.convertStrInLength(strings));
     }
