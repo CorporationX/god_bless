@@ -12,21 +12,16 @@ public class Main {
         User user1 = new User("John Doe");
         User user2 = new User("Jane Doe");
 
-        // Создаем запросы
         Query query1 = new Query("Select * from users");
         Query query2 = new Query("Insert into products values (1, 'Product')");
 
-        // Добавляем запросы пользователям
         addQuery(user1, query1);
         addQuery(user2, query2);
 
-        // Выводим информацию о пользователях и их запросах
         showAllUserAndQuery();
 
-        // Удаляем пользователя и его запросы
         removeUserAndQuery(user1);
 
-        // Выводим обновленную информацию
         System.out.println("\nAfter removing user1:");
         showAllUserAndQuery();
     }
