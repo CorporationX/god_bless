@@ -1,5 +1,7 @@
 package University;
 
+
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,17 +39,14 @@ public class Main {
     }
 
     //Добавить список студентов в HashMap с ключом UniversityCourse (направление и год)
-    public static Map<UniversityCourse, List<Student>> assignStudentsToCourses(List<Student> students) {
+    public static Map<Map.Entry<String, Integer>, List<Student>> assignStudentsToCourses(List<Student> students) {
         //Создаем временные переменные
-        Map<UniversityCourse, List<Student>> assignedStudents = new HashMap<>();
+        Map<Map.Entry<String, Integer>, List<Student>> assignedStudents = new HashMap<>();
         List<Student> tempList;
-        UniversityCourse tempCourse;
+        Map.Entry<String, Integer> tempCourse;
 
         for (Student student : students) {
-            tempCourse = new UniversityCourse();
-            tempCourse.setYear(student.getYear());
-            tempCourse.setFaculty(student.getFaculty());
-
+            tempCourse = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
             tempList = assignedStudents.getOrDefault(tempCourse, new ArrayList<>());
             tempList.add(student);
 
@@ -151,16 +150,19 @@ public class Main {
 
     //поиск студентов определенного факультета и курса
     public static List<Student> findStudentByFacultyAndYear(String faculty, int year) {
-        //создаем мапу со студентами, распределенными по курсам
-        Map<UniversityCourse, List<Student>> assignedStudents = Main.assignStudentsToCourses(students);
-
-        return assignedStudents.get(new UniversityCourse(faculty, year));
+        List<Student> foundedStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                foundedStudents.add(student);
+            }
+        }
+        return foundedStudents;
     }
 
     //вывести всех студентов, разгруппированных по факультетам и курсам
     public static void showAllStudentsSortedByFacultyAndYear() {
         //создадим мапу со студентами, распределенными по курсам
-        Map<UniversityCourse, List<Student>> assignedStudents = Main.assignStudentsToCourses(students);
+        Map<Map.Entry<String, Integer>, List<Student>> assignedStudents = Main.assignStudentsToCourses(students);
 
         assignedStudents.forEach((course, studentList) -> {
             System.out.println(course);
