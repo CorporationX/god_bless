@@ -12,7 +12,7 @@ import java.util.Map;
 public class Main {
 
     private static final Map<Integer, StreamEvent> EVENTS = new HashMap<>();
-    private static final Map<String, List<StreamEvent>> EVENTS_LIST = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> EVENTS_LIST_BY_TYPE = new HashMap<>();
 
     public static void main(String[] args) {
         StreamEvent streamEvent1 = new StreamEvent(1, "ERROR", "Error exception");
@@ -29,7 +29,7 @@ public class Main {
         addEvents(streamEvent5);
 
         System.out.println(EVENTS);
-        System.out.println(EVENTS_LIST);
+        System.out.println(EVENTS_LIST_BY_TYPE);
 
         //new line
         System.out.println();
@@ -51,7 +51,7 @@ public class Main {
         //remove event by id from EVENTS && EVENT_LIST
         removeEvent(3);
         System.out.println(EVENTS);
-        System.out.println(EVENTS_LIST);
+        System.out.println(EVENTS_LIST_BY_TYPE);
 
         //new line
         System.out.println();
@@ -62,8 +62,8 @@ public class Main {
 
     public static void addEvents(StreamEvent newStreamEvent) {
         EVENTS.put(newStreamEvent.getId(), newStreamEvent);
-        EVENTS_LIST.putIfAbsent(newStreamEvent.getEventType(), new ArrayList<>());
-        EVENTS_LIST.get(newStreamEvent.getEventType()).add(newStreamEvent);
+        EVENTS_LIST_BY_TYPE.putIfAbsent(newStreamEvent.getEventType(), new ArrayList<>());
+        EVENTS_LIST_BY_TYPE.get(newStreamEvent.getEventType()).add(newStreamEvent);
     }
 
     public static StreamEvent getEventById(Integer id) {
@@ -71,7 +71,7 @@ public class Main {
     }
 
     public static List<StreamEvent> getListEventsByType(String typeEvent) {
-        return EVENTS_LIST.get(typeEvent);
+        return EVENTS_LIST_BY_TYPE.get(typeEvent);
     }
 
     public static void getAllEventInfo() {
@@ -84,12 +84,9 @@ public class Main {
     }
 
     public static void removeEvent(Integer id) {
-        StreamEvent event = EVENTS.get(id);
-        List<StreamEvent> removableListEvent =
-                EVENTS_LIST.get(event.getEventType());
+        StreamEvent event = EVENTS.remove(id);
+        EVENTS_LIST_BY_TYPE.get(event.getEventType()).remove(event);
 
-        removableListEvent.remove(event);
 
-        EVENTS.remove(event.getId());
     }
 }
