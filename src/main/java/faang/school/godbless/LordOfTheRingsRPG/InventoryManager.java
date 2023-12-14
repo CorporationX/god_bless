@@ -11,14 +11,16 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        character.getInventory().removeIf(predicate);
-        System.out.println("Предмет удален");
+        if (character.getInventory().removeIf(predicate))
+            System.out.println("Предмет удален");
+        else
+            System.out.println("Такого предмета не обнаружено");
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         for (Item item : character.getInventory()) {
             if (predicate.test(item)) {
-                function.apply(item);
+                item = function.apply(item);
                 System.out.println("Предмет " + item.toString() + " изменен");
             }
         }
