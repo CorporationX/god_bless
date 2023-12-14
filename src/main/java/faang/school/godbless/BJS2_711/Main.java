@@ -1,7 +1,10 @@
 package faang.school.godbless.BJS2_711;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Arrays;
 
 public class Main {
     public static Map<String, List<WebPage>> index = new HashMap<>();
@@ -38,10 +41,9 @@ public class Main {
     }
 
     public static void addToIndexByKeyWord(WebPage webPage) {
-        Set<String> words = Arrays.stream(webPage.getContent().split("[^a-zA-Z']+")).collect(Collectors.toSet());
-        for (String word : words) {
-            index.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
-        }
+        Arrays.stream(webPage.getContent().split("[^a-zA-Z']+"))
+                .distinct()
+                .forEach(word -> index.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage));
     }
 
     public static List<WebPage> listWebPage(String keyWord) {
