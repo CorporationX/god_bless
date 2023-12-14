@@ -9,7 +9,7 @@ public class ManyMethods {
     public static int sumEvenNumber(List<Integer> numbers) {
         return numbers.stream()
                 .filter(number -> number % 2 == 0)
-                .mapToInt(integer -> integer.intValue())
+                .mapToInt(Integer::intValue)
                 .sum();
 
     }
@@ -50,25 +50,23 @@ public class ManyMethods {
                 .collect(Collectors.toList());
     }
 
-    // Я задолбался с этим предикейтом и его типизацией)) Так и не понял,что с этим делать,хоть и помогли мне с задачей красивых ошибок
-    // как бы не тыкал,оно не заводится,а если убрать <T>, подчеркнуто. Если надо,вообще его уберу и напишу другой отдельно без <T> этой проклятой
-    public static boolean checkerCondition(List<String> strings, Predicate predicate) {
+    public static <T> boolean checkCondition(List<T> strings, Predicate<T> predicate) {
         return strings.stream()
-                .allMatch(predicate::test);
+                .allMatch(predicate);
 
     }
 
     public static int minThatBiggerThanSpecifiedNumber(List<Integer> numbers, Integer specialValue) {
         return numbers.stream()
                 .filter(number -> number > specialValue)
-                .min((number1, numbers2) -> Integer.compare(number1, numbers2))
+                .min(Integer::compare)
                 .orElse(0);
 
     }
 
     public static List<Integer> lengthsOfStrings(List<String> strings) {
         return strings.stream()
-                .map(string -> string.length())
+                .map(String::length)
                 .collect(Collectors.toList());
 
     }

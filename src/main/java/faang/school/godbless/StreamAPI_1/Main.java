@@ -27,7 +27,7 @@ public class Main {
         List<String> stringsSorterByLength = ManyMethods.stringsSorterByLength(strings);//Странный результат работы: Note
         System.out.println(stringsSorterByLength);
 
-        boolean checkerCondition = ManyMethods.checkerCondition(strings, (string) -> string.equals("o"));
+        boolean checkerCondition = ManyMethods.checkCondition(strings, (string) -> string.equals("o"));
         System.out.println(checkerCondition);
 
         int minThatBiggerThanSpecifiedNumber = ManyMethods.minThatBiggerThanSpecifiedNumber(integers, 6);
