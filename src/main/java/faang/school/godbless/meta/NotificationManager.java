@@ -13,7 +13,11 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         String key = notification.getType();
-        Consumer<Notification> consumer = notificationMap.get(key);
-        consumer.accept(notification);
+        if (notificationMap.containsKey(key)) {
+            Consumer<Notification> consumer = notificationMap.get(key);
+            consumer.accept(notification);
+        } else {
+            throw new IllegalArgumentException("Notification not found");
+        }
     }
 }
