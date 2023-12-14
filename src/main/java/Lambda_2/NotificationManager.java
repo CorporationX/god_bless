@@ -13,7 +13,8 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        handlers.get(notification.getType()).accept(notification);
+        if (handlers.containsKey(notification))
+            handlers.get(notification.getType()).accept(notification);
     }
 
 
