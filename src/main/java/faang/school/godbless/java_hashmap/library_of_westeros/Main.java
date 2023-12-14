@@ -1,7 +1,6 @@
 package faang.school.godbless.java_hashmap.library_of_westeros;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Main {
