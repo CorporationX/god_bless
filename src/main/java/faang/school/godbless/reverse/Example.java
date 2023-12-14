@@ -5,10 +5,8 @@ public class Example {
     protected static int[] reverseArray(int[] arr) {
         int[] reverseArr = new int[arr.length];
 
-        for (int i = arr.length - 1; i > 0; ) {
-            for (int j = 0; j < arr.length; j++) {
-                reverseArr[j] = arr[i--];
-            }
+        for (int i = 0; i < reverseArr.length; i++) {
+                reverseArr[i] = arr[arr.length - i - 1];
         }
         return reverseArr;
     }
