@@ -12,9 +12,14 @@ public class Main {
 
         List<MessageFilter> messageFilterList = List.of(spamFilter, lengthFilter, emojiFilter);
 
-        String[] messages = {"Привет!", "Это spam!", "Как дела? \uD83D\uDE00", "Длинное сообщение без spam и эмодзи"};
+        String[] messages = {
+                "Привет!",
+                "Это spam!",
+                "Как дела? \uD83D\uDE00",
+                "Длинное сообщение без spam и эмодзи",
+                "Сообщение которое должно быть пропущено"};
 
-        for (String message : messages){
+        for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, messageFilterList);
             System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
         }
