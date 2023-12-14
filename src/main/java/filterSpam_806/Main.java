@@ -14,12 +14,12 @@ public class Main {
 
         filters = Arrays.asList(
                 (message) -> message.toLowerCase().contains("спам"),
-                (message) -> message.isBlank(),
+                (message) -> message.isEmpty(),
                 (message) -> message.length() < 4
         );
 
         messageProcessor.processMessage("СПАМ", filters);
         messageProcessor.processMessage("Привет, могу позвонить?", filters);
-        messageProcessor.processMessage("", filters);
+        messageProcessor.processMessage(" ", filters);
     }
 }

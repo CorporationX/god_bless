@@ -5,10 +5,11 @@ import java.util.List;
 public class MessageProcessor {
 
     public void processMessage(String message, List<MessageFilter> filters) {
-        boolean resultCheckSpam = true;
+        boolean resultCheckSpam = false;
         for (MessageFilter filterItem : filters) {
             if (filterItem.filter(message)) {
-                resultCheckSpam = false;
+                resultCheckSpam = true;
+                break;
             }
         }
         if (resultCheckSpam) {
