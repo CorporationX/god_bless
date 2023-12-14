@@ -6,10 +6,12 @@ public class Main {
         Character warrior = new Warrior("Warrior", 10, 5, 3);
 
         archer.attack(warrior);
+
         System.out.println(warrior.getHealth());
 
         warrior.attack(archer);
         warrior.attack(archer);
+
         System.out.println(archer.getHealth());
     }
 }
