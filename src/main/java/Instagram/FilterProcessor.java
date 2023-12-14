@@ -8,10 +8,6 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> filterOne, Function<Image, Image> filterTwo) {
-        return image -> {
-            image = filterOne.apply(image);
-            //В description у картинки будет описание ТОЛЬКО ВТОРОГО фильтра
-            return filterTwo.apply(image);
+        return filterTwo.andThen(filterOne);
         };
     }
-}
