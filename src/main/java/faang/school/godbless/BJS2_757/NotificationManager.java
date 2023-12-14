@@ -1,18 +1,21 @@
 package faang.school.godbless.BJS2_757;
 
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public class NotificationManager {
-    Map<String, Consumer<Notification>> map = new HashMap<>();
-
-    public void registerHandler(String type, Consumer<Notification> consumerNotification){
-        map.put(type, consumerNotification);
-        }
+class NotificationManager{
+    Map<String, Consumer<Notification>> mapOfNotification = new HashMap<>();
+    public void registerHandler(String type, Consumer<Notification> notification){
+        mapOfNotification.put(type, notification);
+    }
 
     public void sendNotification(Notification notification){
-        Consumer<Notification> consumer =  map.get(notification.getType());
-        consumer.accept(notification);
+        if(mapOfNotification.containsKey(notification.getType())){
+            mapOfNotification.get(notification.getType()).accept(notification);
+        }else{
+            throw new RuntimeException("There are no this notification");
+        }
     }
 }

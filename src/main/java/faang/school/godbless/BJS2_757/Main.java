@@ -5,15 +5,15 @@ import java.util.function.Consumer;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
-        Notification emailNotification = new Notification("email", "new email!");
-        Notification messageNotification = new Notification("message", "new message!");
+        Notification notification1 = new Notification("sms", "good");
+        Notification notification2 = new Notification("email", "how are you?");
 
-        notificationManager.registerHandler("email", (notification) ->
-                System.out.println("you have received a " + notification.getMessage()));
-        notificationManager.registerHandler("message", (notification) ->
-                System.out.println("you have received a " + notification.getMessage()));
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(messageNotification);
+        notificationManager.registerHandler("email", notification -> System.out.println(notification.getMessage()+" get from "+notification.getType()));
+        notificationManager.registerHandler("sms", notification -> System.out.println(notification.getMessage()+" get from "+notification.getType()));
+
+        notificationManager.sendNotification(notification1);
+        notificationManager.sendNotification(notification2);
+
 
 
     }
