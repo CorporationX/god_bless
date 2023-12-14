@@ -14,8 +14,9 @@ public class Main {
         notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
         notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
         notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
-        notificationManager.registerHandler("whatsApp", (notification) -> System.out.println("Отправка watsApp-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler("whatsAp", (notification) -> System.out.println("Отправка watsApp-уведомления: " + notification.getMessage()));
 
+// Проверил исключении кидает. На семнадцатой строчке с поля "WhatsAp" убрал одну букву чтобы не было данного ключа при запросе
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
