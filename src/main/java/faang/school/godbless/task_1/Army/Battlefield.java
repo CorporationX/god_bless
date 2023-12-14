@@ -60,9 +60,7 @@ public class Battlefield {
 
             while (creaturesHealth1 > 0 && creaturesHealth2 > 0) {
                 if (creatureDamages1 >= creaturesHealth1) {
-                    System.out.println(hero2.getName() + " -> " + creature2.getName() + " killed : " + creature1.getName() + " in " +
-                                    "army " + hero1.getName());
-
+                    System.out.println(hero2.getName() + " -> " + creature2.getName() + " killed : " + creature1.getName() + " in " + "army " + hero1.getName());
                     creaturesHealth1 = 0;
                     iterator1.remove();
                 } else {
@@ -72,8 +70,7 @@ public class Battlefield {
                 }
 
                 if (creatureDamages2 >= creaturesHealth2) {
-                    System.out.println(hero1.getName() + " -> " + creature1.getName() + " killed :" + creature2.getName() + " in " +
-                            "army " + hero2.getName());
+                    System.out.println(hero1.getName() + " -> " + creature1.getName() + " killed :" + creature2.getName() + " in " + "army " + hero2.getName());
                     creaturesHealth2 = 0;
                     iterator2.remove();
                 } else {

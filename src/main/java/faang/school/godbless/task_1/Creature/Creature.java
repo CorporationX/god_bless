@@ -1,13 +1,15 @@
 package faang.school.godbless.task_1.Creature;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
 public abstract class Creature {
-    protected String name;
 
+    protected String name;
     @Setter
     protected int health;
     protected int level;

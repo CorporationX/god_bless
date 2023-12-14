@@ -1,12 +1,14 @@
 package faang.school.godbless.task_1.Creature;
 
 public class Griffin extends Creature {
+    private static final String NAME = "Griffin";
+    private static final int LEVEL = 2;
+    private static final int ATTACK = 2;
+    private static final int DEFENCE = 3;
+    private static final int SPEED = 2;
+    private static final int HEALTH = 20;
+
     public Griffin() {
-        this.name = "Griffin";
-        this.level = 2;
-        this.attack = 2;
-        this.defence = 3;
-        this.speed = 2;
-        this.health = 20;
+        super(NAME, LEVEL, ATTACK, DEFENCE, SPEED, HEALTH);
     }
 }

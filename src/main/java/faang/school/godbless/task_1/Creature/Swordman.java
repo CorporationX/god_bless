@@ -1,12 +1,15 @@
 package faang.school.godbless.task_1.Creature;
 
 public class Swordman extends Creature {
+
+    private static final String NAME = "Swordman";
+    private static final int LEVEL = 3;
+    private static final int ATTACK = 3;
+    private static final int DEFENCE = 3;
+    private static final int SPEED = 2;
+    private static final int HEALTH = 15;
+
     public Swordman() {
-        this.name = "Swordman";
-        this.level = 3;
-        this.attack = 3;
-        this.defence = 3;
-        this.speed = 2;
-        this.health = 15;
+        super(NAME, LEVEL, ATTACK, DEFENCE, SPEED, HEALTH);
     }
 }
