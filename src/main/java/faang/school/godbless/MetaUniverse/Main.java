@@ -14,7 +14,7 @@ public class Main {
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
-        Notification callNotification = new Notification("call", "Возьми трубку");
+        Notification callNotification = new Notification("cal", "Возьми трубку");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);

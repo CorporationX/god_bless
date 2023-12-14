@@ -13,7 +13,9 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         Consumer<Notification> consumer = typeMap.get(notification.getType());
-        consumer.accept(notification);
+        if (consumer != null)
+            consumer.accept(notification);
+        else System.out.println("Сообщений типа \"" + notification.getType() + "\" нет");
     }
 
 
