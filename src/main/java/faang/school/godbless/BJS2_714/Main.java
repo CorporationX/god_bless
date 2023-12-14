@@ -39,7 +39,7 @@ public class Main {
     }
 
     public static void addSubjectsAndGradesWithStudent(Student student, Map<Subject, Integer> subjectAndGrades) {
-        subjectsAndGrandesByStudent.putIfAbsent(student, subjectAndGrades);
+        subjectsAndGrandesByStudent.put(student, subjectAndGrades);
         subjectAndGrades.keySet().forEach(subject ->
         {
             List<Student> existsStudents = studentsBySubject.computeIfAbsent(subject, students -> new ArrayList<>());
@@ -50,7 +50,7 @@ public class Main {
     }
 
     public static void addSubjectAndGradeToStudent(Student student, Subject subject, int grade) {
-        subjectsAndGrandesByStudent.computeIfAbsent(student, v -> new HashMap<>())
+        subjectsAndGrandesByStudent.computeIfAbsent(student, gradesBySubj -> new HashMap<>())
                 .put(subject, grade);
         studentsBySubject.computeIfAbsent(subject, students -> new ArrayList<>())
                 .add(student);
@@ -72,7 +72,7 @@ public class Main {
     }
 
     public static void addSubjectToStudent(Student student, Subject subject) {
-        studentsBySubject.getOrDefault(subject, new ArrayList<>()).add(student);
+        studentsBySubject.computeIfAbsent(subject, students -> new ArrayList<>()).add(student);
     }
 
     public static void showStudentsBySubject() {
