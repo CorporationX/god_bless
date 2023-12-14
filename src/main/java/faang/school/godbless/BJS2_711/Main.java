@@ -1,13 +1,10 @@
 package faang.school.godbless.BJS2_711;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
-    public static Map<String, List<WebPage>> index = new HashMap<>();
+    public static Map<String, Set<WebPage>> index = new HashMap<>();
 
     public static void main(String[] args) {
         WebPage page1 = new WebPage("https://example.com/page1", "FAANG", "This is a page page page page sample page.");
@@ -24,7 +21,7 @@ public class Main {
         });
 
         String keyword = "example";
-        List<WebPage> pagesForWord = listWebPage(keyword);
+        Set<WebPage> pagesForWord = listWebPage(keyword);
         System.out.println("Pages for word '" + keyword + "':");
         for (WebPage page : pagesForWord) {
             System.out.println("Page URL: " + page.getUrl());
@@ -41,16 +38,17 @@ public class Main {
     }
 
     public static void addToIndexByKeyWord(WebPage webPage) {
-        Arrays.stream(webPage.getContent().split("[^a-zA-Z']+"))
-                .distinct()
-                .forEach(word -> index.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage));
+        Arrays.stream(webPage.getContent().split("[^a-zA-Z']+")).map(String::toLowerCase)
+                .collect(Collectors.toSet())
+                .forEach(word -> index.computeIfAbsent(word, key -> new HashSet<>())
+                        .add(webPage));
     }
 
-    public static List<WebPage> listWebPage(String keyWord) {
-        return index.get(keyWord);
+    public static Set<WebPage> listWebPage(String keyWord) {
+        return index.get(keyWord.toLowerCase());
     }
 
     public static void remove(String url) {
-        index.values().forEach(pages -> pages.removeIf(page -> page.getUrl().equals(url)));
+        index.values().forEach(pages -> pages.removeIf(page -> page.getUrl().equals(url.toLowerCase())));
     }
 }
