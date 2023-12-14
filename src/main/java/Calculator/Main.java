@@ -27,19 +27,9 @@ public class Main {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("Добавьте числа для операции");
         }
-
-        Integer temp = 0;
-        for (Integer number : nums) {
-            //добавляем первый элемент в temp
-            if (nums.indexOf(number) == 0) {
-                temp = number;
-            } else {
-                //Проверяем что результат умещается в диапазоне значений Integer
-                if (number > Integer.MAX_VALUE - temp || number < Integer.MIN_VALUE + temp) { //(Скорее всего запись не самая оптимальная)
-                    throw new ArithmeticException("Слишком большое/маленькое итоговое значение)");
-                }
-                temp = calculator.operation(temp, number);
-            }
+        Integer temp = nums.get(0);
+        for (int i = 1; i < nums.size(); i++) {
+            temp = calculator.operation(temp, nums.get(i));
         }
         return temp;
     }
