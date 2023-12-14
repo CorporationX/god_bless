@@ -1,16 +1,21 @@
 package faang.school.godbless.homm;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.NoArgsConstructor;
 
+@Getter(AccessLevel.PROTECTED)
+@Setter(AccessLevel.PROTECTED)
 @NoArgsConstructor
 public abstract class Creature {
-    protected String name;
-    protected int quantity = 0;
-    protected int atk;
-    protected int def;
-    protected int spd;
+    private String name;
+    private int quantity = 0;
+    private int attack;
+    private int defence;
+    private int speed;
 
     protected int getDamage() {
-        return this.atk;
+        return this.attack;
     }
 }
