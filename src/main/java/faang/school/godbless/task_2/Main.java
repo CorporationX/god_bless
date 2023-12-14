@@ -4,21 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    static Map<String, House> houseMap = new HashMap<>();
+
     public static void main(String[] args) {
-        Map<String, House> houseMap = new HashMap<>();
 
         houseMap.put("Stark", new House("Stark", "Wolf"));
         houseMap.put("Lannister", new House("Lannister", "Leo"));
         houseMap.put("Barateon", new House("Barateon", "Deer"));
 
-        House house = new House(houseMap);
+        addHouse("Stark", new House("Stark", "Wolf"));
 
-        house.addHouse("Stark", new House("Stark", "Wolf"));
-        house.removeHouse("Lannister");
+        removeHouse("Lannister");
 
-        house.searchHouse("Stark");
-        house.searchHouse("Lannister");
+        searchHouse("Stark");
 
-        house.getHousesAndSigils();
+        searchHouse("Lannister");
+
+        getHousesAndSigils();
+    }
+
+    static void addHouse(String name, House house) {
+        houseMap.put(name, house);
+    }
+
+    static void removeHouse(String name) {
+        houseMap.remove(name);
+    }
+
+    static void searchHouse(String name) {
+        if (houseMap.containsKey(name)) {
+            System.out.println("Found - " + houseMap.get(name).getName() + " sigil is: " + houseMap.get(name).getSigil() + '\n');
+        } else {
+            System.out.println("Map not contains this house!\n");
+        }
+    }
+
+    static void getHousesAndSigils() {
+        houseMap.forEach((key, value) -> System.out.println(key + ":" + value + '\n'));
     }
 }
