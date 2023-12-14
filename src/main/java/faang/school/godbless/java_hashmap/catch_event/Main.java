@@ -77,28 +77,23 @@ public class Main {
 
     static StreamEvent getStreamEvent(int id) {
         if (id < 0) throw new IllegalArgumentException("args is null");
-        Optional<Map.Entry<Integer, StreamEvent>> optional = eventMap.entrySet()
-                .stream()
-                .filter(entry -> entry.getKey() == id)
-                .findFirst();
-
-
-        if (optional.isPresent()) {
-            return optional.get().getValue();
+        StreamEvent streamEvent = eventMap.get(id);
+        if (streamEvent == null) {
+            throw new StreamEventException("StreamEvent not found");
         }
-        System.out.println("Not found");
-        return null;
+        return streamEvent;
     }
 
 
     static List<StreamEvent> getStreamEventList(EventType eventType) {
         if (eventType == null) throw new IllegalArgumentException("args is null");
+
         List<StreamEvent> streamEventList = eventTypeListMap.get(eventType);
-        if (streamEventList != null) {
-            return streamEventList;
+
+        if (streamEventList == null) {
+            throw new StreamEventException("StreamEventList not found");
         }
-        System.out.println("not found");
-        return null;
+        return streamEventList;
     }
 
 
