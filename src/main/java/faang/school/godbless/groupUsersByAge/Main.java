@@ -1,15 +1,17 @@
 package faang.school.godbless.groupUsersByAge;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
-        Map<Integer, List<User>> group = User.groupUsers(createUsers());
+        Map<Integer, List<User>> group = groupUsers(createUsers());
 
         group.forEach((key, value) -> System.out.println(key + ":" + value));
     }
+
     private static List<User> createUsers() {
         return List.of(
                 new User("John", 32, "Amazon", "New-York"),
@@ -23,5 +25,21 @@ public class Main {
                 new User("Kenny", 28, "Amazon", "Amsterdam"),
                 new User("Collin", 28, "Uber", "Amsterdam")
         );
+    }
+
+    static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> mapGroupUsers = new HashMap<>();
+        for (User u : users) {
+            List<User> listUsersByAge = new ArrayList<>();
+            int age = u.getAge();
+            for (User us : users) {
+                int ageAnotherUser = us.getAge();
+                if (age == ageAnotherUser) {
+                    listUsersByAge.add(us);
+                }
+            }
+            mapGroupUsers.put(age, listUsersByAge);
+        }
+        return mapGroupUsers;
     }
 }
