@@ -1,6 +1,6 @@
 package Telegram;
 
 @FunctionalInterface
-public interface MessageFilter<> {
-    public void filter
+public interface MessageFilter {
+    Boolean filter(String message);
 }
