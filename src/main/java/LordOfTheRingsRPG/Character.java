@@ -3,14 +3,17 @@ package LordOfTheRingsRPG;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
 public class Character {
-    private List<Item> inventory;
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
 
-    public Character(List<Item> inventory) {
-        this.inventory = inventory;
+
+    public Character(String name) {
+        this.name = name;
     }
 }

@@ -6,11 +6,19 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Item {
-    private String item;
+    private String name;
     private int value;
 
-    public Item(String item, int value) {
-        this.item = item;
+    public Item(String name, int value) {
+        this.name = name;
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "name='" + name + '\'' +
+                ", value=" + value +
+                '}';
     }
 }
