@@ -14,6 +14,7 @@ public class RememberSchoolApp {
     }
 
     private static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+        validateTriangleSides(a, b, c);
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
@@ -31,6 +32,15 @@ public class RememberSchoolApp {
                                 .apply(sub.apply(p).apply(b))
                                 .apply(sub.apply(p).apply(c)))));
         return area;
+    }
+
+    private static void validateTriangleSides(double a, double b, double c) throws IllegalArgumentException {
+        if (a <= 0 || b <= 0 || c <= 0) {
+            throw new IllegalArgumentException("Triangle sides can not be less or equals 0");
+        }
+        if (a + b < c || a + c < b || b + c < a) {
+            throw new IllegalArgumentException("Sum of 2 sides of triangle can not be less than 3-rd");
+        }
     }
 
 }
