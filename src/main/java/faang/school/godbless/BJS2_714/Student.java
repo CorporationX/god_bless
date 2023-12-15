@@ -1,0 +1,15 @@
+package faang.school.godbless.BJS2_714;
+
+import lombok.Data;
+
+@Data
+public class Student {
+    private static int count;
+    private int id;
+    private String name;
+
+    public Student(String name) {
+        this.id = ++count;
+        this.name = name;
+    }
+}
