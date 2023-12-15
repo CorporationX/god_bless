@@ -9,29 +9,29 @@ import java.util.Set;
 
 public class Main {
 
-    private static Set<Product> setProduct = new HashSet<>();
+    private static Set<Product> products = new HashSet<>();
 
     public static void main(String[] args) {
 
-        setProduct.add(new Product(01, "Pr1", "Cat_A"));
-        setProduct.add(new Product(02, "Pr2", "Cat_A"));
-        setProduct.add(new Product(03, "Pr3", "Cat_B"));
-        setProduct.add(new Product(04, "Pr4", "Cat_C"));
-        setProduct.add(new Product(05, "Pr4", "Cat_C"));
+        products.add(new Product( "Pr1", "Cat_A"));
+        products.add(new Product( "Pr2", "Cat_A"));
+        products.add(new Product( "Pr3", "Cat_B"));
+        products.add(new Product( "Pr4", "Cat_C"));
+        products.add(new Product( "Pr4", "Cat_C"));
 
-        getProdByCat(setProduct);
+        getProductByCategory(products);
     }
 
-    public static Map<String, List<Product>> sortProduct(Set<Product> setProd) {
-        Map<String, List<Product>> productByCat = new HashMap<>();
-        for (Product product : setProd) {
-            productByCat.putIfAbsent(product.getCategory(), new ArrayList<>());
-            productByCat.get(product.getCategory()).add(product);
+    public static Map<String, List<Product>> sortProduct(Set<Product> products) {
+        Map<String, List<Product>> productsByCategory = new HashMap<>();
+        for (Product product : products) {
+            productsByCategory.putIfAbsent(product.getCategory(), new ArrayList<>());
+            productsByCategory.get(product.getCategory()).add(product);
         }
-        return productByCat;
+        return productsByCategory;
     }
 
-    public static void getProdByCat(Set<Product> setProd) {
+    public static void getProductByCategory(Set<Product> setProd) {
 
         Map<String, List<Product>> sortedProdByCat = sortProduct(setProd);
         System.out.println("Info about all products sorted by Category:");

@@ -2,6 +2,8 @@ package amazon;
 
 import lombok.Data;
 
+import java.util.Random;
+
 @Data
 public class Product {
 
@@ -9,18 +11,9 @@ public class Product {
     private String name;
     private String category;
 
-    public Product(int id, String name, String category) {
-        this.id = id;
+    public Product(String name, String category) {
+        this.id = new Random().nextInt(0,100);
         this.name = name;
         this.category = category;
     }
-
-    @Override
-    public String toString() {
-        return "id=" + id +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                '}';
-    }
-
 }
