@@ -37,8 +37,10 @@ public class ManyOfMethods {
     public static List<List<String>> pairOfPeople(Map<String, List<String>> friends) {
         return friends.entrySet().stream()
                 .flatMap(person -> friends.entrySet().stream()
-                        .filter(person1 -> !person1.getKey().equals(person.getKey()) && !person1.getValue().contains(person.getKey()) &&
-                                person1.getValue().stream().anyMatch(person.getValue()::contains))
+                        .filter(person1 -> !person1.getKey().equals(person.getKey())
+                                && person1.getKey().compareTo(person.getKey())<0
+                                && !person1.getValue().contains(person.getKey())
+                                && person1.getValue().stream().anyMatch(person.getValue()::contains))
                         .map(person1 -> Arrays.asList(person1.getKey(), person.getKey())))
                 .distinct()
                 .toList();
