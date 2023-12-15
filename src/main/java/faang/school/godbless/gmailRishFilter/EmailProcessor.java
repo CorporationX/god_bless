@@ -7,11 +7,12 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emailList, Predicate isFilter, Consumer consumer, Function send) {
+    public void processEmails(List<Email> emailList, Predicate isFilter, Consumer hadler, Function send) {
         emailList.forEach(email -> {
-            isFilter.test(email);
-            consumer.accept(email);
-            send.apply(email);
+            if (isFilter.test(email)) {
+                hadler.accept(email);
+                send.apply(email);
+            }
         });
     }
 
