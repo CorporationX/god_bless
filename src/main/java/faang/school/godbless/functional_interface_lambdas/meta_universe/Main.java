@@ -29,7 +29,6 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
 
-
     }
 }
 
@@ -41,6 +40,7 @@ class NotificationManager {
     }
 
     void sendNotification(Notification notification) {
+        if (notification == null) throw new IllegalArgumentException("args is null");
         Consumer<Notification> consumer = map.get(notification.getType());
         if (consumer != null) {
             consumer.accept(notification);
