@@ -1,2 +1,6 @@
-package faang.school.godbless.mistakes;public interface ExceptionHandler {
+package faang.school.godbless.mistakes;
+
+@FunctionalInterface
+public interface ExceptionHandler<T> {
+    T handle(Exception e);
 }
