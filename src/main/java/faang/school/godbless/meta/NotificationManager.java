@@ -17,6 +17,10 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         Consumer<Notification> consumer = notifications.get(notification.getType());
-        consumer.accept(notification);
+        if (consumer!=null) {
+            consumer.accept(notification);
+        } else {
+            System.err.println("Consumer not found"+notification.getType());
+        }
     }
 }
