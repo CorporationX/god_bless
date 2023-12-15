@@ -1,10 +1,12 @@
 package faang.school.godbless.BJS2_796;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+        List<Integer> numbers = List.of(1, 2, 3, 4, Integer.MAX_VALUE);
 
         System.out.println(sum(numbers));
         System.out.println(produce(numbers));
@@ -22,7 +24,6 @@ public class Main {
         if (nums == null) {
             throw new IllegalArgumentException("List is null");
         }
-        return nums.stream().reduce((a, b) -> Math.toIntExact(calculator.operate(a, b)))
-                .orElse(0);
+        return nums.stream().reduce(0, (a, b) -> Math.toIntExact(calculator.operate((long)a, (long)b)));
     }
 }
