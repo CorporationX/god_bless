@@ -18,11 +18,14 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        for (Item item : character.getInventory()) {
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            Item item = character.getInventory().get(i);
             if (predicate.test(item)) {
-                item = function.apply(item);
-                System.out.println("Предмет " + item.toString() + " изменен");
+                character.getInventory().set(i, function.apply(item));
+                System.out.println("Предмет " + item.toString() + " изменен на " +
+                        character.getInventory().get(i).toString());
             }
         }
     }
 }
+
