@@ -13,6 +13,9 @@ public class NotificationManager {
 
     public static void sendNotification(Notification notification) {
         Consumer<Notification> consumer = notifications.get(notification.getType());
+        if (consumer == null) {
+            throw new IllegalArgumentException("Notifications don't have notification");
+        }
         consumer.accept(notification);
     }
 
@@ -23,5 +26,6 @@ public class NotificationManager {
         registerHandler("email", (notification) ->
                 System.out.println("you have received a " + notification.getMessage()));
         sendNotification(emailNotification);
+        sendNotification(new Notification("12dwd", "error")); // throw
     }
 }
