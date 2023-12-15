@@ -41,11 +41,14 @@ class NotificationManager {
     }
 
     void sendNotification(Notification notification) {
-        map.get(notification.getType()).accept(notification);
+        Consumer<Notification> consumer = map.get(notification.getType());
+        if (consumer != null) {
+            consumer.accept(notification);
+        } else {
+            System.out.println("Notification not found");
+        }
     }
-
 }
-
 
 
 @Data
