@@ -21,11 +21,6 @@ public class CompanyDataLoader {
             while ((line = br.readLine()) != null) {
                 String[] data = line.split(",");
 
-                // Добавим проверку на пустую строку перед разбором данных
-                if (data.length != 5 || Arrays.stream(data).anyMatch(String::isEmpty)) {
-                    continue;
-                }
-
                 int id = Integer.parseInt(data[0]);
                 int companyId = Integer.parseInt(data[1]);
                 double volume = Double.parseDouble(data[2]);

@@ -26,13 +26,13 @@ public class Main {
         analyzer.analyzeEnergyConsumption("environmental_impacts.csv", 1);
 
         System.out.println("\nAnalyzing Top Consumers:");
-        analyzer.analyzeTopConsumers("environmental_impacts.csv", new Date());
+        analyzer.analyzeTopConsumers("environmental_impacts.csv");
 
         System.out.println("\nAnalyzing Energy Per Employee:");
-        analyzer.analyzeEnergyPerEmployee("environmental_impacts.csv", new Date());
+        analyzer.analyzeEnergyPerEmployee("environmental_impacts.csv");
 
-        analyzer.printCompanyImpacts(1); // Печать всех EnvironmentalImpact для SuperCompany
-        analyzer.analyzeEnergyConsumption("environmental_impacts.csv", 1);
+//        analyzer.printCompanyImpacts(1); // Печать всех EnvironmentalImpact для SuperCompany
+//        analyzer.analyzeEnergyConsumption("environmental_impacts.csv", 1);
 
     }
 
