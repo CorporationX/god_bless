@@ -13,11 +13,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        products.add(new Product( "Pr1", "Cat_A"));
-        products.add(new Product( "Pr2", "Cat_A"));
-        products.add(new Product( "Pr3", "Cat_B"));
-        products.add(new Product( "Pr4", "Cat_C"));
-        products.add(new Product( "Pr4", "Cat_C"));
+        products.add(new Product("Pr1", "Cat_A"));
+        products.add(new Product("Pr2", "Cat_A"));
+        products.add(new Product("Pr3", "Cat_B"));
+        products.add(new Product("Pr4", "Cat_C"));
+        products.add(new Product("Pr4", "Cat_C"));
 
         getProductByCategory(products);
     }
