@@ -86,12 +86,6 @@ public class EnvironmentalImpactAnalyzer {
                 });
     }
 
-    public List<EnvironmentalImpact> filterImpactsByCompanyId(int companyId) {
-        return environmentalImpacts.stream()
-                .filter(impact -> impact.getCompanyId() == companyId)
-                .collect(Collectors.toList());
-    }
-
     // Дополнительный метод для получения имени компании по её ID
     private String getCompanyNameById(int companyId) {
         return companies.stream()
@@ -108,12 +102,15 @@ public class EnvironmentalImpactAnalyzer {
                 .collect(Collectors.toList());
     }
 
-
     private boolean isDateInRange(Date date, Date startDate, Date endDate) {
         return !date.before(startDate) && !date.after(endDate);
     }
 
-
-
+    // потом пригодится НЕ ЗАБЫТЬ ИСПОЛЬЗОВАТЬ
+    public List<EnvironmentalImpact> filterImpactsByCompanyId(int companyId) {
+        return environmentalImpacts.stream()
+                .filter(impact -> impact.getCompanyId() == companyId)
+                .collect(Collectors.toList());
+    }
 }
 

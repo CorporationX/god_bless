@@ -1,10 +1,7 @@
 package faang.school.godbless.stream_api.task5eco;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,11 +14,10 @@ public class Main {
 
         // Загружаем данные из CSV файла
         List<EnvironmentalImpact> impacts = CompanyDataLoader.loadEnvironmentalImpacts("environmental_impacts.csv");
+        System.out.println();
 
-        // Анализируем данные
         EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer(companies, impacts);
 
-        // Примеры вызовов методов анализатора
         System.out.println("Analyzing Energy Consumption for SuperCompany:");
         analyzer.analyzeEnergyConsumption("environmental_impacts.csv", 1);
 
@@ -31,9 +27,8 @@ public class Main {
         System.out.println("\nAnalyzing Energy Per Employee:");
         analyzer.analyzeEnergyPerEmployee("environmental_impacts.csv");
 
-//        analyzer.printCompanyImpacts(1); // Печать всех EnvironmentalImpact для SuperCompany
-//        analyzer.analyzeEnergyConsumption("environmental_impacts.csv", 1);
-
+        // Запарился я с этим парсингом, если есть советы насчет этого был бы рад услышать
+        // Конечные результаты выводил через printf, есть что-то удобнее этого метода
     }
 
 
