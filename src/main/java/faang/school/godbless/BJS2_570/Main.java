@@ -1,6 +1,8 @@
 package faang.school.godbless.BJS2_570;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     public static Map<String, WeatherData> weatherDataMap = new HashMap<>();
