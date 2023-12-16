@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         numbers.add(1);
-        numbers.add(2);
+        numbers.add(Integer.MAX_VALUE);
         numbers.add(3);
         numbers.add(4);
 
@@ -17,20 +17,23 @@ public class Main {
         System.out.println(product(numbers));
     }
 
-    public static int calculate(List<Integer> nums, Calculator calculator) {
-        int result = nums.get(0);
+    public static long calculate(List<Integer> nums, Calculator<Long> calculator) {
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("Список не должен быть пустым!");
+        }
+        long result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
-            result = calculator.calc(result, nums.get(i));
+            result = calculator.calc(result, Long.valueOf(nums.get(i)));
         }
         return result;
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a + b);
+    public static long sum(List<Integer> nums) {
+        return calculate(nums, (a, b) -> a += b);
     }
 
-    public static int product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
+    public static long product(List<Integer> nums) {
+        return calculate(nums, (a, b) -> a *= b);
     }
 
 }

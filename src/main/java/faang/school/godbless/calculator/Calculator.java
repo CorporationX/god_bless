@@ -1,6 +1,6 @@
 package faang.school.godbless.calculator;
 
 @FunctionalInterface
-public interface Calculator {
-    int calc(int a, int b);
+public interface Calculator<T> {
+    T calc(T a, T b);
 }
