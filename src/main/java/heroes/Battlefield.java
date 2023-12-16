@@ -29,7 +29,7 @@ public class Battlefield {
         Map<String, Creature> army = hero.getArmy();
         int power = 0;
         for (Map.Entry<String, Creature> entry : army.entrySet()) {
-            power += (entry.getValue().getAttack() * entry.getValue().getQuantity());
+            power += (entry.getValue().getDamage());
         }
         return power;
     }

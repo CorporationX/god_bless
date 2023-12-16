@@ -33,12 +33,14 @@ public class Hero {
     }
 
     public void addCreature(Creature creature, int quantity) {
-        String key = creature.getName();
-        if (army.containsKey(key)) {
-            army.get(key).setQuantity(army.get(key).getQuantity() + quantity);
+        String creatureName = creature.getName();
+        Creature creatureFromArmy = army.get(creatureName);
+
+        if (army.containsKey(creatureName)) {
+            creatureFromArmy.setQuantity(creatureFromArmy.getQuantity() + quantity);
         } else {
             creature.setQuantity(quantity);
-            army.put(key, creature);
+            army.put(creatureName, creature);
         }
     }
 
@@ -51,6 +53,6 @@ public class Hero {
             if (currentQuantity > quantity) {
                 army.get(key).setQuantity(currentQuantity - quantity);
             } else army.remove(key);
-        } else throw new IllegalArgumentException("This creature does not exist");
+        }
     }
 }

@@ -19,7 +19,7 @@ public abstract class Creature {
         this.speed = speed;
     }
 
-    public void getDamage(){
-        // method without realization :(
+    public int getDamage() {
+        return attack * quantity;
     }
 }
