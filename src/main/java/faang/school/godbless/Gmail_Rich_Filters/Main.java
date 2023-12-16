@@ -14,7 +14,7 @@ public class Main {
                 new Email("Letter2", "body of letter2", true),
                 new Email("Spam", "body of spam", false)
         );
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Predicate<Email> importantFilter = Email::isImportant;
         Consumer<Email> printEmail = email -> System.out.println("Letter is handled: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
