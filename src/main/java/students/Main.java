@@ -8,29 +8,30 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<Student> listStud = new ArrayList<>(List.of(
+        List<Student> students = new ArrayList<>(List.of(
                 new Student("Vadim", "Cybernate", 5),
                 new Student("Anna", "Finance", 4),
                 new Student("Serge", "Cybernate", 5),
                 new Student("Lex", "Finance", 1)
         ));
 
-        System.out.println(sortStud(listStud));
-        addStud(listStud, "New", "New", 2024);
-        addStud(listStud, "New", "New", 2024);
-        System.out.println(listStud);
+        System.out.println(sortStud(students));
+        addStud(students, "New", "New", 2024);
+        addStud(students, "New", "New", 2024);
+        addStud(students, "New Student", "New", 2020);
+        System.out.println("Students added: " + students);
 
-        removeStud(listStud, "New", "New", 2024);
-        System.out.println(listStud);
-        searchStud(listStud, "Cybernate", 5);
-        printSortedStud(listStud);
+        removeStud(students, "New", "New", 2024);
+        System.out.println("Students after removing - " + students);
+        System.out.println("Поиск: "+searchStud(students, "Cybernate", 5));
+        printSortedStud(students);
     }
 
-    public static Map<String, List<Student>> sortStud(List<Student> studList) {
+    public static Map<String, List<Student>> sortStud(List<Student> students) {
 
         Map<String, List<Student>> sortedStud = new HashMap<>();
 
-        for (Student stud : studList) {
+        for (Student stud : students) {
             String key = stud.getFaculty() + " - " + stud.getYear();
             sortedStud.putIfAbsent(key, new ArrayList<>());
             sortedStud.get(key).add(stud);
@@ -38,40 +39,31 @@ public class Main {
         return sortedStud;
     }
 
-    public static void addStud(List<Student> studList, String name, String faculty, int year) {
-        studList.add(new Student(name, faculty, year));
-    }
-
-    public static void removeStud(List<Student> studList, String name, String faculty, int year) {
-
-        Iterator<Student> studentIterator = studList.iterator();
-        while (studentIterator.hasNext()) {
-            Student nextStudent = studentIterator.next();
-            if (nextStudent.getName().equals(name) &&
-                    nextStudent.getFaculty().equals(faculty)
-                    && (nextStudent.getYear() == year)) {
-                studentIterator.remove();
-            }
+    public static void addStud(List<Student> students, String name, String faculty, int year) {
+        Student student = new Student(name, faculty, year);
+        if (!students.contains(student)) {
+            students.add(student);
         }
-//        studList.removeIf(nextStudent -> nextStudent.getName().equals(name) &
-//                nextStudent.getFaculty().equals(faculty)
-//                & (nextStudent.getYear() == year));
     }
 
-    public static void searchStud(List<Student> studList, String faculty, int year) {
-        Map<String, List<Student>> sortList = sortStud(studList);
-        String key = faculty + " - " + year;
-        System.out.println("\n" + "List of Students for faculty - '" + faculty + "' and year - " + year);
-        for (Map.Entry str : sortList.entrySet()) {
-            if (str.getKey().equals(key)) {
-                System.out.println(str.getValue());
+    public static void removeStud(List<Student> students, String name, String faculty, int year) {
+
+        Student newStudent = new Student(name, faculty, year);
+        for (Student student : students) {
+            if (student.equals(newStudent)) {
+                students.remove(student);
             }
         }
     }
 
-    public static void printSortedStud(List<Student> studList) {
+    public static List<Student> searchStud(List<Student> students, String faculty, int year) {
+        Map<String, List<Student>> sortList = sortStud(students);
+        return sortList.get(faculty + " - " + year);
+    }
+
+    public static void printSortedStud(List<Student> students) {
         System.out.println("\n" + "All students sorted by faculty and year:");
-        for (Map.Entry entry : sortStud(studList).entrySet()) {
+        for (Map.Entry entry : sortStud(students).entrySet()) {
             System.out.println(entry);
         }
     }
