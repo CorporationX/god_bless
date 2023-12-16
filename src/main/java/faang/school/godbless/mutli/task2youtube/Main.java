@@ -18,7 +18,7 @@ public class Main {
                 executorService.execute(() -> {
                     videoManager.addView(videoId);
                     int viewCount = videoManager.getViewCount(videoId);
-                    System.out.println("Video " + videoId + " View Count: " + viewCount);
+                    System.out.println("Video " + videoId + "| ViewCount: " + viewCount);
                 });
             }
         }
