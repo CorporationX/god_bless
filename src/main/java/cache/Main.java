@@ -24,13 +24,13 @@ public class Main {
 
     public static WeatherData getWeather(String city) {
         if (!weather.containsKey(city)) {
-            fillWeather(city,weather);
+            weather.put(city, fillWeather(city));
         }
         return weather.get(city);
     }
 
     public static void updateCacheCity(String city) {
-        fillWeather(city,weather);
+        weather.put(city, fillWeather(city));
     }
 
     public static void removeCache(String city) {
