@@ -18,6 +18,7 @@ public class Main {
         products.add(new Product("Pr3", "Cat_B"));
         products.add(new Product("Pr4", "Cat_C"));
         products.add(new Product("Pr4", "Cat_C"));
+        products.add(new Product("Pr5", "Cat_AA"));
 
         getProductByCategory(products);
     }
