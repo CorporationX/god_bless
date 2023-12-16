@@ -7,9 +7,10 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public static void addItem(Item item, Character character, Consumer<Item> consumer) {
-        character.getItems().add(item);
-        consumer.accept(item);
+    public static void addItem(Item item, Character character, Consumer<Item> onSuccess) {
+
+        onSuccess.accept(item);
+        System.out.println("Item: " + item.getName() + " добавлен в инвентарь!");
     }
 
     public static void removeItem(Character character, Predicate<Item> predicate) {
@@ -19,8 +20,9 @@ public class InventoryManager {
 
     public static void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> func) {
         List<Item> items = character.getItems();
-        for (Item item : items) {
-            if (predicate.test(item)) {
+        for (int i = 0; i < items.size(); i++) {
+            if (predicate.test(items.get(i))) {
+                Item item = items.get(i);
                 Item newItem = func.apply(item);
                 items.set(items.indexOf(item), newItem);
             }
@@ -41,8 +43,7 @@ public class InventoryManager {
 
         character.setItems(items);
 
-        addItem(necklace, character, (item) ->
-                System.out.println(item.getName() + " was added to inventory!"));
+        addItem(necklace, character, (item) -> character.getItems().add(item));
         removeItem(character, (item) -> item.getName().equals("Sword"));
         updateItem(character, (item) -> item.getName().equals("Bow"),
                 (item) -> new Item(item.getName(), item.getValue() + 10));
