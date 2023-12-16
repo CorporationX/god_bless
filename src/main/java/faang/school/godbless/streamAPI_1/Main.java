@@ -3,6 +3,7 @@ package faang.school.godbless.streamAPI_1;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -16,6 +17,7 @@ public class Main {
         }
         System.out.println("Average: " + average(numbers));
         System.out.println("Average (ver.2): " + average2(numbers));
+        System.out.println("Average (ver.3): " + average3(numbers));
         System.out.println("Amount string with `s`: " + countStringStartBy("s", strings));
         System.out.println("List of string with same word:");
         stringsWith("else", strings).forEach(System.out::println);
@@ -56,6 +58,10 @@ public class Main {
 
     private static double average2(List<Integer> nums) {
         return nums.stream().mapToInt(Integer::intValue).average().orElse(0);
+    }
+
+    private static double average3(List<Integer> nums) {
+        return nums.stream().collect(Collectors.averagingInt(p -> p));
     }
 
     private static Optional<Integer> maxElement(List<Integer> nums) {
