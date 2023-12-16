@@ -9,7 +9,7 @@ public class DictionaryProcessor {
     private static Map<String, String> dictionary = new HashMap<>();
 
     public static void processWord(String word, String translate, BiConsumer<String, String> consumer) {
-        dictionary.put(word, translate);
+        consumer.accept(word, translate);
     }
 
     public static void main(String[] args) {
