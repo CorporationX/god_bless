@@ -1,19 +1,30 @@
 package faang.school.godbless.multi.task4vlad;
 
+import lombok.Data;
+
+@Data
+
 public class TamagotchiVlad {
-    public void feed() {
+    private String name;
 
+    public TamagotchiVlad(String name) {
+        this.name = name;
     }
 
-    public void play() {
-
+    public synchronized void feed() {
+        System.out.println(name + " покормлен.");
     }
 
-    public void clean() {
-
+    public synchronized void play() {
+        System.out.println(name + " поигран.");
     }
 
-    public void sleep() {
+    public synchronized void clean() {
+        System.out.println(name + " помыт.");
+    }
 
+    public synchronized void sleep() {
+        System.out.println(name + " поспат.");
     }
 }
+
