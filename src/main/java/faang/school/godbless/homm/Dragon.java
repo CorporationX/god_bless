@@ -3,9 +3,9 @@ package faang.school.godbless.homm;
 public class Dragon extends Creature {
     public Dragon() {
         super();
-        this.setName("Dragon");
-        this.setAttack(8);
-        this.setDefence(5);
-        this.setSpeed(1);
+        setName("Dragon");
+        setAttack(8);
+        setDefence(5);
+        setSpeed(1);
     }
 }
