@@ -9,4 +9,5 @@ import java.util.List;
 @AllArgsConstructor
 public class Character {
     private List<Item> inventory;
+
 }

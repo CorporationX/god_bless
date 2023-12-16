@@ -15,7 +15,7 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> itemPredicate) {
         for (Item item : character.getInventory()) {
             if (itemPredicate.test(item)) {
-                character.getInventory().remove(item);
+                character.getInventory().removeIf(itemPredicate);
                 break;
             }
         }
@@ -26,8 +26,8 @@ public class InventoryManager {
         for (Item item : character.getInventory()) {
             if (itemPredicate.test(item)) {
                 Item newItem = function.apply(item);
-                character.getInventory().remove(item);
-                character.getInventory().add(newItem);
+                item.setName(newItem.getName());
+                item.setValue(newItem.getValue());
                 break;
             }
         }

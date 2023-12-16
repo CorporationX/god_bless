@@ -13,5 +13,6 @@ public class Main {
         //manager.removeItem(fedor, (item) -> item.getName().equals("ring"));
         manager.updateItem(fedor, (item) -> item.getName().equals("ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
         System.out.println(fedor.getInventory());
+
     }
 }
