@@ -15,10 +15,14 @@ public class School {
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-        Double perimeter = div.apply(sum.apply(a).andThen(sum.apply(b)).apply(c)).apply(2D);
-        Double sumDivPerimeter = sum.apply(sub.apply(perimeter).apply(a)).andThen(sum.apply(sub.apply(perimeter).apply(b))).apply(sub.apply(perimeter).apply(c));
-        Double mult = mul.apply(perimeter).apply(sumDivPerimeter);
+        Double square = null;
 
-        return sqrt.apply(mult);
+        if ((a + b > c) && (b + c > a) && (a + c > b)) {
+                    Double perimeter = div.apply(sum.apply(a).andThen(sum.apply(b)).apply(c)).apply(2D);
+                    Double sumDivPerimeter = sum.apply(sub.apply(perimeter).apply(a)).andThen(sum.apply(sub.apply(perimeter).apply(b))).apply(sub.apply(perimeter).apply(c));
+                    Double mult = mul.apply(perimeter).apply(sumDivPerimeter);
+                    square = sqrt.apply(mult);
+                } else throw new IllegalArgumentException("Треугольник с такими сторонами не существует");
+        return square;
     }
 }
