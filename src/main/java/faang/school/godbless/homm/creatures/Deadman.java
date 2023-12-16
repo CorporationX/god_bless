@@ -1,10 +1,10 @@
-package faang.school.godbless.homm;
+package faang.school.godbless.homm.creatures;
 
 public class Deadman extends Creature {
     public Deadman() {
         super();
         setName("Deadman");
-        setAttack(8);
+        setDamage(8);
         setDefence(4);
         setSpeed(1);
     }
