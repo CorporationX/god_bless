@@ -14,10 +14,10 @@ public class Main {
         streamMap = new HashMap<>();
         streamEvents = new HashMap<>();
 
-        StreamEvent event1 = new StreamEvent(1, "Error", "all crash");
-        StreamEvent event2 = new StreamEvent(2, "Error", "all data is lost");
-        StreamEvent event3 = new StreamEvent(3, "Exception", "wrong type of data");
-        StreamEvent event4 = new StreamEvent(4, "Exception", "nothing");
+        StreamEvent event1 = new StreamEvent("Error", "all crash");
+        StreamEvent event2 = new StreamEvent("Error", "all data is lost");
+        StreamEvent event3 = new StreamEvent("Exception", "wrong type of data");
+        StreamEvent event4 = new StreamEvent("Exception", "nothing");
 
         addEvent(event1);
         addEvent(event2);
@@ -38,7 +38,6 @@ public class Main {
         getEventByID(2);
         System.out.println();
         getEventsByType("Exception");
-
     }
 
     public static void addEvent(StreamEvent streamEvent) {
@@ -48,37 +47,21 @@ public class Main {
     }
 
     public static void getEventByID(int id) {
-        for(Map.Entry<Integer, StreamEvent> entry : streamMap.entrySet()) {
-            if(entry.getKey() == id) {
-                System.out.println("StreamEvent: " + entry.getValue());
-            }
-        }
+        System.out.println("StreamEvent: " + streamMap.get(id));
     }
 
     public static void getEventsByType(String type) {
-        for(Map.Entry<String, List<StreamEvent>> entry : streamEvents.entrySet()) {
-            if(entry.getKey().equals(type)) {
-                System.out.println("StreamEvents: " + entry.getValue());
-            }
-        }
+        System.out.println("StreamEvents: " + streamEvents.get(type));
     }
 
     public static void deleteEventByID(int id) {
-        for(Map.Entry<Integer, StreamEvent> entry : streamMap.entrySet()) {
-            if(entry.getKey() == id) {
-                StreamEvent event = streamMap.get(id);
-                streamMap.remove(id, event);
-                for(Map.Entry<String, List<StreamEvent>> eventEntry : streamEvents.entrySet()) {
-                    eventEntry.getValue().remove(event);
-                    break;
-                    }
-                }
-                break;
-        }
+        StreamEvent event = streamMap.get(id);
+        streamMap.remove(id);
+        streamEvents.get(event.getEventType()).remove(event);
     }
 
     public static void getEvents() {
-        for(Map.Entry<Integer, StreamEvent> entry : streamMap.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : streamMap.entrySet()) {
             System.out.println("Event ID: " + entry.getKey() + " event type: " +
                     entry.getValue().getEventType() + " event data: " +
                     entry.getValue().getData());
@@ -86,7 +69,7 @@ public class Main {
     }
 
     public static void getEventsSortedByType() {
-        for(Map.Entry<String, List<StreamEvent>> entry : streamEvents.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : streamEvents.entrySet()) {
             System.out.println("Event type: " + entry.getValue());
         }
     }
