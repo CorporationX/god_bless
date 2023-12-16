@@ -14,25 +14,22 @@ public class Battlefield {
 
         while (true) {
             PLAYER_1.attackEnemyArmy(PLAYER_2);
-            if (endBattle()) {
+            if (endBattle(PLAYER_1, PLAYER_2)) {
                 break;
             }
             PLAYER_2.attackEnemyArmy(PLAYER_1);
-            if (endBattle()) {
+            if (endBattle(PLAYER_2, PLAYER_1)) {
                 break;
             }
         }
     }
 
-    private boolean endBattle() {
-        if (PLAYER_1.getArmy().isEmpty() || PLAYER_1.getHp() <= 0) {
-            System.out.println(PLAYER_2.getName() + " victory!");
+    private boolean endBattle(Hero hero, Hero enemy) {
+        if (enemy.getArmy().isEmpty() || enemy.getHp() <= 0) {
+            System.out.println(hero.getName() + " victory!");
             return true;
-        } else if (PLAYER_2.getArmy().isEmpty() || PLAYER_2.getHp() <= 0) {
-            System.out.println(PLAYER_1.getName() + " victory!");
-            return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

@@ -30,7 +30,7 @@ public class Hero {
         Creature Swordsman = new Swordsman();
         Creature Deadman = new Deadman();
         Creature Dragon = new Dragon();
-        List<Creature> availableCreatures = new LinkedList<>(Arrays.asList(Swordsman, Deadman, Dragon));
+        List<Creature> creatures = new LinkedList<>(Arrays.asList(Swordsman, Deadman, Dragon));
 
         System.out.println(getName() + "'s turn");
         System.out.println("Build your army (choose 7 units)");
@@ -38,7 +38,7 @@ public class Hero {
         int maxQuantity = 7;
         int currentQuantity = 0;
 
-        for (Creature creature : availableCreatures) {
+        for (Creature creature : creatures) {
             System.out.println("How many " + creature.getName() + "?");
 
             int quantity = getConsole().nextInt();
