@@ -32,18 +32,14 @@ public class InventoryManager {
 
     public void removeItem(Character character, Predicate<Item> predicate) {
         List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            if (predicate.test(inventory.get(i))) {
-                inventory.remove(i);
-            }
-        }
+        inventory.removeIf(item -> predicate.test(item));
     }
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         List<Item> inventory = character.getInventory();
         for (int i = 0; i < inventory.size(); i++) {
             Item inventaryItem = inventory.get(i);
             if (predicate.test(inventaryItem)) {
-                function.apply(inventaryItem);
+                inventory.set(i, function.apply(inventaryItem));
             }
         }
     }
