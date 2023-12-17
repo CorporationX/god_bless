@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import java.util.*;
@@ -9,21 +8,10 @@ import java.util.*;
 @Getter
 @Setter
 public class User {
-    private static final List<String> VALID_JOBS = Collections.unmodifiableList(
-            new ArrayList<String>() {{
-                add("Google");
-                add("Uber");
-                add("Amazon");
-            }});
-    private static final List<String> VALID_ADDRESSES = Collections.unmodifiableList(
-            new ArrayList<String>() {{
-                add("London");
-                add("New York");
-                add("Amsterdam");
-            }});
-
+    private static final List<String> VALID_JOBS = List.of("Google","Uber","Amazon");
+    private static final List<String> VALID_ADDRESSES = List.of("London","New York","Amsterdam");
     private String name;
-    private Long age;
+    private long age;
     private String workName;
     private String address;
 
@@ -49,13 +37,4 @@ public class User {
             throw new IllegalArgumentException("negative value!");
         }
     }
-
-//    //Перетруться если возраст одинаковый, но наверное это не важно
-//    public static Map<Long, String> groupUsers(List<User> userList){
-//        Map<Long, String> map = new HashMap<>();
-//        for(User u: userList){
-//            map.put(u.age,u.name);
-//        }
-//        return map;
-//    }
 }
