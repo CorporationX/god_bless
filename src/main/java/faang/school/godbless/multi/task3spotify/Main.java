@@ -14,5 +14,10 @@ public class Main {
         pauseThread.start();
         skipThread.start();
         previousThread.start();
+
+        playThread.join();
+        pauseThread.join();
+        skipThread.join();
+        previousThread.join();
     }
 }
