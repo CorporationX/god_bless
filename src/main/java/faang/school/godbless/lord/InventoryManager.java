@@ -13,13 +13,7 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> itemPredicate) {
-        for (Item item : character.getInventory()) {
-            if (itemPredicate.test(item)) {
-                character.getInventory().removeIf(itemPredicate);
-                break;
-            }
-        }
-
+        character.getInventory().removeIf(itemPredicate);
     }
 
     public void updateItem(Character character, Predicate<Item> itemPredicate, Function<Item, Item> function) {
@@ -28,7 +22,7 @@ public class InventoryManager {
                 Item newItem = function.apply(item);
                 item.setName(newItem.getName());
                 item.setValue(newItem.getValue());
-                break;
+
             }
         }
     }
