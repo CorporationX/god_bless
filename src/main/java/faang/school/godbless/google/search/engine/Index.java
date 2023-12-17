@@ -1,52 +1,54 @@
 package faang.school.godbless.google.search.engine;
 
 import lombok.NoArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Getter
 @NoArgsConstructor
 public class Index {
-    public Map<String, List<WebPage>> webPagesIndexedList = new HashMap<>();
     public List<WebPage> index = new ArrayList<>();
-    public List<WebPage> restrictedWebPages = new ArrayList<>();
 
-    public Map<String, List<WebPage>> addWebPageToIndex (WebPage webPage) {
-        Set<String> keywords = getFormattedKeywords(webPage);
+    public void addWebPageToIndex (WebPage webPage) {
+        index.add(webPage);
+    }
 
-        if (restrictedWebPages.contains(webPage)) {
-            return this.getWebPagesIndexedList();
+    public void removeWebPageFromIndexByUrl (String url) {
+        List<WebPage> restrictedPages = new ArrayList<>();
+
+        for (WebPage webPage : index) {
+            if (webPage.getUrl().equals(url)) {
+                restrictedPages.add(webPage);
+            }
         }
 
-        for (String keyword : keywords) {
-            getWebPagesIndexedList().putIfAbsent(keyword, new ArrayList<>());
-            getWebPagesIndexedList().get(keyword).add(webPage);
+        index.removeAll(restrictedPages);
+    }
+
+    public Map<String, List<WebPage>> getWebPagesIndexedByKeyword () {
+        Map<String, List<WebPage>> webPagesIndexedList = new HashMap<>();
+
+        for (WebPage webPage : index) {
+            Set<String> keywords = getFormattedKeywords(webPage);
+
+            for (String keyword : keywords) {
+                webPagesIndexedList.putIfAbsent(keyword, new ArrayList<>());
+                webPagesIndexedList.get(keyword).add(webPage);
+            }
         }
 
-        return this.getWebPagesIndexedList();
+        return webPagesIndexedList;
     }
 
     public List<WebPage> getIndexByKeyword (String keyword) {
+        Map<String, List<WebPage>> webPagesIndexedList = getWebPagesIndexedByKeyword();
         keyword = getFormattedKeyword(keyword);
 
-        return getWebPagesIndexedList().get(keyword);
-    }
-
-    public void removeWebPageFromIndexByUrl(String url) {
-        for (WebPage webPage : index) {
-            if (webPage.getUrl().equals(url)) {
-                index.remove(webPage);
-                restrictedWebPages.add(webPage);
-            }
-        }
+        return webPagesIndexedList.get(keyword);
     }
 
     private Set<String> getFormattedKeywords (WebPage webPage) {

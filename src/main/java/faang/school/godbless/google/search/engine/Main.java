@@ -1,12 +1,7 @@
 package faang.school.godbless.google.search.engine;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main (String[] args) {
         Index index = new Index();
 
         index.addWebPageToIndex(new WebPage("javarush.com", "java intro", "best java, java, java, introduction"));
@@ -17,7 +12,12 @@ public class Main {
         index.addWebPageToIndex(new WebPage("javarush.com", "java intro", "best java course"));
         index.addWebPageToIndex(new WebPage("javamagics.com", "JAVA Maps", "java maps for dummies"));
 
-        System.out.println(index.getWebPagesIndexedList());
+        System.out.println(index.getWebPagesIndexedByKeyword());
+        System.out.println(index.getIndexByKeyword("JAVA"));
+
+        index.removeWebPageFromIndexByUrl("javarush.com");
+
+        System.out.println(index.getWebPagesIndexedByKeyword());
         System.out.println(index.getIndexByKeyword("JAVA"));
     }
 }
