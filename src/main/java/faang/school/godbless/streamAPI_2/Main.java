@@ -45,7 +45,6 @@ public class Main {
         Arrays.stream(findNumberPalindromic(1, 100)).forEach(System.out::println);
 
         String string = "strings bob are used wsw for storing ete text";
-
         findStringPalindromic(string).forEach(System.out::println);
 
         System.out.println(Arrays.toString(findPerfectNumber(1, 1000)));
@@ -96,7 +95,8 @@ public class Main {
 
     private static Map<String, Double> groupByDepartment(List<Employee> workers) {
         return workers.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingInt(Employee::getSalary)));
+                .collect(Collectors
+                        .groupingBy(Employee::getDepartment, Collectors.averagingInt(Employee::getSalary)));
     }
 
     private static Set<List<Integer>> getCouplesEqualBy(int sum, List<Integer> numbers) {
