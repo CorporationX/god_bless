@@ -21,7 +21,7 @@ public class FoodDeliveryTask implements Runnable {
             throw new RuntimeException(e);
         }
 
-        System.out.println(character + " хавает " + foodAmount + " " + foodType);
+        System.out.println(character + " ест " + foodAmount + " " + foodType);
     }
 
     private String getFoodType() {
