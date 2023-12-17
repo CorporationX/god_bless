@@ -2,11 +2,7 @@ package faang.school.godbless.collectusers;
 
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 @Setter
 @Getter
@@ -19,6 +15,7 @@ public class User {
     private int age;
     private String job;
     private String address;
+    private static final int AGE = 18;
 
     public User(String name, int age, String job, String address) {
         validateConstructor(name, age, job, address);
@@ -29,7 +26,7 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new TreeMap<>();
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
         for (User user : users) {
             int usersAge = user.getAge();
             groupUsers.putIfAbsent(usersAge, new ArrayList<>());
@@ -37,8 +34,16 @@ public class User {
         }
         return groupUsers;
     }
+
     private void validateConstructor(String name, int age, String job, String address) {
-        if(name == null || age <= 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address))
-            throw new IllegalArgumentException();
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Не корректное имя");
+        } else if (age < AGE) {
+            throw new IllegalArgumentException("Не корректный возраст");
+        } else if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Не корректная работа");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Не корректный адресс");
+        }
     }
 }
