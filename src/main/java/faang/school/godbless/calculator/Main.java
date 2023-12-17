@@ -29,11 +29,11 @@ public class Main {
         return result;
     }
 
-    public static int sum(List<Integer> nums) {
+    public static Integer sum(List<Integer> nums) {
         return calculate(nums, (a, b) -> a + b);
     }
 
-    public static int product(List<Integer> nums) {
+    public static Integer product(List<Integer> nums) {
         return calculate(nums, (a, b) -> a * b);
     }
 
