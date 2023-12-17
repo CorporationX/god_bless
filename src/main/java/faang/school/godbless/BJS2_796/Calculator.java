@@ -4,5 +4,5 @@ import java.math.BigInteger;
 
 @FunctionalInterface
 public interface Calculator {
-    long operate(long a, long b);
+    BigInteger operate(BigInteger a, BigInteger b);
 }

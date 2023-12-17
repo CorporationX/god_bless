@@ -1,29 +1,30 @@
 package faang.school.godbless.BJS2_796;
 
-import java.util.Collections;
+import java.math.BigInteger;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(1, 2, 3, 4, Integer.MAX_VALUE);
+        List<Integer> numbers = List.of(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
 
         System.out.println(sum(numbers));
         System.out.println(produce(numbers));
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a + b);
+    public static BigInteger sum(List<Integer> numbers) {
+        return calculate(numbers, BigInteger::add);
     }
 
-    public static int produce(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
+    public static BigInteger produce(List<Integer> numbers) {
+        return calculate(numbers, BigInteger::multiply);
     }
 
-    public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
-        if (nums == null) {
+    public static BigInteger calculate(List<Integer> numbers, Calculator calculator) throws IllegalArgumentException {
+        if (numbers == null) {
             throw new IllegalArgumentException("List is null");
         }
-        return nums.stream().reduce(0, (a, b) -> Math.toIntExact(calculator.operate((long)a, (long)b)));
+        return numbers.stream()
+                .map(BigInteger::valueOf)
+                .reduce(calculator::operate).orElse(BigInteger.ZERO);
     }
 }
