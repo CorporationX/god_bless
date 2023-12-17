@@ -4,7 +4,7 @@ public class Warrior extends Character{
 
     @Override
     protected void attack(Character character) {
-        character.health=character.health-this.force;
+        character.health-=this.force;
     }
 
     public Warrior(String name) {
@@ -12,6 +12,6 @@ public class Warrior extends Character{
     }
 
     public Warrior(Long force, Long dexterity, Long intelligence) {
-        super(10l, 5l, 3l);
+        super("Warrior",10l, 5l, 3l);
     }
 }
