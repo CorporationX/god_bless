@@ -1,4 +1,4 @@
-package faang.school.godbless.task_1.Creature;
+package faang.school.godbless.hashMap.task_1.Creature;
 
 
 import lombok.AllArgsConstructor;

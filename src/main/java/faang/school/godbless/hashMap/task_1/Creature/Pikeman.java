@@ -1,4 +1,4 @@
-package faang.school.godbless.task_1.Creature;
+package faang.school.godbless.hashMap.task_1.Creature;
 
 public class Pikeman extends Creature {
     private static final String NAME = "Pikeman";

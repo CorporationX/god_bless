@@ -1,6 +1,6 @@
-package faang.school.godbless.task_1;
+package faang.school.godbless.hashMap.task_1;
 
-import faang.school.godbless.task_1.Army.Battlefield;
+import faang.school.godbless.hashMap.task_1.Army.Battlefield;
 
 public class Main {
     public static void main(String[] args) {

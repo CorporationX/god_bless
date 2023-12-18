@@ -1,6 +1,6 @@
-package faang.school.godbless.task_1.Army;
+package faang.school.godbless.hashMap.task_1.Army;
 
-import faang.school.godbless.task_1.Creature.Creature;
+import faang.school.godbless.hashMap.task_1.Creature.Creature;
 import lombok.Getter;
 
 import java.util.HashMap;
