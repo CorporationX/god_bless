@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Task implements Runnable {
-    String name;
-    String task;
+    private String name;
+    private String task;
 
     @Override
     public void run() {
