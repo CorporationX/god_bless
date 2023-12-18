@@ -123,6 +123,30 @@ public class Main {
 
     }
 
+//    static Set<List<String>> uniquePairs(Map<String, List<String>> usersWithFriendsList) {
+//        return usersWithFriendsList.entrySet().stream()
+//                .flatMap(entry1 -> usersWithFriendsList.entrySet().stream()
+//                        .filter(entry2 -> !entry2.getKey().equals(entry1.getKey())
+//                                && !entry1.getValue().contains(entry2.getKey())
+//                                && !Collections.disjoint(entry1.getValue(), entry2.getValue())
+//                                && entry1.getKey().compareTo(entry2.getKey()) < 0)
+//                        .map(entry2 -> new ArrayList<>(Arrays.asList(entry1.getKey(), entry2.getKey()))))
+//                .collect(Collectors.toSet());
+//
+//    }
+
+//    static Set<Map.Entry<String, String>> uniquePairs(Map<String, List<String>> usersWithFriendsList) {
+//        return usersWithFriendsList.entrySet().stream()
+//                .flatMap(entry1 -> usersWithFriendsList.entrySet().stream()
+//                        .filter(entry2 -> !entry2.getKey().equals(entry1.getKey())
+//                                && !entry1.getValue().contains(entry2.getKey())
+//                                && !Collections.disjoint(entry1.getValue(), entry2.getValue())
+//                                && entry1.getKey().compareTo(entry2.getKey()) < 0)
+//                        .map(entry2 -> Map.entry(entry1.getKey(), entry2.getKey())))
+//                .collect(Collectors.toSet());
+//
+//    }
+
     //5 subtask StreamAPI2
     static Map<String, Double> averageSalaryByDepartment(List<Employee> listEmployee) {
 
