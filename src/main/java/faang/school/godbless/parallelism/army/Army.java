@@ -9,14 +9,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Army {
 
     private final List<Unit> units;
-    private final AtomicInteger totalPower = new AtomicInteger(0);
-    List<Thread> threads = new ArrayList<>();
+    private final AtomicInteger totalPower;
+    List<Thread> threads;
 
     public Army() {
         units = new ArrayList<>();
+        totalPower = new AtomicInteger(0);
+        threads = new ArrayList<>();
     }
 
     public int calculateTotalPower() {
+        startThreads();
+        joinThreads();
+        return totalPower.get();
+    }
+
+    private void joinThreads() {
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread interrupted: " + e.getMessage());
+            }
+        }
+    }
+
+    private void startThreads() {
         ExecutorService executor = Executors.newFixedThreadPool(4);
         for (Unit unit : units) {
             Thread thread = new Thread(() -> {
@@ -26,15 +45,6 @@ public class Army {
             threads.add(thread);
             thread.start();
         }
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Thread interrupted: " + e.getMessage());
-            }
-        }
-        return totalPower.get();
     }
 
     public void addUnit(Unit unit) {
