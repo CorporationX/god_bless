@@ -36,7 +36,7 @@ public class Main {
         System.out.println(StreamMethods.sortStrStartChar(strings, 'a'));
         System.out.println(StreamMethods.findCommonFriends(mapFriends));
         System.out.println(StreamMethods.avrTypeEmployee(employees));
-        System.out.println(StreamMethods.alfStr(strings2, "абвгежзиклмнопростысявсдпжякапжтэ"));
+        System.out.println(StreamMethods.alfStr(strings2, "^[а-яА-ЯёЁ]+$"));
         System.out.println(StreamMethods.bin(list));
         System.out.println(StreamMethods.palindromes(100, 1000));
     }

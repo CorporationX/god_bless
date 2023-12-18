@@ -7,13 +7,11 @@ import java.util.stream.IntStream;
 
 
 public class StreamMethods {
-    public static List<List<Integer>> findPairsWithSum(List<Integer> list, int sum) {
-        return list.stream().
-                flatMap(i -> list.stream().
-                        filter(j -> i + j == sum).
-                        map(j -> List.of(i, j))).
-                distinct().
-                toList();
+    public static Set<Set<Integer>> findPairsWithSum(List<Integer> list, int sum) {
+        return list.stream()
+                .filter(i -> list.contains(sum - i))
+                .map(i -> Set.of(i, sum - i))
+                .collect(Collectors.toSet());
     }
 
     public static List<String> sortCountries(Map<String, String> countries) {
@@ -27,21 +25,20 @@ public class StreamMethods {
         String symStr = String.valueOf(symbol);
         return strings.stream().
                 filter(str -> str.startsWith(symStr)).
-                sorted().
+                sorted(Comparator.comparingInt(String::length)).
                 toList();
     }
 
-    public static List<List<String>> findCommonFriends(Map<String, List<String>> mapFriend) {
-        return mapFriend.entrySet().stream().
-                flatMap(humi -> mapFriend.entrySet().stream().
-                        filter(humj -> !humi.getValue().contains(humj.getKey()) &&
-                                !Collections.disjoint(humi.getValue(), (humj.getValue())) &&
-                                !humi.getKey().equals(humj.getKey()) &&
-                                humi.getKey().compareTo(humj.getKey()) < 0).
-                        map(humj -> List.of(humi.getKey(), humj.getKey()))).
-                distinct().
-                toList();
+    public static Set<Set<String>> findCommonFriends(Map<String, List<String>> mapFriend) {
+        return mapFriend.entrySet().stream()
+                .flatMap(person1 -> mapFriend.entrySet().stream()
+                        .filter(person2 -> !person1.getKey().equals(person2.getKey())) // Исключаем одинаковых людей
+                        .filter(person2 -> !person1.getValue().contains(person2.getKey())) // Они не друзья
+                        .filter(person2 -> !Collections.disjoint(person1.getValue(), person2.getValue())) // Проверяем наличие общих друзей
+                        .map(person2 -> Set.of(person1.getKey(), person2.getKey())))
+                .collect(Collectors.toSet());
     }
+
 
     public static Map<String, Double> avrTypeEmployee(List<Employee> employees) {
         return employees.stream().
@@ -52,10 +49,10 @@ public class StreamMethods {
     }
 
     public static List<String> alfStr(List<String> strings, String alf) {
-        return strings.stream().
-                filter(s -> s.toLowerCase().chars().allMatch(c -> alf.contains(String.valueOf((char) c)))).
-                sorted().
-                toList();
+        return strings.stream()
+                .filter(str -> str.toLowerCase().matches(alf))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static List<String> bin(List<Integer> numbers) {
