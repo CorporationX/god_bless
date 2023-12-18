@@ -3,7 +3,7 @@ package faang.school.godbless.StreamAPI.StreamAPI1;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -32,7 +32,7 @@ public class Main {
 
         System.out.println("Sorted by length List: " + sortByLength(stringList));
 
-        System.out.println("Check List by definite condition: " + checkListByCondition(numberList));
+        System.out.println("Check List by definite condition: " + checkListByCondition(numberList, value -> value < 30));
 
         System.out.println("Min value above definite in List: " + findMinAboveDefinite(9, numberList));
 
@@ -51,29 +51,26 @@ public class Main {
 
     static int maxValue(List<Integer> numbers) {
 
-        Optional<Integer> optional = numbers.stream()
-                .max(Comparator.comparingInt(number -> number));
-
-        return optional.orElse(0);
+        return numbers.stream()
+                .max(Comparator.comparingInt(number -> number)).orElse(0);
 
     }
 
-    static int averageValue(List<Integer> numbers) {
+    static double averageValue(List<Integer> numbers) {
 
-        return (int) numbers.stream()
+        return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average().orElse(0);
 
     }
 
-    static int countingLineCharAt(Character character, List<String> stringList) {
+    static long countingLineCharAt(char character, List<String> stringList) {
 
-        List<String> lineList = stringList.stream()
+        return stringList.stream()
                 .map(String::toLowerCase)
-                .filter(str -> str.charAt(0) == character)
-                .toList();
+                .filter(str -> str.startsWith(String.valueOf(character)))
+                .count();
 
-        return lineList.size();
 
     }
 
@@ -93,10 +90,9 @@ public class Main {
 
     }
 
-    static boolean checkListByCondition(List<Integer> numbers) {
+    static <T> boolean checkListByCondition(List<T> numbers, Predicate<T> predicate) {
 
-        return numbers.stream()
-                .allMatch(value -> value > 10);
+        return numbers.stream().allMatch(predicate);
 
     }
 
