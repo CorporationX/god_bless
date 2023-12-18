@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -80,11 +79,11 @@ public class Main {
     //1 subtask StreamAPI2
     static List<List<Integer>> searchUniquePairs(List<Integer> integerList, int targetValue) {
 
-        return integerList.stream()
-                .flatMap(value1 -> integerList.stream()
+        return IntStream.range(0, integerList.size())
+                .boxed()
+                .flatMap(value1 -> IntStream.range(value1 + 1, integerList.size())
                         .filter(value2 -> value1 + value2 == targetValue)
-                        .map(val2 -> Stream.of(value1, val2).sorted().toList()))
-                .distinct()
+                        .mapToObj(value2 -> Arrays.asList(value1, value2)))
                 .toList();
 
     }
@@ -103,7 +102,7 @@ public class Main {
     static List<String> listLinesCharAtByLength(List<String> listLines, char s) {
 
         return listLines.stream()
-                .filter(str -> str.toLowerCase().charAt(0) == s)
+                .filter(str -> str.startsWith(String.valueOf(s)))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
 
@@ -164,7 +163,7 @@ public class Main {
     static List<String> listLinesFilterByCharset(List<String> listLines, String specificCharset) {
 
         return listLines.stream()
-                .filter(str -> str.toLowerCase().matches(specificCharset))
+                .filter(str -> str.matches(specificCharset))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
 
