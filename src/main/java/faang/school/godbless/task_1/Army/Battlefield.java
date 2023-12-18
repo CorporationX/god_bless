@@ -23,7 +23,7 @@ public class Battlefield {
         hero2.addCreature(new Griffin(), 2);
     }
 
-    public Hero battle() {
+    public void battle() {
         createArmy();
 
         Map<Creature, Integer> armyHero1 = hero1.getArmy();
@@ -39,14 +39,14 @@ public class Battlefield {
             System.out.println("There are not enough warriors to start the battle!");
         }
 
-        while (iterator1.hasNext() || iterator2.hasNext()) {
+        while (true) {
             if (!iterator1.hasNext()) {
-                System.out.println("Battle is end!\n");
-                return hero2;
+                System.out.println("Battle is end!\n Winner is : " + hero2);
+                break;
             }
             if (!iterator2.hasNext()) {
-                System.out.println("Battle is end!\n");
-                return hero1;
+                System.out.println("Battle is end!\n Winner is : " + hero1);
+                break;
             }
 
             Creature creature1 = iterator1.next();
@@ -80,6 +80,5 @@ public class Battlefield {
                 }
             }
         }
-        return null;
     }
 }

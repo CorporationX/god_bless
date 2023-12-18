@@ -30,9 +30,19 @@ public class Hero {
         }
     }
 
-    public void removeCreature(Creature creature, int quantity) {
+    public void removeCreature(Creature creature, int damageQuantity) {
         if (heroArmy.containsKey(creature)) {
-            heroArmy.remove(creature, quantity);
+
+            int currentQuantity = creature.getHealth();
+            int afterDamageQuantity = currentQuantity - damageQuantity;
+
+            if (afterDamageQuantity <= 0) {
+                heroArmy.remove(creature);
+            } else {
+                heroArmy.put(creature, afterDamageQuantity);
+            }
+        } else {
+            System.out.println("Creature not found in Hero's army");
         }
     }
 

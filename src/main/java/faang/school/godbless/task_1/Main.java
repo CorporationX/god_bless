@@ -6,6 +6,6 @@ public class Main {
     public static void main(String[] args) {
         Battlefield battlefield = new Battlefield();
 
-        System.out.println("Winner is : " + battlefield.battle());
+        battlefield.battle();
     }
 }
