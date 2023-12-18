@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public class ArmyItem {
-    int power;
+    private int power;
 
     public ArmyItem(int power) {
         this.power = power;
