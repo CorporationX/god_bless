@@ -35,21 +35,20 @@ public class TrainingStreamsApp {
         if (numbers.isEmpty()) {
             throw new IllegalArgumentException("Empty list");
         }
-        return numbers.stream().reduce(0, (sum, number) -> number % 2 == 0 ? sum + number : sum);
+        return numbers.stream()
+                .reduce(0, (sum, number) -> number % 2 == 0 ? sum + number : sum);
     }
 
     public static int maxNumber(List<Integer> numbers) {
-        if (numbers.isEmpty()) {
-            throw new IllegalArgumentException("Empty list");
-        }
-        return numbers.stream().max(Integer::compare).orElseThrow(() -> new RuntimeException("There is no max element"));
+        return numbers.stream()
+                .max(Integer::compare)
+                .orElseThrow(() -> new IllegalArgumentException("Empty list"));
     }
 
     public static double averageNumber(List<Integer> numbers) {
-        if (numbers.isEmpty()) {
-            throw new IllegalArgumentException("Empty list");
-        }
-        return (double) numbers.stream().reduce(0, Integer::sum) / numbers.size();
+        return numbers.stream()
+                .mapToInt(Integer::intValue).average()
+                .orElseThrow(() -> new IllegalArgumentException("Empty list"));
     }
 
     public static int stringsNumber(char startingChar, List<String> strings) {
@@ -85,7 +84,7 @@ public class TrainingStreamsApp {
             throw new IllegalArgumentException("Empty list");
         }
         return numbers.stream().filter(number -> number > startingNumber).min(Integer::compare)
-                .orElseThrow(() -> new RuntimeException("There is no min element"));
+                .orElseThrow(() -> new RuntimeException("There is no min element larger than " + startingNumber));
     }
 
     public static List<Integer> stringsToLengths(List<String> strings) {
