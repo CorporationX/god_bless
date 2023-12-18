@@ -15,6 +15,8 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
+
         for (Unit unit : units) {
             Thread thread = new Thread(() -> {
                 synchronized (this) {
@@ -22,6 +24,10 @@ public class Army {
                 }
             });
             thread.start();
+            threads.add(thread);
+        }
+
+        for (Thread thread : threads) {
             thread.join();
         }
 
