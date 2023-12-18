@@ -2,8 +2,10 @@ package StreamAPI1;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 public class Main {
@@ -41,29 +43,27 @@ public class Main {
 
     //    Найти сумму четных чисел в списке. На вход получаем список чисел, на выходе должны получать int;
     public static int findOddSum(List<Integer> numbers) {
-        return numbers.stream().filter(number -> number % 2 != 0).reduce(0, (sum, number) -> sum + number);
+        return numbers.stream().filter(number -> number % 2 == 0)
+                .reduce(0, Integer::sum);
     }
 
     //    Найти максимальный элемент в списке чисел;
-    public static Optional<Integer> findMax(List<Integer> numbers) {
-        return numbers.stream().max((number1, number2) -> number1 - number2);
+    public static Integer findMax(List<Integer> numbers) {
+        return numbers.stream().max(Comparator.comparingInt(number -> number)).orElse(0);
     }
 
 
     //    Найти среднее значение чисел в списке;
-    public static Optional<Integer> findAverage(List<Integer> numbers) {
-        if (numbers.isEmpty()) {
-            return Optional.empty();
-        }
-
-        Integer sumOfNumbers = numbers.stream().reduce(0, (number1, number2) -> number1 + number2);
-        return Optional.of(sumOfNumbers / numbers.size());
+    public static Double findAverage(List<Integer> numbers) {
+        OptionalDouble result = numbers.stream()
+                .mapToInt(Integer::intValue).average();
+        return result.orElse(0);
     }
 
 
     //    Найти количество строк, начинающихся с определённого символа в списке строк;
-    public static int countStingsStartingWith(List<String> strings, String startSting) {
-        return (int) strings.stream().filter(string -> string.startsWith(startSting)).count();
+    public static long countStingsStartingWith(List<String> strings, String startSting) {
+        return strings.stream().filter(string -> string.startsWith(startSting)).count();
     }
 
     //    Отфильтровать список строк и оставить только те, которые содержат определенную подстроку;
@@ -73,7 +73,7 @@ public class Main {
 
     //    Отсортировать список строк по длине;
     public static List<String> sortByLength(List<String> strings) {
-        return strings.stream().sorted((string1, string2) -> string1.length() - string2.length()).toList();
+        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     //    Проверить, все ли элементы списка удовлетворяют определённому условию;
@@ -83,11 +83,12 @@ public class Main {
 
     //    Найти наименьший элемент в списке, который больше заданного числа;
     public static Optional<Integer> findSmallerButBigger(List<Integer> numbers, int number) {
-        return numbers.stream().filter((tempNumber) -> tempNumber > number).min((number1, number2) -> number1 - number2);
+        return numbers.stream().filter((tempNumber) -> tempNumber > number)
+                .min(Comparator.comparingInt(number2 -> number2));
     }
 
     //    Преобразовать список строк в список их длин.
     public static List<Integer> mapStingsToLenghs(List<String> strings) {
-        return strings.stream().map((string) -> string.length()).toList();
+        return strings.stream().map(String::length).toList();
     }
 }
