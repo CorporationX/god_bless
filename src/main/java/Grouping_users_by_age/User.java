@@ -12,14 +12,12 @@ public class User {
     private final String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> map = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            if (!map.containsKey(user.getAge())) {
-                map.put(user.getAge(), new ArrayList<>());
-            }
-            map.get(user.getAge()).add(user);
+            groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
+            groupedUsers.get(user.getAge()).add(user);
         }
-        return map;
+        return groupedUsers;
     }
 
     public User(String name, int age, String job, String address) {
