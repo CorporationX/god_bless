@@ -3,7 +3,7 @@ package faang.school.godbless.nicebutpoor;
 import java.util.Random;
 
 public class Chore implements Runnable {
-    String chore;
+    private String chore;
 
     public Chore(String chore) {
         this.chore = chore;
