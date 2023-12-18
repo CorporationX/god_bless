@@ -12,13 +12,7 @@ public class JobScraper {
 
     public Job parseJobFromJson(String json) {
         try {
-            JsonNode jsonNode = objectMapper.readTree(json);
-            String position = jsonNode.get("position").asText();
-            List<String> requirements = objectMapper.convertValue(jsonNode.get("requirements"), List.class);
-            double salary = jsonNode.get("salary").asDouble();
-            String location = jsonNode.get("location").asText();
-            String dateAdded = jsonNode.get("dateAdded").asText();
-            return new Job(position, requirements, salary, location, dateAdded);
+           return objectMapper.readValue(json, Job.class);
         } catch (IOException e) {
             return null;
         }

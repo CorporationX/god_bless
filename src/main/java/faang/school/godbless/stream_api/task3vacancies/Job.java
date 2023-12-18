@@ -2,11 +2,12 @@ package faang.school.godbless.stream_api.task3vacancies;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 public class Job {
     private String position;
     private List<String> requirements;
