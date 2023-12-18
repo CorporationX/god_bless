@@ -23,8 +23,11 @@ public class Main {
         List<String> stringFilter = StreamMethods.stringFilter("lo", strings);
         System.out.println(stringFilter.toString());
 
-        boolean check = StreamMethods.check(strings);
-        System.out.println("Все ли элементы удовлетворяют условию? " + check);
+        //boolean check = StreamMethods.check(strings);
+        // System.out.println("Все ли элементы удовлетворяют условию? " + check);
+        List<String> stringList = List.of("apple", "banana", "cherry");
+        boolean allMatch = StreamMethods.check(stringList, s -> s.length() > 3);
+        System.out.println("Все ли элементы списка удовлетворяют условию: " + allMatch);
 
         int minElement = StreamMethods.minElementMoreValue(5, numbers);
         System.out.println("Минимальный элемент из оставшихся " + minElement);
