@@ -1,4 +1,4 @@
-package faang.school.godbless.spamFilter;
+package faang.school.godbless.lambda.spamFilter;
 
 @FunctionalInterface
 public interface MessageFilter {

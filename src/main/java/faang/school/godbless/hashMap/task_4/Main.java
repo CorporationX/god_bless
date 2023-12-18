@@ -1,4 +1,4 @@
-package faang.school.godbless.task_4;
+package faang.school.godbless.hashMap.task_4;
 
 import java.util.ArrayList;
 import java.util.Arrays;

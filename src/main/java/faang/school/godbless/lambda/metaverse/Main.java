@@ -1,4 +1,4 @@
-package faang.school.godbless.metaverse;
+package faang.school.godbless.lambda.metaverse;
 
 public class Main {
     public static void main(String[] args) {

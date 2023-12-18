@@ -1,4 +1,4 @@
-package faang.school.godbless.metaverse;
+package faang.school.godbless.lambda.metaverse;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package faang.school.godbless.task_2;
+package faang.school.godbless.hashMap.task_2;
 
 import java.util.HashMap;
 import java.util.Map;
