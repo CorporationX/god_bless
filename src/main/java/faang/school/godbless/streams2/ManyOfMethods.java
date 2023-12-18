@@ -12,7 +12,7 @@ public class ManyOfMethods {
     public static List<List<Integer>> findPairs(List<Integer> numbers, int targetSum) {
         return numbers.stream()
                 .flatMap(number -> numbers.stream()
-                        .filter(number1 -> !number.equals(number1) && number + number1 == targetSum&&number.compareTo(number1)<0)
+                        .filter(number1 -> !number.equals(number1) && number + number1 == targetSum && number.compareTo(number1) < 0)
                         .map(filterNumb -> Arrays.asList(number, filterNumb)))
                 .distinct() // жесть просто... На один этот метод я потратил часа 2,он работает, но не понимаю все равно
                 .toList(); // P/s потратил еще полчаса,что бы понять. Понял,только когда в одну строчку все посмотрел(может и неправильно)
@@ -36,12 +36,14 @@ public class ManyOfMethods {
     }
 
     public static List<List<String>> pairOfPeople(Map<String, List<String>> friends) {
+
         return friends.entrySet().stream()
                 .flatMap(person -> friends.entrySet().stream()
-                        .filter(person1 -> !person1.getKey().equals(person.getKey())
-                                && person1.getKey().compareTo(person.getKey()) < 0
-                                && !person1.getValue().contains(person.getKey())
-                                && Collections.disjoint(person.getValue(), person1.getValue()))
+                        .filter(person1 -> !person1.getKey().equals(person.getKey()))
+                        .filter(person1 -> !Collections.disjoint(person.getValue(), person1.getValue()))
+                        .filter(person1 -> !person1.getValue().contains(person.getKey()))
+                        .filter(person1 -> !person.getValue().contains(person1.getKey()))
+                        .filter(person1 -> person1.getKey().compareTo(person.getKey()) < 0)
                         .map(person1 -> Arrays.asList(person1.getKey(), person.getKey())))
                 .distinct()
                 .toList();

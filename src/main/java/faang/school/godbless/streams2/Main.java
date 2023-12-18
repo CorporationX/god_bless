@@ -30,7 +30,7 @@ public class Main {
         friends.put("Коля", Arrays.asList("Петр", "Value1", "Value2"));
         friends.put("Кирилл", Arrays.asList("Value1", "Value3"));
         friends.put("Олег", Arrays.asList("Кирилл", "Value2", "Value3-3", "Value3-4"));
-        friends.put("Валерий", Arrays.asList("Петр","Георгий"));
+        friends.put("Валерий", Arrays.asList("Петр", "Георгий"));
 
         List<List<Integer>> d = ManyOfMethods.findPairs(numbers, 14);
         System.out.println(d);
