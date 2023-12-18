@@ -1,14 +1,10 @@
 package faang.school.godbless.BJS2_796;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(2, 5, Integer.MAX_VALUE);
+        List<Integer> numbers = List.of(2, 456, Integer.MAX_VALUE);
 
         System.out.println(sum(numbers));
         System.out.println(produce(numbers));
