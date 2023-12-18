@@ -24,7 +24,7 @@ public class Main {
         }
         long temp = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
-            temp = calculator.operate((int)temp, nums.get(i));
+            temp = calculator.operate((int) temp, nums.get(i));
         }
         return temp;
     }
