@@ -1,8 +1,4 @@
 package faang.school.godbless.ArmyHeroesMightAndMagic;
-
-import lombok.Data;
-
-@Data
 public class UnitThread extends Thread{
     private Unit unit;
     private int powerUnit;
