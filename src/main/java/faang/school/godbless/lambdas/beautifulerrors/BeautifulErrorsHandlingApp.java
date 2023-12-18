@@ -1,5 +1,7 @@
 package faang.school.godbless.lambdas.beautifulerrors;
 
+import java.util.function.Function;
+
 public class BeautifulErrorsHandlingApp {
 
     public static void main(String[] args) {
@@ -8,7 +10,7 @@ public class BeautifulErrorsHandlingApp {
         String paramZero = "0";
 
         ThrowableFunction<String, String, Exception> functionCall = remoteService::call;
-        ExceptionHandler<Exception, String> exceptionHandler = exception -> {
+        Function<Exception, String> exceptionHandler = exception -> {
             warn("Не удалось получить доступ к Remote Service. Вернем default значение");
             return "DEFAULT";
         };
@@ -18,11 +20,11 @@ public class BeautifulErrorsHandlingApp {
 
     }
 
-    public static String withErrorHandling(String param, ThrowableFunction<String, String, Exception> functionCall, ExceptionHandler<Exception, String> exceptionHandler) {
+    public static String withErrorHandling(String param, ThrowableFunction<String, String, Exception> functionCall, Function<Exception, String> exceptionHandler) {
         try {
             return functionCall.apply(param);
         } catch (Exception e) {
-            return exceptionHandler.handleException(e);
+            return exceptionHandler.apply(e);
         }
     }
 
