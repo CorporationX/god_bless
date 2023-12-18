@@ -1,0 +1,20 @@
+package TheBigBangTheory;
+
+public class Task implements Runnable {
+
+    private final String nameTask;
+
+    public Task(String nameTask) {
+        this.nameTask = nameTask;
+    }
+
+    @Override
+    public void run() {
+        System.out.println("Starting execute task " + nameTask);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Задача прервана");
+        }
+    }
+}
