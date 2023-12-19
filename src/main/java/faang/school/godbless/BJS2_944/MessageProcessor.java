@@ -21,19 +21,14 @@ public class MessageProcessor {
             System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
         }
     }
+
     public static boolean processMessage(String message, List<MessageFilter> listOfFilters){
-        List<Boolean> booleans = new ArrayList<>();
-
         for (MessageFilter messageFilter : listOfFilters) {
-            booleans.add(messageFilter.filter(message));
+            boolean a = messageFilter.filter(message);
+            if(!a) {
+                return false;
+            }
         }
-
-        boolean result;
-        if(booleans.contains(false)){
-            result = false;
-        } else{
-            result = true;
-        }
-        return result;
+        return true;
     }
 }
