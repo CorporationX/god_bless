@@ -27,10 +27,8 @@ public class NotificationManager {
     public void sendNotification(Notification notification) {
         if (filterBlackList(notification)) {
             notification.setMessage("The text contains inappropriate words");
-            notificationHandler.get(notification.getType()).accept(notification);
-        } else {
-            notificationHandler.get(notification.getType()).accept(notification);
         }
+        notificationHandler.get(notification.getType()).accept(notification);
     }
 
     private boolean filterBlackList(Notification notification) {
