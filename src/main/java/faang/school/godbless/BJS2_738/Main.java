@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_738;
 
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class Main {
     public static final int CACHE_SIZE = 4;
