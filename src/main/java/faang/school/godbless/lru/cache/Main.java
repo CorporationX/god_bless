@@ -7,11 +7,11 @@ public class Main {
         DataStructure ds = new DataStructure();
 
         for (int i = 0; i < 8; i++) {
-            int id = new Random().nextInt(Integer.MAX_VALUE);
-            Data data = new Data(id, "data-" + i);
+            Data data = new Data("data-" + i);
+            int dataId = data.getId();
 
             ds.addDataToDataStructure(data);
-            ds.getDataById(id);
+            ds.getDataById(dataId);
         }
 
         ds.getCacheCurrentState();

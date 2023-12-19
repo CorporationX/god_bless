@@ -2,15 +2,19 @@ package faang.school.godbless.lru.cache;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class DataStructure {
     private final int CACHE_SIZE = 4;
     private Map<Integer, Data> dataSrtucture = new HashMap<>();
+    private Map<Integer, Data> nodes = new LinkedHashMap<>();
     private Map<Integer, Data> cache = new HashMap<>();
 
     public void addDataToDataStructure (Data data) {
         dataSrtucture.putIfAbsent(data.getId(), data);
+        nodes.put(data.getId(), data);
     }
 
     public void removeDataFromCache () {
