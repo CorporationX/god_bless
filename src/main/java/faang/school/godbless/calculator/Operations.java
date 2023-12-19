@@ -3,7 +3,7 @@ package faang.school.godbless.calculator;
 import java.util.List;
 
 public class Operations {
-    public static Number calculate (List<Number> nums, Calculator<Number> calculator) {
+    public static Number calculate(List<Number> nums, Calculator<Number> calculator) {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("Empty list");
         }
@@ -17,7 +17,7 @@ public class Operations {
         return result;
     }
 
-    public static Number multiply (List<Number> nums) {
+    public static Number multiply(List<Number> nums) {
         return calculate(nums, (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return a.intValue() * b.intValue();
@@ -33,7 +33,7 @@ public class Operations {
         });
     }
 
-    public static Number sum (List<Number> nums) {
+    public static Number sum(List<Number> nums) {
         return calculate(nums, (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return a.intValue() + b.intValue();
