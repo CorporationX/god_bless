@@ -33,12 +33,12 @@ public class Main {
         countries.put("Belgium", "Brussels");
         groupCountries(countries).forEach(System.out::println);
 
-        List<String> strings = List.of("accounting", "snow", "new years", "apple", "auto", "ws");
+        List<String> strings = List.of("accounting", "snow2", "new years", "apple", "auto", "123");
         groupByFirstSymbol(strings, 'a').forEach(System.out::println);
 
-        System.out.println();
-        List<String> symbols = List.of("w", "s");
-        groupBySymbols(strings, symbols).forEach(System.out::println);
+        System.out.println("Alphabet_task:");
+        String alphabet = "abcdefghijklmnopqrstuvwxyz ";
+        getWordsFromAlphabet(strings, alphabet).forEach(System.out::println);
 
         toBinaryForm(numbers).forEach(System.out::println);
 
@@ -75,9 +75,10 @@ public class Main {
         return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
-    private static List<String> groupBySymbols(List<String> strings, List<String> symbols) {
+    private static List<String> getWordsFromAlphabet(List<String> strings, String alphabet) {
         return strings.stream()
-                .filter(s1 -> symbols.stream().allMatch(s2 -> s1.contains(s2)))
+                .filter(s1 -> Arrays.stream(s1.split(""))
+                        .allMatch(s2 -> alphabet.contains(s2)))
                 .sorted((s1, s2) -> s1.length() - s2.length())
                 .toList();
     }
