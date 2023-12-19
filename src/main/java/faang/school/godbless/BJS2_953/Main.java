@@ -13,68 +13,62 @@ public class Main {
         System.out.println("The sum of even numbers: "+findSumOfEvenNumbers(nums));
         System.out.println("Max value: "+findMaxValue(nums));
         System.out.println("Average value: "+averageValue(nums));
-        System.out.println("Checked condition: "+checkToCondition(nums));
+        System.out.println("Checked condition: "+checkToCondition(nums, 3));
 
         List<String> strings = List.of("Hello", "average", "builder", "archer");
-        System.out.println("Words with the first letter a: "+countOfSomeString(strings));
-        System.out.println("Words with substring 'er': "+stringFilter(strings));
+        System.out.println("Words with the first letter : "+countOfSomeString(strings, 'a'));
+        System.out.println("Words with substring 'er': "+stringFilter(strings, "er"));
         System.out.println("Strings ordered by length: "+stringFilterByLength((strings)));
         System.out.println("List from length of words: "+stringToLength(strings));
     }
     public static int findSumOfEvenNumbers(List<Integer> listOfInt){
-        int sum = listOfInt.stream()
+        return listOfInt.stream()
                 .filter(n -> n % 2 == 0)
                 .mapToInt(Integer::intValue)
                 .sum();
-        return sum;
     }
 
     public static Optional<Integer> findMaxValue(List<Integer> listOfInt){
-        Optional<Integer> max = listOfInt.stream()
+        return listOfInt.stream()
                 .max(Integer::compareTo);
-        return max;
     }
 
-    public static OptionalDouble averageValue(List<Integer> listofInt){
-        OptionalDouble averageValue = listofInt.stream()
+    public static double averageValue(List<Integer> listofInt){
+        return listofInt.stream()
                 .mapToInt(Integer::intValue)
-                .average();
-        return averageValue;
+                .average()
+                .orElse(Double.NaN);
     }
 
-    public static int countOfSomeString(List<String> listofStrings){
+    public static int countOfSomeString(List<String> listofStrings, char letter){
         long count = listofStrings.stream()
-                .filter(s -> s.charAt(0)=='a')
+                .filter(s -> s.startsWith(String.valueOf(letter)))
                 .count();
         return (int) count;
     }
 
-    public static List<String> stringFilter(List<String> listOfStrings){
-        List<String> result = listOfStrings.stream()
-                .filter(s -> s.contains("er"))
+    public static List<String> stringFilter(List<String> listOfStrings, String substring){
+        return listOfStrings.stream()
+                .filter(s -> s.contains(substring))
                 .collect(Collectors.toList());
-        return result;
     }
 
     public static List<String> stringFilterByLength(List<String> listOfStrings){
-        List<String> result = listOfStrings.stream()
+        return listOfStrings.stream()
                 .sorted(Comparator.naturalOrder())
                 .collect(Collectors.toList());
-        return result;
     }
 
-    public static List<Integer> checkToCondition(List<Integer> list){
-        List<Integer> result = list.stream()
-                .filter(n -> n<3)
+    public static List<Integer> checkToCondition(List<Integer> list, int verificationInt){
+        return list.stream()
+                .filter(n -> n<verificationInt)
                 .collect(Collectors.toList());
-        return result;
     }
 
-    public static Optional<Integer> findLowerBound (List<Integer> list) {
-        Optional<Integer> result = list.stream()
-                .filter(n -> n > 5)
+    public static Optional<Integer> findLowerBound (List<Integer> list, int verificationInt) {
+        return list.stream()
+                .filter(n -> n > verificationInt)
                 .max(Comparator.naturalOrder());
-        return result;
     }
 
     public static List<Integer> stringToLength(List<String> listOfStrings) {
