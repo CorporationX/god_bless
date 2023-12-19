@@ -7,8 +7,7 @@ public class Main {
         try {
             return supplier.get();
         } catch (Exception e) {
-            exceptionHandler.handle(new Exception("Не удалось получить доступ к Remote Service. Вернем default значение"));
+            return exceptionHandler.handle(new Exception("Не удалось получить доступ к Remote Service. Вернем default значение"));
         }
-        return (T) "DEFAULT";
     }
 }
