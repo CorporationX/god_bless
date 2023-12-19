@@ -11,6 +11,6 @@ public class Email {
     private boolean isImportant;
 
     public String toString(){
-        return getSubject()+", "+getBody()+", "+isImportant;
+        return getSubject();
     }
 }

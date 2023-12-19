@@ -19,16 +19,16 @@ public class EmailProcessor {
         Function<Email, String> function = email -> email.getBody().toLowerCase();
 
         processEmails(listofEmails, predicate, consumer, function);
-        for (Email email : listofEmails) {
-            System.out.println(email);
-        }
     }
 
     public static void processEmails(List<Email> listOfEmails, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function){
         for (Email email : listOfEmails) {
-            predicate.test(email);
-            consumer.accept(email);
-            function.apply(email);
+            if (predicate.test(email)) {
+                consumer.accept(email);
+                System.out.println(function.apply(email));
+            }else{
+                System.out.println(email+" is not important message");
+            }
         }
     }
 }
