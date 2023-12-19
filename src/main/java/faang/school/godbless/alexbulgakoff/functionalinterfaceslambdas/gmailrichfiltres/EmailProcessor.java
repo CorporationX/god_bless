@@ -15,8 +15,8 @@ public class EmailProcessor {
                               Consumer<Email> emailConsumer, Function<Email, String> emailFunction) {
 
         emails.stream().filter(emailPredicate).forEach(email -> {
-            emailConsumer.accept(email);
             emailFunction.apply(new Email(email.getSubject(), email.getBody(), email.isImportant()));
+            emailConsumer.accept(email);
         });
     }
 }
