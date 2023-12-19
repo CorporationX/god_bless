@@ -16,8 +16,6 @@ public class InventoryManager {
 
     public void removeItem(Character character, Item item, Predicate<Item> itemPredicate) {
         List<Item> inventory = character.getInventory();
-        itemPredicate = inventory::contains;
-
         if (itemPredicate.test(item)) {
             inventory.remove(item);
             character.setInventory(inventory);
@@ -26,10 +24,9 @@ public class InventoryManager {
 
     public void updateItem(Character character, Item item, Predicate<Item> itemPredicate, Function<Item, Item> itemFunction) {
         List<Item> inventory = character.getInventory();
-        itemPredicate = inventory::contains;
 
         if (itemPredicate.test(item)) {
-
+            itemFunction.apply(item);
         }
     }
 }
