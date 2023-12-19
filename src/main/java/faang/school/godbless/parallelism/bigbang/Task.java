@@ -14,7 +14,7 @@ public class Task implements Runnable {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupted();
+            Thread.interrupted();
             System.out.printf("%s interrupted\n", name);
         }
     }
