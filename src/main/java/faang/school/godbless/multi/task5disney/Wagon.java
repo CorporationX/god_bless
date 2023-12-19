@@ -19,8 +19,7 @@ public class Wagon extends Thread {
                     }
                     notifyAll();
                     System.out.println(Thread.currentThread().getName() + " движется.");
-                }
-                synchronized (this) {
+
                     if (!disneyRide.isRideRunning()) {
                         stopWagon();
                     }

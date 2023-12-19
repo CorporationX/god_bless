@@ -22,5 +22,10 @@ public class DisneyRide {
         rideRunning = false;
         notifyAll();
     }
+
+    public synchronized void resumeRide() {
+        rideRunning = true;
+        notifyAll();
+    }
 }
 
