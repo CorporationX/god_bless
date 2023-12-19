@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
-    StackMail stackMail;
+    public StackMail stackMail;
 
     @Override
     public void run() {
