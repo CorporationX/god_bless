@@ -9,9 +9,9 @@ public class Main {
         Thread skipThread = new Thread(player::skip);
         Thread previousThread = new Thread(player::previous);
 
-
         playThread.start();
         pauseThread.start();
+        Thread.sleep(1);
         skipThread.start();
         previousThread.start();
 
