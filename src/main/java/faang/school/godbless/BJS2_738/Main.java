@@ -1,15 +1,18 @@
 package faang.school.godbless.BJS2_738;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static final int CACHE_SIZE = 4;
-    public static Map<Integer, Data> cache = new HashMap<>();
+    public static final Map<Integer, Data> cache = new LinkedHashMap<>(CACHE_SIZE, 0.75f, true) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Integer, Data> eldest) {
+            return size() > CACHE_SIZE;
+        }
+    };
 
     public static void main(String[] args) {
+
         Data data1 = new Data("Sample Data 1");
         Data data2 = new Data("Sample Data 2");
         Data data3 = new Data("Sample Data 3");
@@ -34,9 +37,6 @@ public class Main {
     }
 
     public static void add(Data data) {
-        if (cache.size() >= CACHE_SIZE) {
-            removeOldestData();
-        }
         data.updateTimestamp();
         cache.put(data.getId(), data);
         System.out.println("Added to cache: " + data);
@@ -52,23 +52,9 @@ public class Main {
         }
 
         Data dataFromStructure = fetchDataById(id);
-
         cache.put(id, dataFromStructure);
-        dataFromStructure.updateTimestamp();
-
         System.out.println("From structure: " + dataFromStructure);
         return dataFromStructure;
-    }
-
-    public static void removeOldestData() {
-        if (!cache.isEmpty()) {
-            int minId = Collections.min(
-                    cache.values(),
-                    Comparator.comparing(Data::getTimestamp)
-            ).getId();
-            Data removedData = cache.remove(minId);
-            System.out.println("Removed oldest data from cache: " + removedData);
-        }
     }
 
     public static void showCache() {
