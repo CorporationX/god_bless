@@ -13,14 +13,12 @@ public class Main {
         String substring = "an";
 
         System.out.println("Sum of even numbers: " + sumOfEven(numbers));
-        if (maxValue(numbers).isPresent()) {
-            System.out.println("Max value: " + maxValue(numbers));
-        }
+        System.out.println("Max value: " + maxValue(numbers));
         System.out.println("Average value: " + averageValue(numbers));
         System.out.println("Count of strings starting with 'a': " + countOfStringsWithStartChar(strings, 'a'));
         System.out.println("Filter by substring '" + substring + "': " + filterBySubstring(strings, substring));
-        System.out.println("Filter by exact length 5: " + filterByLength(strings, 5));
-        System.out.println("Any string longer than 3 characters: " + filterByPredicate(strings, s -> s.length() > 3));
+        System.out.println("Filter by exact length 5: " + sortByLength(strings));
+        System.out.println("Every string longer than 3 characters: " + filterByPredicate(strings, s -> s.length() > 3));
         System.out.println("Minimum string length more than 3: " + findMinMoreThan(strings, 3).orElse("No such string"));
         System.out.println("Mapped lengths: " + mapToLength(strings));
     }
@@ -30,36 +28,40 @@ public class Main {
                 .reduce(0, Integer::sum);
     }
 
-    public static Optional<Integer> maxValue(List<Integer> numbers) {
-        return numbers.stream().max(Comparator.naturalOrder());
+    public static int maxValue(List<Integer> numbers) {
+        Optional<Integer> max = numbers.stream().max(Comparator.naturalOrder());
+        if (max.isPresent()) {
+            return max.get();
+        }
+        throw new NullPointerException();
     }
 
     public static double averageValue(List<Integer> numbers) {
-        double average = numbers.stream().mapToDouble(Integer::valueOf).sum();
-        if (average == 0) {
-            throw new ArithmeticException("Division by zero!");
-        }
-        return average / numbers.size();
+        return numbers.stream()
+                .mapToInt(Integer::intValue).average()
+                .orElse(0);
     }
 
-    public static int countOfStringsWithStartChar(List<String> strings, char startChat) {
-        return (int) strings.stream().filter(str -> !str.isEmpty() && str.charAt(0) == startChat).count();
+    public static long countOfStringsWithStartChar(List<String> strings, char startChat) {
+        return strings.stream().filter(str -> !str.isEmpty() && str.charAt(0) == startChat).count();
     }
 
     public static List<String> filterBySubstring(List<String> strings, String substring) {
         return strings.stream().filter(s -> s.contains(substring)).toList();
     }
 
-    public static List<String> filterByLength(List<String> strings, int length) {
-        return strings.stream().filter(s -> s.length() == length).toList();
+    public static List<String> sortByLength(List<String> strings) {
+        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static boolean filterByPredicate(List<String> strings, Predicate<String> check) {
-        return strings.stream().anyMatch(check);
+        return strings.stream().allMatch(check);
     }
 
     public static Optional<String> findMinMoreThan(List<String> strings, int minLength) {
-        return strings.stream().filter(s -> s.length() > minLength).min(Comparator.comparing(String::length));
+        return strings.stream()
+                .filter(s -> s.length() > minLength)
+                .min(Comparator.comparingInt(String::length));
     }
 
     public static List<Integer> mapToLength(List<String> strings) {
