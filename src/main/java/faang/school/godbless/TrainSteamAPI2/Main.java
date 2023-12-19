@@ -47,9 +47,10 @@ public class Main {
         System.out.println(averageDepartmentSalary);
 
         // Задание 6
+        // List<Character> characters = List.('h', 'e', 'l', 'o', 'm');
         List<String> strings = Arrays.asList("hello", "house", "home", "pineapple", "banana", "orange", "ho");
-        List<Character> characters = List.of('h', 'e', 'l', 'o', 'm');
-        List<String> sortStringsOfLetters = StreamMethods.sortStringsOfLetters(strings, characters);
+        String alphabet = "helom";
+        List<String> sortStringsOfLetters = StreamMethods.sortStringsOfLetters(strings, alphabet);
         System.out.println(sortStringsOfLetters);
 
         // Задание 7
