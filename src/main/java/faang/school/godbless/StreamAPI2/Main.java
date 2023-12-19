@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -12,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
 
         //1 subtask StreamAPI2
-        List<Integer> numberList = Arrays.asList(1, 3, 7, 5, 10, 15, 2, 4, 8, 11, 5, 3, 9, 11, 17, 4, 7, 1, 0);
+        List<Integer> numberList = Arrays.asList(1, 9, 3, 6, 4, 5);
 
         System.out.println(searchUniquePairs(numberList, 10));
 
@@ -77,14 +78,13 @@ public class Main {
     }
 
     //1 subtask StreamAPI2
-    static List<List<Integer>> searchUniquePairs(List<Integer> integerList, int targetValue) {
+    static Set<List<Integer>> searchUniquePairs(List<Integer> integerList, int targetValue) {
 
-        return IntStream.range(0, integerList.size())
-                .boxed()
-                .flatMap(value1 -> IntStream.range(value1 + 1, integerList.size())
-                        .filter(value2 -> value1 + value2 == targetValue)
-                        .mapToObj(value2 -> Arrays.asList(value1, value2)))
-                .toList();
+        return integerList.stream()
+                .flatMap(value1 -> integerList.stream()
+                        .filter(value2 -> !value2.equals(value1) && value1 + value2 == targetValue)
+                        .map(value2 -> Arrays.asList(Math.min(value1, value2), Math.max(value1, value2))))
+                .collect(Collectors.toSet());
 
     }
 
