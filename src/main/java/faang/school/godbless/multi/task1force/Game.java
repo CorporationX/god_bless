@@ -1,56 +1,40 @@
 package faang.school.godbless.multi.task1force;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+
 public class Game {
-    private int score;
-    private int lives;
-    private final Object scoreLock = new Object();
-    private final Object livesLock = new Object();
-    private boolean gameIsOver = false;
+    private final List<Player> players = new ArrayList<>();
 
-    public Game(int score, int lives) {
-        this.score = score;
-        this.lives = lives;
-    }
+    public synchronized void update(boolean isScore, boolean isLifeLost, Player player) {
+        if (!player.isAlive()) return;
 
-    // что сделано грамотнее update1 или update2? или разницы нет? или есть еще вариант?
-    public synchronized void update1() {
-        if (gameIsOver) {
-            return;
+        if (isLifeLost) {
+            player.loseLife();
+        } else if (isScore) {
+            player.updateScore();
         }
 
-        score++;
-        lives--;
-        System.out.println("Score: " + score + ", Lives: " + lives);
-
-        if (lives == 0) {
-            gameOver();
-            //return; здесь работает иначе, почему так? без него счетчик жизней уходит в минус
-            // а с ним вместо этого постоянно пишет game over, но метод не завершается
-            //решил проблему флагом gameIsOver
+        if (!player.isAlive()) {
+            System.out.println(player.getName() + " проиграл. Конец игры для него.");
         }
     }
 
-    public void update2() {
-        if (gameIsOver) {
-            return;
-        }
+    public synchronized void addPlayer(Player player) {
+        players.add(player);
+    }
 
-        synchronized (scoreLock) {
-            score++;
-        }
-
-        synchronized (scoreLock) {
-            lives--;
-            System.out.println("Score: " + score + ", Lives: " + lives);
-        }
-
-        if (lives == 0) {
-            gameOver();
+    public synchronized void checkGameOver() {
+        if (players.stream().noneMatch(Player::isAlive)) {
+            printWin();
         }
     }
 
-    private void gameOver() {
-        gameIsOver = true;
-        System.out.println("Game Over!");
+    private void printWin() {
+        Optional<Player> winner = players.stream().max(Comparator.comparingInt(Player::getScore));
+        System.out.println("----------------------------------------------------");
+        winner.ifPresent(w -> System.out.println("ПОБЕДИЛ " + w.getName().toUpperCase() + "!!!  очки: " + w.getScore()));
     }
 }
