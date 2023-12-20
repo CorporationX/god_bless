@@ -4,9 +4,9 @@ import lombok.Getter;
 
 @Getter
 public class City {
-    private String name;
-    private Location location;
-    private int distanceToHerald;
+    private final String name;
+    private final Location location;
+    private final int distanceToHerald;
 
     public City(String name, Location location, int distanceToHerald) {
         this.name = name;
