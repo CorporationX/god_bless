@@ -13,12 +13,12 @@ public class Main {
         for (int i = 0; i < countThread; i++) {
             int finalI = i;
             executorService.submit(() -> {
-                User user = new User("User " + finalI, house, "Роль 1");
+                User user = new User("User " + finalI, house, "Роль " + finalI);
                 user.play();
             });
         }
 
-
+        System.out.println("Игра окончена!");
         executorService.shutdown();
     }
 }

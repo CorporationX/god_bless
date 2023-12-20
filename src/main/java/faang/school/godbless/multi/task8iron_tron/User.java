@@ -18,7 +18,6 @@ public class User {
                     System.out.println(name + " ожидает...");
                 } catch (InterruptedException e) {
                     System.out.println("Игра прервана!");
-                    // Возможно, стоит добавить здесь обработку прерывания
                 }
             }
             house.addRole(role);
