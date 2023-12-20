@@ -36,7 +36,7 @@ public class StreamTest1 {
     public static int sumEvenNumbers1(List<Integer> numbers) {
         return numbers.stream()
                 .filter((num) -> num % 2 == 0)
-                .reduce(0, (a, b) -> a + b);
+                .reduce(0, Integer::sum);
     }
 
     // 1 вариант getMaxNumber
@@ -78,14 +78,13 @@ public class StreamTest1 {
 
     public static long countWords(List<String> words) {
         return words.stream()
-                .filter((word) -> word.substring(0, 1).equals("C"))
+                .filter((word) -> word.startsWith("C"))
                 .count();
     }
 
     public static List<String> sortFilterWords(List<String> words) {
         return words.stream()
                 .filter((word) -> word.contains("home"))
-                .sorted()
                 .toList();
     }
 
