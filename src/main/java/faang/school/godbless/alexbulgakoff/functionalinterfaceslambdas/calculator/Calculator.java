@@ -6,5 +6,5 @@ package faang.school.godbless.alexbulgakoff.functionalinterfaceslambdas.calculat
 @FunctionalInterface
 public interface Calculator {
 
-    int calculate(int a, int b);
+    long calculate(int a, int b);
 }

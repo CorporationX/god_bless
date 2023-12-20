@@ -21,8 +21,8 @@ public class Main {
 
     }
 
-    public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
-        int result = 0;
+    public static long calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
+        long result = 0;
 
         for (int i = 0; i < nums.size() - 1; i++) {
             result = calculator.calculate(nums.get(i), nums.get(i + 1));
@@ -35,13 +35,13 @@ public class Main {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("In list not arguments");
         }
-        return calculate(nums, (a, b) -> a * b);
+        return (int) calculate(nums, (a, b) -> a * b);
     }
 
     public static int sum(List<Integer> nums) {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("In list not arguments");
         }
-        return calculate(nums, Integer::sum);
+        return (int) calculate(nums, Integer::sum);
     }
 }
