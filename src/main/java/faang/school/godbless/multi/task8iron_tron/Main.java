@@ -2,9 +2,10 @@ package faang.school.godbless.multi.task8iron_tron;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         House house = new House(5);
 
         final int countThread = 10;
@@ -18,7 +19,8 @@ public class Main {
             });
         }
 
-        System.out.println("Игра окончена!");
         executorService.shutdown();
+        executorService.awaitTermination(5, TimeUnit.MINUTES);
+        System.out.println("Игра окончена!");
     }
 }
