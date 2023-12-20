@@ -1,6 +1,7 @@
 package faang.school.godbless.streamAPI_2;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,18 +80,18 @@ public class Main {
         return strings.stream()
                 .filter(s1 -> Arrays.stream(s1.split(""))
                         .allMatch(s2 -> alphabet.contains(s2)))
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
     private static List<String> groupByFirstSymbol(List<String> strings, char symbol) {
-        return strings.stream().filter(s -> s.startsWith(new String(String.valueOf(symbol))))
-                .sorted((s1, s2) -> s1.length() - s2.length()).toList();
+        return strings.stream().filter(s -> s.startsWith(String.valueOf(symbol)))
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     private static List<String> groupCountries(Map<String, String> countries) {
         return countries.entrySet().stream()
-                .sorted((s1, s2) -> s1.getKey().compareTo(s2.getKey()))
+                .sorted(Comparator.comparing(Map.Entry::getKey))
                 .map(Map.Entry::getValue).toList();
     }
 
