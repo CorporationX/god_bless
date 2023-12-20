@@ -9,21 +9,21 @@ public class ExecuteCalculator {
 
         if (nums.isEmpty()) throw new IllegalArgumentException("Не заполнены числа");
 
-        int numResult = nums.get(0);
+        long numResult = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
-            numResult = (int) calculator.calc(numResult, nums.get(i));
+            numResult = calculator.calc((int) numResult, nums.get(i));
         }
         return numResult;
     }
 
-    public static int product(List<Integer> nums) {
+    public static long product(List<Integer> nums) {
 //        return calculate(nums, (value1, value2) -> Math.multiplyExact(value1, value2));
-        return (int) calculate(nums, (value1, value2) -> value1 * value2);
+        return calculate(nums, (value1, value2) -> (long) value1 * value2);
     }
 
-    public static int sum(List<Integer> nums) {
+    public static long sum(List<Integer> nums) {
 //        return calculate(nums, (value1, value2) -> Math.addExact(value1, value2));
-        return (int) calculate(nums, (value1, value2) -> value1 + value2);
+        return calculate(nums, (value1, value2) -> (long) value1 + value2);
     }
 
     public static void main(String[] args) {
