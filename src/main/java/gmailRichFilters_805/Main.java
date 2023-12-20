@@ -11,6 +11,7 @@ public class Main {
     public static List<Email> emails = new ArrayList<>();
 
     public static void main(String[] args) {
+
         emails = Arrays.asList(new Email("Собрание", "Состоится 15.12", true),
                 new Email("Извещение", "Пришла посылка", false),
                 new Email("Спам", "Реклама..", false),
@@ -18,11 +19,10 @@ public class Main {
         );
 
         Predicate<Email> checkImportant = (email) -> email.isImportant();
-        Consumer<Email> notification = (email) -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, Email> editEmailBody = (email) -> {
-            email.setBody(email.getBody().toUpperCase());
-            return email;
-        };
+        Consumer<Email> notification = (email) ->
+                System.out.println("Обработано письмо: " + email.getSubject() + " - " + email.getBody());
+        Function<Email, String> editEmailBody = (email) -> email.getBody().toUpperCase();
+
         EmailProcessor emailProcessor = new EmailProcessor();
         emailProcessor.isImportant(emails, checkImportant, notification, editEmailBody);
 
