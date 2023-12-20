@@ -24,9 +24,9 @@ public class InventoryManager {
                            Function<Item, Item> itemFunction) {
         List<Item> characterInventory = character.getInventory();
 
-        for (Item item : characterInventory) {
-            if (itemPredicate.test(item)) {
-                characterInventory.set(characterInventory.indexOf(item), itemFunction.apply(item));
+        for (int i = 0; i < characterInventory.size(); i++) {
+            if (itemPredicate.test(characterInventory.get(i))) {
+                characterInventory.set(i, itemFunction.apply(characterInventory.get(i)));
             }
         }
     }
