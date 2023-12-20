@@ -12,9 +12,9 @@ public class Main {
         MessageProcessor messageProcessor = new MessageProcessor();
 
 // Создание фильтров
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
+        MessageFilter spamFilter = message -> message.toLowerCase().contains("спам");
         MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
+        MessageFilter emojiFilter = message -> message.contains("😀");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
