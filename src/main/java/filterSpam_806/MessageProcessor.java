@@ -13,7 +13,7 @@ public class MessageProcessor {
             }
         }
         if (resultCheckSpam) {
-            System.out.println("Сообщение: '" + message + "' прошло проверку на Спам");
-        } else System.out.println("Сообщение: '" + message + "' НЕ прошло проверку на Спам");
+            System.out.println("Сообщение: '" + message + "' - это Спам");
+        } else System.out.println("Сообщение: '" + message + "' - это не Спам");
     }
 }
