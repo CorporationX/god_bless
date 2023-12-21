@@ -52,9 +52,9 @@ public class CityWorker implements Runnable {
 
         getDistance(getCoordinates(findNearestMonster(city, monsters).getLocation()), city.getLocation());
         // это решение с учетом хождения ведьмака к монстру и обратно (за наградой).
-        return city.getDistance() +
-                getDistance(getCoordinates(findNearestMonster(city, monsters).getLocation()), city.getLocation()) * 2;
-//        return city.getDistance();  Это решение по заданию.
+//        return city.getDistance() +
+//                getDistance(getCoordinates(findNearestMonster(city, monsters).getLocation()), city.getLocation()) * 2;
+        return city.getDistance();  // Это решение по заданию.
     }
 
     public Location getCoordinates(String location) {
