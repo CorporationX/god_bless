@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class House {
     private static List<Room> rooms = new ArrayList<>();
-    private static final List<Food> foods = new ArrayList<>();
+    private static List<Food> foods = new ArrayList<>();
     private static final int DELAY_SECONDS = 10;
 
     public  static void collectFood(Room room) {
