@@ -1,4 +1,4 @@
-package faang.school.godbless.multi.task9;
+package faang.school.godbless.multi.task9tinder;
 
 import lombok.Getter;
 

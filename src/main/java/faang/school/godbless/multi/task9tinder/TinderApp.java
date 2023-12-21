@@ -1,4 +1,4 @@
-package faang.school.godbless.multi.task9;
+package faang.school.godbless.multi.task9tinder;
 
 public class TinderApp {
     public static void main(String[] args) {
