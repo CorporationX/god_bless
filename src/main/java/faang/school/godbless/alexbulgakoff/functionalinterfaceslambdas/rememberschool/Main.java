@@ -15,6 +15,8 @@ public class Main {
 
         System.out.println(triangleArea(a, b, c));
     }
+    //AC <= AB + BC
+
     //S = √(p * (p — a) * (p — b) * (p — c))
     //p = (a + b + c) / 2
 
@@ -24,6 +26,10 @@ public class Main {
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
+
+        if (!(mul.apply(a).apply(c) <= sum.apply(mul.apply(a).apply(b)).apply(mul.apply(b).apply(c)))) {
+            throw new IllegalArgumentException("Такого треугольника не существует");
+        }
 
         double p = div.apply(
                 sum.apply(sum.apply(a).apply(b)).apply(c))
