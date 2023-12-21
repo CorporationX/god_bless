@@ -7,7 +7,8 @@ import java.util.Map;
 
 public class LRUCache {
     Map<Integer, Node> cache = new HashMap<>();
-    @Getter Node head = null;
+    @Getter
+    Node head = null;
     Node tail = null;
     private final int CACHE_SIZE;
 
@@ -24,7 +25,7 @@ public class LRUCache {
         removeNode(node);
         addNode(node);
 
-        return node.data;
+        return node.getData();
     }
 
     public void put (Data data) {
@@ -34,38 +35,31 @@ public class LRUCache {
 
         if (cache.containsKey(key)) {
             Node nodeToUpdate = cache.get(key);
-            nodeToUpdate.data = data;
+            nodeToUpdate.setData(data);
             return;
         }
 
         if (cache.size() == CACHE_SIZE) {
             Node nodeToDelete = tail;
-            cache.remove(nodeToDelete.key);
+            cache.remove(nodeToDelete.getKey());
             removeNode(nodeToDelete);
         }
 
-        node.key = key;
-        node.data = data;
+        node.setKey(key);
+        node.setData(data);
+
         addNode(node);
         cache.put(key, node);
     }
 
     public void removeNode (Node node) {
-        if (node.equals(tail)) {
-            if (node.prev != null) {
-                tail = node.prev;
-                tail.next = null;
-            } else {
-                node = null;
-            }
-        }
-
-        if (node.prev != null) {
-            node.prev.next = node.next;
-        }
         if (node.next != null) {
             node.next.prev = node.prev;
         }
+
+        node.prev.next = node.next;
+        tail = node.prev;
+        tail.next = null;
     }
 
     public void addNode (Node node) {

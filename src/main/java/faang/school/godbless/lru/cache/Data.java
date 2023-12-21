@@ -1,21 +1,25 @@
 package faang.school.godbless.lru.cache;
 
-import lombok.Getter;
-import lombok.Setter;
 
 import java.sql.Timestamp;
 
-@Getter
 public class Data {
     private static int globalId = 0;
-    private int id;
-    @Setter
-    private String value;
-    @Setter
-    private Timestamp timestamp;
+    private final Timestamp TIMESTAMP;
+    private final int ID;
+    private final String VALUE;
 
     public Data (String value) {
-        this.value = value;
-        this.id = globalId++;
+        VALUE = value;
+        ID = globalId++;
+        TIMESTAMP = new Timestamp(System.currentTimeMillis());
+    }
+
+    public int getId() {
+        return ID;
+    }
+
+    public String getValue() {
+        return VALUE;
     }
 }

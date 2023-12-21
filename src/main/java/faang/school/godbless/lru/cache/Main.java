@@ -23,14 +23,14 @@ public class Main {
         System.out.println("Cache:");
 
         for (Map.Entry<Integer, Node> item : lru.cache.entrySet()) {
-            System.out.println(item.getKey() + ": " + item.getValue().data.getValue());
+            System.out.println(item.getKey() + ": " + item.getValue().getData().getValue());
         }
 
         System.out.println("Nodelist:");
 
         Node curr = lru.getHead();
         while (curr != null) {
-            System.out.println(curr.data.getValue());
+            System.out.println(curr.getData().getValue());
             curr = curr.next;
         }
     }

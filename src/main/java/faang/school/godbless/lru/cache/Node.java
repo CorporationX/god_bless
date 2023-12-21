@@ -1,15 +1,24 @@
 package faang.school.godbless.lru.cache;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public class Node {
-    int key;
-    Data data;
-    Node next = null;
-    Node prev = null;
+    @Getter
+    @Setter
+    private int key;
+    @Getter
+    @Setter
+    private Data data;
+    public Node next = null;
+    public Node prev = null;
 
-    public Node(){};
+    public Node () {
+    }
 
-    public Node(int key, Data data) {
+    public Node (int key, Data data) {
         this.key = key;
         this.data = data;
     }
 }
+
