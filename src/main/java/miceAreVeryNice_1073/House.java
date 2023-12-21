@@ -14,9 +14,9 @@ public class House {
     private static final List<Food> foods = new ArrayList<>();
     private static final int DELAY_SECONDS = 10;
 
-    public synchronized static void collectFood(Room room) {
-        foods.addAll(room.getFoods());
-        room.getFoods().clear();
+    public  static void collectFood(Room room) {
+        synchronized (foods){foods.addAll(room.getFoods());
+        room.getFoods().clear();}
     }
 
     public static void collectRoom() {
