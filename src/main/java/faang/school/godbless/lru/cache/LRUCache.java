@@ -31,8 +31,6 @@ public class LRUCache {
     public void put (Data data) {
         int key = data.getId();
 
-        Node node = new Node();
-
         if (cache.containsKey(key)) {
             Node nodeToUpdate = cache.get(key);
             nodeToUpdate.setData(data);
@@ -45,8 +43,7 @@ public class LRUCache {
             removeNode(nodeToDelete);
         }
 
-        node.setKey(key);
-        node.setData(data);
+        Node node = new Node(key, data);
 
         addNode(node);
         cache.put(key, node);

@@ -1,6 +1,5 @@
 package faang.school.godbless.lru.cache;
 
-
 import java.sql.Timestamp;
 
 public class Data {
@@ -15,11 +14,11 @@ public class Data {
         TIMESTAMP = new Timestamp(System.currentTimeMillis());
     }
 
-    public int getId() {
+    public int getId () {
         return ID;
     }
 
-    public String getValue() {
+    public String getValue () {
         return VALUE;
     }
 }
