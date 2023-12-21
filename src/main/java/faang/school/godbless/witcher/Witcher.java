@@ -39,10 +39,14 @@ public class Witcher {
 }
 
 @Getter
-@AllArgsConstructor
 class Monster {
-    private String name;
-    private String location;
+    private final String name;
+    private final String location;
+
+    public Monster(String name, String location) {
+        this.name = name;
+        this.location = location;
+    }
 
     public Location getLocationCoordinates() {
         switch (location) {
@@ -67,9 +71,9 @@ class Monster {
 
 @Getter
 class City {
-    private String city;
-    private Location location;
-    private int distance;
+    private final String city;
+    private final Location location;
+    private final int distance;
 
     public City(String city, Location location, int distance) {
         this.city = city;
@@ -80,8 +84,8 @@ class City {
 
 @Getter
 class Location {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public Location(int x, int y) {
         this.x = x;
@@ -95,10 +99,17 @@ class CityWorker implements Runnable {
     private City city;
     private List<Monster> monsters;
 
+    @Override
+    public void run() {
+        System.out.println(" Ближайший монстр к городу " + city.getCity() + " монстр " + findNearestMonster().getName());
+        System.out.println(" Время на убийство: " + getKillTime() + " часов");
+        System.out.println(" Расстояние: " + getJourneyDistance());
+    }
+
     public Monster findNearestMonster() {
         Location cityCoordinate = city.getLocation();
         int distMax = Integer.MAX_VALUE;
-        Monster monstrik = null;
+        Monster nearedMonstr = null;
         for (Monster monster : monsters) {
             Location monstrishe = monster.getLocationCoordinates();
             int distanceX = Math.abs(cityCoordinate.getX() - monstrishe.getX());
@@ -106,26 +117,17 @@ class CityWorker implements Runnable {
             int sumDistance = distanceX + distanceY;
             if (sumDistance < distMax) {
                 distMax = sumDistance;
-                monstrik = monster;
+                nearedMonstr = monster;
             }
         }
-        return monstrik;
+        return nearedMonstr;
     }
 
     public long getKillTime() {
-        long time = new Random().nextLong(20) + 1;
-        return time;
+        return new Random().nextLong(20) + 1;
     }
 
     public long getJourneyDistance() {
         return city.getDistance();
-    }
-
-
-    @Override
-    public void run() {
-        System.out.println(" Ближайший монстр к городу " + city.getCity() + " монстр " + findNearestMonster().getName());
-        System.out.println(" Время на убийство: " + getKillTime());
-        System.out.println(" Расстояние: " + getJourneyDistance());
     }
 }
