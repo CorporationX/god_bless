@@ -41,7 +41,7 @@ public class Witcher {
 @Getter
 class Monster {
     private final String name;
-    private final String location;
+    private String location;
 
     public Monster(String name, String location) {
         this.name = name;
@@ -111,9 +111,9 @@ class CityWorker implements Runnable {
         int distMax = Integer.MAX_VALUE;
         Monster nearedMonstr = null;
         for (Monster monster : monsters) {
-            Location monstrishe = monster.getLocationCoordinates();
-            int distanceX = Math.abs(cityCoordinate.getX() - monstrishe.getX());
-            int distanceY = Math.abs(cityCoordinate.getY() - monstrishe.getY());
+            Location locationMonstr = monster.getLocationCoordinates();
+            int distanceX = Math.abs(cityCoordinate.getX() - locationMonstr.getX());
+            int distanceY = Math.abs(cityCoordinate.getY() - locationMonstr.getY());
             int sumDistance = distanceX + distanceY;
             if (sumDistance < distMax) {
                 distMax = sumDistance;
