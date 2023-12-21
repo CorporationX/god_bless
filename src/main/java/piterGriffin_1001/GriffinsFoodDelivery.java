@@ -12,7 +12,7 @@ public class GriffinsFoodDelivery {
 
         for (String character : characterNames) {
             int foodAmount = new Random().nextInt(1, 10);
-            executorService.submit(() -> new FoodDeliveryTask(character, foodAmount).run());
+            executorService.execute(new FoodDeliveryTask(character, foodAmount));
         }
         executorService.shutdown();
     }
