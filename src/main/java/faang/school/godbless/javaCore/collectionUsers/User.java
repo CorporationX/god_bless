@@ -1,4 +1,4 @@
-package faang.school.godbless.collectionUsers;
+package faang.school.godbless.javaCore.collectionUsers;
 
 import java.util.HashMap;
 import java.util.HashSet;

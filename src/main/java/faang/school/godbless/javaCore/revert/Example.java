@@ -1,4 +1,4 @@
-package faang.school.godbless.revert;
+package faang.school.godbless.javaCore.revert;
 
 public class Example {
     public static void reverse(int[] value) {
