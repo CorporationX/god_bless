@@ -12,23 +12,18 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        for (Item item : character.getInventory()) {
-            if (predicate.test(item)) {
-                character.getInventory().remove(item);
-                break;
-            }
-        }
+        character.getInventory().removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         for (Item item : character.getInventory()) {
             if (predicate.test(item)) {
+                int id = character.getInventory().indexOf(item);
                 character.getInventory().remove(item);
-                character.getInventory().add(function.apply(item));
+                character.getInventory().add(id, function.apply(item));
                 break;
             }
         }
     }
-
 
 }
