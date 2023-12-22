@@ -9,5 +9,10 @@ import java.util.List;
 @Getter
 @Setter
 public class Character {
-    List<Item> inventory = new ArrayList<>();
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
+
+    public Character (String name) {
+        this.name = name;
+    }
 }
