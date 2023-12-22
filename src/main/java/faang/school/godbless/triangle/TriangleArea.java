@@ -19,33 +19,28 @@ public class TriangleArea {
         List<Double> subHalfPFromSides = new ArrayList<>();
         double half = 2.0;
         double halfP;
-        Function<Double, Double> nestedResult;
         double result;
 
         // got perimeter
         result = a;
         for (int i = 0; i < sides.length - 1; i++) {
-            nestedResult = sum.apply(result);
-            result = nestedResult.apply(sides[i + 1]);
+            result = sum.apply(result).apply(sides[i + 1]);
         }
 
         // got perimeter half
-        nestedResult = div.apply(result);
-        result = nestedResult.apply(half);
+        result = div.apply(result).apply(half);
         halfP = result;
 
         // got [perimeter half - side] for all sides
         for (double side : sides) {
-            nestedResult = sub.apply(halfP);
-            side = nestedResult.apply(side);
+            side = sub.apply(halfP).apply(side);
             subHalfPFromSides.add(side);
         }
 
         // got square
         result = halfP;
-        for (int i = 0; i < subHalfPFromSides.size(); i++) {
-            nestedResult = mul.apply(result);
-            result = nestedResult.apply(subHalfPFromSides.get(i));
+        for (Double subHalfPFromSide : subHalfPFromSides) {
+            result = mul.apply(result).apply(subHalfPFromSide);
         }
         result = sqrt.apply(result);
 
