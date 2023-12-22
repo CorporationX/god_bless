@@ -14,12 +14,30 @@ public class Droid {
     private int key;
 
     String sendEncryptedMessage(String message, int key) {
-        DroidMessageEncryptor droidMessageEncryptor = (m, k) -> new String("");
+        StringBuilder encryptionMessage = new StringBuilder();
 
-        return droidMessageEncryptor.encryptor(message, key);
+        DroidMessageEncryptor encryption = ((message1, key1) -> {
+            char[] charArray = message.toCharArray();
+            for (char letter : charArray) {
+                encryptionMessage.append((char) (letter + key));
+            }
+            return encryptionMessage.toString();
+        });
+
+        return encryption.encryptor(message, key);
     }
 
     String receiveEncryptedMessage(String message, int key) {
-        return "Hi";
+        StringBuilder dencryptionMessage = new StringBuilder();
+
+        DroidMessageEncryptor dencryption = ((message1, key1) -> {
+            char[] charArray = message.toCharArray();
+            for (char letter : charArray) {
+                dencryptionMessage.append((char) (letter - key));
+            }
+            return dencryptionMessage.toString();
+        });
+
+        return dencryption.encryptor(message, key);
     }
 }

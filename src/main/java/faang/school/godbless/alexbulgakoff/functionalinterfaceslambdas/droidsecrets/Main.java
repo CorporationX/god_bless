@@ -14,5 +14,6 @@ public class Main {
         String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
         System.out.println(encryptedMsg);
         String msg = c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
+        System.out.println(msg);
     }
 }
