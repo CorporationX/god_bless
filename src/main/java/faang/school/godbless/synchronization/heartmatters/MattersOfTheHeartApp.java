@@ -2,7 +2,7 @@ package faang.school.godbless.synchronization.heartmatters;
 
 public class MattersOfTheHeartApp {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         UserList userList = new UserList();
         userList.addUser(new User(1, "user1", false));
         userList.addUser(new User(2, "user2", false));
