@@ -36,7 +36,7 @@ public class Main {
                 "Bob", Arrays.asList("Alice", "Eve"),
                 "Charlie", Arrays.asList("Alice", "David"),
                 "David", Arrays.asList("Alice", "Charlie"),
-                "Eve", Arrays.asList("Bob")
+                "Eve", Arrays.asList("Bob", "Trump")
         );
         List<List<String>> pairsWithCommonFriends = findPairsWithCommonFriends(friendsMap);
         System.out.println(pairsWithCommonFriends);
@@ -68,9 +68,10 @@ public class Main {
 
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int target) {
         Set<List<Integer>> result = new HashSet<>();
+        Set<Integer> numSet = new HashSet<>(numbers);
 
-        numbers.stream()
-                .filter(num -> numbers.contains(target - num))
+        numSet.stream()
+                .filter(num -> numSet.contains(target - num))
                 .forEach(num -> result.add(Stream.of(num, target - num).sorted().toList()));
         return result;
     }
@@ -126,7 +127,8 @@ public class Main {
 
     public static List<Integer> findAllPalindromes(int start, int end) {
         return IntStream.range(start, end)
-                .filter(num -> Integer.toString(num).equals(new StringBuilder(Integer.toString(num)).reverse().toString()))
+                .filter(num ->
+                        Integer.toString(num).contentEquals(new StringBuilder(Integer.toString(num)).reverse()))
                 .boxed().toList();
     }
 
@@ -134,7 +136,7 @@ public class Main {
         return IntStream.rangeClosed(0, string.length() - 1)
                 .boxed()
                 .flatMap(i -> IntStream.rangeClosed(i + 1, string.length())
-                        .filter(j -> string.substring(i, j).equals(new StringBuilder(string.substring(i, j)).reverse().toString()))
+                        .filter(j -> string.substring(i, j).contentEquals(new StringBuilder(string.substring(i, j)).reverse()))
                         .mapToObj(j -> string.substring(i, j))
                 ).toList();
     }
