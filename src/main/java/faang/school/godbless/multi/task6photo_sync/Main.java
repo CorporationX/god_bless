@@ -5,18 +5,35 @@ public class Main {
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
 
         Thread uploadThread = new Thread(() -> {
-            while (true) {
+            try {
                 uploader.startAutoUpload();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Загрузка прервана");
             }
         });
 
         Thread addPhotosThread = new Thread(() -> {
-            uploader.onNewPhotoAdded("photo1.jpg");
-            uploader.onNewPhotoAdded("photo2.jpg");
-            uploader.onNewPhotoAdded("photo3.jpg");
+            try {
+                uploader.onNewPhotoAdded("photo1.jpg");
+                Thread.sleep(2000);
+                uploader.onNewPhotoAdded("photo2.jpg");
+                Thread.sleep(2000);
+                uploader.onNewPhotoAdded("photo3.jpg");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Загрузка прервана");
+            }
         });
 
         uploadThread.start();
         addPhotosThread.start();
+
+        while (true) {
+            if (!addPhotosThread.isAlive() && uploader.getPhotosToUpload().isEmpty()) {
+                uploadThread.interrupt();
+                break;
+            }
+        }
     }
 }

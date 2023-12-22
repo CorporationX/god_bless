@@ -1,47 +1,41 @@
 package faang.school.godbless.multi.task6photo_sync;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload() {
+    public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
+            while (true) {
+                if (photosToUpload.isEmpty()) {
                     lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Загрузка прервана");
                 }
+                uploadPhotos();
             }
-
-            uploadPhotos();
         }
     }
 
-    public void onNewPhotoAdded(String photoPath) {
+    public void onNewPhotoAdded(String photoPath){
         synchronized (lock) {
             photosToUpload.add(photoPath);
+            System.out.println("Добавлено фото: " + photoPath);
             lock.notify();
         }
     }
 
     public void uploadPhotos() {
-        synchronized (lock) {
-            if (!photosToUpload.isEmpty()) {
-                for (String photo : photosToUpload) {
-                    try {
-                        System.out.println("Загружается фото: " + photo);
-                        Thread.sleep(2000);
-                        System.out.println("Загрузилось фото: " + photo);
-                    } catch (InterruptedException e) {
-                        System.out.println("Загрузка прервана");
-                    }
-                }
-                photosToUpload.clear();
+        if (!photosToUpload.isEmpty()) {
+            for (String photo : photosToUpload) {
+                System.out.println("Загружается фото: " + photo);
+                System.out.println("Загрузилось фото: " + photo);
             }
+            photosToUpload.clear();
         }
     }
 }
