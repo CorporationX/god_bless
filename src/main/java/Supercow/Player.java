@@ -3,25 +3,29 @@ package Supercow;
 import lombok.Getter;
 
 @Getter
-public class Player implements Runnable{
-    private final String name;
-    private Boss selectedBoss;
+public class Player extends Thread {
+    private final String PlayerName;
+    private final Boss selectedBoss;
 
     public Player(String name, Boss selectedBoss) {
-        this.name = name;
+        this.PlayerName = name;
         this.selectedBoss = selectedBoss;
     }
 
-    public void startBattle() throws InterruptedException {
-        selectedBoss.joinBattle(this);
+    public void startBattle() {
+        try {
+            selectedBoss.joinBattle(this);
+            Thread.sleep(1000);
+            selectedBoss.endBattle(this);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void run() {
-        try {
+        for (int i = 0; i < 3; i++) {
             startBattle();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
     }
 }

@@ -3,45 +3,32 @@ package Supercow;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Boss implements Runnable{
+public class Boss {
     private static final int maxPlayers = 3;
     private final List<Player> currentPlayers = new ArrayList<>();
-    public synchronized void joinBattle(Player player) throws InterruptedException {
-        if (maxPlayers < currentPlayers.size()-1){
-            addPlayer(player);
-            System.out.println("Игрок " + player.getName() + " присоединился");
-        } else {
-            wait();
-        }
-    }
 
-    public synchronized void endBattle(){
-        System.out.println("Сражение окончено!");
-        currentPlayers.clear();
-        notify();
-    }
+    public synchronized void joinBattle(Player player) {
 
-    private void addPlayer(Player player){
-        currentPlayers.add(player);
-    }
-
-    @Override
-    public void run() {
-        while (true){
-            if (currentPlayers.size() == maxPlayers){
-                System.out.println("Битва начинается!");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                endBattle();
-            }
+        while (maxPlayers == currentPlayers.size()) {
             try {
-                Thread.sleep(1000);
+                wait();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+        addPlayer(player);
+        System.out.println("Игрок " + player.getPlayerName() + " присоединился");
+
     }
+
+    public synchronized void endBattle(Player player) {
+        System.out.println("Игрок " + player.getPlayerName() + " закончил сражение");
+        currentPlayers.remove(player);
+        notify();
+    }
+
+    private void addPlayer(Player player) {
+        currentPlayers.add(player);
+    }
+
 }
