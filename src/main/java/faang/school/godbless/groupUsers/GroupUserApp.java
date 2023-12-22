@@ -7,6 +7,7 @@ import static faang.school.godbless.groupUsers.User.groupUsers;
 public class GroupUserApp {
     public static void main(String... args) {
         List<User> users = List.of(
+                new User("Alice", 17, "Developer", "123 Street A"),
                 new User("Alice", 25, "Developer", "123 Street A"),
                 new User("Bob", 30, "Designer", "456 Street B"),
                 new User("Charlie", 25, "Artist", "789 Street C"),
