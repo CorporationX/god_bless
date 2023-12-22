@@ -4,6 +4,13 @@ import java.util.Objects;
 
 public abstract class Creature {
 
+    private String name;
+    private int level;
+    private int attack;
+    private int defend;
+    private int speed;
+    private int quantity;
+
     public Creature(String name, int level, int attack, int defend, int speed, int quantity) {
         this.name = name;
         this.level = level;
@@ -12,13 +19,6 @@ public abstract class Creature {
         this.speed = speed;
         this.quantity = quantity;
     }
-
-    private String name;
-    private int level;
-    private int attack;
-    private int defend;
-    private int speed;
-    private int quantity;
 
     public abstract int getDamage(Creature creature);
 

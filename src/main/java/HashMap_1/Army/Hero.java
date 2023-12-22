@@ -19,27 +19,27 @@ public class Hero {
     private String fraction;
     private Map<Creature, Integer> creaturesHero = new HashMap<>();
 
-    public void addCreature(Creature creature, int quantity){
+    public void addCreature(Creature creature, int quantity) {
         if (!(creaturesHero.containsKey(creature))) {
             creaturesHero.put(creature, quantity);
         } else {
-            creaturesHero.put(creature, creaturesHero.get(creature)+quantity);
+            creaturesHero.put(creature, creaturesHero.get(creature) + quantity);
         }
     }
 
-    public void removeCreature(Creature creature, int quantity){
-        if (creaturesHero.containsKey(creature)){
-            if (quantity<creaturesHero.get(creature)) {
-                creaturesHero.put(creature, creaturesHero.get(creature)-quantity);
+    public void removeCreature(Creature creature, int quantity) {
+        if (creaturesHero.containsKey(creature)) {
+            if (quantity < creaturesHero.get(creature)) {
+                creaturesHero.put(creature, creaturesHero.get(creature) - quantity);
             } else {
                 creaturesHero.remove(creature);
             }
         }
     }
 
-    public ArrayList<Creature> getArmy(){
+    public List<Creature> getArmy() {
         List<Creature> listGet = new ArrayList<>();
-        for (Map.Entry<Creature, Integer> entry: creaturesHero.entrySet()){
+        for (Map.Entry<Creature, Integer> entry : creaturesHero.entrySet()) {
             listGet.add(entry.getKey());
         }
         return (ArrayList<Creature>) listGet;

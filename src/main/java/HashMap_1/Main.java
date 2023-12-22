@@ -25,6 +25,6 @@ public class Main {
         orderHero.addCreature(pikemanOrder, pikemanOrder.getQuantity());
         orderHero.addCreature(swordmanOrder, swordmanOrder.getQuantity());
 
-        System.out.println("Win in battle Hero "+Battlefied.battle(orderHero, chaosHero).getName());
+        System.out.println("Win in battle Hero " + Battlefied.battle(orderHero, chaosHero).getName());
     }
 }
