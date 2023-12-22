@@ -9,7 +9,7 @@ public class Main {
                     return result;
                 },
                 (e) -> {
-                    System.out.println("An error occured");
+                    System.out.println("An error occurred: " + e.getMessage());
                     return "rejected";
                 });
     }
