@@ -1,19 +1,19 @@
 package faang.school.godbless.armyOfHeroes;
 
-import java.util.List;
+import lombok.Getter;
 
-public class PowerKeeper implements Runnable {
+@Getter
+public class PowerKeeper extends Thread {
 
-    private List<Integer> powers;
-    private ArmyItem armyItem;
+    private Integer powers;
+    private ArmyUnit armyUnit;
 
-    public PowerKeeper(List<Integer> powers, ArmyItem armyItem) {
-        this.powers = powers;
-        this.armyItem = armyItem;
+    public PowerKeeper(ArmyUnit armyUnit) {
+        this.armyUnit = armyUnit;
     }
 
     @Override
     public void run() {
-        powers.add(armyItem.getPower());
+        powers = armyUnit.getPower();
     }
 }

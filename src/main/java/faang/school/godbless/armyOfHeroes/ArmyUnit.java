@@ -3,10 +3,10 @@ package faang.school.godbless.armyOfHeroes;
 import lombok.Getter;
 
 @Getter
-public class ArmyItem {
+public class ArmyUnit {
     private int power;
 
-    public ArmyItem(int power) {
+    public ArmyUnit(int power) {
         this.power = power;
     }
 }

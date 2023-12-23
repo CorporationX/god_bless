@@ -4,21 +4,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<ArmyItem> fullArmy;
+    private List<ArmyUnit> fullArmy;
+    private List<PowerKeeper> powerKeepers;
 
     public Army() {
+        this.powerKeepers = new ArrayList<>();
         this.fullArmy = new ArrayList<>();
     }
 
     public int calculateTotalPower() {
-        List<Integer> powersByItem = new ArrayList<>();
+        Integer totalPowers = 0;
         for (int i = 0; i < fullArmy.size(); i++) {
-            new Thread(new PowerKeeper(powersByItem, fullArmy.get(i))).start();
+            PowerKeeper powerKeeper = new PowerKeeper(fullArmy.get(i));
+            powerKeeper.start();
+            powerKeepers.add(powerKeeper);
         }
-        return powersByItem.stream().mapToInt(Integer::intValue).sum();
+        for (PowerKeeper powerKeeper : powerKeepers) {
+            try {
+                powerKeeper.join();
+                totalPowers += powerKeeper.getPowers();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return totalPowers;
     }
 
-    public void addUnit(ArmyItem armyItem) {
-        fullArmy.add(armyItem);
+    public void addUnit(ArmyUnit armyUnit) {
+        fullArmy.add(armyUnit);
     }
 }
