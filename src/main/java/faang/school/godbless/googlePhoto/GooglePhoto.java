@@ -9,7 +9,5 @@ public class GooglePhoto {
         Thread uploadThread = new Thread(googlePhotosAutoUploader::startAutoUpload);
         newPhotoThread.start();
         uploadThread.start();
-        newPhotoThread.join();
-        uploadThread.join();
     }
 }
