@@ -9,6 +9,9 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Letters is sent");
+        int current = endIndex - startIndex;
+        for (int i = 1; i <= current; i++) {
+            System.out.println(i + " Letters is sent");
+        }
     }
 }
