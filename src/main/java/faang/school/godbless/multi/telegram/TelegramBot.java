@@ -24,7 +24,7 @@ public class TelegramBot {
                     Thread.sleep(1000 - timeDiff);
                     lastRequestTime = System.currentTimeMillis();
                     requestCounter = 1;
-                    System.out.println("--------------------------------------------------");
+                    System.out.println("------------- Отправка ограничена -----------------\n");
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     System.out.println("Отправка прервана");
@@ -40,7 +40,7 @@ public class TelegramBot {
     }
 
     private void sendToTelegramAPI(String message) {
-        System.out.println("Отправлено сообщение: " + message);
+        System.out.println("Бот ответил на " + message);
     }
 
     public static void main(String[] args) {
