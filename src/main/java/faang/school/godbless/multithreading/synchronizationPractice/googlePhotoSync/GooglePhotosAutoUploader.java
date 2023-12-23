@@ -12,11 +12,14 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                System.out.println("ListPhotos is empty, need wait. When photos will be added.");
-                lock.wait();
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    System.out.println("ListPhotos is empty, need wait. When photos will be added.");
+                    lock.wait();
+                }
+                uploadPhotos();
             }
-            uploadPhotos();
+
         }
     }
 
