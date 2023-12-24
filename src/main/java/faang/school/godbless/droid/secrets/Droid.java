@@ -9,6 +9,18 @@ public class Droid {
     private int encryptKey;
 
     public String sendEncryptedMessage() throws IllegalArgumentException {
+        DroidMessageEncryptor encryptor = encryptMessage(false);
+
+        return encryptor.encrypt(message, encryptKey);
+    }
+
+    public String receiveEncryptedMessage(String encryptedMessage, int encryptKey) {
+        DroidMessageEncryptor decryptor = encryptMessage(true);
+
+        return decryptor.encrypt(encryptedMessage, encryptKey);
+    }
+
+    private DroidMessageEncryptor encryptMessage(boolean decrypt) {
         StringBuilder encryptedText = new StringBuilder();
         String regex = "[a-zA-Z]";
 
@@ -17,7 +29,7 @@ public class Droid {
                 String charToString = String.valueOf(character);
 
                 if (charToString.matches(regex)) {
-                    char newCharacter = (char) (updateCharacterPosition(character, key));
+                    char newCharacter = (char) (updateCharacterPosition(character, key, decrypt));
                     encryptedText.append(newCharacter);
                 } else {
                     encryptedText.append(character);
@@ -29,10 +41,10 @@ public class Droid {
             return result;
         });
 
-        return encryptor.encrypt(message, encryptKey);
+        return encryptor;
     }
 
-    private int updateCharacterPosition(char character, int key) throws IllegalArgumentException {
+    private int updateCharacterPosition(char character, int key, boolean decrypt) throws IllegalArgumentException {
         String lowerCaseRegex = "[a-z]";
         String upperCaseRegex = "[A-Z]";
         char firstCharLowerCase = 'a';
@@ -40,19 +52,27 @@ public class Droid {
         int latinAlphabetLength = 26;
         String charToString = String.valueOf(character);
 
-        int originalAlphabetPosition;
-        int newAlphabetPosition;
+        int originalCharPosition;
+        int newCharPosition;
 
         if (charToString.matches(lowerCaseRegex)) {
-            originalAlphabetPosition = character - firstCharLowerCase;
-            newAlphabetPosition = firstCharLowerCase + (originalAlphabetPosition + key) % latinAlphabetLength;
+            originalCharPosition = character - firstCharLowerCase;
+            if (!decrypt) {
+                newCharPosition = firstCharLowerCase + (originalCharPosition + key) % latinAlphabetLength;
+            } else {
+                newCharPosition = firstCharLowerCase + (originalCharPosition + (latinAlphabetLength - key % latinAlphabetLength)) % latinAlphabetLength;
+            }
         } else if (charToString.matches(upperCaseRegex)) {
-            originalAlphabetPosition = character - firstCharUpperCase;
-            newAlphabetPosition = firstCharUpperCase + (originalAlphabetPosition + key) % latinAlphabetLength;
+            originalCharPosition = character - firstCharUpperCase;
+            if (!decrypt) {
+                newCharPosition = firstCharUpperCase + (originalCharPosition + key) % latinAlphabetLength;
+            } else {
+                newCharPosition = firstCharUpperCase + (originalCharPosition + (latinAlphabetLength - key % latinAlphabetLength)) % latinAlphabetLength;
+            }
         } else {
             throw new IllegalArgumentException("Invalid character provided");
         }
 
-        return newAlphabetPosition;
+        return newCharPosition;
     }
 }
