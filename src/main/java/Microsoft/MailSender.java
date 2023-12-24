@@ -1,14 +1,22 @@
 package Microsoft;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class MailSender {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        int numberOfMessages = 1001;
+        int numberOfMessages = 1000;
 
+        int poolSize = 200;
         int poolCounter = 0;
+        int numberOfThreads = 5;
         int startIndex = 0;
         int endIndex;
 
+
+        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
         for (int i = 0; i <= numberOfMessages; i++) {
             //Если пул сообщений == 0
             if (poolCounter == 0) {
@@ -18,12 +26,11 @@ public class MailSender {
 
 
             //Если counter == 200
-            if (poolCounter == 200) {
+            if (poolCounter == poolSize) {
                 //Записываем endIndex
                 endIndex = i;
                 //Запускаем отправку группы писем
-                SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
-                senderRunnable.run();
+                executorService.submit(new SenderRunnable(startIndex, endIndex));
 
                 //Сбрасываем counter
                 poolCounter = 0;
@@ -43,6 +50,8 @@ public class MailSender {
             }
 
         }
+        executorService.awaitTermination(2000, TimeUnit.MILLISECONDS);
+        executorService.shutdown();
     }
 }
 
