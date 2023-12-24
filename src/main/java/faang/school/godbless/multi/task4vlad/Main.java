@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         VladController controller = new VladController();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
@@ -26,6 +26,10 @@ public class Main {
         }
 
         executorService.shutdown();
-        executorService.awaitTermination(5, TimeUnit.MINUTES);
+        try {
+            executorService.awaitTermination(5, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

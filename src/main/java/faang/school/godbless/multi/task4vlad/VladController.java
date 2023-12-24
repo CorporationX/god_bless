@@ -1,13 +1,14 @@
 package faang.school.godbless.multi.task4vlad;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
 public class VladController {
     private final List<TamagotchiVlad> vlads = new ArrayList<>();
+
+    public synchronized List<TamagotchiVlad> getVlads() {
+        return vlads;
+    }
 
     public synchronized void addVlad(TamagotchiVlad vlad) {
         vlads.add(vlad);
