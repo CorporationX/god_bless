@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Data
 public class Knight {
@@ -21,11 +23,12 @@ public class Knight {
     public void startTrials() {
         System.out.println(Thread.currentThread().getName() + " Начинаем запуск испытаний для рыцаря - " + name);
 
+        ExecutorService service = Executors.newFixedThreadPool(2);
         for (Trial trial : trials) {
             if (trial.getKnightName().equals(name)) {
-                Thread thread = new Thread(() -> trial.run());
-                thread.start();
+                service.submit(trial);
             }
         }
+        service.shutdown();
     }
 }
