@@ -102,9 +102,9 @@ class StreamApiTestingMethods_2 {
     }
 
     //Дан список строк. Отфильтруйте строки, которые содержат только буквы заданного алфавита, и отсортируйте их в порядке возрастания длины строк.
-    public static List<String> stringsAscendingOrder(List<String> strings, String naborBukv) {
+    public static List<String> stringsAscendingOrder(List<String> strings, String substring) {
         return strings.stream()
-                .filter(string -> string.contains(naborBukv))
+                .filter(string -> string.matches(substring))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
@@ -135,7 +135,6 @@ class StreamApiTestingMethods_2 {
                 .toList();
     }
 }
-
 
 @Data
 class Employee {
