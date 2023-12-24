@@ -32,6 +32,7 @@ public class User {
                 .collect(Collectors.groupingBy(User::getAge,
                         Collectors.toList()));
 
+        System.out.println(usersGroupByAge);
         return usersGroupByAge;
     }
 
