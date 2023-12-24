@@ -4,19 +4,27 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
-        for (int i = 0; i < 5; i++) {
-            int start = i * 200;
-            int end = start + 200;
+
+    public static void main(String[] args) {
+        int totalThreads = 5;
+        int totalMessage = 1000;
+        int messagePerThread = totalMessage / totalThreads;
+
+        for (int i = 0; i < totalThreads; i++) {
+            int start = i * messagePerThread;
+            int end = start + messagePerThread;
             SenderRunnnable senderRunnnable = new SenderRunnnable(start, end);
             Thread thread = new Thread(senderRunnnable);
             thread.start();
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }
 
-@Data
 @AllArgsConstructor
 class SenderRunnnable implements Runnable {
     private int startIndex;
