@@ -21,7 +21,10 @@ public class Main {
         CompletableFuture<Integer> resultAnalytics = CompletableFuture.supplyAsync(masterCardService::sendAnalytics);
 
         // В условии написно иcпользовать join, но как я понял особых различий нет
-        System.out.println("Время аналитики: " + resultAnalytics.get());
-        System.out.println("Время оплаты: " + resultPayment.get());
+        System.out.println("Время аналитики: " + resultAnalytics.get() + " ms");
+        System.out.println("Ждем завершения оплаты...");
+        System.out.println("Время оплаты: " + resultPayment.get() + " ms");
+
+        executorService.shutdown();
     }
 }
