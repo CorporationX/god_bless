@@ -10,32 +10,30 @@ import java.util.concurrent.Executors;
 
 @Getter
 public class Boss {
-    private int currentPlayers = 0;
+    private int currentPlayers;
+    private final int maxPlayers;
 
-    private final Object lock = new Object();
-    private final int maxPlayers = 3;
-    private Player player;
-
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            while (currentPlayers > maxPlayers  ) {
-                try {
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            currentPlayers++;
-            System.out.println(player.getName() + "  присоединился к сражению");
-        }
+    public Boss(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
     }
 
-    public void completesBattle() {
-        synchronized (lock) {
-            currentPlayers--;
-            System.out.println("Игрок " + player.getName() + " завершил битву");
-            lock.notifyAll();
+    public synchronized void joinBattle(Player player) {
+        while (maxPlayers <= currentPlayers) {
+            try {
+                System.out.println(player.getName() + " В очереди на битву с боссом");
+                this.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
+        currentPlayers++;
+        System.out.println(player.getName() + "  присоединился к сражению! - " + Thread.currentThread().getName());
+    }
+
+    public synchronized void endBattle(Player player) {
+        currentPlayers--;
+        System.out.println("Игрок " + player.getName() + " завершил битву - " + Thread.currentThread().getName());
+        this.notifyAll();
     }
 }
 
@@ -45,32 +43,37 @@ class Player {
     private String name;
 
     public void startBattle(Boss boss) {
-        System.out.println("Сражение с боссом началось");
         boss.joinBattle(this);
+        System.out.println(this.getName() + " начал сражение с боссом");
         try {
-            Thread.sleep(new Random().nextInt(1, 6) * 1000L);
+            Thread.sleep(new Random().nextInt(1, 5) * 1_000L);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        boss.completesBattle();
+        boss.endBattle(this);
     }
-
 }
 
 class Main {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        Boss boss = new Boss();
+
+        Boss boss = new Boss(4);
         List<Player> players = List.of(
                 new Player("Lancelot"),
                 new Player("Gerald"),
-                new Player("Archer"),
-                new Player("Swordsman"),
-                new Player("Mage")
+                new Player("Bars"),
+                new Player("Vurdalak"),
+                new Player("MagicMank"),
+                new Player("Freddy"),
+                new Player("Bronevik"),
+                new Player("HyperSpeed"),
+                new Player("Mateo")
         );
-            for(Player player : players){
-                executorService.submit(() -> player.startBattle(boss));
-            }
-            executorService.shutdown();
+
+        for (Player player : players) {
+            executorService.submit(() -> player.startBattle(boss));
+        }
+        executorService.shutdown();
     }
 }
