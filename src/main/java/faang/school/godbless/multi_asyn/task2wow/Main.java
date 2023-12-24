@@ -11,12 +11,15 @@ public class Main {
         Player player2 = new Player("Sylvanas", 12, 450);
 
 // Создание заданий
-        Quest quest1 = new Quest("Defeat the Lich King", 10, 350);
-        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 200);
+        Quest quest1 = new Quest("Defeat the Lich King", 2, 350);
+        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 10, 200);
 
 // Запуск заданий
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+        CompletableFuture<Player> player1Quest = null;
+        CompletableFuture<Player> player2Quest = null;
+
+        player1Quest = questSystem.startQuest(player1, quest1);
+        player2Quest = questSystem.startQuest(player2, quest2);
 
 // Обработка результатов заданий
         player1Quest.thenAccept(player -> {
@@ -26,7 +29,7 @@ public class Main {
             }
 
             System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.\n");
-        });
+        }).join();
 
         player2Quest.thenAccept(player -> {
             if (player.isNewLevel()) {
@@ -35,7 +38,6 @@ public class Main {
             }
 
             System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.\n");
-        });
-
+        }).join();
     }
 }
