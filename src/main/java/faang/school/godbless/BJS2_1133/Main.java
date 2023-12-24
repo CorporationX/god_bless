@@ -1,8 +1,6 @@
 package faang.school.godbless.BJS2_1133;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,10 +19,34 @@ public class Main {
     }
 
     public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
-        VectorJoiner<String> vectorJoiner = list -> String.join(", ", list);
-        MatrixJoiner<String> matrixJoiner = listOfLists -> String.join("\n",
-                listOfLists.stream().map(vectorJoiner::join).toList()
-        );
+
+        VectorJoiner<String> vectorJoiner = list -> {
+            StringBuilder strBld = new StringBuilder();
+            int size = list.size();
+
+            for (int i = 0; i < size; i++) {
+                strBld.append(list.get(i));
+                if (i != size - 1) {
+                    strBld.append(", ");
+                }
+            }
+
+            return strBld.toString();
+        };
+
+        MatrixJoiner<String> matrixJoiner = listOfLists -> {
+            StringBuilder strBld = new StringBuilder();
+            int size = listOfLists.size();
+
+            for (int i = 0; i < size; i++) {
+                strBld.append(vectorJoiner.join(listOfLists.get(i)));
+                if (i != size - 1) {
+                    strBld.append("\n");
+                }
+            }
+
+            return strBld.toString();
+        };
         return matrixJoiner.join(table);
     }
 }
