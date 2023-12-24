@@ -1,7 +1,6 @@
 package faang.school.godbless.work_microsoft;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
 public class MailSender {
 
