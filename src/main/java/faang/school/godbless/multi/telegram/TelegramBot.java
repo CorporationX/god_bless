@@ -11,18 +11,13 @@ public class TelegramBot {
         lastRequestTime = System.currentTimeMillis();
     }
 
-    public synchronized void sendMessage(String message) {
-     if (getTimeDifference() < ONE_SECOND) {
+    public synchronized void sendMessage(String message) throws InterruptedException {
+        if (getTimeDifference() < ONE_SECOND) {
             requestCounter++;
             if (requestCounter > REQUEST_LIMIT) {
-                try {
-                    System.out.println("------------- Отправка ограничена -----------------\n");
-                    Thread.sleep(ONE_SECOND - getTimeDifference());
-                    requestCounter = 1;
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    System.out.println("Отправка прервана");
-                }
+                System.out.println("------------- Отправка ограничена -----------------\n");
+                Thread.sleep(ONE_SECOND - getTimeDifference());
+                requestCounter = 1;
             }
         } else {
             requestCounter = 1;

@@ -10,7 +10,14 @@ public class Main {
 
         for (int i = 0; i < 53; i++) {
             int finalI = i;
-            executorService.submit(() -> bot.sendMessage("Сообщение " + finalI));
+            executorService.submit(() -> {
+                try {
+                    bot.sendMessage("Сообщение " + finalI);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Отправка прервана");
+                }
+            });
         }
 
         executorService.shutdown();
