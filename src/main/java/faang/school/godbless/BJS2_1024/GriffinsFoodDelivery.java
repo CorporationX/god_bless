@@ -17,8 +17,8 @@ public class GriffinsFoodDelivery {
         FoodDeliveryTask foodDeliveryTask5 = new FoodDeliveryTask(characterNames[4], new Random().nextInt(1, 100));
         List<FoodDeliveryTask> listOfConsumers = List.of(foodDeliveryTask1, foodDeliveryTask2, foodDeliveryTask3, foodDeliveryTask4, foodDeliveryTask5);
         for (FoodDeliveryTask foodDeliveryTask : listOfConsumers) {
-            foodDeliveryTask.run();
+            executorService.submit(foodDeliveryTask);
         }
-
+        executorService.shutdown();
     }
 }
