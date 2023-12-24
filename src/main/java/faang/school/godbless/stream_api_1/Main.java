@@ -19,7 +19,7 @@ public class Main {
         boolean cheking = TestingStream.meetSpecificCondition(nums, num -> nums.contains(56));
         System.out.println("Содержит  - " + cheking);
         System.out.println(TestingStream.findSmallestElementGreaterThan(nums, 5));
-        System.out.println(TestingStream.convertStringToLetterLength(names));
+        System.out.println(TestingStream.convertStringsToLengths(names));
     }
 }
 
@@ -73,7 +73,7 @@ class TestingStream {
                 .orElse(0);
     }
 
-    public static List<Integer> convertStringToLetterLength(List<String> list) {
+    public static List<Integer> convertStringsToLengths(List<String> list) {
         return list.stream()
                 .map(String::length)
                 .toList();
