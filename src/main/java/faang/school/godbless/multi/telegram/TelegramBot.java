@@ -12,10 +12,7 @@ public class TelegramBot {
     }
 
     public synchronized void sendMessage(String message) {
-        lastRequestTime = System.currentTimeMillis();
-
-
-        if (getTimeDifference() < ONE_SECOND) {
+     if (getTimeDifference() < ONE_SECOND) {
             requestCounter++;
             if (requestCounter > REQUEST_LIMIT) {
                 try {
@@ -31,7 +28,7 @@ public class TelegramBot {
             requestCounter = 1;
             System.out.println("--------------------------------------------------");
         }
-
+        lastRequestTime = System.currentTimeMillis();
         sendToTelegramAPI(message);
     }
 
