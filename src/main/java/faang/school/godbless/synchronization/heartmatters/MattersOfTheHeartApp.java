@@ -12,15 +12,12 @@ public class MattersOfTheHeartApp {
         userList.addUser(new User(6, "user6", false));
 
         ChatManager chatManager = new ChatManager(userList);
-
-
         for (User user : userList.getUsers()) {
             new Thread(() -> {
                 try {
                     Chat chat = chatManager.startChat(user);
                     chatManager.waitForChat(chat);
                     chatManager.endChat(chat);
-
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     System.out.println("Interrupted");
