@@ -1,6 +1,5 @@
 package faang.school.godbless.multi.telegram;
 
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
