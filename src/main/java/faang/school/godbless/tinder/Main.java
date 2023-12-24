@@ -6,8 +6,7 @@ public class Main {
     public static void main(String[] args) {
         UserList userList = new UserList();
         for (int i = 0; i < 8; i++) {
-
-            userList.addUser(new User("User_" + i + 1, true, true));
+            userList.addUser(new User("User_" + (i + 1), true, true));
         }
         ChatManager chatManager = new ChatManager(userList);
 
@@ -15,7 +14,7 @@ public class Main {
             new Thread(() -> {
                 try {
                     chatManager.startChat(user);
-                    Thread.sleep(new Random().nextInt(5) * 1000);
+                    Thread.sleep(4000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
