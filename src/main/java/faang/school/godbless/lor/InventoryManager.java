@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-    public void addItem (Character character, Item item, Consumer<String> itemConsumer) {
+    public void addItem(Character character, Item item, Consumer<String> itemConsumer) {
         List<Item> inventory = character.getInventory();
 
         if (!inventory.contains(item)) {
@@ -18,18 +18,13 @@ public class InventoryManager {
         itemConsumer.accept(item.getName() + ": " + item.getValue());
     }
 
-    public void removeItem (Character character, Predicate<String> itemPredicate) {
+    public void removeItem(Character character, Predicate<Item> itemPredicate) {
         List<Item> inventory = character.getInventory();
 
-        for (Item item : inventory) {
-            if (itemPredicate.test(item.getName())) {
-                inventory.remove(item);
-                break;
-            }
-        }
+        inventory.removeIf(itemPredicate);
     }
 
-    public void updateItem (Character character, Predicate<String> itemPredicate, Function<Item, Item> itemFunction) {
+    public void updateItem(Character character, Predicate<String> itemPredicate, Function<Item, Item> itemFunction) {
         List<Item> inventory = character.getInventory();
 
         for (Item item : inventory) {

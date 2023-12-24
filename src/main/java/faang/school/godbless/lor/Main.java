@@ -19,7 +19,7 @@ public class Main {
 
         System.out.println(bilbo.getInventory()); // Output: [ring, circlet]
 
-        inventory.removeItem(bilbo, (item) -> item.equals("ring"));
+        inventory.removeItem(bilbo, (item) -> item.getName().equals("ring"));
 
         System.out.println(bilbo.getInventory()); // Output: [circlet]
 
