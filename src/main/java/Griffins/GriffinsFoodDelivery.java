@@ -11,6 +11,6 @@ public class GriffinsFoodDelivery {
             FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(characterName);
             executorService.submit(foodDeliveryTask);
         }
-        executorService.close();
+        executorService.shutdown();
     }
 }
