@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class Player {
     private String name;
-    private  int level;
+    private int level;
     private int experience;
     private boolean newLevel = false;
 

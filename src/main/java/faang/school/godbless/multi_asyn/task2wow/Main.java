@@ -11,8 +11,8 @@ public class Main {
         Player player2 = new Player("Sylvanas", 12, 450);
 
 // Создание заданий
-        Quest quest1 = new Quest("Defeat the Lich King", 2, 350);
-        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 10, 200);
+        Quest quest1 = new Quest("Defeat the Lich King", 10, 350);
+        Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 2, 200);
 
 // Запуск заданий
         CompletableFuture<Player> player1Quest = null;
@@ -29,7 +29,7 @@ public class Main {
             }
 
             System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.\n");
-        }).join();
+        });
 
         player2Quest.thenAccept(player -> {
             if (player.isNewLevel()) {
@@ -38,6 +38,10 @@ public class Main {
             }
 
             System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.\n");
-        }).join();
+        });
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
+
+        questSystem.shutdownQuestSystem(); // Такой способ закрывания потоко приемлем? Или же есть другой?
     }
 }

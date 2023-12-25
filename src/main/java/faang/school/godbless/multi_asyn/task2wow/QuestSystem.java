@@ -1,10 +1,13 @@
 package faang.school.godbless.multi_asyn.task2wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest)  {
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty() / 2 * 1000L);
@@ -16,7 +19,7 @@ public class QuestSystem {
             updateLvl(player);
 
             return player;
-        });
+        }, executorService);
     }
 
     private static void updateLvl(Player player) {
@@ -33,5 +36,9 @@ public class QuestSystem {
 
     private static void updateExp(Player player, Quest quest) {
         player.setExperience(player.getExperience() + quest.getReward() * quest.getDifficulty() / 10);
+    }
+
+    public void shutdownQuestSystem() {
+        executorService.shutdown();
     }
 }
