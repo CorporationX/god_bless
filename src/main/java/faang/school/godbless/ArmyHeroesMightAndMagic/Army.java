@@ -16,7 +16,6 @@ public class Army {
         AtomicInteger allPower = new AtomicInteger(0);
         for (Unit unit : units) {
             executor.submit(() -> {
-                new UnitThread(unit, unit.getPower());
                 allPower.addAndGet(unit.getPower());
                 System.out.println(unit + " обрабатывается в потоке " + Thread.currentThread().getName());
             });
