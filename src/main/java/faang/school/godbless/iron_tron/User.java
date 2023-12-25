@@ -23,7 +23,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse(House house) {
+    public void leaveHouse(House house) {
         synchronized (house.getLock()) {
             if (this.house != null) {
                 System.out.printf("%s leave the house of %s and frees up the role %s \n", name, this.house, role);
