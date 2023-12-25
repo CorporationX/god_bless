@@ -1,9 +1,7 @@
 package faang.school.godbless.YouWorkForMicrosoft;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
     int startIndex;
