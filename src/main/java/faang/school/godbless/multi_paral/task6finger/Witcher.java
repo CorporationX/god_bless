@@ -22,15 +22,18 @@ public class Witcher {
 
         ExecutorService executor = Executors.newFixedThreadPool(4);
 
+        long start1 = System.currentTimeMillis();
+
         for (City city : cities) {
             CityWorker worker = new CityWorker(city, monsters);
             executor.execute(worker);
         }
 
-
         executor.shutdown();
-        executor.awaitTermination(5, TimeUnit.NANOSECONDS);
+        executor.awaitTermination(5, TimeUnit.MINUTES);
 
+        long end1 = System.currentTimeMillis();
 
+        System.out.println(end1 - start1 + " ms");
     }
 }
