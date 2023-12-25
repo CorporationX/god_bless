@@ -25,8 +25,8 @@ public class MasterCardService {
 
         System.out.println("Time to send analytics - " + sendAnalyticsFuture.join() + " ms");
         System.out.println("Time to collect payment - " + collectPaymentFuture.get() + " ms");
-        executorCollectPayment.shutdown();
-        executorSendAnalytics.shutdown();
+        executor.shutdown();
+
     }
 
     public static int collectPayment() {
