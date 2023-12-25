@@ -18,15 +18,14 @@ public class Game {
             if (player.isAlive()) {
                 score++;
                 System.out.println("Очки за игру: " + score + " в потоке " + Thread.currentThread().getName());
-                //lockScore.wait();
             }
         }
         synchronized (lockLives) {
+            player.setLive(player.getLive() - 1);
             lives++;
             System.out.println("Потерянные жизни: " + lives + " в потоке " + Thread.currentThread().getName());
             if (player.getLive() == 0)
                 gameOver(player);
-            //lockLives.wait();
         }
     }
 

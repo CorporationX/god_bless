@@ -4,10 +4,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public class Player implements Runnable{
+@Setter
+public class Player implements Runnable {
     private final String name;
     private int live;
-    @Setter
     private boolean alive = true;
 
     public Player(String name, int live) {
@@ -15,6 +15,7 @@ public class Player implements Runnable{
         this.live = live;
     }
 
+    // почему-то не срабатывает метод run()
     @Override
     public void run() {
         System.out.println("Что-то делаем");
