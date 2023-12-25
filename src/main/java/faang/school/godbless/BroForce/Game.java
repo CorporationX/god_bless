@@ -2,21 +2,37 @@ package faang.school.godbless.BroForce;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class Game {
-    private int score;      // счётчик набранных очков за игру всеми участниками
-    private int lives;      // количество потерянных всеми участниками жизней
-    private Object lockScore = new Object();
-    private Object lockLives = new Object();
+    private static int score;      // счётчик набранных очков за игру всеми участниками
+    private static int lives;      // количество потерянных всеми участниками жизней
+    private static Object lockScore = new Object();
+    private static Object lockLives = new Object();
+    static List<Player> players = new ArrayList<>();
 
-     public void update(){
-         synchronized (lockScore){
+    public static void update(Player player) throws InterruptedException {
+        synchronized (lockScore) {
+            if (player.isAlive()) {
+                score++;
+                System.out.println("Очки за игру: " + score + " в потоке " + Thread.currentThread().getName());
+                //lockScore.wait();
+            }
+        }
+        synchronized (lockLives) {
+            lives++;
+            System.out.println("Потерянные жизни: " + lives + " в потоке " + Thread.currentThread().getName());
+            if (player.getLive() == 0)
+                gameOver(player);
+            //lockLives.wait();
+        }
+    }
 
-         }
-         synchronized (lockLives){
-
-         }
-
+    private static void gameOver(Player player) {
+        System.out.println("Iгрок " + player.getName() + " умер в жестоком бою");
+        player.setAlive(false);
     }
 
 }
