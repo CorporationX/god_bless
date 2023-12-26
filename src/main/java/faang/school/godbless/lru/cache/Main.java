@@ -3,8 +3,8 @@ package faang.school.godbless.lru.cache;
 import java.util.Map;
 
 public class Main {
-    public static void main (String[] args) {
-        LRUCache lru = new LRUCache(4);
+    public static void main(String[] args) {
+        LRUCache lru = new LRUCache();
 
         Data data1 = new Data("10");
         Data data2 = new Data("20");
@@ -19,7 +19,6 @@ public class Main {
         lru.get(0);
         lru.put(data4);
         lru.put(data5);
-
         System.out.println("Cache:");
 
         for (Map.Entry<Integer, Node> item : lru.cache.entrySet()) {
