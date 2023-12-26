@@ -1,27 +1,27 @@
 package faang.school.godbless.multithreading.async.MasterCardService;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class MasterCardService {
     private static final Logger logger = LoggerFactory.getLogger(MasterCardService.class);
+
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         doAll();
     }
 
     static void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executorCollectPayment = Executors.newFixedThreadPool(2);
-        ExecutorService executorSendAnalytics = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(2);
 
-        Future<Integer> collectPaymentFuture = executorCollectPayment.submit(MasterCardService::collectPayment);
+        Future<Integer> collectPaymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalyticsFuture =
-                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executorSendAnalytics);
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
 
         System.out.println("Time to send analytics - " + sendAnalyticsFuture.join() + " ms");
         System.out.println("Time to collect payment - " + collectPaymentFuture.get() + " ms");
