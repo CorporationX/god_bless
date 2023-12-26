@@ -8,13 +8,14 @@ public class King {
         Knight lancelot = new Knight("Lancelot");
         Knight tristan = new Knight("Tristan");
 
-        Knight.addTrial(new Trial(lancelot.getName(), "Поединок на конях"));
-        Knight.addTrial(new Trial(lancelot.getName(), "Конкурс гербов"));
-        Knight.addTrial(new Trial(tristan.getName(), "Самый большой щит"));
-        Knight.addTrial(new Trial(tristan.getName(), "Пеший поединок"));
+        lancelot.addTrial(new Trial(lancelot.getName(), "Поединок на конях"));
+        lancelot.addTrial(new Trial(lancelot.getName(), "Конкурс гербов"));
+        tristan.addTrial(new Trial(tristan.getName(), "Самый большой щит"));
+        tristan.addTrial(new Trial(tristan.getName(), "Пеший поединок"));
 
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        Knight.startTrials(executorService);
+        lancelot.startTrials(executorService);
+        tristan.startTrials(executorService);
         executorService.shutdown();
     }
 }

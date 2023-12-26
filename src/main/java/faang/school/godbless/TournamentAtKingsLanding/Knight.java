@@ -9,17 +9,17 @@ import java.util.concurrent.ExecutorService;
 @Getter
 public class Knight {
     private final String name;
-    private static final List<Trial> trials = new ArrayList<>(); //список испытаний
+    private final List<Trial> trials = new ArrayList<>(); //список испытаний
 
     public Knight(String name) {
         this.name = name;
     }
 
-    public static void addTrial(Trial trial){
+    public void addTrial(Trial trial){
             trials.add(trial);
     }
 
-    public static void startTrials(ExecutorService executorService){
+    public void startTrials(ExecutorService executorService){
         for (Trial trial: trials) {
             executorService.submit(trial);
         }
