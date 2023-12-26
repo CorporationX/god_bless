@@ -10,14 +10,9 @@ public class House {
     private List<Room> rooms = new ArrayList<>();
     private List<Food> collectedFood = new ArrayList<>();
     public synchronized void collectFood() {
-        if (!rooms.isEmpty()) {
-            Room room1 = rooms.remove(0);
-            collectedFood.addAll(room1.getFoods());
-
-            if (!rooms.isEmpty()) {
-                Room room2 = rooms.remove(0);
-                collectedFood.addAll(room2.getFoods());
-            }
+        for (Room room : rooms) {
+            collectedFood.addAll(room.getFoods());
+            room.getFoods().clear();
         }
     }
     public static void main(String[] args) throws InterruptedException {
@@ -34,17 +29,13 @@ public class House {
 
         for (int i = 0; i < 5; i++) {
             final int delay = 5 * i; // 30 секунд долго грузит
-            executor.schedule(() -> {
-                house.collectFood();
-
-                if (house.rooms.isEmpty()) {
-                    System.out.println("Собранная еда: " + house.collectedFood);
-                    System.out.println("Еда в доме собрана!");
-                }
-            }, delay, TimeUnit.SECONDS);
+            executor.schedule(house::collectFood, delay, TimeUnit.SECONDS);
         }
 
         executor.shutdown();
         executor.awaitTermination(5, TimeUnit.MINUTES);
+
+        System.out.println("Собранная еда: " + house.collectedFood);
+        System.out.println("Еда в доме собрана!");
     }
 }
