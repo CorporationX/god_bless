@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless;
 
 public class SpellCaster {
     public void cast (String spell, SpellAction spellAction){
