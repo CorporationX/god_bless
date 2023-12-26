@@ -17,11 +17,11 @@ public class BigBangTheory {
         executorService.execute(howard);
         executorService.execute(raj);
 
-        //executorService.shutdown();
-        executorService.shutdownNow();
+        executorService.shutdown();
+       // executorService.shutdownNow();
         try {
             // Ждем завершения всех потоков
-            executorService.awaitTermination(3, TimeUnit.SECONDS);
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
