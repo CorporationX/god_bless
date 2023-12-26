@@ -9,7 +9,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int start = startIndex; start<= endIndex; start++) {
+        for (int start = startIndex; start <= endIndex; start++) {
             System.out.println("Message sent" + Thread.currentThread());
         }
     }
