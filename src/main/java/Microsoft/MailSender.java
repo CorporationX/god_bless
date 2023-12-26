@@ -1,5 +1,8 @@
 package Microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
 
@@ -8,6 +11,7 @@ public class MailSender {
         int startIndex = 0;
         int endIndex;
 
+        List<Thread> threadList = new ArrayList<>();
 
         for (int i = 0; i < numberOfThread; i++) {
             //вычислить индексы
@@ -15,8 +19,12 @@ public class MailSender {
             //назначить потоку задание с начальным и конечным индексами
             Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
             thread.start();
+            threadList.add(thread);
             //пересчитать индексы
             startIndex += poolSize;
+        }
+
+        for (Thread thread : threadList) {
             thread.join();
         }
 
