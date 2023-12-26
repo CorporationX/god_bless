@@ -7,14 +7,15 @@ public class Main {
     public static void main(String[] args) {
         PigThread[] pigThreads = {new Pig1Thread(), new Pig2Thread(), new Pig3Thread()};
 
-        Arrays.stream(pigThreads).forEach((x) -> {
+        Arrays.stream(pigThreads).forEach(Thread::start);
+        for (PigThread pigThread : pigThreads) {
             try {
-                x.start();
-                x.join();
+                pigThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
+                System.out.println("Игра прервана");
             }
-        });
+        }
 
         System.out.println("--------------------------------------");
         System.out.println("Игра завершена!");
