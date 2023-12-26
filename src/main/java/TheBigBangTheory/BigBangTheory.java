@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
         List<Task> listOfTasks = new ArrayList<>();
@@ -21,14 +22,12 @@ public class BigBangTheory {
         }
 
         executorService.shutdown();
-        while (true) {
-            // без этой проверки сообщение об успешном выполнении выводилось ДО сообщений от потоков
-            if (executorService.isTerminated()) {
-                System.out.println("Все задачи выполнены");
-                break;
-            }
+        executorService.awaitTermination(10, TimeUnit.SECONDS);
+        if (executorService.isTerminated()) {
+            System.out.println("Все задачи выполнены");
         }
-
-
     }
+
+
 }
+

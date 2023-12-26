@@ -14,7 +14,8 @@ public class Task implements Runnable {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new RuntimeException("Задача прервана");
+            System.out.println("Задача " + nameTask + " прервана!");
         }
+        System.out.println("Task " + nameTask + " complete");
     }
 }
