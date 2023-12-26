@@ -25,10 +25,10 @@ public class CityWorker implements Runnable {
     }
 
     public Monster findNearestMonster(City city, List<Monster> monsters) {   //поиск ближайшего монстра
-        int distanceCity = Integer.MAX_VALUE;
+        long distanceCity = Integer.MAX_VALUE;
         Monster closestMonster = null;
         for (Monster monster : monsters) {
-            int distanceCityMonster = (int) ((int) city.getDistance() + getJourneyDistance(city, monster));
+            long distanceCityMonster = city.getDistance() + getJourneyDistance(city, monster);
             if (distanceCityMonster < distanceCity) {
                 distanceCity = distanceCityMonster;
                 closestMonster = monster;
@@ -44,7 +44,7 @@ public class CityWorker implements Runnable {
 
 
     public long getJourneyDistance(City city, Monster monster) {       //дальность путешествия
-        return (int) Math.sqrt(Math.pow((city.getLocation().getX() - monster.getLocationCoordinates(monster.getLocation()).getX()), 2)
+        return (long) Math.sqrt(Math.pow((city.getLocation().getX() - monster.getLocationCoordinates(monster.getLocation()).getX()), 2)
                 + Math.pow((city.getLocation().getY() - monster.getLocationCoordinates(monster.getLocation()).getY()), 2));
     }
 }
