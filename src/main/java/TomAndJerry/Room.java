@@ -11,7 +11,6 @@ import java.util.List;
 public class Room {
     private final String name;
     private List<Food> foodList = new ArrayList<>();
-    private boolean available = true;
 
     public Room(String name) {
         this.name = name;

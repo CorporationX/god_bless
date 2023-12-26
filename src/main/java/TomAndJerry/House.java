@@ -55,7 +55,7 @@ public class House {
     public void fillRoomsWithFood() {
         int roomIndex = 0;
         for (Room room : roomList) {
-            for (Food food : foodList){
+            for (Food food : foodList) {
                 room.addFood(food);
             }
         }
@@ -69,18 +69,16 @@ public class House {
             if (roomCount == 2) {
                 break;
             }
-            if (room.isAvailable()) {
+            if (!room.getFoodList().isEmpty()) {
                 foundedRooms.add(room);
-                room.setAvailable(false);
                 roomCount++;
             }
         }
         //Собрать еду из каждой комнаты
         //Хотел с помощью stream сделать, но не сообразил как(
         for (Room foundedRoom : foundedRooms) {
-            List<Food> tempList = foundedRoom.getFoodList();
-            tempList.addAll(foodList);
-            ;
+            collectedFood.addAll(foundedRoom.getFoodList());
+            foundedRoom.getFoodList().clear();
         }
     }
 }
