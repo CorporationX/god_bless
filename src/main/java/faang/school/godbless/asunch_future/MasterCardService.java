@@ -30,8 +30,8 @@ public class MasterCardService {
 
     public static void doAll() {
         ExecutorService executors = Executors.newFixedThreadPool(2);  // создал свой executor, пробовал и singleThread
-        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executors); // асинхронно запускаем поток из созданного пула
         Future<Integer> payments = executors.submit(MasterCardService::collectPayment); // запускаем поток
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executors); // асинхронно запускаем поток из созданного пула
 
         try {
             System.out.println("Время обработки аналитики: " + analytics.get() + " " + Thread.currentThread().getName());
