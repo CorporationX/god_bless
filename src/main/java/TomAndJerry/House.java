@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class House implements Runnable {
+public class House {
     private static final List<Food> collectedFood = new ArrayList<>();
     private final List<Food> foodList = List.of(
             new Food("Apple"),
@@ -39,7 +39,8 @@ public class House implements Runnable {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            executorService.schedule(house, 30, TimeUnit.SECONDS);
+            executorService.schedule(house::coollectFood, 0, TimeUnit.SECONDS);
+            Thread.sleep(3000);
         }
         executorService.shutdown();
 
@@ -49,20 +50,14 @@ public class House implements Runnable {
         System.out.println(collectedFood);
         System.out.println("Еда собрана");
 
-
-        for (Room room : house.roomList) {
-            System.out.println(room.getFoodList());
-        }
     }
 
     public void fillRoomsWithFood() {
         int roomIndex = 0;
-        for (Food food : foodList) {
-            if (roomIndex == roomList.size()) {
-                roomIndex = 0;
+        for (Room room : roomList) {
+            for (Food food : foodList){
+                room.addFood(food);
             }
-            roomList.get(roomIndex).addFood(food);
-            roomIndex++;
         }
     }
 
@@ -83,16 +78,10 @@ public class House implements Runnable {
         //Собрать еду из каждой комнаты
         //Хотел с помощью stream сделать, но не сообразил как(
         for (Room foundedRoom : foundedRooms) {
-            for (Food food : foundedRoom.getFoodList()) {
-                collectedFood.add(food);
-            }
-            foundedRoom.getFoodList().clear();
+            List<Food> tempList = foundedRoom.getFoodList();
+            tempList.addAll(foodList);
+            ;
         }
-    }
-
-    @Override
-    public void run() {
-        coollectFood();
     }
 }
 

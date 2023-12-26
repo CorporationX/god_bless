@@ -10,7 +10,7 @@ import java.util.List;
 @Setter
 public class Room {
     private final String name;
-    private final List<Food> foodList = new ArrayList<>();
+    private List<Food> foodList = new ArrayList<>();
     private boolean available = true;
 
     public Room(String name) {
