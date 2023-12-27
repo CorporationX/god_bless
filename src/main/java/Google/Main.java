@@ -3,13 +3,18 @@ package Google;
 public class Main {
     public static void main(String[] args) {
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
-        PhotoAdder photoAdder = new PhotoAdder(googlePhotosAutoUploader);
-        PhotoUploader photoUploader = new PhotoUploader(googlePhotosAutoUploader);
+        PhotoLoader photoLoader = new PhotoLoader(googlePhotosAutoUploader);
 
-        Thread adderPhotos = new Thread(photoAdder);
-        Thread uploaderPhotos = new Thread(photoUploader);
+        Thread photoLoaderThread = new Thread(photoLoader);
+        Thread photoUploaderThread = new Thread(() -> {
+            try {
+                googlePhotosAutoUploader.startAutoUpload();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
 
-        adderPhotos.start();
-        uploaderPhotos.start();
+        photoLoaderThread.start();
+        photoUploaderThread.start();
     }
 }

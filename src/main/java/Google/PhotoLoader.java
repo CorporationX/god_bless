@@ -1,17 +1,19 @@
 package Google;
 
-public class PhotoUploader implements Runnable {
+public class PhotoLoader implements Runnable {
+
     private final GooglePhotosAutoUploader googlePhotosAutoUploader;
 
-    public PhotoUploader(GooglePhotosAutoUploader googlePhotosAutoUploader) {
+    public PhotoLoader(GooglePhotosAutoUploader googlePhotosAutoUploader) {
         this.googlePhotosAutoUploader = googlePhotosAutoUploader;
     }
 
     @Override
     public void run() {
         while (true) {
+            googlePhotosAutoUploader.onNewPhotoAdded("Photo");
             try {
-                googlePhotosAutoUploader.startAutoUpload();
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
