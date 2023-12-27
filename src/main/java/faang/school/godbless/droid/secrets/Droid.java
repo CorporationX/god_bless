@@ -39,7 +39,7 @@ public class Droid {
     }
 
     public String receiveEncryptedMessage (String encryptedMessage, int encryptKey) {
-        StringBuilder encryptedText = new StringBuilder();
+        StringBuilder decryptedText = new StringBuilder();
 
         DroidMessageEncryptor decryptor = ((message, key) -> {
             for (char character : message.toCharArray()) {
@@ -48,12 +48,12 @@ public class Droid {
                 if (charToString.matches(REGEX)) {
                     char newCharacter = (char) (decryptCharacter(character, key));
 
-                    encryptedText.append(newCharacter);
+                    decryptedText.append(newCharacter);
                 } else {
-                    encryptedText.append(character);
+                    decryptedText.append(character);
                 }
             }
-            String result = encryptedText.toString();
+            String result = decryptedText.toString();
 
             System.out.println(result);
             return result;
