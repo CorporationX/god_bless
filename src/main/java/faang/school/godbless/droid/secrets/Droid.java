@@ -4,32 +4,26 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Droid {
+    private static final String REGEX = "[a-zA-Z]";
+    private static final String UPPERCASE_REGEX = "[A-Z]";
+    private static final char FIRST_CHAR_LOWERCASE = 'a';
+    private static final char FIRST_CHAR_UPPERCASE = 'A';
+    private static final int LATIN_ALPHABET_LENGTH = 26;
+
     private String name;
     private String message;
     private int encryptKey;
 
-    public String sendEncryptedMessage() throws IllegalArgumentException {
-        DroidMessageEncryptor encryptor = encryptMessage(false);
-
-        return encryptor.encrypt(message, encryptKey);
-    }
-
-    public String receiveEncryptedMessage(String encryptedMessage, int encryptKey) {
-        DroidMessageEncryptor decryptor = encryptMessage(true);
-
-        return decryptor.encrypt(encryptedMessage, encryptKey);
-    }
-
-    private DroidMessageEncryptor encryptMessage(boolean decrypt) {
+    public String sendEncryptedMessage () {
         StringBuilder encryptedText = new StringBuilder();
-        String regex = "[a-zA-Z]";
 
         DroidMessageEncryptor encryptor = ((message, key) -> {
             for (char character : message.toCharArray()) {
                 String charToString = String.valueOf(character);
 
-                if (charToString.matches(regex)) {
-                    char newCharacter = (char) (updateCharacterPosition(character, key, decrypt));
+                if (charToString.matches(REGEX)) {
+                    char newCharacter = (char) (encryptCharacter(character, key));
+
                     encryptedText.append(newCharacter);
                 } else {
                     encryptedText.append(character);
@@ -41,38 +35,64 @@ public class Droid {
             return result;
         });
 
-        return encryptor;
+        return encryptor.encrypt(message, encryptKey);
     }
 
-    private int updateCharacterPosition(char character, int key, boolean decrypt) throws IllegalArgumentException {
-        String lowerCaseRegex = "[a-z]";
-        String upperCaseRegex = "[A-Z]";
-        char firstCharLowerCase = 'a';
-        char firstCharUpperCase = 'A';
-        int latinAlphabetLength = 26;
+    public String receiveEncryptedMessage (String encryptedMessage, int encryptKey) {
+        StringBuilder encryptedText = new StringBuilder();
+
+        DroidMessageEncryptor decryptor = ((message, key) -> {
+            for (char character : message.toCharArray()) {
+                String charToString = String.valueOf(character);
+
+                if (charToString.matches(REGEX)) {
+                    char newCharacter = (char) (decryptCharacter(character, key));
+
+                    encryptedText.append(newCharacter);
+                } else {
+                    encryptedText.append(character);
+                }
+            }
+            String result = encryptedText.toString();
+
+            System.out.println(result);
+            return result;
+        });
+
+        return decryptor.encrypt(encryptedMessage, encryptKey);
+    }
+
+    private int encryptCharacter (char character, int key) {
         String charToString = String.valueOf(character);
-
         int originalCharPosition;
-        int newCharPosition;
 
-        if (charToString.matches(lowerCaseRegex)) {
-            originalCharPosition = character - firstCharLowerCase;
-            if (!decrypt) {
-                newCharPosition = firstCharLowerCase + (originalCharPosition + key) % latinAlphabetLength;
-            } else {
-                newCharPosition = firstCharLowerCase + (originalCharPosition + (latinAlphabetLength - key % latinAlphabetLength)) % latinAlphabetLength;
-            }
-        } else if (charToString.matches(upperCaseRegex)) {
-            originalCharPosition = character - firstCharUpperCase;
-            if (!decrypt) {
-                newCharPosition = firstCharUpperCase + (originalCharPosition + key) % latinAlphabetLength;
-            } else {
-                newCharPosition = firstCharUpperCase + (originalCharPosition + (latinAlphabetLength - key % latinAlphabetLength)) % latinAlphabetLength;
-            }
+        if (charToString.matches(UPPERCASE_REGEX)) {
+            originalCharPosition = character - FIRST_CHAR_UPPERCASE;
+            return updateEncryptedCharPosition(originalCharPosition, key, FIRST_CHAR_UPPERCASE);
         } else {
-            throw new IllegalArgumentException("Invalid character provided");
+            originalCharPosition = character - FIRST_CHAR_LOWERCASE;
+            return updateEncryptedCharPosition(originalCharPosition, key, FIRST_CHAR_LOWERCASE);
         }
+    }
 
-        return newCharPosition;
+    private int decryptCharacter (char character, int key) {
+        String charToString = String.valueOf(character);
+        int originalCharPosition;
+
+        if (charToString.matches(UPPERCASE_REGEX)) {
+            originalCharPosition = character - FIRST_CHAR_UPPERCASE;
+            return updateDecryptedCharPosition(originalCharPosition, key, FIRST_CHAR_UPPERCASE);
+        } else {
+            originalCharPosition = character - FIRST_CHAR_LOWERCASE;
+            return updateDecryptedCharPosition(originalCharPosition, key, FIRST_CHAR_LOWERCASE);
+        }
+    }
+
+    private int updateEncryptedCharPosition (int originalCharPosition, int key, char firstCharacter) {
+        return firstCharacter + (originalCharPosition + key) % LATIN_ALPHABET_LENGTH;
+    }
+
+    private int updateDecryptedCharPosition (int originalCharPosition, int key, char firstCharacter) {
+        return firstCharacter + (originalCharPosition + (LATIN_ALPHABET_LENGTH - key % LATIN_ALPHABET_LENGTH)) % LATIN_ALPHABET_LENGTH;
     }
 }
