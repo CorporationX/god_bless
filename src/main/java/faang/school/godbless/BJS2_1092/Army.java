@@ -16,19 +16,24 @@ public class Army {
         groupedArmy.merge(creature, 1, Integer::sum);
     }
 
-    public int calculateTotalPower() {
+    public void calculateTotalPower() {
+        List<Thread> threads = new ArrayList<>();
         for (var unit : groupedArmy.entrySet()) {
             Thread thread = new Thread(() -> {
-                totalPower += unit.getKey().getPower() * unit.getValue();
+                System.out.println("Calculating power for " + unit.getKey().getName() + " in thread " + Thread.currentThread());
+                synchronized (this) {
+                    totalPower += unit.getKey().getPower() * unit.getValue();
+                }
             });
+            threads.add(thread);
             thread.start();
+        }
+        for (Thread thread : threads) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-
-        return totalPower;
     }
 }
