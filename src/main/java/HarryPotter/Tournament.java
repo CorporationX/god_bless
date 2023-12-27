@@ -8,6 +8,6 @@ public class Tournament {
 
     //Дождаться выполнения всех заданий
     //Вернуть результат
-
+return new CompletableFuture<>();
 }
 }
