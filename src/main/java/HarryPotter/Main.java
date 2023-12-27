@@ -13,7 +13,7 @@ public class Main {
         for (int i = 0; i < 10; i++) {
             Student student = new Student("Student" + i);
             //Распределяем студентов по командам
-            if (i < 5){
+            if (i < 5) {
                 hogwarts.addStudentToTeam(student);
             } else {
                 beauxbatons.addStudentToTeam(student);

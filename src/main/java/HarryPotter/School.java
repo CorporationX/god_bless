@@ -10,7 +10,7 @@ public class School {
     private String name;
     private final List<Student> team = new ArrayList<>();
 
-    public void addStudentToTeam(Student student){
+    public void addStudentToTeam(Student student) {
         team.add(student);
     }
 
@@ -18,7 +18,7 @@ public class School {
         this.name = name;
     }
 
-    public int getTotalPoints(){
+    public int getTotalPoints() {
         int totalPoints = 0;
         for (Student student : team) {
             totalPoints += student.getPoints();

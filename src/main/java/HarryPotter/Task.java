@@ -1,9 +1,10 @@
 package HarryPotter;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.concurrent.CompletableFuture;
 @AllArgsConstructor
+@Getter
 public class Task {
     private String name;
     private int difficulty;
