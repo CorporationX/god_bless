@@ -11,8 +11,11 @@ public class MailSender {
     public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0, j = 1; i < THREADS_AMOUNT; i++, j++) {
-            threads.add(new Thread(new SenderRunnable(i * LETTERS_FOR_ONE_THREAD + 1, LETTERS_FOR_ONE_THREAD * j)));
+        for (int i = 0; i < THREADS_AMOUNT; i++) {
+            int startIndex = (i == 0) ? i + 1 : i * LETTERS_FOR_ONE_THREAD + 1;
+            int endIndex = (i == 0) ? LETTERS_FOR_ONE_THREAD : (i + 1) * LETTERS_FOR_ONE_THREAD;
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads.add(thread);
             threads.get(i).start();
         }
 
