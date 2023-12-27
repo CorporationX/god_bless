@@ -1,5 +1,6 @@
 package wow_1241;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -16,9 +17,10 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.join();
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest.join();
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        List<CompletableFuture<Player>> players = List.of(player1Quest, player2Quest);
+
+        players.stream()
+                .map(CompletableFuture::join)
+                .forEach(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
     }
 }
