@@ -9,23 +9,23 @@ public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() throws InterruptedException {
-        while (true) {
-            if (photosToUpload.isEmpty()) {
-                Thread.sleep(500);
-            } else {
-                uploadPhotos();
+        synchronized (lock) {
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    lock.wait();
+                } else {
+                    uploadPhotos();
+                    break;
+                }
             }
         }
     }
 
     public void uploadPhotos() throws InterruptedException {
-        synchronized (lock) {
-            for (String photoPath : photosToUpload) {
-                System.out.println("Фото загружено на сервер");
-            }
-            photosToUpload.clear();
-            lock.wait();
+        for (String photoPath : photosToUpload) {
+            System.out.println("Фото загружено на сервер");
         }
+        photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {
