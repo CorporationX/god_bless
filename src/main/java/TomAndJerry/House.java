@@ -39,8 +39,7 @@ public class House {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            executorService.schedule(house::coollectFood, 0, TimeUnit.SECONDS);
-            Thread.sleep(3000);
+            executorService.schedule(house::coollectFood, 30 * i, TimeUnit.SECONDS);
         }
         executorService.shutdown();
 
@@ -55,9 +54,7 @@ public class House {
     public void fillRoomsWithFood() {
         int roomIndex = 0;
         for (Room room : roomList) {
-            for (Food food : foodList) {
-                room.addFood(food);
-            }
+            room.getFoodList().addAll(foodList);
         }
     }
 
