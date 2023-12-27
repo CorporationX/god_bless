@@ -1,7 +1,6 @@
 package faang.school.godbless.google_photo;
 
 import lombok.Data;
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +10,20 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     List<String> photosToUpload = new ArrayList<>();
 
-    @SneakyThrows
+
     public void startAutoUpload() {
         while (true) {
             synchronized (lock) {
                 while (photosToUpload.isEmpty()) {
-                    lock.wait();
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
                 upLoadPhotos();
             }
         }
-
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -31,7 +33,6 @@ public class GooglePhotosAutoUploader {
             lock.notify();
 
         }
-
     }
 
     public void upLoadPhotos() {
@@ -42,5 +43,5 @@ public class GooglePhotosAutoUploader {
 
 
     }
-
+    // вот такие пустые строки у меня сами появляются. Это про них вопрос был?
 }

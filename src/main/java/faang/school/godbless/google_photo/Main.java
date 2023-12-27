@@ -12,6 +12,14 @@ public class Main {
         });
         upLoad.start();
         addPhoto.start();
-
+        try {
+            Thread.sleep(3000);
+            if (googlePhotosAutoUploader.photosToUpload.isEmpty()) {
+                System.exit(0);
+            }
+            // завершается, но что-то мне кажется, что это какая-то чушь.
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
