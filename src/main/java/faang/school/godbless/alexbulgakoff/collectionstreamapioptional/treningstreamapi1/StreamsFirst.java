@@ -54,13 +54,13 @@ public class StreamsFirst {
     //Найти максимальный элемент в списке чисел;
 
     public static int maxNumber(List<Integer> numbers) {
-        return numbers.stream().max(Integer::compare).get();
+        return numbers.stream().max(Integer::compare).orElseThrow();
     }
 
     //Найти среднее значение чисел в списке;
 
     public static int averageValue(List<Integer> numbers) {
-        return (int) numbers.stream().mapToInt(num -> num).average().getAsDouble();
+        return (int) numbers.stream().mapToInt(num -> num).average().orElseThrow();
     }
 
     //Найти количество строк, начинающихся с определённого символа в списке строк;
@@ -88,7 +88,7 @@ public class StreamsFirst {
 
     //Найти наименьший элемент в списке, который больше заданного числа;
     public static int minElementWhichIsLargerThanAGivenNumber(List<Integer> numbers, int number) {
-        return numbers.stream().filter((n) -> n > number).min(Integer::compare).get();
+        return numbers.stream().filter((n) -> n > number).min(Integer::compare).orElseThrow();
     }
 
     //Преобразовать список строк в список их длин.
