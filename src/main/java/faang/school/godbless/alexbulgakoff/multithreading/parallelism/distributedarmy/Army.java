@@ -4,6 +4,8 @@ import faang.school.godbless.alexbulgakoff.multithreading.parallelism.distribute
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -19,28 +21,19 @@ public class Army {
 
     public long calculateTotalPower() {
         AtomicInteger savedPower = new AtomicInteger();
-        List<Thread> threads = new ArrayList<>();
+        ExecutorService executor = Executors.newFixedThreadPool(characters.size());
 
 
         for (int i = 0; i < characters.size(); i++) {
-            Thread thread = new Thread(() -> {
+            executor.execute(() -> {
                 synchronized (this) {
                     savedPower.set(characters.stream()
                             .mapToInt(Character::getPower)
                             .sum());
                 }
             });
-            threads.add(thread);
-            thread.start();
+            executor.shutdown();
         }
-
-        threads.forEach(thread -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
 
         return savedPower.get();
     }
