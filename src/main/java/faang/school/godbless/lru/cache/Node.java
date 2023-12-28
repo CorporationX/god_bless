@@ -10,12 +10,14 @@ public class Node {
     @Getter
     @Setter
     private Data data;
-    public Node next = null;
-    public Node prev = null;
+    public Node next;
+    public Node prev;
 
     public Node (int key, Data data) {
         this.key = key;
         this.data = data;
+        this.next = null;
+        this.prev = null;
     }
 }
 

@@ -19,6 +19,10 @@ public class Main {
         lru.get(0);
         lru.put(data4);
         lru.put(data5);
+        lru.put(data4);
+        lru.put(data4);
+        lru.put(data4);
+        lru.put(data4);
         System.out.println("Cache:");
 
         for (Map.Entry<Integer, Node> item : lru.cache.entrySet()) {
@@ -28,9 +32,11 @@ public class Main {
         System.out.println("Nodelist:");
 
         Node curr = lru.getHead();
-        while (curr != null) {
+        int i = 0;
+        while (curr != null && i < 10) {
             System.out.println(curr.getData().getValue());
             curr = curr.next;
+            i++;
         }
     }
 }
