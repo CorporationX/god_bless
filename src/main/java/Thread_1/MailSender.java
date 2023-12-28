@@ -1,20 +1,26 @@
 package Thread_1;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.ArrayList;
 
 public class MailSender {
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        for (int i = 0; i < 1000; i++) {
-            if ((i + 1) % 200 == 0) {
-                int finalI = i;
-                executor.submit(() -> new SenderRunnable(finalI - 199, finalI).run());
+        ArrayList<Thread> threads = new ArrayList<>();
+        int threadCount = 5;
+        int messageForOneThread = 200;
+        for (int i = 0; i < threadCount; i++) {
+            int finalI = i;
+            threads.add(new Thread(() -> new SenderRunnable(finalI * messageForOneThread + 1, finalI * messageForOneThread + messageForOneThread).run()));
+            threads.get(i).start();
+        }
+
+        for (int i = 0; i < threadCount; i++) {
+            try {
+                threads.get(i).join();
+            } catch (InterruptedException e) {
+                System.out.println(i + " thread has failed");
             }
         }
-        while (!executor.isTerminated()) {
-            executor.shutdown();
-        }
+
         System.out.println("All threads complete");
     }
 }
