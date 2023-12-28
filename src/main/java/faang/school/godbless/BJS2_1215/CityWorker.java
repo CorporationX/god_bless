@@ -9,6 +9,7 @@ import java.util.List;
 public class CityWorker implements Runnable {
 
     private City city;
+    private City witcherCity;
     private List<Monster> monsters;
 
     @Override
@@ -22,7 +23,7 @@ public class CityWorker implements Runnable {
         Location cityLocation = city.getLocation();
 
         return monsters.stream()
-                .min(Comparator.comparingDouble(monster -> Additional.calculateDistance(monster.getLocation(), cityLocation)))
+                .min(Comparator.comparingDouble(monster -> calculateDistance(monster.getLocation(), cityLocation)))
                 .orElseThrow();
     }
 
@@ -31,6 +32,14 @@ public class CityWorker implements Runnable {
     }
 
     public double getJourneyDistance() {
-        return city.getDistance();
+        return calculateDistance(city.getLocation(), witcherCity.getLocation());
+    }
+
+    private static double calculateDistance(Location location1, Location location2) {
+        double x1 = location1.getX();
+        double y1 = location1.getY();
+        double x2 = location2.getX();
+        double y2 = location2.getY();
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 }

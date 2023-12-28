@@ -1,13 +1,15 @@
 package faang.school.godbless.BJS2_1215;
 
+import faang.school.godbless.BJS2_1115.Main;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Witcher {
-    public static final int NUM_THREADS = 4;
-    private static final Location witcherLocation = new Location(180, 70);
+    private static final City witcherCity = new City("Kaer Morhen", new Location(180, 70));
+    private static final int NUM_THREADS = 4;
 
     public static void main(String[] args) throws InterruptedException {
         List<Monster> monsters = getMonsters();
@@ -17,13 +19,11 @@ public class Witcher {
 
         long start = System.currentTimeMillis();
         for (City city : cities) {
-            executorService.submit(new CityWorker(city, monsters));
+            executorService.submit(new CityWorker(city, witcherCity, monsters));
         }
 
         executorService.shutdown();
-        if (!executorService.awaitTermination(5, TimeUnit.MINUTES)) {
-            System.out.println("Timeout occurred. Some threads might still be running.");
-        }
+        executorService.awaitTermination(5, TimeUnit.MINUTES);
 
         long end = System.currentTimeMillis();
 
@@ -40,10 +40,8 @@ public class Witcher {
     }
 
     private static List<City> getCities() {
-        City.initializeWitcherCity("Kaer Morhen", new Location(180, 70));
-
         return List.of(
-                City.getWitcherCity(),
+                new City("Kaer Morhen", new Location(180, 70)),
                 new City("Novigrad", new Location(0, 60)),
                 new City("Oxenfurt", new Location(60, 0)),
                 new City("Vizima", new Location(-30, -130))
