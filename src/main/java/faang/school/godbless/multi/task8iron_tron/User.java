@@ -1,43 +1,38 @@
 package faang.school.godbless.multi.task8iron_tron;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.Random;
-
-@AllArgsConstructor
+@Getter
 public class User {
-    private String name;
+    private final String name;
     private House house;
     private String role;
 
-    public void joinHouse() {
-        synchronized(house) {
+    public User(String name) {
+        this.name = name;
+    }
+
+    public void joinHouse(House houseParam, String roleParam) {
+        house = houseParam;
+        role = roleParam;
+        synchronized (house) {
             while (house.getCountRole() == 0) {
                 try {
-                    house.wait();
                     System.out.println(name + " ожидает...");
+                    house.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Игра прервана!");
                 }
             }
-            house.addRole(role);
+            this.role = role;
+            house.removeRole(role);
             System.out.println(name + " выбрал роль " + role);
         }
     }
 
     public synchronized void leaveHouse() {
-        house.removeRole(role);
+        house.addRole(role);
         System.out.println(name + " освободил роль " + role);
-    }
-
-    public synchronized void play() {
-        try {
-            joinHouse();
-            System.out.println(name + " играет...");
-            Thread.sleep(1000);
-            leaveHouse();
-        } catch (InterruptedException e) {
-            System.out.println("Игра прервана");
-        }
+        role = null;;
     }
 }

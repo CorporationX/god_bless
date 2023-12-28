@@ -8,21 +8,21 @@ import java.util.List;
 @Getter
 public class House {
     private int countRole;
-    private final List<String> roles = new ArrayList<>();
+    private final List<String> roles = new ArrayList<>(List.of("Роль 1", "Роль 2","Роль 3","Роль 4","Роль 5"));
 
-    public House(int countRole) {
-        this.countRole = countRole;
+    public House() {
+        countRole = roles.size();
     }
 
     public synchronized void addRole(String role) {
         roles.add(role);
-        countRole--;
+        countRole++;
         notifyAll();
     }
 
     public synchronized void removeRole(String role) {
         roles.remove(role);
-        countRole++;
+        countRole--;
         notifyAll();
     }
 }
