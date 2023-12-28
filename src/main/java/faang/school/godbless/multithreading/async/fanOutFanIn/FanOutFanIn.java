@@ -28,8 +28,6 @@ public class FanOutFanIn {
         executor.shutdown();
 
         return resultConsumer.getSumOfSquaredNumbers().get();
-
-
     }
 
     public static void launch() {
