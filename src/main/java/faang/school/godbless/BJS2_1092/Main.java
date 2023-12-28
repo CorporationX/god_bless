@@ -8,7 +8,6 @@ public class Main {
         army.addUnit(new Mage(50)); // считаем в потоке 3
         army.addUnit(new Mage(20)); // считаем в потоке 4
 
-        army.calculateTotalPower();
-        System.out.println("Total army power: " + army.getTotalPower());
+        System.out.println("Total army power: " + army.calculateTotalPower());
     }
 }
