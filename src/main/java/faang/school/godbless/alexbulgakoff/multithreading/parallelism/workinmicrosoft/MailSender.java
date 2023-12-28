@@ -1,4 +1,4 @@
-package faang.school.godbless.alexbulgakoff.multithreading.parallelism;
+package faang.school.godbless.alexbulgakoff.multithreading.parallelism.workinmicrosoft;
 
 import java.util.ArrayList;
 import java.util.List;

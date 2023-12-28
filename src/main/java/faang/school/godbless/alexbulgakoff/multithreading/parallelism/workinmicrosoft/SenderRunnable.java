@@ -1,4 +1,4 @@
-package faang.school.godbless.alexbulgakoff.multithreading.parallelism;
+package faang.school.godbless.alexbulgakoff.multithreading.parallelism.workinmicrosoft;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
