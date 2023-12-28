@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException;
 public class Main {
     static int totalIngredients;
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) {
 
         List<Potion> potions = List.of(
                 new Potion("P_1", 14),
@@ -30,7 +30,7 @@ public class Main {
                         .map(CompletableFuture::join)
                         .mapToInt(Integer::intValue)
                         .sum())
-                .get();
+                .join();
 
         System.out.println("TOTAL - " + totalIngredients);
     }
