@@ -9,9 +9,9 @@ public class GooglePhotosAutoUploader {
     private static List<GooglePhoto> photos = new ArrayList<>();
 
     public static void main(String[] args) {
-        photos = List.of(new GooglePhoto(101, "C:\\Users\\Public\\Pictures_1"),
-                new GooglePhoto(102, "C:\\Users\\Public\\Pictures_2"),
-                new GooglePhoto(103, "C:\\Users\\Public\\Pictures_3"));
+        photos = List.of(new GooglePhoto("C:\\Users\\Public\\Pictures_1"),
+                new GooglePhoto("C:\\Users\\Public\\Pictures_2"),
+                new GooglePhoto("C:\\Users\\Public\\Pictures_3"));
 
         Thread startLoad = new Thread(() -> {
             try {

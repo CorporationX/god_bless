@@ -4,11 +4,12 @@ import lombok.Data;
 
 @Data
 public class GooglePhoto {
-    private int id;
+    private static int count = 0;
+    private  int id;
     private String photoPath;
 
-    public GooglePhoto(int id, String photoPath) {
-        this.id = id;
+    public GooglePhoto(String photoPath) {
         this.photoPath = photoPath;
+        this.id = ++count;
     }
 }
