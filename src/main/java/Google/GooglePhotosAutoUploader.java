@@ -10,18 +10,18 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
-            while (true) {
-                if (photosToUpload.isEmpty()) {
-                    lock.wait();
-                } else {
-                    uploadPhotos();
-                    break;
-                }
+            //Поток спит чтобы дать возможность photosToUpload заполниться
+            //Иначе сразу вызывается wait, поток блокируется и никогда не завершается (если фотки больше не поступают)
+            Thread.sleep(3000);
+            if (photosToUpload.isEmpty()) {
+                lock.wait();
+            } else {
+                uploadPhotos();
             }
         }
     }
 
-    public void uploadPhotos() throws InterruptedException {
+    public void uploadPhotos() {
         for (String photoPath : photosToUpload) {
             System.out.println("Фото загружено на сервер");
         }

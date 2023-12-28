@@ -10,10 +10,12 @@ public class PhotoLoader implements Runnable {
 
     @Override
     public void run() {
-        while (true) {
-            googlePhotosAutoUploader.onNewPhotoAdded("Photo");
+        for (int times = 0; times < 4; times++) {
+            for (int photos = 0; photos < 5; photos++) {
+                googlePhotosAutoUploader.onNewPhotoAdded("Photo");
+            }
             try {
-                Thread.sleep(500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
