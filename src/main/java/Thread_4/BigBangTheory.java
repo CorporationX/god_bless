@@ -14,9 +14,7 @@ public class BigBangTheory {
         executor.submit(task2);
         executor.submit(task3);
         executor.submit(task4);
-        while (!executor.isTerminated()) {
-            executor.shutdown();
-        }
+        executor.shutdown();
         System.out.println("All tasks complete");
     }
 }

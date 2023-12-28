@@ -15,9 +15,9 @@ public class Task implements Runnable {
         System.out.println("Task " + name + " is performing");
         try {
             Thread.sleep(1000);
-            System.out.println("Task " + name + " complete");
+            System.out.println("Task " + name + " complete task " + task);
         } catch (InterruptedException e) {
-            System.out.println("ERROR. Task " + name + " failing");
+            System.out.println("ERROR. Task " + name + " failing task " + task);
         }
     }
 
