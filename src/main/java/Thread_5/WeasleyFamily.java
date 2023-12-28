@@ -10,9 +10,7 @@ public class WeasleyFamily {
         for (String chore : chores) {
             executor.submit(new Chore(chore));
         }
-        while (!executor.isTerminated()) {
-            executor.shutdown();
-        }
+        executor.shutdown();
         System.out.println("All tasks complete");
     }
 }
