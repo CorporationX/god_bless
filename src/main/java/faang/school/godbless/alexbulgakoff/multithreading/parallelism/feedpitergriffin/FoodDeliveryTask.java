@@ -28,7 +28,7 @@ public class FoodDeliveryTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(character + " получает " + foodAmount + eat);
+        System.out.println(character + " получает " + foodAmount + " " + eat);
 
         try {
             Thread.sleep(300);
@@ -36,7 +36,7 @@ public class FoodDeliveryTask implements Runnable {
             throw new RuntimeException(e);
         }
 
-        System.out.println(character + " ест " + foodAmount + eat);
+        System.out.println(character + " ест " + foodAmount + " " + eat);
     }
 
     private String getFoodType() {
