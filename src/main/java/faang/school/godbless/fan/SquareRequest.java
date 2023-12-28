@@ -13,6 +13,9 @@ public class SquareRequest {
     private static final long MIN_TIMEOUT = 3000L;
     private final Long number;
     private final static int MAX_QUANTITY = 1000;
+    public SquareRequest(Long number) {
+        this.number = number;
+    }
 
     public static void main(String[] args) {
         SquareRequest.launch();
@@ -57,9 +60,5 @@ public class SquareRequest {
         }
         Long result = fanOutFanIn(requests, resultConsumer);
         System.out.println(result);
-    }
-
-    public SquareRequest(Long number) {
-        this.number = number;
     }
 }
