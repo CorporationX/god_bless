@@ -50,12 +50,13 @@ public class LRUCache {
     }
 
     private void removeNode(Node node) {
-        if (node.equals(head) || head == null) {
+        if (node.equals(head)) {
             head = node.next;
+            head.prev = null;
             return;
         }
 
-        if (node.equals(tail) || tail == null) {
+        if (node.equals(tail)) {
             tail = tail.prev;
             tail.next = null;
             return;

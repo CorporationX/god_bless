@@ -15,16 +15,16 @@ public class Main {
         lru.put(data1);
         lru.put(data2);
         lru.put(data3);
-//        lru.get(1);
-//        lru.get(0);
+        lru.get(1);
+        lru.get(0);
         lru.put(data4);
         lru.put(data5);
         lru.get(1);
         lru.put(data4);
         lru.put(data4);
         lru.put(data4);
-//        lru.put(data1);
-//        lru.put(data1);
+        lru.put(data1);
+        lru.put(data1);
         System.out.println("Cache:");
 
         for (Map.Entry<Integer, Node> item : lru.cache.entrySet()) {
