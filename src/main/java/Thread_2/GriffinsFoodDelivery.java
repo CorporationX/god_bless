@@ -8,10 +8,8 @@ public class GriffinsFoodDelivery {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         for (String name : characterNames) {
-            executor.submit(() -> new FoodDeliveryTask(name, (int) (Math.random() * 50)).run());
+            executor.submit(new FoodDeliveryTask(name, (int) (Math.random() * 50)));
         }
-        while (!executor.isTerminated()) {
-            executor.shutdown();
-        }
+        executor.shutdown();
     }
 }
