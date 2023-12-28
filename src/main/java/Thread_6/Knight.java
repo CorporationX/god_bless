@@ -20,11 +20,11 @@ public class Knight {
         trials.add(trial);
     }
 
-    public ExecutorService startTrials() {
+    public void startTrials() {
         for (Trial trial : trials) {
             executor.submit(trial);
         }
-        return executor;
+        executor.shutdown();
     }
 
     public String getName() {

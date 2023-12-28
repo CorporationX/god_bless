@@ -15,13 +15,8 @@ public class King {
         defaultKnight.addTrial(trialDefaultFirst);
         defaultKnight.addTrial(trialDefaultSecond);
 
-        ExecutorService executorService1 = johnKnight.startTrials();
-        ExecutorService executorService2 = defaultKnight.startTrials();
-
-        while (!executorService1.isTerminated() || !executorService2.isTerminated()) {
-            executorService1.shutdown();
-            executorService2.shutdown();
-        }
+        johnKnight.startTrials();
+        defaultKnight.startTrials();
 
         System.out.println("All knights done your trials");
     }
