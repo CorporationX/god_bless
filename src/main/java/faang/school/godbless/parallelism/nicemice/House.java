@@ -21,10 +21,8 @@ public class House {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_SIZE);
         List<ScheduledFuture<?>> futures = new ArrayList<>();
 
-        int multiple = 0;
         for (int i = 0; i < rooms.size(); i++) {
-            multiple = i % 2 == 0 ? multiple + 1 : multiple;
-            int initDelay = DELAY_PERIOD * multiple;
+            int initDelay = DELAY_PERIOD * ((i / 2) + 1);
             final int roomNumber = i;
             futures.add(executor.schedule(() -> collectFood(rooms.get(roomNumber)), initDelay, TimeUnit.SECONDS));
         }
@@ -56,9 +54,9 @@ public class House {
     }
 
     private static void collectFood(Room room) {
-        System.out.printf("Collected food from %s\n", room.getName());
         collectedFood.addAll(room.getFoods());
         room.getFoods().clear();
+        System.out.printf("Collected food from %s\n", room.getName());
     }
 
 }
