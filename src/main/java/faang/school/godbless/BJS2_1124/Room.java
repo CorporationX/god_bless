@@ -6,5 +6,5 @@ import java.util.ArrayList;
 import java.util.List;
 @AllArgsConstructor
 public class Room {
-    List<Food> foodsInRoom = new ArrayList<>();
+    List<Food> food = new ArrayList<>();
 }

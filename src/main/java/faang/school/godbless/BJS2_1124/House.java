@@ -10,6 +10,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class House {
+    List<Room> rooms = new ArrayList<>();
+    List<Food> collectedFood;
+
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+    }
+
     public static void main(String[] args) throws InterruptedException {
         List<Food> foods1 = List.of(new Food("Cheese"), new Food("Mozzarella"), new Food("Feta"), new Food("Cheddar"));
         List<Food> foods2 = List.of(new Food("Lamb"), new Food("Beef"), new Food("Duck"), new Food("Veal"));
@@ -18,24 +25,19 @@ public class House {
         House house = new House(rooms);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
-            executor.schedule(() -> house.collectedFood, 30, TimeUnit.SECONDS);
+            int delay = i * 30;
+            executor.schedule(() -> house.collectedFood, delay, TimeUnit.SECONDS);
         }
         executor.shutdown();
         executor.awaitTermination(5, TimeUnit.MINUTES);
         System.out.println("All food is collected");
     }
 
-    List<Room> rooms = new ArrayList<>();
-    List<Food> collectedFood;
-
-    public House(List<Room> rooms) {
-        this.rooms = rooms;
-    }
     public void collectFood() {
         int counter = 0;
         for (Room room : rooms) {
-            collectedFood.addAll(room.foodsInRoom);
-            room.foodsInRoom.clear();
+            collectedFood.addAll(room.food);
+            room.food.clear();
             ++counter;
             if(counter == 2) {
                 break;
