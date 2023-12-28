@@ -15,14 +15,16 @@ public class Main {
         lru.put(data1);
         lru.put(data2);
         lru.put(data3);
-        lru.get(1);
-        lru.get(0);
+//        lru.get(1);
+//        lru.get(0);
         lru.put(data4);
         lru.put(data5);
+        lru.get(1);
         lru.put(data4);
         lru.put(data4);
         lru.put(data4);
-        lru.put(data4);
+//        lru.put(data1);
+//        lru.put(data1);
         System.out.println("Cache:");
 
         for (Map.Entry<Integer, Node> item : lru.cache.entrySet()) {
@@ -32,11 +34,10 @@ public class Main {
         System.out.println("Nodelist:");
 
         Node curr = lru.getHead();
-        int i = 0;
-        while (curr != null && i < 10) {
+
+        while (curr != null) {
             System.out.println(curr.getData().getValue());
             curr = curr.next;
-            i++;
         }
     }
 }

@@ -12,7 +12,7 @@ public class LRUCache {
     @Getter
     Node head = null;
     Node tail = null;
-    private static final int CACHE_SIZE = 4;
+    private static final int CACHE_SIZE = 5;
 
     public Data get(int key) {
         if (!cache.containsKey(key)) {
@@ -21,9 +21,7 @@ public class LRUCache {
 
         Node node = cache.get(key);
 
-        removeNode(node);
-        addNode(node);
-
+        moveNodeToHead(node);
         return node.getData();
     }
 
@@ -32,39 +30,54 @@ public class LRUCache {
 
         if (cache.containsKey(key)) {
             Node nodeToUpdate = cache.get(key);
+
             nodeToUpdate.setData(data);
             moveNodeToHead(nodeToUpdate);
+            return;
         }
 
         if (cache.size() == CACHE_SIZE) {
             Node nodeToDelete = tail;
-            cache.remove(nodeToDelete.getKey());
+
+            cache.remove(tail.getKey());
             removeNode(nodeToDelete);
         }
 
         Node node = new Node(key, data);
 
-        removeNode(node);
         addNode(node);
         cache.put(key, node);
     }
 
     private void removeNode(Node node) {
-        if (node.prev != null) {
-            node.prev.next = node.next;
+        if (node.equals(head) || head == null) {
+            head = node.next;
+            return;
         }
-        if (node.next != null) {
-            node.next.prev = node.prev;
+
+        if (node.equals(tail) || tail == null) {
+            tail = tail.prev;
+            tail.next = null;
+            return;
         }
+
+        node.prev.next = node.next;
+        node.next.prev = node.prev;
     }
 
     private void addNode(Node node) {
         if (head == null) {
+            // set first (head) node and last (tail) node
             head = node;
             tail = head;
             head.next = tail;
             tail.prev = head;
+
+            // set borders to list
+            head.prev = null;
+            tail.next = null;
         } else {
+            // set new item to start of the list
             node.next = head;
             head.prev = node;
             head = node;
@@ -74,11 +87,7 @@ public class LRUCache {
     }
 
     private void moveNodeToHead(Node node) {
-
-        node.next = head;
-        head.prev = node;
-        head = node;
-
-        node.getData().updateTimestamp();
+        removeNode(node);
+        addNode(node);
     }
 }
