@@ -14,12 +14,12 @@ public enum Role {
         this.string = string;
     }
 
+    public static List<Role> getList() {
+        return Arrays.asList(Role.values());
+    }
+
     @Override
     public String toString() {
         return string;
-    }
-
-    public static List<Role> getList() {
-        return Arrays.asList(Role.values());
     }
 }

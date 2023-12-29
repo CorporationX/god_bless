@@ -26,7 +26,7 @@ public class User {
             }
 
             if (this.role != null) {
-                System.out.printf("User %s is already joined to House %s as a %s\n", name, house.getName(), role);/////////////////////////////
+                System.out.printf("User %s is already joined to House %s as a %s\n", name, house.getName(), role);
                 return;
             }
             house.takeRole(role);
@@ -37,7 +37,7 @@ public class User {
 
     public void leaveHouse() {
         if (this.role == null) {
-            System.out.println("User is not joined to any House yet!\n");
+            System.out.println("User is not joined to any House yet!");
             return;
         }
         synchronized (house) {
