@@ -30,12 +30,14 @@ public class Witcher {
             executor.submit(new CityWorker(city, monsters));
         }
 
+        executor.shutdown();
+
         try {
             executor.awaitTermination(1, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             System.out.println("Calculating don't complete");
         }
-        executor.isShutdown();
+
 
         System.out.println("Calculating complete by " + (System.currentTimeMillis() - startProgramm) + " mills");
 
