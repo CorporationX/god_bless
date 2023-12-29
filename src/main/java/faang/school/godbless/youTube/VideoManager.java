@@ -1,27 +1,22 @@
 package faang.school.godbless.youTube;
 
-import lombok.AllArgsConstructor;
-
+import lombok.Getter;
+import java.util.HashMap;
 import java.util.Map;
 
-@AllArgsConstructor
+@Getter
 public class VideoManager {
-    private Map<Video, Integer> viewsMap;
-
+    private Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
-        for (Map.Entry<Video, Integer> entry : viewsMap.entrySet()) {
-            if (entry.getKey().getId().contains(videoId)) {
-                int value = entry.getValue();
-                entry.setValue(value + 1);
-            }
-        }
+        viewsMap.putIfAbsent(videoId, 1);
+        viewsMap.compute(videoId, (key, oldValue) -> oldValue + 1);
     }
 
     public synchronized int getViewCount(String videoId) {
         int totalViews = 0;
-        for (Map.Entry<Video, Integer> entry : viewsMap.entrySet()) {
-            if (entry.getKey().getId().contains(videoId)) {
+        for (Map.Entry<String, Integer> entry : viewsMap.entrySet()) {
+            if (entry.getKey().contains(videoId)) {
                 totalViews = entry.getValue();
             }
         }
