@@ -14,12 +14,13 @@ public class Main {
         addPhoto.start();
         try {
             Thread.sleep(3000);
-            if (googlePhotosAutoUploader.photosToUpload.isEmpty()) {
-                System.exit(0);
-            }
-            // завершается, но что-то мне кажется, что это какая-то чушь.
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        if (!addPhoto.isAlive() && googlePhotosAutoUploader.photosToUpload.isEmpty()) {
+            upLoad.interrupt();
+        }
+        // иного метода найти не смог, а так заканчивается все исключением. Но вообще я не понимаю, зачем останавливать,
+        // если, судя по задаче, это должен быть бесконечный процесс, когда программа ожидает новых фото и тут же загружает их
     }
 }

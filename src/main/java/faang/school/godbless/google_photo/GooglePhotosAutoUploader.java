@@ -10,20 +10,20 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     List<String> photosToUpload = new ArrayList<>();
 
-
     public void startAutoUpload() {
-        while (true) {
             synchronized (lock) {
-                while (photosToUpload.isEmpty()) {
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                while (true) {
+                    if (photosToUpload.isEmpty()) {
+                        System.out.println("ListPhotos is empty, need wait. When photos will be added.");
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
+                    uploadPhotos();
                 }
-                upLoadPhotos();
             }
-        }
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -35,13 +35,12 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void upLoadPhotos() {
-        for (String photo : photosToUpload) {
-            System.out.println(photo + " загруженo в Google Photos");
+    public void uploadPhotos() {
+        synchronized (lock) {
+            for (String photo : photosToUpload) {
+                System.out.println(photo + " загруженo в Google Photos");
+            }
+            photosToUpload.clear();
         }
-        photosToUpload.clear();
-
-
     }
-    // вот такие пустые строки у меня сами появляются. Это про них вопрос был?
 }
