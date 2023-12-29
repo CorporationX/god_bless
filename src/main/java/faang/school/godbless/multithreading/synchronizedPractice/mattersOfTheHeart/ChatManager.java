@@ -1,32 +1,37 @@
 package faang.school.godbless.multithreading.synchronizedPractice.mattersOfTheHeart;
 
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChatManager {
 
+    @Getter
     private final UserList userList;
-    private final Set<Chat> chats;
+    private List<Chat> chats = new ArrayList<>();
 
     public ChatManager(UserList userList) {
         this.userList = userList;
-        this.chats = new HashSet<>();
     }
 
     public synchronized void startChat(User user) {
-        while (userList.getUsersEligibleToStartChat(user).isEmpty() || chats.contains(user.getChat())) {
-            waitForChat();
+        while (userList.getUsersEligibleToStartChat(user).isEmpty() || (!chats.isEmpty() && chats.contains(user))) {
+            waitForChat(user);
         }
         User otherUser = userList.getUsersEligibleToStartChat(user).get(0);
         Chat chat = new Chat(user, otherUser);
+        user.setChatting(true);
+        otherUser.setChatting(true);
+        user.setWantsToChat(false);
+        otherUser.setWantsToChat(false);
         chats.add(chat);
-        user.setChat(chat);
-        otherUser.setChat(chat);
         System.out.println(user.getName() + " start chat with " + otherUser.getName());
     }
 
-    public void waitForChat() {
+    public void waitForChat(User user) {
         try {
+            user.setWantsToChat(true);
             wait();
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -34,13 +39,12 @@ public class ChatManager {
     }
 
     public synchronized void endChat(User user) {
-        Chat chat = user.getChat();
+        Chat chat = chats.stream().filter(chat1 -> chats.contains(user)).findFirst().orElse(null);
+        chat.getFirstUser().resetChat();
+        chat.getSecondUser().resetChat();
         chats.remove(chat);
-        User user1 = chat.getFirstUser();
-        User user2 = chat.getSecondUser();
-        user1.resetChat();
-        user2.resetChat();
         notifyAll();
-        System.out.println(user1.getName() + " end chat with " + user2.getName());
+        System.out.println(chat.getFirstUser().getName() + " end chat with " + chat.getSecondUser().getName());
+
     }
 }
