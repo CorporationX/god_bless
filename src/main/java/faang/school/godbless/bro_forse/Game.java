@@ -8,6 +8,9 @@ public class Game {
     private final List<Player> players;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
+    public Game(List<Player> players) {
+        this.players = players;
+    }
 
     public void update() {
         synchronized (scoreLock) {
@@ -31,16 +34,10 @@ public class Game {
         }
     }
 
-
     private void gameOver() {
         System.out.println("Game is over");
         System.out.println("Total score: " + score);
         System.out.println("Total lost lives " + lives);
-        System.exit(0);
-    }
-
-    public Game(List<Player> players) {
-        this.players = players;
     }
 }
 

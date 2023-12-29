@@ -13,6 +13,7 @@ public class Main {
             executor.submit(game::update);
 
         }
+        executor.shutdown();
     }
 
     private static Game getGame() {
