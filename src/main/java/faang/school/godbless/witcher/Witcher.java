@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private static final int NUM_THREADS = 2;
@@ -33,6 +34,13 @@ public class Witcher {
         }
 
         executorService.shutdown();
+        try {
+            if(!executorService.awaitTermination(60, TimeUnit.SECONDS)){
+                executorService.shutdownNow();  //поставил 60 сек, и принудительно завершаем. можно поствить Long.MAX_VALUE, но я думаю плохая практика т.к. можно ждать вечность
+            }                                   // поправьте если ошибаюсь))
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
