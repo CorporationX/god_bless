@@ -37,7 +37,7 @@ public class Main {
     public static void launch() {
         List<SquareRequest> requests = new ArrayList<>();
         for (int i = 1; i <= SIZE_LIST; i++) {
-            requests.add(new SquareRequest((long) i));
+            requests.add(new SquareRequest(i));
         }
         System.out.println("Вызываем метод FanFan " + fanOutFanIn(requests, new ResultConsumer(0L)));
     }
