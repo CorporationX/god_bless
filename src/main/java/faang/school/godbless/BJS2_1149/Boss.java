@@ -12,8 +12,8 @@ public class Boss {
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
-    @SneakyThrows
-    public synchronized void joinBattle(Player player) {
+
+    public synchronized void joinBattle(Player player) throws InterruptedException {
         if (maxPlayers - currentPlayers == 0) {
             wait();
         }
@@ -21,11 +21,11 @@ public class Boss {
         System.out.println(player.getName()+" successfully join to the battle");
     }
 
-    @SneakyThrows
-    public synchronized void completeBattle(Player player) {
-        currentPlayers--;
+
+    public synchronized void completeBattle(Player player) throws InterruptedException {
         Thread.sleep(7000);
         System.out.println(player.getName()+" has completed the battle");
+        currentPlayers--;
         notifyAll();
     }
 
