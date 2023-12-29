@@ -10,6 +10,7 @@ public class Player {
 
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
+        boss.disconnectBatle(this);
     }
 
     public String getName() {
