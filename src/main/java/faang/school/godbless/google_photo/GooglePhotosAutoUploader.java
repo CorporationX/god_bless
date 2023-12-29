@@ -13,18 +13,18 @@ public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
 
-    public void startAutoUpload(List<String> photos) throws InterruptedException {
+    public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
             while (true) {
-                if (photos.isEmpty()) {
+                if (photosToUpload.isEmpty()) {
                     lock.wait();
                 }
-                uploadPhotos(photos);
+                uploadPhotos(photosToUpload);
             }
         }
     }
 
-    private void uploadPhotos(List<String> photosToUpload) {
+    private void uploadPhotos() {
 //        if (!photosToUpload.isEmpty()) {   Сначала сделал проверку, потом эту проверку убрал, сделал метод приватным чтобы он вызвался только из метода тогда проверка не нужна
         for (String photo : photosToUpload) {
             System.out.println("Начинается загрузка...");
@@ -43,26 +43,21 @@ public class GooglePhotosAutoUploader {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
-
-        String photoPath = "www.google.com/phot/urheq123ijf";
-
-        List<String> photosToUpload = List.of("1.png", "2.png", "3.png", "4.png", "5.png", "6png",
-                "7.png", "8.png", "9.png", "10.png", "11.png", "12.png", "13.png", "14.png", "15.png");
-
-        executorService.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded(photoPath));
 
         executorService.submit(() -> {
             try {
-                googlePhotosAutoUploader.startAutoUpload(photosToUpload);
+                googlePhotosAutoUploader.startAutoUpload();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
 
+        executorService.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded("www.google.com/phot/urheq123ijf"));
+
         if (!executorService.awaitTermination(2, TimeUnit.SECONDS)) {
-            executorService.shutdown();
+            executorService.shutdownNow();
         }
     }
 }
