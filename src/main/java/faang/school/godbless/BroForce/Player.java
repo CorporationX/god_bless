@@ -5,27 +5,16 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Player implements Runnable {
+public class Player {
     private final String name;
     private int live;
     private boolean alive = true;
+    private int score = 0;
 
     public Player(String name, int live) {
         this.name = name;
         this.live = live;
     }
-
-    // почему-то не срабатывает метод run()
-    @Override
-    public void run() {
-        System.out.println("Что-то делаем");
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            System.out.println("Все прервано...");
-        }
-        live--;
-        System.out.println("Оставшееся количество жизней у игрока " + this.getName() + ": " + this.getLive());
-    }
-
 }
+
+
