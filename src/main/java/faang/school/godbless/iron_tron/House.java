@@ -11,7 +11,6 @@ public class House {
     private List<String> availableRoles;
     private int quantityAvailableRoles;
     private Random random = new Random();
-    private final Object Lock = new Object();
 
     public House(String name, List<String> availableRoles) {
         this.name = name;
