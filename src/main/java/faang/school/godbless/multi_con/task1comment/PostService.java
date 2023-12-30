@@ -11,7 +11,7 @@ import java.util.*;
 
 @Getter
 public class PostService {
-    private final List<Post> posts = new CopyOnWriteArrayList<>();
+    private volatile  List<Post> posts = new CopyOnWriteArrayList<>();
     private final Lock lock = new ReentrantLock();
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
