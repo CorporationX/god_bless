@@ -2,8 +2,6 @@ package faang.school.godbless.parallelism.army;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
@@ -36,7 +34,6 @@ public class Army {
     }
 
     private void startThreads() {
-        ExecutorService executor = Executors.newFixedThreadPool(4);
         for (Unit unit : units) {
             Thread thread = new Thread(() -> {
                 totalPower.addAndGet(unit.getPower());
