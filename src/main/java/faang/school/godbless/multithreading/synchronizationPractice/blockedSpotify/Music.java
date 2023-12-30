@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading.synchronizedPractice.blockedSpotify;
+package faang.school.godbless.multithreading.synchronizationPractice.blockedSpotify;
 
 import java.util.ArrayList;
 import java.util.List;

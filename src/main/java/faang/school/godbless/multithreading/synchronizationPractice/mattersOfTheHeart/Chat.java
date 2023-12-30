@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading.synchronizedPractice.mattersOfTheHeart;
+package faang.school.godbless.multithreading.synchronizationPractice.mattersOfTheHeart;
 
 
 import lombok.AllArgsConstructor;

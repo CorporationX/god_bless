@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading.synchronizedPractice.mattersOfTheHeart;
+package faang.school.godbless.multithreading.synchronizationPractice.mattersOfTheHeart;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

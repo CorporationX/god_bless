@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading.synchronizedPractice.blockedSpotify;
+package faang.school.godbless.multithreading.synchronizationPractice.blockedSpotify;
 
 import lombok.Getter;
 
