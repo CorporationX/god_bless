@@ -20,16 +20,14 @@ public class Main {
                 new User("Robert Barateon"),
                 new User("Chel from Gori"));
 
-        for (User user : users) {
-            new Thread(() -> {
-                user.joinHouse(house);
-                try {
-                    Thread.sleep(random);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                user.leaveHouse(house);
-            }).start();
-        }
+        users.forEach(user -> new Thread(() -> {
+            user.joinHouse(house);
+            try {
+                Thread.sleep(random);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            user.leaveHouse(house);
+        }).start());
     }
 }
