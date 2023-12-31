@@ -49,23 +49,27 @@ public class House {
     }
 
     private static House initialize() {
-        List<Room> rooms = List.of(
-                new Room("Kitchen", List.of(new Food("Dry food"), new Food("Milk"), new Food("Cheese"),
-                        new Food("Water"))),
-                new Room("Hall", List.of(new Food("Water"))),
-                new Room("Bedroom", List.of(new Food("Dry food"), new Food("Milk"))));
+        List<Food> foodForKitchen = List.of(new Food("Dry food"), new Food("Milk"), new Food("Cheese"),
+                new Food("Water"));
+        List<Food> foodForHall = List.of(new Food("Water"));
+        List<Food> foodForBedroom = List.of(new Food("Dry food"), new Food("Milk"));
 
+        Room kitchen = new Room("Kitchen", new ArrayList<>(foodForKitchen));
+        Room hall = new Room("Hall", new ArrayList<>(foodForHall));
+        Room bedroom = new Room("Bedroom", new ArrayList<>(foodForBedroom));
+
+        List<Room> rooms = List.of(kitchen, hall, bedroom);
 
         return new House(rooms);
     }
 
     public void collectFood() {
         for (Room room : rooms) {
+            List<Food> roomsFood = room.getFoods();
             System.out.println("Begin collecting food in " + room.getName());
-            foods.addAll(room.getFoods());
+            foods.addAll(roomsFood);
             System.out.println("Collected in " + room.getName());
-            // При использовании метода clear() в цикле обрабатывается только одна комната во всех потоках
-            room.setFoods(List.of());
+            roomsFood.clear();
         }
     }
 }
