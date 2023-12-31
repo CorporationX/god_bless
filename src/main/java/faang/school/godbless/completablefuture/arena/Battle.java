@@ -57,7 +57,7 @@ public class Battle {
                         System.out.printf("\nXXX %s is dead XXX\n\n", target.getName());
                     }
                 } else {
-                    System.out.printf("%s tried to kill already dead man! He-he =) || %s\n", target.getName(), robot.getAttackPower(), LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SS")));
+                    System.out.printf("%s tried to kill already dead man! He-he =)\n", target.getName());
                 }
             }
             printRobotsHP();
