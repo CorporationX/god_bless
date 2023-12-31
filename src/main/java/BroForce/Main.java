@@ -1,22 +1,33 @@
 package BroForce;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Game game = new Game();
-        List<Player> players = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            players.add(new Player(game));
+            game.players.add(new Player("Player" + i));
         }
 
-        for (Player player : players) {
-            player.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(game.getPlayers().size() / 2);
+
+        //ЦИКЛ для каждого потока -> пока все игроки живы - обновляем игру
+        for (int i = 0; i < game.getPlayers().size() / 2; i++) {
+            executorService.submit(() -> {
+                while (game.isAllAlive()) {
+                    game.update();
+                }
+            });
         }
-        for (Player player : players) {
-            player.join();
+        //Завешаем потоки, выводим результаты на экран
+        executorService.shutdown();
+        if (executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+            System.out.println("Потеряно жизней " + game.getLives());
+            System.out.println("Заработано очков " + game.getScore());
         }
     }
 }

@@ -2,36 +2,63 @@ package BroForce;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class Game {
-    private int score = 0;
-    private int lives = 0;
-    private final Object liveLock = new Object();
+    private int score;
+    private int lives;
+    private boolean isAllAlive = true;
     private final Object scoreLock = new Object();
-    private boolean isDead = false;
+    private final Object liveLock = new Object();
+    List<Player> players = new ArrayList<>();
 
-    public synchronized void update(Player player) {
-        //Если кто-то уже умер - выходим из метода
-        if (isDead) {
-            return;
-        }
+    public boolean update() {
+        Player currentPlayer = players.get((int) (Math.random() * players.size()));
         //Обновляем очки
-        score += player.getScoreUpdater().getScore();
-        System.out.println("Игрок " + player + " зарабатывает " + player.getScoreUpdater().getScore() + " очков");
-        //Проверяем, нужно ли обновлять жизни
-        if (player.getLives() == 1) {
-            gameOver(player);
-            isDead = true;
-        } else {
-            if (player.livesUpdater.getLives() > 0) {
-                lives += player.getLivesUpdater().getLives();
-                System.out.println("Игрок " + player + " теряет 1 жизнь");
+        if (updateOrNot()) {
+            synchronized (scoreLock) {
+                score++;
+                System.out.println("Игрок " + currentPlayer.getName() + " зарабатывает 1 очков");
             }
         }
+        //Обновляем жизни
+        if (updateOrNot()) {
+            synchronized (liveLock) {
+                //Если в параллельном потоке кто-то уже умер - выходим из метода
+                if (!isAllAlive) {
+                    return false;
+                }
+
+                currentPlayer.updateLives();
+                lives++;
+                System.out.println("Игрок " + currentPlayer.getName() + " теряет жизнь");
+                //Если игрок умер - меняем состояние isAllAlive в Game и isAlive у игрока
+                if (currentPlayer.getLives() == 0) {
+                    System.out.println("Игрок " + currentPlayer.getName() + " умирает");
+                    currentPlayer.setAlive(false);
+                    isAllAlive = false;
+
+                    //Завершаем игру
+                    return gameOver();
+                }
+            }
+        }
+        return true;
     }
 
-    public synchronized void gameOver(Player player) {
-        System.out.println("Игра окончена, игрок " + player + " умер");
-        isDead = true;
+    private boolean gameOver() {
+        System.out.println("Игра окончена");
+        return false;
+    }
+
+    //Дает рандомное значение 1 или 0
+    private boolean updateOrNot() {
+        double random = Math.random();
+        if (random >= 0.5) {
+            return true;
+        }
+        return false;
     }
 }
