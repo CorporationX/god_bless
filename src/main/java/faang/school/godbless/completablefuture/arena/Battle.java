@@ -50,10 +50,14 @@ public class Battle {
                 robot.setInterrupted(false);
                 System.out.printf("%s was interrupted by attack\n\n", robot.getName());
             } else {
-                System.out.printf("%s <- %d dmg || %s\n", target.getName(), robot.getAttackPower(), LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SS")));
-                inflictDamage(robot, target);
-                if (!target.isAlive()) {
-                    System.out.printf("\nXXX %s is dead XXX\n\n", target.getName());
+                if (target.isAlive()) {
+                    System.out.printf("%s <- %d dmg || %s\n", target.getName(), robot.getAttackPower(), LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SS")));
+                    inflictDamage(robot, target);
+                    if (!target.isAlive()) {
+                        System.out.printf("\nXXX %s is dead XXX\n\n", target.getName());
+                    }
+                } else {
+                    System.out.printf("%s tried to kill already dead man! He-he =) || %s\n", target.getName(), robot.getAttackPower(), LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss.SS")));
                 }
             }
             printRobotsHP();

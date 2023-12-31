@@ -34,8 +34,8 @@ public class ArenaApp {
                 new Robot(1, "Robot1", 1000, 200, 1.0),
                 new Robot(2, "Robot2", 1000, 150, 0.75),
                 new Robot(3, "Robot3", 1000, 100, 0.5),
-                new Robot(3, "Robot4", 1000, 100, 0.5),
-                new Robot(3, "Robot5", 500, 300, 0.5)
+                new Robot(3, "Robot4", 750, 150, 0.5),
+                new Robot(3, "Robot5", 500, 300, 0.4)
         ));
     }
 
