@@ -60,15 +60,12 @@ public class House {
     }
 
     public void collectFood() {
-        List<Food> roomsFood = new ArrayList<>();
         for (Room room : rooms) {
-            roomsFood = room.getFoods();
             System.out.println("Begin collecting food in " + room.getName());
-            foods.addAll(roomsFood);
+            foods.addAll(room.getFoods());
             System.out.println("Collected in " + room.getName());
-
+            // При использовании метода clear() в цикле обрабатывается только одна комната во всех потоках
+            room.setFoods(List.of());
         }
-        // Столкнулся с тем, что если удалять из списка еды в комнате внутри цикла, то обрабатывается только первая комната и всё
-        roomsFood.clear();
     }
 }
