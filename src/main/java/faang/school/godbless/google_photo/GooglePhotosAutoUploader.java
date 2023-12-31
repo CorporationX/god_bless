@@ -1,14 +1,14 @@
 package faang.school.godbless.google_photo;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.Future;
 
-@Data
+@Getter
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private List<String> photosToUpload = new ArrayList<>();
@@ -19,19 +19,20 @@ public class GooglePhotosAutoUploader {
                 if (photosToUpload.isEmpty()) {
                     lock.wait();
                 }
-                uploadPhotos(photosToUpload);
+                uploadPhotos();
             }
         }
     }
 
     private void uploadPhotos() {
-//        if (!photosToUpload.isEmpty()) {   Сначала сделал проверку, потом эту проверку убрал, сделал метод приватным чтобы он вызвался только из метода тогда проверка не нужна
-        for (String photo : photosToUpload) {
-            System.out.println("Начинается загрузка...");
-            System.out.println("Идет загрузка фото..." + photo);
-            System.out.println("Загрузка фото" + photo + " прошла успешно!!!");
+        synchronized (lock) {
+            for (String photo : photosToUpload) {
+                System.out.println("Начинается загрузка из списка ...");
+                System.out.println("Идет загрузка фото..." + photo);
+                System.out.println("Загрузка фото" + photo + " прошла успешно!!!");
+            }
+            photosToUpload.clear();
         }
-        photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -46,7 +47,21 @@ public class GooglePhotosAutoUploader {
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        executorService.submit(() -> {
+        List<String> photos = List.of(
+                "1111111111",
+                "2222222222",
+                "3333333333",
+                "4444444444",
+                "5555555555"
+        );
+
+        Future<?> added = executorService.submit(() -> {
+            for (String photo : photos) {
+                googlePhotosAutoUploader.onNewPhotoAdded(photo);
+            }
+        });
+
+        Future<?> autoLoading = executorService.submit(() -> {
             try {
                 googlePhotosAutoUploader.startAutoUpload();
             } catch (InterruptedException e) {
@@ -54,10 +69,12 @@ public class GooglePhotosAutoUploader {
             }
         });
 
-        executorService.submit(() -> googlePhotosAutoUploader.onNewPhotoAdded("www.google.com/phot/urheq123ijf"));
-
-        if (!executorService.awaitTermination(2, TimeUnit.SECONDS)) {
-            executorService.shutdownNow();
+        executorService.shutdown();
+        while (true) {
+            if (added.isDone() && googlePhotosAutoUploader.photosToUpload.isEmpty()) {
+                autoLoading.cancel(true);
+                break;
+            }
         }
     }
 }
