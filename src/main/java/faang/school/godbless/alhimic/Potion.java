@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @AllArgsConstructor
@@ -15,24 +14,20 @@ public class Potion {
 
     public static void main(String[] args) {
         AtomicInteger sum = new AtomicInteger();
-
         List<Potion> potions = new ArrayList<>();
         fillingInList(potions);
-        List<CompletableFuture<Integer>> futures = new ArrayList<>();
-        for (Potion potion : potions) {
-            CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> gatherIngredients(potion))
-                    .thenApply(sum::addAndGet);
-            futures.add(future);
-        }
+        List<CompletableFuture<Integer>> futures = potions.stream()
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion))
+                        .thenApply(sum::addAndGet))
+                .toList();
         CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         try {
             allOf.get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
+        }catch (Exception e){
+            e.printStackTrace();
         }
         System.out.println(sum);
     }
-
     public static int gatherIngredients(Potion potion) {
         System.out.println("Собираем ингредиенты для " + potion.name);
         try {
