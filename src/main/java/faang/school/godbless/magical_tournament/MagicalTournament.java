@@ -34,11 +34,10 @@ public class MagicalTournament {
         School hogwarts = new School("hogwarts", hogwartsTeam);
         School beauxbatons = new School("beayxbatins", beauxbatonsTeam);
 
-        Task task1 = new Task("Задержка дыхания ", 6, 18);
+        Task task1 = new Task("Задержка дыхания ", 6, 12);
         Task task2 = new Task("Поймать сквич ", 4, 10);
 
         //запуск заданий
-
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask = tournament.startTask(beauxbatons, task2);
 
@@ -60,16 +59,13 @@ public class MagicalTournament {
 class School {
     private String name;
     private List<Student> team;
-
     public int getTotalPoints() {
-        int sum = 0;
-        for (Student student : team) {
-            sum += student.getPoints();
-        }
-        return sum;
+        return team.stream()
+                .mapToInt(Student::getPoints)
+                .reduce(Integer::sum)
+                .orElse(-1);
     }
 }
-
 
 @Data
 class Student {
