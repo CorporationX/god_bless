@@ -3,14 +3,14 @@ package faang.school.godbless.dota2;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 
 public class Main {
     public static void main(String[] args) {
-        Inventory inventory = new Inventory();
-
         //список товаров магазина
         List<Item> shop = List.of(
                 new Item("Меч", 10),
@@ -20,11 +20,16 @@ public class Main {
         );
 
         //список инвентаря игрока
-        List<Item> inventoryList = List.of(
+        List<Item> inventoryList = new ArrayList<>(Arrays.asList(
                 new Item("Дубина", 6),
                 new Item("Щит", 8),
                 new Item("Перчатки", 2)
-        );
+        ));
+
+        //вывод списка инвентаря игрока До добавления
+        inventoryList.forEach(System.out::println);
+
+        Inventory inventory = new Inventory(inventoryList);
 
         //запуск потоков на получение предметов из магазина и инвентаря
         CompletableFuture<Item> itemFromInventoryFuture = inventory.getItemByInventory(inventoryList);
@@ -34,7 +39,6 @@ public class Main {
         var newFuture = itemFromInventoryFuture
                 .thenCombine(itemFromShopFuture, (item1, item2) -> inventory.combineItems(item1, item2));
 
-
         //ждем завершения, и закрываем потоки
         try {
             newFuture.get(10, TimeUnit.SECONDS);
@@ -43,6 +47,8 @@ public class Main {
         } finally {
             inventory.stopExecutorService();
         }
+        //список игрока уже с добавленным предметом
+        inventoryList.forEach(System.out::println);
     }
 }
 
@@ -58,9 +64,14 @@ class Inventory {
     private ExecutorService executorService = Executors.newFixedThreadPool(5);
     private List<Item> items;
 
+    public Inventory(List<Item> items) {
+        this.items = items;
+    }
+
     public void addItem(Item item) {
-        System.out.println("Добавили предмет в инвентарь!");
-        items.add(item);
+//        synchronized (items) { сначала добавил lock, потом закомитил! в моем примере он не нужен т.к.со списком работает только метод аddItem, и никто его не изменяет
+            System.out.println("Добавили предмет в инвентарь!"); //или лучше добавить?
+            items.add(item);
     }
 
     public CompletableFuture<Item> getItemByInventory(List<Item> list) {
