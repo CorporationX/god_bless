@@ -15,7 +15,6 @@ public class CalculatePIApp {
         long calculationInSeconds = (System.currentTimeMillis() - startMillis) / 1000;
         System.out.println("calculationInSeconds = " + calculationInSeconds);
         System.out.println("pi = " + pi);
-
     }
 
     private static double calculatePi() {
