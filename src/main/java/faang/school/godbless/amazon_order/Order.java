@@ -24,8 +24,8 @@ public class Order {
 
 @Data
 class OrderProcessor {
-    private static AtomicInteger totalProcessedOrders = new AtomicInteger(0);
-    ExecutorService executorService = Executors.newCachedThreadPool();
+    private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private ExecutorService executorService = Executors.newCachedThreadPool();
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
@@ -61,7 +61,7 @@ class Main {
     public static void main(String[] args) {
         OrderProcessor orderProcessor = new OrderProcessor();
 
-        List<CompletableFuture<Void>> futures = IntStream.rangeClosed(1, 800)
+        List<CompletableFuture<Void>> futures = IntStream.rangeClosed(1, 1400)
                 .mapToObj(Order::new)
                 .map(orderProcessor::processOrder)
                 .toList();
