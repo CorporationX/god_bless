@@ -13,7 +13,6 @@ import java.util.stream.IntStream;
 @Data
 public class Order {
     private final int id;
-
     private String status;
 
     public Order(int id) {
