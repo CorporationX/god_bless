@@ -9,9 +9,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
 public class OrderProcessor {
-    private AtomicInteger totalProcessedOrders = new AtomicInteger();
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger();
 
-    private ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     public CompletableFuture<Order> processOrder(Order order) {
 
@@ -26,5 +26,9 @@ public class OrderProcessor {
                 throw new RuntimeException(e);
             }
         }, executorService);
+    }
+
+    public void shutdownExecutor() {
+        executorService.shutdown();
     }
 }
