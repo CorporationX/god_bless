@@ -26,9 +26,6 @@ public class Main {
         ).forEach(order -> futures.add(orderProcessor.processOrder(order)));
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
-
-        orderProcessor.shutdown();
-
         long end = System.currentTimeMillis();
 
         System.out.println((end - start) + " - " + orderProcessor.getTotalProcessedOrders());
