@@ -32,7 +32,7 @@ public class TwitterSubscriptionSystem {
 //        } catch (InterruptedException | ExecutionException | TimeoutException e) {
 //            throw new RuntimeException(e);
 //        } работает и так и так,но решил все же join оставить. get же тогда надо, когда нужно возвращаемое значение получить,
-//        которого в данном случае нет
+//        которого в данном случае нет. Или не в этом дело. В общем, я так и не понял
         allOf.join();
     }
 }
