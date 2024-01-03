@@ -1,4 +1,4 @@
-package Amazon;
+package AmazonOrders;
 
 import java.util.ArrayList;
 import java.util.List;

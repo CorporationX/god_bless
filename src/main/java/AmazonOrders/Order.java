@@ -1,4 +1,4 @@
-package Amazon;
+package AmazonOrders;
 
 import lombok.Getter;
 import lombok.Setter;
