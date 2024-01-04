@@ -8,24 +8,14 @@ public class Chat {
     private User userFemale;
 
     public Chat(User user1, User user2) {
-        if ((user1.isSex() == false) && (user2.isSex() == true)) {
+        if ((user1.isSex().equals(Sex.MALE)) && (user2.isSex().equals(Sex.FEMALE))) {
             this.userMale = user1;
             this.userFemale = user2;
-        } else if ((user1.isSex() == true) && (user2.isSex() == false)) {
+        } else if ((user1.isSex().equals(Sex.FEMALE)) && (user2.isSex().equals(Sex.MALE))) {
             this.userMale = user2;
             this.userFemale = user1;
         }
         ChatManager.addChat(this);
-    }
-
-    public void personalContact() { //Demo only
-        System.out.println(userFemale.getName() + " flirting with " + userMale.getName());
-        System.out.println(userMale.getName() + " send yourself dickpick from " + userFemale.getName());
-        try {
-            Thread.sleep((int) (Math.random() * 1000));
-        } catch (InterruptedException e) {
-            System.out.println("This is too much...");
-        }
     }
 
     @Override

@@ -8,19 +8,31 @@ public class UserList {
     private static List<User> userList = new ArrayList<>();
 
     public static List<User> getOnlineUsers() {
-        return userList.stream().filter(user -> user.isOnline() == true).toList();
+        return userList
+                .stream()
+                .filter(user -> user.isOnline())
+                .toList();
     }
 
     public static List<User> getReadyContactOnlineUsers() {
-        return getOnlineUsers().stream().filter(user -> user.isReadyToContact() == true).toList();
+        return getOnlineUsers()
+                .stream()
+                .filter(user -> user.isReadyToContact())
+                .toList();
     }
 
     public static List<User> getFemaleReadyContactUsers() {
-        return getReadyContactOnlineUsers().stream().filter(user -> user.isSex() == true).toList();
+        return getReadyContactOnlineUsers()
+                .stream()
+                .filter(user -> user.isSex().equals(Sex.FEMALE))
+                .toList();
     }
 
     public static List<User> getMaleReadyContactUsers() {
-        return getReadyContactOnlineUsers().stream().filter(user -> user.isSex() == false).toList();
+        return getReadyContactOnlineUsers()
+                .stream()
+                .filter(user -> user.isSex().equals(Sex.MALE))
+                .toList();
     }
 
     public static void addUser(User user) {

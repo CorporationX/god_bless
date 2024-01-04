@@ -6,25 +6,18 @@ public class User {
 
     private boolean online;
     private String name;
-    private boolean sex = false;
+    private Sex sex;
     private boolean readyToContact;
+    private boolean isChatting;
 
 
-    public User(String name, String sex) {
+    public User(String name, Sex sex) {
         this.name = name;
-        if (sex.equals("f"))
-            this.sex = true;
+        this.sex = sex;
         if (Math.random() * 50 > 10)
             online = true;
         else
             online = false;
-    }
-
-    public void setUpReadyToContact(boolean readyToContact) {
-        this.readyToContact = readyToContact;
-        if (readyToContact) {
-            ChatManager.startChat(this);
-        }
     }
 
     @Override
@@ -32,12 +25,20 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return online == user.online && sex == user.sex && readyToContact == user.readyToContact && Objects.equals(name, user.name);
+        return Objects.equals(name, user.name) && sex == user.sex;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(online, name, sex, readyToContact);
+        return Objects.hash(name, sex);
+    }
+
+    public void setUpReadyToContact(boolean readyToContact) {
+        this.readyToContact = readyToContact;
+    }
+
+    public void setChatting(boolean chatting) {
+        isChatting = chatting;
     }
 
     public boolean isOnline() {
@@ -48,11 +49,15 @@ public class User {
         return name;
     }
 
-    public boolean isSex() {
+    public Sex isSex() {
         return sex;
     }
 
     public boolean isReadyToContact() {
         return readyToContact;
+    }
+
+    public boolean isChatting() {
+        return isChatting;
     }
 }

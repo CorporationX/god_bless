@@ -10,36 +10,39 @@ public class ChatManager {
     public static void startChat(User user) {
         synchronized (chats) {
             List<User> userList;
-            if (user.isSex() == true)
+            User userSecond;
+            if (user.isSex().equals(Sex.FEMALE))
                 userList = UserList.getMaleReadyContactUsers();
             else
                 userList = UserList.getFemaleReadyContactUsers();
-            if ((userList.isEmpty()) || (waitForChat(user))) {
-                try {
-                    chats.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Now nobody ready chatting");
-                }
-            }
-            Chat chat = new Chat(user, userList.get((int) (Math.random() * userList.size())));
+            userSecond = userList.get((int) (Math.random() * userList.size()));
+            waitForChat(userSecond, userList);
+            Chat chat = new Chat(user, userSecond);
+            user.setChatting(true);
+            userSecond.setChatting(true);
             System.out.println("Chat with " + chat.getUserFemale().getName() + " and " + chat.getUserMale().getName() + " start");
         }
     }
 
-    public static boolean waitForChat(User user) {
-        if (giveChat(user) != null)
-            return true;
-        else
-            return false;
+    public static void waitForChat(User user, List<User> userList) {
+        if (user.isChatting() || userList.isEmpty()) {
+            try {
+                System.out.println(user.getName() + " now is chatting. Please wait");
+                chats.wait();
+            } catch (InterruptedException e) {
+                System.out.println("Now nobody ready chatting");
+            }
+        }
+
     }
 
     public static void endChat(User user) {
         synchronized (chats) {
-            Chat chat;
-            if (waitForChat(user)) {
-                chat = giveChat(user);
-                chat.personalContact();
+            if ((user.isChatting())) {
+                Chat chat = giveChat(user);
                 System.out.println("Chat with " + chat.getUserFemale().getName() + " and " + chat.getUserMale().getName() + " remove");
+                chat.getUserFemale().setChatting(false);
+                chat.getUserMale().setChatting(false);
                 chats.remove(chat);
                 chats.notifyAll();
             }
@@ -49,15 +52,21 @@ public class ChatManager {
     private static Chat giveChat(User user) {
         Chat checkChat = null;
         for (Chat chat : chats) {
-            if (chat.getUserFemale().getName().equals(user.getName()) || (chat.getUserMale().getName().equals(user.getName())))
-                checkChat = chat;
+            if (user.isSex().equals(Sex.MALE)) {
+                if (chat.getUserMale().getName().equals(user.getName()))
+                    checkChat = chat;
+            } else {
+                if (chat.getUserFemale().getName().equals(user.getName()))
+                    checkChat = chat;
+            }
         }
         return checkChat;
     }
 
     public static void addChat(Chat chat) {
-        if ((!waitForChat(chat.getUserFemale())) || (!waitForChat(chat.getUserMale())))
+        synchronized (chats) {
             chats.add(chat);
+        }
     }
 
 }
