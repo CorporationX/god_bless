@@ -1,6 +1,6 @@
 package Thread_6;
 
-import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class King {
     public static void main(String[] args) {
