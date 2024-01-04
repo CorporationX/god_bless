@@ -12,7 +12,7 @@ public class QuestSystem {
     }
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        return CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Player> playerCompletableFuture = CompletableFuture.supplyAsync(() -> {
             int difficulty = quest.getDifficulty();
             int newExp = difficulty + player.getExperience();
             try {
@@ -23,9 +23,7 @@ public class QuestSystem {
             player.setExperience(newExp);
             return player;
         }, executorService);
-    }
-
-    public void shutdown() {
-        executorService.shutdown();
+        playerCompletableFuture.thenRun(executorService::shutdown);
+        return playerCompletableFuture;
     }
 }
