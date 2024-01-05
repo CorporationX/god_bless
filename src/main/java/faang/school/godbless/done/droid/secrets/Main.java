@@ -1,4 +1,4 @@
-package faang.school.godbless.droid.secrets;
+package faang.school.godbless.done.droid.secrets;
 
 public class Main {
     public static void main(String[] args) {
