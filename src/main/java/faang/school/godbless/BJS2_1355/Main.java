@@ -15,7 +15,7 @@ public class Main {
 
     public static void main(String[] args) {
         List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
-        ExecutorService executor = Executors.newFixedThreadPool(1_000);
+        ExecutorService executor = Executors.newFixedThreadPool(8);
 
         for (int i = 0; i < ALL_POINT; i++) {
             double x = generateDouble();
