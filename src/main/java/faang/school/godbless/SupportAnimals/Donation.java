@@ -6,6 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public class Donation {
-        private int id;
-        private int sum;
+    private int id;
+    private int sum;
 }
