@@ -1,8 +1,10 @@
 package faang.school.godbless.lets_play_bank;
+
 import java.util.Random;
 
 public class Main {
     private static final Random random = new Random();
+
     public static void main(String[] args) {
         Bank bank = new Bank();
         fillingTheBank(bank);
