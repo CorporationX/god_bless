@@ -1,12 +1,20 @@
 package Zoom;
 
+import lombok.Getter;
+
 import java.util.concurrent.CyclicBarrier;
 
+@Getter
 public class Conference {
-    private final int NUMBER_OF_MEMBERS = 5;
-    private final CyclicBarrier cyclicBarrier = new CyclicBarrier(NUMBER_OF_MEMBERS);
+    private final int members;
+    private final CyclicBarrier cyclicBarrier;
 
-    public void startStreaming(){
+    public Conference(int members) {
+        this.members = members;
+        this.cyclicBarrier = new CyclicBarrier(members, this::startStreaming);
+    }
+
+    public void startStreaming() {
         System.out.println("Трансляция началась!");
     }
 
