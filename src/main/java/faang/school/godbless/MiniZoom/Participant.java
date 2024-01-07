@@ -17,6 +17,5 @@ public class Participant {
         } catch (InterruptedException | BrokenBarrierException e) {
             e.printStackTrace();
         }
-        conference.startStreaming();
     }
 }
