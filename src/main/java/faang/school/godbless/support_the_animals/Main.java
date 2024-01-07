@@ -24,8 +24,7 @@ public class Main {
                 new Donation(532)
         ));
 
-        donations
-                .forEach(donation -> executor.submit(() -> {
+        donations.forEach(donation -> executor.submit(() -> {
                     try {
                         Thread.sleep(2000);
                         System.out.println(Thread.currentThread().getName() + " || Sum = " + donation.getSum());
