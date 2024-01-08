@@ -25,28 +25,28 @@ public class Main {
 
         ChatManager chatManager = new ChatManager(userList);
 
-        Thread thread1 = new Thread(() -> chatManager.startChat(eda));
+        Thread thread1 = new Thread(() -> chatManager.StartChat(eda));
         thread1.start();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread thread3 = new Thread(() -> chatManager.startChat(vlad));
+        Thread thread3 = new Thread(() -> chatManager.StartChat(vlad));
         thread3.start();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread thread2 = new Thread(() -> chatManager.startChat(umar));
+        Thread thread2 = new Thread(() -> chatManager.StartChat(umar));
         thread2.start();
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread thread5 = new Thread(() -> chatManager.startChat(eda));
+        Thread thread5 = new Thread(() -> chatManager.StartChat(eda));
         thread5.start();
         try {
             Thread.sleep(1000);
@@ -60,7 +60,7 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread thread6 = new Thread(() -> chatManager.startChat(eda));
+        Thread thread6 = new Thread(() -> chatManager.StartChat(eda));
         thread6.start();
         try {
             Thread.sleep(1000);

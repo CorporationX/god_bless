@@ -20,10 +20,6 @@ public class UserList {
         users.add(user);
     }
 
-    public void addAllUser(List<User> users) {
-        this.users.addAll(users);
-    }
-
     public void follow(User mainUser, User followUser) {
         followersByUser.computeIfAbsent(mainUser, v -> new HashSet<>()).add(followUser);
 

@@ -3,12 +3,11 @@ package faang.school.godbless.BJS2_1286;
 import lombok.Data;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 @Data
 public class ChatManager {
     private final UserList userList;
-    private final Set<User> acceptedToChattingUsers = new HashSet<>();
+    private final Set<User> waitingUsers = new HashSet<>();
     private final Set<UserPair> chattingUserPairs = new HashSet<>();
     private final List<Chat> chats = new ArrayList<>();
 
@@ -16,44 +15,48 @@ public class ChatManager {
         this.userList = userList;
     }
 
-    public synchronized Chat startChat(User user) {
-        acceptedToChattingUsers.add(user);
 
-        while (!isUserChatting(user)) {
-            List<User> usersToChatWith = readyToStartChatWith(user);
-            if (!usersToChatWith.isEmpty() && user.isOnline()) {
-                this.notify();
-                startChatWithUser(user, usersToChatWith.get(0));
-                break;
-            }
+    public synchronized Chat StartChat(User user) throws InterruptedException {
+        waitingUsers.add(user);
 
-            try {
-                System.out.println(Thread.currentThread() + "waiting list: " + acceptedToChattingUsers + "||| " + user + " is waiting...");
-                this.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+        Optional<User> userWantsToChatWithOpt;
+        while ((userWantsToChatWithOpt = readyToStartChatWith(user)).isEmpty() && !user.isOnline()) {
+            if (isUserChatting(user)) {
+                System.out.println(user + " is chatting");
+                return findChatByUser(user);
             }
+            this.wait();
         }
 
-        System.out.println("Chat was created for " + user);
-        return findChatByUser(user);
+        User readyToChatUser = userWantsToChatWithOpt.get();
+        System.out.printf("User %s created chat with user %s", user, readyToChatUser);
+        return new Chat(user, readyToChatUser);
     }
 
-    public void waitForChat(User user) {
+    public void waitForChat(Chat chat) throws InterruptedException {
+        while (!chats.contains(chat)) {
+            this.wait();
+        }
+        startChat(chat);
     }
 
-    public synchronized void endChat(User user) {
-        User chattingSecondUser = findChattingSecondUser(user);
-        chattingUserPairs.remove(new UserPair(user, chattingSecondUser));
-        acceptedToChattingUsers.remove(user);
-        acceptedToChattingUsers.remove(chattingSecondUser);
+    private void startChat(Chat chat) {
+        chat.setActive(true);
+        chats.add(chat);
 
-        System.out.println(Thread.currentThread() + "chat ended between: " + user + " and " + chattingSecondUser
-                + "That means you can start chat with both of these users!");
-        this.notifyAll();
+        User user1 = chat.getUser1();
+        User user2 = chat.getUser2();
+
+        chattingUserPairs.add(new UserPair(user1, user2));
+        waitingUsers.remove(user1);
+        waitingUsers.remove(user2);
     }
 
-    public List<Chat> getAllChats () {
+    public synchronized void endChat(Chat chat) {
+
+    }
+
+    public List<Chat> getAllChats() {
         return chats;
     }
 
@@ -67,12 +70,15 @@ public class ChatManager {
     }
 
 
-    private List<User> readyToStartChatWith(User user) {
-        return acceptedToChattingUsers.stream()
+    private Optional<User> readyToStartChatWith(User user) {
+        if (isUserChatting(user)) {
+            return Optional.empty();
+        }
+        return waitingUsers.stream()
                 .distinct()
-                .filter(u -> userList.followsToEachOther(user, u)  && !isUserChatting(user))
-                .filter(u -> u.isOnline())
-                .toList();
+                .filter(u -> userList.followsToEachOther(user, u) && !isUserChatting(user))
+                .filter(User::isOnline)
+                .findFirst();
     }
 
     private Chat findChatByUser(User user) {
@@ -81,12 +87,12 @@ public class ChatManager {
     }
 
     private boolean isUserChatting(User user) {
-        return chattingUserPairs.stream().anyMatch(symmetricUserPair -> symmetricUserPair.containsAny(user));
+        return chattingUserPairs.stream().anyMatch(userPair -> userPair.contains(user));
     }
 
     private User findChattingSecondUser(User user) {
         for (var pair : chattingUserPairs) {
-            if (pair.containsAny(user)) {
+            if (pair.contains(user)) {
                 return pair.getAnotherByUser(user);
             }
         }

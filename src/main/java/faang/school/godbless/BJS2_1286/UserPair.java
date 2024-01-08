@@ -1,21 +1,21 @@
 package faang.school.godbless.BJS2_1286;
 
 import java.util.AbstractMap;
-import java.util.Comparator;
-import java.util.stream.Stream;
 
 public class UserPair extends AbstractMap.SimpleEntry<User, User> {
 
-    public UserPair(User user1, User user2) {
-        super(createSortedEntry(user1, user2));
+    public UserPair(User key, User value) {
+        super(key, value);
     }
 
-    private static AbstractMap.SimpleEntry<User, User> createSortedEntry(User user1, User user2) {
-        User[] sortedUsers = Stream.of(user1, user2)
-                .sorted(Comparator.comparing(User::getName))
-                .toArray(User[]::new);
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
 
-        return new AbstractMap.SimpleEntry<>(sortedUsers[0], sortedUsers[1]);
+        UserPair eqUserPair = (UserPair) obj;
+        return getUser1().equals(eqUserPair.getUser1()) && getUser2().equals(eqUserPair.getUser2())
+                || getUser1().equals(eqUserPair.getUser2()) && getUser2().equals(eqUserPair.getUser1());
     }
 
     public User getUser1() {
@@ -26,7 +26,7 @@ public class UserPair extends AbstractMap.SimpleEntry<User, User> {
         return getValue();
     }
 
-    public boolean containsAny(User user) {
+    public boolean contains(User user) {
         return user.equals(getUser1()) || user.equals(getUser2());
     }
 
@@ -37,7 +37,6 @@ public class UserPair extends AbstractMap.SimpleEntry<User, User> {
         if (getUser2().equals(user)) {
             return getUser1();
         }
-
         return null;
     }
 }

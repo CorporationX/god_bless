@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_1286;
 
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,11 +11,14 @@ import java.util.Map;
 class Chat {
     private final User user1;
     private final User user2;
+    @Setter
+    private boolean isActive;
     private Map<User, List<String>> chatMessages;
 
     public Chat(User user1, User user2) {
         this.user1 = user1;
         this.user2 = user2;
+        isActive = false;
     }
 
     public void firstUserMessage(String message) {
