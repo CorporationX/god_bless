@@ -43,6 +43,8 @@ public class MasterCardService {
         int collect = collectPayment.get();
         int analytics = sendAnalytics.get();
 
+        sendAnalytics.join();
+
         executorService.shutdown();
 
         System.out.println("analytics is: " + analytics);
