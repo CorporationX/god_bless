@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Alexander Bulgakov
@@ -34,25 +33,20 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
+    public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> collectPayment = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalytics =
                 CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
-        try {
 
-            int collect = collectPayment.get();
-            int analytics = sendAnalytics.get();
+        int collect = collectPayment.get();
+        int analytics = sendAnalytics.get();
 
-            executorService.shutdown();
-            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        executorService.shutdown();
 
-            System.out.println("analytics is: " + analytics);
-            System.out.println("collect is: " + collect);
+        System.out.println("analytics is: " + analytics);
+        System.out.println("collect is: " + collect);
 
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
     }
 }
