@@ -10,19 +10,17 @@ import java.util.concurrent.ExecutionException;
 public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) throws ExecutionException, InterruptedException {
-        CompletableFuture<Player> completableFuture = CompletableFuture.supplyAsync(() -> {
+
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty());
                 player.setExperience(quest.getReward() + player.getExperience());
-
             } catch (InterruptedException e ) {
                 throw new RuntimeException(e);
             }
 
             return player;
         });
-
-        completableFuture.get();
-        return completableFuture;
     }
+
 }
