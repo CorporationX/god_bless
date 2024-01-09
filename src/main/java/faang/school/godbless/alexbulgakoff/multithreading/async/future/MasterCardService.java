@@ -38,16 +38,17 @@ public class MasterCardService {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> collectPayment = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalytics =
-                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executorService);
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
         try {
+
             int collect = collectPayment.get();
             int analytics = sendAnalytics.get();
 
-            sendAnalytics.join();
-            System.out.println("analytics is: " + analytics);
             executorService.shutdown();
             executorService.awaitTermination(1, TimeUnit.MINUTES);
+
+            System.out.println("analytics is: " + analytics);
             System.out.println("collect is: " + collect);
 
         } catch (InterruptedException | ExecutionException e) {
