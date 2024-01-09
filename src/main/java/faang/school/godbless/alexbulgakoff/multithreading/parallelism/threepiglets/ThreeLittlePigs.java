@@ -14,9 +14,9 @@ public class ThreeLittlePigs {
 
     static final int COUNT_THREADS = 3;
     public static void main(String[] args) {
-        Pig1Thread nifNif = new Pig1Thread("Ниф-Ниф", 1);
-        Pig2Thread nufNuf = new Pig2Thread("Нуф-Нуф", 2);
-        Pig3Thread nafNaf = new Pig3Thread("Наф-Наф", 3);
+        Pig1Thread nifNif = new Pig1Thread();
+        Pig2Thread nufNuf = new Pig2Thread();
+        Pig3Thread nafNaf = new Pig3Thread();
 
         List<PigThread> pigThreads = Arrays.asList(nifNif, nafNaf, nufNuf);
 
