@@ -3,15 +3,18 @@ package faang.school.godbless.alexbulgakoff.multithreading.synchronization.brofo
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Random;
+
 /**
  * @author Alexander Bulgakov
  */
 @Getter
 @ToString
 public class Player {
+
     private final String name;
     private int health;
-    private boolean alive;
+    private final boolean alive;
 
     public Player(String name, int health) {
         this.name = name;
@@ -19,11 +22,12 @@ public class Player {
         alive = true;
     }
 
+    public boolean isAlive() {
+        Random random = new Random();
+        return random.nextBoolean();
+    }
+
     public void damageToPlayer() {
-        System.out.println("Игрок " + name + " получает урон!");
         health--;
-        if (health == 0) {
-            alive = false;
-        }
     }
 }

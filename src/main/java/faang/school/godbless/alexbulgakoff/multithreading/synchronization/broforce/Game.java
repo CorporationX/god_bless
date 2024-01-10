@@ -1,14 +1,11 @@
 package faang.school.godbless.alexbulgakoff.multithreading.synchronization.broforce;
 
 import lombok.Getter;
-import lombok.SneakyThrows;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.util.Random;
 
 /**
  * @author Alexander Bulgakov
@@ -16,74 +13,53 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @ToString
 public class Game {
-    static final int COUNT_PLAYERS = 6;
-    static final int PLAYER_MAX_LIVE = 5;
-    static final int COUNT_THREADS = COUNT_PLAYERS / 2;
 
+    private Random random = new Random();
     private long scores;
     private long lives;
-    private final Live live = new Live();
-    private final Score score = new Score();
     private final List<Player> playerList;
 
-    public Game(List<Player> playerList) {
-        this.playerList = playerList;
-        lives = playerList.stream().mapToLong(Player::getHealth).sum();
+    private final Object scoreLock;
+    private final Object liveLock;
+
+    public Game() {
+        playerList = new ArrayList<>();
+        scoreLock = new Object();
+        liveLock = new Object();
     }
 
-    @SneakyThrows
-    public static void main(String[] args) {
-        List<Player> players = new ArrayList<>();
-
-        for (int i = 1; i < COUNT_PLAYERS; i++) {
-            players.add(new Player(String.valueOf(i), PLAYER_MAX_LIVE));
-        }
-
-        Game game = new Game(players);
-
-        ExecutorService executorService = Executors.newFixedThreadPool(COUNT_THREADS);
-
-        for (Player player : game.getPlayerList()) {
-            executorService.submit(() -> {
-                synchronized (game) {
-                    while (game.getLives() != 0) {
-                        game.update();
-                    }
-                }
-            });
-        }
-
-        executorService.shutdown();
-        executorService.awaitTermination(2, TimeUnit.MINUTES);
-
+    public void addPlayer(Player player) {
+        playerList.add(player);
     }
 
-    public void update() {
-        for (Player player : playerList) {
-            if (player.isAlive()) {
-                synchronized (live) {
-                    player.damageToPlayer();
-                    lives--;
-                }
-                synchronized (score) {
-                    scores++;
+    public boolean update() {
+        int playerIndex = random.nextInt(playerList.size());
+        Player player = playerList.get(playerIndex);
+        boolean isAlive = player.isAlive();
+
+        if (!isAlive) {
+            synchronized (liveLock) {
+                player.damageToPlayer();
+                lives++;
+                System.out.println("Игрок " + player.getName() + " получает урон!");
+                System.out.println("У игрока " + player.getName() + " осталось жизней: " + player.getHealth());
+
+                if (player.getHealth() == 0) {
+                    System.out.println("Игрок " + player.getName() + " погиб!");
+                    return gameOver();
                 }
             }
-
-            if (!player.isAlive()) {
-                System.out.println("Игрок " + player.getName() + " погиб!");
+        } else {
+            synchronized (scoreLock) {
+                scores++;
             }
         }
-
-        if (lives == 0) {
-            gameOver();
-        }
+        return false;
     }
 
-    private void gameOver() {
+    private boolean gameOver() {
         System.out.println("Игра окончена!");
+        return true;
     }
 
-    static class Live {}
-    static class Score {}
 }
