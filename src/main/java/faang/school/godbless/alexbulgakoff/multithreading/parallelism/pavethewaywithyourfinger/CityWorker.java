@@ -14,6 +14,9 @@ import java.util.Random;
 @Getter
 @ToString
 public class CityWorker implements Runnable {
+    private static final int EARTH_RADIUS = 6372795;
+    private static final int RADIAN = 180;
+    private static final Random random = new Random();
     private City city;
     private List<Monster> monsters;
     @Override
@@ -49,7 +52,6 @@ public class CityWorker implements Runnable {
     }
 
     public long getKillTime() {
-        Random random = new Random();
         return random.nextLong(250, 501);
     }
 
@@ -57,33 +59,31 @@ public class CityWorker implements Runnable {
         return city.getDistance();
     }
 
-    private double calculateTheDistance(int firstLatitude, int firstLongitude, int secondLatitude, int secondLongitude) {
-        final int EARTH_RADIUS = 6372795;
-
+    private double calculateTheDistance(int pointALatitude, int pointALongitude, int pointBLatitude, int pointBLongitude) {
         //coordinates to radians
 
-        double radianFirstLatitude = firstLatitude * Math.PI / 180;
-        double radianSecondLatitude = secondLatitude * Math.PI / 180;
-        double radianFirstLongitude = firstLongitude * Math.PI / 180;
-        double radianSecondLongitude = secondLongitude * Math.PI / 180;
+        double radianPointALatitude = pointALatitude * Math.PI / RADIAN;
+        double radianPointBLatitude = pointBLatitude * Math.PI / RADIAN;
+        double radianPointALongitude = pointALongitude * Math.PI / RADIAN;
+        double radianPointBLongitude = pointBLongitude * Math.PI / RADIAN;
 
         //cos & sin latitudes & diff longitudes
 
-        double cosRadianFirstLatitude = Math.cos(radianFirstLatitude);
-        double cosRadianSecondLatitude = Math.cos(radianSecondLatitude);
-        double sinRadianFirstLatitude = Math.sin(radianFirstLatitude);
-        double sinRadianSecondLatitude = Math.sin(radianSecondLatitude);
+        double cosRadianPointALatitude = Math.cos(radianPointALatitude);
+        double cosRadianPointBLatitude = Math.cos(radianPointBLatitude);
+        double sinRadianPointALatitude = Math.sin(radianPointALatitude);
+        double sinRadianPointBLatitude = Math.sin(radianPointBLatitude);
 
-        double delta = radianSecondLongitude - radianFirstLongitude;
+        double delta = radianPointBLongitude - radianPointALongitude;
 
         double cosDelta = Math.cos(delta);
         double sinDelta = Math.sin(delta);
 
         //length big circle
 
-        double yCircle = Math.sqrt(Math.pow(cosRadianSecondLatitude * sinDelta, 2) +
-                Math.pow(cosRadianFirstLatitude * sinRadianFirstLatitude - sinRadianSecondLatitude * cosRadianSecondLatitude * cosDelta, 2));
-        double xCircle = sinRadianFirstLatitude * sinRadianSecondLatitude + cosRadianFirstLatitude * cosRadianSecondLatitude * cosDelta;
+        double yCircle = Math.sqrt(Math.pow(cosRadianPointBLatitude * sinDelta, 2) +
+                Math.pow(cosRadianPointALatitude * sinRadianPointALatitude - sinRadianPointBLatitude * cosRadianPointBLatitude * cosDelta, 2));
+        double xCircle = sinRadianPointALatitude * sinRadianPointBLatitude + cosRadianPointALatitude * cosRadianPointBLatitude * cosDelta;
 
         double tanDistance = Math.atan2(yCircle, xCircle);
 
