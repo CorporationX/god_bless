@@ -31,15 +31,15 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> collect = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
         try {
-            int result1 = collect.get();
-            int result2 = analytics.get();
             analytics.join();
+            int result2 = analytics.get();
             System.out.println(result2);
+            int result1 = collect.get();
+            System.out.println(result1);
             executor.shutdown();
             executor.awaitTermination(1, TimeUnit.MINUTES);
-            System.out.println(result1);
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
