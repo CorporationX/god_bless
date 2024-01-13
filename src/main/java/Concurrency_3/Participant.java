@@ -14,6 +14,7 @@ public class Participant {
     public void joinConference(CyclicBarrier barrier) {
         System.out.println("Participant " + getName() + " connect to stream");
         try {
+            Thread.sleep((long) (Math.random() * 5000));
             barrier.await();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
