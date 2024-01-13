@@ -17,11 +17,11 @@ public class MasterCardService {
     }
 
     static void doAll() throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(1);
 
         Future<Integer> collectPaymentFuture = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendAnalyticsFuture =
-                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
+                CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
         System.out.println("Time to send analytics - " + sendAnalyticsFuture.join() + " ms");
         System.out.println("Time to collect payment - " + collectPaymentFuture.get() + " ms");
