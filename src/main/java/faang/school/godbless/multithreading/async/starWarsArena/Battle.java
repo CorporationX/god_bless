@@ -41,15 +41,18 @@ public class Battle {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         Random random = new Random();
 
-        return executor.submit(() -> {
+        Future<Robot> winner = executor.submit(() -> {
             try {
                 Thread.sleep(5_000L);
             } catch (InterruptedException ex) {
                 Thread.currentThread().interrupt();
             }
             int randomValue = 1 + random.nextInt(2);
-            executor.shutdown();
             return randomValue == 1 ? firstRobot : secondRobot;
         });
+        executor.shutdown();
+
+        return winner;
     }
+
 }
