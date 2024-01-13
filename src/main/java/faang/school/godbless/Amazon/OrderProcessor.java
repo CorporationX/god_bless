@@ -13,8 +13,8 @@ public class OrderProcessor {
     private static final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private static final Random random = new Random();
     // почему final не понял, идея просит
-    public static CompletableFuture<AtomicInteger> processOrder(Order order) {
-        return CompletableFuture.supplyAsync(() -> {
+    public static CompletableFuture<Void> processOrder(Order order) {
+        return CompletableFuture.runAsync(() -> {
             try {
                 System.out.println("Processing order " + order.getId() + " with status " + order.getStatus());
                 Thread.sleep(random.nextInt(10000));
@@ -24,8 +24,6 @@ public class OrderProcessor {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            return totalProcessedOrders;// не понял почему,но почему-то нельзя тут же инкрементацию сделать, иначе будет просить
-            // изменить тип возвращаемого значения методом на CompletableFuture<Integer>
         });
     }
 
