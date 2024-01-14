@@ -46,6 +46,6 @@ public class Post {
     }
 
     public List<Comment> getComments() {
-        return comments;
+        return new ArrayList<>(comments);
     }
 }
