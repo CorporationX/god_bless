@@ -1,0 +1,5 @@
+package faang.school.godbless.BJS2_1648.resources;
+
+public class DesignResources extends Resources {
+
+}
