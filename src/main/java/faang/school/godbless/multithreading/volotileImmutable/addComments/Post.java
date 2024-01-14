@@ -6,12 +6,15 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
 @ToString
 public class Post {
+    @Getter
     private final String title;
+    @Getter
     private final String textPost;
+    @Getter
     private final String author;
+
     private final List<Comment> comments;
 
     public Post(String title, String textPost, String author) {
@@ -20,4 +23,9 @@ public class Post {
         this.author = author;
         this.comments = new ArrayList<>();
     }
+
+    public List<Comment> getComments() {
+        return new ArrayList<>(comments);
+    }
+
 }
