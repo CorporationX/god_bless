@@ -17,12 +17,10 @@ public class SupportAnimals {
         Random random = new Random();
         for (int i = 0; i < 5; i++) {
             final int identifier = i;
-            CompletableFuture<Donation> completableFuture = CompletableFuture.supplyAsync(() -> {
+            CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> {
                 Donation donation = new Donation(identifier, 1_000 + random.nextInt(10_000));
-                System.out.println("Added donate - " + donation.getAmountDonation() + " $");
                 organization.addDonation(donation);
-                return null;
-            }, executorService);
+            });
             futures.add(completableFuture);
         }
 
