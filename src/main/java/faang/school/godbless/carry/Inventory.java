@@ -21,16 +21,13 @@ public class Inventory {
     }
 
     public void addItem(Item item) {
-        CompletableFuture.runAsync(() -> {
             System.out.println("Комбинированный предмет добавлен в инвентарь в потоке: " + Thread.currentThread().getName());
             items.add(item);
-        }).join();
     }
 
-    public CompletableFuture<Item> combineItems(Item item, Item item2) {
-        return CompletableFuture.supplyAsync(() -> item)
-                .thenCombine(CompletableFuture.supplyAsync(() -> item2), (i1, i2) ->
-                        new Item(i1.getName() + "-" + i2.getName(), i1.getPower() + i2.getPower()));
+    public Item combineItems(Item item, Item item2) {
+        System.out.println("Комбинированный предмет получен в потоке: " + Thread.currentThread().getName());
+        return new Item(item.getName() + "-" + item2.getName(), item.getPower() + item2.getPower());
     }
 
     public CompletableFuture<Item> getItemFromBox() {
