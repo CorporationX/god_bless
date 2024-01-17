@@ -5,35 +5,35 @@ import java.util.List;
 
 public class MarketingResources {
 
-    private static String readLock = "readLock";
+    private String readLock = "readLock";
 
-    private static int count = 1;
+    private int count = 1;
 
-    private static List<String> list = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
 
-    public static void outPutFile() {
+    public void outPutFile(DesignResources designResources) {
         synchronized (readLock) {
             System.out.println("Start output marketing resources");
             for (String string : list) {
                 System.out.println(string);
             }
             System.out.println("End output marketing resources");
-            DesignResources.addForList("DesignResources file " + count++);
+            designResources.addForList("DesignResources file " + count++);
         }
     }
 
-    public static synchronized void addForList(String string) {
-        synchronized (DesignResources.getWriteLock()) {
+    public void addForList(String string, DesignResources designResources) {
+        synchronized (designResources.getWriteLock()) {
             list.add(string);
             System.out.println("in MarketingResources added " + string);
         }
     }
 
-    public static List<String> getList() {
+    public List<String> getList() {
         return list;
     }
 
-    public static String getReadLock() {
+    public String getReadLock() {
         return readLock;
     }
 }
