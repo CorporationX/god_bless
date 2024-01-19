@@ -38,9 +38,9 @@ public class Main {
             Account targetAccount = bank.getAccounts().get(random.nextInt(1, bank.getAccounts().size()));
             long transferAmount = random.nextLong(1500000L);
             bank.transfer(sourceAccount, targetAccount, transferAmount);
-            bank.getTotalBalance(bank.getAccounts());// вот не знаю, нужен ли он после каждой операции, пока так
         });
         thread.start();
         thread.join();
+        bank.getTotalBalance(bank.getAccounts());
     }
 }
