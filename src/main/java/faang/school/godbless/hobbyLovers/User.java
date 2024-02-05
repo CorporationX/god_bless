@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.hobbyLovers;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
