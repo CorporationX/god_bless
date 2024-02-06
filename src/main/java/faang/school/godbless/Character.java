@@ -30,7 +30,7 @@ class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        System.out.println("Наносит урон от своей силы: " + strength);
+        System.out.println("Наносит урон от своей силы:  " + strength);
     }
 
 }
