@@ -1,7 +1,7 @@
 package faang.school.godbless.Abstraction;
 
 public class Archer extends Character {
-    public Archer(String name, int strength, int agility, int intelligence) {
+    public Archer(String name) {
         super(name);
         this.strength = 3;
         this.agility = 10;

@@ -2,7 +2,7 @@ package faang.school.godbless.Abstraction;
 
 public class Warrior extends Character {
 
-    public Warrior(String name, int strength, int agility, int intelligence) {
+    public Warrior(String name) {
         super(name);
         this.strength = 10;
         this.agility = 5;
