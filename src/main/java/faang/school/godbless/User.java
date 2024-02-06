@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import java.util.ArrayList;
+
 public class User {
     private int id;
     private String name;
@@ -16,8 +18,10 @@ public class User {
     public void findHobbyLovers(){
 
     }
+
+    public static <List> void main(String args[]){
+        List<String> users = new ArrayList<>();
+    }
 }
 
-public static void main(String args[]){
 
-}
