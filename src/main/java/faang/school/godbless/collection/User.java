@@ -15,9 +15,6 @@ public class User{
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
-
-
     public User(String name, int age, String workPlace, String address) throws IllegalArgumentException {
         if (!name.isEmpty() & age >= 18 & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
             this.name = name;
