@@ -46,6 +46,10 @@ public class User {
         return hobbyLoversMap;
     }
 
+    public String toString(){
+        return getName() + " ";
+    }
+
     public static void main(String args[]){
         List<User> users = new ArrayList<>();
         String[] hobbies1 = {"football", "basketball"};
