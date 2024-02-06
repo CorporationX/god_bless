@@ -17,18 +17,7 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String company, String adress) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым.");
-        }
-        if (age < VALID_AGE) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
-        }
-        if (!(VALID_JOBS.contains(company))) {
-            throw new IllegalArgumentException("Нельзя работать нигде, кроме Google, Uber или Amazon (извини).");
-        }
-        if (!(VALID_ADDRESSES.contains(adress))) {
-            throw new IllegalArgumentException("Нельзя жить нигде, кроме London, New York или Amsterdam (такая жизнь)");
-        }
+        areParametersValid(name, age, company, adress);
         this.name = name;
         this.age = age;
         this.company = company;
@@ -45,5 +34,20 @@ public class User {
             groupedUsers.get(user.age).add(user);
         }
         return groupedUsers;
+    }
+
+    private void areParametersValid(String name, int age, String company, String adress) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым.");
+        }
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+        }
+        if (!(VALID_JOBS.contains(company))) {
+            throw new IllegalArgumentException("Нельзя работать нигде, кроме Google, Uber или Amazon (извини).");
+        }
+        if (!(VALID_ADDRESSES.contains(adress))) {
+            throw new IllegalArgumentException("Нельзя жить нигде, кроме London, New York или Amsterdam (такая жизнь)");
+        }
     }
 }
