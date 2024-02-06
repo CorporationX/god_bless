@@ -1,4 +1,4 @@
-package faang.school.godbless.abstractions;
+package faang.school.godbless.r_edzie.abstractions;
 
 public abstract class Character {
     private String name;
