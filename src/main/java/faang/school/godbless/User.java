@@ -20,7 +20,7 @@ public class User {
     }
 
     public static <List> void main(String args[]){
-        List<String> users = new ArrayList<>();
+        List<User> users = new ArrayList<>();
     }
 }
 
