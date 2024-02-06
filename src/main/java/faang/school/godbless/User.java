@@ -27,7 +27,6 @@ public class User {
         this.aktiv = aktiv;
     }
 
-
     public static Map<User, String> findHobbyLovers(List<User> users, String[] checkingHobbies){
         Map<User, String> hobbyLoversMap = new HashMap<>();
         for (User user : users){
