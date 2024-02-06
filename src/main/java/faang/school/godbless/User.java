@@ -52,6 +52,7 @@ public class User {
         String[] hobbies2 = {"reading", "programming"};
         String[] hobbies3 = {"programming", "horses"};
         String[] hobbies4 = {"football", "horses"};
+
         String[] checkingHobbies = {"programming", "reading"};
 
         User person1 = new User(1,"Karl", 20, hobbies1);
