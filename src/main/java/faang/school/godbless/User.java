@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +12,8 @@ public class User {
     private int age;
     private String[] aktiv;
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public String[] getAktiv() {
@@ -34,13 +27,16 @@ public class User {
         this.aktiv = aktiv;
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, String[] aktivis){
+
+    public static Map<User, String> findHobbyLovers(List<User> users, String[] checkingHobbies){
         Map<User, String> hobbyLoversMap = new HashMap<>();
         for (User user : users){
             String[] userAktivis = user.getAktiv();
             for (String activity : userAktivis){
-                hobbyLoversMap.put(user, activity);
-                break;
+                if(Arrays.asList(checkingHobbies).contains(activity)) {
+                    hobbyLoversMap.put(user, activity);
+                    break;
+                }
             }
         }
         return hobbyLoversMap;
@@ -56,7 +52,7 @@ public class User {
         String[] hobbies2 = {"reading", "programming"};
         String[] hobbies3 = {"programming", "horses"};
         String[] hobbies4 = {"football", "horses"};
-        String[] hobbies5 = {"programming", "reading"};
+        String[] checkingHobbies = {"programming", "reading"};
 
         User person1 = new User(1,"Karl", 20, hobbies1);
         User person2 = new User(2,"Mary", 28, hobbies2);
@@ -68,7 +64,7 @@ public class User {
         users.add(person3);
         users.add(person4);
 
-        Map<User,String> findingHobbyLovers = findHobbyLovers(users, hobbies5);
+        Map<User,String> findingHobbyLovers = findHobbyLovers(users, checkingHobbies);
 
         for(Map.Entry<User, String> entry : findingHobbyLovers.entrySet()){
             User user = entry.getKey();
