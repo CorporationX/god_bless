@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class User {
     private int id;
@@ -19,8 +20,9 @@ public class User {
 
     }
 
-    public static <List> void main(String args[]){
+    public static void main(String args[]){
         List<User> users = new ArrayList<>();
+        
     }
 }
 
