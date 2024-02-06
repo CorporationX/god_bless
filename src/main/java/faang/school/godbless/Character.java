@@ -44,7 +44,7 @@ class Archer extends Character{
 
     @Override
     public void attack(Character character) {
-        System.out.println("Наносит урон от своей ловкости: " + agility);
+        System.out.println("Наносит урон от своей ловкости:  " + agility);
     }
 
 }
