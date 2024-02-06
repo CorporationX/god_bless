@@ -14,25 +14,25 @@ public class User {
     private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
+        validUser(name, age, job, address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+
+    private static void validUser(String name, int age, String job, String address) {
         if (name == null) {
-            throw new IllegalArgumentException();
-        } else {
-            this.name = name;
+            throw new IllegalArgumentException("Не ввели имя");
         }
         if (age < 18) {
-            throw new IllegalArgumentException();
-        } else {
-            this.age = age;
+            throw new IllegalArgumentException("Возраст меньше 18");
         }
         if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
-        } else {
-            this.job = job;
+            throw new IllegalArgumentException("Ваш работодатель не подходит");
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
-        } else {
-            this.address = address;
+            throw new IllegalArgumentException("Ваш город проживания не подходит");
         }
     }
 }
