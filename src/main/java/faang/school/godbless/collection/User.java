@@ -12,7 +12,6 @@ public class User{
     private int age;
     private String workPlace;
     private String address;
-
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     public User(String name, int age, String workPlace, String address) throws IllegalArgumentException {
