@@ -16,10 +16,10 @@ public class App {
         if (age < 18) {
             throw new IllegalArgumentException("Age is not valid!");
         }
-        if (VALID_JOBS.contains(work)) {
+        if (!VALID_JOBS.contains(work)) {
             throw new IllegalArgumentException("Work is not in the VALID_JOBS");
         }
-        if (VALID_ADDRESSES.contains(address)) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address is not in the VALID_ADDRESSES");
         }
         this.name = name;
