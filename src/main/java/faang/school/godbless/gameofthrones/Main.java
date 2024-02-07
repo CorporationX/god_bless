@@ -27,13 +27,24 @@ public class Main {
     }
 
     public static void printSigilByName(String name) {
-        String sigil = houses.get(name).getSigil();
-        System.out.println(sigil);
+        House house = houses.get(name);
+        if (house != null) {
+            System.out.println(house.getSigil());
+        }
+        else {
+            System.out.println("Error: house does not exist");
+        }
     }
 
     public static void printAll() {
         for (var entry : houses.entrySet()) {
-            System.out.println(String.format("House: %s, Sigil: %s", entry.getKey(), entry.getValue().getSigil()));
+            House house = entry.getValue();
+            if (house != null) {
+                System.out.println(String.format("House: %s, Sigil: %s", entry.getKey(), house.getSigil()));
+            }
+            else {
+                System.out.println("Error: house does not exist");
+            }
         }
     }
 }
