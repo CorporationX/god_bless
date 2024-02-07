@@ -1,4 +1,4 @@
-package faang.school.godbless.cache;
+package faang.school.godbless.hash_map.cache;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;

@@ -1,4 +1,4 @@
-package faang.school.godbless.game_of_thrones;
+package faang.school.godbless.hash_map.game_of_thrones;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

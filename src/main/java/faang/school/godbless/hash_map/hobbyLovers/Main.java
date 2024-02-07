@@ -1,4 +1,4 @@
-package faang.school.godbless.hobbyLovers;
+package faang.school.godbless.hash_map.hobbyLovers;
 
 import java.util.HashMap;
 import java.util.List;

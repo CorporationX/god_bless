@@ -1,4 +1,4 @@
-package faang.school.godbless.hobbyLovers;
+package faang.school.godbless.hash_map.hobbyLovers;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

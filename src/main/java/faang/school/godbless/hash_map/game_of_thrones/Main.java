@@ -1,4 +1,4 @@
-package faang.school.godbless.game_of_thrones;
+package faang.school.godbless.hash_map.game_of_thrones;
 import java.util.HashMap;
 import java.util.Map;
 

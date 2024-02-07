@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.java_core.abstraction;
 
 public class Application {
     public static void main(String... args) {

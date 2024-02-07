@@ -1,4 +1,4 @@
-package faang.school.godbless.group_user;
+package faang.school.godbless.java_core.group_user;
 
 import lombok.Getter;
 

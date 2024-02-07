@@ -1,4 +1,4 @@
-package faang.school.godbless.reverse;
+package faang.school.godbless.java_core.reverse;
 
 import java.util.Arrays;
 
