@@ -8,8 +8,8 @@ public class User {
     private String work;
     private String address;
 
-    public final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String work, String address) throws IllegalArgumentException {
         if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(work) && VALID_ADDRESSES.contains(address)) {
