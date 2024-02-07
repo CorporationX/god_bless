@@ -22,6 +22,7 @@ class Main {
         add(andrey);
         add(denis);
         add(anton);
+        add(ilya);
         info();
         remove(kirill.getName(), kirill.getFaculty(), kirill.getYear());
         info();
@@ -30,7 +31,7 @@ class Main {
         System.out.println(infoFaculty("Sport", 2));
     }
 
-    private static Map<Faculty, List<Student>> university(List<Student> students) {
+    public static Map<Faculty, List<Student>> university(List<Student> students) {
         HashMap<Faculty, List<Student>> facultyMap = new HashMap<>();
         for (Student student : students) {
             Faculty facultyStudent = new Faculty(student.getFaculty(), student.getYear());
@@ -42,23 +43,23 @@ class Main {
         return facultyMap;
     }
 
-    private static void add(Student student) {
+    public static void add(Student student) {
         mapStudent.put(student, mapStudent.size());
         studentList.add(student);
     }
 
-    private static void remove(String name, String faculty, int year) {
+    public static void remove(String name, String faculty, int year) {
         int index = mapStudent.get(new Student(name, faculty, year));
         studentList.remove(index);
     }
 
-    private static void info(){
+    public static void info(){
         System.out.println(university(studentList));
     }
-    private static String infoFaculty(String faculty, int year){
-        Faculty faculty_university = new Faculty(faculty, year);
-        var hashmap_faculty = university(studentList);
-        List<Student> stringListStudent = hashmap_faculty.get(faculty_university);
+    public static String infoFaculty(String faculty, int year){
+        Faculty facultyUniversity = new Faculty(faculty, year);
+        var hashmapFaculty = university(studentList);
+        List<Student> stringListStudent = hashmapFaculty.get(facultyUniversity);
         return stringListStudent == null ? "Нету студентов этого факультета" : stringListStudent.toString();
     }
 }
