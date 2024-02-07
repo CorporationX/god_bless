@@ -20,15 +20,11 @@ public class Main {
     }
 
     public static void removeHouseFromMap(Map<String, House> map, String name) {
-        if (map.containsKey(name)) {
-            map.remove(name);
-        } else {
-            System.out.printf("%s's house is not present in Westeros%n", name);
-        }
+        map.remove(name);
     }
 
     public static void printSigilInfo(Map<String, House> map, String name) {
-        if (map.containsKey(name)) {
+        if (map.get(name) != null) {
             System.out.printf("The sigil of %s's house is %s%n", name, map.get(name).getSigil());
         } else {
             System.out.printf("%s's house is not present in Westeros%n", name);
@@ -38,7 +34,7 @@ public class Main {
     public static void printAllHousesInfo(Map<String, House> map) {
         System.out.println("YOU CAN SEE ALL THE INFO ABOUT WESTEROS HOUSES BELOW");
         for (Map.Entry<String, House> entry : map.entrySet()) {
-            if (map.containsKey(entry.getKey())) {
+            if (map.get(entry.getKey()) != null) {
                 System.out.printf("House: %s - Sigil: %s\n", entry.getKey(), entry.getValue().getSigil());
             }
         }
