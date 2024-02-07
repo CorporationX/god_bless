@@ -16,4 +16,5 @@ import lombok.ToString;
 public class House {
     private final String name;
     private final String sigil;
+
 }

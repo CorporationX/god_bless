@@ -24,6 +24,7 @@ public class Main {
     public static void delete(String name){
         map.remove(name);
     }
+
     public static void searchForHouse(String name){
         if (map.containsKey(name)){
             System.out.println("House " + name + "'s is " + map.get(name).getSigil());
