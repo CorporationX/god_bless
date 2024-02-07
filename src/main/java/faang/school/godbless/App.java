@@ -35,6 +35,9 @@ public class App {
     }
 
     public String getName() {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name can not be empty, please fill it!");
+        }
         return name;
     }
 
@@ -46,10 +49,16 @@ public class App {
     }
 
     public String getWork() {
+        if (VALID_JOBS.contains(work)) {
+            throw new IllegalArgumentException("Work not in the Set VALID_JOBS");
+        }
         return work;
     }
 
     public String getAddress() {
+        if (VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Address is not in the Set VALID_ADDRESSES");
+        }
         return address;
     }
 
