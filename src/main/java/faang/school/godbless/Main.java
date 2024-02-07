@@ -17,7 +17,7 @@ public class Main {
 
         groupedUser.forEach((age, users)->{
             System.out.println(age + ":" );
-            users.forEach(user->System.out.println("Names" + user.getName()));
+            users.forEach(user->System.out.println("Name: " + user.getName()));
             System.out.println();
         });
 
