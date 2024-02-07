@@ -37,8 +37,7 @@ public class Main {
 
         System.out.println();
 
-
-        printAllEventType();
+        printAllEvents();
     }
 
     public static void add(StreamEvent streamEvent) {
@@ -61,7 +60,7 @@ public class Main {
         EVENTS.remove(id);
     }
 
-    public static void printAllEventType() {
+    public static void printAllEvents() {
         for (Map.Entry<Integer, StreamEvent> entry : EVENTS.entrySet()) {
             System.out.println(entry);
         }
