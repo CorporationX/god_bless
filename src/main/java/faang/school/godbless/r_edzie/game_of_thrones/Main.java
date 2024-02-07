@@ -33,13 +33,27 @@ public class Main {
     }
 
     public static String find(String name) {
-        return HOUSES.get(name).getSigil();
+        House foundHouse = HOUSES.get(name);
+
+        if (foundHouse == null) {
+            return "Not Found";
+        }
+
+        return foundHouse.getSigil();
     }
 
     public static void printAll() {
         for (Map.Entry<String, House> entry : HOUSES.entrySet()) {
             String name = entry.getKey();
-            String sigil = entry.getValue().getSigil();
+            House foundHouse = entry.getValue();
+
+            if (foundHouse == null) {
+                System.out.println("Not Found");
+                return;
+            }
+
+            String sigil = foundHouse.getSigil();
+
             System.out.println(name + " " + sigil);
         }
     }
