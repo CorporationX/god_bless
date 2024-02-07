@@ -15,5 +15,4 @@ public class FacultyYearPair {
         this.faculty = faculty;
         this.year = year;
     }
-
 }
