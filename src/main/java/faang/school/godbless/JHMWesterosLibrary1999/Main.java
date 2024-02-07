@@ -17,8 +17,6 @@ public class Main {
         printAllBooksInfo();
         removeBookFromLibrary("The Fires of the Freehold", "Galendro", 285);
         printAllBooksInfo();
-
-
     }
 
     public static void addBookToLibrary(String title, String author, int year) {
@@ -44,30 +42,22 @@ public class Main {
     }
 
     public static void removeBookFromLibrary(String title, String author, int year) {
-        library.remove(searchBook(title, author, year));
+        library.remove(new Book(title, author, year));
     }
 
     public static void printBookPlacement(String title, String author, int year) {
-        System.out.println(library.get(searchBook(title, author, year)));
-    }
-
-    private static Book searchBook(String title, String author, int year) {
-        for (Map.Entry<Book, String> book : library.entrySet()) {
-            if (book.getKey().getTitle() == title &&
-                    book.getKey().getAuthor() == author &&
-                    book.getKey().getYear() == year) {
-                return book.getKey();
-            }
-        }
-        throw new IllegalArgumentException(String.format("There's no book such as %s by %s released in %d in our library",
-                title, author, year));
+        System.out.println(library.get(new Book(title, author, year)));
     }
 
     public static void printAllBooksInfo() {
         int count = 1;
         for (Map.Entry<Book, String> book : library.entrySet()) {
-            System.out.printf("%d. %s by %s released in %d%n",
-                    count, book.getKey().getTitle(), book.getKey().getAuthor(), book.getKey().getYear());
+            String title = book.getKey().getTitle();
+            String author = book.getKey().getAuthor();
+            int year = book.getKey().getYear();
+            System.out.printf("%d. \"%s\" by %s released in %d AC. ",
+                    count, title, author, year);
+            printBookPlacement(title, author, year);
             count++;
         }
     }
