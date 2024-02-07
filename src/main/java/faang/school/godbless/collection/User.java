@@ -42,7 +42,6 @@ public class User {
         User user = (User) o;
         return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(userActivities, user.userActivities);
     }
-
     @Override
     public int hashCode() {
         return Objects.hash(id, name, age, userActivities);
