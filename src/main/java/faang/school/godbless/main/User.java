@@ -8,6 +8,20 @@ public class User {
     private String work;
     private String address;
 
+    public final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    public User(String name, int age, String work, String address) throws IllegalArgumentException {
+        if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(work) && VALID_ADDRESSES.contains(address)) {
+            this.name = name;
+            this.age = age;
+            this.work = work;
+            this.address = address;
+        } else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
