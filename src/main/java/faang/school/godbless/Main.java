@@ -8,12 +8,12 @@ public class Main {
     public static void main(String[] args) {
         //UserGroup.groupUsers();
 
-        List<UserGroup> list= Arrays.asList(
-                new UserGroup("Sasha", 25, "VK", "Moscow"),
-                new UserGroup("Behzod", 24, "MTC", "S.Petersburg"),
-                new UserGroup("Masha", 30, "Sber", "Kazan"));
+        List<App> list= Arrays.asList(
+                new App("Sasha", 25, "VK", "Moscow"),
+                new App("Behzod", 24, "MTC", "S.Petersburg"),
+                new App("Masha", 30, "Sber", "Kazan"));
 
-        Map<Integer, List<UserGroup>> groupedUser=UserGroup.groupUsers(list);
+        Map<Integer, List<App>> groupedUser= App.groupUsers(list);
 
         groupedUser.forEach((age, users)->{
             System.out.println(age + ":" );

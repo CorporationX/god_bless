@@ -3,12 +3,12 @@ package faang.school.godbless;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UserGroup {
+public class App {
     private String name;
     private int age;
     private String work;
     private String address;
-    public UserGroup(String name, int age, String work, String address){
+    public App(String name, int age, String work, String address){
         this.name=name;
         this.age=age;
         this.work=work;
@@ -44,7 +44,7 @@ public class UserGroup {
         return getAddress();
     }
 
-    public static Map<Integer,  List<UserGroup>>groupUsers(List<UserGroup>users){
-        return users.stream().collect(Collectors.groupingBy(UserGroup::getAge));
+    public static Map<Integer,  List<App>>groupUsers(List<App>users){
+        return users.stream().collect(Collectors.groupingBy(App::getAge));
     }
 }
