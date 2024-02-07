@@ -31,10 +31,15 @@ public class Main {
 
     public static void printAll() {
         for (var entry : bookLocations.entrySet()) {
-            System.out.println(String.format("Title: %s, Author: %s, Year: %s, Location: %s", entry.getKey().getTitle(),
-                                                                                              entry.getKey().getAuthor(),
-                                                                                              entry.getKey().getYear(),
-                                                                                              entry.getValue()));
+            if (entry.getKey() != null) {
+                System.out.println(String.format("Title: %s, Author: %s, Year: %s, Location: %s", entry.getKey().getTitle(),
+                                                                                                  entry.getKey().getAuthor(),
+                                                                                                  entry.getKey().getYear(),
+                                                                                                  entry.getValue()));
+            }
+            else {
+                System.out.println("Error: book is null");
+            }
         }
     }
 }
