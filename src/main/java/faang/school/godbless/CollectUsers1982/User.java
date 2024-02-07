@@ -1,10 +1,17 @@
 package faang.school.godbless.CollectUsers1982;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Getter
+@Setter
+@EqualsAndHashCode
 public class User {
     private int id;
     private String name;
