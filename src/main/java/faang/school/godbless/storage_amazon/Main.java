@@ -10,7 +10,7 @@ import java.util.Set;
 public class Main {
     private static final Set<Product> PRODUCT_SET = new HashSet<>();
 
-    private static Map<String, List<Product>> categoryMap = new HashMap<>();
+    private static Map<String, List<Product>> categoryMap;
 
     public static void main(String[] args) {
         addProduct(1, "Вискас", "Корм");
@@ -26,7 +26,7 @@ public class Main {
         printProduct();
     }
 
-    private static Map<String, List<Product>> productCategory(Set<Product> productSet){
+    public static Map<String, List<Product>> productCategory(Set<Product> productSet){
         Map<String, List<Product>> categoryMap = new HashMap<>();
         for (Product product : productSet){
             String category = product.getCategory();
@@ -38,11 +38,11 @@ public class Main {
         return categoryMap;
     }
 
-    private static void addProduct(int id, String name, String category){
+    public static void addProduct(int id, String name, String category){
         PRODUCT_SET.add(new Product(id, name, category));
     }
 
-    private static void printProduct(){
+    public static void printProduct(){
         for (Map.Entry<String, List<Product>> entry: categoryMap.entrySet()){
             System.out.println(entry.getKey() + " | " + entry.getValue());
         }
