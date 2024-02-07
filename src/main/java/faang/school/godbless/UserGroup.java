@@ -24,19 +24,6 @@ public class UserGroup {
     VALID_JOBS.add("New York");
     VALID_JOBS.add("Amsterdam");*/
 
-    public String getName(){
-
-        if(getName().isEmpty()){
-
-        }
-        return name;
-    }
-    public Integer getAge(){
-        if(getAge()<18){
-
-        }
-        return age;
-    }
     public String getWork(){
         return work;
     }
