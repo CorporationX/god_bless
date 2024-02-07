@@ -38,18 +38,18 @@ public class Main {
     }
 
     public static Map<FacultyYearPair, List<Student>> groupStudents(List<Student> students) {
-        Map<FacultyYearPair, List<Student>> result = new HashMap<>();
+        Map<FacultyYearPair, List<Student>> groupedStudents = new HashMap<>();
 
         for (Student student : students) {
             FacultyYearPair key = new FacultyYearPair(student.getFaculty(), student.getYear());
-            if (!(result.containsKey(key))) {
-                result.put(key, new ArrayList<>());
-                result.get(key).add(student);
+            if (!(groupedStudents.containsKey(key))) {
+                groupedStudents.put(key, new ArrayList<>());
+                groupedStudents.get(key).add(student);
             } else {
-                result.get(key).add(student);
+                groupedStudents.get(key).add(student);
             }
         }
-        return result;
+        return groupedStudents;
     }
 
     public static void addStudentToMap(Map<FacultyYearPair, List<Student>> map, Student student) {

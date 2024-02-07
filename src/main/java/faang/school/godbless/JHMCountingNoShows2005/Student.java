@@ -4,8 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.management.ConstructorParameters;
-
 @Getter
 @Setter
 @EqualsAndHashCode
