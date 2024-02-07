@@ -15,17 +15,6 @@ public class UserGroup {
         this.address=address;
     }
 
-    static final Set<String> VALID_JOBS=new HashSet<>();
-    VALID_JOBS.add("Google");
-    VALID_JOBS.add("Uber");
-    VALID_JOBS.add("Amazon");
-
-    static final Set<String> VALID_ADDRESSES=new HashSet<>();
-    VALID_JOBS.add("London");
-    VALID_JOBS.add("New York");
-    VALID_JOBS.add("Amsterdam");
-
-
     public String getName(){
 
         if(getName().isEmpty()){
