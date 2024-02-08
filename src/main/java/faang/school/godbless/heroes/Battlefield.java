@@ -27,9 +27,11 @@ public class Battlefield {
             if (!isAlive(defender)) {
                 if (turn % 2 == 0) {
                     secondHero.removeCreature(defender);
+                    secondHeroArmy = secondHero.getArmy();
                 }
                 else {
                     firstHero.removeCreature(defender);
+                    firstHeroArmy = firstHero.getArmy();
                 }
             }
             turn++;

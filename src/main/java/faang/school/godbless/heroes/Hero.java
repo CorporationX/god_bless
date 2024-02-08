@@ -3,7 +3,9 @@ package faang.school.godbless.heroes;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 public class Hero {
@@ -12,7 +14,7 @@ public class Hero {
     private String fraction;
     private int experience;
     private int level;
-    private List<Creature> creatures = new ArrayList<>();
+    private Map<Creature, Integer> army = new HashMap<>();
 
     public Hero(String name, String fraction, int experience, int level) {
         this.name = name;
@@ -22,21 +24,15 @@ public class Hero {
     }
 
     public void addCreature(Creature creature, int quantity) {
-        int minionIndex = creatures.indexOf(creature);
-        if (minionIndex >= 0) {
-            creatures.get(minionIndex).setCount(creatures.get(minionIndex).getCount() + quantity);
-        }
-        else {
-            creature.setCount(quantity);
-            creatures.add(creature);
-        }
+        creature.setCount(quantity);
+        army.putIfAbsent(creature, quantity);
     }
 
     public void removeCreature(Creature creature) {
-        creatures.remove(creature);
+        army.remove(creature);
     }
 
     public List<Creature> getArmy() {
-        return creatures;
+        return new ArrayList<>(army.keySet());
     }
 }
