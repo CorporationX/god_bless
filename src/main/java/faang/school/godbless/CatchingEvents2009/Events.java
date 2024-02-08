@@ -17,5 +17,4 @@ public class Events {
     public static final String EVENTTYPE_2 = "Type2";
     public static final String EVENTTYPE_3 = "Type3";
     public static final String EVENTTYPE_4 = "Type4";
-
 }

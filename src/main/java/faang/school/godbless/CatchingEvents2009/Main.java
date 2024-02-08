@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    static Map<Integer, StreamEvent> eventMap = new HashMap<>(); //id and Event
-    static Map<String, List<StreamEvent>> groupedEvents = new HashMap<>(); //EventType and Events
+    static Map<Integer, StreamEvent> eventMap = new HashMap<>();
+    static Map<String, List<StreamEvent>> groupedEvents = new HashMap<>();
     static int id = 1;
 
     public static void main(String[] args) {
@@ -38,14 +38,14 @@ public class Main {
         try {
             System.out.println(findEventById(4).toString());
         } catch (IllegalArgumentException exception) {
-            System.out.println(exception);
+            System.out.println(exception.getMessage());
         }
 
         System.out.println("TEST 6: Test findEventsByType method (type3)");
         try {
             System.out.println(findEventsByType(Events.EVENTTYPE_3).toString());
         } catch (IllegalArgumentException exception) {
-            System.out.println(exception);
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -62,10 +62,10 @@ public class Main {
         eventMap.remove(id);
         int count = 0;
         for (var entry : groupedEvents.entrySet()) {
-            if(entry.getValue().get(count).getId() == id) {
+            if (entry.getValue().get(count).getId() == id) {
                 entry.getValue().remove(count);
             }
-            count ++;
+            count++;
         }
     }
 
