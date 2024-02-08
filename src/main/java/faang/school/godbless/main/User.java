@@ -10,9 +10,10 @@ public class User {
 
     private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final int adultAge = 18;
 
     public User(String name, int age, String work, String address) throws IllegalArgumentException {
-        if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(work) && VALID_ADDRESSES.contains(address)) {
+        if (!name.isEmpty() && age >= adultAge && VALID_JOBS.contains(work) && VALID_ADDRESSES.contains(address)) {
             this.name = name;
             this.age = age;
             this.work = work;
