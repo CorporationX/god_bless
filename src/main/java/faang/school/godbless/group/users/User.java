@@ -13,14 +13,11 @@ public class User {
     private Set<String> activities;
     private String adress;
     private String workPlace;
-    private static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(int id, String name, int age, Set<String> activities, String adress, String workPlace) {
-        if(name == null || name.isEmpty()) throw new IllegalArgumentException("Не указано имя");
-        if (age<18) throw new IllegalArgumentException("Возраст не соотвуетсвует условиям");
-        if (VALID_ADDRESSES.contains(adress)) throw new IllegalArgumentException("Адресс не соотвуетсвует условиям");
-        if (VALID_JOBS.contains(adress)) throw new IllegalArgumentException("Место работы не соотвуетсвует условиям");
+        validation(name, age, adress, workPlace);
         this.id = id;
         this.name = name;
         this.age = age;
@@ -59,5 +56,13 @@ public class User {
             }
         }
         return usersWithActivities;
+    }
+
+    private void validation(String name, int age, String adress, String workPlace) {
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Не указано имя");
+        if (age < 18) throw new IllegalArgumentException("Возраст не соотвуетсвует условиям");
+        if (!(VALID_ADDRESSES.contains(adress))) throw new IllegalArgumentException("Адресс не соотвуетсвует условиям");
+        if (!(VALID_JOBS.contains(workPlace)))
+            throw new IllegalArgumentException("Место работы не соотвуетсвует условиям");
     }
 }
