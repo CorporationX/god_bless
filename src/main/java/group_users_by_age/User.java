@@ -1,5 +1,10 @@
 package group_users_by_age;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class User {
     private String name;
     private int age;
@@ -31,6 +36,24 @@ public class User {
         this.age = age;
         this.workPlace = workPlace;
         this.address = address;
+    }
+    public static Map<Integer, List<User>> groupUsers(List<User> userList){
+        Map<Integer,List<User>> groupUsers = new HashMap<>();
+        for (User user: userList){
+            if (!(groupUsers.containsKey(user.age)))
+                groupUsers.put(user.age, new ArrayList<>());
+
+            groupUsers.get(user.age).add(user);
+        }
+
+
+        return groupUsers;
+    }
+
+    public static void main(String[] args) {
+        User bill = new User("Bill", 23, "Apple", "Los Angeles");
+        User anton = new User("Anton", 24, "VTB", "Moscow");
+        User marat = new User("Marat", 35, "Sber", "Moscow");
     }
 
 }
