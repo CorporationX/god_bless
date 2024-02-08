@@ -43,6 +43,7 @@ public class User {
             if (!(groupUsers.containsKey(user.age)))
                 groupUsers.put(user.age, new ArrayList<>());
 
+
             groupUsers.get(user.age).add(user);
         }
 
