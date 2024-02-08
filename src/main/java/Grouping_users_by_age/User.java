@@ -15,6 +15,10 @@ public class User {
         return age;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public User (String name, Integer age, String place_of_work, String address) {
      this.name = name;
      this.age = age;
