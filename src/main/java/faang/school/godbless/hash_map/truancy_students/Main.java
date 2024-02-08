@@ -1,4 +1,4 @@
-package faang.school.godbless.truancy_students;
+package faang.school.godbless.hash_map.truancy_students;
 
 import java.util.ArrayList;
 import java.util.HashMap;

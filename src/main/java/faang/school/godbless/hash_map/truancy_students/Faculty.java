@@ -1,17 +1,15 @@
-package faang.school.godbless.truancy_students;
+package faang.school.godbless.hash_map.truancy_students;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Objects;
-@AllArgsConstructor
-@ToString
 @EqualsAndHashCode
+@AllArgsConstructor
 @Getter
-public class Student {
-    private String name;
+@ToString
+public class Faculty {
     private String faculty;
     private int year;
 }

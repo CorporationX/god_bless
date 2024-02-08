@@ -1,4 +1,4 @@
-package faang.school.godbless.catchingEvents;
+package faang.school.godbless.hash_map.catchingEvents;
 
 import java.util.ArrayList;
 import java.util.HashMap;

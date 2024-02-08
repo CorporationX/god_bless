@@ -1,4 +1,4 @@
-package faang.school.godbless.storage_amazon;
+package faang.school.godbless.hash_map.storage_amazon;
 
 import java.util.ArrayList;
 import java.util.HashMap;
