@@ -5,8 +5,8 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @ToString
-
 public abstract class Creature {
+
     protected String name;
     protected int lvl;
     protected int attack;

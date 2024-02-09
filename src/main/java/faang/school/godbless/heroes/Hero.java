@@ -3,6 +3,7 @@ package faang.school.godbless.heroes;
 import java.util.HashMap;
 import java.util.Map;
 public class Hero {
+
     private String name;
     private String fraction;
     private int experience;

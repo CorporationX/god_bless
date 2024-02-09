@@ -3,6 +3,7 @@ package faang.school.godbless.heroes;
 
 
 public class BattleField {
+
     public static void battle(Hero hero1, Hero hero2){
         int power1 = 0;
         int power2 = 0;
