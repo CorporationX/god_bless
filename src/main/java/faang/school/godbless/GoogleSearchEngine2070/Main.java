@@ -31,7 +31,7 @@ public class Main {
                 webPages.put(word, new ArrayList<>());
             }
             if (!webPages.get(word).contains(webPage)) {
-            webPages.get(word).add(webPage);
+                webPages.get(word).add(webPage);
             }
         }
     }
