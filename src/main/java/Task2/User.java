@@ -17,8 +17,18 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address){
-        if(name.isBlank() || age < AGE || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)){
-            throw new IllegalArgumentException();
+        validation(name,age,job,address);
+    }
+    private void validation(String name, int age, String job, String address){
+        boolean result = false;
+        if(name.isBlank()){
+            throw new IllegalArgumentException("Поле 'имя' не заполнено");
+        }else if(age < AGE){
+            throw new IllegalArgumentException("Вам меньше 18 лет");
+        }else if(!VALID_JOBS.contains(job)){
+            throw new IllegalArgumentException("Место работы не найдено");
+        }else if(!VALID_ADDRESSES.contains(address)){
+            throw new IllegalArgumentException("Адрес не найден");
         }else{
             this.name = name;
             this.age = age;
