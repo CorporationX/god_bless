@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.*;
 
@@ -32,7 +31,6 @@ public class User {
                     hobbyLovers.put(user, activity);
                     break;
                 }
-
             }
         }
         return hobbyLovers;
@@ -41,7 +39,4 @@ public class User {
     public static void main(String[] args) {
 
     }
-
-
-
 }
