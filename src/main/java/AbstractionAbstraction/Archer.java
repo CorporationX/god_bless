@@ -6,6 +6,7 @@ public class Archer extends Character {
     }
 
     public void attack(Character character) {
+        if(super.getAgility()>character.getHealth()) character.setHealth(0);
         character.setHealth((character.getHealth() - super.getAgility()));
     }
 }

@@ -8,10 +8,15 @@ public abstract class Character {
     private int health = 100;
 
     public Character(String name) {
+        validationCharCreate(name, 0, 0, 0);
         this.name = name;
+        this.force = 0;
+        this.agility = 0;
+        this.intelligence = 0;
     }
 
     public Character(String name, int force, int agility, int intelligence) {
+        validationCharCreate(name, force, agility, intelligence);
         this.name = name;
         this.force = force;
         this.agility = agility;
@@ -46,5 +51,12 @@ public abstract class Character {
         return agility;
     }
 
-    public abstract void attack (Character character);
+    public abstract void attack(Character character);
+
+    private void validationCharCreate(String name, int force, int agility, int intelligence) {
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Не указано имя");
+        if (force < 0 || force > 100) throw new IllegalArgumentException("Некорректный показатель силы");
+        if (agility < 0 || agility > 100) throw new IllegalArgumentException("Некорректный показатель лвокости");
+        if (intelligence < 0) throw new IllegalArgumentException("Некорректный показатель интеллекта");
+    }
 }

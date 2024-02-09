@@ -7,6 +7,7 @@ public class Warrior extends Character {
     }
 
     public void attack(Character character) {
+        if(super.getForce()>character.getHealth()) character.setHealth(0);
         character.setHealth((character.getHealth() - super.getForce()));
     }
 
