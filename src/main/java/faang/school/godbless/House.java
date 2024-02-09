@@ -11,8 +11,13 @@ public class House {
     @Getter
     private String sigil;
 
-    public class House(){
-        this.name=name;
-        this.sigil=sigil;
+    public House(String name, String sigil) {
+        this.name = name;
+        this.sigil = sigil;
+    }
+
+    @Override
+    public String toString() {
+        return  name + " " + sigil;
     }
 }
