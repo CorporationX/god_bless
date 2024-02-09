@@ -1,12 +1,17 @@
 package faang.school.godbless;
 
+import lombok.Getter;
+
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class App {
+    @Getter
     private String name;
+    @Getter
     private int age;
+    @Getter
     private String work;
+    @Getter
     private String address;
 
     public App(String name, int age, String work, String address) {
@@ -44,22 +49,6 @@ public class App {
         VALID_ADDRESSES.add("London");
         VALID_ADDRESSES.add("New York");
         VALID_ADDRESSES.add("Amsterdam");
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public String getWork() {
-        return work;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
 }
