@@ -41,9 +41,9 @@ public class App {
 
     static {
         VALID_ADDRESSES = new HashSet<>();
-        VALID_JOBS.add("London");
-        VALID_JOBS.add("New York");
-        VALID_JOBS.add("Amsterdam");
+        VALID_ADDRESSES.add("London");
+        VALID_ADDRESSES.add("New York");
+        VALID_ADDRESSES.add("Amsterdam");
     }
 
     public String getName() {
