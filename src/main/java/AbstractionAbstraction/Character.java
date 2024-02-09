@@ -17,4 +17,34 @@ public abstract class Character {
         this.agility = agility;
         this.intelligence = intelligence;
     }
+
+    public void setForce(int force) {
+        this.force = force;
+    }
+
+    public void setAgility(int agility) {
+        this.agility = agility;
+    }
+
+    public void setIntelligence(int intelligence) {
+        this.intelligence = intelligence;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getForce() {
+        return force;
+    }
+
+    public int getAgility() {
+        return agility;
+    }
+
+    public abstract void attack (Character character);
 }

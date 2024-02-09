@@ -1,19 +1,13 @@
 package AbstractionAbstraction;
 
-public class Warrior {
-    private String name;
-    private int force = 10;
-    private int agility = 5;
-    private int intelligence = 3;
-    private int health = 100;
+public class Warrior extends Character {
 
-    @Override
-    Warrior(String name) {
-        this.name = name;
+    public Warrior(String name) {
+        super(name, 10, 5, 3);
     }
 
-    @Override
-    Warrior(String name, int force, int agility, int intelligence) {
-        this.name = name;
+    public void attack(Character character) {
+        character.setHealth((character.getHealth() - super.getForce()));
     }
+
 }
