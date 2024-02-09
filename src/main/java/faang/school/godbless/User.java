@@ -26,7 +26,7 @@ public class User {
 
         for (User usFor : users) {
             for (String activUsFor : usFor.activity) {
-                boolean compite= false;
+                boolean compite = false;
                 for (String activFor : activity) {
                     if (activFor.equals(activUsFor)) {
                         userActivity.put(usFor, activUsFor);
@@ -34,7 +34,7 @@ public class User {
                         break;
                     }
                 }
-                if(compite) {
+                if (compite) {
                     break;
                 }
             }
