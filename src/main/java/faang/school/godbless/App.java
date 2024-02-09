@@ -50,5 +50,4 @@ public class App {
         VALID_ADDRESSES.add("New York");
         VALID_ADDRESSES.add("Amsterdam");
     }
-
 }
