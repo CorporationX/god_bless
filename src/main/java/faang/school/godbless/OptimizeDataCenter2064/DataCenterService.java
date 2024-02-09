@@ -2,7 +2,6 @@ package faang.school.godbless.OptimizeDataCenter2064;
 
 import lombok.Getter;
 
-import javax.xml.crypto.Data;
 import java.util.List;
 
 @Getter
