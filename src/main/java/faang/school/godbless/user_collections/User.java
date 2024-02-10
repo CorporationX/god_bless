@@ -3,6 +3,7 @@ package faang.school.godbless.user_collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 public class User {
@@ -33,12 +34,23 @@ public class User {
         }
         return usersWithActivities;
     }
-    public String hasFirstCommonActivity(Set<String> userActivities, Set<String> activities){
+    private String hasFirstCommonActivity(Set<String> userActivities, Set<String> activities){
            for(String activity : userActivities){
                if(activities.contains( activity )){
                    return activity;
                }
            }
         return null;
+    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && age == user.age && Objects.equals(name, user.name );
+    }
+    @Override
+    public int hashCode() {
+        return Objects.hash( id, name, age );
     }
 }
