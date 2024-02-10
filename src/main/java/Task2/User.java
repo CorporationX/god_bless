@@ -2,7 +2,6 @@ package Task2;
 
 import lombok.Data;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -18,9 +17,12 @@ public class User {
 
     public User(String name, int age, String job, String address){
         validation(name,age,job,address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
     private void validation(String name, int age, String job, String address){
-        boolean result = false;
         if(name.isBlank()){
             throw new IllegalArgumentException("Поле 'имя' не заполнено");
         }else if(age < AGE){
@@ -29,11 +31,6 @@ public class User {
             throw new IllegalArgumentException("Место работы не найдено");
         }else if(!VALID_ADDRESSES.contains(address)){
             throw new IllegalArgumentException("Адрес не найден");
-        }else{
-            this.name = name;
-            this.age = age;
-            this.job = job;
-            this.address = address;
         }
     }
 }
