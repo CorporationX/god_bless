@@ -9,7 +9,8 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class testUserHashMap {
-    @Test
+
+        @Test
         public void Map(){
         Map<User, String> userMap=new HashMap<>();
         User user1=new User(1, "Behzod", 24, Set.of("Хокей", "Футбол", "Программирование"));
@@ -18,13 +19,14 @@ public class testUserHashMap {
 
         userMap.put(user1, "Бег");
         userMap.put(user2, "Шахматы");
+        userMap.put(user3, "Походы");
 
         //remove
         userMap.remove("Плавание");
         assertEquals(1, userMap.size());
         assertFalse(userMap.containsKey(user1));
 
-        //проверка eqauls()
+        //проверка equals()
         assertTrue(user1.equals(user2));
 
         //проверка hashcode
