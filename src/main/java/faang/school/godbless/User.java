@@ -35,7 +35,6 @@ public class User {
             throw new IllegalArgumentException("Address is not in the VALID_ADDRESSES");
         }
     }
-
     public static final Set<String> VALID_JOBS;
 
     static {
@@ -44,7 +43,6 @@ public class User {
         VALID_JOBS.add("Uber");
         VALID_JOBS.add("Amazon");
     }
-
     public static final Set<String> VALID_ADDRESSES;
 
     static {
