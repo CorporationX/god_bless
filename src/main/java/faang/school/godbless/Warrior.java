@@ -12,6 +12,7 @@ public class Warrior extends Character {
     @Override
     public void attack(Character targetCharacter) {
         targetCharacter.health -= POWER_OF_Warrior;
+        System.out.println(this.name + " Нанес урон противинику: " + " " + targetCharacter.name + POWER_OF_Warrior);
     }
 
 }
