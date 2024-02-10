@@ -9,6 +9,7 @@ public class House {
         this.sigil = sigil;
     }
 
+    @Override
     public String toString() {
         return sigil;
     }
