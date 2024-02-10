@@ -4,7 +4,7 @@ package faang.school.godbless.main;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class MainForHouse {
     static Map<String, House> houses = new HashMap<>();
     public static void main(String... args) {
         House stark = new House("Stark", "a grey direwolf racing across a field of white");
