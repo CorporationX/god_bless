@@ -1,40 +1,42 @@
-package faang.school.godbless.main;
+package faang.school.godbless.main.student;
 
 import java.util.Objects;
 
-public class Student {
-    private String name;
+public class FacultyAndYear {
     private String faculty;
     private int year;
 
-    public Student(String name, String faculty, int year) {
-        this.name = name;
+    public FacultyAndYear(String faculty, int year) {
         this.faculty = faculty;
         this.year = year;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public String getFaculty() {
         return faculty;
     }
 
+    public void setFaculty(String faculty) {
+        this.faculty = faculty;
+    }
+
     public int getYear() {
         return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return year == student.year && Objects.equals(name, student.name) && Objects.equals(faculty, student.faculty);
+        FacultyAndYear that = (FacultyAndYear) o;
+        return year == that.year && Objects.equals(faculty, that.faculty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, faculty, year);
+        return Objects.hash(faculty, year);
     }
 }

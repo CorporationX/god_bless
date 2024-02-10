@@ -1,9 +1,6 @@
-package faang.school.godbless.main;
-
-import org.w3c.dom.ls.LSOutput;
+package faang.school.godbless.main.student;
 
 import java.util.ArrayList;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
