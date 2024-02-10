@@ -1,4 +1,4 @@
-package AbstractionAbstraction;
+package faang.school.godbless.AbstractionAbstraction;
 
 public class Main {
     public static void main(String[] args) {
