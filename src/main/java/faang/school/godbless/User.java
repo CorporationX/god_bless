@@ -16,11 +16,16 @@ public class User {
 
     public User(String name, int age, String work, String address) {
         userValidate(name, age, work, address);
+
+
+    public User(String name, int age, String work, String address) {
+        userValidate(name, age, work, address);
         this.name = name;
         this.age = age;
         this.work = work;
         this.address = address;
     }
+
     private void userValidate(String name, int age, String work, String address){
         if (name==null || name.trim().isEmpty()){
             throw new IllegalArgumentException("Name can not be empty or null, please fill it!");
@@ -47,5 +52,6 @@ public class User {
         VALID_ADDRESSES.add("London");
         VALID_ADDRESSES.add("New York");
         VALID_ADDRESSES.add("Amsterdam");
-    }
+
+     }
 }
