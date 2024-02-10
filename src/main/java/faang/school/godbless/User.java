@@ -15,23 +15,22 @@ public class User {
     private String address;
 
     public User(String name, int age, String work, String address) {
-        userValidate();
-
+        userValidate(name, age, work, address);
         this.name = name;
         this.age = age;
         this.work = work;
         this.address = address;
     }
     private void userValidate(String name, int age, String work, String address){
-        if (name!=null && !name.isEmpty()) {
-            throw new IllegalArgumentException("Name can not be empty, please fill it!");
-        }else if (age < 18) {
+        if (name==null || name.trim().isEmpty()){
+            throw new IllegalArgumentException("Name can not be empty or null, please fill it!");
+        }if (age < 18) {
             throw new IllegalArgumentException("Age is not valid!");
         }
-        else if (!VALID_JOBS.contains(work)) {
+        if (!VALID_JOBS.contains(work)) {
             throw new IllegalArgumentException("Work is not in the VALID_JOBS");
         }
-        else if (!VALID_ADDRESSES.contains(address)) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address is not in the VALID_ADDRESSES");
         }
     }
