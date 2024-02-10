@@ -4,7 +4,7 @@ import lombok.Getter;
 
 import java.util.*;
 
-public class App {
+public class User {
     @Getter
     private String name;
     @Getter
@@ -14,8 +14,15 @@ public class App {
     @Getter
     private String address;
 
-    public App(String name, int age, String work, String address) {
-        if (name.isEmpty()) {
+    public User(String name, int age, String work, String address) {
+        userValidate();
+        this.name = name;
+        this.age = age;
+        this.work = work;
+        this.address = address;
+    }
+    private void userValidate(){
+        if (name!=null && !name.isEmpty()) {
             throw new IllegalArgumentException("Name can not be empty, please fill it!");
         }
         if (age < 18) {
@@ -27,10 +34,6 @@ public class App {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address is not in the VALID_ADDRESSES");
         }
-        this.name = name;
-        this.age = age;
-        this.work = work;
-        this.address = address;
     }
 
     public static final Set<String> VALID_JOBS;
