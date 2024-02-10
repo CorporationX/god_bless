@@ -23,7 +23,7 @@ public class User {
         this.address = address;
     }
     private void validation(String name, int age, String job, String address){
-        if(name.isBlank()){
+        if(name == null || name.isBlank()){
             throw new IllegalArgumentException("Поле 'имя' не заполнено");
         }else if(age < AGE){
             throw new IllegalArgumentException("Вам меньше 18 лет");
