@@ -6,9 +6,9 @@ import java.util.Objects;
 import static src.main.java.faang.school.godbless.Main.map;
 
 public class Book {
-    String title;
-    String author;
-    int year;
+    private final String title;
+    private final String author;
+    private final int year;
 
     public String getTitle() {
         return title;
@@ -39,10 +39,7 @@ public class Book {
 
     @Override
     public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (author != null ? author.hashCode() : 0);
-        result = 31 * result + year;
-        return result;
+        return Objects.hash(title, author, year);
     }
 
     @Override
