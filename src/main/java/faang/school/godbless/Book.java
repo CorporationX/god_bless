@@ -6,7 +6,8 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
+@Getter
+@Setter
 public class Book {
     private static void removeBook(Map<Book, String>map, String title, String author, Integer year) {
         Book bookRemove = new Book(title, author, year);
@@ -15,14 +16,10 @@ public class Book {
 
     }
 
-    @Getter
-    @Setter
     private String title;
-    @Setter
-    @Getter
+
     private String author;
-    @Getter
-    @Setter
+
     private int year;
 
     public Book(String title, String author, int year) {
