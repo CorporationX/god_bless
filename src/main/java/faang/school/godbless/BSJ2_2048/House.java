@@ -27,12 +27,7 @@ public class House {
     }
 
     public static void deleteHouse(String name) {
-        for (Map.Entry<String, House> entry : map.entrySet()) {
-            if (entry.getValue().getName().equals(name)) {
-                map.remove(entry.getKey());
-                break;
-            }
-        }
+        map.remove(name);
     }
 
     public static void SearchAndPrintHouse(String name) {
