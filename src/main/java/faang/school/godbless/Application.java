@@ -8,6 +8,7 @@ import java.util.List;
 public class Application {
     public static void main(String... args) {
         System.out.println("Hello world");
+
         List<User> users = new ArrayList<>();
         Set<String> activity1 = Set.of("Drawing", "Dancing", "Music", "Sport");
         User user1 = new User("Ivan", 14, activity1);
@@ -22,5 +23,12 @@ public class Application {
         users.add(user3);
         users.add(user4);
         Map<User, String> spisUser = User.findHobbyLovers(users, activity2);
+      
+        int[] numbers = {1,2,3,4,5,6,7,8,9,0};
+        int[] reversNum = Example.reverse(numbers);
+        for (int j : reversNum) {
+            System.out.print(j);
+        }
+
     }
 }
