@@ -9,10 +9,8 @@ public class LoadOptimizationStrategy implements OptimizationStrategy {
             double load = server.getLoad();
             double maxLoad = server.getMaxLoad();
 
-            // Равномерное распределение нагрузки между серверами
             double newLoad = totalLoad / dataCenter.serverList.size();
 
-            // Предполагаем, что новая нагрузка не может превышать максимальную
             newLoad = Math.min(newLoad, maxLoad);
 
             server.setLoad(newLoad);

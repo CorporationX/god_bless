@@ -11,10 +11,14 @@ public class DataCenterService {
     }
 
     public void removeServer(List<Server> serverList, int id){
-        if(serverList.contains(id)){
-            serverList.remove(id);
-            System.out.println("Deleted ");
-        } else System.out.println("Not found :( ");
+        for (Server server : serverList) {
+            if (server.getId() == id) {
+                serverList.remove(id-1);
+                System.out.println("Deleted ");
+                return;
+            }
+        }
+        System.out.println("Not found :( ");
     }
 
     public void getTotalEnergyConsumption(List<Server> serverList){
@@ -28,7 +32,7 @@ public class DataCenterService {
 
     public void allocateResources(List<Server> serverList, ResourceRequest request, int id){
         for(Server server : serverList){
-            if(serverList.contains(id)){
+            if(server.getId() == id){
                 if(server.getMaxLoad() > server.getLoad() + request.getLoad()){
                     server.setLoad(server.getLoad() + request.getLoad());
                 } else System.out.println("Load is too high");
@@ -36,12 +40,20 @@ public class DataCenterService {
         }
     }
 
-    public void releaseResources(List<Server> serverList, ResourceRequest request, int id){
+    public void releaseResources(List<Server> serverList, int id){
         for (Server server : serverList){
-            if(serverList.contains(id)){
+            if(server.getId() == id){
                 server.setLoad(0);
                 System.out.println("Load is reset to zero");
-            } else System.out.println("Not found the server");
+                return;
+            }
+        }
+        System.out.println("Not found :( ");
+    }
+
+    public void showServers(List<Server> serverList){
+        for (Server server : serverList){
+            System.out.println(server);
         }
     }
 

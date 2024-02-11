@@ -6,4 +6,8 @@ public class ResourceRequest {
     public double getLoad() {
         return load;
     }
+
+    public void setLoad(double load) {
+        this.load = load;
+    }
 }

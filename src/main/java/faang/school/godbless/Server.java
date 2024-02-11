@@ -32,4 +32,8 @@ public class Server {
     public void setLoad(double load) {
         this.load = load;
     }
+
+    public String toString(){
+        return id + " Load: " + load + " maxLoad: " + maxLoad + " energy consumption: " + energyConsumption;
+    }
 }
