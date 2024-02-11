@@ -9,30 +9,30 @@ public class User {
     private String name, placeOfWork, address;
 
     User(String name, String placeOfWork, String address, int age) {
-        if(name.isEmpty()||age<18||VALID_JOBS.contains(placeOfWork)||VALID_ADDRESSES.contains(address))
-        {
+        validation(name, placeOfWork, address, age);
+        if (name == null || name.isEmpty() || age < 18 || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException();
         }
+
         this.name = name;
         this.placeOfWork = placeOfWork;
         this.age = age;
         this.address = address;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
-        Set<Integer> age = new HashSet<>();
-
-        for (User user : users) {//Вносим возраст и списки пользователй
-            List<User> ageAppropriateUser = new ArrayList<>();
-            for (User userAge : users) {//Создаем список пользователей
-                // соответствующий возрасту
-                if (userAge.age == user.age) {
-                    ageAppropriateUser.add(userAge);
-                }
-            }
-            groupUsers.put(user.age, ageAppropriateUser);
+    private void validation(String name, String placeOfWork, String address, int age) {
+        if (name == null || name.isEmpty()) {
+            System.out.println("Введено не корректное имя");
         }
-        return groupUsers;
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            System.out.println("Введено некорректное место работы");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            System.out.println("Введен некорректный адрес");
+        }
+        if (age<18)
+        {
+            System.out.println("Пользователи с возрастом меньше 18 не допускаются к регистрации");
+        }
     }
 }
