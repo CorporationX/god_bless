@@ -1,10 +1,11 @@
 package src.main.java.faang.school.godbless;
 
 public class WeatherData {
-    String city;
-    int temperature;
-    int humidity;
-    WeatherData(String city, int temperature, int humidity){
+    private String city;
+    private int temperature;
+    private int humidity;
+
+    WeatherData(String city, int temperature, int humidity) {
         this.city = city;
         this.temperature = temperature;
         this.humidity = humidity;
