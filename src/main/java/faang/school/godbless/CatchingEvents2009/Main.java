@@ -62,11 +62,14 @@ public class Main {
     public static void removeEventById(int id) {
         String eventType = eventMap.get(id).getEventType();
         eventMap.remove(id);
-        List<StreamEvent> eventList = groupedEvents.get(eventType);
-        for (int i = 0; i < eventList.size(); i++) {
-            if (eventList.get(i).getId() == id) {
-                eventList.remove(i);
-                break;
+        for (var entry : groupedEvents.entrySet()) {
+            if (entry.getKey().equals(eventType)) {
+                for (int i = 0; i < entry.getValue().size(); i++) {
+                    if (entry.getValue().get(i).getId() == id) {
+                        entry.getValue().remove(i);
+                        break;
+                    }
+                }
             }
         }
     }
