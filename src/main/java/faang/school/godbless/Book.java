@@ -6,15 +6,10 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 @Getter
 @Setter
 public class Book {
-    private static void removeBook(Map<Book, String>map, String title, String author, Integer year) {
-        Book bookRemove = new Book(title, author, year);
-
-        map.remove(bookRemove);
-
-    }
 
     private String title;
 
@@ -42,3 +37,10 @@ public class Book {
     }
 
 }
+
+
+
+
+
+
+
