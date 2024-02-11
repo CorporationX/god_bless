@@ -5,7 +5,7 @@ public class StreamEvent {
     String eventType;
     String data;
 
-    StreamEvent(int id, String eventType, String data){
+    StreamEvent(int id, String eventType, String data) {
         this.data = data;
         this.eventType = eventType;
         this.id = id;
