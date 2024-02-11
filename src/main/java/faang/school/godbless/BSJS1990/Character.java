@@ -1,4 +1,4 @@
-package BSJS1990;
+package src.main.java.faang.school.godbless.BSJS1990;
 
 public abstract class Character {
     protected String name;
@@ -8,7 +8,6 @@ public abstract class Character {
     protected int hp ;
     Character(String name){
         this.name = name;
-        this.hp = 100;
     }
 
     Character(String name,int strong, int agility, int intel){
@@ -16,10 +15,10 @@ public abstract class Character {
         this.strong = strong;
         this.agility = agility;
         this.intel = intel;
-        this.hp = 100;
     }
 
     public abstract void attack(Character target);
+
 
 }
 
