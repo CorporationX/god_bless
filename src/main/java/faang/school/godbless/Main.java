@@ -6,20 +6,29 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    Map<String, List<WebPage>> map = new HashMap<>();
+    static Map<String, List<WebPage>> map = new HashMap<>();
 
-
-    void indexNewWebPage(Map<String, List<WebPage>> map, WebPage webPage) {
-        String[] words = WebPage.getContent().split("[ ,.:;!?\n\r]+");
+    static void indexNewWebPage(WebPage webPage) {
+        String[] words = webPage.getContent().split("\\s+");
         for (String word : words) {
-            if (map.containsKey(word)) {
-                map.get(word).add(webPage);
-            } else {
-                List<WebPage> newList = new ArrayList<>();
-                newList.add(webPage);
-                map.put(word, newList);
-                System.out.println(map);
-            }
+            List<WebPage> pages = map.getOrDefault(word, new ArrayList<>());
+            pages.add(webPage);
+            map.put(word, pages);
         }
+    }
+    public static List<WebPage> search(String keyword) {
+        return map.getOrDefault(keyword, new ArrayList<>());
+    }
+    public static void removePage(String url) {
+        for (List<WebPage> pages : map.values()) {
+            pages.removeIf(page -> page.getUrl().equals(url));
+        }
+    }
+
+    public static void main(String[] args) {
+        WebPage page = new WebPage("https://google.com/page1", "search", "searchcontent");
+        indexNewWebPage(page);
+        search("searchcontent");
+        removePage("https://google.com/page1");
     }
 }
