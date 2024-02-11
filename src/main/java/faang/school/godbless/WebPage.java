@@ -3,9 +3,9 @@ package src.main.java.faang.school.godbless;
 public class WebPage {
 
 
-    String url;
-    String title;
-    static String content;
+    private String url;
+    private String title;
+    private static String content;
 
     public WebPage(String url, String title, String content) {
         this.url = url;
@@ -23,5 +23,14 @@ public class WebPage {
 
     public static String getContent() {
         return content;
+    }
+
+    @Override
+    public String toString() {
+        return "WebPage{" +
+                "url='" + url + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
