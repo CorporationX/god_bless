@@ -20,7 +20,7 @@ public class House {
 
     @Override
     public String toString() {
-        return  name + " " + sigil;
+        return name + " " + sigil;
     }
 
 }

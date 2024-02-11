@@ -11,7 +11,7 @@ public class Main {
         housesMap.put("Lanister", new House("Casterly", "Lion"));
         housesMap.put("Barateon", new House("Dragon Stone", "Three-headed Dragon"));
 
-        addHouse((HashMap<String, House>) housesMap, "Targarien", "Dragon Stone" );
+        addHouse((HashMap<String, House>) housesMap, "Targarien", "Dragon Stone");
         removeHouse((HashMap<String, House>) housesMap, "Barateon");
         getHouse((HashMap<String, House>) housesMap, "Starks");
 
@@ -19,7 +19,7 @@ public class Main {
 
     private static void addHouse(HashMap<String, House> housesMap, String name, String sigil) {
         //добавление
-        if(housesMap.containsKey(name)){
+        if (housesMap.containsKey(name)) {
             housesMap.put(name, new House(name, sigil));
         }
         System.out.println("House added: " + name);
