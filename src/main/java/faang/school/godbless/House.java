@@ -3,12 +3,11 @@ package faang.school.godbless;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class House {
-    @Setter
-    @Getter
+
     private String name;
-    @Setter
-    @Getter
     private String sigil;
 
     public House(String name, String sigil) {
