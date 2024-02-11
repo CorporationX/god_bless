@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
-import org.junit.Test;
-
+import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -16,7 +15,7 @@ public class TestMap {
 
         assertEquals(stark, houses.get("Startks"));
     }
-
+    @Test
     private void testRemoveHouse(){
         HashMap<String, House> houses=new HashMap<>();
         houses.put("Starks", new House("Starks", "Wolf"));
@@ -30,6 +29,7 @@ public class TestMap {
         assertEquals("Stark", stark.getName());
         assertEquals("Lanister", lanister.getName());
     }
+    @Test
     private void testFindHouse(){
         HashMap<String, House> houses=new HashMap<>();
         houses.put("Starks", new House("Starks", "Wolf"));

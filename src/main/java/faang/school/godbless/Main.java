@@ -10,6 +10,7 @@ public class Main {
         housesMap.put("Starks", new House("Winterfall", "Wolf"));
         housesMap.put("Lanister", new House("Casterly", "Lion"));
         housesMap.put("Barateon", new House("Dragon Stone", "Three-headed Dragon"));
+
     }
 
     private static void addHouse(HashMap<String, House> housesMap, String name, String sigil) {
