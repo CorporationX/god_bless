@@ -1,10 +1,12 @@
 package faang.school.godbless;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.*;
 
+@EqualsAndHashCode
 @Setter
 @Getter
 public class User {
@@ -26,19 +28,12 @@ public class User {
 
         for (User usFor : users) {
             for (String activUsFor : usFor.activity) {
-                boolean compite = false;
-                for (String activFor : activity) {
-                    if (activFor.equals(activUsFor)) {
+                    if (activity.contains(activUsFor)) {
                         userActivity.put(usFor, activUsFor);
-                        compite = true;
                         break;
                     }
                 }
-                if (compite) {
-                    break;
-                }
             }
-        }
         return userActivity;
     }
 }
