@@ -15,8 +15,10 @@ public class TestMap {
     public void testAddHouse() {
         HashMap<String, House> houses = new HashMap<>();
         House stark = new House("Starks", "Wolf");
+        houses.put("Starks", stark);
 
-        assertEquals(stark, houses.get("Startks"));
+
+        assertEquals(stark, houses.get("Starks"));
     }
 
     @Test
@@ -30,7 +32,7 @@ public class TestMap {
         assertNotNull(stark);
         assertNotNull(lanister);
 
-        assertEquals("Stark", stark.getName());
+        assertEquals("Starks", stark.getName());
         assertEquals("Lanister", lanister.getName());
     }
 
