@@ -66,16 +66,7 @@ public class Book {
     }
 
     public static void deleteBook(String title, String author, int year) {
-        Book bookToRemove = null;
-        for (Map.Entry<Book, String> entry : map.entrySet()) {
-            if (entry.getKey().getTitle().equals(title) &&
-                    entry.getKey().getAuthor().equals(author) &&
-                    entry.getKey().getYear() == year) {
-                bookToRemove = entry.getKey();
-                break;
-            }
-        }
-        map.remove(bookToRemove);
+        map.remove(new Book(title, author, year));
 
     }
 
