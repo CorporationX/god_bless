@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 public class Main {
 
@@ -19,7 +20,7 @@ public class Main {
         System.out.println("TEST 1: Added 3 event to both maps. Check if they grouped");
         System.out.println(eventMap.toString());
         System.out.println(groupedEvents.toString());
-        removeEvent(2);
+        removeEventById(2);
 
         System.out.println("TEST 2: Removed event with id=2");
         System.out.println(eventMap.toString());
@@ -37,14 +38,14 @@ public class Main {
         System.out.println("TEST 5: Test findEventById method (id=4)");
         try {
             System.out.println(findEventById(4).toString());
-        } catch (IllegalArgumentException exception) {
+        } catch (NoSuchElementException exception) {
             System.out.println(exception.getMessage());
         }
 
         System.out.println("TEST 6: Test findEventsByType method (type3)");
         try {
             System.out.println(findEventsByType(Events.EVENTTYPE_3).toString());
-        } catch (IllegalArgumentException exception) {
+        } catch (NoSuchElementException exception) {
             System.out.println(exception.getMessage());
         }
     }
@@ -58,14 +59,15 @@ public class Main {
         id++;
     }
 
-    public static void removeEvent(int id) {
+    public static void removeEventById(int id) {
+        String eventType = eventMap.get(id).getEventType();
         eventMap.remove(id);
-        int count = 0;
-        for (var entry : groupedEvents.entrySet()) {
-            if (entry.getValue().get(count).getId() == id) {
-                entry.getValue().remove(count);
+        List<StreamEvent> eventList = groupedEvents.get(eventType);
+        for (int i = 0; i < eventList.size(); i++) {
+            if (eventList.get(i).getId() == id) {
+                eventList.remove(i);
+                break;
             }
-            count++;
         }
     }
 
@@ -73,7 +75,7 @@ public class Main {
         if (eventMap.get(id) != null) {
             return eventMap.get(id);
         } else {
-            throw new IllegalArgumentException("There's no event with id " + id);
+            throw new NoSuchElementException("There's no event with id " + id);
         }
     }
 
@@ -81,7 +83,7 @@ public class Main {
         if (groupedEvents.get(eventType) != null) {
             return groupedEvents.get(eventType);
         } else {
-            throw new IllegalArgumentException("There's no event type " + eventType);
+            throw new NoSuchElementException("There's no event type " + eventType);
         }
     }
 
