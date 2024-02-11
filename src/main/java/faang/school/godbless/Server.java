@@ -28,4 +28,8 @@ public class Server {
     public double getEnergyConsumption() {
         return energyConsumption;
     }
+
+    public void setLoad(double load) {
+        this.load = load;
+    }
 }

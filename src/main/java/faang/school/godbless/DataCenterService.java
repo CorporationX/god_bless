@@ -1,6 +1,8 @@
 package faang.school.godbless;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class DataCenterService {
     public void addServer(List<Server> serverList, int id, double load, double maxLoad, double energyConsumption){
@@ -26,11 +28,32 @@ public class DataCenterService {
 
     public void allocateResources(List<Server> serverList, ResourceRequest request, int id){
         for(Server server : serverList){
-
+            if(serverList.contains(id)){
+                if(server.getMaxLoad() > server.getLoad() + request.getLoad()){
+                    server.setLoad(server.getLoad() + request.getLoad());
+                } else System.out.println("Load is too high");
+            }
         }
     }
 
-    public void releaseResources(ResourceRequest request){
+    public void releaseResources(List<Server> serverList, ResourceRequest request, int id){
+        for (Server server : serverList){
+            if(serverList.contains(id)){
+                server.setLoad(0);
+                System.out.println("Load is reset to zero");
+            } else System.out.println("Not found the server");
+        }
+    }
 
+    public void optimizeLoadPeriodically(DataCenter dataCenter, OptimizationStrategy strategy, long periodMillis) {
+        Timer timer = new Timer(true);
+        TimerTask optimizationTask = new TimerTask() {
+            @Override
+            public void run() {
+                strategy.optimize(dataCenter);
+            }
+        };
+
+        timer.scheduleAtFixedRate(optimizationTask, 0, periodMillis);
     }
 }
