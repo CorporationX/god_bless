@@ -1,13 +1,8 @@
-package faang.school.godbless;
+package src.main.java.faang.school.godbless;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
-import java.util.stream.Collectors;
-
-import static java.util.Comparator.comparingInt;
-import static java.util.Comparator.naturalOrder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static int sumEvenNumbers(List<Integer> list) {
