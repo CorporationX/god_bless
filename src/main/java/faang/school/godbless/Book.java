@@ -9,12 +9,15 @@ public class Book {
     String title;
     String author;
     int year;
+
     public String getTitle() {
         return title;
     }
+
     public String getAuthor() {
         return author;
     }
+
     public int getYear() {
         return year;
     }
@@ -37,7 +40,7 @@ public class Book {
     @Override
     public int hashCode() {
         int result = title != null ? title.hashCode() : 0;
-        result = 31 * result +(author != null ? author.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
         result = 31 * result + year;
         return result;
     }
@@ -56,6 +59,7 @@ public class Book {
         int mesto = search(map);
         map.put(newBook, "#" + mesto);
     }
+
     private static int search(Map<Book, String> map) {
         int mesto = 1;
         while (map.containsValue("#" + mesto)) {
@@ -63,30 +67,27 @@ public class Book {
         }
         return mesto;
     }
-    public  static void deleteBook(String title, String author, int year) {
+
+    public static void deleteBook(String title, String author, int year) {
+        Book bookToRemove = null;
         for (Map.Entry<Book, String> entry : map.entrySet()) {
-            if ((entry.getKey().getTitle().equals(title) &&
-                    (entry.getKey().getAuthor().equals(author) &&
-                            (entry.getKey().getYear()==year)))){
-                map.remove(entry.getKey());
+            if (entry.getKey().getTitle().equals(title) &&
+                    entry.getKey().getAuthor().equals(author) &&
+                    entry.getKey().getYear() == year) {
+                bookToRemove = entry.getKey();
                 break;
             }
         }
+        map.remove(bookToRemove);
+
     }
+
     public static void SearchAndPrintBook(String title, String author, int year) {
         for (Map.Entry<Book, String> entry : map.entrySet()) {
-            if ((entry.getKey().getTitle().equals(title) &&
-                    (entry.getKey().getAuthor().equals(author) &&
-                            (entry.getKey().getYear()==year)))){
-                System.out.println(entry.getKey());
+            Book book = entry.getKey();
+            if (book.getTitle().equals(title) && book.getAuthor().equals(author) && book.getYear() == year) {
+                System.out.println(book);
             }
-        }
-    }
-    public static void showSetBookAndMesto() {
-        for (Map.Entry<Book, String> entry : map.entrySet()) {
-            String spisok = String.valueOf(entry.getKey());
-            String mesto = entry.getValue();
-            System.out.println(spisok.toString() + ":" + mesto);
         }
     }
 }
