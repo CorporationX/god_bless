@@ -10,18 +10,13 @@ public class Main {
     public void addStudent(Student student) {
         studentList.add(student);
     }
+
     public void removeStudent(String name, String faculty, int year) {
-        Student studentdelite= null;
-        for (Student student : studentList) {
-            if (student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getYear() == year) {
-                studentdelite = student;
-                break;
-            }
-        }
-        if (studentdelite != null) {
-            studentList.remove(studentdelite);
-        }
+        Student studentToRemove = new Student(name, faculty, year);
+        studentList.remove(studentToRemove);
     }
+
+
     public List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
         List<Student> students = new ArrayList<>();
         for (Student student : studentList) {
@@ -46,6 +41,7 @@ public class Main {
 
         return groupedStudents;
     }
+
     public void printStudentsByFacultyAndYear() {
         Map<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear(studentList);
         for (String key : groupedStudents.keySet()) {
