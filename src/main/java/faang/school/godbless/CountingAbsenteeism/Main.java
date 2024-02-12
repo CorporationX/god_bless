@@ -1,7 +1,5 @@
 package faang.school.godbless.CountingAbsenteeism;
 
-import faang.school.godbless.GameOfThrones.House;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
