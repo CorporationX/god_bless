@@ -1,19 +1,19 @@
 package faang.school.godbless;
 
-
 public class Main {
     public static void main(String[] args) {
-        try {
-            User user1 = new User("Behzod",24 ,"Uber", "Amsterdam");
-            System.out.println(user1.getName());
-            System.out.println(user1.getAge());
-            System.out.println(user1.getWork());
-            System.out.println(user1.getAddress());
+        Warrior warrior = new Warrior("Воин ");
+        Archer archer = new Archer("Лучник ");
+        System.out.println("До атаки");
+        System.out.println("Warrior: " + warrior.health);
+        System.out.println("Archer: " + archer.health);
 
-        } catch (IllegalArgumentException e) {
-            System.out.println("Error: " + e.getMessage());
-        }
+        warrior.attack(archer);
+        archer.attack(warrior);
+        System.out.println("После атаки");
+        System.out.println("Warrior: " + warrior.health);
+        System.out.println("Archer: " + archer.health);
+
 
     }
 }
-
