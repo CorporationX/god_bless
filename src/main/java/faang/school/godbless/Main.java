@@ -6,40 +6,41 @@ import java.util.Map;
 public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
 
-    public static void main(String[] args) {
+    House stark = new House("Stark", "direwolf");
+    House lannister = new House("Lannister", "Lion rampant");
+    House baratheon = new House("Baratheon", "black crowned stag");
 
-        House stark = new House("Stark", "direwolf");
-        House lannister = new House("Lannister", "Lion rampant");
-        House baratheon = new House("Baratheon", "black crowned stag");
+    addition(stark.getName(),stark);
 
-        addition(stark.getName(), stark);
-        addition(lannister.getName(), lannister);
-        addition(baratheon.getName(), baratheon);
+    addition(lannister.getName(),lannister);
 
-        delete(lannister.getName());
+    addition(baratheon.getName(),baratheon);
 
-        search(baratheon.getName());
-        listOfAllHouses();
-    }
+    delete(lannister.getName());
 
-    private static void addition(String name, House house) {
-        houseMap.put(name, house);
-    }
+    search(baratheon.getName());
 
-    public static void delete(String name) {
-        houseMap.remove(name);
-    }
+    listOfAllHouses();
+}
 
-    public static void search(String name) {
-        System.out.println(houseMap.get(name).getSigil() + " Герб дома " + name);
+private static void addition(String name, House house) {
+    houseMap.put(name, house);
+}
 
-    }
+public static void delete(String name) {
+    houseMap.remove(name);
+}
 
-    public static void listOfAllHouses() {
+public static void search(String name) {
+    System.out.println(houseMap.get(name).getSigil() + " Герб дома " + name);
 
-        houseMap.forEach((name, house) -> System.out.println("Название дома: " + name + " Название герба: " + house.getSigil()));
+}
 
-    }
+public static void listOfAllHouses() {
+
+    houseMap.forEach((name, house) -> System.out.println("Название дома: " + name + " Название герба: " + house.getSigil()));
+
+}
 }
 
 
