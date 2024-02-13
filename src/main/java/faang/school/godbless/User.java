@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class User {
     public static void main(String[] args) {
-        new User("Sara", 21, "Uber", "Amsterdam");
+        new User("null", 21, "Uber", "Amsterdam");
     }
 
     private String name;
@@ -20,11 +20,15 @@ public class User {
 
     private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
 
-    public User(String name, int age, String job, String address) {
-        if (name.compareTo("") == 0) throw new IllegalArgumentException("Name");
+    private void validateUser(String name, int age, String job, String address) throws IllegalArgumentException {
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Name");
         if (age < 18) throw new IllegalArgumentException("Age");
         if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException("Job");
         if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("Address");
+    }
+
+    public User(String name, int age, String job, String address) {
+        validateUser(name, age, job, address);
         this.name = name;
         this.age = age;
         this.job = job;
