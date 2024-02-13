@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class Hero {
+    //
     private String name;
     private String fraction;
     private int exp;
