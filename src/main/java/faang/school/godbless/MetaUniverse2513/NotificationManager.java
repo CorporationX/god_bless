@@ -16,22 +16,27 @@ public class NotificationManager {
         }
     }
 
-    public void registerFilter(String message, Predicate<Notification> something) {
-            notificationFilter.put(message, something);
+    public void registerFilter(String name, Predicate<Notification> filter) {
+        notificationFilter.put(name, filter);
     }
 
-    public void filterNotifications(Notification notification) {
+    private boolean filterNotifications(Notification notification) {
+        boolean isOkay = true;
         for (var entry : notificationFilter.entrySet()) {
-            if (entry.getKey().equals(notification.getMessage())) {
-                entry.getValue().test(notification);
+            if (entry.getValue().test(notification)) {
+                isOkay = false;
             }
         }
+        return isOkay;
     }
 
+
     public void sendNotification(Notification notification) {
-        for (var entry : notificationSender.entrySet()) {
-            if (entry.getKey().equals(notification.getType())) {
-                entry.getValue().accept(notification);
+        if (filterNotifications(notification)) {
+            for (var entry : notificationSender.entrySet()) {
+                if (entry.getKey().equals(notification.getType())) {
+                    entry.getValue().accept(notification);
+                }
             }
         }
     }

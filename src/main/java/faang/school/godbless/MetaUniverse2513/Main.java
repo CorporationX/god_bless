@@ -1,5 +1,9 @@
 package faang.school.godbless.MetaUniverse2513;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+
 public class Main {
     static final String PUSH = "Push";
     static final String TELEGRAM = "Telegram";
@@ -15,27 +19,18 @@ public class Main {
         Notification test2 = new Notification(TELEGRAM, "\"Mom\" sent you a message");
         Notification test3 = new Notification(TELEGRAM, "\"Love\" sent you a message");
         Notification test4 = new Notification(E_MAIL, "Don't forget to renew your subscription");
-
-        notificationManager.sendNotification(test1);
-        notificationManager.sendNotification(test2);
-        notificationManager.sendNotification(test3);
-        notificationManager.sendNotification(test4);
-
         Notification test5 = new Notification(E_MAIL, "Bad Word");
         Notification test6 = new Notification(E_MAIL, "Good Word");
+        Notification test7 = new Notification(PUSH, "    ");
+        Notification test8 = new Notification(PUSH, "");
+        List<Notification> notificationList = new ArrayList<>(List.of(test1, test2, test3, test4, test5, test6, test7, test8));
+        Predicate<Notification> badWordFilter = message -> message.getMessage().contains("Bad Word");
+        notificationManager.registerFilter("Bad Word filter", badWordFilter);
+        Predicate<Notification> blankMessageFilter = message -> message.getMessage().isEmpty() || message.getMessage().trim().isEmpty();
+        notificationManager.registerFilter("Blank message filter", blankMessageFilter);
 
-        notificationManager.registerFilter(test1.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-        notificationManager.registerFilter(test2.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-        notificationManager.registerFilter(test3.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-        notificationManager.registerFilter(test4.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-        notificationManager.registerFilter(test5.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-        notificationManager.registerFilter(test6.getMessage(), (message) -> message.getMessage().contains("Bad Word"));
-
-        notificationManager.filterNotifications(test1);
-        notificationManager.filterNotifications(test2);
-        notificationManager.filterNotifications(test3);
-        notificationManager.filterNotifications(test4);
-        notificationManager.filterNotifications(test5);
-        notificationManager.filterNotifications(test6);
+        for (Notification notification : notificationList) {
+            notificationManager.sendNotification(notification);
+        }
     }
 }
