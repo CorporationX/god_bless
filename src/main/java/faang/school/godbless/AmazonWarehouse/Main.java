@@ -18,7 +18,7 @@ public class Main {
     }
 
     public static Map<String, List<Product>> groupProduct(Set<Product> productSet) {
-        Map<String, List<Product>> groupsProducts = new HashMap();
+        Map<String, List<Product>> groupsProducts = new HashMap<>();
         for (Product product : productSet) {
             groupsProducts.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
