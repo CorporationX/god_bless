@@ -2,14 +2,18 @@ package group_users_by_age;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class User {
     private String name;
     private int age;
     private String workPlace;
     private String address;
+    private final Set <String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    private final Set <String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
 
     public String getName() {
         return name;
