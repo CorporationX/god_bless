@@ -27,10 +27,9 @@ public class Main {
 
     public static void printAll() {
         Map<String, List<Product>> groupsProducts = groupProduct(products);
-        for (Map.Entry entry : groupsProducts.entrySet()) {
+        for (Map.Entry<String, List<Product>> entry : groupsProducts.entrySet()) {
             System.out.println(String.format("Категория: \"%s\".", entry.getKey()));
-            Set<Product> products123 = products;
-            for (Product product : products123) {
+            for (Product product : entry.getValue()) {
                 System.out.println("Продукт: " + product.getName());
             }
         }
