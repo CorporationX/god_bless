@@ -1,44 +1,38 @@
 package faang.school.godbless;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NonNull;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import lombok.Data;
+
 import java.util.List;
-import java.util.Map;
 
 
 @Data
 public class User {
     public static void main(String[] args) {
-        List<User> list = new ArrayList<>();
-        list.add(new User("Bob", 23, "Work", "Home"));
-        list.add(new User("Bill", 22, "Work", "Home"));
-        list.add(new User("Alice", 22, "Work", "Home"));
-        list.add(new User("Sara", 21, "Work", "Home"));
-        System.out.println(User.groupUsers(list));
+        new User("null", 21, "Uber", "Amsterdam");
     }
 
-    @NonNull
     private String name;
-    @NonNull
     private Integer age;
-    @NonNull
     private String job;
-    @NonNull
     private String address;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> list) {
-        Map<Integer, List<User>> map = new HashMap<>();
-        for (User u : list) {
-            if (!map.containsKey(u.getAge())) {
-                map.put(u.getAge(), new ArrayList<User>());
-            }
-            map.get(u.getAge()).add(u);
-        }
-        return map;
+    private static List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+
+    private static List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+
+    private void validateUser(String name, int age, String job, String address) throws IllegalArgumentException {
+        if (name == null || name.isEmpty()) throw new IllegalArgumentException("Name");
+        if (age < 18) throw new IllegalArgumentException("Age");
+        if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException("Job");
+        if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("Address");
+    }
+
+    public User(String name, int age, String job, String address) {
+        validateUser(name, age, job, address);
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
     }
 }
