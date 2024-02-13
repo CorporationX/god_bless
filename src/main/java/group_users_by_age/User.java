@@ -48,10 +48,21 @@ public class User {
     }
 
     public User(String name, int age, String workPlace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workPlace = workPlace;
-        this.address = address;
+        if (!name.isEmpty()) {
+            this.name = name;
+            if (age >= 18) {
+                this.age = age;
+                if (VALID_JOBS.contains(workPlace)){
+                    this.workPlace = workPlace;
+                    if (VALID_ADDRESSES.contains(address)){
+                        this.address = address;
+                    }
+                }
+            }
+        } else {
+            throw new IllegalArgumentException("your argument is not allowed");
+        }
+
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
