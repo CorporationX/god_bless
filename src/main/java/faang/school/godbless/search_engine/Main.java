@@ -9,22 +9,25 @@ public class Main {
 
     private static final Map<String, List<WebPage>> index = new HashMap<>();
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         WebPage page1 = new WebPage( "https://wiki.com/page1", "Page 1", "Page wiki1" );
         WebPage page2 = new WebPage( "https://wiki.com/page2", "Page 2", "content of wiki2" );
 
         indexWebPage( page1 );
         indexWebPage( page2 );
+        List<WebPage> searchResult = null;
 
-        List<WebPage> searchResult = findWebPagesByKeyWord( "content" );
-        System.out.println( "Pages containing 'content': " );
-
-        for (WebPage page : searchResult) {
-            System.out.println( "    URL: " + page.getUrl() );
-            System.out.println( "    Title: " + page.getTitle() );
+        try {
+            searchResult = Main.findWebPagesByKeyWord( "book" );
+            for (WebPage page : searchResult) {
+                System.out.println( "    URL: " + page.getUrl() );
+                System.out.println( "    Title: " + page.getTitle() );
+            }
+        } catch (PageNotFoundException ex) {
+            System.out.println( ex.getMessage() );
         }
 
-        deleteWebPageByUrl("https://example.com/page2" );
+        deleteWebPageByUrl( "https://example.com/page2" );
         System.out.println( "***********************" );
         index.forEach( (k, v) -> System.out.println( k + " " + v ) );
 
@@ -41,10 +44,10 @@ public class Main {
         }
     }
 
-    public static List<WebPage> findWebPagesByKeyWord(String keyWord) throws Exception {
+    public static List<WebPage> findWebPagesByKeyWord(String keyWord) throws PageNotFoundException {
         List<WebPage> pages = index.get( keyWord.toLowerCase() );
         if (pages == null) {
-            throw new Exception( "No pages exist with given key word" );
+            throw new PageNotFoundException();
         } else if (pages.size() == 0) {
             System.out.println( "There is 0 pages for such key word" );
             return pages;
@@ -55,7 +58,7 @@ public class Main {
 
     public static void deleteWebPageByUrl(String url) {
         for (List<WebPage> pages : index.values()) {
-            for(WebPage webPage : pages) {
+            for (WebPage webPage : pages) {
                 if (webPage.getUrl().equals( url )) {
                     pages.remove( webPage );
                 }
