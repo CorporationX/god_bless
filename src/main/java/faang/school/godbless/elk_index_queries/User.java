@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
-@EqualsAndHashCode
 public class User {
     private int id;
     private String name;
