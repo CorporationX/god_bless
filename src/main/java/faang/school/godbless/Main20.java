@@ -6,7 +6,7 @@ import faang.school.godbless.Battlefield;
 
 import java.util.HashMap;
 
-public class Main2 {
+public class Main20 {
 
     public static void main(String[] args) {
         Creature.Pikeman pikeman1 = new Creature.Pikeman();
