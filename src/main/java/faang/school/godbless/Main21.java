@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-public class Main2 {
+public class Main21 {
     public static void main(String[] args) {
         DataCenter dataCenter = new DataCenter();
         ResourceRequest request = new ResourceRequest();
