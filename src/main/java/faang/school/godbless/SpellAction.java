@@ -2,6 +2,6 @@ package faang.school.godbless;
 
 @FunctionalInterface
 public interface SpellAction{
-    public String spellAction(String spell);
+    String spellAction(String spell); // метод был объявлен как публичный - исправлено
 }
 
