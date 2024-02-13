@@ -16,5 +16,4 @@ public class NotificationManager {
             type.accept(notification);
         }
     }
-
 }
