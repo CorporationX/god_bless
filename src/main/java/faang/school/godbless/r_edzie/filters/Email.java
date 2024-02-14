@@ -1,8 +1,10 @@
 package faang.school.godbless.r_edzie.filters;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Email {
     private String subject;
     private String body;
