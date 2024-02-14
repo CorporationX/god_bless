@@ -1,22 +1,18 @@
 package Task2;
 
-import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-@Data
 public class NotificationManager {
-    private Map<String, Consumer<Notification>> map = new HashMap<>();
+    private Map<String, Consumer<Notification>> handlers = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> consumer){
-        if(!map.containsKey(type)){
-            map.put(type, consumer);
-        }
+    public void registerHandler(String type, Consumer<Notification> handler){
+        handlers.put(type,handler);
     }
     public void sendNotification(Notification notification){
         String type = notification.getType();
-        Consumer<Notification> consumer = map.get(type);
+        Consumer<Notification> consumer = handlers.get(type);
         if(consumer != null){
             consumer.accept(notification);
         }
