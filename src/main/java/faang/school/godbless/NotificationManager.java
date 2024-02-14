@@ -6,12 +6,9 @@ import lombok.Setter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
-@Setter
+
 public class NotificationManager {
-    public String getNotificationId() {
-        return notificationId;
-    }
+
 
     private String notificationId;
     private String message;
@@ -22,13 +19,11 @@ public class NotificationManager {
         void accept(Notification param);
     }
 
-    public void registerHandler(String notificationId, Consumer<Notification> handler){
-        notificationHandlers.put(notificationId, handler);
+    public void registerHandler(String type, Consumer<Notification> handler){
+        notificationHandlers.put(type, handler);
     }
-    public void setNotification(Notification notification){
-        String notificationId=notification
-
-
+    public void sendNotification(Notification notification){
+        notificationHandlers.get(notification.getType()).accept(notification);
     }
 
 }
