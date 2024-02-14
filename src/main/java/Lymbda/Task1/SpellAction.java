@@ -1,5 +1,5 @@
 package Lymbda.Task1;
-
+@FunctionalInterface
 public interface SpellAction {
-    public String cast(String spell);
+    String cast(String spell);
 }
