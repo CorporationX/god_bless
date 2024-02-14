@@ -1,4 +1,4 @@
-package Task4;
+package Basic.Task1.Task4;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

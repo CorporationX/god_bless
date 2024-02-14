@@ -1,4 +1,4 @@
-package Task2;
+package Basic.Task1.Task2;
 
 import lombok.Data;
 

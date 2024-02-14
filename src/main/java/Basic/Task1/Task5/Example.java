@@ -1,4 +1,4 @@
-package Task5;
+package Basic.Task1.Task5;
 
 public class Example {
     public static int[] reverse(int[] nums){

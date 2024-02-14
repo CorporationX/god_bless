@@ -1,4 +1,4 @@
-package Task3;
+package Basic.Task1.Task3;
 
 public class Warrior extends Character{
     public Warrior(String name){
