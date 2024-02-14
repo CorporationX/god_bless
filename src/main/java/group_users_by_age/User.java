@@ -12,8 +12,8 @@ public class User {
     private int age;
     private String workPlace;
     private String address;
-    private final Set <String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private final Set <String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    private final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
     private static final int ALLOWED_AGE = 18;
 
     public String getName() {
@@ -32,13 +32,21 @@ public class User {
         return address;
     }
 
-    public void setName(String name) {this.name = name;}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setAge(int age) {this.age = age;}
+    public void setAge(int age) {
+        this.age = age;
+    }
 
-    public void setWorkPlace(String workPlace) {this.workPlace = workPlace;}
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
+    }
 
-    public void setAddress(String address) {this.address = address;}
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public User(String name, int age, String workPlace, String address) {
         if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
