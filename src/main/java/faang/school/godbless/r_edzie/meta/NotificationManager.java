@@ -2,6 +2,7 @@ package faang.school.godbless.r_edzie.meta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 public class NotificationManager {
@@ -12,6 +13,12 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        NOTIFICATIONS_HANDLERS.get(notification.getType()).accept(notification);
+        Consumer<Notification> notificationHandler = NOTIFICATIONS_HANDLERS.get(notification.getType());
+
+        if (notificationHandler == null) {
+            throw new NoSuchElementException("Handler does not exist");
+        }
+
+        notificationHandler.accept(notification);
     }
 }
