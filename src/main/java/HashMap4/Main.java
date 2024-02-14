@@ -5,46 +5,58 @@ import java.util.Map;
 import java.util.Random;
 
 public class Main {
+    public static Map<String, WeatherData> weatherCache = new HashMap<>();
+    public static ServiceCenter serviceCenter = new ServiceCenter();
+    private static final String LONDON = "London";
+    private static final String MOSCOW = "Moscow";
+    private static final String BARCELONA = "Barcelona";
+
     public static void main(String[] args) {
-        WeatherData city1 = new WeatherData("London", 20, 70);
-        WeatherData city2 = new WeatherData("Moscow", -10, 40);
-        WeatherData city3 = new WeatherData("Barcelona", 22, 30);
-        Map<String, WeatherData> map = new HashMap<>();
-        map.put(city1.getCity(), city1);
-        map.put(city2.getCity(), city2);
-        map.put(city3.getCity(), city3);
-        getWeather(map, "London");
-        updateWeather(map, "Moscow");
-        remove(map, "Barcelona");
-        getAllWeatherData(map);
+        WeatherData city1 = initCache(LONDON, 20, 70);
+        WeatherData city2 = initCache(MOSCOW, -10, 40);
+        WeatherData city3 = initCache(BARCELONA, 22, 30);
+        System.out.println(weatherCache);
+        WeatherData cityWeather = getCityWeather(LONDON);
+        System.out.println(cityWeather);
+        updateWeather(MOSCOW);
+        remove(BARCELONA);
+        getAllWeatherData();
 
 
     }
+    public static WeatherData initCache(String city, int temperature, int humidity){
 
-    public static WeatherData getWeather(Map<String, WeatherData> map, String city) {
-        WeatherData weatherData = map.get(city);
+        if(weatherCache.containsKey(city)){
+            return weatherCache.get(city);
+        }else{
+            WeatherData weatherData = new WeatherData(city, temperature, humidity);
+            weatherCache.put(city,weatherData);
+            return weatherData;
+        }
+    }
+
+    public static WeatherData getCityWeather(String city) {
+        WeatherData weatherData = weatherCache.get(city);
         if (weatherData == null) {
-            return new ServiceCenter().weatherCenter(city);
+            WeatherData weatherCity = serviceCenter.weatherCenter(city);
+            weatherCache.put(city,weatherCity);
+            return weatherCity;
         } else {
             return weatherData;
         }
     }
 
-    public static void updateWeather(Map<String, WeatherData> map, String city) {
-        WeatherData weatherData = map.get(city);
-        int temp = new Random().nextInt(30);//обновление температуры
-        int humidity = new Random().nextInt(0, 101);//обновление показателя влажности
-        weatherData.setTemperature(temp);
-        weatherData.setHumidity(humidity);
-        map.put(city, weatherData);
+    public static void updateWeather(String city) {
+        WeatherData weatherData = serviceCenter.weatherCenter(city);
+        weatherCache.put(city, weatherData);
     }
 
-    public static void remove(Map<String, WeatherData> map, String city) {
-        map.remove(city);
+    public static void remove(String city) {
+        weatherCache.remove(city);
     }
 
-    public static void getAllWeatherData(Map<String, WeatherData> map) {
-        for (Map.Entry<String, WeatherData> entry : map.entrySet()) {
+    public static void getAllWeatherData() {
+        for (Map.Entry<String, WeatherData> entry : weatherCache.entrySet()) {
             String city = entry.getKey();
             int temperature = entry.getValue().getTemperature();
             int humidity = entry.getValue().getHumidity();

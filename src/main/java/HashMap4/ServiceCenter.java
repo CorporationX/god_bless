@@ -4,6 +4,7 @@ import java.util.Random;
 
 public class ServiceCenter {
     public WeatherData weatherCenter(String city){
-        return new WeatherData(city,new Random().nextInt(-5, 31), new Random().nextInt(0,101));
+        Random rnd = new Random();
+        return new WeatherData(city,rnd.nextInt(-5, 31), rnd.nextInt(0,101));
     }
 }
