@@ -30,38 +30,23 @@ public class Main {
         Map<String, List<Student>> map = new HashMap<>();
         for (Student student : students) {
             String key = student.getFaculty() + student.getYear();
-            if (map.containsKey(key)) {
-                List<Student> list = map.get(key);
-                list.add(student);
-                map.put(key, list);
-            } else {
-                List<Student> list = new ArrayList<>();
-                list.add(student);
-                map.put(key, list);
-            }
+            put(map,student);
         }
         return map;
     }
 
     public static void put(Map<String, List<Student>> map, Student student) {
         String key = student.getFaculty() + student.getYear();
-        if (map.containsKey(key)) {
-            List<Student> students = map.get(key);
-            students.add(student);
-            map.put(key, students);
-        } else {
-            List<Student> students = new ArrayList<>();
-            students.add(student);
-            map.put(key, students);
+        if (!map.containsKey(key)) {
+            map.put(key, new ArrayList<>());
         }
+        map.get(key).add(student);
     }
 
     public static void remove(Map<String, List<Student>> map, Student student) {
         String key = student.getFaculty() + student.getYear();
         if (map.containsKey(key)) {
-            List<Student> students = map.get(key);
-            students.remove(student);
-            map.put(key, students);
+            map.get(key).remove(student);
         } else {
             System.out.println("Студент не найден");
         }
