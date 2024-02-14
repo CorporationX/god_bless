@@ -1,6 +1,4 @@
-package HashMap2;
-
-import lombok.ToString;
+package Hashmap.HashMap2;
 
 import java.util.ArrayList;
 import java.util.HashMap;

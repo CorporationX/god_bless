@@ -1,4 +1,4 @@
-package Task4;
+package Basic.Task4;
 
 import java.util.List;
 import java.util.Map;

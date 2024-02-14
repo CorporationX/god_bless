@@ -1,4 +1,4 @@
-package HashMap6;
+package Hashmap.HashMap6;
 
 import java.util.ArrayList;
 import java.util.HashMap;

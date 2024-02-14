@@ -1,4 +1,4 @@
-package HashMap2;
+package Hashmap.HashMap2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

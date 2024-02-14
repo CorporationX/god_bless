@@ -1,4 +1,4 @@
-package HashMap6;
+package Hashmap.HashMap6;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
