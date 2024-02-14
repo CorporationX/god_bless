@@ -21,12 +21,12 @@ public class Main {
 
     }
 
-    public static void getWeather(Map<String, WeatherData> map, String city) {
+    public static WeatherData getWeather(Map<String, WeatherData> map, String city) {
         WeatherData weatherData = map.get(city);
         if (weatherData == null) {
-            new ServiceCenter().weatherCenter();
+            return new ServiceCenter().weatherCenter(city);
         } else {
-            System.out.println(weatherData);
+            return weatherData;
         }
     }
 
