@@ -6,11 +6,11 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class EmailProcessor {
-    public void processEmails(List<Email> emailList, Predicate<Email> predicate, Consumer<Email> handler, Function<Email, Email> transformer) {
+    public void processEmails(List<Email> emailList, Predicate<Email> predicate, Consumer<Email> handler, Function<Email, ?> transformer) {
         for (Email email : emailList) {
             if (predicate.test(email)) {
-                handler.accept(email);
                 transformer.apply(email);
+                handler.accept(email);
             }
         }
     }

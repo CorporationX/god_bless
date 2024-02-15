@@ -19,8 +19,14 @@ public class Main {
         Predicate<Email> filter = email -> email.isImportant();
         Consumer<Email> handler = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, Email> finishedEmail = email -> emails.set(emails.indexOf(email), new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant()));
+        Function<Email, String> toLowerCase = email -> {
+            email.setBody(email.getBody().toLowerCase());
+            return email.getBody();
+        };
 
         emailProcessor.processEmails(emails, filter, handler, finishedEmail);
+        System.out.println(emails);
+        emailProcessor.processEmails(emails, filter, handler, toLowerCase);
         System.out.println(emails);
     }
 }
