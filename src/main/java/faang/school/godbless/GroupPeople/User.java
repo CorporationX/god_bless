@@ -38,7 +38,7 @@ public class User {
 
     private void areParametersValid(String name, int age, String company, String adress) {
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым.");
+            throw new IllegalArgumentException("Name не может быть пустым.");
         }
         if (age < VALID_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18.");
