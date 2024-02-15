@@ -3,34 +3,35 @@ package faang.school.godbless;
 import java.util.Arrays;
 import java.util.List;
 
-public class Main7 {
-    @FunctionalInterface
-    public interface Calculator{
-        public int calc(int a, int b);
-    }
+@FunctionalInterface
+interface Calculator {
+    long calc(long a, long b);
+}
 
-    public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException{
-        if (nums.isEmpty()) {
-            throw new IllegalArgumentException("empty list");
+public class Main7 {
+
+    public static long calculate(List<Long> nums, Calculator calculator) throws IllegalArgumentException {
+        if (nums == null || nums.isEmpty()) {
+            throw new IllegalArgumentException("empty list or list = null");
         }
 
-        int result = nums.get(0);
+        long result = nums.get(0);
         for (int i = 1; i < nums.size(); ++i) {
             result = calculator.calc(result, nums.get(i));
         }
         return result;
     }
 
-    public static int product(List<Integer> nums){
-        return calculate(nums, (a, b) -> a*b);
+    public static long product(List<Long> nums) {
+        return calculate(nums, (a, b) -> a * b);
     }
 
-    public static int sum(List<Integer> nums){
-        return calculate(nums, (a, b) -> a+b);
+    public static long sum(List<Long> nums) {
+        return calculate(nums, (a, b) -> a + b);
     }
 
-    public static void main(String args[]){
-        List<Integer> nums = Arrays.asList(2, 4, 8);
+    public static void main(String args[]) {
+        List<Long> nums = null;
 
         System.out.println(sum(nums));
         System.out.println(product(nums));
