@@ -5,7 +5,7 @@ public class Main {
         Droid d1d3 = new Droid();
         Droid a131 = new Droid();
         String message = "ABC";
-        int encryptionKey = 5;
+        int encryptionKey = 24;
 
         String enctyptWord = d1d3.sendEncryptedMessage(message, encryptionKey);
         System.out.println(enctyptWord);
