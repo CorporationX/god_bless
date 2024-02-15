@@ -18,8 +18,10 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Item item, Predicate<Item> condition) {
-        if (condition.test(item)) {
-            character.getInventory().remove(item);
+        if (character.getInventory() != null) {
+            if (condition.test(item)) {
+                character.getInventory().remove(item);
+            }
         }
     }
 
