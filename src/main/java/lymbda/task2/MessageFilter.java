@@ -1,4 +1,5 @@
-package Lymbda.Task2;
+package lymbda.task2;
+
 @FunctionalInterface
 public interface MessageFilter {
     boolean filter(String message);
