@@ -31,7 +31,7 @@ public class Main7 {
     }
 
     public static void main(String args[]) {
-        List<Long> nums = null;
+        List<Long> nums = Arrays.asList(2432144314123341233L,4543342234241341423L,8334213412344421341L);
 
         System.out.println(sum(nums));
         System.out.println(product(nums));
