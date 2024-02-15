@@ -1,6 +1,5 @@
 package faang.school.godbless.lambda.Lord_of_the_Rings;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
