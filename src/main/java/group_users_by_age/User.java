@@ -49,14 +49,53 @@ public class User {
     }
 
     public User(String name, int age, String workPlace, String address) {
-        if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
+        if (validation(name,age,workPlace,address) == true) {
+            this.name = name;
+            this.age = age;
+            this.workPlace = workPlace;
+            this.address = address;
+        }
+
+    }
+    private boolean validation(String name, int age, String workPlace, String address){
+        if (name.isEmpty()) {
             try {
                 throw new IllegalArgumentException();
             } catch (IllegalArgumentException e) {
-                System.out.println("!ERROR!\nYOUR ARGUMENT IS ILLEGAL!");
+                System.out.println("!ERROR!\nargument \"name\" can't be empty");
             }
+            return false;
+        } else if (name.isBlank()) {
+            try {
+                throw new NullPointerException();
+            } catch (NullPointerException e) {
+                System.out.println("!ERROR!\nargument \"name\" must be");
+            }
+            return false;
+        } else if (age < 18) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("!ERROR!\nargument \"age\" must be more than 17");
+            }
+            return false;
+        } else if (!VALID_JOBS.contains(workPlace)) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("!ERROR!\nargument \"workPlace\" must be \"Google\", \"Uber\" or \"Amazon\"");
+            }
+            return false;
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            try {
+                throw new IllegalArgumentException();
+            } catch (IllegalArgumentException e) {
+                System.out.println("!ERROR!\nargument \"address\" must be \"London\", \"New York\" or \"Amsterdam\"");
+            }
+            return false;
+        } else {
+            return true;
         }
-
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {

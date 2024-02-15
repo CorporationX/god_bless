@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println(groupUsers(userList));
 
-        User tom = new User("Tom", 18, "Uber", "Voronesh");
+        User tom = new User("Tom", 18, "Amazon", "Voronesh");
 
 
     }
