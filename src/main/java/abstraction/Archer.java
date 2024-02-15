@@ -5,4 +5,9 @@ public class Archer extends Character{
         super(name, power, dexterity, intelligence);
     }
     Archer archer = new Archer("Bill", 3, 10, 5);
+
+    @Override
+    public void attack(Character character) {
+
+    }
 }

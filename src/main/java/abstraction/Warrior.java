@@ -7,4 +7,9 @@ public class Warrior extends Character{
     }
     Warrior warrior = new Warrior("Tom", 10, 5, 3);
 
+    @Override
+    public void attack(Character character) {
+
+    }
+
 }
