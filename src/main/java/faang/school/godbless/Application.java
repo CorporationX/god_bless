@@ -13,6 +13,7 @@ import java.util.List;
 public class Application {
     public static void main(String... args) {
         System.out.println("Hello world");
+        Main.mainStart();
         /*
 //BJS2-2025
         User user1GroupAge =new User("Vanua","work","NN",10);
