@@ -1,4 +1,4 @@
-package faang.school.godbless.Calculator;
+package faang.school.godbless.calculator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,16 +15,8 @@ public class Main {
         System.out.println(sumIntegers(intNumbers));
     }
 
-    public static double calculateDoubles(List<Double> nums, Calculator<Double> calculator) throws IllegalArgumentException {
-        double result = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            result = calculator.calc(result, nums.get(i));
-        }
-        return result;
-    }
-
-    public static int calculateIntegers(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
-        int result = nums.get(0);
+    public static <T extends Number> T calculate(List<T> nums, Calculator<T> calculator) throws IllegalArgumentException {
+        T result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calc(result, nums.get(i));
         }
@@ -32,18 +24,18 @@ public class Main {
     }
 
     public static int productIntegers(List<Integer> nums) {
-        return calculateIntegers(nums, (number1, number2) -> number1 * number2);
+        return calculate(nums, (number1, number2) -> number1 * number2);
     }
 
     public static double productDoubles(List<Double> nums) {
-        return calculateDoubles(nums, (number1, number2) -> number1 * number2);
+        return calculate(nums, (number1, number2) -> number1 * number2);
     }
 
     public static int sumIntegers(List<Integer> nums) {
-        return calculateIntegers(nums, Integer::sum);
+        return calculate(nums, Integer::sum);
     }
 
     public static double sumDoubles(List<Double> nums) {
-        return calculateDoubles(nums, Double::sum);
+        return calculate(nums, Double::sum);
     }
 }
