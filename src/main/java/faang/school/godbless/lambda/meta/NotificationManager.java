@@ -5,14 +5,14 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private static Map<String, Consumer<Notification>> notificationMap = new HashMap<>();
-    public void registerHandler(String notification, Consumer<Notification> consumer){
-        notificationMap.put(notification, consumer);
+    private static Map<String, Consumer<Notification>> notificationHandlers = new HashMap<>();
+    public void registerHandler(String notification, Consumer<Notification> handler){
+        notificationHandlers.put(notification, handler);
     }
 
     public void sendNotification(Notification notification){
         String notificationType = notification.getType();
-        Consumer<Notification> type = notificationMap.get(notificationType);
-        type.accept(notification);
+        Consumer<Notification> handler = notificationHandlers.get(notificationType);
+        handler.accept(notification);
     }
 }
