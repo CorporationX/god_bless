@@ -3,18 +3,18 @@ package Meta;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 
 public class NotificationManager {
-    private static Map <String, Consumer<Notification>> map = new HashMap <>();
-    public static void registerHandler (String type, Consumer <Notification> consumer){
-            map.put(type, consumer);
+    private static Map<String, Consumer<Notification>> handlers = new HashMap<>();
+
+    public static void registerHandler(String type, Consumer<Notification> handler) {
+        handlers.put(type, handler);
     }
-    public static void sendNotification (Notification notification ){
-        map.get(notification.getType()).accept(notification);
-    }
-    public static void AntiHateFanngSchool (Map <String,Consumer<Notification>> map){
-        map.entrySet().stream().filter(elements -> elements.getKey() == "bad review");
+
+    public static void sendNotification(Notification notification) {
+        Consumer<Notification> handler = handlers.get(notification.getType());
+        if (handler != null) {
+            handler.accept(notification);
+        }
     }
 }
-
