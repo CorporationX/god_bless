@@ -1,7 +1,9 @@
-package faang.school.godbless;
+package Filter_Instagram;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class Image {
     String fileName;
