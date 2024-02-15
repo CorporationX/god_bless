@@ -1,8 +1,5 @@
 package faang.school.godbless.lambda.gmail;
 
-import faang.school.godbless.lambda.gmail.Email;
-import faang.school.godbless.lambda.gmail.EmailProcessor;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -19,11 +16,11 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Predicate<Email> filter = email -> email.isImportant();
+        Consumer<Email> handler = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, Email> finishedEmail = email -> emails.set(emails.indexOf(email), new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant()));
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, finishedEmail);
+        emailProcessor.processEmails(emails, filter, handler, finishedEmail);
         System.out.println(emails);
     }
 }
