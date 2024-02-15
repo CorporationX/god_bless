@@ -3,7 +3,6 @@ package faang.school.godbless;
 import java.util.ArrayList;
 
 
-
 import static faang.school.godbless.User.groupUsers;
 
 import java.util.Map;
@@ -14,7 +13,7 @@ import java.util.List;
 public class Application {
     public static void main(String... args) {
         System.out.println("Hello world");
-
+        /*
 //BJS2-2025
         User user1GroupAge =new User("Vanua","work","NN",10);
         User user2GroupAge =new User("Petua","work","NN",11);
@@ -46,5 +45,9 @@ public class Application {
         for (int j : reversNum) {
             System.out.print(j);
         }
+
+         */
+
     }
 }
+
