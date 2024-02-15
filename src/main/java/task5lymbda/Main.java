@@ -1,4 +1,4 @@
-package Task5lymbda;
+package task5lymbda;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,6 +19,5 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getSubject().toUpperCase();
         emailProcessor.processEmails(emails,importantFilter,printEmail,toUpperCase);
 
-        //emailProcessor.processEmails(emails,(email -> email.isImportant()),(email -> System.out.println(email.getBody())),(email -> email.getBody().toUpperCase()));
     }
 }
