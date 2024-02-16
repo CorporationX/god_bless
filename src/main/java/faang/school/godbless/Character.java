@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Character {
     private final String name;
-    private List<Item> inventory;
+    private final List<Item> inventory;
     Character(String name){
         this.name = name;
         this.inventory = new ArrayList<>();
