@@ -1,4 +1,4 @@
-package faang.school.godbless.Hogwarts;
+package faang.school.godbless.hogwarts;
 
 public class SpellCaster {
     public void cast(String spellName, SpellAction spellAction){

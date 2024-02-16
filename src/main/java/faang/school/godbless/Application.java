@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Hogwarts.SpellCaster;
+import faang.school.godbless.hogwarts.SpellCaster;
 
 public class Application {
     public static void main(String... args) {
