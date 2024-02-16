@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import static faang.school.godbless.Main.mainStart;
@@ -11,8 +12,10 @@ import java.util.List;
 
 
 public class Application {
-    public static void main(String... args) {
+    public static void main(String... args) throws IOException {
         System.out.println("Hello world");
+
+        Main.weatherMain();
         Main.studentsStart();
 
         User user1Validation = new User("vanya","Google","London",18);
@@ -32,6 +35,7 @@ public class Application {
 //конец BJS2-2025
 
         List<User> users = new ArrayList<>();
+
         Set<String> activity1 = Set.of("Drawing", "Dancing", "Music", "Sport");
         User user1 = new User("Ivan", 14, activity1);
         Set<String> activity2 = Set.of("Dancing", "Music", "Drawing", "Sport");
@@ -40,6 +44,7 @@ public class Application {
         User user3 = new User("Artem", 35, activity3);
         Set<String> activity4 = Set.of("Learning foreign languages", "Blogging");
         User user4 = new User("Mathew", 23, activity4);
+        List<User> users = new ArrayList<>();
         users.add(user1);
         users.add(user2);
         users.add(user3);
