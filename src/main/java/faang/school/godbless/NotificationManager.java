@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 public class NotificationManager {
     private final Map<String, Consumer<Notification>>map = new HashMap<>();
-    private final List<Predicate<Notification>> filters = new ArrayList<>();
+    List<Predicate<Notification>> filters = new ArrayList<>();
 
     public void registerHandler(String type,Consumer<Notification> handler){
         map.put(type,handler);
