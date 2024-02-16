@@ -1,3 +1,4 @@
+
 package src.main.java.faang.school.godbless;
 
 import java.util.HashMap;
