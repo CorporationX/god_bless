@@ -12,8 +12,8 @@ public class CalculatorProcess {
             for (int i=1; i<nums.size(); i++) {
                 num = calculator.calculate(num, nums.get(i));
             }
+            return num;
         }
-        return 0;
     }
 
     public static int product(List<Integer> nums) {
