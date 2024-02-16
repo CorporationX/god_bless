@@ -1,9 +1,8 @@
-package faang.school.godbless.Meta;
+package faang.school.godbless.meta;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
 
 public class NotificationManager {
 

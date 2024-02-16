@@ -1,5 +1,4 @@
-package faang.school.godbless.Meta;
-
+package faang.school.godbless.meta;
 
 public class Main {
     public static void main(String[] args) {

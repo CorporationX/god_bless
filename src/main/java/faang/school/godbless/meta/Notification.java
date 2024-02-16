@@ -1,4 +1,4 @@
-package faang.school.godbless.Meta;
+package faang.school.godbless.meta;
 
 import lombok.Getter;
 
