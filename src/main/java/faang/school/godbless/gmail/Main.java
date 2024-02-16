@@ -17,9 +17,15 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Function for letter: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("The letter: \"" + email.getSubject() + "\" has been processed");
+        Function<Email, String> toUpperCase = email -> {
+            email.setBody(email.getBody().toUpperCase());
+            return email.getBody();
+        };
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        for (Email email : emails) {
+            System.out.println(email);
+        }
     }
 }
