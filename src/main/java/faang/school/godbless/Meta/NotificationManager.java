@@ -1,7 +1,5 @@
 package faang.school.godbless.Meta;
 
-import faang.school.godbless.Meta.Notification;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
