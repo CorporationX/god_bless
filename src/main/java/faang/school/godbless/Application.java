@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Hogwarts.SpellCaster;
 import faang.school.godbless.Meta.Notification;
 import faang.school.godbless.Meta.NotificationManager;
 
