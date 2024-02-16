@@ -19,6 +19,9 @@ public class Main {
     }
 
     public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+        if (nums == null || nums.isEmpty()) {
+            throw new IllegalArgumentException("list cannot be empty");
+        }
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
