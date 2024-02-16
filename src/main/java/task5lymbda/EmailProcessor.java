@@ -9,8 +9,8 @@ public class EmailProcessor{
     public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> process, Function<Email, String> transformer){
         for (Email email: emails){
             if(filter.test(email)){
-                System.out.println(transformer.apply(email));
                 process.accept(email);
+                System.out.println(transformer.apply(email));
             }
         }
     }
