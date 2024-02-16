@@ -1,4 +1,4 @@
-package Filter_Instagram;
+package filter_Instagram;
 
 import java.util.function.Function;
 

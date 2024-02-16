@@ -1,7 +1,4 @@
-package Filter_Instagram;
-
-import java.util.function.Function;
-import java.util.stream.Stream;
+package filter_Instagram;
 
 public class FilterProcessor {
 
