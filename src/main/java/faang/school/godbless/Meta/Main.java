@@ -4,14 +4,17 @@ package faang.school.godbless.Meta;
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+        final String EMAIL = "email";
+        final String SMS = "sms";
+        final String PUSH = "push";
 
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
-        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
-        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler(EMAIL, (notification) -> System.out.println("Email send mail: " + notification.getMessage()));
+        notificationManager.registerHandler(SMS, (notification) -> System.out.println("Send SMS: " + notification.getMessage()));
+        notificationManager.registerHandler(PUSH, (notification) -> System.out.println("Send push-notification: " + notification.getMessage()));
 
-        Notification emailNotification = new Notification("email", "Account activated ");
-        Notification smsNotification = new Notification("sms", "Password changed ");
-        Notification pushNotification = new Notification("push", "New post published ");
+        Notification emailNotification = new Notification(EMAIL, "Account activated ");
+        Notification smsNotification = new Notification(PUSH, "Password changed ");
+        Notification pushNotification = new Notification(PUSH, "New post published ");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
