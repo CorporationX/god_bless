@@ -20,7 +20,4 @@ public class Character {
         return inventory;
     }
 
-    public void setInventory(List<Item> inventory) {
-        this.inventory = inventory;
-    }
 }
