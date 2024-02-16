@@ -1,8 +1,8 @@
 package src.main.java.faang.school.godbless;
 
 public class Item {
-    private String name;
-    private int value;
+    private final String name;
+    private final int value;
     public String getName() {
         return name;
     }
