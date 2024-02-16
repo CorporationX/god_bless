@@ -23,7 +23,7 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
 
-        Map<String, Predicate<Notification>> filter = new HashMap<>();
-        filter.put("filtration", notification -> false);
+        Map<String, Predicate<Notification>> filterh = new HashMap<>();
+        filterh.put("filtration", notification -> false);
     }
 }
