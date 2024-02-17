@@ -18,7 +18,6 @@ public class User {
     private String name, placeOfWork, address;
     private int age;
     private Set<String> activity;
-    private String placeOfWork, address;
 
     User(String name, int age, Set<String> activity) {
         setId(idNum++);
@@ -53,6 +52,25 @@ public class User {
         return userActivity;
     }
 
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
+
+        for (User user : users) {//Вносим возраст и списки пользователй
+
+            if (groupUsers.containsKey(user.age)) {
+                List<User> ageAppropriateUser = groupUsers.get(user.age);
+                ageAppropriateUser.add(user);
+                groupUsers.put(user.age, ageAppropriateUser);
+            }
+            else {
+                List<User> ageAppropriateUser = new ArrayList<>();
+                ageAppropriateUser.add(user);
+                groupUsers.put(user.age, ageAppropriateUser);
+            }
+        }
+        return groupUsers;
+    }
+
     private void validation(String name, String placeOfWork, String address, int age) {
         if (name == null || name.isEmpty()) {
             System.out.println("Введено не корректное имя");
@@ -72,23 +90,5 @@ public class User {
     
 }
     
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
 
-        for (User user : users) {//Вносим возраст и списки пользователй
-
-            if (groupUsers.containsKey(user.age)) {
-                List<User> ageAppropriateUser = groupUsers.get(user.age);
-                ageAppropriateUser.add(user);
-                groupUsers.put(user.age, ageAppropriateUser);
-            }
-            else {
-                List<User> ageAppropriateUser = new ArrayList<>();
-                ageAppropriateUser.add(user);
-                groupUsers.put(user.age, ageAppropriateUser);
-            }
-        }
-        return groupUsers;
-    }
-}
 
