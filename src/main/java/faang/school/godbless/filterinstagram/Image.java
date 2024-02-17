@@ -1,17 +1,14 @@
 package faang.school.godbless.filterinstagram;
 
+import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 @ToString
+@AllArgsConstructor
 public class Image {
-    private final String name;
-    private final String description;
-
-    public Image(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
+    private String name;
+    private String description;
+    
     public String getName() {
         return name;
     }
