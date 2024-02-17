@@ -1,21 +1,13 @@
 package faang.school.godbless.stream2;
 
-import org.w3c.dom.ls.LSOutput;
-
-import java.rmi.MarshalledObject;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -218,13 +210,6 @@ public class Main {
         System.out.println(palindromes(1, 1000));
         System.out.println(palindromeSubstrings("Was it a car or a cat I saw? No, it was not a palindrome but this message contains some interesting ones like radar and level !"));
         System.out.println(perfectNumbers(1, 100000));
-    }
-
-
-    public static List<Integer> generateNumbers(int start, int end) {
-        return IntStream.range(start, end)
-                .boxed()
-                .toList();
     }
 
     public static void addFriend(Map<String, List<String>> friendsMap, String friend, List<String> friendList) {
