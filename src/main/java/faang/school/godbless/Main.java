@@ -12,7 +12,7 @@ public class Main {
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
 
-    public static void studentsStart() {
+    public static void mainStart() {
         
         Student student1 = new Student("Ivan", "information technologies", 2);
         Student student2 = new Student("Petr", "information technologies", 2);
@@ -33,7 +33,7 @@ public class Main {
 
     }
   
-   public static void mainStartBook() {
+   public static void mainStart() {
         Scanner in = new Scanner(System.in);
 
         Book headFirstJava = new Book("Head First Java", "Katie Sierra and Bert Bates", 2003);
