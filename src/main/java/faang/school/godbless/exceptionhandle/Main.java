@@ -7,17 +7,12 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Positive: ");
-        Integer pos = withErrorHandling(Main::positiveMock, exception -> {
-            System.out.println("Error");
-            return 0;
-        });
+        Integer pos = withErrorHandling(Main::positiveMock, Main::errorHandler);
         System.out.println("Value = " + pos);
         System.out.println();
+
         System.out.println("Negative: ");
-        Integer neg = withErrorHandling(Main::negativeMock, exception -> {
-            System.out.println("Error: " + exception.getClass().getName());
-            return 0;
-        });
+        Integer neg = withErrorHandling(Main::negativeMock, Main::errorHandler);
         System.out.println("Value = " + neg);
     }
 
@@ -35,5 +30,10 @@ public class Main {
         } catch (Exception e) {
             return errorHandler.handle(e);
         }
+    }
+
+    private static int errorHandler(Exception e) {
+        System.out.println("Error: " + e.getClass().getName());
+        return 0;
     }
 }
