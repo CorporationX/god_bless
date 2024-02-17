@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Sum of even: " + sumOfEven(numbers));
         System.out.println("Max number: " + max(numbers));
         System.out.println("Average: " + average(numbers));
-        System.out.println("Starts with 'j': " + startsWith(strings, 'j'));
+        System.out.println("Starts with 'j': " + countStringsWithStartingCharacter(strings, 'j'));
         List<String> strings2 = new ArrayList<>() {{
             add("klerklgklerjsubstringldrghlker");
             add("rnghjklernjkghnkerjhn");
@@ -24,13 +24,13 @@ public class Main {
             add("ergjklherjkgsubstring");
         }};
         System.out.println(strings2);
-        strings2 = saveThatContainsSubstring(strings2, "substring");
+        strings2 = filterStringsContainingSubstring(strings2, "substring");
         System.out.println(strings2);
-        strings2 = filterByLength(strings2);
+        strings2 = sortStringsByLength(strings2);
         System.out.println(strings2);
         System.out.println(allMatch(strings, string -> string.length() > 10));
-        System.out.println(minBiggerThan(numbers, 7));
-        System.out.println(stringsToLengths(strings2));
+        System.out.println(findSmallestElementGreaterThan(numbers, 7));
+        System.out.println(convertStringsToLengths(strings2));
     }
 
     public static int sumOfEven(List<Integer> numbers) {
@@ -53,17 +53,17 @@ public class Main {
                 .orElse(0D);
     }
 
-    public static long startsWith(List<String> strings, char ch) {
+    public static long countStringsWithStartingCharacter(List<String> strings, char ch) {
         return strings.stream()
-                .filter(string -> string.toLowerCase().charAt(0) == ch)
+                .filter(string -> string.charAt(0) == ch)
                 .count();
     }
 
-    public static List<String> saveThatContainsSubstring(List<String> strings, String string) {
-        return strings.stream().filter(str -> str.contains(string)).collect(Collectors.toList());
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
+        return strings.stream().filter(str -> str.contains(substring)).collect(Collectors.toList());
     }
 
-    public static List<String> filterByLength(List<String> strings) {
+    public static List<String> sortStringsByLength(List<String> strings) {
         return strings.stream().sorted(Comparator.comparingInt(String::length)).collect(Collectors.toList());
     }
 
@@ -71,11 +71,11 @@ public class Main {
         return strings.stream().allMatch(condition);
     }
 
-    public static int minBiggerThan(List<Integer> nums, int num) {
+    public static int findSmallestElementGreaterThan(List<Integer> nums, int num) {
         return nums.stream().filter(n -> n > num).min(Integer::compareTo).orElse(0);
     }
 
-    public static List<Integer> stringsToLengths(List<String> strings) {
+    public static List<Integer> convertStringsToLengths(List<String> strings) {
         return strings.stream().map(String::length).collect(Collectors.toList());
     }
 }
