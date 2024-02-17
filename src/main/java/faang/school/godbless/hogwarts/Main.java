@@ -1,6 +1,6 @@
-package faang.school.godbless.Hogwarts;
+package faang.school.godbless.hogwarts;
 
-public class Application {
+public class Main {
     public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
 
