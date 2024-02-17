@@ -18,7 +18,6 @@ public class User {
     private String name, placeOfWork, address;
     private int age;
     private Set<String> activity;
-    private String placeOfWork, address;
 
     User(String name, int age, Set<String> activity) {
         setId(idNum++);
@@ -68,10 +67,6 @@ public class User {
             System.out.println("Пользователи с возрастом меньше 18 не допускаются к регистрации");
         }
     }
-
-    
-}
-    
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
 
