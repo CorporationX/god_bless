@@ -50,10 +50,14 @@ public class User {
 
     public User(String name, int age, String workPlace, String address) throws Exception {
         validation(name, age, workPlace, address);
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.address = address;
 
     }
 
-    private void validation (String name, int age, String workPlace, String address) throws Exception{
+    private void validation(String name, int age, String workPlace, String address) throws Exception {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("!ERROR!\nargument \"name\" can't be empty");
         } else if (age < 18) {
@@ -62,11 +66,6 @@ public class User {
             throw new IllegalArgumentException("!ERROR!\nargument \"workPlace\" must be \"Google\", \"Uber\" or \"Amazon\"");
         } else if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("!ERROR!\nargument \"address\" must be \"London\", \"New York\" or \"Amsterdam\"");
-        } else {
-            this.name = name;
-            this.age = age;
-            this.workPlace = workPlace;
-            this.address = address;
         }
     }
 
