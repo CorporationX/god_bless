@@ -1,15 +1,20 @@
 package faang.school.godbless.spam_filter;
 
 import java.util.List;
-
 public class MessageProcessor {
-    private static void processMessage(String message, List<MessageFilter> list) {
+    public static boolean processMessage(String message, List<MessageFilter> list) {
 
-    }
-
-    public interface MessageFilter() {
-        private static void filter(String message) {
-            boolean isFilter;
-        }
+        return false;
     }
 }
+
+    interface MessageFilter {
+        boolean isFilter(String message);
+    }
+
+    class filterOrNofilter implements MessageFilter {
+        @Override
+        public boolean isFilter(String message) {
+            return message != null && !message.isBlank() && message.contains("Spam") && message.contains("\uD83D\uDE00");
+        }
+    }
