@@ -48,53 +48,25 @@ public class User {
         this.address = address;
     }
 
-    public User(String name, int age, String workPlace, String address) {
-        if (validation(name,age,workPlace,address) == true) {
+    public User(String name, int age, String workPlace, String address) throws Exception {
+        validation(name, age, workPlace, address);
+
+    }
+
+    private void validation (String name, int age, String workPlace, String address) throws Exception{
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("!ERROR!\nargument \"name\" can't be empty");
+        } else if (age < 18) {
+            throw new IllegalArgumentException("!ERROR!\nargument \"age\" must be more than 17");
+        } else if (!VALID_JOBS.contains(workPlace)) {
+            throw new IllegalArgumentException("!ERROR!\nargument \"workPlace\" must be \"Google\", \"Uber\" or \"Amazon\"");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("!ERROR!\nargument \"address\" must be \"London\", \"New York\" or \"Amsterdam\"");
+        } else {
             this.name = name;
             this.age = age;
             this.workPlace = workPlace;
             this.address = address;
-        }
-
-    }
-    private boolean validation(String name, int age, String workPlace, String address){
-        if (name.isEmpty()) {
-            try {
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("!ERROR!\nargument \"name\" can't be empty");
-            }
-            return false;
-        } else if (name.isBlank()) {
-            try {
-                throw new NullPointerException();
-            } catch (NullPointerException e) {
-                System.out.println("!ERROR!\nargument \"name\" must be");
-            }
-            return false;
-        } else if (age < 18) {
-            try {
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("!ERROR!\nargument \"age\" must be more than 17");
-            }
-            return false;
-        } else if (!VALID_JOBS.contains(workPlace)) {
-            try {
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("!ERROR!\nargument \"workPlace\" must be \"Google\", \"Uber\" or \"Amazon\"");
-            }
-            return false;
-        } else if (!VALID_ADDRESSES.contains(address)) {
-            try {
-                throw new IllegalArgumentException();
-            } catch (IllegalArgumentException e) {
-                System.out.println("!ERROR!\nargument \"address\" must be \"London\", \"New York\" or \"Amsterdam\"");
-            }
-            return false;
-        } else {
-            return true;
         }
     }
 
