@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("gold bless us");
+        System.out.println("god bless us");
     }
 
     public static List<Integer> getTopTenUsers(List<UserAction> userActions) {
