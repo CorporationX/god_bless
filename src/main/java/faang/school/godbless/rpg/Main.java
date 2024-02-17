@@ -19,5 +19,6 @@ public class Main {
 
 //// Обновляем предмет в инвентаре
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        System.out.println(frodo.getInventory());
     }
 }

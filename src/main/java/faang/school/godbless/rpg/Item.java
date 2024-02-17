@@ -1,6 +1,8 @@
 package faang.school.godbless.rpg;
 
+import lombok.ToString;
 
+@ToString
 public class Item {
     private final String name;
     private final int value;
