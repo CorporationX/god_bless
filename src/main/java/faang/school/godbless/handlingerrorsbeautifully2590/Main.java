@@ -1,4 +1,4 @@
-package faang.school.godbless.HandlingErrorsBeautifully2590;
+package faang.school.godbless.handlingerrorsbeautifully2590;
 
 import java.util.NoSuchElementException;
 import java.util.function.Supplier;
