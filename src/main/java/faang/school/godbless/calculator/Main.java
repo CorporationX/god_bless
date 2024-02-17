@@ -19,13 +19,20 @@ public class Main {
     }
 
     public static <T extends Number> T calculate(List<T> nums, Calculator<T> calculator) {
-        if (nums == null) {
-            throw new IllegalArgumentException("Nums can't be null");
-        }
+        validateCalculate(nums);
         T result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
         }
         return result;
+    }
+
+    private static <T> void validateCalculate(List<T> nums) {
+        if (nums == null) {
+            throw new IllegalArgumentException("Nums can't be null");
+        }
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("Nums can't be empty");
+        }
     }
 }
