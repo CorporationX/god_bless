@@ -12,11 +12,11 @@ public class UserAction {
     private LocalDateTime actionDate;
     private String content;
 
-    public UserAction(int id, String name, String actionType, LocalDateTime actionDate, String content) {
+    public UserAction(int id, String name, String actionType, String content) {
         this.id = id;
         this.name = name;
         this.actionType = actionType;
-        this.actionDate = actionDate;
+        this.actionDate = LocalDateTime.now();
         this.content = content;
     }
 }
