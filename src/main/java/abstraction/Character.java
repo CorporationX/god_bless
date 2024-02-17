@@ -2,7 +2,8 @@ package abstraction;
 
 public abstract class Character {
     protected String name;
-    protected int power, dexterity, intelligence, health = 100;
+    protected int power, dexterity, intelligence;
+    protected int health = 100;
 
     public Character(String name){
         this.name = name;
