@@ -1,6 +1,6 @@
-package faang.school.godbless.MetaUniverse;
+package faang.school.godbless.metaUniverse;
 
-public class Application {
+public class Main {
     public static void main(String... args) {
         NotificationManager notificationManager = new NotificationManager();
 
@@ -19,4 +19,3 @@ public class Application {
         notificationManager.sendNotification(pushNotification);
     }
 }
-
