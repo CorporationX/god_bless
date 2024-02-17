@@ -1,25 +1,15 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
-
-import static faang.school.godbless.Main.mainStart;
 import static faang.school.godbless.User.groupUsers;
-
 import java.util.Map;
 import java.util.Set;
 import java.util.List;
-
 
 public class Application {
     public static void main(String... args) {
         System.out.println("Hello world");
         Main.studentsStart();
-
-        User user1Validation = new User("vanya","Google","London",18);
-        User user2Validation = new User("Petua","Amazon","Minsk",19);
-        User user3Validation = new User("Misha","Google","London",17);
-
-
 //BJS2-2025
         User user1GroupAge = new User("Vanua", "work", "NN", 10);
         User user2GroupAge = new User("Petua", "work", "NN", 11);
@@ -27,8 +17,8 @@ public class Application {
         User user4GroupAge = new User("Ivan", "work", "NN", 10);
         User user5GroupAge = new User("Petr", "work", "NN", 11);
 
-        List<User> groupAgeusers = List.of(user1GroupAge, user2GroupAge, user3GroupAge, user4GroupAge, user5GroupAge);
-        Map<Integer, List<User>> groupAgeUsers = groupUsers(groupAgeusers);
+        List<User> listGroupAgeusers = List.of(user1GroupAge, user2GroupAge, user3GroupAge, user4GroupAge, user5GroupAge);
+        Map<Integer, List<User>> mapGroupAgeUsers = groupUsers(listGroupAgeusers);
 //конец BJS2-2025
 
         List<User> users = new ArrayList<>();
@@ -50,11 +40,19 @@ public class Application {
         int[] reversNum = Example.reverse(numbers);
         for (int j : reversNum) {
             System.out.print(j);
-
-
-            Main.libraryStart();
+            Main.mainStartBook();
         }
 
+
+        SpellCaster spellCaster = new SpellCaster();
+
+        String alohomora = "Alohomora";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
+
+        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
+        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
 }
 

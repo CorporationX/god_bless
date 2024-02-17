@@ -7,7 +7,7 @@ public class Main {
     private static final Map<Book, String> bookPlace = new HashMap<>();
     private static final Map<String, House> houseMap = new HashMap<>();
 
-    public static void mainStart() {
+    public static void studentsStart() {
         
         Student student1 = new Student("Ivan", "information technologies", 2);
         Student student2 = new Student("Petr", "information technologies", 2);
@@ -28,7 +28,7 @@ public class Main {
 
     }
   
-   public static void mainStart() {
+   public static void mainStartBook() {
         Scanner in = new Scanner(System.in);
 
         Book headFirstJava = new Book("Head First Java", "Katie Sierra and Bert Bates", 2003);
