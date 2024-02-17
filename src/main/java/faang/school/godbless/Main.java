@@ -86,7 +86,7 @@ public class Main {
         searchBook("Java. Beginner's Guide", "Herbert Shildt", 2002);
         printAllBooks();
     }
-
+   
     public static void mainStartHouseGame() {
         House stark = new House("Stark", "direwolf");
         House lannister = new House("Lannister", "Lion rampant");
