@@ -2,6 +2,7 @@ package faang.school.godbless.game;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -11,5 +12,6 @@ public class Character {
 
    public Character(String name) {
       this.name = name;
+      inventory = new ArrayList<>();
    }
 }
