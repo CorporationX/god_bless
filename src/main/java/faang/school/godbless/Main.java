@@ -78,9 +78,7 @@ public class Main {
         Map<String,Double> map = employees.stream()
                 .collect(Collectors.groupingBy(Employee::getOtdel,
                         Collectors.averagingDouble(Employee::getZp)));
-        map.forEach((otdel, sredniezp ) -> {
-            System.out.println(otdel + ":" + sredniezp);
-        });
+        map.forEach((otdel, sredniezp ) -> System.out.println(otdel + ":" + sredniezp));
         System.out.println("_________________________________________________________________");
         List<String> strings = Arrays.asList("apple", "banana", "123", "dog", "cat");
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
