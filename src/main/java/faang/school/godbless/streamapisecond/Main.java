@@ -26,12 +26,12 @@ public class Main {
         friends.put("David", Arrays.asList("Alice", "Charlie"));
         friends.put("Eve", Arrays.asList("Bob"));
 
-        List<List<String>> pairs = findPair(friends);
+        List<List<String>> pairs = findCommonFriendsPairs(friends);
         System.out.println("Common friends: " + pairs);
 
         List<String> strings = Arrays.asList("apple", "banana", "123", "dog", "cat");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> result = filterByAlphabet(strings, alphabet);
+        List<String> result = filterByAlphabetAndSortByLength(strings, alphabet);
         System.out.println("Result: " + result);
 
         List<Integer> nums = Arrays.asList(10, 15, 5, 7, 20);
@@ -69,19 +69,19 @@ public class Main {
 
     public static List<String> sortedCapital(Map<String, String> countries) {
         return countries.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public static List<String> startsWith(List<String> strings, char ch) {
+    public static List<String> startsWith(List<String> strings, char startingCharacter) {
         return strings.stream()
-                .filter(string -> string.startsWith(String.valueOf(ch)))
+                .filter(string -> string.startsWith(String.valueOf(startingCharacter)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static List<List<String>> findPair(Map<String, List<String>> friends) {
+    public static List<List<String>> findCommonFriendsPairs(Map<String, List<String>> friends) {
         return friends.entrySet().stream()
                 .flatMap(outerEntry -> friends.entrySet().stream()
                         .filter(innerEntry -> !outerEntry.getKey().equals(innerEntry.getKey()))
@@ -97,7 +97,7 @@ public class Main {
                 .collect(Collectors.groupingBy(Employee::getDepartment, Collectors.averagingDouble(Employee::getSalary)));
     }
 
-    public static List<String> filterByAlphabet(List<String> strings, String alphabet) {
+    public static List<String> filterByAlphabetAndSortByLength(List<String> strings, String alphabet) {
         return strings.stream()
                 .filter(string -> {
                     for (int i = 0; i < string.length(); i++) {
