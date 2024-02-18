@@ -1,6 +1,5 @@
 package faang.school.godbless.stream1;
 
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -17,9 +16,11 @@ public class Main {
     }
 
     //Найти максимальный элемент в списке чисел;
-    public static Optional<Integer> findMax(List<Integer> integers) { // IDE forced to change the output type from int to Optional<Integer>
+    public static Integer findMax(List<Integer> integers) {
         return integers.stream()
-                .max(Comparator.comparingInt(a -> a));// IDE proposed this, instead of this ".max((a,b) -> a - b);"
+                .mapToInt(integer -> integer)
+                .max()
+                .orElse(0);
     }
 
     //Найти среднее значение чисел в списке;
@@ -61,13 +62,13 @@ public class Main {
     public static Optional<Integer> findTheLeastListElement(List<Integer> ints, int i) {
         return ints.stream()
                 .filter(a -> a > i)
-                .min(Comparator.comparingInt(a -> a));
+                .min(Integer::compareTo);
     }
 
     //Преобразовать список строк в список их длин.
     public static List<Integer> convertStringsToLength(List<String> strings) {
         return strings.stream()
-                .map(str -> str.length())
+                .map(String::length)
                 .toList();
     }
 
@@ -76,7 +77,7 @@ public class Main {
         List<Integer> integers = Arrays.asList(1, 3, 4, 6, 7, 8, 89, 3, 3);
 
         System.out.println(sumEvenNumbers(integers));
-        findMax(integers).ifPresentOrElse((System.out::println), (() -> System.out.println("No such number in the list")));
+        System.out.println(findMax(integers));
 
         List<String> strings = Arrays.asList("Chars", "Chapline", "Chapelle", "Trampoline", "tears");
         System.out.println(matchesWithCharachter(strings, 'C'));
