@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda.Lord_of_the_Rings;
+package faang.school.godbless.lambda.lord_of_the_rings;
 
 import lombok.Getter;
 import lombok.Setter;
