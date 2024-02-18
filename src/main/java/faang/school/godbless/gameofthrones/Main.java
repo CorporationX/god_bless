@@ -19,7 +19,9 @@ public class Main {
         searchForHouse("Baratheon");
     }
     public static void add(House house){
-        map.put(house.getName(), house);
+        if (!(house == null)){
+            map.put(house.getName(), house);
+        }
     }
     public static void delete(String name){
         map.remove(name);
