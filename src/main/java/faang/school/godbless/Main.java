@@ -1,8 +1,8 @@
 package faang.school.godbless;
 
 
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-
+import faang.school.godbless.MetaUniverse.Notification;
+import faang.school.godbless.MetaUniverse.NotificationManager;
 import java.io.IOException;
 import java.util.*;
 
@@ -13,11 +13,29 @@ public class Main {
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
 
-    public static void startGroupingByHobby() {
-        User user1Validation = new User("vanya", "Google", "London", 18);
-        User user2Validation = new User("Petua", "Amazon", "Minsk", 19);
-        User user3Validation = new User("Misha", "Google", "London", 17);
+    public static void MetaUneverse(){
+        NotificationManager notificationManager = getNotificationManager();
 
+// Отправка оповещений
+        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
+        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
+        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
+    }
+
+    private static NotificationManager getNotificationManager() {
+        NotificationManager notificationManager = new NotificationManager();
+        // Регистрация обработчиков оповещений
+        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
+        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        return notificationManager;
+    }
+
+    public static void startGroupingByHobby() {
         Set<String> activity1 = Set.of("Drawing", "Dancing", "Music", "Sport");
         User user1 = new User("Ivan", 14, activity1);
         Set<String> activity2 = Set.of("Dancing", "Music", "Drawing", "Sport");
@@ -32,6 +50,7 @@ public class Main {
         users.add(user3);
         users.add(user4);
         Map<User, String> spisUser = User.findHobbyLovers(users, activity2);
+
     }
 
     public static void startGroupingByAge() {
