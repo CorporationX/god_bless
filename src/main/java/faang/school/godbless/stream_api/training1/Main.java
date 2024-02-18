@@ -2,6 +2,8 @@ package faang.school.godbless.stream_api.training1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 public class Main {
 
@@ -11,12 +13,12 @@ public class Main {
         System.out.println(maxNumber(integerList));
         System.out.println(sumEven(integerList));
         System.out.println(averageNumber(integerList));
-        System.out.println(countString(wordList, 'A'));
-        System.out.println(filterWord(wordList, "PO"));
-        System.out.println(filterWordLength(wordList));
-        System.out.println(checkFilter(wordList));
-        System.out.println(minElement(integerList,5));
-        System.out.println(wordLengthList(wordList));
+        System.out.println(countStringsWithStartingCharacter(wordList, 'A'));
+        System.out.println(filterStringsContainingSubstring(wordList, "PO"));
+        System.out.println(sortStringsByLength(wordList));
+        System.out.println(checkAllElements(wordList, string -> string.length() > 5));
+        System.out.println(findSmallestElementGreaterThan(integerList,5));
+        System.out.println(convertStringsToLengths(wordList));
     }
 
     public static int sumEven(List<Integer> integerList) {
@@ -34,44 +36,43 @@ public class Main {
 
     public static double averageNumber(List<Integer> integerList) {
         return integerList.stream()
-                .mapToInt(number -> number)
+                .mapToInt(Integer::intValue)
                 .average()
                 .orElse(0d);
     }
 
-    public static long countString(List<String> wordList, char letter) {
+    public static long countStringsWithStartingCharacter(List<String> wordList, char letter) {
         return wordList.stream()
                 .filter(word -> word.toLowerCase().charAt(0) == letter)
                 .count();
     }
 
-    public static List<String> filterWord(List<String> wordList, String substring) {
+    public static List<String> filterStringsContainingSubstring(List<String> wordList, String substring) {
         return wordList.stream()
                 .filter(word -> word.contains(substring))
                 .toList();
     }
 
-    public static List<String> filterWordLength(List<String> wordList) {
+    public static List<String> sortStringsByLength(List<String> wordList) {
         return wordList.stream()
-                .sorted((word, wordNext) -> word.length() - wordNext.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean checkFilter(List<String> wordList) {
-        return wordList.stream()
-                .allMatch(word -> word.length() > 5);
+    public static boolean checkAllElements(List<String> wordList, Predicate<String> condition) {
+        return wordList.stream().allMatch(condition);
     }
 
-    public static Integer minElement(List<Integer> numberList, Integer beginInt){
+    public static Integer findSmallestElementGreaterThan(List<Integer> numberList, Integer beginInt){
         return numberList.stream()
                 .filter(integer -> integer > beginInt)
-                .sorted((number, numbernext) -> number - numbernext)
-                .toList().get(0);
+                .sorted(Comparator.naturalOrder())
+                .findFirst().orElse(0);
     }
 
-    public static List<Integer> wordLengthList(List<String> numberList){
+    public static List<Integer> convertStringsToLengths(List<String> numberList){
         return numberList.stream()
-                .map(word -> word.length())
+                .map(String::length)
                 .toList();
     }
 }
