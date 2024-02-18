@@ -1,6 +1,5 @@
 package faang.school.godbless.lambda.Lord_of_the_Rings;
 
-import java.util.Iterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -10,22 +9,16 @@ public class InventoryManager {
         character.getInventory().add(item);
         action.accept(item);
     }
-    public void removeItem(Character character, Predicate<Item> filter){
-        Iterator<Item> iterator = character.getInventory().iterator();
-        while (iterator.hasNext()){
-            Item item = iterator.next();
-            boolean isRemove = filter.test(item);
-            if(isRemove){
-                iterator.remove();
-            }
-        }
+    public void removeItem(Character character, Predicate<Item> condition){
+        character.getInventory().removeIf(condition);
     }
 
-    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function){
-        for(Item item: character.getInventory()){
-            if(predicate.test(item)){
-                function.apply(item);
+    public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater){
+        var inventory = character.getInventory();
+        inventory.forEach(item -> {
+            if(condition.test(item)){
+                inventory.set(inventory.indexOf(item), updater.apply(item));
             }
-        }
+        });
     }
 }
