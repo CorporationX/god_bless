@@ -9,8 +9,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
+    public static List<String> method (List<Integer> integerList) {
+        List<String> collect = integerList.stream()
+                .map(Integer::toBinaryString)
+                .collect(Collectors.toList());
+        System.out.println(collect);
+        return collect;
+    }
+    public static List<Integer> findPolendroms (int start, int end){
+        return IntStream.rangeClosed(start,end)
+                .filter(i -> String.valueOf(i).contentEquals(new StringBuilder(String.valueOf(i)).reverse()))
+                .boxed()
+                .collect(Collectors.toList());
+    }
     public static void main(String[] args) {
         List<Integer> integerList = new ArrayList<>();
         Collections.addAll(integerList, 1, 9, 3, 6, 4, 5);
@@ -56,6 +70,31 @@ public class Main {
                                 .map(f -> entry.getKey() + " - " + f)))
                 .collect(Collectors.toSet());
         commonFriends.forEach(System.out::println);
+        System.out.println("_________________________________________________________________");
+        List<Employee> employees = Arrays.asList(
+        new Employee("Sasha", 99999.0, "yomto"),
+        new Employee("Vanya", 88888.0, "mvd"),
+        new Employee("Gena", 77777.0, "rjd"));
+        Map<String,Double> map = employees.stream()
+                .collect(Collectors.groupingBy(Employee::getOtdel,
+                        Collectors.averagingDouble(Employee::getZp)));
+        map.forEach((otdel, sredniezp ) -> {
+            System.out.println(otdel + ":" + sredniezp);
+        });
+        System.out.println("_________________________________________________________________");
+        List<String> strings = Arrays.asList("apple", "banana", "123", "dog", "cat");
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        List<String> filter = strings.stream()
+                .filter(s -> s.chars().allMatch(Character::isLetter))
+                .filter(s -> s.chars().allMatch(c -> Arrays.binarySearch(alphabet, (char) Character.toLowerCase(c)) >= 0 ))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+        System.out.println(filter);
+        System.out.println("_________________________________________________________________");
+        method(integerList);
+        System.out.println("_________________________________________________________________");
+        List<Integer> palindromes = findPolendroms(100, 150);
+        System.out.println(palindromes);
         System.out.println("_________________________________________________________________");
     }
 }
