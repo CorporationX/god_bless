@@ -1,68 +1,64 @@
 package streamApi.task1;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Stream {
     public static int evenSum(List<Integer> numbers) {
-        int evenSum = numbers.stream()
+        return numbers.stream()
                 .filter((number) -> number % 2 == 0)
                 .reduce(0, (number1, number2) -> number1 + number2);
-        return evenSum;
+
     }
 
-    public static int max(List<Integer> numbers) {
-        Integer max = numbers.stream()
-                .max((numbers1, numbers2) -> numbers1 - numbers2)
-                .get();
-        return max;
+    public static Optional<Integer> max(List<Integer> numbers) {
+        return numbers.stream()
+                .max((numbers1, numbers2) -> numbers1 - numbers2);
     }
 
-    public static double average(List<Integer> numbers) {
-        double average = numbers.stream()
+    public static OptionalDouble average(List<Integer> numbers) {
+        return numbers.stream()
                 .mapToDouble(number -> number)
-                .average()
-                .getAsDouble();
-        return average;
+                .average();
     }
 
-    public static long countString(char start, List<String> strings) {
-        long countString = strings.stream()
+    public static long countStringsWithStartingCharacter(char start, List<String> strings) {
+        return strings.stream()
                 .filter((string) -> string.startsWith(String.valueOf(start)))
                 .count();
-        return countString;
+
     }
 
-    public static List<String> getSubstringList(String substring, List<String> strings) {
-        List<String> filterStrings = strings.stream()
+    public static List<String> filterStringsContainingSubstring(String substring, List<String> strings) {
+        return strings.stream()
                 .filter(string -> string.contains(substring))
                 .collect(Collectors.toList());
-        return filterStrings;
+
     }
 
-    public static void sortedList(List<String> strings) {
+    public static void sortStringsByLength(List<String> strings) {
         strings.stream()
                 .sorted((str1, str2) -> str1.length() - str2.length())
                 .forEach(str -> System.out.println(str));
     }
 
-    public static boolean anyMatch(List<String> strings) {
-        boolean checkElement = strings.stream().allMatch(string -> string.length() > 5);
-        return checkElement;
+    public static boolean allMatch(List<String> strings, Predicate<String> condition) {
+        return strings.stream().allMatch(condition);
     }
 
-    public static int specialMin(int number, List<Integer> numbers) {
-        Integer min = numbers.stream()
+    public static Optional<Integer> findSmallestElementGreaterThan(int number, List<Integer> numbers) {
+        return numbers.stream()
                 .filter(num -> num > number)
-                .min((num1, num2) -> num1 - num2)
-                .get();
-        return min;
+                .min((num1, num2) -> num1 - num2);
+
     }
 
-    public static List<Integer> transformer(List<String> strings) {
-        List<Integer> sheetLengths = strings.stream()
+    public static List<Integer> convertStringsToLengths(List<String> strings) {
+        return strings.stream()
                 .map(str -> str.length())
                 .toList();
-        return sheetLengths;
     }
 }
