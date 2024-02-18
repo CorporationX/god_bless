@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeSet;
 
 public class Main {
     private static Map<User, List<Query>> usersQueries = new HashMap<>();
@@ -14,16 +15,16 @@ public class Main {
         User dima = new User(2, "Dima");
 
         List<Query> queriesOfVova = List.of(
-                new Query(1, "a", "111"),
-                new Query(2, "b", "222"),
-                new Query(3, "c", "333")
+                new Query(1, "a"),
+                new Query(2, "b"),
+                new Query(3, "c")
         );
 
         List<Query> queriesOfDima = List.of(
-                new Query(5, "aa", "1sa")
+                new Query(5, "aa")
         );
 
-        Query query = new Query(4, "d", "444");
+        Query query = new Query(4, "d");
 
         add(vova, queriesOfVova);
         addQuery(vova, query);
@@ -57,11 +58,9 @@ public class Main {
     }
 
     public static void printUserSearches(User user) {
-        List<Query> userQueries = usersQueries.get(user);
+        TreeSet<Query> queries = new TreeSet<>(usersQueries.get(user));
 
-        for (Query userQuery : userQueries) {
-            System.out.println(userQuery);
-        }
+        System.out.println(user.getName() + "\n" + queries);
     }
 
 }

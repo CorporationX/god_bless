@@ -1,16 +1,25 @@
 package faang.school.godbless.r_edzie.elk;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
-public class Query {
+@AllArgsConstructor
+public class Query implements Comparable<Query> {
     private int id;
     private String content;
-    private String timestamp;
+    private final LocalDateTime timestamp = LocalDateTime.now();
 
-    public Query(int id, String content, String timestamp) {
-        this.id = id;
-        this.content = content;
-        this.timestamp = timestamp;
+    @Override
+    public int compareTo(Query o) {
+        if (timestamp.isAfter(o.getTimestamp())) {
+            return 1;
+        } else if (timestamp.isBefore(o.getTimestamp())) {
+            return -1;
+        }
+
+        return 0;
     }
 }
