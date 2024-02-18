@@ -14,19 +14,19 @@ public class Main {
         WebPage webPage3 = new WebPage("vk.com", "VK", "Vk is russian social network");
         WebPage webPage4 = new WebPage("youtube.com", "YouTube", "YouTube is video hosting");
 
-        add(webPage1);
-        add(webPage2);
-        add(webPage3);
-        add(webPage4);
+        indexWebPage(webPage1);
+        indexWebPage(webPage2);
+        indexWebPage(webPage3);
+        indexWebPage(webPage4);
 
-        search("russian").forEach(webPage -> System.out.println(webPage));
+        searchByKeyword("russian").forEach(System.out::println);
 
-        remove("vk.com");
+        removeByUrl("vk.com");
 
         System.out.println(webPages);
     }
 
-    public static void add(WebPage webPage) {
+    public static void indexWebPage(WebPage webPage) {
         String[] words = webPage.getContent().split(" ");
 
         for (String word : words) {
@@ -34,11 +34,12 @@ public class Main {
         }
     }
 
-    public static List<WebPage> search(String word) {
-        return webPages.get(word);
+    public static List<WebPage> searchByKeyword(String keyword) {
+        List<WebPage> pages = webPages.get(keyword);
+        return pages.isEmpty() ? new ArrayList<>() : pages;
     }
 
-    public static void remove(String url) {
+    public static void removeByUrl(String url) {
         for (List<WebPage> webPageList : webPages.values()) {
             webPageList.removeIf(webPage -> webPage.getUrl().equals(url));
         }
