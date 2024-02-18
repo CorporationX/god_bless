@@ -1,5 +1,6 @@
 package task5lymbda;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -15,9 +16,9 @@ public class Main {
         );
         EmailProcessor emailProcessor = new EmailProcessor();
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        emailProcessor.processEmails(emails,importantFilter,printEmail,toUpperCase);
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject() + "-" + toUpperCase.apply(email));
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
     }
 }
