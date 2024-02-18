@@ -5,24 +5,18 @@ import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
-        withErrorHandling(() -> remoteService(), e -> {
-            System.out.println("Error " + e.getClass().getName());
-            return "DEFAULT";
-        });
+        withErrorHandling(() -> remoteService(), e -> handleServiceException(e));
 
         System.out.println("-------------------------------------------");
 
-        withErrorHandling(() -> exceptionRemoveService(), e -> {
-            System.out.println("Error " + e.getClass().getName());
-            return "DEFAULT";
-        });
+        System.out.println(withErrorHandling(() -> exceptionRemoteService(), e -> handleServiceException(e)));
     }
 
     public static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> errorHandling){
         try{
             return action.get();
         } catch (Exception e){
-            return errorHandling.handler(e);
+            return errorHandling.handle(e);
         }
     }
 
@@ -32,7 +26,12 @@ public class Main {
         return 1;
     }
 
-    public static int exceptionRemoveService(){
+    public static int exceptionRemoteService(){
         throw new NoSuchElementException("Error");
+    }
+
+    public static String handleServiceException(Exception e){
+        System.out.println("Error " + e.getClass().getName());
+        return "DEFAULT";
     }
 }
