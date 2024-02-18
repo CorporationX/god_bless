@@ -2,9 +2,11 @@ package faang.school.godbless;
 
 
 import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import faang.school.godbless.InstagramFilters.*;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
@@ -12,6 +14,27 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
+
+    public static void startInstagramFiltres() {
+        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+
+        FilterProcessor filterProcessor = new FilterProcessor();
+
+// Создание фильтров
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getNameFiles() + "_grayscale", image.getDescription() + " обработано в фильтр:" + " черно-белый;");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getNameFiles() + "_sepia", image.getDescription() + " обработано в фильтр:" + " сепия;");
+        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getNameFiles() + "_vignette", image.getDescription() + " обработано в фильтр:" + " виньетка;");
+
+// Применение фильтров
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
+        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
+
+// Создание и применение комбинированного фильтра
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        System.out.println("Название файла: " + combinedImage.getNameFiles() + " Описание файла: " + combinedImage.getDescription());
+    }
 
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);
@@ -86,7 +109,7 @@ public class Main {
         searchBook("Java. Beginner's Guide", "Herbert Shildt", 2002);
         printAllBooks();
     }
-   
+
     public static void mainStartHouseGame() {
         House stark = new House("Stark", "direwolf");
         House lannister = new House("Lannister", "Lion rampant");
