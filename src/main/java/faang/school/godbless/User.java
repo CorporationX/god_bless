@@ -25,7 +25,7 @@ public class User {
         setAge(age);
         setName(name);
     }
-  
+
     User(String name, String placeOfWork, String address, int age) {
         validation(name, placeOfWork, address, age);
         if (name == null || name.isEmpty() || age < 18 || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
@@ -43,12 +43,12 @@ public class User {
 
         for (User usFor : users) {
             for (String activUsFor : usFor.activity) {
-                    if (activity.contains(activUsFor)) {
-                        userActivity.put(usFor, activUsFor);
-                        break;
-                    }
+                if (activity.contains(activUsFor)) {
+                    userActivity.put(usFor, activUsFor);
+                    break;
                 }
             }
+        }
         return userActivity;
     }
 
@@ -62,11 +62,11 @@ public class User {
         if (!VALID_ADDRESSES.contains(address)) {
             System.out.println("Введен некорректный адрес");
         }
-        if (age<18)
-        {
+        if (age < 18) {
             System.out.println("Пользователи с возрастом меньше 18 не допускаются к регистрации");
         }
     }
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupUsers = new HashMap<>();
 
@@ -76,8 +76,7 @@ public class User {
                 List<User> ageAppropriateUser = groupUsers.get(user.age);
                 ageAppropriateUser.add(user);
                 groupUsers.put(user.age, ageAppropriateUser);
-            }
-            else {
+            } else {
                 List<User> ageAppropriateUser = new ArrayList<>();
                 ageAppropriateUser.add(user);
                 groupUsers.put(user.age, ageAppropriateUser);

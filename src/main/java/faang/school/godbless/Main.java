@@ -1,14 +1,53 @@
 package faang.school.godbless;
 
+
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
+
+import java.io.IOException;
 import java.util.*;
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
     private static final Map<Book, String> bookPlace = new HashMap<>();
     private static final Map<String, House> houseMap = new HashMap<>();
+    private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
+    private final static Mock mockServise = new Mock();
+
+    public static void startGroupingByHobby() {
+        User user1Validation = new User("vanya", "Google", "London", 18);
+        User user2Validation = new User("Petua", "Amazon", "Minsk", 19);
+        User user3Validation = new User("Misha", "Google", "London", 17);
+
+        Set<String> activity1 = Set.of("Drawing", "Dancing", "Music", "Sport");
+        User user1 = new User("Ivan", 14, activity1);
+        Set<String> activity2 = Set.of("Dancing", "Music", "Drawing", "Sport");
+        User user2 = new User("Sergey", 20, activity2);
+        Set<String> activity3 = Set.of("Sport", "Drawing", "Dancing", "Music");
+        User user3 = new User("Artem", 35, activity3);
+        Set<String> activity4 = Set.of("Learning foreign languages", "Blogging");
+        User user4 = new User("Mathew", 23, activity4);
+        List<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        users.add(user4);
+        Map<User, String> spisUser = User.findHobbyLovers(users, activity2);
+    }
+
+    public static void startGroupingByAge() {
+        User user1GroupAge = new User("Vanua", "work", "NN", 10);
+        User user2GroupAge = new User("Petua", "work", "NN", 11);
+        User user3GroupAge = new User("Misha", "work", "NN", 12);
+        User user4GroupAge = new User("Ivan", "work", "NN", 10);
+        User user5GroupAge = new User("Petr", "work", "NN", 11);
+
+        List<User> groupAgeusers = List.of(user1GroupAge, user2GroupAge, user3GroupAge, user4GroupAge, user5GroupAge);
+        Map<Integer, List<User>> groupAgeUsers = User.groupUsers(groupAgeusers);
+
+    }
 
     public static void studentsStart() {
-        
+
         Student student1 = new Student("Ivan", "information technologies", 2);
         Student student2 = new Student("Petr", "information technologies", 2);
         Student student4 = new Student("Artem", "Biology", 2);
@@ -27,8 +66,8 @@ public class Main {
         printAllGroupsStudent(groupStudents);
 
     }
-  
-   public static void mainStartBook() {
+
+    public static void libraryStart() {
         Scanner in = new Scanner(System.in);
 
         Book headFirstJava = new Book("Head First Java", "Katie Sierra and Bert Bates", 2003);
@@ -52,13 +91,54 @@ public class Main {
         House stark = new House("Stark", "direwolf");
         House lannister = new House("Lannister", "Lion rampant");
         House baratheon = new House("Baratheon", "black crowned stag");
-      
-        addition(stark.getName(),stark);
-        addition(lannister.getName(),lannister);
-        addition(baratheon.getName(),baratheon);
+
+        addition(stark.getName(), stark);
+        addition(lannister.getName(), lannister);
+        addition(baratheon.getName(), baratheon);
         delete(lannister.getName());
         search(baratheon.getName());
         listOfAllHouses();
+    }
+
+    public static void weatherMain() throws IOException {
+        WeatherData newYork = new WeatherData("New York", 25.1, 30);
+        WeatherData miami = new WeatherData("Miami", 30, 70);
+
+        weatherInTheCity.put(newYork.getCity(), newYork);
+        weatherInTheCity.put(miami.getCity(), miami);
+        getWeatherInTheCity("Dubai");
+        updateWeather("Dubai");
+        remove("Dubai");
+        printAllCitys();
+
+    }
+
+    private static WeatherData getWeatherInTheCity(String city) {
+        if (weatherInTheCity.containsKey(city)) {
+            return weatherInTheCity.get(city);
+        }
+        WeatherData createWD = mockServise.createWeather(city);
+        weatherInTheCity.put(city, createWD);
+        return createWD;
+    }
+
+    private static void updateWeather(String city) throws IOException {
+        if (!(weatherInTheCity.containsKey(city))) {
+            throw new IOException("The city you sent is not in the database");
+        }
+        weatherInTheCity.put(city, mockServise.createWeather(city));
+    }
+
+    private static void remove(String city) {
+        weatherInTheCity.remove(city);
+    }
+
+    private static void printAllCitys() {
+
+        System.out.print("Weather information is available in cities:");
+        weatherInTheCity.forEach((city, weather) -> {
+            System.out.print(" " + city);
+        });
     }
 
     private static void addition(Student student) {
@@ -83,7 +163,8 @@ public class Main {
                 List<Student> updateGroupListStudent = new ArrayList<>();
                 updateGroupListStudent.add(f);
                 groups.put(newGroupStudents, updateGroupListStudent);
-            };
+            }
+            ;
         });
         return groups;
     }
@@ -100,11 +181,10 @@ public class Main {
 
     private static void printAllGroupsStudent(Map<GroupInUniversity, List<Student>> groupStudent) {
         groupStudent.forEach((group, listStudent) -> {
-            System.out.println("In a group with faculty " + group.getFaculty() + " and course number " +
-                    +group.getYear() + " Matching list of students:");
+            System.out.println("In a group with faculty " + group.getFaculty() + " and course number " + +group.getYear() + " Matching list of students:");
         });
     }
-  
+
     private static void addition(String name, House house) {
         houseMap.put(name, house);
     }
@@ -135,10 +215,8 @@ public class Main {
     }
 
     private static void printAllBooks() {
-        bookPlace.forEach(
-                (book, place) -> {
-                    System.out.println(book.toString() + " Book place in the library: " + place);
-                }
-        );
+        bookPlace.forEach((book, place) -> {
+            System.out.println(book.toString() + " Book place in the library: " + place);
+        });
     }
 }
