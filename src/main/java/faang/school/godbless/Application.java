@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import faang.school.godbless.HogwartsLambdas.SpellCaster;
+
 import java.util.ArrayList;
 import static faang.school.godbless.User.groupUsers;
 import java.util.Map;
