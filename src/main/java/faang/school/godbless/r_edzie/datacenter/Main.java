@@ -1,4 +1,4 @@
-package faang.school.godbless.r_edzie.dataCenter;
+package faang.school.godbless.r_edzie.datacenter;
 
 import java.util.ArrayList;
 
@@ -35,7 +35,7 @@ public class Main {
 
         System.out.println(dataCenter);
 
-        dataCenterService.optimize(dataCenter);
+        dataCenterService.optimize(new LoadBalancingOptimizationStrategy());
 
         System.out.println(dataCenter);
     }

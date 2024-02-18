@@ -1,4 +1,4 @@
-package faang.school.godbless.r_edzie.dataCenter;
+package faang.school.godbless.r_edzie.datacenter;
 
 public interface OptimizationStrategy {
     public void optimize(DataCenter dataCenter);

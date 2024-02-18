@@ -1,13 +1,12 @@
-package faang.school.godbless.r_edzie.dataCenter;
+package faang.school.godbless.r_edzie.datacenter;
+
+import lombok.AllArgsConstructor;
 
 import java.util.List;
 
-public class DataCenterService implements OptimizationStrategy {
+@AllArgsConstructor
+public class DataCenterService {
     private DataCenter dataCenter;
-
-    public DataCenterService(DataCenter dataCenter) {
-        this.dataCenter = dataCenter;
-    }
 
     public void addServer(Server server) {
         this.dataCenter.getServers().add(server);
@@ -48,8 +47,16 @@ public class DataCenterService implements OptimizationStrategy {
 
             if (residualLoad >= load) {
                 server.setLoad(server.getLoad() + load);
+                break;
+            } else {
+                server.setLoad(server.getLoad() + residualLoad);
+                load = load - residualLoad;
             }
         }
+    }
+
+    public void optimize(OptimizationStrategy optimization) {
+        optimization.optimize(this.dataCenter);
     }
 
     public void releaseResources(ResourceRequest request) {
@@ -73,14 +80,5 @@ public class DataCenterService implements OptimizationStrategy {
                 releaseLoad -= serverLoad;
             }
         }
-    }
-
-    @Override
-    public void optimize(DataCenter dataCenter) {
-        List<Server> servers = dataCenter.getServers();
-        double totalLoad = this.getTotalServerLoad();
-        double optimizedLoad = totalLoad / servers.size();
-
-        servers.forEach(server -> server.setLoad(optimizedLoad));
     }
 }
