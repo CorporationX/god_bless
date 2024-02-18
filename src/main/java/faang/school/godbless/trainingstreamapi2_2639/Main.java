@@ -1,4 +1,4 @@
-package faang.school.godbless.TrainingStreamAPI2_2639;
+package faang.school.godbless.trainingstreamapi2_2639;
 
 import java.util.ArrayList;
 import java.util.Arrays;
