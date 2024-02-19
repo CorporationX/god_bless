@@ -1,6 +1,5 @@
 package faang.school.godbless.HogwartsLambdas;
-
-public interface SpellAction
-{
-    String spellaction (String spellName);
+@FunctionalInterface
+public interface SpellAction {
+    String castspell (String spellName);
 }
