@@ -25,5 +25,6 @@ public class InventoryManager {
                 break;
             }
         }
+
     }
 }
