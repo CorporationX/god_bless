@@ -15,7 +15,7 @@ public class InventoryManager {
     void updateItem(Character character, Predicate<Item> predicate, Function<Item,Item> update){
         for (Item item : character.getInventory()){
             if (predicate.test(item)){
-                item = update.apply(item);
+                update.apply(item);
                 break;
             }
         }

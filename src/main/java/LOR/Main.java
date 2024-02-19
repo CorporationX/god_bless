@@ -1,4 +1,4 @@
-package src.main.java.faang.school.godbless;
+package LOR;
 
 public class Main {
     public static void main(String[] args) {
