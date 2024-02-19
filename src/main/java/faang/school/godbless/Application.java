@@ -1,7 +1,7 @@
 package faang.school.godbless;
 
+import faang.school.godbless.instagramfilters.Main;
 import java.io.IOException;
-import java.util.*;
 
 public class Application {
     public static void main(String... args) throws IOException {
@@ -12,7 +12,6 @@ public class Application {
         Main.startGroupingByAge();
         Main.libraryStart();
         Main.startGroupingByHobby();*/
-
         Main.startInstagramFiltres();
 
     }

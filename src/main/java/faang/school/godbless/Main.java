@@ -1,8 +1,8 @@
 package faang.school.godbless;
 
 
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import faang.school.godbless.InstagramFilters.*;
+import faang.school.godbless.instagramfilters.FilterProcessor;
+import faang.school.godbless.instagramfilters.Image;
 
 import java.io.IOException;
 import java.util.*;
@@ -15,26 +15,7 @@ public class Main {
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
 
-    public static void startInstagramFiltres() {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
-        FilterProcessor filterProcessor = new FilterProcessor();
-
-// Создание фильтров
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getNameFiles() + "_grayscale", image.getDescription() + " обработано в фильтр:" + " черно-белый;");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getNameFiles() + "_sepia", image.getDescription() + " обработано в фильтр:" + " сепия;");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getNameFiles() + "_vignette", image.getDescription() + " обработано в фильтр:" + " виньетка;");
-
-// Применение фильтров
-        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
-
-// Создание и применение комбинированного фильтра
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println("Название файла: " + combinedImage.getNameFiles() + " Описание файла: " + combinedImage.getDescription());
-    }
 
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);
