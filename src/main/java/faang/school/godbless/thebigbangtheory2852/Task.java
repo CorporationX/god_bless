@@ -2,8 +2,6 @@ package faang.school.godbless.thebigbangtheory2852;
 
 import lombok.Getter;
 
-import java.sql.SQLOutput;
-
 @Getter
 public class Task implements Runnable {
     private String name;
