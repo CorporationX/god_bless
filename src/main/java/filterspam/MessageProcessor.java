@@ -1,4 +1,4 @@
-package src.main.java.faang.school.godbless;
+package filterspam;
 
 import java.util.List;
 

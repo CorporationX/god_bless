@@ -1,4 +1,4 @@
-package src.main.java.faang.school.godbless;
+package filterspam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +21,6 @@ public class Main {
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
             System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
-
         }
     }
 }
