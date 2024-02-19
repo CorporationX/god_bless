@@ -1,9 +1,6 @@
 package faang.school.godbless.stream_api.training_2;
 
-import java.lang.annotation.Target;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +16,13 @@ public class Main {
         // 1 задача
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         int target = 10;
-        System.out.println(printTwoSum(numbers, target));
+        System.out.println(findUniquePairsWithSum(numbers, target));
 
         // 2 задача
-        System.out.println(sortedCapital(Map.of("Russia", "Moscow", "France", "Paris", "Japan", "Tokyo", "China", "Beijing")));
+        System.out.println(sortCountriesAndPrintCapitals(Map.of("Russia", "Moscow", "France", "Paris", "Japan", "Tokyo", "China", "Beijing")));
 
         // 3
-        System.out.println(sortWords(List.of("Kirill", "Karina", "Katrin", "Oleg", "Konstantin"), 'K'));
+        System.out.println(filterAndSortByInitialLetter(List.of("Kirill", "Karina", "Katrin", "Oleg", "Konstantin"), 'K'));
 
         // 4 задача
         Map<String, List<String>> friends = new HashMap<>();
@@ -36,7 +33,7 @@ public class Main {
         friends.put("Eve", Arrays.asList("Bob"));
 
 
-        List<List<String>> pairs = findPair(friends);
+        List<List<String>> pairs = findNonFriendPairsWithCommonFriends(friends);
         System.out.println("Common friends: " + pairs);
 
         // 5 задача
@@ -45,29 +42,29 @@ public class Main {
         Employee thirdEmployee = new Employee("Andrey", 70000, "YANDEX");
         Employee fourthEmployee = new Employee("Yaroslav", 100000, "YANDEX");
         List<Employee> employees = List.of(firstEmployee, secondEmployee, thirdEmployee, fourthEmployee);
-        System.out.println(avgSalary(employees));
+        System.out.println(calculateAverageSalaryByDepartment(employees));
 
         // 6 задача
         List<String> strings = Arrays.asList("apple", "banana", "123", "dog", "cat");
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
-        List<String> result = filterByAlphabet(strings, alphabet);
+        List<String> result = filterAndSortByAlphabet(strings, alphabet);
         System.out.println("Result: " + result);
 
         // 7 задача
         List<Integer> integerList = List.of(10, 111, 30, 12, 16);
-        System.out.println(toBinaryString(integerList));
+        System.out.println(convertToBinaryStrings(integerList));
 
 
         // 8 задача
         int from = 1;
         int to = 300;
 
-        System.out.println(findPalindromRange(from, to));
+        System.out.println(findPalindromeNumbersInRange(from, to));
 
 
     }
 
-    public static Set<List<Integer>> printTwoSum(List<Integer> numbersList, Integer targetSum) {
+    public static Set<List<Integer>> findUniquePairsWithSum(List<Integer> numbersList, Integer targetSum) {
         return numbersList.stream()
                 .flatMap(num1 -> numbersList.stream()
                         .filter(num2 -> num1 + num2 == targetSum && !num1.equals(num2))
@@ -77,14 +74,14 @@ public class Main {
 
     }
 
-    public static List<String> sortedCapital(Map<String, String> countries){
+    public static List<String> sortCountriesAndPrintCapitals(Map<String, String> countries) {
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static List<String> sortWords(List<String> wordList, char letter) {
+    public static List<String> filterAndSortByInitialLetter(List<String> wordList, char letter) {
         return wordList.stream()
                 .filter(word -> word.startsWith(String.valueOf(letter)))
                 .sorted(Comparator.comparingInt(String::length))
@@ -92,7 +89,7 @@ public class Main {
     }
 
 
-    public static List<List<String>> findPair(Map<String, List<String>> friends) {
+    public static List<List<String>> findNonFriendPairsWithCommonFriends(Map<String, List<String>> friends) {
         return friends.entrySet().stream()
                 .flatMap(outerEntry -> friends.entrySet().stream()
                         .filter(innerEntry -> !outerEntry.getKey().equals(innerEntry.getKey()))
@@ -104,13 +101,13 @@ public class Main {
 
     }
 
-    public static Map<String, Double> avgSalary(List<Employee> employees) {
+    public static Map<String, Double> calculateAverageSalaryByDepartment(List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartment,
                         Collectors.averagingDouble(Employee::getSalary)));
     }
 
-    public static List<String> filterByAlphabet(List<String> strings, String alphabet) {
+    public static List<String> filterAndSortByAlphabet(List<String> strings, String alphabet) {
         return strings.stream()
                 .filter(word -> {
                     for (int i = 0; i < word.length(); i++) {
@@ -124,13 +121,13 @@ public class Main {
                 .toList();
     }
 
-    public static List<String> toBinaryString(List<Integer> nums) {
+    public static List<String> convertToBinaryStrings(List<Integer> nums) {
         return nums.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List<Integer> findPalindromRange(int from, int to) {
+    public static List<Integer> findPalindromeNumbersInRange(int from, int to) {
         return IntStream.rangeClosed(from, to)
                 .filter(num -> {
                     StringBuilder reversed = new StringBuilder(String.valueOf(num)).reverse();
