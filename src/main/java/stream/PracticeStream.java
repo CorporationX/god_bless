@@ -27,14 +27,14 @@ public class PracticeStream {
                 orElse(0);
     }
 
-    public static boolean ountStringsWithStartingCharacter(List<String>  line, String substring) {
+    public static boolean ountStringsWithStartingCharacter(List<String> line, String substring) {
         return line.stream().
                 allMatch(element -> element.startsWith(substring));
     }
 
-    public static List<String> filterStrings(List<String> line, String badstring) {
+    public static List<String> filterStrings(List<String> line, String substring) {
         return line.stream().
-                filter(element -> element.contains(badstring)).
+                filter(element -> element.contains(substring)).
                 collect(Collectors.toList());
     }
 
