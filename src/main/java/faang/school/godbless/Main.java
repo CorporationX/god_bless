@@ -2,7 +2,6 @@ package faang.school.godbless;
 
 
 import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import faang.school.godbless.filterspam.MessageFilter;
 import faang.school.godbless.filterspam.MessageProcessor;
 
 import java.io.IOException;
@@ -14,25 +13,7 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-    private final static List<MessageFilter> filtermessage =new ArrayList<>();
 
-    public static void Filtermessage(){
-        MessageProcessor messageProcessor =new MessageProcessor();
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("spam");
-        MessageFilter lengthFilter = message -> !(message.length() > 10);
-        MessageFilter emojiFilter = message -> !message.contains("😀");
-
-        filtermessage.add(spamFilter);
-        filtermessage.add(lengthFilter);
-        filtermessage.add(emojiFilter);
-
-        String[] messages = {"Hello!", "Это spam!", "How are you? 😀", "Long message without spam and emoji"};
-
-        for (String message : messages) {
-            boolean isFiltered = messageProcessor.processMessage(message, filtermessage);
-            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
-        }
-    }
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);
         User user2Validation = new User("Petua", "Amazon", "Minsk", 19);
