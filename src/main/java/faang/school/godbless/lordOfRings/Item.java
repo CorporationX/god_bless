@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Item {
-    String name;
-    int value;
+    private String name;
+    private int value;
 }
