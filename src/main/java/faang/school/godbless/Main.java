@@ -1,34 +1,19 @@
 package src.main.java.faang.school.godbless;
 
-import java.util.ArrayList;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<String, List<WebPage>> map = new HashMap<>();
-
-    static void indexNewWebPage(WebPage webPage) {
-        String[] words = webPage.getContent().split("\\s+");
-        for (String word : words) {
-            List<WebPage> pages = map.getOrDefault(word, new ArrayList<>());
-            pages.add(webPage);
-            map.put(word, pages);
-        }
-    }
-    public static List<WebPage> search(String keyword) {
-        return map.getOrDefault(keyword, new ArrayList<>());
-    }
-    public static void removePage(String url) {
-        for (List<WebPage> pages : map.values()) {
-            pages.removeIf(page -> page.getUrl().equals(url));
-        }
-    }
+    static Map<Book, String> map = new HashMap<>();
 
     public static void main(String[] args) {
-        WebPage page = new WebPage("https://google.com/page1", "search", "searchcontent");
-        indexNewWebPage(page);
-        search("searchcontent");
-        removePage("https://google.com/page1");
+        Book book1 = new Book("GrokaemAlgaritmi", "Bhargava", 2016);
+        Book book2 = new Book("ChistiyCode", "Martin", 2008);
+        map.put(book1, "#1");
+        map.put(book2, "#2");
+        Book.deleteBook("ChistiyCode", "Martin", 2008);
+        Book.addNewBook("Tyrgenev", "MyMy", 1937);
+        Book.SearchAndPrintBook("GrokaemAlgaritmi", "Bhargava", 2016);
     }
 }
