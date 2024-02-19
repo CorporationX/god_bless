@@ -1,11 +1,11 @@
 package src.main.java.faang.school.godbless;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public class Main {
-
     public static void main(String[] args) {
         NotificationManager notificationManager = getNotificationManager();
 
