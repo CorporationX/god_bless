@@ -18,9 +18,12 @@ public class Main {
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
         Double perimeter = sum.apply(a).apply(sum.apply(b).apply(c));
         Double halfPerimeter = div.apply(perimeter).apply(2.0);
-        return sqrt.apply(mul.apply(halfPerimeter).apply(mul.apply(sub.apply(halfPerimeter).apply(a)).apply(mul.apply(
-                sub.apply(halfPerimeter).apply(b)).apply(
-                sub.apply(halfPerimeter).apply(c)))));
+        Double halfPerimeterMinusA = sub.apply(halfPerimeter).apply(a);
+        Double halfPerimeterMinusB = sub.apply(halfPerimeter).apply(b);
+        Double halfPerimeterMinusC = sub.apply(halfPerimeter).apply(c);
+        return sqrt.apply(mul.apply(halfPerimeter).apply(mul.apply(halfPerimeterMinusA).apply(mul.apply(
+                halfPerimeterMinusB).apply(
+                halfPerimeterMinusC))));
 
     }
 }
