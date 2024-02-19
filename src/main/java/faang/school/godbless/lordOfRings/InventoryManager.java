@@ -7,31 +7,23 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> performer) {
-        List<Item> items = character.getInventory();
-        if (!items.contains(item)) {
-            character.setInventory(item);
-            performer.accept(item);
-        }
-        else {
-            System.out.println("Item" + item.name + " already exist.");
-        }
+        character.setInventory(item);
+        performer.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> filter) {
+    public void removeItem(Character character, Predicate<Item> conditionToRemove) {
         List<Item> items = character.getInventory();
-        items.removeIf(filter);
+        items.removeIf(conditionToRemove);
     }
 
-    public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
+    public void updateItem(Character character, Predicate<Item> conditionToUpdate, Function<Item, Item> updater) {
         List<Item> items = character.getInventory();
-        for (Item item: items) {
-            if (filter.test(item)) {
-                Item updatedItem = updater.apply(item);
-                int index = character.getInventory().indexOf(item);
-                items.set(index, updatedItem);
+        for (int i=0; i<items.size(); i++) {
+            if (conditionToUpdate.test(items.get(i))) {
+                Item updatedItem = updater.apply(items.get(i));
+                items.set(i, updatedItem);
                 break;
             }
         }
-
     }
 }
