@@ -1,8 +1,7 @@
 package faang.school.godbless;
 
+import faang.school.godbless.metauniverse.*;
 
-import faang.school.godbless.MetaUniverse.Notification;
-import faang.school.godbless.MetaUniverse.NotificationManager;
 import java.io.IOException;
 import java.util.*;
 
@@ -13,17 +12,19 @@ public class Main {
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
 
-    public static void MetaUneverse(){
+    public static void MetaUneverse() {
         NotificationManager notificationManager = getNotificationManager();
 
 // Отправка оповещений
         Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        Notification dontTypeNotification = new Notification("type", "Новый пост от пользователя: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(dontTypeNotification);
     }
 
     private static NotificationManager getNotificationManager() {
@@ -105,7 +106,7 @@ public class Main {
         searchBook("Java. Beginner's Guide", "Herbert Shildt", 2002);
         printAllBooks();
     }
-   
+
     public static void mainStartHouseGame() {
         House stark = new House("Stark", "direwolf");
         House lannister = new House("Lannister", "Lion rampant");
