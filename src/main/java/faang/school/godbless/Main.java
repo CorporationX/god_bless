@@ -52,6 +52,7 @@ public class Main {
                 System.out.println("Имя: " + student.getName());
             }
             System.out.println();
+
         }
     }
 
@@ -72,10 +73,6 @@ public class Main {
         groupStudentsByFacultyAndYear(studentList);
         System.out.println("group");
         groupStudentsByFacultyAndYear(studentList);
-
-
-
-
 
     }
 }
