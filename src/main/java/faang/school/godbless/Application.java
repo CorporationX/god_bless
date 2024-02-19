@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import faang.school.godbless.HogwartsLambdas.SpellCaster;
+import static faang.school.godbless.User.groupUsers;
 import java.io.IOException;
 import java.util.*;
 
