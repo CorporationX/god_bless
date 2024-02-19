@@ -28,14 +28,14 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> isRightItem, Function<Item, Item> updateFunction) {
-        List<Item> itemList = character.getInventory();
-        if (checkListIsNullOrEmpty( itemList )) {
+        List<Item> inventory = character.getInventory();
+        if (checkListIsNullOrEmpty( inventory )) {
             System.out.println( "Error: List is null or empty" );
             return;
         }
-        for (int i = 0; i < itemList.size(); i++) {
-            Item item = itemList.get( i );
-            if (isRightItem.test( itemList.get( i ) )) {
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get( i );
+            if (isRightItem.test(item)) {
                 character.getInventory().set( i, updateFunction.apply( item ) );
             }
         }
