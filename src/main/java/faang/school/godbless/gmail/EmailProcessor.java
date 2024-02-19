@@ -8,14 +8,14 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmail(List<Email> emailList, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
+    public void processEmail(List<Email> emailList, Predicate<Email> importanceСheck, Consumer<Email> textOutput, Function<Email, String> textFormatting) {
         emailList.forEach(email -> {
-            if (predicate.test(email)) {
-                function.apply(email);
-                consumer.accept(email);
+            if (importanceСheck.test(email)) {
+                email.setBody(textFormatting.apply(email));
+                textOutput.accept(email);
             }
             else{
-                consumer.accept(email);
+                textOutput.accept(email);
             }
 
         });

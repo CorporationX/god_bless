@@ -1,7 +1,7 @@
 package faang.school.godbless;
 
 import java.io.IOException;
-import java.util.*;
+import faang.school.godbless.gmail.Main;
 
 public class Application {
     public static void main(String... args) throws IOException {

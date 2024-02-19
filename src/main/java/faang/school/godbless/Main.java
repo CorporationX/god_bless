@@ -17,21 +17,6 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-    private final static List<Email> emailList = new ArrayList<>();
-
-    public static void startEmail() {
-        emailList.add(new Email("Письмо 1",
-                "Текст письма 1", false));
-        emailList.add(new Email("Письмо 2",
-                "Текст письма 2", true));
-        emailList.add(new Email("Спам",
-                "Текст спама", false));
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printMail = email -> System.out.println(email.getBody());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        EmailProcessor emailProcessor = new EmailProcessor();
-        emailProcessor.processEmail(emailList, importantFilter, printMail, toUpperCase);
-    }
 
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);

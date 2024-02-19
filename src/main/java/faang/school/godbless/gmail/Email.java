@@ -1,15 +1,14 @@
 package faang.school.godbless.gmail;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@AllArgsConstructor
 @Getter
 public class Email {
-    private String subject, body;
+    private String subject;
+    private String body;
     private boolean isImportant;
-
-    public Email(String subject, String body, boolean isImportant) {
-        this.body = body;
-        this.subject = subject;
-        this.isImportant = isImportant;
-    }
 }
