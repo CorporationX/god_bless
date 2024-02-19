@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import faang.school.godbless.googletranslator.Main;
 import java.io.IOException;
 import java.util.*;
 

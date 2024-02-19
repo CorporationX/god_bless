@@ -14,18 +14,8 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-    private final static Map<String, String> dictionary = new HashMap<>();
 
-    public static void startGoogleTranslator() {
-        DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-        BiConsumer<String, String> addWordToDictionary = ((word, translation) -> dictionary.put(word, translation));
-        dictionaryProcessor.processWord("привет", "hello", addWordToDictionary);
-        dictionaryProcessor.processWord("мир", "world", addWordToDictionary);
-        dictionaryProcessor.processWord("программирование", "programming", addWordToDictionary);
-
-        System.out.println("Словарь: " + dictionary);
-    }
 
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);
