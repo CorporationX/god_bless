@@ -6,29 +6,73 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<String, List<WebPage>> map = new HashMap<>();
+    static List<Student> studentList = new ArrayList<>();
+    public void addStudent(Student student) {
+        studentList.add(student);
+    }
 
-    static void indexNewWebPage(WebPage webPage) {
-        String[] words = webPage.getContent().split("\\s+");
-        for (String word : words) {
-            List<WebPage> pages = map.getOrDefault(word, new ArrayList<>());
-            pages.add(webPage);
-            map.put(word, pages);
+    public void removeStudent(String name, String faculty, int year) {
+        Student studentToRemove = new Student(name, faculty, year);
+        studentList.remove(studentToRemove);
+    }
+
+
+    public List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
+        List<Student> students = new ArrayList<>();
+        for (Student student : studentList) {
+            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                students.add(student);
+            }
         }
+        return students;
     }
-    public static List<WebPage> search(String keyword) {
-        return map.getOrDefault(keyword, new ArrayList<>());
+    public static Map<String, List<Student>> groupStudentsByFacultyAndYear(List<Student> studentList) {
+        Map<String, List<Student>> groupedStudents = new HashMap<>();
+        for (Student student : studentList) {
+            String key = student.getFaculty() + " " + student.getYear();
+            if (groupedStudents.containsKey(key)) {
+                groupedStudents.get(key).add(student);
+            } else {
+                List<Student> studentsList = new ArrayList<>();
+                studentsList.add(student);
+                groupedStudents.put(key, studentsList);
+            }
+        }
+
+        return groupedStudents;
     }
-    public static void removePage(String url) {
-        for (List<WebPage> pages : map.values()) {
-            pages.removeIf(page -> page.getUrl().equals(url));
+
+    public void printStudentsByFacultyAndYear() {
+        Map<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear(studentList);
+        for (String key : groupedStudents.keySet()) {
+            System.out.println("Факультет и курс: " + key);
+            System.out.println("Студенты:");
+            List<Student> students = groupedStudents.get(key);
+            for (Student student : students) {
+                System.out.println("Имя: " + student.getName());
+            }
+            System.out.println();
+
         }
     }
 
     public static void main(String[] args) {
-        WebPage page = new WebPage("https://google.com/page1", "search", "searchcontent");
-        indexNewWebPage(page);
-        search("searchcontent");
-        removePage("https://google.com/page1");
+        Main main = new Main();
+        main.addStudent(new Student("petya", "istfak", 1));
+        main.addStudent(new Student("vasya", "mexfak", 2));
+        main.addStudent(new Student("sasha", "itfak", 3));
+        main.addStudent(new Student("pasha", "itfak", 3));
+        main.addStudent(new Student("sveta", "itfak", 3));
+        main.addStudent(new Student("galya", "itfak", 3));
+        main.addStudent(new Student("vanya", "himfak", 4));
+        System.out.println("add 4 student");
+        main.removeStudent("vanya", "himfak", 4);
+        System.out.println("delete student");
+        main.findStudentsByFacultyAndYear("itfak",3);
+        System.out.println("vot_oni");
+        groupStudentsByFacultyAndYear(studentList);
+        System.out.println("group");
+        groupStudentsByFacultyAndYear(studentList);
+
     }
 }
