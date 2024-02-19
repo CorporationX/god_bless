@@ -1,5 +1,6 @@
 package src.main.java.faang.school.godbless;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,6 +15,5 @@ public class Main {
         Book.deleteBook("ChistiyCode", "Martin", 2008);
         Book.addNewBook("Tyrgenev", "MyMy", 1937);
         Book.SearchAndPrintBook("GrokaemAlgaritmi", "Bhargava", 2016);
-
     }
 }
