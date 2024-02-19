@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-// Создание словаря
+// Создание словаря 
         Map<String, String> dictionary = new HashMap<>();
 
 // Создание BiConsumer для сохранения слова и его перевода в словарь
