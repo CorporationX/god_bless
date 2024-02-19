@@ -9,14 +9,14 @@ public class Main {
     public static void main(String[] args) {
 
 
-        System.out.println(practiceStream.sumNumbers(saveTheNumbers));
-        System.out.println(practiceStream.maxNumbers(saveTheNumbers));
-        System.out.println(practiceStream.averageNumbers(saveTheNumbers));
-        System.out.println(practiceStream.searchForSymbol(saveTheString, "K"));
-        System.out.println(practiceStream.filterStrings(saveTheString, "Mashina"));
-        System.out.println(practiceStream.sortedLongStrings(saveTheString));
-        System.out.println(practiceStream.processingByParameter(saveTheString, element -> element.length() > 6));
-        System.out.println(practiceStream.searchingForMore(saveTheNumbers, 5));
-        System.out.println(practiceStream.conversionString(saveTheString));
+        System.out.println(PracticeStream.sumEvenNumbers(saveTheNumbers));
+        System.out.println(PracticeStream.maxNumbers(saveTheNumbers));
+        System.out.println(PracticeStream.averageNumbers(saveTheNumbers));
+        System.out.println(PracticeStream.ountStringsWithStartingCharacter(saveTheString, "K"));
+        System.out.println(PracticeStream.filterStrings(saveTheString, "Mashina"));
+        System.out.println(PracticeStream.sortStringsByLength(saveTheString));
+        System.out.println(PracticeStream.checkAllElements(saveTheString, element -> element.length() > 6));
+        System.out.println(PracticeStream.findSmallestElementGreaterThan(saveTheNumbers, 5));
+        System.out.println(PracticeStream.conversionString(saveTheString));
     }
 }
