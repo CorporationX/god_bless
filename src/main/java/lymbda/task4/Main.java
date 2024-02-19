@@ -8,10 +8,10 @@ public class Main {
     public static void main(String[] args) {
         Map<String, String> dictionary = new HashMap<>();
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
-        BiConsumer<String, String> biConsumer = (inRussian, inEnglish) -> dictionary.put(inRussian, inEnglish);
-        dictionaryProcessor.processWord("яблоко", "apple", biConsumer);
-        dictionaryProcessor.processWord("банан", "banana", biConsumer);
-        dictionaryProcessor.processWord("телефон", "phone", biConsumer);
+        BiConsumer<String, String> putToMap = (inRussian, inEnglish) -> dictionary.put(inRussian, inEnglish);
+        dictionaryProcessor.processWord("яблоко", "apple", putToMap);
+        dictionaryProcessor.processWord("банан", "banana", putToMap);
+        dictionaryProcessor.processWord("телефон", "phone", putToMap);
         System.out.println("Словарь " + dictionary);
     }
 }
