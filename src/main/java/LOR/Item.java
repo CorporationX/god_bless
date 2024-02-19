@@ -1,4 +1,4 @@
-package src.main.java.faang.school.godbless;
+package LOR;
 
 public class Item {
     private final String name;
