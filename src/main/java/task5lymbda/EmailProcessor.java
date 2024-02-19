@@ -9,7 +9,8 @@ public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> process, Function<Email, String> transformer) {
         for (Email email : emails) {
             if (filter.test(email)) {
-                transformer.apply(email);
+                String transformerBody = transformer.apply(email);
+                email = new Email(email.getSubject(), transformerBody, email.isImportant());
                 process.accept(email);
             }
         }

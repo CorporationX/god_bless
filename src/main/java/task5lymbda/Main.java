@@ -16,9 +16,9 @@ public class Main {
         );
         EmailProcessor emailProcessor = new EmailProcessor();
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject() + "-" + toUpperCase.apply(email));
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        Function<Email, String> transformer = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject() + ": " + email.getBody());
+        emailProcessor.processEmails(emails, importantFilter, printEmail, transformer);
 
     }
 }
