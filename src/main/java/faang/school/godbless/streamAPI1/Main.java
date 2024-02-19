@@ -3,6 +3,7 @@ package faang.school.godbless.streamAPI1;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -18,14 +19,8 @@ public class Main {
         System.out.println("words containing \"Java\" are:");
         streamOfWordsContaining(words, "Java").forEach(System.out::println);
         System.out.println("words, sorted by length:");
-        streamOfSortedByLengthWoeds(words).forEach(System.out::println);
-        System.out.println("all strings matches predicate: " + allMatches(words, new Predicate() {
-            @Override
-            public boolean test(Object obj) {
-                String word = (String) obj;
-                return word.length() > 2;
-            }
-        }));
+        streamOfWordsSortedByLength(words).forEach(System.out::println);
+        System.out.println("all strings matches predicate: " + allMatches(words, word -> word.toString().length() > 3));
         System.out.println("minimal element greater than 5: " + findMinimalGreatherThan(numbers, 5));
         List<Integer> wordsLength = getLengthOfWords(words);
         System.out.println(wordsLength);
@@ -45,7 +40,7 @@ public class Main {
         return Arrays.stream(words).allMatch(condition);
     }
 
-    private static Stream<String> streamOfSortedByLengthWoeds(String[] words) {
+    private static Stream<String> streamOfWordsSortedByLength(String[] words) {
         return Arrays.stream(words).sorted(Comparator.comparing(word -> word.length()));
     }
 
@@ -59,11 +54,11 @@ public class Main {
     }
 
     private static Double avg(int[] numbers) {
-        return Arrays.stream(numbers).average().getAsDouble();
+        return Arrays.stream(numbers).average().orElse(0.0);
     }
 
     private static int max(int[] numbers) {
-        return Arrays.stream(numbers).max().orElse(0);
+        return Arrays.stream(numbers).max().orElseThrow();
     }
 
     private static int sumOfEven(int[] numbers) {
