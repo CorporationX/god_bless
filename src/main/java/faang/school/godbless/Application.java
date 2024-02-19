@@ -1,6 +1,8 @@
 package faang.school.godbless;
 
+
 import faang.school.godbless.instagramfilters.Main;
+import faang.school.godbless.HogwartsLambdas.SpellCaster;
 import java.io.IOException;
 
 public class Application {
