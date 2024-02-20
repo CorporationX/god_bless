@@ -1,5 +1,9 @@
 package faang.school.godbless;
 
+import faang.school.godbless.instagramfilters.Main;
+import faang.school.godbless.googletranslator.Main;
+import faang.school.godbless.HogwartsLambdas.SpellCaster;
+import static faang.school.godbless.User.groupUsers;
 import java.io.IOException;
 import faang.school.godbless.gmail.Main;
 
@@ -7,11 +11,13 @@ public class Application {
     public static void main(String... args) throws IOException {
         System.out.println("Hello world");
 
-        /*Main.weatherMain();
+        Main.weatherMain();
         Main.studentsStart();
         Main.startGroupingByAge();
         Main.libraryStart();
-        Main.startGroupingByHobby();*/
+        Main.startGroupingByHobby();
+        Main.startInstagramFiltres();
+        Main.startGoogleTranslator();
         Main.startEmail();
     }
 }
