@@ -4,14 +4,6 @@ public class Monster {
     private final String name;
     private final Location location;
 
-    @Override
-    public String toString() {
-        return "Monster{" +
-                "name='" + name + '\'' +
-                ", location=" + location +
-                '}';
-    }
-
     public Monster(String name, Location location) {
         this.name = name;
         this.location = location;

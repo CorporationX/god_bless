@@ -53,7 +53,8 @@ public class Witcher {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Finished" + (start - System.currentTimeMillis()));
+        long end = System.currentTimeMillis();
+        System.out.println("Finished " + (end - start));
     }
 
     public static List<Location> createCoordinates(){
