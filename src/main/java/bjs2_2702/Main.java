@@ -1,4 +1,4 @@
-package BJS2_2702;
+package bjs2_2702;
 
 public class Main {
     public static void main(String[] args) {
