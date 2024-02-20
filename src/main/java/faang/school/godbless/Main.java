@@ -1,11 +1,16 @@
 package faang.school.godbless;
 
+import java.io.IOException;
+import java.util.*;
 
 import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import faang.school.godbless.filterspam.MessageProcessor;
 
-import java.io.IOException;
-import java.util.*;
+import java.util.function.Function;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
@@ -13,6 +18,7 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
+
 
     public static void startGroupingByHobby() {
         User user1Validation = new User("vanya", "Google", "London", 18);
@@ -87,7 +93,7 @@ public class Main {
         searchBook("Java. Beginner's Guide", "Herbert Shildt", 2002);
         printAllBooks();
     }
-   
+
     public static void mainStartHouseGame() {
         House stark = new House("Stark", "direwolf");
         House lannister = new House("Lannister", "Lion rampant");
