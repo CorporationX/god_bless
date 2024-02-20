@@ -4,10 +4,7 @@ import java.util.*;
 import java.util.stream.*;
 
 public class Stream {
-    public static List<Integer> numbers = List.of(1, 3, 6, 7, 9, 4, 5, 2, 8, 4);
-    public static List<String> words = List.of("Hello", "Root", "Good", "Morning", "Bye", "Fruit", "Hat", "Heart");
-
-    public static void stream1even() {
+    public static void sumEvenNumbers() {
         List<Integer> evenNumbers = Collections.singletonList(numbers.stream()
                 .filter(n -> n % 2 == 0)
                 .mapToInt(Integer::intValue)
@@ -15,7 +12,7 @@ public class Stream {
         System.out.println(evenNumbers);
     }
 
-    public static void stream2max() {
+    public static void findMaxNumber() {
         //alternative method with OptionalInt
         List<Integer> maxNumber = numbers.stream()
                 .max(Integer::compareTo)
@@ -23,14 +20,14 @@ public class Stream {
         System.out.println(maxNumber);
     }
 
-    public static void stream3average() {
+    public static void findAverageNumbers() {
         OptionalDouble averageNumber = numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average();
         System.out.println(averageNumber);
     }
 
-    public static void stream4count() {
+    public static void countNumber() {
         long countsymbol = words.stream()
                 .filter(word -> word.startsWith("H"))
                 .collect(Collectors.toList())
@@ -38,27 +35,27 @@ public class Stream {
         System.out.println(countsymbol);
     }
 
-    public static void stream5filter() {
+    public static void filterWords() {
         List<String> wordsOfList = words.stream()
                 .filter(word -> word.contains("o"))
                 .collect(Collectors.toList());
         System.out.println(wordsOfList);
     }
 
-    public static void stream6sort() {
+    public static void sortWords() {
         List<String> wordsOfList = words.stream()
                 .sorted()
                 .collect(Collectors.toList());
         System.out.println(wordsOfList);
     }
 
-    public static void stream7condition() {
+    public static void checkContdition() {
         boolean minElement = numbers.stream()
                 .allMatch(integer -> integer > 0);
         System.out.println(minElement);
     }
 
-    public static void stream8min() {
+    public static void findMin() {
         List<Integer> minElement = numbers.stream()
                 .filter(number -> number > 3)
                 .min(Integer::compareTo)
@@ -66,7 +63,7 @@ public class Stream {
         System.out.println(minElement);
     }
 
-    public static void stream9mapToInt() {
+    public static void transformListOfWord() {
         List<Integer> lengthOfwords = words.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
