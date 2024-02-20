@@ -12,9 +12,9 @@ public class Main {
 
     // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "The text of the letter 1", false),
-                new Email("Письмо 2", "The text of the letter 2", true),
-                new Email("Спам", "Spam text", false)
+                new Email("Письмо 1", "Текст письма 1", false),
+                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Спам", "Текст спама", false)
         );
 
     // Создание фильтров, обработчиков и преобразователей
