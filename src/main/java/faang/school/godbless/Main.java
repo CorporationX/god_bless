@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import faang.school.godbless.filterspam.MessageProcessor;
 
 import java.util.function.Function;
 import java.util.function.BiConsumer;
