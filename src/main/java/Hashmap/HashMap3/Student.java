@@ -1,4 +1,4 @@
-package HashMap3;
+package Hashmap.HashMap3;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
