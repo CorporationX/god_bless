@@ -3,9 +3,11 @@ package faang.school.godbless.trainingstreamapi2_2639;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -29,9 +31,9 @@ public class Main {
     ));
     static final Map<String, List<String>> FRIENDS = new HashMap<>(Map.of(
             "Dima", new ArrayList<>(List.of("Timur", "Misha", "Vitaliy")),
-            "Vitaliy", new ArrayList<>(List.of("Misha, Dima, Oleg")),
-            "Timur", new ArrayList<>(List.of("Misha, Dima, Katya")),
-            "Vlad", new ArrayList<>(List.of("Oleg, Katya"))
+            "Vitaliy", new ArrayList<>(List.of("Misha", "Dima", "Oleg")),
+            "Timur", new ArrayList<>(List.of("Misha", "Dima", "Katya")),
+            "Vlad", new ArrayList<>(List.of("Oleg", "Katya"))
     ));
     static final List<Employee> EMPLOYEES = new ArrayList<>(List.of(
             new Employee("Dima", "Finance", 85000),
@@ -43,7 +45,7 @@ public class Main {
     static final char[] ALPHABET = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v'};
 
     public static void main(String[] args) {
-        System.out.println(sumPairsEven(13, NUMBERS));
+        System.out.println(getPairsWhichSumEqualsTarget(13, NUMBERS));
         System.out.println(getCapitalsOfSortedCountries(COUNTRIES));
         System.out.println(getSortedWordsStartsWith('D', WORDS));
         System.out.println(getMutualFriendsPairs(FRIENDS));
@@ -54,19 +56,22 @@ public class Main {
     }
 
     // 1
-    public static List<List<Integer>> sumPairsEven(int target, List<Integer> numberList) {
+    public static Set<List<Integer>> getPairsWhichSumEqualsTarget(int target, List<Integer> numberList) {
         return numberList.stream()
                 .flatMap(number1 -> numberList.stream()
-                        .filter(number2 -> numberList.indexOf(number1) < numberList.indexOf(number2))
+                        .filter(number2 -> {
+                            final int numberToCheck = numberList.indexOf(number1);
+                            return numberToCheck < numberList.indexOf(number2);
+                        })
                         .filter(number2 -> number1 + number2 == target)
                         .map(number2 -> Arrays.asList(number1, number2)))
-                .toList();
+                .collect(Collectors.toSet());
     }
 
     // 2
     public static List<String> getCapitalsOfSortedCountries(Map<String, String> countriesMap) {
         return countriesMap.entrySet().stream()
-                .sorted((value1, value2) -> value1.getKey().compareTo(value2.getKey()))
+                .sorted(Map.Entry.comparingByKey())
                 .map(entry -> entry.getValue())
                 .toList();
 
@@ -76,7 +81,7 @@ public class Main {
     public static List<String> getSortedWordsStartsWith(char firstLetter, List<String> wordList) {
         return wordList.stream()
                 .filter(word -> word.charAt(0) == firstLetter)
-                .sorted((word1, word2) -> word1.length() - word2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
@@ -122,5 +127,4 @@ public class Main {
                 .map(string -> Integer.parseInt(string))
                 .toList();
     }
-
 }
