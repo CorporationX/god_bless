@@ -2,9 +2,14 @@ package faang.school.godbless;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.function.Function;
+
 import ch.qos.logback.classic.util.LogbackMDCAdapter;
+
+import java.util.function.Function;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
