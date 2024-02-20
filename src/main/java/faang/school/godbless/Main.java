@@ -1,12 +1,10 @@
 package faang.school.godbless;
 
-
-import faang.school.godbless.instagramfilters.FilterProcessor;
-import faang.school.godbless.instagramfilters.Image;
-
 import java.io.IOException;
 import java.util.*;
 import java.util.function.Function;
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import java.util.function.BiConsumer;
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
@@ -14,7 +12,6 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-
 
 
     public static void startGroupingByHobby() {
