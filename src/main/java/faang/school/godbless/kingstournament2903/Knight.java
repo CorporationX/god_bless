@@ -26,7 +26,8 @@ public class Knight {
 
     public void startTrials() {
         ExecutorService trialExecutor = Executors.newSingleThreadExecutor();
-        for (Trial trial : this.getTrials()) {
+        List<Trial> trialList = this.getTrials();
+        for (Trial trial : trialList) {
             trialExecutor.submit(trial);
         }
         trialExecutor.shutdown();
