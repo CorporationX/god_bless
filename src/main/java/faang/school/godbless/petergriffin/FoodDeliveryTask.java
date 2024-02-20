@@ -25,6 +25,7 @@ public class FoodDeliveryTask implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         System.out.printf("%s eats %d %s\n", character, foodAmount, foodType);
     }
 }

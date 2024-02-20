@@ -10,7 +10,6 @@ public class GriffinsFoodDelivery {
         ExecutorService executors = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
-
         Arrays.stream(characterNames).forEach((character)-> executors.submit(new FoodDeliveryTask(character,new Random().nextInt(10000))));
         executors.shutdown();
     }
