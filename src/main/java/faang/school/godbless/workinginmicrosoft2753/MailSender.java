@@ -10,13 +10,13 @@ public class MailSender {
 
     private static final int MAILS_QUANTITY = 1000;
     private static final int MAX_BATCH_SIZE = 200;
-    private static final int THREADS_NEEDED = MAILS_QUANTITY / MAX_BATCH_SIZE;
+    private static final int BATCHES_QUANTITY = MAILS_QUANTITY / MAX_BATCH_SIZE;
 
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService threadPool = Executors.newFixedThreadPool(THREADS_NEEDED);
+        ExecutorService threadPool = Executors.newCachedThreadPool();
         List<SenderRunnable> batches = new ArrayList<>();
 
-        for (int i = 0; i < THREADS_NEEDED; i++) {
+        for (int i = 0; i < BATCHES_QUANTITY; i++) {
             int startIndex = i * MAX_BATCH_SIZE + 1;
             int endIndex = MAX_BATCH_SIZE * (i + 1);
             batches.add(new SenderRunnable(startIndex, endIndex));
