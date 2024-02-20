@@ -11,9 +11,8 @@ import static faang.school.godbless.User.groupUsers;
 import java.io.IOException;
 
 public class Application {
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) {
         System.out.println("Hello world");
-
 
         faang.school.godbless.Main.weatherMain();
         faang.school.godbless.Main.studentsStart();
@@ -21,7 +20,11 @@ public class Application {
         faang.school.godbless.Main.libraryStart();
         faang.school.godbless.Main.startGroupingByHobby();
         faang.school.godbless.googletranslator.Main.startGoogleTranslator();
-
+        Main.mainStartHouseGame();
+        Main.MetaUneverse();
+        Main.Filtermessage();
+        Main.startInstagramFiltres();
+        Main.startEmail();
 
 
         faang.school.godbless.streamapi1.Main.streamAPI1();
@@ -33,11 +36,5 @@ public class Application {
         faang.school.godbless.streamapi1.Main.streamAPI7();
         faang.school.godbless.streamapi1.Main.streamAPI8();
         faang.school.godbless.streamapi1.Main.streamAPI9();
-
-
-       /* Main.Filtermessage();
-        Main.startInstagramFiltres();
-        Main.startEmail();
-        */
     }
 }
