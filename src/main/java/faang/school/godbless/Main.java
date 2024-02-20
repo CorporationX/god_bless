@@ -1,12 +1,16 @@
 package faang.school.godbless;
 
-
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import faang.school.godbless.googletranslator.DictionaryProcessor;
-
 import java.io.IOException;
 import java.util.*;
+
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
+import faang.school.godbless.filterspam.MessageProcessor;
+
+import java.util.function.Function;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
+
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
@@ -14,7 +18,6 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-
 
 
     public static void startGroupingByHobby() {
