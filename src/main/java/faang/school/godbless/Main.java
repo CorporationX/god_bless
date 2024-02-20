@@ -1,11 +1,9 @@
 package faang.school.godbless;
 
-
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import faang.school.godbless.googletranslator.DictionaryProcessor;
-
 import java.io.IOException;
 import java.util.*;
+import java.util.function.Function;
+import ch.qos.logback.classic.util.LogbackMDCAdapter;
 import java.util.function.BiConsumer;
 
 public class Main {
@@ -14,7 +12,6 @@ public class Main {
     private static final Map<String, House> houseMap = new HashMap<>();
     private final static Map<String, WeatherData> weatherInTheCity = new HashMap<>();
     private final static Mock mockServise = new Mock();
-
 
 
     public static void startGroupingByHobby() {
