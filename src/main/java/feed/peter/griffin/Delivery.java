@@ -3,10 +3,24 @@ package feed.peter.griffin;
 import java.util.Random;
 
 public class Delivery implements Runnable{
+    int minDelay = 1000;
+    int maxDelay = 5000;
     @Override
     public void run(){
-       // System.out.println(character + " gets " + foodAmount + getFoodType());
-        System.out.println(character + " get "  + + foodAmount + " " + getFoodType());
+        try {
+            String foodType = getFoodType();
+            System.out.println(character + " начинает доставку " + foodAmount + " " + foodType);
+
+            Thread.sleep(new Random().nextInt(minDelay, maxDelay));
+
+            System.out.println(character + " получает доставку: " + foodAmount + " " + foodType);
+
+            Thread.sleep(new Random().nextInt(minDelay, maxDelay));
+
+            System.out.println(character + " ест " + foodAmount + " " + foodType);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private String character;
