@@ -7,7 +7,7 @@ import java.util.Random;
 
 @Data
 @AllArgsConstructor
-public class Task implements Runnable{
+public class Task implements Runnable {
     private String name;
     private String task;
     private static Random random = new Random();
@@ -20,6 +20,6 @@ public class Task implements Runnable{
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(String.format("Выполнил задачу %s",task));
+        System.out.println(String.format("Выполнил задачу %s", task));
     }
 }
