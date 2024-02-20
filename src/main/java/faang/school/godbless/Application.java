@@ -1,19 +1,19 @@
 package faang.school.godbless;
 
 
-import faang.school.godbless.HogwartsLambdas.SpellCaster;
-import faang.school.godbless.instagramfilters.Main;
-import faang.school.godbless.googletranslator.Main;
-import faang.school.godbless.filterspam.Main;
-import faang.school.godbless.gmail.Main;
-import static faang.school.godbless.User.groupUsers;
+
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
+    private static final List<Integer> numberList = List.of(1,2,3,4,5);
     public static void main(String... args) {
         System.out.println("Hello world");
 
-        Main.weatherMain();
+        /*Main.weatherMain();
         Main.studentsStart();
         Main.startGroupingByAge();
         Main.libraryStart();
@@ -24,5 +24,9 @@ public class Application {
         Main.startInstagramFiltres();
         Main.startGoogleTranslator();
         Main.startEmail();
+        faang.school.godbless.streamapi2.Main.*/
+
+        faang.school.godbless.calculator.Main.product(numberList);
+        faang.school.godbless.calculator.Main.sum(numberList);
     }
 }
