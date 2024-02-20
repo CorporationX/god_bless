@@ -1,4 +1,4 @@
-package task2;
+package lymbda.task2_1;
 
 public class Main {
     public static void main(String[] args) {

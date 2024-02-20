@@ -1,4 +1,4 @@
-package task3;
+package lymbda.task3;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
