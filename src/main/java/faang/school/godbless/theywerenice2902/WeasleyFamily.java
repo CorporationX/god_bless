@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
 
-    private static final String[] CHORES = {"Wash dishes", "Do the laundry", "Iron shirts", "Wash floors", "Cook a supper"};
+    private static final String[] CHORES = {"Wash dishes", "Do the laundry", "To iron shirts", "Wash floors", "Cook a supper"};
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService homeRoutineExecutor = Executors.newCachedThreadPool();
