@@ -8,6 +8,7 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
+    private static Random random = new Random();
 
     public FoodDeliveryTask(String character, int foodAmount) {
         this.character = character;
@@ -19,7 +20,7 @@ public class FoodDeliveryTask implements Runnable {
         String foodType = getFoodType();
         System.out.printf("%s ordered %d %ss,waiting for delivery%n", this.getCharacter(), this.getFoodAmount(), foodType);
         try {
-            Thread.sleep(new Random().nextLong(1000, 5000));
+            Thread.sleep(random.nextLong(1000, 5000));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -28,6 +29,6 @@ public class FoodDeliveryTask implements Runnable {
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wing", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 }
