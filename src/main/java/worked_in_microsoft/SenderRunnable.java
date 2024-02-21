@@ -10,13 +10,11 @@ public class SenderRunnable implements Runnable{
         this.startIndex = startIndex;
         this.endIndex = endIndex;
     }
-    private int startIndex;
-    private int endIndex;
+    private final int startIndex;
+    private final int endIndex;
 
     @Override
     public void run() {
-        IntStream.range(startIndex, endIndex).forEach(i -> {
-            System.out.println(i + " : mail sanded");
-        });
+        IntStream.range(startIndex, endIndex).forEach(i -> System.out.println(i + " : mail sanded"));
     }
 }
