@@ -15,6 +15,6 @@ public class GriffinsFoodDelivery {
             executorService.submit(new FoodDeliveryTask(character, random.nextInt(5) + 1));
         }
         executorService.shutdown();
-        executorService.awaitTermination(5, TimeUnit.MINUTES);
+        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
     }
 }
