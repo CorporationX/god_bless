@@ -17,5 +17,4 @@ public class MailSender {
         }
         System.out.println("Messages sent successfully!");
     }
-
 }

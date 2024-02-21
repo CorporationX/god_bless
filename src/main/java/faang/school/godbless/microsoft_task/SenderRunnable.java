@@ -12,7 +12,6 @@ public class SenderRunnable implements Runnable {
 
         for (int i = startIndex; i <= endIndex; i++) {
             System.out.println("The email sent successfully!");
-
         }
     }
 }
