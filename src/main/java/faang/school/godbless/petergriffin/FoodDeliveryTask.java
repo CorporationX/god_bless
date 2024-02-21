@@ -3,6 +3,7 @@ package faang.school.godbless.petergriffin;
 import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
+    private Random random = new Random();
     private String character;
     private int foodAmount;
 
@@ -13,7 +14,7 @@ public class FoodDeliveryTask implements Runnable {
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 
     @Override
@@ -21,7 +22,7 @@ public class FoodDeliveryTask implements Runnable {
         String foodType = getFoodType();
         System.out.printf("%s is about to get %d %s\n", character, foodAmount, foodType);
         try {
-            Thread.sleep(new Random().nextInt(5001));
+            Thread.sleep(random.nextInt(5001));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
