@@ -2,6 +2,7 @@ package faang.school.godbless.usersactivityanalysis2703;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ public class Main {
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()));
 
         return userActivity.entrySet().stream()
-                .sorted((user1, user2) -> Math.toIntExact(user1.getValue() - user2.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry::getValue))
                 .limit(10)
                 .map(user -> user.getKey())
                 .toList();
@@ -32,7 +33,7 @@ public class Main {
                 .collect(Collectors.groupingBy(content -> content, Collectors.counting()));
 
         return topicsActivity.entrySet().stream()
-                .sorted((topic1, topic2) -> Math.toIntExact(topic1.getValue() - topic2.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry::getValue))
                 .limit(5)
                 .map(topic -> topic.getKey())
                 .toList();
@@ -45,7 +46,7 @@ public class Main {
                 .collect(Collectors.groupingBy(userAction -> userAction.getName(), Collectors.counting()));
 
         return commentatorsActivity.entrySet().stream()
-                .sorted((user1, user2) -> Math.toIntExact(user1.getValue() - user2.getValue()))
+                .sorted(Comparator.comparingLong(Map.Entry::getValue))
                 .limit(3)
                 .map(user -> user.getKey())
                 .toList();
@@ -60,11 +61,7 @@ public class Main {
         if (actionTypesQuantity == 0) {
             return new HashMap<>(Map.of("", 0.0));
         }
-
-        Map<String, Double> result = new HashMap<>();
-        for (var entry : actionsActivity.entrySet()) {
-            result.put(entry.getKey(), (double) entry.getValue() / actionTypesQuantity);
-        }
-        return result;
+        return actionsActivity.entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey, entry -> (double) entry.getValue() / actionTypesQuantity * 100));
     }
 }
