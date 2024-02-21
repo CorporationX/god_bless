@@ -49,7 +49,7 @@ public class CityWorker implements Runnable {
 
     public long getJourneyDistance(City currentCity, Location monsterThere) {
         Location cityLocation = currentCity.getLocation();
-        return (cityLocation.getCoordinateX() - monsterThere.getCoordinateX()) +
-                (cityLocation.getCoordinateY() - monsterThere.getCoordinateY());
+        return (Math.abs(cityLocation.getCoordinateX() - monsterThere.getCoordinateX()) +
+                (Math.abs(cityLocation.getCoordinateY() - monsterThere.getCoordinateY())));
     }
 }
