@@ -11,12 +11,12 @@ public class Chore implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(Thread.currentThread().getName());
+        System.out.println(Thread.currentThread().getName() + " выполняет задачу: " + chore);
         try {
             Thread.sleep(random.nextInt(12000));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Готово " + Thread.currentThread().getName());
+        System.out.println("Готово " + chore);
     }
 }
