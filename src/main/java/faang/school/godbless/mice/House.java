@@ -9,11 +9,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Data
-
 public class House {
 
     private static List<Food> foods = new ArrayList<>();
     private static List<Room> rooms = new ArrayList<>();
+
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
 
@@ -38,15 +38,26 @@ public class House {
             executor.scheduleAtFixedRate( House::collectFood, 0, 1, TimeUnit.SECONDS );
         }
 
+        try {
+            if (!executor.awaitTermination( 1, TimeUnit.MINUTES )) {
+                System.out.println( "Failed to complete all tasks within 1 minute" );
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.out.println( "Waiting for task completion interrupted:" + e.getMessage() );
+        }
+
         executor.shutdown();
     }
 
     public void addRoom(Room room) {
         rooms.add( room );
     }
+
     public void addFood(Food food) {
         foods.add( food );
     }
+
     public static synchronized List<Food> collectFood() {
         List<Food> collectedFood = new ArrayList<>();
         for (Room r : rooms) {
