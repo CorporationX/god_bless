@@ -8,11 +8,11 @@ public class GriffinsFoodDelivery {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
-        for (String characterName: characterNames) {
+        for (String characterName : characterNames) {
 
             int randomFoodAmount = new Random().nextInt(5) + 1;
 
-            Runnable foodDeliveryTask=new FoodDeliveryTask(characterName, randomFoodAmount);
+            Runnable foodDeliveryTask = new FoodDeliveryTask(characterName, randomFoodAmount);
             executor.submit(foodDeliveryTask);
         }
         executor.shutdown();

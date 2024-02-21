@@ -26,8 +26,9 @@ public class FoodDeliveryTask implements Runnable {
             throw new RuntimeException(e);
         }
         System.out.println("Delivering " + foodAmount + " food items to " + getCharacterName());
-        System.out.println(characterName + " eating " + foodAmount + " " +getFoodType());
+        System.out.println(characterName + " eating " + foodAmount + " " + getFoodType());
     }
+
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
