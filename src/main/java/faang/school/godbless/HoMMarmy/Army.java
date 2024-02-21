@@ -5,21 +5,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<List<Object>> army = new ArrayList<>();
+    private List<Unit> army = new ArrayList<>();
 
     public void addUnit(Unit unit, Integer count) {
-        army.add(List.of(unit, count));
+        unit.setCount(count);
+        army.add(unit);
     }
 
     public void addUnit(Unit unit) {
-        addUnit(unit, 1);
+        army.add(unit);
     }
 
     public int calculateTotalPower() {
         List<CalculatePowerThread> threads = new ArrayList<>();
         int totalPower = 0;
-        for (List<Object> unitList : army) {
-            CalculatePowerThread thread = new CalculatePowerThread((Unit) unitList.get(0), (Integer) unitList.get(1));
+        for (Unit unit : army) {
+            CalculatePowerThread thread = new CalculatePowerThread(unit, unit.getCount());
             thread.start();
             threads.add(thread);
         }
