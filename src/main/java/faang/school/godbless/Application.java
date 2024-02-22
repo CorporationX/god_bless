@@ -2,8 +2,15 @@ package faang.school.godbless;
 
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
+
+    private static final List<Integer> numberList = List.of(1,2,3,4,5);
+    
     public static void main(String... args) throws IOException {
         System.out.println("Hello world");
 
@@ -14,8 +21,6 @@ public class Application {
         faang.school.godbless.Main.startGroupingByHobby();
         faang.school.godbless.googletranslator.Main.startGoogleTranslator();
 
-
-
         faang.school.godbless.streamapi1.Main.streamAPI1();
         faang.school.godbless.streamapi1.Main.streamAPI2();
         faang.school.godbless.streamapi1.Main.streamAPI3();
@@ -25,5 +30,7 @@ public class Application {
         faang.school.godbless.streamapi1.Main.streamAPI7();
         faang.school.godbless.streamapi1.Main.streamAPI8();
         faang.school.godbless.streamapi1.Main.streamAPI9();
+        faang.school.godbless.calculator.Main.product(numberList);
+        faang.school.godbless.calculator.Main.sum(numberList);
     }
 }
