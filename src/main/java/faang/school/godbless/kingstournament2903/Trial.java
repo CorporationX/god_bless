@@ -24,5 +24,6 @@ public class Trial implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("%s has made it through!%n", knightName);
     }
 }
