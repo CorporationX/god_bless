@@ -14,6 +14,7 @@ public class Trial implements Runnable {
         try {
             System.out.println(getKnightName() + " tryes to do " + getTrialName());
             Thread.sleep(4500);
+            System.out.println(getKnightName() + " made it!");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

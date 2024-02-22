@@ -23,7 +23,7 @@ public class Knight {
 
     public void startTrials() {
         try {
-            ExecutorService executorService = Executors.newFixedThreadPool(2);
+            ExecutorService executorService = Executors.newSingleThreadExecutor();
             for (Trial trial : trials) {
                 executorService.submit(trial);
             }
