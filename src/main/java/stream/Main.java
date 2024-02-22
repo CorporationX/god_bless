@@ -3,11 +3,14 @@ package stream;
 import java.util.List;
 
 
-import static stream.printResult.printResultBiFunctionPredicate;
-import static stream.printResult.printResultBiFunction;
-import static stream.printResult.printResult;
+import static stream.ResultPrinter.printResultBiFunction;
+import static stream.ResultPrinter.printResult;
 
 public class Main {
+    private static final String SUBSTRING = "K";
+    private static final String LIST_CONDITION = "Mashina";
+    private static final int LINE_LENGTH = 6;
+    private static final int SMALLEST_ELEMENT = 5;
     private static List<Integer> saveTheNumbers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
     private static List<String> saveTheString = List.of("Kirill", "Mashina", "Takoi", "Krasivb1");
 
@@ -20,10 +23,9 @@ public class Main {
         printResult(PracticeStream::sortStringsByLength, saveTheString);
         printResult(PracticeStream::conversionString, saveTheString);
 
-        printResultBiFunction(PracticeStream::ountStringsWithStartingCharacter, saveTheString, "K");
-        printResultBiFunction(PracticeStream::filterStrings, saveTheString, "Mashina");
-        printResultBiFunction(PracticeStream::findSmallestElementGreaterThan, saveTheNumbers, 5);
-
-        printResultBiFunctionPredicate(PracticeStream::checkAllElements, saveTheString, element -> element.length() > 6);
+        printResultBiFunction(PracticeStream::ountStringsWithStartingCharacter, saveTheString, SUBSTRING);
+        printResultBiFunction(PracticeStream::filterStrings, saveTheString, LIST_CONDITION);
+        printResultBiFunction(PracticeStream::findSmallestElementGreaterThan, saveTheNumbers, SMALLEST_ELEMENT);
+        printResultBiFunction(PracticeStream::checkAllElements, saveTheString, element -> element.length() > LINE_LENGTH);
     }
 }
