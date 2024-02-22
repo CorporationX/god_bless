@@ -1,12 +1,11 @@
 package faang.school.godbless;
 
 
+import faang.school.godbless.metauniverse.Notification;
+import faang.school.godbless.metauniverse.NotificationManager;
+
 import java.io.IOException;
 import java.util.*;
-
-import ch.qos.logback.classic.util.LogbackMDCAdapter;
-import faang.school.godbless.filterspam.MessageProcessor;
-import faang.school.godbless.metauniverse.*;
 
 public class Main {
     static List<Student> listStudents = new ArrayList<>();
@@ -30,7 +29,6 @@ public class Main {
         notificationManager.sendNotification(pushNotification);
         notificationManager.sendNotification(dontTypeNotification);
     }
-
 
     private static NotificationManager getNotificationManager() {
         NotificationManager notificationManager = new NotificationManager();
