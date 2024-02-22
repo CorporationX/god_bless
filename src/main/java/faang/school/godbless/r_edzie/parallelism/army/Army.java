@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private int totalPower;
     private final List<Unit> UNITS = new ArrayList<>();
 
     public void addUnit(Unit unit) {
@@ -12,6 +11,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
+        int totalPower = 0;
         List<PowerThread> powerThreads = new ArrayList<>();
 
         for (Unit unit : UNITS) {
