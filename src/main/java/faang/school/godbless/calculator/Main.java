@@ -7,6 +7,10 @@ public class Main {
     public static Calculator<Integer> sum = Integer::sum;
 
     public static int calculate(List<Integer> numberList, Calculator calculator) throws IllegalArgumentException {
+        if (numberList.isEmpty() || numberList == null) {
+            System.out.println("The list is empty");
+            throw new IllegalArgumentException();
+        }
         int multiplication = 1;
         for (Integer number : numberList) {
             multiplication = calculator.calc(multiplication, number);
@@ -15,10 +19,6 @@ public class Main {
     }
 
     public static void product(List<Integer> numberList) {
-        if (numberList.isEmpty() || numberList == null) {
-            System.out.println("The list is empty");
-            throw new IllegalArgumentException();
-        }
         System.out.println(calculate(numberList, product));
     }
 
