@@ -6,7 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GriffinsFoodDelivery {
-    private static int randomNum = new Random().nextInt(10);
+    private static int randomNum = new Random().nextInt(10+1);
     public static void main(String[] args) {
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};

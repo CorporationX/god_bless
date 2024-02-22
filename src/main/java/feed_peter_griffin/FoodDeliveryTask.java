@@ -12,13 +12,13 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         String foodTypes = getFoodType();
-        System.out.printf("%s ждёт дсотавку %d %s",character,foodAmount,foodTypes );
+        System.out.printf(" %s ждёт дсотавку %d %s",character,foodAmount,foodTypes );
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("");
+        System.out.println(String.format(" %s жадно съел %d %s",character,foodAmount,foodTypes));
     }
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
