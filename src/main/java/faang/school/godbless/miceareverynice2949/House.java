@@ -31,7 +31,7 @@ public class House {
         printTestInfo(mammyTwoShoesHouse);
     }
 
-    public void collectFood(Room room) {
+    public synchronized void collectFood(Room room) {
         if (!room.getFoodInRoom().isEmpty()) {
             this.getFoodInHouse().addAll(room.getFoodInRoom());
             room.getFoodInRoom().clear();
