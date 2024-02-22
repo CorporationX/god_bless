@@ -1,8 +1,6 @@
 package faang.school.godbless;
 
 
-import faang.school.godbless.HogwartsLambdas.SpellCaster;
-
 import java.io.IOException;
 
 
@@ -20,13 +18,13 @@ public class Application {
 
 
         faang.school.godbless.streamapi1.Main.streamAPI1();
-        faang.school.godbless.streamapi1.Main.streamAPI2();
+        /*faang.school.godbless.streamapi1.Main.streamAPI2();
         faang.school.godbless.streamapi1.Main.streamAPI3();
         faang.school.godbless.streamapi1.Main.streamAPI4();
         faang.school.godbless.streamapi1.Main.streamAPI5();
         faang.school.godbless.streamapi1.Main.streamAPI6();
-        faang.school.godbless.streamapi1.Main.streamAPI7();
-        faang.school.godbless.streamapi1.Main.streamAPI8();*/
-        faang.school.godbless.streamapi1.Main.streamAPI9();
+        faang.school.godbless.streamapi1.Main.streamAPI7();*/
+        faang.school.godbless.streamapi1.Main.streamAPI8();
+        //faang.school.godbless.streamapi1.Main.streamAPI9();
     }
 }
