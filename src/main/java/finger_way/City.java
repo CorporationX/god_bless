@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class City {
-    String nameCity;
-    int distance
-    int kaermorhen = 0;
+    private String name;
+    private Location location;
+    private int distance;
 }
