@@ -16,5 +16,6 @@ public class Trial implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.println(String.format("Knight %s completed trial %s", knightName, trialName));
     }
 }
