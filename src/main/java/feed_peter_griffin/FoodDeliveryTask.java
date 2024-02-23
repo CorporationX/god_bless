@@ -1,6 +1,7 @@
 package feed_peter_griffin;
 
 import lombok.AllArgsConstructor;
+import lombok.SneakyThrows;
 
 import java.util.Random;
 
@@ -9,17 +10,15 @@ public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
 
+    @SneakyThrows
     @Override
     public void run() {
         String foodTypes = getFoodType();
-        System.out.printf(" %s ждёт дсотавку %d %s",character,foodAmount,foodTypes );
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(String.format(" %s жадно съел %d %s",character,foodAmount,foodTypes));
+        System.out.printf(" %s ждёт дсотавку %d %s", character, foodAmount, foodTypes);
+        Thread.sleep(1000L);
+        System.out.println(String.format(" %s жадно съел %d %s", character, foodAmount, foodTypes));
     }
+
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
