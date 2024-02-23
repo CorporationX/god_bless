@@ -1,6 +1,9 @@
 package faang.school.godbless.multithreading_parallelism.western_harbor_tournament;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class King {
     public static void main(String[] args) {
@@ -13,7 +16,10 @@ public class King {
             knight.addTrial(new Trial(knight.getName(), "Коварный варвар"));
         }
 
-        firstKnight.startTrials();
-        secondKnight.startTrials();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        for (Knight knight: knightList) {
+            executorService.submit(knight.startTrials());
+        }
+        executorService.shutdown();
     }
 }
