@@ -14,7 +14,7 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         String foodTypes = getFoodType();
-        System.out.printf(" %s ждёт дсотавку %d %s", character, foodAmount, foodTypes);
+        System.out.println(String.format(" %s ждёт дсотавку %d %s", character, foodAmount, foodTypes));
         Thread.sleep(1000L);
         System.out.println(String.format(" %s жадно съел %d %s", character, foodAmount, foodTypes));
     }
