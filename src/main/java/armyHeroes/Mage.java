@@ -3,8 +3,9 @@ package armyHeroes;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
-@AllArgsConstructor
-public class Mage {
-    private int power;
+
+public class Mage extends Hero {
+    public Mage(int power) {
+        super(power);
+    }
 }
