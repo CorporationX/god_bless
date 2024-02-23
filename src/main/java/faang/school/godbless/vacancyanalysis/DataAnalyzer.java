@@ -3,6 +3,7 @@ package faang.school.godbless.vacancyanalysis;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
@@ -10,7 +11,7 @@ public class DataAnalyzer {
     public List<String> getMostPopularSkills(List<Job> jobs) {
         return jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(jobName -> jobName, Collectors.counting()))
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
                 .map(Map.Entry::getKey)
