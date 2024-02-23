@@ -10,15 +10,20 @@ public class Player {
 
     public void play() {
         synchronized (this.LOCK) {
-            this.isPlaying = true;
-            System.out.println("Playback is on");
+            if (!this.isPlaying) {
+                this.isPlaying = true;
+                System.out.println("Playback is on");
+                return;
+            }
+            System.out.println("Playback is already on");
         }
     }
 
     public void pause() {
         synchronized (this.LOCK) {
             if (!this.isPlaying) {
-                System.out.println("Music is already paused");
+                System.out.println("Playback is already paused");
+                return;
             }
             this.isPlaying = false;
             System.out.println("Playback is paused");
