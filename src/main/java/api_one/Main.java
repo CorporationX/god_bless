@@ -2,8 +2,11 @@ package api_one;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparingInt;
@@ -20,36 +23,41 @@ public class Main {
     public static int findMax(List<Integer> list) {
         return list.stream()
                 .max(naturalOrder())
-                .get();
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
-    public static OptionalDouble calculateAverage(List<Integer> list) {
+    public static double calculateAverage(List<Integer> list) {
         return list.stream()
                 .mapToInt(Integer::intValue)
-                .average();
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("Список пуст"));
     }
 
-    public static long countStartsWithJ(List<String> strings) {
+    public static long countStartsWith(List<String> strings, String symbol) {
+        Objects.requireNonNull(symbol, "not null");
+        if (strings.isEmpty()) {
+            return 0;
+        }
         return strings.stream()
-                .filter(s -> s.startsWith("J"))
+                .filter(s -> s.startsWith(symbol))
                 .count();
     }
-
     public static List<String> sortByLength(List<String> strings) {
         return strings.stream()
                 .sorted(comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean allStringsLongerThanOne(List<String> strings) {
-        return strings.stream()
-                .allMatch(s -> s.length() > 1);
+    public static boolean allMatch(List<String> strings, Predicate<String> predicate) {
+        return strings.stream().allMatch(predicate);
     }
+
 
     public static Optional<String> findLongestStringGreaterThan(List<String> strings, int targetLength) {
         return strings.stream()
                 .filter(s -> s.length() > targetLength)
-                .min(comparingInt(String::length));
+                .min(comparingInt(String::length))
+                .or(Optional::empty);
     }
 
     public static List<Integer> getStringLengths(List<String> strings) {
@@ -64,10 +72,10 @@ public class Main {
 
         int sum = sumEvenNumbers(list);
         int max = findMax(list);
-        OptionalDouble average = calculateAverage(list);
-        long count = countStartsWithJ(strings);
+        OptionalDouble average = OptionalDouble.of(calculateAverage(list));
+        long count = countStartsWith(strings, "J");
         List<String> sortedStrings = sortByLength(strings);
-        boolean allMatch = allStringsLongerThanOne(strings);
+        boolean allMatch = allMatch(strings,s -> s.length() > 1);
         Optional<String> longestString = findLongestStringGreaterThan(strings, 5);
         List<Integer> lengths = getStringLengths(strings);
 
