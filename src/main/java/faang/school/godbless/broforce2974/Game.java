@@ -29,7 +29,7 @@ public class Game {
                     this.score, player.getName(), player.getScores());
         }
         synchronized (this.LIVES_LOCK) {
-            if (RANDOM.nextInt(100) <= 50) {
+            if (RANDOM.nextInt(100) <= 20) {
                 this.lives++;
                 player.setLives(player.getLives() - 1);
                 System.out.printf("Ouch! %s got hit. Lives left: %d%n",
