@@ -1,4 +1,4 @@
-package veryNiceVeryPoor;
+package very.nice.very.poor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +16,6 @@ public class Chore implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.out.println(Thread.currentThread().getName() + " закончил работу");
     }
 }
