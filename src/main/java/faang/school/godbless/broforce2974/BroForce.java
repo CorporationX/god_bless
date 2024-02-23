@@ -17,7 +17,7 @@ public class BroForce {
             gameExecutor.submit(() -> game.startGame(player));
         }
         gameExecutor.shutdown();
-        gameExecutor.awaitTermination(2L, TimeUnit.SECONDS);
+        gameExecutor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         printLeaderBoard(players);
     }
 
