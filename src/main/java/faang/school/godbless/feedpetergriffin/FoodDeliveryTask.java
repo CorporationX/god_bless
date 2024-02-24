@@ -8,13 +8,13 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
-
+    private int waitingTime;
     @Override
     public void run() {
         String foodtype = getFoodType();
         System.out.println("От " + character + " получен заказ на " + foodtype + " " + foodAmount + "шт");
         try {
-            Thread.sleep(new Random().nextInt(5000));
+            Thread.sleep(waitingTime);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
