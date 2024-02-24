@@ -1,6 +1,8 @@
 .gradle
 **/build/
 !src/**/build/
+FAANG B&W.svg
+FAANG W&B.svg
 
 # Ignore Gradle GUI config
 gradle-app.setting
