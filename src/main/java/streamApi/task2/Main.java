@@ -1,4 +1,4 @@
-package stream.task2;
+package streamApi.task2;
 
 import java.util.HashMap;
 import java.util.List;

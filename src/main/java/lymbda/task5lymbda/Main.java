@@ -1,6 +1,5 @@
-package task5lymbda;
+package lymbda.task5lymbda;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;

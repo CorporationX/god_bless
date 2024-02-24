@@ -1,4 +1,4 @@
-package task5lymbda;
+package lymbda.task5lymbda;
 
 import java.util.List;
 import java.util.function.Consumer;
