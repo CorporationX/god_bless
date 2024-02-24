@@ -1,48 +1,23 @@
 package faang.school.godbless.youworkformicrosoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
+    private static final List<Thread> threadListOfLatters = new ArrayList<>();
+
     public static void main(String... args) {
-        Thread firstThread = new Thread(new SenderRunnable(0, 200));
-        Thread secondThread = new Thread(new SenderRunnable(201, 400));
-        Thread thirdThread = new Thread(new SenderRunnable(401, 600));
-        Thread fourthThread = new Thread(new SenderRunnable(601, 800));
-        Thread lastThread = new Thread(new SenderRunnable(801, 1000));
-
-        firstThread.start();
-        secondThread.start();
-        thirdThread.start();
-        fourthThread.start();
-        lastThread.start();
-        try {
-            firstThread.join();
-            System.out.println("1 Поток завершен");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            secondThread.join();
-            System.out.println("2 Поток завершен");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            thirdThread.join();
-            System.out.println("3 Поток завершен");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            fourthThread.join();
-            System.out.println("4 Поток завершен");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            lastThread.join();
-            System.out.println("5 Поток завершен");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (int i = 1, j = 0; i < 1000; i = i + 200, j++) {
+            threadListOfLatters.add(new Thread(new SenderRunnable(i, i + 199)));
+            threadListOfLatters.get(j).start();
         }
 
+        for (int j = 0; j < threadListOfLatters.size(); j++)
+            try {
+                threadListOfLatters.get(j).join();
+                System.out.println((j + 1) + " Поток завершен");
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
     }
 }
