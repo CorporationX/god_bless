@@ -1,7 +1,6 @@
 package faang.school.godbless.math;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -13,18 +12,16 @@ public class Math {
                 .sum();
     }
 
-    public static int max(List<Integer> numbers){
+    public static OptionalInt max(List<Integer> numbers){
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .max()
-                .orElse(0);
+                .max();
     }
 
-    public static double average(List<Integer> numbers){
+    public static OptionalDouble average(List<Integer> numbers){
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average()
-                .orElse(0);
+                .average();
     }
 
     public static long countStringStartingWith(List<String> list, char letter){
@@ -50,11 +47,10 @@ public class Math {
                 .allMatch(condition);
     }
 
-    public static int findSmallestThan(List<Integer> numbers, int number){
+    public static Optional<Integer> findSmallestThan(List<Integer> numbers, int number){
         return numbers.stream()
                 .filter(num -> num > number)
-                .min(Integer::compareTo)
-                .orElse(0);
+                .min(Integer::compareTo);
     }
 
     public static List<Integer> converterToLength(List<String> list){

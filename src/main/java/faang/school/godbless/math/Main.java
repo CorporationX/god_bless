@@ -23,4 +23,13 @@ public class Main {
         System.out.println(Math.findSmallestThan(numbers, 3));
         System.out.println(Math.converterToLength(list));
     }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public static void handlerOptional(Optional<?> result, String message){
+        if (result.isPresent()) {
+            System.out.println("Result: " + result.get());
+        } else {
+            System.out.println(message);
+        }
+    }
 }
