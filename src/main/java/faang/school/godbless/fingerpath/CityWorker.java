@@ -23,9 +23,9 @@ public class CityWorker implements Runnable{
 
     public Monster findNearestMonster(){
         return monsters.stream()
-                .sorted((monster1, monster2) ->  Location.calculateDistance(city.getLocation(), monster2.getLocation())
-                        - Location.calculateDistance(city.getLocation(), monster1.getLocation()))
-                .toList().get(0);
+                .min((monster1, monster2) -> Location.calculateDistance(city.getLocation(), monster1.getLocation())
+                - Location.calculateDistance(city.getLocation(), monster2.getLocation()))
+                .orElse(new Monster("Default Monster", new Location(45,45)));
     }
     public long getKillTime(){
         return new Random().nextInt(200);
