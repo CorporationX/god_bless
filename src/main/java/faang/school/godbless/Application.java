@@ -9,10 +9,11 @@ import java.util.List;
 
 public class Application {
 
-    private static final List<Integer> numberList = List.of(1,2,3,4,5);
-    
+    private static final List<Integer> numberList = List.of(1, 2, 3, 4, 5);
 
-        /*System.out.println("Hello world");
+    /*public static void main(String... args) throws IOException {
+        System.out.println("Hello world");
+
 
         faang.school.godbless.Main.weatherMain();
         faang.school.godbless.Main.studentsStart();
