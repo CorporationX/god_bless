@@ -21,7 +21,7 @@ public class Witcher {
         }
         executor.shutdown();
         try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+            executor.awaitTermination(5L, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
