@@ -17,6 +17,7 @@ public class Main {
         }
         executorService.shutdown();
         awaitTermination(executorService);
+        System.out.println("All persons processed");
     }
 
     private static List<Person> getPersons() {
