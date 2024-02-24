@@ -1,4 +1,4 @@
-package griffins;
+package multithreadingPart1.griffins;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
