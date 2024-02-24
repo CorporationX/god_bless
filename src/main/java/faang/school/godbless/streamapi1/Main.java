@@ -19,11 +19,11 @@ public class Main {
 
         //max element
         Optional<Integer> max = findMaxNumber(number);
-        System.out.println("Max of Numbers " + max);
+        System.out.println("Max of Numbers " + max.get());
 
         //Average
         OptionalDouble averageDoubleResult = findAverageNumbers(number);
-        System.out.println("The result of the average " + averageDoubleResult);
+        System.out.println("The result of the average " + averageDoubleResult.getAsDouble());
 
         //number of Strings
         char character = 'H';
@@ -47,7 +47,7 @@ public class Main {
         //min
         int num = 5;
         Optional<Integer> minResult = findMin(number, num);
-        System.out.println("Min element from list after giving the number " + minResult);
+        System.out.println("Min element from list after giving the number " + minResult.get());
 
         //length of string
         List<Integer> resultOfStringToLength = transformListOfWord(words);
