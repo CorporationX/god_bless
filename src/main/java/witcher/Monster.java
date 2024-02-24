@@ -1,13 +1,16 @@
 package witcher;
 
+import java.util.Random;
+
 public class Monster {
     private String name;
     private String location;
+    private static Random random = new Random();
 
-    public Location getCoordinates(){
-        switch (location){
+    public Location getCoordinates() {
+        switch (location) {
             case "Velen" -> {
-                return new Location(0,90);
+                return new Location(0, 90);
             }
             case "Toussaint" -> {
                 return new Location(200, 75);
@@ -18,7 +21,9 @@ public class Monster {
             case "Skellige" -> {
                 return new Location(-190, -20);
             }
-            default -> return new Location(0,0);
+            default -> {
+                return new Location(0, 0);
+            }
         }
     }
 
@@ -33,5 +38,16 @@ public class Monster {
 
     public String getLocation() {
         return location;
+    }
+
+    public double calculateDistanceToCity(City city) {
+        Location monsterLocation = getCoordinates();
+        double distanceX = Math.abs(monsterLocation.getX() - city.getLocation().getX());
+        double distanceY = Math.abs(monsterLocation.getY() - city.getLocation().getY());
+        return Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+    }
+
+    public long getKillTime() {
+        return random.nextInt(1,1001);
     }
 }

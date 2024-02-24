@@ -18,10 +18,5 @@ public class City {
     public Location getLocation() {
         return location;
     }
-
-    public double getDistanceToGeralt() {
-        return distanceToGeralt;
-    }
 }
-
 
