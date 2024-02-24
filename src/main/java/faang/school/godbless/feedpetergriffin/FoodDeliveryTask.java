@@ -9,6 +9,7 @@ public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
     private int waitingTime;
+
     @Override
     public void run() {
         String foodtype = getFoodType();

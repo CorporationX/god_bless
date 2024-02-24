@@ -13,7 +13,7 @@ public class GriffinsFoodDelivery {
         int orderQuantity = new Random().nextInt(30);
         int waitingTime = new Random().nextInt(5000);
         for (String character : characterNames) {
-            executorService.submit(new FoodDeliveryTask(character, orderQuantity,waitingTime));
+            executorService.submit(new FoodDeliveryTask(character, orderQuantity, waitingTime));
         }
         executorService.shutdown();
     }
