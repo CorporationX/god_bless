@@ -14,8 +14,8 @@ public class CityWorker implements Runnable {
         if (monsters != null && !monsters.isEmpty()) {
             Monster nearestMonster = monsters.get(0);
             for (Monster monster : monsters) {
-                if (Math.abs(monster.getLocation().getX() - city.getLocation().getX() + monster.getLocation().getY() - city.getLocation().getY())
-                        < Math.abs(nearestMonster.getLocation().getX() - city.getLocation().getX() + nearestMonster.getLocation().getY() - city.getLocation().getY())) {
+                if (getDistanceBetween(monster.getLocation(), city.getLocation())
+                        < getDistanceBetween(nearestMonster.getLocation(), city.getLocation())) {
                     nearestMonster = monster;
                 }
             }
@@ -23,6 +23,10 @@ public class CityWorker implements Runnable {
         } else {
             throw new RuntimeException("Monster list must not be empty!");
         }
+    }
+
+    public int getDistanceBetween(Location location1, Location location2) {
+        return Math.abs(location1.getX() - location2.getX() + location1.getY() - location2.getY());
     }
 
     public long getKillTime() {

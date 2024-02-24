@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private static int NUM_THREADS = 3;
@@ -30,6 +31,11 @@ public class Witcher {
         }
 
         executor.shutdown();
+        try {
+            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
