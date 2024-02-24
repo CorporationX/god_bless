@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 
 public class House {
-    private static List<Room> rooms;
-    private static List<Food> foodList;
+    private List<Room> rooms;
+    private List<Food> foodList;
 
     public House() {
         this.rooms = new ArrayList<>();
@@ -23,7 +23,7 @@ public class House {
 
     public static void main(String... args) throws InterruptedException {
         House house = new House();
-        initialize();
+        house.initialize();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 5; i++) {
             executor.schedule(house::collectFood, 30, TimeUnit.SECONDS);
@@ -42,7 +42,7 @@ public class House {
 
     }
 
-    public static void initialize() {
+    public void initialize() {
         int roomCount = 5;
         int foodInRoomCount = 4;
         for (int i = 0; i < roomCount; i++) {
