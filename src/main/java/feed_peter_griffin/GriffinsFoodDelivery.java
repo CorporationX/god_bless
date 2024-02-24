@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class GriffinsFoodDelivery {
     private static final int NUMBER_OF_EXECUTORS = 3;
     private static final int LIMIT_RANDOM = 50;
+    private static final int WAITING_LIMIT_IN_MINUTES = 3;
     private static Random randomNum = new Random();
 
     @SneakyThrows
@@ -20,6 +21,6 @@ public class GriffinsFoodDelivery {
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_EXECUTORS);
         Arrays.stream(characterNames).forEach((character) -> executorService.submit(new FoodDeliveryTask(character, randomNum.nextInt(LIMIT_RANDOM + 1))));
         executorService.shutdown();
-        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+        executorService.awaitTermination(WAITING_LIMIT_IN_MINUTES, TimeUnit.MINUTES);
     }
 }
