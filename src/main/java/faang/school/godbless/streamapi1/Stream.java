@@ -13,33 +13,32 @@ public class Stream {
     }
 
     public static Optional<Integer> findMaxNumber(List<Integer> maxNumber) {
-        return Optional.of(maxNumber.stream()
-                .max(Integer::compareTo)
-                .orElse(-1));
+        return maxNumber.stream()
+                .max(Integer::compareTo);
     }
 
-    public static OptionalDouble findAverageNumbers(List<Integer> average) {
-        return OptionalDouble.of(average.stream()
+    public static double findAverageNumbers(List<Integer> average) {
+        return average.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
-                .orElse(-1));
+                .orElse(-1);
     }
 
-    public static long countNumber(List<String> words, char character) {
+    public static long countStringsWithStartingCharacter(List<String> words, char character) {
         return words.stream()
-                .filter(word -> !word.isEmpty() && word.startsWith(String.valueOf(character)))
+                .filter(word -> word != null && !word.isEmpty() && word.startsWith(String.valueOf(character)))
                 .count();
     }
 
-    public static long filterWords(List<String> wordsOfList, String substring) {
-        return wordsOfList.stream()
-                .filter(word -> !word.isEmpty() && word.contains(substring))
+    public static long filterStringsContainingSubstring(List<String> strings, String substring) {
+        return strings.stream()
+                .filter(word -> word != null && !word.isEmpty() && word.contains(substring))
                 .count();
     }
 
-    public static List<String> sortWords(List<String> wordsOfList) {
+    public static List<String> sortStringsByLength(List<String> wordsOfList) {
         return wordsOfList.stream()
-                .sorted((a, b) -> Integer.compare(a.length(), b.length()))
+                .sorted(Comparator.comparingInt(String::length))  //(a, b) -> Integer.compare(a.length(), b.length())
                 .collect(Collectors.toList());
     }
 
@@ -49,10 +48,9 @@ public class Stream {
     }
 
     public static Optional<Integer> findMin(List<Integer> minElement, int num) {
-        return Optional.of(minElement.stream()
+        return minElement.stream()
                 .filter(n -> n > num)
-                .min(Integer::compareTo)
-                .orElse(-1));
+                .min(Integer::compareTo);
     }
 
     public static List<Integer> transformListOfWord(List<String> lengthOfwords) {

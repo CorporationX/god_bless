@@ -19,24 +19,28 @@ public class Main {
 
         //max element
         Optional<Integer> max = findMaxNumber(number);
-        System.out.println("Max of Numbers " + max.get());
+        if (max.isPresent()) {
+            System.out.println("Max of Numbers: " + max.get());
+        } else {
+            System.out.println("No maximum value found");
+        }
 
         //Average
-        OptionalDouble averageDoubleResult = findAverageNumbers(number);
-        System.out.println("The result of the average " + averageDoubleResult.getAsDouble());
+        double averageDoubleResult = findAverageNumbers(number);
+        System.out.println("The result of the average " + averageDoubleResult);
 
         //number of Strings
         char character = 'H';
-        long countWord = countNumber(words, character);
+        long countWord = countStringsWithStartingCharacter(words, character);
         System.out.println("Count number of words starting with " + character + ": " + countWord);
 
         //filter
         String substring = "Hea";
-        String filterCount = String.valueOf(filterWords(words, substring));
+        String filterCount = String.valueOf(filterStringsContainingSubstring(words, substring));
         System.out.println("Result of substring Filter method " + filterCount);
 
         //sort
-        String sortResult = sortWords(words).toString();
+        String sortResult = sortStringsByLength(words).toString();
         System.out.println("Sorted list " + sortResult);
 
         //condition
@@ -46,8 +50,12 @@ public class Main {
 
         //min
         int num = 5;
-        Optional<Integer> minResult = findMin(number, num);
-        System.out.println("Min element from list after giving the number " + minResult.get());
+        Optional<Integer> min = findMin(number, num);
+        min.ifPresentOrElse(
+                value -> System.out.println("Min of Numbers: " + value),
+                () -> System.out.println("No miniimum value found")
+        );
+        //System.out.println("Min element from list after giving the number " + minResult.get());
 
         //length of string
         List<Integer> resultOfStringToLength = transformListOfWord(words);
