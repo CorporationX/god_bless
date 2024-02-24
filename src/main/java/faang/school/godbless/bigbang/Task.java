@@ -19,5 +19,4 @@ public class Task implements Runnable {
         }
         System.out.printf("%s is done \n", name);
     }
-
 }
