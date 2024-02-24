@@ -1,4 +1,4 @@
-package very.nice.very.poor;
+package very_nice_very_poor;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
@@ -11,7 +11,7 @@ public class WeasleyFamily {
         ExecutorService executorSerive = Executors.newCachedThreadPool();
         Arrays.stream(chores).forEach(chore -> executorSerive.execute(new Chore(chore)));
         executorSerive.shutdown();
-        if (executorSerive.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)) {
+        if (executorSerive.awaitTermination(5000, TimeUnit.MILLISECONDS)) {
             System.out.println("Все задачи выполнены");
         } else {
             executorSerive.shutdownNow();

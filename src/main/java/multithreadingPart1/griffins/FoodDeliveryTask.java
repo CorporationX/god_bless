@@ -1,4 +1,4 @@
-package griffins;
+package multithreadingPart1.griffins;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
