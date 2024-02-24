@@ -11,7 +11,7 @@ public class Main {
         House house = new House();
         house.initialize();
 
-        System.out.println("Информация о доме до сбора еды:");
+        System.out.println("Информация о доме до сбора еды: ");
         System.out.println(house);
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUM_THREADS);
