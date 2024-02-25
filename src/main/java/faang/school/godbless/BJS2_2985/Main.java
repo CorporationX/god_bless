@@ -12,9 +12,9 @@ public class Main {
 
     }
 
-    static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
+    static <T> T withErrorHandling(Supplier<T> action, ExceptionHandler<T> exceptionHandler) {
         try {
-            return supplier.get();
+            return action.get();
         } catch (Exception e) {
             return exceptionHandler.handle(e);
         }
