@@ -5,17 +5,23 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Trial implements Runnable {
 
-    private String knightName;
+    private Knight knight;
     private String trialName;
 
     @Override
     public void run() {
-        System.out.println(String.format("Knight %s starts trial %s", knightName, trialName));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        synchronized (knight) {
+            System.out.println(String.format("Knight %s starts trial %s", knight.getName(), trialName));
+            sleep(3L);
+            System.out.println(String.format("Knight %s completed trial %s", knight.getName(), trialName));
         }
-        System.out.println(String.format("Knight %s completed trial %s", knightName, trialName));
+    }
+
+    private void sleep(Long seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }
