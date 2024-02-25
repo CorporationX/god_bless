@@ -6,8 +6,12 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            System.out.println("Воспроизведение музыки");
-            isPlaying = true;
+            if(!isPlaying) {
+                System.out.println("Воспроизведение музыки");
+                isPlaying = true;
+            }else{
+                System.out.println("Музыка включена");
+            }
         }
     }
 
@@ -22,17 +26,15 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            if (isPlaying) {
                 System.out.println("Переключить эту песню");
-            }
+                isPlaying = true;
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            if (isPlaying) {
                 System.out.println("Вернуть предыдущую песню");
-            }
+                isPlaying = true;
         }
     }
 }
