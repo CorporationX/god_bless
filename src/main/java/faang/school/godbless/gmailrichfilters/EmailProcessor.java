@@ -1,4 +1,4 @@
-package faang.school.godbless.GmailRichFilters;
+package faang.school.godbless.gmailrichfilters;
 
 import java.util.List;
 import java.util.function.Consumer;

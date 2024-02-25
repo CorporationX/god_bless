@@ -1,4 +1,4 @@
-package faang.school.godbless.GmailRichFilters;
+package faang.school.godbless.gmailrichfilters;
 
 import lombok.Getter;
 import lombok.Setter;
