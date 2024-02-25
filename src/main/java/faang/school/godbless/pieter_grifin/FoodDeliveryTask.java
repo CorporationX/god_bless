@@ -1,24 +1,22 @@
 package faang.school.godbless.pieter_grifin;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Random;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class FoodDeliveryTask implements Runnable {
     private String characterName;
     private int foodAmount;
 
-    public FoodDeliveryTask(String characterName, int foodAmount) {
-        this.characterName = characterName;
-        this.foodAmount = foodAmount;
-    }
-
     @Override
     public void run() {
-        System.out.println(characterName + " receiving " + foodAmount + " " + getFoodType());
+        String getFood = getFoodType();
+        System.out.println(characterName + " receiving " + foodAmount + " " + getFood);
         System.out.println();
         try {
             Thread.sleep(foodAmount * 1000L);
@@ -26,7 +24,7 @@ public class FoodDeliveryTask implements Runnable {
             throw new RuntimeException(e);
         }
         System.out.println("Delivering " + foodAmount + " food items to " + getCharacterName());
-        System.out.println(characterName + " eating " + foodAmount + " " + getFoodType());
+        System.out.println(characterName + " eating " + foodAmount + " " + getFood);
     }
 
     private String getFoodType() {
