@@ -16,7 +16,6 @@ public class Main {
                 new Email("Letter 2", "Text of letter 2", true),
                 new Email("Spam", "Text of spam", false)
         );
-
         // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = email -> email.isImportant;
         Consumer<Email> printEmail = email -> System.out.println("Processed letter: " + email.subject);
@@ -24,5 +23,6 @@ public class Main {
 
         // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+
     }
 }

@@ -10,12 +10,11 @@ public class EmailProcessor {
                               Predicate<Email> filter,
                               Consumer<Email> handler,
                               Function<Email, String> figure) {
-        for (Email email: emails){
-            if (filter.test(email)){
+        emails.forEach(email -> {
+            if (filter.test(email)) {
                 handler.accept(email);
-                String result = figure.apply(email);
-                System.out.println(result);
+                figure.apply(email);
             }
-        }
+        });
     }
 }
