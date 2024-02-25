@@ -1,4 +1,4 @@
-package very_nice_very_poor;
+package multithreadingPart1.very_nice_very_poor;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
