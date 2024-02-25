@@ -6,14 +6,18 @@ public class Player {
 
     public void play() {
         synchronized(lock) {
-            isPlaying = true;
-            System.out.println("Playing");
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Playing");
+            }
         }
     }
     public void pause() {
         synchronized(lock) {
-            isPlaying = false;
-            System.out.println("Paused");
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("Paused");
+            }
         }
     }
 
