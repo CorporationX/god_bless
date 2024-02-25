@@ -1,4 +1,4 @@
-package faang.school.godbless.Calculator;
+package faang.school.godbless.calculator;
 
 import java.util.List;
 

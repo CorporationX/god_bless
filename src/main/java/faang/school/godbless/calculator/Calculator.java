@@ -1,4 +1,4 @@
-package faang.school.godbless.Calculator;
+package faang.school.godbless.calculator;
 
 @FunctionalInterface
 public interface Calculator {
