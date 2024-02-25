@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,7 +31,6 @@ public class Application {
         faang.school.godbless.streamapi1.Main.streamAPI9();
         faang.school.godbless.calculator.Main.product(numberList);
         faang.school.godbless.calculator.Main.sum(numberList);*/
-
         faang.school.godbless.distributedarmy.Main.distributedarmy();
     }
 }
