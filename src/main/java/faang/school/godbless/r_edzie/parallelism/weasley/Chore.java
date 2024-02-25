@@ -1,9 +1,7 @@
 package faang.school.godbless.r_edzie.parallelism.weasley;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
 @AllArgsConstructor
 public class Chore implements Runnable {
     private String chore;
