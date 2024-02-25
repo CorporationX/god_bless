@@ -5,14 +5,22 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private Map<String, Consumer<Notification>> map = new HashMap<>();
+    private final Map<String, Consumer<Notification>> handlers = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> consumer) {
-        map.put(type, consumer);
+    public void registerHandler(String type, Consumer<Notification> handler) {
+        if (handlers.containsKey(type)) {
+            throw new IllegalArgumentException("Handler already exists!");
+        } else {
+            handlers.put(type, handler);
+        }
     }
 
-    public void sendNotification(Notification notification){
-        map.get(notification.getType()).accept(notification);
+    public void sendNotification(Notification notification) {
+        if (!handlers.containsKey(notification.getType())) {
+            throw new IllegalArgumentException("Handler don't exist!");
+        } else {
+            handlers.get(notification.getType()).accept(notification);
+        }
     }
 
 }
