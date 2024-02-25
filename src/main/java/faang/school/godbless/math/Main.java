@@ -12,15 +12,14 @@ public class Main {
         System.out.println(Math.sumOfEven(numbers));
         System.out.println(Math.max(numbers));
         System.out.println(Math.average(numbers));
-
         System.out.println(Math.countStringStartingWith(list, 'B'));
         System.out.println(Math.filterStringsContainsSubstring(list, "Book"));
         System.out.println(Math.sortStringsByLength(list));
 
 
-        System.out.println(Math.allElementsMatchCondition(list, condition ));
+        System.out.println(Math.checkAllElementsMatchCondition(list, condition ));
 
-        System.out.println(Math.findSmallestThan(numbers, 3));
+        System.out.println(Math.findSmallestElementGreaterThan(numbers, 3));
         System.out.println(Math.converterToLength(list));
     }
 }

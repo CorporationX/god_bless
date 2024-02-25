@@ -12,27 +12,31 @@ public class Math {
                 .sum();
     }
 
-    public static OptionalInt max(List<Integer> numbers){
+    public static int max(List<Integer> numbers){
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .max();
+                .max()
+                .orElseThrow();
     }
 
-    public static OptionalDouble average(List<Integer> numbers){
+    public static double average(List<Integer> numbers){
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .average();
+                .average()
+                .orElseThrow();
     }
 
     public static long countStringStartingWith(List<String> list, char letter){
+        Objects.requireNonNull(list, "List cannot be null");
+
         return list.stream()
-                .filter(str -> !str.isEmpty() && str.charAt(0) == letter)
+                .filter(str -> str != null && !str.isEmpty() && str.charAt(0) == letter)
                 .count();
     }
 
     public static List<String> filterStringsContainsSubstring(List<String> list, String substring){
         return list.stream()
-                .filter(str -> !str.isEmpty() && str.contains(substring))
+                .filter(str -> str != null && !str.isEmpty() && str.contains(substring))
                 .collect(Collectors.toList());
     }
 
@@ -42,15 +46,16 @@ public class Math {
                 .collect(Collectors.toList());
     }
 
-    public static boolean allElementsMatchCondition(List<String> list, Predicate<String> condition){
+    public static boolean checkAllElementsMatchCondition(List<String> list, Predicate<String> condition){
         return list.stream()
                 .allMatch(condition);
     }
 
-    public static Optional<Integer> findSmallestThan(List<Integer> numbers, int number){
+    public static int findSmallestElementGreaterThan(List<Integer> numbers, int number){
         return numbers.stream()
                 .filter(num -> num > number)
-                .min(Integer::compareTo);
+                .min(Integer::compareTo)
+                .orElseThrow();
     }
 
     public static List<Integer> converterToLength(List<String> list){
