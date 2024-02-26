@@ -5,7 +5,8 @@ import java.util.List;
 
 public class Army {
     private final List<Unit> units;
-    public Army(List<Unit> units){
+
+    public Army(List<Unit> units) {
         this.units = units;
     }
 

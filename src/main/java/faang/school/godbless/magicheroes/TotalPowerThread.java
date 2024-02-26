@@ -5,11 +5,11 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Getter
-public class TotalPowerThread extends Thread{
+public class TotalPowerThread extends Thread {
     private final Unit unit;
     private int power;
 
-    public void run(){
+    public void run() {
         power = unit.getPower();
     }
 }
