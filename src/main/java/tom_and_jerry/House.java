@@ -1,4 +1,4 @@
-package tom_and_jarry;
+package tom_and_jerry;
 
 import lombok.Getter;
 import lombok.SneakyThrows;
