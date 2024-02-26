@@ -9,6 +9,7 @@ public class Main {
             new Mage(50),
             new Archer(25),
             new Swordsman(40),
+            new Mage(50),
             new Mage(50));
 
         Army army = new Army(units);

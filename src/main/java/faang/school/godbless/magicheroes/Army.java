@@ -5,29 +5,30 @@ import java.util.List;
 
 public class Army {
     private final List<Unit> units;
-    private int totalPower;
-
     public Army(List<Unit> units){
         this.units = units;
-        totalPower = 0;
     }
 
-    public int calculateTotalPower(){
-        List<TotalPowerThread> threads = new ArrayList<>();
-        for (int i=0; i<units.size(); i++){
-            threads.add(new TotalPowerThread(units.get(i)));
-            threads.get(i).start();
+    public int calculateTotalPower() {
+
+        int totalPower = 0;
+        List<TotalPowerThread> powerThreads = new ArrayList<>();
+
+        for (Unit unit : units) {
+            TotalPowerThread thread = new TotalPowerThread(unit);
+            thread.start();
+            powerThreads.add(thread);
         }
 
-        for (int i = 0; i < threads.size(); i++) {
+        for (TotalPowerThread thread : powerThreads) {
             try {
-                threads.get(i).join();
-                totalPower += units.get(i).getPower();
-
+                thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
+            totalPower += thread.getPower();
         }
+
         return totalPower;
     }
 }

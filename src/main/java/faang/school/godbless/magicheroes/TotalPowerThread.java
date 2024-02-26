@@ -1,8 +1,15 @@
 package faang.school.godbless.magicheroes;
 
-import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
 public class TotalPowerThread extends Thread{
     private final Unit unit;
+    private int power;
+
+    public void run(){
+        power = unit.getPower();
+    }
 }
