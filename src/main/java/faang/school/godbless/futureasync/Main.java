@@ -21,8 +21,8 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
 
         Future<Integer> paymentData = executorService.submit(masterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsData = CompletableFuture.supplyAsync(masterCardService::sendAnalytics);
-        System.out.println(analyticsData.join());
+        CompletableFuture<Integer> analyticsData = CompletableFuture.supplyAsync(masterCardService::sendAnalytics, executorService);
+        System.out.println(getFuture(analyticsData));
         System.out.println(getFuture(paymentData));
 
         executorService.shutdown();
@@ -37,7 +37,7 @@ public class Main {
         }
     }
 
-    private static <T> T getFuture(Future<T> future) throws RuntimeException {
+    private static <T> T getFuture(Future<T> future) {
         try {
             return future.get(30L, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
