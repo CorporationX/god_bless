@@ -9,7 +9,7 @@ public class Main {
         int mailsCountInThread = 200;
 
         List<Thread> threads = new ArrayList<>();
-        for(int i=0; i<totalCountOfMails; i+=mailsCountInThread){
+        for (int i = 0; i < totalCountOfMails; i += mailsCountInThread) {
             int startIndex = i + 1;
             int endIndex = i + mailsCountInThread + 1;
             Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
