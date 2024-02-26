@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
     private static Random random = new Random();
+
     public static void main(String... args) throws IOException, InterruptedException {
-                final int numberOfThreads = 3;
+        final int numberOfThreads = 3;
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
@@ -18,10 +19,9 @@ public class GriffinsFoodDelivery {
         }
         executorService.shutdown();
         final boolean done = executorService.awaitTermination(1, TimeUnit.MINUTES);
-        if(done){
+        if (done) {
             System.out.println("Все задачи были выполнены");
-
-        }else {
+        } else {
             System.out.println("Не все задачи были выполнены за отведенное время");
         }
     }
