@@ -1,29 +1,18 @@
 package faang.school.godbless.BJS2_2986;
 
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
 public class Droid {
     public String sendEncryptedMessage(String message, Integer encryptionKey) {
-        DroidMessageEncryptor encryptor = (message1, encryptionKey1) -> {
-            var sb = new StringBuilder();
-            for (var chr : message1.chars().toArray()) {
-                sb.append((char) (chr + encryptionKey1));
-            }
-            return sb.toString();
+        DroidMessageEncryptor encryptor = () -> {
         };
-        return encryptor.encrypt(message, encryptionKey);
+        // Я не понял как оставить использование лямбд и вызвать дефолтный метод
+        // поэтому получилось как-то нелогично, но работает и нет дублирования кода
+        return encryptor.encryptionHelper(message, encryptionKey);
     }
 
     public String receiveEncryptedMessage(String message, Integer encryptionKey) {
-        DroidMessageEncryptor encryptor = (message1, encryptionKey1) -> {
-            var sb = new StringBuilder();
-            for (var chr : message1.chars().toArray()) {
-                sb.append((char) (chr - encryptionKey1));
-            }
-            return sb.toString();
+        DroidMessageEncryptor encryptor = () -> {
         };
-        return encryptor.encrypt(message, encryptionKey);
+        return encryptor.encryptionHelper(message, -encryptionKey);
     }
 
 }
