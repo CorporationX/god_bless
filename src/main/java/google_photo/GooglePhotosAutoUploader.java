@@ -7,16 +7,17 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    private List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     @SneakyThrows
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
+        while (true) {
+            synchronized (lock) {
+                uploadPhotos();
                 lock.wait();
             }
         }
-        uploadPhotos();
+
     }
 
     public void onNewPhotoAdded(String photoPath) {
