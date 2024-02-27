@@ -14,5 +14,6 @@ public class Task implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("ALERT_TASK_STOP");
         }
+        System.out.println("Done");
     }
 }
