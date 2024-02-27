@@ -1,4 +1,5 @@
 package faang.school.godbless.army_of_heroes;
+
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
