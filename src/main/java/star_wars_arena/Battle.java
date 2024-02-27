@@ -1,14 +1,12 @@
 package star_wars_arena;
 
 import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Battle {
     private static final int NUM_THREADS = 2;
-    private final Random random = new Random();
     public CompletableFuture<Optional<Robot>> battle(Robot robot1, Robot robot2) {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
