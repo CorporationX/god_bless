@@ -21,9 +21,10 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         var foodType = getFoodType();
+        var r = new Random();
         System.out.println(character + " wait " + foodType + " x " + foodAmount);
         try {
-            Thread.sleep(1000 * (new Random().nextInt(4) + 1));
+            Thread.sleep(1000 * (r.nextInt(4) + 1));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
