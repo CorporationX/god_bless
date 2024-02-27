@@ -1,8 +1,11 @@
 package tournament;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class King {
@@ -19,10 +22,10 @@ public class King {
         for(Knight knight: knights){
             executorService.submit(() -> knight.startTrial());
         }
+
         executorService.shutdown();
-        if(executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS)){
-            System.out.println("Игра окончена");
-        }else{
+
+        if(!executorService.awaitTermination(5, TimeUnit.SECONDS)){
             executorService.shutdownNow();
         }
     }
