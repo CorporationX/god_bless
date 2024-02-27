@@ -14,6 +14,7 @@ public class Application {
     /*public static void main(String... args) throws IOException {
         System.out.println("Hello world");
 
+
         faang.school.godbless.Main.weatherMain();
         faang.school.godbless.Main.studentsStart();
         faang.school.godbless.Main.startGroupingByAge();
