@@ -1,73 +1,54 @@
 package game_of_thrones;
 
-public class User {
-    private String name;
-    private String house;
+class User {
+    private final String name;
+    private House house;
     private String role;
-    private Object lock = new Object();
-    private House houseInstance;
 
-    public User(String name, String house, House houseInstance) {
-        this.name = name;
-        this.house = house;
-        this.houseInstance = houseInstance;
-    }
-
-    public User() {
-    }
-
-    public void setName(String name) {
+    public User(String name) {
         this.name = name;
     }
 
-    public void setHouse(String house) {
-        this.house = house;
+    public void joinHouse(House house, String desiredRole) {
+        house.getLock().lock();
+        try {
+            while (!house.getAvailableRoles().contains(desiredRole)) {
+                System.out.println(name + " ждет пока освободится " + desiredRole);
+                house.getRoleAvailableCondition().await();
+            }
+
+            house.removeRole(desiredRole);
+            this.house = house;
+            this.role = desiredRole;
+            Thread.sleep(1000);
+            System.out.println(name + " присоединился к " + house + " в роли " + role);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            house.getLock().unlock();
+        }
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void leaveHouse(House house) {
+        house.getLock().lock();
+        try {
+            if (house != null) {
+                house.addRole(role);
+                Thread.sleep(1000);
+                System.out.println(name + " покинул " + house + ". Роль '" + role + "' стала доступной.");
+                this.house = null;
+                this.role = null;
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            house.getLock().unlock();
+        }
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getHouse() {
+    public House getHouse() {
         return house;
     }
-
-    public String getRole() {
-        return role;
-    }
-
-
-    public void joinHouse(String role) throws InterruptedException {
-        synchronized (lock) {
-            for (String roles : houseInstance.getAvailableRole()) {
-                if (roles.equals(role)) {
-                    if (getHouse().equals("Lannister") && getRole() == null) {
-                        if (houseInstance.getQuantityAvailableRoles() > 0) {
-                            System.out.println(getName() + " now " + role);
-                            setRole(role);
-                            houseInstance.decreaseAvailableRoles();
-                            houseInstance.removeAvailableRoles(role);
-                        }
-                    } else {
-                        System.out.println("Role is taken. Waiting...");
-                        lock.wait();
-                    }
-                }
-            }
-        }
-    }
-
-    public void leaveHouse() {
-        synchronized (lock){
-            String currentRole = getRole();
-            setRole(null);
-
-        }
-
-    }
-
 }
+
+

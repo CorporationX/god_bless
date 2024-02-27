@@ -1,43 +1,54 @@
 package game_of_thrones;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class House {
-    private List<String> availableRole = new ArrayList<>(Arrays.asList("Lord", "Knight", "Mage"));
-    private List<String> notAvailableRole = new ArrayList<>();
-    private int quantityAvailableRoles = 3;
+class House {
+    private final Set<String> availableRoles;
+    private final Lock lock = new ReentrantLock();
+    private final Condition roleAvailable = lock.newCondition();
 
-    public List<String> getAvailableRole() {
-        return availableRole;
+    public House(List<String> availableRoles) {
+        this.availableRoles = new HashSet<>(availableRoles);
     }
 
-    public int getQuantityAvailableRoles() {
-        return quantityAvailableRoles;
-    }
-    public void decreaseAvailableRoles() {
-        quantityAvailableRoles--;
-    }
-    public void increaseAvailableRoles() {
-        quantityAvailableRoles++;
-    }
-    public void removeAvailableRoles(String role){
-        notAvailableRole.add(role);
-        for(String roles : availableRole){
-            if(roles.equals(role)){
-                availableRole.remove(role);
-            }
+    public void addRole(String role) {
+        lock.lock();
+        try {
+            availableRoles.add(role);
+            System.out.println("Роль '" + role + "' освободилась. Доступные роли: " + availableRoles);
+            roleAvailable.signalAll();
+        } finally {
+            lock.unlock();
         }
     }
 
-    public void addAvailableRoles(String role){
-        availableRole.add(role);
-        for(String roles : notAvailableRole){
-            if(roles.equals(role)){
-                notAvailableRole.remove(role);
+    public void removeRole(String role) {
+        lock.lock();
+        try {
+            if (availableRoles.contains(role)) {
+                availableRoles.remove(role);
+                System.out.println("Роль '" + role + "' занята. Доступные роли: " + availableRoles);
+                roleAvailable.signalAll();
             }
+        } finally {
+            lock.unlock();
         }
     }
 
+    public Lock getLock() {
+        return lock;
+    }
+
+    public Condition getRoleAvailableCondition() {
+        return roleAvailable;
+    }
+
+    public Set<String> getAvailableRoles() {
+        return new HashSet<>(availableRoles);
+    }
 }
