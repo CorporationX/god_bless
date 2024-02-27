@@ -1,10 +1,14 @@
 package faang.school.godbless.carry;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class Inventory {
 
@@ -23,14 +27,21 @@ public class Inventory {
         return CompletableFuture.supplyAsync(() -> new Item(itemName, 3), EXECUTOR_SERVICE);
     }
 
-    public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2) {
+    public CompletableFuture<Void> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2) {
         return item1.thenCombine(item2, this::mergeItems)
-                .thenCompose(this::putInInventory);
+                .thenCompose(this::putInInventory)
+                .thenRun(() -> removeItems(List.of(item1, item2)));
     }
 
     public void shutdownAndAwaitExecution(Long minutes) {
         EXECUTOR_SERVICE.shutdown();
         awaitExecution(minutes);
+    }
+
+    private void removeItems(List<CompletableFuture<Item>> items) {
+        for (var item : items) {
+            ITEMS.remove(getFromFuture(item).getName());
+        }
     }
 
     private Item mergeItems(Item i1, Item i2) {
@@ -51,6 +62,17 @@ public class Inventory {
             EXECUTOR_SERVICE.awaitTermination(minutes, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private static <T> T getFromFuture(Future<T> future) {
+        try {
+            return future.get(30L, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new RuntimeException(e);
+        } catch (ExecutionException | TimeoutException e) {
+            throw new RuntimeException(e);
         }
     }
 }
