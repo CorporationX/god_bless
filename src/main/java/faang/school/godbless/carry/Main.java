@@ -14,7 +14,7 @@ public class Main {
 
         CompletableFuture<Item> item1 = inventory.getFromInventory("Diadem");
         CompletableFuture<Item> item2 = inventory.getFromShop("Axe");
-        inventory.combineItems(item1, item2);
+        inventory.combineItems(item1, item2).join();
 
         Item combinedItem = getFromFuture(inventory.getFromInventory("Diadem Axe"));
         inventory.shutdownAndAwaitExecution(5L);

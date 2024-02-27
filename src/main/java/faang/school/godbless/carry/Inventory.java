@@ -23,9 +23,8 @@ public class Inventory {
         return CompletableFuture.supplyAsync(() -> new Item(itemName, 3), EXECUTOR_SERVICE);
     }
 
-    public void combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2) {
-        waitFutures(item1, item2);
-        item1.thenCombine(item2, this::mergeItems)
+    public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2) {
+        return item1.thenCombine(item2, this::mergeItems)
                 .thenCompose(this::putInInventory);
     }
 
@@ -36,10 +35,6 @@ public class Inventory {
 
     private Item mergeItems(Item i1, Item i2) {
         return new Item(String.format("%s %s", i1.getName(), i2.getName()), i1.getPower() + i2.getPower());
-    }
-
-    private void waitFutures(CompletableFuture<?>... futures) {
-        CompletableFuture.allOf(futures).join();
     }
 
     private CompletableFuture<Item> putInInventory(Item item) {
