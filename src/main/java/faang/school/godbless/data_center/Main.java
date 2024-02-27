@@ -38,11 +38,13 @@ public class Main {
         ResourceRequest releaseResource1 = new ResourceRequest(200);
         service.releaseResources(releaseResource1);
         System.out.println(serverList);
+
+        OptimizationStrategy optimizationStrategy = new MaxLoadOptimizationStrategy();
         Timer timer = new Timer();
         TimerTask task = new TimerTask() {
             @Override
             public void run() {
-                service.optimize(dataCenter);
+                service.optimizeDataCenter(optimizationStrategy);
                 System.out.println(serverList);
             }
         };
