@@ -20,7 +20,6 @@ public class WeasleyFamily {
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-
         }
     }
 }
