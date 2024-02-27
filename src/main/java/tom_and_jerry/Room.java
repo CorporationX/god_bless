@@ -9,11 +9,11 @@ import java.util.List;
 @Getter
 @ToString
 public class Room {
-    private List<Food> food_in_room;
+    private List<Food> foodInRoom;
     public void addFood(Food food){
-        food_in_room.add(food);
+        foodInRoom.add(food);
     }
     public void removeFood(Food food){
-        food_in_room.remove(food);
+        foodInRoom.remove(food);
     }
 }

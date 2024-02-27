@@ -13,17 +13,18 @@ import java.util.concurrent.TimeUnit;
 @Getter
 @ToString
 public class House {
-    private static List<Room> rooms;
-    private static List<Food> collect_food;
+    private List<Room> rooms;
+    private List<Food> collectedFood;
+    public static final int THREADS = 5;
     public House(List<Room> rooms) {
-        House.rooms = rooms;
-        House.collect_food = new ArrayList<>();
+        this.rooms = rooms;
+        this.collectedFood = new ArrayList<>();
     }
-    public static void collectFood(){
+    public void collectFood(){
         rooms.stream()
-                .map (Room :: getFood_in_room)
-                .forEach(collect_food :: addAll);
-                rooms.forEach(room -> room.getFood_in_room().clear());
+                .map (Room :: getFoodInRoom)
+                .forEach(collectedFood :: addAll);
+                rooms.forEach(room -> room.getFoodInRoom().clear());
     }
 
     @SneakyThrows
@@ -33,18 +34,16 @@ public class House {
         List<Room> rooms = List.of(room1, room2);
         House house = new House(rooms);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREADS);
         for (int i = 0; i < 2; i++) {
-            executorService.schedule(House::collectFood, i * 30, TimeUnit.SECONDS);
+            executorService.schedule(house::collectFood, i * 30, TimeUnit.SECONDS);
         }
 
         executorService.shutdown();
-        while (!executorService.isTerminated()) {
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         System.out.println("еда собрана");
     }
