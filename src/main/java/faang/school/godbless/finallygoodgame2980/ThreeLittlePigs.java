@@ -15,15 +15,15 @@ public class ThreeLittlePigs {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<PigThread> threads = new ArrayList<>(List.of(
-                new Pig1Thread("Nif-Nif", "Straw"),
-                new Pig2Thread("Naf-Naf", "Stick"),
-                new Pig3Thread("Nuf-Nuf", "Brick")
+                new Pig1Thread("Nif-Nif", "Straw", 8_000L),
+                new Pig2Thread("Naf-Naf", "Stick", 11_000L),
+                new Pig3Thread("Nuf-Nuf", "Brick", 20_000L)
         ));
         for (PigThread thread : threads) {
             executor.execute(thread);
         }
         executor.shutdown();
-        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        executor.awaitTermination(25L, TimeUnit.SECONDS);
         System.out.println("All houses are built. Here comes the wolf...");
     }
 }
