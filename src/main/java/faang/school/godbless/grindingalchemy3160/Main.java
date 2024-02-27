@@ -7,11 +7,12 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     static final List<Potion> POTIONS = createPotionsList();
     static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
-    static int totalIngredientsGathered;
+    static AtomicInteger totalIngredientsGathered = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
         List<CompletableFuture<Integer>> futureTotalIngredients = POTIONS.stream()
@@ -21,7 +22,7 @@ public class Main {
         futureTotalIngredients.forEach(future -> EXECUTOR.execute(() -> countTotalIngredientsGathered(future)));
         EXECUTOR.shutdown();
         EXECUTOR.awaitTermination(20L, TimeUnit.SECONDS);
-        System.out.printf("Number of total ingredients gathered is: %d", totalIngredientsGathered);
+        System.out.printf("Number of total ingredients gathered is: %d", totalIngredientsGathered.get());
     }
 
     public static int gatherIngredients(Potion potion) {
@@ -50,9 +51,9 @@ public class Main {
         }
     }
 
-    private static synchronized void countTotalIngredientsGathered(CompletableFuture<Integer> potionIngredients) {
+    private static void countTotalIngredientsGathered(CompletableFuture<Integer> potionIngredients) {
         try {
-            totalIngredientsGathered += potionIngredients.get();
+            totalIngredientsGathered.addAndGet(potionIngredients.get());
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
