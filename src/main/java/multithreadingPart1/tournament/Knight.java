@@ -1,4 +1,4 @@
-package tournament;
+package multithreadingPart1.tournament;
 
 import lombok.Data;
 
