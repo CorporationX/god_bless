@@ -3,10 +3,13 @@ package faang.school.godbless.griffins;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
+    private final static int COUNT_THREADS = 3;
+
     public static void main(String... args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(COUNT_THREADS);
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
@@ -16,5 +19,16 @@ public class GriffinsFoodDelivery {
         }
 
         executorService.shutdown();
+
+        try {
+            boolean finished = executorService.awaitTermination(1, TimeUnit.MINUTES);
+            if (finished) {
+                System.out.println("All Griffins are fed.");
+            } else {
+                System.out.println("Timed out.");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

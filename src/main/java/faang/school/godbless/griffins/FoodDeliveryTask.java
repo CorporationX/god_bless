@@ -6,12 +6,13 @@ import java.util.Random;
 
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
-    private String character;
-    private int foodAmount;
+    private final String character;
+    private final int foodAmount;
 
     private String getFoodType() {
+        Random random = new Random();
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 
     @Override
