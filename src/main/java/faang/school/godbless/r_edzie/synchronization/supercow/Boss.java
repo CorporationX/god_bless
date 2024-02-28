@@ -9,7 +9,7 @@ public class Boss {
     }
 
     public synchronized void joinBattle(Player player) throws InterruptedException {
-        if (currentPlayers == maxPlayers) {
+        if (currentPlayers >= maxPlayers) {
             wait();
         }
 
