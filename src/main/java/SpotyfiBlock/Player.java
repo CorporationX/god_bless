@@ -5,25 +5,36 @@ import lombok.SneakyThrows;
 public class Player {
     private boolean isPlaying = false;
     private final Object lock = new Object();
-    public void play(){
+
+    public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            System.out.println("Music played");
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music played");
+            } else {
+                System.out.println("ON AIR");
+            }
         }
     }
-    public synchronized void pause(){
+
+    public synchronized void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Music paused");
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("Music paused");
+            } else {
+                System.out.println("Music played");
+            }
         }
     }
+
     public synchronized void skip() {
         synchronized (lock) {
             System.out.println("Music skip");
         }
     }
 
-    public synchronized void previous(){
+    public synchronized void previous() {
         synchronized (lock) {
             System.out.println("Music previous");
         }
