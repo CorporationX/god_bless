@@ -21,6 +21,7 @@ public class MasterCardService {
         }
     }
 
+
     static int sendAnalystics() {
         try {
             Thread.sleep(1_000);
