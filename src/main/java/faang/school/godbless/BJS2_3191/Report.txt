@@ -1,0 +1,62 @@
+Результаты измерений:
+
+NUM_THREADS = 1
+MULTIPLY_DATA = 1
+Elapsed time: 14ms
+
+NUM_THREADS = 4
+MULTIPLY_DATA = 1
+Elapsed time: 18ms
+
+NUM_THREADS = 10000
+MULTIPLY_DATA = 1
+Elapsed time: 14ms
+
+NUM_THREADS = 1
+MULTIPLY_DATA = 10000
+Elapsed time: 34150ms
+
+NUM_THREADS = 5
+MULTIPLY_DATA = 10000
+Elapsed time: 7141ms
+
+NUM_THREADS = 10
+MULTIPLY_DATA = 10000
+Elapsed time: 5392ms
+
+NUM_THREADS = 12
+MULTIPLY_DATA = 10000
+Elapsed time: 5081ms
+
+NUM_THREADS = 16
+MULTIPLY_DATA = 10000
+Elapsed time: 4782ms
+
+NUM_THREADS = 18
+MULTIPLY_DATA = 10000
+Elapsed time: 4963ms
+
+NUM_THREADS = 32
+MULTIPLY_DATA = 10000
+Elapsed time: 5149ms
+
+NUM_THREADS = 100
+MULTIPLY_DATA = 10000
+Elapsed time: 6155ms
+
+NUM_THREADS = 1000
+MULTIPLY_DATA = 10000
+Elapsed time: 8791ms
+
+NUM_THREADS = 10000
+MULTIPLY_DATA = 10000
+Elapsed time: 13159ms
+
+Примечание:
+В качестве результата измерения времени берется медианное значение от 10 запусков.
+
+Вывод:
+Количество потоков при малом количестве данных никак не влияет на производительность.
+При относительно большом (10^5) количестве данных многопоточное выполнение программы дает кратное преимущество над
+однопоточным. Из экспериментальных данных можно заметить, что наилучший результат достигается
+при использовании 16 потоков, что соответствует количеству логических процессоров данного ноутбука.
