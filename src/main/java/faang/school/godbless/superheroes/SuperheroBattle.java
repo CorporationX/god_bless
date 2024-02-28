@@ -18,7 +18,7 @@ public class SuperheroBattle {
 
     public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> heroes, BiFunction<Superhero, Superhero, Superhero> competitionLogic) {
         List<Future<Superhero>> winners =  heroes.stream()
-                .map(heroPair -> CompletableFuture.supplyAsync(() -> competitionLogic.apply(heroPair.getFirst(), heroPair.getSecond())))
+                .map(heroPair -> CompletableFuture.supplyAsync(() -> competitionLogic.apply(heroPair.getFirst(), heroPair.getSecond()), EXECUTOR_SERVICE))
                 .collect(Collectors.toList());
         if (heroes.size() == 1) {
             return winners;
