@@ -39,8 +39,10 @@ public class Inventory {
     }
 
     private void removeItems(List<CompletableFuture<Item>> items) {
-        for (var item : items) {
-            ITEMS.remove(getFromFuture(item).getName());
+        synchronized (ITEMS) {
+            for (var item : items) {
+                ITEMS.remove(getFromFuture(item).getName());
+            }
         }
     }
 
