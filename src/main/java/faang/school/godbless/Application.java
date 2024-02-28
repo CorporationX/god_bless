@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -11,8 +10,8 @@ public class Application {
 
     private static final List<Integer> numberList = List.of(1, 2, 3, 4, 5);
 
-    /*public static void main(String... args) throws IOException {
-        System.out.println("Hello world");
+    public static void main(String... args) throws IOException, InterruptedException {
+        /*System.out.println("Hello world");
 
 
         faang.school.godbless.Main.weatherMain();
@@ -32,6 +31,7 @@ public class Application {
         faang.school.godbless.streamapi1.Main.streamAPI8();
         faang.school.godbless.streamapi1.Main.streamAPI9();
         faang.school.godbless.calculator.Main.product(numberList);
-        faang.school.godbless.calculator.Main.sum(numberList);
-    }*/
+        faang.school.godbless.calculator.Main.sum(numberList);*/
+        faang.school.godbless.distributedarmy.Main.distributedarmy();
+    }
 }
