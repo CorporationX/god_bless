@@ -1,12 +1,7 @@
 package faang.school.godbless.distributedarmy;
 
-public class Swordsman extends Divisions {
+public class Swordsman extends Division {
     public Swordsman(int power) {
         super(power);
-    }
-
-    @Override
-    public boolean isSwordsman() {
-        return true;
     }
 }

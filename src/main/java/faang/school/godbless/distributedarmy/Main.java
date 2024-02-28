@@ -1,5 +1,6 @@
 package faang.school.godbless.distributedarmy;
 
+
 public class Main {
     public static void distributedarmy() throws InterruptedException {
         Army army = new Army();
@@ -8,7 +9,7 @@ public class Main {
         army.add(new Mage(50)); // считаем в потоке 3
         army.add(new Mage(20)); // считаем в потоке 4
 
-        int totalPower = Army.calculateTotalPower();
+        int totalPower = army.calculateTotalPower();
         System.out.println("Total army power: " + totalPower);
     }
 }

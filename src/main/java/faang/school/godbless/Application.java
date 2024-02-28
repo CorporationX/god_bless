@@ -9,8 +9,8 @@ import java.util.List;
 
 public class Application {
 
-    private static final List<Integer> numberList = List.of(1,2,3,4,5);
-    
+    private static final List<Integer> numberList = List.of(1, 2, 3, 4, 5);
+
     public static void main(String... args) throws IOException, InterruptedException {
         /*System.out.println("Hello world");
 

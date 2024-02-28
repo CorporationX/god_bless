@@ -4,15 +4,15 @@ import lombok.Getter;
 
 @Getter
 public class DivisionPowerThread extends Thread {
-    private final Divisions division;
+    private final Division division;
     private int power;
 
-    public DivisionPowerThread(Divisions division) {
+    public DivisionPowerThread(Division division) {
         this.division = division;
     }
 
     @Override
-    public void start() {
+    public void run() {
         power = power + division.getPower();
     }
 }

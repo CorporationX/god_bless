@@ -1,12 +1,7 @@
 package faang.school.godbless.distributedarmy;
 
-public class Archer extends Divisions {
+public class Archer extends Division {
     public Archer(int power) {
         super(power);
-    }
-
-    @Override
-    public boolean isArcher() {
-        return true;
     }
 }
