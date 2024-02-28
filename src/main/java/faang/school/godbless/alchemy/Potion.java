@@ -9,6 +9,7 @@ public class Potion {
         this.requiredIngredients = requiredIngredients;
     }
 
+
     public String getName() {
         return name;
     }

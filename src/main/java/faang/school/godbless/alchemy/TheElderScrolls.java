@@ -1,24 +1,18 @@
 package faang.school.godbless.alchemy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class TheElderScrolls {
-//    private int totalIngredients = 0;
     private AtomicInteger totalInteger = new AtomicInteger(0);
-//    private ReentrantLock reentrantLock = new ReentrantLock(true);
-
     public CompletableFuture<Integer> gatherIngredients(Potion potion){
         return CompletableFuture.supplyAsync(() -> {
             System.out.printf("The gathering for %s is started!\n", potion.getName());
             try {
-                Thread.sleep(potion.getRequiredIngredients() * 1000);
+                Thread.sleep(potion.getRequiredIngredients() * 1000L);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -26,16 +20,6 @@ public class TheElderScrolls {
             System.out.printf("The gathering for %s is finished\n", potion.getName());
             return potion.getRequiredIngredients();
         });
-    }
-
-    public void addIngredients(CompletableFuture<Integer> ingredients){
-        try {
-            totalInteger.addAndGet(ingredients.get());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public AtomicInteger getTotalInteger() {
@@ -61,13 +45,11 @@ public class TheElderScrolls {
 
 
         List<CompletableFuture<Integer>> futurePotions = potions.stream()
-                .map((potion) -> theElderScrolls.gatherIngredients(potion))
+                .map(theElderScrolls::gatherIngredients)
                 .toList();
         try {
             CompletableFuture.allOf(futurePotions.toArray(CompletableFuture[]::new)).get();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
         System.out.println("The total amount of ingredients needed is " + theElderScrolls.getTotalInteger());
