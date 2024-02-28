@@ -35,10 +35,6 @@ public class MasterCardService {
     public void doAll() throws ExecutionException, InterruptedException {
         Future<Integer> payment = SERVICE.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalystics, SERVICE);
-        while (!analytics.isDone()) {
-            Thread.sleep(1000);
-            System.out.println("Waining for the result of analytics ...");
-        }
         System.out.println(analytics.get());
         System.out.println(payment.get());
         SERVICE.shutdown();
