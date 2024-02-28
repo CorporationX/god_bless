@@ -1,8 +1,9 @@
 package faang.school.godbless.carry;
 
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,7 +14,7 @@ import java.util.concurrent.TimeoutException;
 public class Inventory {
 
     private final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
-    private final HashMap<String, Item> ITEMS = new HashMap<>();
+    private final Map<String, Item> ITEMS = new ConcurrentHashMap<>();
 
     public void addItem(Item item) {
         ITEMS.put(item.getName(), item);
@@ -39,10 +40,8 @@ public class Inventory {
     }
 
     private void removeItems(List<CompletableFuture<Item>> items) {
-        synchronized (ITEMS) {
-            for (var item : items) {
-                ITEMS.remove(getFromFuture(item).getName());
-            }
+        for (var item : items) {
+            ITEMS.remove(getFromFuture(item).getName());
         }
     }
 
@@ -52,9 +51,7 @@ public class Inventory {
 
     private CompletableFuture<Item> putInInventory(Item item) {
         return CompletableFuture.supplyAsync(() -> {
-            synchronized (ITEMS) {
-                ITEMS.put(item.getName(), item);
-            }
+            ITEMS.put(item.getName(), item);
             return item;
         }, EXECUTOR_SERVICE);
     }
