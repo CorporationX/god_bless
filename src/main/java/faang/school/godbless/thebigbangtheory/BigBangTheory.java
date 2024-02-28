@@ -7,10 +7,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
+    private static final int NUMBEROFTREADS = 4;
     public static void main(String... args) throws InterruptedException {
         List<Task> listTask = new ArrayList<>();
-        final int numberOfThreads = 4;
-        ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
+        ExecutorService executorService = Executors.newFixedThreadPool(NUMBEROFTREADS);
         listTask.add(new Task("Шелдлон", "подготовка теории"));
         listTask.add(new Task("Леонард", "моделирование эксперимента"));
         listTask.add(new Task("Говард", "разработка инструментов"));
