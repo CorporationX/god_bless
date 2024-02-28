@@ -11,11 +11,16 @@ public class GriffinsFoodDelivery {
 
     public static void main(String[] args) throws InterruptedException {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        var r = new Random();
+        var randomGenerator = new Random();
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUMBER);
-        Arrays.stream(characterNames).forEach((characterName) -> executorService.submit(new FoodDeliveryTask(characterName, r.nextInt(20) + 1)));
+        Arrays.stream(characterNames).forEach((characterName) -> executorService.submit(new FoodDeliveryTask(characterName, randomGenerator.nextInt(20) + 1)));
         executorService.shutdown();
-        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
-        System.out.println("All deliveries done!");
+        boolean terminationResult = executorService.awaitTermination(60, TimeUnit.SECONDS);
+        executorService.shutdownNow();
+        if (terminationResult) {
+            System.out.println("All deliveries done!");
+        } else {
+            System.out.println("Not all deliveries have been completed!");
+        }
     }
 }
