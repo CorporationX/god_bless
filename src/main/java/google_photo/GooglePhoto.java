@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 public class GooglePhoto {
     private List<String> myPhoto;
-    public GooglePhoto(){
+
+    public GooglePhoto() {
         myPhoto = new ArrayList<>();
     }
 }
