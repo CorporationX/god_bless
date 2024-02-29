@@ -9,7 +9,8 @@ public class Robot {
     private String name;
     private int attackPower;
     private int defensePower;
-    public void attack(Robot robot){
+
+    public void attack(Robot robot) {
         robot.setDefensePower(robot.getDefensePower() - this.attackPower);
     }
 }
