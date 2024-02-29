@@ -12,16 +12,16 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
     public synchronized void joinBattle(Player player) {
-        if (currentPlayers < maxPlayers) {
-            currentPlayers++;
-            System.out.println(player.getName() + " присоединился к игре с боссом");
-        } else {
-            try {
+        if (currentPlayers == maxPlayers) {
+            try{
                 System.out.println(player.getName() + " ожидает свою очередь");
                 wait();
-            } catch (InterruptedException e) {
+            }catch (InterruptedException e){
                 e.printStackTrace();
             }
+        } else {
+            currentPlayers++;
+            System.out.println(player.getName() + " присоединился к игре с боссом");
         }
     }
 
