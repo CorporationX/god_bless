@@ -9,17 +9,14 @@ public class PiCalculation {
     public static double calculatePi() {
         List<Point> uniquePoints = Point.generateRandomPoints(NUMBER_OF_POINTS);
         long inside = uniquePoints.stream()
-                .filter(point -> validatePoint(point))
+                .filter(PiCalculation::validatePoint)
                 .count();
         return (double) (4 * inside) / NUMBER_OF_POINTS;
     }
 
     public static boolean validatePoint(Point point) {
         double c = Math.sqrt(Math.pow(point.getA(), 2) + Math.pow(point.getB(), 2));
-        if (c <= RADIUS) {
-            return true;
-        }
-        return false;
+        return c <= RADIUS;
     }
 
     public static void main(String[] args) {
