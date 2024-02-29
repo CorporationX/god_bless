@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         List<Order> orders = generateOrders();
 
-        List<CompletableFuture<Void>> future = orders.parallelStream()
+        List<CompletableFuture<Void>> future = orders.stream()
                 .map(OrderProcessor::processOrder)
                 .toList();
 
