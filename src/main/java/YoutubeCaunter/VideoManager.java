@@ -7,20 +7,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class VideoManager {
-    private final Map<String, Integer> videoMap = new HashMap<>();
+    private final Map<String, Integer> numberOfVideoViews = new HashMap<>();
     private static final Object lock = new Object();
-    private static final int NUM_THREADS = 0;
-    private static final int NUM_VIDEO = 0;
+    private static final int NUM_THREADS = 100;
+    private static final int NUM_VIDEO = 100;
 
     void addView(String videoId) {
         synchronized (lock) {
-            videoMap.put(videoId, videoMap.getOrDefault(videoId, 0) + 1);
+            numberOfVideoViews.put(videoId, numberOfVideoViews.getOrDefault(videoId, 0) + 1);
         }
     }
 
     int getViewCount(String videoId) {
         synchronized (lock) {
-            return videoMap.getOrDefault(videoId, 0);
+            return numberOfVideoViews.getOrDefault(videoId, 0);
         }
     }
 
@@ -39,7 +39,7 @@ public class VideoManager {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MINUTES);
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MICROSECONDS);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
