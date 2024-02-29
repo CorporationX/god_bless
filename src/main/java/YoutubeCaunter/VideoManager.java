@@ -39,7 +39,7 @@ public class VideoManager {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.MICROSECONDS);
+            executorService.awaitTermination(50000, TimeUnit.MICROSECONDS);
         }catch (InterruptedException e){
             e.printStackTrace();
         }
