@@ -13,8 +13,11 @@ public class Army {
     public int calculateTotalPower() throws InterruptedException {
         int totalPower = 0;
         List<PowerThread> threadList = new ArrayList<>();
-        units.forEach(unit -> threadList.add(new PowerThread(unit)));
-        threadList.forEach(PowerThread::start);
+        units.forEach(unit -> {
+            PowerThread newPowerThread = new PowerThread(unit);
+            newPowerThread.start();
+            threadList.add(newPowerThread);
+        });
         for (var thread : threadList) {
             thread.join();
             totalPower += thread.getPower();
