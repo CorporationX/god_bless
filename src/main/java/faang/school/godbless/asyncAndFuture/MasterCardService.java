@@ -1,6 +1,7 @@
 package faang.school.godbless.asyncAndFuture;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -34,13 +35,20 @@ public class MasterCardService {
 
         executor.shutdown();
         try {
-            executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
+            Long waitTime = 50000L;
+            executor.awaitTermination(waitTime, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        System.out.println("Payment: " + payment);
-        System.out.println("Analytica " + analytics);
+        try {
+            System.out.println("Payment: " + payment.get());
+            System.out.println("Analytica " + analytics.get());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
