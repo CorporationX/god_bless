@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class King {
     private static final List<String> trials = new ArrayList<>();
-    private static final int NUMBEROFTHREAD = 2;
+    private static final int NUMBER_OF_THREAD = 2;
 
     public static void main(String... args) throws InterruptedException {
         trials.add("sword fighting");
@@ -18,7 +18,7 @@ public class King {
     }
 
     public static void startTrials(List<Knight> knightList) throws InterruptedException {
-        ExecutorService executorService = Executors.newFixedThreadPool(NUMBEROFTHREAD);
+        ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREAD);
         for (Knight knight : knightList) {
             for (String trial : trials) {
                 Trial newtrial = new Trial(knight.getName(), trial);
