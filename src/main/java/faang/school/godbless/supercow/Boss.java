@@ -1,16 +1,10 @@
 package faang.school.godbless.supercow;
 
-import lombok.Getter;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
-@Getter
 public class Boss {
     private int maxPlayers;
     private int currentPlayers;
-    private List<Player> players = new ArrayList<>();
     private final Object lock = new Object();
 
     public Boss(int maxPlayers) {
@@ -29,19 +23,10 @@ public class Boss {
                 }
             }
             currentPlayers++;
-            players.add(player);
             System.out.printf("%s joins the battle!", player.getName());
             System.out.println();
         }
     }
-
-//    public void startFight() {
-//        if (!players.isEmpty()) for (Player player : players) {
-//            synchronized (lock) {
-//                fight(player);
-//            }
-//        }
-//    }
 
     public void fight(Player player) {
         try {
@@ -53,7 +38,6 @@ public class Boss {
         System.out.println();
         synchronized (lock) {
             currentPlayers--;
-//            players.remove(player);
             lock.notify();
         }
     }
