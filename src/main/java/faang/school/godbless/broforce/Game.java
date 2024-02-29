@@ -10,9 +10,9 @@ import java.util.Random;
 public class Game {
     private int score;
     private int lives;
-    private Object scoreLock = new Object();
-    private Object livesLock = new Object();
-    private List<Bro> bros = new ArrayList<>();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
+    private final List<Bro> bros = new ArrayList<>();
     Random rnd = new Random();
     private boolean isRunning = true;
 
@@ -26,10 +26,12 @@ public class Game {
         boolean isWinner = bro.isWinner();
         if (!isWinner) {
             synchronized (livesLock) {
-                bro.setLives(bro.getLives() - 1);
-                lives++;
-                if (bro.getLives() == 0) {
-                    return gameOver();
+                if (bro.getLives() > 0) {
+                    bro.setLives(bro.getLives() - 1);
+                    lives++;
+                    if (bro.getLives() == 0) {
+                        return gameOver();
+                    }
                 }
             }
         } else {
