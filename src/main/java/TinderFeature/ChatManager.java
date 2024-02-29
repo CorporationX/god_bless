@@ -69,11 +69,9 @@ public class ChatManager {
             System.out.println("Чат не найден");
         }
 
-        // Test waitForChat
         chatManager.waitForChat(user2);
         System.out.println(user2.getName() + " присоеденился(-лась) к чату");
 
-        // Test endChat
         chatManager.endChat(chat1.get());
         System.out.println("Вышли из чата " + chat1.get().getUser1().getName() + " и " + chat1.get().getUser2().getName());
     }
