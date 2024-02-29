@@ -20,8 +20,9 @@ public class Main {
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
 // Обработка результатов заданий
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.")).join();
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.")).join();
+        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
 
     }
 }
