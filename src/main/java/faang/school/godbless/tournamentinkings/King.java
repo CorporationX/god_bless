@@ -23,8 +23,9 @@ public class King {
             for (String trial : trials) {
                 Trial newtrial = new Trial(knight.getName(), trial);
                 knight.addTrial(newtrial);
-                executorService.submit(newtrial);
+
             }
+            executorService.submit(knight);
         }
         executorService.shutdown();
         boolean done = executorService.awaitTermination(1, TimeUnit.MINUTES);
