@@ -23,7 +23,7 @@ public class MasterCardService {
         }
     }
 
-    static void doAll() {
+    void doAll() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Integer> result = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> result2 = CompletableFuture.supplyAsync(MasterCardService::sendAnalystics);
@@ -40,10 +40,12 @@ public class MasterCardService {
         } catch (ExecutionException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+        executorService.shutdown();
     }
 
     public static void main(String[] args) {
-        MasterCardService.doAll();
+        MasterCardService service = new MasterCardService();
+        service.doAll();
     }
 }
-//
+
