@@ -1,13 +1,12 @@
 package faang.school.godbless.supercow;
 
-import java.io.ObjectStreamException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Boss {
-    private int maxPlayers;
+    private final int maxPlayers;
     private int currentPlayers;
-    private List<Player> players;
+    private final List<Player> players;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
@@ -17,10 +16,11 @@ public class Boss {
 
     Object lock = new Object();
 
-    private void joinBattle(Player player) {
+    public void joinBattle(Player player) {
         synchronized (lock) {
             while (currentPlayers >= maxPlayers) {
                 try {
+                    System.out.println(player.getName() + " is waiting for free slot");
                     lock.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();

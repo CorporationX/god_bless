@@ -11,5 +11,7 @@ public class Player {
     private String name;
 
     public void startBattle(Boss boss) {
+        System.out.println(name + " is attempting to start the battle");
+        boss.joinBattle(this);
     }
 }
