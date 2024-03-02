@@ -2,13 +2,10 @@ package faang.school.godbless.carry;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
     private static Random rnd = new Random();
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newCachedThreadPool();
         Inventory playerInventory = new Inventory();
         Inventory storeInventory = new Inventory();
         for (int i = 0; i < 2; i++) {
