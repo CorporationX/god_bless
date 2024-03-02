@@ -1,14 +1,15 @@
 package faang.school.godbless.supercow;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+@AllArgsConstructor
 @Getter
 @Setter
 public class Player {
     private String name;
 
-    private void startBattle(Boss boss){
-
+    public void startBattle(Boss boss) {
     }
 }
