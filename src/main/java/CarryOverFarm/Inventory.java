@@ -36,7 +36,7 @@ public class Inventory {
 
         inventory.combineItemsAsync()
                 .thenCompose(inventory::addItemToInventoryAsync)
-                .thenAccept(item -> System.out.println("Предмет " + item.getName() + " добавлен в инвентарь!!!!"));
+                .thenAccept(item -> System.out.println("Предмет " + item.getName() + " добавлен в инвентарь!!"));
     }
 }
 
