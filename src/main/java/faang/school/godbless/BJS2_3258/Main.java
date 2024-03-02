@@ -3,6 +3,7 @@ package faang.school.godbless.BJS2_3258;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 // Привет. Я видимо немного ушел от изначального задания, так как запутался в условии и сделал очередь ожидания для
 // поиска собеседника. Надеюсь это попадет под допуск некоторой вариативности из условияЖ : "Эта задача предоставляет
@@ -41,5 +42,12 @@ public class Main {
             System.out.println(Thread.currentThread().getName() + ": " + otherUser + ": " + chatManager.waitChat(otherUser));
         });
         executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
     }
 }
