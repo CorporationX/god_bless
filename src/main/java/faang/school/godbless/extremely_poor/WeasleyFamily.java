@@ -13,13 +13,13 @@ public class WeasleyFamily {
             executor.submit(task);
         }
         executor.shutdown();
-        while (!executor.isTerminated()) {
-            try {
-                TimeUnit.MILLISECONDS.sleep(1000);
-
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+        try {
+            if (!executor.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+                executor.shutdownNow();
             }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
