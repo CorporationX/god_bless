@@ -16,25 +16,23 @@ public class Boss {
 
     Object lock = new Object();
 
-    public void joinBattle(Player player) {
-        synchronized (lock) {
-            while (currentPlayers >= maxPlayers) {
-                try {
-                    System.out.println(player.getName() + " is waiting for free slot");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                currentPlayers++;
-                players.add(player);
-                System.out.println(player.getName() + " Joined the battle ");
-
-                currentPlayers--;
-                players.remove(player);
-                System.out.println(player.getName() + " Finished the battle");
-                lock.notify();
-
+    public synchronized void joinBattle(Player player) {
+        while (currentPlayers >= maxPlayers) {
+            try {
+                System.out.println(player.getName() + " is waiting for free slot");
+                lock.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            currentPlayers++;
+            players.add(player);
+            System.out.println(player.getName() + " Joined the battle ");
+
+            currentPlayers--;
+            players.remove(player);
+            System.out.println(player.getName() + " Finished the battle");
+            lock.notify();
+
         }
     }
 }
