@@ -1,0 +1,25 @@
+package faang.school.godbless.extremely_poor;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
+public class WeasleyFamily {
+    public static void main(String[] args) {
+        String[] chores = {"A", "B", "C", "D", "E"};
+        ExecutorService executor = Executors.newCachedThreadPool();
+        for (String chore : chores) {
+            Chore task = new Chore(chore);
+            executor.submit(task);
+        }
+        executor.shutdown();
+        try {
+            if (!executor.awaitTermination(1000, TimeUnit.MILLISECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
+}
