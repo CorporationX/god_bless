@@ -26,7 +26,7 @@ public class Player {
 
     public void skip() {
         synchronized (isPlaying) {
-            if (isPlaying != true) {
+            if (!isPlaying) {
                 this.isPlaying = true;
             }
             System.out.println("Воспроизведение следующей песни");
@@ -37,7 +37,7 @@ public class Player {
 
     public void previous() {
         synchronized (isPlaying) {
-            if (isPlaying != true) {
+            if (!isPlaying) {
                 this.isPlaying = true;
             }
             System.out.println("Воспроизведение предыдущей песни");
