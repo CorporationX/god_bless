@@ -1,7 +1,7 @@
 package faang.school.godbless.spotifyblock2970;
 
 public class Player {
-    private final Object LOCK = new Object();
+    private final Object lock = new Object();
     private boolean isPlaying;
 
     public Player() {
@@ -9,7 +9,7 @@ public class Player {
     }
 
     public void play() {
-        synchronized (this.LOCK) {
+        synchronized (lock) {
             if (this.isPlaying) {
                 System.out.println("Playback is already on");
                 return;
@@ -20,7 +20,7 @@ public class Player {
     }
 
     public void pause() {
-        synchronized (this.LOCK) {
+        synchronized (lock) {
             if (!this.isPlaying) {
                 System.out.println("Playback is already paused");
                 return;
@@ -31,7 +31,7 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (this.LOCK) {
+        synchronized (lock) {
             this.isPlaying = false;
             System.out.println("Playing next song");
             this.isPlaying = true;
@@ -39,7 +39,7 @@ public class Player {
     }
 
     public void previous() {
-        synchronized (this.LOCK) {
+        synchronized (lock) {
             this.isPlaying = false;
             System.out.println("Playing previous song");
             this.isPlaying = true;
