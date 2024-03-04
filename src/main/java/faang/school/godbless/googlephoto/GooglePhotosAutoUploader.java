@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private final Object LOCK = new Object();
+    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
     public List<String> getPhotosToUpload() {
@@ -12,11 +12,11 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload(GooglePhoto googlePhoto) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             while (true) {
                 if (photosToUpload.isEmpty()) {
                     try {
-                        LOCK.wait();
+                        lock.wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -32,10 +32,10 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Photo added: " + photoPath);
-            LOCK.notify();
+            lock.notify();
         }
     }
 }
