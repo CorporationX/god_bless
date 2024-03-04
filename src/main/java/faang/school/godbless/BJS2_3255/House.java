@@ -13,8 +13,8 @@ public class House {
     @NonNull
     private String name;
     private final Map<String, User> roles = new HashMap<>();
-    private Integer totalRoles = 0;
-    private Integer currentRoles = 0;
+    private int totalRoles = 0;
+    private int currentRoles = 0;
 
     public void addRole(String role) {
         synchronized (roles) {
