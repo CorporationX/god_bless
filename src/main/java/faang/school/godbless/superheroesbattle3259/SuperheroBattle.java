@@ -8,15 +8,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class SuperheroBattle {
-    static final Superhero IRON_MAN = new Superhero("Iron Man", 9, 6);
-    static final Superhero CAPTAIN_AMERICA = new Superhero("Captain America", 8, 8);
-    static final Superhero THOR = new Superhero("Thor", 10, 7);
-    static final Superhero HULK = new Superhero("Hulk", 10, 4);
-    static final Superhero SPIDER_MAN = new Superhero("Spider-Man", 8, 10);
-    static final Superhero BLACK_WIDOW = new Superhero("Black widow", 6, 8);
     static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
     static List<Superhero> superheroesAlive = new ArrayList<>(List.of(
-            IRON_MAN, CAPTAIN_AMERICA, THOR, HULK, SPIDER_MAN, BLACK_WIDOW
+            new Superhero("Iron Man", 9, 6),
+            new Superhero("Captain America", 8, 8),
+            new Superhero("Thor", 10, 7),
+            new Superhero("Hulk", 10, 4),
+            new Superhero("Spider-Man", 8, 10),
+            new Superhero("Black widow", 6, 8)
     ));
     static final Object SUPERHEROES_ALIVE_LOCK = new Object();
 
