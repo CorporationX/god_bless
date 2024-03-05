@@ -3,7 +3,6 @@ package faang.school.godbless.supercow;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Random;
-import java.util.Scanner;
 
 @RequiredArgsConstructor
 public class Battle implements Runnable {
@@ -28,15 +27,12 @@ public class Battle implements Runnable {
 
     public void joinBattle(Player PLAYER) throws InterruptedException {
         synchronized (BOSS) {
-            do {
-                if (!(BOSS.getCurrentPlayers().size() == BOSS.getMaxPlayers())) {
-                    BOSS.setCurrentPlayers(PLAYER);
-                } else {
-                    System.out.println("Player: " + PLAYER.getName() + " в ожидании подключения");
-                    BOSS.wait();
-                }
-                System.out.println(PLAYER.getName() + " Есть возможность подключения. Подключаемся к битве?");
-            } while (!new Scanner(System.in).nextBoolean());
+            if (!(BOSS.getCurrentPlayers().size() == BOSS.getMaxPlayers())) {
+                BOSS.setCurrentPlayers(PLAYER);
+            } else {
+                System.out.println("Player: " + PLAYER.getName() + " в ожидании подключения");
+                BOSS.wait();
+            }
         }
     }
 

@@ -14,6 +14,10 @@ public class Boss {
     private final List<Player> currentPlayers = new ArrayList<>();
 
     public void setCurrentPlayers(Player currentPlayers) {
+        if (currentPlayers == null) {
+            System.out.println("Передаваемое имя игрока имеет null");
+            throw new NullPointerException();
+        }
         this.currentPlayers.add(currentPlayers);
     }
 
