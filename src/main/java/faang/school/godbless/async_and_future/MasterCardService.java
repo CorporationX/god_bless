@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.concurrent.*;
 
 @AllArgsConstructor
@@ -37,35 +36,23 @@ public class MasterCardService {
 
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-
         Future<Integer> paymentFuture = executor.submit(() -> collectPayment());
-        int result;
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
         try {
-            result = paymentFuture.get();
-            wait();
+
+
+            CompletableFuture<Void> resultFutures = CompletableFuture.allOf((CompletableFuture<?>) paymentFuture, analyticsFuture);
+            resultFutures.join();
+            int paymentResult = paymentFuture.get();
+            System.out.println("Payment result: " + paymentResult);
+
+            int analyticsResult = analyticsFuture.get();
+            System.out.println("Analytics result: " + analyticsResult);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
         } finally {
             executor.shutdown();
         }
 
-        System.out.println("Payment result " + result);
-
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
-
-        analyticsFuture.thenAccept(resultAnalytics -> {
-            System.out.println("Analytics sent " + resultAnalytics);
-            try {
-                int paymentResult = paymentFuture.get();
-                System.out.println("Payment processed " + paymentResult);
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-        });
-        executor.shutdown();
-
-
-        //combine
     }
 }
