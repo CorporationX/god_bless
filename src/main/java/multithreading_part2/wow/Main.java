@@ -13,10 +13,10 @@ public class Main {
 
         CompletableFuture<Player> samCompletableFuture = questSystem.startQuest(sam, quest1);
         CompletableFuture<Player> artemCompletableFuture = questSystem.startQuest(artem, quest2);
+        CompletableFuture.allOf(samCompletableFuture,artemCompletableFuture).join();
         samCompletableFuture
                 .thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "+ player.getExperience() + " experience points."));
         artemCompletableFuture
                 .thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has "+ player.getExperience() + " experience points."));
-        Thread.sleep(1000);
     }
 }
