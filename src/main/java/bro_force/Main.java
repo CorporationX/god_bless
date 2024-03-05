@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println(game.checkLose());
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        for (int i = 0; i < game.getPersons().size(); i++) {
+        for (int i = 0; i < game.getPersonList().size(); i++) {
             executorService.submit(() -> {
                 while (!game.checkLose()) {
                     boolean gaming = game.update();

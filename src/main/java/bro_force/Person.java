@@ -3,7 +3,6 @@ package bro_force;
 import lombok.Data;
 
 @Data
-
 public class Person {
     private String name;
     private int score = 0;
