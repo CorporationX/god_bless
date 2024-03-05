@@ -1,14 +1,16 @@
 package multithreading_part2.star_wars;
 
+import lombok.Getter;
+
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-
+@Getter
 public class Battle {
+    private ExecutorService executorService = Executors.newFixedThreadPool(2);
     public Future<Robot> figth(Robot robot1, Robot robot2) {
         Random random = new Random();
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
         Future<Robot> future = executorService.submit(() -> {
             System.out.println("Битва " + robot1.getName() + " с " + robot2.getName() + " начинается");
             while (robot1.getDefensePower() > 0 && robot2.getDefensePower() > 0) {
@@ -25,7 +27,6 @@ public class Battle {
                 return robot2;
             }
         });
-        executorService.shutdown();
         return future;
     }
 }

@@ -13,6 +13,7 @@ public class Main {
         Robot robot4 = new Robot("robot4", 5, 60);
         Future<Robot> winnerFuture1 = battle.figth(robot1, robot2);
         Future<Robot> winnerFuture2 = battle.figth(robot3, robot4);
+        battle.getExecutorService().shutdown();
         try {
             Robot robotWinPair1 = winnerFuture1.get();
             Robot robotWinPair2 = winnerFuture2.get();
