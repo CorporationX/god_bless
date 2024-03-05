@@ -2,7 +2,7 @@ package faang.school.godbless.googlephotos;
 
 public class Main {
     public static void main(String... args) {
-        GooglePhoto photoUser = new GooglePhoto();
+        GooglePhoto photoUser = new GooglePhoto(true);
         photoUser.setPhotosToUpload("C:\\Users\\user\\Pictures\\Screenshots\\screenshot_1.jpg");
         Thread uploadThread;
 

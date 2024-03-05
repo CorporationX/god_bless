@@ -10,7 +10,7 @@ public class GooglePhotosUnloadList implements Runnable {
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (USER_PHOTOS) {
-            USER_PHOTOS.add(photoPath);
+            USER_PHOTOS.setPhotosToUpload(photoPath);
         }
     }
 
@@ -20,9 +20,13 @@ public class GooglePhotosUnloadList implements Runnable {
             do {
                 System.out.println("Введите путь к новому фото:");
                 onNewPhotoAdded(new Scanner(System.in).nextLine());
-                System.out.println("Есть еще новые фото?");
-            } while (new Scanner(System.in).nextBoolean());
-            USER_PHOTOS.notify();
+                USER_PHOTOS.notify();
+                try {
+                    USER_PHOTOS.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            } while (USER_PHOTOS.isConstantUnloading());
         }
     }
 }
