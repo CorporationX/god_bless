@@ -7,8 +7,9 @@ import java.util.concurrent.Future;
 
 public class Battle {
     Random random = new Random();
+    ExecutorService executorService = Executors.newFixedThreadPool(2);
+
     public Future<Robot> fight(Robot robot1, Robot robot2) {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
         Future<Robot> winnerFuture = executorService.submit(() -> {
             Thread.sleep(1000 + random.nextInt(4000));
             return robot1.getAttackPower() + robot1.getDefensePower() >
