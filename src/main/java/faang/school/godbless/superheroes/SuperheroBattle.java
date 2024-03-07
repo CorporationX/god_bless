@@ -14,20 +14,20 @@ import java.util.stream.Collectors;
 
 public class SuperheroBattle {
 
-    private final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
-    public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> heroes, BiFunction<Superhero, Superhero, Superhero> competitionLogic) {
-        List<Future<Superhero>> winners =  heroes.stream()
-                .map(heroPair -> CompletableFuture.supplyAsync(() -> competitionLogic.apply(heroPair.getFirst(), heroPair.getSecond()), EXECUTOR_SERVICE))
+    public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> pairsOfHeroes, BiFunction<Superhero, Superhero, Superhero> competitionLogic) {
+        List<Future<Superhero>> winners =  pairsOfHeroes.stream()
+                .map(heroPair -> CompletableFuture.supplyAsync(() -> competitionLogic.apply(heroPair.getFirst(), heroPair.getSecond()), executorService))
                 .collect(Collectors.toList());
-        if (heroes.size() == 1) {
+        if (pairsOfHeroes.size() == 1) {
             return winners;
         }
         return runCompetitions(getMixedWinners(winners), competitionLogic);
     }
 
     public void shutdownAndAwaitExecution(int minutes) {
-        EXECUTOR_SERVICE.shutdown();
+        executorService.shutdown();
         awaitTermination(minutes);
     }
 
@@ -47,9 +47,10 @@ public class SuperheroBattle {
 
     private void awaitTermination(int minutes) {
         try {
-            EXECUTOR_SERVICE.awaitTermination(minutes, TimeUnit.MINUTES);
+            executorService.awaitTermination(minutes, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            throw new RuntimeException("Thread was interrupted");
         }
     }
 
@@ -58,9 +59,11 @@ public class SuperheroBattle {
             return future.get(30L, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        } catch (ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Thread was interrupted");
+        } catch (ExecutionException e) {
+            throw new RuntimeException("Thread was interrupted");
+        } catch (TimeoutException e) {
+            throw new RuntimeException("The waiting time has been exceeded");
         }
     }
 }

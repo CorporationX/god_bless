@@ -50,9 +50,11 @@ public class Main {
             return future.get(30L, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        } catch (ExecutionException | TimeoutException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Thread was interrupted");
+        } catch (ExecutionException e) {
+            throw new RuntimeException("Thread was interrupted");
+        } catch (TimeoutException e) {
+            throw new RuntimeException("The waiting time has been exceeded");
         }
     }
 
