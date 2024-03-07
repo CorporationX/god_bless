@@ -7,27 +7,24 @@ import java.util.concurrent.TimeUnit;
 
 public class TwitterSubscriptionSystem {
 
-    private final Object ACCOUNT_LOCK = new Object();
-    private final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
 
     public CompletableFuture<Void> followAccount(TwitterAccount account) {
-        return CompletableFuture.runAsync(() -> addFollower(account), EXECUTOR_SERVICE);
+        return CompletableFuture.runAsync(() -> addFollower(account), executorService);
     }
 
     public void shutDownAndAwaitExecutor(Long minutes) {
-        EXECUTOR_SERVICE.shutdown();
+        executorService.shutdown();
         awaitTermination(minutes);
     }
 
-    private void addFollower(TwitterAccount account) {
-        synchronized (ACCOUNT_LOCK) {
-            account.setFollowers(account.getFollowers() + 1);
-        }
+    private synchronized void addFollower(TwitterAccount account) {
+        account.setFollowers(account.getFollowers() + 1);
     }
 
     private void awaitTermination(Long minutes) {
         try {
-            EXECUTOR_SERVICE.awaitTermination(minutes, TimeUnit.MINUTES);
+            executorService.awaitTermination(minutes, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
