@@ -10,11 +10,11 @@ import java.util.concurrent.TimeUnit;
 public class VehicleTracker {
 
     private TransportManagementSystem managementSystem;
-    private final ScheduledExecutorService EXECUTOR_SERVICE;
+    private final ScheduledExecutorService executorService;
 
     public VehicleTracker(TransportManagementSystem managementSystem) {
         this.managementSystem = managementSystem;
-        EXECUTOR_SERVICE = Executors.newScheduledThreadPool(managementSystem.getVehicles().size());
+        executorService = Executors.newScheduledThreadPool(managementSystem.getVehicles().size());
     }
 
     public void startTracking() {
@@ -22,6 +22,6 @@ public class VehicleTracker {
     }
 
     private void pushTrackTask(Vehicle vehicle) {
-        EXECUTOR_SERVICE.scheduleAtFixedRate(vehicle::checkCondition, 0, 3, TimeUnit.SECONDS);
+        executorService.scheduleAtFixedRate(vehicle::checkCondition, 0, 3, TimeUnit.SECONDS);
     }
 }
