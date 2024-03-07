@@ -16,7 +16,6 @@ public class Battle {
                     robot2.getAttackPower() + robot2.getDefensePower() ? robot1 : robot2;
         });
 
-        executorService.shutdown();
         return  winnerFuture;
     }
 }
