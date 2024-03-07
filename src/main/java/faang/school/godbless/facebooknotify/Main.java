@@ -19,7 +19,7 @@ public class Main {
     private static List<CompletableFuture<Void>> sendNotifications(int count) {
         List<CompletableFuture<Void>> sentNotifications = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            manager.fetchNotification();
+            manager.fetchNotification(1L);
         }
         return sentNotifications;
     }

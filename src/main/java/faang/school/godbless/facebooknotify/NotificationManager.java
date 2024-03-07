@@ -9,20 +9,21 @@ import java.util.concurrent.TimeUnit;
 
 public class NotificationManager {
 
-    private final List<Notification> NOTIFICATIONS = new ArrayList<>();
-    private final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+    private final List<Notification> notifications = new ArrayList<>();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final Object lock = new Object();
 
     public List<Notification> getNotifications() {
-        return NOTIFICATIONS;
+        return notifications;
     }
 
     public void addNotification(Notification notification) {
-        synchronized (NOTIFICATIONS) {
-            NOTIFICATIONS.add(notification);
+        synchronized (lock) {
+            notifications.add(notification);
         }
     }
 
-    public CompletableFuture<Void> fetchNotification() {
+    public CompletableFuture<Void> fetchNotification(Long id) {
         return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(3000);
@@ -30,17 +31,17 @@ public class NotificationManager {
                 Thread.currentThread().interrupt();
             }
             addNotification(new Notification("New message"));
-        }, EXECUTOR_SERVICE);
+        }, executorService);
     }
 
     public void shutdownAndAwaitExecution(int minutes) {
-        EXECUTOR_SERVICE.shutdown();
+        executorService.shutdown();
         awaitTermination(minutes);
     }
 
     private void awaitTermination(int minutes) {
         try {
-            EXECUTOR_SERVICE.awaitTermination(minutes, TimeUnit.MINUTES);
+            executorService.awaitTermination(minutes, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
