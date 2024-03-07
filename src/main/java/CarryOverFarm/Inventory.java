@@ -7,36 +7,34 @@ import java.util.concurrent.CompletableFuture;
 public class Inventory {
     private final List<Item> items = new ArrayList<>();
 
-    public CompletableFuture<Item> addItemToInventoryAsync(Item item) {
-        items.add(item);
-        return CompletableFuture.completedFuture(item);
+    public void addItem(Item item) { items.add(item); }
+    public static Item combineItems(Item item1, Item item2) {
+        String newName = item1.getName() + " + " + item2.getName();
+        int newPower = (int) (item1.getPower() + item2.getPower());
+        return new Item(newName, newPower); }
+
+
+
+    private CompletableFuture<Item>  getItem1FromBox() {
+        CompletableFuture.supplyAsync (() -> new Item("Sword", 3));
     }
 
-    public CompletableFuture<Item> combineItemsAsync() {
-        CompletableFuture<Item> item1Future = CompletableFuture.supplyAsync(this::getItem1FromBox);
-        CompletableFuture<Item> item2Future = CompletableFuture.supplyAsync(this::getItem2FromGrocery);
-        return item1Future.thenCombine(item2Future, (item1, item2) -> {
-            double totalPower = item1.getPower() + item2.getPower();
-            String newName = item1.getName() + " + " + item2.getName();
-            return new Item(newName, totalPower);
-        }).thenCompose(this::addItemToInventoryAsync);
-    }
+    private CompletableFuture<Item> getItem2FromGrocery() {
 
-    private Item getItem1FromBox() {
-        return new Item("Sword", 3);
-    }
-
-    private Item getItem2FromGrocery() {
-        return new Item("Knife", 4);
+        CompletableFuture.supplyAsync (() ->new Item("Knife", 4));
     }
 
 
     public static void main(String[] args) {
         Inventory inventory = new Inventory();
 
-        inventory.combineItemsAsync()
-                .thenCompose(inventory::addItemToInventoryAsync)
-                .thenAccept(item -> System.out.println("Предмет " + item.getName() + " добавлен в инвентарь!!"));
+        CompletableFuture<Item> item1 = inventory.getItem1FromBox();
+        CompletableFuture<Item> item2 = inventory.getItem2FromGrocery();
+
+        item1.thenCombine(item2, Inventory::combineItems)
+                .thenAccept(inventory::addItem)
+                .join();
+        System.out.println("В инвентарь упала шмотка " + inventory.items);
     }
 }
 
