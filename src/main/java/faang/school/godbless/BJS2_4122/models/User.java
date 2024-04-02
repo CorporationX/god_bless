@@ -30,7 +30,7 @@ public class User {
         this.setAddress(address);
     }
 
-    public void  setJob(Job job) {
+    public void setJob(Job job) {
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid value for job: " + job);
         }
@@ -38,7 +38,7 @@ public class User {
         this.job = job;
     }
 
-    public void  setAddress(Address address) {
+    public void setAddress(Address address) {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid value for address: " + address);
         }
@@ -46,7 +46,7 @@ public class User {
         this.address = address;
     }
 
-    public void  setAge(Byte age) {
+    public void setAge(Byte age) {
         if (age < 18) {
             throw new IllegalArgumentException("The age must be at least 18");
         }
@@ -54,7 +54,7 @@ public class User {
         this.age = age;
     }
 
-    public void  setName(String name) {
+    public void setName(String name) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("The name cannot be empty!");
         }
