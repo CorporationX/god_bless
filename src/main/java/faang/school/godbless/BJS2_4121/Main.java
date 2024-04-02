@@ -22,7 +22,7 @@ public class Main {
         int[] arrayIndicator = {1, 2, 3, 4, 5};
 
         System.out.println(Arrays.toString(arrayIndicator));
-        System.out.println(Arrays.toString(ExampleIndicator.reverse(arrayIndicator)));
+        ExampleIndicator.reverse(arrayIndicator);
         System.out.println(Arrays.toString(arrayIndicator));
     }
 }
