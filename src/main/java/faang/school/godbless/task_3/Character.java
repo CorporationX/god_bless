@@ -1,11 +1,16 @@
 package faang.school.godbless.task_3;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int dexterity;
-    protected int intelligence;
-    protected int health = 100;
+    private String name;
+    private int strength;
+    private int dexterity;
+    private int intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
