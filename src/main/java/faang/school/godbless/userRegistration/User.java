@@ -18,7 +18,7 @@ public class User {
 
 
     public User(String name, int age, String job, String address) {
-        if(name == null || name.equals("")) {
+        if(name.isBlank()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
 
