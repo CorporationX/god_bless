@@ -3,14 +3,12 @@ package faang.school.godbless.task_17;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class LRUOptimized {
     private final Map<Integer, Node> cache = new HashMap<>();
-    private final Set<Data> allData = new HashSet<>();
+    private final Map<Integer, Data> allData = new HashMap<>();
     private final Node head;
     private final Node tail;
     private static final int CACHE_SIZE = 3;
@@ -48,7 +46,7 @@ public class LRUOptimized {
     }
 
     public void put(Data data) {
-        allData.add(data);
+        allData.put(data.getId(), data);
         Node node = cache.get(data.getId());
         if (node == null) {
             Node newNode = new Node(data);
@@ -69,23 +67,15 @@ public class LRUOptimized {
         Node node = cache.get(id);
 
         if (node == null) {
-            return getBrute(id);
+            Data data = allData.get(id);
+            data.setTimestamp(LocalDateTime.now());
+            put(data);
+            return data;
         }
 
         node.data.setTimestamp(LocalDateTime.now());
         moveToFirst(node);
         return node.data;
-    }
-
-    private Data getBrute(int id) {
-        for (Data data : allData) {
-            if (data.getId() == id) {
-                data.setTimestamp(LocalDateTime.now());
-                put(data);
-                return data;
-            }
-        }
-        return null;
     }
 
     public List<Data> getCache() {
