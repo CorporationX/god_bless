@@ -1,22 +1,21 @@
 package faang.school.godbless.reverseTask;
 
-import java.util.Arrays;
-
 public class Example {
     public static void reverse(int[] nums) {
-        int[] temp = nums.clone();
-        int pointer = 0;
+        int temp;
 
-        for(int i = nums.length - 1; i >= 0; i--) {
-            nums[pointer] = temp[i];
-            pointer++;
+        if (nums.length == 2) {
+            temp = nums[0];
+            nums[0] = nums[1];
+            nums[1] = temp;
+
+            return;
         }
-    }
 
-    public static void main(String[] args) {
-        int[] nums = new int[]{1,2,3,4,5};
-        reverse(nums);
-
-        Arrays.stream(nums).forEach(System.out::print);
+        for (int i = 0; i <= nums.length / 2; i++) {
+            temp = nums[i];
+            nums[i] = nums[nums.length - i - 1];
+            nums[nums.length - i - 1] = temp;
+        }
     }
 }
