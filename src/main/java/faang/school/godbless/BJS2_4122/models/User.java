@@ -21,7 +21,7 @@ public class User {
     private Address address;
 
     private static final Set<Job> VALID_JOBS = new HashSet<>(Set.of(Job.GOOGLE, Job.UBER, Job.AMAZON));
-    private static final Set<Address> VALID_ADDRESSES = new HashSet<>(Set.of(Address.LONDON, Address.NEW_YORK, Address.Amsterdam));
+    private static final Set<Address> VALID_ADDRESSES = new HashSet<>(Set.of(Address.LONDON, Address.NEW_YORK, Address.AMSTERDAM));
 
     public User(String name, byte age, Job job, Address address) {
         this.setName(name);

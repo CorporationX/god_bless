@@ -8,7 +8,7 @@ import lombok.Getter;
 public enum Address {
     LONDON("London"),
     NEW_YORK("New York"),
-    Amsterdam("Amsterdam");
+    AMSTERDAM("Amsterdam");
 
     private final String address;
 }
