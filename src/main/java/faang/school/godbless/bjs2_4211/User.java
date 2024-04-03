@@ -1,24 +1,21 @@
 package faang.school.godbless.bjs2_4211;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 @Getter
-@Setter
 @ToString
 public class User {
 
-    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE_LIMIT = 18;
 
     private String name;
     private int age;
@@ -26,8 +23,14 @@ public class User {
     private String address;
 
     public User(String name, int age, String jobPlace, String address) {
-        if (name.isBlank() || name.isEmpty() || age < 18 || !VALID_JOBS.contains(jobPlace) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+        if (name.isBlank() || name.isEmpty()) {
+            throw new IllegalArgumentException("Name can't be empty");
+        } else if (age < AGE_LIMIT) {
+            throw new IllegalArgumentException("Age can't be less than " + AGE_LIMIT);
+        } else if (!VALID_JOBS.contains(jobPlace)) {
+            throw new IllegalArgumentException(jobPlace + " no correct. Jobs should be in valid company: " + String.join(", ", VALID_JOBS));
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException(address + " not correct. Address should be in valid cities: " + String.join(", ", VALID_ADDRESSES));
         }
         this.name = name;
         this.age = age;
@@ -39,16 +42,36 @@ public class User {
         Map<Integer, List<User>> groupMapUsers = new HashMap<>();
 
         for (User user : users) {
-            List<User> groupListUsers = new ArrayList<>();
-            groupListUsers.add(user);
-            groupMapUsers.putIfAbsent(user.age, groupListUsers);
-            groupMapUsers.computeIfPresent(user.age, (key, value) -> {
-                if (!value.contains(user)) {
-                    value.add(user);
-                }
-                return value;
-            });
+            groupMapUsers.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
         return groupMapUsers;
+    }
+
+    public void setName(String name) {
+        if (name.isBlank() || name.isEmpty()) {
+            throw new IllegalArgumentException("Name can't be empty");
+        }
+        this.name = name;
+    }
+
+    public void setAge(int age) {
+        if (age < AGE_LIMIT) {
+            throw new IllegalArgumentException("Age can't be less than " + AGE_LIMIT);
+        }
+        this.age = age;
+    }
+
+    public void setJobPlace(String jobPlace) {
+        if (!VALID_JOBS.contains(jobPlace)) {
+            throw new IllegalArgumentException(jobPlace + " no correct. Jobs should be in valid company: " + String.join(", ", VALID_JOBS));
+        }
+        this.jobPlace = jobPlace;
+    }
+
+    public void setAddress(String address) {
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException(address + " not correct. Address should be in valid cities: " + String.join(", ", VALID_ADDRESSES));
+        }
+        this.address = address;
     }
 }
