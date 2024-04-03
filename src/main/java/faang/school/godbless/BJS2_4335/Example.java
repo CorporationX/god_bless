@@ -17,7 +17,6 @@ public class Example {
             numbers[i] = numbers[numbers.length-i-1];
             numbers[numbers.length-i-1] = buf;
         }
-
         return numbers;
     }
 }
