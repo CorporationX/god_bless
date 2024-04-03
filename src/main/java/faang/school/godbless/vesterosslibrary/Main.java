@@ -21,6 +21,7 @@ public class Main {
         printAllHouseInfo();
         System.out.println("----------------------------");
 
+
         System.out.println("add House of Tyrell");
         House houseOfTyrell = new House("Tyrell", "Growing Strong");
         addHouse(houseOfTyrell);
