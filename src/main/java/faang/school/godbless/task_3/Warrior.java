@@ -1,16 +1,12 @@
 package faang.school.godbless.task_3;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class Warrior extends Character {
+    private static final int STRENGTH = 10;
+    private static final int DEXTERITY = 5;
+    private static final int INTELLIGENCE = 3;
+
     public Warrior(String name) {
-        super(name);
-        setStrength(10);
-        setDexterity(5);
-        setIntelligence(3);
+        super(name, STRENGTH, DEXTERITY, INTELLIGENCE);
     }
 
     @Override

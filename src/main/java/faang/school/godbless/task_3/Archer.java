@@ -1,11 +1,12 @@
 package faang.school.godbless.task_3;
 
 public class Archer extends Character {
+    private static final int STRENGTH = 2;
+    private static final int DEXTERITY = 10;
+    private static final int INTELLIGENCE = 5;
+
     public Archer(String name) {
-        super(name);
-        setStrength(3);
-        setDexterity(10);
-        setIntelligence(5);
+        super(name, STRENGTH, DEXTERITY, INTELLIGENCE);
     }
 
     @Override
