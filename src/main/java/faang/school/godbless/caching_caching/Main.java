@@ -2,12 +2,11 @@ package faang.school.godbless.caching_caching;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 public class Main {
 
-    private static final MockClass weatherService = new MockClass();
+    private static final WeatherService WEATHER_SERVICE = new WeatherService();
     private static Map<String, WeatherData> map = new HashMap<>();
 
     static {
@@ -45,8 +44,8 @@ public class Main {
 
     public static WeatherData getWeatherByCity(String city) {
         if (!map.containsKey(city)) {
-            weatherService.getWeather();
-            map.put(city, new WeatherData(city, new Random().nextInt(-10, 30), new Random().nextInt(10, 80)));
+            WeatherData receivedWeatherData = WEATHER_SERVICE.getWeatherData(city);
+            map.put(city, receivedWeatherData);
         }
 
         return map.get(city);
