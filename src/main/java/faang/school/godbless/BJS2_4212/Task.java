@@ -13,7 +13,7 @@ public class Task {
         int[] nums = {1, 2, 3, 4, 5};
         reverse(nums);
         for (int arr : nums) {
-            System.out.print(arr + " ");
+            System.out.print(arr + "  ");
         }
     }
 }
