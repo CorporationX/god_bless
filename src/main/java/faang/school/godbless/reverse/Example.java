@@ -7,5 +7,3 @@ public class Example {
     static void reverse(Integer[] nums) {
         Collections.reverse(Arrays.asList(nums));
     }
-}
-
