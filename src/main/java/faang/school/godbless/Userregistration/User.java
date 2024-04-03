@@ -24,7 +24,7 @@ public class User {
     }
 
     public void setName(String name) {
-        if (name.isBlank() || name.isEmpty()) {
+        if (name.isBlank()) {
             throw new IllegalArgumentException("User name must not be empty");
         }
         this.name = name;
