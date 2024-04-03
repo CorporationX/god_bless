@@ -8,7 +8,6 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        //Код для тестирования работы метода groupUsers
         List<User> users = new ArrayList<>();
         users.add(new User(20));
         users.add(new User(19));
@@ -21,12 +20,13 @@ public class Main {
 
         for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             System.out.println(entry.getKey());
-            for (User user : entry.getValue()){
+            for (User user : entry.getValue()) {
                 System.out.println(user);
             }
         }
 
     }
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
@@ -36,7 +36,7 @@ public class Main {
                 userMap.put(user.getAge(), new ArrayList<>());
             }
 
-                userMap.get(user.getAge()).add(user);
+            userMap.get(user.getAge()).add(user);
         }
 
         return userMap;
