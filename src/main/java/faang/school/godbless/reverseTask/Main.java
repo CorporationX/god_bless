@@ -7,8 +7,12 @@ import static faang.school.godbless.reverseTask.Example.reverse;
 public class Main {
     public static void main(String[] args) {
         int[] nums = new int[]{1, 2, 5, 5, 6};
-        reverse(nums);
+        int[] reversedNums = reverse(nums);
 
         Arrays.stream(nums).forEach(System.out::print);
+
+        System.out.println();
+
+        Arrays.stream(reversedNums).forEach(System.out::print);
     }
 }
