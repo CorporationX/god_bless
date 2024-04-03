@@ -1,4 +1,4 @@
-package faang.school.godbless.javaJashMap.cathcingEvents;
+package faang.school.godbless.javaHashMap.cathcingEvents;
 
 import java.util.ArrayList;
 import java.util.HashMap;

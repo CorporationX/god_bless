@@ -1,4 +1,4 @@
-package faang.school.godbless.javaJashMap.cathcingEvents;
+package faang.school.godbless.javaHashMap.cathcingEvents;
 
 import lombok.Data;
 import lombok.NonNull;
