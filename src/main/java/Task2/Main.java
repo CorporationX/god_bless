@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         User user1 = new User("Vasya", 23);
         User user2 = new User("Vanya", 9);
         User user3 = new User("Nikita", 23);
