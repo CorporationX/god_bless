@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 public class LRUOptimized {
+    private static final int CACHE_SIZE = 3;
     private final Map<Integer, Node> cache = new HashMap<>();
     private final Map<Integer, Data> allData = new HashMap<>();
     private final Node head;
     private final Node tail;
-    private static final int CACHE_SIZE = 3;
 
     public LRUOptimized() {
         head = new Node(new Data(0, 0));
@@ -65,21 +65,26 @@ public class LRUOptimized {
 
     public Data get(int id) {
         Node node = cache.get(id);
-
         if (node == null) {
-            Data data = allData.get(id);
-            data.setTimestamp(LocalDateTime.now());
-            put(data);
-            return data;
+            if (allData.containsKey(id)) {
+                Data data = allData.get(id);
+                data.setTimestamp(LocalDateTime.now());
+                put(data);
+                return data;
+            } else {
+                return null;
+            }
         }
-
         node.data.setTimestamp(LocalDateTime.now());
         moveToFirst(node);
         return node.data;
     }
 
     public List<Data> getCache() {
-        return cache.values().stream().map(o -> o.data).sorted(Comparator.comparing(Data::getTimestamp)).toList();
+        return cache.values().stream()
+                .map(o -> o.data)
+                .sorted(Comparator.comparing(Data::getTimestamp))
+                .toList();
     }
 
     private static class Node {
