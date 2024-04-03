@@ -12,10 +12,10 @@ import java.util.Map;
 @AllArgsConstructor
 public class Users {
 
-    public String name;
-    public int age;
-    public String placeOfWork;
-    public String address;
+    private String name;
+    private int age;
+    private String placeOfWork;
+    private String address;
 
     // методо для группировки пользователей по возрасту
     public static HashMap<Integer, List<Users>> groupUsers(List<Users> users) {
