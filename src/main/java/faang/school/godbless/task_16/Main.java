@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<Student, Map<Subject, Integer>> students = new HashMap<>();
-    private static final Map<Subject, List<Student>> subjects = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> STUDENTS = new HashMap<>();
+    private static final Map<Subject, List<Student>> SUBJECTS = new HashMap<>();
 
     public static void main(String[] args) {
         Student student1 = new Student(1, "Tem");
@@ -43,37 +43,32 @@ public class Main {
         addSubjectAndStudents(subject2, List.of(student1, student3, student4, student5, student6));
         addSubjectAndStudents(subject3, List.of(student1, student2, student4, student5));
 
-//        операции не выполнятся т.к. листы иммутабельные
-//
-//        addStudentToSubject(subject3, student6);
-//        addStudentToSubject(subject1, student6);
-//
-//        removeStudentFromSubject(subject1, student6);
-
         System.out.println(getAllSubjectsAndStudents());
     }
 
     public static void addStudentMarks(Student student, Map<Subject, Integer> subjects) {
-        students.put(student, subjects);
+        STUDENTS.put(student, subjects);
     }
 
     public static void addSubjectMarkToStudent(Student student, Subject subject, int mark) {
-        if (!students.containsKey(student)) return;
-        students.get(student).put(subject, mark);
+        if (!STUDENTS.containsKey(student)) {
+            return;
+        }
+        STUDENTS.get(student).put(subject, mark);
     }
 
     public static void removeStudentWithMarks(Student student) {
-        students.remove(student);
+        STUDENTS.remove(student);
     }
 
     public static String getAllStudentsAndMarks() {
         StringBuilder builder = new StringBuilder();
-        for (Student student : students.keySet()) {
+        for (Student student : STUDENTS.keySet()) {
             builder.append(student.getName()).append(": ");
-            for (Subject subject : students.get(student).keySet()) {
+            for (Subject subject : STUDENTS.get(student).keySet()) {
                 builder.append("\n").append("----").append(subject.getName())
                         .append(" -> ")
-                        .append(students.get(student).get(subject));
+                        .append(STUDENTS.get(student).get(subject));
             }
             builder.append("\n");
         }
@@ -81,24 +76,28 @@ public class Main {
     }
 
     public static void addSubjectAndStudents(Subject subject, List<Student> students) {
-        Main.subjects.put(subject, students);
+        Main.SUBJECTS.put(subject, students);
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
-        if (!subjects.containsKey(subject)) return;
-        subjects.get(subject).add(student);
+        if (!SUBJECTS.containsKey(subject)) {
+            return;
+        }
+        SUBJECTS.get(subject).add(student);
     }
 
     public static void removeStudentFromSubject(Subject subject, Student student) {
-        if (!subjects.containsKey(subject)) return;
-        subjects.get(subject).remove(student);
+        if (!SUBJECTS.containsKey(subject)) {
+            return;
+        }
+        SUBJECTS.get(subject).remove(student);
     }
 
     public static String getAllSubjectsAndStudents() {
         StringBuilder builder = new StringBuilder();
-        for (Subject subject : subjects.keySet()) {
+        for (Subject subject : SUBJECTS.keySet()) {
             builder.append(subject.getName()).append(": ");
-            for (Student student : subjects.get(subject)) {
+            for (Student student : SUBJECTS.get(subject)) {
                 builder.append("\n").append("----").append(student.getName());
             }
             builder.append("\n");
