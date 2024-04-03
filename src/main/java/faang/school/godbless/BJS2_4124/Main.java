@@ -6,9 +6,9 @@ public class Main {
         Archer archer = new Archer("Archer");
 
         warrior.attack(archer);
-        System.out.println("Здоровье Archer после атаки: " + archer.health);
+        System.out.println("Здоровье Archer после атаки: " + archer.getHealth());
 
         archer.attack(warrior);
-        System.out.println("Здоровье Warrior после атаки: " + warrior.health);
+        System.out.println("Здоровье Warrior после атаки: " + warrior.getHealth());
     }
 }

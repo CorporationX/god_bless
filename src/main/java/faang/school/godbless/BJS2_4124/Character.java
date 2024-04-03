@@ -6,11 +6,11 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
-    protected String name;
-    protected int power;
-    protected int agility;
-    protected int intelligence;
-    protected int health;
+    private String name;
+    private int power;
+    private int agility;
+    private int intelligence;
+    private int health;
 
     public Character(String name) {
         this.initCharacter(name, 0, 0, 0);
@@ -20,7 +20,7 @@ public abstract class Character {
         this.initCharacter(name, power, agility, intelligence);
     }
 
-    protected void initCharacter(String name, int power, int agility, int intelligence) {
+    private void initCharacter(String name, int power, int agility, int intelligence) {
         this.name = name;
         this.power = power;
         this.agility = agility;
