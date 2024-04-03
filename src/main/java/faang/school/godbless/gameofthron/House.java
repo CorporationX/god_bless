@@ -1,4 +1,4 @@
-package faang.school.godbless.vesterosslibrary;
+package faang.school.godbless.gameofthron;
 
 import lombok.Data;
 import lombok.NonNull;

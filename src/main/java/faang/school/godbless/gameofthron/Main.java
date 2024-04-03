@@ -1,4 +1,4 @@
-package faang.school.godbless.vesterosslibrary;
+package faang.school.godbless.gameofthron;
 
 import java.util.HashMap;
 import java.util.Map;
