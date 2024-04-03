@@ -1,4 +1,4 @@
-package faang.school.godbless.javaHashMap;
+package faang.school.godbless.javaHashMap.vesterosLibrary;
 
 import java.util.HashMap;
 import java.util.Map;
