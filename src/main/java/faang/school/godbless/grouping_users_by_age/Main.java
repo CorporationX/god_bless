@@ -9,12 +9,12 @@ public class Main {
 
     public static void main(String[] args) {
         // создаем пользователей
-        Users sam = new Users("Sam", 21, "Yandex", "Moscow");
-        Users ivan = new Users("Ivan", 28, "Restaurant", "Ufa");
-        Users maria = new Users("Maria", 45, "School", "Samara");
-        Users natalia = new Users("Natalia", 21, "VK", "Saint Petersburg");
-        Users mihail = new Users("Mihail", 28, "Sber", "Moscow");
-        Users eugen = new Users("Eugen", 45, "Theater", "Krasnodar");
+        Users sam = new Users("Sam", 21, "Uber", "London");
+        Users ivan = new Users("Ivan", 28, "Amazon", "New York");
+        Users maria = new Users("Maria", 45, "Google", "Amsterdam");
+        Users natalia = new Users("Natalia", 21, "Uber", "Amsterdam");
+        Users mihail = new Users("Mihail", 28, "Amazon", "London");
+        Users eugen = new Users("Eugen", 45, "Google", "Amsterdam");
 
         // наполняем лист пользователями
         List<Users> usersList = new ArrayList<>();
