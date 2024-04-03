@@ -6,10 +6,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public abstract class Character {
-    protected String name;
+    private String name;
     protected int power;
     protected int agility;
-    protected int intellect;
+    private int intellect;
     private int health = 100;
 
     public Character(String name) {
