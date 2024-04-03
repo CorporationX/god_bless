@@ -1,7 +1,7 @@
 package faang.school.godbless.BJS2_4121;
 
 public class ExampleIndicator {
-    static void reverse(int[] nums) {
+    public static void reverse(int[] nums) {
         int left = 0;
         int right = nums.length - 1;
 

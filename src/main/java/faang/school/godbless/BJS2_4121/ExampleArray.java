@@ -1,7 +1,7 @@
 package faang.school.godbless.BJS2_4121;
 
 public class ExampleArray {
-    static int[] reverse(int[] nums) {
+    public static int[] reverse(int[] nums) {
         int[] reversedArray = new int[nums.length];
         int left = 0;
         int right = nums.length - 1;
