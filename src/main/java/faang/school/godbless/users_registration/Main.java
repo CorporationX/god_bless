@@ -12,19 +12,19 @@ public class Main {
         try {
             User user2 = new User("Test1", 17, "Google", "London"); // invalid user
         } catch (IllegalArgumentException e) {
-            log.info("everything_works_correctly");
+            log.info(e.getMessage());
         }
 
         try {
             User user3 = new User("Test1", 18, "Yandex", "London"); // invalid user
         } catch (IllegalArgumentException e) {
-            log.info("everything_works_correctly");
+            log.info(e.getMessage());
         }
 
         try {
             User user4 = new User("Test1", 18, "Google", "Moscow"); // invalid user
         } catch (IllegalArgumentException e) {
-            log.info("everything_works_correctly");
+            log.info(e.getMessage());
         }
 
     }
