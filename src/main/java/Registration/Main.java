@@ -18,9 +18,9 @@ public class Main {
         users.add(user4);
 
 
-        for (Map.Entry<Integer, List<User>> entry : User.groupUser(users).entrySet()){
-            System.out.println("Age = " + entry.getKey()+
-                                "\nValue = " + entry.getValue().toString());
+        for (Map.Entry<Integer, List<User>> entry : User.groupUser(users).entrySet()) {
+            System.out.println("Age = " + entry.getKey() +
+                    "\nValue = " + entry.getValue().toString());
 
         }
     }
