@@ -17,28 +17,16 @@ public class Student {
     private String faculty;
     private int year;
 
-    public static Map<Map.Entry<String, Integer>, List<Student>> groupStudents(List<Student> students) {
-        Map<Map.Entry<String, Integer>, List<Student>> map = new HashMap<>();
+    public static Map<Pair, List<Student>> groupStudents(List<Student> students) {
+        Map<Pair, List<Student>> map = new HashMap<>();
         for (Student student : students) {
-            Map.Entry<String, Integer> entry = new AbstractMap.SimpleEntry<>(student.faculty, student.year);
-            if (!map.containsKey(entry)) {
-                map.put(entry, new ArrayList<>());
+            Pair pair = new Pair(student.faculty, student.year);
+            if (!map.containsKey(pair)) {
+                map.put(pair, new ArrayList<>());
             }
-            map.get(entry).add(student);
+            map.get(pair).add(student);
         }
         return map;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return year == student.year && Objects.equals(name, student.name) && Objects.equals(faculty, student.faculty);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, faculty, year);
-    }
 }

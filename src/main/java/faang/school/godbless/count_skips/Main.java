@@ -1,21 +1,23 @@
 package faang.school.godbless.count_skips;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Main {
 
-    private static final List<Student> students;
-
-    static {
-        students = new ArrayList<>();
-        students.add(new Student("Test1", "programming", 1));
-        students.add(new Student("Test2", "programming", 1));
-        students.add(new Student("Test3", "programming", 1));
-        students.add(new Student("Test4", "programming", 2));
-        students.add(new Student("Test5", "programming", 2));
-        students.add(new Student("Test6", "drawing", 1));
-    }
+    // если не завернуть в arrayList, то коллекция будет immutable и все упадет с ошибкой
+    private static final List<Student> STUDENTS = new ArrayList<>(
+            List.of(
+                    new Student("Test1", "programming", 1),
+                    new Student("Test2", "programming", 1),
+                    new Student("Test3", "programming", 1),
+                    new Student("Test4", "programming", 2),
+                    new Student("Test5", "programming", 2),
+                    new Student("Test6", "drawing", 1)
+            )
+    );
 
     public static void main(String[] args) {
         printStudents();
@@ -32,14 +34,20 @@ public class Main {
     }
 
     public static void addNewStudent(Student student) {
-        students.add(student);
+        STUDENTS.add(student);
     }
 
+    /*
+    * Вот тут у меня есть несколько вариантов как улучшить:
+    * 1) Сделать for через переменную "i" и удалять студента по индексу (так и реализовал)
+    * 2) Использовать HashSet вместо ArrayList, так как все студенты у нас уникальны - нам это подойдет.
+    *    Время поиска и удаление студента будет O(1)
+    */
     public static void deleteStudent(String name, String faculty, int year) {
         Student studentForRemove = new Student(name, faculty, year);
-        for (Student student : students) {
-            if (student.equals(studentForRemove)) {
-                students.remove(studentForRemove);
+        for (int i = 0; i < STUDENTS.size(); i++) {
+            if (STUDENTS.get(i).equals(studentForRemove)) {
+                STUDENTS.remove(i);
                 break;
             }
         }
@@ -47,7 +55,7 @@ public class Main {
 
     public static List<Student> findAllStudentsByFacultyAndYear(String faculty, int year) {
         List<Student> ans = new ArrayList<>();
-        for (Student student : students) {
+        for (Student student : STUDENTS) {
             if (student.getFaculty().equals(faculty) && student.getYear() == year) {
                 ans.add(student);
             }
@@ -56,7 +64,7 @@ public class Main {
     }
 
     public static void printStudents() {
-        Student.groupStudents(students).forEach(((key, value) -> System.out.printf("%s -> %s%n", key, value)));
+        Student.groupStudents(STUDENTS).forEach(((key, value) -> System.out.printf("%s -> %s%n", key, value)));
     }
 
 
