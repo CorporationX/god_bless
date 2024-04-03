@@ -12,6 +12,7 @@ public class Main {
         List<User> users = new ArrayList<>();
         hobbies.add("Программирование");
         hobbies.add("Прогулка");
+        hobbies.add("Сериалы");
         User user1 = new User(1L, "Nick", 22, hobbies);
         users.add(user1);
 

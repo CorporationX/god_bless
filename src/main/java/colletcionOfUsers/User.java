@@ -1,6 +1,7 @@
 package colletcionOfUsers;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,15 +15,14 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class User {
     private long id;
     private String name;
     private int age;
-    private List<String> hobbies = new ArrayList<>();
+    private List<String> hobbies;
 
     public static Map<User, String> findHobbyLovers(List<User> users, List<String> hobbies){
         Map<User, String> userHobbyLover = new HashMap<>();
@@ -30,6 +30,7 @@ public class User {
             for (String hobby : user.getHobbies()) {
                 if (hobbies.contains(hobby)) {
                     userHobbyLover.put(user, hobby);
+                    break;
                 }
             }
         }
