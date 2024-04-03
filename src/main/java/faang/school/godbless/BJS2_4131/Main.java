@@ -1,11 +1,10 @@
 package faang.school.godbless.BJS2_4131;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, House> gameOfThronesFamilies = new HashMap<>();
+        HashMap<String, House> gameOfThronesFamilies = new HashMap<>();
 
         House stark = new House("Старк", "Волк");
         House lannister = new House("Ланнистер", "Золотой лев");
