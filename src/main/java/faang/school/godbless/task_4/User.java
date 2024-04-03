@@ -13,7 +13,7 @@ public class User {
     private long id;
     private String name;
     private int age;
-    private final Set<String> activities;
+    private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(Set<User> users, Set<String> activities) {
         Map<User, String> output = new HashMap<>();
