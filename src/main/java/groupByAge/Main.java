@@ -10,15 +10,15 @@ public class Main {
         List<User> users = new ArrayList<>();
 
         for (int i = 0; i < 100; i++) {
-            User user = new User("name "+i, (int)(1+Math.random()*100),
-                                "manager" + i, "Chapaeva str. " + i);
-
+            User user = new User("name " + i, (int) (1 + Math.random() * 100),
+                    "manager" + i, "Chapaeva str. " + i);
             users.add(user);
         }
 
-        for (Map.Entry<Integer, List<User>> entry : User.groupUser(users).entrySet()){
-            System.out.println("Age = " + entry.getKey()+
-                                "\nValue = " + entry.getValue().toString());
+
+        for (Map.Entry<Integer, List<User>> entry : User.groupUser(users).entrySet()) {
+            System.out.println("Age = " + entry.getKey() +
+                    "\nValue = " + entry.getValue().toString());
 
         }
     }

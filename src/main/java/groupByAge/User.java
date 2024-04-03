@@ -27,20 +27,17 @@ public class User {
         List<User> usersList = new ArrayList<>();
 
         for (User user : users) {
-            if(usersGroupByAge.containsKey(user.getAge())) {
+
+            if (!usersGroupByAge.containsKey(user.getAge())) {
+                usersGroupByAge.put(user.getAge(), usersList);
+            }
+
             usersList = usersGroupByAge.get(user.getAge());
             usersList.add(user);
             usersGroupByAge.put(user.getAge(), usersList);
             usersList = new ArrayList<>();
-            }
-            else {
-                usersList.add(user);
-                usersGroupByAge.put(user.getAge(), usersList);
-                usersList = new ArrayList<>();
-            }
 
         }
-
         return usersGroupByAge;
     }
 }
