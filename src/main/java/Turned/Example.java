@@ -6,7 +6,6 @@ public class Example {
         arr[num1] = arr[num2];
         arr[num2] = variable;
     }
-
     public static void reverse(int[] arr) {
         int leftIter = 0;
         int rightIter = arr.length - 1;

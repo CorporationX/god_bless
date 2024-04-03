@@ -6,6 +6,7 @@ public class Main {
         for (int elem : array) {
             System.out.print(elem);
         }
+
         System.out.println();
         Example.reverse(array);
         for (int elem : array) {
