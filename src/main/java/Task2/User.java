@@ -12,11 +12,12 @@ public class User {
     private String adress;
     private String placeOfWork;
 
-    public User(String name, int age) {
+    public User(String name, int age, String adress, String placeOfWork) {
         this.name = name;
         this.age = age;
+        this.adress = adress;
+        this.placeOfWork = placeOfWork;
     }
-
 
     public int age() {
         return age;
@@ -53,4 +54,5 @@ public class User {
                 ", age=" + age +
                 '}';
     }
+
 }
