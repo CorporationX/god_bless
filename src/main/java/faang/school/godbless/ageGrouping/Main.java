@@ -9,6 +9,6 @@ public class Main {
         User user3 = new User("Yarik", 21, "programmer", "Somewhere street 20");
         List<User> users = List.of(user1, user2, user3);
 
-        System.out.println(User.groupUsers(users));
+        User.groupUsers(users).entrySet().forEach(System.out::println);
     }
 }

@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
 @AllArgsConstructor
 @ToString
 public class User {
@@ -23,18 +21,7 @@ public class User {
         Map<Integer, List<User>> groupedByAgeUsers = new HashMap<>();
 
         for(User user : users) {
-            groupedByAgeUsers.compute(user.age, (key, value) ->  {
-                if(value == null) {
-                    List<User> newUsers = new ArrayList<>();
-                    newUsers.add(user);
-
-                    return newUsers;
-                } else {
-                    value.add(user);
-
-                    return value;
-                }
-            });
+            groupedByAgeUsers.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
 
         return  groupedByAgeUsers;
