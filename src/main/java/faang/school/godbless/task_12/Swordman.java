@@ -1,16 +1,17 @@
 package faang.school.godbless.task_12;
 
 public class Swordman extends Creature {
+    private static final int STRENGTH = 6;
+    private static final int PROTECTION = 7;
+    private static final int SPEED = 1;
+
     public Swordman(String name, int level) {
-        super(name, level);
-        this.protection = 7;
-        this.strength = 6;
-        this.speed = 1;
+        super(name, level, STRENGTH, PROTECTION, SPEED);
     }
 
     @Override
     public int getDamage() {
-        return this.strength + this.protection + this.level;
+        return getStrength() + getProtection() + getLevel();
     }
 }
 

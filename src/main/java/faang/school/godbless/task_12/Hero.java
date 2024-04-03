@@ -19,8 +19,12 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (!army.containsKey(creature)) return;
+        if (!army.containsKey(creature)) {
+            return;
+        }
         army.put(creature, army.get(creature) - quantity);
-        if (army.get(creature) <= 0) army.remove(creature);
+        if (army.get(creature) <= 0) {
+            army.remove(creature);
+        }
     }
 }
