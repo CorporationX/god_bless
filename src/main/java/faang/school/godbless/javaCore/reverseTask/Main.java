@@ -1,8 +1,8 @@
-package faang.school.godbless.reverseTask;
+package faang.school.godbless.javaCore.reverseTask;
 
 import java.util.Arrays;
 
-import static faang.school.godbless.reverseTask.Example.reverse;
+import static faang.school.godbless.javaCore.reverseTask.Example.reverse;
 
 public class Main {
     public static void main(String[] args) {

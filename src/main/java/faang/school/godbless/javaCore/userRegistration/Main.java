@@ -1,4 +1,4 @@
-package faang.school.godbless.userRegistration;
+package faang.school.godbless.javaCore.userRegistration;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package faang.school.godbless.usersCollection;
+package faang.school.godbless.javaCore.usersCollection;
 
 import java.util.ArrayList;
 import java.util.List;

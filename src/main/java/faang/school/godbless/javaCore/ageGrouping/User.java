@@ -1,8 +1,6 @@
-package faang.school.godbless.ageGrouping;
+package faang.school.godbless.javaCore.ageGrouping;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import java.util.ArrayList;
 import java.util.HashMap;

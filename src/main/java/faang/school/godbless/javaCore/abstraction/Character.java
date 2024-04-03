@@ -1,4 +1,4 @@
-package faang.school.godbless.abstraction;
+package faang.school.godbless.javaCore.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
