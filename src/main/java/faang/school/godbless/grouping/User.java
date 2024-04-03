@@ -22,16 +22,10 @@ public class User {
         Map<Integer, List<User>> usersByAge = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-
-            if (usersByAge.containsKey(age)) {
-                List<User> existingUserList = usersByAge.get(age);
-                existingUserList.add(user);
-                usersByAge.put(age, existingUserList);
-            } else {
-                List<User> usersThisAge = new ArrayList<>();
-                usersThisAge.add(user);
-                usersByAge.put(age, usersThisAge);
-            }
+            List<User> embededUserList;
+            embededUserList = usersByAge.containsKey(age) ? usersByAge.get(age) : new ArrayList<>();
+            embededUserList.add(user);
+            usersByAge.put(age, embededUserList);
         }
         return usersByAge;
     }
