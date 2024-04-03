@@ -1,10 +1,7 @@
-package faang.school.godbless.usersCollection;
+package faang.school.godbless.javaCore.usersCollection;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import java.util.HashMap;
 import java.util.List;

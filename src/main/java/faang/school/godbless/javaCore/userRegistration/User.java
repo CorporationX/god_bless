@@ -1,4 +1,4 @@
-package faang.school.godbless.userRegistration;
+package faang.school.godbless.javaCore.userRegistration;
 
 import lombok.Getter;
 import lombok.ToString;

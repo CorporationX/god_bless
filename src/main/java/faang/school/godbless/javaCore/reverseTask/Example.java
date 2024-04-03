@@ -1,4 +1,4 @@
-package faang.school.godbless.reverseTask;
+package faang.school.godbless.javaCore.reverseTask;
 
 public class Example {
     public static int[] reverse(int[] nums) {

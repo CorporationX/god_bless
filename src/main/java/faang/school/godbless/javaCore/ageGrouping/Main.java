@@ -1,4 +1,4 @@
-package faang.school.godbless.ageGrouping;
+package faang.school.godbless.javaCore.ageGrouping;
 
 import java.util.List;
 
