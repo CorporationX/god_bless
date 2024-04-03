@@ -10,16 +10,16 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         List<User> users = Arrays.asList(
-                new User("Andrei", (byte) 22, Job.AMAZON, Address.AMSTERDAM),
-                new User("Victor", (byte) 20, Job.UBER, Address.NEW_YORK),
-                new User("Vlad", (byte) 21, Job.AMAZON, Address.LONDON),
-                new User("Jack", (byte) 21, Job.GOOGLE, Address.NEW_YORK),
-                new User("Nick", (byte) 23, Job.GOOGLE, Address.LONDON)
+                new User("Andrei", 22, Job.AMAZON, Address.AMSTERDAM),
+                new User("Victor", 20, Job.UBER, Address.NEW_YORK),
+                new User("Vlad", 21, Job.AMAZON, Address.LONDON),
+                new User("Jack", 21, Job.GOOGLE, Address.NEW_YORK),
+                new User("Nick", 23, Job.GOOGLE, Address.LONDON)
         );
 
-        User Jack = new User("Jack", (byte) 21, Job.UBER, Address.AMSTERDAM);
+        User Jack = new User("Jack", 21, Job.UBER, Address.AMSTERDAM);
         Jack.setJob(Job.AMAZON);
-        Jack.setAge((byte) 18);
+        Jack.setAge(18);
         Jack.setName("Andrei");
         Jack.setAddress(Address.LONDON);
 
