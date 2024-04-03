@@ -23,7 +23,7 @@ public class User {
     private String job;
     private String address;
 
-    public User(String name, int age, String job, String address) throws IllegalAccessException {
+    public User(String name, int age, String job, String address) throws IllegalArgumentException {
 
         validationName(name);
         validationAge(age);

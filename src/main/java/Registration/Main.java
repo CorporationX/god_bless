@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws IllegalAccessException {
+    public static void main(String[] args) throws IllegalArgumentException {
         List<User> users = new ArrayList<>();
 
         User user1 = new User("Vlad", 24, "Uber", "Amsterdam");
