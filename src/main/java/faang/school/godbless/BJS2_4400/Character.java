@@ -10,14 +10,8 @@ abstract public class Character {
     private int intelligence;
     private int health = 100;
 
-    public Character(String name) {
-        if (name.isEmpty()) {
-            throw new IllegalArgumentException("name is empty");
-        }
+    public Character(String name, int power, int agility, int intelligence) {
         this.name = name;
-    }
-
-    public Character(int power, int agility, int intelligence) {
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;

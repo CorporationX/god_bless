@@ -7,11 +7,7 @@ public class Archer extends Character {
     private static final int INTELLIGENCE = 5;
 
     public Archer(String name) {
-        super(name);
-    }
-
-    public Archer() {
-        super(POWER, AGILITY, INTELLIGENCE);
+        super(name, POWER, AGILITY, INTELLIGENCE);
     }
 
     @Override
