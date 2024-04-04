@@ -45,7 +45,7 @@ public class Main {
 
         System.out.println("------------------------------------------");
 
-        dataCenterService.optimize(dataCenterService.getDataCenter());
+        dataCenterService.optimizeDataCenter();
 
         System.out.println("------------------------------------------");
 

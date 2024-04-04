@@ -5,11 +5,13 @@ import lombok.Getter;
 import java.util.List;
 
 @Getter
-public class DataCenterService implements OptimizationStrategy{
+public class DataCenterService {
     private final DataCenter dataCenter;
+    private final OptimizationStrategy optimizationStrategy;
 
     public DataCenterService() {
         dataCenter = new DataCenter();
+        optimizationStrategy = new LoadBalancingOptimizationStrategy();
     }
 
     public void allocateResources(ResourceRequest request) {
@@ -73,30 +75,7 @@ public class DataCenterService implements OptimizationStrategy{
         return totalLoad;
     }
 
-    //Чтобы этот метод рза в пол часа оптимизировал нагрузку,
-    //его необходимо запустить в цикле в другом потоке с задержкой thread.sleep(30*60*1000)
-    @Override
-    public void optimize(DataCenter dataCenter) {
-        double extraLoad = 0;
-        for(Server server : dataCenter.getServers()) {
-            if(server.isMaxLoaded()) {
-                extraLoad += server.getExtraLoad();
-                server.releaseLoad(server.getExtraLoad());
-
-                continue;
-            }
-
-            double availableLoad = server.getAvailableLoad();
-
-            if(availableLoad < extraLoad) {
-                extraLoad -= availableLoad;
-                server.takeLoad(availableLoad);
-
-                continue;
-            }
-
-            server.takeLoad(extraLoad);
-            extraLoad = 0;
-        }
+    public void optimizeDataCenter() {
+        optimizationStrategy.optimize(dataCenter);
     }
 }
