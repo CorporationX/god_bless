@@ -7,7 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<User, List<Query>> USERS = new HashMap<>();
+    private static final Map<User, List<Query>> USER_QUERIES = new HashMap<>();
+
     public static void main(String[] args) {
         User user1 = new User(1, "Tema");
         User user2 = new User(2, "Valera");
@@ -29,26 +30,32 @@ public class Main {
     }
 
     public static void addUser(User user, List<Query> queries) {
-        USERS.put(user, queries);
+        if (USER_QUERIES.containsKey(user)) {
+            return;
+        }
+        USER_QUERIES.put(user, queries);
     }
 
     public static void addQuery(User user, Query query) {
-        USERS.get(user).add(query);
+        if (!USER_QUERIES.containsKey(user)) {
+            return;
+        }
+        USER_QUERIES.get(user).add(query);
     }
 
     public static void deleteUser(User user) {
-        USERS.remove(user);
+        USER_QUERIES.remove(user);
     }
 
     public static void printUsers() {
-        for (User user : USERS.keySet()) {
+        for (User user : USER_QUERIES.keySet()) {
             printQueryHistory(user);
         }
     }
 
-    public static void printQueryHistory(User user) {
+    private static void printQueryHistory(User user) {
         System.out.println(user.getName() + ": ");
-        List<Query> sorted = USERS.get(user).stream().sorted(Comparator.comparing(Query::getTimestamp)).toList();
+        List<Query> sorted = USER_QUERIES.get(user).stream().sorted(Comparator.comparing(Query::getTimestamp)).toList();
         for (Query query : sorted) {
             System.out.println("----" + query.getContent() + " -> " + query.getTimestamp());
         }
