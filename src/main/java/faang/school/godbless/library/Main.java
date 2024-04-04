@@ -16,8 +16,5 @@ public class Main {
         library.displayAllBooksAndPlaces();
 
         library.searchPlaceByAttributes("Clean code", "Martin", 2008);
-
-
-
     }
 }

@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Library {
-    HashMap<Book, String> library = new HashMap<>();
+    private HashMap<Book, String> library = new HashMap<>();
 
     // добавление новой книги и её местонахождения в библиотеке;
     public void addBookToPlace(String bookTitle, String bookAuthor, int bookYear, String bookPlace) {
