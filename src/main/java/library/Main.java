@@ -5,42 +5,42 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, House> houses = new HashMap<>();
-        houses.put("Stark", new House("Stark", "sigil1"));
-        houses.put("Lannister", new House("Lannister", "sigil2"));
-        houses.put("Baratheon", new House("Baratheon", "sigil3"));
+        Map<Book, String> library = new HashMap<>();
+        library.put(new Book("qqq", "m1", 2024), "12");
+        library.put(new Book("www", "m1", 2024), "12");
+        library.put(new Book("eee", "m1", 2024), "12");
 
-        addToHouses(houses, new House("Qwerty", "sigil4"));
-        printAllHouses(houses);
+        printAllBooks(library);
+        findBook(library, "qqq", "m1", 2024);
+        findBook(library, "qqq", "m1", 2023);
+
+        deleteFromLibrary(library, "qqq", "m1", 2024);
+        printAllBooks(library);
         System.out.println();
 
-        deleteFromHouses(houses, "Qwerty");
-        printAllHouses(houses);
-        System.out.println();
-
-        findHouse(houses, "Qwerty");
-        findHouse(houses, "Stark");
+        addToLibrary(library, new Book("qqq", "m1", 2024), "144");
+        printAllBooks(library);
     }
 
-    public static void addToHouses(Map<String, House> arg, House h1) {
-        arg.put(h1.name(), h1);
+    public static void addToLibrary(Map<Book, String> map, Book key, String value){
+        map.put(key, value);
+    }
+    public static void deleteFromLibrary(Map<Book, String> map, String title, String autor, int year){
+        map.remove(new Book(title, autor, year));
     }
 
-    public static void deleteFromHouses(Map<String, House> arg, String name) {
-        arg.remove(name);
-    }
-
-    public static void findHouse(Map<String, House> arg, String name) {
-        if (arg.containsKey(name)) {
-            System.out.println(arg.get(name).sigil());
-        } else {
-            System.out.println("There is no such house on the list.");
+    public static void findBook(Map<Book, String> map, String title, String autor, int year){
+        if (map.containsKey(new Book(title, autor, year))) {
+            System.out.println(map.get(new Book(title, autor, year)));
+        }else{
+            System.out.println("There is no such book in the library.");
         }
     }
-    public static void printAllHouses(Map<String, House> arg) {
-        for (Map.Entry<String, House> entry : arg.entrySet()) {
-            System.out.println("Name: " + entry.getKey() + ", house: " +
-                    entry.getValue().sigil());
+
+    public static void printAllBooks(Map<Book, String> map){
+        for(Map.Entry<Book, String> entry: map.entrySet()){
+            System.out.println(entry.getKey() + " Shelf:" + entry.getValue());
         }
     }
+
 }
