@@ -9,8 +9,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        WEATHER_DATA_CACHE.put("New York", new WeatherData("New York", 20,65));
-        WEATHER_DATA_CACHE.put("Sochi", new WeatherData("Sochi", 22,80));
+        WEATHER_DATA_CACHE.put("New York", new WeatherData("New York", 20, 65));
+        WEATHER_DATA_CACHE.put("Sochi", new WeatherData("Sochi", 22, 80));
         printInfoAboutWeatherWhichStorageInCache();
 
         updateInfoAboutWeather("New York");
