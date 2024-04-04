@@ -1,64 +1,83 @@
 package faang.school.godbless.task_13;
 
-import lombok.Data;
+import faang.school.godbless.task_13.optimization.OptimizationStrategy;
+import lombok.AllArgsConstructor;
 
-@Data
-public class DataCenterService implements OptimizationStrategy {
-    private final DataCenter center = new DataCenter();
+import java.util.List;
+
+@AllArgsConstructor
+public class DataCenterService {
+    private final DataCenter dataCenter;
 
     public void addServer(Server server) {
-        center.getServers().add(server);
+        if (server == null) {
+            return;
+        }
+        dataCenter.getServers().add(server);
     }
 
     public void removeServer(Server server) {
-        center.getServers().remove(server);
+        if (server == null || dataCenter.getServers().isEmpty()) {
+            return;
+        }
+        dataCenter.getServers().remove(server);
     }
 
     public double getTotalEnergyConsumption() {
         double totalEnergyConsumption = 0;
-        for (Server server : center.getServers()) {
+        for (Server server : dataCenter.getServers()) {
             totalEnergyConsumption += server.getEnergyConsumption();
         }
         return totalEnergyConsumption;
     }
 
-    public void allocateResources(ResourceRequest request) {
-        if (center.getServers().isEmpty()) {
-            return;
+    public boolean allocateResources(ResourceRequest request) {
+        if (dataCenter.getServers().isEmpty()) {
+            return false;
         }
-        Server minLoadServer = center.getServers().get(0);
-        double minLoad = minLoadServer.getLoad();
-        for (Server server : center.getServers()) {
-            if (server.getLoad() < minLoad) {
-                minLoad = server.getLoad();
-                minLoadServer = server;
+
+        double requestLoad = request.getLoad();
+        Server maxAvailableLoadServer = dataCenter.getServers().get(0);
+        for (Server server : dataCenter.getServers()) {
+            if (server.getAvailableLoad() > maxAvailableLoadServer.getAvailableLoad()) {
+                maxAvailableLoadServer = server;
             }
         }
-        double newLoad = minLoad + request.getLoad();
-        minLoadServer.setLoad(newLoad);
-        if (newLoad > minLoadServer.getMaxLoad()) {
-            minLoadServer.setMaxLoad(newLoad);
+
+        if (maxAvailableLoadServer.getAvailableLoad() < requestLoad) {
+            return false;
         }
+
+        maxAvailableLoadServer.setLoad(maxAvailableLoadServer.getLoad() + requestLoad);
+        return true;
     }
 
-    public void releaseResources(ResourceRequest request) {
-        if (center.getServers().isEmpty()) {
-            return;
+    public boolean releaseResources(ResourceRequest request) {
+        if (dataCenter.getServers().isEmpty()) {
+            return false;
         }
-        Server maxLoadServer = center.getServers().get(0);
-        double maxLoad = maxLoadServer.getLoad();
-        for (Server server : center.getServers()) {
-            if (server.getLoad() > maxLoad) {
-                maxLoad = server.getLoad();
+
+        double requestLoad = request.getLoad();
+        Server maxLoadServer = dataCenter.getServers().get(0);
+        for (Server server : dataCenter.getServers()) {
+            if (server.getLoad() > maxLoadServer.getLoad()) {
                 maxLoadServer = server;
             }
         }
-        double newLoad = maxLoad - request.getLoad();
-        maxLoadServer.setLoad(newLoad);
+
+        if (maxLoadServer.getLoad() < requestLoad) {
+            return false;
+        }
+
+        maxLoadServer.setLoad(maxLoadServer.getLoad() - requestLoad);
+        return true;
     }
 
-    @Override
-    public void optimize(DataCenter dataCenter) {
+    public List<Server> getAllServers() {
+        return dataCenter.getServers();
+    }
 
+    public void optimize(OptimizationStrategy strategy) {
+        strategy.optimize(dataCenter);
     }
 }
