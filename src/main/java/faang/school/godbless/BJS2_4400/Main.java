@@ -1,4 +1,4 @@
-package faang.school.godbless.grouping_users_by_age;
+package faang.school.godbless.BJS2_4400;
 
 import java.util.ArrayList;
 import java.util.HashMap;
