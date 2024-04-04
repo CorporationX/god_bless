@@ -1,0 +1,11 @@
+package faang.school.godbless.college;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Group {
+    private String faculty;
+    private int year;
+}
