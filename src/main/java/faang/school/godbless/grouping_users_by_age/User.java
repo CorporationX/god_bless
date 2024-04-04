@@ -3,10 +3,10 @@ package faang.school.godbless.grouping_users_by_age;
 import java.util.*;
 
 public class User {
-    String name;
-    int age;
-    String placeOfWork;
-    String address;
+    private String name;
+    private int age;
+    private String placeOfWork;
+    private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
         this.name = name;
