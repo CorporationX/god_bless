@@ -24,18 +24,8 @@ public class Main {
     public static Map<String, List<Product>> groupingProducts(Set<Product> products) {
         Map<String, List<Product>> productMap = new HashMap<>();
         for (Product product : products) {
-
-            /*
-            Как лучше писать, как тут или как в закомменченом коде?
-            Результат один, но возможно есть какие-то моменты
-            */
-            productMap.putIfAbsent(product.getCategory(), new ArrayList<>());
+            productMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>());
             productMap.get(product.getCategory()).add(product);
-
-//            if (!productMap.containsKey(product.getCategory())) {
-//                productMap.put(product.getCategory(), new ArrayList<>());
-//            }
-//            productMap.get(product.getCategory()).add(product);
         }
         return productMap;
     }
@@ -43,5 +33,4 @@ public class Main {
     public static void printInfoAboutProducts(Map<String, List<Product>> map) {
         map.forEach((k, v) -> System.out.printf("%s -> %s%n", k, v));
     }
-
 }
