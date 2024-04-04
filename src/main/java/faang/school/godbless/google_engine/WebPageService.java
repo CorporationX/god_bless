@@ -24,7 +24,10 @@ public class WebPageService {
 
     public void deleteWebPageByUrl(String url) {
         WebPage webPageForRemove = WEB_PAGE_MAP.remove(url);
-
+        List<String> keywords = findAllKeyWordByWebPage(webPageForRemove);
+        for (String keyword : keywords) {
+            MAP.get(keyword).remove(webPageForRemove);
+        }
     }
 
     private List<String> findAllKeyWordByWebPage(WebPage webPage) {
