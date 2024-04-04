@@ -3,16 +3,14 @@ package faang.school.godbless.groupUsers;
 import lombok.Data;
 
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Data
 public class User {
 
     private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private static final int MINIMAL_USER_AGE = 18;
 
     private String name;
     private int age;
@@ -28,14 +26,9 @@ public class User {
         this.address = address;
     }
 
-    //Не знаю, понадобиться ли дальше. Иначе, конечно, удалил бы.
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        return users.stream()
-                .collect(Collectors.groupingBy(User::getAge));
-    }
-
     private void validateParameters(String name, int age, String workplace, String address) {
-        if (name == null || name.isEmpty() || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
+        if (name == null || name.isEmpty() || age < MINIMAL_USER_AGE
+                || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid user parameters");
         }
     }
