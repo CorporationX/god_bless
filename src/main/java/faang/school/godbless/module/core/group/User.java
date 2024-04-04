@@ -5,12 +5,13 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class User {
-    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int PERMITTED_AGE = 18;
     
     private String name;
     private int age;
@@ -21,7 +22,7 @@ public class User {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
-        if (age < 18) {
+        if (age < PERMITTED_AGE) {
             throw new IllegalArgumentException("возраст не может быть меньше 18");
         }
         if (!VALID_JOBS.contains(job)) {
