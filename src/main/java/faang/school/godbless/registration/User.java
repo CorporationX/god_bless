@@ -8,12 +8,13 @@ import java.util.Set;
 @Getter
 @Setter
 public class User {
-    private String name;
-    private final Integer age;
-    private String work;
-    private String address;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final Integer age;
+    private String name;
+    private String work;
+    private String address;
+
 
     public User(String name, Integer age, String work, String address) {
         validate(name, age, work, address);
@@ -25,7 +26,7 @@ public class User {
     }
 
     public void validate(String name, Integer age, String work, String address) {
-        if (name.isEmpty()) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         } else if (age < 18) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
