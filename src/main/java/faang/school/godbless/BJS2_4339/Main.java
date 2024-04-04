@@ -12,7 +12,6 @@ public class Main {
         users.add(new User("Andrey", 14, "Null", "Null"));
         users.add(new User("Ekaterina", 20, "Ozon", "Old street"));
 
-
         Map<Integer, List<User>> sortedUserMap = User.groupUsers(users);
 
         for (Map.Entry<Integer,List<User>> entry : sortedUserMap.entrySet()){
