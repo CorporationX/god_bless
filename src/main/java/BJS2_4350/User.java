@@ -1,6 +1,7 @@
 package BJS2_4350;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.ToString;
 
 import java.util.HashMap;
@@ -10,6 +11,7 @@ import java.util.Set;
 
 @ToString
 @AllArgsConstructor
+@Data
 public class User {
     private int id;
     private String name;
