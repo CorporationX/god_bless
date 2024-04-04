@@ -2,17 +2,37 @@ package faang.school.godbless.grouping_users_by_age;
 
 import java.util.*;
 
+class Test {
+    public static void main(String[] args) {
+        User user = new User("Bob", 23, "Google", "New York");
+
+        System.out.println(user);
+
+        User user1 = new User("Sam", 21, "Google", "New York");
+    }
+}
+
+
 public class User {
-    String name;
-    int age;
-    String placeOfWork;
-    String address;
+    private String name;
+    private int age;
+    private String placeOfWork;
+    private String address;
+
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
-        this.name = name;
-        this.age = age;
-        this.placeOfWork = placeOfWork;
-        this.address = address;
+
+        if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(placeOfWork)
+                || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException();
+        } else {
+            this.name = name;
+            this.age = age;
+            this.placeOfWork = placeOfWork;
+            this.address = address;
+        }
     }
 
     public String getName() {
