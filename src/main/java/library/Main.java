@@ -13,6 +13,7 @@ public class Main {
         printAllBooks(library);
         findBook(library, "qqq", "m1", 2024);
         findBook(library, "qqq", "m1", 2023);
+        System.out.println();
 
         deleteFromLibrary(library, "qqq", "m1", 2024);
         printAllBooks(library);
