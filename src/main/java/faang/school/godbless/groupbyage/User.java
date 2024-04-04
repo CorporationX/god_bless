@@ -21,19 +21,15 @@ public class User {
     private String jobPlace;
     private String address;
 
-    public Map<Integer, List<User>> groupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
         for (User user : users) {
-
             if (!userMap.containsKey(user.getAge())) {
                 userMap.put(user.getAge(), new ArrayList<>());
             }
-
             userMap.get(user.getAge()).add(user);
         }
-
         return userMap;
     }
-
 }
