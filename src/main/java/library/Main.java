@@ -37,7 +37,6 @@ public class Main {
             System.out.println("There is no such house on the list.");
         }
     }
-
     public static void printAllHouses(Map<String, House> arg) {
         for (Map.Entry<String, House> entry : arg.entrySet()) {
             System.out.println("Name: " + entry.getKey() + ", house: " +

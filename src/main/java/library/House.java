@@ -39,4 +39,5 @@ public class House {
     public int hashCode() {
         return Objects.hash(name, sigil);
     }
+
 }
