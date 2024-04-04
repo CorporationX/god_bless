@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.TaskBJS2_4296;
 
 public class Main {
     public static void main(String[] args) {
