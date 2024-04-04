@@ -14,5 +14,4 @@ public class StreamEvent {
         this.eventType = eventType;
         this.data = data;
     }
-
 }

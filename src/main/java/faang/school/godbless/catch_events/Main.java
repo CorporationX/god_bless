@@ -11,7 +11,6 @@ public class Main {
     private static final Map<String, List<StreamEvent>> STREAM_LIST_EVENT_MAP = new HashMap<>();
 
     public static void main(String[] args) {
-
         addNewEvent(new StreamEvent("message", "information"));
         addNewEvent(new StreamEvent("message", "new info"));
         addNewEvent(new StreamEvent("call", "quickly"));
@@ -59,5 +58,4 @@ public class Main {
     public static void printInfoAboutAllStreamEvent() {
         STREAM_EVENT_MAP.forEach((k, v) -> System.out.println(v));
     }
-
 }
