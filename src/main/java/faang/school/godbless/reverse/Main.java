@@ -6,9 +6,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User user1 = new User("George", 19, "IT", "Wall Street 19");
-        User user2 = new User("Gennady", 40, "Marketing", "Patriki 23");
-        User user3 = new User("Elizabeth", 24, "HR", "La Rosshe 13");
+        User user1 = new User("George", 19, "Google", "Amsterdam");
+        User user2 = new User("Gennady", 40, "Uber", "Amsterdam");
+        User user3 = new User("Elizabeth", 24, "Amazon", "London");
 
         List<User> userList = new ArrayList<>();
 
