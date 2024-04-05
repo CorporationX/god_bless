@@ -7,9 +7,6 @@ import java.util.*;
 @Data
 @NoArgsConstructor
 public class User {
-    public static void main(String[] args) {
-        User user1 = new User("Vadim", 22, "Uber", "London");
-    }
 
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
@@ -18,16 +15,20 @@ public class User {
     private String job;
     private String address;
 
+    public static void main(String[] args) {
+        User user1 = new User("Vadim", 22, "Uber", "London");
+    }
+
     public User(String name, int age, String job, String address) {
-        userValid(name, age, job, address);
+        validateUserFields(name, age, job, address);
         this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
     }
 
-    public void userValid(String name, int age, String job, String address) {
-        if (name.isEmpty()) {
+    public void validateUserFields(String name, int age, String job, String address) {
+        if (name.isEmpty() && name == null) {
             throw new IllegalArgumentException("Отсутствует имя");
         }
         if (age < 18) {
