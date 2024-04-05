@@ -13,7 +13,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String workPlace, String address) {
-        CheckUserParameters(name, age, workPlace, address);
+        сheckUserParameters(name, age, workPlace, address);
 
         this.name = name;
         this.age = age;
@@ -21,7 +21,7 @@ public class User {
         this.address = address;
     }
 
-    private void CheckUserParameters(String name, int age, String workPlace, String address){
+    private void сheckUserParameters(String name, int age, String workPlace, String address){
         if (name.isEmpty()){
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
