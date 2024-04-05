@@ -8,34 +8,29 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-    private Set<Product> productSet;
-
-    public Main() {
-        productSet = new HashSet<>();
-
-        productSet.add(new Product(1, "Laptop", "Electronics"));
-        productSet.add(new Product(2, "T-shirt", "Clothing"));
-        productSet.add(new Product(3, "Book", "Literature"));
-        productSet.add(new Product(4, "Headphones", "Electronics"));
-        productSet.add(new Product(5, "Jeans", "Clothing"));
-        productSet.add(new Product(6, "Watch", "Accessories"));
-        productSet.add(new Product(7, "Smartphone", "Electronics"));
-        productSet.add(new Product(8, "Dress", "Clothing"));
-        productSet.add(new Product(9, "Backpack", "Accessories"));
-        productSet.add(new Product(10, "Camera", "Electronics"));
-    }
+    private static Set<Product> productSet;
 
     public static void main(String[] args) {
-        Main productManager = new Main();
+        productSet = Set.of(new Product(1, "Laptop", "Electronics"),
+                new Product(2, "T-shirt", "Clothing"),
+                new Product(3, "Book", "Literature"),
+                new Product(4, "Headphones", "Electronics"),
+                new Product(5, "Jeans", "Clothing"),
+                new Product(6, "Watch", "Accessories"),
+                new Product(7, "Smartphone", "Electronics"),
+                new Product(8, "Dress", "Clothing"),
+                new Product(9, "Backpack", "Accessories"),
+                new Product(10, "Camera", "Electronics"));
+
 
         System.out.println("Product manager check.");
 
         System.out.println("Product by categories:");
-        productManager.printProductsByCategory();
+        printProductsByCategory();
     }
 
 
-    public Map<String, List<Product>> groupProducts(Set<Product> productSet) {
+    public static Map<String, List<Product>> groupProducts(Set<Product> productSet) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
 
         productSet.forEach(
@@ -47,7 +42,7 @@ public class Main {
         return groupedProducts;
     }
 
-    public void printProductsByCategory() {
+    public static void printProductsByCategory() {
         groupProducts(productSet).entrySet().forEach(System.out::println);
     }
 }
