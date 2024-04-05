@@ -21,7 +21,7 @@ public class Battlefield {
             armorHealthArmy1 += creature.defence() * creature.amount();
             damageArmy1 += creature.getDamage();
         }
-        // Count armor + health and damage for army 2
+
         int armorHealthArmy2 = 0;
         int damageArmy2 = 0;
         for (Creature creature : army2) {
