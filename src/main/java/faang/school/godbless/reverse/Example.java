@@ -2,7 +2,6 @@ package faang.school.godbless.reverse;
 
 public class Example {
     static void reverse(int[] nums) {
-
         int i = 0;
         int j = nums.length - 1;
         int temp;
