@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class MainTwo {
+public class Main {
 
     private static Map<Book, String> libraryMap = new HashMap<>();
 
@@ -16,7 +16,6 @@ public class MainTwo {
     }
 
     public static void main(String[] args) {
-
         System.out.println("Print all books");
         printAllBooks();
         System.out.println("-------------------");
@@ -35,7 +34,6 @@ public class MainTwo {
 
         System.out.println("print all books");
         printAllBooks();
-
     }
 
     public static void addBook(Book book, String section) {
