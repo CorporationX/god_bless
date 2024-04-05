@@ -8,9 +8,9 @@ import java.util.Optional;
 public class Cache {
     private static final int CACHE_SIZE = 10;
     private final Map<Integer, Data> cache;
-    private final Main dataService;
+    private final DataService dataService;
 
-    public Cache(Main dataService) {
+    public Cache(DataService dataService) {
         this.dataService = dataService;
         cache = new HashMap<>();
     }
