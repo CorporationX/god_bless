@@ -69,6 +69,4 @@ public class Main {
     public static void printAllHouseInfo() {
         houseMap.values().forEach(house -> System.out.println(house.getName() + " " + house.getSigil()));
     }
-
-
 }
