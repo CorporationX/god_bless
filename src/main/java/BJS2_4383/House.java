@@ -18,4 +18,14 @@ public class House {
     public static void deleteHouse(Map<String, House> houses, House house) {
         houses.remove(house.name);
     }
+
+    public static String findHouse(String name, Map<String, House> HOUSES) {
+        return HOUSES.get(name).getSigil();
+    }
+
+    public static void allHouse(Map<String, House> HOUSES) {
+        for (Map.Entry<String, House> house : HOUSES.entrySet()) {
+            System.out.println(house.getKey() + " - " + house.getValue().getSigil());
+        }
+    }
 }

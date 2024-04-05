@@ -14,19 +14,9 @@ public class Main {
         House.addHouse(HOUSES, stark);
         House.addHouse(HOUSES, lannister);
         House.addHouse(HOUSES, barateon);
-        System.out.println(findHouse(stark.getName()));
+        System.out.println(House.findHouse(stark.getName(), HOUSES));
         House.deleteHouse(HOUSES, stark);
         House.addHouse(HOUSES, stark);
-        allHouse();
-    }
-
-    public static String findHouse(String name) {
-        return HOUSES.get(name).getSigil();
-    }
-
-    public static void allHouse() {
-        for (Map.Entry<String, House> house : HOUSES.entrySet()) {
-            System.out.println(house.getKey() + " - " + house.getValue().getSigil());
-        }
+        House.allHouse(HOUSES);
     }
 }
