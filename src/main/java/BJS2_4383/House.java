@@ -11,20 +11,20 @@ public class House {
     private String name;
     private String sigil;
 
-    public static void addHouse(Map<String, House> houses, House house) {
+    static void addHouse(Map<String, House> houses, House house) {
         houses.put(house.name, house);
     }
 
-    public static void deleteHouse(Map<String, House> houses, House house) {
+    static void deleteHouse(Map<String, House> houses, House house) {
         houses.remove(house.name);
     }
 
-    public static String findHouse(String name, Map<String, House> HOUSES) {
-        return HOUSES.get(name).getSigil();
+    static String findHouse(String name, Map<String, House> houses) {
+        return houses.get(name).getSigil();
     }
 
-    public static void allHouse(Map<String, House> HOUSES) {
-        for (Map.Entry<String, House> house : HOUSES.entrySet()) {
+    static void allHouse(Map<String, House> houses) {
+        for (Map.Entry<String, House> house : houses.entrySet()) {
             System.out.println(house.getKey() + " - " + house.getValue().getSigil());
         }
     }
