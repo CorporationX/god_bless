@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes_of_might_and_Magic.unit;
+package faang.school.godbless.heroes_of_might_and_Magic.creatures;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

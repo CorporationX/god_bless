@@ -1,8 +1,8 @@
 package faang.school.godbless.heroes_of_might_and_Magic;
 
-import faang.school.godbless.heroes_of_might_and_Magic.unit.Griffin;
-import faang.school.godbless.heroes_of_might_and_Magic.unit.Pikeman;
-import faang.school.godbless.heroes_of_might_and_Magic.unit.Swordman;
+import faang.school.godbless.heroes_of_might_and_Magic.creatures.Griffin;
+import faang.school.godbless.heroes_of_might_and_Magic.creatures.Pikeman;
+import faang.school.godbless.heroes_of_might_and_Magic.creatures.Swordman;
 
 public class Main {
 
@@ -20,5 +20,4 @@ public class Main {
 
         System.out.println(battlefield.battle());
     }
-
 }

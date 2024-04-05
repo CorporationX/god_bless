@@ -1,6 +1,6 @@
 package faang.school.godbless.heroes_of_might_and_Magic;
 
-import faang.school.godbless.heroes_of_might_and_Magic.unit.Creature;
+import faang.school.godbless.heroes_of_might_and_Magic.creatures.Creature;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -32,5 +32,4 @@ public class Hero {
             army.remove(creature);
         }
     }
-
 }

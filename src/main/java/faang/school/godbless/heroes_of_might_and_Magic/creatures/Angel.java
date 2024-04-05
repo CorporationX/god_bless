@@ -1,7 +1,6 @@
-package faang.school.godbless.heroes_of_might_and_Magic.unit;
+package faang.school.godbless.heroes_of_might_and_Magic.creatures;
 
 public class Angel extends Creature {
-
     private static final int ATTACK = 7;
     private static final int DEFENSE = 21;
     private static final int SPEED = 7;
@@ -14,5 +13,4 @@ public class Angel extends Creature {
     public int getDamage() {
         return this.getAttack() + this.getSpeed() + this.getLevel();
     }
-
 }
