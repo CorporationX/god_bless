@@ -8,7 +8,6 @@ public class Main {
     private static final Map<String, WeatherData> WEATHER_DATA_CACHE = new HashMap<>();
 
     public static void main(String[] args) {
-
         System.out.println("add weather data");
         WEATHER_DATA_CACHE.put("Saint-P", new WeatherData("Saint-P", 1, 80));
         WEATHER_DATA_CACHE.put("Sochi", new WeatherData("Sochi", 12, 82));
