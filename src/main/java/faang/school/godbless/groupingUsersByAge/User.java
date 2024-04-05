@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.groupingUsersByAge;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import java.util.ArrayList;
