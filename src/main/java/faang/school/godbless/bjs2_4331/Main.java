@@ -9,13 +9,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        WeatherData weatherData1 = new WeatherData("Moscow", 12, 30);
-        WeatherData weatherData2 = new WeatherData("Kaliningrad", 15, 20);
-        WeatherData weatherData3 = new WeatherData("Vladivostok", 22, 35);
+        WeatherData weatherMoscow = new WeatherData("Moscow", 12, 30);
+        WeatherData weatherKaliningrad = new WeatherData("Kaliningrad", 15, 20);
+        WeatherData weatherVladivostok = new WeatherData("Vladivostok", 22, 35);
 
-        weatherDataMap.put("Moscow", weatherData1);
-        weatherDataMap.put("Kaliningrad", weatherData2);
-        weatherDataMap.put("Vladivostok", weatherData3);
+        weatherDataMap.put("Moscow", weatherMoscow);
+        weatherDataMap.put("Kaliningrad", weatherKaliningrad);
+        weatherDataMap.put("Vladivostok", weatherVladivostok);
 
         System.out.println(showCityWeather("Moscow"));
         //Update weather for Moscow
