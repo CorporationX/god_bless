@@ -1,55 +1,93 @@
 package faang.school.godbless.LRU_cache;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 public class CustomDataStorage {
 
-    private static final Map<Integer, Data> CACHE = new HashMap<>();
+    private static final Map<Integer, Node> CACHE = new HashMap<>();
     private static final Map<Integer, Data> ALL_DATA = new HashMap<>();
-    private static final List<Data> queue = new LinkedList<>();
     private static final int CACHE_SIZE = 3;
+    private static Node head = new Node();
+    private static Node tail = new Node();
+
+    static {
+        head.setNext(tail);
+        tail.setPrev(head);
+    }
+
+    private void addToTail(Node node) {
+        node.setPrev(tail);
+        tail.setNext(node);
+        tail = node;
+    }
+
+    private void moveToTail(Node node) {
+        node.getNext().setPrev(node.getPrev());
+        node.getPrev().setNext(node.getNext());
+        node.setNext(null);
+        node.setPrev(null);
+        addToTail(node);
+    }
+
+    private void remove(Node node) {
+        node.getNext().setPrev(node.getPrev());
+        node.getPrev().setNext(node.getNext());
+        node.setNext(null);
+        node.setPrev(null);
+    }
+
+    private Node removeHead() {
+        /*
+        Не очень мне нравится эта строчка, я удаляю как бы не head,
+        а элемент стоящий через 1 и head при этом не обновляю. Лучше пока что не придумал
+        */
+        Node prevHead = head.getNext().getNext();
+        remove(prevHead);
+        return prevHead;
+    }
 
     public void addData(Data data) {
 
-        if (!ALL_DATA.containsKey(data.getId())) {
-            ALL_DATA.put(data.getId(), data);
-        }
+        ALL_DATA.put(data.getId(), data);
 
         if (CACHE.size() == CACHE_SIZE) {
-            removeOldDataFromCache();
+            Node nodeForRemove = removeHead();
+            CACHE.remove(nodeForRemove.getData().getId());
         }
 
-        CACHE.put(data.getId(), data);
+        Node node = new Node(data);
+        addToTail(node);
+
+        CACHE.put(node.getData().getId(), node);
     }
 
     public Data getDataById(int id) {
-        Data data = CACHE.getOrDefault(id, null);
+        Node node = CACHE.getOrDefault(id, null);
 
-        if (data == null) {
-            data = ALL_DATA.get(id);
-            removeOldDataFromCache();
-            CACHE.put(data.getId(), data);
+        if (node == null) {
+            node = new Node(ALL_DATA.get(id));
+
+            if (CACHE.size() == CACHE_SIZE) {
+                Node nodeForRemove = removeHead();
+                CACHE.remove(nodeForRemove.getData().getId());
+            }
+
+            addToTail(node);
+            CACHE.put(node.getData().getId(), node);
+        } else {
+            moveToTail(node);
         }
 
-        data.setTimestamp(LocalDateTime.now());
+        node.getData().setTimestamp(LocalDateTime.now());
 
-        return data;
+        return node.getData();
     }
 
     public void printInfoAboutCache() {
-        CACHE.forEach((k, v) -> System.out.printf("%s -> %s%n", k, v));
-    }
-
-    private void removeOldDataFromCache() {
-        Data data = CACHE.values().stream()
-                .min(Comparator.comparing(Data::getTimestamp))
-                .get();
-
-        CACHE.remove(data.getId());
+        CACHE.values().stream()
+                .map(Node::getData)
+                .forEach(data -> System.out.printf("%s -> %s%n", data.getId(), data));
     }
 }
