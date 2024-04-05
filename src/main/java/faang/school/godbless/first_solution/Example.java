@@ -10,10 +10,10 @@ public class Example {
     }
 
     public static void reverse(int[] array) {
-        for (int number = 0; number < array.length / 2; number++) {
-            int tmp = array[number];
-            array[number] = array[array.length - number - 1];
-            array[array.length - number - 1] = tmp;
+        for (int i = 0; i < array.length / 2; i++) {
+            int tmp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = tmp;
         }
     }
 }
