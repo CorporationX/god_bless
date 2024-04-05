@@ -1,21 +1,9 @@
 package faang.school.godbless.javaHashMap.cathcingEvents;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Main {
-    private Map<Integer, StreamEvent> eventsById;
-    private Map<String, List<StreamEvent>> eventsByType;
-
-    public Main() {
-        eventsByType = new HashMap<>();
-        eventsById = new HashMap<>();
-    }
 
     public static void main(String[] args) {
-        Main eventsManager = new Main();
+        EventsManager eventsManager = new EventsManager();
 
         System.out.println("Stream events manager check");
 
@@ -49,47 +37,5 @@ public class Main {
         eventsManager.printAllEventsInfo();
 
         System.out.println("\n\nDone.");
-    }
-
-    public StreamEvent addNewEvent(int id, String eventType, String data) {
-        StreamEvent newEvent = new StreamEvent(id, eventType, data);
-
-        eventsById.put(id, newEvent);
-
-        List<StreamEvent> eventList = eventsByType.computeIfAbsent(eventType, key -> new ArrayList<>());
-
-        if(eventList.contains(newEvent)) {
-            return newEvent;
-        }
-
-        eventList.add(newEvent);
-        return newEvent;
-    }
-
-    public StreamEvent getEventById(int id) {
-        return eventsById.get(id);
-    }
-
-    public List<StreamEvent> getStreamEventsByType(String eventType) {
-        return eventsByType.get(eventType);
-    }
-
-    public void removeEvent(int id) {
-        StreamEvent eventToBeRemoved = getEventById(id);
-
-        if(eventToBeRemoved == null) {
-            return;
-        }
-
-        eventsById.remove(eventToBeRemoved);
-        eventsByType.get(eventToBeRemoved.getEventType()).remove(eventToBeRemoved);
-    }
-
-    public void printAllEventsInfo() {
-        if(eventsById.isEmpty()) {
-            System.out.println("Events base is empty.");
-        }
-
-        eventsById.entrySet().forEach(System.out::println);
     }
 }
