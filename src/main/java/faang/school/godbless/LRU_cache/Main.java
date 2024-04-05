@@ -28,5 +28,12 @@ public class Main {
         customDataStorage.getDataById(1);
 
         customDataStorage.printInfoAboutCache();
+        System.out.println();
+
+        // timestamp in data with id 2 should be updated, data put in cache instead of oldest data
+        customDataStorage.getDataById(2);
+
+        customDataStorage.printInfoAboutCache();
+
     }
 }

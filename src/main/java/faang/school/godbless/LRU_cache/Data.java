@@ -14,4 +14,10 @@ public class Data {
         this.timestamp = LocalDateTime.now();
         this.value = value;
     }
+
+    public Data(int id, String value) {
+        this.id = id;
+        this.value = value;
+        this.timestamp = LocalDateTime.now();
+    }
 }
