@@ -36,6 +36,8 @@ public class User {
 
     public User(int id, String name, int age, Set<String> activity, String address, String placeOfWork) {
         this.id = id;
+        this.activity = activity;
+
         if (Objects.isNull(name)) {
             throw new IllegalArgumentException("Field name must be not null!");
         } else {
