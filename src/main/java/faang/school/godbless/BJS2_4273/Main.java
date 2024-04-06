@@ -18,7 +18,6 @@ public class Main {
         findBook("The Alchemist", "C. Paulo", 2015);
 
         outputInfoAllBooks();
-
     }
 
     private static void addBook(Book book, String path) {
