@@ -19,7 +19,16 @@ public class User {
     private String address;
     
     public User(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty()) {
+        validateUserFields(name, age, job, address);
+        
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+    
+    private static void validateUserFields(String name, int age, String job, String address) {
+        if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
         if (age < PERMITTED_AGE) {
@@ -33,11 +42,6 @@ public class User {
             throw new IllegalArgumentException(String.format("место работы должно содержаться во множестве %s",
                                                              String.join(",", VALID_JOBS)));
         }
-        
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
     }
     
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
