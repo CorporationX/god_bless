@@ -5,22 +5,20 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<String, House> houseMap = new HashMap<>();
+    private final static Map<String, House> HOUSE_MAP = new HashMap<>();
 
     static {
-        houseMap.put("Targaryen", new House("Targaryen", "Fire and Blood"));
-        houseMap.put("Stark", new House("Stark", "Winter is Coming"));
-        houseMap.put("Lannister", new House("Lannister", "Hear Me Roar"));
-        houseMap.put("Baratheon", new House("Baratheon", "Ours is the Fury"));
-        houseMap.put("Greyjoy", new House("Greyjoy", "We do not sow"));
+        HOUSE_MAP.put("Targaryen", new House("Targaryen", "Fire and Blood"));
+        HOUSE_MAP.put("Stark", new House("Stark", "Winter is Coming"));
+        HOUSE_MAP.put("Lannister", new House("Lannister", "Hear Me Roar"));
+        HOUSE_MAP.put("Baratheon", new House("Baratheon", "Ours is the Fury"));
+        HOUSE_MAP.put("Greyjoy", new House("Greyjoy", "We do not sow"));
     }
 
     public static void main(String[] args) {
-
         System.out.println("Print all house:");
         printAllHouseInfo();
         System.out.println("----------------------------");
-
 
         System.out.println("add House of Tyrell");
         House houseOfTyrell = new House("Tyrell", "Growing Strong");
@@ -37,36 +35,28 @@ public class Main {
 
         System.out.println("Print all house:");
         printAllHouseInfo();
-
     }
 
     public static void addHouse(House house) {
-        if (houseMap.containsKey(house.getName())) {
+        if (HOUSE_MAP.containsKey(house.getName())) {
             throw new IllegalArgumentException("This house already exists");
         }
-        houseMap.put(house.getName(), house);
-    }
-
-    public static void addHouse(String houseName, String sigil) {
-        if (houseMap.containsKey(houseName)) {
-            throw new IllegalArgumentException("House of " + houseName + "already exists");
-        }
-        houseMap.put(houseName, new House(houseName, sigil));
+        HOUSE_MAP.put(house.getName(), house);
     }
 
     public static void deleteHouse(String houseName) {
-        houseMap.remove(houseName);
+        HOUSE_MAP.remove(houseName);
     }
 
     public static void printSingleHouseSigilInfo(String houseName) {
-        if (!houseMap.containsKey(houseName)) {
+        if (!HOUSE_MAP.containsKey(houseName)) {
             throw new IllegalArgumentException("There is no information about the House of" + houseName);
         }
 
-        System.out.println((houseMap.get(houseName).getSigil()));
+        System.out.println((HOUSE_MAP.get(houseName).getSigil()));
     }
 
     public static void printAllHouseInfo() {
-        houseMap.values().forEach(house -> System.out.println(house.getName() + " " + house.getSigil()));
+        HOUSE_MAP.values().forEach(house -> System.out.println(house.getName() + " " + house.getSigil()));
     }
 }
