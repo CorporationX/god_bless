@@ -9,62 +9,6 @@ public class Main {
     private static final Map<Student, Map<Subject, Integer>> STUDENT_GRADES = new HashMap<>();
     private static final Map<Subject, List<Student>> SUBJECT_STUDENTS = new HashMap<>();
 
-    public static void addStudent(Student student, Map<Subject, Integer> grades) {
-        STUDENT_GRADES.put(student, grades);
-        for (Subject subject : grades.keySet()) {
-            SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
-        }
-    }
-
-    public static void addSubjectToStudent(Subject subject, Integer grade, Student student) {
-        STUDENT_GRADES.get(student).put(subject, grade);
-        SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
-    }
-
-    public static void removeStudent(Student student) {
-        for (Subject subject : STUDENT_GRADES.get(student).keySet()) {
-            if (SUBJECT_STUDENTS.get(subject).contains(student)) {
-                SUBJECT_STUDENTS.get(subject).remove(student);
-            }
-        }
-        STUDENT_GRADES.remove(student);
-    }
-
-    public static void printStudentGrades() {
-        for (Student student : STUDENT_GRADES.keySet()) {
-            System.out.println("Student: " + student);
-            System.out.println("Subjects and grade: ");
-            for (Map.Entry<Subject, Integer> entry : STUDENT_GRADES.get(student).entrySet()) {
-                System.out.println(entry.getKey().getName() + " " + entry.getValue());
-            }
-        }
-    }
-
-    public static void addSubject(Subject subject, List<Student> students) {
-        SUBJECT_STUDENTS.put(subject, students);
-        for (Student student : students) {
-            STUDENT_GRADES.computeIfAbsent(student, key -> new HashMap<>()).put(subject, null);
-        }
-    }
-
-    public static void addStudentTOSubject(Subject subject, Student student) {
-        SUBJECT_STUDENTS.get(subject).add(student);
-        STUDENT_GRADES.computeIfAbsent(student, key -> new HashMap<>()).put(subject, null);
-    }
-
-    public static void removeStudentFromSubject(Subject subject, Student student) {
-        SUBJECT_STUDENTS.get(subject).remove(student);
-        STUDENT_GRADES.get(student).remove(subject);
-    }
-
-    public static void printAllSubjects() {
-        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENTS.entrySet()) {
-            System.out.println(entry.getKey());
-            System.out.println("Students on subject: ");
-            entry.getValue().forEach(student -> System.out.println(student.getName()));
-        }
-    }
-
     public static void main(String[] args) {
         System.out.println("Test add");
         Student petr = new Student("Petr");
@@ -137,5 +81,61 @@ public class Main {
         System.out.println("---------------------");
         System.out.println();
 
+    }
+
+    public static void addStudent(Student student, Map<Subject, Integer> grades) {
+        STUDENT_GRADES.put(student, grades);
+        for (Subject subject : grades.keySet()) {
+            SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
+        }
+    }
+
+    public static void addSubjectToStudent(Subject subject, Integer grade, Student student) {
+        STUDENT_GRADES.get(student).put(subject, grade);
+        SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
+    }
+
+    public static void removeStudent(Student student) {
+        for (Subject subject : STUDENT_GRADES.get(student).keySet()) {
+            if (SUBJECT_STUDENTS.get(subject).contains(student)) {
+                SUBJECT_STUDENTS.get(subject).remove(student);
+            }
+        }
+        STUDENT_GRADES.remove(student);
+    }
+
+    public static void printStudentGrades() {
+        for (Student student : STUDENT_GRADES.keySet()) {
+            System.out.println("Student: " + student);
+            System.out.println("Subjects and grade: ");
+            for (Map.Entry<Subject, Integer> entry : STUDENT_GRADES.get(student).entrySet()) {
+                System.out.println(entry.getKey().getName() + " " + entry.getValue());
+            }
+        }
+    }
+
+    public static void addSubject(Subject subject, List<Student> students) {
+        SUBJECT_STUDENTS.put(subject, students);
+        for (Student student : students) {
+            STUDENT_GRADES.computeIfAbsent(student, key -> new HashMap<>()).put(subject, null);
+        }
+    }
+
+    public static void addStudentTOSubject(Subject subject, Student student) {
+        SUBJECT_STUDENTS.get(subject).add(student);
+        STUDENT_GRADES.computeIfAbsent(student, key -> new HashMap<>()).put(subject, null);
+    }
+
+    public static void removeStudentFromSubject(Subject subject, Student student) {
+        SUBJECT_STUDENTS.get(subject).remove(student);
+        STUDENT_GRADES.get(student).remove(subject);
+    }
+
+    public static void printAllSubjects() {
+        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENTS.entrySet()) {
+            System.out.println(entry.getKey());
+            System.out.println("Students on subject: ");
+            entry.getValue().forEach(student -> System.out.println(student.getName()));
+        }
     }
 }
