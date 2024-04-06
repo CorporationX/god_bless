@@ -7,10 +7,10 @@ public class Example {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введите размерность массива: ");
-        int n = scanner.nextInt();
-        int[] nums = new int[n];
+        int size = scanner.nextInt();
+        int[] nums = new int[size];
 
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < size; i++) {
             nums[i] = scanner.nextInt();
         }
 
@@ -18,14 +18,12 @@ public class Example {
     }
 
     public static int[] reverse(int[] arr) {
-        int n = arr.length;
-        for (int i = 1; i <= n / 2; i++) {
-            int k = arr[i - 1];
-            arr[i - 1] = arr[n - i];
-            arr[n - i] = k;
+        int arrLen = arr.length;
+        for (int i = 1; i <= arrLen / 2; i++) {
+            int temp = arr[i - 1];
+            arr[i - 1] = arr[arrLen - i];
+            arr[arrLen - i] = temp;
         }
         return arr;
-
-
     }
 }
