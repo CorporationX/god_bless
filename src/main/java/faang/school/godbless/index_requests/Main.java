@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<User, List<Query>> MAP = new HashMap<>();
+    private static final Map<User, List<Query>> USER_QUERIES_MAP = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -38,26 +38,28 @@ public class Main {
 
     }
 
+    // с проверками метод addNewUserWithQueries и addQuery выглядят одинаково
     public static void addNewUserWithQueries(User user, List<Query> queries) {
-        MAP.put(user, queries);
+        USER_QUERIES_MAP.computeIfAbsent(user, k -> new ArrayList<>())
+                .addAll(queries);
     }
 
     public static void addQuery(User user, List<Query> queries) {
-        MAP.get(user).addAll(queries);
+        USER_QUERIES_MAP.computeIfAbsent(user, k -> new ArrayList<>())
+                .addAll(queries);
     }
 
     public static void deleteUserWithQueries(User user) {
-        MAP.remove(user);
+        USER_QUERIES_MAP.remove(user);
     }
 
     public static void printAllUsersWithQueries() {
-        MAP.forEach((k, v) -> System.out.printf("%s -> %s%n", k, v));
+        USER_QUERIES_MAP.forEach((k, v) -> System.out.printf("%s -> %s%n", k, v));
     }
 
     public static void printStoryOfQueries(User user) {
-        MAP.get(user).stream()
+        USER_QUERIES_MAP.get(user).stream()
                 .sorted(Comparator.comparing(Query::getTimestamp).reversed())
                 .forEach(System.out::println);
     }
-
 }

@@ -14,5 +14,4 @@ public class User {
         this.id = startId++;
         this.name = name;
     }
-
 }
