@@ -15,6 +15,7 @@ jobs:
           exit 1
 
       - name: Notify User
+        if: always()
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
