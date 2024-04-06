@@ -1,8 +1,9 @@
-name: Check Master PRs
+name: Block PRs to Master Branch
 
 on:
-  pull_request:
-    types: [opened, reopened, edited, synchronize]
+  pull_request_target:
+    branches:
+      - master
 
 permissions:
   contents: read
@@ -13,27 +14,25 @@ jobs:
   blockPR:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
-        uses: actions/checkout@v2
-
-      - name: Check target branch
-        if: github.ref == 'refs/heads/master'
+      - name: Block Master PR
         run: |
           echo "PRs to the master branch are not allowed."
-          echo "::error ::PRs to the master branch are not allowed."
-          exit 1
+          exit 1  # Explicitly failing the job
 
-      - name: Notify User
-        if: always() && github.ref == 'refs/heads/master'
+      - name: Post Comment
+        if: always()  # Ensures this runs regardless of the previous step's result
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            const issue_number = context.issue.number;
-            const message = "⚠️ **ОШЫБКА**: Ты создал PR в master ветку. PR-ы можно создавать только в СВОЮ ветку. Пожалуйста, нажми кнопку Edit вверху и измени ветку, в которую направляешь PR.";
-            github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: issue_number,
+            const pr = ${GITHUB_EVENT_PATH};
+            const issue_number = pr.pull_request.number;
+            const repo = context.repo.repo;
+            const owner = context.repo.owner;
+            const message = "⚠️ PRs to the master branch are not allowed. Please target your PR to a different branch.";
+            await github.rest.issues.createComment({
+              owner,
+              repo,
+              issue_number,
               body: message
             });
