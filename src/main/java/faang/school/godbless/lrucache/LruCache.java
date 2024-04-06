@@ -2,36 +2,97 @@ package faang.school.godbless.lrucache;
 
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LruCache {
-    private static final int CACHE_SIZE = 3;
-    private final Map<Integer, Node> cache = new HashMap<>();
-    private final Map<Integer, Data> allData = new HashMap<>();
-    private final Node head;
-    private final Node tail;
+    private final int CACHE_SIZE;
+    private final Map<Integer, Node> CACHE = new HashMap<>();
+    private final Map<Integer, Data> ALL_DATA = new HashMap<>();
+    private Node head;
+    private Node tail;
 
-    public LruCache() {
-        head = new Node(new Data(0, 0));
-        tail = new Node(new Data(0, 0));
-        head.next = tail;
-        tail.prev = head;
+    public LruCache(int capacity) {
+        this.CACHE_SIZE = capacity;
     }
 
-    public int get(int id) {
-        if (cache.containsKey(id)) {
-            Node node = cache.get(id);
+    public void put(Data data) {
+        ALL_DATA.put(data.getId(), data);
+        if (CACHE.containsKey(data.getId())) {
+            Node node = CACHE.get(data.getId());
+            node.data.setTimestamp(LocalDateTime.now());
             moveToTail(node);
-            return  -1;
+        } else {
+            Node node = new Node(data);
+            if (CACHE.size() < CACHE_SIZE) {
+                addToTail(node);
+            } else {
+                CACHE.remove(head.data.getId());
+                removeHead();
+                addToTail(node);
+            }
+            CACHE.put(data.getId(), node);
         }
-        return -1;
     }
 
-    public void moveToTail(Node node) {
+    public Data getData(int id) {
+        if (CACHE.containsKey(id)) {
+            Node node = CACHE.get(id);
+            node.data.setTimestamp(LocalDateTime.now());
+            moveToTail(node);
+            return node.data;
+        } else {
+            if (ALL_DATA.containsKey(id)) {
+                Node node = new Node(ALL_DATA.get(id));
+                node.data.setTimestamp(LocalDateTime.now());
+                put(node.data);
+                return node.data;
+            }
+        }
+        return null;
+    }
 
+    private void moveToTail(Node node) {
+        if (node != tail) {
+            if (node != head) {
+                node.next.prev = node.prev;
+                node.prev.next = node.next;
+                addToTail(node);
+            } else {
+                removeHead();
+                tail.next = node;
+                node.prev = tail;
+                tail = node;
+            }
+        }
+    }
+
+    private void addToTail(Node node) {
+        if (tail != null) {
+            tail.next = node;
+            node.prev = tail;
+        } else {
+            head = node;
+        }
+        tail = node;
+    }
+
+    private void removeHead() {
+        if (head == tail) {
+            head = null;
+            tail = null;
+        } else {
+            Node prevHead = head;
+            head = head.next;
+            head.prev = null;
+            prevHead.next = null;
+        }
+    }
+
+    public void printCache() {
+        for (Map.Entry<Integer, Node> entry : CACHE.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue().data);
+        }
     }
 
     public static class Node {
