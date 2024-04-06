@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
 
 public class WebPageService {
     private final Map<String, List<WebPage>> index;
@@ -37,27 +38,31 @@ public class WebPageService {
         return index.get(keyWord);
     }
 
-    public WebPage getPageByUrl(String url) {
+    public Optional<WebPage> getPageByUrl(String url) {
+        if(url == null || url.isBlank()) {
+            return Optional.empty();
+        }
+
         for (List<WebPage> currentPageList : index.values()) {
             for (WebPage currentWebPage : currentPageList) {
                 if (currentWebPage.getUrl().equals(url)) {
-                    return currentWebPage;
+                    return Optional.of(currentWebPage);
                 }
             }
         }
 
-        return null;
+        return Optional.empty();
     }
 
     public boolean removePage(String url) {
-        WebPage pageToBeRemoved = getPageByUrl(url);
+        var pageToBeRemoved = getPageByUrl(url);
 
-        if (pageToBeRemoved == null) {
+        if (pageToBeRemoved.isEmpty()) {
             return false;
         }
 
         for (List<WebPage> currentPageList : index.values()) {
-            currentPageList.remove(pageToBeRemoved);
+            currentPageList.remove(pageToBeRemoved.get());
         }
 
         return true;
