@@ -66,6 +66,4 @@ public class Main {
         sortedQueries.forEach(query ->
                 System.out.println("Content: " + query.getContent() + " date: " + query.getTimestamp()));
     }
-
-
 }
