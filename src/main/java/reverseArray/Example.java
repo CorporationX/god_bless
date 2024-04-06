@@ -9,10 +9,12 @@ public class Example {
     }
 
     public static int[] reverse(int[] nums) {
-        int[] numsReverse = new int[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            numsReverse[i] = nums[nums.length - i - 1];
+        int length = nums.length;
+        for (int i = 0; i < length / 2; i++) {
+            int num = nums[i];
+            nums[i] = nums[length - 1 - i];
+            nums[length - 1 - i] = num;
         }
-        return numsReverse;
+        return nums;
     }
 }
