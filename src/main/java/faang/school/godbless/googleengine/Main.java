@@ -50,9 +50,7 @@ public class Main {
         }
 
         for (List<WebPage> list : WEB_PAGES.values()) {
-            if (list.contains(webPageToRemove)) {
                 list.remove(webPageToRemove);
-            }
         }
     }
 
