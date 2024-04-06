@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_4565;
 
-import faang.school.godbless.User;
-
 import java.util.Arrays;
 import java.util.List;
 
