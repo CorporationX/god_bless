@@ -1,6 +1,5 @@
 package faang.school.godbless.BJS2_4276;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -9,26 +8,26 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<User, List<Query>> userQueries = new HashMap<>();
+    private static final Map<User, List<Query>> USER_QUERIES = new HashMap<>();
 
     public static void main(String[] args) throws InterruptedException {
 
-        User steve = new User(1L, "Steve");
+        User steve = new User( "Steve");
         List<Query> queries = new ArrayList<>();
-        queries.add(new Query(1L, "How to fight", LocalDateTime.now()));
-        queries.add(new Query(2L, "Weather", LocalDateTime.now()));
+        queries.add(new Query( "How to fight"));
+        queries.add(new Query( "Weather"));
 
         addNewUserWithQuery(steve, queries);
 
-        addUserWithQuery(steve, List.of(new Query(3L, "LinkedIn", LocalDateTime.now())));
-        addUserWithQuery(steve, List.of(new Query(4L, "Map", LocalDateTime.now())));
+        addUserWithQuery(steve, List.of(new Query( "LinkedIn")));
+        addUserWithQuery(steve, List.of(new Query( "Map")));
 
         printAllUserQueries();
 
         printQueries(steve);
 
         Thread.sleep(2000);
-        queries.add(new Query(5L, "Harry Potter", LocalDateTime.now()));
+        queries.add( new Query("Harry Potter"));
 
         printAllUserQueries();
 
@@ -39,22 +38,22 @@ public class Main {
     }
 
     private static void addNewUserWithQuery(User user, List<Query> queries) {
-        userQueries.put(user, queries);
+        USER_QUERIES.put(user, queries);
     }
 
     private static void addUserWithQuery(User user, List<Query> queries) {
-        List<Query> queries1 = userQueries.getOrDefault(user, new ArrayList<>());
+        List<Query> queries1 = USER_QUERIES.getOrDefault(user, new ArrayList<>());
         queries1.addAll(queries);
-        userQueries.put(user, queries1);
+        USER_QUERIES.put(user, queries1);
     }
 
     private static void removeUserWithQueries(User user) {
-        userQueries.remove(user);
+        USER_QUERIES.remove(user);
     }
 
     private static void printAllUserQueries() {
-        if (!userQueries.isEmpty()) {
-            for (var entry : userQueries.entrySet()) {
+        if (!USER_QUERIES.isEmpty()) {
+            for (var entry : USER_QUERIES.entrySet()) {
                 System.out.println(entry.getKey().getName());
                 if (!entry.getValue().isEmpty()) {
                     entry.getValue().stream()
@@ -66,11 +65,10 @@ public class Main {
     }
 
     private static void printQueries(User user) {
-        if (userQueries.containsKey(user)) {
-            userQueries.get(user).stream()
+        if (USER_QUERIES.containsKey(user)) {
+            USER_QUERIES.get(user).stream()
                     .sorted(Comparator.comparing(Query::getTimestamp))
                     .forEach(System.out::println);
         } else System.err.println(user.getName() + " Queries not found");
     }
-
 }
