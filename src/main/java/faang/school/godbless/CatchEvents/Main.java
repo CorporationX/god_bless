@@ -40,6 +40,10 @@ public class Main {
 
         app.deleteById(5);
 
+        System.out.println();
+
+        app.getAll();
+
     }
 
     public void add(StreamEvent event) {
@@ -79,24 +83,37 @@ public class Main {
                 Map.Entry<Integer, StreamEvent> entry = idIterator.next();
                 StreamEvent event = entry.getValue();
                 if (event.getId() == id) {
-                    String keyEventType = event.getEventType();
                     idIterator.remove();
+                    break;
+                }
+            }
 
-                    Iterator<Map.Entry<String, List<StreamEvent>>> eventTypeIterator = EVENT_TYPE.entrySet().iterator();
-                    while (eventTypeIterator.hasNext()) {
-                        Map.Entry<String, List<StreamEvent>> entryy = eventTypeIterator.next();
-                        List<StreamEvent> eventList = entryy.getValue();
-                        for (StreamEvent eventTypeToDelete : eventList) {
-                            if (eventTypeToDelete.equals(keyEventType)) {
-                                eventTypeIterator.remove();
-                            }
-                        }
+
+            Iterator<Map.Entry<String, List<StreamEvent>>> eventTypeIterator = EVENT_TYPE.entrySet().iterator();
+            while (eventTypeIterator.hasNext()) {
+                Map.Entry<String, List<StreamEvent>> entry = eventTypeIterator.next();
+                List<StreamEvent> eventList = entry.getValue();
+                Iterator<StreamEvent> eventIterator = eventList.iterator();
+                while (eventIterator.hasNext()) {
+                    StreamEvent event = eventIterator.next();
+                    if (event.getId() == id) {
+                        eventIterator.remove();
+                        break;
                     }
                 }
             }
 
         } catch (NullPointerException e) {
             System.err.println("Error: Null");
+        }
+    }
+
+    private void getAll(){
+        for (Map.Entry<String, List<StreamEvent>> entry : EVENT_TYPE.entrySet()) {
+            List<StreamEvent> events = entry.getValue();
+            for (StreamEvent event : events) {
+                System.out.println("Event with ID: " + event.getId() + ", with type: \"" + event.getEventType() + "\" is " + event.getData());
+            }
         }
     }
 }
