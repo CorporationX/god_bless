@@ -4,7 +4,7 @@ import java.util.Set;
 
 public class Task2 {
     public static void main(String[] args) {
-        User user1 = new User("Miha",23,"Google","London");
+        User user1 = new User("Lexa",23,"Google","London");
     }
 
 }
