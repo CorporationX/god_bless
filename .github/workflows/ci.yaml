@@ -5,6 +5,10 @@ on:
     branches:
       - master
 
+permissions:
+  issues: write
+  pull_request: write
+
 jobs:
   checkPR:
     runs-on: ubuntu-latest
