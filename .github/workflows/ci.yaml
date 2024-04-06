@@ -12,6 +12,7 @@ permissions:
 jobs:
   checkPR:
     runs-on: ubuntu-latest
+    if: ${{ github.event.pull_request.base.ref == 'master' }}
     steps:
       - name: Fail if targeted at master
         run: |
@@ -19,7 +20,7 @@ jobs:
           exit 1
 
       - name: Notify User
-        if: always()
+        if: ${{ github.event.pull_request.base.ref == 'master' }}
         uses: actions/github-script@v5
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
