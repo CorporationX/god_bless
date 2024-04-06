@@ -12,8 +12,8 @@ public class WebPageService {
 
     public void addNewPage(WebPage webPage) {
         for (String keyword : findAllKeyWordByWebPage(webPage)) {
-            MAP.computeIfAbsent(keyword, k -> new ArrayList<>());
-            MAP.get(keyword).add(webPage);
+            MAP.computeIfAbsent(keyword, k -> new ArrayList<>())
+                    .add(webPage);
         }
         WEB_PAGE_MAP.put(webPage.getUrl(), webPage);
     }
@@ -31,13 +31,10 @@ public class WebPageService {
     }
 
     private List<String> findAllKeyWordByWebPage(WebPage webPage) {
-
         List<String> result = new ArrayList<>();
 
         for (String word : webPage.getContent().split(" ")) {
-
             StringBuilder stringBuilder = new StringBuilder();
-
             // Небольшая проверка, чтобы убрать все лишние знаки
             for (Character character : word.toCharArray()) {
                 if (Character.isAlphabetic(character)) {
@@ -50,5 +47,4 @@ public class WebPageService {
 
         return result;
     }
-
 }
