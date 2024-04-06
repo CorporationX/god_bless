@@ -4,33 +4,35 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class User {
-    private int id;
     private String name;
     private int age;
-    private Set<String> activity;
+    private String workPlace;
+    private String address;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> hm = new HashMap<>();
-
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupByAge = new HashMap<>();
         for (User user : users) {
-            Set<String> userActivity = user.getActivity();
-            Set<String> intersection = new HashSet<>(activities);
-            intersection.retainAll(userActivity);
-            if (!intersection.isEmpty()) {
-                hm.put(user, intersection.stream().findFirst().get());
+            int userAge = user.getAge();
+            List<User> lUsers;
+            if (groupByAge.containsKey(userAge)) {
+                lUsers = groupByAge.get(userAge);
+            } else {
+                lUsers = new ArrayList<>();
             }
+            lUsers.add(user);
+            groupByAge.put(userAge, lUsers);
         }
-        return hm;
+        return groupByAge;
     }
 }
+
