@@ -3,27 +3,28 @@ package faang.school.godbless.geroesofmightandmagic;
 import java.util.Comparator;
 
 public class Battlefield {
-    private static Hero christian = new Hero("Christian", "Allince", 0, 1);
-    private static Hero calh = new Hero("Calh", "Demon", 0, 1);
+    private final static Hero CHRISTIAN = new Hero("Christian", "Allince", 0, 1);
+    private final static Hero CALH = new Hero("Calh", "Demon", 0, 1);
+    private final static Comparator<Creature> SPEED_COMPARATOR = (o1, o2) -> o2.getSpeed() - o1.getSpeed();
 
     private static int round;
 
     public static void main(String[] args) {
-        christian.addCreature(new Pikeman("Pikeman"), 45);
-        christian.addCreature(new Griffin("Griffin"), 26);
-        christian.addCreature(new Swordman("Swordman"), 16);
-        christian.addCreature(new Angel("Angel"), 13);
+        CHRISTIAN.addCreature(new Pikeman("Pikeman"), 45);
+        CHRISTIAN.addCreature(new Griffin("Griffin"), 26);
+        CHRISTIAN.addCreature(new Swordman("Swordman"), 16);
+        CHRISTIAN.addCreature(new Angel("Angel"), 13);
 
-        calh.addCreature(new Pikeman("Pikeman"), 50);
-        calh.addCreature(new Griffin("Griffin"), 20);
-        calh.addCreature(new Swordman("Swordman"), 19);
-        calh.addCreature(new Angel("Angel"), 11);
+        CALH.addCreature(new Pikeman("Pikeman"), 50);
+        CALH.addCreature(new Griffin("Griffin"), 20);
+        CALH.addCreature(new Swordman("Swordman"), 19);
+        CALH.addCreature(new Angel("Angel"), 11);
 
         sortArmyBySpeed();
 
         System.out.println("Test getArmy:");
-        christian.printArmy();
-        calh.printArmy();
+        CHRISTIAN.printArmy();
+        CALH.printArmy();
         System.out.println("-------------------");
         System.out.println();
 
@@ -31,51 +32,48 @@ public class Battlefield {
     }
 
     public static Hero battle() {
-        while (true) {
+        boolean result = true;
+        while (result) {
             System.out.println("Round " + ++round + ":");
-            Creature calhCreature;
-            Creature christianCreature;
 
-            if (!calh.getArmy().isEmpty() && !christian.getArmy().isEmpty()) {
-                calhCreature = calh.getArmy().get(0);
-                christianCreature = christian.getArmy().get(0);
+            System.out.println("Calh attack...");
+            result = attack(CALH, CHRISTIAN);
 
-                System.out.println("Calh attack...");
-                attack(calh, christian, calhCreature, christianCreature);
-            } else {
-                break;
-            }
-
-            if (!calh.getArmy().isEmpty() && !christian.getArmy().isEmpty()) {
-                calhCreature = calh.getArmy().get(0);
-                christianCreature = christian.getArmy().get(0);
-
-                System.out.println("Christian attack...");
-                attack(christian, calh, christianCreature, calhCreature);
-            } else {
-                break;
-            }
+            System.out.println("Christian attack...");
+            result = attack(CHRISTIAN, CALH);
 
             System.out.println("Heroes army after " + round + " round");
-            christian.printArmy();
-            calh.printArmy();
+            CHRISTIAN.printArmy();
+            CALH.printArmy();
         }
-        return christian.getArmy().isEmpty() ? calh : christian;
+        return CHRISTIAN.getArmy().isEmpty() ? CALH : CHRISTIAN;
     }
 
-    public static void attack(Hero attacker, Hero defender, Creature attackerCreature, Creature defenderCreature) {
-        int exp = defender.removeCreature(defenderCreature,
-                attackerCreature.getDamage() - defenderCreature.getDamageReduction());
+    public static boolean attack(Hero attacker, Hero defender) {
+        Creature attackerCreature = preparingForBattle(attacker);
+        Creature defenderCreature = preparingForBattle(defender);
+        if (attackerCreature == null || defenderCreature == null) {
+            System.out.println("All creatures died");
+            return false;
+        }
+        int exp = defender.removeCreature(
+                defenderCreature, attackerCreature.getDamage() - defenderCreature.getDamageReduction()
+        );
 
         System.out.println(attacker.getName() + " gained " + exp + " experience");
         attacker.setExperience(exp);
+        return true;
+    }
+
+    public static Creature preparingForBattle(Hero hero) {
+        if (!hero.getArmy().isEmpty()) {
+            return hero.getArmy().get(0);
+        }
+        return null;
     }
 
     public static void sortArmyBySpeed() {
-        Comparator<Creature> comparator = (o1, o2) -> o2.getSpeed() - o1.getSpeed();
-
-        christian.getArmy().sort(comparator);
-        calh.getArmy().sort(comparator);
+        CHRISTIAN.getArmy().sort(SPEED_COMPARATOR);
+        CALH.getArmy().sort(SPEED_COMPARATOR);
     }
-
 }
