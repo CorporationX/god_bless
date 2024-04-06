@@ -32,22 +32,32 @@ public class Main {
 
         System.out.println();
 
+        deleteStudent(new Student(0, "test"));
         printSubjectsAndStudents();
+
+        Subject newSubject = new Subject("physic");
+        addNewSubjectAndStudents(newSubject, new ArrayList<>(List.of(new Student("Vova"))));
+
+        addStudentToSubject(newSubject, new Student(0, "test"));
+
+        printSubjectsAndStudents();
+
+        deleteStudentFromSubject(newSubject, new Student(0, "test"));
     }
 
     public static void addNewStudentWithSubjects(Student student, Map<Subject, List<Integer>> subjectsWithMarks) {
-        STUDENT_MAP.put(student, subjectsWithMarks);
-        subjectsWithMarks.forEach((k, v) -> {
-            SUBJECT_MAP.computeIfAbsent(k, e -> new ArrayList<>());
-            SUBJECT_MAP.get(k).add(student);
-        });
+        STUDENT_MAP.computeIfAbsent(student, k-> subjectsWithMarks);
+        subjectsWithMarks.forEach((k, v) ->
+            SUBJECT_MAP.computeIfAbsent(k, e -> new ArrayList<>())
+                    .add(student)
+        );
     }
 
     public static void addNewSubjectWithMarks(Student student, Subject subject, List<Integer> marks) {
-        STUDENT_MAP.get(student).computeIfAbsent(subject, k -> new ArrayList<>());
-        STUDENT_MAP.get(student).get(subject).addAll(marks);
-        SUBJECT_MAP.computeIfAbsent(subject, k -> new ArrayList<>());
-        SUBJECT_MAP.get(subject).add(student);
+        STUDENT_MAP.get(student).computeIfAbsent(subject, k -> new ArrayList<>())
+                .addAll(marks);
+        SUBJECT_MAP.computeIfAbsent(subject, k -> new ArrayList<>())
+                .add(student);
     }
 
     public static void deleteStudent(Student student) {
@@ -59,7 +69,8 @@ public class Main {
     }
 
     public static void addNewSubjectAndStudents(Subject subject, List<Student> students) {
-        SUBJECT_MAP.put(subject, students);
+        SUBJECT_MAP.computeIfAbsent(subject, k -> new ArrayList<>())
+                .addAll(students);
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
@@ -75,5 +86,4 @@ public class Main {
     public static void printSubjectsAndStudents() {
         SUBJECT_MAP.forEach((k, v) -> System.out.printf("%s -> %s%n", k, v));
     }
-
 }
