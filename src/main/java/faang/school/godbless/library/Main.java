@@ -1,6 +1,7 @@
 package faang.school.godbless.library;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class Main {
@@ -27,9 +28,11 @@ public class Main {
 
     public static void removeBook(String bookTile, String bookAuthor, int publicationYear) {
         Book bookToRemove = new Book(bookTile, bookAuthor, publicationYear);
-        for (Map.Entry<Book, String> book : library.entrySet()) {
-            if(book.getKey().equals(bookToRemove)){
-                library.remove(new Book(bookTile, bookAuthor, publicationYear));
+        Iterator<Map.Entry<Book, String>> iterator = library.entrySet().iterator();
+        while (iterator.hasNext()) {
+            Map.Entry<Book, String> book = iterator.next();
+            if (book.getKey().equals(bookToRemove)) {
+                iterator.remove();
                 break;
             }
         }
