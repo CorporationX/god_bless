@@ -25,37 +25,37 @@ public class Main {
         System.out.println(searchStudents(group, "L", 2));
     }
 
-    public static Map<String, List<Student>> groupStudents(List<Student> arr) {
+    private static Map<String, List<Student>> groupStudents(List<Student> students) {
         Map<String, List<Student>> groups = new HashMap<>();
-        for (Student elem : arr) {
-            if (!groups.containsKey((elem.faculty() + elem.year()))) {
-                groups.put((elem.faculty() + elem.year()), new ArrayList<>());
+        for (Student elem : students) {
+            if (!groups.containsKey(generateKey(elem.getFaculty(), elem.getYear()))) {
+                groups.put(generateKey(elem.getFaculty(), elem.getYear()), new ArrayList<>());
             }
-            groups.get((elem.faculty() + elem.year())).add(elem);
+            groups.get(generateKey(elem.getFaculty(), elem.getYear())).add(elem);
         }
         return groups;
     }
 
-    public static void addNewStudent(Map<String, List<Student>> groups, Student student) {
-        if (!groups.containsKey((student.faculty() + student.year()))) {
-            groups.put((student.faculty() + student.year()), new ArrayList<>());
+    private static void addNewStudent(Map<String, List<Student>> groups, Student student) {
+        if (!groups.containsKey(generateKey(student.getFaculty(), student.getYear()))) {
+            groups.put(generateKey(student.getFaculty(), student.getYear()), new ArrayList<>());
         }
-        groups.get((student.faculty() + student.year())).add(student);
+        groups.get(generateKey(student.getFaculty(), student.getYear())).add(student);
     }
 
-    public static void removeStudent(Map<String, List<Student>> groups, String name, String faculty, int year) {
-        if (!groups.containsKey((faculty + year))) {
+    private static void removeStudent(Map<String, List<Student>> groups, String name, String faculty, int year) {
+        if (!groups.containsKey(generateKey(faculty, year))) {
             System.out.println("There is no such student");
         } else {
-            (groups.get(faculty + year)).remove(new Student(name, faculty, year));
+            groups.get(generateKey(faculty, year)).remove(new Student(name, faculty, year));
         }
     }
 
-    public static List<Student> searchStudents(Map<String, List<Student>> group, String faculty, int year) {
-        return group.get(faculty + year);
+    private static List<Student> searchStudents(Map<String, List<Student>> group, String faculty, int year) {
+        return group.get(generateKey(faculty, year));
     }
 
-    public static void printAllStudents(Map<String, List<Student>> groups) {
+    private static void printAllStudents(Map<String, List<Student>> groups) {
         for (Map.Entry<String, List<Student>> entry : groups.entrySet()) {
             System.out.print(entry.getKey() + " ");
             for (Student student : entry.getValue()) {
@@ -63,6 +63,10 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    private static String generateKey(String faculty, int year) {
+        return faculty + year;
     }
 }
 
