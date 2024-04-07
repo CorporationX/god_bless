@@ -7,12 +7,12 @@ public class Archer extends Character{
     }
 
     @Override
-    void attack(Character ch) {
-        int health = ch.getHealth();
+    public void attack(Character character) {
+        int health = character.getHealth();
         if (health > 0) {
-            ch.setHealth( health - this.getAgility());
+            character.setHealth( health - this.getAgility());
         } else {
-            System.out.println("Character " + ch.getName() + " have bin health = 0");
+            System.out.println("Character " + character.getName() + "`s health = 0");
         }
     }
 }

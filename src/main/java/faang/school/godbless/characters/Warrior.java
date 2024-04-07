@@ -7,12 +7,12 @@ public class Warrior extends Character {
     }
 
     @Override
-    void attack(Character ch) {
+    public void attack(Character character) {
         int health = this.getHealth();
         if (health > 0) {
-            ch.setHealth(ch.getHealth() - this.getPower());
+            character.setHealth(character.getHealth() - this.getPower());
         } else {
-            System.out.println("Character " + ch.getName() + " have bin health = 0");
+            System.out.println("Character " + character.getName() + "`s health = 0");
         }
     }
 }
