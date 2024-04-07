@@ -1,11 +1,14 @@
 package faang.school.godbless.bjs2_4523;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 public class Main {
 
     private static final Map<Student, Map<Subject, Integer>> studentSubjMap = new HashMap<>();
@@ -39,17 +42,14 @@ public class Main {
         printAllStudentsWithGrades();
 
         //add New subj for student Dima
-        System.out.println("\nAdd new subject for Dima");
         addSubjectForStudent(dima, chemistry, 6);
 
         //Print all students
         printAllStudentsWithGrades();
 
         //remove Vasya
-        System.out.println("\nRemove Vasya");
         removeStudentWithSubjects(vasya);
         printAllStudentsWithGrades();
-
 
         //Part2
         //Add new subject in Map2 and Students list
@@ -57,19 +57,15 @@ public class Main {
         students.add(vasya);
         students.add(dima);
         addSubjectWithStudents(math, students);
-        System.out.println("\nPrint all subjects");
+
         printListSubjectsWithStudents();
 
         //Add Student to subject
         Student katya = new Student(3, "Katya");
         addStudentToSubject(english, katya);
-        System.out.println("\nAdd Katya to english");
-        System.out.println("Print all subjects");
         printListSubjectsWithStudents();
 
         //Remove Vasya from math
-        System.out.println("\nRemove Vasya from math");
-        System.out.println("Print all subjects");
         removeStudentFromSubject(math, vasya);
         printListSubjectsWithStudents();
     }
@@ -80,14 +76,18 @@ public class Main {
     }
 
     public static void addSubjectForStudent(Student student, Subject subject, Integer grade) {
+        log.info("Add new subject for {}", student.getName());
         studentSubjMap.computeIfAbsent(student, key -> new HashMap<>()).put(subject, grade);
     }
 
     public static void removeStudentWithSubjects(Student student) {
-        studentSubjMap.remove(student);
+        if (studentSubjMap.remove(student) != null) {
+            log.info("Student {} was removed from cache", student.getName());
+        }
     }
 
     public static void printAllStudentsWithGrades() {
+        log.info("Print all students with grades");
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjMap.entrySet()) {
             System.out.println(entry.getKey().getName());
             entry.getValue().entrySet().forEach(System.out::println);
@@ -99,17 +99,21 @@ public class Main {
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
+        log.info("Add student {} to {}", student.getName(), subject.name());
         subjectListMap.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
     }
 
     public static void removeStudentFromSubject(Subject subject, Student student) {
-        Objects.requireNonNull(subjectListMap.computeIfPresent(subject, (key, value) -> value))
-                .remove(student);
+        if(Objects.requireNonNull(subjectListMap.computeIfPresent(subject, (key, value) -> value))
+                .remove(student)) {
+            log.info("Student {} was removed from subject {}", student.getName(), subject.name());
+        }
     }
 
     public static void printListSubjectsWithStudents() {
+        log.info("Print all subjects with students");
         for (Map.Entry<Subject, List<Student>> entry : subjectListMap.entrySet()) {
-            System.out.println(entry.getKey());
+            System.out.println(entry.getKey().name());
             entry.getValue().forEach(System.out::println);
         }
     }
