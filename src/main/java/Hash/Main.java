@@ -25,7 +25,7 @@ public class Main {
         showAllCityWeather();
     }
 
-    public static WeatherData showCityWeather(String city) {
+    private static WeatherData showCityWeather(String city) {
         if (!cities.containsKey(city)) {
             cities.put(city, MockService(city));
         }
@@ -36,16 +36,16 @@ public class Main {
         return new WeatherData(city, -1, 1);
     }
 
-    public static void updateWeather(String city, WeatherData weatherData){
+    private static void updateWeather(String city, WeatherData weatherData){
         cities.put(city, weatherData);
     }
 
-    public static void removeWeather(String city){
-        if(cities.containsKey(city)){
-            cities.remove(city);
-        }else{
+    private static void removeWeather(String city){
+        if(!cities.containsKey(city)){
             System.out.println("There is no such city.");
+            return;
         }
+        cities.remove(city);
     }
 
     public static void showAllCityWeather(){
