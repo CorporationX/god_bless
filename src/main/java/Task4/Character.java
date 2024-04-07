@@ -11,7 +11,7 @@ public abstract class Character {
         this.name = name;
     }
 
-    public int health() {
+    public int getHealth() {
         return health;
     }
 
@@ -22,7 +22,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character chr);
+    public abstract void attack(Character character);
 }
 
 class Warrior extends Character {
@@ -31,8 +31,8 @@ class Warrior extends Character {
     }
 
     @Override
-    public void attack(Character chr) {
-        chr.health = chr.health - power;
+    public void attack(Character character) {
+        character.health -= power;
     }
 
 }
@@ -43,7 +43,7 @@ class Archer extends Character {
     }
 
     @Override
-    public void attack(Character chr) {
-        chr.health = chr.health - dexterity;
+    public void attack(Character character) {
+        character.health -= dexterity;
     }
 }
