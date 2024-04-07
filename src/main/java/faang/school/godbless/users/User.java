@@ -19,20 +19,15 @@ public class User {
     private String workPlace;
     private String address;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupByAge = new HashMap<>();
+    public static Map<Integer, List<User>> groupedUsersByAge(List<User> users) {
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            int userAge = user.getAge();
-            List<User> lUsers;
-            if (groupByAge.containsKey(userAge)) {
-                lUsers = groupByAge.get(userAge);
-            } else {
-                lUsers = new ArrayList<>();
+            if (!groupedUsers.containsKey(user.getAge())) {
+                groupedUsers.put(user.getAge(), new ArrayList<>());
             }
-            lUsers.add(user);
-            groupByAge.put(userAge, lUsers);
+            groupedUsers.get(user.getAge()).add(user);
         }
-        return groupByAge;
+        return groupedUsers;
     }
 }
 

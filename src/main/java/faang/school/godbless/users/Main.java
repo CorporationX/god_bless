@@ -14,8 +14,8 @@ public class Main {
                 new User("Liza", 15, "Microsoft", "Baltimore"),
                 new User("Pol", 17, "Oracle", "Michigan")
         );
-        Map<Integer, List<User>> grouped = User.groupUsers(users);
-        for (Map.Entry<Integer, List<User>> entry : grouped.entrySet()) {
+        Map<Integer, List<User>> groupedUsersByAge = User.groupedUsersByAge(users);
+        for (Map.Entry<Integer, List<User>> entry : groupedUsersByAge.entrySet()) {
             System.out.println(entry.toString());
         }
     }
