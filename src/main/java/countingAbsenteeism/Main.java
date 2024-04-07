@@ -11,78 +11,67 @@ public class Main {
     private static final List<Student> STUDENTS = new ArrayList<>();
 
     public static void main(String[] args) {
-        Student student11 = new Student("Nick", "Aerospace", 4);
-        Student student12 = new Student("Vadim", "Aerospace", 4);
-        Student student13 = new Student("Nikita", "Aerospace", 2);
-        Student student14 = new Student("Ilya", "Aerospace", 3);
+        Student student11 = new Student("Nick", "Aerospace", 1);
+        Student student12 = new Student("Vadim", "Aerospace", 2);
+        Student student13 = new Student("Nikita", "Aerospace", 3);
+        Student student14 = new Student("Ilya", "Aerospace", 4);
         addStudent(student11);
         addStudent(student12);
         addStudent(student13);
-        addStudent(student14);
 
         Student student21 = new Student("Paul", "Aircraft engines", 1);
-        Student student22 = new Student("Andrey", "Aircraft engines", 1);
-        Student student23 = new Student("Anya", "Aircraft engines", 2);
-        Student student24 = new Student("Victoria", "Aircraft engines", 3);
+        Student student22 = new Student("Andrey", "Aircraft engines", 2);
+        Student student23 = new Student("Anya", "Aircraft engines", 3);
+        Student student24 = new Student("Victoria", "Aircraft engines", 4);
         addStudent(student21);
         addStudent(student22);
         addStudent(student23);
-        addStudent(student24);
+
 
         Student student31 = new Student("Stas", "IT", 1);
         Student student32 = new Student("Max", "IT", 2);
-        Student student33 = new Student("Dima", "IT", 2);
-        Student student34 = new Student("Anton", "IT", 3);
+        Student student33 = new Student("Dima", "IT", 3);
+        Student student34 = new Student("Anton", "IT", 4);
         addStudent(student31);
         addStudent(student32);
         addStudent(student33);
-        addStudent(student34);
-
-        removeStudent(student34);
-
-        sortByFacultyAndYear(STUDENTS);
-        findAllStudentByFacultyAndYear("IT", 2);
-        System.out.println("====================");
-        findAllStudentByFacultyAndYear("Aerospace", 4);
-        System.out.println("====================");
-
         printAllStudent();
+
+        System.out.println("\n\nДобавляем списокм\n\n");
+        STUDENTS.add(student14);
+        STUDENTS.add(student24);
+        STUDENTS.add(student34);
+        groupByFacultyAndYear(STUDENTS);
+        printAllStudent();
+
+        System.out.println("\n\nУдаляем студента\n\n");
+        printStudentListByFacultyAndYear(findAllStudentByFacultyAndYear("IT", 4));
+        removeStudent(student34);
+        printStudentListByFacultyAndYear(findAllStudentByFacultyAndYear("IT", 4));
+
     }
 
-    public static void sortByFacultyAndYear(List<Student> students) {
-        String key;
-        List<Student> tmp;
+    public static void groupByFacultyAndYear(List<Student> students) {
         for (Student student : students) {
-
-            key = student.getFaculty() + student.getYear();
-            if (!UNIVERSITY.containsKey(key)) {
-                UNIVERSITY.put(key, new ArrayList<>());
-            }
-
-            tmp = UNIVERSITY.get(key);
-            tmp.add(student);
-            UNIVERSITY.put(key, tmp);
+            addStudent(student);
         }
     }
 
     public static void addStudent(Student student) {
-        STUDENTS.add(student);
+        String key = createKey(student.getFaculty(), student.getYear());
+        if (!UNIVERSITY.containsKey(key)) {
+            UNIVERSITY.put(key, new ArrayList<>());
+        }
+        UNIVERSITY.get(key).add(student);
+
     }
 
     public static void removeStudent(Student student) {
-        STUDENTS.remove(student);
+        UNIVERSITY.get(createKey(student.getFaculty(), student.getYear())).remove(student);
     }
 
-    public static void findAllStudentByFacultyAndYear(String faculty, int year) {
-        String key = faculty + year;
-        if (!UNIVERSITY.containsKey(key)) {
-            throw new NullPointerException("По запросу факультет: '" + faculty + "'\n"
-                    + "курс: " + year + "\n"
-                    + "Ничего не найдено!");
-        }
-        for (Student student : UNIVERSITY.get(key)) {
-            System.out.println(student);
-        }
+    public static List<Student> findAllStudentByFacultyAndYear(String faculty, int year) {
+        return UNIVERSITY.get(createKey(faculty, year));
     }
 
     public static void printAllStudent() {
@@ -91,5 +80,17 @@ public class Main {
                     + "\nСписок студентов: " + entry.getValue()
                     + "\n========================");
         }
+    }
+
+    public static void printStudentListByFacultyAndYear(List<Student> students) {
+        for (Student student : students) {
+            System.out.println("Iмя студента: " + student.getName() +
+                    "\nКурс : " + student.getYear() +
+                    "\nФакультет: " + student.getFaculty());
+        }
+    }
+
+    private static String createKey(String faculty, int year) {
+        return faculty + year;
     }
 }
