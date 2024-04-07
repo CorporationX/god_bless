@@ -1,26 +1,53 @@
 package faang.school.godbless.BJS2_4131;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<String, House> gameOfThronesFamilies = new HashMap<>();
+        Map<String, House> gameOfThronesFamilies = new HashMap<>();
 
         House stark = new House("Старк", "Волк");
         House lannister = new House("Ланнистер", "Золотой лев");
         House baratheon = new House("Баратеон", "Чёрный коронованный олень, стоящий на задних ногах, на золотом поле");
 
-        House.addHouse(stark, gameOfThronesFamilies);
-        House.addHouse(lannister, gameOfThronesFamilies);
-        House.addHouse(baratheon, gameOfThronesFamilies);
+        addHouse(stark, gameOfThronesFamilies);
+        addHouse(lannister, gameOfThronesFamilies);
+        addHouse(baratheon, gameOfThronesFamilies);
 
-        House.printAllHouses(gameOfThronesFamilies);
+        printAllHouses(gameOfThronesFamilies);
 
-        House.removeHouse(stark, gameOfThronesFamilies);
+        removeHouse(stark, gameOfThronesFamilies);
         System.out.printf("Удалили дом \"%s\"", stark.getName());
 
-        House.printAllHouses(gameOfThronesFamilies);
+        printAllHouses(gameOfThronesFamilies);
 
-        System.out.println(House.findSigil(lannister.getName(), gameOfThronesFamilies));
+        System.out.println(findSigil(lannister.getName(), gameOfThronesFamilies));
+    }
+
+    public static void addHouse(House house, Map<String, House> target) {
+        target.put(house.getName(), house);
+    }
+
+    public static void removeHouse(House house, Map<String, House> target) {
+        target.remove(house.getName());
+    }
+
+    public static String findSigil(String houseName, Map<String, House> target) {
+        House house = target.get(houseName);
+
+        if (house == null) {
+            throw new IllegalArgumentException(String.format("Дом \"%s\" не найден", houseName));
+        }
+
+        return house.getSigil();
+    }
+
+    public static void printAllHouses(Map<String, House> target) {
+        System.out.println("Список всех домов и их гербов:");
+
+        for (House house : target.values()) {
+            System.out.printf("Дом \"%s\", Герб \"%s\".%n", house.getName(), house.getSigil());
+        }
     }
 }
