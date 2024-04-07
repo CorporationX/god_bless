@@ -1,20 +1,25 @@
 package faang.school.godbless.university;
 
+import lombok.ToString;
+
 import java.util.Objects;
 
+@ToString(includeFieldNames=true)
 public class Student {
     private String name;
     private String faculty;
     private int year;
+    private GroupOfStudents groupOfStudents;
 
     public Student(String name, String faculty, int year) {
         this.name = name;
         this.faculty = faculty;
         this.year = year;
+        this.groupOfStudents = new GroupOfStudents(faculty, year);
     }
 
     public GroupOfStudents getFacultyAndYear() {
-        return new GroupOfStudents(faculty, year);
+        return groupOfStudents;
     }
 
 
@@ -31,12 +36,4 @@ public class Student {
         return Objects.hash(name, faculty, year);
     }
 
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", faculty='" + faculty + '\'' +
-                ", year=" + year +
-                '}';
-    }
 }

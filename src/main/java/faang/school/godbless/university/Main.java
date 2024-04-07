@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final List<Student> studentList = new ArrayList<>();
+    private static List<Student> studentList = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -27,7 +27,7 @@ public class Main {
     }
 
     private static void printAllStudents() {
-        Map<GroupOfStudents, List<Student>> facultyAndYear = getFacultyAndYear();
+        Map<GroupOfStudents, List<Student>> facultyAndYear = groupByFacultyAndYear();
 
         for (Map.Entry<GroupOfStudents, List<Student>> entry : facultyAndYear.entrySet()) {
             GroupOfStudents group = entry.getKey();
@@ -51,10 +51,10 @@ public class Main {
 
     private static List<Student> searchAllStudent(String faculty, int year) {
         GroupOfStudents groupOfStudents = new GroupOfStudents(faculty, year);
-        return getFacultyAndYear().get(groupOfStudents);
+        return groupByFacultyAndYear().get(groupOfStudents);
     }
 
-    public static Map<GroupOfStudents, List<Student>> getFacultyAndYear() {
+    public static Map<GroupOfStudents, List<Student>> groupByFacultyAndYear() {
         Map<GroupOfStudents, List<Student>> mapFacultyAndYear = new HashMap<>();
 
         for (Student student : studentList) {

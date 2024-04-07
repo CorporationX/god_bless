@@ -1,7 +1,10 @@
 package faang.school.godbless.university;
 
+import lombok.ToString;
+
 import java.util.Objects;
 
+@ToString(includeFieldNames=true)
 public class GroupOfStudents {
     private String faculty;
     private int year;
@@ -32,11 +35,4 @@ public class GroupOfStudents {
         return Objects.hash(faculty, year);
     }
 
-    @Override
-    public String toString() {
-        return "Group Of Students{" +
-                "faculty='" + faculty + '\'' +
-                ", year=" + year +
-                '}';
-    }
 }
