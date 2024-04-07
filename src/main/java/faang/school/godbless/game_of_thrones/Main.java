@@ -5,35 +5,43 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<String, House> map1 = new HashMap<>();
+    private final static Map<String, House> COUNTY = new HashMap<>();
 
     public static void main(String[] args) {
-        map1.put("Stark", new House("Stark", "DireWolf"));
-        map1.put("Lanister", new House("Lanister", "Lion"));
-        map1.put("Barateon", new House("Barateon", "Deer"));
+        COUNTY.put("Stark", new House("Stark", "DireWolf"));
+        COUNTY.put("Lanister", new House("Lanister", "Lion"));
+        COUNTY.put("Barateon", new House("Barateon", "Deer"));
 
-        System.out.println(getAllHouse(map1));
+        System.out.println(COUNTY);
+
+        addHouse(new House("Lanister", "Lion"));
+
+        System.out.println(COUNTY);
     }
 
     public static void addHouse(House house) {
-        map1.put(house.getName(), house);
+        if (COUNTY.containsKey(house.getName())) {
+            throw new IllegalArgumentException("There is already such a house in the county.");
+        }
+        COUNTY.put(house.getName(), house);
     }
 
     public static void removeHouse(String name) {
-        map1.remove(name);
+        if (!COUNTY.containsKey(name)) {
+            throw new IllegalArgumentException("There is no such house in the county.");
+        }
+        COUNTY.remove(name);
     }
 
     public static House getHouse(String name) {
-        return map1.get(name);
+        return COUNTY.get(name);
     }
 
     public static void getInfoSigil(String name) {
-        System.out.println((map1.get(name)).getSigil());
+        System.out.println((COUNTY.get(name)).getSigil());
     }
 
     public static List<House> getAllHouse(Map<String, House> map) {
         return map.values().stream().toList();
     }
 }
-
-
