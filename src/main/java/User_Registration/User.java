@@ -6,6 +6,7 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -16,8 +17,8 @@ public class User {
     private String job;
     private String address;
 
-    public static HashMap<Integer, List<User>> groupUsers(List<User> userList) {
-        HashMap<Integer, List<User>> userMap = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
+        Map<Integer, List<User>> userMap = new HashMap<>();
         for (User user : userList) {
             if (!userMap.containsKey(user.getAge())) {
                 userMap.put(user.getAge(), new ArrayList<>());
