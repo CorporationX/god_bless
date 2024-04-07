@@ -1,15 +1,11 @@
 package faang.school.godbless.library;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @Data
-@Getter
-@Setter
 @ToString
 public class Book {
     private final String title;

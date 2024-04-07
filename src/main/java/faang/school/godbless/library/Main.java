@@ -12,7 +12,7 @@ public class Main {
         Book book3 = new Book("To Kill a Mockingbird", "Harper Lee", 1960);
         Book book4 = new Book("The Book Thief", "Markus Zusak", 2005);
 
-        addBook(book1,"T");
+        addBook(book1, "T");
         addBook(book2, "P");
         addBook(book3, "T");
         addBook(book4, "T");
@@ -36,8 +36,8 @@ public class Main {
         }
     }
 
-    public static void getAllBooks(){
-        for(Map.Entry<Book, String> book : library.entrySet()){
+    public static void getAllBooks() {
+        for (Map.Entry<Book, String> book : library.entrySet()) {
             System.out.println(book.getKey() + " is located in area " + book.getValue());
         }
     }
