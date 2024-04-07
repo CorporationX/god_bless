@@ -6,6 +6,7 @@ import java.util.Map;
 public class Main {
 
     private static final Map<String, WeatherData> WEATHER_DATA_CACHE = new HashMap<>();
+    private static final MockService service = new MockService();
 
     public static void main(String[] args) {
 
@@ -26,12 +27,10 @@ public class Main {
     }
 
     public static String findWeatherInCache(String city) {
-        if (WEATHER_DATA_CACHE.containsKey(city)) {
-            return printInfoAboutWeather(city);
-        } else {
-            WEATHER_DATA_CACHE.put(city, MockService.getWeather(city));
-            return printInfoAboutWeather(city);
+        if (!WEATHER_DATA_CACHE.containsKey(city)) {
+            WEATHER_DATA_CACHE.put(city, service.getWeather(city));
         }
+        return printInfoAboutWeather(city);
     }
 
     private static String printInfoAboutWeather(String city) {
@@ -42,7 +41,7 @@ public class Main {
     }
 
     public static void updateInfoAboutWeather(String city) {
-        WEATHER_DATA_CACHE.put(city, MockService.getWeather(city));
+        WEATHER_DATA_CACHE.put(city, service.getWeather(city));
     }
 
     public static void deleteInfoAboutWeather(String city) {
@@ -50,7 +49,7 @@ public class Main {
     }
 
     public static void printInfoAboutWeatherWhichStorageInCache() {
-        System.out.println("\nИнформация о погоде в кэше:");
+        System.out.println("\nIнформация о погоде в кэше:");
         for (Map.Entry<String, WeatherData> entry : WEATHER_DATA_CACHE.entrySet()) {
             System.out.println("\nГород: " + entry.getValue().getCity() +
                     "\nТемпература: " + entry.getValue().getTemperature() +
