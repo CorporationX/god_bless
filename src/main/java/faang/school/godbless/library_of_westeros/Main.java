@@ -13,6 +13,13 @@ public class Main {
         bookMap.put(new Book("The Storm of Swords", "Author 2", 1993), "Shelf number 2");
         bookMap.put(new Book("Knight of the Seven Kingdoms", "Author 3", 1995), "Shelf number 3");
 
+        Book book = new Book("Harry Potter", "J.K. Rowling", 1994);
+
+        System.out.println(bookMap);
+
+        addBook(book, "Shelf number 7");
+        removeBookByNameAuthorYear("The Storm of Swords", "Author 2", 1993);
+        System.out.println(findInfoBookByNameAuthorYear("Battle of the Kings", "Author 1", 1998));
         printAllBooks(bookMap);
     }
 
@@ -42,6 +49,6 @@ public class Main {
     }
 
     public static void printAllBooks(Map<Book, String> map) {
-        map.entrySet().stream().forEach(System.out::println);
+        map.entrySet().forEach(System.out::println);
     }
 }
