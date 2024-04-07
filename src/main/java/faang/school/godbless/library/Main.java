@@ -43,6 +43,7 @@ public class Main {
         for (Map.Entry<Book, String> book : library.entrySet()) {
             if (book.getKey().equals(bookToFind)) {
                 System.out.println(bookToFind + " is located in area " + book.getValue());
+                break;
             }
         }
     }
