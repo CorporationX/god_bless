@@ -7,8 +7,9 @@ public class Example {
         int[] arrayTemp = new int[arrayLength];
         for (int i = 0; i < nums.length; i++) {
             arrayTemp[i] = nums[(arrayLength - 1) - i];
+        }
+        for (int i = 0; i < nums.length; i++) {
             nums[i] = arrayTemp[i];
         }
     }
-
 }
