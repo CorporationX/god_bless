@@ -1,58 +1,34 @@
 package Task2;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
+
+@EqualsAndHashCode
+@ToString
+@AllArgsConstructor
+@Getter
 public class User {
     private final String name;
     private int age;
     private String adress;
     private String placeOfWork;
 
-    public User(String name, int age, String adress, String placeOfWork) {
-        this.name = name;
-        this.age = age;
-        this.adress = adress;
-        this.placeOfWork = placeOfWork;
-    }
-
-    public int age() {
-        return age;
-    }
-
-    public static Map<Integer, ArrayList<User>> groupUsers(List<User> array) {
-        HashMap<Integer, ArrayList<User>> answer = new HashMap<>();
-        for (User elem : array) {
-            if (!answer.containsKey(elem.age())) {
-                ArrayList<User> list = new ArrayList<>();
-                answer.put(elem.age(), list);
+    public static Map<Integer, ArrayList<User>> groupUsers(List<User> users) {
+        HashMap<Integer, ArrayList<User>> groupedUsers = new HashMap<>();
+        for (User user : users) {
+            if (!groupedUsers.containsKey(user.getAge())) {
+                ArrayList<User> usersOfCertainAge = new ArrayList<>();
+                groupedUsers.put(user.getAge(), usersOfCertainAge);
             }
-            answer.get(elem.age()).add(elem);
+            groupedUsers.get(user.getAge()).add(user);
         }
-        return answer;
+        return groupedUsers;
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(adress, user.adress) && Objects.equals(placeOfWork, user.placeOfWork);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, adress, placeOfWork);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
 }

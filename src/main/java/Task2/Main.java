@@ -8,12 +8,12 @@ public class Main {
         User user1 = new User("Vasya", 23, "  ", "efs");
         User user2 = new User("Vanya", 9, "  ", "efs");
         User user3 = new User("Nikita", 23, "  ", "efs");
-        ArrayList<User> list1 = new ArrayList<>();
-        list1.add(user1);
-        list1.add(user2);
-        list1.add(user3);
-        Map<Integer, ArrayList<User>> mapOfUsers = User.groupUsers(list1);
+        ArrayList<User> users = new ArrayList<>();
+        users.add(user1);
+        users.add(user2);
+        users.add(user3);
+        Map<Integer, ArrayList<User>> usersGroupedByAge = User.groupUsers(users);
 
-        System.out.println(mapOfUsers);
+        System.out.println(usersGroupedByAge);
     }
 }
