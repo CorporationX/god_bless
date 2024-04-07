@@ -37,7 +37,7 @@ public class Battlefield {
             System.out.println("Round " + ++round + ":");
 
             System.out.println("Calh attack...");
-            result = attack(CALH, CHRISTIAN);
+            attack(CALH, CHRISTIAN);
 
             System.out.println("Christian attack...");
             result = attack(CHRISTIAN, CALH);
