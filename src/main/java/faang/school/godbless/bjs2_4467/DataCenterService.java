@@ -2,7 +2,11 @@ package faang.school.godbless.bjs2_4467;
 
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.NoSuchElementException;
+
+@Slf4j
 @Setter
 @RequiredArgsConstructor
 public class DataCenterService {
@@ -19,21 +23,28 @@ public class DataCenterService {
     }
 
     public void removeServer(Server server) {
-        dataCenter.getServers().remove(server);
+        log.info("Remove server from Data center");
+        if (!dataCenter.getServers().remove(server)) {
+            log.warn("Server not found in data center");
+            throw new NoSuchElementException("Server not found in data center");
+        }
     }
 
     public double getTotalEnergyConsumption() {
-        return dataCenter.getServers().stream()
+        log.info("Get energy consumption");
+        double consumption =  dataCenter.getServers().stream()
                 .map(Server::getEnergyConsumption)
                 .reduce(0.0, Double::sum);
+        log.info("Total consumption: " + consumption);
+        return consumption;
     }
 
     public void allocateResources(ResourceRequest request) {
-        System.out.println("Выделяется ресурс объемом: " + request.getLoad());
+        log.info("Выделяется ресурс объемом: " + request.getLoad());
     }
 
     public void releaseResources(ResourceRequest request) {
-        System.out.println("Освобождается ресурс объемом: " + request.getLoad());
+        log.info("Освобождается ресурс объемом: " + request.getLoad());
     }
 
     public void optimizeDataCenter() {
