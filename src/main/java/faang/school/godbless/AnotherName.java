@@ -1,4 +1,4 @@
 package faang.school.godbless;
 
-public class Main {
+public class AnotherName {
 }
