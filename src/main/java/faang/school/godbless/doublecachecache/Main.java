@@ -97,9 +97,7 @@ public class Main {
 
     public static void removeStudent(Student student) {
         for (Subject subject : STUDENT_GRADES.get(student).keySet()) {
-            if (SUBJECT_STUDENTS.get(subject).contains(student)) {
                 SUBJECT_STUDENTS.get(subject).remove(student);
-            }
         }
         STUDENT_GRADES.remove(student);
     }
