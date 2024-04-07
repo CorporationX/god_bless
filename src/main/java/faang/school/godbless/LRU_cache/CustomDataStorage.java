@@ -6,11 +6,15 @@ import java.util.Map;
 
 public class CustomDataStorage {
 
-    private static final Map<Integer, Node> CACHE = new HashMap<>();
-    private static final Map<Integer, Data> ALL_DATA = new HashMap<>();
-    private static final int CACHE_SIZE = 3;
+    private final Map<Integer, Node> CACHE = new HashMap<>();
+    private final Map<Integer, Data> ALL_DATA = new HashMap<>();
+    private final int CACHE_SIZE;
     private static Node head = new Node();
     private static Node tail = new Node();
+
+    public CustomDataStorage(int CACHE_SIZE) {
+        this.CACHE_SIZE = CACHE_SIZE;
+    }
 
     static {
         head.setNext(tail);

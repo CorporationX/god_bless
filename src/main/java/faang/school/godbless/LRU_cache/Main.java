@@ -3,7 +3,7 @@ package faang.school.godbless.LRU_cache;
 public class Main {
 
     public static void main(String[] args) {
-        CustomDataStorage customDataStorage = new CustomDataStorage();
+        CustomDataStorage customDataStorage = new CustomDataStorage(3);
 
         // add start data, all should be in cache
         customDataStorage.addData(new Data("something"));
