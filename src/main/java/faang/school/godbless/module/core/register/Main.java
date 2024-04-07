@@ -4,10 +4,27 @@ public class Main {
     public static void main(String[] args) {
         User ivan = null;
         try {
-            ivan = new User("Иван", 20, "Google", "London");;
+            ivan = new User("", 20, "Google", "London");
         } catch (Exception e) {
-            throw new RuntimeException("Ошибка валидации создания пользователя", e);
+            System.out.printf("Ошибка валидации создания пользователя: %s \n", e.getMessage());
         }
-        System.out.println(ivan);
+        User vlad = null;
+        try {
+            vlad = new User("Vlad", 17, "Google", "London");
+        } catch (Exception e) {
+            System.out.printf("Ошибка валидации создания пользователя: %s \n", e.getMessage());
+        }
+        User vova = null;
+        try {
+            vova = new User("Володька", 31, "Фрезировщик", "London");
+        } catch (Exception e) {
+            System.out.printf("Ошибка валидации создания пользователя: %s \n", e.getMessage());
+        }
+        User lilya = null;
+        try {
+            lilya = new User("Лилия", 31, "Google", "Улица Пушкина");
+        } catch (Exception e) {
+            System.out.printf("Ошибка валидации создания пользователя: %s \n", e.getMessage());
+        }
     }
 }

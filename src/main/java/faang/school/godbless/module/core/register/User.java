@@ -29,7 +29,7 @@ public class User {
     }
 
     private static void validateUserFields(String name, int age, String job, String address) {
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
         if (age < PERMITTED_AGE) {
@@ -39,7 +39,7 @@ public class User {
             throw new IllegalArgumentException(String.format("место работы должно содержаться во множестве %s", String.join(",", VALID_JOBS)));
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException(String.format("место работы должно содержаться во множестве %s", String.join(",", VALID_JOBS)));
+            throw new IllegalArgumentException(String.format("место работы должно содержаться во множестве %s", String.join(",", VALID_ADDRESSES)));
         }
     }
 }
