@@ -10,18 +10,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        addStudent("Mark", "CS", 4);
-        addStudent("Michael", "Biology", 1);
-        addStudent("Leonardo", "CS", 2);
-        addStudent("Sandra", "CS", 2);
-        addStudent("Elena", "Biology", 1);
-        addStudent("Bob", "CS", 2);
-        addStudent("Bill", "Biology", 1);
-        addStudent("Clod", "Biology", 3);
+        addStudent(studentList, new Student("Mark", "CS", 4));
+        addStudent(studentList, new Student("Michael", "Biology", 1));
+        addStudent(studentList, new Student("Leonardo", "CS", 2));
+        addStudent(studentList, new Student("Sandra", "CS", 2));
+        addStudent(studentList, new Student("Elena", "Biology", 1));
+        addStudent(studentList, new Student("Bob", "CS", 2));
+        addStudent(studentList, new Student("Bill", "Biology", 1));
+        addStudent(studentList, new Student("Clod", "Biology", 3));
 
-        deleteStudent("Mark", "CS", 4);
+        deleteStudent(studentList, new Student("Mark", "CS", 4));
 
-        searchAllStudent("CS", 2);
+        List<Student> resultOfSearch = searchAllStudent("CS", 2);
+        //System.out.println(resultOfSearch);
 
         printAllStudents();
     }
@@ -38,15 +39,16 @@ public class Main {
             for (Student student : students) {
                 System.out.println(student);
             }
+            System.out.println();
         }
     }
 
-    private static void addStudent(String name, String faculty, int year) {
-        studentList.add(new Student(name, faculty, year));
+    private static void addStudent(List<Student> students, Student student) {
+        students.add(student);
     }
 
-    private static void deleteStudent(String name, String faculty, int year) {
-        studentList.remove(new Student(name, faculty, year));
+    private static void deleteStudent(List<Student> students, Student student) {
+        students.add(student);
     }
 
     private static List<Student> searchAllStudent(String faculty, int year) {
