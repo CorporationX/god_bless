@@ -58,9 +58,7 @@ public class Main {
     }
 
     public static void printCache() {
-        for (Map.Entry<Integer, Data> entry : DATA_MAP.entrySet()) {
-            System.out.println(entry.getValue());
-        }
+        DATA_MAP.values().forEach(System.out::println);
     }
 
 
