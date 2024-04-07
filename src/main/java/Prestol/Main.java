@@ -18,30 +18,30 @@ public class Main {
         printAllHouses(houses);
         System.out.println();
 
-        findHouse(houses, "Qwerty");
-        findHouse(houses, "Stark");
+        printHouse(houses, "Qwerty");
+        printHouse(houses, "Stark");
     }
 
-    public static void addToHouses(Map<String, House> arg, House h1) {
-        arg.put(h1.name(), h1);
+    private static void addToHouses(Map<String, House> houses, House house) {
+        houses.put(house.getName(), house);
     }
 
-    public static void deleteFromHouses(Map<String, House> arg, String name) {
-        arg.remove(name);
+    private static void deleteFromHouses(Map<String, House> houses, String houseName) {
+        houses.remove(houseName);
     }
 
-    public static void findHouse(Map<String, House> arg, String name) {
-        if (arg.containsKey(name)) {
-            System.out.println(arg.get(name).sigil());
+    private static void printHouse(Map<String, House> houses, String houseName) {
+        if (houses.containsKey(houseName)) {
+            System.out.println(houses.get(houseName).getSigil());
         } else {
             System.out.println("There is no such house on the list.");
         }
     }
 
-    public static void printAllHouses(Map<String, House> arg) {
-        for (Map.Entry<String, House> entry : arg.entrySet()) {
+    private static void printAllHouses(Map<String, House> houses) {
+        for (Map.Entry<String, House> entry : houses.entrySet()) {
             System.out.println("Name: " + entry.getKey() + ", house: " +
-                    entry.getValue().sigil());
+                    entry.getValue().getSigil());
         }
     }
 }
