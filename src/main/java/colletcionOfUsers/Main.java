@@ -30,13 +30,11 @@ public class Main {
         users.add(user3);
 
         List<String> activities = Stream.of("Программирование",
-                                            "Сериалы", "Теннис").
-                        collect(Collectors.toCollection(ArrayList::new));
+                        "Сериалы", "Теннис").
+                collect(Collectors.toCollection(ArrayList::new));
 
 
-
-
-        for (Map.Entry<User, String> entry : User.findHobbyLovers(users, activities).entrySet()){
+        for (Map.Entry<User, String> entry : User.findHobbyLovers(users, activities).entrySet()) {
             System.out.println("Key = " + entry.getKey());
             System.out.println("Value = " + entry.getValue().toString());
         }
