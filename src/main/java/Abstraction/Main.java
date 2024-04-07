@@ -8,6 +8,7 @@ public class Main {
         warriorBen.attack(archerTen);
         archerTen.attack(warriorBen);
         System.out.println(warriorBen.name + " - " + warriorBen.health + " : " + archerTen.health + " - " + archerTen.name);
+
     }
 
 }
