@@ -10,7 +10,7 @@ public class WeatherService {
         weatherCache = new HashMap<>();
     }
 
-    public static WeatherData getMockWeatherData(String city) {
+    private static WeatherData getMockWeatherData(String city) {
         double temperature = Math.random() * 100;
         double humidity = Math.random() * 100;
         return new WeatherData(city, temperature, humidity);
