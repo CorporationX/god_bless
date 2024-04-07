@@ -1,13 +1,17 @@
 package Task3;
 
-
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
+@EqualsAndHashCode
+@ToString
+@Getter
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -18,51 +22,41 @@ public class User {
     private String placeOfWork;
 
     public User(String name, int age, String address, String placeOfWork) {
-        if (name.isBlank() || age < LEGAL_AGE || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
-        } else {
-            this.name = name;
-            this.age = age;
-            this.address = address;
-            this.placeOfWork = placeOfWork;
-        }
-    }
+        validateValues(name, age, address, placeOfWork);
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.placeOfWork = placeOfWork;
 
-    public int age() {
-        return age;
     }
 
     public static Map<Integer, ArrayList<User>> groupUsers(List<User> array) {
         HashMap<Integer, ArrayList<User>> answer = new HashMap<>();
         for (User elem : array) {
-            if (!answer.containsKey(elem.age())) {
+            if (!answer.containsKey(elem.getAge())) {
                 ArrayList<User> list = new ArrayList<>();
-                answer.put(elem.age(), list);
+                answer.put(elem.getAge(), list);
             }
-            answer.get(elem.age()).add(elem);
+            answer.get(elem.getAge()).add(elem);
         }
         return answer;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(address, user.address) && Objects.equals(placeOfWork, user.placeOfWork);
+    private static void validateValues(String name, int age, String address, String placeOfWork) {
+        if(name == null){
+            throw new IllegalArgumentException("Name is null");
+        }
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Name is blank");
+        }
+        if (age < LEGAL_AGE) {
+            throw new IllegalArgumentException("Unacceptable age");
+        }
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("Invalid place of work");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        }
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, address, placeOfWork);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
-    }
-
 }
