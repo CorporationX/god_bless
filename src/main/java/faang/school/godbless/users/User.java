@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,19 +17,20 @@ public class User {
     private int id;
     private String name;
     private int age;
-    private Set<String> activity;
+    private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> hm = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> foundHobbies = new HashMap<>();
 
         for (User user : users) {
-            Set<String> userActivity = user.getActivity();
-            Set<String> intersection = new HashSet<>(activities);
-            intersection.retainAll(userActivity);
-            if (!intersection.isEmpty()) {
-                hm.put(user, intersection.stream().findFirst().get());
+            Set<String> userActivities = user.getActivities();
+            for (String hobby : hobbies) {
+                if (userActivities.contains(hobby)) {
+                    foundHobbies.put(user, hobby);
+                    break;
+                }
             }
         }
-        return hm;
+        return foundHobbies;
     }
 }
