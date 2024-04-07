@@ -1,9 +1,10 @@
 package faang.school.godbless.BJS2_4134;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class WeatherService {
-    private final HashMap<String, WeatherData> weatherCache;
+    private final Map<String, WeatherData> weatherCache;
 
     public WeatherService() {
         weatherCache = new HashMap<>();
