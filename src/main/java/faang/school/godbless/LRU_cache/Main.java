@@ -34,6 +34,5 @@ public class Main {
         customDataStorage.getDataById(2);
 
         customDataStorage.printInfoAboutCache();
-
     }
 }

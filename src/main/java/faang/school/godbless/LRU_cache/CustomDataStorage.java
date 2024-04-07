@@ -9,45 +9,48 @@ public class CustomDataStorage {
     private final Map<Integer, Node> CACHE = new HashMap<>();
     private final Map<Integer, Data> ALL_DATA = new HashMap<>();
     private final int CACHE_SIZE;
-    private static Node head = new Node();
-    private static Node tail = new Node();
+    private Node head;
+    private Node tail;
 
     public CustomDataStorage(int CACHE_SIZE) {
         this.CACHE_SIZE = CACHE_SIZE;
     }
 
-    static {
-        head.setNext(tail);
-        tail.setPrev(head);
-    }
-
     private void addToTail(Node node) {
-        node.setPrev(tail);
-        tail.setNext(node);
-        tail = node;
+        if (head == null) {
+            head = node;
+        } else if (tail == null) {
+            tail = node;
+            tail.setPrev(head);
+            head.setNext(tail);
+        } else {
+            node.setPrev(tail);
+            tail.setNext(node);
+            tail = node;
+        }
     }
 
     private void moveToTail(Node node) {
-        node.getNext().setPrev(node.getPrev());
-        node.getPrev().setNext(node.getNext());
-        node.setNext(null);
-        node.setPrev(null);
+        remove(node);
         addToTail(node);
     }
 
     private void remove(Node node) {
-        node.getNext().setPrev(node.getPrev());
-        node.getPrev().setNext(node.getNext());
+
+        if (node == head) {
+            node.getNext().setPrev(null);
+            head = node.getNext();
+        } else {
+            node.getNext().setPrev(node.getPrev());
+            node.getPrev().setNext(node.getNext());
+        }
+
         node.setNext(null);
         node.setPrev(null);
     }
 
     private Node removeHead() {
-        /*
-        Не очень мне нравится эта строчка, я удаляю как бы не head,
-        а элемент стоящий через 1 и head при этом не обновляю. Лучше пока что не придумал
-        */
-        Node prevHead = head.getNext().getNext();
+        Node prevHead = head;
         remove(prevHead);
         return prevHead;
     }
