@@ -71,7 +71,7 @@ public class Main {
 
 
         System.out.println("Removing student (Yarik).\n");
-        collegeManager.removeStudent(yarik);
+        collegeManager.removeStudent(2);
 
         System.out.println("System storage at this point:\n");
 
@@ -118,7 +118,7 @@ public class Main {
 
 
         System.out.println("Removing student (Elisey) from subject (biology) listeners.\n");
-        collegeManager.removeStudentFromSubjectListeners(elisey, biology);
+        collegeManager.removeStudentFromSubjectListeners(6, 4);
 
         System.out.println("System storage at this point:\n");
 

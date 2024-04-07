@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class CollegeManager {
     private final Map<Student, Map<Subject, Integer>> studentMap; // Список студентов и их оценки по предметам
@@ -61,22 +62,28 @@ public class CollegeManager {
     public void addStudentWithGrades(Student student, Map<Subject, Integer> grades) {
         studentMap.computeIfAbsent(student, subjectMap -> new HashMap<>()).putAll(grades);
 
-        grades.forEach((subject, score) -> {
-            addStudentToSubjectListeners(student, subject);
-        });
+        grades.forEach((subject, score) -> addStudentToSubjectListeners(student, subject));
     }
 
     public void addSubjectWithStudents(Subject subject, List<Student> subjectListeners) {
         subjectMap.computeIfAbsent(subject, value -> new ArrayList<>()).addAll(subjectListeners);
     }
 
-    public void removeStudent(Student student) {
-        Map<Subject, Integer> removedStudentGrades = studentMap.remove(student);
+    public void removeStudent(int id) {
+        var studentToBeRemoved = getStudentById(id);
+
+        if (studentToBeRemoved.isEmpty()) {
+            System.out.println("No such student in system storage!");
+
+            return;
+        }
+
+        Map<Subject, Integer> removedStudentGrades = studentMap.remove(studentToBeRemoved.get());
 
         removedStudentGrades.forEach(((subject, integer) -> {
             List<Student> subjectListeners = subjectMap.get(subject);
 
-            subjectListeners.remove(student);
+            subjectListeners.remove(studentToBeRemoved.get());
         }));
     }
 
@@ -84,24 +91,41 @@ public class CollegeManager {
         subjectMap.computeIfAbsent(subject, subjectListeners -> new ArrayList<>()).add(student);
     }
 
-    public void removeStudentFromSubjectListeners(Student student, Subject subject) {
-        List<Student> subjectListeners = subjectMap.get(subject);
+    public void removeStudentFromSubjectListeners(int studentId, int subjectId) {
+        var studentToBeRemoved = getStudentById(studentId);
+
+        if (studentToBeRemoved.isEmpty()) {
+            System.out.println("No such student in system storage!");
+
+            return;
+        }
+
+        var subject = getSubjectById(subjectId);
+
+        if (subject.isEmpty()) {
+            System.out.println("No such subject in system storage!");
+
+            return;
+        }
+
+
+        List<Student> subjectListeners = subjectMap.get(subject.get());
 
         if (subjectListeners == null) {
             System.out.println("No such subject in storage!");
             return;
         }
 
-        subjectListeners.remove(student);
+        subjectListeners.remove(studentToBeRemoved.get());
     }
 
     public void printStudentsInfo() {
         System.out.println("Students info:");
         studentMap.forEach((student, grades) -> {
-            System.out.println("Student " + student.getName() + " and his(her) grades:");
+            System.out.println("Student " + student.name() + " and his(her) grades:");
 
             grades.forEach(((subject, score) -> {
-                System.out.println(subject.getName() + " - " + score + ";");
+                System.out.println(subject.name() + " - " + score + ";");
             }));
             System.out.println();
         });
@@ -110,10 +134,30 @@ public class CollegeManager {
     public void printSubjectsInfo() {
         System.out.println("Subjects info:");
         subjectMap.forEach((subject, subjectListeners) -> {
-            System.out.println("Subject " + subject.getName() + " and students assigned to it:");
+            System.out.println("Subject " + subject.name() + " and students assigned to it:");
 
-            subjectListeners.forEach(student -> System.out.println(student.getName() + ";"));
+            subjectListeners.forEach(student -> System.out.println(student.name() + ";"));
             System.out.println();
         });
+    }
+
+    public Optional<Student> getStudentById(int id) {
+        for (Student student : studentMap.keySet()) {
+            if (student.id() == id) {
+                return Optional.of(student);
+            }
+        }
+
+        return Optional.empty();
+    }
+
+    public Optional<Subject> getSubjectById(int id) {
+        for (Subject subject : subjectMap.keySet()) {
+            if (subject.id() == id) {
+                return Optional.of(subject);
+            }
+        }
+
+        return Optional.empty();
     }
 }
