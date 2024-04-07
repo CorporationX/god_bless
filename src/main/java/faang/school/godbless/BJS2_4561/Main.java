@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Map<Book, String> bookMap = new HashMap<>();
 
         Book horror = new Book("Horror", "Tom", 1720);
