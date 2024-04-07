@@ -43,8 +43,7 @@ class DataCenterServiceTest {
     @Test
     void getTotalEnergyConsumption() {
         double result = dataCenterService.getTotalEnergyConsumption();
-        double expectedResult = 36;
-        assertEquals(result, expectedResult);
+        assertEquals(result, 36);
     }
 
     @Test
@@ -61,13 +60,8 @@ class DataCenterServiceTest {
 
     @Test
     void releaseResources_expectedTrue_1() {
-        boolean result = dataCenterService.releaseResources(new ResourceRequest(18));
-        assertTrue(result);
-    }
-
-    @Test
-    void releaseResources_expectedTrue_2() {
-        boolean result = dataCenterService.releaseResources(new ResourceRequest(180));
+        boolean result = dataCenterService.releaseResources(new ResourceRequest(18))
+                && dataCenterService.releaseResources(new ResourceRequest(180));
         assertTrue(result);
     }
 
