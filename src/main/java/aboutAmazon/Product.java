@@ -1,63 +1,37 @@
 package aboutAmazon;
 
+import lombok.Value;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Set;
 
+@Value
 public class Product {
-    private int id;
-    private String name;
-    private String category;
+    int id;
+    String name;
+    String category;
 
-    public Product(int id, String name, String category) {
-        this.id = id;
-        this.name = name;
-        this.category = category;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id == product.id && Objects.equals(name, product.name) && Objects.equals(category, product.category);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, id, category);
-    }
-
-    public static HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> productHashSet) {
-        HashMap<String, List<Product>> stringListHashMap = new HashMap<>();
-        for (Product elem : productHashSet) {
-            if (!stringListHashMap.containsKey(elem.category)) {
-                stringListHashMap.put(elem.category, new ArrayList<>());
+    public static Map<String, List<Product>> groupProductsByCategory(Set<Product> productSet) {
+        Map<String, List<Product>> categoriesAndProducts = new HashMap<>();
+        for (Product elem : productSet) {
+            if (!categoriesAndProducts.containsKey(elem.category)) {
+                categoriesAndProducts.put(elem.category, new ArrayList<>());
             }
-            stringListHashMap.get(elem.category).add(elem);
+            categoriesAndProducts.get(elem.category).add(elem);
         }
-        return stringListHashMap;
+        return categoriesAndProducts;
     }
 
     public static void printCategoriesAndProducts(Map<String, List<Product>> stringListMap) {
         for (Map.Entry<String, List<Product>> entry : stringListMap.entrySet()) {
             System.out.print(entry.getKey() + ": ");
-            for (Product elem : entry.getValue()) {
-                System.out.print(elem + " ");
+            for (Product product : entry.getValue()) {
+                System.out.print(product + " ");
             }
             System.out.println();
         }
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", category='" + category + '\'' +
-                '}';
     }
 }
