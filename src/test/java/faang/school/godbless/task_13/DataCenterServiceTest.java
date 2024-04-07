@@ -89,7 +89,8 @@ class DataCenterServiceTest {
     @Test
     void releaseResourcesTooBigRequestLoad() {
         boolean success = service.releaseResources(new ResourceRequest(97));
-        assertFalse(success);
+        assertTrue(success);
+        assertEquals(0, server3.getLoad());
     }
 
     @Test

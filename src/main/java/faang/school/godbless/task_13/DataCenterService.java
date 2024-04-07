@@ -3,6 +3,7 @@ package faang.school.godbless.task_13;
 import faang.school.godbless.task_13.optimization.OptimizationStrategy;
 import lombok.AllArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,14 +14,14 @@ public class DataCenterService {
         if (server == null) {
             return;
         }
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void removeServer(Server server) {
-        if (server == null || dataCenter.getServers().isEmpty()) {
+        if (server == null || dataCenter.isEmpty()) {
             return;
         }
-        dataCenter.getServers().remove(server);
+        dataCenter.removeServer(server);
     }
 
     public double getTotalEnergyConsumption() {
@@ -32,17 +33,12 @@ public class DataCenterService {
     }
 
     public boolean allocateResources(ResourceRequest request) {
-        if (dataCenter.getServers().isEmpty()) {
+        if (dataCenter.isEmpty()) {
             return false;
         }
 
         double requestLoad = request.getLoad();
-        Server maxAvailableLoadServer = dataCenter.getServers().get(0);
-        for (Server server : dataCenter.getServers()) {
-            if (server.getAvailableLoad() > maxAvailableLoadServer.getAvailableLoad()) {
-                maxAvailableLoadServer = server;
-            }
-        }
+        Server maxAvailableLoadServer = findMaxServer(Comparator.comparing(Server::getAvailableLoad));
 
         if (maxAvailableLoadServer.getAvailableLoad() < requestLoad) {
             return false;
@@ -53,24 +49,29 @@ public class DataCenterService {
     }
 
     public boolean releaseResources(ResourceRequest request) {
-        if (dataCenter.getServers().isEmpty()) {
+        if (dataCenter.isEmpty()) {
             return false;
         }
 
         double requestLoad = request.getLoad();
+        Server maxLoadServer = findMaxServer(Comparator.comparing(Server::getLoad));
+
+        if (maxLoadServer.getLoad() < requestLoad) {
+            maxLoadServer.setLoad(0);
+        } else {
+            maxLoadServer.setLoad(maxLoadServer.getLoad() - requestLoad);
+        }
+        return true;
+    }
+
+    private Server findMaxServer(Comparator<Server> comparator) {
         Server maxLoadServer = dataCenter.getServers().get(0);
         for (Server server : dataCenter.getServers()) {
-            if (server.getLoad() > maxLoadServer.getLoad()) {
+            if (comparator.compare(server, maxLoadServer) > 0) {
                 maxLoadServer = server;
             }
         }
-
-        if (maxLoadServer.getLoad() < requestLoad) {
-            return false;
-        }
-
-        maxLoadServer.setLoad(maxLoadServer.getLoad() - requestLoad);
-        return true;
+        return maxLoadServer;
     }
 
     public List<Server> getAllServers() {
