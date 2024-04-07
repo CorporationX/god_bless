@@ -18,14 +18,14 @@ public class Battlefield {
         int armorHealthArmy1 = 0;
         int damageArmy1 = 0;
         for (Creature creature : army1) {
-            armorHealthArmy1 += creature.getDefence() * creature.amount();
+            armorHealthArmy1 += creature.getDefence() * creature.getAmount();
             damageArmy1 += creature.getDamage();
         }
 
         int armorHealthArmy2 = 0;
         int damageArmy2 = 0;
         for (Creature creature : army2) {
-            armorHealthArmy2 += creature.getDefence() * creature.amount();
+            armorHealthArmy2 += creature.getDefence() * creature.getAmount();
             damageArmy2 += creature.getDamage();
         }
 

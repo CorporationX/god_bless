@@ -23,7 +23,8 @@ public abstract class Creature {
         return defence;
     }
 
-    public int amount() {
+    public int getAmount() {
         return amount;
     }
+
 }
