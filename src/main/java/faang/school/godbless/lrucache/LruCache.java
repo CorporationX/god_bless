@@ -6,44 +6,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LruCache {
-    private final int CACHE_SIZE;
-    private final Map<Integer, Node> CACHE = new HashMap<>();
-    private final Map<Integer, Data> ALL_DATA = new HashMap<>();
+    private final int cacheSize;
+    private final Map<Integer, Node> cache = new HashMap<>();
+    private final Map<Integer, Data> allData = new HashMap<>();
     private Node head;
     private Node tail;
 
     public LruCache(int capacity) {
-        this.CACHE_SIZE = capacity;
+        this.cacheSize = capacity;
     }
 
     public void put(Data data) {
-        ALL_DATA.put(data.getId(), data);
-        if (CACHE.containsKey(data.getId())) {
-            Node node = CACHE.get(data.getId());
-            node.data.setTimestamp(LocalDateTime.now());
+        allData.put(data.getId(), data);
+        if (cache.containsKey(data.getId())) {
+            Node node = cache.get(data.getId());
             moveToTail(node);
         } else {
             Node node = new Node(data);
-            if (CACHE.size() < CACHE_SIZE) {
+            if (cache.size() < cacheSize) {
                 addToTail(node);
             } else {
-                CACHE.remove(head.data.getId());
+                cache.remove(head.data.getId());
                 removeHead();
                 addToTail(node);
             }
-            CACHE.put(data.getId(), node);
+            cache.put(data.getId(), node);
         }
     }
 
     public Data getData(int id) {
-        if (CACHE.containsKey(id)) {
-            Node node = CACHE.get(id);
+        if (cache.containsKey(id)) {
+            Node node = cache.get(id);
             node.data.setTimestamp(LocalDateTime.now());
             moveToTail(node);
             return node.data;
         } else {
-            if (ALL_DATA.containsKey(id)) {
-                Node node = new Node(ALL_DATA.get(id));
+            if (allData.containsKey(id)) {
+                Node node = new Node(allData.get(id));
                 node.data.setTimestamp(LocalDateTime.now());
                 put(node.data);
                 return node.data;
@@ -90,12 +89,12 @@ public class LruCache {
     }
 
     public void printCache() {
-        for (Map.Entry<Integer, Node> entry : CACHE.entrySet()) {
+        for (Map.Entry<Integer, Node> entry : cache.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue().data);
         }
     }
 
-    public static class Node {
+    private static class Node {
         Data data;
         Node next;
         Node prev;
