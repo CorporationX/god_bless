@@ -10,4 +10,5 @@ public class Main {
         soldier1.attack(soldier2);
         System.out.println(soldier2.getHealth());
     }
+
 }
