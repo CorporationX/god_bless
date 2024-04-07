@@ -10,13 +10,14 @@ import java.util.Random;
 public class WeatherService {
     private static final Map<String, WeatherData> WEATHER_CACHE = new HashMap<>();
 
-    public void getWeatherInfo(String city) {
+    public WeatherData getWeatherInfo(String city) {
         if (WEATHER_CACHE.containsKey(city)) {
-            WEATHER_CACHE.get(city);
-            return;
+            return WEATHER_CACHE.get(city);
+        } else {
+            WeatherData weatherData = getWeather(city);
+            WEATHER_CACHE.put(city, weatherData);
+            return weatherData;
         }
-        WEATHER_CACHE.put(city, getWeather(city));
-        getWeather(city);
     }
 
     public WeatherData getWeather(String city) {
@@ -28,7 +29,6 @@ public class WeatherService {
 
     public void updateInfo(String city) {
         if (WEATHER_CACHE.containsKey(city)) {
-            WEATHER_CACHE.remove(city);
             WEATHER_CACHE.put(city, new WeatherData(city, 16.0, 22.0));
             System.out.println("\nИнформация обновлена.");
             return;
