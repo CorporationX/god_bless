@@ -40,8 +40,11 @@ public class Main {
 
     public static void findBook(String bookTile, String bookAuthor, int publicationYear) {
         Book bookToFind = new Book(bookTile, bookAuthor, publicationYear);
-        if (library.get(bookToFind) != null) {
-            System.out.println(bookToFind + " is located in area " + library.get(new Book(bookTile, bookAuthor, publicationYear)));
+        for(Map.Entry<Book, String> book : library.entrySet()){
+            if (book.getKey().equals(bookToFind)) {
+                System.out.println(bookToFind + " is located in area " + book.getValue());
+            }
+
         }
     }
 
