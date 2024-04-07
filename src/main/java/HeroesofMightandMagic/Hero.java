@@ -1,8 +1,11 @@
 package HeroesofMightandMagic;
 
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
 public class Hero {
     private String name;
     private String group;
@@ -26,25 +29,15 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        for (int i = 0; i < quantity && i < army.size(); i++) {
+        for (int i = 0, g = 0; g < quantity && i < army.size(); i++) {
             if (army.get(i).equals(creature)) {
                 army.remove(i);
+                g++;
             }
         }
     }
 
     public List<Creature> getArmy() {
         return army;
-    }
-
-    @Override
-    public String toString() {
-        return "Hero{" +
-                "name='" + name + '\'' +
-                ", group='" + group + '\'' +
-                ", experience=" + experience +
-                ", level=" + level +
-                ", army=" + army +
-                '}';
     }
 }
