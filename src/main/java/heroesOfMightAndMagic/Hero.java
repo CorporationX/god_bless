@@ -9,7 +9,7 @@ import java.util.Map;
 @Getter
 @Setter
 public class Hero {
-    private final Map<String, Creature> ARMY = new HashMap<>();
+    private final Map<Creature, Integer> army = new HashMap<>();
     private String name;
     private String fraction;
     private int experience;
@@ -24,29 +24,18 @@ public class Hero {
 
     public void addCreature(Creature creature, int quantity) {
 
-        if (!ARMY.containsKey(creature.getName())) {
-            creature.setQuantity(quantity);
-            ARMY.put(creature.getName(), creature);
+        if (!army.containsKey(creature)) {
+            army.put(creature, quantity);
         } else {
-            Creature tmp;
-            tmp = ARMY.get(creature.getName());
-            tmp.setQuantity(tmp.getQuantity() + quantity);
-            ARMY.put(creature.getName(), tmp);
+            army.put(creature, army.get(creature) + quantity);
         }
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        Creature tmp;
-        tmp = ARMY.get(creature.getName());
-        if (tmp.getQuantity() - quantity < 1) {
-            ARMY.remove(tmp.getName());
+        if (army.get(creature) - quantity < 1) {
+            army.remove(creature);
         } else {
-            tmp.setQuantity(tmp.getQuantity() - quantity);
-            ARMY.put(tmp.getName(), tmp);
+            army.put(creature, army.get(creature) - quantity);
         }
-    }
-
-    public Map<String, Creature> getArmy() {
-        return ARMY;
     }
 }

@@ -30,21 +30,10 @@ public class Battlefield {
         while ((!hero1.getArmy().isEmpty()) && (!hero2.getArmy().isEmpty())) {
 
             System.out.println("Ход первого игрока " + hero1.getName() + "\n");
-            for (Map.Entry<String, Creature> entry1 : hero1.getArmy().entrySet()) {
-                for (Map.Entry<String, Creature> entry2 : hero2.getArmy().entrySet()) {
-                    int diedCreature = entry2.getValue().getQuantity() - countQuantityAfterAttack(entry1.getValue(), entry2.getValue());
-                    hero2.removeCreature(entry2.getValue(), diedCreature);
-                    break;
-                }
-            }
+            playersMove(hero1, hero2);
             System.out.println("Ход второго игрока " + hero2.getName() + "\n");
-            for (Map.Entry<String, Creature> entry2 : hero2.getArmy().entrySet()) {
-                for (Map.Entry<String, Creature> entry1 : hero1.getArmy().entrySet()) {
-                    int diedCreature = entry1.getValue().getQuantity() - countQuantityAfterAttack(entry2.getValue(), entry1.getValue());
-                    hero1.removeCreature(entry1.getValue(), diedCreature);
-                    break;
-                }
-            }
+            playersMove(hero2, hero1);
+
             i++;
             System.out.println("Результаты раунда '" + i + "'\n");
             printArmyOfHero(hero1);
@@ -58,22 +47,22 @@ public class Battlefield {
         return winner;
     }
 
-    public static int countQuantityAfterAttack(Creature attack, Creature protect) {
+    public static int countQuantityAfterAttack(Map.Entry<Creature, Integer> attack, Map.Entry<Creature, Integer> protect) {
         int hp;
-        int damage = attack.getAttack() * attack.getQuantity();
+        int damage = attack.getKey().getDamage() * attack.getValue();
 
-        if (protect.getHpAfterAttack() != 0) {
-            hp = protect.getHealth() * (protect.getQuantity() - 1) + protect.getHpAfterAttack();
+        if (protect.getKey().getHpAfterAttack() != 0) {
+            hp = protect.getKey().getAttack() * (protect.getValue() - 1) + protect.getKey().getHpAfterAttack();
         } else {
-            hp = protect.getHealth() * protect.getQuantity();
+            hp = protect.getKey().getHealth() * protect.getValue();
         }
 
         hp -= damage;
-        if (hp % protect.getHealth() == 0) {
-            return hp / protect.getHealth();
+        if (hp % protect.getKey().getHealth() == 0) {
+            return hp / protect.getKey().getHealth();
         } else {
-            protect.setHpAfterAttack(hp % protect.getHealth());
-            return hp / protect.getHealth() + 1;
+            protect.getKey().setHpAfterAttack(hp % protect.getKey().getHealth());
+            return hp / protect.getKey().getHealth() + 1;
         }
     }
 
@@ -82,9 +71,19 @@ public class Battlefield {
         if (hero.getArmy().isEmpty()) {
             System.out.println("Все существа мертвы!\n");
         } else {
-            for (Map.Entry<String, Creature> entry : hero.getArmy().entrySet()) {
-                System.out.println("Существо: " + entry.getValue().getName() +
-                        "\nКоличество: " + entry.getValue().getQuantity() + "\n");
+            for (Map.Entry<Creature, Integer> entry : hero.getArmy().entrySet()) {
+                System.out.println("Существо: " + entry.getKey().getName() +
+                        "\nКоличество: " + entry.getValue() + "\n");
+            }
+        }
+    }
+
+    private static void playersMove(Hero hero1, Hero hero2) {
+        for (Map.Entry<Creature, Integer> entry1 : hero1.getArmy().entrySet()) {
+            for (Map.Entry<Creature, Integer> entry2 : hero2.getArmy().entrySet()) {
+                int diedCreature = entry2.getValue() - countQuantityAfterAttack(entry1, entry2);
+                hero2.removeCreature(entry2.getKey(), diedCreature);
+                break;
             }
         }
     }
