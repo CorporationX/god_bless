@@ -1,11 +1,13 @@
 package Collect;
 
-import java.util.List;
+import lombok.EqualsAndHashCode;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
+@EqualsAndHashCode
 public class User {
     private int id;
     private String name;
@@ -17,33 +19,20 @@ public class User {
         this.activities = activities;
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> arr, Set<String> activ) {
-        HashMap<User, String> ans = new HashMap<>();
-        for (User elem1 : arr) {
-            for (String elem2 : elem1.activities()) {
-                if (activ.contains(elem2)) {
-                    ans.put(elem1, elem2);
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        Map<User, String> answer = new HashMap<>();
+        for (User user : users) {
+            for (String activity : user.getActivities()) {
+                if (activities.contains(activity)) {
+                    answer.put(user, activity);
                     break;
                 }
             }
         }
-        return ans;
+        return answer;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(activities, user.activities);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, activities);
-    }
-
-    public Set<String> activities() {
+    public Set<String> getActivities() {
         return activities;
     }
 
