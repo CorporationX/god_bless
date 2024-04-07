@@ -11,12 +11,13 @@ public class Main {
         LIBRARY.put(new Book("Изучаем Java", "Кэти Сьера && Берт Бейтс", 2004), "59");
         LIBRARY.put(new Book("Грокаем алгоритмы", "Адитья Бхаргава", 2020), "37");
 
-        getList();
+        printLibrary();
         add("Искусство быть", "Эрих Фромм", 1976, "70");
-        getList();
+        printLibrary();
         remove("Грокаем алгоритмы", "Адитья Бхаргава", 2020);
-        getList();
-        searchShelfNumber("Чистый код", "Роберт Мартин", 2019);
+        printLibrary();
+        System.out.println("Книга находится на полке № " +
+                searchShelfNumber("Чистый код", "Роберт Мартин", 2019));
     }
 
     public static void add(String title, String author, int year, String shelfNumber) {
@@ -29,11 +30,11 @@ public class Main {
         System.out.println("Книга удалена.");
     }
 
-    public static void searchShelfNumber(String title, String author, int year) {
-        System.out.println("Номер полки - " + LIBRARY.get(new Book(title, author, year)));
+    public static String searchShelfNumber(String title, String author, int year) {
+        return LIBRARY.get(new Book(title, author, year));
     }
 
-    public static void getList() {
+    public static void printLibrary() {
         for (Map.Entry<Book, String> entry : LIBRARY.entrySet()) {
             System.out.println(entry.getKey() + ", номер полки - " + entry.getValue());
         }
