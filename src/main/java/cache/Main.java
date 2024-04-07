@@ -35,9 +35,12 @@ public class Main {
 
     private static String printInfoAboutWeather(String city) {
         WeatherData infoInCache = WEATHER_DATA_CACHE.get(city);
-        return "Город: " + infoInCache.getCity() +
-                "\nТемпература: " + infoInCache.getTemperature() +
-                "\nВлажность: " + infoInCache.getHumidity();
+        return String.format("Город: %s" +
+                "\nТемпература: %d" +
+                "\nВлажность: %d",
+                infoInCache.getCity(),
+                infoInCache.getTemperature(),
+                infoInCache.getHumidity());
     }
 
     public static void updateInfoAboutWeather(String city) {
@@ -51,9 +54,12 @@ public class Main {
     public static void printInfoAboutWeatherWhichStorageInCache() {
         System.out.println("\nIнформация о погоде в кэше:");
         for (Map.Entry<String, WeatherData> entry : WEATHER_DATA_CACHE.entrySet()) {
-            System.out.println("\nГород: " + entry.getValue().getCity() +
-                    "\nТемпература: " + entry.getValue().getTemperature() +
-                    "\nВлажность: " + entry.getValue().getHumidity());
+            System.out.println(String.format("Город: %s" +
+                            "\nТемпература: %d" +
+                            "\nВлажность: %d \n",
+                    entry.getValue().getCity(),
+                    entry.getValue().getTemperature(),
+                    entry.getValue().getHumidity()));
         }
     }
 }
