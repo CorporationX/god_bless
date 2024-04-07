@@ -18,15 +18,15 @@ public class User {
     private String address;
 
     public User(String name, int age, String work, String address) {
-        validation(name, age, work, address);
+        validateFields(name, age, work, address);
         this.name = name;
         this.age = age;
         this.work = work;
         this.address = address;
     }
 
-    public void validation(String name, int age, String work, String address) {
-        if (name.isEmpty()) {
+    public void validateFields(String name, int age, String work, String address) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
         }
         if (age <= 18) {
