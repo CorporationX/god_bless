@@ -1,7 +1,6 @@
 package faang.school.godbless.BJS2_4390;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +23,7 @@ public class Main {
         users.add(mihail);
         users.add(eugen);
 
-        HashMap<Integer, List<User>> usersByAge = User.groupUsers(users);
+        Map<Integer, List<User>> usersByAge = User.groupUsers(users);
 
         for (Map.Entry<Integer, List<User>> entry : usersByAge.entrySet()) {
             System.out.println("age = " + entry.getKey());

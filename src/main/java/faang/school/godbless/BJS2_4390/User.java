@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,21 +17,16 @@ public class User {
     private String placeOfWork;
     private String address;
 
-    public static HashMap<Integer, List<User>> groupUsers(List<User> users) {
-
-        HashMap<Integer, List<User>> usersByAge = new HashMap<>();
-
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> usersByAge = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-
             boolean groupExist = usersByAge.containsKey(age);
-
             if (!groupExist) {
                 usersByAge.put(age, new ArrayList<>());
             }
             usersByAge.get(age).add(user);
         }
-
         return usersByAge;
     }
 }
