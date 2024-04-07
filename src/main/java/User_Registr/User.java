@@ -1,10 +1,11 @@
-package User_Registration;
+package User_Registr;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Getter
@@ -18,8 +19,8 @@ public class User {
     private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     final private static int legalAge = 18;
 
-    public static HashMap<Integer, List<User>> groupUsers(List<User> userList) {
-        HashMap<Integer, List<User>> userMap = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
+        Map<Integer, List<User>> userMap = new HashMap<>();
         for (User user : userList) {
             if (!userMap.containsKey(user.getAge())) {
                 userMap.put(user.getAge(), new ArrayList<>());
