@@ -23,7 +23,7 @@ public abstract class Character {
 
 }
 
-class Warrior extends Character{
+class Warrior extends Character {
 
     public Warrior(String name) {
         super(name, 10, 5, 3);
@@ -35,7 +35,7 @@ class Warrior extends Character{
     }
 }
 
-class Archer extends Character{
+class Archer extends Character {
 
     public Archer(String name) {
         super(name, 3, 10, 5);
