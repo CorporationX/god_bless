@@ -6,77 +6,77 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        List<Student> students = new ArrayList<>();
-        students.add(new Student("Mark", "Computer Science", 3));
-        students.add(new Student("Dima", "System design", 2));
-        students.add(new Student("Roma", "Mathematics", 1));
-        students.add(new Student("Bill", "Computer Science", 3));
-        students.add(new Student("Lora", "System design", 5));
+    private static final List<Student> STUDENTS = new ArrayList<>();
 
-        printInfo(students);
-        addStudent(new Student("Sasha", "System design", 2), students);
-        addStudent(new Student("Albert", "Phisica", 4), students);
-        printInfo(students);
-        removeStudent("Roma", "Mathematics", 1, students);
-        printInfo(students);
-        searchStudent("Mathematics", 1, students);
-        searchStudent("Computer Science", 3, students);
+    public static void main(String[] args) {
+        STUDENTS.add(new Student("Mark", "Computer Science", 3));
+        STUDENTS.add(new Student("Dima", "System design", 2));
+        STUDENTS.add(new Student("Roma", "Mathematics", 1));
+        STUDENTS.add(new Student("Bill", "Computer Science", 3));
+        STUDENTS.add(new Student("Lora", "System design", 5));
+
+        Map<String, List<Student>> studentsGroup = groupStudents(STUDENTS);
+        printInfo(studentsGroup);
+        addStudent(new Student("Sasha", "System design", 2), studentsGroup);
+        addStudent(new Student("Albert", "Phisica", 4), studentsGroup);
+        printInfo(studentsGroup);
+        removeStudent("Roma", "Mathematics", 1, studentsGroup);
+        printInfo(studentsGroup);
+        System.out.println(searchStudent("Computer Science", 3, studentsGroup));
     }
 
-    public static HashMap<String, List<Student>> getListStudents(List<Student> students) {
-        HashMap<String, List<Student>> facultyStudents = new HashMap<>();
+    private static Map<String, List<Student>> groupStudents(List<Student> students) {
+        Map<String, List<Student>> facultyStudents = new HashMap<>();
         for (Student student : students) {
-            String facultyAndYear = student.getFaculty() + ", " + student.getYear();
-            if (!facultyStudents.containsKey(facultyAndYear)) {
-                facultyStudents.put(facultyAndYear, new ArrayList<>());
+            String key = getFacultyAndYear(student.getFaculty(), student.getYear());
+            if (!facultyStudents.containsKey(key)) {
+                facultyStudents.put(key, new ArrayList<>());
             }
-            facultyStudents.get(facultyAndYear).add(student);
+            facultyStudents.get(key).add(student);
         }
         return facultyStudents;
     }
 
-    public static void addStudent(Student student, List<Student> students) {
-        String facultyAndYear = student.getFaculty() + ", " + student.getYear();
-        if (students.contains(student)) {
-            System.out.println("Такой студент уже содержится в списке.");
-            return;
+    private static void addStudent(Student student, Map<String, List<Student>> students) {
+        String key = getFacultyAndYear(student.getFaculty(), student.getYear());
+        if (!students.containsKey(key)) {
+            students.put(key, new ArrayList<>());
+            STUDENTS.add(student);
         }
-        students.add(student);
-
-        if (!getListStudents(students).containsKey(facultyAndYear)) {
-            getListStudents(students).put(facultyAndYear, new ArrayList<>());
-            getListStudents(students).get(facultyAndYear).add(student);
-        }
-        getListStudents(students).put(facultyAndYear, students);
+        students.get(key).add(student);
     }
 
-    public static void removeStudent(String name, String faculty, int year, List<Student> students) {
+    private static void removeStudent(String name, String faculty, int year, Map<String, List<Student>> students) {
         Student removeStudent = new Student(name, faculty, year);
-        if (students.contains(removeStudent)) {
-            students.remove(removeStudent);
-            String facultyAndYear = removeStudent.getFaculty() + ", " + removeStudent.getYear();
-            if (getListStudents(students).containsKey(facultyAndYear)) {
-                getListStudents(students).get(facultyAndYear).remove(removeStudent);
-            }
-            System.out.println("Студент удален.");
+        String key = getFacultyAndYear(faculty, year);
+        if (students.containsKey(key)) {
+            STUDENTS.remove(removeStudent);
+            students.get(key).remove(removeStudent);
+            students.remove(key);
+            System.out.println("\nСтудент удален.");
         } else {
-            System.out.println("Такого студента в списке нет.");
+            System.out.println("\nТакого студента в списке нет.");
         }
     }
 
-    public static void searchStudent(String faculty, int year, List<Student> students) {
-        String facultyAndYear = faculty + ", " + year;
-        if (getListStudents(students).containsKey(facultyAndYear)) {
-            System.out.println("Студент(ы) найден(ы) - " + getListStudents(students).get(facultyAndYear));
+    private static List<Student> searchStudent(String faculty, int year, Map<String, List<Student>> students) {
+        String key = getFacultyAndYear(faculty, year);
+        if (students.containsKey(key)) {
+            System.out.println("Студнет(ы) найден(ы): ");
+            return students.get(key);
         } else {
-            System.out.println("Студент не найден.");
+            System.out.println("\nСтудент(ы) не найден(ы).");
+            return new ArrayList<>();
         }
     }
 
-    public static void printInfo(List<Student> students) {
+    private static String getFacultyAndYear(String faculty, int year) {
+        return faculty + ", " + year;
+    }
+
+    private static void printInfo(Map<String, List<Student>> students) {
         System.out.println("--------------------");
-        for (Map.Entry<String, List<Student>> entry : getListStudents(students).entrySet()) {
+        for (Map.Entry<String, List<Student>> entry : students.entrySet()) {
             System.out.println(entry.getKey() + " --> " + entry.getValue());
         }
     }
