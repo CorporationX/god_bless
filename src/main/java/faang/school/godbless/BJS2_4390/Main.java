@@ -8,30 +8,27 @@ import java.util.Map;
 public class Main {
 
     public static void main(String[] args) {
-        // создаем пользователей
-        Users sam = new Users("Sam", 21, "Yandex", "Moscow");
-        Users ivan = new Users("Ivan", 28, "Restaurant", "Ufa");
-        Users maria = new Users("Maria", 45, "School", "Samara");
-        Users natalia = new Users("Natalia", 21, "VK", "Saint Petersburg");
-        Users mihail = new Users("Mihail", 28, "Sber", "Moscow");
-        Users eugen = new Users("Eugen", 45, "Theater", "Krasnodar");
 
-        // наполняем лист пользователями
-        List<Users> usersList = new ArrayList<>();
-        usersList.add(sam);
-        usersList.add(ivan);
-        usersList.add(maria);
-        usersList.add(natalia);
-        usersList.add(mihail);
-        usersList.add(eugen);
+        User sam = new User("Sam", 21, "Yandex", "Moscow");
+        User ivan = new User("Ivan", 28, "Restaurant", "Ufa");
+        User maria = new User("Maria", 45, "School", "Samara");
+        User natalia = new User("Natalia", 21, "VK", "Saint Petersburg");
+        User mihail = new User("Mihail", 28, "Sber", "Moscow");
+        User eugen = new User("Eugen", 45, "Theater", "Krasnodar");
 
-        // сортируем пользователей по возрасту
-        HashMap<Integer, List<Users>> usersByAge = Users.groupUsers(usersList);
+        List<User> users = new ArrayList<>();
+        users.add(sam);
+        users.add(ivan);
+        users.add(maria);
+        users.add(natalia);
+        users.add(mihail);
+        users.add(eugen);
 
-        // выводим в консоль для наглядности
-        for (Map.Entry<Integer, List<Users>> entry : usersByAge.entrySet()) {
+        HashMap<Integer, List<User>> usersByAge = User.groupUsers(users);
+
+        for (Map.Entry<Integer, List<User>> entry : usersByAge.entrySet()) {
             System.out.println("age = " + entry.getKey());
-            for (Users user : entry.getValue()) {
+            for (User user : entry.getValue()) {
                 System.out.println(user.toString());
             }
         }
