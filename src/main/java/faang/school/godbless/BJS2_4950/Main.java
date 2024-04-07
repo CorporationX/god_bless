@@ -11,6 +11,22 @@ public class Main {
         Book toKillMockingbird = new Book("To kill mockingbird", "Harper Lee", 1960);
         Book iRobot = new Book("I Robot", "Isaac Asimov", 1950);
 
+        Book.addBook(books, atlasShrugged, "shelf-1");
+        Book.addBook(books, toKillMockingbird, "shelf-2");
+        Book.addBook(books, iRobot, "shelf-3");
+        Book.printAllBooks(books);
+        System.out.println(" ______________ ");
+
+        Book.deleteBook(books, toKillMockingbird);
+        Book.printAllBooks(books);
+        System.out.println(" ______________ ");
+
+        System.out.println(Book.findBookByName(books, atlasShrugged));
+        System.out.println(" ______________ ");
+
+        System.out.println(Book.findBookByName(books, iRobot));
+        System.out.println(" ______________ ");
+
 
     }
 }
