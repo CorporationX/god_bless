@@ -26,7 +26,13 @@ public class Main {
     }
 
     public static void removeBook(String bookTile, String bookAuthor, int publicationYear) {
-        library.remove(new Book(bookTile, bookAuthor, publicationYear));
+        Book bookToRemove = new Book(bookTile, bookAuthor, publicationYear);
+        for (Map.Entry<Book, String> book : library.entrySet()) {
+            if(book.getKey().equals(bookToRemove)){
+                library.remove(new Book(bookTile, bookAuthor, publicationYear));
+                break;
+            }
+        }
     }
 
     public static void findBook(String bookTile, String bookAuthor, int publicationYear) {
