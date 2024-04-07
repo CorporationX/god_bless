@@ -60,15 +60,15 @@ class DataCenterServiceTest {
     }
 
     @Test
-    void releaseResources_expectedTrue() {
+    void releaseResources_expectedTrue_1() {
         boolean result = dataCenterService.releaseResources(new ResourceRequest(18));
         assertTrue(result);
     }
 
     @Test
-    void releaseResources_expectedFalse() {
+    void releaseResources_expectedTrue_2() {
         boolean result = dataCenterService.releaseResources(new ResourceRequest(180));
-        assertFalse(result);
+        assertTrue(result);
     }
 
     @Test

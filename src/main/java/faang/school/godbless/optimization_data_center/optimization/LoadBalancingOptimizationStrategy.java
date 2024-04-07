@@ -9,20 +9,18 @@ import java.util.List;
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
 
     @Override
-    public void optimization(DataCenter dataCenter) {
+    public void optimize(DataCenter dataCenter) {
 
         List<Server> servers = dataCenter.getServers();
-        double currentTotalLoad = servers.stream()
-                .reduce(0.0, (result, server) -> result + server.getLoad(), Double::sum);
+        double currentTotalLoad = dataCenter.getTotalByExpression((result, server) -> result + server.getLoad());
         int countServers = servers.size();
-
         double minMaxLoadOnServer = servers.stream()
                 .min(Comparator.comparingDouble(Server::getMaxLoad))
                 .get()
                 .getMaxLoad();
 
         if (minMaxLoadOnServer > currentTotalLoad / countServers) {
-            final double loadPerEachServer = currentTotalLoad / countServers;
+            double loadPerEachServer = currentTotalLoad / countServers;
             servers.forEach(server -> server.setLoad(loadPerEachServer));
         } else {
 
@@ -37,9 +35,6 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
                     break;
                 }
             }
-
         }
-
     }
-
 }

@@ -4,6 +4,6 @@ import faang.school.godbless.optimization_data_center.DataCenter;
 
 public interface OptimizationStrategy {
 
-    void optimization(DataCenter dataCenter);
+    void optimize(DataCenter dataCenter);
 
 }

@@ -7,10 +7,6 @@ import java.util.List;
 
 public class DataCenterService {
 
-    /*
-      Не очень мне нравится что в DataCenterService у меня только один DataCenter,
-      наверно лучше убрать его отсюда и передавать в параметры методов.
-    */
     private final DataCenter dataCenter;
 
     public DataCenterService(DataCenter dataCenter) {
@@ -18,29 +14,21 @@ public class DataCenterService {
     }
 
     public void addNewServerToDataServer(Server server) {
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void deleteServerFromDataCenter(Server server) {
-        for (int i = 0; i < dataCenter.getServers().size(); i++) {
-            if (dataCenter.getServers().get(i).equals(server)) {
-                dataCenter.getServers().remove(i);
-                break;
-            }
-        }
+        dataCenter.deleteServer(server);
     }
 
     public double getTotalEnergyConsumption() {
-        return dataCenter.getServers().stream()
-                .reduce(0.0, (result, server2) -> result + server2.getEnergyConsumption(), Double::sum);
+        return dataCenter.getTotalByExpression((result, server2) -> result + server2.getEnergyConsumption());
     }
 
     public boolean allocateResources(ResourceRequest request) {
 
         double allocateResources = request.getLoad();
-
-        double availableAllocateResources = dataCenter.getServers().stream()
-                .reduce(0.0, (result, server) -> result + server.getAvailableLoad(), Double::sum);
+        double availableAllocateResources = dataCenter.getTotalByExpression((result, server) -> result + server.getAvailableLoad());
 
         if (allocateResources > availableAllocateResources) {
             System.out.println("Resource allocate is not possible");
@@ -61,26 +49,21 @@ public class DataCenterService {
 
     public boolean releaseResources(ResourceRequest request) {
 
-        double releaseResources = request.getLoad();
-
-        double availableReleaseResources = dataCenter.getServers().stream()
-                .reduce(0.0, (result, server) -> result + server.getLoad(), Double::sum);
-
-        if (releaseResources > availableReleaseResources) {
-            System.out.println("Resource release is not possible");
-            return false;
-        }
+        double resourcesForRelease = Math.min(
+                request.getLoad(),
+                dataCenter.getTotalByExpression((result, server) -> result + server.getLoad())
+        );
 
         for (Server server : dataCenter.getServers()) {
-            double partOfAllocateResources = server.availableResourcesForRelease(releaseResources);
-            releaseResources -= partOfAllocateResources;
-            if (releaseResources == 0) {
-                System.out.println("Resource release occurred successfully");
-                return true;
+            double partOfReleaseResources = server.availableResourcesForRelease(resourcesForRelease);
+            resourcesForRelease -= partOfReleaseResources;
+            if (resourcesForRelease == 0) {
+                break;
             }
         }
 
-        return false;
+        System.out.println("Resource release occurred successfully");
+        return true;
     }
 
     public List<Server> findAllServers() {
@@ -88,7 +71,6 @@ public class DataCenterService {
     }
 
     public void optimize(OptimizationStrategy optimizationStrategy) {
-        optimizationStrategy.optimization(dataCenter);
+        optimizationStrategy.optimize(dataCenter);
     }
-
 }
