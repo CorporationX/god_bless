@@ -17,16 +17,16 @@ public class User {
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> inputActivities){
-        Map<User, String> searchUsers = new HashMap<>();
+        Map<User, String> foundUsers = new HashMap<>();
 
         for (User user : users){
             for (String activity : user.getActivities()){
                 if (inputActivities.contains(activity)){
-                    searchUsers.put(user, activity);
+                    foundUsers.put(user, activity);
                     break;
                 }
             }
         }
-        return searchUsers;
+        return foundUsers;
     }
 }
