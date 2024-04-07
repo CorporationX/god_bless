@@ -13,10 +13,10 @@ public class Main {
         HOUSES.put("Geyjoi", new House("Greyjoy", "Kraken"));
 
         add("Targaryen", "Dragon");
-        getList();
+        printInfo();
         remove("Barateon");
-        getList();
-        getInfo("Stark");
+        printInfo();
+        System.out.println(getInfo("Stark"));
     }
 
     public static void add(String houseName, String sigil) {
@@ -29,11 +29,11 @@ public class Main {
         System.out.println("Дом удален.");
     }
 
-    public static void getInfo(String houseName) {
-        System.out.println(HOUSES.get(houseName));
+    public static House getInfo(String houseName) {
+        return HOUSES.get(houseName);
     }
 
-    public static void getList() {
+    public static void printInfo() {
         for (Map.Entry<String, House> entry : HOUSES.entrySet()) {
             System.out.println(entry.getKey() + " --> " + entry.getValue());
         }
