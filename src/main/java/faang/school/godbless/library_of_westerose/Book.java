@@ -1,7 +1,10 @@
 package faang.school.godbless.library_of_westerose;
 
+import lombok.ToString;
+
 import java.util.Objects;
 
+@ToString(includeFieldNames=true)
 public class Book {
     private String title;
     private String author;
@@ -35,15 +38,6 @@ public class Book {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", year=" + year +
-                '}';
     }
 
     @Override
