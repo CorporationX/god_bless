@@ -15,7 +15,7 @@ public class Main {
         ActionOnStudents.deleteStudent("Gregory", "Music", 4, studentsList);
         ActionOnStudents.addNewStudent("Sasha", "IMIT", 3, studentsList);
         ActionOnStudents.printAllStudents(studentsList);
-        ActionOnStudents.searchAllStudents("IMIT", 3, studentsList);
+        ActionOnStudents.searchAllStudentsOfFacultyAndYear("IMIT", 3, studentsList);
 
     }
 }

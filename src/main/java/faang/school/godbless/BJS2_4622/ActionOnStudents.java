@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ActionOnStudents {
-    public static Map<String, List<Student>> groupedStudents(List<Student> students){
+    public static Map<String, List<Student>> groupStudentsByFacultyAndYear(List<Student> students){
         Map<String, List<Student>> groupedStudents = new HashMap<>();
 
         for (Student student : students){
@@ -25,19 +25,13 @@ public class ActionOnStudents {
     }
 
     public static void deleteStudent(String name, String faculty, int year, List<Student> studentsList){
-        Map<String, List<Student>> groupedStudents = groupedStudents(studentsList);
-        String key = faculty + "-" + year;
-        List<Student> studentsFromFaculty = groupedStudents.get(key);
+        Student studentToDelete = new Student(name, faculty, year);
 
-        for (Student student : studentsFromFaculty){
-            if(student.getName().equals(name)){
-                studentsList.remove(student);
-            }
-        }
+        studentsList.remove(studentToDelete);
     }
 
-    public static void searchAllStudents(String faculty, int year, List<Student> studentsList){
-        Map<String, List<Student>> groupedStudents = groupedStudents(studentsList);
+    public static void searchAllStudentsOfFacultyAndYear(String faculty, int year, List<Student> studentsList){
+        Map<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear(studentsList);
         String key = faculty + "-" + year;
         List<Student> studentsFromFaculty = groupedStudents.get(key);
 
@@ -48,7 +42,7 @@ public class ActionOnStudents {
     }
 
     public static void printAllStudents(List<Student> studentsList){
-        Map<String, List<Student>> groupedStudents = groupedStudents(studentsList);
+        Map<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear(studentsList);
 
         for (Map.Entry<String,List<Student>> entry : groupedStudents.entrySet()){
             System.out.println("Факультет: " + entry.getKey());
