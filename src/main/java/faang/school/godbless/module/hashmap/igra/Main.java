@@ -1,4 +1,4 @@
-package faang.school.godbless.module.hashmap;
+package faang.school.godbless.module.hashmap.igra;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,14 +14,14 @@ public class Main {
         NAME_TO_HOUSE.put(lannister.getName(), lannister);
         NAME_TO_HOUSE.put(barateon.getName(), barateon);
 
-        addHouseToMap("Hello", "World");
-        getHouseFromMap("Hello");
+        addHouse("Hello", "World");
+        printHouseSigil("Hello");
         printAllHouses(NAME_TO_HOUSE);
         deleteHouse("Hello");
         printAllHouses(NAME_TO_HOUSE);
     }
 
-    public static void addHouseToMap(String name, String sigil) {
+    public static void addHouse(String name, String sigil) {
         NAME_TO_HOUSE.putIfAbsent(name, new House(name, sigil));
     }
 
@@ -29,8 +29,13 @@ public class Main {
         NAME_TO_HOUSE.remove(name);
     }
 
-    public static void getHouseFromMap(String name) {
-        printHouse(NAME_TO_HOUSE.get(name));
+    public static void printHouseSigil(String name) {
+        House house = NAME_TO_HOUSE.get(name);
+        if (house == null) {
+            System.out.println("Такого дома не существует");
+            return;
+        }
+        System.out.printf("House sigil: %s \n", house.getSigil());
     }
 
     public static void printAllHouses(Map<String, House> houses) {
@@ -39,16 +44,7 @@ public class Main {
             return;
         }
         for (House house : houses.values()) {
-            printHouse(house);
+            System.out.printf("House name: %s. House sigil: %s \n", house.getName(), house.getSigil());
         }
-    }
-
-    public static void printHouse(House house) {
-        if (house == null) {
-            System.out.println("Такого дома не существует");
-            return;
-        }
-        System.out.printf("House name: %s. House sigil: %s", house.getName(), house.getSigil());
-        System.out.println();
     }
 }

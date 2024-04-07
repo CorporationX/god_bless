@@ -1,4 +1,4 @@
-package faang.school.godbless.module.hashmap;
+package faang.school.godbless.module.hashmap.igra;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
