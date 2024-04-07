@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<Integer, StreamEvent> mapEventID = new HashMap<>();
-    private static final Map<String, List<StreamEvent>> mapEventType = new HashMap<>();
+    private static Map<Integer, StreamEvent> mapEventID = new HashMap<>();
+    private static Map<String, List<StreamEvent>> mapEventType = new HashMap<>();
 
     public static void main(String[] args) {
 
