@@ -1,4 +1,4 @@
-package Abstraction;
+package abstraction;
 
 public abstract class Character {
 
