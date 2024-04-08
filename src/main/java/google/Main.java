@@ -16,11 +16,11 @@ public class Main {
         WebPage webPage5 = new WebPage("delete.com", "delete", "Buy books online");
 
 
-        indexingWebPage(webPage1);
-        indexingWebPage(webPage2);
-        indexingWebPage(webPage3);
-        indexingWebPage(webPage4);
-        indexingWebPage(webPage5);
+        indexWebPage(webPage1);
+        indexWebPage(webPage2);
+        indexWebPage(webPage3);
+        indexWebPage(webPage4);
+        indexWebPage(webPage5);
 
         System.out.println("================================");
         printWebPages(findByKeyWord("books"));
@@ -36,15 +36,12 @@ public class Main {
         printWebPages(findByKeyWord("books"));
     }
 
-    public static void indexingWebPage(WebPage webPage) {
-        List<WebPage> tmp;
+    public static void indexWebPage(WebPage webPage) {
         for (String keyWord : webPage.getContent().split(" ")) {
             if (!WEB_PAGES_MAP.containsKey(keyWord)) {
                 WEB_PAGES_MAP.put(keyWord, new ArrayList<>());
             }
-            tmp = WEB_PAGES_MAP.get(keyWord);
-            tmp.add(webPage);
-            WEB_PAGES_MAP.put(keyWord, tmp);
+            WEB_PAGES_MAP.get(keyWord).add(webPage);
         }
     }
 
