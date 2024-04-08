@@ -1,4 +1,4 @@
-package AboutGoogle;
+package aboutgoogle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<String, List<WebPage>> stringListMap = new HashMap<>();
+    private static Map<String, List<WebPage>> webPagesByKeywords = new HashMap<>();
 
     public static void main(String[] args) {
         String content1 = "Collection.removeIf(Predicate<? super E> filter).";
@@ -23,22 +23,22 @@ public class Main {
         getListOfPagesByKeyWord("key").forEach(System.out::println);
     }
 
-    public static void addToIndex(WebPage webPage) {
-        String[] words = webPage.content().split(" ");
+    private static void addToIndex(WebPage webPage) {
+        String[] words = webPage.getContent().split(" ");
         for (String word : words) {
             word = word.replaceAll("[^a-zA-Z0-9]", "");
             word = word.toLowerCase();
             if (!word.equals("the") && word.length() > 1) {
-                stringListMap.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
+                webPagesByKeywords.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
             }
         }
     }
 
-    public static List<WebPage> getListOfPagesByKeyWord(String keyWord) {
-        return stringListMap.get(keyWord.toLowerCase());
+    private static List<WebPage> getListOfPagesByKeyWord(String keyWord) {
+        return webPagesByKeywords.get(keyWord.toLowerCase());
     }
 
-    public static void removeWebPage(String url) {
-        stringListMap.values().forEach(elem -> elem.removeIf(page -> page.url().equals(url)));
+    private static void removeWebPage(String url) {
+        webPagesByKeywords.values().forEach(elem -> elem.removeIf(page -> page.getUrl().equals(url)));
     }
 }
