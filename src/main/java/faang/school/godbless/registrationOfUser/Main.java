@@ -21,14 +21,11 @@ public class Main {
 
         Map<Integer, List<User>> map = User.groupUsers(list);
 
-
         for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
             System.out.println("Age of User: " + entry.getKey());
             for (User user : entry.getValue()) {
                 System.out.println(user);
             }
         }
-
-
     }
 }
