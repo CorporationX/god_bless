@@ -24,7 +24,7 @@ public class Main {
 
         try {
             dictionaryProcessor.processWord(null, "hello", addWordToDictionary);
-        } catch (RuntimeException ex) {
+        } catch (NullPointerException ex) {
             System.out.println(ex.getMessage());
         }
     }

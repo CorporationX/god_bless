@@ -6,7 +6,7 @@ public class DictionaryProcessor {
 
     public void processWord(String word, String translateWord, BiConsumer<String, String> function) {
         if (word == null || translateWord == null || function == null) {
-            throw new RuntimeException("Some of the fields null");
+            throw new NullPointerException("Some fields are null");
         }
 
         function.accept(word, translateWord);
