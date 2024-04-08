@@ -36,18 +36,9 @@ public class Main {
     }
 
     private static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
-        MatrixTransformer transformer = (row, col) -> {
-            switch (flipDirection) {
-                case VERTICAL -> {
-                    return new Coordinates(matrix.length - row - 1, col);
-                }
-                case HORIZONTAL -> {
-                    return new Coordinates(row, matrix[0].length - col - 1);
-                }
-                default -> {
-                    return new Coordinates(row, col);
-                }
-            }
+        MatrixTransformer transformer = (row, col) -> switch (flipDirection) {
+            case VERTICAL -> new Coordinates(matrix.length - row - 1, col);
+            case HORIZONTAL -> new Coordinates(row, matrix[0].length - col - 1);
         };
         return transformMatrix(matrix, transformer);
     }
