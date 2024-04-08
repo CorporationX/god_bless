@@ -11,6 +11,10 @@ public class EmailProcessor {
                                      Consumer<Email> processor,
                                      Function<Email, Email> transformer) {
 
-        return emails.stream().map(transformer).filter(filter).peek(processor).toList();
+        return emails.stream()
+                .map(transformer)
+                .filter(filter)
+                .peek(processor)
+                .toList();
     }
 }
