@@ -4,24 +4,25 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-@ToString(includeFieldNames=true)
+@ToString
 public class Student {
     private String name;
     private String faculty;
     private int year;
-    private GroupOfStudents groupOfStudents;
 
     public Student(String name, String faculty, int year) {
         this.name = name;
         this.faculty = faculty;
         this.year = year;
-        this.groupOfStudents = new GroupOfStudents(faculty, year);
     }
 
-    public GroupOfStudents getFacultyAndYear() {
-        return groupOfStudents;
+    public String getFaculty() {
+        return faculty;
     }
 
+    public int getYear() {
+        return year;
+    }
 
     @Override
     public boolean equals(Object o) {
