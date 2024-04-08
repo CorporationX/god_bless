@@ -3,12 +3,15 @@ package turnAround;
 public class Example {
 
     public void reverse(int[] nums) {
-        int j;
-        for (int i = 0; i < nums.length / 2; i++) {
-            j = nums.length - 1 - i;
+
+        int i = 0, j = nums.length - 1;
+        while (i < j) {
             nums[i] = nums[j] + nums[i];
             nums[j] = nums[i] - nums[j];
             nums[i] = nums[i] - nums[j];
+
+            i++;
+            j--;
         }
 
     }
