@@ -20,7 +20,8 @@ public class Main {
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        List<String> output = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        List<Email> output = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         output.forEach(System.out::println);
+        System.out.println(emails.get(1));
     }
 }

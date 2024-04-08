@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class EmailProcessor {
-    public List<String> processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
+    public List<Email> processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> action, Function<Email, String> transformer) {
         return emails.stream()
-                .filter(predicate)
-                .peek(consumer)
-                .map(function)
+                .filter(filter)
+                .peek(action)
+                .peek(o -> o.setBody(transformer.apply(o)))
                 .collect(Collectors.toList());
     }
 }
