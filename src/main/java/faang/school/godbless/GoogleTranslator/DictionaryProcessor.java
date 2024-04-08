@@ -3,10 +3,10 @@ package faang.school.godbless.GoogleTranslator;
 import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {
-    public void processWord(String word, String translation, BiConsumer<String, String> biConsumer) {
-        if (word == null || translation == null || biConsumer == null) {
+    public void processWord(String word, String translation, BiConsumer<String, String> savingProcess) {
+        if (word == null || translation == null || savingProcess == null) {
             return;
         }
-        biConsumer.accept(word, translation);
+        savingProcess.accept(word, translation);
     }
 }
