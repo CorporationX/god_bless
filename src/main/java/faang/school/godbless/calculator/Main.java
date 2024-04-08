@@ -5,52 +5,29 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) {
-        // Не понял как обрабатывать случаи, когда сумма или произведение больше максимального int.
-        // Возможно можно как-то сделать плавающий return type с помощью дженериков, но не особо понял как.
-        System.out.println(product(List.of(8, 9)));
-        System.out.println(sum(List.of(1, 2, 3)));
-
-        System.out.println(productLong(List.of(1L, 2L, 3L)));
+        System.out.println(product(List.of(8L, 9L)));
+        System.out.println(sum(List.of(1L, 2L, 3L)));
+        System.out.println(product(List.of(1L, 2L, 3L)));
     }
 
-    public static int calculateInteger(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
-
-        if (nums.isEmpty()) {
-            throw new IllegalArgumentException("List should not be empty");
-        } else if (nums.size() < 2) {
-            throw new IllegalArgumentException("List size must be greater or equals 2");
-        }
-
+    public static long calculate(List<Long> nums, Calculator<Long> calculator) throws IllegalArgumentException {
+        validateNumbers(nums);
         return nums.stream()
                 .reduce(calculator::operation)
                 .get();
     }
 
-    public static int product(List<Integer> nums) {
-        return calculateInteger(nums, ((num1, num2) -> num1 * num2));
+    public static long product(List<Long> nums) {
+        return calculate(nums, ((num1, num2) -> num1 * num2));
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculateInteger(nums, (Integer::sum));
+    public static long sum(List<Long> nums) {
+        return calculate(nums, (Long::sum));
     }
 
-    // Решил сделать Calculator на основе дженериков, но как будто делаю что-то не так.
-    // Если мы хотим теперь работать с Long, а не с Integer, то для это нужно целые отдельные методы делать.
-    // Хотя возможно так и нужно.
-    public static long calculateLong(List<Long> nums, Calculator<Long> calculator) throws IllegalArgumentException {
-
-        if (nums.isEmpty()) {
-            throw new IllegalArgumentException("List should not be empty");
-        } else if (nums.size() < 2) {
+    public static void validateNumbers(List<? extends Number> nums) {
+        if (nums.size() < 2) {
             throw new IllegalArgumentException("List size must be greater or equals 2");
         }
-
-        return nums.stream()
-                .reduce(calculator::operation)
-                .get();
-    }
-
-    public static long productLong(List<Long> nums) {
-        return calculateLong(nums, ((num1, num2) -> num1 * num2));
     }
 }
