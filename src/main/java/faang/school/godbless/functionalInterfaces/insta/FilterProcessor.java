@@ -25,6 +25,6 @@ public class FilterProcessor {
             throw new NullPointerException("Both filters must have non-null values!");
         }
 
-        return (originalImage) -> secondFilter.apply(firstFilter.apply(originalImage));
+        return firstFilter.andThen(secondFilter);
     }
 }
