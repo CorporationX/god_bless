@@ -14,6 +14,13 @@ public class Main {
     }
 
     public static int calculateInteger(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("List should not be empty");
+        } else if (nums.size() < 2) {
+            throw new IllegalArgumentException("List size must be greater or equals 2");
+        }
+
         return nums.stream()
                 .reduce(calculator::operation)
                 .get();
@@ -31,6 +38,13 @@ public class Main {
     // Если мы хотим теперь работать с Long, а не с Integer, то для это нужно целые отдельные методы делать.
     // Хотя возможно так и нужно.
     public static long calculateLong(List<Long> nums, Calculator<Long> calculator) throws IllegalArgumentException {
+
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("List should not be empty");
+        } else if (nums.size() < 2) {
+            throw new IllegalArgumentException("List size must be greater or equals 2");
+        }
+
         return nums.stream()
                 .reduce(calculator::operation)
                 .get();
