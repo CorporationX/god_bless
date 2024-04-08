@@ -1,6 +1,6 @@
 package faang.school.godbless.abstaract;
 
-abstract class Character {
+public abstract class Character {
     protected String name;
     protected int strength;
     protected int agility;
