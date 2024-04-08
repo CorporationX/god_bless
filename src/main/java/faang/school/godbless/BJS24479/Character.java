@@ -3,7 +3,7 @@ package faang.school.godbless.BJS24479;
 import lombok.Data;
 
 @Data
-abstract class Character {
+public abstract class Character {
 
     private final static int INITIAL_HEALTH = 100;
 
@@ -24,5 +24,5 @@ abstract class Character {
         this.intelligence = intelligence;
     }
 
-    abstract void attack(Character targetCharacter);
+    public abstract void attack(Character targetCharacter);
 }
