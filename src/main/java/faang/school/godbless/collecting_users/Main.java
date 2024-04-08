@@ -20,14 +20,13 @@ public class Main {
         userList.add(user2);
         userList.add(user3);
 
-
         Set<String> setOfHobbies = new HashSet<>(Arrays.asList("Playing", "Swimming"));
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(userList, setOfHobbies);
 
         System.out.println("Hobby Lovers:");
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println(entry.getKey().getName() + " loves " + entry.getValue());
+            System.out.println(entry.getKey().getName()+ " loves " + entry.getValue());
         }
     }
 }
