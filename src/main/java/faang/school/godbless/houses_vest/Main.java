@@ -28,39 +28,39 @@ public class Main {
 
     }
 
-    public static void addHouse(Map<String, House> houseMap, String name, String sigil) {
-        if (!houseMap.containsKey(name)) {
-            houseMap.put(name, new House(name, sigil));
+    private static void addHouse(Map<String, House> houses, String name, String sigil) {
+        if (!houses.containsKey(name)) {
+            houses.put(name, new House(name, sigil));
             System.out.println("Дом " + name + " добавлен");
         } else {
             System.out.println("Дом " + name + " уже есть");
         }
     }
 
-    public static void deleteHouse(Map<String, House> houseMap, String name) {
-        if (houseMap.containsKey(name)) {
-            houseMap.remove(name);
+    private static void deleteHouse(Map<String, House> houses, String name) {
+        if (houses.containsKey(name)) {
+            houses.remove(name);
             System.out.println("Дом " + name + " удалён");
         } else {
             System.out.println("Дом " + name + " не найден");
         }
     }
 
-    public static void infoSigil(Map<String, House> houseMap, String name) {
-        House house = houseMap.get(name);
+    private static void infoSigil(Map<String, House> houses, String name) {
+        House house = houses.get(name);
         if (house != null) {
-            System.out.println("Герб дома " + name + " - " + house.getSigil());
+            System.out.println("Герб дома " + name + " - " + house.sigil);
         } else {
             System.out.println("Дом " + name + " найден");
         }
     }
-    public static void allHouses(Map<String, House> houseMap) {
-        if (houseMap.isEmpty()) {
+    private static void allHouses(Map<String, House> houses) {
+        if (houses.isEmpty()) {
             System.out.println("Список домов пуст");
         } else {
             System.out.println("Список всех домов и их гербов:");
-            for (Map.Entry<String, House> entry : houseMap.entrySet()) {
-                System.out.println("Дом: " + entry.getKey() + ", Герб: " + entry.getValue().getSigil());
+            for (Map.Entry<String, House> entry : houses.entrySet()) {
+                System.out.println("Дом: " + entry.getKey() + ", Герб: " + entry.getValue().sigil);
             }
         }
     }
