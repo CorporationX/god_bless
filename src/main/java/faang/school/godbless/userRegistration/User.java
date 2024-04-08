@@ -1,11 +1,9 @@
 package faang.school.godbless.userRegistration;
 
-import lombok.Data;
-
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+
 public class User {
     private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
