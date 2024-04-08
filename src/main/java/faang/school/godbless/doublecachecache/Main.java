@@ -91,6 +91,9 @@ public class Main {
     }
 
     public static void addSubjectToStudent(Subject subject, Integer grade, Student student) {
+        if (!STUDENT_GRADES.containsKey(student)) {
+            throw new IllegalArgumentException("There is no such student");
+        }
         STUDENT_GRADES.get(student).put(subject, grade);
         SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
     }
@@ -120,6 +123,9 @@ public class Main {
     }
 
     public static void addStudentTOSubject(Subject subject, Student student) {
+        if (!SUBJECT_STUDENTS.containsKey(subject)) {
+            throw new IllegalArgumentException("There is no such subject");
+        }
         SUBJECT_STUDENTS.get(subject).add(student);
         STUDENT_GRADES.computeIfAbsent(student, key -> new HashMap<>()).put(subject, null);
     }
