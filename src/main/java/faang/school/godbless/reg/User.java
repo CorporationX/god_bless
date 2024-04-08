@@ -1,11 +1,9 @@
 package faang.school.godbless.reg;
 
 import lombok.Data;
-import lombok.AllArgsConstructor;
 import java.util.*;
 
 @Data
-@AllArgsConstructor
 public class User {
     private String name;
     private int age;
