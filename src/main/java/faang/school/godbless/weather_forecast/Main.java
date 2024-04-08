@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Map<String, WeatherData> weatherCache = new HashMap<>();
+    private static Map<String, WeatherData> weatherCache = new HashMap<>();
+    private static WeatherService weatherService = new WeatherService();
 
     public static void main(String[] args) {
-        updateInfoWeatherData("New York");
-        updateInfoWeatherData("Berlin");
-        updateInfoWeatherData("Istambul");
+        updateInfoWeatherData("New York", 23, 75);
+        updateInfoWeatherData("Berlin", 26, 60);
+        updateInfoWeatherData("Istambul", 32, 80);
 
         System.out.println(getWeather("New York"));
         System.out.println(getWeather("Berlin"));
@@ -18,14 +19,16 @@ public class Main {
         removeWeatherData("Berlin");
 
         showAllCitiesInCache();
+
+        System.out.println(getWeather("LA"));
     }
 
     public static void removeWeatherData(String city) {
         weatherCache.remove(city);
     }
 
-    public static void updateInfoWeatherData(String city) {
-        weatherCache.put(city, new WeatherData(city, 22, 77));
+    public static void updateInfoWeatherData(String city, int temperature, int humidity) {
+        weatherCache.put(city, new WeatherData(city, temperature, humidity));
     }
 
     public static void showAllCitiesInCache() {
@@ -39,8 +42,8 @@ public class Main {
         if (weatherCache.containsKey(city)) {
             return weatherCache.get(city);
         }
-        WeatherService weatherService = new WeatherService();
-        WeatherData weatherData = weatherService.getWeatherService(city);
+
+        WeatherData weatherData = weatherService.getWeatherData(city);
         if (weatherData != null) {
             weatherCache.put(city, weatherData);
         }

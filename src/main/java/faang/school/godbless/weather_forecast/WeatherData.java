@@ -1,5 +1,8 @@
 package faang.school.godbless.weather_forecast;
 
+import lombok.Data;
+
+@Data
 public class WeatherData {
     private String city;
     private int temperature;
@@ -9,14 +12,5 @@ public class WeatherData {
         this.city = city;
         this.temperature = temperature;
         this.humidity = humidity;
-    }
-
-    @Override
-    public String toString() {
-        return "WeatherData{" +
-                "city='" + city + '\'' +
-                ", temperature=" + temperature +
-                ", humidity=" + humidity +
-                '}';
     }
 }
