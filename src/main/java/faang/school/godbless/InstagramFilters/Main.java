@@ -1,4 +1,4 @@
-package InstagramFilters;
+package faang.school.godbless.InstagramFilters;
 
 import java.util.function.Function;
 
