@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Main {
     private static final List<Student> STUDENTS = new ArrayList<>();
-    private static final Map<String, List<Student>> SORTED_STUDENTS = new HashMap<>();
 
     private static String createKey(Student student) {
         return student.getFaculty() + "_" + student.getYear();
@@ -24,14 +23,11 @@ public class Main {
 
         Student student = new Student("Billy", "Mathematics", 9);
 
-        System.out.println(SORTED_STUDENTS);
-        System.out.println("------------------------------------");
-        groupStudents(STUDENTS);
-        System.out.println(SORTED_STUDENTS);
-        System.out.println("------------------------------------");
-        removeStudentByNameFacultyYear(SORTED_STUDENTS, "Billy", "Mathematics", 9);
-        System.out.println("------------------------------------");
-        System.out.println(SORTED_STUDENTS);
+        Map<String, List<Student>> sortedMap = groupStudents(STUDENTS);
+
+        addStudent(sortedMap, student);
+
+        printAllStudentGroupByFacultyYear(sortedMap);
 
     }
 
@@ -39,30 +35,26 @@ public class Main {
         Map<String, List<Student>> resMap = new HashMap<>();
 
         for (Student student : listStudents) {
-            SORTED_STUDENTS.computeIfAbsent(createKey(student), key -> new ArrayList<>()).add(student);
+            resMap.computeIfAbsent(createKey(student), key -> new ArrayList<>()).add(student);
         }
-        return SORTED_STUDENTS;
+        return resMap;
     }
 
-    public static void addStudent(Map<String, List<Student>> sortedStudents, Student student) {
-        if (!sortedStudents.containsKey(createKey(student))) {
-            sortedStudents.computeIfAbsent(createKey(student), key -> new ArrayList<>()).add(student);
-        } else {
-            sortedStudents.get(createKey(student)).add(student);
-        }
+    public static void addStudent(Map<String, List<Student>> groupStudents, Student student) {
+        groupStudents.computeIfAbsent(createKey(student), key -> new ArrayList<>()).add(student);
     }
 
-    public static void removeStudentByNameFacultyYear(Map<String, List<Student>> sortedStudents, String name, String faculty, int year) {
+    public static void removeStudentByNameFacultyYear(Map<String, List<Student>> groupStudents, String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
 
-        sortedStudents.get(createKey(student)).remove(student);
+        groupStudents.get(createKey(student)).remove(student);
     }
 
-    public static List<Student> getAllStudentByFacultyYear(Map<String, List<Student>> sortedStudents, String faculty, int year) {
-        return sortedStudents.get(faculty + "_" + year);
+    public static List<Student> getAllStudentByFacultyYear(Map<String, List<Student>> groupStudents, String faculty, int year) {
+        return groupStudents.get(faculty + "_" + year);
     }
 
-    public static void printAllStudentGroupByFacultyYear(Map<String, List<Student>> sortedStudents) {
-        sortedStudents.entrySet().forEach(System.out::println);
+    public static void printAllStudentGroupByFacultyYear(Map<String, List<Student>> groupStudents) {
+        groupStudents.entrySet().forEach(System.out::println);
     }
 }
