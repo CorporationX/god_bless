@@ -4,11 +4,12 @@ public class Example {
 
     public void reverse(int[] nums) {
 
-        int i = 0, j = nums.length - 1;
+        int i = 0, j = nums.length - 1, temp;
+
         while (i < j) {
-            nums[i] = nums[j] + nums[i];
-            nums[j] = nums[i] - nums[j];
-            nums[i] = nums[i] - nums[j];
+            temp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = temp;
 
             i++;
             j--;
