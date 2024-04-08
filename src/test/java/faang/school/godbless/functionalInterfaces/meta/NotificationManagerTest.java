@@ -2,6 +2,7 @@ package faang.school.godbless.functionalInterfaces.meta;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +11,7 @@ class NotificationManagerTest {
     NotificationManager notificationManager = new NotificationManager();
 
     @Test
-    void testRegisterHandler_validParams_registerHandler() {
+    void testRegisterHandlerValidParamsRegisterHandler() {
         //given
         var notificationType = "email";
         Function<Notification, String> notificationHandler = notification -> "Send the \""
@@ -27,7 +28,7 @@ class NotificationManagerTest {
     }
 
     @Test
-    void testRegisterHandler_invalidParams_registrationFails() {
+    void testRegisterHandlerInvalidParamsRegistrationFails() {
         //given
         var blankNT = ""; //NT = NotificationType
         var validNT = "email";
@@ -37,18 +38,18 @@ class NotificationManagerTest {
 
 
         //when
-        var blankNT_RegistrationStatus = notificationManager.registerHandler(blankNT, notificationHandler);
-        var nullNT_RegistrationStatus = notificationManager.registerHandler(null, notificationHandler);
+        var blankNTRegistrationStatus = notificationManager.registerHandler(blankNT, notificationHandler);
+        var nullNTRegistrationStatus = notificationManager.registerHandler(null, notificationHandler);
         var nullHandlerRegistrationStatus = notificationManager.registerHandler(validNT, null);
 
         //then
-        assertFalse(blankNT_RegistrationStatus);
-        assertFalse(nullNT_RegistrationStatus);
+        assertFalse(blankNTRegistrationStatus);
+        assertFalse(nullNTRegistrationStatus);
         assertFalse(nullHandlerRegistrationStatus);
     }
 
     @Test
-    void testSendNotification_validNotification_returnsNotificationHandling() {
+    void testSendNotificationValidNotificationReturnsNotificationHandling() {
         //given
         var emailNotification = new Notification("email",
                 "We are ready to make you an offer to junior Java developer position!");
@@ -72,17 +73,27 @@ class NotificationManagerTest {
     }
 
     @Test
-    void testSendNotification_invalidNotification_throwsException() {
+    void testSendNotificationInvalidNotificationThrowsException() {
         //given
-        var expectedMessage = "Null-valued notification cannot be processed";
+        var nullValuedNotificationExceptionMessage = "Null-valued notification cannot be processed";
+        var foreignNotificationTypeExceptionMessage = "No such notification type in system!";
+
+        var foreignTypeNotification = new Notification("pigeon",
+                "We are ready to make you an offer to junior Java developer position!");
+
 
         //when
-        Throwable exception = assertThrows(NullPointerException.class, () -> {
+        Exception nullValuedNotificationException = assertThrows(IllegalArgumentException.class, () -> {
             notificationManager.sendNotification(null);
+        });
+
+        Exception foreignNotificationTypeException = assertThrows(NoSuchElementException.class, () -> {
+            notificationManager.sendNotification(foreignTypeNotification);
         });
 
 
         //then
-        assertEquals(expectedMessage, exception.getMessage());
+        assertEquals(nullValuedNotificationExceptionMessage, nullValuedNotificationException.getMessage());
+        assertEquals(foreignNotificationTypeExceptionMessage, foreignNotificationTypeException.getMessage());
     }
 }

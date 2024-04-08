@@ -2,6 +2,7 @@ package faang.school.godbless.functionalInterfaces.meta;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Function;
 
 
@@ -29,7 +30,11 @@ public class NotificationManager {
 
     public String sendNotification(Notification notification) {
         if (notification == null) {
-            throw new NullPointerException("Null-valued notification cannot be processed");
+            throw new IllegalArgumentException("Null-valued notification cannot be processed");
+        }
+
+        if(!notificationHandlers.containsKey(notification.type())) {
+            throw new NoSuchElementException("No such notification type in system!");
         }
 
         return notificationHandlers.get(notification.type()).apply(notification);
