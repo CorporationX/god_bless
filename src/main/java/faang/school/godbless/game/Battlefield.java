@@ -1,5 +1,7 @@
 package faang.school.godbless.game;
 
+import java.util.Map;
+
 public class Battlefield {
     private Hero firstHero;
     private Hero secondHero;
@@ -11,8 +13,8 @@ public class Battlefield {
 
     private int sumCommonPower(Hero hero) {
         int commonPower = 0;
-        for (Creature creature : hero.getArmy()) {
-            commonPower += creature.getDamage();
+        for(Map.Entry<Creature, Integer> entry : hero.getArmy().entrySet()){
+            commonPower += entry.getValue();
         }
         return commonPower;
     }

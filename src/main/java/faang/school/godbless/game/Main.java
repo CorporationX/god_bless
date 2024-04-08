@@ -21,7 +21,7 @@ public class Main {
         hero1.addCreature(swordman, 70);
         hero1.addCreature(griffin, 80);
 
-        hero2.addCreature(angel, 50);
+        hero2.addCreature(angel, 40);
         hero2.addCreature(griffin, 80);
         hero2.addCreature(pikeman, 90);
 

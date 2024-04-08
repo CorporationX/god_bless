@@ -1,12 +1,15 @@
 package faang.school.godbless.game;
 
+import lombok.Data;
+
+@Data
 public abstract class Creature {
     private String name;
-    private int level;//1-4
+    private int level;
     private int attack;
     private int defense;
     private int speed;
-    private int quantity;//health
+    private int quantity;
 
     public Creature(String name, int level, int attack, int defense, int speed, int quantity) {
         this.name = name;
@@ -18,24 +21,4 @@ public abstract class Creature {
     }
 
     public abstract int getDamage();
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public String toString() {
-        return "Creature{" +
-                "name='" + name + '\'' +
-                ", level=" + level +
-                ", attack=" + attack +
-                ", defense=" + defense +
-                ", speed=" + speed +
-                ", quantity=" + quantity +
-                '}';
-    }
 }
