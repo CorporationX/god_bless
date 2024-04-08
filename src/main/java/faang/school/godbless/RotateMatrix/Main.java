@@ -3,6 +3,11 @@ package faang.school.godbless.RotateMatrix;
 import java.util.Arrays;
 
 public class Main {
+    private enum FlipDirection {
+        HORIZONTAL,
+        VERTICAL,
+    }
+
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
                 new int[]{1, 2, 3, 4},
