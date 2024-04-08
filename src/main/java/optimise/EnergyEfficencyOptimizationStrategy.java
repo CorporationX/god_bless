@@ -1,6 +1,6 @@
-package Optimise;
+package optimise;
 
-public class EnergyEfficencyOptimizationStrategy implements OptimizationStrategy{
+public class EnergyEfficencyOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
         System.out.println("Оптимизация энергопотребления");//не совсем понял, как реализовать этот метод иначе

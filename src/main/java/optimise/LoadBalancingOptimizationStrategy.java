@@ -1,4 +1,4 @@
-package Optimise;
+package optimise;
 
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy{
     @Override

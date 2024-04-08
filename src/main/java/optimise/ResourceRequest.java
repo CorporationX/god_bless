@@ -1,4 +1,4 @@
-package Optimise;
+package optimise;
 
 public class ResourceRequest {
     private double load;
@@ -7,7 +7,7 @@ public class ResourceRequest {
         this.load = load;
     }
 
-    public double load() {
+    public double getLoad() {
         return load;
     }
 }

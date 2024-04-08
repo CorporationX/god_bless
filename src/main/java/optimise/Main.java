@@ -1,11 +1,11 @@
-package Optimise;
+package optimise;
 
 public class Main {
     public static void main(String[] args) {
-        Server server1 = new Server(10,100, 150);
+        Server server1 = new Server(10, 100, 150);
         Server server2 = new Server(25, 250, 200);
         DataCenter dataCenter = new DataCenter();
-        DataCenterService dataCenterService = new DataCenterService(dataCenter);
+        DataCenterService dataCenterService = new DataCenterService(dataCenter, new EnergyEfficencyOptimizationStrategy());
         dataCenterService.addService(server1);
         dataCenterService.addService(server2);
 
@@ -17,10 +17,6 @@ public class Main {
         System.out.println(dataCenterService.getTotalEnergyConsumption());
         System.out.println();
 
-        dataCenterService.setOptimizationStrategy(new EnergyEfficencyOptimizationStrategy());
-        dataCenterService.optimiseDataCenter();
-
-        dataCenterService.setOptimizationStrategy(new LoadBalancingOptimizationStrategy());
         dataCenterService.optimiseDataCenter();
 
         dataCenterService.allocateResources(new ResourceRequest(23));
