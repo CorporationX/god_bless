@@ -10,7 +10,7 @@ class FilterProcessorTest {
     FilterProcessor filterProcessor = new FilterProcessor();
 
     @Test
-    void testApplyFilter_validParams_appliesFilter() {
+    void testApplyFilterValidParamsAppliesFilter() {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
@@ -32,7 +32,7 @@ class FilterProcessorTest {
     }
 
     @Test
-    void testApplyFilter_invalidParams_throwsException() {
+    void testApplyFilterInvalidParamsThrowsException() {
         //given
         var validImage = new Image("image", ".png", "Yet another selfie");
         var imageWithBlankName = new Image("", ".png", "Yet another selfie");
@@ -53,22 +53,22 @@ class FilterProcessorTest {
 
 
         //when
-        Throwable nullImageResult = assertThrows(NullPointerException.class, () -> {
+        Exception nullImageResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(null, validFilter);
         });
-        Throwable nullImageNameResult = assertThrows(NullPointerException.class, () -> {
+        Exception nullImageNameResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(imageWithNullName, validFilter);
         });
-        Throwable blankImageNameResult = assertThrows(NullPointerException.class, () -> {
+        Exception blankImageNameResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(imageWithBlankName, validFilter);
         });
-        Throwable nullImageExtensionResult = assertThrows(NullPointerException.class, () -> {
+        Exception nullImageExtensionResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(imageWithNullExtension, validFilter);
         });
-        Throwable blankImageExtensionResult = assertThrows(NullPointerException.class, () -> {
+        Exception blankImageExtensionResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(imageWithBlankExtension, validFilter);
         });
-        Throwable nullFilterResult = assertThrows(NullPointerException.class, () -> {
+        Exception nullFilterResult = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.applyFilter(validImage, null);
         });
 
@@ -83,7 +83,7 @@ class FilterProcessorTest {
     }
 
     @Test
-    void testCombineFilters_validFilter_returnsCombinedFilter() {
+    void testCombineFiltersValidFilterReturnsCombinedFilter() {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
@@ -121,7 +121,7 @@ class FilterProcessorTest {
     }
 
     @Test
-    void testCombineFilters_invalidFilter_throwsException() {
+    void testCombineFiltersInvalidFilterThrowsException() {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
@@ -136,13 +136,13 @@ class FilterProcessorTest {
 
 
         //when
-        Throwable firstNullFilterException = assertThrows(NullPointerException.class, () -> {
+        Exception firstNullFilterException = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.combineFilters(null, validFilter);
         });
-        Throwable secondNullFilterException = assertThrows(NullPointerException.class, () -> {
+        Exception secondNullFilterException = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.combineFilters(validFilter, null);
         });
-        Throwable bothNullFiltersException = assertThrows(NullPointerException.class, () -> {
+        Exception bothNullFiltersException = assertThrows(IllegalArgumentException.class, () -> {
             filterProcessor.combineFilters(null, null);
         });
 
