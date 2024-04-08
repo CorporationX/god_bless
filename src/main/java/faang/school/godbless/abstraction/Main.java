@@ -7,6 +7,5 @@ public class Main {
 
         warrior.attack(archer);
         archer.attack(warrior);
-
     }
 }

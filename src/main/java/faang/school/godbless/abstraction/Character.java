@@ -1,5 +1,8 @@
 package faang.school.godbless.abstraction;
 
+import lombok.Data;
+
+@Data
 public abstract class Character {
     protected String name;
     protected int power;
@@ -19,16 +22,4 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
-
-    public String getName() {
-        return name;
-    }
-
-    public int getHealth() {
-        return health;
-    }
-
-    public void setHealth(int health) {
-        this.health = health;
-    }
 }

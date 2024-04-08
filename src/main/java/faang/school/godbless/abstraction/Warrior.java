@@ -11,9 +11,8 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        int damage = super.power;
-        character.setHealth(getHealth() - damage);
-        System.out.println(super.name + " attacks " + character.getName() + " and damaged health: " + damage);
+        int damage = this.power;
+        character.setHealth(character.getHealth() - damage);
+        System.out.println(this.name + " attacks " + character.getName() + " and damaged health: " + damage);
     }
-
 }
