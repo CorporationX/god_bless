@@ -8,5 +8,5 @@ public class SpellCaster {
 
 @FunctionalInterface
 interface SpellAction{
-    public String convert(String word);
+    String convert(String word);
 }
