@@ -10,12 +10,22 @@ import java.util.Map;
 @Getter
 @AllArgsConstructor
 public class DataCenter {
-    private final List<Server> SERVERS;
-    private final Map<Server, Integer> SERVER_INDEXES = new HashMap<>();
+    private final List<Server> servers;
+    private final Map<Server, Integer> serverIndexes = new HashMap<>();
+
+    public void addServer(Server server) {
+        servers.add(server);
+        serverIndexes.put(server, servers.size() - 1);
+    }
+
+    public void removeServer(Server server) {
+        int serverIndex = serverIndexes.get(server);
+        servers.remove(serverIndex);
+    }
 
     public Server getAvailableLoadServer() {
-        Server maxAvailableLoadServer = SERVERS.get(0);
-        for (Server server : SERVERS) {
+        Server maxAvailableLoadServer = servers.get(0);
+        for (Server server : servers) {
             if (server.getAvailableLoad() > maxAvailableLoadServer.getAvailableLoad()) {
                 maxAvailableLoadServer = server;
             }
@@ -24,8 +34,8 @@ public class DataCenter {
     }
 
     public Server getMaxLoadServer() {
-        Server maxLoadServer = SERVERS.get(0);
-        for (Server server : SERVERS) {
+        Server maxLoadServer = servers.get(0);
+        for (Server server : servers) {
             if (server.getLoad() > maxLoadServer.getLoad()) {
                 maxLoadServer = server;
             }

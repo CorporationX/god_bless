@@ -6,20 +6,20 @@ import faang.school.godbless.optimizedatacenter.Server;
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
-        if (dataCenter.getSERVERS().isEmpty()) {
+        if (dataCenter.getServers().isEmpty()) {
             return;
         }
 
         double totalLoad = 0;
         double totalMaxLoad = 0;
 
-        for (Server server : dataCenter.getSERVERS()) {
+        for (Server server : dataCenter.getServers()) {
             totalLoad += server.getLoad();
             totalMaxLoad += server.getMaxLoad();
         }
 
         double percentageLoad = totalLoad / totalMaxLoad;
-        for (Server server : dataCenter.getSERVERS()) {
+        for (Server server : dataCenter.getServers()) {
             server.setLoad(server.getLoad() * percentageLoad);
         }
     }
