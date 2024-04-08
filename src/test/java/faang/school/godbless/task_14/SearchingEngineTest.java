@@ -12,6 +12,7 @@ class SearchingEngineTest {
 
     private SearchingEngine engine;
     private WebPage page1, page2, page3;
+
     @BeforeEach
     void setUp() {
         engine = new SearchingEngine();
