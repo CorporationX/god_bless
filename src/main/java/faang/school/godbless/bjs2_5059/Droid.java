@@ -4,25 +4,22 @@ package faang.school.godbless.bjs2_5059;
 public class Droid {
 
     public String sendEncryptedMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
-            StringBuilder sb = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                sb.append((char)(ch + key));
-            }
-            return sb.toString();
-        };
+        DroidMessageEncryptor encryptor = getEncryptorDecryptor(true);
         return encryptor.encrypt(message, encryptionKey);
     }
 
     public String receiveEncryptedMessage(String encryptedMsg, int encryptionKey) {
-        DroidMessageEncryptor encryptor = (msg, key) -> {
+        DroidMessageEncryptor decryptor = getEncryptorDecryptor(false);
+        return decryptor.encrypt(encryptedMsg, encryptionKey);
+    }
+
+    private DroidMessageEncryptor getEncryptorDecryptor(boolean isEncryptor) {
+        return (msg, key) -> {
             StringBuilder sb = new StringBuilder();
             for (char ch : msg.toCharArray()) {
-                sb.append((char)(ch - key));
+                sb.append((char)(isEncryptor ? ch + key : ch - key));
             }
             return sb.toString();
         };
-        return encryptor.encrypt(encryptedMsg, encryptionKey);
     }
-
 }
