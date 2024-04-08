@@ -29,7 +29,7 @@ public class Main {
         return sqrt.apply(mul3);
     }
 
-    private static void isValid(double a, double b, double c) throws IllegalArgumentException {
+    private static void isValid(double a, double b, double c) {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Сторона не может иметь отрицательное значение");
         }
