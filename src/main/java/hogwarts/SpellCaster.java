@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class SpellCaster {
     public void cast(String spell, SpellAction spellAction) {
-        System.out.println(spellAction.action(spell));
+        System.out.println(spellAction.act(spell));
     }
 }
