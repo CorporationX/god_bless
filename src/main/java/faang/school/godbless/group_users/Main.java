@@ -1,4 +1,4 @@
-package faang.school.godbless.users;
+package faang.school.godbless.group_users;
 
 import java.util.Arrays;
 import java.util.List;
