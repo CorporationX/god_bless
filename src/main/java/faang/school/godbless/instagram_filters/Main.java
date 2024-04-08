@@ -31,7 +31,7 @@ public class Main {
 
             System.out.println(combinedImage);
         } catch (RuntimeException ex) {
-            System.out.println("Caught exception because one of the filters was null");
+            System.out.println(ex.getMessage());
         }
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
