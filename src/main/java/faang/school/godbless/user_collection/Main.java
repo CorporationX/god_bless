@@ -1,7 +1,6 @@
-package faang.school.godbless.users;
+package faang.school.godbless.user_collection;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
