@@ -28,7 +28,7 @@ public class User {
     }
 
     public void validateUserFields(String name, int age, String job, String address) {
-        if (name.isEmpty() && name == null) {
+        if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Отсутствует имя");
         }
         if (age < 18) {
