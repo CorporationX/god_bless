@@ -25,11 +25,14 @@ public class Hero {
     void removeCreature(Creature creature, int damage) {
         if (creature.getHealthPoint() < damage) {
             creature.setCount(creature.getCount() - 1);
+            System.out.println("Был убит 1 из отряда " + creature.getName());
             if (creature.getCount() <= 0) {
                 ARMY.remove(creature);
+                System.out.println(creature.getName() + " умер");
             }
         } else {
             creature.setHealthPoint(creature.getHealthPoint() - damage);
+            System.out.println(creature.getName() + " получил " + damage + " урона");
         }
     }
 

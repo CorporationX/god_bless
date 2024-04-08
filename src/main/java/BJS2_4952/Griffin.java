@@ -11,6 +11,6 @@ public class Griffin extends Creature {
 
     @Override
     public int getDamage() {
-        return this.getAttack();
+        return this.getAttack() + HASTE;
     }
 }

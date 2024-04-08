@@ -1,12 +1,8 @@
 package BJS2_4952;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
-@Getter
-@Setter
 public abstract class Creature {
     private String name;
     private int level;
