@@ -43,7 +43,7 @@ public class Main {
     }
 
     public static void printWeatherInfo(Map<String, WeatherData> cache) {
-        System.out.println("Города с информацией о погоде в кэше:");
+        System.out.println("Города с информацией о погоде в кэше: ");
         for (String city : cache.keySet()) {
             System.out.println(city);
         }
