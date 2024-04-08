@@ -2,9 +2,11 @@ package faang.school.godbless.grouped;
 
 
 import lombok.Data;
+import lombok.AllArgsConstructor;
 import java.util.*;
 
 @Data
+@AllArgsConstructor
 public class User {
     private String name;
     private int age;
