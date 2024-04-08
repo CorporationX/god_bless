@@ -8,11 +8,11 @@ import java.util.function.Predicate;
 public class EmailProcessor {
 
     public void processEmails(
-            List<Email> emails, Predicate<Email> filter, Consumer<Email> handler, Function<Email, Email> converter){
-        for(Email email : emails) {
+            List<Email> emails, Predicate<Email> filter, Consumer<Email> handler, Function<Email, Email> converter) {
+        for (Email email : emails) {
             if (filter.test(email)) {
-                Email trans = converter.apply(email);
-                handler.accept(trans);
+                Email transformedEmail = converter.apply(email);
+                handler.accept(transformedEmail);
             }
         }
     }
