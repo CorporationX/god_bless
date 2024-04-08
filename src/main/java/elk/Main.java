@@ -37,6 +37,7 @@ public class Main {
 
         printHistoryOfQueriesForEachUser();
     }
+
     private static void addUserWithQueries(User user, List<Query> queries){
         if(user == null){
             System.out.println("User is null");
