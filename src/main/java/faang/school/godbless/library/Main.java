@@ -11,17 +11,17 @@ public class Main {
         books.put(new Book("Хребты Безумия", "Говард Лавкрафт", 1931), "93");
         books.put(new Book("Житель Каркозы", "Амброз Пирс", 1886), "88");
 
-        allBooks(books);
+        getAllBooks(books);
 
         System.out.println("===================>>>>>>>>>>>>>>>");
         addBook(books, new Book("Хоббит", "Джон Толкин", 1937), "12");
         addBook(books, new Book("Ворон", "Эдгар Алан По", 1845), "311");
-        allBooks(books);
+        getAllBooks(books);
 
         System.out.println("===================>>>>>>>>>>>>>>>");
         removeBook(books, new Book("Приключения Пиноккио", "Карло Коллоди", 1881));
         removeBook(books, new Book("Гарри Поттер и Узник Азкабана", "Джоан Роулинг", 2004));
-        allBooks(books);
+        getAllBooks(books);
 
         System.out.println("===================>>>>>>>>>>>>>>>");
         searchBook(books, new Book("Приключения Пиноккио", "Карло Коллоди", 1881));
@@ -47,15 +47,10 @@ public class Main {
     }
 
     public static String searchBook(Map<Book, String> books, Book book) {
-        for (Map.Entry<Book, String> entry : books.entrySet()) {
-            if (entry.getKey().equals(book)) {
-                return entry.getValue();
-            }
-        }
-        return null;
+        return books.get(book);
     }
 
-    public static void allBooks(Map<Book, String> books) {
+    public static void getAllBooks(Map<Book, String> books) {
         if (books.isEmpty()) {
             System.out.println("Библиотека пуста");
             return;

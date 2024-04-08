@@ -3,7 +3,6 @@ package faang.school.godbless.library;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import java.util.Objects;
 @EqualsAndHashCode
 @Getter
 public class Book {
