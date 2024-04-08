@@ -16,9 +16,17 @@ public class User {
     private static final int MIN_AGE = 18;
 
     public User(String name, int age, String placeOfWork, String address) {
-
-        if (name.isEmpty() || age < MIN_AGE || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The name is missing.");
+        }
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age less than 18.");
+        }
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("The wrong place of work.");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address.");
         } else {
             this.name = name;
             this.age = age;
@@ -27,8 +35,7 @@ public class User {
         }
     }
 
-
-    static Map<Integer, List<User>> groupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> mapUser = new HashMap<>();
 
         for (User user : users) {
