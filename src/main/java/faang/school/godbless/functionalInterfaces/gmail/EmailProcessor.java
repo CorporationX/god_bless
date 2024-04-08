@@ -11,12 +11,6 @@ public class EmailProcessor {
                                      Consumer<Email> processor,
                                      Function<Email, Email> transformer) {
 
-        return emails.stream().map(email -> {
-            var processedEmail = transformer.apply(email);
-            processedEmail.setImportant(filter.test(email));
-            processor.accept(email);
-
-            return processedEmail;
-        }).toList();
+        return emails.stream().map(transformer).filter(filter).peek(processor).toList();
     }
 }
