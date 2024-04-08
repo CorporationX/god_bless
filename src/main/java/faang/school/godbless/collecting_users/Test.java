@@ -15,8 +15,8 @@ class Test {
 
         Set<String> activities = Set.of("Act378", "Act211", "Act6ц5");
 
-        Map<User, String> map1 = User.findHobbyLovers(users, activities);
+        Map<User, String> usersHobby = User.findHobbyLovers(users, activities);
 
-        System.out.println(map1);
+        System.out.println(usersHobby);
     }
 }
