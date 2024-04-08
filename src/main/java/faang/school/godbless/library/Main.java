@@ -24,16 +24,16 @@ public class Main {
         allBooks(books);
 
         System.out.println("===================>>>>>>>>>>>>>>>");
-        bookSearch(books, new Book("Приключения Пиноккио", "Карло Коллоди", 1881));
-        bookSearch(books, new Book("Житель Каркозы", "Амброз Пирс", 1886));
+        searchBook(books, new Book("Приключения Пиноккио", "Карло Коллоди", 1881));
+        searchBook(books, new Book("Житель Каркозы", "Амброз Пирс", 1886));
     }
 
     public static void addBook(Map<Book, String> books, Book book, String shelfNumber) {
         if (!books.containsKey(book)) {
             books.put(book, shelfNumber);
-            System.out.println("Книга " + book.getTitle() + " добавлена на полку " + shelfNumber);
+            System.out.println("Книга " + book.title + " добавлена на полку " + shelfNumber);
         } else {
-            System.out.println("Книга " + book.getTitle() + " уже есть в коллекции");
+            System.out.println("Книга " + book.title + " уже есть в коллекции");
         }
     }
 
@@ -46,25 +46,21 @@ public class Main {
         }
     }
 
-    public static void bookSearch(Map<Book, String> books, Book book) {
+    public static String searchBook(Map<Book, String> books, Book book) {
+        for (Map.Entry<Book, String> entry : books.entrySet()) {
+            if (entry.getKey().equals(book)) {
+                return entry.getValue();
+            }
+        }
+        return null;
+    }
+
+    public static void allBooks(Map<Book, String> books) {
         if (books.isEmpty()) {
             System.out.println("Библиотека пуста");
             return;
         }
         for (Map.Entry<Book, String> entry : books.entrySet()) {
-            if (entry.getKey().equals(book)) {
-                System.out.println(book + " найдена на полке " + entry.getValue());
-                return;
-            }
-        }
-        System.out.println(book + " не найдена");
-    }
-    public static void allBooks(Map<Book, String> books){
-        if (books.isEmpty()) {
-            System.out.println("Библиотека пуста");
-            return;
-        }
-        for (Map.Entry<Book, String> entry : books.entrySet()){
             System.out.println(entry.getKey() + " на полке " + entry.getValue());
         }
     }
