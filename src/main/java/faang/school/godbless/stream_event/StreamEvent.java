@@ -1,8 +1,8 @@
 package faang.school.godbless.stream_event;
 
-import lombok.ToString;
+import lombok.Data;
 
-@ToString(includeFieldNames=true)
+@Data
 public class StreamEvent {
     private int id;
     private String eventType;
@@ -13,17 +13,4 @@ public class StreamEvent {
         this.eventType = eventType;
         this.data = data;
     }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEventType() {
-        return eventType;
-    }
-
-    public String getData() {
-        return data;
-    }
-
 }

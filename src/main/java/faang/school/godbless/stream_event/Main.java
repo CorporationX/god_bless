@@ -6,29 +6,33 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-
     private static Map<Integer, StreamEvent> mapEventID = new HashMap<>();
     private static Map<String, List<StreamEvent>> mapEventType = new HashMap<>();
 
     public static void main(String[] args) {
 
-        addEvent(1, "type One", "data One");
-        addEvent(2, "type Two", "data Two");
-        addEvent(1, "type One", "data One");
-        addEvent(3, "type Three", "data Three");
-        addEvent(1, "type One", "data One");
+        StreamEvent streamEvent1 = new StreamEvent(1, "type One", "data One");
+        StreamEvent streamEvent2 = new StreamEvent(2, "type Two", "data Two");
+        StreamEvent streamEvent3 = new StreamEvent(1, "type One", "data One");
+        StreamEvent streamEvent4 = new StreamEvent(3, "type Three", "data Three");
+        StreamEvent streamEvent5 = new StreamEvent(1, "type One", "data One");
 
-        removeTheEvent(2);
-        updateTheEvent(1, "type New", "data New");
+        addEvent(streamEvent1);
+        addEvent(streamEvent2);
+        addEvent(streamEvent3);
+        addEvent(streamEvent4);
+        addEvent(streamEvent5);
+
+        removeTheEvent(3);
+        updateTheEvent(streamEvent1);
         printAllEvents();
         System.out.println(searchEventById(3));
         System.out.println(searchEventsByType("type Two"));
-
     }
 
-    public static void updateTheEvent(int oldID, String newEventType, String newData) {
-        removeTheEvent(oldID);
-        addEvent(oldID, newEventType, newData);
+    public static void updateTheEvent(StreamEvent streamEvent) {
+        removeTheEvent(streamEvent.getId());
+        addEvent(streamEvent);
     }
 
     public static void removeTheEvent(int id) {
@@ -36,15 +40,14 @@ public class Main {
         if (streamEvent != null) {
             List<StreamEvent> events = mapEventType.get(streamEvent.getEventType());
             if (events != null) {
-                events.remove(streamEvent);
+                events.removeIf(event -> event.getId() == id);
             }
         }
     }
 
-    public static void addEvent(int id, String eventType, String data) {
-        StreamEvent streamEvent = new StreamEvent(id, eventType, data);
-        mapEventID.put(id, streamEvent);
-        mapEventType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(streamEvent);
+    public static void addEvent(StreamEvent streamEvent) {
+        mapEventID.put(streamEvent.getId(), streamEvent);
+        mapEventType.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     public static StreamEvent searchEventById(int id) {
