@@ -1,12 +1,9 @@
 package faang.school.godbless.cashe;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode
 public class WeatherData {
-    protected String city;
-    protected int temperature;
-    protected int humidity;
+    private String city;
+    private int temperature;
+    private int humidity;
 
     public WeatherData(String city, int temperature, int humidity) {
         this.city = city;

@@ -5,52 +5,46 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, WeatherData> weather = new HashMap<>();
-        weather.put("New York", new WeatherData("New York", 21, 50));
-        weather.put("Orlando", new WeatherData("Orlando", 11, 70));
-        System.out.println(getWeatherInfo(weather, "New York"));
-        System.out.println(getWeatherInfo(weather, "Riga"));
-        System.out.println(getWeatherInfo(weather, "Riga"));
-        updateWeatherInfo(weather, "Riga");
-        System.out.println(getWeatherInfo(weather, "Riga"));
+        Map<String, WeatherData> cache = new HashMap<>();
+        cache.put("New York", new WeatherData("New York", 21, 50));
+        cache.put("Orlando", new WeatherData("Orlando", 11, 70));
+        System.out.println(getWeatherInfo(cache, "New York"));
+        System.out.println(getWeatherInfo(cache, "Riga"));
+        System.out.println(getWeatherInfo(cache, "Riga"));
+        updateWeatherInfo(cache, "Riga");
+        System.out.println(getWeatherInfo(cache, "Riga"));
         System.out.println("============>>>>>>>>>>>>>>>>>>>>");
-        printWeatherInfo(weather);
+        printWeatherInfo(cache);
     }
 
-    public static WeatherData getWeatherInfo(Map<String, WeatherData> weather, String city) {
-        if (weather.containsKey(city)) {
+    public static WeatherData getWeatherInfo(Map<String, WeatherData> cache, String city) {
+        if (cache.containsKey(city)) {
             System.out.println("Информация о погоде для города " + city + " найдена в кэше");
-            return weather.get(city);
+            return cache.get(city);
         } else {
             System.out.println("Запрос информации о погоде для города " + city + " к внешнему источнику");
-            WeatherData weatherData = ExternalService.getWeather(city);
-            weather.put(city, weatherData);
+            ExternalService externalService = new ExternalService();
+            WeatherData weatherData = externalService.getWeather(city);
+            cache.put(city, weatherData);
             return weatherData;
         }
     }
 
-    static class ExternalService {
-        public static WeatherData getWeather(String city) {
-            int temperature = (int) (Math.random() * 55 - 25);
-            int humidity = (int) (Math.random() * 51) + 40;
-            return new WeatherData(city, temperature, humidity);
-        }
-    }
-
-    public static void updateWeatherInfo(Map<String, WeatherData> weather, String city) {
-        if (weather.containsKey(city)) {
+    public static void updateWeatherInfo(Map<String, WeatherData> cache, String city) {
+        if (cache.containsKey(city)) {
             System.out.println("Обновление информации о погоде для города " + city);
-            WeatherData updatedWeatherData = ExternalService.getWeather(city);
-            weather.put(city, updatedWeatherData);
+            ExternalService externalService = new ExternalService();
+            WeatherData updatedWeatherData = externalService.getWeather(city);
+            cache.put(city, updatedWeatherData);
             System.out.println("Информация о погоде для города " + city + " обновлена");
         } else {
             System.out.println("Информация о погоде для города " + city + " не найдена в кэше");
         }
     }
 
-    public static void printWeatherInfo(Map<String, WeatherData> weather) {
+    public static void printWeatherInfo(Map<String, WeatherData> cache) {
         System.out.println("Города с информацией о погоде в кэше:");
-        for (String city : weather.keySet()) {
+        for (String city : cache.keySet()) {
             System.out.println(city);
         }
     }
