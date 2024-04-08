@@ -1,6 +1,24 @@
 package faang.school.godbless.RotateMatrix;
 
+import java.util.Arrays;
+
 public class Main {
+    public static void main(String[] args) {
+        int[][] matrix = new int[][]{
+                new int[]{1, 2, 3, 4},
+                new int[]{5, 6, 7, 8},
+                new int[]{9, 10, 11, 12},
+                new int[]{13, 14, 15, 16},
+                new int[]{17, 18, 19, 20}
+        };
+
+        int[][] verticalMatrix = flipMatrix(matrix, FlipDirection.VERTICAL);
+        Arrays.stream(verticalMatrix).forEach(o -> System.out.println(Arrays.toString(o)));
+
+        System.out.println();
+        int[][] horizontalMatrix = flipMatrix(matrix, FlipDirection.HORIZONTAL);
+        Arrays.stream(horizontalMatrix).forEach(o -> System.out.println(Arrays.toString(o)));
+    }
 
     private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         if (matrix.length == 0) {
@@ -21,10 +39,10 @@ public class Main {
         MatrixTransformer transformer = (row, col) -> {
             switch (flipDirection) {
                 case VERTICAL -> {
-                    return new Coordinates(row, col + 1);
+                    return new Coordinates(matrix.length - row - 1, col);
                 }
                 case HORIZONTAL -> {
-                    return new Coordinates(row + 1, col);
+                    return new Coordinates(row, matrix[0].length - col - 1);
                 }
                 default -> {
                     return new Coordinates(row, col);
@@ -33,9 +51,4 @@ public class Main {
         };
         return transformMatrix(matrix, transformer);
     }
-}
-
-enum FlipDirection {
-    HORIZONTAL,
-    VERTICAL,
 }
