@@ -13,6 +13,5 @@ public class Main {
 
         System.out.println("Здоровье после боя W_1: " + warrior1.health);
         System.out.println("Здоровье после боя A_1: " + archer1.health);
-
     }
 }
