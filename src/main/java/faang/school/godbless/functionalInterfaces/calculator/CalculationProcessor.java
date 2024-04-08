@@ -13,14 +13,14 @@ public class CalculationProcessor {
             throw new IllegalArgumentException("List of nums must contain at least two numbers!");
         }
 
-        AtomicReference<Double> result = new AtomicReference<>(nums.get(0)); //Начинаем обход списка с первого элемента
+        double result = nums.get(0); //Начинаем обход списка с первого элемента
 
         //Обходим список со второго элемента, так как первый уже находится в result
-        nums.subList(1, nums.size()).forEach(num -> {
-            result.set(calculator.apply(result.get(), num));
-        });
+        for (var num : nums.subList(1, nums.size())) {
+            result = calculator.apply(result, num);
+        }
 
-        return result.get();
+        return result;
     }
 
     public static double product(List<Double> nums) throws IllegalArgumentException {
