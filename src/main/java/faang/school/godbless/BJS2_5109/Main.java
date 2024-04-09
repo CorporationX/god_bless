@@ -3,13 +3,19 @@ package faang.school.godbless.BJS2_5109;
 public class Main {
   public static void main(String[] args) {
     NotificationManager notificationManager = new NotificationManager();
-    notificationManager.registerHandler("INFO", n -> System.out.println(n.getMessage()));
-    notificationManager.registerHandler("WARNING", n -> System.out.println(n.getMessage()));
 
-    Notification n1 = new Notification("WARNING", "warning");
-    Notification n2 = new Notification("INFO", "info");
+    // Регистрация обработчиков оповещений
+    notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+    notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
+    notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
-    notificationManager.sendNotification(n2);
-    notificationManager.sendNotification(n1);
+    // Отправка оповещений
+    Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
+    Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
+    Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+
+    notificationManager.sendNotification(emailNotification);
+    notificationManager.sendNotification(smsNotification);
+    notificationManager.sendNotification(pushNotification);
   }
 }
