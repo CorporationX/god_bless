@@ -1,7 +1,6 @@
 package faang.school.godbless.CreateCSV;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,7 +22,12 @@ public class Main {
                 throw new IllegalArgumentException("Пустой вектор");
             }
 
-            return String.join(", ", vector);
+            StringBuilder builder = new StringBuilder();
+            builder.append(vector.get(0));
+            for (int i = 1; i < vector.size(); i++) {
+                builder.append(", ").append(vector.get(i));
+            }
+            return builder.toString();
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
@@ -31,7 +35,12 @@ public class Main {
                 throw new IllegalArgumentException("Пустая матрица");
             }
 
-            return matrix.stream().map(vectorJoiner::join).collect(Collectors.joining("\n"));
+            StringBuilder builder = new StringBuilder();
+            builder.append(vectorJoiner.join(matrix.get(0)));
+            for (int i = 1; i < matrix.size(); i++) {
+                builder.append("\n").append(vectorJoiner.join(matrix.get(i)));
+            }
+            return builder.toString();
         };
 
         return matrixJoiner.join(table);
