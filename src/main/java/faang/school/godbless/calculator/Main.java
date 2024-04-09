@@ -10,7 +10,7 @@ public class Main {
         System.out.println(product(List.of(1L, 2L, 3L)));
     }
 
-    public static long calculate(List<Long> nums, Calculator<Long> calculator) throws IllegalArgumentException {
+    public static long calculate(List<Long> nums, Calculator<Long> calculator) {
         validateNumbers(nums);
         return nums.stream()
                 .reduce(calculator::operation)
