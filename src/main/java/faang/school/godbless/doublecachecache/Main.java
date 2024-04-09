@@ -82,7 +82,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Remove test");
-        removeStudent(student3);
+        removeStudent(new Student("ten"));
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
@@ -114,6 +114,9 @@ public class Main {
     }
 
     public static void removeStudent(Student student) {
+        if (!STUDENT_GRADES.containsKey(student)) {
+            throw new IllegalArgumentException("There is no such student");
+        }
         for (Subject subject : STUDENT_GRADES.get(student).keySet()) {
             SUBJECT_STUDENTS.get(subject).remove(student);
         }
