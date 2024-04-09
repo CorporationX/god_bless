@@ -3,10 +3,6 @@ package faang.school.godbless.user;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 @Getter
@@ -19,6 +15,13 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    public User(String name, int age, String job, String address) {
+        setName(name);
+        setAge(age);
+        setJob(job);
+        setAddress(address);
+    }
 
     public void setName(String name) {
         if (name.isBlank()) {
@@ -50,16 +53,5 @@ public class User {
         } else {
             this.address = address;
         }
-    }
-
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
-        for (User user : users) {
-            if (!groupedUsers.containsKey(user.getAge())) {
-                groupedUsers.put(user.getAge(), new ArrayList<>());
-            }
-            groupedUsers.get(user.getAge()).add(user);
-        }
-        return groupedUsers;
     }
 }
