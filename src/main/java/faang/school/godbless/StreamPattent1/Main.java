@@ -2,8 +2,6 @@ package faang.school.godbless.StreamPattent1;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
 import java.util.function.Predicate;
 
 public class Main {
@@ -32,16 +30,16 @@ public class Main {
     }
 
     private static int findMaxElement(List<Integer> nums) {
-        Optional<Integer> output = nums.stream()
-                .max(Integer::compareTo);
-        return output.orElseThrow(() -> new RuntimeException("Пустая коллекция"));
+        return nums.stream()
+                .max(Integer::compareTo)
+                .orElseThrow(() -> new RuntimeException("Пустая коллекция"));
     }
 
     private static double findAverage(List<Integer> nums) {
-        OptionalDouble output = nums.stream()
+        return nums.stream()
                 .mapToDouble(Double::valueOf)
-                .average();
-        return output.orElseThrow(() -> new RuntimeException("Пустая коллекция"));
+                .average()
+                .orElseThrow(() -> new RuntimeException("Пустая коллекция"));
     }
 
     private static int countWordsThanStartsWith(List<String> words, char ch) {
@@ -68,10 +66,10 @@ public class Main {
     }
 
     private static int findMinElementThatBiggerThan(List<Integer> nums, int min) {
-        Optional<Integer> output = nums.stream()
+        return nums.stream()
                 .filter(num -> num > min)
-                .min(Integer::compareTo);
-        return output.orElseThrow(() -> new RuntimeException("Нет элементов больше чем переданное число"));
+                .min(Integer::compareTo)
+                .orElseThrow(() -> new RuntimeException("Нет элементов больше чем переданное число"));
     }
 
     private static List<Integer> getListOfLengths(List<String> words) {
