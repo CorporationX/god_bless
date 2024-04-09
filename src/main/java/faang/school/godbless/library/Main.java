@@ -1,7 +1,6 @@
 package faang.school.godbless.library;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Main {
@@ -19,6 +18,7 @@ public class Main {
         addBook(book4, "T");
         removeBook("The Hunger Games", "Suzanne Collins", 2008);
         findBook("The Book Thief", "Markus Zusak", 2005);
+        findBook("The Book Thief2", "Markus Zusak", 2005);
         getAllBooks();
     }
 
@@ -27,24 +27,20 @@ public class Main {
     }
 
     public static void removeBook(String bookTile, String bookAuthor, int publicationYear) {
-        Book bookToRemove = new Book(bookTile, bookAuthor, publicationYear);
-        Iterator<Map.Entry<Book, String>> iterator = library.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Book, String> book = iterator.next();
-            if (book.getKey().equals(bookToRemove)) {
-                iterator.remove();
-                break;
-            }
-        }
+        if(library.remove(new Book(bookTile, bookAuthor, publicationYear)) != null){
+            System.out.println("Book removed");
+        }else{
+            System.out.println("Book not found");
+        };
     }
 
     public static void findBook(String bookTile, String bookAuthor, int publicationYear) {
         Book bookToFind = new Book(bookTile, bookAuthor, publicationYear);
-        for (Map.Entry<Book, String> book : library.entrySet()) {
-            if (book.getKey().equals(bookToFind)) {
-                System.out.println(bookToFind + " is located in area " + book.getValue());
-                break;
-            }
+        String location = library.get(bookToFind);
+        if (location == null) {
+            System.out.println("Book not found");
+        } else {
+            System.out.println(bookToFind + " is located in area " + location);
         }
     }
 
