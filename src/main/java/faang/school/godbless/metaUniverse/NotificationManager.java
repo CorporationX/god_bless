@@ -1,6 +1,7 @@
 package faang.school.godbless.metaUniverse;
 
 import lombok.Data;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -15,6 +16,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        this.notifications.get(notification.getType()).accept(notification);
+        if (notifications.get(notification.getType()) == null) {
+            System.out.println("type not found");
+        } else {
+            notifications.get(notification.getType()).accept(notification);
+        }
     }
 }
