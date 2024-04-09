@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.WebPageIndexer;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
