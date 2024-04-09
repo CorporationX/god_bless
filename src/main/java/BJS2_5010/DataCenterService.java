@@ -1,31 +1,13 @@
 package BJS2_5010;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
-public class DataCenterService implements OptimizationStrategy {
+public class DataCenterService {
     private DataCenter dataCenter;
 
-    void addServer(Server server) {
-        dataCenter.getServers().add(server);
-    }
-
-    void deleteServer(Server server) {
-        if (server.getLoad() != 0) {
-            System.out.println("Этот сервер еще не выполнил процессы");
-        } else {
-            dataCenter.getServers().remove(server);
-        }
-    }
-
-    public double getTotalEnergyConsumption() {
-        return dataCenter.getServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
-    }
-
-    void allocateResources(ResourceRequest request) {
-        var server = DataCenter.findLowLoadServer(dataCenter.getServers(), request);
+    public void allocateResources(ResourceRequest request) {
+        var server = dataCenter.findLowLoadServer(request);
         if (server != null) {
             server.setLoad(request.getLoad() + server.getLoad());
         } else {
@@ -33,7 +15,7 @@ public class DataCenterService implements OptimizationStrategy {
         }
     }
 
-    void releaseResources(ResourceRequest request) {
+    public void releaseResources(ResourceRequest request) {
         for (Server server : dataCenter.getServers()) {
             if (server.getLoad() == server.getMaxLoad()) {
                 if (server.getMaxLoad() < request.getLoad()) {
@@ -48,14 +30,7 @@ public class DataCenterService implements OptimizationStrategy {
         }
     }
 
-    @Override
-    public void optimize(DataCenter dataCenter) {
-        double loadServers = dataCenter.getServers().stream().mapToDouble(Server::getLoad).sum();
-        double maxLoadServers = dataCenter.getServers().stream().mapToDouble(Server::getMaxLoad).sum();
-        double divisonLoadOnServer = loadServers / maxLoadServers;
-        for (Server server : dataCenter.getServers()) {
-            server.setLoad(divisonLoadOnServer * server.getMaxLoad());
-        }
-
+    public void optimize(OptimizationStrategy strategy) {
+        strategy.optimize(dataCenter);
     }
 }
