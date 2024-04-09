@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ResourceCalculator {
 
-    public int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
+    public int calculate(List<Integer> nums, Calculator calculator) {
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
