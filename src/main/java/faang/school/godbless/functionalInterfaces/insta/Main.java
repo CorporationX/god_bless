@@ -8,26 +8,9 @@ public class Main {
 
         Image originalImage = new Image("image", ".png", "Yet another selfie");
 
-        Function<Image, Image> inverseFilter = (image) -> {
-            var newName = image.fileName() + "_inverse";
-            var newDescription = image.description() + " with inverse filter on";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
-
-        Function<Image, Image> saturationFilter = (image) -> {
-            var newName = image.fileName() + "_saturated";
-            var newDescription = image.description() + " with saturation filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
-
-        Function<Image, Image> blurFilter = (image) -> {
-            var newName = image.fileName() + "_blurred";
-            var newDescription = image.description() + " with blur filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
+        Function<Image, Image> inverseFilter = (image) -> filterProcessor.filtering(image, "_inverse", " with inverse filter on");
+        Function<Image, Image> saturationFilter = (image) -> filterProcessor.filtering(image, "_saturated", " with saturation filter applied");
+        Function<Image, Image> blurFilter = (image) -> filterProcessor.filtering(image, "_blurred", " with blur filter applied");
 
         Image imageWithFilter = filterProcessor.applyFilter(originalImage, inverseFilter);
 

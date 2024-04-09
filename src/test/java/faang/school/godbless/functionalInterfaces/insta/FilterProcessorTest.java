@@ -14,12 +14,10 @@ class FilterProcessorTest {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
-        Function<Image, Image> inverseFilter = (image) -> {
-            var newName = image.fileName() + "_inverse";
-            var newDescription = image.description() + " with inverse filter on";
+        Function<Image, Image> inverseFilter = (image) -> filterProcessor.filtering(image,
+                "_inverse",
+                " with inverse filter on");
 
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
 
         var expectedResult = new Image("image_inverse", ".png", "Yet another selfie with inverse filter on");
 
@@ -40,12 +38,10 @@ class FilterProcessorTest {
         var imageWithBlankExtension = new Image("image", "", "Yet another selfie");
         var imageWithNullExtension = new Image("image", null, "Yet another selfie");
 
-        Function<Image, Image> validFilter = (image) -> {
-            var newName = image.fileName() + "_inverse";
-            var newDescription = image.description() + " with inverse filter on";
+        Function<Image, Image> validFilter = (image) -> filterProcessor.filtering(image,
+                "_inverse",
+                " with inverse filter on");
 
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
 
         var nullImageExpectedMessage = "Original image must be non-null valued!";
         var invalidNameOrExtensionExpectedMessage = "Original image cannot have null or blank file name and extension!";
@@ -87,25 +83,15 @@ class FilterProcessorTest {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
-        Function<Image, Image> saturationFilter = (image) -> {
-            var newName = image.fileName() + "_saturated";
-            var newDescription = image.description() + " with saturation filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
-        Function<Image, Image> blurFilter = (image) -> {
-            var newName = image.fileName() + "_blurred";
-            var newDescription = image.description() + " with blur filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
-
-        Function<Image, Image> expectedFilter = (image) -> {
-            var newName = image.fileName() + "_saturated_blurred";
-            var newDescription = image.description() + " with saturation filter applied with blur filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
+        Function<Image, Image> saturationFilter = (image) -> filterProcessor.filtering(image,
+                "_saturated",
+                " with saturation filter applied");
+        Function<Image, Image> blurFilter = (image) -> filterProcessor.filtering(image,
+                "_blurred",
+                " with blur filter applied");
+        Function<Image, Image> expectedFilter = (image) -> filterProcessor.filtering(image,
+                "_saturated_blurred",
+                " with saturation filter applied with blur filter applied");
 
         var imageWithExpectedFilter = filterProcessor.applyFilter(originalImage, expectedFilter);
 
@@ -125,12 +111,9 @@ class FilterProcessorTest {
         //given
         var originalImage = new Image("image", ".png", "Yet another selfie");
 
-        Function<Image, Image> validFilter = (image) -> {
-            var newName = image.fileName() + "_saturated";
-            var newDescription = image.description() + " with saturation filter applied";
-
-            return new Image(newName, image.fileExtension(), newDescription);
-        };
+        Function<Image, Image> validFilter = (image) -> filterProcessor.filtering(image,
+                "_saturated",
+                " with saturation filter applied");
 
         var nullFilterExpectedMessage = "Both filters must have non-null values!";
 
