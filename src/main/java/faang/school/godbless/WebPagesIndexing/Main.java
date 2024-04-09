@@ -1,4 +1,4 @@
-package faang.school.godbless.WebPageIndexer;
+package faang.school.godbless.WebPagesIndexing;
 
 import java.util.ArrayList;
 import java.util.HashMap;
