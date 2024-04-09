@@ -2,20 +2,20 @@ package Abstraction;
 
 public class Main {
     public static void main(String[] args) {
-        Archer arch = new Archer("Oleja");
-        Warrior war = new Warrior("Alesha");
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
-        arch.attack(war);
+        Archer olejik = new Archer("Oleja");
+        Warrior leha = new Warrior("Alesha");
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
+        olejik.attack(leha);
 
-        war.attack(arch);
+        leha.attack(olejik);
     }
 }
