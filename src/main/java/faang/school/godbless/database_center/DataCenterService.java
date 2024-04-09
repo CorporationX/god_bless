@@ -2,8 +2,6 @@ package faang.school.godbless.database_center;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class DataCenterService implements OptimizationStrategy{
     private DataCenter dataCenter;
@@ -75,7 +73,7 @@ public class DataCenterService implements OptimizationStrategy{
         }
 
         double newLoad = maxLoadServer.getLoad() - loadResources;
-        if (newLoad < 0){
+        if (newLoad < 0) {
             newLoad = 0;
         }
         maxLoadServer.setLoad(newLoad);
@@ -83,20 +81,30 @@ public class DataCenterService implements OptimizationStrategy{
 
     @Override
     public void optimize() {
+        List<Server> servers = dataCenter.getListOfServers();
 
-    }
+        double totalLoad = 0;
+        for (Server server : servers) {
+            totalLoad += server.getLoad();
+        }
+        double averageLoad = totalLoad / servers.size();
 
-    public  void scheduleTask() {
-        Timer timer = new Timer();
-        TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                optimize();
-                System.out.println("Выполнение кода каждые 30 минут");
+        for (Server server : servers){
+
+            double loadDifference = server.getLoad() - averageLoad;
+            if (Math.abs(loadDifference) > (averageLoad * 0.1)) {
+                for (Server otherServer : servers) {
+
+                    if (otherServer != server) {
+                        double transferLoad = loadDifference / 2;
+
+                        server.setLoad(server.getLoad() - transferLoad);
+                        otherServer.setLoad(otherServer.getLoad() + transferLoad);
+                        updateAllServers(servers);
+                        break;
+                    }
+                }
             }
-        };
-        long delay = 0;
-        long period = 30 * 60 * 1000;
-        timer.scheduleAtFixedRate(task, delay, period);
+        }
     }
 }

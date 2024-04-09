@@ -3,9 +3,9 @@ package faang.school.godbless.database_center;
 public class Main {
     public static void main(String[] args) {
 
-        Server server1 = new Server(30, 50, 40);
-        Server server2 = new Server(35, 60, 60);
-        Server server3 = new Server(45, 70, 80);
+        Server server1 = new Server(70, 50, 40);
+        Server server2 = new Server(33, 60, 60);
+        Server server3 = new Server(24, 70, 80);
 
         DataCenterService dataCenterService = new DataCenterService();
 
@@ -13,9 +13,8 @@ public class Main {
         dataCenterService.addDataCenter(server2);
         dataCenterService.addDataCenter(server3);
 
-
-        double result = dataCenterService.getTotalEnergyConsumption();
-        System.out.println("Result1 total energy consumption: " + result);
+        double result1 = dataCenterService.getTotalEnergyConsumption();
+        System.out.println("Result1 total energy consumption: " + result1);
 
         dataCenterService.removeServer(server2);
 
@@ -30,6 +29,16 @@ public class Main {
         ResourceRequest request2 = new ResourceRequest(12);
         dataCenterService.releaseResources(request2);
 
-        dataCenterService.scheduleTask();
+        System.out.println("server1" + server1);
+        System.out.println("server2" + server2);
+        System.out.println("server3" + server3);
+
+        System.out.println("before optimize: ");
+        dataCenterService.optimize();
+        System.out.println("after optimize: ");
+
+        System.out.println("server1" + server1);
+        System.out.println("server2" + server2);
+        System.out.println("server3" + server3);
     }
 }
