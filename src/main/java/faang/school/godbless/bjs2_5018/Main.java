@@ -14,7 +14,7 @@ public class Main {
         sum(numbers);
     }
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calc(nums.get(i), result);
@@ -24,13 +24,13 @@ public class Main {
 
     public static int product(List<Integer> nums) {
         int result = calculate(nums, (num1, num2) -> num1 * num2);
-        log.info("Product of numbers results: {}", result);
+        log.info("Product of numbers {}. Result: {}", nums, result);
         return result;
     }
 
     public static int sum(List<Integer> nums) {
         int result =  calculate(nums, Integer::sum);
-        log.info("Sum result numbers: {}", result);
+        log.info("Sum of numbers {}. Result: {}", nums, result);
         return result;
     }
 }
