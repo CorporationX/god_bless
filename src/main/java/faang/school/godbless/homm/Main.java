@@ -26,5 +26,4 @@ public class Main {
 
         System.out.println("В битве побеждает " + battlefield.battle(hero1, hero2).getName());
     }
-    //надо исправить способ подсчета выигравшей стороны, ищменить структуру армии со списка на хэшмапу
 }

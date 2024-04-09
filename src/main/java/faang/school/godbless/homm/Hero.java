@@ -27,9 +27,6 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (!squad.contains(creature)) {
-            throw new IllegalArgumentException("no such creature in army");
-        }
         int quantityInArmy = 0;
         for (Creature creatureInArmy : squad) {
             if (creatureInArmy.equals(creature)) {
@@ -41,6 +38,7 @@ public class Hero {
                     creatureInArmy.setQuantity(quantityInArmy);
                 }
             }
+            break;
         }
     }
 
