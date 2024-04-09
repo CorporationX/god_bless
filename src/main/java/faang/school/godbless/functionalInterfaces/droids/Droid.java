@@ -5,35 +5,54 @@ import lombok.Data;
 
 @Data
 public class Droid {
+    //32 - сдвиг, так как первые 31 символа служебные, а стандартные начинаются с 32го
+    private static final int ENCRYPTION_OFFSET = 32;
     private String message;
     private int encryptionKey;
+    private static DroidMessageEncryptor encryptor;
+    private static DroidMessageEncryptor decryptor;
 
     public Droid(int encryptionKey) {
         this.encryptionKey = encryptionKey;
+
+        encryptor = (message, key) -> {
+            StringBuilder encryptedMessage = new StringBuilder();
+
+            message.chars().forEach(currentChar -> {
+                int numResult = currentChar + key;
+
+                if(numResult > 127) {  //127 - макс. значение char
+                    numResult -= 127;
+                    numResult += ENCRYPTION_OFFSET;
+                }
+
+                encryptedMessage.append((char) numResult);
+            });
+
+            return encryptedMessage.toString();
+        };
+
+        decryptor = (message, key) -> {
+            StringBuilder decryptedMessage = new StringBuilder();
+
+            message.chars().forEach(currentChar -> {
+                int numResult = currentChar - key;
+
+                if(numResult < ENCRYPTION_OFFSET) {
+                    numResult = 127 - ENCRYPTION_OFFSET + currentChar - key;
+                }
+
+                decryptedMessage.append((char) numResult);
+            });
+
+            return decryptedMessage.toString();
+        };
     }
 
     public String sendEncryptedMessage(String originalMessage) throws IllegalArgumentException  {
         if(originalMessage == null || originalMessage.isBlank()) {
             throw new IllegalArgumentException("Message must be non-valued and have some information!");
         }
-
-        DroidMessageEncryptor encryptor = (message, key) -> {
-            StringBuilder encryptedMessage = new StringBuilder();
-
-            message.chars().forEach(currentChar -> {
-                        int numResult = currentChar + key;
-
-                        if(numResult > 127) {
-                            numResult -= 127;
-                            numResult += 32;
-                        }
-
-                        char result = (char) (numResult);
-                        encryptedMessage.append(result);
-                    });
-
-            return encryptedMessage.toString();
-        };
 
        return encryptor.encryptMessage(originalMessage, this.encryptionKey);
     }
@@ -44,23 +63,6 @@ public class Droid {
         if(encryptedMessage == null || encryptedMessage.isBlank()) {
             throw new IllegalArgumentException("Encrypted message must be non-valued and have some information!");
         }
-
-        DroidMessageEncryptor decryptor = (message, key) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-
-            message.chars().forEach(currentChar -> {
-                int numResult = currentChar - key;
-
-                if(numResult < 32) {
-                    numResult = 127 - 32 + currentChar - key;
-                }
-
-                char result = (char) (numResult);
-                decryptedMessage.append(result);
-            });
-
-            return decryptedMessage.toString();
-        };
 
         return decryptor.encryptMessage(encryptedMessage, encryptionKey);
     }

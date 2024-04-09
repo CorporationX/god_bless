@@ -9,6 +9,5 @@ public class Main {
 
         System.out.println("Encrypted message: " + encryptedMessage);
         System.out.println("\nDecrypted message: " + decryptedMessage);
-
     }
 }
