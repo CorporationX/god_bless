@@ -7,69 +7,75 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<Integer, StreamEvent> mapId = new HashMap<>();
-        HashMap<String, List<StreamEvent>> mapString = new HashMap<>();
+        Map<Integer, StreamEvent> keepMapById = new HashMap<>();
+        Map<String, List<StreamEvent>> keepMapByString = new HashMap<>();
         StreamEvent streamEvent1 = new StreamEvent(1, "Sleep", "12/01/2007");
         StreamEvent streamEvent2 = new StreamEvent(2, "Watch", "1/07/2009");
         StreamEvent streamEvent3 = new StreamEvent(3, "Touch", "16/10/2005");
-        addStreamEvent(streamEvent1, mapId, mapString);
-        addStreamEvent(streamEvent2, mapId, mapString);
-        addStreamEvent(streamEvent3, mapId, mapString);
+        addStreamEvent(streamEvent1, keepMapById, keepMapByString);
+        addStreamEvent(streamEvent2, keepMapById, keepMapByString);
+        addStreamEvent(streamEvent3, keepMapById, keepMapByString);
         System.out.println("===========>>>>>>>>>>");
-        System.out.println(findStreamEventById(2, mapId));
+        System.out.println(findStreamEventById(2, keepMapById));
         System.out.println("===========>>>>>>>>>>");
-        System.out.println(findStreamEventsByType("Sleep", mapId));
+        System.out.println(findStreamEventsByType("Sleep", keepMapById));
         System.out.println("===========>>>>>>>>>>");
-        deleteStreamEventById(1, mapId, mapString);
+        deleteStreamEventById(1, keepMapById, keepMapByString);
         System.out.println("===========>>>>>>>>>>");
-        displayAllEvents(mapId);
+        displayAllEvents(keepMapById);
     }
-    private static void addStreamEvent(StreamEvent event, HashMap<Integer,
-            StreamEvent> mapId, HashMap<String, List<StreamEvent>> mapString) {
-        mapId.put(event.getId(), event);
-        System.out.println("Event " + event + " Добавлен в Map mapId");
-        List<StreamEvent> eventList = mapString.get(event.getEventType());
+
+    private static void addStreamEvent(StreamEvent event, Map<Integer,
+            StreamEvent> keepMapById, Map<String, List<StreamEvent>> keepMapByString) {
+        keepMapById.put(event.getId(), event);
+        System.out.println("Event " + event + " Добавлен в Map keepMapById");
+        List<StreamEvent> eventList = keepMapByString.get(event.getEventType());
         if (eventList == null) {
             eventList = new ArrayList<>();
-            mapString.put(event.getEventType(), eventList);
-            System.out.println("Event " + event + " Добавлен в Map mapString");
+            keepMapByString.put(event.getEventType(), eventList);
+            System.out.println("Event " + event + " Добавлен в Map keepMapByString");
         }
         eventList.add(event);
     }
-    private static StreamEvent findStreamEventById(int id, Map<Integer, StreamEvent> mapId) {
-        return mapId.get(id);
+
+    private static StreamEvent findStreamEventById(int id, Map<Integer, StreamEvent> keepMapById) {
+        return keepMapById.get(id);
     }
-    private static List<StreamEvent> findStreamEventsByType(String eventType, Map<Integer, StreamEvent> mapId) {
+
+    private static List<StreamEvent> findStreamEventsByType(String eventType, Map<Integer, StreamEvent> keepMapById) {
         List<StreamEvent> events = new ArrayList<>();
-        for (StreamEvent event : mapId.values()) {
+        for (StreamEvent event : keepMapById.values()) {
             if (event.getEventType().equals(eventType)) {
                 events.add(event);
             }
         }
         return events;
     }
-    private static void deleteStreamEventById(int id, Map<Integer, StreamEvent> mapId, Map<String, List<StreamEvent>> mapType) {
-        StreamEvent event = mapId.get(id);
+
+    private static void deleteStreamEventById(int id, Map<Integer, StreamEvent> keepMapById, Map<String,
+            List<StreamEvent>> keepMapByString) {
+        StreamEvent event = keepMapById.get(id);
         if (event != null) {
-            mapId.remove(id);
+            keepMapById.remove(id);
             System.out.println("Event " + event + " удалён");
             String eventType = event.getEventType();
             if (eventType != null) {
-                List<StreamEvent> eventIdList = mapType.get(eventType);
+                List<StreamEvent> eventIdList = keepMapByString.get(eventType);
                 if (eventIdList != null) {
                     eventIdList.remove(Integer.valueOf(id));
                     System.out.println("Событие " + id + " удалено из списка " + eventType);
                     if (eventIdList.isEmpty()) {
-                        mapType.remove(eventType);
+                        keepMapByString.remove(eventType);
                         System.out.println("Список событий " + eventType + " пустой и был удалён");
                     }
                 }
             }
         }
     }
-    private static void displayAllEvents(Map<Integer, StreamEvent> mapId) {
+
+    private static void displayAllEvents(Map<Integer, StreamEvent> keepMapById) {
         System.out.println("Информация о всех событиях:");
-        for (Map.Entry<Integer, StreamEvent> entry : mapId.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : keepMapById.entrySet()) {
             int eventId = entry.getKey();
             StreamEvent event = entry.getValue();
             System.out.println("ID события: " + eventId);

@@ -1,9 +1,11 @@
 package faang.school.godbless;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @EqualsAndHashCode
+@AllArgsConstructor
 public class StreamEvent {
     @Getter
     private int id;
@@ -11,12 +13,6 @@ public class StreamEvent {
     private String eventType;
     @Getter
     private String data;
-
-    public StreamEvent(int id, String eventType, String data) {
-        this.id = id;
-        this.eventType = eventType;
-        this.data = data;
-    }
 
     @Override
     public String toString() {
