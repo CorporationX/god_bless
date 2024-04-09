@@ -1,24 +1,16 @@
 package faang.school.godbless.BJS2_5091;
 
-import java.util.HashMap;
-
 public class Main {
     public static void main(String[] args) {
-        HashMap<String, WeatherData> weatherData = new HashMap<>();
+        WeatherCache cache = new WeatherCache();
 
-        WeatherData.getWeatherByCity(weatherData, "London");
-        WeatherData.printAllWeatherCity(weatherData);
+        WeatherData londonWeather = cache.getWeatherByCity("London");
+        System.out.println(londonWeather);
 
-        WeatherData londonWeather = new WeatherData("London", 20, 80);
-        WeatherData.updateWeather(weatherData, londonWeather);
-        WeatherData.printAllWeatherCity(weatherData);
+        cache.updateWeather(new WeatherData("Stambul", 12, 44));
+        cache.printAllWeatherCity();
 
-        WeatherData stambulWeather = WeatherData.getWeatherByCity(weatherData, "Stambul");
-        System.out.println(stambulWeather);
-
-        System.out.println("удаляем погоду");
-        WeatherData.removeWeather(weatherData, "Stambul");
-        WeatherData.printAllWeatherCity(weatherData);
-
+        cache.removeWeather("Stambul");
+        cache.printAllWeatherCity();
     }
 }
