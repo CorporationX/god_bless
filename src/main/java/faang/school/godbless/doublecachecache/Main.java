@@ -81,6 +81,21 @@ public class Main {
         System.out.println("---------------------");
         System.out.println();
 
+        System.out.println("Remove test");
+        removeStudent(student3);
+        printStudentGrades();
+        System.out.println("----");
+        printAllSubjects();
+        System.out.println("---------------------");
+        System.out.println();
+
+        System.out.println("remove student from subject");
+        removeStudentFromSubject(math, student3);
+        printStudentGrades();
+        System.out.println("----");
+        printAllSubjects();
+        System.out.println("---------------------");
+        System.out.println();
     }
 
     public static void addStudent(Student student, Map<Subject, Integer> grades) {
@@ -132,6 +147,9 @@ public class Main {
 
     public static void removeStudentFromSubject(Subject subject, Student student) {
         SUBJECT_STUDENTS.get(subject).remove(student);
+        if (!STUDENT_GRADES.containsKey(student)) {
+            return;
+        }
         STUDENT_GRADES.get(student).remove(subject);
     }
 
