@@ -54,7 +54,7 @@ public class Main {
         l6.forEach(value -> System.out.println("----" + value));
 
         System.out.println("getPerfectNumbers: ");
-        List<Integer> l7 = getPerfectNumbers(100, 130);
+        List<Integer> l7 = getPerfectNumbers(0, 10);
         l7.forEach(value -> System.out.println("----" + value));
     }
 
@@ -90,9 +90,12 @@ public class Main {
 
     private static HashMap<String, String> getAllFriendOfFriends(Map<String, List<String>> peoplesFriends) {
         HashMap<String, String> pairs = new HashMap<>();
-        peoplesFriends.forEach((key, value) -> value.stream()
-                .filter(friend -> !peoplesFriends.get(friend).contains(key))
-                .forEach(friend -> pairs.put(friend, key)));
+        peoplesFriends.forEach((key, value) -> peoplesFriends.entrySet().stream()
+                .filter(entry -> !key.equals(entry.getKey()) && !value.contains(entry.getKey()))
+                .forEach(entry -> entry.getValue().stream()
+                        .filter(value::contains)
+                        .forEach(friend -> pairs.put(entry.getKey(), key)))
+                );
         return pairs;
     }
 
@@ -128,7 +131,7 @@ public class Main {
         List<String> palindromes = new ArrayList<>();
         IntStream.range(0, word.length())
                 .forEach(i -> IntStream.range(i, word.length())
-                        .mapToObj(j -> word.substring(i, j))
+                        .mapToObj(j -> word.substring(i, j + 1))
                         .filter(substring -> new StringBuilder(substring).reverse().toString().equals(substring))
                         .collect(Collectors.toCollection(() -> palindromes))
                 );
