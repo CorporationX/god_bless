@@ -13,7 +13,7 @@ public class EmailProcessor {
             Consumer<Email> consumer,
             Function<Email, String> function) {
         for (Email email : emails) {
-            if(filter.test(email)) {
+            if (filter.test(email)) {
                 consumer.accept(email);
                 System.out.println(function.apply(email));
             }
