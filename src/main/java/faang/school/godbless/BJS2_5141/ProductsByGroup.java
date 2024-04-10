@@ -1,21 +1,22 @@
 package faang.school.godbless.BJS2_5141;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class ProductsByGroup {
-    Map<String, Set<Product>> productsByGroup = new HashMap<>();
+    private final Map<String, List<Product>> productsByCategory = new HashMap<>();
 
-    public void toGroupProducts(Set<Product> products) {
+    public void groupProductsByCategory(Set<Product> products) {
         for (Product product : products) {
-            productsByGroup.computeIfAbsent(product.getCategory(), k -> new HashSet<>()).add(product);
+            productsByCategory.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
     }
 
-    public void printAllProductsByGroup() {
-        for (Map.Entry<String, Set<Product>> entry : productsByGroup.entrySet()) {
+    public void printAllProductsByCategory() {
+        for (Map.Entry<String, List<Product>> entry : productsByCategory.entrySet()) {
             System.out.println(entry.getKey());
             for (Product product : entry.getValue()) {
                 System.out.println(product.toString());

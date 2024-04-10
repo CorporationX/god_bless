@@ -12,7 +12,7 @@ public class Main {
                 new Product(5, "Шоколад", "food")
         );
         ProductsByGroup productsByGroup = new ProductsByGroup();
-        productsByGroup.toGroupProducts(products);
-        productsByGroup.printAllProductsByGroup();
+        productsByGroup.groupProductsByCategory(products);
+        productsByGroup.printAllProductsByCategory();
     }
 }
