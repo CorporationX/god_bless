@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_4275.heroes_models;
+package faang.school.godbless.BJS2_4275;
 
 public abstract class Creature {
 
@@ -41,5 +41,4 @@ public abstract class Creature {
     public void attack(int power) {
         this.health = power - getHealth();
     }
-
 }

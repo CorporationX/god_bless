@@ -1,4 +1,6 @@
-package faang.school.godbless.BJS2_4275.heroes_models;
+package faang.school.godbless.BJS2_4275;
+
+import faang.school.godbless.BJS2_4275.Creature;
 
 public class Pikeman extends Creature {
 

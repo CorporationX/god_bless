@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_4275.heroes_models;
+package faang.school.godbless.BJS2_4275;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -42,8 +42,8 @@ public class Hero {
         }
     }
 
-    public void attack(Hero enemyHero, Creature enemyFracture, int power) {
-        enemyFracture.attack(power);
+    public void attack(Hero enemyHero, Creature enemyFracture, Creature attackFracture) {
+        enemyFracture.attack(attackFracture.getPower());
         System.out.println("----------------------");
         System.out.println("Attacker: " + getName());
         System.out.printf("Defender: %s and his fractions size: %d%n", enemyHero.getName(), enemyHero.getFractions().size());
@@ -55,6 +55,9 @@ public class Hero {
             if (getLevel() > 25 && getExperience() > 10) {
                 addFraction(new Pikeman());
                 setExperience(0);
+            }
+            if (getLevel() >= 40) {
+                attackFracture.addQuantity(50);
             }
         }
         if (enemyHero.getFractions().isEmpty()) {
