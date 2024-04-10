@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
+
     public static void addItem(Character character, Item item, Consumer<Item> consumer) {
         character.getInventory().add(item);
         consumer.accept(item);
