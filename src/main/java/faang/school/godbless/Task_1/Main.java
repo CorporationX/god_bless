@@ -2,7 +2,6 @@ package faang.school.godbless.Task_1;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static faang.school.godbless.Task_1.User.groupUsers;
 
@@ -25,6 +24,6 @@ public class Main {
         users.add(user5);
         users.add(user6);
 
-        System.out.println(groupUsers(users).toString());
+        System.out.println(groupUsers(users));
     }
 }
