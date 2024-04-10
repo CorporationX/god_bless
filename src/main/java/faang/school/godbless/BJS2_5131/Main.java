@@ -16,7 +16,11 @@ public class Main {
         System.out.println("выводим события с типом message");
         System.out.println(eventsByType.toString());
 
-        eventValues.removeStream(1);
+        try {
+            eventValues.removeStream(1);
+        } catch (IllegalArgumentException e) {
+            System.out.println("удаляем событие из потока: " + e);
+        }
         System.out.println("удаляем событие");
         eventValues.printAllEvents();
 
@@ -24,6 +28,7 @@ public class Main {
     }
 
     private static StreamEventValues getStreamEventValues() {
+
         StreamEvent streamEventBank = new StreamEvent(1, "update", "salary");
         StreamEvent streamEventMessenger1 = new StreamEvent(2, "message", "Hello mike!");
         StreamEvent streamEventMessenger2 = new StreamEvent(3, "message", "How are you doing?");
@@ -32,11 +37,16 @@ public class Main {
 
         StreamEventValues eventValues = new StreamEventValues();
 
-        eventValues.addStream(streamEventBank);
-        eventValues.addStream(streamEventMessenger1);
-        eventValues.addStream(streamEventMessenger2);
-        eventValues.addStream(streamEventVideoHosting1);
-        eventValues.addStream(streamEventVideoHosting2);
+        try {
+            eventValues.addStream(streamEventBank);
+            eventValues.addStream(streamEventMessenger1);
+            eventValues.addStream(streamEventMessenger2);
+            eventValues.addStream(streamEventVideoHosting1);
+            eventValues.addStream(streamEventVideoHosting2);
+        } catch (IllegalArgumentException e) {
+            System.out.println("добавление событий в поток:" + e);
+        }
+
         return eventValues;
     }
 }
