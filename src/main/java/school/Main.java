@@ -8,8 +8,8 @@ public class Main {
     }
 
     // Даны три стороны треугольника, вычислить его площадь
-    private static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
-        if (a + b < c || a + c < b || b + c < a) {
+    private static Double triangleArea(double a, double b, double c) {
+        if (a + b <= c || a + c <= b || b + c <= a) {
             throw new IllegalArgumentException("Неверно введены стороны треугольника");
         }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
