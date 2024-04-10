@@ -1,8 +1,14 @@
 package faang.school.godbless.bjs2_5069;
 
-import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
+@Slf4j
 public class Main {
+
+    private static final String ERR_MESSAGE = "Table is null";
 
     public static void main(String[] args) {
         String result = toCsv(List.of(
@@ -16,6 +22,11 @@ public class Main {
     }
 
     public static String toCsv(List<List<String>> table) {
+
+        if (table == null) {
+            log.error(ERR_MESSAGE);
+            throw new NoSuchElementException(ERR_MESSAGE);
+        }
         VectorJoiner<String> vectorJoinerString = vector -> String.join(", ", vector);
 
         MatrixJoiner<String> stringMatrixJoiner = matrix -> {
