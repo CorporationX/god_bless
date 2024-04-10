@@ -2,6 +2,7 @@ package faang.school.godbless.ActivityAnalys;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -42,7 +43,7 @@ public class Main {
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -54,7 +55,7 @@ public class Main {
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -66,7 +67,7 @@ public class Main {
                 .filter(action -> action.getActionDate().getMonth().equals(LocalDateTime.now().getMonth()))
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
                 .map(Map.Entry::getKey)
                 .toList();
