@@ -2,42 +2,48 @@ package faang.school.godbless.BJS2_4274;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
+    private static final Map<String, List<Product>> PRODUCTS = new HashMap<>();
+
     public static void main(String[] args) {
+        Main main = new Main();
 
-        Set<Product> products = Set.of(
-                new Product(1L, "Nokia", "Phone"),
-                new Product(2L, "Ikea", "Furniture"),
-                new Product(3L, "Laptop", "Technic"),
-                new Product(4L, "MacBook", "Technic"),
-                new Product(5L, "Chair", "Furniture")
-        );
+        Set<Product> products = new HashSet<>();
 
-        Map<String, List<Product>> sortedProducts = groupByCategory(products);
+        Product nokia = new Product("Nokia", "Phone");
+        Product ikea = new Product("Ikea", "Furniture");
+        Product hp = new Product("Hp", "Technic");
+        Product macBook = new Product("MacBook", "Technic");
+        Product chair = new Product("Chair", "Furniture");
+        Product table = new Product("Table", "Furniture");
 
-        printAllProducts(sortedProducts);
+        products.add(nokia);
+        products.add(ikea);
+        products.add(hp);
+        products.add(macBook);
+        products.add(chair);
+        products.add(table);
 
+        main.groupByCategory(products)
+                .printAllProducts();
     }
 
-    private static Map<String, List<Product>> groupByCategory(Set<Product> products) {
-        Map<String, List<Product>> sortedProducts = new HashMap<>();
+    private Main groupByCategory(Set<Product> products) {
         for (Product product : products) {
-            List<Product> listProduct = sortedProducts.getOrDefault(product.getCategory(), new ArrayList<>());
-            listProduct.add(product);
-            sortedProducts.put(product.getCategory(), listProduct);
+            PRODUCTS.computeIfAbsent(product.getCategory(), key -> new ArrayList<>()).add(product);
         }
-        return sortedProducts;
+        return this;
     }
 
-    private static void printAllProducts(Map<String, List<Product>> products) {
-        for (var entry : products.entrySet()) {
-            for (Product product : entry.getValue()) {
-                System.out.println(entry.getKey() + product.toString());
-            }
+    private void printAllProducts() {
+        for (var entry : PRODUCTS.entrySet()) {
+            System.out.println("Category: " + entry.getKey());
+            entry.getValue().forEach(System.out::println);
         }
     }
 }
