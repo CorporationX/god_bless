@@ -12,5 +12,4 @@ public class Angel extends Creature {
     public Angel() {
         super(NAME, LEVEL, DAMAGE, DEFENSE, HEALTH, SPEED);
     }
-
 }

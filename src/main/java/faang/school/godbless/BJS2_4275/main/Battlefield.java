@@ -12,29 +12,31 @@ import java.util.List;
 import java.util.Random;
 
 public class Battlefield {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        Hero tony = new Hero("Tony", 0, 0, addFractions(), false);
-        Hero bob = new Hero("Bob", 0, 0, addFractions(), false);
+        Hero tony = new Hero("Tony",  addFractions());
+        Hero bob = new Hero("Bob",  addFractions());
 
         int round = 0;
 
-        while (!tony.isLoss() || !bob.isLoss()) {
+        while (!tony.isLoss() && !bob.isLoss()) {
+            System.out.println("Start: " + round + " round");
             if (round % 2 == 0) {
                 Creature fractionAttack = randomFraction(tony);
                 Creature fractionDefense = randomFraction(bob);
                 tony.attack(bob, fractionDefense, fractionAttack.getPower());
+                Thread.sleep(5000);
             } else {
                 Creature fractionDefense = randomFraction(tony);
                 Creature fractionAttack = randomFraction(bob);
                 bob.attack(tony, fractionDefense, fractionAttack.getPower());
+                Thread.sleep(5000);
             }
             round++;
         }
-
+        System.out.println("Game over");
         System.out.println("Tony Hero : " + tony.isLoss());
         System.out.println("Bob Hero : " + bob.isLoss());
-
     }
 
     private static Creature randomFraction(Hero hero) {
@@ -42,10 +44,11 @@ public class Battlefield {
         List<Creature> fractions = hero.getFractions();
         if (fractions.size() == 1) {
             return fractions.get(0);
-        } else {
+        } else if (fractions.size() > 1) {
             int indexFractions = random.nextInt(fractions.size());
             return fractions.get(indexFractions);
         }
+        return new Pikeman();
     }
 
     private static List<Creature> addFractions() {
@@ -53,25 +56,12 @@ public class Battlefield {
         List<Creature> fractions = new ArrayList<>();
         while (fractions.size() <= 9) {
             switch (random.nextInt(9)) {
-                case 1:
-                case 5:
-                    fractions.add(new Pikeman());
-                    break;
-                case 2:
-                case 6:
-                    fractions.add(new Griffin());
-                    break;
-                case 3:
-                case 7:
-                    fractions.add(new Angel());
-                    break;
-                case 4:
-                case 8:
-                    fractions.add(new Swordman());
-                    break;
+                case 1, 5 -> fractions.add(new Pikeman());
+                case 2, 6 -> fractions.add(new Griffin());
+                case 3, 7 -> fractions.add(new Angel());
+                case 4, 8 -> fractions.add(new Swordman());
             }
         }
         return fractions;
     }
-
 }
