@@ -11,32 +11,6 @@ import java.util.Map;
 @Data
 @AllArgsConstructor
 public class User {
-    public static void main(String[] args) {
-
-        User user1 = new User("Vadim", 29, "Shibanov", "Moscow");
-        User user2 = new User("Mike", 88, "Black", "Ohio");
-        User user3 = new User("Jessica", 29, "Smith", "London");
-        User user4 = new User("Danny", 44, "O'Brien", "New-York");
-        User user5 = new User("Clare", 29, "Noname", "Moscow");
-        User user6 = new User("Vadim", 29, "Shibanov", "Moscow");
-
-        List<User> list = new ArrayList<>();
-
-        list.add(user1);
-        list.add(user2);
-        list.add(user3);
-        list.add(user4);
-        list.add(user5);
-        list.add(user6);
-
-
-        Map<Integer, List<User>> map = groupUsers(list);
-        for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
-            Integer key = entry.getKey();
-            List<User> listOfUsers = entry.getValue();
-            System.out.println("Key: " + key + ", Value: " + listOfUsers.toString());
-        }
-    }
 
     private String name;
     private Integer age;
