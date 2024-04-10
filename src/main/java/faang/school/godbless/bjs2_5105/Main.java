@@ -40,17 +40,17 @@ public class Main {
     }
 
     static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
-        MatrixTransformer mt = (x, y) -> {
-            int newY = matrix[0].length - 1 - y;
-            return new Coordinates(x, newY);
-        };
 
-        if (flipDirection.equals(FlipDirection.VERTICAL)) {
-            mt = (x, y) -> {
-                int newX = matrix.length - 1 - x;
-                return new Coordinates(newX, y);
-            };
-        }
+        MatrixTransformer mt = (x, y) -> {
+            Coordinates coordinates = new Coordinates(x, matrix[0].length - 1 - y);
+            if (flipDirection.equals(FlipDirection.VERTICAL)) {
+                coordinates.setX(matrix.length - 1 - x);
+                coordinates.setY(y);
+            }
+            return coordinates;
+        };
         return transformMatrix(matrix, mt);
     }
+
+
 }
