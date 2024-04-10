@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.hogwards;
 
 public class Main {
     public static void main(String[] args) {
