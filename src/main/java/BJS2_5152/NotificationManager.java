@@ -12,7 +12,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (handlers.get(notification.getType()) == null) {
+        if (handlers.containsKey(notification.getType())) {
             throw new NullPointerException("No handler with this name");
         }
         handlers.get(notification.getType()).accept(notification);
