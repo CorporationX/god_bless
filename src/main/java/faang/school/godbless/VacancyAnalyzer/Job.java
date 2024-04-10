@@ -11,9 +11,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
-@AllArgsConstructor
 @Builder
 @Jacksonized
+@AllArgsConstructor
 public class Job {
     private String name;
     private List<String> requirements;

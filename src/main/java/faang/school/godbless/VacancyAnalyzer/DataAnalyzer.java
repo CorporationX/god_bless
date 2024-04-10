@@ -1,6 +1,7 @@
 package faang.school.godbless.VacancyAnalyzer;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -61,9 +62,9 @@ public class DataAnalyzer {
           return jobs.stream()
                 .filter(job -> job.getDateAdded().isAfter(startDate.atStartOfDay()) && job.getDateAdded().isBefore(endDate.atStartOfDay()))
                 .collect(Collectors.groupingBy(job -> switch (granularity) {
-                    case MONTH -> job.getDateAdded().getMonth().toString();
-                    case WEEK -> job.getDateAdded().getMonth().toString() + " " + job.getDateAdded().getDayOfMonth() + " " + job.getDateAdded().getDayOfWeek().toString();
-                    case DAY -> job.getDateAdded().getMonth().toString() + " " + job.getDateAdded().getDayOfWeek().toString();
+                    case MONTH -> job.getDateAdded().format(DateTimeFormatter.ofPattern("MM.yyyy"));
+                    case YEAR -> job.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy"));
+                    case DAY -> job.getDateAdded().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
                 }, Collectors.toList()));
     }
 }
