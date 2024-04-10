@@ -24,7 +24,6 @@ public class Main {
         users.add(user5);
         users.add(user6);
 
-
         Map<Integer, List<User>> map = groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
             Integer key = entry.getKey();

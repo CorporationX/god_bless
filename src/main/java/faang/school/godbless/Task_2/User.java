@@ -18,12 +18,20 @@ public class User {
 
     public User(String name, Integer age, String workplace, String address) {
 
-        if (name != null && age >= 18 && VALID_JOBS.contains(workplace) && VALID_ADDRESSES.contains(address)) {
+        if (name != null) {
             this.name = name;
-            this.age = age;
-            this.workplace = workplace;
-            this.address = address;
         } else throw new IllegalArgumentException();
+        if (age >= 18) {
+            this.age = age;
+        } else throw new IllegalArgumentException();
+        if (VALID_JOBS.contains(workplace)) {
+            this.workplace = workplace;
+        } else throw new IllegalArgumentException();
+        if (VALID_ADDRESSES.contains(address)) {
+            this.address = address;
+        }
+        VALID_ADDRESSES.contains(address);
+
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
