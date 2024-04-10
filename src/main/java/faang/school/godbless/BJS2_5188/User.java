@@ -8,13 +8,13 @@ public class User {
     private String workplace;
     private String address;
 
-    private static final HashSet<String> VALID_JOBS = new HashSet<String>() {{ //set of
+    private static final HashSet<String> VALID_JOBS = new HashSet<>() {{ //set of
         add("Google");
         add("Uber");
         add("Amazon");
     }};
 
-    private static final HashSet<String> VALID_ADDRESSES = new HashSet<String>(){{
+    private static final HashSet<String> VALID_ADDRESSES = new HashSet<>() {{
         add("London");
         add("New York");
         add("Amsterdam");
@@ -27,10 +27,11 @@ public class User {
         this.address = address;
         Validation(name, age, job, address);
     }
+
     @SneakyThrows
-    private void Validation(String name, int age, String workplace, String address)  {
-            if (name.isBlank() || age < 18 ||!VALID_JOBS.contains(workplace)||!VALID_ADDRESSES.contains(address)){
-                throw new IllegalAccessException("Invalid fields");
-            }
+    private void Validation(String name, int age, String workplace, String address) {
+        if (name.isBlank() || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalAccessException("Invalid fields");
+        }
     }
 }
