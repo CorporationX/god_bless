@@ -2,6 +2,7 @@ package BJS2_5152;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 public class NotificationManager {
@@ -12,8 +13,8 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (handlers.containsKey(notification.getType())) {
-            throw new NullPointerException("No handler with this name");
+        if (!handlers.containsKey(notification.getType())) {
+            throw new NoSuchElementException("No handler with this name");
         }
         handlers.get(notification.getType()).accept(notification);
     }
