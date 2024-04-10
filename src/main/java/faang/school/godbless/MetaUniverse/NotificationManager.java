@@ -5,12 +5,12 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    public final Map<String, Consumer<Notification>> NOTIFICATION_HANDLER = new HashMap<>();
+    public final Map<String, Consumer<Notification>> NOTIFICATION_HANDLERS = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> consumer) {
+    public void registerHandler(String type, Consumer<Notification> handler) {
         try {
-            if (consumer != null || type != null) {
-                NOTIFICATION_HANDLER.put(type, consumer);
+            if (handler != null && type != null) {
+                NOTIFICATION_HANDLERS.put(type, handler);
             } else {
                 throw new IllegalArgumentException("type or consumer is null");
             }
@@ -20,7 +20,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> consumer = NOTIFICATION_HANDLER.get(notification.getType());
+        Consumer<Notification> consumer = NOTIFICATION_HANDLERS.get(notification.getType());
         if (consumer != null) {
             consumer.accept(notification);
         } else {
