@@ -30,8 +30,6 @@ public class User {
         if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         }
-        VALID_ADDRESSES.contains(address);
-
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
