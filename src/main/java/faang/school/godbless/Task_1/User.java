@@ -1,4 +1,4 @@
-package faang.school.godbless.JavaCore;
+package faang.school.godbless.Task_1;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
