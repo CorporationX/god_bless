@@ -4,4 +4,5 @@ package HandleErrorsBeautifully;
 public interface ExceptionHandler<T> {
 
     T handle(Exception exception);
+
 }
