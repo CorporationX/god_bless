@@ -1,12 +1,13 @@
 package faang.school.godbless.hashMap.first;
 
+import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main {
-    static List<Student> students = new ArrayList<>();
+    private final static List<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
         add(new Student("Vadim", "IT", 1));
@@ -17,7 +18,7 @@ public class Main {
         add(new Student("Petr", "IT", 3));
         add(new Student("Vladimir", "Philological", 4));
         delete("Elena", "Philological", 2);
-        distributedStudentsToString(distributedStudents(students));
+        distributedStudentToString(distributedStudents(students));
     }
 
     public static HashMap<String, List<Student>> distributedStudents(List<Student> students) {
@@ -32,8 +33,10 @@ public class Main {
         return groupedStudents;
     }
 
-    public static void distributedStudentsToString(HashMap<String, List<Student>> groupedStudent) {
-        System.out.println(groupedStudent.toString());
+    public static void distributedStudentToString(HashMap<String, List<Student>> groupedStudent) {
+        for () {
+
+        }
     }
 
     public static void add(Student student) {
