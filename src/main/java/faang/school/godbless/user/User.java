@@ -12,13 +12,13 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int minimalAge = 18;
 
     public User(String name, int age, String job, String address) {
         validation(name, age, job, address);
     }
 
     public void validation(String name, int age, String job, String address) {
-        int minimalAge = 18;
         if (name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
