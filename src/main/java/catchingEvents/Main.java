@@ -11,10 +11,11 @@ public class Main {
     private static final Map<String, List<StreamEvent>> STREAM_EVENTS_BY_TYPE = new HashMap<>();
 
     public static void main(String[] args) {
-        StreamEvent event1 = new StreamEvent(1, "Del", "Something");
-        StreamEvent event2 = new StreamEvent(2, "Del", "Something");
-        StreamEvent event3 = new StreamEvent(3, "Copy", "Something");
-        StreamEvent event4 = new StreamEvent(4, "Copy", "Something");
+        StreamEvent event1 = new StreamEvent("Del", "Something");
+        StreamEvent event2 = new StreamEvent("Del", "Something");
+        StreamEvent event3 = new StreamEvent("Copy", "Something");
+        StreamEvent event4 = new StreamEvent("Copy", "Something");
+
 
         addEvent(event1);
         addEvent(event2);
@@ -29,7 +30,6 @@ public class Main {
         deleteEvent(event2);
         printAllInfoAboutEvents();
         deleteEvent(event2);
-
     }
 
     private static void updateStreamEventMap(StreamEvent event) {
@@ -53,6 +53,9 @@ public class Main {
     }
 
     public static StreamEvent findEventById(Integer id) {
+        if (STREAM_EVENT_MAP.get(id) == null) {
+            throw new NullPointerException("Элемента с таким ID не существует");
+        }
         return STREAM_EVENT_MAP.get(id);
     }
 
@@ -61,21 +64,23 @@ public class Main {
     }
 
     public static void deleteEvent(StreamEvent event) {
+        if (event == null || event.getEventType() == null) {
+            throw new NullPointerException("Событие не может иметь тип null");
+        }
         List<StreamEvent> tmp;
         String key = event.getEventType();
 
         STREAM_EVENT_MAP.remove(event.getId());
 
         tmp = STREAM_EVENTS_BY_TYPE.get(key);
-        tmp.remove(event);
+        tmp.removeIf(event1 -> event1.equals(event));
         STREAM_EVENTS_BY_TYPE.put(key, tmp);
     }
 
     public static void printAllInfoAboutEvents() {
         for (Map.Entry<Integer, StreamEvent> entry : STREAM_EVENT_MAP.entrySet()) {
-            System.out.println("\nID: " + entry.getValue().getId() +
-                    "\nEvent type: " + entry.getValue().getEventType() +
-                    "\nData: " + entry.getValue().getData());
+            System.out.println(String.format("\nID: %s\nEvent type: %s\nData: %s",
+                    entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getData()));
         }
     }
 }
