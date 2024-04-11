@@ -2,8 +2,7 @@ package faang.school.godbless.hogwarts;
 
 class SpellCaster {
     public void cast(String spellName, SpellAction action) {
-        String result = action.castSpell(spellName);
-        System.out.println(result);
+        System.out.println(action.castSpell(spellName));
     }
 
     public static void main(String[] args) {
