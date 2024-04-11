@@ -10,9 +10,9 @@ public class EmailProcessor {
 
         for (Email email : emails){
            if (predicate.test(email)) {
-               consumer.accept(email);
                String upperCaseWord = function.apply(email);
                System.out.println(upperCaseWord);
+               consumer.accept(email);
            }
         }
     }
