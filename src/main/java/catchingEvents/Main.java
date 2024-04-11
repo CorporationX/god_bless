@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<Integer, StreamEvent> STREAM_EVENT_MAP = new HashMap<>();
+    private static final Map<Integer, StreamEvent> STREAM_EVENTS_BY_ID = new HashMap<>();
     private static final Map<String, List<StreamEvent>> STREAM_EVENTS_BY_TYPE = new HashMap<>();
 
     public static void main(String[] args) {
@@ -15,7 +15,9 @@ public class Main {
         StreamEvent event2 = new StreamEvent("Del", "Something");
         StreamEvent event3 = new StreamEvent("Copy", "Something");
         StreamEvent event4 = new StreamEvent("Copy", "Something");
+        StreamEvent event5 = new StreamEvent("test", "test");
 
+        deleteEvent(event5);
 
         addEvent(event1);
         addEvent(event2);
@@ -33,30 +35,30 @@ public class Main {
     }
 
     private static void updateStreamEventMap(StreamEvent event) {
-        STREAM_EVENT_MAP.put(event.getId(), event);
+        checkEvent(event);
+        STREAM_EVENTS_BY_ID.put(event.getId(), event);
     }
 
     private static void updateListOfStreamEvents(StreamEvent event) {
-        List<StreamEvent> tmp;
+        checkEvent(event);
         String key = event.getEventType();
         if (!STREAM_EVENTS_BY_TYPE.containsKey(key)) {
             STREAM_EVENTS_BY_TYPE.put(key, new ArrayList<>());
         }
-        tmp = STREAM_EVENTS_BY_TYPE.get(key);
-        tmp.add(event);
-        STREAM_EVENTS_BY_TYPE.put(key, tmp);
+        STREAM_EVENTS_BY_TYPE.get(key).add(event);
     }
 
     public static void addEvent(StreamEvent event) {
+        checkEvent(event);
         updateStreamEventMap(event);
         updateListOfStreamEvents(event);
     }
 
     public static StreamEvent findEventById(Integer id) {
-        if (STREAM_EVENT_MAP.get(id) == null) {
-            throw new NullPointerException("Элемента с таким ID не существует");
+        if (STREAM_EVENTS_BY_ID.get(id) == null) {
+            throw new NullPointerException("Элемент c ID = null не может существовать");
         }
-        return STREAM_EVENT_MAP.get(id);
+        return STREAM_EVENTS_BY_ID.get(id);
     }
 
     public static List<StreamEvent> findListOfStreamEventsByType(String type) {
@@ -64,23 +66,27 @@ public class Main {
     }
 
     public static void deleteEvent(StreamEvent event) {
-        if (event == null || event.getEventType() == null) {
-            throw new NullPointerException("Событие не может иметь тип null");
-        }
-        List<StreamEvent> tmp;
+        checkEvent(event);
         String key = event.getEventType();
+        STREAM_EVENTS_BY_ID.remove(event.getId());
 
-        STREAM_EVENT_MAP.remove(event.getId());
+        if(STREAM_EVENTS_BY_TYPE.get(key) == null) {
+            throw new NullPointerException("О событии с таким типом нет данных!");
+        }
 
-        tmp = STREAM_EVENTS_BY_TYPE.get(key);
-        tmp.removeIf(event1 -> event1.equals(event));
-        STREAM_EVENTS_BY_TYPE.put(key, tmp);
+        STREAM_EVENTS_BY_TYPE.get(key).removeIf(event1 -> event1.equals(event));
     }
 
     public static void printAllInfoAboutEvents() {
-        for (Map.Entry<Integer, StreamEvent> entry : STREAM_EVENT_MAP.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : STREAM_EVENTS_BY_ID.entrySet()) {
             System.out.println(String.format("\nID: %s\nEvent type: %s\nData: %s",
                     entry.getValue().getId(), entry.getValue().getEventType(), entry.getValue().getData()));
+        }
+    }
+
+    private static void checkEvent(StreamEvent event) {
+        if (event == null || event.getEventType() == null) {
+           throw new NullPointerException("События не существует");
         }
     }
 }
