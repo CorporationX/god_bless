@@ -7,30 +7,21 @@ public class User {
     private int age;
     private String workplace;
     private String address;
+    private final int AGE_LIMIT = 18;
 
-    private static final HashSet<String> VALID_JOBS = new HashSet<>() {{ //set of
-        add("Google");
-        add("Uber");
-        add("Amazon");
-    }};
+    private static final HashSet<String> VALID_JOBS = new HashSet<>(Set.of("Google","Uber","Amazon"));
+    private static final HashSet<String> VALID_ADDRESSES = new HashSet<>(Set.of("London","New York","Amsterdam"));
 
-    private static final HashSet<String> VALID_ADDRESSES = new HashSet<>() {{
-        add("London");
-        add("New York");
-        add("Amsterdam");
-    }};
-
-    public User(String name, int age, String job, String address) throws Exception {
+    public User(String name, int age, String job, String address) throws IllegalAccessException {
         this.name = name;
         this.age = age;
         this.workplace = job;
         this.address = address;
-        Validation(name, age, job, address);
+        validation(name, age, job, address);
     }
-
     @SneakyThrows
-    private void Validation(String name, int age, String workplace, String address) {
-        if (name.isBlank() || age < 18 || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
+    private void validation(String name, int age, String workplace, String address) {
+        if (name.isBlank() || name.isEmpty() || age < AGE_LIMIT || !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalAccessException("Invalid fields");
         }
     }
