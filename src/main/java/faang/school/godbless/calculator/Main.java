@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        ResourceCalculator dataCalculator = new ResourceCalculator();
+        CalculatorService dataCalculator = new CalculatorService();
         List<Integer> nums = List.of(1, 2, 3, 4, 5);
 
         System.out.println("sum, expected 15");

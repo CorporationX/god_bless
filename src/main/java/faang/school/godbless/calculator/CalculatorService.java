@@ -2,7 +2,7 @@ package faang.school.godbless.calculator;
 
 import java.util.List;
 
-public class ResourceCalculator {
+public class CalculatorService {
 
     public int calculate(List<Integer> nums, Calculator calculator) {
         int result = nums.get(0);
