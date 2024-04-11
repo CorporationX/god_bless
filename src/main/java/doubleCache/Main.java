@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<Student, Map<Subject, Integer>> STUDENTS_RATING = new HashMap<>();
-    private static final Map<Subject, List<Student>> SUBJECTS = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> STUDENTS_SUBJECT_GRADES = new HashMap<>();
+    private static final Map<Subject, List<Student>> STUDENTS_BY_SUBJECT = new HashMap<>();
 
     public static void main(String[] args) {
         Map<Subject, Integer> map = new HashMap<>();
@@ -78,19 +78,19 @@ public class Main {
     }
 
     public static void addStudent(Student student, Map<Subject, Integer> subjects) {
-        STUDENTS_RATING.put(student, subjects);
+        STUDENTS_SUBJECT_GRADES.put(student, subjects);
     }
 
     public static void addSubjectWithGrade(Student student, Subject subject, Integer grade) {
-        STUDENTS_RATING.get(student).put(subject, grade);
+        STUDENTS_SUBJECT_GRADES.get(student).put(subject, grade);
     }
 
     public static void removeStudent(Student student) {
-        STUDENTS_RATING.remove(student);
+        STUDENTS_SUBJECT_GRADES.remove(student);
     }
 
     public static void printAllStudentsWithSubjectsAndGrades() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : STUDENTS_RATING.entrySet()) {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : STUDENTS_SUBJECT_GRADES.entrySet()) {
             System.out.println("Student name: " + entry.getKey().getName());
             System.out.println("===================================");
             for (Map.Entry<Subject, Integer> entrySubject : entry.getValue().entrySet()) {
@@ -102,21 +102,21 @@ public class Main {
     }
 
     public static void addSubjectAndStudentList(Subject subject, List<Student> students) {
-        SUBJECTS.put(subject, students);
+        STUDENTS_BY_SUBJECT.put(subject, students);
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
-        if (!SUBJECTS.get(subject).contains(student)) {
-            SUBJECTS.get(subject).add(student);
+        if (!STUDENTS_BY_SUBJECT.get(subject).contains(student)) {
+            STUDENTS_BY_SUBJECT.get(subject).add(student);
         }
     }
 
     public static void deleteStudentFromSubject(Subject subject, Student student) {
-        SUBJECTS.get(subject).remove(student);
+        STUDENTS_BY_SUBJECT.get(subject).remove(student);
     }
 
     public static void printAllSubjectsAndStudentList() {
-        for (Map.Entry<Subject, List<Student>> entry : SUBJECTS.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> entry : STUDENTS_BY_SUBJECT.entrySet()) {
             System.out.println("Subject name: " + entry.getKey().getName());
             System.out.println("===================================");
             for (Student student : entry.getValue()) {
