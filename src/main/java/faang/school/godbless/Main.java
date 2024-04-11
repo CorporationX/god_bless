@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    Map<Book, String> books = new HashMap<>();
+    private static final Map<Book, String> BOOKS = new HashMap<>();
 
     public static void main(String[] args) {
         Main library = new Main();
@@ -17,27 +17,27 @@ public class Main {
         library.add(book2, "Shelf Nº34");
         library.add(book3, "Shelf Nº890");
 
-        library.get(book1);
+        System.out.println(library.get(book1));
 
         library.delete(book2);
 
-        library.getAll();
-
+        Map<Book, String> allBooks = library.getAll();
+        allBooks.forEach((book, bookLocation) -> System.out.println(book + " : " + bookLocation));
     }
 
     public void add(Book book, String bookLocation) {
-        books.put(book, bookLocation);
+        BOOKS.put(book, bookLocation);
     }
 
     public void delete(Book book) {
-        books.remove(book);
+        BOOKS.remove(book);
     }
 
-    public void get(Book book) {
-        System.out.println(books.get(book));
+    public String get(Book book) {
+        return BOOKS.get(book);
     }
 
-    public void getAll() {
-        books.forEach((s, bookLocation) -> System.out.println(s + " : " + bookLocation));
+    public Map<Book, String> getAll() {
+        return new HashMap<>(BOOKS);
     }
 }
