@@ -4,17 +4,11 @@ import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {
     public void processWord(String word, String translation, BiConsumer dictionaryHandler) {
-        if (word == null) {
-            throw new NullPointerException("The word field is null");
+        if (word == null || word.isEmpty()) {
+            throw new IllegalArgumentException("Параметр word не может быть null или пустым");
         }
-        if (word.isEmpty()) {
-            throw new NullPointerException("The word field is empty");
-        }
-        if (translation == null) {
-            throw new NullPointerException("The translation field is null");
-        }
-        if (translation.isEmpty()) {
-            throw new NullPointerException("The translation field is empty");
+        if (translation == null || translation.isEmpty()) {
+            throw new IllegalArgumentException("Параметр translation не может быть null или пустым");
         }
         dictionaryHandler.accept(word, translation);
     }
