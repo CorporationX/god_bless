@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 public class JobStreamProcessor {
     private final JobScraper scraper = new JobScraper();
+
     public List<Job> parseStream(Stream<String> json) {
         return json
                 .map(scraper::parse)

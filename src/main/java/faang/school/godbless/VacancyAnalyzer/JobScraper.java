@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class JobScraper {
     private final ObjectMapper mapper = new ObjectMapper();
+
     public Job parse(String json) {
         try {
             return mapper.readValue(json, Job.class);
