@@ -18,7 +18,11 @@ public class Main {
         System.out.println("===========>>>>>>>>>>");
         System.out.println(findStreamEventById(2, keepMapById));
         System.out.println("===========>>>>>>>>>>");
-        System.out.println(findStreamEventsByType("Sleep", keepMapById));
+        List<StreamEvent> watchEvents = findStreamEventsByType("Watch", keepMapByString);
+        System.out.println("События типа 'Watch':");
+        for (StreamEvent event : watchEvents) {
+            System.out.println(event);
+        }
         System.out.println("===========>>>>>>>>>>");
         deleteStreamEventById(1, keepMapById, keepMapByString);
         System.out.println("===========>>>>>>>>>>");
@@ -42,13 +46,8 @@ public class Main {
         return keepMapById.get(id);
     }
 
-    private static List<StreamEvent> findStreamEventsByType(String eventType, Map<Integer, StreamEvent> keepMapById) {
-        List<StreamEvent> events = new ArrayList<>();
-        for (StreamEvent event : keepMapById.values()) {
-            if (event.getEventType().equals(eventType)) {
-                events.add(event);
-            }
-        }
+    private static List<StreamEvent> findStreamEventsByType(String eventType, Map<String, List<StreamEvent>> keepMapByString) {
+        List<StreamEvent> events = keepMapByString.getOrDefault(eventType, new ArrayList<>());
         return events;
     }
 
