@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Map<String, House> HOUSE_MAP = new HashMap<>();
+    private static final Map<String, House> HOUSES = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -24,18 +24,20 @@ public class Main {
     }
 
     private static void add(String name, House house) {
-        HOUSE_MAP.put(name, house);
+        HOUSES.put(name, house);
     }
 
     private static void remove(String name) {
-        HOUSE_MAP.remove(name);
+        HOUSES.remove(name);
     }
 
-    private static String find(String name) {
-        return HOUSE_MAP.get(name).getSigil();
+    private static void find(String name) {
+        if (HOUSES.get(name) != null) {
+            System.out.println("Герб" + " : " + HOUSES.get(name).getSigil());
+        }else System.out.println("Дом не найден");
     }
 
     private static void printAll() {
-        HOUSE_MAP.forEach((s, house) -> System.out.println(s + ":" + house.getSigil()));
+        HOUSES.forEach((s, house) -> System.out.println(s + ":" + house.getSigil()));
     }
 }
