@@ -4,31 +4,39 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainClass {
-    Map<String, House> houses = new HashMap<>();
+    private static final Map<String, House> HOUSES = new HashMap<>();
+
     public static void main(String[] args) {
         MainClass app = new MainClass();
 
-        app.add("Stark", new House("Stark", "1234"));
-        app.add("Lannister", new House("Lannister", "3563"));
-        app.add("Baratenon", new House("Baratenon", "8395"));
+        app.add(new House("Stark", "1234"));
+        app.add(new House("Lannister", "3563"));
+        app.add(new House("Baratenon", "8395"));
 
-        app.get("Lannister");
+        House house = app.get("Lannister");
+        System.out.println("Selected house: " + house);
+
         app.delete("Lannister");
 
-        app.getAll();
-    }
-    public void add(String name, House house){
-        houses.put(name, house);
-    }
-    public void delete(String name){
-        houses.remove(name);
-    }
-    public void get(String name){
-        System.out.println( houses.get(name));
+        Map<String, House> houses = app.getAll();
+        System.out.println("Houses:");
+        houses.forEach((name, h) -> System.out.println(name + ": " + h.getSigil()));
     }
 
-    public void getAll(){
-        houses.forEach((s, house) -> System.out.println(s + ":" + house.getSigil()));
+    public void add(House house) {
+        HOUSES.put(house.getName(), house);
+    }
+
+    public void delete(String name) {
+        HOUSES.remove(name);
+    }
+
+    public House get(String name) {
+        return HOUSES.get(name);
+    }
+
+    public Map<String, House> getAll() {
+        return new HashMap<>(HOUSES);
     }
 
 
