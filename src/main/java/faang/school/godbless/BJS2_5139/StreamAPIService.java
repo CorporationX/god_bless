@@ -36,8 +36,8 @@ public class StreamAPIService {
         return strings.stream().filter(str -> str.length() <= maxLength).toList();
     }
 
-    public static int findMinElementThatMoreNumber(int inputNum){
-        return numbers.stream().filter(numb -> numb > inputNum).min(Comparator.naturalOrder()).orElse(0);
+    public static int findMinElementThatMoreNumber(int inputNumber){
+        return numbers.stream().filter(number -> number > inputNumber).min(Comparator.naturalOrder()).orElse(0);
     }
 
     public static List<Integer> convertStringToStringLength(){
