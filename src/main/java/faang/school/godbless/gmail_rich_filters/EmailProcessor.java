@@ -8,11 +8,8 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> incomingEmails, Predicate<Email> filter, Consumer<Email> handler,
                               Function<Email, String> converter) {
-        if (incomingEmails == null) {
-            throw new NullPointerException("There is no such list");
-        }
-        if (incomingEmails.isEmpty()) {
-            throw new IllegalArgumentException("The list is empty");
+        if (incomingEmails == null || incomingEmails.isEmpty()) {
+            throw new IllegalArgumentException("Список входящих писем не может быть пустым или null");
         }
 
         for (Email email : incomingEmails) {
