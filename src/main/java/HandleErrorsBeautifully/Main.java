@@ -10,16 +10,16 @@ public class Main {
             System.out.println("Executing service");
             throw new RuntimeException() ;
         };
-        System.out.println(withErrorHandling(taskWithException, exception -> "DEFAULT"));
+        System.out.println(handleError(taskWithException, exception -> "DEFAULT"));
 
         Supplier<String> taskWithoutException = () -> {
             System.out.println("Executing service");
             return "OK";
         };
-        System.out.println(withErrorHandling(taskWithoutException, exception -> "DEFAULT"));
+        System.out.println(handleError(taskWithoutException, exception -> "DEFAULT"));
     }
 
-    private static <T> T withErrorHandling(Supplier<T> function, ExceptionHandler<T> exception){
+    private static <T> T handleError(Supplier<T> function, ExceptionHandler<T> exception){
         try {
             return function.get();
         } catch (Exception e) {
