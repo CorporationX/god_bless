@@ -31,8 +31,8 @@ public class Main {
 
         System.out.println("---------------------------------------");
 
-        System.out.println(EVENTS);
-        System.out.println(SORTED_EVENTS_BY_TYPE);
+        printAllStreamEvent();
+
     }
 
     public static void addStreamEvent(StreamEvent streamEvent) {
@@ -67,9 +67,7 @@ public class Main {
     }
 
     public static void printAllStreamEvent() {
-        for (Map.Entry<Integer, StreamEvent> event : EVENTS.entrySet()) {
-            StreamEvent streamEvent = event.getValue();
-            System.out.println(streamEvent.getId() + ", " + streamEvent.getEventType() + ", " + streamEvent.getData());
-        }
+        EVENTS.values().forEach( streamEvent -> System.out.println(streamEvent.getId() +
+                ", " + streamEvent.getEventType() + ", " + streamEvent.getData()));
     }
 }
