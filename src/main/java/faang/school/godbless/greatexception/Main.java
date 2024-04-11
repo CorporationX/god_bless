@@ -1,17 +1,29 @@
 package faang.school.godbless.greatexception;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
-        int param = 1;
-        Consumer<RemoteService> consumer = remoteService -> remoteService.call(param);
+        String normalTest = withErrorHandling(() -> {
+            RemoteService remoteService = new RemoteService();
+            return remoteService.call(123);
+        }, exception -> "DEFAULT");
+
+        System.out.println(normalTest);
+
+        String exceptionTest = withErrorHandling(() -> {
+            RemoteService remoteService = new RemoteService();
+            return remoteService.call(null);
+        }, exception -> "DEFAULT");
+
+        System.out.println(exceptionTest);
     }
 
-    public void withErrorHandling(Consumer consumer, Function function) {
-//        try {
-//            consumer.accept();
-//        }
+    public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
+        try {
+            return supplier.get();
+        } catch (Exception e) {
+            return exceptionHandler.handle(e);
+        }
     }
 }

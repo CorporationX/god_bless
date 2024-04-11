@@ -1,13 +1,10 @@
 package faang.school.godbless.greatexception;
 
+import lombok.Data;
+
+@Data
 public class RemoteService {
-    public String call(int param) {
-        if (param == 1) {
-            return "one";
-        } else if (param == 2) {
-            return null;
-        } else {
-            return "DEFAULT";
-        }
+    public String call(Integer param) {
+        return param.toString();
     }
 }
