@@ -54,6 +54,7 @@ public class Main {
         return groupStudents.get(faculty + "_" + year);
     }
 
+
     public static void printAllStudentGroupByFacultyYear(Map<String, List<Student>> groupStudents) {
         groupStudents.entrySet().forEach(System.out::println);
     }
