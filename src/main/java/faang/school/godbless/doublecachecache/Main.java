@@ -20,11 +20,9 @@ public class Main {
         addStudent(john, Map.of(math, 5));
 
         printStudentGrades();
-        System.out.println("----");
-        printAllSubjects();
+        System.out.println("----" + "\n");
 
-        System.out.println("---------------------");
-        System.out.println();
+        System.out.println("---------------------" + "\n");
 
         System.out.println("add subject english to user");
         Subject english = new Subject("English");
@@ -34,8 +32,7 @@ public class Main {
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
+        System.out.println("---------------------" + "\n");
 
         System.out.println("Remove john");
         removeStudent(john);
@@ -43,8 +40,7 @@ public class Main {
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
+        System.out.println("---------------------" + "\n");
 
         System.out.println("add new Subject");
         Subject phys = new Subject("Physical");
@@ -53,14 +49,11 @@ public class Main {
         List<Student> physicList = new ArrayList<>();
         physicList.add(student1);
         physicList.add(student2);
-
         addSubject(phys, physicList);
-
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
+        System.out.println("---------------------" + "\n");
 
         System.out.println("test addStudentToSubject");
         Student student3 = new Student("three");
@@ -69,33 +62,13 @@ public class Main {
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
+        System.out.println("---------------------" + "\n");
 
         System.out.println("TEST remove student 3 from subject");
         removeStudentFromSubject(phys, student3);
-
         printStudentGrades();
         System.out.println("----");
         printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
-
-        System.out.println("Remove test");
-        removeStudent(new Student("ten"));
-        printStudentGrades();
-        System.out.println("----");
-        printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
-
-        System.out.println("remove student from subject");
-        removeStudentFromSubject(math, student3);
-        printStudentGrades();
-        System.out.println("----");
-        printAllSubjects();
-        System.out.println("---------------------");
-        System.out.println();
     }
 
     public static void addStudent(Student student, Map<Subject, Integer> grades) {
