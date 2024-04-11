@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class Main {
     private static final int CACHE_SIZE = 4;
-    private final Map<Integer, Data> CACHE = new HashMap<>();
+    private static final Map<Integer, Data> CACHE = new HashMap<>();
 
-    private final Map<Integer, Data> DATA_STORAGE = new HashMap<>();
+    private static final Map<Integer, Data> DATA_STORAGE = new HashMap<>();
 
     public static void main(String[] args) {
         Main main = new Main();
