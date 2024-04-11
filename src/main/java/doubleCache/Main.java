@@ -12,31 +12,31 @@ public class Main {
 
     public static void main(String[] args) {
         Map<Subject, Integer> map = new HashMap<>();
-        Subject subject1 = new Subject(1, "Math");
-        Subject subject2 = new Subject(2, "Programming");
-        Subject subject3 = new Subject(3, "System Analysis");
-        Subject subject4 = new Subject(4, "System design");
-        Subject subject5 = new Subject(5, "Economy");
-        Subject subject6 = new Subject(6, "IoT");
-        Subject subject7 = new Subject(7, "Geography");
+        Subject subject1 = new Subject("Math");
+        Subject subject2 = new Subject("Programming");
+        Subject subject3 = new Subject("System Analysis");
+        Subject subject4 = new Subject("System design");
+        Subject subject5 = new Subject("Economy");
+        Subject subject6 = new Subject("IoT");
+        Subject subject7 = new Subject("Geography");
         map.put(subject1, 3);
         map.put(subject2, 4);
         map.put(subject3, 3);
         map.put(subject4, 4);
 
 
-        Student student1 = new Student(1, "Nick");
+        Student student1 = new Student("Nick");
         Map<Subject, Integer> subjects = Map.of(subject1, 5, subject2, 5, subject3, 4, subject4, 5);
         addStudent(student1, subjects);
-        Student student2 = new Student(2, "Paul");
+        Student student2 = new Student("Paul");
         subjects = Map.of(subject1, 5, subject3, 4, subject4, 5, subject5, 3);
         addStudent(student2, subjects);
-        Student student3 = new Student(3, "Anya");
+        Student student3 = new Student("Anya");
         subjects = Map.of(subject2, 5, subject4, 5, subject5, 5);
         addStudent(student3, subjects);
-        Student student4 = new Student(4, "Vadim");
+        Student student4 = new Student("Vadim");
         addStudent(student4, map);
-        Student student5 = new Student(5, "TEST");
+        Student student5 = new Student("TEST");
 
 
         printAllStudentsWithSubjectsAndGrades();
@@ -106,7 +106,7 @@ public class Main {
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
-        if(!SUBJECTS.get(subject).contains(student)) {
+        if (!SUBJECTS.get(subject).contains(student)) {
             SUBJECTS.get(subject).add(student);
         }
     }
