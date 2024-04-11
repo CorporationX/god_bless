@@ -16,6 +16,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
+        try {
+            notifications.get(notification.getType()).accept(notification);
+        } catch(NullPointerException e){
+            System.out.println(e);
+        }
     }
 }
