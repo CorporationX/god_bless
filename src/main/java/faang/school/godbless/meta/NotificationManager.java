@@ -24,10 +24,18 @@ public class NotificationManager {
     }
 
     private void registerHandler(String notificationType, Consumer<Notification> handler) {
+        if (notificationType == null) {
+            System.out.println("notificationType - null");
+            return;
+        }
         handlers.put(notificationType, handler);
     }
 
     private void sendNotification(Notification notification) {
+        if (notification == null || notification.getType() == null) {
+            System.out.println("Уведомление не содержит корректных данных");
+            return;
+        }
         Consumer<Notification> handler = handlers.get(notification.getType());
         if (handler != null) {
             handler.accept(notification);
