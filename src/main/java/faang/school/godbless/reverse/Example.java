@@ -1,12 +1,13 @@
 package faang.school.godbless.reverse;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 public class Example {
     public static void reverse(Integer[] nums) {
-        Collections.reverse(Arrays.asList(nums));
-        System.out.println(Arrays.toString(nums));
+        int length = nums.length;
+        for (int i = 0; i < length / 2; i++) {
+            Integer temp = nums[i];
+            nums[i] = nums[length - i - 1];
+            nums[length - i - 1] = temp;
+        }
     }
 }
 
