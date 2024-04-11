@@ -11,7 +11,7 @@ public class Main {
     private static final String ERR_MESSAGE = "Table is null";
 
     public static void main(String[] args) {
-        String result = toCsv(List.of(
+        String result = convertListToCsv(List.of(
                 List.of("1", "2", "3", "4", "5"),
                 List.of("6", "7", "8", "9", "10"),
                 List.of("11", "12", "13", "14", "15"),
@@ -21,7 +21,7 @@ public class Main {
         System.out.println(result);
     }
 
-    public static String toCsv(List<List<String>> table) {
+    public static String convertListToCsv(List<List<String>> table) {
 
         if (table == null) {
             log.error(ERR_MESSAGE);
