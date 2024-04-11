@@ -25,13 +25,13 @@ public class Main {
         };
 
         log.info("Executing regular action without exception.");
-        var regularActionResult = ErrorHandlingService.withErrorHandling(regularAction, errorCatchingAction);
+        var regularActionResult = ErrorHandlingService.executeWithErrorHandling(regularAction, errorCatchingAction);
         log.info("Regular action result: " + regularActionResult);
 
         log.info("Executing broken regular action.");
-        var regularActionWithExceptionResult = ErrorHandlingService.withErrorHandling(brokenAction, errorCatchingAction);
+        var regularActionWithExceptionResult = ErrorHandlingService.executeWithErrorHandling(brokenAction, errorCatchingAction);
         log.info("Broken regular action result: " + regularActionWithExceptionResult);
 
-        ErrorHandlingService.withErrorHandling(() -> ErrorHandlingService.withErrorHandling(null, errorCatchingAction), errorCatchingAction);
+        ErrorHandlingService.executeWithErrorHandling(() -> ErrorHandlingService.executeWithErrorHandling(null, errorCatchingAction), errorCatchingAction);
     }
 }

@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 
 public class ErrorHandlingService {
 
-    public static <T> T withErrorHandling(Supplier<T> regularAction, Function<Exception, T> errorAction) {
+    public static <T> T executeWithErrorHandling(Supplier<T> regularAction, Function<Exception, T> errorAction) {
         if (regularAction == null || errorAction == null) {
             throw new IllegalArgumentException("Both args must be non-valued!");
         }
