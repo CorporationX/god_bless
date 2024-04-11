@@ -5,9 +5,6 @@ import java.util.function.Function;
 public class FilterProcessor {
 
     public Image applyFilter(Image image, Function<Image, Image> filterImage) {
-        if (image == null) {
-            throw new NullPointerException("The image field is missing");
-        }
         return filterImage.apply(image);
     }
 
