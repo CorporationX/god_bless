@@ -15,10 +15,10 @@ public abstract class Character {
     }
 
     public Character(int strength, int agility, int intelligence) {
+        this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
     }
-
     public abstract void attack(Character character);
 }
