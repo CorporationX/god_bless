@@ -6,6 +6,7 @@ public class Example {
         for (int i = 0; i < length / 2; i++) {
             int temp = nums[i];
             nums[i] = nums[length - i - 1];
+            //
             nums[length - i - 1] = temp;
         }
     }
