@@ -8,6 +8,8 @@ import java.util.Map;
 
 import static java.util.stream.Collectors.groupingBy;
 
+import static java.util.stream.Collectors.groupingBy;
+
 @AllArgsConstructor
 @Data
 public class User {
