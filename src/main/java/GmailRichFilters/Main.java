@@ -21,7 +21,5 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProccesor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-
-        emails.forEach(System.out::println);
     }
 }
