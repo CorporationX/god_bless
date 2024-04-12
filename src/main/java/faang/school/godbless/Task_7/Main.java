@@ -11,8 +11,8 @@ public class Main {
         booksInLibrary.put(new Book("FirstTitle", "FirstAuthor", 666), "FirstBuilding");
         booksInLibrary.put(new Book("SecondTitle", "SecondAuthor", 777), "SecondBuilding");
         booksInLibrary.put(new Book("ThirdTitle", "ThirdAuthor", 888), "ThirdBuilding");
-
         System.out.println(booksInLibrary);
+
         addNewBook(booksInLibrary, new Book("FourthTitle", "FourthAuthor", 999), "FourthBuilding");
 
         removeBookFromLibrary(booksInLibrary, "FirstTitle", "FirstAuthor", 666);
@@ -24,7 +24,7 @@ public class Main {
     }
 
     static void addNewBook(Map<Book, String> booksInLibrary, Book book, String placeOfBook) {
-        booksInLibrary.put(book, placeOfBook);
+        booksInLibrary.putIfAbsent(book, placeOfBook);
         System.out.println(booksInLibrary);
     }
 
