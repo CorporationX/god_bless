@@ -5,10 +5,13 @@ import java.util.function.Function;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println(triangleArea(2,3,4));
+        System.out.println(triangleArea(2, 3, 4));
     }
 
     private static Double triangleArea(double a, double b, double c) {
+        if (!canExist(a, b, c)) {
+            throw new IllegalArgumentException("This triangle cannot exist");
+        }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
@@ -22,5 +25,9 @@ public class Main {
         double area = sqrt.apply(mul.apply(differenceWithC).apply(mul.apply(differenceWithB).apply(mul.apply(halfMeter).apply(differenceWithA))));
 
         return area;
+    }
+
+    private static boolean canExist(double a, double b, double c) {
+        return (a + b) > c && (b + c) > a && (a + c) > b;
     }
 }
