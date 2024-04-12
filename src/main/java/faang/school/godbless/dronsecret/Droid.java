@@ -2,7 +2,7 @@ package faang.school.godbless.dronsecret;
 
 public class Droid {
 
-    DroidMessageEncryptor droidMessageEncryptor;
+    private DroidMessageEncryptor droidMessageEncryptor;
 
     public Droid() {
         this.droidMessageEncryptor = encryptorInitializer();
