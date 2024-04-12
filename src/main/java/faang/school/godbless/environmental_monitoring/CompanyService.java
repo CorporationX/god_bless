@@ -1,4 +1,4 @@
-package faang.school.godbless.enviromental_monitoring;
+package faang.school.godbless.environmental_monitoring;
 
 import java.util.HashMap;
 import java.util.Map;

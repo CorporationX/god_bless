@@ -1,4 +1,4 @@
-package faang.school.godbless.enviromental_monitoring;
+package faang.school.godbless.environmental_monitoring;
 
 import com.opencsv.bean.CsvToBeanBuilder;
 

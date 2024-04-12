@@ -1,4 +1,4 @@
-package faang.school.godbless.enviromental_monitoring;
+package faang.school.godbless.environmental_monitoring;
 
 import java.time.LocalDate;
 import java.util.List;

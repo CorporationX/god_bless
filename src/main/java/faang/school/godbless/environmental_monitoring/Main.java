@@ -1,4 +1,4 @@
-package faang.school.godbless.enviromental_monitoring;
+package faang.school.godbless.environmental_monitoring;
 
 public class Main {
     private static final String PATH_TO_FILE = "impatcs.csv";
