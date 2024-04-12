@@ -7,9 +7,9 @@ import java.util.Arrays;
 public class TestExample {
     public static void main(String[] args) {
         int[] oddLengthArrActual = new int[]{1, 2, 3, 4, 5};
-        int[] evenLengthArrActual = new int[]{1, 2, 3, 4, 5, 6};
+        int[] evenLengthArrActual = new int[]{1, 2, 3, 4, 5, 6, 7, 8};
         int[] oddLengthArrExpected = new int[]{5, 4, 3, 2, 1};
-        int[] evenLengthArrExpected = new int[]{6, 5, 4, 3, 2, 1};
+        int[] evenLengthArrExpected = new int[]{8, 7, 6, 5, 4, 3, 2, 1};
 
         Example myExample = new Example();
         myExample.reverse(oddLengthArrActual);
