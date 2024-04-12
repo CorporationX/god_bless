@@ -118,7 +118,10 @@ public class Main {
 
     //2 task
     public static void printCapitals(Map<String, String> capitalsOfCountries) {
-        capitalsOfCountries.keySet().stream().sorted().map(capitalsOfCountries::get).forEach(System.out::println);
+        capitalsOfCountries.keySet().stream()
+                .sorted()
+                .map(capitalsOfCountries::get)
+                .forEach(System.out::println);
     }
 
     //3 task
@@ -225,12 +228,13 @@ public class Main {
     //8 task
     public static List<Integer> getPalindromesInRange(int low, int high) {
         return IntStream.range(low, high + 1)
+                .mapToObj(String::valueOf)
                 .filter(num -> {
-                    var original = String.valueOf(num);
-                    var reversed = new StringBuilder(original).reverse().toString();
+                    var reversed = new StringBuilder(num).reverse().toString();
 
-                    return original.equals(reversed);
+                    return num.equals(reversed);
                 })
+                .mapToInt(Integer::valueOf)
                 .boxed()
                 .toList();
     }
