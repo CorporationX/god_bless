@@ -6,7 +6,7 @@ import java.util.List;
 public class Main {
     public static int calculate(List<Integer> numbers, Calculator<Integer> calculator) {
         if (numbers == null || numbers.isEmpty()) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException("It's NULL");
         }
         int result = numbers.get(0);
         for (int i = 1; i < numbers.size(); i++) {
