@@ -1,5 +1,6 @@
 package faang.school.godbless.Task_9;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,9 @@ public class Main {
 
         updateWeather(map, "Moscow", 15, 30);
 
+        removeInfo(map, "New-York");
 
-
+        allCities(map);
 
     }
 
@@ -43,12 +45,18 @@ public class Main {
     }
 
     static void removeInfo(Map<String, WeatherData> map, String cityName) {
-        if (cityName!=null) {
+        if (cityName != null) {
             map.remove(cityName);
         }
         System.out.println(map);
     }
+
     static void allCities(Map<String, WeatherData> map) {
-        List<WeatherData> cities = map.
+        List<WeatherData> cities = new ArrayList<>();
+        for (Map.Entry<String, WeatherData> entry : map.entrySet()) {
+            WeatherData value = entry.getValue();
+            cities.add(value);
+        }
+        System.out.println(cities);
     }
 }
