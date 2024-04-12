@@ -1,17 +1,24 @@
 package task1;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private String name;
     private int age;
     private String work;
     private String address;
+    static final Set<String> VALID_JOBS = new HashSet<>();
+    static final Set<String> VALID_ADDRESSES = new HashSet<>();
 
-    public User(String name, int age, String work, String address) {
+    public User(String name, int age, String work, String address) throws IllegalArgumentException {
+        VALID_JOBS.add("Google");
+        VALID_JOBS.add("Uber");
+        VALID_JOBS.add("Amazon");
+        VALID_ADDRESSES.add("London");
+        VALID_ADDRESSES.add("New York");
+        VALID_ADDRESSES.add("Amsterdam");
+        if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(work) || !VALID_ADDRESSES.contains(address))
+            throw new IllegalArgumentException();
         this.name = name;
         this.age = age;
         this.work = work;
