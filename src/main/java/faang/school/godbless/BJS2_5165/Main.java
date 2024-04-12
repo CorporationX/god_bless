@@ -10,11 +10,11 @@ public class Main {
     };
     ExceptionHandler<String> exceptionHandler = (e) -> "Default";
 
-    System.out.println(withErrorHandling(supplier1, exceptionHandler));
-    System.out.println(withErrorHandling(supplier2, exceptionHandler));
+    System.out.println(handlingExceptions(supplier1, exceptionHandler));
+    System.out.println(handlingExceptions(supplier2, exceptionHandler));
   }
 
-  public static <T> T withErrorHandling(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
+  public static <T> T handlingExceptions(Supplier<T> supplier, ExceptionHandler<T> exceptionHandler) {
     try {
       return supplier.get();
     } catch (Exception e) {
