@@ -1,5 +1,4 @@
 package faang.school.godbless.amazon;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
