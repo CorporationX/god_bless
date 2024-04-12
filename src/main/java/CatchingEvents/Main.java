@@ -23,25 +23,21 @@ public class Main {
     }
 
     private static void addEvent(StreamEvent streamEvent) {
-        Integer key = streamEvent.getId();
+        int key = streamEvent.getId();
         EVENTS.put(key, streamEvent);
-
-        if (!EVENTS_TYPE.containsKey(streamEvent.getEventType())) {
-            EVENTS_TYPE.put(streamEvent.getEventType(), new ArrayList<>());
-        }
-        EVENTS_TYPE.get(streamEvent.getEventType()).add(streamEvent);
+        EVENTS_TYPE.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     private static StreamEvent searchById(int id) {
         if (!EVENTS.containsKey(id)) {
-            return new StreamEvent();
+            throw new RuntimeException("Event no found.");
         }
         return EVENTS.get(id);
     }
 
     private static List<StreamEvent> searchByEventType(String eventType) {
         if (!EVENTS_TYPE.containsKey(eventType)) {
-            return new LinkedList<>();
+            throw new RuntimeException("Event no found.");
         }
         return EVENTS_TYPE.get(eventType);
     }
