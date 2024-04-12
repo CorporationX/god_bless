@@ -31,19 +31,18 @@ public class Main {
     public static int getMaxNumber(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static double getAverageValue(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
                 .average()
-                .orElseThrow();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static int getAmountOfLinesStartingWithCertainCharacter(List<String> strings, String symbol) {
         return (int) strings.stream()
-                .map(String::toLowerCase)
                 .filter(string -> string.startsWith(symbol))
                 .count();
     }
@@ -68,7 +67,7 @@ public class Main {
         return numbers.stream()
                 .filter(number -> number > givenNumber)
                 .min(Integer::compareTo)
-                .orElseThrow();
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     public static List<Integer> convertListOfStringsToListOfTheirLengths(List<String> strings) {
