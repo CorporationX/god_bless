@@ -1,5 +1,6 @@
 package faang.school.godbless.calculator;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class Main {
         return result;
     }
 
-    public static int product(List<Integer> nums) {
+    public static long product(List<Integer> nums) {
         return calculate(nums, (num1, num2) -> num1 * num2);
     }
 
@@ -26,7 +27,7 @@ public class Main {
     public static void main(String[] args) {
         List<Integer> lists = Arrays.asList(1, 2, 3, 2);
 
-        int resultProduct = product(lists);
+        long resultProduct = product(lists);
         System.out.println("Произведение чисел во всем списке: " + resultProduct);
 
         int resultSum = sum(lists);
