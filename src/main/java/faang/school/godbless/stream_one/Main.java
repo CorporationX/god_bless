@@ -22,6 +22,7 @@ public class Main {
         System.out.println("Filtered by template list of strings :"
                 + filterByTemplate(words, "ee"));
         System.out.println("Sorted by length list words: " + sortByLength(words));
+        System.out.println("converted list of strings to lengths: " + listStrToListLenStr(words));
     }
 
     public static Integer sumOfEven(List<Integer> nums) {
@@ -67,5 +68,11 @@ public class Main {
     public static Boolean isMinNumGreaterThenTemplate(List<Integer> nums, int template) {
         return nums.stream()
                 .reduce(0, Integer::min) > template;
+    }
+
+    public static List<Integer> listStrToListLenStr(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
+                .toList();
     }
 }
