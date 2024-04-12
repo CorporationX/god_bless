@@ -48,18 +48,10 @@ public class Main {
         }
 
         if (flipDirection.equals(FlipDirection.VERTICAL)) {
-            MatrixTransformer horizontalTransformer = ((x, y) -> {
-                y = matrix.length - 1 - y;
-                Coordinates coordinates = new Coordinates(x, y);
-                return coordinates;
-            });
+            MatrixTransformer horizontalTransformer = ((x, y) -> new Coordinates(x, matrix.length - 1 - y));
             return transformMatrix(matrix, horizontalTransformer, flipDirection);
         }
-        MatrixTransformer verticalTransformer = ((x, y) -> {
-            x = matrix.length - 1 - x;
-            Coordinates coordinates = new Coordinates(x, y);
-            return coordinates;
-        });
+        MatrixTransformer verticalTransformer = ((x, y) -> new Coordinates(matrix.length - 1 - x, y));
         return transformMatrix(matrix, verticalTransformer, flipDirection);
     }
 
