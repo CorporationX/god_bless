@@ -19,6 +19,7 @@ public class Main {
 
         System.out.println(searchBookInLibrary(booksInLibrary, "SecondTitle", "SecondAuthor", 777));
 
+        allBooksInLibrary(booksInLibrary);
 
     }
 
@@ -31,8 +32,12 @@ public class Main {
         booksInLibrary.remove(new Book(title, author, year));
         System.out.println(booksInLibrary);
     }
+
     static String searchBookInLibrary(Map<Book, String> booksInLibrary, String title, String author, int year) {
         return booksInLibrary.get(new Book(title, author, year));
     }
 
+    static void allBooksInLibrary(Map<Book, String> booksInLibrary) {
+        System.out.println(booksInLibrary);
+    }
 }
