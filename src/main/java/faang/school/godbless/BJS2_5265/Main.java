@@ -12,8 +12,12 @@ public class Main {
         Notification foodNotification = new Notification("food", "доставим через 2 часа");
         Notification gymNotification = new Notification("gym", "ваш обонемент закончится через год");
 
-        notifications.sendNotification(taxiNotification);
-        notifications.sendNotification(foodNotification);
-        notifications.sendNotification(gymNotification);
+        try {
+            notifications.sendNotification(taxiNotification);
+            notifications.sendNotification(foodNotification);
+            notifications.sendNotification(gymNotification);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e + "при добавлении уведомлений");
+        }
     }
 }

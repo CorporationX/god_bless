@@ -12,6 +12,11 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
+        if (notification.getType() != null) {
+            notifications.get(notification.getType()).accept(notification);
+        } else {
+            throw new IllegalArgumentException("переданные аргумент типа Notification равен null");
+        }
+
     }
 }
