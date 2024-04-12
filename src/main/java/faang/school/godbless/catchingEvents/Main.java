@@ -60,8 +60,6 @@ public class Main {
 //        eventsByType.put(eventToRemove.getEventType(), updatedList);
 //        eventsByType.put(eventToRemove.getEventType(), events);
 //        eventsByType.values().forEach(eventList-> eventList.removeIf(event-> event.equals(eventToRemove)));
-
-
         for (List<StreamEvent> listOfEvents : eventsByType.values()) {
             for (StreamEvent event : listOfEvents){
                 System.out.println("event:"+event);
