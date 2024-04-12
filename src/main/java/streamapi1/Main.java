@@ -18,7 +18,7 @@ public class Main {
         System.out.println("\n===Check method max===");
         System.out.println(max(nums));
 
-        nums = Arrays.asList(1,2,3,4,5, 20);
+        nums = Arrays.asList(1, 2, 3, 4, 5, 20);
         System.out.println("\n===Check method avgValue===");
         System.out.println(avgValue(nums));
 
@@ -38,7 +38,7 @@ public class Main {
         System.out.println("\n===Check method checkConditionForString===");
         System.out.println(checkConditionForString(strings, str -> str.length() > 12));
 
-        nums = Arrays.asList(1,2,3,5,6,7,8,9,10);
+        nums = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 10);
         System.out.println("\n===Check method findMinElementInListWhichOverGivenNumber===");
         System.out.println(findMinElementInListWhichOverGivenNumber(nums, 5));
 
@@ -61,7 +61,7 @@ public class Main {
 
     static double avgValue(List<Integer> nums) {
         return nums.stream()
-                .reduce(0, Integer::sum) / (double)nums.size();
+                .reduce(0, Integer::sum) / (double) nums.size();
     }
 
     static long countStringsWhichStartsWithASymbol(List<String> strings, Predicate<String> conditionForCounter) {
