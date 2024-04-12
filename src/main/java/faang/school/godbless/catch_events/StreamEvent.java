@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.catch_events;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
