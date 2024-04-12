@@ -1,21 +1,14 @@
 package faang.school.godbless.Task_3;
 
+import lombok.ToString;
+
+@ToString
 public class Warrior extends Character {
     public Warrior(String name) {
         super(name);
         strength = 10;
         agility = 5;
         intelligence = 3;
-    }
-
-    @Override
-    public String toString() {
-        return "Warrior{" +
-                "strength=" + strength +
-                ", agility=" + agility +
-                ", intelligence=" + intelligence +
-                ", health=" + health +
-                '}';
     }
 
     @Override

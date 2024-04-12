@@ -1,5 +1,8 @@
 package faang.school.godbless.Task_3;
 
+import lombok.ToString;
+
+@ToString
 public class Archer extends Character {
 
     public Archer(String name) {
@@ -7,16 +10,6 @@ public class Archer extends Character {
         strength = 3;
         agility = 10;
         intelligence = 5;
-    }
-
-    @Override
-    public String toString() {
-        return "Archer{" +
-                "strength=" + strength +
-                ", agility=" + agility +
-                ", intelligence=" + intelligence +
-                ", health=" + health +
-                '}';
     }
 
     @Override
