@@ -1,4 +1,4 @@
-package faang.school.godbless.hashmap.second;
+package faang.school.godbless.hashmap.secon;
 
 import java.util.*;
 
@@ -17,8 +17,8 @@ public class Main {
         main.addEvent(7, "Retro", "13.04.24 at 16:00");
         main.writeStreamEvents(main.streamEventById);
         System.out.println("*****");
-        main.deleteStreamEventById(2);
-        main.deleteStreamEventById(1);
+        main.deleteStreamEventById(6);
+        main.deleteStreamEventById(7);
         System.out.println(main.searchStreamEventById(4));
         System.out.println("*****");
         System.out.println(main.searchStreamEventsByType("Retro"));
@@ -41,8 +41,8 @@ public class Main {
     }
 
     public void deleteStreamEventById(int id) {
+        streamEventsByType.get(streamEventById.get(id).getEventType()).remove(streamEventById.get(id));
         streamEventById.remove(id);
-        streamEventsByType.remove(streamEventById.get(id).getEventType(), streamEventById.get(id));
     }
 
     public void writeStreamEvents(HashMap<Integer, StreamEvent> streamEventById) {
@@ -50,5 +50,4 @@ public class Main {
             System.out.println(entry);
         }
     }
-
 }
