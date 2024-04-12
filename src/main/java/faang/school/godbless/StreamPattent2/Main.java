@@ -60,18 +60,12 @@ public class Main {
 
     private static Map<Integer, Integer> findUniqueCombinationsThatEqualsTo(List<Integer> nums, int target) {
         Map<Integer, Integer> pairs = new HashMap<>();
-        nums.forEach(num -> {
-            int subSum = target - num;
-            if (pairs.containsKey(num)) {
-                pairs.put(num, subSum);
-            } else {
-                pairs.put(subSum, null);
-            }
-        });
-
-        return pairs.entrySet().stream()
-                .filter(entry -> entry.getValue() != null)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        IntStream.range(0, nums.size())
+                .forEach(i -> IntStream.range(i + 1, nums.size())
+                        .filter(j -> nums.get(i) + nums.get(j) == target)
+                        .forEach(j -> pairs.put(nums.get(j), nums.get(i)))
+                );
+        return pairs;
     }
 
     private static List<String> sortCountriesAndGetCapitals(Map<String, String> map) {
