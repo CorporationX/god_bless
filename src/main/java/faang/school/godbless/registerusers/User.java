@@ -5,17 +5,17 @@ import lombok.Data;
 
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.groupingBy;
 
 @Data
 public class User {
-
     private final String name;
-    private Integer age;
+    private int age;
     private String company;
     private String address;
 
-    public User(final String name, final Integer age, final String company, final String address) {
+    public User(final String name, final int age, final String company, final String address) {
         UserValidator.validateParametersOfUser(name, age, company, address);
         this.name = name;
         this.age = age;
@@ -23,14 +23,8 @@ public class User {
         this.address = address;
     }
 
-    private static List<User> getListOfUsersByAge(final Integer age, final List<User> list) {
+    public static Map<Integer, List<User>> groupUsers(List<User> list) {
         return list.stream()
-                .filter(u -> u.getAge().equals(age))
-                .collect(Collectors.toList());
-    }
-
-    public static Map<Integer, List<User>> groupUsers(final List<User> list) {
-        return list.stream()
-                .collect(Collectors.toMap(User::getAge, u -> getListOfUsersByAge(u.getAge(), list)));
+                .collect(groupingBy(User::getAge));
     }
 }
