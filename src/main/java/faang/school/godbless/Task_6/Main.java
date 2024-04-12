@@ -22,9 +22,10 @@ public class Main {
 
     }
 
-    static Map<String, House> addNewHouse(Map<String, House> houses, House house) {
-        houses.putIfAbsent(house.getName(), house);
-        return houses;
+    static void addNewHouse(Map<String, House> houses, House house) {
+        if (house.getName() != null && house.getSigil() != null) {
+            houses.putIfAbsent(house.getName(), house);
+        } else System.out.println("One or more of the fields is null, house is not added");
     }
 
     static void removeHouseByName(Map<String, House> houses, String houseName) {
