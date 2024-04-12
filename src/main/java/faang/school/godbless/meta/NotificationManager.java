@@ -10,7 +10,7 @@ public class NotificationManager {
         notificationHandler.put(type, consumer);
     }
 
-    public Consumer<Notification> sendNotification(Notification notification) {
-        return notificationHandler.get(notification.getType());
+    public void sendNotification(Notification notification) {
+        notificationHandler.get(notification.getType()).accept(notification);
     }
 }
