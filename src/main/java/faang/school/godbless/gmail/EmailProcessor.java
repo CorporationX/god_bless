@@ -11,7 +11,8 @@ class EmailProcessor {
         for (Email email : emails) {
             if (filter.test(email)) {
                 treatment.accept(email);
-                System.out.println("Содержание: " + transformation.apply(email));
+                Email transformedEmail = new Email(email.getSubject(), transformation.apply(email), email.isImportant());
+                System.out.println("Содержание: " + transformedEmail.getBody());
             }
         }
     }
