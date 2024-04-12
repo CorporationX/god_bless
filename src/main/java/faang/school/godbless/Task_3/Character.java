@@ -1,5 +1,12 @@
 package faang.school.godbless.Task_3;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@Data
+@NoArgsConstructor
 public abstract class Character {
     String name;
     int strength;
@@ -11,11 +18,5 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(String name, int strength, int agility, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
-    }
     abstract void attack(Character character);
 }
