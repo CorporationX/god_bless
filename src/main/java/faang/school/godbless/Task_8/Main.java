@@ -14,9 +14,15 @@ public class Main {
         studentList.add(new Student("John", "Economics", 3));
         studentList.add(new Student("Mike", "Economics", 3));
 
+        System.out.println(studentList);
+
         addNewStudent(studentList, new Student("Pamella", "It", 4));
 
+        System.out.println(studentList);
+
         removeStudentByHisName(studentList, "John", "Economics", 3);
+
+        System.out.println(studentList);
 
         System.out.println(studentsMethod(studentList));
 
