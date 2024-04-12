@@ -23,7 +23,7 @@ public class Main {
     }
 
     static Map<String, House> addNewHouse(Map<String, House> houses, House house) {
-        houses.put(house.getName(), house);
+        houses.putIfAbsent(house.getName(), house);
         return houses;
     }
 
