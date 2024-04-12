@@ -30,4 +30,8 @@ public class User {
         }
         return "";
     }
+
+    public static void main(String[] args) {
+
+    }
 }
