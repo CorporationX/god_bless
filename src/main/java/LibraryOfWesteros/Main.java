@@ -20,7 +20,7 @@ public class Main {
 
         System.out.println(getShelf("Весь этот мир", "Никола Юн", 2014));
 
-        deleteBook("Весь этот мир", "Никола Юн", 2014);
+        deleteBook("Весь этот мир", "Никола Ю", 2014);
 
         showBooks();
     }
@@ -36,8 +36,12 @@ public class Main {
 
     public static String getShelf(String title, String author, int year) {
         Book book = new Book(title, author, year);
-
-        return books.get(book);
+        String shelf = books.get(book);
+        if (shelf != null) {
+            return shelf;
+        } else {
+            return "Книга \"" + title + "\" не найдена";
+        }
     }
 
     public static void showBooks() {
