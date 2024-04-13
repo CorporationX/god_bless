@@ -1,5 +1,7 @@
 package faang.school.godbless.user_activity_analysis;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +10,8 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class Main {
+    private static final NumberFormat FORMATTER = new DecimalFormat("#0.00");
+
     public static void main(String[] args) {
         System.out.println(findTopUsersByActions(getUserActions(), 10));
         System.out.println(findTopFiveTopics(getUserActions()));
@@ -40,8 +44,10 @@ public class Main {
     }
 
     public static List<Integer> findTopThreeUsersByCountCommentedLastMonth(List<UserAction> actions) {
+        LocalDateTime lastMonth = LocalDateTime.now().minusMonths(1);
         List<UserAction> filteredActions = actions.stream()
-                .filter(action -> action.getActionDate().isAfter(LocalDateTime.now().minusMonths(1)))
+                .filter(action -> action.getActionType().equals(ActionType.COMMENT))
+                .filter(action -> action.getActionDate().isAfter(lastMonth))
                 .toList();
         return findTopUsersByActions(filteredActions, 3);
     }
@@ -51,11 +57,15 @@ public class Main {
         return actions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getActionType,
-                        Collectors.collectingAndThen(Collectors.counting(), value -> (double) value / totalActions * 100))
+                        Collectors.collectingAndThen(
+                                Collectors.counting(),
+                                value -> Double.valueOf(FORMATTER.format((double) value / totalActions * 100)
+                                        .replace(",", ".")))
+                        )
                 );
     }
 
-    private static List<UserAction> getUserActions() {
+    public static List<UserAction> getUserActions() {
         return List.of(
                 new UserAction(1, "test1", ActionType.SHARE, LocalDateTime.now(), "#test1"),
                 new UserAction(2, "test1", ActionType.COMMENT, LocalDateTime.now(), "test1"),
