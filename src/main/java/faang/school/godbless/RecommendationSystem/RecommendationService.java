@@ -21,9 +21,9 @@ public class RecommendationService {
         Map<Product, Long> interceptionsCount = products.stream()
                 .filter(product -> interests.stream().anyMatch(interest -> product.getTags().contains(interest)))
                 .collect(Collectors.groupingBy(Function.identity(),
-                        Collectors.flatMapping(product -> product.getTags().stream()
-                                        .filter(tag -> interests.stream().anyMatch(interest -> interest.equals(tag))),
-                                Collectors.counting())
+                                Collectors.flatMapping(product -> product.getTags().stream()
+                                                .filter(tag -> interests.stream().anyMatch(interest -> interest.equals(tag))),
+                                        Collectors.counting())
                         )
                 );
 

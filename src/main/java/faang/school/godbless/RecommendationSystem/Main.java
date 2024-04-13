@@ -47,7 +47,7 @@ public class Main {
         UserProfile userProfile9 = new UserProfile(9, Gender.MALE, 31, "Уфа", interests9);
         UserProfile userProfile10 = new UserProfile(10, Gender.FEMALE, 23, "Ростов-на-Дону", interests10);
 
-        return List.of(userProfile1,userProfile2,userProfile3,userProfile4,userProfile5,userProfile6,userProfile7,userProfile8,userProfile9,userProfile10);
+        return List.of(userProfile1, userProfile2, userProfile3, userProfile4, userProfile5, userProfile6, userProfile7, userProfile8, userProfile9, userProfile10);
     }
 
     private static List<Product> getProducts() {
@@ -73,7 +73,7 @@ public class Main {
         Product product9 = new Product(9, "Микрофон для концертов", "Музыка", 80.0, tags9);
         Product product10 = new Product(10, "Платье", "Мода", 30.0, tags10);
 
-        return List.of(product1,product2,product3,product4,product5,product6,product7,product8,product9,product10);
+        return List.of(product1, product2, product3, product4, product5, product6, product7, product8, product9, product10);
     }
 
     private static List<ProductOrder> getProductOrders() {
@@ -90,6 +90,6 @@ public class Main {
         ProductOrder order9 = new ProductOrder(9, 9, LocalDateTime.now().minusDays(90));
         ProductOrder order10 = new ProductOrder(10, 10, LocalDateTime.now().minusDays(100));
 
-        return List.of(order1,order2,order3,order4,order5,order6,order7,order8,order9,order10,order11,order12);
+        return List.of(order1, order2, order3, order4, order5, order6, order7, order8, order9, order10, order11, order12);
     }
 }
