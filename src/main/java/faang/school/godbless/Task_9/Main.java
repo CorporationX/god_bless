@@ -8,52 +8,52 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        Map<String, WeatherData> map = new HashMap<>();
-        map.put("Moscow", new WeatherData("Moscow", -20, 50));
-        map.put("London", new WeatherData("London", 20, 30));
-        map.put("New-York", new WeatherData("New-York", 10, 60));
+        Map<String, WeatherData> weather = new HashMap<>();
+        weather.put("Moscow", new WeatherData("Moscow", -20, 50));
+        weather.put("London", new WeatherData("London", 20, 30));
+        weather.put("New-York", new WeatherData("New-York", 10, 60));
 
-        weatherInfo(map, "Paris");
+        weatherInfo(weather, "Paris");
 
-        updateWeather(map, "Moscow", 15, 30);
+        updateWeather(weather, "Moscow", 15, 30);
 
-        removeInfo(map, "New-York");
+        removeInfo(weather, "New-York");
 
-        allCities(map);
+        allCities(weather);
 
     }
 
-    static void weatherInfo(Map<String, WeatherData> map, String cityName) {
+    static void weatherInfo(Map<String, WeatherData> weather, String cityName) {
         if (cityName != null) {
-            if (map.containsKey(cityName)) {
-                Integer humidity = map.get(cityName).getHumidity();
-                Integer temperature = map.get(cityName).getTemperature();
+            if (weather.containsKey(cityName)) {
+                int humidity = weather.get(cityName).getHumidity();
+                int temperature = weather.get(cityName).getTemperature();
                 System.out.println("Humidity = " + humidity + " and " + "temperature = " + temperature);
             } else {
-                map.put(cityName, new WeatherInfo().wInfo(cityName));
-                System.out.println(map);
+                weather.put(cityName, new WeatherInfo().wInfo(cityName));
+                System.out.println(weather);
             }
         }
     }
 
-    static void updateWeather(Map<String, WeatherData> map, String cityName, Integer temperature, Integer humidity) {
-        if (map.containsKey(cityName)) {
+    static void updateWeather(Map<String, WeatherData> weather, String cityName, int temperature, int humidity) {
+        if (weather.containsKey(cityName)) {
             WeatherData weatherData = new WeatherData(cityName, temperature, humidity);
-            map.put(cityName, weatherData);
+            weather.putIfAbsent(cityName, weatherData);
         }
-        System.out.println(map);
+        System.out.println(weather);
     }
 
-    static void removeInfo(Map<String, WeatherData> map, String cityName) {
-        if (cityName != null) {
-            map.remove(cityName);
+    static void removeInfo(Map<String, WeatherData> weather, String cityName) {
+        if (cityName != null && weather != null) {
+            weather.remove(cityName);
         }
-        System.out.println(map);
+        System.out.println(weather);
     }
 
-    static void allCities(Map<String, WeatherData> map) {
+    static void allCities(Map<String, WeatherData> weather) {
         List<WeatherData> cities = new ArrayList<>();
-        for (Map.Entry<String, WeatherData> entry : map.entrySet()) {
+        for (Map.Entry<String, WeatherData> entry : weather.entrySet()) {
             WeatherData value = entry.getValue();
             cities.add(value);
         }

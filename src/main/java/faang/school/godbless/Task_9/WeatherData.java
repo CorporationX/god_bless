@@ -10,7 +10,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class WeatherData {
     String city;
-    Integer temperature;
-    Integer humidity;
-
+    int temperature;
+    int humidity;
 }
