@@ -21,7 +21,7 @@ public class User {
     public static Map<@NonNull Integer,@NonNull List<User>> groupUsers(List<@NonNull User> users){
         Map<Integer,List<User>> mapGroupUsers= new HashMap<>();
         for (User user : users) {
-            int age = user.age;
+            int age = user.getAge();
             if(mapGroupUsers.containsKey(age)){
                 mapGroupUsers.get(age).add(user);
             } else {
