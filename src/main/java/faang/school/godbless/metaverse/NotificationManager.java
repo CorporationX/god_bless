@@ -1,6 +1,5 @@
 package faang.school.godbless.metaverse;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.HashMap;
