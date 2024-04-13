@@ -33,16 +33,29 @@ public class Main {
     }
 
     public StreamEvent searchStreamEventById(int id) {
-        return streamEventById.get(id);
+        if (streamEventById.get(id) != null) {
+            return streamEventById.get(id);
+        } else {
+            throw new RuntimeException("Search error! Stream event by id not found!");
+        }
     }
 
     public List<StreamEvent> searchStreamEventsByType(String eventType) {
-        return streamEventsByType.get(eventType);
+        if (streamEventsByType.get(eventType) != null) {
+            return streamEventsByType.get(eventType);
+        } else {
+            throw new RuntimeException("Search error! Stream events by type not found!");
+        }
     }
 
     public void deleteStreamEventById(int id) {
-        streamEventsByType.get(streamEventById.get(id).getEventType()).remove(streamEventById.get(id));
-        streamEventById.remove(id);
+        if (streamEventById.get(id) != null) {
+            streamEventsByType.get(streamEventById.get(id).getEventType()).remove(streamEventById.get(id));
+            streamEventById.remove(id);
+        } else {
+            throw new RuntimeException("\n" +
+                    "Deletion error! Stream event not found!");
+        }
     }
 
     public void writeStreamEvents(HashMap<Integer, StreamEvent> streamEventById) {
