@@ -8,7 +8,6 @@ public class Main {
     public static Map<String, WeatherData> weatherDataCache = new HashMap<>();
 
     public static void main(String[] args) {
-
         System.out.println(getWeather("Иркутск"));
         System.out.println(getWeather("Лондон"));
         System.out.println(getWeather("Пхукет"));
@@ -22,11 +21,9 @@ public class Main {
         deleteWeather("Ереван");
 
         showWeatherData();
-
     }
 
     public static String getWeather(String city) {
-
         WeatherData weatherData = weatherDataCache.get(city);
         if (weatherData == null) {
             weatherData = getWeatherData(city);
