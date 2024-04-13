@@ -59,10 +59,7 @@ public class Main {
     private static void printStudentAllInfo() {
         for (var entry : listSubject.entrySet()) {
             System.out.println("Student:" + entry.getKey());
-             for (var point : entry.getValue().entrySet()) {
-                 System.out.println("Subject: " + point.getKey());
-                 System.out.println("Grades:" + point.getValue());
-             }
+            System.out.println(entry.getValue());
         }
     }
 
@@ -80,7 +77,7 @@ public class Main {
     private static void printAllSubjectInfo() {
         for (var entry : listStudent.entrySet()) {
             System.out.println("Subject: " + entry.getKey());
-            entry.getValue().forEach(System.out::println);
+            System.out.println(entry.getValue());
         }
     }
 }
