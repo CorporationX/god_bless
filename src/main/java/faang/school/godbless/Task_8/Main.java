@@ -9,76 +9,73 @@ public class Main {
     public static void main(String[] args) {
 
         List<Student> studentList = new ArrayList<>();
-        studentList.add(new Student("Vadim", Faculty.IT, Course.FIRST));
-        studentList.add(new Student("Jessica", Faculty.PHILOSOPHY, Course.SECOND));
-        studentList.add(new Student("John", Faculty.ECONOMICS, Course.THIRD));
-        studentList.add(new Student("Mike", Faculty.ECONOMICS, Course.FOURTH));
+        studentList.add(new Student("Vadim", "IT", 1));
+        studentList.add(new Student("Jessica", "Philosophy", 2));
+        studentList.add(new Student("John", "Economics", 3));
+        studentList.add(new Student("Mike", "Economics", 4));
 
         System.out.println(studentList);
 
-        addNewStudent(studentList, new Student("Pamella", Faculty.IT, Course.FOURTH));
+        addNewStudent(studentList, new Student("Pamella", "IT", 1));
 
         System.out.println(studentList);
 
-        removeStudentByHisName(studentList, "John", Faculty.ECONOMICS, 3);
+        removeStudentByHisName(studentList, "John", "Economics", 3);
 
         System.out.println(studentList);
 
         System.out.println(studentsMethod(studentList));
 
-        System.out.println(searchAllStudentsOfParticularFacultyAndCourse(studentList, "Economics", 3));
+        searchAllStudentsOfParticularFacultyAndCourse(studentList, "Economics", 4);
 
     }
 
-    static Map<Map<String, Integer>, List<Student>> studentsMethod(List<Student> studentsList) {
+    static Map<Subject, List<Student>> studentsMethod(List<Student> studentsList) {
 
-        Map<Map<String, Integer>, List<Student>> studentsMap = new HashMap<>();
-
-        Map<String, Integer> facultyAndYear;
+        Map<Subject, List<Student>> studentsMap = new HashMap<>();
 
         List<Student> newStudents = null;
 
         for (int i = 0; i < studentsList.size(); i++) {
 
-            String faculty = studentsList.get(i).getFaculty();
-            Integer year = studentsList.get(i).getYear();
+            Subject subject = new Subject(studentsList.get(i).getYear(), studentsList.get(i).getFaculty());
 
-            facultyAndYear = new HashMap<>();
-            facultyAndYear.put(faculty, year);
-
-            if (!studentsMap.containsKey(facultyAndYear)) {
+            if (!studentsMap.containsKey(subject)) {
 
                 newStudents = new ArrayList<>();
 
                 for (Student student : studentsList) {
 
-                    if (faculty.equals(student.getFaculty()) && year.equals(student.getYear())) {
+                    if (subject.getFaculty().equals(student.getFaculty()) && subject.getYear().equals(student.getYear())) {
                         newStudents.add(student);
                     }
                 }
             }
-            studentsMap.put(facultyAndYear, newStudents);
+            studentsMap.put(subject, newStudents);
         }
         return studentsMap;
     }
 
     static void addNewStudent(List<Student> students, Student student) {
-        students.add(student);
+        if (student != null) {
+            students.add(student);
+        }
     }
+
 
     static void removeStudentByHisName(List<Student> students, String name, String faculty, Integer year) {
         students.remove(new Student(name, faculty, year));
     }
 
-    static List<Student> searchAllStudentsOfParticularFacultyAndCourse(List<Student> students, String faculty, Integer year) {
+    static void searchAllStudentsOfParticularFacultyAndCourse(List<Student> students, String faculty, Integer year) {
 
-        Map<Map<String, Integer>, List<Student>> allStudents = studentsMethod(students);
+        Map<Subject, List<Student>> allStudents = studentsMethod(students);
+        Subject yearAndFaculty = new Subject(year, faculty);
 
-        Map<String, Integer> studentsByFacultyAndYear = new HashMap<>();
-
-        studentsByFacultyAndYear.put(faculty, year);
-
-        return allStudents.get(studentsByFacultyAndYear);
+        if (allStudents.containsKey(yearAndFaculty)) {
+            System.out.println(allStudents.get(yearAndFaculty));
+        } else {
+            System.out.println("There are no students from such faculty and year");
+        }
     }
-
 }

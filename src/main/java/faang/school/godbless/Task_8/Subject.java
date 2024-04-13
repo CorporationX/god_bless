@@ -8,8 +8,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Student {
-    String name;
+public class Subject {
+    Integer year;
     String faculty;
-    int year;
 }
