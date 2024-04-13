@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<User, List<Query>> searches = new HashMap<>();
+    private static final Map<User, List<Query>> USER_QUERIES = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -49,54 +49,51 @@ public class Main {
 
         app.deleteUser(2);
 
-        app.getAllQueries();
+        app.printAllQueries();
     }
 
     public void addNewUser(User user, List<Query> query) {
-        try {
-            searches.put(user, query);
-        } catch (Exception e) {
-            System.err.println("Error: Null ");
+        if (user == null || query == null) {
+            throw new IllegalArgumentException("User or query cannot be null");
         }
+
+        USER_QUERIES.put(user, query);
     }
 
     public void addNewQuery(User user, Query query) {
-        try {
-            List<Query> userQueries = searches.computeIfAbsent(user, k -> new ArrayList<>());
-            userQueries.add(query);
-
-        } catch (NullPointerException e) {
-            System.err.println("Error: Null ");
+        if (user == null || query == null) {
+            throw new IllegalArgumentException("User or query cannot be null");
         }
+
+        List<Query> userQueries = USER_QUERIES.computeIfAbsent(user, k -> new ArrayList<>());
+
+        userQueries.add(query);
     }
 
     public void deleteUser(int id) {
-        try {
-            Iterator<Map.Entry<User, List<Query>>> iterator = searches.entrySet().iterator();
-            while (iterator.hasNext()) {
-                Map.Entry<User, List<Query>> entry = iterator.next();
-                User user = entry.getKey();
-                if (user.getId() == id) {
-                    iterator.remove();
-                }
+        Iterator<Map.Entry<User, List<Query>>> iterator = USER_QUERIES.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Map.Entry<User, List<Query>> entry = iterator.next();
+            User user = entry.getKey();
+            if (user.getId() == id) {
+                iterator.remove();
             }
-        } catch (NullPointerException e) {
-            System.err.println("Error: Null ");
         }
     }
 
-    public void getAllQueries() {
-        try {
-            for (Map.Entry<User, List<Query>> entry : searches.entrySet()) {
-                User key = entry.getKey();
-                List<Query> queryList = entry.getValue();
-                for (Query query : queryList) {
-                    System.out.println("User: " + key.getName() + ", with ID: " + key.getId() +
-                            ", searched: " + query.getId() + ". \"" + query.getContent() + "\", Date: " + query.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd mm:ss.SSSSSSSSS")));
-                }
+    public void printAllQueries() {
+
+        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet()) {
+            User key = entry.getKey();
+            List<Query> queryList = entry.getValue();
+
+            for (Query query : queryList) {
+                System.out.println("User: " + key.getName() +
+                        ", with ID: " + key.getId() +
+                        ", searched: " + query.getId() + ". \"" + query.getContent() +
+                        "\", Date: " + query.getTimestamp().format(DateTimeFormatter.ofPattern("yyyy-MM-dd MM:ss.SSSSSSSSS")));
             }
-        } catch (NullPointerException e) {
-            System.err.println("Error: Null ");
         }
     }
 }
