@@ -18,7 +18,6 @@ public class Main {
         Subject subject4 = new Subject("System design");
         Subject subject5 = new Subject("Economy");
         Subject subject6 = new Subject("IoT");
-        Subject subject7 = new Subject("Geography");
         map.put(subject1, 3);
         map.put(subject2, 4);
         map.put(subject3, 3);
@@ -27,65 +26,73 @@ public class Main {
 
         Student student1 = new Student("Nick");
         Map<Subject, Integer> subjects = Map.of(subject1, 5, subject2, 5, subject3, 4, subject4, 5);
-        addStudent(student1, subjects);
+        addStudentWithSubjects(student1, subjects);
         Student student2 = new Student("Paul");
         subjects = Map.of(subject1, 5, subject3, 4, subject4, 5, subject5, 3);
-        addStudent(student2, subjects);
+        addStudentWithSubjects(student2, subjects);
         Student student3 = new Student("Anya");
         subjects = Map.of(subject2, 5, subject4, 5, subject5, 5);
-        addStudent(student3, subjects);
+        addStudentWithSubjects(student3, subjects);
         Student student4 = new Student("Vadim");
-        addStudent(student4, map);
+        addStudentWithSubjects(student4, map);
         Student student5 = new Student("TEST");
-
+        addSubjectWithGrade(student5, subject6, 5);
+        Student student6 = new Student("TEST2");
+        addSubjectWithGrade(student5, subject4, 5);
 
         printAllStudentsWithSubjectsAndGrades();
+        printAllSubjectsAndStudentList();
 
-//        Добавляем предмет и оценку
-        System.out.println("\n\n============After add subject and grade===========\n\n");
-        addSubjectWithGrade(student4, subject5, 4);
+        System.out.println("\n===Check removeStudent===");
+        removeStudent(student5);
         printAllStudentsWithSubjectsAndGrades();
+        printAllSubjectsAndStudentList();
 
 
-//        Удаляем студента
-        System.out.println("\n\n============After remove student===========\n\n");
-        removeStudent(student1);
-        printAllStudentsWithSubjectsAndGrades();
-
-//        Добавляем список студентов к предмету
-        System.out.println("\n\n============After add subject and student lis===========\n\n");
+        System.out.println("\n===Check addSubjectAndStudentList===");
         List<Student> students = new ArrayList<>();
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-        students.add(student4);
-        addSubjectAndStudentList(subject7, students);
-        printAllSubjectsAndStudentList();
-
-//        Добавляем одного студента к предмету
-        System.out.println("\n\n============After add student to subject===========\n\n");
+        students.add(student5);
+        students.add(student6);
         addSubjectAndStudentList(subject6, students);
-        addStudentToSubject(subject6, student5);
-        addStudentToSubject(subject7, student5);
+        printAllStudentsWithSubjectsAndGrades();
         printAllSubjectsAndStudentList();
-        System.out.println("\n\n============NEXT===========\n\n");
 
-//        Удаляем студента от предмета
-        System.out.println("\n\n============After delete student from subject===========\n\n");
-        deleteStudentFromSubject(subject6, student5);
-        deleteStudentFromSubject(subject7, student5);
+        System.out.println("\n===Check addStudentToSubject===");
+        addStudentToSubject(subject1, student6);
+        printAllStudentsWithSubjectsAndGrades();
         printAllSubjectsAndStudentList();
+
+        System.out.println("\n===Check removeStudentFromSubject===");
+        removeStudentFromSubject(subject1, student6);
+        printAllStudentsWithSubjectsAndGrades();
+        printAllSubjectsAndStudentList();
+
+
     }
 
-    public static void addStudent(Student student, Map<Subject, Integer> subjects) {
+    public static void addStudentWithSubjects(Student student, Map<Subject, Integer> subjects) {
+        checkStudent(student);
         STUDENTS_SUBJECT_GRADES.put(student, subjects);
+        subjects.entrySet().forEach(entry -> {
+            checkAndAddToStudentsBySubjectMap(student, entry.getKey());
+        });
+
     }
 
     public static void addSubjectWithGrade(Student student, Subject subject, Integer grade) {
+        checkStudent(student);
+        checkSubject(subject);
+        if (!STUDENTS_SUBJECT_GRADES.containsKey(student)) {
+            STUDENTS_SUBJECT_GRADES.put(student, new HashMap<>());
+        }
         STUDENTS_SUBJECT_GRADES.get(student).put(subject, grade);
+        checkAndAddToStudentsBySubjectMap(student, subject);
+
     }
 
     public static void removeStudent(Student student) {
+        checkStudent(student);
+        STUDENTS_SUBJECT_GRADES.get(student).forEach((subject, integer) -> STUDENTS_BY_SUBJECT.get(subject).removeIf(stud -> stud.equals(student)));
         STUDENTS_SUBJECT_GRADES.remove(student);
     }
 
@@ -102,17 +109,25 @@ public class Main {
     }
 
     public static void addSubjectAndStudentList(Subject subject, List<Student> students) {
+        checkSubject(subject);
         STUDENTS_BY_SUBJECT.put(subject, students);
+        students.forEach(student -> {
+            checkAndAddSubjectToStudentSubjectGrades(student, subject);
+        });
     }
 
     public static void addStudentToSubject(Subject subject, Student student) {
-        if (!STUDENTS_BY_SUBJECT.get(subject).contains(student)) {
-            STUDENTS_BY_SUBJECT.get(subject).add(student);
-        }
+        checkSubject(subject);
+        checkStudent(student);
+        checkAndAddToStudentsBySubjectMap(student, subject);
+        checkAndAddSubjectToStudentSubjectGrades(student, subject);
     }
 
-    public static void deleteStudentFromSubject(Subject subject, Student student) {
-        STUDENTS_BY_SUBJECT.get(subject).remove(student);
+    public static void removeStudentFromSubject(Subject subject, Student student) {
+        checkStudent(student);
+        checkSubject(subject);
+        STUDENTS_BY_SUBJECT.get(subject).removeIf(stud -> stud.equals(student));
+        STUDENTS_SUBJECT_GRADES.get(student).remove(subject);
     }
 
     public static void printAllSubjectsAndStudentList() {
@@ -124,6 +139,32 @@ public class Main {
                         "\nStudent name: " + student.getName());
             }
             System.out.println("\n===================================");
+        }
+    }
+
+    public static void checkStudent(Student student) {
+        if (student == null) throw new NullPointerException("Student should not be null");
+    }
+
+    public static void checkSubject(Subject subject) {
+        if (subject == null) throw new NullPointerException("Subject should not be null");
+    }
+
+    public static void checkAndAddToStudentsBySubjectMap(Student student, Subject subject) {
+        if (!STUDENTS_BY_SUBJECT.containsKey(subject)) {
+            STUDENTS_BY_SUBJECT.put(subject, new ArrayList<>());
+        }
+        if (!STUDENTS_BY_SUBJECT.get(subject).contains(student)) {
+            STUDENTS_BY_SUBJECT.get(subject).add(student);
+        }
+    }
+
+    public static void checkAndAddSubjectToStudentSubjectGrades(Student student, Subject subject) {
+        if (!STUDENTS_SUBJECT_GRADES.containsKey(student)) {
+            STUDENTS_SUBJECT_GRADES.put(student, new HashMap<>());
+        }
+        if (!STUDENTS_SUBJECT_GRADES.get(student).containsKey(subject)) {
+            STUDENTS_SUBJECT_GRADES.get(student).put(subject, 0);
         }
     }
 }
