@@ -8,8 +8,7 @@ public class Main {
         try {
             new User("Alex", 19, "Google", "London");
             System.out.println("All fields are correct");
-
-        } catch (IllegalAccessException e) {
+        } catch (IllegalArgumentException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
