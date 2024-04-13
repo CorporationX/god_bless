@@ -7,8 +7,8 @@ import java.util.Random;
 public class Battlefield {
     public static void simulation() {
 
-        Hero tony = new Hero("Tony",  addFractions());
-        Hero bob = new Hero("Bob",  addFractions());
+        Hero tony = new Hero("Tony", addFractions());
+        Hero bob = new Hero("Bob", addFractions());
 
         int round = 0;
 

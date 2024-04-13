@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_4275;
 
-import faang.school.godbless.BJS2_4275.Creature;
-
 public class Pikeman extends Creature {
 
     private static final String NAME = "Pikeman";
