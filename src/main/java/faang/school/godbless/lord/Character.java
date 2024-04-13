@@ -6,10 +6,10 @@ import java.util.List;
 @Data
 public class Character {
     private String name;
-    private List<Item> inventories;
+    private List<Item> inventory;
 
     public Character(String name) {
         this.name = name;
-        this.inventories = new ArrayList<>();
+        this.inventory = new ArrayList<>();
     }
 }
