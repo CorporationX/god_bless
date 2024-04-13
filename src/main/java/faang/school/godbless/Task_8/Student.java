@@ -10,6 +10,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Student {
     String name;
-    String faculty;
-    int year;
+    Faculty faculty;
+    Course year;
 }

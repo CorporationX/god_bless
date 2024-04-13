@@ -9,18 +9,18 @@ public class Main {
     public static void main(String[] args) {
 
         List<Student> studentList = new ArrayList<>();
-        studentList.add(new Student("Vadim", "It", 1));
-        studentList.add(new Student("Jessica", "Philosophy", 2));
-        studentList.add(new Student("John", "Economics", 3));
-        studentList.add(new Student("Mike", "Economics", 3));
+        studentList.add(new Student("Vadim", Faculty.IT, Course.FIRST));
+        studentList.add(new Student("Jessica", Faculty.PHILOSOPHY, Course.SECOND));
+        studentList.add(new Student("John", Faculty.ECONOMICS, Course.THIRD));
+        studentList.add(new Student("Mike", Faculty.ECONOMICS, Course.FOURTH));
 
         System.out.println(studentList);
 
-        addNewStudent(studentList, new Student("Pamella", "It", 4));
+        addNewStudent(studentList, new Student("Pamella", Faculty.IT, Course.FOURTH));
 
         System.out.println(studentList);
 
-        removeStudentByHisName(studentList, "John", "Economics", 3);
+        removeStudentByHisName(studentList, "John", Faculty.ECONOMICS, 3);
 
         System.out.println(studentList);
 
