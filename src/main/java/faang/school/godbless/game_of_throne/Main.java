@@ -21,15 +21,11 @@ public class Main {
         System.out.println();
         delete(lannister.getName());
 
-        String[] houseNames = {"Stark", "Lannister", "Baratheon"};
-
-        for (String name : houseNames) {
-            House foundHouse = find(name);
-            if (foundHouse != null) {
-                System.out.println("Found House: " + foundHouse.getName() + ", Sigil: " + foundHouse.getSigil());
-            } else {
-                System.out.println("House " + name + " not found.");
-            }
+        House foundHouse = find(stark.getName());
+        if (foundHouse != null) {
+            System.out.println("Found House: " + foundHouse.getName() + ", Sigil: " + foundHouse.getSigil());
+        } else {
+            System.out.println("House " + stark + " not found.");
         }
     }
 
