@@ -7,13 +7,16 @@ public class Main {
 
         double a = 5.0;
         double b = 6.0;
-        double c = 7.0;
+        double c = 12.0;
 
         double result = triangleArea(a, b, c);
         System.out.println(result);
     }
 
     private static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+        if (!(a + b > c && b + c > a && c + a > b)) {
+            throw new IllegalArgumentException("This is NOT triangle!");
+        }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
