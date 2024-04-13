@@ -2,6 +2,7 @@ package faang.school.godbless.streamapitrainig;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.IntPredicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,9 +25,9 @@ public class Main {
 
         List<Integer> evenNumbers = List.of(2, 4, 6);
         System.out.println("predicateEvenNumbers, exp true");
-        System.out.println(predicateEvenNumbers(evenNumbers));
+        System.out.println(predicateNumbers(evenNumbers, i -> i % 2 == 0));
         System.out.println("predicateEvenNumbers, exp false");
-        System.out.println(predicateEvenNumbers(numbers));
+        System.out.println(predicateNumbers(numbers, i -> i % 2 == 0));
 
         System.out.println("findLowestElement, exp 6 (5)");
         System.out.println(findLowestElement(numbers, 5));
@@ -72,10 +73,10 @@ public class Main {
                 .toList();
     }
 
-    public static boolean predicateEvenNumbers(List<Integer> numbers) {
+    public static boolean predicateNumbers(List<Integer> numbers, IntPredicate predicate) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .allMatch(num -> num % 2 == 0);
+                .allMatch(predicate);
     }
 
     public static int findLowestElement(List<Integer> numbers, int minNumber) {
