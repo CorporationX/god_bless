@@ -25,7 +25,7 @@ public class Student {
         } else if (faculty == null || faculty.isEmpty()) {
             throw new IllegalArgumentException("факультет не должен быть пустым");
         } else if (year < 1) {
-            throw new IllegalArgumentException("курсне может быть меньше 1");
+            throw new IllegalArgumentException("курс не может быть меньше 1");
         }
 
     }
