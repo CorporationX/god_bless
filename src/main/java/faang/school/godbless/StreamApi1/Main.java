@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
 import java.util.OptionalInt;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -34,11 +35,13 @@ public class Main {
         List<String> sortedListByLength = getSortedListByLength(words);
         System.out.println("6. Sorted list by length: " + sortedListByLength);
 
-        boolean checkIsAllWordsGreater = isAllWordsLengthGreaterThan3(words);
+        Predicate<String> isGreater = number -> number.length() > 3;
+        boolean checkIsAllWordsGreater = isAllWordsLengthGreaterThan3(words, isGreater);
         System.out.println("7. Is all words in list greater than 3? : " + checkIsAllWordsGreater);
 
-        String wordWithMinLength = getMinLengthWord(words, 3);
-        System.out.println("8. Word with lower length, but greater than 3: " + wordWithMinLength);
+        Optional<String> wordWithMinLength = getMinLengthWord(words, 3);
+        System.out.println("8. Word with lower length, but greater than 3: " + wordWithMinLength.orElse("No word found."));
+
 
         List<Integer> lengthList = mapWordListToWordsLengthList(words);
         System.out.println("9. Words list to words length list: " + lengthList);
@@ -80,17 +83,15 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    private static boolean isAllWordsLengthGreaterThan3(List<String> words) {
-        return words.stream().allMatch(word -> word.length() > 3);
+    private static boolean isAllWordsLengthGreaterThan3(List<String> words, Predicate<String> predicate) {
+        return words.stream().allMatch(predicate::test);
 
     }
 
-    private static String getMinLengthWord(List<String> words, Integer number) {
-        Optional<String> minWord = words.stream()
+    private static Optional<String> getMinLengthWord(List<String> words, int number) {
+        return words.stream()
                 .filter(word -> word.length() > number)
                 .min(Comparator.comparingInt(String::length));
-
-        return minWord.orElse(null);
     }
 
     private static List<Integer> mapWordListToWordsLengthList(List<String> words) {
