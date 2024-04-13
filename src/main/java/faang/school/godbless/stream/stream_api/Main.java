@@ -53,7 +53,7 @@ public class Main {
         return list.stream()
                 .filter(element -> element > number)
                 .min(Integer::compareTo)
-                .orElseThrow();
+                .orElse(-1);
     }
 
     public static <T> boolean allElements(List<T> list, Predicate<? super T> predicate) {
