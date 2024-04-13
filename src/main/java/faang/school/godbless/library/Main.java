@@ -23,7 +23,7 @@ public class Main {
         System.out.println(BOOKS);
     }
 
-    public static void add(Book book, String location){
+    public static void add(Book book, String location) {
         BOOKS.put(book, location);
     }
 
@@ -31,9 +31,13 @@ public class Main {
         BOOKS.remove(new Book(title, author, year));
     }
 
-    public static void findBook(String title, String author, int year){
-        BOOKS.get(new Book(title, author, year));
-        System.out.println("Book found. Location: " + BOOKS);
+    public static void findBook(String title, String author, int year) {
+        String location = BOOKS.get(new Book(title, author, year));
+        if (location != null) {
+            System.out.println("Book found. Location: " + location);
+        } else {
+            System.out.println("Book not found.");
+        }
     }
 }
 
