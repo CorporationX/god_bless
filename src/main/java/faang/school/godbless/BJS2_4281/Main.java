@@ -2,10 +2,11 @@ package faang.school.godbless.BJS2_4281;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class Main {
+
     private static Map<String, WeatherData> weathers = new HashMap<>();
+    private static WeatherDataService weatherService = new WeatherDataService();
 
     public static void main(String[] args) {
         addWeather("Paris", new WeatherData("Paris", 23, 56));
@@ -30,12 +31,7 @@ public class Main {
     }
 
     public static WeatherData printInfo(String city) {
-        return weathers.computeIfAbsent(city, k -> weatherData(city));
-    }
-
-    private static WeatherData weatherData(String city) {
-        Random random = new Random();
-        return new WeatherData(city, random.nextInt(-20, 31), random.nextInt(30, 96));
+        return weathers.computeIfAbsent(city, k -> weatherService.weatherData(city));
     }
 
     private static void updateWeather(String cityName, WeatherData data) {
