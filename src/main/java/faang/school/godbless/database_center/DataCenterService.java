@@ -1,62 +1,73 @@
 package faang.school.godbless.database_center;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
 import java.util.List;
 
-public class DataCenterService implements OptimizationStrategy{
+@AllArgsConstructor
+public class DataCenterService {
     private DataCenter dataCenter;
-    private List<Server> serverList;
-
-    public DataCenterService() {
-        this.dataCenter = new DataCenter();
-        this.serverList = new ArrayList<>();
-    }
 
     public void addDataCenter(Server server) {
-        serverList.add(server);
-        updateAllServers(serverList);
+        dataCenter.getListOfServers().add(server);
     }
 
     public void removeServer(Server server) {
-        serverList.remove(server);
-        updateAllServers(serverList);
-    }
-
-    public void updateAllServers(List<Server> list) {
-        dataCenter.setListOfServers(list);
-
+        dataCenter.getListOfServers().remove(server);
     }
 
     public double getTotalEnergyConsumption() {
-        double totalEnergyConsumption = 0.0;
-        for (Server server : dataCenter.getListOfServers()) {
-            totalEnergyConsumption += server.getEnergyConsumption();
-        }
-        return totalEnergyConsumption;
+        return dataCenter.getListOfServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
     }
 
-    public List<Server> getServers() {
+    public List<Server> getInfoServers() {
         return dataCenter.getListOfServers();
     }
 
     public void allocateResources(ResourceRequest request) {
-        double loadResources = request.getLoad();
+        if (checkFreeServer(request)) {
+            System.out.println("Request load: " + request.getLoad()+ " is done.");
+        } else if (checkAvailableResources() >= request.getLoad()){
+            distributeRequestLoad(request);
+        }else {
+            releaseResources(request);
+            allocateResources(request);
+        }
+    }
 
-        Server minLoadServer = dataCenter.getListOfServers().get(0);
-        double minLoad = minLoadServer.getLoad();
-
+    private void distributeRequestLoad(ResourceRequest request) { //распределение ресурсов
+        double requestLoad = request.getLoad();
         for (Server server : dataCenter.getListOfServers()) {
-            if (server.getLoad() < minLoad) {
-                minLoadServer = server;
-                minLoad = server.getLoad();
+            double temp = Math.abs(server.getMaxLoad() - server.getLoad());
+            server.setLoad(server.getLoad() + temp);
+            requestLoad -= temp;
+
+            if (requestLoad <= 0) {
+                System.out.println("Request load has been distributed.");
+                break;
             }
         }
+    }
 
-        double newLoad = minLoadServer.getLoad() + loadResources;
-        minLoadServer.setLoad(newLoad);
+    private double checkAvailableResources() {
+        double availableResources = 0.0;
+        for (Server server : dataCenter.getListOfServers()) {
+            availableResources += server.getMaxLoad() - server.getLoad();
+        }
+        System.out.println("Available resourcse: " + availableResources);
+        return availableResources;
+    }
 
-        double updateEnergyConsumption = minLoadServer.getEnergyConsumption() + loadResources * 0.5;
-        minLoadServer.setEnergyConsumption(updateEnergyConsumption);
+    private boolean checkFreeServer(ResourceRequest request) {
+        boolean isServer = false;
+        double requestLoad = request.getLoad();
+        for (Server server : dataCenter.getListOfServers()) {
+            if (server.getMaxLoad() >= server.getLoad() + requestLoad) {
+                server.setLoad(server.getLoad() + requestLoad);
+                isServer = true;
+                break;
+            }
+        }
+        return isServer;
     }
 
     public void releaseResources(ResourceRequest request) {
@@ -77,34 +88,5 @@ public class DataCenterService implements OptimizationStrategy{
             newLoad = 0;
         }
         maxLoadServer.setLoad(newLoad);
-    }
-
-    @Override
-    public void optimize() {
-        List<Server> servers = dataCenter.getListOfServers();
-
-        double totalLoad = 0;
-        for (Server server : servers) {
-            totalLoad += server.getLoad();
-        }
-        double averageLoad = totalLoad / servers.size();
-
-        for (Server server : servers){
-
-            double loadDifference = server.getLoad() - averageLoad;
-            if (Math.abs(loadDifference) > (averageLoad * 0.1)) {
-                for (Server otherServer : servers) {
-
-                    if (otherServer != server) {
-                        double transferLoad = loadDifference / 2;
-
-                        server.setLoad(server.getLoad() - transferLoad);
-                        otherServer.setLoad(otherServer.getLoad() + transferLoad);
-                        updateAllServers(servers);
-                        break;
-                    }
-                }
-            }
-        }
     }
 }

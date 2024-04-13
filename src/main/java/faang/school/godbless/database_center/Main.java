@@ -3,42 +3,37 @@ package faang.school.godbless.database_center;
 public class Main {
     public static void main(String[] args) {
 
-        Server server1 = new Server(70, 50, 40);
-        Server server2 = new Server(33, 60, 60);
-        Server server3 = new Server(24, 70, 80);
+        DataCenter dataCenter = new DataCenter();
+        DataCenterService dataCenterService = new DataCenterService(dataCenter);
+        OptimizationService optService = new OptimizationService();
 
-        DataCenterService dataCenterService = new DataCenterService();
+        Server server1 = new Server(10, 40, 33);
+        Server server2 = new Server(20, 60, 44);
+        Server server3 = new Server(30, 70, 55);
+        Server server4 = new Server(0, 50, 22);
 
         dataCenterService.addDataCenter(server1);
         dataCenterService.addDataCenter(server2);
         dataCenterService.addDataCenter(server3);
+        dataCenterService.addDataCenter(server4);
 
-        double result1 = dataCenterService.getTotalEnergyConsumption();
-        System.out.println("Result1 total energy consumption: " + result1);
+        dataCenterService.removeServer(server4);
 
-        dataCenterService.removeServer(server2);
+        double totalEnergyConsumption = dataCenterService.getTotalEnergyConsumption();
+        System.out.println("Total Energy consumption: " + totalEnergyConsumption);
 
-        double result2 = dataCenterService.getTotalEnergyConsumption();
-        System.out.println("Result2 total energy consumption: " + result2);
-
-        System.out.println(dataCenterService.getServers());
-
-        ResourceRequest request1 = new ResourceRequest(20);
+        ResourceRequest request1 = new ResourceRequest(10);
         dataCenterService.allocateResources(request1);
 
-        ResourceRequest request2 = new ResourceRequest(12);
+        ResourceRequest request2 = new ResourceRequest(15);
         dataCenterService.releaseResources(request2);
 
-        System.out.println("server1" + server1);
-        System.out.println("server2" + server2);
-        System.out.println("server3" + server3);
-
         System.out.println("before optimize: ");
-        dataCenterService.optimize();
+        System.out.println(dataCenterService.getInfoServers());
+
+        optService.optimize(dataCenter);
         System.out.println("after optimize: ");
 
-        System.out.println("server1" + server1);
-        System.out.println("server2" + server2);
-        System.out.println("server3" + server3);
+        System.out.println(dataCenterService.getInfoServers());
     }
 }
