@@ -5,12 +5,12 @@ import java.util.List;
 
 public class Test {
     public static void main(String[] args) {
-        List<Integer> integerList = Arrays.asList(4, 8, 2, 3);
+        List<Integer> nums = Arrays.asList(4, 8, 2, 3);
 
-        System.out.println(product(integerList));
+        System.out.println(product(nums));
     }
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
         if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("Список не может быть null или пустым");
         }
