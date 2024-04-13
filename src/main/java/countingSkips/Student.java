@@ -1,41 +1,33 @@
 package countingSkips;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Getter
+@EqualsAndHashCode
 public class Student {
     private String name;
     private String faculty;
     private int year;
 
     public Student(String name, String faculty, int year) {
+        studentValidation(name, faculty, year);
         this.name = name;
         this.faculty = faculty;
         this.year = year;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return year == student.year && Objects.equals(name, student.name) && Objects.equals(faculty, student.faculty);
-    }
+    private void studentValidation(String name, String faculty, int year) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("имя студента не должно быть пустым");
+        } else if (faculty == null || faculty.isEmpty()) {
+            throw new IllegalArgumentException("факультет не должен быть пустым");
+        } else if (year < 1) {
+            throw new IllegalArgumentException("курсне может быть меньше 1");
+        }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, faculty, year);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public int getYear() {
-        return year;
     }
 
 }
