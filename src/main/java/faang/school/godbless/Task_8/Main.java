@@ -46,7 +46,7 @@ public class Main {
 
                 for (Student student : studentsList) {
 
-                    if (subject.getFaculty().equals(student.getFaculty()) && subject.getYear().equals(student.getYear())) {
+                    if (subject.getFaculty().equals(student.getFaculty()) && subject.getYear() == student.getYear()) {
                         newStudents.add(student);
                     }
                 }
