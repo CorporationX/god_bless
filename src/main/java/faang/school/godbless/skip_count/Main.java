@@ -20,22 +20,22 @@ public class Main {
         }
 
         System.out.println("===================>>>>>>>>>>>>>>>>>>");
-        searchStudents(students, "Biology", 3);
-        searchStudents(students, "Astronomy", 2);
+        searchStudents(groupedStudents, "Biology", 3);
+        searchStudents(groupedStudents, "Astronomy", 2);
 
         System.out.println("==================>>>>>>>>>>>>>>>>>>>");
-        addStudent(students, new Student("Tom", "Chemistry", 3));
-        addStudent(students, new Student("Mick", "Astronomy", 1));
+        addStudent(groupedStudents, new Student("Tom", "Chemistry", 3));
+        addStudent(groupedStudents, new Student("Mick", "Astronomy", 1));
 
         System.out.println("==================>>>>>>>>>>>>>>>>>>>");
-        removeStudent(students, new Student("Brad", "Astronomy", 4));
-        removeStudent(students, new Student("Bob", "Alchemy", 1));
+        removeStudent(groupedStudents, new Student("Brad", "Astronomy", 4));
+        removeStudent(groupedStudents, new Student("Bob", "Alchemy", 1));
 
         System.out.println("==================>>>>>>>>>>>>>>>>>>>");
-        allStudents(students);
+        allStudents(groupedStudents);
     }
 
-    public static Map<String, List<Student>> groupStudents(List<Student> students) {
+    private static Map<String, List<Student>> groupStudents(List<Student> students) {
         Map<String, List<Student>> grouped = new HashMap<>();
         for (Student student : students) {
             String key = student.getFaculty() + " / " + student.getYear();
@@ -47,53 +47,49 @@ public class Main {
         return grouped;
     }
 
-    public static void addStudent(List<Student> students, Student student){
-        if (!students.contains(student)){
+    private static void addStudent(Map<String, List<Student>> groupedStudents, Student student) {
+        String key = student.getFaculty() + " / " + student.getYear();
+        List<Student> students = groupedStudents.getOrDefault(key, new ArrayList<>());
+        if (!students.contains(student)) {
             students.add(student);
+            groupedStudents.put(key, students);
             System.out.println("Студент " + student + " добавлен");
-        }
-        else {
+        } else {
             System.out.println("Студент " + student + " уже есть в списке");
         }
     }
-    public static void removeStudent(List<Student> students, Student student){
-        if (students.contains(student)){
+
+    private static void removeStudent(Map<String, List<Student>> groupedStudents, Student student) {
+        String key = student.getFaculty() + " / " + student.getYear();
+        List<Student> students = groupedStudents.get(key);
+        if (students != null && students.contains(student)) {
             students.remove(student);
+            if (students.isEmpty()) {
+                groupedStudents.remove(key);
+            } else {
+                groupedStudents.put(key, students);
+            }
             System.out.println("Студент " + student + " удалён");
-        }
-        else {
+        } else {
             System.out.println("Студента " + student + " нет в списке");
         }
     }
-    public static void searchStudents(List<Student> students,String faculty, int year){
-        if (students.isEmpty()){
-            System.out.println("Список студентов пуст");
-            return;
-        }
-        StringBuilder sb = new StringBuilder();
-        boolean found = false;
-        for (int i = 0; i < students.size(); i++) {
-            Student student = students.get(i);
-            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                sb.append(student);
-                if (i < students.size() - 1) {
-                    sb.append("; ");
-                }
-                found = true;
+
+    private static void searchStudents(Map<String, List<Student>> groupedStudents, String faculty, int year) {
+        String key = faculty + " / " + year;
+        List<Student> students = groupedStudents.get(key);
+        if (students != null) {
+            StringBuilder sb = new StringBuilder();
+            for (Student student : students) {
+                sb.append(student).append("; ");
             }
-        }
-        if (found) {
             System.out.println("На факультете " + faculty + " " + year + " курса учатся: " + sb);
         } else {
             System.out.println("На факультете " + faculty + " " + year + " курса нет студентов");
         }
     }
-    public static void allStudents(List<Student> students) {
-        if (students.isEmpty()) {
-            System.out.println("Список студентов пуст");
-        }
-        Map<String, List<Student>> groupedStudents = groupStudents(students);
 
+    private static void allStudents(Map<String, List<Student>> groupedStudents) {
         for (Map.Entry<String, List<Student>> entry : groupedStudents.entrySet()) {
             System.out.println("На факультете " + entry.getKey() + " учится:");
             for (Student student : entry.getValue()) {
