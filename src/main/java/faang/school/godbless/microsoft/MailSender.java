@@ -1,18 +1,19 @@
 package faang.school.godbless.microsoft;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class MailSender {
 
     public static void main(String[] args) {
-        List<Thread> threads = List.of(
-                new Thread(new SenderRunnable(1, 200)),
-                new Thread(new SenderRunnable(201, 400)),
-                new Thread(new SenderRunnable(401, 600)),
-                new Thread(new SenderRunnable(601, 800)),
-                new Thread(new SenderRunnable(801, 1000))
-        );
+        List<Thread> threads = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+            int startIndex = i * 200 + 1;
+            int endIndex = startIndex + 199;
+            threads.add(new Thread(new SenderRunnable(startIndex, endIndex)));
+        }
 
         threadSetup(threads, Thread::start);
         threadSetup(threads, thread1 -> {
