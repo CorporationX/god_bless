@@ -1,4 +1,5 @@
 package faang.school.godbless.Instagram_filters;
+
 import java.util.function.Function;
 
 public class Main {
