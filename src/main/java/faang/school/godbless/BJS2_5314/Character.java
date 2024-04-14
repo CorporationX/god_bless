@@ -14,15 +14,5 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(int strength, int agility, int intelligence) {
-        this.strength = strength;
-        this.agility = agility;
-        this.intelligence = intelligence;
-    }
-
     public abstract void attack(Character enemy);
 }
-
-
-
-
