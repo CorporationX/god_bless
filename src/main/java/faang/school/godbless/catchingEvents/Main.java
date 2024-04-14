@@ -8,7 +8,6 @@ import java.util.Map;
 public class Main {
     private static final Map<Integer, StreamEvent> eventsById = new HashMap<>();
     private static final Map<String, List<StreamEvent>> eventsByType = new HashMap<>();
-    private static final List<StreamEvent> events = new ArrayList<>();
 
     public static void main(String[] args) {
         addNewEvent(1, "Party", "New Year party");
@@ -16,7 +15,6 @@ public class Main {
         addNewEvent(3, "Friends", "John's wedding");
         addNewEvent(4, "Party", "Mike's pool party");
         System.out.println("-----Printing All Events from List----");
-        printEventList();
         System.out.println("Printing findEventsByType: " + findEventsByType("Party"));
         System.out.println("Printing findEventById: " + findEventById(1));
         removeEvent(1);
@@ -24,14 +22,17 @@ public class Main {
         printAllEvents();
         System.out.println("-----Printing All Events----");
         printEventsByType();
-
     }
 
     public static void addNewEvent(int id, String type, String data) {
         StreamEvent eventToAdd = new StreamEvent(id, type, data);
-        events.add(eventToAdd);
         eventsById.put(id, eventToAdd);
-        eventsByType.put(type, events.stream().filter(streamEvents -> streamEvents.getEventType().equals(type)).toList());
+        if (eventsByType.containsKey(type)) {
+            eventsByType.get(type).add(eventToAdd);
+        } else {
+            eventsByType.put(type, new ArrayList<>());
+            eventsByType.get(type).add(eventToAdd);
+        }
     }
 
     public static StreamEvent findEventById(int id) {
@@ -42,55 +43,19 @@ public class Main {
         return eventsByType.get(type);
     }
 
-    //НЕ ПОНЯТНО, ПОЧЕМУ НЕ РАБОТАЕ???
     public static void removeEvent(int id) {
-        StreamEvent eventToRemove = events.stream().filter(event -> event.getId() == id).findFirst().orElse(null);
-        if (eventToRemove == null) {
-            System.out.println("Event id not found!");
-            return;
-        }
-        events.remove(eventToRemove);
-        eventsById.remove(id);
+        StreamEvent eventToRemove = eventsById.remove(id);
         System.out.println("--------------" + eventToRemove);
-//        eventsByType.get(eventToRemove.getEventType()).remove(eventToRemove);
-//        List<StreamEvent> updatedList = eventsByType.get(eventToRemove.getEventType());
-//        System.out.println("---------------------------"+updatedList);
-//        updatedList.remove(eventToRemove);
-//        System.out.println("---------------------------"+updatedList);
-//        eventsByType.put(eventToRemove.getEventType(), updatedList);
-//        eventsByType.put(eventToRemove.getEventType(), events);
-//        eventsByType.values().forEach(eventList-> eventList.removeIf(event-> event.equals(eventToRemove)));
-        for (List<StreamEvent> listOfEvents : eventsByType.values()) {
-            for (StreamEvent event : listOfEvents){
-                System.out.println("event:"+event);
-                System.out.println("eventToRemove:"+eventToRemove);
-                if(event.equals(eventToRemove)){
-                    System.out.println("we are here");
-                    System.out.println("event:"+event);
-                    System.out.println("eventToRemove:"+eventToRemove);
-                    try{
-                        listOfEvents.remove(event);
-                        System.out.println("break point");
-                    }catch (Exception e){
-                        System.out.println("Object not match to remove");
-                    }
-                    break;
-                }
-            }
+        if (eventsByType.containsKey(eventToRemove.getEventType())) {
+            List<StreamEvent> listOfEventsByType = eventsByType.get(eventToRemove.getEventType());
+            listOfEventsByType.removeIf(event -> event.equals(eventToRemove));
         }
-    }
-
-    public static void printEventList() {
-        events.forEach((value) -> System.out.println("Id: " + value.getId() + ", Type: " + value.getEventType() + ", Data: " + value.getData()));
     }
 
     public static void printAllEvents() {
         eventsById.forEach((key, value) -> System.out.println("Id: " + value.getId() + ", Type: " + value.getEventType() + ", Data: " + value.getData()));
     }
 
-    //    public static void printEventsByType() {
-//        eventsByType.forEach((key, value) -> System.out.println(value.toString()));
-//    }
     public static void printEventsByType() {
         eventsByType.forEach((key, value) -> value.forEach((event) -> System.out.println("Id: " + event.getId() + ", Type: " + event.getEventType() + ", Data: " + event.getData())));
     }
