@@ -2,7 +2,7 @@ package faang.school.godbless.streamapitrainig;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.IntPredicate;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -73,9 +73,8 @@ public class Main {
                 .toList();
     }
 
-    public static boolean predicateNumbers(List<Integer> numbers, IntPredicate predicate) {
+    public static boolean predicateNumbers(List<Integer> numbers, Predicate<Integer> predicate) {
         return numbers.stream()
-                .mapToInt(Integer::intValue)
                 .allMatch(predicate);
     }
 
