@@ -1,6 +1,7 @@
 package faang.school.godbless.registerusers;
 
 import faang.school.godbless.registerusers.validation.UserValidator;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import static java.util.stream.Collectors.groupingBy;
 
 @Data
+@Builder
 public class User {
     private final String name;
     private int age;
