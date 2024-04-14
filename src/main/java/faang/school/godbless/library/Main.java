@@ -24,11 +24,16 @@ public class Main {
     }
 
     public static void add(Book book, String location) {
-        BOOKS.put(book, location);
+        BOOKS.putIfAbsent(book, location);
     }
 
     public static void removeBook(String title, String author, int year) {
-        BOOKS.remove(new Book(title, author, year));
+        Book bookToRemove = new Book(title, author, year);
+        if (BOOKS.containsKey(bookToRemove)) {
+            BOOKS.remove(bookToRemove);
+        } else {
+            System.out.println("Book not found: " + bookToRemove);
+        }
     }
 
     public static void findBook(String title, String author, int year) {
