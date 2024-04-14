@@ -8,11 +8,14 @@ public class NotificationManager {
 
     private static Map<String, Consumer<Notification>> typeToAction = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> action){
+    public void registerHandler(String type, Consumer<Notification> action) {
         typeToAction.put(type, action);
     }
 
-    public void sendNotification(Notification notification){
+    public void sendNotification(Notification notification) {
+        if (!typeToAction.containsKey(notification)) {
+            throw new NullPointerException("There is no such key");
+        }
         typeToAction.get(notification.getType()).accept(notification);
     }
 }
