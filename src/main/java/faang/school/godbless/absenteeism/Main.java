@@ -5,16 +5,14 @@ import java.util.stream.Collectors;
 
 
 public class Main {
-    private static final List<Student> STUDENTS = new ArrayList<>();
-
+    private static final List<Student> STUDENTS = List.of(
+            new Student("John", "Computer Science",  3),
+            new Student("Alice", "Engineering",  4),
+            new Student("Bob", "Mathematics",  4),
+            new Student("Emily", "Physics",  1),
+            new Student("Tom", "Physics", 1),
+            new Student("Kate", "Physics", 2));
     public static void main(String[] args) {
-        STUDENTS.add(new Student("John", "Computer Science",  3));
-        STUDENTS.add(new Student("Alice", "Engineering",  4));
-        STUDENTS.add(new Student("Bob", "Mathematics",  4));
-        STUDENTS.add(new Student("Emily", "Physics",  1));
-        STUDENTS.add(new Student("Tom", "Physics", 1));
-        STUDENTS.add(new Student("Kate", "Physics", 2));
-
         Map<Course, List<Student>> studentMap = groupStudentsByCourse(STUDENTS);
         System.out.println(studentMap);
     }
