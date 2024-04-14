@@ -25,7 +25,10 @@ public class Main {
         if (cacheWeather.containsKey(city)) {
             return cacheWeather.get(city);
         } else {
-            return MockWeather.giveInfoAboutWeatherOuter(city);
+            MockWeather mockWeather = new MockWeather();
+            WeatherData weatherDataCity = mockWeather.giveInfoAboutWeatherOuter(city);
+            cacheWeather.put(city, weatherDataCity);
+            return weatherDataCity;
         }
     }
 
@@ -35,17 +38,14 @@ public class Main {
             newWeatherData.setTemperature(temperature);
             newWeatherData.setHumidity(humidity);
         } else {
-            WeatherData newWeatherDataOfNewCity = MockWeather.giveInfoAboutWeatherOuter(city);
+            MockWeather mockWeather = new MockWeather();
+            WeatherData newWeatherDataOfNewCity = mockWeather.giveInfoAboutWeatherOuter(city);
             cacheWeather.put(city, newWeatherDataOfNewCity);
         }
     }
 
     private static void removeInformationAboutWeather(String city) {
-        if (cacheWeather.containsKey(city)) {
-            cacheWeather.remove(city);
-        } else {
-            System.out.println("Город не найден в кэше.");
-        }
+        cacheWeather.remove(city);
     }
 
     private static void displayAllCitiesInCache() {
