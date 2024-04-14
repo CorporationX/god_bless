@@ -12,16 +12,15 @@ public class Main {
     private void addNewThreadEvent(int idEvent, String eventType, String dataEvent) {
         StreamEvent newEvent = new StreamEvent(idEvent, eventType, dataEvent);
         threadEvent.put(idEvent, newEvent);
-        if (!listOfEvents.containsKey(eventType)) {
-            listOfEvents.put(eventType, new ArrayList<>());
-        }
-        listOfEvents.get(eventType).add(newEvent);
+        listOfEvents.computeIfAbsent(eventType, key -> new ArrayList<>()).add(newEvent);
     }
 
     private void searchThreadEventById(int idEvent) {
         if (threadEvent.containsKey(idEvent)) {
 
-            System.out.println("Найденное событие: " + threadEvent.get(idEvent).getId() + ", " + threadEvent.get(idEvent).getEventType() + ", " + threadEvent.get(idEvent).getData());
+            System.out.println("Найденное событие: " + threadEvent.get(idEvent).getId() +
+                    ", " + threadEvent.get(idEvent).getEventType() +
+                    ", " + threadEvent.get(idEvent).getData());
         } else {
             System.out.println("Событие с таким id не найдено.");
         }
@@ -44,11 +43,8 @@ public class Main {
         }
         if (listOfEvents.containsKey(eventType)) {
             List<StreamEvent> listOfEventsWithNeededEventType = listOfEvents.get(eventType);
-            for (StreamEvent event : listOfEventsWithNeededEventType) {
-                if (event.getEventType().equals(eventType) && (event.getId() == idEvent)) {
-                    listOfEventsWithNeededEventType.remove(event);
-                }
-            }
+            listOfEventsWithNeededEventType.removeIf(event -> event.getEventType()
+                    .equals(eventType) && (event.getId() == idEvent));
         }
     }
 
