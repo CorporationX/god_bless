@@ -8,11 +8,18 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
 
     private String character;
-    private int amount;
+    private int foodAmount;
 
     @Override
     public void run() {
-
+        String foodType = getFoodType();
+        System.out.println(character + " получает " + foodAmount + " " + foodType);
+        try {
+            Thread.sleep(foodAmount * 1000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(character + " ест " + foodAmount + " " + foodType);
     }
 
     private String getFoodType() {
