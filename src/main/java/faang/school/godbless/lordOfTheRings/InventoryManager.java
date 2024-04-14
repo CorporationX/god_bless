@@ -12,17 +12,15 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> isSatisfied) {
-        for(Item item : character.getInventory()) {
-            if (isSatisfied.test(item)) {
-                character.getInventory().remove(item);
-            }
-        }
+        character.getInventory().removeIf(isSatisfied);
     }
 
     public void updateItem(Character character, Predicate<Item> isSatisfied, Function<Item, Item> needAction) {
         for(Item item : character.getInventory()) {
             if (isSatisfied.test(item)) {
-                needAction.apply(item);
+                Item newItem = needAction.apply(item);
+                int indexOItem = character.getInventory().indexOf(item);
+                character.getInventory().set(indexOItem, newItem);
             }
         }
     }
