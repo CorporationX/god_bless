@@ -5,9 +5,4 @@ public class SpellCaster {
         String result = action.spellAction(spell);
         System.out.println("Результат выполнения заклинания " + spell + ":" + result);
     }
-
-    @FunctionalInterface
-    interface SpellAction {
-        String spellAction(String spell);
-    }
 }
