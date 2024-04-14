@@ -13,6 +13,5 @@ public class Main {
         DroidMessageReceiver receiver = new DroidMessageReceiver();
 
         receiver.receiveEncryptMessage(c3po.getReceivedMessage(), encryptionKey);
-
     }
 }
