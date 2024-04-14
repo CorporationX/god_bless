@@ -11,9 +11,9 @@ public class Main {
     private static Map<User, List<Query>> userQuery = new HashMap<>();
 
     public static void main(String[] args) {
-        User user1 = new User(1, "Max");
-        User user2 = new User(2, "Bob");
-        User user3 = new User(3, "Tom");
+        User max = new User(1, "Max");
+        User bob = new User(2, "Bob");
+        User tom = new User(3, "Tom");
 
         List<Query> queries1 = new ArrayList<>();
         Query query1 = new Query(1, "Query 1", LocalDateTime.of(2010,7,16,14,21));
@@ -27,20 +27,20 @@ public class Main {
         queries2.add(query3);
         queries2.add(query4);
 
-        addUser(user1, queries1);
-        addUser(user2, queries2);
+        addUser(max, queries1);
+        addUser(bob, queries2);
         displayUsersAndRequests();
         System.out.println("=============>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        addQuery(user3, query3);
-        addUser(user3, queries2);
+        addQuery(tom, query3);
+        addUser(tom, queries2);
         displayUsersAndRequests();
         System.out.println("=============>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-        removeUserAndQueries(user1);
+        removeUserAndQueries(max);
         displayUsersAndRequests();
 
         System.out.println("=============>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
 
-        displayQueryHistory(user2);
+        displayQueryHistory(bob);
     }
 
     private static void addUser(User user, List<Query> queries) {
