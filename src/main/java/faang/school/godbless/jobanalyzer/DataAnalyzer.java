@@ -36,6 +36,13 @@ public class DataAnalyzer {
                 ));
     }
 
+    public List<String> getMostPopularJobLocation(List<Job> jobs, int limit) {
+        Map<String, Long> popularJobPlace = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
+
+        return mapToList(popularJobPlace, limit);
+    }
+
     private <T> List<T> mapToList(Map<T, Long> map, int limit) {
         return map.entrySet().stream()
                 .sorted(((o1, o2) -> (int) (o2.getValue() - o1.getValue())))
@@ -48,7 +55,7 @@ public class DataAnalyzer {
         return Set.of(
                 new SalaryRange("0-50k", 0, 50000),
                 new SalaryRange("50-100k", 50001, 100000),
-                new SalaryRange("100-150K", 100001, 150000)
+                new SalaryRange("100-150k", 100001, 150000)
         );
     }
 }
