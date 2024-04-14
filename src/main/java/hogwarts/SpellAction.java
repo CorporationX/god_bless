@@ -1,6 +1,6 @@
 package hogwarts;
 
 @FunctionalInterface
-public interface SpellAction{
+public interface SpellAction {
     String action(String spellTitle);
 }
