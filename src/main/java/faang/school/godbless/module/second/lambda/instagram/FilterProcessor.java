@@ -10,10 +10,10 @@ public class FilterProcessor {
         return filter.apply(image);
     }
     
-    public Function<Image,Image> combineFilters(Function<Image,Image> firstFilter,Function<Image,Image> secondFilter) {
-        if (firstFilter == null || secondFilter == null) {
-            return null;
-        }
+    public Function<Image, Image> combineFilters(
+        Function<Image, Image> firstFilter,
+        Function<Image, Image> secondFilter
+    ) {
         return firstFilter.andThen(secondFilter);
     }
 }
