@@ -1,11 +1,12 @@
 package faang.school.godbless.registration;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
 public class User {
 
     private String name;
@@ -16,30 +17,52 @@ public class User {
 
     private String address;
 
-    private static final Set<String> VALID_JOBS = new HashSet<>();
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
 
-    static {
-        VALID_JOBS.add("Google");
-        VALID_JOBS.add("Uber");
-        VALID_JOBS.add("Amazon");
-    }
-
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>();
-
-    static {
-        VALID_ADDRESSES.add("London");
-        VALID_ADDRESSES.add("New-York");
-        VALID_ADDRESSES.add("Amsterdam");
-    }
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New-York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
-        if (VALID_ADDRESSES.contains(address) && VALID_JOBS.contains(job) && age >= 18 && !name.isEmpty()) {
-            this.address = address;
-            this.job = job;
-            this.age = age;
+        /*if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty");
+        if (age < 18) throw new IllegalArgumentException("Age cannot be less than 18");
+        if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException("Job is not valid: " + job);
+        if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("Address is not valid: " + address);
+        else {
             this.name = name;
-        } else {
-            throw new IllegalArgumentException("Invalid information. Check User details");
+            this.age = age;
+            this.job = job;
+            this.address = address;
+        }*/
+        nameValidation(name);
+        ageValidation(age);
+        jobValidation(job);
+        addressValidation(address);
+    }
+
+    protected void nameValidation(String name) {
+        if (name.isEmpty()) throw new IllegalArgumentException("Name cannot be empty");
+        else {
+            this.name = name;
+        }
+    }
+
+    protected void ageValidation(int age) {
+        if (age < 18) throw new IllegalArgumentException("Age cannot be less than 18");
+        else {
+            this.age = age;
+        }
+    }
+
+    protected void jobValidation(String job) {
+        if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException("Job is not valid: " + job);
+        else {
+            this.job = job;
+        }
+    }
+
+    protected void addressValidation(String address) {
+        if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("Address is not valid: " + address);
+        else {
+            this.address = address;
         }
     }
 }
