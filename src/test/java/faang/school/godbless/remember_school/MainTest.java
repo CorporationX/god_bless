@@ -1,5 +1,6 @@
 package faang.school.godbless.remember_school;
 
+import faang.school.godbless.sprint_2.remember_school.Main;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
