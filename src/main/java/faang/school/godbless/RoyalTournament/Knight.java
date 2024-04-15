@@ -4,6 +4,8 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Data
 public class Knight {
@@ -17,5 +19,11 @@ public class Knight {
 
     public void addTrial(Trial trial) {
         trials.add(trial);
+    }
+
+    public void startAllTrials() {
+        ExecutorService pool = Executors.newFixedThreadPool(trials.size());
+        trials.forEach(pool::execute);
+        pool.shutdown();
     }
 }
