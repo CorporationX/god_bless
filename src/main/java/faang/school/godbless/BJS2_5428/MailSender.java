@@ -1,9 +1,6 @@
 package faang.school.godbless.BJS2_5428;
 
-import lombok.SneakyThrows;
-
 public class MailSender {
-    @SneakyThrows
     public static void main(String[] args) {
         SenderRunnable senderRunnable = new SenderRunnable();
         Thread[] threads = new Thread[5];
