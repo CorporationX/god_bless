@@ -5,8 +5,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<String, WeatherData> weathers = new HashMap<>();
-    private static WeatherDataService weatherService = new WeatherDataService();
+    private static final Map<String, WeatherData> WEATHERS = new HashMap<>();
+    private static final WeatherDataService WEATHER_DATA_SERVICE = new WeatherDataService();
 
     public static void main(String[] args) {
         addWeather("Paris", new WeatherData("Paris", 23, 56));
@@ -27,23 +27,23 @@ public class Main {
     }
 
     private static void addWeather(String cityName, WeatherData weatherData) {
-        weathers.putIfAbsent(cityName, weatherData);
+        WEATHERS.putIfAbsent(cityName, weatherData);
     }
 
     public static WeatherData printInfo(String city) {
-        return weathers.computeIfAbsent(city, k -> weatherService.weatherData(city));
+        return WEATHERS.computeIfAbsent(city, k -> WEATHER_DATA_SERVICE.weatherData(city));
     }
 
     private static void updateWeather(String cityName, WeatherData data) {
-        weathers.replace(cityName, data);
+        WEATHERS.replace(cityName, data);
     }
 
     private static void removeWeather(String cityName) {
-        weathers.remove(cityName);
+        WEATHERS.remove(cityName);
     }
 
     private static void printAll() {
-        for (var entry : weathers.entrySet()) {
+        for (var entry : WEATHERS.entrySet()) {
             System.out.println("City: " + entry.getKey());
             System.out.println("Weather: " + entry.getValue());
         }
