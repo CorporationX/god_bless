@@ -33,12 +33,14 @@ public class Main {
     }
 
     public static void addQuery(User user, Query query) {
-        if (USER_QUERIES.containsKey(user)) {
-            USER_QUERIES.get(user).add(query);
-        } else {
-            USER_QUERIES.put(user, new ArrayList<>());
-            USER_QUERIES.get(user).add(query);
-        }
+        USER_QUERIES.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
+        // previous version
+//        if (USER_QUERIES.containsKey(user)) {
+//            USER_QUERIES.get(user).add(query);
+//        } else {
+//            USER_QUERIES.put(user, new ArrayList<>());
+//            USER_QUERIES.get(user).add(query);
+//        }
     }
 
     public static void removeUser(User user) {
