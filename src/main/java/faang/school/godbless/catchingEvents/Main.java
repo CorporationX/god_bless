@@ -27,12 +27,10 @@ public class Main {
     public static void addNewEvent(int id, String type, String data) {
         StreamEvent eventToAdd = new StreamEvent(id, type, data);
         eventsById.put(id, eventToAdd);
-        if (eventsByType.containsKey(type)) {
-            eventsByType.get(type).add(eventToAdd);
-        } else {
+        if (!eventsByType.containsKey(type)) {
             eventsByType.put(type, new ArrayList<>());
-            eventsByType.get(type).add(eventToAdd);
         }
+            eventsByType.get(type).add(eventToAdd);
     }
 
     public static StreamEvent findEventById(int id) {
@@ -57,7 +55,8 @@ public class Main {
     }
 
     public static void printEventsByType() {
-        eventsByType.forEach((key, value) -> value.forEach((event) -> System.out.println("Id: " + event.getId() + ", Type: " + event.getEventType() + ", Data: " + event.getData())));
+        eventsByType.forEach((key, value) -> value.forEach((event) ->
+                System.out.println("Id: " + event.getId() + ", Type: " + event.getEventType() + ", Data: " + event.getData())));
     }
 
 }
