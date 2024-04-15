@@ -3,6 +3,7 @@ package faang.school.godbless.Griffins;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
     public static void main(String[] args) {
@@ -13,5 +14,11 @@ public class GriffinsFoodDelivery {
             pool.execute(new FoodDeliveryTask(character, random.nextInt(70)));
         }
         pool.shutdown();
+
+        try {
+            while (!pool.awaitTermination(10, TimeUnit.SECONDS));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
