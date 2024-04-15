@@ -1,4 +1,4 @@
-package task1;
+package task3;
 
 public class Warrior extends Character {
     public Warrior(String name) {
@@ -7,6 +7,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health -= power;
+        character.setHealth(character.getHealth()-getPower());
     }
 }

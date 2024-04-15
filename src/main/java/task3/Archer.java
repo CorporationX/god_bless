@@ -1,4 +1,4 @@
-package task1;
+package task3;
 
 public class Archer extends Character {
     public Archer(String name) {
@@ -7,6 +7,6 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health -= dexterity;
+        character.setHealth(character.getHealth() - getDexterity());
     }
 }
