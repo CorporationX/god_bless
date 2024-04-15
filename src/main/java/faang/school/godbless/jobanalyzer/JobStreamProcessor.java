@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 public class JobStreamProcessor {
 
-    JobScarper scarper = new JobScarper();
+    private JobScarper scarper = new JobScarper();
 
     public List<Job> process(Stream<String> jobStream) {
         return jobStream.map(scarper::parseVacancy)
