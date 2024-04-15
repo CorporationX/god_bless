@@ -12,6 +12,7 @@ public class NotificationManager {
     }
 
     void sendNotification(Notification notification) {
-        System.out.println(notificationTypeAndHandlers.get(notification.getType()));
+        Consumer<Notification> consumer = notificationTypeAndHandlers.get(notification.getType());
+        consumer.accept(notification);
     }
 }
