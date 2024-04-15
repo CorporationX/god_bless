@@ -16,6 +16,7 @@ public class Task implements Runnable {
             Thread.sleep(new Random().nextInt(1000, 10000));
         } catch (InterruptedException e) {
             System.out.println("Задача " + name + " не выполнилась!");
+            return;
         }
         System.out.println("Задача " + name + " выполнена!");
 
