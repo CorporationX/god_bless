@@ -73,13 +73,13 @@ public class Main {
 
     public static void printCapitals(Map<String, String> countries) {
         countries.entrySet().stream()
-                .sorted((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()))
+                .sorted(Map.Entry.comparingByKey())
                 .forEach(entry -> System.out.println(entry.getValue()));
     }
 
     public static List<String> sortStringLength(List<String> strings, char prefix) {
         return strings.stream()
-                .filter(str -> str.charAt(0) == prefix)
+                .filter(str -> str.startsWith(String.valueOf(prefix)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
