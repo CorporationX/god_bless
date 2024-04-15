@@ -1,12 +1,10 @@
 package faang.school.godbless.stream_api2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -71,9 +69,9 @@ public class Main {
     //#4
     private static void getCommonFriends(Map<String, List<String>> names) {
         HashMap<String, String> pairs = new HashMap<>();
-        names.entrySet().stream()
-                .flatMap(person1 -> names.entrySet().stream()
-                        .filter()
+//        names.entrySet().stream()
+//                .flatMap(person1 -> names.entrySet().stream()
+//                        .filter()
     }
 
 }
