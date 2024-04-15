@@ -11,6 +11,6 @@ public class GriffinsFoodDelivery {
         for (String name : characterNames) {
             executorService.submit(new FoodDeliveryTask(name, new Random().nextInt(1, 10)));
         }
-        executorService.close();
+        executorService.shutdown();
     }
 }

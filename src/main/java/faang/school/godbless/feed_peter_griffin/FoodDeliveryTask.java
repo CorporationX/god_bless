@@ -1,7 +1,5 @@
 package faang.school.godbless.feed_peter_griffin;
 
-import lombok.SneakyThrows;
-
 import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
@@ -13,11 +11,14 @@ public class FoodDeliveryTask implements Runnable {
         this.foodAmount = foodAmount;
     }
 
-    @SneakyThrows
     @Override
     public void run() {
         System.out.printf("%s заказал %s %s.\n", character, foodAmount, getFoodType());
-        Thread.sleep(new Random().nextInt(100, 500));
+        try {
+            Thread.sleep(new Random().nextInt(100, 500));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e.getMessage());
+        }
         System.out.printf("%s получил доставку.\n", character);
     }
 
