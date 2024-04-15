@@ -27,12 +27,15 @@ public class GriffinsFoodDelivery {
             foodDelivery.submit(new FoolDeliveryTask(character, foodAmount));
         }
 
+        foodDelivery.shutdown();
+
         try {
-            foodDelivery.awaitTermination(5, TimeUnit.SECONDS);
+            foodDelivery.awaitTermination(characterNames.length * 5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             log.error("Exception was thorn during shutdown executor service.", e);
         }
 
         log.info("Food delivery finished.");
+
     }
 }
