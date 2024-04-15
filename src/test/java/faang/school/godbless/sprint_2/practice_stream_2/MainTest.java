@@ -1,4 +1,4 @@
-package faang.school.godbless.practice_stream_2;
+package faang.school.godbless.sprint_2.practice_stream_2;
 
 import faang.school.godbless.sprint_2.practice_stream_2.Employee;
 import faang.school.godbless.sprint_2.practice_stream_2.Main;

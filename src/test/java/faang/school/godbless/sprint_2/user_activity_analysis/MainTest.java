@@ -1,4 +1,4 @@
-package faang.school.godbless.user_activity_analysis;
+package faang.school.godbless.sprint_2.user_activity_analysis;
 
 import faang.school.godbless.sprint_2.user_activity_analysis.ActionType;
 import faang.school.godbless.sprint_2.user_activity_analysis.Main;

@@ -1,4 +1,4 @@
-package faang.school.godbless.remember_school;
+package faang.school.godbless.sprint_2.remember_school;
 
 import faang.school.godbless.sprint_2.remember_school.Main;
 import org.junit.jupiter.api.Test;
