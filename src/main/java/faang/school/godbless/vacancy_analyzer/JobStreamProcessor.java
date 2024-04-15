@@ -13,7 +13,7 @@ public class JobStreamProcessor {
 
     public List<Job> convertToJob(Stream<String> stream) {
         return stream.map(s -> jobScraper.readValue(s))
-                .peek(s -> System.out.printf("%s -> successfully converted", s))
+                .peek(s -> System.out.printf("%s -> successfully converted\n", s))
                 .toList();
     }
 }

@@ -1,0 +1,6 @@
+{"position":"Developer", "requirements":["Java", "Spring", "SQL"], "salary":140000, "location":"Moscow", "createdAt": "2024-02-03"}
+{"position":"Developer", "requirements":["Java", "Python", "SQL"], "salary":80000, "location":"London", "createdAt": "2024-03-03"}
+{"position":"Developer", "requirements":["Java", "Spring"], "salary":90000, "location":"Moscow", "createdAt": "2024-04-03"}
+{"position":"Developer", "requirements":["Kotlin", "Spring", "SQL"], "salary":170000, "location":"Moscow", "createdAt": "2024-03-10"}
+{"position":"Developer", "requirements":["Docker", "Kubernetes", "SQL"], "salary":30000, "location":"Moscow", "createdAt": "2024-04-15"}
+{"position":"Developer", "requirements":["JUnit", "Spring", "SQL"], "salary":60000, "location":"Moscow", "createdAt": "2024-03-12"}
