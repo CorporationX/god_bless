@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class Army {
     private List<Creature> army;
 
-    public void adUnit(Creature creature) {
+    public void addUnit(Creature creature) {
         army.add(creature);
     }
 
@@ -22,7 +22,7 @@ public class Army {
             executorService.submit(() -> counter.increment(creature.getPower()));
         }
 
-        executorService.close();
+        executorService.shutdown();
         return counter.getTotalCount();
     }
 }
