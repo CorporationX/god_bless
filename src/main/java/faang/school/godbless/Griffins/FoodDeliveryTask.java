@@ -1,16 +1,13 @@
 package faang.school.godbless.Griffins;
 
+import lombok.AllArgsConstructor;
+
 import java.util.Random;
 
+@AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
     private final String character;
-
     private final int foodAmount;
-
-    public FoodDeliveryTask(String character, int foodAmount) {
-        this.character = character;
-        this.foodAmount = foodAmount;
-    }
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
