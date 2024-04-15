@@ -22,16 +22,16 @@ public class Army {
             thread.start();
         }
 
-        int powerSum = 0;
+        int totalPower = 0;
         for (UnitThread thread : threads) {
             try {
                 thread.join();
-                powerSum += thread.getPower();
+                totalPower += thread.getPower();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
 
-        return powerSum;
+        return totalPower;
     }
 }
