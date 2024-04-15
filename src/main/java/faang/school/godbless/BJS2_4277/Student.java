@@ -1,13 +1,15 @@
 package faang.school.godbless.BJS2_4277;
 
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import static faang.school.godbless.BJS2_4277.ValidateUtils.generateId;
-import static faang.school.godbless.BJS2_4277.ValidateUtils.validateData;
+import static faang.school.godbless.BJS2_4277.Utils.generateId;
+import static faang.school.godbless.BJS2_4277.Utils.validateData;
 
+@ToString
 @EqualsAndHashCode
 public class Student {
 
@@ -20,10 +22,5 @@ public class Student {
         validateData(name);
         this.id = generateId(ID);
         this.name = name;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

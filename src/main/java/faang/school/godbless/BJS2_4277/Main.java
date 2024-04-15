@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<Student, Map<Subject, Integer>> listSubject = new HashMap<>();
-    private static Map<Subject, List<Student>> listStudent = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> SUBJECT = new HashMap<>();
+    private static final Map<Subject, List<Student>> STUDENTS = new HashMap<>();
 
     public static void main(String[] args) {
         Student tony = new Student("Tony");
@@ -42,40 +42,40 @@ public class Main {
     }
 
     private static void registrationStudent(Student student, Subject subject, Integer grade) {
-        listSubject.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, grade);
+        SUBJECT.computeIfAbsent(student, k -> new HashMap<>()).putIfAbsent(subject, grade);
     }
 
     private static void addNewSubject(Student student, Subject subject, Integer grade) {
-        listSubject.computeIfPresent(student, (key, value) -> {
+        SUBJECT.computeIfPresent(student, (key, value) -> {
             value.put(subject, grade);
             return value;
         });
     }
 
     private static void removeStudent(Student student) {
-        listSubject.remove(student);
+        SUBJECT.remove(student);
     }
 
     private static void printStudentAllInfo() {
-        for (var entry : listSubject.entrySet()) {
+        for (var entry : SUBJECT.entrySet()) {
             System.out.println("Student:" + entry.getKey());
             System.out.println(entry.getValue());
         }
     }
 
     private static void registrationSubject(Subject subject, List<Student> students) {
-        listStudent.putIfAbsent(subject, students);
+        STUDENTS.putIfAbsent(subject, students);
     }
 
     private static void addNewStudent(Subject subject, Student student) {
-        listStudent.computeIfPresent(subject, (key, students) -> {
+        STUDENTS.computeIfPresent(subject, (key, students) -> {
             students.add(student);
             return students;
         });
     }
 
     private static void printAllSubjectInfo() {
-        for (var entry : listStudent.entrySet()) {
+        for (var entry : STUDENTS.entrySet()) {
             System.out.println("Subject: " + entry.getKey());
             System.out.println(entry.getValue());
         }

@@ -3,7 +3,7 @@ package faang.school.godbless.BJS2_4277;
 import java.util.Collections;
 import java.util.Set;
 
-public class ValidateUtils {
+public class Utils {
 
     public static Long generateId(Set<Long> id) {
         Long nextId = id.isEmpty() ? 1 : Collections.max(id) + 1;
