@@ -10,12 +10,13 @@ import java.util.Random;
 public class Trial implements Runnable {
     private String knightName;
     private String trialName;
+    private final Random random = new Random();
 
     @Override
     public void run() {
         System.out.println(trialName + " начинается!");
         try {
-            Thread.sleep(new Random().nextInt(1000, 10000));
+            Thread.sleep(random.nextInt(1000, 10000));
         } catch (InterruptedException e) {
             System.out.println(trialName + " прервано!");
             return;
