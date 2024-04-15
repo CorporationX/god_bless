@@ -30,8 +30,8 @@ public class Main {
     private static void addNewStudent(Student student) {
         Map<String, Integer> key = new HashMap<>(Map.of(student.getFaculty(), student.getYear()));
         STUDENTS.putIfAbsent(key, new HashSet<>(Set.of(student)));
-        if (!STUDENTS.get(key).contains(student)) {
-            STUDENTS.computeIfPresent(Map.of(student.getFaculty(), student.getYear()), (faculty, students) -> {
+        if (!STUDENTS.containsKey(key)) {
+            STUDENTS.computeIfPresent(key, (faculty, students) -> {
                 students.add(student);
                 return students;
             });
