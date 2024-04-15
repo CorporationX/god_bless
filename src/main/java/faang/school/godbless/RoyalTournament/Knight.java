@@ -22,7 +22,7 @@ public class Knight {
     }
 
     public void startAllTrials() {
-        ExecutorService pool = Executors.newFixedThreadPool(trials.size());
+        ExecutorService pool = Executors.newFixedThreadPool(5);
         trials.forEach(pool::execute);
         pool.shutdown();
     }
