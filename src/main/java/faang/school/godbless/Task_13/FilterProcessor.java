@@ -10,4 +10,5 @@ public class FilterProcessor {
     Function<Image, Image> combineFilters(Function<Image, Image> filterOne, Function<Image, Image> filterAnother) {
         return (image) -> filterOne.apply(filterAnother.apply(image));
     }
+
 }
