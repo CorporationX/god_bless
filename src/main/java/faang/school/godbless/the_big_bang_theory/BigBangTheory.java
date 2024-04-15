@@ -16,7 +16,7 @@ public class BigBangTheory {
         );
 
         for (Task task : tasks) {
-            executorService.submit(task);
+            executorService.execute(task);
         }
 
         executorService.shutdown();
