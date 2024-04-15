@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @AllArgsConstructor
 public class Army {
@@ -19,10 +20,15 @@ public class Army {
         Counter counter = new Counter();
 
         for (Creature creature : army) {
-            executorService.submit(() -> counter.increment(creature.getPower()));
+            executorService.execute(() -> counter.increment(creature.getPower()));
         }
-
         executorService.shutdown();
+
+        try {
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return counter.getTotalCount();
     }
 }
