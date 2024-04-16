@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.OptionalDouble;
+import java.util.function.Predicate;
 
 public class Practice {
     private static Optional<Integer> getSumOfOddNumbers(List<Integer> numbers) {
@@ -42,14 +43,14 @@ public class Practice {
                 .toList();
     }
 
-    private static boolean isAllStringsLengthGreaterThanTwo(List<String> strings) {
+    private static boolean isAllStringsLengthGreaterThanTwo(List<String> strings, Predicate<String> predicate) {
         return strings.stream()
-                .allMatch(str -> str.length() > 2);
+                .allMatch(predicate);
     }
 
-    private static Optional<Integer> findMinElementWhichGreaterThanK(List<Integer> numbers, int k) {
+    private static Optional<Integer> findMinElementWhichGreaterThanPivot(List<Integer> numbers, int pivot) {
         return numbers.stream()
-                .filter(n -> n > k)
+                .filter(n -> n > pivot)
                 .min(Integer::compareTo);
     }
 
@@ -137,20 +138,20 @@ public class Practice {
         List<String> strings1 = List.of("12", "123", "12", "12", "12");
         List<String> strings2 = List.of("12", "123", "12", "123", "12");
         List<String> strings3 = List.of("12345", "123", "12345", "123456", "12");
-
+        Predicate<String> lambda = str -> str.length() > 2;
 
         // Test "isAllStringsLengthGreaterThanTwo" ---------------------------------------------------------------------
         System.out.println("strings ---------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings));
+        System.out.println(isAllStringsLengthGreaterThanTwo(strings, lambda));
         System.out.println("strings1 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings1));
+        System.out.println(isAllStringsLengthGreaterThanTwo(strings1, lambda));
         System.out.println("strings2 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings2));
+        System.out.println(isAllStringsLengthGreaterThanTwo(strings2, lambda));
         System.out.println("strings3 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings3));
+        System.out.println(isAllStringsLengthGreaterThanTwo(strings3, lambda));
     }
 
-    public static void testFindMinElementWhichGreaterThanK() {
+    public static void testFindMinElementWhichGreaterThanPivot() {
         List<Integer> numbers = List.of(15, 20, 43, 33, 99, 9);
         List<Integer> numbers1 = List.of(1, 1, 4, 94, 43, 43, 32);
 
@@ -158,10 +159,10 @@ public class Practice {
         // Test "findMinElementWhichGreaterThanK" ----------------------------------------------------------------------
         String message = "There is no element greater than k";
         System.out.println("numbers ---------------------------------------------------------------------------------");
-        findMinElementWhichGreaterThanK(numbers, 21).ifPresentOrElse(System.out::println,
+        findMinElementWhichGreaterThanPivot(numbers, 21).ifPresentOrElse(System.out::println,
                 () -> System.out.println(message));
         System.out.println("numbers1 --------------------------------------------------------------------------------");
-        findMinElementWhichGreaterThanK(numbers1, 140).ifPresentOrElse(System.out::println,
+        findMinElementWhichGreaterThanPivot(numbers1, 140).ifPresentOrElse(System.out::println,
                 () -> System.out.println(message));
     }
 
@@ -184,7 +185,7 @@ public class Practice {
         testStrings();
         testSortStringsByLength();
         testIsAllStringsLengthGreaterThanTwo();
-        testFindMinElementWhichGreaterThanK();
+        testFindMinElementWhichGreaterThanPivot();
         testMapStringsToLengths();
     }
 }
