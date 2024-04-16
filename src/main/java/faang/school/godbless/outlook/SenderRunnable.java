@@ -1,18 +1,20 @@
 package faang.school.godbless.outlook;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class SenderRunnable implements Runnable {
-
     private int startIndex;
-    private int endIndex;
-
-    SenderRunnable(int startIndex, int endIndex) {
-        this.startIndex = startIndex;
-        this.endIndex = endIndex;
-    }
+    private final int endIndex;
 
     @Override
     public void run() {
-        System.out.println("Email from " + startIndex + " to " + endIndex + " were sent successfully");
+        while(startIndex <= endIndex) {
+            System.out.println("Email " + startIndex + " were sent successfully!");
+            startIndex++;
+        }
     }
 }
 
