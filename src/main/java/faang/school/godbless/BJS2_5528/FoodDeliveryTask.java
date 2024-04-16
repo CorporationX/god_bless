@@ -1,36 +1,38 @@
 package faang.school.godbless.BJS2_5528;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.SneakyThrows;
 
 import java.util.Random;
 
 @Data
-public class FoodDeliveryTask implements Runnable{
+@AllArgsConstructor
+public class FoodDeliveryTask implements Runnable {
     private String character;
+    private int foodAmount;
 
     @Override
     public void run() {
         feedCharacter();
     }
 
-    @SneakyThrows
     private void feedCharacter() {
         String foodType = getFoodType();
-        int foodAmount = getFoodCount();
 
-        System.out.println(getCharacter() + " получает " + foodAmount + " " + foodType);
+        System.out.println(getCharacter() + " получает " + getFoodAmount() + " " + foodType);
         System.out.println("Подождите, пока " + getCharacter() + " получит доставку");
-        Thread.sleep(1000);
-        System.out.println(getCharacter() + " ест " + foodAmount + " " + foodType + "\n");
+
+        try {
+            Thread.sleep(getFoodAmount() * 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(getCharacter() + " ест " + getFoodAmount() + " " + foodType);
     }
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
-    }
-
-    private int getFoodCount() {
-        return new Random().nextInt(Integer.MAX_VALUE);
     }
 }
