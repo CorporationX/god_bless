@@ -13,8 +13,6 @@ public class Main {
         executor.submit(() -> {
             googlePhotos.onNewPhotoAdded(List.of("path1", "path2"));
         });
-
-        executor.submit(googlePhotos::startAutoUpload);
         executor.submit(() -> {
             googlePhotos.onNewPhotoAdded(List.of("path3", "path4"));
         });
