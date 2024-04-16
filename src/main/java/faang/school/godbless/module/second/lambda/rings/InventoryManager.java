@@ -7,9 +7,8 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> positiveAction) {
-        if (character.getInventory().add(item)) {
-            positiveAction.accept(item);
-        }
+        character.getInventory().add(item);
+        positiveAction.accept(item);
     }
     
     public void removeItem(Character character, Predicate<Item> condition) {
