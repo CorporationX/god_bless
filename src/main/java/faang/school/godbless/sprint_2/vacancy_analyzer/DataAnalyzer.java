@@ -1,7 +1,6 @@
-package faang.school.godbless.vacancy_analyzer;
+package faang.school.godbless.sprint_2.vacancy_analyzer;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.Comparator;
 import java.util.List;

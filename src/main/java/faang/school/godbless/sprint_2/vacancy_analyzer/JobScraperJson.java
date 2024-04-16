@@ -1,4 +1,4 @@
-package faang.school.godbless.vacancy_analyzer;
+package faang.school.godbless.sprint_2.vacancy_analyzer;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

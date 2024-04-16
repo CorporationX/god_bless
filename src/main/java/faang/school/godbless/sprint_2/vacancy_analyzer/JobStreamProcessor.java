@@ -1,4 +1,4 @@
-package faang.school.godbless.vacancy_analyzer;
+package faang.school.godbless.sprint_2.vacancy_analyzer;
 
 import java.util.List;
 import java.util.stream.Stream;

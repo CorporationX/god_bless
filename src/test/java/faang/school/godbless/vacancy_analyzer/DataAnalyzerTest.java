@@ -1,10 +1,12 @@
 package faang.school.godbless.vacancy_analyzer;
 
-import org.junit.jupiter.api.BeforeAll;
+import faang.school.godbless.sprint_2.vacancy_analyzer.DataAnalyzer;
+import faang.school.godbless.sprint_2.vacancy_analyzer.Job;
+import faang.school.godbless.sprint_2.vacancy_analyzer.Main;
+import faang.school.godbless.sprint_2.vacancy_analyzer.TrendGranularity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
