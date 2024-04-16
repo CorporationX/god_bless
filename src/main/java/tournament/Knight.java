@@ -23,26 +23,13 @@ public class Knight {
     }
 
     public void startTrial() {
-        for (int i = 0; i < trials.size(); i++) {
-            this.trials.get(i).run();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        this.trials.forEach((executor::execute));
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) {
-        Knight knight1 = new Knight("Artur");
-        Knight knight2 = new Knight("Jon Snow");
-
-        knight1.addTrial(new Trial(knight1.getName(), "Swimming"));
-        knight1.addTrial(new Trial(knight1.getName(), "Archery"));
-
-        knight2.addTrial(new Trial(knight2.getName(), "Archery"));
-        knight2.addTrial(new Trial(knight2.getName(), "Run"));
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        executor.submit(knight1::startTrial);
-        executor.submit(knight2::startTrial);
-
         executor.shutdown();
     }
 }

@@ -12,13 +12,13 @@ public class Trial implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(String.format("%s start of trial: '%s'", this.knightName, this.trialName));
+        System.out.printf("%s start of trial: '%s'%n", this.knightName, this.trialName);
         try {
             Thread.sleep(new Random().nextInt(1, 10));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(String.format("%s finished trial: '%s'", this.knightName, this.trialName));
+        System.out.printf("%s finished trial: '%s'%n", this.knightName, this.trialName);
 
     }
 }
