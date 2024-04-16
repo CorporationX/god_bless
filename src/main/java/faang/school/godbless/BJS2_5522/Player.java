@@ -1,34 +1,36 @@
 package faang.school.godbless.BJS2_5522;
 
 public class Player {
-    private Object lock = new Object();
-    private boolean isPlating = false;
+    private final Object LOCK = new Object();
+    private boolean isPlaying = false;
 
     public void play() {
-        synchronized (lock){
-            isPlating = true;
-            System.out.println(isPlating);
+        synchronized (LOCK) {
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println(isPlaying);
+            }
         }
     }
 
     public void pause() {
-        synchronized (lock){
-            isPlating = false;
-            System.out.println(isPlating);
+        synchronized (LOCK) {
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println(isPlaying);
+            }
         }
     }
 
-    public void scip() {
-        synchronized (lock){
-            isPlating = true;
-            System.out.println(isPlating);
+    public void skip() {
+        synchronized (LOCK) {
+            System.out.println("Включена следующая композиция");
         }
     }
 
     public void previous() {
-        synchronized (lock){
-            isPlating = true;
-            System.out.println(isPlating);
+        synchronized (LOCK) {
+            System.out.println("Включена предыдущая композиция");
         }
     }
 }
