@@ -10,36 +10,66 @@ import java.util.OptionalInt;
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14);
-        int sum = numbers.stream().filter(n -> n % 2 == 0).mapToInt(Integer::intValue).sum();
-        System.out.println("Сумма чётных чисел: " + sum);
+        System.out.println("Сумма чётных чисел: " + calculateSumOfEvenNumbers(numbers));
 
-        Optional<Integer> maxValue = numbers.stream().max(Integer::compare);
-        System.out.println("Наибольшее число в списке: " + maxValue);
+        System.out.println("Наибольшее число в списке: " + findMaxNumber(numbers));
 
-        OptionalDouble average = numbers.stream().mapToInt(Integer::intValue).average();
-        System.out.println("Среднее значение: " + average);
+        System.out.println("Среднее значение: " + calculateAverage(numbers));
 
         List<String> strings = Arrays.asList("Onboarding", "Stream", "Java", "Sql", "System", "Swimming");
-        long count = strings.stream().filter(s -> s.startsWith("S")).count();
-        System.out.println("Слов на букву S: " + count);
+        System.out.println("Слов на букву S: " + countWordsStartingWithS(strings));
 
-        List<String> filteredStrings = strings.stream().filter(f -> f.contains("ing")).toList();
-        System.out.println("Слова заканчивающиеся на ing: " + filteredStrings);
+        System.out.println("Слова заканчивающиеся на ing: " + filterWordsEndingWithIng(strings));
 
-        List<String> sizeStrings = strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
-        System.out.println("Список слов по длине: " + sizeStrings);
+        System.out.println("Список слов по длине: " + sortWordsByLength(strings));
 
-        boolean startsWithJ = strings.stream().allMatch(s -> s.startsWith("J"));
-        System.out.println("Все ли слова начинаются на букву J: " + startsWithJ);
+        System.out.println("Все ли слова начинаются на букву J: " + checkIfAllWordsStartWithJ(strings));
         List<String> names = Arrays.asList("Mark", "Mick", "Molly");
-        boolean startsWithM = names.stream().allMatch(s -> s.startsWith("M"));
-        System.out.println("Все ли имена начинаются на букву M: " + startsWithM);
+        System.out.println("Все ли имена начинаются на букву M: " + checkIfAllNamesStartWithM(names));
 
-        OptionalInt number = numbers.stream().filter(n -> n > 8).mapToInt(Integer::intValue).min();
-        System.out.println("Минимальное число больше чем 8: " + number);
+        System.out.println("Минимальное число больше чем 8: " + findMinNumberGreaterThanEight(numbers));
 
-        List<Integer> lengths = strings.stream().map(String::length).toList();
-        System.out.println("Длины строк: " + lengths);
+        System.out.println("Длины строк: " + getLengthsOfStrings(strings));
+    }
+
+    private static int calculateSumOfEvenNumbers(List<Integer> numbers) {
+        return numbers.stream().filter(n -> n % 2 == 0).mapToInt(Integer::intValue).sum();
+    }
+
+    private static Optional<Integer> findMaxNumber(List<Integer> numbers) {
+        return numbers.stream().max(Integer::compare);
+    }
+
+    private static OptionalDouble calculateAverage(List<Integer> numbers) {
+        return numbers.stream().mapToInt(Integer::intValue).average();
+    }
+
+    private static long countWordsStartingWithS(List<String> strings) {
+        return strings.stream().filter(s -> s.startsWith("S")).count();
+    }
+
+    private static List<String> filterWordsEndingWithIng(List<String> strings) {
+        return strings.stream().filter(f -> f.contains("ing")).toList();
+    }
+
+    private static List<String> sortWordsByLength(List<String> strings) {
+        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
+    }
+
+    private static boolean checkIfAllWordsStartWithJ(List<String> strings) {
+        return strings.stream().allMatch(s -> s.startsWith("J"));
+    }
+
+    private static boolean checkIfAllNamesStartWithM(List<String> names) {
+        return names.stream().allMatch(s -> s.startsWith("M"));
+    }
+
+    private static OptionalInt findMinNumberGreaterThanEight(List<Integer> numbers) {
+        return numbers.stream().filter(n -> n > 8).mapToInt(Integer::intValue).min();
+    }
+
+    private static List<Integer> getLengthsOfStrings(List<String> strings) {
+        return strings.stream().map(String::length).toList();
     }
 }
 
