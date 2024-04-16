@@ -8,9 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class House {
     private static final int THREAD_POOL_SIZE = 5;
-    private static final int DELAY = 30000;
 
     public static void main(String[] args) {
+        int delay = 5000;
         List<Room> rooms = initialize();
         List<Food> foods = new ArrayList<>();
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
@@ -18,13 +18,14 @@ public class House {
         for (int i = 0; i < THREAD_POOL_SIZE; i++) {
             executorService.schedule(() ->
                     collectFood(rooms, foods),
-                    DELAY,
+                    delay,
                     TimeUnit.MILLISECONDS
             );
+            delay += 5000;
         }
 
         try {
-            executorService.awaitTermination(200, TimeUnit.SECONDS);
+            executorService.awaitTermination(25, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e.getMessage());
         }
