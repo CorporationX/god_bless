@@ -8,7 +8,8 @@ public class Main {
         army.addUnit(new Mage(50));
         army.addUnit(new Mage(20));
 
-        army.calculateTotalPower();
+        int totalPower = army.calculateTotalPower();
+        System.out.println("Total army power: " + totalPower);
 
     }
 }

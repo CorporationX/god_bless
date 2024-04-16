@@ -1,8 +1,9 @@
 package distributedArmy;
 
 public class Mage extends Character {
+    private static final int POWER = 100;
 
     public Mage(int amount) {
-        super(100, amount);
+        super(POWER, amount);
     }
 }

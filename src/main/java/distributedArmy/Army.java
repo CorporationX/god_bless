@@ -8,20 +8,26 @@ import java.util.List;
 @Data
 public class Army {
 
-    private static final List<Character> ARMY = new ArrayList<>();
+    private List<Character> army = new ArrayList<>();
+    private int totalPower;
 
     public void addUnit(Character character) {
-        ARMY.add(character);
+        army.add(character);
     }
 
-    public void calculateTotalPower() {
-        for (int i = 0; i < ARMY.size(); i++) {
-            int j = i;
-            new Thread(() -> {
-                System.out.println(String.format("Squad: %s\nTotal Power of squad: %d\n",
-                        ARMY.get(j).getClass(), ARMY.get(j).getPower() * ARMY.get(j).getAmount()));
+    public int calculateTotalPower() {
 
-            }).start();
-        }
+        army.forEach((squad) -> {
+            ArmyThread thread = new ArmyThread(squad);
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            totalPower += thread.getTotalPower();
+        });
+
+        return totalPower;
     }
 }
