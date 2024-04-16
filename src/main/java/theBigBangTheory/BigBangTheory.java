@@ -14,12 +14,13 @@ public class BigBangTheory {
         Task taskForRajesh = new Task("Rajesh", "Data analysis");
         List<Task> tasks = List.of(taskForSheldon, taskForLeonard, taskForHoward, taskForRajesh);
 
-        for (int i = 0; i < 4; i++) {
-            int j = i;
-            executor.submit(() -> tasks.get(j).run());
+        tasks.forEach(executor::execute);
+        executor.shutdown();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
-
-        executor.close();
         System.out.println("All tasks is completed");
     }
 }

@@ -10,12 +10,13 @@ import java.util.Random;
 public class Task implements Runnable {
     private String name;
     private String task;
+    private static final Random RANDOM = new Random();
 
     @Override
     public void run() {
         System.out.println(String.format("%s start task %s", this.name, this.task));
         try {
-            Thread.sleep(new Random().nextInt(1, 5));
+            Thread.sleep(RANDOM.nextInt(1, 5));
         } catch (InterruptedException e) {
             throw new RuntimeException("Task task interrupted: " + e.getMessage());
         }
