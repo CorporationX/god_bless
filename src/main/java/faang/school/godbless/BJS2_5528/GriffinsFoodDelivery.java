@@ -11,13 +11,9 @@ public class GriffinsFoodDelivery {
         ExecutorService executor = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
-        for (int i = 0; i < characterNames.length; i++) {
-            FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(characterNames[i], getFoodCount());
-            executor.submit(() -> {
-                foodDeliveryTask.setCharacter(foodDeliveryTask.getCharacter());
-                foodDeliveryTask.setFoodAmount(foodDeliveryTask.getFoodAmount());
-                foodDeliveryTask.run();
-            });
+        for (String characterName : characterNames){
+            FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(characterName, getFoodCount());
+            executor.submit(foodDeliveryTask);
         }
 
         executor.shutdown();
