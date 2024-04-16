@@ -11,13 +11,13 @@ public class House {
     private List<Room> rooms;
     private List<Food> food;
 
-    public void collectFood(int initialInd) {
-        if (initialInd >= rooms.size()) {
+    public void collectFood(int ind) {
+        if (ind >= rooms.size()) {
             return;
         }
-        food.addAll(rooms.get(initialInd).collectFood());
-        if (++initialInd < rooms.size()) {
-            food.addAll(rooms.get(initialInd).collectFood());
+        food.addAll(rooms.get(ind).collectFood());
+        if (++ind < rooms.size()) {
+            food.addAll(rooms.get(ind).collectFood());
         }
     }
 }

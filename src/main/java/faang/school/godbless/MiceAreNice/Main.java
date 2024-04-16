@@ -8,13 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int TERMINATION_INTERVAL = 30;
+    private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) {
         House house = new House(getRooms(), new ArrayList<>());
-        ScheduledExecutorService pool = Executors.newScheduledThreadPool(5);
-
+        ScheduledExecutorService pool = Executors.newScheduledThreadPool(THREADS_COUNT);
         for (int i = 0; i < 5; i++) {
-            int finalI = i;
+            final int finalI = i;
             pool.schedule(() -> house.collectFood(finalI), TERMINATION_INTERVAL, TimeUnit.SECONDS);
         }
 
