@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
-        emails.stream().filter(predicate).peek(email -> email.setBody(function.apply(email))).forEach(consumer);
+    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> emailHandler, Function<Email, String> letterConvertor) {
+        emails.stream().filter(filter).peek(email -> email.setBody(letterConvertor.apply(email))).forEach(emailHandler);
     }
 }
