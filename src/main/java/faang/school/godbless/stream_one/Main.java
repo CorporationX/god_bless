@@ -2,7 +2,7 @@ package faang.school.godbless.stream_one;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.IntStream;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,12 @@ public class Main {
         System.out.println("Sum of even numbers: " + sumOfEven(numbers));
         System.out.println("Max element in list: " + max(numbers));
         System.out.println("Average value in list: " + average(numbers));
-        System.out.println("All number of list is positive: " + isPositive(numbers));
+
+        Predicate<Integer> predicate = n -> n >= 0;
+        List<Integer> nums_2 = List.of(-1, 2, 3, 5);
+        System.out.println("All number of list is positive: " + isMatch(numbers, predicate));
+        System.out.println("All number of another list is positive: " + isMatch(nums_2, predicate));
+
         System.out.println("Smallest element of list numbers greater than number: "
                 + isMinNumGreaterThenTemplate(numbers, 3));
 
@@ -22,13 +27,13 @@ public class Main {
         System.out.println("Filtered by template list of strings :"
                 + filterByTemplate(words, "ee"));
         System.out.println("Sorted by length list words: " + sortByLength(words));
-        System.out.println("converted list of strings to lengths: " + listStrToListLenStr(words));
+        System.out.println("converted list of strings to lengths: " + convertStrToListLenStr(words));
     }
 
     public static Integer sumOfEven(List<Integer> nums) {
-        return IntStream.range(0, nums.size())
+        return nums.stream()
                 .filter(index -> index % 2 == 0)
-                .map(nums::get)
+                .mapToInt(i -> i)
                 .sum();
     }
 
@@ -51,7 +56,7 @@ public class Main {
 
     public static List<String> filterByTemplate(List<String> words, String template) {
         return words.stream()
-                .filter(value -> value.indexOf(template) > 0)
+                .filter(value -> value.contains(template))
                 .toList();
     }
 
@@ -60,17 +65,18 @@ public class Main {
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
-    public static Boolean isPositive(List<Integer> nums) {
+    public static Boolean isMatch(List<Integer> nums, Predicate<Integer> predicate) {
         return nums.stream()
-                .allMatch(n -> n >= 0);
+                .allMatch(predicate::test);
     }
 
-    public static Boolean isMinNumGreaterThenTemplate(List<Integer> nums, int template) {
+    public static Integer isMinNumGreaterThenTemplate(List<Integer> nums, int template) {
         return nums.stream()
-                .reduce(0, Integer::min) > template;
+                .filter(i -> i > template)
+                .min(Comparator.naturalOrder()).orElse(null);
     }
 
-    public static List<Integer> listStrToListLenStr(List<String> strings) {
+    public static List<Integer> convertStrToListLenStr(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .toList();
