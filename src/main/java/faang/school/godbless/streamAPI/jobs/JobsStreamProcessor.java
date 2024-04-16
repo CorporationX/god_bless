@@ -16,7 +16,7 @@ public class JobsStreamProcessor {
 
         JobsScraper jobsScraper = new JobsScraper();
 
-        var jobs = jobsStream.map(jobsScraper::parseString)
+        var jobs = jobsStream.map(jobsScraper::parseFile)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .peek(job -> {

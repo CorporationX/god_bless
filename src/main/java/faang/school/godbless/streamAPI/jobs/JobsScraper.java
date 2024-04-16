@@ -5,7 +5,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
@@ -33,14 +38,15 @@ public class JobsScraper {
         }
     }
 
-    public Optional<Job> parseString(String json) {
-        if (json == null || json.isBlank()) {
+    public Optional<Job> parseFile(String pathToFile) {
+        if (pathToFile == null || pathToFile.isBlank()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.ofNullable(mapper.readValue(json, Job.class));
-        } catch (JsonProcessingException e) {
+            InputStream inJson = Job.class.getResourceAsStream(pathToFile);
+            return Optional.ofNullable(mapper.readValue(inJson, Job.class));
+        } catch (IOException e) {
             log.error("Json processing exception was caught. Returning empty optional.", e);
             return Optional.empty();
         }

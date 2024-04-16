@@ -9,57 +9,17 @@ public class Main {
     public static void main(String[] args) {
         JobsScraper jobsScraper = new JobsScraper();
 
-        var softwareEngineer = """
-                {
-                  "positionName": "Software Engineer",
-                  "requirements": ["Bachelor's degree in Computer Science", "Proficiency in Java and Python", "Experience with web development frameworks"],
-                  "salary": 80000,
-                  "location": "San Francisco, CA",
-                  "creationDate": "2024-04-12T09:30:00"
-                }
-                """;
+        var softwareEngineer = "/jsons/softwareEngineer.json";
 
-        var javaSoftwareEngineer = """
-                {
-                  "positionName": "Software Engineer",
-                  "requirements": ["Bachelor's degree in Computer Science", "Proficiency in Java", "Experience with web development frameworks"],
-                  "salary": 120000,
-                  "location": "San Francisco, CA",
-                  "creationDate": "2024-04-12T09:30:00"
-                }
-                """;
+        var javaSoftwareEngineer = "/jsons/javaSoftwareEngineer.json";
 
-        var dataScientist = """
-                {
-                  "positionName": "Data Scientist",
-                  "requirements": ["Master's degree in Statistics or related field", "Proficiency in Python and R programming", "Experience with machine learning algorithms"],
-                  "salary": 130000,
-                  "location": "New York, NY",
-                  "creationDate": "2024-04-12T10:15:00"
-                }
-                """;
+        var dataScientist = "/jsons/dataScientist.json";
 
-        var graphicDesigner = """
-                {
-                  "positionName": "Graphic Designer",
-                  "requirements": ["Bachelor's degree", "Proficiency in Adobe Creative Suite", "Strong portfolio demonstrating creative skills"],
-                  "salary": 60000,
-                  "location": "Los Angeles, CA",
-                  "creationDate": "2024-04-12T11:00:00"
-                }
-                """;
+        var graphicDesigner = "/jsons/graphicDesigner.json";
 
-        var marketingManager = """
-                {
-                  "positionName": "Marketing Manager",
-                  "requirements": ["Bachelor's degree", "Experience in digital marketing strategies", "Strong leadership and communication skills"],
-                  "salary": 85000,
-                  "location": "Chicago, IL",
-                  "creationDate": "2024-04-12T11:45:00"
-                }
-                """;
+        var marketingManager = "/jsons/marketingManager.json";
 
-        var job = jobsScraper.parseString(softwareEngineer);
+        var job = jobsScraper.parseFile(softwareEngineer);
 
         job.ifPresent(System.out::println);
 
