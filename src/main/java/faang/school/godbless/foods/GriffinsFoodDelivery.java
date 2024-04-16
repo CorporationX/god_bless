@@ -5,15 +5,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class GriffinsFoodDelivery {
-    public static void main(String[] args) {
+
+    private static final Random random = new Random();
+    public static void main(String[] args) throws InterruptedException {
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         for (String characterName : characterNames) {
             executor.submit(
-                    new FoodDeliveryTask(characterName, new Random().nextInt(80))
+                    new FoodDeliveryTask(characterName, random.nextInt(80))
             );
         }
+        Thread.sleep(10000);
         executor.shutdown();
     }
 }
