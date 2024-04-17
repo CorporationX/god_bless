@@ -1,0 +1,12 @@
+{
+  "vacancy": "Java Developer",
+  "salary": 140000,
+  "location": "Moscow",
+  "createdAt": "2024-04-12T10:15:00",
+  "requirements": [
+    "Java",
+    "Spring",
+    "Kafka",
+    "Redis"
+  ]
+}
