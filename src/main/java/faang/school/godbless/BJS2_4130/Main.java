@@ -52,18 +52,23 @@ public class Main {
 
     public static void addSubjectToStudent(Student student, Subject subject, int grade) {
         Map<Subject, Integer> targetStudentData = STUDENT_GRADES.get(student);
-
-        if (targetStudentData == null) {
-            throw new IllegalArgumentException(String.format("Студент \"%s\", не найден!", student.getName()));
-        }
-
         targetStudentData.put(subject, grade);
         SUBJECT_STUDENTS.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public static void removeStudent(Student student) {
-        STUDENT_GRADES.remove(student);
-        SUBJECT_STUDENTS.forEach((subject, students) -> students.remove(student));
+        Map<Subject, Integer> removedGrades = STUDENT_GRADES.remove(student);
+        removedGrades.keySet().forEach(subject -> {
+            List<Student> studentsInSubject = SUBJECT_STUDENTS.get(subject);
+
+            if (studentsInSubject != null) {
+                studentsInSubject.remove(student);
+
+                if (studentsInSubject.isEmpty()) {
+                    SUBJECT_STUDENTS.remove(subject);
+                }
+            }
+        });
     }
 
     public static void printStudentGrades() {
