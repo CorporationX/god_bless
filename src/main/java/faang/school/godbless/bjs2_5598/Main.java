@@ -2,7 +2,7 @@ package faang.school.godbless.bjs2_5598;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader googlePhoto = new GooglePhotosAutoUploader();
 
         Thread uploadPhotosThread = new Thread(googlePhoto::startAutoUpload);
@@ -14,9 +14,13 @@ public class Main {
 
         uploadPhotosThread.start();
         addNewPathToPhotoThread1.start();
+        Thread.sleep(1000);
         addNewPathToPhotoThread2.start();
+        Thread.sleep(1000);
         addNewPathToPhotoThread3.start();
+        Thread.sleep(1000);
         addNewPathToPhotoThread4.start();
+        Thread.sleep(1000);
         addNewPathToPhotoThread5.start();
 
         try {
