@@ -43,7 +43,7 @@ public class Practice {
                 .toList();
     }
 
-    private static boolean isAllStringsLengthGreaterThanTwo(List<String> strings, Predicate<String> predicate) {
+    private static boolean isAllStringsPassConditions(List<String> strings, Predicate<String> predicate) {
         return strings.stream()
                 .allMatch(predicate);
     }
@@ -133,7 +133,7 @@ public class Practice {
         System.out.println(sortStringsByLength(strings));
     }
 
-    public static void testIsAllStringsLengthGreaterThanTwo() {
+    public static void testIsAllStringsPassConditions() {
         List<String> strings = List.of("123", "123", "123", "123", "123");
         List<String> strings1 = List.of("12", "123", "12", "12", "12");
         List<String> strings2 = List.of("12", "123", "12", "123", "12");
@@ -142,13 +142,13 @@ public class Practice {
 
         // Test "isAllStringsLengthGreaterThanTwo" ---------------------------------------------------------------------
         System.out.println("strings ---------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings, lambda));
+        System.out.println(isAllStringsPassConditions(strings, lambda));
         System.out.println("strings1 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings1, lambda));
+        System.out.println(isAllStringsPassConditions(strings1, lambda));
         System.out.println("strings2 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings2, lambda));
+        System.out.println(isAllStringsPassConditions(strings2, lambda));
         System.out.println("strings3 --------------------------------------------------------------------------------");
-        System.out.println(isAllStringsLengthGreaterThanTwo(strings3, lambda));
+        System.out.println(isAllStringsPassConditions(strings3, lambda));
     }
 
     public static void testFindMinElementWhichGreaterThanPivot() {
@@ -184,7 +184,7 @@ public class Practice {
         testNumbers();
         testStrings();
         testSortStringsByLength();
-        testIsAllStringsLengthGreaterThanTwo();
+        testIsAllStringsPassConditions();
         testFindMinElementWhichGreaterThanPivot();
         testMapStringsToLengths();
     }
