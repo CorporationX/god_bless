@@ -18,7 +18,8 @@ public class EmailProcessor {
 
     Predicate<Email> spamFilter = email -> email.getSubject() != "Спам";
     Consumer<Email> printEmail = email -> System.out.println(email.getBody());
-    Function<Email, String> importantToUpperCase = email -> email.isImportant() ? email.getSubject().toUpperCase() : email.getSubject() + " Неважное письмо" ;
+    Function<Email, String> importantToUpperCase = email -> email.isImportant() ?
+            email.getSubject().toUpperCase() : email.getSubject() + " - Неважное письмо";
 
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -28,7 +29,7 @@ public class EmailProcessor {
 
     public void processEmail(List<Email> emails, Predicate predicate, Consumer consumer, Function function) {
         for (Email email : emails) {
-            if(predicate.test(email)) {
+            if (predicate.test(email)) {
                 System.out.println(function.apply(email));
                 consumer.accept(email);
             }
