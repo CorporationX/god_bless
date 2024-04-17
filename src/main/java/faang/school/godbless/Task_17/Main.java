@@ -8,11 +8,11 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(sumOfUniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
+        System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
 
     }
 
-    static Map<Integer, Integer> sumOfUniquePairs(int sum, List<Integer> numbers) {
+    static Map<Integer, Integer> uniquePairs(int sum, List<Integer> numbers) {
         Map<Integer, Integer> pairs = new HashMap<>();
         IntStream.range(0, numbers.size()).
                 forEach(i -> IntStream.range(0, numbers.size()).
