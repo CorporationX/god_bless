@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,16 +14,18 @@ public class Main {
         System.out.println("Сумма всех четных элементов в списке: " + getSumOfEvenNumbers(numbers));
         System.out.println("\nСамое большое число в списке: " + getMaxElement(numbers));
         System.out.println("\nСреднее значение чисел в списке: " + getAverageValue(numbers));
-        System.out.println("\nКоличество строк которы начинаются с переданного символа " + getCountStrings(strings, "т"));
+        System.out.println("\nКоличество строк которы начинаются с переданного символа " +
+                getCountStringsStartingFromTheSymbol(strings, "т"));
         System.out.println("\nЭлемент(ы) списка содержащий(ие) переданную подстроку: ");
-        filterStrings(strings, "стримы").forEach(System.out::println);
+        filterStringsThatContainSubstring(strings, "стримы").forEach(System.out::println);
         System.out.println("\nОтсортированный список строк по длине: ");
         sortStringsToLength(strings).forEach(System.out::println);
-        System.out.println(checkListOfElements(numbers, num -> num % 2 != 0));
+        System.out.println("\nВсе ли элементы в списке чётные? " +
+                (checkListOfElements(numbers, num -> num % 2 == 0) ? "Да." : "Нет."));
         System.out.println("\nНаименьший элемент в списке который больше заданного: "
                 + findMinNumberWhichNoMoreThanGivenNumber(numbers, 5));
         System.out.println("\nПреобразованный список стров в список их длин: ");
-        stringsListInStringsLengthList(strings).forEach(System.out::println);
+        convertStringsToLengths(strings).forEach(System.out::println);
     }
 
     private static int getSumOfEvenNumbers(List<Integer> nums) {
@@ -38,21 +41,19 @@ public class Main {
                 .orElseThrow();
     }
 
-    private static int getAverageValue(List<Integer> nums) {
+    private static double getAverageValue(List<Integer> nums) {
         return nums.stream()
-                .reduce((num1, num2) -> num1 + num2)
-                .map(sum -> sum / nums.size())
-                .orElseThrow();
+                .collect(Collectors.averagingInt(Integer::intValue));
     }
 
-    private static int getCountStrings(List<String> strings, String symbol) {
+    private static long getCountStringsStartingFromTheSymbol(List<String> strings, String symbol) {
         return strings.stream()
                 .map(string -> string.toLowerCase())
                 .filter(string -> string.startsWith(symbol))
-                .toList().size();
+                .count();
     }
 
-    private static List<String> filterStrings(List<String> strings, String substring) {
+    private static List<String> filterStringsThatContainSubstring(List<String> strings, String substring) {
         return strings.stream()
                 .filter(string -> string.contains(substring))
                 .toList();
@@ -64,10 +65,9 @@ public class Main {
                 .toList();
     }
 
-    private static <T> List<T> checkListOfElements(List<T> elements, Predicate<T> predicate) {
+    private static <T> boolean checkListOfElements(List<T> elements, Predicate<T> predicate) {
         return elements.stream()
-                .filter(predicate)
-                .toList();
+                .allMatch(predicate);
     }
 
     private static int findMinNumberWhichNoMoreThanGivenNumber(List<Integer> numbers, int givenNumber) {
@@ -77,7 +77,7 @@ public class Main {
                 .orElseThrow();
     }
 
-    private static List<Integer> stringsListInStringsLengthList(List<String> strings) {
+    private static List<Integer> convertStringsToLengths(List<String> strings) {
         return strings.stream()
                 .map(string -> string.length())
                 .toList();
