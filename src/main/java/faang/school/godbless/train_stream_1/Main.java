@@ -18,7 +18,8 @@ public class Main {
         System.out.println("Среднее значение: " + calculateAverage(numbers));
 
         List<String> strings = Arrays.asList("Onboarding", "Stream", "Java", "Sql", "System", "Swimming");
-        System.out.println("Слов на букву S: " + countWordsStartingWithS(strings));
+        String prefix = "S";
+        System.out.println("Слов на букву S: " + countWordsStartingWith(strings,prefix));
 
         Predicate<String> containsIng = s -> s.contains("ing");
         System.out.println("Слова заканчивающиеся на ing: " + filterWordsEndingWith(strings, containsIng));
@@ -52,9 +53,9 @@ public class Main {
                 .average();
     }
 
-    private static long countWordsStartingWithS(List<String> strings) {
+    private static long countWordsStartingWith(List<String> strings, String prefix) {
         return strings.stream()
-                .filter(s -> s.startsWith("S"))
+                .filter(s -> s.startsWith(prefix))
                 .count();
     }
 
