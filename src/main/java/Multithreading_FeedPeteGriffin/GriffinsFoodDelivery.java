@@ -19,7 +19,6 @@ public class GriffinsFoodDelivery {
                         character.run();
                     });
                 });
-
         threadPool.shutdown();
     }
 }
