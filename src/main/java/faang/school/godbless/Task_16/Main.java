@@ -15,4 +15,5 @@ public class Main {
                 filter(number -> (number) % 2 == 0).
                 reduce(0, Integer::sum);
     }
+
 }
