@@ -30,10 +30,10 @@ public class Player {
 
     public void skip() {
         synchronized (currentSongLock) {
-            if (playlist.isEmpty() || currentSong > playlist.size()) {
+            currentSong++;
+            if (playlist.isEmpty() || currentSong >= playlist.size()) {
                 System.out.println("Last song has no next songs");
             } else {
-                currentSong++;
                 System.out.println(playlist.get(currentSong) + " is playing now");
             }
         }
@@ -41,10 +41,10 @@ public class Player {
 
     public void previous() {
         synchronized (currentSongLock) {
-            if (playlist.isEmpty() || currentSong > playlist.size()) {
+            currentSong--;
+            if (playlist.isEmpty() || currentSong < 0) {
                 System.out.println("First song has no previous songs");
             } else {
-                currentSong--;
                 System.out.println(playlist.get(currentSong) + " is playing now");
             }
         }
