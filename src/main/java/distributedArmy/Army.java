@@ -17,15 +17,20 @@ public class Army {
 
     public int calculateTotalPower() {
 
+        List<ArmyThread> armyThreads = new ArrayList<>();
         army.forEach((squad) -> {
             ArmyThread thread = new ArmyThread(squad);
+            armyThreads.add(thread);
             thread.start();
+        });
+
+        armyThreads.forEach(armyThread -> {
             try {
-                thread.join();
+                totalPower += armyThread.getTotalPower();
+                armyThread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            totalPower += thread.getTotalPower();
         });
 
         return totalPower;
