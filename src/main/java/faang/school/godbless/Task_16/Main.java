@@ -2,6 +2,7 @@ package faang.school.godbless.Task_16;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class Main {
@@ -15,5 +16,7 @@ public class Main {
                 filter(number -> (number) % 2 == 0).
                 reduce(0, Integer::sum);
     }
-
+    static int maxNumber(List<Number> numbers) {
+        return numbers.stream().max()
+    }
 }
