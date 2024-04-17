@@ -11,22 +11,22 @@ public class Main {
         System.out.println(sum(nums));
     }
 
-    private static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
+    private static long calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("empty list");
         }
-        int result = nums.get(0);
+        long result = nums.get(0);
         for (int i = 0; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
         }
         return result;
     }
 
-    private static int product(List<Integer> nums) {
+    private static long product(List<Integer> nums) {
         return calculate(nums, (a, b) -> a * b);
     }
 
-    private static int sum(List<Integer> nums) {
+    private static long sum(List<Integer> nums) {
         return calculate(nums, (a, b) -> a + b);
     }
 }
