@@ -5,22 +5,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+        List<Integer> numbers = Arrays.asList(100, 200, 300, 400, 500, 6000);
 
-        int productResult = product(numbers);
-        int sumResult = sum(numbers);
-
-        System.out.println(productResult);
-        System.out.println(sumResult);
-
+        System.out.println(product(numbers));
+        System.out.println(sum(numbers));
     }
 
-    public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
+    public static long calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
         if (nums == null || nums.isEmpty()) {
             throw new IllegalArgumentException("Список не может быть пустым!");
         }
 
-        int result = nums.get(0);
+        long result = nums.get(0);
 
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
@@ -29,11 +25,11 @@ public class Main {
         return result;
     }
 
-    public static int product(List<Integer> nums) {
+    public static long product(List<Integer> nums) {
         return calculate(nums, (a, b) -> a * b);
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, Integer::sum);
+    public static long sum(List<Integer> nums) {
+        return calculate(nums, Long::sum);
     }
 }
