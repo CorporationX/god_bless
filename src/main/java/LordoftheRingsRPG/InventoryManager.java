@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         if (item == null || character.getInventory() == null) {
-            throw new RuntimeException("Item or inventory or null.");
+            throw new IllegalArgumentException("Item or inventory or null.");
         }
         character.getInventory().add(item);
         consumer.accept(item);
