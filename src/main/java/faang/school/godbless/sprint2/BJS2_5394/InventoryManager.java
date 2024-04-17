@@ -3,6 +3,7 @@ package faang.school.godbless.sprint2.BJS2_5394;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.List;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
@@ -14,11 +15,15 @@ public class InventoryManager {
         character.getInventory().removeIf(predicate);
     }
 
-    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        character.getInventory().forEach((item) -> {
+    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updateCallback) {
+        List<Item> inventory = character.getInventory();
+
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+
             if (predicate.test(item)) {
-                function.apply(item);
+                inventory.set(i, updateCallback.apply(item));
             }
-        });
+        }
     }
 }
