@@ -1,9 +1,12 @@
 package faang.school.godbless.way_with_finger;
 
+import java.text.DecimalFormat;
+import java.text.Format;
 import java.util.List;
 import java.util.Random;
 
 public class CityWorker implements Runnable {
+    private static final Format FORMATTER = new DecimalFormat("#.##");
     private City city;
     private List<Monster> monsters;
 
@@ -21,6 +24,7 @@ public class CityWorker implements Runnable {
             throw new RuntimeException(e.getMessage());
         }
         System.out.printf("Монстер %s был убит около %s.\n", findNearestMonster().getName(), city.getName());
+        System.out.printf("Было пройдено %s.\n", FORMATTER.format(distance).replace(",", "."));
     }
 
     public Monster findNearestMonster() {
