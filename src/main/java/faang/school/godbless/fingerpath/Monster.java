@@ -7,9 +7,14 @@ import lombok.Getter;
 @Getter
 public class Monster {
     private String name;
-    private String location;
+    private Location villageLocation;
 
-    public Location getCoordinates() {
+    public Monster(String name, String villageLocation) {
+        this.name = name;
+        this.villageLocation = getCoordinates(villageLocation);
+    }
+
+    public Location getCoordinates(String location) {
         switch (location) {
             case "Velen" -> {
                 return new Location(0, 90);
