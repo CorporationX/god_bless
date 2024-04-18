@@ -12,7 +12,7 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Задача: " + task + " натача, исполнитель: " + name);
+        System.out.println("Задача: " + task + " начата, исполнитель: " + name);
 
         try {
             Thread.sleep(5000);
