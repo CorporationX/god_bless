@@ -47,7 +47,6 @@ public class Main {
         System.out.println(changeIntToBinaryString(listOfNumbers));
         System.out.println(findAllPolynoms(1, 101));
 
-
     }
 
     public static Set<List<Integer>> findPairsThatMakesSum(List<Integer> list, int targetSum) {
