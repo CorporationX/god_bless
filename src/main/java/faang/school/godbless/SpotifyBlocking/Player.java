@@ -8,14 +8,13 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class Player {
-    private final Object currentSongLock = new Object();
-    private final Object isPlayingLock = new Object();
+    private final Object lock = new Object();
     private final List<String> playlist;
     private int currentSong = 0;
     private boolean isPlaying = true;
 
     public void play() {
-        synchronized (isPlayingLock) {
+        synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
                 System.out.println("The music is playing");
@@ -24,7 +23,7 @@ public class Player {
     }
 
     public void pause() {
-        synchronized (isPlayingLock) {
+        synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
                 System.out.println("The music is paused");
@@ -33,7 +32,7 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (currentSongLock) {
+        synchronized (lock) {
             currentSong++;
             if (currentSong >= playlist.size()) {
                 currentSong = 0;
@@ -43,7 +42,7 @@ public class Player {
     }
 
     public void previous() {
-        synchronized (currentSongLock) {
+        synchronized (lock) {
             currentSong--;
             if (currentSong < 0) {
                 currentSong = playlist.size() - 1;
