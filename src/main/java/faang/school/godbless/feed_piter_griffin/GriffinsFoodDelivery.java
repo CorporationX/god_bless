@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GriffinsFoodDelivery {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stevie"};
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
@@ -13,6 +13,9 @@ public class GriffinsFoodDelivery {
         for (String characterName : characterNames) {
             executorService.submit(new FoodDeliveryTask(characterName, ThreadLocalRandom.current().nextInt(1, 10)));
         }
+
+        Thread.sleep(5000);
+
         executorService.shutdown();
     }
 }
