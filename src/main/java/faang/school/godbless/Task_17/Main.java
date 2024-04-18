@@ -37,6 +37,6 @@ public class Main {
     }
 
     static void peopleWithCommonFriends(Map<String, List<String>> peopleAndFriends) {
-        peopleAndFriends.entrySet().stream().peek(entry -> entry.getKey())
+        IntStream.range(0, peopleAndFriends.size()).forEach(i -> peopleAndFriends.entrySet().stream().
     }
 }
