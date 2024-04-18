@@ -23,16 +23,15 @@ public class TestEmailProcessor {
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<String> printEmail = str -> System.out.printf("\t\t\tBody of an email:\t%s \n", str);
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        List<String> bodies = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
         System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-        bodies.forEach(str -> System.out.printf("\t\t\tBody of an email:\t%s \n", str));
     }
 
     public static void main(String[] args) {
