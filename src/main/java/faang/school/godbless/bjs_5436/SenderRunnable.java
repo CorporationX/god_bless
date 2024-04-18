@@ -2,7 +2,9 @@ package faang.school.godbless.bjs_5436;
 
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
 
@@ -11,6 +13,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("Mails from " + startIndex + " to " + endIndex + " were sent");
+        for (int i = startIndex; i <= endIndex ; i++) {
+            log.info("Mail {} were sent", i);
+        }
     }
 }

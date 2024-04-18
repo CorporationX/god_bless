@@ -1,33 +1,36 @@
 package faang.school.godbless.bjs_5436;
 
+import lombok.extern.slf4j.Slf4j;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Slf4j
 public class MailSender {
+
+    private static final int MAIL_COUNT = 1000;
+    private static final int BANCH_SIZE = 200;
 
     public static void main(String[] args) {
 
-        Thread thread1 = new Thread(new SenderRunnable(0, 200));
-        Thread thread2 = new Thread(new SenderRunnable(201, 400));
-        Thread thread3 = new Thread(new SenderRunnable(401, 600));
-        Thread thread4 = new Thread(new SenderRunnable(601, 800));
-        Thread thread5 = new Thread(new SenderRunnable(801, 10000));
+        List<Thread> threads = new ArrayList<>();
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
-
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        int end = BANCH_SIZE;
+        for (int start = 1; end < MAIL_COUNT; start = end + 1) {
+            end = start + BANCH_SIZE - 1;
+            Thread thread = new Thread(new SenderRunnable(start, end));
+            threads.add(thread);
+            thread.start();
         }
 
-        System.out.println("All mails were sent");
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+            }
+        }
 
+        log.info("All mails were sent");
     }
-
 }
