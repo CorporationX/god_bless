@@ -15,7 +15,7 @@ public class King {
         will.addTrial(new Trial(will.getName(), "Уплыть от стаи крокодилов"));
         will.addTrial(new Trial(will.getName(), "Победить Чёрного всадника"));
 
-        ExecutorService executors = Executors.newFixedThreadPool(1);
+        ExecutorService executors = Executors.newFixedThreadPool(2);
 
         executors.submit(() -> godrick.startTrials());
         executors.submit(() -> will.startTrials());
