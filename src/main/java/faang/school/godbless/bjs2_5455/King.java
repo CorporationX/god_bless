@@ -7,24 +7,20 @@ import java.util.concurrent.Executors;
 
 public class King {
 
+    private static final String JOHN_SNOW = "John Snow";
+    private static final String JAIME_LANNISTER= "Jaime Lannister";
+
     private final static List<Knight> knights = new ArrayList<>();
 
     public static void main(String[] args) {
-        Knight johnSnow = new Knight("John Snow");
-        Knight jaimeLannister = new Knight("Jaime Lannister");
-
-        Trial trialForJohnSnow1 = new Trial(johnSnow.getName(), "Hit the target with a bow");
-        Trial trialForJohnSnow2 = new Trial(johnSnow.getName(), "Run 10 km");
-
-        Trial trialForJaimeLannister1 = new Trial(jaimeLannister.getName(), "Drink 10 liters of beer");
-        Trial trialForJaimeLannister2 = new Trial(jaimeLannister.getName(), "Defeat 10 knights");
-
-        johnSnow.addTrial(trialForJohnSnow1);
-        johnSnow.addTrial(trialForJohnSnow2);
-        jaimeLannister.addTrial(trialForJaimeLannister1);
-        jaimeLannister.addTrial(trialForJaimeLannister2);
-
+        Knight johnSnow = new Knight(JOHN_SNOW);
+        johnSnow.addTrial(new Trial(JOHN_SNOW, "Hit the target with a bow"));
+        johnSnow.addTrial(new Trial(JOHN_SNOW, "Run 10 km"));
         knights.add(johnSnow);
+
+        Knight jaimeLannister = new Knight(JAIME_LANNISTER);
+        jaimeLannister.addTrial(new Trial(JAIME_LANNISTER, "Drink 10 liters of beer"));
+        jaimeLannister.addTrial(new Trial(JAIME_LANNISTER, "Defeat 10 knights"));
         knights.add(jaimeLannister);
 
         startTrials();
