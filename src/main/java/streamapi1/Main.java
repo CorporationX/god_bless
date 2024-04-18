@@ -2,17 +2,16 @@ package streamapi1;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.OptionalDouble;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
 
         List<Integer> nums = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 10);
         System.out.println("===Check method nums===");
-        System.out.println(sum(nums));
+        System.out.println(sumIntegerNumbers(nums));
 
         nums = Arrays.asList(1, 2, 3, 5, 222, 7, 8, 9, 10);
         System.out.println("\n===Check method max===");
@@ -20,15 +19,15 @@ public class Main {
 
         nums = Arrays.asList(1, 2, 3, 4, 5, 20);
         System.out.println("\n===Check method avgValue===");
-        System.out.println(avgValue(nums));
+        System.out.println(calculateAverageValue(nums));
 
         List<String> strings = List.of("Hello", "Hi-Tech", "Mom", "Dad", "House");
         System.out.println("\n===Check method countStringsWhichStartsWithASymbol===");
-        System.out.println(countStringsWhichStartsWithASymbol(strings, str -> str.charAt(0) == 'H'));
+        System.out.println(countStringsWhichStartsWithASymbol(strings, 'H'));
 
         strings = List.of("Hello Mom", "Hi-Tech house", "Mom went shopping", "Dad worked at a factory", "Programming is cool");
         System.out.println("\n===Check method filterStringsBySubstring===");
-        System.out.println(filterStringsBySubstring(strings, str -> str.contains("Mom")));
+        System.out.println(filterStringsBySubstring(strings, "Mom"));
 
         strings = List.of("Hello Mom", "Hi-Tech house", "Mom went shopping", "Dad worked at a factory", "Programming is cool");
         System.out.println("\n===Check method sortByLength===");
@@ -36,7 +35,7 @@ public class Main {
 
         strings = List.of("Hello Mom", "Hi-Tech house", "Mom went shopping", "Dad worked at a factory", "Programming");
         System.out.println("\n===Check method checkConditionForString===");
-        System.out.println(checkConditionForString(strings, str -> str.length() > 12));
+        System.out.println(checkStringForConditions(strings, str -> str.length() > 12));
 
         nums = Arrays.asList(1, 2, 3, 5, 6, 7, 8, 9, 10);
         System.out.println("\n===Check method findMinElementInListWhichOverGivenNumber===");
@@ -48,55 +47,56 @@ public class Main {
 
     }
 
-    static int sum(List<Integer> nums) {
+    static int sumIntegerNumbers(List<Integer> nums) {
         return nums.stream()
                 .reduce(0, Integer::sum);
     }
 
     static int max(List<Integer> nums) {
         return nums.stream()
-                .mapToInt(v -> v)
-                .max().orElseThrow(NoSuchElementException::new);
+                .max(Integer::compareTo)
+                .get();
     }
 
-    static double avgValue(List<Integer> nums) {
+    static OptionalDouble calculateAverageValue(List<Integer> nums) {
         return nums.stream()
-                .reduce(0, Integer::sum) / (double) nums.size();
+                .mapToInt(num -> num)
+                .average();
+
     }
 
-    static long countStringsWhichStartsWithASymbol(List<String> strings, Predicate<String> conditionForCounter) {
+    static long countStringsWhichStartsWithASymbol(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(conditionForCounter)
+                .filter(string -> string.charAt(0) == symbol)
                 .count();
     }
 
-    static List<String> filterStringsBySubstring(List<String> strings, Predicate<String> conditionForFilter) {
+    static List<String> filterStringsBySubstring(List<String> strings, String substring) {
         return strings.stream()
-                .filter(conditionForFilter)
+                .filter(string -> string.contains(substring))
                 .toList();
     }
 
     static List<String> sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted()
                 .toList();
     }
 
-    static Map<Boolean, List<String>> checkConditionForString(List<String> strings, Predicate<String> condition) {
+    static boolean checkStringForConditions(List<String> strings, Predicate<String> condition) {
         return strings.stream()
-                .collect(Collectors.partitioningBy(condition));
+                .allMatch(condition);
     }
 
     static int findMinElementInListWhichOverGivenNumber(List<Integer> nums, int number) {
         return nums.stream()
                 .filter(num -> num > number)
-                .mapToInt(v -> v)
-                .min().orElseThrow(NoSuchElementException::new);
+                .min(Integer::compareTo).orElseThrow(NoSuchElementException::new);
     }
 
     static List<Integer> mapListOfStringsInListOfLengths(List<String> strings) {
         return strings.stream()
-                .map(s -> s.length())
+                .map(String::length)
                 .toList();
     }
 }
