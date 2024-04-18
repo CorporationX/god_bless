@@ -7,6 +7,7 @@ public class Runner {
 
         // Register notification handlers
         notificationManager.registerHandler("email", notification -> System.out.println("Email sent: " + notification.getMessage()));
+        notificationManager.registerHandler("email", notification -> System.out.println("Email log entry created: " + notification.getMessage()));
         notificationManager.registerHandler("sms", notification -> System.out.println("SMS sent: " + notification.getMessage()));
         notificationManager.registerHandler("push", notification -> System.out.println("Push notification sent: " + notification.getMessage()));
 
@@ -14,6 +15,7 @@ public class Runner {
         Notification emailNotification = new Notification("email", "Your account has been activated.");
         Notification smsNotification = new Notification("sms", "Your password has been changed.");
         Notification pushNotification = new Notification("push", "You have a new message from JohnDoe.");
+        notificationManager.sendNotification(new Notification("alert", "Your meeting starts in 30 minutes."));
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
