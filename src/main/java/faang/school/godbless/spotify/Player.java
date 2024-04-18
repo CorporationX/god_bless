@@ -1,55 +1,44 @@
 package faang.school.godbless.spotify;
 
 public class Player {
-    private String isPlaying;
+    private boolean isPlaying;
     private final Object lock = new Object();
 
     public void play() {
         synchronized (lock) {
-            isPlaying = "Playing";
-            System.out.println("Music is playing");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("Music is playing");
+            } else {
+                System.out.println("The music is already on");
             }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            isPlaying = "Pausing";
-            System.out.println("Music is paused");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("Music is paused");
+            } else {
+                System.out.println("The music is already off");
             }
-
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            isPlaying = "Skip";
+            isPlaying = true;
             System.out.println("Music skip");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            isPlaying = "Previous";
+            isPlaying = true;
             System.out.println("Previous music");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+
         }
     }
 }
