@@ -30,7 +30,11 @@ public class Main {
 
         Thread.sleep(5000);
 
-        usersThreads.submit(() -> users.get(0).leaveHouse(stark));
+        var userFromHouse = users.stream()
+                .filter(user -> !user.getRole().equals(Role.VAGABOND))
+                .findAny();
+
+        userFromHouse.ifPresent(user -> usersThreads.submit(() -> user.leaveHouse(stark)));
 
         usersState(users);
 

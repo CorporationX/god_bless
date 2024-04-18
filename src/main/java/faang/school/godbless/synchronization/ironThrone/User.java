@@ -1,10 +1,12 @@
 package faang.school.godbless.synchronization.ironThrone;
 
+import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @ToString
+@Getter
 public class User {
     private String name;
     private String houseName = "vagabond";

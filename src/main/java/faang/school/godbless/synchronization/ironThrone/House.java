@@ -20,7 +20,6 @@ public class House {
 
         availableRoles.add(Role.LORD);
         availableRoles.add(Role.KNIGHT);
-        availableRoles.add(Role.MAGE);
         availableRoles.add(Role.BASTARD);
 
         availableRolesCount = availableRoles.size();
