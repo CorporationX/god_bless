@@ -13,7 +13,7 @@ public class Chat {
     private final User secondUser;
     private boolean isGood = true;
 
-    public void unlink() {
+    private void unlink() {
         System.out.printf("%s - %s -> ended not mutually\n", firstUser.getName(), secondUser.getName());
         firstUser.dislike(secondUser);
         secondUser.dislike(firstUser);

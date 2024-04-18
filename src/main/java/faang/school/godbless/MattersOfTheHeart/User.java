@@ -19,7 +19,7 @@ public class User {
     }
 
     public void like(User user) {
-        if (user.equals(this)) {
+        if (user == null || user.equals(this)) {
             return;
         }
         likedUsers.addUser(user);
@@ -28,7 +28,7 @@ public class User {
     }
 
     public void dislike(User user) {
-        if (user.equals(this)) {
+        if (user == null || user.equals(this)) {
             return;
         }
         likedUsers.removeUser(user);
