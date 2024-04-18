@@ -16,37 +16,39 @@ public class Player {
 
     public void play() {
         synchronized (isPlayingLock) {
-            isPlaying = true;
-            System.out.println("The music is playing");
+            if (!isPlaying) {
+                isPlaying = true;
+                System.out.println("The music is playing");
+            }
         }
     }
 
     public void pause() {
         synchronized (isPlayingLock) {
-            isPlaying = false;
-            System.out.println("The music is paused");
+            if (isPlaying) {
+                isPlaying = false;
+                System.out.println("The music is paused");
+            }
         }
     }
 
     public void skip() {
         synchronized (currentSongLock) {
             currentSong++;
-            if (playlist.isEmpty() || currentSong >= playlist.size()) {
-                System.out.println("Last song has no next songs");
-            } else {
-                System.out.println(playlist.get(currentSong) + " is playing now");
+            if (currentSong >= playlist.size()) {
+                currentSong = 0;
             }
+            System.out.println(playlist.get(currentSong) + " is playing now");
         }
     }
 
     public void previous() {
         synchronized (currentSongLock) {
             currentSong--;
-            if (playlist.isEmpty() || currentSong < 0) {
-                System.out.println("First song has no previous songs");
-            } else {
-                System.out.println(playlist.get(currentSong) + " is playing now");
+            if (currentSong < 0) {
+                currentSong = playlist.size() - 1;
             }
+            System.out.println(playlist.get(currentSong) + " is playing now");
         }
     }
 }
