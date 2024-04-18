@@ -2,29 +2,33 @@ package spotify;
 
 public class Player {
     private final Object lock = new Object();
-    private String isPlaying;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
-            this.isPlaying = "play";
+            if (!isPlaying) {
+                isPlaying = true;
+            }
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            this.isPlaying = "pause";
+            if (isPlaying) {
+                isPlaying = false;
+            }
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            this.isPlaying = "skip";
+            isPlaying = true;
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            this.isPlaying = "previous";
+            isPlaying = true;
         }
     }
 }
