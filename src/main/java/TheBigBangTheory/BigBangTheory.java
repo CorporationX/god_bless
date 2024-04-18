@@ -18,7 +18,7 @@ public class BigBangTheory {
         );
 
         tasks.forEach(task -> service.execute(task));
-        service.awaitTermination(5, TimeUnit.SECONDS);
         service.shutdown();
+        service.awaitTermination(6, TimeUnit.SECONDS);
     }
 }

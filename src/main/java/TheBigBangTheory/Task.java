@@ -11,7 +11,7 @@ public class Task implements Runnable {
     public void run() {
         System.out.println(name + " начал выполнять задание " + task);
         try {
-            Thread.sleep(5000L);
+            Thread.sleep(3000L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e.getMessage());
         }
