@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_5532;
 
-import lombok.SneakyThrows;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +8,8 @@ public class GooglePhotosAutoUploader {
     private List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (LOCK) {
-            while (true) {
+        while (true) {
+            synchronized (LOCK) {
                 while (photosToUpload.isEmpty()) {
                     try {
                         LOCK.wait();
