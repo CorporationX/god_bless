@@ -21,7 +21,7 @@ public class CityWorker implements Runnable {
         System.out.println("Дистанция до города - " + getJourneyDistance());
     }
 
-    public Monster findNearestMonster(City city, List<Monster> monsters) {
+    public Monster findNearestMonster() {
         return null;
     }
 
