@@ -1,8 +1,8 @@
 package faang.school.godbless.module.third.synchronization.spotify;
 
 public class Player {
-    Object lock = new Object();
-    boolean isPlaying = false;
+    private Object lock = new Object();
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
