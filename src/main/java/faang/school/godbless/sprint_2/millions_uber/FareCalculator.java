@@ -1,4 +1,4 @@
-package faang.school.godbless.millions_uber;
+package faang.school.godbless.sprint_2.millions_uber;
 
 import java.util.function.BiFunction;
 
