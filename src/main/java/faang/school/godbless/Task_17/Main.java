@@ -39,6 +39,7 @@ public class Main {
         System.out.println(ListOfIntegersToListOfStrings(Arrays.asList(1, 2, 3, 4, 5)));
 
         allNumbersLikePalindrome(1, 50);
+        allSubStringsInPalindrome("helolo");
 
     }
 
@@ -107,9 +108,11 @@ public class Main {
     }
 
     static void allNumbersLikePalindrome(int start, int end) {
-        IntStream.range(start, end).filter(number -> Integer.toString(number).contentEquals(new StringBuilder(Integer.toString(number)).reverse())).forEach(System.out::println);
+        IntStream.range(start, end).filter(number -> Integer.toString(number).
+                contentEquals(new StringBuilder(Integer.toString(number)).reverse())).forEach(System.out::println);
     }
-    static void allSubStringsInPalindrome(String string) {
 
+    static void allSubStringsInPalindrome(String string) {
+        string.chars().forEach(letter -> IntStream.range(0, string.length()).forEach(i -> String.valueOf(letter)));
     }
 }
