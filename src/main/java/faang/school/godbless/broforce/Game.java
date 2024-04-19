@@ -30,6 +30,8 @@ public class Game {
                     if (player.getLives() == 0) {
                         return gameOver();
                     }
+                }else{
+                    return true;
                 }
             }
         } else {
