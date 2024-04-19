@@ -104,5 +104,7 @@ public class Main {
     static List<String> ListOfIntegersToListOfStrings(List<Integer> numbers) {
         return numbers.stream().map(Integer::toBinaryString).toList();
     }
-
+    static void allNumbersLikePalindrome(int start, int end) {
+        IntStream.range(start, end).
+    }
 }
