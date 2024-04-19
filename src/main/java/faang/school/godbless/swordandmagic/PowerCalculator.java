@@ -1,10 +1,14 @@
 package faang.school.godbless.swordandmagic;
 
-public class CharacterThreads extends Thread {
+import lombok.Getter;
+
+@Getter
+public class PowerCalculator extends Thread {
+
     private int power;
     private final Character character;
 
-    public CharacterThreads(Character character) {
+    public PowerCalculator(Character character) {
         this.character = character;
     }
 
@@ -13,7 +17,4 @@ public class CharacterThreads extends Thread {
         power = character.getPower();
     }
 
-    public int getPower() {
-        return power;
-    }
 }
