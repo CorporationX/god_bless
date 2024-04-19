@@ -8,6 +8,7 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
   private String character;
   private int foodAmount;
+
   @Override
   public void run() {
     String food = getFoodType();
