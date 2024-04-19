@@ -1,0 +1,19 @@
+package faang.school.godbless.BJS2_5596;
+
+import lombok.Data;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Data
+public class VideoManager {
+    private Map<String, Integer> viewsMap = new HashMap<>();
+
+    public synchronized void addView(String videoId) {
+        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
+    }
+
+    public synchronized int getViewCount(String videoId) {
+        return viewsMap.getOrDefault(videoId, 0);
+    }
+}
