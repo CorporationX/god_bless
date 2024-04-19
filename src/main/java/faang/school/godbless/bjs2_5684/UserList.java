@@ -11,7 +11,6 @@ public class UserList {
         users.add(user);
     }
 
-    // Возвращает список пользователей онлайн.
     public List<User> getOnlineUsers() {
         return users.stream().filter(User::isOnline).toList();
     }

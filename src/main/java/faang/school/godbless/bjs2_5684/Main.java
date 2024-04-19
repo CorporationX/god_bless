@@ -24,27 +24,27 @@ public class Main {
         ChatManager chatManager = new ChatManager();
         chatManager.setUserList(userList);
 
-        ExecutorService executor = Executors.newFixedThreadPool(MAX_THREAD);
-
-        executor.execute(() -> vasya.startChat(chatManager));
-        Thread.sleep(3000);
-        executor.execute(() -> sveta.startChat(chatManager));
-        Thread.sleep(3000);
-        executor.execute(() -> dima.startChat(chatManager));
-        Thread.sleep(3000);
-        executor.execute(() -> katya.startChat(chatManager));
-        Thread.sleep(3000);
-        executor.execute(() -> vasya.leaveChat(chatManager));
-        Thread.sleep(3000);
-        executor.execute(() -> sveta.leaveChat(chatManager));
-
-        executor.shutdown();
-
+        ExecutorService executor = null;
         try {
-            while (!executor.awaitTermination(1, TimeUnit.HOURS)) {
+            executor = Executors.newFixedThreadPool(MAX_THREAD);
+            executor.execute(() -> vasya.startChat(chatManager));
+            Thread.sleep(3000);
+            executor.execute(() -> sveta.startChat(chatManager));
+            Thread.sleep(3000);
+            executor.execute(() -> dima.startChat(chatManager));
+            Thread.sleep(3000);
+            executor.execute(() -> katya.startChat(chatManager));
+            Thread.sleep(3000);
+            executor.execute(() -> vasya.leaveChat(chatManager));
+            Thread.sleep(3000);
+            executor.execute(() -> sveta.leaveChat(chatManager));
+        } finally {
+            if (executor != null) {
+                executor.shutdown();
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        }
+
+        while (!executor.awaitTermination(1, TimeUnit.HOURS)) {
         }
 
         chatManager.printCurrentChats();
