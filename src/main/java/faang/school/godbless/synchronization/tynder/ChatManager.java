@@ -77,15 +77,9 @@ public class ChatManager {
             return;
         }
 
-        var userChats = activeChats.stream()
-                .filter(chat -> chat.hasUser(user))
-                .toList();
+        var userChats = getUserChats(user);
 
-        var chatPartners = userChats.stream()
-                .flatMap(chat -> chat.getUsersInChat().stream())
-                .distinct()
-                .filter(currentUser -> !currentUser.equals(user))
-                .toList();
+        var chatPartners = getChatPartners(user);
 
         activeChats.removeAll(userChats);
 
@@ -100,19 +94,27 @@ public class ChatManager {
         });
     }
 
+    private List<Chat> getUserChats(User user) {
+        return activeChats.stream()
+                .filter(chat -> chat.hasUser(user))
+                .toList();
+    }
+
     public synchronized void sendMessageViaChat(User user) {
         userCheck(user);
 
-        var userChats = activeChats.stream()
-                .filter(chat -> chat.hasUser(user))
-                .toList();
+        List<User> chatPartners = getChatPartners(user);
 
-        var chatPartners = userChats.stream()
+        chatPartners.forEach(partner -> log.info("User " + user.getName() + " sent message to " + partner.getName()));
+    }
+
+    private List<User> getChatPartners(User user) {
+        var userChats = getUserChats(user);
+
+        return userChats.stream()
                 .flatMap(chat -> chat.getUsersInChat().stream())
                 .distinct()
                 .filter(currentUser -> !currentUser.equals(user))
                 .toList();
-
-        chatPartners.forEach(partner -> log.info("User " + user.getName() + " sent message to " + partner.getName()));
     }
 }

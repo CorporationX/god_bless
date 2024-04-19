@@ -24,8 +24,7 @@ public class Main {
         userList.addUser(new User("Denis"));
 
 
-        userList.getOnlineUsers().stream()
-                .limit(3)
+        userList.getOnlineUsers()
                 .forEach(user -> usersThreads.submit(() -> {
                     chatManager.startChat(user);
 
@@ -35,7 +34,6 @@ public class Main {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    chatManager.sendMessageViaChat(user);
 
                     chatManager.endChat(user);
                 }));
