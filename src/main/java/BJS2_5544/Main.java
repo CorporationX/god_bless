@@ -24,7 +24,7 @@ public class Main {
         friends.put("Yasha", List.of("Ilya", "Danila"));
         friends.put("Dima", List.of("Ilya"));
         friends.put("Sasha", List.of("Maksim", "Denis", "Ilya"));
-        findPeopleWhoHaveSimilarFriend(friends);
+        findPeopleWhoHaveSimilarFriend(friends).forEach(System.out::println);
         // 5
         System.out.println(findAvgSalaryInUnit(List.of(
                 new Employee("Oleg", 20000, "First"),
@@ -67,14 +67,22 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static void findPeopleWhoHaveSimilarFriend(Map<String, List<String>> friends) {
+    public static Set<List<String>> findPeopleWhoHaveSimilarFriend(Map<String, List<String>> friends) {
+        Set<List<String>> similarFriend = new HashSet<>();
         friends.forEach(
                 (key, val) -> friends.entrySet().stream()
                         .filter(friend -> !val.contains(friend.getKey()) && !key.equals(friend.getKey()))
                         .forEach(friend -> friend.getValue().stream()
                                 .filter(val::contains)
-                                .forEach(name -> System.out.println(key + " - " + friend.getKey())))
+                                .forEach(name -> {
+                                    if (key.compareTo(friend.getKey()) > 0) {
+                                        similarFriend.add(List.of(key, friend.getKey()));
+                                    } else {
+                                        similarFriend.add(List.of(friend.getKey(), key));
+                                    }
+                                }))
         );
+        return similarFriend;
     }
 
     public static Map<String, Double> findAvgSalaryInUnit(List<Employee> employees) {
