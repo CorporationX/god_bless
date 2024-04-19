@@ -35,7 +35,7 @@ public class ChatManager {
             log.info("User " + user.getName() + " is waiting for chat.");
 
             try {
-                user.wait();
+                this.wait(30000);
             } catch (InterruptedException e) {
                 log.warn("Waiting was interrupted");
             }
@@ -67,11 +67,7 @@ public class ChatManager {
 
         log.info("New chat have been created between " + user.getName() + " and " + partner.getName());
 
-        partner.notifyAll();
-    }
-
-    public synchronized void waitForChat(User user) {
-
+        this.notifyAll();
     }
 
     public synchronized void endChat(User user) {

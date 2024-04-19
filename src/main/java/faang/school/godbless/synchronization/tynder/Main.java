@@ -26,21 +26,21 @@ public class Main {
 
         userList.getOnlineUsers().stream()
                 .limit(5)
-                .forEach(user -> usersThreads.submit(() -> chatManager.startChat(user)));
+                .forEach(user -> usersThreads.submit(() -> {
+                    chatManager.startChat(user);
 
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
 
-        userList.getOnlineUsers().stream()
-                .limit(5)
-                .forEach(user -> usersThreads.submit(() -> chatManager.endChat(user)));
+                    chatManager.endChat(user);
+                }));
 
 
         usersThreads.shutdown();
-        usersThreads.awaitTermination(30, TimeUnit.SECONDS);
+        usersThreads.awaitTermination(10, TimeUnit.SECONDS);
 
         userList.getOnlineUsers().forEach(System.out::println);
     }
