@@ -3,7 +3,6 @@ package Supercow;
 public class Boss {
     private int maxPlayers;
     private int currentPlayers;
-    private final Object LOCK = new Object();
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
