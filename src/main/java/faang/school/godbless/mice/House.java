@@ -13,19 +13,21 @@ import static java.util.concurrent.Executors.newScheduledThreadPool;
 @Slf4j
 @Getter
 public class House {
+
     private List<Room> rooms;
     private List<Food> collectedFood;
+    private static final int AMOUNT_THREADS = 5;
 
     public static void main(String[] args) {
         House house = new House();
 
-        int amountProcessors = 5;
-        ScheduledExecutorService executor = newScheduledThreadPool(amountProcessors);
 
-        for(int i = 0; i<amountProcessors; i++){
+        ScheduledExecutorService executor = newScheduledThreadPool(AMOUNT_THREADS);
+
+        for (int i = 0; i < AMOUNT_THREADS; i++) {
             Room room1 = house.getRooms().get(i);
-            Room room2 = house.getRooms().get(i+amountProcessors);
-            executor.schedule(()->house.collectFood(room1, room2, house.getCollectedFood()), 30, TimeUnit.SECONDS);
+            Room room2 = house.getRooms().get(i + AMOUNT_THREADS);
+            executor.schedule(() -> house.collectFood(room1, room2, house.getCollectedFood()), 30, TimeUnit.SECONDS);
         }
 
         executor.shutdown();
@@ -50,7 +52,7 @@ public class House {
         collectedFood.addAll(room2.collectFoodFromRoom());
     }
 
-    public House(){
+    public House() {
 
         rooms = new ArrayList<>();
 
