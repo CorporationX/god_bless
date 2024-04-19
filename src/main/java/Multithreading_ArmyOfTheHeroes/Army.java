@@ -10,34 +10,16 @@ import java.util.List;
 @Setter
 public class Army {
     private List<Character> characters;
-    private List<CharacterPowerThread> archersPowerThread = new ArrayList<>();
-    private List<CharacterPowerThread> magesPowerThread = new ArrayList<>();
-    private List<CharacterPowerThread> swordsmenPowerThread = new ArrayList<>();
 
     public Army(List<Character> characters) {
         this.characters = characters;
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        characters.forEach(character -> {
-            if (character.isArcher()) {
-                startingThreads(character, archersPowerThread);
-            } else if (character.isMage()) {
-                startingThreads(character, magesPowerThread);
-            } else if (character.isSwordsman()) {
-                startingThreads(character, swordsmenPowerThread);
-            }
-        });
+        List<CharacterPowerThread> characterPowerThreads = new ArrayList<>();
+        characters.forEach(character -> startingThreads(character, characterPowerThreads));
 
-        int archersPower = getSumPower(archersPowerThread);
-        int magesPower = getSumPower(magesPowerThread);
-        int swordsmenPower = getSumPower(swordsmenPowerThread);
-
-        System.out.println("Archers total power " + archersPower);
-        System.out.println("Mages total power " + magesPower);
-        System.out.println("Swordsmen total power " + swordsmenPower);
-
-        return archersPower + magesPower + swordsmenPower;
+        return getSumPower(characterPowerThreads);
     }
 
     private void startingThreads(Character character, List<CharacterPowerThread> charsThread) {

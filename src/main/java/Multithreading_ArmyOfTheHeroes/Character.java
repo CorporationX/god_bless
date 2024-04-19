@@ -7,16 +7,4 @@ import lombok.Getter;
 @AllArgsConstructor
 public abstract class Character {
     private int power;
-
-    public boolean isArcher() {
-        return false;
-    }
-
-    public boolean isMage() {
-        return false;
-    }
-
-    public boolean isSwordsman() {
-        return false;
-    }
 }

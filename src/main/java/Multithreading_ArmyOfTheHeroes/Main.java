@@ -1,6 +1,5 @@
 package Multithreading_ArmyOfTheHeroes;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -13,6 +12,6 @@ public class Main {
         );
 
         Army army = new Army(characters);
-        System.out.println(army.calculateTotalPower());
+        System.out.println("Total army power - " + army.calculateTotalPower());
     }
 }
