@@ -1,4 +1,4 @@
-package task1;
+package task2;
 
 public class House {
     private String name;
