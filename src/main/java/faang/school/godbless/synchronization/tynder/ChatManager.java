@@ -99,4 +99,20 @@ public class ChatManager {
             startChat(partner);
         });
     }
+
+    public synchronized void sendMessageViaChat(User user) {
+        userCheck(user);
+
+        var userChats = activeChats.stream()
+                .filter(chat -> chat.hasUser(user))
+                .toList();
+
+        var chatPartners = userChats.stream()
+                .flatMap(chat -> chat.getUsersInChat().stream())
+                .distinct()
+                .filter(currentUser -> !currentUser.equals(user))
+                .toList();
+
+        chatPartners.forEach(partner -> log.info("User " + user.getName() + " sent message to " + partner.getName()));
+    }
 }

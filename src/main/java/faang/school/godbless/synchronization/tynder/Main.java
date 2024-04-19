@@ -25,15 +25,17 @@ public class Main {
 
 
         userList.getOnlineUsers().stream()
-                .limit(5)
+                .limit(3)
                 .forEach(user -> usersThreads.submit(() -> {
                     chatManager.startChat(user);
 
+                    chatManager.sendMessageViaChat(user);
                     try {
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+                    chatManager.sendMessageViaChat(user);
 
                     chatManager.endChat(user);
                 }));
