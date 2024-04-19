@@ -7,11 +7,22 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) {
         System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
+
         Map<String, String> countriesAndCapitals = new HashMap<>();
         countriesAndCapitals.put("Russia", "Moscow");
         countriesAndCapitals.put("England", "London");
+
         System.out.println(capitals(countriesAndCapitals));
         System.out.println(stringsByParticularRules(Arrays.asList("First", "Second", "Fly", "Finally"), 'F'));
+
+        Map<String, List<String>> peopleAndFriends = new HashMap<>();
+        peopleAndFriends.put("John", Arrays.asList("Jessica", "Mike", "Tony"));
+        peopleAndFriends.put("Kevin", Arrays.asList("Jessica", "Carla", "Boris"));
+        peopleAndFriends.put("Melissa", Arrays.asList("Dorian", "Jason", "Pamella"));
+        peopleAndFriends.put("Harry", Arrays.asList("Mike", "Oscar", "Tony"));
+
+
+        peopleWithCommonFriends(peopleAndFriends);
 
     }
 
@@ -37,6 +48,18 @@ public class Main {
     }
 
     static void peopleWithCommonFriends(Map<String, List<String>> peopleAndFriends) {
-        IntStream.range(0, peopleAndFriends.size()).forEach(i -> peopleAndFriends.entrySet().stream().
+        peopleAndFriends.entrySet().stream().
+                filter(entryOne -> peopleAndFriends.entrySet().stream().
+                        anyMatch(entryAnother -> {
+                                    if (!entryOne.getKey().equals(entryAnother.getKey())) {
+                                        return entryOne.getValue().stream().
+                                                anyMatch(stringFromEntryOne -> entryAnother.getValue().stream().
+                                                        anyMatch(stringFromEntryOne::equals));
+
+                                    } else return false;
+                                }
+                        )).forEach(entry -> System.out.println(entry.getKey()));
+
     }
+
 }
