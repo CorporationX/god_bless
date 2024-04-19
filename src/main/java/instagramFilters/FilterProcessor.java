@@ -13,11 +13,7 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter, Function<Image, Image> secondFilter) {
-        Function<Image, Image> combinedFilter = (image) -> {
-            image = firstFilter.apply(image);
-            image = secondFilter.apply(image);
-            return image;
-        };
+        Function<Image, Image> combinedFilter = firstFilter.andThen(secondFilter);
 
         return combinedFilter;
     }
