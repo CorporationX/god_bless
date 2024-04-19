@@ -21,8 +21,16 @@ public class Main {
         peopleAndFriends.put("Melissa", Arrays.asList("Dorian", "Jason", "Pamella"));
         peopleAndFriends.put("Harry", Arrays.asList("Mike", "Oscar", "Tony"));
 
-
         peopleWithCommonFriends(peopleAndFriends);
+
+        middleSalaryByDeparture(Arrays.asList(
+                new Employee("John", 1000, "IT"),
+                new Employee("Mike", 2000, "Service"),
+                new Employee("Tony", 5000, "IT"),
+                new Employee("Melissa", 5000, "Science"),
+                new Employee("Oscar", 2000, "IT")
+        ));
+
 
     }
 
@@ -60,6 +68,19 @@ public class Main {
                                 }
                         )).forEach(entry -> System.out.println(entry.getKey()));
 
+    }
+
+    static void middleSalaryByDeparture(List<Employee> employees) {
+        Map<String, Double> middleSalaryByDeparture = new HashMap<>();
+        employees.stream().collect(Collectors.groupingBy(Employee::getDeparture)).
+                forEach((key, value) -> IntStream.range(0, value.size()).forEach(i -> {
+                    if (i != 0) {
+                        middleSalaryByDeparture.put(key, (middleSalaryByDeparture.get(key) + (value.get(i).getSalary()) / value.size()));
+                    } else {
+                        middleSalaryByDeparture.put(key, (value.get(i).getSalary()) / value.size());
+                    }
+                }));
+        System.out.println(middleSalaryByDeparture);
     }
 
 }
