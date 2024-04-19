@@ -24,11 +24,6 @@ public class Knight {
     public void startTrials()  {
         ExecutorService executors = Executors.newCachedThreadPool();
         trials.forEach(trial -> executors.execute(trial));
-        try {
-            Thread.sleep(1000l);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         executors.shutdown();
     }
 }
