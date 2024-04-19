@@ -30,6 +30,13 @@ public class Main {
                 new Employee("Melissa", 5000, "Science"),
                 new Employee("Oscar", 2000, "IT")
         ));
+        char[] charArray = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
+                'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
+                'u', 'v', 'w', 'x', 'y', 'z'};
+
+        sortStringsByAlphabet(Arrays.asList("apple", "banana", "123", "dog", "cat"), charArray);
+
+        System.out.println(ListOfIntegersToListOfStrings(Arrays.asList(1, 2, 3, 4, 5)));
 
 
     }
@@ -81,6 +88,21 @@ public class Main {
                     }
                 }));
         System.out.println(middleSalaryByDeparture);
+    }
+
+    static void sortStringsByAlphabet(List<String> strings, char[] alphabet) {
+        List<String> stringsAfterActions = new ArrayList<>();
+        strings.stream().sorted(Comparator.comparingInt(String::length)).
+                forEach(string -> IntStream.range(0, alphabet.length).filter(i -> string.indexOf(alphabet[i]) != -1).forEach(i -> {
+                    if (!stringsAfterActions.contains(string)) {
+                        stringsAfterActions.add(string);
+                    }
+                }));
+        System.out.println(stringsAfterActions);
+    }
+
+    static List<String> ListOfIntegersToListOfStrings(List<Integer> numbers) {
+        return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
 }
