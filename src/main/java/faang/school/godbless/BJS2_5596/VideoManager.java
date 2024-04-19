@@ -7,14 +7,13 @@ import java.util.Map;
 
 @Data
 public class VideoManager {
-    private Map<String, Integer> viewMap = new HashMap<>();
-    private int viewsMap;
+    private Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
-        viewMap.put(videoId, viewMap.getOrDefault(videoId, 0) + 1);
+        viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
     }
 
     public synchronized int getViewCount(String videoId) {
-        return viewMap.getOrDefault(videoId, 0);
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
