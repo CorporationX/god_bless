@@ -17,7 +17,7 @@ public class Main {
 
         ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
         for (int i = 1; i <= NUM_VIDEOS; i++) {
-            final String id = "ID-" + i;
+            final String id = buildID(i);
             for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
                 pool.execute(() -> {
                     manager.addView(id);
@@ -33,8 +33,12 @@ public class Main {
     private static List<String> getVideoIds() {
         List<String> ids = new ArrayList<>();
         for (int i = 1; i <= NUM_VIDEOS; i++) {
-            ids.add("ID-" + i);
+            ids.add(buildID(i));
         }
         return ids;
+    }
+
+    private static String buildID(int id) {
+        return "ID" + id;
     }
 }
