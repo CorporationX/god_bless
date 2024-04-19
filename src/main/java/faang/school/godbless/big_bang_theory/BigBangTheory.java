@@ -6,8 +6,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
+
+    public final static int QUANTITY = 4;
+
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService excecutor = Executors.newFixedThreadPool(4);
+        ExecutorService excecutor = Executors.newFixedThreadPool(QUANTITY);
 
         List<Task> tasks = List.of(
                 new Task("Task 1", "Fly"),
