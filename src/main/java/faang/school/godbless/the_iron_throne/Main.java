@@ -22,7 +22,8 @@ public class Main {
         User dima = new User("Dima");
         User peter = new User("Peter");
         User kolya = new User("Kolya");
-        List<User> users = List.of(vasya, peter, kolya, dima);
+        User maxim = new User("Maxim");
+        List<User> users = List.of(vasya, peter, kolya, dima, maxim);
 
         ExecutorService executor = Executors.newFixedThreadPool(4);
 
@@ -30,9 +31,14 @@ public class Main {
         executor.execute(() -> peter.joinHouse(house, mage));
         executor.execute(() -> kolya.joinHouse(house, knight));
         executor.execute(() -> dima.joinHouse(house, lord));
-        Thread.sleep(4000);
+        executor.execute(() -> maxim.joinHouse(house, lord));
+        Thread.sleep(5000);
 
         executor.execute(() -> vasya.leaveHouse(house));
+
+        Thread.sleep(1000);
+
+        executor.execute(() -> dima.leaveHouse(house));
 
         executor.shutdown();
 

@@ -16,7 +16,7 @@ public class House {
     public void addRole(String role, User user) {
         synchronized (roles) {
             if (roles.get(role) <= 0) {
-                System.out.println("Wait "+ user.getName()+" until the role is released");
+                System.out.println("Wait " + user.getName() + " until the role is released");
                 try {
                     roles.wait();
                 } catch (InterruptedException e) {
@@ -35,7 +35,7 @@ public class House {
             roles.computeIfPresent(role, (key, value) -> value + 1);
             user.setHouse(null);
             user.setRole(null);
-            System.out.println("Left "+ user.getName()+" and position " + role);
+            System.out.println("Left " + user.getName() + " and position " + role);
             roles.notify();
         }
     }
