@@ -5,36 +5,37 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
+        List<Integer> testNumber = List.of(1, 3, 4, 5, 6, 7, 8);
         // 1
-        System.out.println(sumEvenNumber(List.of(1, 3, 4, 5, 6, 7, 8)));
+        System.out.println(sumEvenNumber(testNumber));
         // 2
-        if (maxNumberAtList(List.of(1, 2, 3)).isPresent()) {
-            System.out.println(maxNumberAtList(List.of(1, 2, 3)).get());
+        if (maxNumberAtList(testNumber).isPresent()) {
+            System.out.println(maxNumberAtList(testNumber).get());
         } else {
             System.out.println("Вы передали пустой список");
         }
         // 3
-        if (avgNumberAtList(List.of(1, 2, 3)).isPresent()) {
-            System.out.println(avgNumberAtList(List.of(1, 2, 3)).getAsDouble());
+        if (avgNumberAtList(testNumber).isPresent()) {
+            System.out.println(avgNumberAtList(testNumber).getAsDouble());
         } else {
             System.out.println("Вы передали пустой список");
         }
         // 4
         System.out.println(countStrWithChar(List.of("a", "b", "c", "a", "d", "a"), 'a'));
         // 5
-        System.out.println(filterStr(List.of("hello asdf", "asdfqwerqwe", "asdf wwww", "dfs"), "asdf"));
+        System.out.println(filterStrContainingSubstring(List.of("hello asdf", "asdfqwerqwe", "asdf wwww", "dfs"), "asdf"));
         // 6
-        System.out.println(filterCountry(List.of("Russia", "Italy", "USA", "China", "Germany")));
+        System.out.println(sortStringLength(List.of("Russia", "Italy", "USA", "China", "Germany")));
         // 7
-        System.out.println(correctPassword(List.of("asdf12345", "qwerty1234", "asdddddd", "13241243asdf")));
+        System.out.println(matchLengthPassword(List.of("asdf12345", "qwerty1234", "asdddddd", "13241243asdf")));
         // 8
-        if (findMinNumberElement(List.of(1, 2, 3, 4, 5)).isPresent()) {
-            System.out.println(findMinNumberElement(List.of(1, 2, 3, 4, 5)).get());
+        if (findMinNumberElement(testNumber, 3).isPresent()) {
+            System.out.println(findMinNumberElement(testNumber, 3).get());
         } else {
             System.out.println("Вы передали пустой список");
         }
         // 9
-        System.out.println(reverseStringInLength(List.of("asdf", "qqqqq", "hello", "bye")));
+        System.out.println(convertStringsToLengths(List.of("asdf", "qqqqq", "hello", "bye")));
     }
 
     public static int sumEvenNumber(List<Integer> numbers) {
@@ -61,30 +62,30 @@ public class Main {
                 .count();
     }
 
-    public static List<String> filterStr(List<String> strings, String phrase) {
+    public static List<String> filterStrContainingSubstring(List<String> strings, String phrase) {
         return strings.stream()
                 .filter(str -> str.contains(phrase))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filterCountry(List<String> strings) {
+    public static List<String> sortStringLength(List<String> strings) {
         return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
-    public static boolean correctPassword(List<String> strings) {
+    public static boolean matchLengthPassword(List<String> strings) {
         return strings.stream()
                 .allMatch(str -> str.length() >= 8);
     }
 
-    public static Optional<Integer> findMinNumberElement(List<Integer> numbers) {
+    public static Optional<Integer> findMinNumberElement(List<Integer> numbers, int sortNumber) {
         return numbers.stream()
-                .filter(num -> num > 3)
+                .filter(num -> num > sortNumber)
                 .min(Integer::compareTo);
     }
 
-    public static List<Integer> reverseStringInLength(List<String> strings) {
+    public static List<Integer> convertStringsToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
