@@ -6,13 +6,13 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        /*System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
+        System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
 
         Map<String, String> countriesAndCapitals = new HashMap<>();
         countriesAndCapitals.put("Russia", "Moscow");
         countriesAndCapitals.put("England", "London");
-
         System.out.println(capitals(countriesAndCapitals));
+
         System.out.println(stringsByParticularRules(Arrays.asList("First", "Second", "Fly", "Finally"), 'F'));
 
         Map<String, List<String>> peopleAndFriends = new HashMap<>();
@@ -20,7 +20,6 @@ public class Main {
         peopleAndFriends.put("Kevin", Arrays.asList("Jessica", "Carla", "Boris"));
         peopleAndFriends.put("Melissa", Arrays.asList("Dorian", "Jason", "Pamella"));
         peopleAndFriends.put("Harry", Arrays.asList("Mike", "Oscar", "Tony"));
-
         peopleWithCommonFriends(peopleAndFriends);
 
         middleSalaryByDeparture(Arrays.asList(
@@ -33,14 +32,15 @@ public class Main {
         char[] charArray = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i',
                 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't',
                 'u', 'v', 'w', 'x', 'y', 'z'};
-
         sortStringsByAlphabet(Arrays.asList("apple", "banana", "123", "dog", "cat"), charArray);
 
         System.out.println(ListOfIntegersToListOfStrings(Arrays.asList(1, 2, 3, 4, 5)));
 
         allNumbersLikePalindrome(1, 50);
-        allSubStringsInPalindrome("helolo");*/
-        allPerfectNumbers(1, 5);
+
+        allPalindromeSubstrings("helolo");
+
+        allPerfectNumbers(1, 6);
 
     }
 
@@ -113,13 +113,18 @@ public class Main {
                 contentEquals(new StringBuilder(Integer.toString(number)).reverse())).forEach(System.out::println);
     }
 
-    static void allSubStringsInPalindrome(String string) {
-        string.chars().forEach(letter -> IntStream.range(0, string.length()).forEach(i -> String.valueOf(letter)));
+    static void allPalindromeSubstrings(String string) {
+        if (string!= null) {
+            List<String> subStrings = new ArrayList<>();
+            IntStream.range(0, string.length()).forEach(i ->
+                    IntStream.range(i + 1, string.length()).filter(j -> string.substring(i, j + 1).contentEquals(new StringBuilder(string.substring(i, j + 1)).reverse())).forEach(j -> subStrings.add(string.substring(i, j + 1))));
+            System.out.println(subStrings);
+        } else throw new IllegalArgumentException("Input is null");
     }
 
     static void allPerfectNumbers(int start, int end) {
         if (start > 0 && end > 0) {
             IntStream.range(start == 1 ? start + 1 : start, end + 1).filter(number -> number == (IntStream.range(1, number).filter(i -> number % i == 0).reduce(Integer::sum)).getAsInt()).forEach(System.out::println);
-        } else throw new IllegalArgumentException("Input numbers < 0");
+        } else throw new IllegalArgumentException("Value of input numbers < 0");
     }
 }
