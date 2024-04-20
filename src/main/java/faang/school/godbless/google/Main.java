@@ -1,6 +1,7 @@
 package faang.school.godbless.google;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -21,18 +22,10 @@ public class Main {
         System.out.println(findByKeyWord("Google"));
     }
 
-
     public static void addNewWebPage(WebPage webPage) {
-        Set<String> sortedContent = new HashSet<>();
-        for (String word : webPage.getContent().trim().split("\\s+|,\\s*|\\.\\s*")) {
-            sortedContent.add(word);
-        }
+        Set<String> sortedContent = new HashSet<>(Arrays.asList(webPage.getContent().trim().split("\\s+|,\\s*|\\.\\s*")));
         for (String sortedWord : sortedContent) {
-            for (String key : webPages.keySet()) {
-                if (key.equals(sortedWord)) {
-                    webPages.get(key).add(webPage);
-                }
-            }
+            webPages.computeIfAbsent(sortedWord, k -> new ArrayList<>()).add(webPage);
         }
     }
 
@@ -43,4 +36,5 @@ public class Main {
     public static void deleteByUrl(String url) {
         webPages.forEach((type, webPagesList) -> webPagesList.removeIf(webPage -> webPage.getUrl().equals(url)));
     }
+
 }
