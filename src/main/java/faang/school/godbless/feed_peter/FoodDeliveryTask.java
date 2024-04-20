@@ -1,17 +1,20 @@
 package faang.school.godbless.feed_peter;
 
-import lombok.AllArgsConstructor;
-
 import java.util.Random;
 
-@AllArgsConstructor
-public class FoodDeliveryTask implements Runnable{
+public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
+    private Random random = new Random();
+
+    public FoodDeliveryTask(String character, int foodAmount) {
+        this.character = character;
+        this.foodAmount = foodAmount;
+    }
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[random.nextInt(foodTypes.length)];
     }
 
     @Override
@@ -22,7 +25,7 @@ public class FoodDeliveryTask implements Runnable{
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Что пошло не так(");
         }
 
         System.out.println(character + " ест " + foodAmount + " " + foodType);
