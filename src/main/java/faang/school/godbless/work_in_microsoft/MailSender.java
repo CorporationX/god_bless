@@ -1,14 +1,27 @@
 package faang.school.godbless.work_in_microsoft;
 
-import java.util.stream.IntStream;
 
 public class MailSender {
     public static void main(String[] args) {
         int totalMessages = 1000;
         int messagesPerThread = 200;
-        IntStream.range(0, 5)
-                .mapToObj(i -> new SenderRunnable(i * messagesPerThread, Math.min((i + 1) * messagesPerThread, totalMessages)))
-                .map(Thread::new)
-                .forEach(Thread::start);
+        Thread[] threads = new Thread[5];
+        for (int i = 0; i < 5; i++) {
+            int startIndex = i * messagesPerThread;
+            int endIndex = Math.min((i + 1) * messagesPerThread, totalMessages);
+            SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
+            threads[i] = new Thread(senderRunnable);
+            threads[i].start();
+        }
+
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Ошибка в выводе сообщения");
+        }
+
+        System.out.println("Все сообщения отправлены.");
     }
 }
