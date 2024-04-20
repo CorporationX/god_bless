@@ -6,7 +6,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
+        /*System.out.println(uniquePairs(10, Arrays.asList(1, 9, 3, 6, 4, 5)));
 
         Map<String, String> countriesAndCapitals = new HashMap<>();
         countriesAndCapitals.put("Russia", "Moscow");
@@ -39,7 +39,8 @@ public class Main {
         System.out.println(ListOfIntegersToListOfStrings(Arrays.asList(1, 2, 3, 4, 5)));
 
         allNumbersLikePalindrome(1, 50);
-        allSubStringsInPalindrome("helolo");
+        allSubStringsInPalindrome("helolo");*/
+        allPerfectNumbers(1, 5);
 
     }
 
@@ -114,5 +115,11 @@ public class Main {
 
     static void allSubStringsInPalindrome(String string) {
         string.chars().forEach(letter -> IntStream.range(0, string.length()).forEach(i -> String.valueOf(letter)));
+    }
+
+    static void allPerfectNumbers(int start, int end) {
+        if (start > 0 && end > 0) {
+            IntStream.range(start == 1 ? start + 1 : start, end + 1).filter(number -> number == (IntStream.range(1, number).filter(i -> number % i == 0).reduce(Integer::sum)).getAsInt()).forEach(System.out::println);
+        } else throw new IllegalArgumentException("Input numbers < 0");
     }
 }
