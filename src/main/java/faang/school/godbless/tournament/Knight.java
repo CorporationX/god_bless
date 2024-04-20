@@ -25,14 +25,11 @@ public class Knight {
     public void startTrials() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         for (Trial trial : trials) {
-            executorService.submit(() -> {
-                System.out.println(name + " начал испытание: " + trial.getTrialName());
-                trial.run();
-            });
+            executorService.submit(trial);
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executorService.awaitTermination(5, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
