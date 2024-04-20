@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private final List<Creature> creaturesList = new ArrayList<>();
+    private final List<Creature> creatures = new ArrayList<>();
     private int totalPower = 0;
 
     public void addUnit(Creature creature) {
-        creaturesList.add(creature);
+        creatures.add(creature);
     }
 
     public int calculateTotalPower() {
         List<PowerCalculationThread> threads = new ArrayList<>();
 
-        for (Creature creature : creaturesList) {
+        for (Creature creature : creatures) {
             PowerCalculationThread thread = new PowerCalculationThread(creature);
             threads.add(thread);
             thread.start();
@@ -22,7 +22,7 @@ public class Army {
 
         for (PowerCalculationThread thread : threads) {
             try {
-                totalPower += thread.getPower();
+                increaseTotalPower(thread.getPower());
                 thread.join();
             } catch (InterruptedException ex) {
                 throw new RuntimeException(ex);
@@ -30,5 +30,9 @@ public class Army {
         }
 
         return totalPower;
+    }
+
+    private synchronized void increaseTotalPower(int power) {
+            totalPower += power;
     }
 }
