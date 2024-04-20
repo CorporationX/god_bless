@@ -3,6 +3,7 @@ package homeChoresList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
@@ -13,11 +14,13 @@ public class WeasleyFamily {
         ExecutorService executor = Executors.newCachedThreadPool();
         chores.forEach(chore -> executor.execute(() -> new Chore(chore).run()));
         executor.shutdown();
+
         try {
-            Thread.sleep(5000);
+            executor.awaitTermination(5000, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+
         System.out.println("All chores is completed");
 
     }
