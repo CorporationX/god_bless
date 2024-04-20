@@ -1,6 +1,6 @@
 package faang.school.godbless.analysis_active;
 
-public enum ActionType {
+public enum ActionType  {
     POST,
     COMMENT,
     LIKE,

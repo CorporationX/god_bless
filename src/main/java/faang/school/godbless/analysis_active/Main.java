@@ -9,7 +9,7 @@ import static faang.school.godbless.analysis_active.UserActionAnalyzer.findTop10
 import static faang.school.godbless.analysis_active.UserActionAnalyzer.findTop3UsersWithMostCommentsLastMonth;
 import static faang.school.godbless.analysis_active.UserActionAnalyzer.findTop5PopularTopics;
 
-public class Main {
+public class Main  {
     public static void main(String[] args) {
         List<UserAction> userActions = new ArrayList<>();
         userActions.add(new UserAction(1, "Max", ActionType.LIKE,

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class UserActionAnalyzer {
+public class UserActionAnalyzer  {
     public static List<Integer> findTop10MostActiveUsers(List<UserAction> userActions) {
         Map<Integer, Long> userActivityMap = userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
