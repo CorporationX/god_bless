@@ -1,21 +1,22 @@
 package faang.school.godbless.metaverse;
 
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@Data
+@Getter
+@AllArgsConstructor
 public class NotificationManager {
 
-    private Map<String, Consumer<Notification>> handlers = new HashMap<>();
+    private Map<String, Consumer<Notification>> handlers;
 
     public void registerHandler(String identifier, Consumer<Notification> handler) {
         handlers.put(identifier, handler);
     }
 
     public void sendNotification(Notification notification) {
-        System.out.println(handlers.get(notification.getType()));
+        handlers.get(notification.getType()).accept(notification);
     }
 }
