@@ -4,28 +4,26 @@ import lombok.Data;
 
 @Data
 public class DataCenterService {
-    private final DataCenter DATA_CENTER = new DataCenter();
+    private final DataCenter dataCenter = new DataCenter();
 
     public void addServer(double load, double maxLoad) {
-        DATA_CENTER.getServers().add(new Server(load, maxLoad));
+        dataCenter.getServers().add(new Server(load, maxLoad));
     }
 
     public void removeServer(Server serverToRemove) {
-        DATA_CENTER.getServers().remove(serverToRemove);
+        dataCenter.getServers().remove(serverToRemove);
         allocateResources(new ResourceRequest(serverToRemove.getLoad()));
     }
 
     public double getTotalEnergyConsumption() {
-        double totalConsumption = 0;
-        for (Server server : DATA_CENTER.getServers()) {
-            totalConsumption += server.getEnergyConsumption();
-        }
-        return totalConsumption;
+         return dataCenter.getServers().stream()
+                 .map(Server::getEnergyConsumption)
+                 .reduce(0.0,Double::sum);
     }
 
     public void allocateResources(ResourceRequest request) {
         double leftToAllocate = request.getLoad();
-        for (Server server : DATA_CENTER.getServers()) {
+        for (Server server : dataCenter.getServers()) {
             if ((server.getMaxLoad() - server.getLoad()) >= leftToAllocate) {
                 server.setLoad(server.getLoad() + leftToAllocate);
                 return;
@@ -34,12 +32,15 @@ public class DataCenterService {
                 server.setLoad(server.getMaxLoad());
                 leftToAllocate -= availableLoad;
             }
+        }if(leftToAllocate > 0){
+            releaseResources(new ResourceRequest(leftToAllocate));
+            allocateResources(new ResourceRequest(leftToAllocate));
         }
     }
 
     public void releaseResources(ResourceRequest request) {
         double leftToRelease = request.getLoad();
-        for (Server server : DATA_CENTER.getServers()) {
+        for (Server server : dataCenter.getServers()) {
             if (server.getLoad() >= leftToRelease) {
                 server.setLoad(server.getLoad() - leftToRelease);
                 return;
