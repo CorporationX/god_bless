@@ -9,28 +9,32 @@ public class GotMain {
         Map<String, House> houses = new HashMap<>();
         addNewHouse(houses, new House("Stark", "Wolf"));
         addNewHouse(houses, new House("Baratheon", "Stag"));
-        addNewHouse(houses, new House("Lion", "Wolf"));
+        addNewHouse(houses, new House("Lannister", "Lion"));
         addNewHouse(houses, new House("Targaryen", "Dragon"));
         addNewHouse(houses, new House("Mormont", "Bear"));
         printHouses(houses);
         removeHouse(houses, "Mormont");
         printHouses(houses);
-        sigilInfo(houses, "Lion");
+        printSigilInfo(houses, "Stark");
+        addNewHouse(houses, new House("Alliance", "Lion"));
+        printHouses(houses);
     }
 
-    public static void addNewHouse(Map<String, House> map, House house) {
-        map.put(house.getName(), house);
+    public static void addNewHouse(Map<String, House> houses, House house) {
+        if (!(house.getName() == null || house.getName().isEmpty())) houses.put(house.getName(), house);
+        else throw new IllegalArgumentException("House name is empty");
     }
 
-    public static void removeHouse(Map<String, House> map, String houseName) {
-        map.remove(houseName);
+    public static void removeHouse(Map<String, House> houses, String houseName) {
+        if (!(houseName == null || houseName.isEmpty())) houses.remove(houseName);
+        else throw new IllegalArgumentException("House name is empty");
     }
 
     public static void printHouses(Map<String, House> houses) {
         System.out.println(houses);
     }
 
-    public static void sigilInfo(Map<String, House> map, String houseName) {
-        System.out.println(map.get(houseName).getSigil());
+    public static void printSigilInfo(Map<String, House> houses, String houseName) {
+        System.out.println(houses.get(houseName).getSigil());
     }
 }
