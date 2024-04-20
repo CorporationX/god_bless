@@ -3,9 +3,13 @@ package broForce;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor
 @Data
 public class Player {
     private String name;
-    private final int lives = 5;
+    private int lives;
+
+    public Player(String name) {
+        this.name = name;
+        this.lives = 100;
+    }
 }
