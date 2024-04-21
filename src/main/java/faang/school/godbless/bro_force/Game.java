@@ -6,13 +6,15 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Random;
 
 @Data
 @Slf4j
 public class Game {
-    private Object scoreLock;
-    private Object livesLock;
+    private final Object scoreLock;
+    private final Object livesLock;
     private int score;
     private int lives;
     private boolean isGameOver;
@@ -34,12 +36,15 @@ public class Game {
     public void update() {
         Random random = new Random();
         int randInt = random.nextInt(2);
-        UpdateType type = Arrays.stream(UpdateType.values())
+        Optional<UpdateType> type = Arrays.stream(UpdateType.values())
                 .filter(t -> t.ordinal() == randInt)
-                .findFirst()
-                .get();
+                .findFirst();
 
-        switch (type) {
+        if (type.isEmpty()) {
+            throw new NoSuchElementException("No updateType present");
+        }
+
+        switch (type.get()) {
             case MINUS_LIVE -> {
                 synchronized (livesLock) {
                     Person person = personList.get(random.nextInt(personList.size()));
