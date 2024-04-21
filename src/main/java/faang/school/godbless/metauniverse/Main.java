@@ -1,5 +1,5 @@
 package faang.school.godbless.metauniverse;
-import lombok.Getter
+import lombok.Getter;
 
 public class Main {
     public static void main(String[] args) {
