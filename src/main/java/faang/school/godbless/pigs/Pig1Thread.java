@@ -6,13 +6,7 @@ public class Pig1Thread extends PigThread{
     }
 
     @Override
-    public void run() {
-        System.out.println(getPigName() + " начал строительво дома из " + getMaterial());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        System.out.println(getPigName() + " закончил строительво дома из " + getMaterial());
+    public long getConstructionTime() {
+        return 2000;
     }
 }
