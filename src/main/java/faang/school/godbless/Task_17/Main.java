@@ -19,7 +19,7 @@ public class Main {
         peopleAndFriends.put("John", Arrays.asList("Jessica", "Mike", "Tony"));
         peopleAndFriends.put("Kevin", Arrays.asList("Jessica", "Carla", "Boris"));
         peopleAndFriends.put("Melissa", Arrays.asList("Dorian", "Jason", "Pamella"));
-        peopleAndFriends.put("Harry", Arrays.asList("Mike", "Oscar", "Tony"));
+        peopleAndFriends.put("Harry", Arrays.asList("Jessica", "Oscar", "Tony"));
         peopleWithCommonFriends(peopleAndFriends);
 
         middleSalaryByDeparture(Arrays.asList(
@@ -74,19 +74,13 @@ public class Main {
         if (peopleAndFriends != null) {
             peopleAndFriends.entrySet().stream().
                     filter(entryOne -> peopleAndFriends.entrySet().stream().
+                            filter(entryAnother -> entryOne.getKey() != null && entryAnother.getKey() != null && entryOne.getValue() != null && entryAnother.getValue() != null).
                             anyMatch(entryAnother -> {
-                                        if (entryOne.getKey() != null && entryAnother.getKey() != null && entryOne.getValue() != null && entryAnother.getValue() != null) {
-                                            if (!entryOne.getKey().equals(entryAnother.getKey())) {
-                                                return entryOne.getValue().stream().
-                                                        anyMatch(stringFromEntryOne ->
-                                                                entryAnother.getValue().stream().anyMatch(stringFromEntryAnother -> {
-                                                                    if (stringFromEntryOne != null && stringFromEntryAnother != null) {
-                                                                        return stringFromEntryOne.equals(stringFromEntryAnother);
-                                                                    } else
-                                                                        throw new IllegalArgumentException("Component of value of entry is null");
-                                                                }));
-                                            } else return false;
-                                        } else throw new IllegalArgumentException("Key or Value of entry is null");
+                                        if (!entryOne.getKey().equals(entryAnother.getKey())) {
+                                            return entryOne.getValue().stream().filter(Objects::nonNull).
+                                                    anyMatch(stringFromEntryOne ->
+                                                            entryAnother.getValue().stream().filter(Objects::nonNull).anyMatch(stringFromEntryOne::equals));
+                                        } else return false;
                                     }
                             )).forEach(entry -> System.out.println(entry.getKey()));
         } else throw new IllegalArgumentException("Input is null");
