@@ -74,7 +74,7 @@ public class Main {
         return strings.stream()
             .filter(word -> Arrays.stream(word.split("")).allMatch(letter -> alphabetList.contains(letter)))
             .sorted(Comparator.comparingInt(String::length))
-            .collect(Collectors.toList());
+            .toList();
     }
     
     private static Map<String, Double> findAverageSalaryByOtdel(List<Employee> employees) {
@@ -133,14 +133,14 @@ public class Main {
                 String str = String.valueOf(number);
                 return new StringBuilder(str).reverse().toString().equals(str);
             })
-            .mapToObj(number -> new Integer(number))
+            .boxed()
             .collect(Collectors.toList());
     }
     
     private static List<Integer> getPerfectNumbers(int start, int finish) {
         return IntStream.range(start, finish)
             .filter(number -> IntStream.range(1, number).filter(delitel -> number % delitel == 0).sum() == number)
-            .mapToObj(number -> new Integer(number))
+            .boxed()
             .toList();
     }
 }
