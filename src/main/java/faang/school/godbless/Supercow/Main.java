@@ -7,11 +7,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int NUM_THREAD = 5;
     public static void main(String[] args) {
         List<Player> players = getPlayers();
         Boss boss = new Boss(3);
 
-        ExecutorService pool = Executors.newFixedThreadPool(players.size());
+        ExecutorService pool = Executors.newFixedThreadPool(NUM_THREAD);
         players.forEach(player -> pool.execute(() -> player.startBattle(boss)));
         pool.shutdown();
 
