@@ -1,6 +1,7 @@
 package faang.school.godbless.practice_stream_2;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -48,6 +49,7 @@ public class Main {
                 .filter(entry -> !people.get(key1).contains(entry.getKey()))
                 .filter(entry  -> !people.get(entry.getKey()).contains(key1))
                 .filter(entry -> !key1.equals(entry.getKey()))
+                .filter(entry -> !Collections.disjoint(value1, entry.getValue()))
                 .forEach(entry -> {
                     if (key1.compareTo(entry.getKey()) > 0) {
                         pairs.add(List.of(key1, entry.getKey()));
