@@ -6,16 +6,16 @@ import java.util.function.Consumer;
 
 
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> NOTIFICATION_HANDLERS = new HashMap<>();
+    private final Map<String, Consumer<Notification>> notificationHandlers = new HashMap<>();
 
     public void registerHandler(String notificationType, Consumer<Notification> handler) {
-        NOTIFICATION_HANDLERS.put(notificationType, handler);
+        notificationHandlers.put(notificationType, handler);
     }
 
     public void sendNotification(Notification notification) {
         String type = notification.getType();
-        if (NOTIFICATION_HANDLERS.containsKey(type)) {
-            NOTIFICATION_HANDLERS.get(type).accept(notification);
+        if (notificationHandlers.containsKey(type)) {
+            notificationHandlers.get(type).accept(notification);
         } else {
             System.out.println(type + " не найден!");
         }
