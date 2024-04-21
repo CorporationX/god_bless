@@ -49,17 +49,17 @@ public class Main {
             Map<Integer, Integer> pairs = new HashMap<>();
             IntStream.range(0, numbers.size()).
                     forEach(i -> IntStream.range(0, numbers.size()).filter(Objects::nonNull).filter(j -> i != j && numbers.get(i) + numbers.get(j) == sum).forEach(j -> {
-                                if (!pairs.containsValue(numbers.get(i))) {
-                                    pairs.put(numbers.get(i), numbers.get(j));
-                                }
-                            }));
+                        if (!pairs.containsValue(numbers.get(i))) {
+                            pairs.put(numbers.get(i), numbers.get(j));
+                        }
+                    }));
             return pairs;
         } else throw new IllegalArgumentException("Input is null");
     }
 
     static List<String> capitals(Map<String, String> countriesAndCapitals) {
         if (countriesAndCapitals != null) {
-            return countriesAndCapitals.entrySet().stream().filter(entry -> entry.getKey()!=null && entry.getValue()!=null).
+            return countriesAndCapitals.entrySet().stream().filter(entry -> entry.getKey() != null && entry.getValue() != null).
                     sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).collect(Collectors.toList());
         } else throw new IllegalArgumentException("Input is null");
     }
@@ -95,19 +95,15 @@ public class Main {
     static void middleSalaryByDeparture(List<Employee> employees) {
         if (employees != null) {
             Map<String, Double> middleSalaryByDeparture = new HashMap<>();
-            employees.stream().collect(Collectors.groupingBy(employee -> {
-                        if (employee.getDeparture() != null && employee.getSalary() >= 0) {
-                            return employee.getDeparture();
-                        } else throw new IllegalArgumentException("One of the component of input is null or < 0");
-                    }
-            )).forEach((key, value) -> IntStream.range(0, value.size()).forEach(i -> {
-                        if (i != 0) {
-                            middleSalaryByDeparture.put(key, (middleSalaryByDeparture.get(key) + (value.get(i).getSalary()) / value.size()));
-                        } else {
-                            middleSalaryByDeparture.put(key, (value.get(i).getSalary()) / value.size());
-                        }
-                    }
-            ));
+            employees.stream().filter(employee -> employee.getDeparture() != null && employee.getSalary() >= 0).collect(Collectors.groupingBy(Employee::getDeparture)).
+                    forEach((key, value) -> IntStream.range(0, value.size()).forEach(i -> {
+                                if (i != 0) {
+                                    middleSalaryByDeparture.put(key, (middleSalaryByDeparture.get(key) + (value.get(i).getSalary()) / value.size()));
+                                } else {
+                                    middleSalaryByDeparture.put(key, (value.get(i).getSalary()) / value.size());
+                                }
+                            }
+                    ));
             System.out.println(middleSalaryByDeparture);
         } else throw new IllegalArgumentException("Input is null");
     }
