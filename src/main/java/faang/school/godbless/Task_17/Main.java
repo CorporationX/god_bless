@@ -130,11 +130,7 @@ public class Main {
     static void sortStringsByAlphabet(List<String> strings, char[] alphabet) {
         if (strings != null) {
             List<String> stringsAfterActions = new ArrayList<>();
-            strings.stream().sorted((stringOne, stringAnother) -> {
-                        if (stringOne != null && stringAnother != null) {
-                            return stringOne.length() - stringAnother.length();
-                        } else throw new IllegalArgumentException("Component of Input is null");
-                    }).
+            strings.stream().filter(Objects::nonNull).sorted(Comparator.comparingInt(String::length)).
                     forEach(string -> IntStream.range(0, alphabet.length).filter(i -> string.indexOf(alphabet[i]) != -1).forEach(i -> {
                         if (!stringsAfterActions.contains(string)) {
                             stringsAfterActions.add(string);
