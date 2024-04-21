@@ -66,7 +66,7 @@ public class Main {
 
     static List<String> stringsByParticularRules(List<String> strings, char letter) {
         if (strings != null) {
-            return strings.stream().filter(s -> s.startsWith(String.valueOf(letter))).sorted(Comparator.comparingInt(String::length)).collect(Collectors.toList());
+            return strings.stream().filter(s -> s.startsWith(String.valueOf(letter))).sorted(Comparator.comparingInt(String::length)).toList();
         } else throw new IllegalArgumentException("Input is null");
     }
 
