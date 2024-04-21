@@ -29,51 +29,51 @@ public class Main {
         List<Integer> leight = convertStringsToLengths(lines1);
         System.out.println("The lengths of the strings from the list: " + leight);
     }
-        public static int summingEvenNumbers (List <Integer> evenNumbers) {
+    public static int summingEvenNumbers (List <Integer> evenNumbers) {
         return evenNumbers.stream()
-                    .filter(num -> num % 2 == 0)
-                    .mapToInt(x -> x)
-                    .sum();
-        }
-        public static int findMaxOfNumbers (List <Integer> list) {
+                .filter(num -> num % 2 == 0)
+                .mapToInt(x -> x)
+                .sum();
+    }
+    public static int findMaxOfNumbers (List <Integer> list) {
         return list.stream()
-                    .max(Integer::compareTo)
-                    .orElse(Integer.MIN_VALUE);
-            }
-        public static double findAverageValue (List <Integer> list) {
+                .max(Integer::compareTo)
+                .orElse(Integer.MIN_VALUE);
+    }
+    public static double findAverageValue (List <Integer> list) {
         return list.stream()
-                    .mapToInt(lists -> Integer.valueOf(lists))
-                    .average()
-                    .orElse(0.0);
-        }
-        public static long countNumbersStringStartWithCharacter (List <String> lines, String symbol){
+                .mapToInt(lists -> Integer.valueOf(lists))
+                .average()
+                .orElse(0.0);
+    }
+    public static long countNumbersStringStartWithCharacter (List <String> lines, String symbol){
         return lines.stream()
-                    .filter(line -> line.startsWith(symbol))
-                    .count();
-        }
-        public static List<String> filterStringsBySubstring (List<String> lines, String substring) {
+                .filter(line -> line.startsWith(symbol))
+                .count();
+    }
+    public static List<String> filterStringsBySubstring (List<String> lines, String substring) {
         return lines.stream()
                 .filter(line -> line.contains(substring))
                 .collect(Collectors.toList());
-        }
-        public static List<String> sortStringsByLength (List<String> lines) {
+    }
+    public static List<String> sortStringsByLength (List<String> lines) {
         return lines.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
-        }
-        public static boolean allMatchCondition (List<Integer> num, Predicate<Integer> condition) {
+    }
+    public static boolean allMatchCondition (List<Integer> num, Predicate<Integer> condition) {
         return num.stream()
                 .allMatch(condition);
-        }
-        public static int findSmallestNumberGreaterThanOnePassedParameter (List<Integer> numbr, int thresholdValue) {
+    }
+    public static int findSmallestNumberGreaterThanOnePassedParameter (List<Integer> numbr, int thresholdValue) {
         return numbr.stream()
                 .filter(num -> num > thresholdValue)
                 .min(Integer::compareTo)
                 .orElse(Integer.MAX_VALUE);
-        }
-        public static List<Integer> convertStringsToLengths (List<String> listOfStrings) {
+    }
+    public static List<Integer> convertStringsToLengths (List<String> listOfStrings) {
         return listOfStrings.stream()
                 .map(list -> list.length())
                 .collect(Collectors.toList());
-        }
     }
+}
