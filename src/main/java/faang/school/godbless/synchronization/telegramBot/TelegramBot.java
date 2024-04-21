@@ -33,7 +33,7 @@ public class TelegramBot {
                 long freezeTime = 1000 - timeAfterLastRequest;
 
                 if (requestCounter > REQUEST_LIMIT) {
-                    log.warn("Requests exceed limit. RequestCounter = " + requestCounter + ".");
+                    log.warn("Requests exceed limit.");
                     log.warn("Freezing for " + freezeTime + " millis");
 
                     try {
@@ -42,7 +42,7 @@ public class TelegramBot {
                         log.warn("Waiting between requests was interrupted");
                     }
 
-                    requestCounter = 0;
+                    requestCounter = 1;
                 }
             } else {
                 requestCounter = 0;
