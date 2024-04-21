@@ -11,30 +11,26 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
 
-    public void joinBattle(Player player) {
-        synchronized (currentPlayers) {
-            if (maxPlayers == currentPlayers.size()) {
-                try {
-                    System.out.println("Wait " + player.getName() + " until there is a free space");
-                    currentPlayers.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+    public synchronized void joinBattle(Player player) {
+        if (maxPlayers == currentPlayers.size()) {
+            try {
+                System.out.println("Wait " + player.getName() + " until there is a free space");
+                currentPlayers.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
             currentPlayers.add(player);
             System.out.println(player.getName() + " successfully added");
         }
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (currentPlayers) {
-            if(currentPlayers.contains(player)) {
-                currentPlayers.remove(player);
-                System.out.println(player.getName() + " leaved the boss");
-                currentPlayers.notify();
-            }else{
-                System.out.println("This player does not participate in the battle");
-            }
+    public synchronized void leaveBattle(Player player) {
+        if (currentPlayers.contains(player)) {
+            currentPlayers.remove(player);
+            System.out.println(player.getName() + " leaved the boss");
+            currentPlayers.notify();
+        } else {
+            System.out.println("This player does not participate in the battle");
         }
     }
 }
