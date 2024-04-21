@@ -11,15 +11,15 @@ public class EmailProcessor {
     List<Email> emails = new ArrayList<>(Arrays.asList(
             new Email("Письмо 1", "Текст письма", true),
             new Email("Письмо 2", "Текст письма", false),
-            new Email("Письмо 3", "Текст письма", true),
+            new Email("Письмо 3", "Text", true),
             new Email("Спам", "Текст письма", false),
             new Email("Письмо 4", "Текст письма", false),
             new Email("Спам", "Текст письма", false)));
 
     Predicate<Email> spamFilter = email -> email.getSubject() != "Спам";
-    Consumer<Email> printEmail = email -> System.out.println(email.getBody());
+    Consumer<Email> printEmail = email -> System.out.println(email.getSubject() + "\n" + email.getBody());
     Function<Email, String> importantToUpperCase = email -> email.isImportant() ?
-            email.getSubject().toUpperCase() : email.getSubject() + " - Неважное письмо";
+            email.getBody().toUpperCase() : email.getBody() + " - Неважное письмо";
 
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
@@ -27,11 +27,11 @@ public class EmailProcessor {
                 emailProcessor.importantToUpperCase);
     }
 
-    public void processEmail(List<Email> emails, Predicate predicate, Consumer consumer, Function function) {
+    public void processEmail(List<Email> emails, Predicate spamFilter, Consumer printEmail, Function importantToUpperCase) {
         for (Email email : emails) {
-            if (predicate.test(email)) {
-                System.out.println(function.apply(email));
-                consumer.accept(email);
+            if (spamFilter.test(email)) {
+                importantToUpperCase.apply(email);
+                printEmail.accept(email);
             }
         }
     }
