@@ -1,10 +1,12 @@
 package faang.school.godbless.army_of_heroes;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public class Swordsman extends Hero{
+    public Swordsman(int power) {
+        super(power);
+    }
 
-@Getter
-@AllArgsConstructor
-public class Swordsman {
-    private int power;
+    @Override
+    public boolean isSwordsMan() {
+        return true;
+    }
 }

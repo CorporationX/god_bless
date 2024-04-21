@@ -1,10 +1,12 @@
 package faang.school.godbless.army_of_heroes;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+public class Mage extends Hero{
+    public Mage(int power) {
+        super(power);
+    }
 
-@Getter
-@AllArgsConstructor
-public class Mage {
-    private int power;
+    @Override
+    public boolean isMage() {
+        return true;
+    }
 }
