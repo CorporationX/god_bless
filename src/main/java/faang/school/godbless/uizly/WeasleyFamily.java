@@ -14,7 +14,7 @@ public class WeasleyFamily {
         }
         executorService.shutdown();
         try {
-            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             System.out.println("Что то пошло не так(");
         }
