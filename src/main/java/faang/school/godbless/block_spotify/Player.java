@@ -1,7 +1,7 @@
 package faang.school.godbless.block_spotify;
 
 public class Player {
-    private Object track = new Object();
+    private final Object track = new Object();
     private boolean isPlaying = false;
 
     public void play(){
