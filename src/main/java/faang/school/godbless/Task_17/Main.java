@@ -60,7 +60,7 @@ public class Main {
     static List<String> capitals(Map<String, String> countriesAndCapitals) {
         if (countriesAndCapitals != null) {
             return countriesAndCapitals.entrySet().stream().filter(entry -> entry.getKey() != null && entry.getValue() != null).
-                    sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).collect(Collectors.toList());
+                    sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
         } else throw new IllegalArgumentException("Input is null");
     }
 
