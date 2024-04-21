@@ -16,7 +16,7 @@ public class Main {
         List<String> strings = List.of("weut", "weuijnioa", "qe", "weurttttq");
         System.out.println("countStringByPrefix, exp 3)");
         System.out.println(countFilterStringByPrefix(strings, "weu") + "\n");
-        System.out.println("filterStringBySubstring, exp qwe, qwr (qw)");
+        System.out.println("filterStringBySubstring, weut, weuijnioa, weurttttq (weu)");
 
         filterStringsBySubstring(strings, "weu").forEach(System.out::println);
         System.out.println();
