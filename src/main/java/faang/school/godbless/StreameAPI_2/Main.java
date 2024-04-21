@@ -29,6 +29,13 @@ public class Main {
         List<String> filteredAndSortedStrings = filterChar(inputStrings, alphabet);
         System.out.println("Filtered and sorted strings:" + filteredAndSortedStrings);
 
-
+        HashMap<String, List<String>> friendsGraph = new HashMap<>();
+        friendsGraph.put("Alice", List.of("Bob", "Vasia"));
+        friendsGraph.put("Bob", List.of("Alice", "Petia"));
+        friendsGraph.put("Vasia", List.of("Alice", "Natasha"));
+        friendsGraph.put("Petia", List.of("Bob", "Natasha"));
+        friendsGraph.put("Natasha", List.of("Чарли", "Petia"));
+        List<List<String>> unfriendlyPairs = UnfriendlyPairs.findUnfriendlyPairsUsingStream(friendsGraph);
+        System.out.println("Unfriendly pairs is:" + unfriendlyPairs);
     }
 }
