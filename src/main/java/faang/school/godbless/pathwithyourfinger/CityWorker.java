@@ -16,8 +16,11 @@ public class CityWorker implements Runnable{
 
     @Override
     public void run(){
-
+        System.out.println("Nearest monster to " + city.getName() + " is " + findNearestMonster().getName());
+        System.out.println("Time to kill it: " + getKillTime() + " hours");
+        System.out.println("Distance to " + city.getName() + ": " + getJourneyDistance());
     }
+
     public Monster findNearestMonster(){
         Monster nearestMonster = monsters.get(0);
         double minDistance = calculateDistance(city.getLocation(), Location.getLocationCoordinates(monsters.get(0).getLocation()));
@@ -35,7 +38,7 @@ public class CityWorker implements Runnable{
         return sqrt(pow(from.getX() - to.getX(), 2) + pow(from.getY() - to.getY(), 2));
     }
 
-    public long getKillTime() throws InterruptedException{
+    public long getKillTime(){
         return new Random().nextInt(11);
     }
 

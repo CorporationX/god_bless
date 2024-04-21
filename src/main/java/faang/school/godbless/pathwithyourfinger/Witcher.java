@@ -7,15 +7,17 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Witcher {
+
+    private static final int AMOUNT_THREADS = 4;
+
     public static void main(String[] args) {
+
         List<Monster> monsters = new ArrayList<>();
 
         monsters.add(new Monster("Griffin", "Velen"));
         monsters.add(new Monster("Basilisk", "Toussaint"));
         monsters.add(new Monster("Cockatrice", "White Orchard"));
         monsters.add(new Monster("Chort", "Skellige"));
-
-
 
         List<City> cities = new ArrayList<>();
 
@@ -24,7 +26,7 @@ public class Witcher {
         cities.add(new City("Vizima", new Location(120, 50), 30));
         cities.add(new City("Kaer Morhen", new Location(180, 70), 0));
 
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(AMOUNT_THREADS);
 
         long startTime = System.currentTimeMillis();
 
