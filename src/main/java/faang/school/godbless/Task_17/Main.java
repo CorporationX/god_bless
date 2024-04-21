@@ -60,17 +60,8 @@ public class Main {
 
     static List<String> capitals(Map<String, String> countriesAndCapitals) {
         if (countriesAndCapitals != null) {
-            return countriesAndCapitals.entrySet().stream().sorted((entryOne, entryAnother) -> {
-                        if (entryOne.getKey() != null && entryAnother.getKey() != null) {
-                            return entryOne.getKey().compareTo(entryAnother.getKey());
-                        } else throw new IllegalArgumentException("Key of entry is null");
-                    }
-            ).map(entry -> {
-                        if (entry.getValue() != null) {
-                            return entry.getValue();
-                        } else throw new IllegalArgumentException("Value of entry is null");
-                    }
-            ).collect(Collectors.toList());
+            return countriesAndCapitals.entrySet().stream().filter(entry -> entry.getKey()!=null && entry.getValue()!=null).
+                    sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).collect(Collectors.toList());
         } else throw new IllegalArgumentException("Input is null");
     }
 
