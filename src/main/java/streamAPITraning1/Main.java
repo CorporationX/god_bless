@@ -5,7 +5,7 @@ import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        staticMethods staticMethods = new staticMethods();
+        StaticMethods staticMethods = new StaticMethods();
 
         List<Integer> nums = List.of(1, 2, 3, 4, 50, 6, 7, 8, 9);
 
@@ -22,6 +22,6 @@ public class Main {
         System.out.println("Список отсортированный по длине: " + staticMethods.sortByLength(lines));
         Predicate<String> predicate = (line) -> !(line.length() > 3);
         System.out.println("Результат проверки все ли элементы списка имеют длину больше 3х: " + !staticMethods.checkCondition(lines, predicate));
-        System.out.println("Список длин строк: " + staticMethods.ConvertStringsToTheirLengths(lines));
+        System.out.println("Список длин строк: " + staticMethods.convertStringsToTheirLengths(lines));
     }
 }

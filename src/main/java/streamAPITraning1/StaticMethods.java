@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class staticMethods {
+public class StaticMethods {
     public int getSumOfEvenNums(List<Integer> nums) {
         return nums.stream()
                 .filter(num -> num % 2 == 0)
@@ -54,7 +54,7 @@ public class staticMethods {
                 .orElse(0);
     }
 
-    public List<Integer> ConvertStringsToTheirLengths(List<String> lines) {
+    public List<Integer> convertStringsToTheirLengths(List<String> lines) {
         return lines.stream()
                 .map(String::length)
                 .toList();
