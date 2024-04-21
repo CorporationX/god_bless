@@ -1,25 +1,51 @@
 package faang.school.godbless.broforce;
 
+import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+@Getter
 public class Game {
+
     private int score;
-    private int loseLives;
+    private int lives;
+    private List<Bro> bros = new ArrayList<>();
 
-    public Game() {
-        this.score = 0;
-        this.loseLives = 0;
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
+
+    public void addBro(Bro bro) {
+        bros.add(bro);
     }
 
-    public synchronized void update(BroForceEntity entity) {
-        entity.setLives(entity.getLives() - 1);
-        if (entity.getType() == InGameType.ENEMY && entity.getLives() == 0) {
-            score++;
-        } else if (entity.getType() == InGameType.PLAYER && entity.getLives() == 0) {
-            gameOver(entity);
+    public boolean update() {
+        int broIndex = new Random().nextInt(bros.size());
+        Bro bro = bros.get(broIndex);
+        boolean alive = bro.getAlive();
+
+        if (!alive) {
+            synchronized (livesLock) {
+                bro.setLives(bro.getLives() - 1);
+                lives++;
+                System.out.println(bro.getName() + " lives: " + bro.getLives());
+                if (bro.getLives() == 0) {
+                    return gameOver();
+                }
+            }
+        } else {
+            synchronized (scoreLock) {
+                bro.setScore(bro.getScore() + 1);
+                score++;
+            }
         }
+        return false;
     }
 
-    private void gameOver(BroForceEntity entity) {
-        System.out.println("GAME OVER");
-        System.out.println(entity.getName() + " died");
+    private boolean gameOver() {
+        System.out.println("Game over, with max score: " + score);
+        System.out.println("Lost lives: " + lives);
+        return true;
     }
 }
