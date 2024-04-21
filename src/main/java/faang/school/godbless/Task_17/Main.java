@@ -48,13 +48,8 @@ public class Main {
         if (numbers != null) {
             Map<Integer, Integer> pairs = new HashMap<>();
             IntStream.range(0, numbers.size()).
-                    forEach(i -> IntStream.range(0, numbers.size()).
-                            filter(j -> {
-                                        if (numbers.get(i) != null && numbers.get(j) != null) {
-                                            return i != j && numbers.get(i) + numbers.get(j) == sum;
-                                        } else throw new IllegalArgumentException("One of numbers is null");
-                                    }
-                            ).forEach(j -> {
+                    forEach(i -> IntStream.range(0, numbers.size()).filter(Objects::nonNull).
+                            filter(j -> i != j && numbers.get(i) + numbers.get(j) == sum).forEach(j -> {
                                 if (!pairs.containsValue(numbers.get(i))) {
                                     pairs.put(numbers.get(i), numbers.get(j));
                                 }
