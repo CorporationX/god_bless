@@ -6,8 +6,20 @@ import java.util.Optional;
 
 public class ChatManager {
 
+    private final List<User> usersWantToChatMale = new ArrayList<>();
+    private final List<User> usersWantToChatFemale = new ArrayList<>();
+    private final List<Chat> chats = new ArrayList<>();
+
+    private List<User> getNeedChat(User user) {
+        return user.getGender().equals("female") ? usersWantToChatMale : usersWantToChatFemale;
+    }
+
+    private List<User> getNeedChat(String gender) {
+        return gender.equals("female") ? usersWantToChatFemale : usersWantToChatMale;
+    }
+
     public ChatManager(UserList userList) {
-        userList.getOnlineUsers().stream().forEach((user -> {
+        userList.getOnlineUsers().forEach((user -> {
             if(user.getGender().equals("female")){
                 usersWantToChatFemale.add(user);
             }else{
@@ -16,14 +28,10 @@ public class ChatManager {
         }));
     }
 
-    private final List<User> usersWantToChatMale = new ArrayList<>();
-    private final List<User> usersWantToChatFemale = new ArrayList<>();
-    private final List<Chat> chats = new ArrayList<>();
-
     public synchronized void startChat(User user) {
         List<User> needChat = getNeedChat(user);
         if (needChat.isEmpty()) {
-            System.out.println("No one who wants to chat");
+            System.out.println("No one who wants to chat with " + user.getName());
             getNeedChat(user.getGender()).add(user);
             waitForChat(user);
         } else {
@@ -45,23 +53,15 @@ public class ChatManager {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     public synchronized void endChat(User user) {
         Optional<Chat> chatForRemove = chats.stream().filter(chat -> chat.isParticipating(user)).findFirst();
         if(chatForRemove.isPresent()){
-            chats.remove(chatForRemove.get());
             User userWantToChat = chatForRemove.get().getUsersInChat().stream().filter(user1 -> !user1.equals(user)).findFirst().get();
+            chats.remove(chatForRemove.get());
+            System.out.println("User " + user.getName() + " left and stayed: " + userWantToChat.getName());
             startChat(userWantToChat);
         }
-    }
-
-    private List<User> getNeedChat(User user) {
-        return user.getGender().equals("female") ? usersWantToChatMale : usersWantToChatFemale;
-    }
-
-    private List<User> getNeedChat(String gender) {
-        return gender.equals("female") ? usersWantToChatFemale : usersWantToChatMale;
     }
 }

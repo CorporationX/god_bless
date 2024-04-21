@@ -15,7 +15,7 @@ public class Chat {
             System.out.println("Couldn't add a participant");
         }else{
             usersInChat.add(user);
-            System.out.println("Could add a participant");
+            System.out.println("Could add a participant: " + user.getName());
         }
     }
 

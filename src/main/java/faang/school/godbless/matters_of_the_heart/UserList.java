@@ -1,9 +1,10 @@
 package faang.school.godbless.matters_of_the_heart;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserList {
-    private List<User> users;
+    private final List<User> users = new ArrayList<>();
 
     public List<User> getOnlineUsers() {
         return users.stream()

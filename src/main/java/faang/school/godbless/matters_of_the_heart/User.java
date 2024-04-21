@@ -20,5 +20,4 @@ public class User {
     public void leaveChat(ChatManager chatManager){
         chatManager.endChat(this);
     }
-
 }
