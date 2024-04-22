@@ -3,6 +3,7 @@ package faang.school.godbless.StreameAPI_2;
 import java.util.*;
 
 import static faang.school.godbless.StreameAPI_2.CountriesAndCapitals.sortedCountry;
+import static faang.school.godbless.StreameAPI_2.FilterAndSortStrings.findStringsContainsOnlyThisAlphabet;
 import static faang.school.godbless.StreameAPI_2.FilterOfString.filterChar;
 import static faang.school.godbless.StreameAPI_2.PairSum.findingPairsOfNumbers;
 
@@ -45,5 +46,10 @@ public class Main {
         Map<String, Double> averageSalariesByDepartment = Employee.findAverageSalaryByDepartment(employees);
         averageSalariesByDepartment.forEach((departmen,salary) ->
                 System.out.println("The average salaries in departmen - " + departmen + " is:"  + salary));
+
+        List<String> inputString = Arrays.asList("apple", "banana", "123", "dog", "kc", "kukumber", "кино");
+        String alphabets = "abcdefghijklmnopqrstuvwxyz";
+        List<String> findStringsContainsOnlyThisAlphabet = findStringsContainsOnlyThisAlphabet(inputString, alphabets);
+        System.out.println("Sorted strings in ascending order of their length: " + findStringsContainsOnlyThisAlphabet);
     }
 }
