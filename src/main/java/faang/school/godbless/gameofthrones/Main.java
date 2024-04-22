@@ -3,30 +3,38 @@ package faang.school.godbless.gameofthrones;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
+
+    private static final int N_THREADS = 4;
 
     public static void main(String[] args) {
         House house = new House();
         List<User> users = initialize(house);
 
-        User testUser = new User("TestUser", house);
-        Thread testThread = new Thread(() -> {
-            testUser.joinHouse();
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                log.error(e.getMessage());
-            }
-            testUser.leaveHouse();
-        });
-
-        testThread.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(N_THREADS);
 
         for (User user : users) {
-            new Thread(user::joinHouse).start();
+            executorService.execute(user::joinHouse);
         }
+
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+        }
+
+        for (User user : users) {
+            executorService.execute(() -> {
+                if (user.getRole() != null) {
+                    user.leaveHouse();
+                }
+            });
+        }
+        executorService.shutdown();
     }
 
     private static List<User> initialize(House house) {

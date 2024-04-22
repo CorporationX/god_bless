@@ -15,20 +15,12 @@ public class User {
     public void joinHouse() {
         synchronized (house) {
             if (!house.isHaveEmptySlots()) {
-                try {
-                    house.wait();
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
-                }
+                toWait();
             }
 
             Optional<Role> optionalRole = house.getPriorityRole();
             if (optionalRole.isEmpty()) {
-                try {
-                    house.wait();
-                } catch (InterruptedException e) {
-                    log.error(e.getMessage());
-                }
+                toWait();
             } else {
                 house.addRole(optionalRole.get());
                 this.role = optionalRole.get();
@@ -43,5 +35,13 @@ public class User {
             System.out.println(getName() + " leave, Role " + role);
         }
         role = null;
+    }
+
+    private void toWait() {
+        try {
+            house.wait();
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+        }
     }
 }
