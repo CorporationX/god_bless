@@ -10,10 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataAnalyzer {
-    private final Comparator<Map.Entry<String, Long>> descending_comperator = Map.Entry.comparingByValue(Comparator.reverseOrder());
-    public enum TrendGranularity {
-        DAY,WEEK,MONTH
-    };
+    private final Comparator<Map.Entry<String, Long>> descendingComparator = Map.Entry.comparingByValue(Comparator.reverseOrder());
 
     public List<String> findTopXRequirements(List<Job> jobs, int x) {
         return jobs.stream()
@@ -21,7 +18,7 @@ public class DataAnalyzer {
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet()
                 .stream()
-                .sorted(descending_comperator)
+                .sorted(descendingComparator)
                 .limit(x)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -29,7 +26,7 @@ public class DataAnalyzer {
 
     public List<String> findTopXPopularPositions(List<Job> jobs, int x) {
         return collectJobToMapByCounting(jobs, Job::getPosition)
-                .sorted(descending_comperator)
+                .sorted(descendingComparator)
                 .limit(x)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -45,18 +42,14 @@ public class DataAnalyzer {
 
     public List<String> findTopXLocations(List<Job> jobs, int x) {
         return collectJobToMapByCounting(jobs, Job::getLocation)
-                .sorted(descending_comperator)
+                .sorted(descendingComparator)
                 .limit(x)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
     public Map<Integer, List<Job>> analyzeTrends(List<Job> jobs, LocalDate startDate, LocalDate endDate, TrendGranularity granularity) {
-        ChronoField chronoField = switch (granularity) {
-            case DAY -> ChronoField.DAY_OF_YEAR;
-            case WEEK -> ChronoField.ALIGNED_WEEK_OF_YEAR;
-            case MONTH -> ChronoField.MONTH_OF_YEAR;
-        };
+        ChronoField chronoField = ChronoField.valueOf(String.valueOf(granularity));
         return jobs.stream()
                 .filter(job -> job.getCreatedAt().isAfter(startDate))
                 .filter(job -> job.getCreatedAt().isBefore(endDate))

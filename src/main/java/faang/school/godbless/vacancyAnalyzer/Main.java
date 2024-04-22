@@ -13,7 +13,7 @@ public class Main {
         System.out.println(dataAnalyzer.findTopXPopularPositions(jobs, 2));
         System.out.println(dataAnalyzer.countJobsBySalaryRange(jobs, 50000));
         System.out.println(dataAnalyzer.findTopXLocations(jobs, 2));
-        System.out.println(dataAnalyzer.analyzeTrends(jobs, LocalDate.now().minusMonths(1), LocalDate.now(), DataAnalyzer.TrendGranularity.DAY));
+        System.out.println(dataAnalyzer.analyzeTrends(jobs, LocalDate.now().minusMonths(1), LocalDate.now(), TrendGranularity.DAY_OF_YEAR));
 
     }
 
