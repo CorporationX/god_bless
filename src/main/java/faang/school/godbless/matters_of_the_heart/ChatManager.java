@@ -1,6 +1,7 @@
 package faang.school.godbless.matters_of_the_heart;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,9 @@ public class ChatManager {
 
     public ChatManager(UserList userList) {
         userList.getOnlineUsers().forEach((user -> {
-            if(user.getGender().equals("female")){
+            if (user.getGender().equals("female")) {
                 usersWantToChatFemale.add(user);
-            }else{
+            } else {
                 usersWantToChatMale.add(user);
             }
         }));
@@ -34,14 +35,13 @@ public class ChatManager {
             System.out.println("No one who wants to chat with " + user.getName());
             getNeedChat(user.getGender()).add(user);
             waitForChat(user);
-        } else {
+        } else if (chats.stream().map(Chat::getUsersInChat).flatMap(Collection::stream).noneMatch(person -> person.equals(user))) {
             Chat chat = new Chat();
             chat.addUserToChat(user);
             chat.addUserToChat(needChat.get(0));
+            System.out.println("joined the chat " + user.getName() + " and " + needChat.get(0).getName());
             needChat.remove(0);
             chats.add(chat);
-            notify();
-            System.out.println("joined the chat " + user.getName());
         }
     }
 
@@ -57,11 +57,13 @@ public class ChatManager {
 
     public synchronized void endChat(User user) {
         Optional<Chat> chatForRemove = chats.stream().filter(chat -> chat.isParticipating(user)).findFirst();
-        if(chatForRemove.isPresent()){
+        if (chatForRemove.isPresent()) {
             User userWantToChat = chatForRemove.get().getUsersInChat().stream().filter(user1 -> !user1.equals(user)).findFirst().get();
             chats.remove(chatForRemove.get());
+            getNeedChat(user.getGender()).remove(user);
             System.out.println("User " + user.getName() + " left and stayed: " + userWantToChat.getName());
-            startChat(userWantToChat);
+            getNeedChat(userWantToChat.getGender()).add(userWantToChat);
+            notify();
         }
     }
 }

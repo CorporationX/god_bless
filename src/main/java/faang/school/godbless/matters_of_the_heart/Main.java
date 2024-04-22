@@ -36,6 +36,8 @@ public class Main {
         Thread.sleep(2000);
         executor.execute(() -> olga.leaveChat(chatManager));
         Thread.sleep(2000);
+        executor.execute(() -> ksenia.startChat(chatManager));
+        Thread.sleep(2000);
         executor.shutdown();
 
         try {
