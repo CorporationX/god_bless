@@ -3,9 +3,12 @@ package faang.school.godbless.StreameAPI_2;
 import java.util.*;
 
 import static faang.school.godbless.StreameAPI_2.CountriesAndCapitals.sortedCountry;
+import static faang.school.godbless.StreameAPI_2.Employee.findAverageSalaryByDepartment;
 import static faang.school.godbless.StreameAPI_2.FilterAndSortStrings.findStringsContainsOnlyThisAlphabet;
 import static faang.school.godbless.StreameAPI_2.FilterOfString.filterChar;
 import static faang.school.godbless.StreameAPI_2.PairSum.findingPairsOfNumbers;
+import static faang.school.godbless.StreameAPI_2.ConversionListToString.convertNumbersToString;
+import static faang.school.godbless.StreameAPI_2.Palindrome.findPalindrome;
 
 public class Main {
     public static void main(String[] args) {
@@ -43,13 +46,22 @@ public class Main {
         new Employee("Mike", 500000.0, "Administration");
         new Employee("John", 33000.0, "Marketing");
         new Employee("John", 44000.0, "Marketing");
-        Map<String, Double> averageSalariesByDepartment = Employee.findAverageSalaryByDepartment(employees);
-        averageSalariesByDepartment.forEach((departmen,salary) ->
-                System.out.println("The average salaries in departmen - " + departmen + " is:"  + salary));
+        Map<String, Double> averageSalariesByDepartment = findAverageSalaryByDepartment(employees);
+        System.out.println(averageSalariesByDepartment);
 
         List<String> inputString = Arrays.asList("apple", "banana", "123", "dog", "kc", "kukumber", "кино");
         String alphabets = "abcdefghijklmnopqrstuvwxyz";
         List<String> findStringsContainsOnlyThisAlphabet = findStringsContainsOnlyThisAlphabet(inputString, alphabets);
         System.out.println("Sorted strings in ascending order of their length: " + findStringsContainsOnlyThisAlphabet);
+
+        List<Integer> number = Arrays.asList(1, 3, 44, 75);
+        List<String> binaryString = convertNumbersToString(number);
+        System.out.println("A list of numbers in binary notation is: " + binaryString);
+
+        int startOfRange = 100;
+        int endOfRange = 125;
+        List<Integer> palindromes = findPalindrome(startOfRange, endOfRange);
+        System.out.println("Palindrome numbers between " + startOfRange + " and " + endOfRange + ":");
+        palindromes.forEach(System.out::println);
     }
 }
