@@ -6,14 +6,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
-  private static final int numThreads = 3;
-  private static final Random rnd = new Random();
+  private static final int NUM_THREADS = 3;
+  private static final Random RND_FOOD_AMOUNT = new Random();
+
   public static void main(String[] args) {
-    ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
+    ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
     String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
     for (String characterName : characterNames) {
-      executorService.execute(new FoodDeliveryTask(characterName, rnd.nextInt(1, 20)));
+      executorService.execute(new FoodDeliveryTask(characterName, RND_FOOD_AMOUNT.nextInt(1, 20)));
     }
     executorService.shutdown();
 
