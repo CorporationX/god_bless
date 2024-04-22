@@ -8,13 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers = 0;
-    private static final Object LOCK = new Object();
+    private final Object lock = new Object();
 
     public void joinBattle(Player player) {
-        synchronized (LOCK) {
+        synchronized (lock) {
             if (currentPlayers == maxPlayers) {
                 try {
-                    LOCK.wait();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     log.error(e.getMessage());
                 }
@@ -23,10 +23,10 @@ public class Boss {
         }
         System.out.println("Player " + player.getName() + " ready to battle...");
         inBattle(player);
-        synchronized (LOCK) {
+        synchronized (lock) {
             currentPlayers--;
             System.out.println("Player " + player.getName() + " end battle");
-            LOCK.notify();
+            lock.notify();
         }
 
     }
@@ -38,6 +38,5 @@ public class Boss {
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
-
     }
 }
