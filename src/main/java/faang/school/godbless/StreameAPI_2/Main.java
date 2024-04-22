@@ -1,9 +1,6 @@
 package faang.school.godbless.StreameAPI_2;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static faang.school.godbless.StreameAPI_2.CountriesAndCapitals.sortedCountry;
 import static faang.school.godbless.StreameAPI_2.FilterOfString.filterChar;
@@ -35,7 +32,18 @@ public class Main {
         friendsGraph.put("Vasia", List.of("Alice", "Natasha"));
         friendsGraph.put("Petia", List.of("Bob", "Natasha"));
         friendsGraph.put("Natasha", List.of("Чарли", "Petia"));
-        List<List<String>> unfriendlyPairs = UnfriendlyPairs.findUnfriendlyPairsUsingStream(friendsGraph);
+        Set<List<String>> unfriendlyPairs = UnfriendlyPairs.findUnfriendlyPairs(friendsGraph);
         System.out.println("Unfriendly pairs is:" + unfriendlyPairs);
+
+        List<Employee> employees = Arrays.asList();
+        new Employee("John", 100000.0, "IT");
+        new Employee("Maria", 105000.0, "IT");
+        new Employee("Elon", 444000.0, "Administration");
+        new Employee("Mike", 500000.0, "Administration");
+        new Employee("John", 33000.0, "Marketing");
+        new Employee("John", 44000.0, "Marketing");
+        Map<String, Double> averageSalariesByDepartment = Employee.findAverageSalaryByDepartment(employees);
+        averageSalariesByDepartment.forEach((departmen,salary) ->
+                System.out.println("The average salaries in departmen - " + departmen + " is:"  + salary));
     }
 }

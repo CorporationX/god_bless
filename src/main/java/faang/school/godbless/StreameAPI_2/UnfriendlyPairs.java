@@ -4,22 +4,22 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class UnfriendlyPairs {
-    public static List<List<String>> findUnfriendlyPairsUsingStream(HashMap<String, List<String>> friendsGraph) {
-        return friendsGraph.entrySet().stream()
-                .flatMap(entry -> friendsGraph.entrySet().stream()
-                .filter(other -> !entry.getKey().equals(other.getKey()) && !entry.getValue().contains(other.getKey()))
-                .map(other -> findCommonFriendsAndPair(entry, other)))
-                .filter(pair -> !pair.isEmpty())
-                .collect(Collectors.toList());
-    }
-
-    private static List<String> findCommonFriendsAndPair(Map.Entry<String, List<String>> entry1, Map.Entry<String, List<String>> entry2) {
-        Set<String> commonFriends = new HashSet<>(entry1.getValue());
-        commonFriends.retainAll(entry2.getValue());
-        if (!commonFriends.isEmpty()) {
-            return List.of(entry1.getKey(), entry2.getKey());
-        }
-        return Collections.emptyList();
+    public static Set<List<String>> findUnfriendlyPairs(HashMap<String, List<String>> friendsGraph) {
+        Set<List<String>> answer = new HashSet<>();
+        friendsGraph.forEach((key, value) -> friendsGraph.entrySet().stream()
+                .filter(entry -> !key.equals(entry.getKey()))
+                .filter(entry -> !value.contains(entry.getKey()))
+                .filter(entry -> !entry.getValue().contains(key))
+                .filter(entry -> !Collections.disjoint(value, entry.getValue()))
+                .forEach(entry -> {
+                    if (key.compareTo(entry.getKey()) > 0) {
+                        answer.add(List.of(key, entry.getKey()));
+                    } else {
+                        answer.add(List.of(entry.getKey(), key));
+                    }
+                })
+        );
+        return answer;
     }
 }
 
