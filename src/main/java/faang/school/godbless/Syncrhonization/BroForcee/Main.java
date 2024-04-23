@@ -1,4 +1,4 @@
-package faang.school.godbless.Syncrhonization.BroForce;
+package faang.school.godbless.Syncrhonization.BroForcee;
 
 public class Main {
     public static void main(String[] args) {
