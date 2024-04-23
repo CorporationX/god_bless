@@ -7,11 +7,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class House {
+    private static final int NUM_OF_THREADS = 5;
     private final List<Food> collectionFood = new ArrayList<>();
     private final List<Room> rooms = new ArrayList<>();
     private static int startIndex = 0;
     private static int endIndex = 2;
-
 
     public synchronized void collectFood() {
         if (startIndex >= rooms.size()) {
@@ -29,8 +29,6 @@ public class House {
                 endIndex = rooms.size();
             }
         }
-
-
     }
 
     private void addFood(List<Food> foods) {
@@ -48,20 +46,17 @@ public class House {
             house.rooms.add(new Room(i, foods));
         }
 
-
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUM_OF_THREADS);
         for (int i = 0; i < 5; i++) {
             executor.scheduleAtFixedRate(house::collectFood, 0, 5, TimeUnit.SECONDS);
         }
 
-
-
+        executor.shutdown();
         try {
             executor.awaitTermination(30, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        executor.shutdown();
         System.out.println("Collection food: " + house.collectionFood);
     }
 }
