@@ -39,12 +39,14 @@ public class Main {
         pool.shutdown();
 
         CompletableFuture.allOf(gatheredIngredients.toArray(new CompletableFuture[0]))
-                .join();
+                .thenApply((f) -> {
+                    var result = gatheredIngredients.stream()
+                            .map(CompletableFuture::join)
+                            .reduce(0, Integer::sum);
 
-        var result = gatheredIngredients.stream()
-                .map(CompletableFuture::join)
-                .reduce(0, Integer::sum);
+                    log.info("The total amount of gathered ingredients is " + result);
 
-        log.info("The total amount of gathered ingredients is " + result);
+                    return result;
+                });
     }
 }
