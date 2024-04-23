@@ -8,6 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Inventory {
+    private final ExecutorService EXECUTOR_SERVICE;
     private List<Item> items;
 
     public synchronized List<Item> getItems() {
@@ -15,6 +16,7 @@ public class Inventory {
     }
 
     public Inventory() {
+        this.EXECUTOR_SERVICE = Executors.newFixedThreadPool(2);
         this.items = new ArrayList<>();
     }
 
@@ -23,26 +25,20 @@ public class Inventory {
     }
 
     public CompletableFuture<Item> getItemFromInventory() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CompletableFuture<Item> future =  CompletableFuture.supplyAsync(() ->
+        return CompletableFuture.supplyAsync(() ->
                 getItems().get(new Random().nextInt(0, getItems().size())),
-                executorService
+                EXECUTOR_SERVICE
         );
-        executorService.shutdown();
-        return future;
     }
 
     public CompletableFuture<Item> buyNewItemForCombine() {
         Random random = new Random();
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        CompletableFuture<Item> future =  CompletableFuture.supplyAsync(() ->
-                        new Item(
-                                "Item" + random.nextInt(0, 1000),
-                                random.nextInt(1, 100)
-                        ), executorService
+        return CompletableFuture.supplyAsync(() ->
+                new Item(
+                        "Item" + random.nextInt(0, 1000),
+                        random.nextInt(1, 100)
+                ), EXECUTOR_SERVICE
         );
-        executorService.shutdown();
-        return future;
     }
 
     public Item combineItems(Item itemFromInventory, Item itemFromStore) {
@@ -52,4 +48,7 @@ public class Inventory {
         );
     }
 
+    public void shutdown() {
+        EXECUTOR_SERVICE.shutdown();
+    }
 }

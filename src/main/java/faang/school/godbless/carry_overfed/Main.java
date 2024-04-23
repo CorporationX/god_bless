@@ -22,6 +22,7 @@ public class Main {
 
         future.join();
         executorService.shutdown();
+        inventory.shutdown();
         System.out.println(inventory.getItems());
     }
 }
