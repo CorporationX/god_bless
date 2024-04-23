@@ -10,7 +10,7 @@ public class Main {
         GooglePhotosAutoUploader autoUploader = new GooglePhotosAutoUploader();
 
         Thread searchPhoto = new Thread(() -> {
-            newPhotos.forEach(newPhoto -> autoUploader.onNewPhotoAdded(newPhoto));
+            newPhotos.forEach(autoUploader::onNewPhotoAdded);
         });
         Thread uploadThread = new Thread(() -> autoUploader.startAutoUpload());
 
