@@ -2,42 +2,54 @@ package ironThrone;
 
 import lombok.Data;
 
-import java.util.List;
+import java.util.Map;
 
 @Data
 public class House {
-    private final static List<String> ROLES = List.of("King", "Swordman", "Archer", "Salesman");
-    private int amountRoles;
+    private Map<String, Locker> roles;
+    private int amountRoles = 4;
     private final Object lock = new Object();
+    private String name;
 
-    public House() {
-        this.amountRoles = 5;
+    public House(String name, Map<String, Locker> roles) {
+        this.name = name;
+        this.roles = roles;
     }
 
-    public void addRole(String role) {
-        checkRoleForEmpty(role);
-        synchronized (lock) {
-            if (amountRoles <= 0) {
+    public void addRole(User user, String role) {
+        checkUser(user);
+        if (!roles.containsKey(role)) {
+            throw new IllegalArgumentException("Uncorrected role");
+        }
+        synchronized (roles.get(role)) {
+            if (!roles.get(role).isOpen()) {
                 try {
-                    lock.wait();
+                    roles.get(role).wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            user.setHouse(this);
+            user.setRole(role);
+            roles.get(role).setOpen(false);
             amountRoles--;
         }
-
     }
 
-    public void removeRole(String role) {
-        checkRoleForEmpty(role);
-        amountRoles++;
-        lock.notifyAll();
+    public void removeRole(User user) {
+        synchronized (roles.get(user.getRole())) {
+            checkUser(user);
+            user.setHouse(null);
+            roles.get(user.getRole()).setOpen(true);
+            roles.get(user.getRole()).notify();
+            user.setRole("");
+            amountRoles++;
+        }
     }
 
-    private void checkRoleForEmpty(String role) {
-        if (role.isEmpty()) {
-            throw new NullPointerException("Role doesnt be empty");
+    private void checkUser(User user) {
+        if (user == null) {
+            throw new NullPointerException("User must be exist");
         }
     }
 }
