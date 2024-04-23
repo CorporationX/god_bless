@@ -12,7 +12,7 @@ public class Main {
         List<TwitterAccount> accounts = new ArrayList<>();
 
         accounts.add(new TwitterAccount("Mister Beast", 100));
-        accounts.add(new TwitterAccount("Lawer Egorov", 1000));
+        accounts.add(new TwitterAccount("Lawyer Egorov", 1000));
 
         List<CompletableFuture<Void>> followingTasks = new ArrayList<>();
 
