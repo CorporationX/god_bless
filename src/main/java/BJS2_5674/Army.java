@@ -12,10 +12,19 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
+        List<Thread> threads = new ArrayList<>();
         for (Squad unit : squad) {
             Thread thread = new Thread(() -> allPowerUnit += unit.getPower());
+            threads.add(thread);
             thread.start();
-            thread.join();
+        }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException ex) {
+                throw new RuntimeException();
+            }
         }
         return allPowerUnit;
     }
