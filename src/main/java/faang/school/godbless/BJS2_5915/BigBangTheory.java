@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
   private static final int NUM_THREADS = 4;
+
   public static void main(String[] args) {
     ExecutorService executors = Executors.newFixedThreadPool(NUM_THREADS);
     Task sheldonTask = new Task("Шелдон", "подготовка теории");
