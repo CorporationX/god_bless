@@ -14,9 +14,10 @@ public class Main {
         CompletableFuture<Item> itemFromInventory = inventory.getItemFromInventory();
         CompletableFuture<Item> boughtItem = inventory.buyNewItemForCombine();
 
-        Item combineItem = itemFromInventory.thenCombine(boughtItem, inventory::combineItems).join();
-        inventory.addItem(combineItem);
+        CompletableFuture<Void> future = itemFromInventory.thenCombine(boughtItem, inventory::combineItems)
+                .thenCompose(result -> CompletableFuture.runAsync(() -> inventory.addItem(result)));
 
+        future.join();
         System.out.println(inventory.getItems());
     }
 }
