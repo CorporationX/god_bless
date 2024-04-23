@@ -16,10 +16,6 @@ public class Room {
         roomsFood.add(food);
     }
 
-    public List<Food> getRoomsFood() {
-        return roomsFood;
-    }
-
     public void clearFood() {
         roomsFood.clear();
     }
