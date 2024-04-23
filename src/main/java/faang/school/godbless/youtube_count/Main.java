@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int NUM_THREADS = 100;
     private static final int NUM_VIDEOS = 10;
+
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
@@ -14,7 +15,10 @@ public class Main {
             Video video = new Video("VideoId: " + i);
             for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
                 executorService.execute(() -> videoManager.addView(video.getVideoId()));
-                executorService.execute(() -> videoManager.getViewCount(video.getVideoId()));
+                executorService.execute(() -> {
+                    int viewCount = videoManager.getViewCount(video.getVideoId());
+                    System.out.println("У Видео " + video.getVideoId() + " " + viewCount + " просмотров");
+                });
             }
         }
         executorService.shutdown();

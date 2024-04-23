@@ -8,17 +8,13 @@ public class VideoManager {
 
     public void addView(String videoId) {
         synchronized (viewsMap) {
-            if (!viewsMap.containsKey(videoId)) {
-                viewsMap.put(videoId, 1);
-            } else {
-                viewsMap.put(videoId, viewsMap.get(videoId) + 1);
-            }
+            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
         }
     }
 
-    public synchronized void getViewCount(String videoId) {
+    public synchronized int getViewCount(String videoId) {
         synchronized (viewsMap) {
-            System.out.println(videoId + " - " + viewsMap.getOrDefault(videoId, 0));
+            return viewsMap.getOrDefault(videoId, 0);
         }
     }
 }
