@@ -1,7 +1,5 @@
 package faang.school.godbless.google_photo;
 
-import lombok.SneakyThrows;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -11,25 +9,30 @@ public class GooglePhotosAutoUploader {
     private final Lock lock = new ReentrantLock();
     private final List<String> photosToUpload = new ArrayList<>();
 
-    @SneakyThrows
     public void startAutoUpload() {
-        synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                lock.wait();
-            } else {
-                uploadPhotos();
+        while (true) {
+            synchronized (lock) {
+                if (photosToUpload.isEmpty()) {
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    uploadPhotos();
+                }
             }
         }
     }
 
-    private void uploadPhotos() {
+    public void uploadPhotos() {
         for (String photo : photosToUpload) {
             System.out.println("Загрузка фотографии: " + photo);
         }
         photosToUpload.clear();
     }
 
-    private void onNewPhotoAdded(String photoPath) {
+    public void onNewPhotoAdded(String photoPath) {
         photosToUpload.add(photoPath);
         synchronized (lock) {
             lock.notify();
