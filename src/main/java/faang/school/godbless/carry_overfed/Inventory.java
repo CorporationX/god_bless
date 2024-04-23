@@ -1,7 +1,5 @@
 package faang.school.godbless.carry_overfed;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -9,22 +7,25 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Data
 public class Inventory {
     private List<Item> items;
+
+    public synchronized List<Item> getItems() {
+        return items;
+    }
 
     public Inventory() {
         this.items = new ArrayList<>();
     }
 
     public void addItem(Item item) {
-        items.add(item);
+        getItems().add(item);
     }
 
     public CompletableFuture<Item> getItemFromInventory() {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         CompletableFuture<Item> future =  CompletableFuture.supplyAsync(() ->
-                items.get(new Random().nextInt(0, items.size())),
+                getItems().get(new Random().nextInt(0, getItems().size())),
                 executorService
         );
         executorService.shutdown();
