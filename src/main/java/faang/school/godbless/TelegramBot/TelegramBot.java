@@ -17,14 +17,16 @@ public class TelegramBot {
         long delay = Duration.between(lastRequestTime, currentTime).toMillis();
         if (delay < REQUEST_DELAY_MILLIS) {
             if (++requestCounter > REQUEST_LIMIT) {
-                Thread.sleep(REQUEST_DELAY_MILLIS - delay);
+                wait(REQUEST_DELAY_MILLIS - delay);
             }
         } else {
             requestCounter = 0;
             lastRequestTime = currentTime;
             wait();
+            while (requestCounter == REQUEST_LIMIT);
         }
         System.out.println(message);
+        requestCounter++;
         notify();
     }
 }
