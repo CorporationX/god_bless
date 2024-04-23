@@ -17,7 +17,9 @@ public class ChatManager {
         user.setWantToChat(true);
         synchronized (chats) {
             log.info("User {} wants to join the chat", user.getName());
-            Optional<User> optionalUser = userList.getWantedToChatUsers().stream().findAny();
+            Optional<User> optionalUser = userList.getWantedToChatUsers().stream()
+                    .filter(optional -> !optional.equals(user))
+                    .findAny();
             if (optionalUser.isPresent()) {
                 Chat chat = new Chat();
                 chat.addUserToChat(user);
@@ -54,6 +56,7 @@ public class ChatManager {
                     chats.remove(userChat.get());
                 }
             }
+            chats.notify();
         }
     }
 
