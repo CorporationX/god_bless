@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static final AtomicInteger COUNTER_OF_NEED_POTIONS = new AtomicInteger();
-    private static final int NUM_THREAD = 8;
+    private static final int NUM_THREAD = 6;
 
     public static void main(String[] args) {
 
@@ -35,7 +35,10 @@ public class Main {
             throw new RuntimeException();
         }
 
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).thenApply(v -> futures.stream()
+                        .map(CompletableFuture::join)
+                        .toList())
+                .join().forEach(COUNTER_OF_NEED_POTIONS::getAndAdd);
 
         System.out.println(COUNTER_OF_NEED_POTIONS.get());
     }
@@ -43,6 +46,6 @@ public class Main {
     @SneakyThrows
     public static CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService pool) {
         TimeUnit.SECONDS.sleep(potion.getRequiredIngredients().size());
-        return CompletableFuture.supplyAsync(() -> potion.getRequiredIngredients().size(), pool).thenApply(COUNTER_OF_NEED_POTIONS::addAndGet);
+        return CompletableFuture.supplyAsync(() -> potion.getRequiredIngredients().size(), pool);
     }
 }
