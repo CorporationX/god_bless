@@ -12,22 +12,29 @@ public class Main {
 
         printAllBooks(library);
 
+        Book book = new Book("Книга 4", "Aвтор 4", 2021);
+        addBook(book, "Полка 4", library);
         System.out.println("Добавили новую книгу");
-        addBook(new Book("Книга 4", "Aвтор 4", 2021), "Полка 4", library);
         printAllBooks(library);
-        removeBook("Книга 4", "Aвтор 4", 2021, library);
+
+        removeBook(book, library);
         System.out.println("Удалили книгу 4");
         printAllBooks(library);
+
         System.out.println("Поиск книги 2");
         System.out.println(findShelfByBook("Книга 2", "Aвтор 2", 1991, library));
     }
 
     public static void addBook(Book book, String shelf, Map<Book, String> library) {
-        library.put(book, shelf);
+        if (book == null || shelf == null) {
+            throw new IllegalArgumentException("Wrong arguments book or shelf");
+        }
+
+        library.merge(book, shelf, String::concat);
     }
 
-    public static void removeBook(String title, String author, int year, Map<Book, String> library) {
-        library.remove(new Book(title, author, year));
+    public static void removeBook(Book book, Map<Book, String> library) {
+        library.remove(book);
     }
 
     public static String findShelfByBook(String title, String author, int year, Map<Book, String> target) {
