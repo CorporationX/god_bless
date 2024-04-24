@@ -15,6 +15,7 @@ public class Droid {
         return (msg, key) -> {
             StringBuilder stringBuilder = new StringBuilder();
             for (char ch : msg.toCharArray()) {
+                // Encrypt or Decrypt flag. If doEncrypt is true then encrypt message, false - decrypt.
                 stringBuilder.append((char) (doEncrypt ? ch + key : ch - key));
             }
             return stringBuilder.toString();
