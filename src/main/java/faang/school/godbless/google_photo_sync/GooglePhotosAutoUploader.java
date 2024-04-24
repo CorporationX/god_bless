@@ -48,7 +48,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void startAutoUpload() {
-        while (true) {
+        while (!Thread.interrupted()) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
                     try {
