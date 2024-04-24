@@ -1,7 +1,5 @@
 package faang.school.godbless.alchemy;
 
-import lombok.SneakyThrows;
-
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -11,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static final AtomicInteger COUNTER_OF_NEED_POTIONS = new AtomicInteger();
-    private static final int NUM_THREAD = 6;
+    private static final int NUM_THREAD = 4;
 
     public static void main(String[] args) {
 
@@ -43,9 +41,14 @@ public class Main {
         System.out.println(COUNTER_OF_NEED_POTIONS.get());
     }
 
-    @SneakyThrows
     public static CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService pool) {
-        TimeUnit.SECONDS.sleep(potion.getRequiredIngredients().size());
-        return CompletableFuture.supplyAsync(() -> potion.getRequiredIngredients().size(), pool);
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(potion.getRequiredIngredients().size());
+            }catch(InterruptedException e){
+                throw new RuntimeException(e);
+            }
+            return potion.getRequiredIngredients().size();
+        }, pool);
     }
 }
