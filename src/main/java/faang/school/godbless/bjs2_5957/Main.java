@@ -31,6 +31,8 @@ public class Main {
             }
         }).join());
 
+        shutdownExecutor();
+
         try {
             while (!executorService.awaitTermination(1, TimeUnit.SECONDS)) {
             }
@@ -53,6 +55,10 @@ public class Main {
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
             }
-        }, executorService).thenRun(executorService::shutdown);
+        }, executorService);
+    }
+
+    public static void shutdownExecutor() {
+        executorService.shutdown();
     }
 }
