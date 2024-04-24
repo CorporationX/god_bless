@@ -21,18 +21,26 @@ public class Main {
     }
 
     public static int eventNumbersSum(List<Integer> numbers) {
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("Invalid value: " + numbers);
+        }
+
         return numbers.stream()
                 .filter(n -> n % 2 == 0)
                 .reduce(0, Integer::sum);
     }
 
     public static int getMaxNumber(List<Integer> numbers) {
+        checkList(numbers);
+
         return numbers.stream()
                 .max(Integer::compareTo)
                 .orElseThrow(() -> new RuntimeException("Empty"));
     }
 
     public static double getAverage(List<Integer> numbers) {
+        checkList(numbers);
+
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
@@ -40,28 +48,38 @@ public class Main {
     }
 
     public static long countStringsStartingWith(List<String> strings, String letter) {
+        checkList(strings);
+
         return strings.stream()
                 .filter(s -> s.startsWith(letter))
                 .count();
     }
 
     private static List<String> filterWordsContainSubstring(List<String> words, String substring) {
+        checkList(words);
+
         return words.stream()
                 .filter(word -> word.contains(substring))
                 .toList();
     }
 
     private static List<String> sortListByStringLength(List<String> words) {
+        checkList(words);
+
         return words.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
     private static boolean testAllElements(List<Integer> numbers, Predicate<Integer> condition) {
+        checkList(numbers);
+
         return numbers.stream().allMatch(condition);
     }
 
     public static int getMinNumberAndMoreThen(List<Integer> numbers, Integer moreNumber) {
+        checkList(numbers);
+
         return numbers.stream()
                 .filter(n -> n > moreNumber)
                 .min(Integer::compareTo)
@@ -69,8 +87,16 @@ public class Main {
     }
 
     private static List<Integer> getListOfLength(List<String> words) {
+        checkList(words);
+
         return words.stream()
                 .map(String::length)
                 .toList();
+    }
+
+    public static <T> void checkList(List<T> list) {
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("Invalid value: " + list);
+        }
     }
 }
