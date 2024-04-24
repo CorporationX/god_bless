@@ -59,15 +59,13 @@ public class Inventory {
         var itemBFromInventory = getItem(itemB);
 
         return itemAFromInventory.thenCombine(itemBFromInventory, (gottenItemA, gottenItemB) -> {
-                    if (gottenItemA == null && gottenItemB != null) {
-                        addItem(gottenItemB).join();
+                    if (gottenItemA == null && gottenItemB == null) {
                         throw new NoSuchElementException("Cannot combine non-existent items.");
                     }
 
-                    if (gottenItemB == null && gottenItemA != null) {
-                        addItem(gottenItemA).join();
-                        throw new NoSuchElementException("Cannot combine non-existent items.");
-                    }
+                    checkNullvalue(gottenItemA, gottenItemB);
+
+                    checkNullvalue(gottenItemB, gottenItemA);
 
                     String combinedItemName = "Combined " + gottenItemA.name() + " and " + gottenItemB.name();
                     int combinedItemPower = gottenItemA.power() + gottenItemB.power();
@@ -96,5 +94,12 @@ public class Inventory {
         log.error("Exception was caught", e);
 
         return null;
+    }
+
+    private void checkNullvalue(Item possibleNull, Item notNullItem) {
+        if (possibleNull == null) {
+            addItem(notNullItem).join();
+            throw new NoSuchElementException("Cannot combine non-existent items.");
+        }
     }
 }
