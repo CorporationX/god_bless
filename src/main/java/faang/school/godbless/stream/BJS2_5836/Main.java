@@ -9,7 +9,7 @@ public class Main {
         List<Integer> numbers = List.of(1, 2, 3, 5, 6, 7, 8, 9, 10);
         List<String> strings = List.of("three", "one", "two", "two three");
 
-        System.out.println("Even numbers sum = " + eventNumbersSum(numbers));
+        System.out.println("Even numbers sum = " + getSumOfEvenNumbers(numbers));
         System.out.println("Max = " + getMaxNumber(numbers));
         System.out.println("Average = " + getAverage(numbers));
         System.out.println("Count of strings in the list starting with t = " + countStringsStartingWith(strings, "t"));
@@ -20,7 +20,7 @@ public class Main {
         System.out.println("Get list of length: " + getListOfLength(strings));
     }
 
-    public static int eventNumbersSum(List<Integer> numbers) {
+    public static int getSumOfEvenNumbers(List<Integer> numbers) {
         if (numbers.isEmpty()) {
             throw new IllegalArgumentException("Invalid value: " + numbers);
         }
