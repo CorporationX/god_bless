@@ -3,50 +3,52 @@ package faang.school.godbless.synchronization.task_6.model;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class House {
     @Getter
     private final String name;
-    private final List<Role> availableRoles;
-    private int availableRolesNumber;
+    private final Map<Role, Integer> availableRoles;
+
 
     public House(String name) {
         this.name = name;
-        availableRoles = new ArrayList<>();
-        availableRoles.add(Role.COIN_MASTER);
-        availableRoles.add(Role.KNIGHT);
-        availableRoles.add(Role.LORD);
-        availableRoles.add(Role.HEALER);
-        availableRoles.add(Role.MAGE);
+        availableRoles = new ConcurrentHashMap<>();
+        availableRoles.put(Role.COIN_MASTER, 1);
+        availableRoles.put(Role.KNIGHT, 1);
+        availableRoles.put(Role.LORD, 1);
+        availableRoles.put(Role.HEALER, 1);
+        availableRoles.put(Role.MAGE, 1);
     }
 
     public synchronized Role assignRole() {
-        if (availableRolesNumber == 0) {
+        Optional<Role> availableRole = getAvailableRole();
+        if (availableRole.isEmpty()) {
             try {
-                this.wait(3000);
+                this.wait();
+                return assignRole();
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
                 e.printStackTrace();
             }
-        }
-        Optional<Role> assignedRole = availableRoles.stream().findFirst();
-        if (assignedRole.isEmpty()) {
-            throw new NoSuchElementException("roles not found");
         } else {
-            availableRoles.remove(assignedRole.get());
-            availableRolesNumber = availableRoles.size();
+            availableRoles.computeIfPresent(availableRole.get(), (roleKey, number) -> number - 1);
+            return availableRole.get();
         }
-        return assignedRole.get();
+        return availableRole.get();
     }
 
     public synchronized void makeRoleVacant(Role role) {
-        availableRoles.add(role);
-        availableRolesNumber = availableRoles.size();
+        availableRoles.computeIfPresent(role, (roleKey, number) -> number + 1);
         this.notifyAll();
+    }
+
+    private synchronized Optional<Role> getAvailableRole() {
+        return availableRoles.entrySet().stream()
+                .filter(availableRole -> availableRole.getValue() != 0)
+                .map(Map.Entry::getKey)
+                .findFirst();
     }
 }
