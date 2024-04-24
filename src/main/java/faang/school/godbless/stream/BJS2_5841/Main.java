@@ -70,8 +70,8 @@ public class Main {
                 .toList();
     }
 
-    private static HashMap<String, String> getAllFriendOfFriends(Map<String, List<String>> friends) {
-        HashMap<String, String> pairs = new HashMap<>();
+    private static Map<String, String> getAllFriendOfFriends(Map<String, List<String>> friends) {
+        Map<String, String> pairs = new HashMap<>();
         friends.forEach((key, value) ->
                 friends.entrySet().stream() // Create first stream from the map
                         .filter(entry -> !key.equals(entry.getKey()) && !value.contains(entry.getKey())) // Filter stream to not have current name in another list
@@ -91,6 +91,10 @@ public class Main {
     }
 
     public static List<String> wordContainLetters(List<String> words, String letters) {
+        if (letters == null) {
+            throw new IllegalArgumentException("Invalid letters value");
+        }
+
         return words.stream()
                 .filter(word -> Arrays.stream(letters.split("")).anyMatch(word::contains))
                 .sorted(Comparator.comparing(String::length))
