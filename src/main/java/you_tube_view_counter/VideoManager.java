@@ -1,4 +1,4 @@
-package YouTubeViewCounter;
+package you_tube_view_counter;
 
 import java.util.HashMap;
 import java.util.Map;

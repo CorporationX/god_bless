@@ -1,4 +1,4 @@
-package YouTubeViewCounter;
+package you_tube_view_counter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +19,10 @@ public class Main {
 
         for (String videoID : videoIDs) {
             for (int i = 0; i < NUM_THREADS / NUM_VIDEOS; i++) {
-                service.execute(() -> videoManager.addView(videoID));
-                service.execute(() -> System.out.println(videoID + " -> " + videoManager.getViewCount(videoID)));
+                service.execute(() -> {
+                    videoManager.addView(videoID);
+                    System.out.println(videoID + " -> " + videoManager.getViewCount(videoID));
+                });
             }
         }
         service.shutdown();
