@@ -1,7 +1,8 @@
 package faang.school.godbless.recommendation_system;
 
-import faang.school.godbless.recommendation_system.model.Product;
-import org.junit.jupiter.api.Assertions;
+import faang.school.godbless.sprint_2.recommendation_system.Main;
+import faang.school.godbless.sprint_2.recommendation_system.RecommendationService;
+import faang.school.godbless.sprint_2.recommendation_system.model.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
