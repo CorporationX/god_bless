@@ -15,7 +15,7 @@ public class FoodDeliveryTask implements Runnable {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
     }
-    @Override
+@Override
     public void run() {
         String griffinsFood = getFoodType();
         System.out.println(character + " receives " + foodAmount + " " + griffinsFood);
