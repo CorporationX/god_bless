@@ -1,37 +1,42 @@
 package faang.school.godbless.theIronThrone;
 
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
+@AllArgsConstructor
 public class House {
-    private final String name;
-    private final List<String> emptyRoles;
-    private int amountOfEmptyRoles;
+    private String name;
+    private final Map<String, Integer> roles = new HashMap<>();
 
-    public House(String name) {
-        this.name = name;
-        this.emptyRoles = new ArrayList<>();
-        this.amountOfEmptyRoles = 0;
+
+    public void addRole(String role, User user) {
+        synchronized (roles) {
+            if (roles.get(role) <= 0) {
+                System.out.println(user.getName() + " is waiting until the role will be available");
+                try {
+                    roles.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            roles.computeIfPresent(role, (key, value) -> value - 1);
+            user.setHouse(this);
+            user.setRole(role);
+            System.out.println(user.getName() + " joined the house of " + name + " in a role of " + role);
+        }
     }
 
-    public boolean checkForEmptyRole() {
-        return amountOfEmptyRoles > 0;
+    public void removeRole(String role, User user) {
+        synchronized (roles) {
+            roles.computeIfPresent(role, (key, value) -> value + 1);
+            user.setHouse(null);
+            user.setRole(null);
+            System.out.println(user.getName()+" left the house of "+ name + " and the position of " + role);
+            roles.notify();
+        }
     }
-
-    public synchronized void addRole(String role) {
-            emptyRoles.add(role);
-            amountOfEmptyRoles++;
-            notifyAll();
-    }
-
-    public synchronized void removeRole(String role) {
-            emptyRoles.remove(role);
-            amountOfEmptyRoles--;
-            notifyAll();
-    }
-
 }

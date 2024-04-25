@@ -7,9 +7,9 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         House house = new House("Stark");
-        house.addRole("Lord");
-        house.addRole("Knight");
-        house.addRole("Teacher");
+        house.getRoles().put("Lord", 1);
+        house.getRoles().put("Knight", 1);
+        house.getRoles().put("Teacher", 1);
 
         User user1 = new User("Jon");
         User user2 = new User("Arya");
@@ -17,13 +17,17 @@ public class Main {
         User user4 = new User("Robb");
 
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        executorService.submit(() -> user1.joinHouse(house));
-        executorService.submit(() -> user2.joinHouse(house));
-        executorService.submit(() -> user3.joinHouse(house));
-        executorService.submit(() -> user4.joinHouse(house));
+        executorService.submit(() -> user1.joinHouse(house, "Lord"));
+        executorService.submit(() -> user2.joinHouse(house, "Knight"));
+        executorService.submit(() -> user3.joinHouse(house, "Teacher"));
+        executorService.submit(() -> user4.joinHouse(house, "Lord"));
 
-        executorService.submit(() -> user1.leaveHouse());
+        executorService.submit(() -> user1.leaveHouse(house));
         executorService.shutdown();
-        executorService.awaitTermination(20, TimeUnit.SECONDS);
+        try {
+            executorService.awaitTermination(10, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
