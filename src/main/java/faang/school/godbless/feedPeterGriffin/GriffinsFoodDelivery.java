@@ -3,6 +3,7 @@ package faang.school.godbless.feedPeterGriffin;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
     public static final int NUMBER_OF_THREADS = 3;
@@ -15,6 +16,14 @@ public class GriffinsFoodDelivery {
             executorService.submit(deliveryTask);
         }
         executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(8, TimeUnit.SECONDS)) {
+                executorService.shutdown();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdown();
+            Thread.currentThread().interrupt();
+        }
         System.out.println("Griffin's heroes is fed");
     }
 }
