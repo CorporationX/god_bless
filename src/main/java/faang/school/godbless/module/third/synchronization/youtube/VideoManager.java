@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class VideoManager {
-    static final Map<String, Integer> VIEWS_MAP = new HashMap<>();
+    private final Map<String, Integer> VIEWS_MAP = new HashMap<>();
     
     public void addView(String videoId) {
         synchronized (VIEWS_MAP) {
