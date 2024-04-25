@@ -14,5 +14,6 @@ public class GriffinsFoodDelivery {
             FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(characterName, new Random().nextInt(100));
             executor.submit(foodDeliveryTask);
         }
+        executor.shutdown();
     }
 }
