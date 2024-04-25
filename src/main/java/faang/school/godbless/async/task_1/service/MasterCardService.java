@@ -30,9 +30,10 @@ public class MasterCardService {
 
     public void doAll() {
         Future<Integer> collectedPayment = EXECUTOR.submit(this::collectPayment);
-        CompletableFuture.supplyAsync(this::sendAnalytics, EXECUTOR)
-                .thenAccept(integer -> System.out.println(integer.intValue()));
+        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics, EXECUTOR);
+        futureAnalytics.join();
         try {
+            System.out.println(futureAnalytics.get());
             int collectedPaymentResult = collectedPayment.get();
             System.out.println(collectedPaymentResult);
         } catch (ExecutionException | InterruptedException e) {
