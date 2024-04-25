@@ -6,28 +6,25 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
+
+    public static final Random RANDOMIZER = new Random();
+    public static final ExecutorService FIGHTING_EXECUTOR = Executors.newFixedThreadPool(2);
+
     public Future<Droid> fight(Droid redDroid, Droid blueDroid) {
-        ExecutorService fightingExecutor = Executors.newFixedThreadPool(2);
 
-        Random randomizer = new Random();
+        return FIGHTING_EXECUTOR.submit(() -> {
 
-        var winner = fightingExecutor.submit(() -> {
-
-            int redDroidAttack = randomizer.nextInt(0, 20) + redDroid.attack();
-            int blueDroidAttack = randomizer.nextInt(0, 20) + blueDroid.attack();
+            int redDroidAttack = RANDOMIZER.nextInt(0, 20) + redDroid.attack();
+            int blueDroidAttack = RANDOMIZER.nextInt(0, 20) + blueDroid.attack();
 
             int redDroidDefenceAfterFight = redDroid.defence() - blueDroidAttack;
             int blueDroidDefenceAfterFight = blueDroid.defence() - redDroidAttack;
 
-            if(redDroidDefenceAfterFight > blueDroidDefenceAfterFight) {
-                return redDroid;
-            }
+            return redDroidDefenceAfterFight > blueDroidDefenceAfterFight ? redDroid : blueDroid;
+        });
+    }
 
-            return blueDroid;
-        }  );
-
-        fightingExecutor.shutdown();
-
-        return winner;
+    public void endFights() {
+        FIGHTING_EXECUTOR.shutdown();
     }
 }

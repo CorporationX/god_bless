@@ -21,5 +21,7 @@ public class Main {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+
+        battle.endFights();
     }
 }
