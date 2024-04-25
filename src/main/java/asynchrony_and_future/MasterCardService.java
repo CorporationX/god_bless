@@ -1,20 +1,19 @@
-package AsynchronyAndFuture;
+package asynchrony_and_future;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class MasterCardService {
 
-    public void doAll(ExecutorService executorService) {
-        Future<Integer> payment = executorService.submit(() -> collectPayment());
-        Future<Integer> analytics = executorService.submit(() -> sendAnalytics());
+    public void doAll(ExecutorService executorService) throws ExecutionException, InterruptedException {
+        Future<Integer> futurePayment = executorService.submit(() -> collectPayment());
+        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(() -> sendAnalytics());
 
-        int paymentResult = 0;
-        int analyticsResult = 0;
         try {
-            paymentResult = payment.get();
-            analyticsResult = analytics.get();
+            futurePayment.get();
+            futureAnalytics.get();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException e) {
@@ -22,8 +21,8 @@ public class MasterCardService {
         } finally {
             executorService.shutdown();
         }
-        System.out.println(paymentResult);
-        System.out.println(analyticsResult);
+        System.out.println(futurePayment.get());
+        futureAnalytics.thenAccept(System.out::println);
     }
 
     private int collectPayment() {

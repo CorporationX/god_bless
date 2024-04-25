@@ -1,12 +1,13 @@
-package AsynchronyAndFuture;
+package asynchrony_and_future;
 
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
     private static final int NUM_THREADS = 2;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         MasterCardService masterCardService = new MasterCardService();
 
