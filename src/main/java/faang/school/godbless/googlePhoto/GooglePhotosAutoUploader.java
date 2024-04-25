@@ -37,12 +37,6 @@ public class GooglePhotosAutoUploader {
             System.out.println("Adding new photos");
             photosToUpload.add(photoPath);
             lock.notify();
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
         }
     }
 }
