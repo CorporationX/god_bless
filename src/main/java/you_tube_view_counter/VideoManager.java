@@ -9,10 +9,8 @@ public class VideoManager {
 
     public void addView(String videoId) {
         synchronized (LOCK) {
-            if (!viewsMap.containsKey(videoId)) {
-                viewsMap.put(videoId, 1L);
-            }
-            viewsMap.put(videoId, viewsMap.get(videoId) + 1);
+            long views = viewsMap.getOrDefault(videoId, 0L);
+            viewsMap.put(videoId, views + 1);
         }
     }
 
