@@ -54,19 +54,22 @@ public class PostService {
     public synchronized void removePostById(int postId, @NonNull String userName) throws IllegalAccessException {
         verifyPostId(postId);
 
-        if(!getPostById(postId).author().equals(userName)) {
+        if (!getPostById(postId).author().equals(userName)) {
             throw new IllegalAccessException("Post can be deleted only by its author!");
         }
 
+        log.info("User " + userName + " removed post with id " + postId);
         posts.remove(postId);
     }
 
     public synchronized void removeCommentById(int postId, int commentId, @NonNull String userName) throws IllegalAccessException {
         verifyCommentId(postId, commentId);
 
-        if(!getCommentById(postId, commentId).author().equals(userName)) {
+        if (!getCommentById(postId, commentId).author().equals(userName)) {
             throw new IllegalAccessException("Comment can be deleted only by its author!");
         }
+
+        log.info("User " + userName + " removed comment with id " + commentId + " from post with id " + postId);
 
         getPostById(postId).comments().remove(commentId);
     }
