@@ -17,13 +17,13 @@ public class Player {
     }
 
     public void pause() {
-        if (isPlaying) {
-            synchronized (lock) {
+        synchronized (lock) {
+            if (isPlaying) {
                 isPlaying = false;
                 System.out.println("The player is stopped");
+            } else {
+                System.out.println("The player does not play");
             }
-        } else {
-            System.out.println("The player does not play");
         }
     }
 
@@ -42,7 +42,6 @@ public class Player {
     public void previous() {
         synchronized (lock) {
             if (isPlaying) {
-
                 isPlaying = false;
                 System.out.println("Return previous track");
                 play();
