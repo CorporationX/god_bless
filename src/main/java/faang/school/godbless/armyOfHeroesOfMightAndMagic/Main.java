@@ -10,6 +10,5 @@ public class Main {
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Total army power: " + totalPower);
-
     }
 }

@@ -16,6 +16,5 @@ public class SquadCalculate extends Thread {
     @Override
     public void run() {
         squadPower = creature.getSquadPower();
-        super.run();
     }
 }
