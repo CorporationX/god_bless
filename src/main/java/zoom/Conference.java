@@ -22,5 +22,4 @@ public class Conference {
     public CyclicBarrier getBarrier() {
         return BARRIER;
     }
-
 }
