@@ -15,29 +15,27 @@ public class User {
     public void joinHouse() {
         synchronized (house) {
             if (!house.isHaveEmptySlots()) {
-                toWait();
+                toWaitFreeRole();
             }
 
             Optional<Role> optionalRole = house.getPriorityRole();
-            if (optionalRole.isEmpty()) {
-                toWait();
-            } else {
-                house.addRole(optionalRole.get());
-                this.role = optionalRole.get();
-                System.out.println(getName() + " joined, Role " + role);
-            }
+            optionalRole.ifPresentOrElse(role1 -> {
+                house.addRole(role1);
+                this.role = role1;
+                log.info("{} joined, Role {}", name, role);
+            }, this::toWaitFreeRole);
         }
     }
 
     public void leaveHouse() {
         synchronized (house) {
             house.removeRole(this.role);
-            System.out.println(getName() + " leave, Role " + role);
+            log.info("{} leave, Role {}", name, role);
         }
         role = null;
     }
 
-    private void toWait() {
+    private void toWaitFreeRole() {
         try {
             house.wait();
         } catch (InterruptedException e) {
