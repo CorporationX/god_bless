@@ -33,22 +33,20 @@ public class Player {
         return this;
     }
 
-    public Player setLevel(int level) {
+    public void setLevel(int level) {
         if (level < 0 || level < this.level) {
             throw new IllegalArgumentException("Level can't be lower than zero or lower than previous value of level.");
         }
 
         this.level = level;
-        return this;
     }
 
-    public Player setExperience(int experience) {
+    public void setExperience(int experience) {
         if (experience < 0) {
             throw new IllegalArgumentException("XP points can't be lower than zero.");
         }
 
         this.experience = experience;
-        return this;
     }
 
     public Player gainExperience(int experience) {
