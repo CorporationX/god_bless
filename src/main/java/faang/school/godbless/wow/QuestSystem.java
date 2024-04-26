@@ -32,7 +32,7 @@ public class QuestSystem {
             } catch (InterruptedException e) {
                 log.error(e.getMessage());
             }
-            player.incExp(quest.getReward());
+            player.increasedExperience(quest.getReward());
             return player;
         });
     }
