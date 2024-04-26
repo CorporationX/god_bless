@@ -1,12 +1,12 @@
 package faang.school.godbless.bjs2_5949;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -18,15 +18,12 @@ public class Main {
     public static double calculatePi(int n) {
         ExecutorService executorService = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-        List<CompletableFuture<Point>> futures = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            futures.add(CompletableFuture.supplyAsync(() -> {
-                double x = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
-                double y = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
-                return new Point(x, y);
-            }, executorService));
-        }
+        List<CompletableFuture<Point>> futures = IntStream.range(0, n)
+                .mapToObj(num -> CompletableFuture.supplyAsync(() -> {
+                    double x = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
+                    double y = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
+                    return new Point(x, y);
+                })).toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
@@ -41,6 +38,6 @@ public class Main {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return  4.0 * inside / futures.size();
+        return 4.0 * inside / futures.size();
     }
 }
