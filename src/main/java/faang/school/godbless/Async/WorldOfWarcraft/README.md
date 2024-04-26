@@ -1,0 +1,58 @@
+Условия задачи
+Описание: Вы являетесь разработчиком системы для MMORPG World of Warcraft. 
+Вам необходимо создать систему, которая моделирует выполнение заданий игроками и определение их результатов. 
+Вы должны использовать CompletableFuture в Java для асинхронного выполнения заданий и обработки результатов.
+
+Цель: Создайте класс QuestSystem, который будет использовать CompletableFuture 
+для асинхронного запуска заданий и возвращать результаты с использованием thenApply, 
+thenAccept, и других методов CompletableFuture.
+
+Требования:
+
+Создайте класс Player с полями name, level, и experience.
+
+Создайте класс Quest с полями name, difficulty, и reward.
+
+Создайте класс QuestSystem с методом startQuest, 
+который принимает объекты Player и Quest, и возвращает CompletableFuture<Player>.
+
+Метод startQuest должен использовать CompletableFuture для асинхронного выполнения задания 
+и обновления опыта игрока после его завершения. 
+Имитируйте выполнение задания простым ожиданием через Thread.sleep 
+в количестве секунд, которое равно сложности квеста.
+
+Создайте несколько игроков и заданий, а затем запустите задания с использованием созданного класса QuestSystem.
+
+Обработайте результаты заданий, используя методы CompletableFuture.
+
+Пример использования:
+
+QuestSystem questSystem = new QuestSystem();
+
+// Создание игроков
+Player player1 = new Player("Thrall", 10, 250);
+Player player2 = new Player("Sylvanas", 12, 450);
+
+// Создание заданий
+Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
+Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
+
+// Запуск заданий
+CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+
+// Обработка результатов заданий
+player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+
+Почему эта задача полезна?
+Обратите внимание, как удобно мы запустили сразу несколько квестов для разных игроков параллельно. 
+Это настоящая MMORPG, такая, как WoW. Все одновременно бьют мобов и проходят квесты, — никто не стоит на месте!
+
+Именно такой подход и позволяет создавать крутые многопользовательские игры.
+И даже с таким размахом, как WoW.
+
+Кроме того, посмотрите, как удобно работать с CompletableFuture вместо оригинального Future. 
+Как только квест завершен, сразу сработает thenAccept, и нам, как разработчикам, 
+не нужно постоянно проверять, завершилась ли задача. Однажды это произойдет, 
+и это всё, что нам интересно.
