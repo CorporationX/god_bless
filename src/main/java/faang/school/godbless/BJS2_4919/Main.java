@@ -38,7 +38,7 @@ public class Main {
     }
 
     public static void printAllHouses(Map<String, House> houses) {
-        System.out.println("Список домов и гербов:");
+        System.out.println("Спиcок домов и гербов:");
         StringBuilder result = new StringBuilder();
 
         for (House house: houses.values()) {
