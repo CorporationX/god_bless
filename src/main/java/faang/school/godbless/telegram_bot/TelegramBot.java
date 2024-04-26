@@ -21,15 +21,21 @@ public class TelegramBot {
             requestCounter++;
             if (requestCounter >= REQUEST_LIMIT) {
                 try {
-                    Thread.sleep((1 - duration.getSeconds()) * 1000);
+                    long remainingTime = 1000 - duration.toMillis();
+                    synchronized (this){
+                        wait(remainingTime);
+                    }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         } else {
-            requestCounter = 0;
+            requestCounter = 1;
             lastRequestTime = currentTime;
         }
         System.out.println("Отправка сообщения: " + message);
+        synchronized (this) {
+            notifyAll();
+        }
     }
 }
