@@ -1,5 +1,6 @@
 package faang.school.godbless.concurrency.standingWork;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -7,11 +8,12 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class MarketingDepartment extends Thread {
     private final MarketingResources resources = new MarketingResources();
+    private final Object resourcesLock = new Object();
 
     public void doSomeWorkOnMarketing() {
-        synchronized (resources) {
+        synchronized (resourcesLock) {
             log.info("Work has begun on the marketing strategy of the project.");
-            resources.addNewFile("Marketing_strategy_plan.txt");
+            addFileInMarketingResources("Marketing_strategy_plan.txt");
 
             printMarketingResources();
 
@@ -22,15 +24,19 @@ public class MarketingDepartment extends Thread {
         }
     }
 
-    public void printMarketingResources() {
-        synchronized (resources) {
-            try {
-                TimeUnit.SECONDS.sleep(6);
-            } catch (InterruptedException e) {
-                log.info("The work on the marketing strategy was interrupted.");
-            }
+    public synchronized void printMarketingResources() {
+        try {
+            TimeUnit.SECONDS.sleep(6);
+        } catch (InterruptedException e) {
+            log.info("The work on the marketing strategy was interrupted.");
+        }
 
-            resources.lsAll();
+        resources.lsAll();
+    }
+
+    public void addFileInMarketingResources(@NonNull String newFile) {
+        synchronized (resourcesLock) {
+            resources.addNewFile(newFile);
         }
     }
 }

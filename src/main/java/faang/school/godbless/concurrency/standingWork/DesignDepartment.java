@@ -1,5 +1,6 @@
 package faang.school.godbless.concurrency.standingWork;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.TimeUnit;
@@ -7,12 +8,13 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DesignDepartment {
     private final DesignResources resources = new DesignResources();
+    private final Object resourcesLock = new Object();
 
     public void doSomeWorkOnDesign() {
-        synchronized (resources) {
+        synchronized (resourcesLock) {
 
             log.info("Work has begun on the design of the project.");
-            resources.addNewFile("design_ideas.txt");
+            addFileInDesignResources("design_ideas.txt");
 
             printDesignResources();
 
@@ -24,15 +26,19 @@ public class DesignDepartment {
         }
     }
 
-    public void printDesignResources() {
-        synchronized (resources) {
-            try {
-                TimeUnit.SECONDS.sleep(5);
-            } catch (InterruptedException e) {
-                log.info("The work on the design was interrupted.");
-            }
+    public synchronized void printDesignResources() {
+        try {
+            TimeUnit.SECONDS.sleep(5);
+        } catch (InterruptedException e) {
+            log.info("The work on the design was interrupted.");
+        }
 
-            resources.lsAll();
+        resources.lsAll();
+    }
+
+    public void addFileInDesignResources(@NonNull String newFile) {
+        synchronized (resourcesLock) {
+            resources.addNewFile(newFile);
         }
     }
 }
