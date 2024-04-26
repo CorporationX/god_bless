@@ -10,8 +10,10 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
+
+    private static final int N_ELEMENTS = 1000;
     public static void main(String[] args) {
-        launch();
+        launch(N_ELEMENTS);
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
@@ -19,7 +21,7 @@ public class Main {
 
         List<CompletableFuture<Void>> futureList = new ArrayList<>();
         for (SquareRequest request : requests) {
-            futureList.add(CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)));
+            futureList.add(CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executorService));
         }
         executorService.shutdown();
 
@@ -28,13 +30,14 @@ public class Main {
         return resultConsumer.getSumOfSquaredNumbers();
     }
 
-    public static void launch() {
+    public static void launch(int elements) {
         ResultConsumer resultConsumer = new ResultConsumer(0L);
         List<SquareRequest> requests = new ArrayList<>();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < elements; i++) {
             requests.add(new SquareRequest(i + 1L));
         }
         log.info("Result: {}", fanOutFanIn(requests, resultConsumer));
+        log.info("expected result: 333833500");
     }
 }
