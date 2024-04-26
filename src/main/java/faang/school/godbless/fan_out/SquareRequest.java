@@ -3,10 +3,10 @@ package faang.school.godbless.fan_out;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class SquareRequest {
     private static final long MIN_TIMEOUT = 3000L;
@@ -29,18 +29,11 @@ public class SquareRequest {
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executor = Executors.newFixedThreadPool(requests.size());
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
-
-        for (SquareRequest request : requests) {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executor);
-            futures.add(future);
-        }
-        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
-        try {
-            allOf.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        List<CompletableFuture<Void>> futures = requests.stream()
+                .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executor))
+                .toList();
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+        allOf.join();
         executor.shutdown();
         return resultConsumer.getResult();
     }
