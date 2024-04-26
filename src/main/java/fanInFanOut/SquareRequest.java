@@ -35,7 +35,7 @@ public class SquareRequest {
                         squareRequest.longTimeSquare(resultConsumer), service)
                 ));
 
-        futures.forEach(CompletableFuture::join);
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
         service.shutdown();
 
         return resultConsumer.getSumOfSquaredNumbers().get();
