@@ -30,7 +30,7 @@ public class Battle {
     
     public Future<Robot> fight(Robot first, Robot second) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        return executorService.submit(() -> {
+        Future<Robot> future = executorService.submit(() -> {
             log.info("Битва началась");
             Thread.sleep(2000);
             if (first.getAttackPower() > second.getDefensePower()) {
@@ -38,5 +38,7 @@ public class Battle {
             }
             return second;
         });
+        executorService.shutdown();
+        return future;
     }
 }
