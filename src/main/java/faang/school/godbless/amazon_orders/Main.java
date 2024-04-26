@@ -12,6 +12,6 @@ public class Main {
         CompletableFuture<Void> future2 = orderProcessor.processOrder(order2);
         CompletableFuture<Void> future3 = orderProcessor.processOrder(order3);
         CompletableFuture.allOf(future1,future2,future3).join();
-        System.out.println("Всего обработано заказов: " + orderProcessor.totalProcessedOrders.get());
+        System.out.println("Всего обработано заказов: " + orderProcessor.getTotalProcessedOrders().get());
     }
 }

@@ -1,10 +1,14 @@
 package faang.school.godbless.amazon_orders;
 
+import lombok.Getter;
+
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
+@Getter
 public class OrderProcessor {
-    AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+
     public CompletableFuture<Void> processOrder(Order order){
         return CompletableFuture.runAsync(() -> {
             try {
