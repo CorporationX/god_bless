@@ -1,4 +1,4 @@
-package faang.school.godbless.Async.WOW;
+package faang.school.godbless.Async.WorldOfWarcraft;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
@@ -6,6 +6,7 @@ import java.util.concurrent.Executors;
 
 public class QuestSystem {
     private final ExecutorService executor = Executors.newFixedThreadPool(2);
+
     public CompletableFuture<Player> startQuest(Player player, Quest quest){
 
         return CompletableFuture.supplyAsync(() ->

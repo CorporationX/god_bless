@@ -1,4 +1,4 @@
-package faang.school.godbless.Async.WOW;
+package faang.school.godbless.Async.WorldOfWarcraft;
 
 import java.util.concurrent.CompletableFuture;
 

@@ -1,4 +1,4 @@
-package faang.school.godbless.Async.WOW;
+package faang.school.godbless.Async.WorldOfWarcraft;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
