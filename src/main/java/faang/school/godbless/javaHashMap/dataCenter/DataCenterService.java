@@ -23,7 +23,7 @@ public class DataCenterService {
             }
         }
 
-        System.out.println("There is no available servers to allocate these resources");
+        System.out.println("There is no available servers to allocate these RESOURCES");
     }
 
     public void releaseResources(ResourceRequest request) {
