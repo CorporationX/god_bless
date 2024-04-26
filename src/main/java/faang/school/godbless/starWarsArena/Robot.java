@@ -1,4 +1,4 @@
-package faang.school.godbless.StarWarsArena;
+package faang.school.godbless.starWarsArena;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

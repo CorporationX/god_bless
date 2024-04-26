@@ -1,4 +1,4 @@
-package faang.school.godbless.StarWarsArena;
+package faang.school.godbless.starWarsArena;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
