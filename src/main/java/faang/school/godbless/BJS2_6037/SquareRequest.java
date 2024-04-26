@@ -27,15 +27,13 @@ public class SquareRequest {
 
     public static Long fanOutFabIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         if (requests.isEmpty()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Входной список не может быть пустым");
         }
 
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        for (SquareRequest request : requests) {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer));
-            futures.add(future);
-        }
+        requests.stream().map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer))).forEach(futures::add);
+
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         return resultConsumer.sumOfSquaredNumbers.get();
