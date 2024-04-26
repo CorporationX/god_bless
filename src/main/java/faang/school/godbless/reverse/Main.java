@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.LongStream;
+
+import static java.lang.Math.min;
 
 public class Main {
 
@@ -15,12 +18,13 @@ public class Main {
     }
 
     private static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer){
-        ExecutorService executor = Executors.newFixedThreadPool(requests.size());
+        ExecutorService executor = Executors.newFixedThreadPool(min(requests.size(), 6));
         List<CompletableFuture<Void>> futures = new ArrayList<>();
-        for (SquareRequest request : requests) {
+
+        requests.forEach(request -> {
             CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(()->request.longTimeSquare(resultConsumer), executor);
             futures.add(completableFuture);
-        }
+        });
         executor.shutdown();
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
@@ -30,9 +34,9 @@ public class Main {
     private static void launch(){
         ResultConsumer resultConsumer = new ResultConsumer(0L);
         List<SquareRequest> requests = new ArrayList<>();
-        for(long i = 1; i<=1000; i++){
-            requests.add(new SquareRequest(i));
-        }
+
+        LongStream.range(1, 1001).forEach((number)->requests.add(new SquareRequest(number)));
+
         System.out.println("Result = " + fanOutFanIn(requests, resultConsumer));
     }
 }
