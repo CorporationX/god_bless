@@ -28,11 +28,9 @@ public class PromoCode {
         return true;
     }
 
-    public synchronized boolean setIsUsed() {
+    public synchronized void setIsUsed() {
         if (!this.isUsed) {
             this.isUsed = true;
-            return true;
         }
-        return false;
     }
 }
