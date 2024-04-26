@@ -51,7 +51,7 @@ public class Inventory {
         inventory.getFromChest()
                 .thenCombine(inventory.buy(), inventory::combineItems)
                 .thenCompose(item-> CompletableFuture.runAsync(()->inventory.addItem(item)))
-                .thenRun(()-> System.out.println(inventory.items));
+                .thenRun(()-> System.out.println(inventory.items)).join();
 
 //        CompletableFuture<Item> fromChest = inventory.getFromChest();
 //        CompletableFuture<Item> bought = inventory.buy();
