@@ -26,5 +26,6 @@ public class GriffinsFoodDelivery {
             Thread.currentThread().interrupt();
         }
         System.out.println("Griffin's heroes is fed");
+
     }
 }
