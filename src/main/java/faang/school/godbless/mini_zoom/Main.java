@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private static final int THREAD_POOL_SIZE = 2;
+    private static final int THREAD_POOL_SIZE = 5;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);

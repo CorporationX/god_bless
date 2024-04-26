@@ -11,6 +11,6 @@ public class Participant {
     private String name;
 
     public void joinConference() {
-        log.info("Participant with name - {}, joined!", name);
+        log.info("Participant with name - {}, waiting!", name);
     }
 }
