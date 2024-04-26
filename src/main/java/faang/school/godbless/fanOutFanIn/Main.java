@@ -1,4 +1,4 @@
-package faang.school.godbless.FanOutFanIn;
+package faang.school.godbless.fanOutFanIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,13 +8,14 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private static final int N = 1000;
+    private static final int NUM_THREADS = 10;
 
     public static void main(String[] args) {
         launch();
     }
 
     private static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        ExecutorService pool = Executors.newFixedThreadPool(requests.size());
+        ExecutorService pool = Executors.newFixedThreadPool(NUM_THREADS);
 
         List<CompletableFuture<Void>> results = new ArrayList<>();
         for (SquareRequest request : requests) {
