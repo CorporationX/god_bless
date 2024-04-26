@@ -1,4 +1,4 @@
-package starWarsArena;
+package star_wars_arena;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

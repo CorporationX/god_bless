@@ -1,4 +1,4 @@
-package starWarsArena;
+package star_wars_arena;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -6,15 +6,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
+    private static final ExecutorService SERVICE = Executors.newCachedThreadPool();
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
-        ExecutorService service = Executors.newSingleThreadExecutor();
-        return service.submit(() -> {
+        return SERVICE.submit(() -> {
             while (robot1.getHealth() > 0 && robot2.getHealth() > 0) {
-                robot2.setHealth(robot2.getHealth()-(robot1.getAttackPower() - robot2.getDefencePower()));
-                robot1.setHealth(robot1.getHealth()-(robot2.getAttackPower() - robot1.getDefencePower()));
+                robot2.setHealth(robot2.getHealth() - (robot1.getAttackPower() - robot2.getDefencePower()));
+                robot1.setHealth(robot1.getHealth() - (robot2.getAttackPower() - robot1.getDefencePower()));
             }
-            service.shutdown();
+            SERVICE.shutdown();
             return robot1.getHealth() > 0 ? robot1 : robot2;
         });
     }
