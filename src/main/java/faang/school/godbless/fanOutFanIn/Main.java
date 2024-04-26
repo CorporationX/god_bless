@@ -21,7 +21,7 @@ public class Main {
     public static void launch() {
         List<SquareRequest> requests = new ArrayList<>();
         ResultConsumer resultConsumer = new ResultConsumer(0L);
-        for (long i = 1; i < 1000; i++) {
+        for (long i = 1; i <= 1000; i++) {
             requests.add(new SquareRequest(i));
         }
         System.out.println("Result: " + fanOutFanIn(requests, resultConsumer));
