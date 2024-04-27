@@ -1,4 +1,4 @@
-package celebrityInTwitter;
+package celebrity_in_twitter;
 
 import lombok.Data;
 

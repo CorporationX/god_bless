@@ -1,4 +1,4 @@
-package celebrityInTwitter;
+package celebrity_in_twitter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ public class Main {
         addFollowers(account2, subscriptionSystem, futures, 300);
         addFollowers(account3, subscriptionSystem, futures, 500);
 
+        subscriptionSystem.shutdown();
         futures.forEach(CompletableFuture::join);
         System.out.printf("\n%s have %d followers", account1.getUsername(), account1.getFollowers().get());
         System.out.printf("\n%s have %d followers", account2.getUsername(), account2.getFollowers().get());
