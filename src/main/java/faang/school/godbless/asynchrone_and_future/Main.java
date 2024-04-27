@@ -26,5 +26,7 @@ public class Main {
         } catch (InterruptedException | ExecutionException | TimeoutException e) {
             throw new RuntimeException(e);
         }
+
+        EXECUTOR_SERVICE.shutdown();
     }
 }
