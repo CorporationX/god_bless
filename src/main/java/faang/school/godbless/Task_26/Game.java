@@ -42,6 +42,10 @@ public class Game {
                     }
                 }
             }
+            System.out.println(Thread.currentThread() +
+                    " " + bro.getName() + " updated. Bro score: " + bro.getScore() + ", Bro lives: " + bro.getLives());
+            System.out.println(Thread.currentThread() +
+                    " General " + "Score: " + score + ", Lives: " + lives);
         }
     }
 
