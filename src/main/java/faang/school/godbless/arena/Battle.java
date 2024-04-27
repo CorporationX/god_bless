@@ -5,8 +5,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
+    ExecutorService executor = Executors.newCachedThreadPool();
+
     public Future<Robot> fight(Robot robotOne, Robot robotTwo) {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         return executor.submit(() -> {
             int v = robotOne.getDefensePower() - robotTwo.getAttackPower() +  (int) (Math.random() * 10);
             int v1 = robotTwo.getDefensePower() - robotOne.getAttackPower() + (int) (Math.random() * 10);
