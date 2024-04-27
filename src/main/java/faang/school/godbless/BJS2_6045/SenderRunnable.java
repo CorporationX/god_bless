@@ -1,5 +1,4 @@
 package faang.school.godbless.BJS2_6045;
-
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -11,7 +10,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("send " + i + " email");
+            System.out.println("email " + i + " just sended");
         }
     }
 }

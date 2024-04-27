@@ -1,5 +1,4 @@
 package faang.school.godbless.BJS2_6045;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -20,10 +19,9 @@ public class MailSender {
             try {
                 thread1.join();
             } catch (InterruptedException e) {
-                System.out.println("Ошибка, поток прервали");
+                System.out.println("Ошибка, поток прерван");
             }
         });
-
         System.out.println("Все письма отправлены");
     }
 
