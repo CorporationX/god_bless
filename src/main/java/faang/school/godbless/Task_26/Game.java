@@ -4,26 +4,48 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+import java.util.List;
+import java.util.Random;
+
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Game {
+    List<Bro> bros;
 
-    static final Object LOCKFORSCORE = new Object();
-    static Object getLockforscore = new Object();
+    final Object lockForScore = new Object();
+    final Object lockForLives = new Object();
 
     int score;
     int lives;
 
+    boolean isBroDead = false;
+
+    public Game(List<Bro> bros) {
+        this.bros = bros;
+    }
+
     void update() {
-        synchronized (LOCKFORSCORE) {
-            score++;
-        }
-        synchronized (getLockforscore) {
-            lives++;
+        while (!isBroDead) {
+            Bro bro = bros.get(new Random().nextInt(bros.size()));
+            if (bro.getAlive()) {
+                synchronized (lockForScore) {
+                    bro.setScore(bro.getScore() + 1);
+                    score++;
+                }
+            } else {
+                synchronized (lockForLives) {
+                    bro.setLives(bro.getLives() - 1);
+                    lives++;
+                    if (bro.getLives() == 0) {
+                        gameOver();
+                        isBroDead = true;
+                    }
+                }
+            }
         }
     }
 
     private void gameOver() {
-        System.out.println("Game over");
+        System.out.println("Game over !");
     }
 }
