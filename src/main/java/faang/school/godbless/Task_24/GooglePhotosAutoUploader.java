@@ -1,18 +1,21 @@
 package faang.school.godbless.Task_24;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@AllArgsConstructor
 @Data
 public class GooglePhotosAutoUploader {
-    String lock;
+
+    final Object lock = new Object();
     List<String> photosToUpload;
+
+    public GooglePhotosAutoUploader(List<String> photosToUpload) {
+        this.photosToUpload = photosToUpload;
+    }
 
     void startAutoUpload() {
         synchronized (lock) {
