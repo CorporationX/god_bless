@@ -1,4 +1,4 @@
-package faang.school.godbless.Async.FAN;
+package faang.school.godbless.Async.fanInFanOut;
 
 import java.util.concurrent.atomic.AtomicLong;
 
