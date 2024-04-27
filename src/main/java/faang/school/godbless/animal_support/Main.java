@@ -11,9 +11,7 @@ public class Main {
             final int donationAmount = random.nextInt(901) + 100;
             Donation donation = new Donation(donationId, donationAmount);
 
-            Thread thread = new Thread(() -> {
-                organization.addDonation(donation);
-            });
+            Thread thread = new Thread(() -> organization.addDonation(donation));
             thread.start();
         }
         try {
