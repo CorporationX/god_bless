@@ -16,10 +16,7 @@ public class PostService {
     }
 
     public void addComment(Comment comment) {
-        Post post = posts.get(comment.getPostId());
-        synchronized (post) {
-            post.addComment(comment);
-        }
+        posts.get(comment.getPostId()).addComment(comment);
     }
 
     public void addPost(Post post) {
@@ -30,10 +27,7 @@ public class PostService {
         if (!author.equals(comment.getAuthor())) {
             log.error("This is not your comment, you cannot delete it");
         } else {
-            Post post = posts.get(comment.getPostId());
-            synchronized (post) {
-                post.deleteComment(comment);
-            }
+            posts.get(comment.getPostId()).deleteComment(comment);
         }
     }
 

@@ -28,14 +28,14 @@ public class Main {
 
         for (int i = 0; i < 5; i++) {
             addCommentOrPost.add(CompletableFuture.runAsync(() ->
-                    postService.addComment(new Comment("test" + ThreadLocalRandom.current().nextInt(), bob, 0)),
+                    postService.addPost(new Post("new", "test" + ThreadLocalRandom.current().nextInt(), misha)),
                     executorService
             ));
         }
 
         for (int i = 0; i < 5; i++) {
             addCommentOrPost.add(CompletableFuture.runAsync(() ->
-                    postService.addPost(new Post("new", "test" + ThreadLocalRandom.current().nextInt(), misha)),
+                            postService.addComment(new Comment("test" + ThreadLocalRandom.current().nextInt(), bob, 3)),
                     executorService
             ));
         }
@@ -49,5 +49,6 @@ public class Main {
         CompletableFuture.allOf(deleteCommentOrPost.toArray(new CompletableFuture[0])).join();
 
         executorService.shutdown();
+        postService.getPosts().values().forEach(System.out::println);
     }
 }
