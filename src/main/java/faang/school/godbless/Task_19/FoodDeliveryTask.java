@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         System.out.println(character + " get " + foodAmount + " of " + getFoodType());
         try {
-            Thread.sleep(1);
+            TimeUnit.MILLISECONDS.sleep(ThreadLocalRandom.current().nextInt(1000, 5000));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
