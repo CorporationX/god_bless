@@ -1,4 +1,4 @@
-package faang.school.godbless.SendRaven;
+package faang.school.godbless.sendRaven;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +40,7 @@ public class Main {
             if (ThreadLocalRandom.current().nextBoolean()) {
                 throw new RavenIsMissingException("Raven was lost during the adventure from " + from.getName() + " to " + to.getName());
             }
-            return from.sendMessage(to);
+            return from.getMessage(to);
         }, pool);
     }
 

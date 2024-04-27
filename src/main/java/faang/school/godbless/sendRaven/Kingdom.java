@@ -1,4 +1,4 @@
-package faang.school.godbless.SendRaven;
+package faang.school.godbless.sendRaven;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,7 +8,7 @@ import lombok.Data;
 public class Kingdom {
     private String name;
 
-    public String sendMessage(Kingdom kingdom) {
+    public String getMessage(Kingdom kingdom) {
         return "Sending message from " + name + " to " + kingdom.getName();
     }
 }

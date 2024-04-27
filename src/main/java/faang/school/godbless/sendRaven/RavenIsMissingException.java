@@ -1,4 +1,4 @@
-package faang.school.godbless.SendRaven;
+package faang.school.godbless.sendRaven;
 
 public class RavenIsMissingException extends RuntimeException {
     public RavenIsMissingException(String message) {
