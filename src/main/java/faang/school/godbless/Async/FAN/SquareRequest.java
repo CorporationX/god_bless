@@ -1,4 +1,4 @@
-package faang.school.godbless.Async.FanInFanOut;
+package faang.school.godbless.Async.FAN;
 
 import java.util.concurrent.ThreadLocalRandom;
 
