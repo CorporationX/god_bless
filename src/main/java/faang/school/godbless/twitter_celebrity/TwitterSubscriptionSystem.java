@@ -8,7 +8,7 @@ public class TwitterSubscriptionSystem {
         twitterAccount.changeFollowersCount();
     }
 
-    public synchronized CompletableFuture<Void> followAccount(TwitterAccount twitterAccount){
+    public CompletableFuture<Void> followAccount(TwitterAccount twitterAccount){
         return CompletableFuture.runAsync(() -> addFollower(twitterAccount));
     }
 }

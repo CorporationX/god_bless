@@ -1,7 +1,6 @@
 package faang.school.godbless.twitter_celebrity;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 
 public class Main {
     public static void main(String[] args) {
@@ -14,11 +13,8 @@ public class Main {
         CompletableFuture<Void> followTask2 = subscriptionSystem.followAccount(bob);
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(followTask1, followTask2);
-        try {
-            allTasks.get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
+        allTasks.join();
+
         System.out.println("Подписчиков у " + max.getUsername() + ": " + max.getFollowers());
         System.out.println("Подписчиков у " + bob.getUsername() + ": " + bob.getFollowers());
     }
