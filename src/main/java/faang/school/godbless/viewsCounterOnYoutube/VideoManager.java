@@ -7,17 +7,18 @@ public class VideoManager {
     private static final Map<String, Integer> views = new HashMap<>();
 
     public synchronized void addView(String videoId){
-        if(views.get(videoId) != null){
-            int counter = views.get(videoId);
-            counter++;
-            views.put(videoId,counter);
-        }else {
-            views.put(videoId, 1);
-        }
+//        if(views.get(videoId) != null){
+//            int counter = views.get(videoId);
+//            counter++;
+//            views.put(videoId,counter);
+//        }else {
+//            views.put(videoId, 1);
+//        }
+        views.put(videoId, views.getOrDefault(videoId, 0 )+1);
 
     }
 
     public synchronized int getViewCount(String videoId){
-        return views.get(videoId);
+        return views.getOrDefault(videoId,0);
     }
 }
