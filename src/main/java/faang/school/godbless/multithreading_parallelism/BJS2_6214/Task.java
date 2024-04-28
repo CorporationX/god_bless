@@ -1,13 +1,11 @@
 package faang.school.godbless.multithreading_parallelism.BJS2_6214;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
 @AllArgsConstructor
-@Getter
 @Slf4j
 public class Task implements Runnable {
     private String name;
