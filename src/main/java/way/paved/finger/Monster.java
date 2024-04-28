@@ -1,12 +1,11 @@
-package wayPavedFinger;
+package way.paved.finger;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class City {
+public class Monster {
     private String name;
-    private Location location;
-    private int distance;
+    private String location;
 }

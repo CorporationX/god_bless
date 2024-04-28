@@ -1,4 +1,4 @@
-package wayPavedFinger;
+package way.paved.finger;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
