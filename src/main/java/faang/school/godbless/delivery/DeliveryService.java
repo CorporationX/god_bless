@@ -16,7 +16,7 @@ public class DeliveryService {
     @Getter
     private final Queue<Order> processedOrders = new ConcurrentLinkedQueue<>();
 
-    public void addActivePromoCode(PromoCode promoCode) {
+    public void addActivePromoCode(@NonNull PromoCode promoCode) {
         activePromoCodes.add(promoCode);
     }
 
