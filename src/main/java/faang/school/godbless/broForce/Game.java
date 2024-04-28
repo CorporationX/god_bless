@@ -1,8 +1,12 @@
 package faang.school.godbless.broForce;
 
+import lombok.Getter;
+
 public class Game {
     private int score = 0;
     private int lives = 5;
+    @Getter
+    private boolean gameOver = false;
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
@@ -27,7 +31,7 @@ public class Game {
 
     public void gameOver() {
         System.out.println("Game over!");
-        System.exit(0);
+        gameOver = true;
     }
 
     public int getLives() {
