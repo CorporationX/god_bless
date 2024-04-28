@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Witcher {
     public static void main(String[] args) throws InterruptedException {
         final int NUM_THREADS = 4;
+        final int WAITING_TIME = 25;
 
         long startTime = System.currentTimeMillis();
 
@@ -30,7 +31,7 @@ public class Witcher {
         }
 
         try {
-            if (!executor.awaitTermination(50000, TimeUnit.MILLISECONDS)) {
+            if (!executor.awaitTermination(WAITING_TIME, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

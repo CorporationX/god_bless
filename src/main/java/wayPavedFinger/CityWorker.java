@@ -10,6 +10,8 @@ import static java.lang.Math.sqrt;
 
 @AllArgsConstructor
 public class CityWorker implements Runnable {
+    final static int MAX_KILL_TIME = 5000;
+
     private City city;
     private List<Monster> monsters;
 
@@ -66,7 +68,7 @@ public class CityWorker implements Runnable {
     }
 
     public int getKillTime() {
-        return new Random().nextInt(5000);
+        return new Random().nextInt(MAX_KILL_TIME);
     }
 
     public double getJourneyDistance(Location startLocation, Location monsterLocation) {
