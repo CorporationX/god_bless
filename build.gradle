@@ -17,6 +17,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.6")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.6.1")
     implementation("org.projectlombok:lombok:1.18.26")
+    implementation("com.opencsv:opencsv:5.7.1")
     annotationProcessor("org.projectlombok:lombok:1.18.26")
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
