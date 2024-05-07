@@ -12,7 +12,7 @@ permissions:
 jobs:
   checkPR:
     runs-on: ubuntu-latest
-    if: ${{ github.event.pull_request.base.ref == 'master' }}
+    if: github.base_ref == 'master'
     steps:
       - name: Fail if targeted at master
         run: |
