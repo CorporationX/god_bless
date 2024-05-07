@@ -12,7 +12,6 @@ permissions:
 jobs:
   checkPR:
     runs-on: ubuntu-latest
-    if: github.base_ref == 'master'
     steps:
       - name: Fail if targeted at master
         run: |
