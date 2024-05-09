@@ -3,8 +3,6 @@ name: Check Master PRs
 on:
   pull_request_target:
     types: [opened, reopened, synchronize, edited]
-    branches:
-      - master
 
 permissions:
   issues: write
@@ -13,6 +11,7 @@ permissions:
 jobs:
   checkPR:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.base.ref == 'master'
     steps:
       - name: Fail if targeted at master
         run: |
@@ -26,7 +25,7 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             const issue_number = context.issue.number;
-            const message = "⚠️ **ОШЫБКА**: Ты создал PR в master ветку. PR-ы можно создавать только в СВОЮ ветку. Пожалуйста, нажми кнопку Edit вверху и измени ветку, в которую направляешь PR.";
+            const message = "⚠️ **ОШЫБКА**: Ты создал PR в master ветку. PR-ы можно создавать только в СВОЮ ветку вида {имя_пользователя_discord}. Пожалуйста, нажми кнопку Edit вверху и измени ветку, в которую направляешь PR.";
             github.rest.issues.createComment({
               owner: context.repo.owner,
               repo: context.repo.repo,
