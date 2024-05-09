@@ -2,6 +2,7 @@ name: Check Master PRs
 
 on:
   pull_request_target:
+    types: [opened, reopened, synchronize, edited]
     branches:
       - master
 
