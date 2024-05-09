@@ -1,8 +1,5 @@
 package faang.school.godbless.stream.BJS2_5912;
 
-import faang.school.godbless.BJS2_4123.User;
-
-import java.net.Inet4Address;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;

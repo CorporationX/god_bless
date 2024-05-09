@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_5634;
+package faang.school.godbless.java_hashmap.BJS2_5634;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_4588;
+package faang.school.godbless.java_core.BJS2_4588;
 
 public class Example {
     public static int[] reverse(int[] numbers) {

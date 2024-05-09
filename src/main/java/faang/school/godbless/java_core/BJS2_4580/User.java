@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_4580;
+package faang.school.godbless.java_core.BJS2_4580;
 
 import lombok.Getter;
 

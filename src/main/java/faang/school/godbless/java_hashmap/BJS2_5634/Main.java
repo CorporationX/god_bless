@@ -1,7 +1,4 @@
-package faang.school.godbless.BJS2_5634;
-
-import java.util.HashMap;
-import java.util.Map;
+package faang.school.godbless.java_hashmap.BJS2_5634;
 
 public class Main {
     public static void main(String[] args) {

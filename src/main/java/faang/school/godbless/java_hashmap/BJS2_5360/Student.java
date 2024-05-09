@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_5360;
+package faang.school.godbless.java_hashmap.BJS2_5360;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

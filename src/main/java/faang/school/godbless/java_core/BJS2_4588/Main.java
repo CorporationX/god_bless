@@ -1,7 +1,6 @@
-package faang.school.godbless.BJS2_4588;
+package faang.school.godbless.java_core.BJS2_4588;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
