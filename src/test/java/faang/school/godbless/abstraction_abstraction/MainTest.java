@@ -1,7 +1,12 @@
 package faang.school.godbless.abstraction_abstraction;
 
-public class Main {
-    public static void main(String[] args) {
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class MainTest {
+    @Test
+    void main() {
         Character warrior = new Warrior("Herald");
         Character archer = new Archer("not Herald");
 
