@@ -2,13 +2,13 @@ package abstraction;
 
 public class Warrior extends Character {
 
-    public Warrior(String name, Integer power, Integer agility, Integer intelligence) {
+    public Warrior(String name, int power, int agility, int intelligence) {
         super(name, 10, 5, 3);
     }
 
     @Override
     public void attack(Character character) {
-        Integer currentHealth = character.health - this.getPower();
+        int currentHealth = character.health - this.getPower();
         character.setHealth(currentHealth);
     }
 }
