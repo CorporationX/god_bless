@@ -17,9 +17,17 @@ public class Main {
                 new Student("Noah", "Literature", 2000),
                 new Student("Mads", "Linguistics", 2014)
         );
+        System.out.println("=======================================");
+        System.out.println("Organizing students by faculty and year");
+        System.out.println("=======================================");
         StudentOrganizer studentOrganizer = new StudentOrganizer();
         studentOrganizer.organizeStudentsByFacultyToYear(students);
         studentOrganizer.printOrganizedMap();
+        System.out.println("=======================================");
+        System.out.println("Adding a new student to Physics faculty");
+        System.out.println("=======================================");
+        studentOrganizer.addNewStudent(new Student("Steven", "Physics", 1998));
+        studentOrganizer.printSingleGroup(new FacultyYearKey("Physics", 1998));
     }
 
 

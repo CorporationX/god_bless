@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Data
 public class StudentOrganizer {
@@ -26,12 +27,18 @@ public class StudentOrganizer {
 
     public void addNewStudent(Student student) {
         Objects.requireNonNull(student);
-        for (Map.Entry<FacultyYearKey, List<Student>> entry : organizedMap.entrySet()) {
-            FacultyYearKey facultyYearKey = entry.getKey();
-        }
+        FacultyYearKey facultyYearKey = new FacultyYearKey(student.faculty(), student.year());
+        this.organizedMap.computeIfPresent(facultyYearKey, (key, list) -> {
+            list.add(student);
+            return list;
+        });
     }
 
     public void printOrganizedMap() {
         this.organizedMap.forEach((k, v) -> System.out.println(k + ": " + v));
+    }
+
+    public void printSingleGroup(FacultyYearKey facultyYearKey) {
+        System.out.println(this.organizedMap.get(facultyYearKey));
     }
 }
