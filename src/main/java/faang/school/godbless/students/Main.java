@@ -1,6 +1,7 @@
 package faang.school.godbless.students;
 
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -10,6 +11,8 @@ public class Main {
                 new Student("John", "CS", 2011),
                 new Student("Sergey", "Physics", 1998),
                 new Student("Larey", "Physics", 1998),
+                new Student("Norman", "Physics", 2005),
+                new Student("Cristoph", "Physics", 2005),
                 new Student("Mann", "CS", 2011),
                 new Student("Liam", "Math", 2005),
                 new Student("Ben", "Forensics", 2014),
@@ -20,21 +23,21 @@ public class Main {
         System.out.println("=======================================");
         System.out.println("Organizing students by faculty and year");
         System.out.println("=======================================");
-        StudentOrganizer studentOrganizer = new StudentOrganizer();
-        studentOrganizer.organizeStudentsByFacultyToYear(students);
-        studentOrganizer.printOrganizedMap();
+        Map<FacultyYearKey, List<Student>> organizedStudents = StudentOrganizer.organizeStudentsByFacultyToYear(students);
+        StudentOrganizer.printOrganizedMap(organizedStudents);
         System.out.println("=======================================");
         System.out.println("Adding a new student to Physics faculty");
         System.out.println("=======================================");
         Student steven = new Student("Steven", "Physics", 1998);
         FacultyYearKey physicsFaculty = new FacultyYearKey("Physics", 1998);
-        studentOrganizer.addNewStudent(steven);
-        studentOrganizer.printSingleGroup(physicsFaculty);
+        StudentOrganizer.addNewStudent(organizedStudents, steven);
+        List<Student> studentsFromSingleGroup = StudentOrganizer.getStudentsFromSingleGroup(organizedStudents, physicsFaculty);
+        System.out.println(studentsFromSingleGroup);
         System.out.println("=======================================");
         System.out.println("Removing a student from Physics faculty");
         System.out.println("=======================================");
-        studentOrganizer.removeStudent(steven);
-        studentOrganizer.printSingleGroup(physicsFaculty);
+        StudentOrganizer.removeStudent(organizedStudents, steven);
+        System.out.println(studentsFromSingleGroup);
     }
 
 
