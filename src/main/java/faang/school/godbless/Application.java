@@ -30,7 +30,7 @@ public class Application {
         userMap.forEach((year, user) ->{
             System.out.println("Возраст: " + year);
             user.forEach(userName -> {
-                System.out.println("ФИО: " + userName.getName().toString() + ", "
+                System.out.println("ФИО: " + userName.getName().toString() + ",  "
                         + "адрес: " + userName.getAdress());
             });
         });
