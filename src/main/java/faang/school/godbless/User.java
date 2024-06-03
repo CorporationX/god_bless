@@ -15,48 +15,13 @@ public class User {
     static final int NUMBER_CONSTANT = 18;
 
     public User(String name, int age, String workPlace, String address) {
-        if (!name.isEmpty() & age > NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
-            this.name = name;
-            this.age = age;
-            this.workPlace = workPlace;
-            this.address = address;
-        }else throw new IllegalArgumentException();
-
-//        try {
-//            if (!name.isEmpty())
-//                this.name = name;
-//            if (age > 18) {
-//                this.age = age;
-//            }
-//            if (VALID_JOBS.contains(workPlace)) {
-//                this.workPlace = workPlace;
-//            }
-//            if (VALID_ADDRESSES.contains(address)) {
-//                this.address = address;
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Ошшибка ввода данных");
-//            e.printStackTrace();
-//        }
-
-
-//        if (name.isEmpty()) {
-//            throw new IllegalArgumentException("sdsd");
-//        } else
-//            this.name = name;
-//        if (age < 18) {
-//            throw new IllegalArgumentException("sdsd");
-//        } else this.age = age;
-//        if (!VALID_JOBS.contains(workPlace)) {
-//            throw new IllegalArgumentException("sdsd");
-//        }else this.workPlace = workPlace;
-//        if (!VALID_ADDRESSES.contains(address)) {
-//            throw new IllegalArgumentException("sdsd");
-//        } else this.address = address;
-
-
+            if (!name.isEmpty() & age > NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
+                this.name = name;
+                this.age = age;
+                this.workPlace = workPlace;
+                this.address = address;
+            }else throw new IllegalArgumentException("ошибка");
     }
-
     @Override
     public String toString() {
         return "User{" +
