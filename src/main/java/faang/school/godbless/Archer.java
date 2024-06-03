@@ -6,7 +6,6 @@ public class Archer extends Character{
         this.force = 3;
         this.agility = 10;
         this.intellect = 5;
-
     }
 
     @Override
