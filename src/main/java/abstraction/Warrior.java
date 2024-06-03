@@ -11,10 +11,4 @@ public class Warrior extends Character {
         Integer currentHealth = character.health - this.getPower();
         character.setHealth(currentHealth);
     }
-
-    public static void main(String[] args) {
-        Warrior war= new Warrior("Tets", 2,5,10);
-
-        System.out.println(war);
-    }
 }
