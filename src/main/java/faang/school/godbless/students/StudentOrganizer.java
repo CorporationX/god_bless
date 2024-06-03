@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Data
 public class StudentOrganizer {
@@ -30,6 +29,15 @@ public class StudentOrganizer {
         FacultyYearKey facultyYearKey = new FacultyYearKey(student.faculty(), student.year());
         this.organizedMap.computeIfPresent(facultyYearKey, (key, list) -> {
             list.add(student);
+            return list;
+        });
+    }
+
+    public void removeStudent(Student student) {
+        Objects.requireNonNull(student);
+        FacultyYearKey facultyYearKey = new FacultyYearKey(student.faculty(), student.year());
+        this.organizedMap.computeIfPresent(facultyYearKey, (key, list) -> {
+            list.remove(student);
             return list;
         });
     }

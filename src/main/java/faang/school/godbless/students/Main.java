@@ -26,8 +26,15 @@ public class Main {
         System.out.println("=======================================");
         System.out.println("Adding a new student to Physics faculty");
         System.out.println("=======================================");
-        studentOrganizer.addNewStudent(new Student("Steven", "Physics", 1998));
-        studentOrganizer.printSingleGroup(new FacultyYearKey("Physics", 1998));
+        Student steven = new Student("Steven", "Physics", 1998);
+        FacultyYearKey physicsFaculty = new FacultyYearKey("Physics", 1998);
+        studentOrganizer.addNewStudent(steven);
+        studentOrganizer.printSingleGroup(physicsFaculty);
+        System.out.println("=======================================");
+        System.out.println("Removing a student from Physics faculty");
+        System.out.println("=======================================");
+        studentOrganizer.removeStudent(steven);
+        studentOrganizer.printSingleGroup(physicsFaculty);
     }
 
 
