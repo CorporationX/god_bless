@@ -1,14 +1,11 @@
 package faang.school.godbless.students;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-@Data
 public class StudentOrganizer {
 
     public static Map<FacultyYearKey, List<Student>> organizeStudentsByFacultyToYear(List<Student> students) {
