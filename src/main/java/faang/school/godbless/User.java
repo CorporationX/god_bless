@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.swing.plaf.ListUI;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -21,20 +20,12 @@ public class User {
 
 
     public static Map<Integer, List<User>> groupUsers(List<User> users){
-        Map<Integer, List<User>> resultGroupUsers = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user:users) {
-            List<User> userList = new ArrayList<>();
-            if (resultGroupUsers.containsKey(user.getAge())){
-                for (Map.Entry<Integer, List<User>> mapResultGroupUsers:resultGroupUsers.entrySet()) {
-                    if (mapResultGroupUsers.getKey() == user.getAge()){
-                        mapResultGroupUsers.getValue().add(user);
-                    }
-                }
-            }else {
-                userList.add(user);
-                resultGroupUsers.put(user.getAge(), userList);
-            }
-        }return resultGroupUsers;
+            if (groupedUsers.containsKey(user.getAge())){
+                    groupedUsers.get(user.getAge()).add(user);
+            }else groupedUsers.computeIfAbsent(user.getAge(), newUser -> new ArrayList<>()).add(user);
+        }return groupedUsers;
 
     }
 }
