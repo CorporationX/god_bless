@@ -19,7 +19,7 @@ public class User {
 
         for(User user : users){
             int age = user.age;
-            result.computeIfAbsent(user.age, x -> new ArrayList<>());
+            result.computeIfAbsent(age, x -> new ArrayList<>());
             result.get(age).add(user);
         }
 
