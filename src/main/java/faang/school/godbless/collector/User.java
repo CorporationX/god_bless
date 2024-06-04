@@ -18,9 +18,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class User {
-  private Integer id;
+  private int id;
   private String name;
-  private Integer age;
+  private int age;
   private Set<String> activities;
 
   public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbySet) {
