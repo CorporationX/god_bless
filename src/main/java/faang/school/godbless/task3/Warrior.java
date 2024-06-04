@@ -3,13 +3,10 @@ package faang.school.godbless.task3;
 
 public class Warrior extends Character {
 
-    private Warrior(String name) {
-        super(name);
-    }
-
-    public Warrior(int power, int dexterity, int intelligence) {
+    public Warrior(String name) {
         super(10, 5, 3);
     }
+
 
     @Override
     public void attack(Character character) {

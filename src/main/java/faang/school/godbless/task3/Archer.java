@@ -7,13 +7,10 @@ public class Archer extends Character {
         this.name = name;
     }
 
-    private Archer(String name) {
-        super(name);
-    }
-
-    protected Archer(int power, int dexterity, int intelligence) {
+    public Archer(String name) {
         super(3, 10, 5);
     }
+
 
     @Override
     public void attack(Character character) {
