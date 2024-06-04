@@ -1,3 +1,7 @@
+# Project exclude path
+/build/
+
+
 .gradle
 **/build/
 !src/**/build/
