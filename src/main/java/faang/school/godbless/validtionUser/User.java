@@ -17,11 +17,11 @@ public class User {
   private static final Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
   private String name;
-  private Integer age;
+  private int age;
   private String company;
   private String address;
 
-  public User(String name, Integer age, String company, String address) {
+  public User(String name, int age, String company, String address) {
     if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name cannot be empty");
     }
