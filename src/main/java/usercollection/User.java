@@ -16,12 +16,7 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> commonSetOfActivities) {
         Map<User, String> usersWithActivities = new HashMap<>();
-//        users.stream()
-//                .map(user -> {
-//                    String foundActivity = user.getActivities().stream()
-//                            .filter(commonSetOfActivities::contains)
-//                            .findFirst().orElse(null);
-//                }).
+
         for (User user : users) {
             for (String activity : commonSetOfActivities) {
                 if (user.getActivities().contains(activity)) {
@@ -29,6 +24,7 @@ public class User {
                 }
             }
         }
+
         return usersWithActivities;
     }
 }
