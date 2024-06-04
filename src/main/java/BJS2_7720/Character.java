@@ -10,7 +10,7 @@ public abstract class Character {
     protected final int power;
     protected final  int dexterity;
     protected final int intelligence;
-    protected int HEALTH = 100;
+    protected int health = 100;
 
     public abstract void attack(Character character);
 }
