@@ -1,16 +1,16 @@
 package BJS_7632;
 
-import java.util.Arrays;
-
 public class Example {
 
-    public static void reverse(int[] arr) {
+    public static int[] reverse(int[] arr) {
+        if (arr.length == 0) return arr;
+
         int sizeArray = arr.length - 1;
-        for (int i = 0; i < (int) Math.sqrt(arr.length); i++) {
+        for (int i = 0; i < (int) Math.sqrt(arr.length) + 1; i++) {
             int temp = arr[i];
             arr[i] = arr[sizeArray - i];
             arr[sizeArray - i] = temp;
         }
-        System.out.format("Reversed array: %s", Arrays.toString(arr));
+        return arr;
     }
 }
