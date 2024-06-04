@@ -3,16 +3,24 @@ package faang.school.godbless.datacenter.service;
 import faang.school.godbless.datacenter.model.DataCenter;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
-import faang.school.godbless.datacenter.strategy.OptimizationStrategy;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.experimental.FieldDefaults;
 
-public record DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy) {
+@Data
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class DataCenterService {
+
+    DataCenter dataCenter;
 
     public void addServer(Server server) {
-        throw new UnsupportedOperationException();
+        dataCenter.getServers().add(server);
     }
 
     public void deleteServer(Server server) {
-        throw new UnsupportedOperationException();
+        dataCenter.getServers().remove(server);
     }
 
     public double getTotalEnergyConsumption() {
