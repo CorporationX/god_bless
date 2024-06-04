@@ -5,7 +5,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         List<User> users = List.of(
-                new User("User1", 18, "Google", "New York"),
+                new User("User1", 20, "Google", "New York"),
                 new User("User2", 18, "Google", "New York"),
                 new User("User3", 18, "Google", "New York"),
                 new User("User4", 18, "Google", "New York"),
