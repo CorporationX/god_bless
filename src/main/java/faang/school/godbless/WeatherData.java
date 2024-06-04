@@ -10,7 +10,13 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class WeatherData {
+
     private String city;
-    private double temperature;
-    private double humidity;
+    private Double temperature;
+    private Double humidity;
+
+    public void setTempAndHumi(Double temperature, Double humidity){
+        this.temperature = temperature;
+        this.humidity = humidity;
+    }
 }
