@@ -9,6 +9,4 @@ public class Archer extends Character{
     void attack(Character character) {
         character.setHp(character.getHp() - this.getAgility());
     }
-
-
 }

@@ -9,5 +9,4 @@ public class Warrior extends Character{
     void attack(Character character) {
         character.setHp(character.getHp() - this.getForce());
     }
-
 }
