@@ -2,6 +2,7 @@ package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 
 
-@AllArgsConstructor @Getter @ToString
+@AllArgsConstructor @Getter @ToString @NonNull
 public class User {
     private String name;
     private int age;
@@ -22,14 +23,18 @@ public class User {
     public static Map<Integer, ArrayList<User>> groupUsers(List<User> userList) {
         Map<Integer, ArrayList<User>> userMap = new HashMap<>();
 
-        for (var user: userList) {
-            if (!userMap.containsKey(user.getAge())) {
-                userMap.put(user.getAge(), new ArrayList<>());
+        if (userList != null) {
+            for (var user: userList) {
+                if (!userMap.containsKey(user.getAge())) {
+                    userMap.put(user.getAge(), new ArrayList<>());
+                }
+
+                userMap.get(user.getAge()).add(user);
             }
 
-            userMap.get(user.getAge()).add(user);
+            return userMap;
         }
 
-        return userMap;
+        return null;
     }
 }
