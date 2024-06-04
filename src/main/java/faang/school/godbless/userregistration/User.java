@@ -20,7 +20,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String workplace, String address) {
-        if (name != null && age > 18 && VALID_JOBS.contains(workplace) && VALID_ADDRESSES.contains(address)) {
+        if (validationParameters(name, age, workplace, address)) {
             this.name = name;
             this.age = age;
             this.workplace = workplace;
@@ -78,6 +78,10 @@ public class User {
                 && Objects.equals(name, user.name)
                 && Objects.equals(workplace, user.workplace)
                 && Objects.equals(address, user.address);
+    }
+
+    private boolean validationParameters(String name, int age, String workplace, String address) {
+        return name != null && age > 18 && VALID_JOBS.contains(workplace) && VALID_ADDRESSES.contains(address);
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> listUser) {
