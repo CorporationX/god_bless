@@ -2,33 +2,28 @@ package faang.school.godbless.useraggregate;
 
 import lombok.Data;
 import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
-@AllArgsConstructor
-@Data
-public class User {
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
+//@AllArgsConstructor
+//@Data
+public record User(String name, int age, String workplace, String address) {
 
-    public static Map<Integer, List<User>> groupUsers(List<User> listUser) {
-        Map<Integer, List<User>> mapUsers = new HashMap<>();
-        for (User user: listUser) {
-            int userAge = user.getAge();
-            if (!mapUsers.containsKey(userAge)) {
-                List<User> listUserToPut = new ArrayList<>();
-                listUserToPut.add(user);
-                mapUsers.put(userAge, listUserToPut);
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
+        for (User user: users) {
+            int userAge = user.age();
+            if (!groupUsers.containsKey(userAge)) {
+                groupUsers.put(userAge, new ArrayList<>(List.of(user)));
             } else {
-                mapUsers.get(userAge).add(user);
+                groupUsers.get(userAge).add(user);
             }
         }
 
-        return mapUsers;
+        return groupUsers;
     }
 
 }
