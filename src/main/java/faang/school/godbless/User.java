@@ -3,29 +3,36 @@ package faang.school.godbless;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 /**
- * POJO класс для отображения данных о пользователе.
+ * класс для отображения данных о пользователе.
  */
-@Getter
-@Setter
-@ToString
-@EqualsAndHashCode
+@Data
 public class User {
+  private static final String MESSAGE_VALIDATION_EXCEPTION = "Ошибка валидации при добавлении пользователя.";
+  private static final Integer MIN_AGE_FOR_WORKS = 18;
+  private static final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+  private static final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+
   private String userName;
   private Integer userAge;
   private String userWorkplace;
   private String userAddress;
 
   public User(String userName, Integer userAge, String userWorkplace, String userAddress) {
-    this.userName = userName;
-    this.userAge = userAge;
-    this.userWorkplace = userWorkplace;
-    this.userAddress = userAddress;
+    var resultUserName = userName.trim();
+    var resultUserWorkplace = userWorkplace.trim();
+    var resultUserAddress = userAddress.trim();
+    if (resultUserName.isEmpty() || userAge < MIN_AGE_FOR_WORKS ||
+        !VALID_JOBS.contains(resultUserWorkplace) || !VALID_ADDRESSES.contains(resultUserAddress)) {
+     throw new IllegalArgumentException(MESSAGE_VALIDATION_EXCEPTION);
+    } else {
+      this.userName = resultUserName;
+      this.userAge = userAge;
+      this.userWorkplace = resultUserWorkplace;
+      this.userAddress = resultUserAddress;
+    }
   }
 
   /**
