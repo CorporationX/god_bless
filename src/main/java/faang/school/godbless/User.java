@@ -18,11 +18,13 @@ public class User {
 
     private String name;
 
+    @Getter
+    @Setter
     private int age;
 
     private String placeOfWork;
 
-    private String address;
+    private String adress;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> mapUser = new HashMap<>();
