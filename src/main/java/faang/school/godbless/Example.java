@@ -2,13 +2,13 @@ package faang.school.godbless;
 
 public class Example {
 
-    public static int[] reverse(int nums[]){
-        int numsReverse [] = new int[nums.length];
-        int k = 0;
-        for(int i = (nums.length - 1) ; i > 0; i--){
-            numsReverse[k] = nums[i];
-            k = k+1;
+    public static void reverse(int[] array) {
+        int temp;
+
+        for (int i = 0; i < array.length / 2; i++) {
+            temp = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = temp;
         }
-        return numsReverse;
     }
 }
