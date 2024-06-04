@@ -11,6 +11,7 @@ public class Main {
         searchEngine.indexWebPage(webPages.get(0));
         searchEngine.indexWebPage(webPages.get(1));
         searchEngine.indexWebPage(webPages.get(2));
+        searchEngine.indexWebPage(webPages.get(3));
 
         System.out.println("================================");
         System.out.println("Indexing all web pages");
@@ -30,7 +31,7 @@ public class Main {
         System.out.println("================================");
         List<WebPage> webPagesAfterRemoval = searchEngine.searchWebPages("HashMaps");
         System.out.println(webPagesAfterRemoval);
-        searchEngine.getWebPagesByKeyword().forEach((k, v) -> System.out.println(k + ": " + v));
+
     }
 
     private static List<WebPage> createWebPages() {
@@ -38,8 +39,9 @@ public class Main {
                 new WebPage("faang.school", "HashMaps are good!", "HashMaps prove to be the best data structure" +
                         " for associated array of data"),
                 new WebPage("faang.school", "HashMaps are good!", null),
-                new WebPage("javarush.ru", "Hashmaps are so bad! Don't listen to anyone",
-                        "HashMaps are overrated! You should stick to the basics and use HashTables")
+                new WebPage("javarush.ru", "Hashmaps are so bad! Do not listen to anyone",
+                        "HashMaps are overrated! You should stick to the basics and use HashTables"),
+                new WebPage("baeldung.com", "Hashmaps FTW", "If you have no idea what to use, use HashMaps")
         );
     }
 }
