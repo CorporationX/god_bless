@@ -5,16 +5,16 @@ package faang.school.godbless.abstraction.model;
  */
 public abstract class Character {
   private String name;
-  protected Integer power;
-  protected Integer dexterity;
-  protected Integer intellect;
-  protected Integer health = 100;
+  protected int power;
+  protected int dexterity;
+  protected int intellect;
+  protected int health = 100;
 
   public Character(String name) {
     this.name = name;
   }
 
-  public Character(String name, Integer power, Integer dexterity, Integer intellect) {
+  public Character(String name, int power, int dexterity, int intellect) {
     this.name = name;
     this.power = power;
     this.dexterity = dexterity;
