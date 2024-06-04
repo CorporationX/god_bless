@@ -15,12 +15,13 @@ public class User {
     static final int NUMBER_CONSTANT = 18;
 
     public User(String name, int age, String workPlace, String address) {
-            if (!name.isEmpty() & age > NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
+            if (!name.isBlank() & age >= NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
                 this.name = name;
                 this.age = age;
                 this.workPlace = workPlace;
                 this.address = address;
-            }else throw new IllegalArgumentException("ошибка");
+            }else
+                throw new IllegalArgumentException("ошибка");
     }
     @Override
     public String toString() {

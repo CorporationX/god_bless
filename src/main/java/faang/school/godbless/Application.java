@@ -6,5 +6,9 @@ public class Application {
         System.out.println(user);
         User user1 = new User("AAA", 10, "Uber", "London");
         System.out.println(user1);
+        User user2 = new User("", 10, "Uber", "London");
+        System.out.println(user2);
+        User user3 = new User(" ", 10, "Uber", "London");
+        System.out.println(user3);
     }
 }
