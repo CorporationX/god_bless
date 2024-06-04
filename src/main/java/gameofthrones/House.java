@@ -21,10 +21,10 @@ public class House {
     }
 
     public static String getSigil(Map<String, House> map, String name) {
-        return String.valueOf(map.get(name).getSigil());
+        return map.get(name).getSigil();
     }
 
-    public static void getAllHouses(Map<String, House> map) {
-        map.forEach((key, value) -> System.out.println(key + " " + value.getSigil()));
+    public static Map<String, House> getAllHouses(Map<String, House> houses) {
+        return houses;
     }
 }
