@@ -16,7 +16,7 @@ public class User {
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, Integer age, String jobPlace, String address) throws Exception {
-        if (name.isEmpty()) {
+        if (name.isBlank()) {
             throw new Exception("Name must be filled!");
         }
         if (age < 18) {
