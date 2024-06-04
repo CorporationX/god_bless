@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 public class User {
   private String name;
-  private Integer age;
+  private int age;
   private String company;
   private String address;
 
