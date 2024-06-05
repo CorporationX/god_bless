@@ -24,6 +24,7 @@ public class User {
             for (String oneActivityUser : user.getActivityUser()) {
                 if (activityAll.contains(oneActivityUser)) {
                     foundHobby.put(user, oneActivityUser);
+                    break;
                 }
             }
         }
