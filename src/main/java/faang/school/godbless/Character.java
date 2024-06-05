@@ -5,18 +5,18 @@ import lombok.Data;
 @Data
 public abstract class Character {
     private String name;
-    private Integer power;
-    private Integer Dexterity;
-    private Integer Intelligence;
-    private Integer health = 100;
+    private int power;
+    private int dexterity;
+    private int Intelligence;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
     }
 
-    public Character(Integer power, Integer dexterity, Integer intelligence) {
+    public Character(int power, int dexterity, int intelligence) {
         this.power = power;
-        Dexterity = dexterity;
+        this.dexterity = dexterity;
         Intelligence = intelligence;
     }
 
