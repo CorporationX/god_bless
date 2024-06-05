@@ -1,11 +1,11 @@
 package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.ToString;
 
 @AllArgsConstructor
-@Getter
+@Data
 @ToString
 public class House {
     private String name;
