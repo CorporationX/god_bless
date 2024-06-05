@@ -15,7 +15,7 @@ public class User {
 
         boolean haveError = false;
 
-        if (username == null || username.isEmpty()) {
+        if (username == null || username.trim().isEmpty()) {
             haveError = true;
         }
 
@@ -23,11 +23,11 @@ public class User {
             haveError = true;
         }
 
-        if (!VALID_JOBS.contains(job)){
+        if (job == null || !VALID_JOBS.contains(job)){
             haveError = true;
         }
 
-        if (!VALID_ADDRESSES.contains(address)){
+        if (address == null || !VALID_ADDRESSES.contains(address)){
             haveError = true;
         }
 
@@ -52,7 +52,6 @@ public class User {
                 ", адрес='" + address + '\'' +
                 '}';
     }
-
 
 
 }
