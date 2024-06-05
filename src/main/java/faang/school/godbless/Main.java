@@ -32,8 +32,12 @@ public class Main {
     }
 
     static void infoProducts() {
-        for (Map.Entry<String, List<Product>> entryCategoryAndList : groupByCategory.entrySet()) {
-            System.out.println(entryCategoryAndList.getKey() + " -> " + entryCategoryAndList.getValue());
+        if (groupByCategory.keySet().isEmpty()) {
+            System.out.println("Значений нет");
+        } else {
+            for (Map.Entry<String, List<Product>> entryCategoryAndList : groupByCategory.entrySet()) {
+                System.out.println(entryCategoryAndList.getKey() + " -> " + entryCategoryAndList.getValue());
+            }
         }
     }
 }
