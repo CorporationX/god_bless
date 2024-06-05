@@ -1,6 +1,10 @@
 package faang.school.godbless;
 
+import lombok.NonNull;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Application {
@@ -14,8 +18,8 @@ public class Application {
         addHouse(lannister);
         addHouse(barateon);
         System.out.println(houseAll);
-        searchSigil("Баратеон");
-        listAllHouseAndSigil();
+        System.out.println(searchSigil("Баратеон"));
+        System.out.println(listAllHouseAndSigil());
     }
 
 //    добавление нового дома
@@ -29,13 +33,20 @@ public class Application {
     }
 
 //    поиск дома и вывод информации о гербе дома по его названию;
-    static void searchSigil(String nameHouse){
-        System.out.println(houseAll.get(nameHouse).getSigil());
+    static String searchSigil(@NonNull String nameHouse){
+        if (!houseAll.containsKey(nameHouse)){
+            throw new NullPointerException("Такого дома нет");
+        }
+        return houseAll.get(nameHouse).getSigil();
     }
 
 //    вывод списка всех домов и их гербов
-    static void listAllHouseAndSigil(){
-        System.out.println(houseAll.values());;
+    static List<House> listAllHouseAndSigil(){
+        List<House> houses = new ArrayList<>();
+        for (Map.Entry<String, House> map:houseAll.entrySet()) {
+            houses.add(map.getValue());
+        }
+        return houses;
     }
 
 }
