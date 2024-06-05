@@ -1,4 +1,4 @@
-package faang.school.godbless1;
+package faang.school.Kandes_BJS2_7649;
 
 import java.util.Arrays;
 
