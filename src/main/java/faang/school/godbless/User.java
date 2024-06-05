@@ -9,30 +9,22 @@ public class User {
     private String name;
     private int age;
     private String workPlace;
-    private String adres;
+    private String address;
 
-    public static Map groupUsers(List<User> userData) {
+    public static Map<Integer, List<User>> groupUsers(List<User> userData) {
         Map<Integer, List<User>> result = new HashMap<>();
-        List<Integer> allAges = new ArrayList<>();
+        List<User> users;
 
-        for (int i = 0; i < userData.size(); i++) {
-            if (!allAges.contains(userData.get(i).age)) {
-                allAges.add(userData.get(i).age);
+        for (User user : userData) {
+            if (!result.containsKey(user.age)) {
+                users = new ArrayList<>();
+                users.add(user);
+                result.put(user.age, users);
             }
-        }
-
-        for (int i : allAges) {
-            List<User> temporaryList = new ArrayList<>();
-
-            for (int j = 0; j < userData.size(); j++) {
-                User x = userData.get(j);
-
-                if (x.age == i) {
-                    temporaryList.add(x);
-                }
+            else {
+                users = result.get(user.age);
+                users.add(user);
             }
-
-            result.put(i, temporaryList);
         }
         return result;
     }
@@ -49,23 +41,23 @@ public class User {
         this.workPlace = workPlace;
     }
 
-    public void setAdres(String adres) {
-        this.adres = adres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public String getWorkPlace() {
-        return workPlace;
+        return this.workPlace;
     }
 
-    public String getAdres() {
-        return adres;
+    public String getAddress() {
+        return this.address;
     }
 }
