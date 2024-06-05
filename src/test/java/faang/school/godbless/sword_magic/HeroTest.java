@@ -14,89 +14,89 @@ class HeroTest {
     @BeforeEach
     void setUp(){
         hero = new Hero("Hero", "FractionOfHero", 2, 4);
-        Angel angels = new Angel(1, 10);         // damage = 2;   armor = 6 -> {20, 60}
-        Pikeman pikemen = new Pikeman(2, 20);    // damage = 12;  armor = 6 -> {240, 120}
-        Griffin griffins = new Griffin(3, 30);   // damage = 27;  armor = 9 -> {810, 270}
-        Swordman swordmen = new Swordman(4, 40); // damage = 64; armor = 8 -> {2560, 320}
+        Angel angels = new Angel(1);         // damage = 2;   armor = 6 -> {20, 60}
+        Pikeman pikemen = new Pikeman(2);    // damage = 12;  armor = 6 -> {240, 120}
+        Griffin griffins = new Griffin(3);   // damage = 27;  armor = 9 -> {810, 270}
+        Swordman swordmen = new Swordman(4); // damage = 64; armor = 8 -> {2560, 320}
                                                                // 3630          770
                                                                // 11536         800   boosted by exp and level
-        hero.addCreature(angels);
-        hero.addCreature(pikemen);
-        hero.addCreature(griffins);
-        hero.addCreature(swordmen);
+        hero.addCreature(angels, 10);
+        hero.addCreature(pikemen, 20);
+        hero.addCreature(griffins, 30);
+        hero.addCreature(swordmen, 40);
     }
 
     @Test
     void testHero_addedArmy(){
         Map<Creature, Integer> result = Map.of(
-                new Angel(1, 10), 10,
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Angel(1), 10,
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 
     @Test
     void testHero_addingExistingCreature(){
-        Angel angelToAdd = new Angel(1, 10);
-        hero.addCreature(angelToAdd);
+        Angel angelToAdd = new Angel(1);
+        hero.addCreature(angelToAdd, 10);
 
         Map<Creature, Integer> result = Map.of(
-                new Angel(1, 20), 20,
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Angel(1), 20,
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 
     @Test
     void testHero_addingNotExistingCreature(){
-        Angel angelToAdd = new Angel(2, 10);
-        hero.addCreature(angelToAdd);
+        Angel angelToAdd = new Angel(2);
+        hero.addCreature(angelToAdd, 10);
 
         Map<Creature, Integer> result = Map.of(
-                new Angel(1, 10), 10,
-                new Angel(2, 10), 10,
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Angel(1), 10,
+                new Angel(2), 10,
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 
     @Test
     void testHero_removingOneExistingCreature(){
-        Angel angelToRemove = new Angel(1, 10);
-        hero.removeCreature(angelToRemove);
+        Angel angelToRemove = new Angel(1);
+        hero.removeCreature(angelToRemove, 10);
 
         Map<Creature, Integer> result = Map.of(
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 
     @Test
     void testHero_removingPartOfExistingCreature(){
-        Angel angelToRemove = new Angel(1, 5);
-        hero.removeCreature(angelToRemove);
+        Angel angelToRemove = new Angel(1);
+        hero.removeCreature(angelToRemove,5);
 
         Map<Creature, Integer> result = Map.of(
-                new Angel(1, 5), 5,
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Angel(1), 5,
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 
     @Test
     void testHero_removingMoreThanExistingCreature(){
-        Angel angelToRemove = new Angel(1, 20);
-        hero.removeCreature(angelToRemove);
+        Angel angelToRemove = new Angel(1);
+        hero.removeCreature(angelToRemove, 20);
 
         Map<Creature, Integer> result = Map.of(
-                new Pikeman(2, 20), 20,
-                new Griffin(3, 30), 30,
-                new Swordman(4, 40), 40);
+                new Pikeman(2), 20,
+                new Griffin(3), 30,
+                new Swordman(4), 40);
         assertEquals(hero.getArmy(), result);
     }
 

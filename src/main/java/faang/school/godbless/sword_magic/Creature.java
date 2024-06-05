@@ -12,10 +12,9 @@ public abstract class Creature {
     protected int armor;
     protected int speed;
     protected int quantity;
-    public Creature(String name, int level, int quantity) {
+    public Creature(String name, int level) {
         this.name = name;
         this.level = level;
-        this.quantity = quantity;
     }
 
     public int getDamage(){

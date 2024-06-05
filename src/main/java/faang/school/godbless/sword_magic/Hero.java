@@ -30,18 +30,16 @@ public class Hero {
         army = new HashMap<>();
     }
 
-    public void addCreature(Creature creature){
-        int quantityToAdd = creature.getQuantity();
+    public void addCreature(Creature creature, int quantity){
         // Если уже содержится такой тип персонажа, то нужно добавить новых персонажей поверх старых
         if(army.containsKey(creature)){
-            quantityToAdd += army.get(creature);
+            quantity += army.get(creature);
             System.out.println(creature.getName() + " was added to army of " + getName() + " in quantity: " + creature.getQuantity());
         }
-        army.put(creature, quantityToAdd);
+        army.put(creature, quantity);
     }
 
-    public void removeCreature(Creature creature){
-        int quantityToRemove = creature.getQuantity();
+    public void removeCreature(Creature creature, int quantityToRemove){
         if(!army.containsKey(creature)){
             System.out.println("Army does not have such creatures");
         } else {
