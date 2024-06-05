@@ -5,36 +5,34 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Main {
+
+    private static final Map<String, House> HOUSES = new HashMap<>();
+
     public static void main(String[] args) {
-        Map<String, House> houses = new HashMap<>();
-        houses.put("Stark", new House("Stark", "Stark Flag"));
-        houses.put("Lannister", new House("Lannister", "Lannister Flag"));
-        houses.put("Baraeton", new House("Baraeton", "Baraeton Flag"));
-        houses.put("Noname", new House("Noname", "Noname Flag"));
+        HOUSES.put("Stark", new House("Stark", "Stark Flag"));
+        HOUSES.put("Lannister", new House("Lannister", "Lannister Flag"));
+        HOUSES.put("Baraeton", new House("Baraeton", "Baraeton Flag"));
+        HOUSES.put("Noname", new House("Noname", "Noname Flag"));
 
-        addNewHouse(houses, "Some house", new House("Some house", "Some house flag"));
-        deleteHouseByName(houses, "Some house");
-        findHouseFlagByName(houses, "Stark");
-        printAllHouses(houses);
+        addNewHouse(new House("Some house", "Some house flag"));
+        deleteHouseByName("Some house");
+        findHouseFlagByName("Stark");
+        printAllHouses();
     }
 
-    public static void addNewHouse(Map<String, House> houses, String name, House house) {
-        Objects.requireNonNull(houses);
+    public static void addNewHouse(House house) {
         Objects.requireNonNull(house);
-        Objects.requireNonNull(name);
-        houses.put(name, house);
+        HOUSES.put(house.getName(), house);
     }
 
-    public static void deleteHouseByName(Map<String, House> houses, String name) {
-        Objects.requireNonNull(houses);
+    public static void deleteHouseByName(String name) {
         Objects.requireNonNull(name);
-        houses.remove(name);
+        HOUSES.remove(name);
     }
 
-    public static void findHouseFlagByName(Map<String, House> houses, String name) {
-        Objects.requireNonNull(houses);
+    public static void findHouseFlagByName(String name) {
         Objects.requireNonNull(name);
-        House house = houses.get(name);
+        House house = HOUSES.get(name);
         if (house != null) {
             System.out.printf("%s flag: %s\n", house.getName(), house.getSigil());
         } else {
@@ -42,10 +40,7 @@ public class Main {
         }
     }
 
-    public static void printAllHouses(Map<String, House> houses) {
-        Objects.requireNonNull(houses);
-        for (Map.Entry<String, House> entry : houses.entrySet()) {
-            System.out.printf("%s flag: %s\n", entry.getKey(), entry.getValue().getSigil());
-        }
+    public static void printAllHouses() {
+        HOUSES.values().stream().forEach(System.out::println);
     }
 }
