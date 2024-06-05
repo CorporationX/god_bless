@@ -21,17 +21,25 @@ public class User {
   private String userAddress;
 
   public User(String userName, Integer userAge, String userWorkplace, String userAddress) {
-    var resultUserName = userName.trim();
-    var resultUserWorkplace = userWorkplace.trim();
-    var resultUserAddress = userAddress.trim();
-    if (resultUserName.isEmpty() || userAge < MIN_AGE_FOR_WORKS ||
-        !VALID_JOBS.contains(resultUserWorkplace) || !VALID_ADDRESSES.contains(resultUserAddress)) {
-     throw new IllegalArgumentException(MESSAGE_VALIDATION_EXCEPTION);
-    } else {
-      this.userName = resultUserName;
-      this.userAge = userAge;
-      this.userWorkplace = resultUserWorkplace;
-      this.userAddress = resultUserAddress;
+    checkValidationUser(userName, userAge, userWorkplace, userAddress);
+    this.userName = userName;
+    this.userAge = userAge;
+    this.userWorkplace = userWorkplace;
+    this.userAddress = userAddress;
+  }
+
+  /**
+   * Валидация пользователя при создании.
+   * @param userName Имя пользователя.
+   * @param userAge Возраст пользователя.
+   * @param userWorkplace Место работы пользователя.
+   * @param userAddress Адрес ппользователя.
+   */
+  private void checkValidationUser(String userName, Integer userAge,
+      String userWorkplace, String userAddress) {
+    if (userName.isEmpty() || userAge < MIN_AGE_FOR_WORKS ||
+        !VALID_JOBS.contains(userWorkplace) || !VALID_ADDRESSES.contains(userAddress)) {
+      throw new IllegalArgumentException(MESSAGE_VALIDATION_EXCEPTION);
     }
   }
 
