@@ -15,15 +15,17 @@ public class Main {
         listAllBookAndPlace();
     }
 
-
-    static void addBook(Book book, String place) {    // добавление новой книги и её местонахождения в библиотеке;
+    // добавление новой книги и её местонахождения в библиотеке;
+    static void addBook(Book book, String place) {
         placeOfTheBooks.put(book, place);
     }
 
-    static void removeBook(Book book) {    // удаление книги по её названию, автору и году издания;
+    // удаление книги по её названию, автору и году издания;
+    static void removeBook(Book book) {
         placeOfTheBooks.remove(book);
     }
 
+    //поиск книги и вывода информации
     static void searchBook(Book book) {  //поиск книги и вывода информации
         for (var mapPlaceAndBook : placeOfTheBooks.entrySet()) {
             if (mapPlaceAndBook.getKey().equals(book)) {
@@ -41,7 +43,8 @@ public class Main {
 //        }
     }
 
-    static void listAllBookAndPlace() {    // вывод списка всех книг и их местонахождения в библиотеке.
+    // вывод списка всех книг и их местонахождения в библиотеке.
+    static void listAllBookAndPlace() {
         System.out.println(placeOfTheBooks);
     }
 }
