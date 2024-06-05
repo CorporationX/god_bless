@@ -16,7 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class HeroTest {
-
     private Hero hero;
 
     @BeforeEach
@@ -25,7 +24,7 @@ class HeroTest {
     }
 
     @Test
-    void testAddCreature_addTwoArmPositive() {
+    void testAddCreature_SumTwoArmPositive() {
         Creature angel = new Angel("angel", 2);
         Map<Creature, Integer> expected = new HashMap<>();
         expected.put(angel, 100);
@@ -34,7 +33,7 @@ class HeroTest {
     }
 
     @Test
-    void testAddCreature_addOneArmPositive() {
+    void testAddCreature_AddOneArmPositive() {
         Creature angel = new Angel("angel", 2);
         Map<Creature, Integer> expected = new HashMap<>();
         expected.put(angel, 50);
@@ -42,7 +41,7 @@ class HeroTest {
     }
 
     @Test
-    void testRemoveCreature_remove() {
+    void testRemoveCreature_Positive() {
         Creature griffin = new Griffin("griffin", 3);
         Map<Creature, Integer> expected = new HashMap<>();
         expected.put(griffin, 0);
@@ -51,16 +50,26 @@ class HeroTest {
     }
 
     @Test
-    void testAddCreature_addZeroQuantityNegative() {
+    void testAddCreature_AddZeroQuantityNegative() {
         Creature pikeman = new Pikeman("pikeman", 2);
-        assertThrows(IllegalArgumentException.class, () ->
-                hero.addCreature(pikeman, 0));
+        assertThrows(IllegalArgumentException.class, () -> hero.addCreature(pikeman, 0));
+    }
+
+    @Test
+    void testAddCreature_AddNullCreatureNegative() {
+        Creature pikeman = null;
+        assertThrows(IllegalArgumentException.class, () -> hero.addCreature(pikeman, 10));
     }
 
     @Test
     void testRemoveCreature_removeZeroQuantityNegative() {
         Creature pikeman = new Pikeman("pikeman", 2);
-        assertThrows(IllegalArgumentException.class, () ->
-                hero.removeCreature(pikeman, 0));
+        assertThrows(IllegalArgumentException.class, () -> hero.removeCreature(pikeman, 0));
+    }
+
+    @Test
+    void testRemoveCreature_removeNullCreatureNegative() {
+        Creature pikeman = null;
+        assertThrows(IllegalArgumentException.class, () -> hero.removeCreature(pikeman, 10));
     }
 }
