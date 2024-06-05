@@ -41,7 +41,7 @@ public class Main {
     public static void getHouses(Map<String, House> houses) {
         System.out.println("Список домов:");
         for (Map.Entry<String, House> houseEntry : houses.entrySet()) {
-            System.out.println(houseEntry.getKey());
+            System.out.println(houseEntry.getValue());
         }
     }
 }
