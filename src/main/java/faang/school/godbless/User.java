@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,8 @@ public class User {
             if (ageGroups.containsKey(user.age)) {
                 ageGroups.get(user.age).add(user);
             } else {
-                ageGroups.put(user.age, List.of(user));
+                ageGroups.put(user.age, new ArrayList<User>());
+                ageGroups.get(user.age).add(user);
             }
         }
         return ageGroups;
