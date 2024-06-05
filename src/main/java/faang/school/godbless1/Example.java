@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless1;
 
 public class Example {
 
