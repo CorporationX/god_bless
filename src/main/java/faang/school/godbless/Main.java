@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ public class Main {
         addBook(new Book("Shprotter", "YOling", 1998), "66l");
         addBook(new Book("Potret", "ingRoyl", 2015), "34d");
 
-        searchBook(new Book("Shprotter", "YOling", 1998));
+        System.out.println(searchBook(new Book("Shprotter", "YOling", 1998)));
         listAllBookAndPlace();
     }
 
@@ -26,21 +28,11 @@ public class Main {
     }
 
     //поиск книги и вывода информации
-    static void searchBook(Book book) {  //поиск книги и вывода информации
-        for (var mapPlaceAndBook : placeOfTheBooks.entrySet()) {
-            if (mapPlaceAndBook.getKey().equals(book)) {
-                System.out.println(mapPlaceAndBook.getValue());
-            }
+    static String searchBook(@NonNull Book book) {
+        if (!placeOfTheBooks.containsKey(book)){
+            throw new NullPointerException("Такой книги нет");
         }
-        //или
-        //System.out.println(placeOfTheBooks.get(book));
-
-        //или
-//        for (var mapPlaceAndBook:placeOfTheBooks.entrySet()) {
-//            if (mapPlaceAndBook.getKey().getTitle().equals(book.getTitle()) & mapPlaceAndBook.getKey().getAuthors().equals(book.getAuthors()) & mapPlaceAndBook.getKey().getYear() == book.getYear()){
-//                System.out.println(mapPlaceAndBook.getValue());
-//            }
-//        }
+        return placeOfTheBooks.get(book);
     }
 
     // вывод списка всех книг и их местонахождения в библиотеке.
