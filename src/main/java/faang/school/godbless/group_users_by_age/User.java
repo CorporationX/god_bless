@@ -42,10 +42,12 @@ public class User {
     }
 
     //Quite self-explanatory
-    public static Map<Integer, User> groupUsers(List<User> userList) {
-        Map<Integer, User> userMap = new HashMap<Integer, User>();
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
+        Map<Integer, List<User>> userMap = new HashMap<Integer, List<User>>();
         for (User user : userList){
-            userMap.put(user.age ,user);
+//            Intellij black magic lol, extremely handy method fr, I also love how its lambda func. Js dev in me is very happy
+            List<User> users = userMap.computeIfAbsent(user.age, k -> new ArrayList<User>());
+            users.add(user);
         }
         return userMap;
     }
