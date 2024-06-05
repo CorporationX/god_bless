@@ -2,20 +2,7 @@ package faang.school.godbless;
 
 public class Warrior extends Character {
     public Warrior(String name){
-        super(name);
-        this.name = name;
-        setDefaultCharacteristics();
-    }
-
-    public Warrior(String name, int power, int agility, int intelligence){
-        super(name,power,agility,intelligence);
-        setDefaultCharacteristics();
-    }
-
-    private void setDefaultCharacteristics(){
-        this.power = 10;
-        this.agility = 5;
-        this.intelligence =  3;
+        super(name,10,5,3);
     }
 
     @Override

@@ -2,20 +2,7 @@ package faang.school.godbless;
 
 public class Archer extends Character {
     public Archer(String name){
-        super(name);
-        this.name = name;
-        setDefaultCharacteristics();
-    }
-
-    public Archer(String name, int power, int agility, int intelligence){
-        super(name,power,agility,intelligence);
-        setDefaultCharacteristics();
-    }
-
-    private void setDefaultCharacteristics(){
-        this.power = 3;
-        this.agility = 10;
-        this.intelligence = 5;
+        super(name,3,10,5);
     }
 
     @Override
