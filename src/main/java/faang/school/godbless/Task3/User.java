@@ -3,6 +3,7 @@ package faang.school.godbless.Task3;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -40,7 +41,7 @@ public class User {
     }
 
     public static HashMap<Integer, List<User>> groupUsers(List<User> users) {
-        HashMap<Integer, List<User>> userGroups = new HashMap<>();
+        Map<Integer, List<User>> userGroups = new HashMap<>();
         for (User user : users) {
             int key = user.getAge();
             List<User> sameAge = new ArrayList<>();
@@ -51,13 +52,13 @@ public class User {
             }
             userGroups.put(key, sameAge);
         }
-        return userGroups;
+        return (HashMap<Integer, List<User>>) userGroups;
     }
 
     public static void main(String[] args) {
 
         List<User> users = new ArrayList<>();
-        users.add(new User("Adnrew", 26, "Moscow", "Street1"));
+        users.add(new User("Andrew", 26, "Moscow", "Street1"));
         users.add(new User("John", 25, "Moscow", "Street1"));
         users.add(new User("Jane", 25, "Moscow", "Street1"));
         users.add(new User("Jordan", 26, "Moscow", "Street1"));
