@@ -2,6 +2,7 @@ package faang.school.godbless;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,62 +14,43 @@ public class Main {
         books.put(new Book("Arch of Triumph", "Erich Maria Remarque", 1945), "T23M55");
 
         addBook(books, new Book("Thinking in Java", "Eckel Bruce", 1998), "S00V83");
-        deleteBookByTitle(books, "Martin eden");
-        findBookPlaceByAuthor(books, "Eckel Bruce");
-        findBookPlaceByTitle(books, "Clean Code");
-        findBookPlaceByYear(books, 1998);
+        deleteBook(books, "Martin Eden", "Jack London", 1909);
+        findBookPlace(books, "Clean Code", "Robert Martin", 2008);
         printAllBooks(books);
     }
 
     public static void addBook(Map<Book, String> books, Book book, String place) {
+        Objects.requireNonNull(books);
+        Objects.requireNonNull(book);
+        Objects.requireNonNull(place);
         books.put(book, place);
     }
 
-    public static void deleteBookByTitle(Map<Book, String> books, String title) {
-        for (Book book : books.keySet()) {
-            if (book.getTitle().equals(title)) {
-                books.remove(book);
-            }
+    public static void deleteBook(Map<Book, String> books, String title, String author, int year) {
+        Objects.requireNonNull(books);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(author);
+
+        Book book = new Book(title, author, year);
+        String removed = books.remove(book);
+
+        if (removed == null) {
+            throw new RuntimeException(String.format("No such book: %s, %s, %d.", title, author, year));
         }
     }
 
-    public static void deleteBookByAuthor(Map<Book, String> books, String author) {
-        for (Book book : books.keySet()) {
-            if (book.getAuthor().equals(author)) {
-                books.remove(book);
-            }
-        }
-    }
+    public static String findBookPlace(Map<Book, String> books, String title, String author, int year) {
+        Objects.requireNonNull(books);
+        Objects.requireNonNull(title);
+        Objects.requireNonNull(author);
 
-    public static void deleteBookByYear(Map<Book, String> books, int year) {
-        for (Book book : books.keySet()) {
-            if (book.getYear() == year) {
-                books.remove(book);
-            }
-        }
-    }
+        Book book = new Book(title, author, year);
+        String place = books.get(book);
 
-    public static void findBookPlaceByTitle(Map<Book, String> books, String title) {
-        for (Book book : books.keySet()) {
-            if (book.getTitle().equals(title)) {
-                System.out.printf("%s: %s\n", title, books.get(book));
-            }
-        }
-    }
-
-    public static void findBookPlaceByAuthor(Map<Book, String> books, String author) {
-        for (Book book : books.keySet()) {
-            if (book.getAuthor().equals(author)) {
-                System.out.printf("%s: %s\n", author, books.get(book));
-            }
-        }
-    }
-
-    public static void findBookPlaceByYear(Map<Book, String> books, int year) {
-        for (Book book : books.keySet()) {
-            if (book.getYear() == year) {
-                System.out.printf("%d: %s\n", year, books.get(book));
-            }
+        if (place == null) {
+            throw new RuntimeException(String.format("No such book: %s, %s, %d.", title, author, year));
+        } else {
+            return place;
         }
     }
 
@@ -78,3 +60,4 @@ public class Main {
         }
     }
 }
+
