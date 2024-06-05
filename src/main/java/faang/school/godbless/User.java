@@ -30,12 +30,16 @@ public class User {
     private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String adress) {
-        if (!name.isEmpty() && age > 17 && VALID_JOBS.contains(placeOfWork) && VALID_ADDRESSES.contains(adress)) {
+        if (isValidUser(name, age, placeOfWork, adress)) {
             this.name = name;
             this.age = age;
             this.placeOfWork = placeOfWork;
             this.adress = adress;
         } else throw new IllegalArgumentException("invalid user");
+    }
+
+    private boolean isValidUser(String name, int age, String placeOfWork, String adress) {
+        return (!name.isEmpty() && age > 17 && VALID_JOBS.contains(placeOfWork) && VALID_ADDRESSES.contains(adress));
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
