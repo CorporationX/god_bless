@@ -33,6 +33,9 @@ public class User {
     }
 
     private String workCheck(String work) throws IllegalArgumentException {
+        if (work == null || work.isBlank()) {
+            throw new IllegalArgumentException("Work cannot be blank");
+        }
         if (!VALID_JOBS.contains(work)) {
             throw new IllegalArgumentException("Work address must be valid");
         }
@@ -40,6 +43,9 @@ public class User {
     }
 
     private String addressCheck(String address) throws IllegalArgumentException {
+        if (address == null || address.isBlank()) {
+            throw new IllegalArgumentException("Address cannot be blank");
+        }
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Address address must be valid");
         }
