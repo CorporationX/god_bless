@@ -18,40 +18,67 @@ public class User {
     private String address;
 
     public User(String name, int age, String workPlace, String address) throws IllegalArgumentException {
-        if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(workPlace) && VALID_ADDRESSES.contains(address)) {
+        if (!name.isEmpty()) {
             this.name = name;
-            this.age = age;
-            this.workPlace = workPlace;
-            this.address = address;
+        } else {
+            throw new IllegalArgumentException(name + " Illigal name");
         }
-        else {
-            throw new IllegalArgumentException();
+
+        if (age >= 18) {
+            this.age = age;
+        } else {
+            throw new IllegalArgumentException(age + " is Illigal age");
+        }
+
+        if (VALID_JOBS.contains(workPlace)) {
+            this.workPlace = workPlace;
+        } else {
+            throw new IllegalArgumentException(workPlace + " is Illigal work place");
+        }
+
+        if (VALID_ADDRESSES.contains(address)) {
+            this.address = address;
+        } else {
+            throw new IllegalArgumentException(address + " is Illigal address");
         }
     }
 
-    public static Map groupUsers(List<User> userData) {
+    @Override
+    public String toString() {
+        return name + " " + age + " " + workPlace + " " + address;
+    }
+
+    public static Map<Integer, List<User>> groupUsers(List<User> userData) {
         Map<Integer, List<User>> result = new HashMap<>();
-        List<Integer> allAges = new ArrayList<>();
+        List<User> users;
 
-        for (int i = 0; i < userData.size(); i++) {
-            if (!allAges.contains(userData.get(i).age)) {
-                allAges.add(userData.get(i).age);
+        for (User user : userData) {
+            if (!result.containsKey(user.getAge())) {
+                users = new ArrayList<>();
+                users.add(user);
+                result.put(user.age, users);
             }
-        }
-
-        for (int i : allAges) {
-            List<User> temporaryList = new ArrayList<>();
-
-            for (int j = 0; j < userData.size(); j++) {
-                User x = userData.get(j);
-
-                if (x.age == i) {
-                    temporaryList.add(x);
-                }
+            else {
+                users = result.get(user.age);
+                users.add(user);
             }
-
-            result.put(i, temporaryList);
         }
         return result;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getAge() {
+        return this.age;
+    }
+
+    public String getWorkPlace() {
+        return this.workPlace;
+    }
+
+    public String getAddress() {
+        return this.address;
     }
 }
