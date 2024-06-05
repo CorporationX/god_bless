@@ -13,7 +13,7 @@ public class User {
 
     @Override
     public String toString() {
-        return name + " " + age + " " + workPlace + " " + address;
+        return name + ", age: " + age + ", works in " + workPlace + ", " + address;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userData) {
