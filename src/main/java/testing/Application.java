@@ -11,6 +11,6 @@ public class Application {
         System.out.print("Массив: ");
         for(int i = 0; i < resultNums.length; i++){
             System.out.print(resultNums[i] + " ");
-        }
+        }//sd
     }
 }

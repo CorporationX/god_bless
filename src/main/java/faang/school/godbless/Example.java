@@ -6,7 +6,7 @@ public class Example {
         int numsReverse [] = new int[nums.length];
         int k = 0;
         for(int i = (nums.length - 1) ; i > 0; i--){
-            numsReverse[k] = nums[i];
+            numsReverse[k] = nums[i];//sds
             k = k+1;
         }
         return numsReverse;
