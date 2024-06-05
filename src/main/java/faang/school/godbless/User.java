@@ -24,9 +24,7 @@ public class User {
         for (User user : users) {
             Set<String> currentActivities = user.getActivities();
             currentActivities.retainAll(activities);
-            if (currentActivities.isEmpty()) {
-                throw new RuntimeException("User " + user.getName() + " has no activities like in params");
-            } else {
+            if (!currentActivities.isEmpty()) {
                 hobbyLovers.put(user, currentActivities.iterator().next());
             }
         }
