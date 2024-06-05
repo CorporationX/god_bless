@@ -7,12 +7,13 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @ToString
 public class User {
 
@@ -23,6 +24,19 @@ public class User {
     private String placeOfWork;
 
     private String address;
+
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    public User(String name, int age, String placeOfWork, String adress) {
+        if (!name.isEmpty() && age > 17 && VALID_JOBS.contains(placeOfWork) && VALID_ADDRESSES.contains(adress)) {
+            this.name = name;
+            this.age = age;
+            this.placeOfWork = placeOfWork;
+            this.adress = adress;
+        } else throw new IllegalArgumentException("invalid user");
+    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> mapUser = new HashMap<>();
