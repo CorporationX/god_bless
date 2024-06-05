@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class User{
+public class User {
     private String name;
     private Integer year;
     private String department;
@@ -33,23 +33,24 @@ public class User{
         return adress;
     }
 
-    public static HashMap<String, List<User>> groupUser(List<User> userList){
-        HashMap<String, List<User>> userMap = new HashMap<>();
+    public static HashMap<Integer, List<User>> groupUser(List<User> userList) {
+        HashMap<Integer, List<User>> userMap = new HashMap<>();
 
-        userList.forEach(user -> {
-            if(user.getYear() != null){
-                if(userMap.get(user.getYear().toString()) !=null){
-                    List userNewList = userMap.get(user.getYear().toString());
-                    userNewList.add(user);
-                    userMap.put(user.getYear().toString(), userNewList);
-                }else{
-                    List userNewList = new ArrayList<>();
-                    userNewList.add(user);
-                    userMap.put(user.getYear().toString(), userNewList);
+        if (!userList.isEmpty()) {
+            userList.forEach(user -> {
+                if (user.getYear() != null) {
+                    if (userMap.containsKey(user.getYear())) {
+                        //тут не пойму как переписать в одну строку, мне же надо как-то в лист записать
+                        List userNewList = userMap.get(user.getYear());
+                        userNewList.add(user);
+                        userMap.put(user.getYear(), userNewList);
+//                    userMap.put(user.getYear(), user); но как передать лист?
+                    } else {
+                        userMap.put(user.getYear(), new ArrayList<>());
+                    }
                 }
-            }
-        });
-
+            });
+        }
         return userMap;
     }
 }

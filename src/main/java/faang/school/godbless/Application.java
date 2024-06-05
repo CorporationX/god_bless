@@ -24,7 +24,7 @@ public class Application {
         userAll.add(user4);
 
         //группировка пользователей по возрасту
-        HashMap<String, List<User>> userMap = groupUser(userAll);
+        HashMap<Integer, List<User>> userMap = groupUser(userAll);
 
         //печать списка пользователей сгруппированных по возрасту
         userMap.forEach((year, user) ->{
