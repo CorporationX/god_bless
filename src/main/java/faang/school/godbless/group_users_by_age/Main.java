@@ -9,7 +9,7 @@ public class Main {
 
         User user1 = new User("George", 21, "Google", "New York");
         User user2 = new User("Ethan", 22, "Amazon", "London");
-        User user3 = new User("Someone else", 21, "OPS", "Yonge St. 5775");
+        User user3 = new User("Someoneelse", 21, "Amazon", "London");
 
         try {
             User nameNullThrow = new User(null, 21, "Google", "New York");
@@ -37,6 +37,12 @@ public class Main {
 
         try {
             User nameNullThrow = new User("George", 21, "Google", "Toronto");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            User userNameWithSpaces = new User("Someone else", 21, "OPS", "Yonge St. 5775");
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }

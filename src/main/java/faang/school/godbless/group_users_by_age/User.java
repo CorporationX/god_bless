@@ -12,6 +12,7 @@ import java.util.*;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE_CUT_OFF = 18;
 
     private String name;
     private int age;
@@ -19,20 +20,21 @@ public class User {
     private String address;
 
     public User(String name, int age, String companyName, String address) {
-        if(name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be null or empty");
+        if(name == null || name.isEmpty() || name.contains(" ")) {
+            throw new IllegalArgumentException("Name cannot be null or empty or have spaces: " + name);
         }
 
-        if(age < 18) {
-            throw new IllegalArgumentException("Underage cannot be employed");
+//        no more magic numbers
+        if(age < AGE_CUT_OFF) {
+            throw new IllegalArgumentException("Underage cannot be employed: " + age);
         }
 
         if(!VALID_JOBS.contains(companyName)) {
-            throw new IllegalArgumentException("Company name is not valid");
+            throw new IllegalArgumentException("Company name is not valid: " + companyName);
         }
 
         if(!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Address is not valid");
+            throw new IllegalArgumentException("Address is not valid: " + address);
         }
 
         this.name = name;
