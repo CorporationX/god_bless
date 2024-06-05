@@ -12,8 +12,8 @@ public class User{
     private String department;
     private String adress;
 
-    public User(String name, Integer year, String department, String adress) {
-        if(name == null || year < 18
+    public User(String name, int year, String department, String adress) {
+        if(name == null || name.isEmpty() || year < 18
                 || !VALID_JOBS.contains(department)
                 || !VALID_ADDRESSES.contains(adress)){
             throw new IllegalArgumentException("not valid");
