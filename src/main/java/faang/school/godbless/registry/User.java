@@ -1,19 +1,17 @@
-package faang.school.godbless;
+package faang.school.godbless.registry;
 
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 @Getter
 public class User {
-    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    public static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
     private String name;
     private int age;
     private String placeOfWork;
@@ -28,28 +26,31 @@ public class User {
 
     public void setName(String name) {
         if(name.isEmpty() || name.equals(" ")) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Name restriction: Name not must be is empty");
         }
         this.name = name;
     }
 
     public void setAge(int age) {
         if(age < 18) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                    "Age restriction: Must be at least 18 years old. Provided user {user} age: {user.age}.");
         }
         this.age = age;
     }
 
     public void setPlaceOfWork(String placeOfWork) {
         if(!VALID_JOBS.contains(placeOfWork)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                    "The place must be valid. Provided {user} placeOfWork: {user.placeOfWork}");
         }
         this.placeOfWork = placeOfWork;
     }
 
     public void setAddress(String address) {
         if(!VALID_ADDRESS.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(
+                    "The place must be valid. Provided {user} placeOfWork: {user.placeOfWork}");
         }
         this.address = address;
     }
@@ -60,13 +61,4 @@ public class User {
         return usersByAge;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", placeOfWork='" + placeOfWork + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
 }
