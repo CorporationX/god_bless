@@ -1,16 +1,21 @@
 package faang.school.godbless;
 
-import static faang.school.godbless.Example.reverse;
+
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        Warrior warrior = new Warrior("Воин");
+        Archer archer = new Archer("Лучник");
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
+
+
+
+        while (warrior.getHealthPoints() > 0 && archer.getHealthPoints() > 0) {
+            warrior.attack(archer);
+            archer.attack(warrior);
+            System.out.println("Здоровье " + warrior.getName() + ": " + warrior.getHealthPoints());
+            System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealthPoints());
         }
+
     }
 }
