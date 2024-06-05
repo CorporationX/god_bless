@@ -15,8 +15,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String workplace, String address) {
-        if (name.isEmpty() || age < MIN_AGE ||
-                !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address)) {
+        if (check(name, age, workplace, address)) {
             throw new IllegalArgumentException();
         } else {
             this.name = name;
@@ -24,5 +23,9 @@ public class User {
             this.workplace = workplace;
             this.address = address;
         }
+    }
+    public boolean check(String name, int age, String workplace, String address) {
+        return name.isEmpty() || age < MIN_AGE ||
+                !VALID_JOBS.contains(workplace) || !VALID_ADDRESSES.contains(address);
     }
 }
