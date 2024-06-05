@@ -13,6 +13,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public class User {
+  private static final int MIN_AGE = 18;
   private static final Set<String> VALID_JOBS = new HashSet<>(List.of("Google", "Uber", "Amazon"));
   private static final Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
@@ -25,8 +26,8 @@ public class User {
     if (name == null || name.isBlank()) {
       throw new IllegalArgumentException("Name cannot be empty");
     }
-    if (age < 18) {
-      throw new IllegalArgumentException("Age cannot be less than 18");
+    if (age < MIN_AGE) {
+      throw new IllegalArgumentException(String.format("Age cannot be less than %s", MIN_AGE));
     }
     if (!VALID_JOBS.contains(company)) {
       throw new IllegalArgumentException("Invalid company name");
