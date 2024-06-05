@@ -20,12 +20,10 @@ public class User {
         Map<Integer, List<User>> result = new HashMap<>();
 
         for (User user : users) {
-            if (!result.containsKey(user.age)) {
+            if (!result.containsKey(user.getAge())) {
                 result.put(user.getAge(), new ArrayList<>());
-                result.get(user.getAge()).add(user);
-            } else {
-                result.get(user.getAge()).add(user);
             }
+            result.get(user.getAge()).add(user);
         }
         return result;
     }
