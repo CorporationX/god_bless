@@ -11,12 +11,17 @@ public class User {
     private String workPlace;
     private String address;
 
+    @Override
+    public String toString() {
+        return name + " " + age + " " + workPlace + " " + address;
+    }
+
     public static Map<Integer, List<User>> groupUsers(List<User> userData) {
         Map<Integer, List<User>> result = new HashMap<>();
         List<User> users;
 
         for (User user : userData) {
-            if (!result.containsKey(user.age)) {
+            if (!result.containsKey(user.getAge())) {
                 users = new ArrayList<>();
                 users.add(user);
                 result.put(user.age, users);
