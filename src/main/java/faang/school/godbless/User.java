@@ -10,7 +10,6 @@ import java.util.Map;
 
 @AllArgsConstructor
 @Getter
-@AllArgsConstructor
 public class User {
     private String name;
     private int age;
