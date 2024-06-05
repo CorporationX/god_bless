@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package testing;
 
 import static faang.school.godbless.Example.reverse;
 
