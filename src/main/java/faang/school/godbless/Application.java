@@ -1,16 +1,29 @@
 package faang.school.godbless;
 
-import static faang.school.godbless.Example.reverse;
+import java.util.ArrayList;
+import java.util.List;
+
+import static faang.school.godbless.User.groupUsers;
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        List<User> users = new ArrayList<>();
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
-        }
+        User Bob = new User();
+        User Jack = new User();
+        User Van = new User();
+        User Kate = new User();
+
+        users.add(Bob);
+        users.add(Jack);
+        users.add(Van);
+        users.add(Kate);
+
+        Bob.setAge(20);
+        Jack.setAge(30);
+        Van.setAge(20);
+        Kate.setAge(20);
+
+        System.out.println(User.groupUsers(users));
     }
 }
