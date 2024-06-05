@@ -2,35 +2,21 @@ package faang.school.godbless.reverse;
 
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 @ToString
 public class Example {
-    public static int[] reverse(int[] array) {
-        int start = 0;
-        int end = array.length-1;
-        int buf = 0;
-        while (start < end){
-            array[start] = array[end];
-            array[end] = buf;
-            buf = array[end];
-            int aa = 1;
-            int bb = 2;
-            int cc = aa+bb;
-            aa = cc;
-            bb = aa;
-            cc = ;
-
-
-
+    public static void reverse(int[] array) {
+        int sum = 0;
+        for (int i = 0; i < array.length / 2; i++) {
+            sum = array[i];
+            array[i] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = sum;
         }
-        return array;
+        showAnArrayReverse(array);
     }
 
-    public static void showAnArray(int[] array) {
-        for (int number : array) {
-            System.out.print(number + ", ");
-        }
+    public static void showAnArrayReverse(int[] array) {
+        System.out.println(Arrays.toString(array));
     }
 }
