@@ -9,6 +9,7 @@ import java.util.Objects;
 public class StudentOrganizer {
 
     public static Map<FacultyYearKey, List<Student>> organizeStudentsByFacultyToYear(List<Student> students) {
+        Objects.requireNonNull(students);
         Map<FacultyYearKey, List<Student>> organizedMap = new HashMap<>();
         for (Student student : students) {
             FacultyYearKey facultyYearKey = new FacultyYearKey(student.faculty(), student.year());
