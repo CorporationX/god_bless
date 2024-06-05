@@ -1,14 +1,16 @@
 package faang.school.godbless;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.lang.reflect.Array;
 
 public class Example {
 
-    public static int[] reverse(int nums[]){
-        int numsReverse [] = new int[nums.length];
-        int k = 0;
-        for(int i = (nums.length - 1) ; i > 0; i--){
-            numsReverse[k] = nums[i];
-            k = k+1;
+    public static void reverseArray(int[] array){
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = temp;
         }
-        return numsReverse;
     }
 }
