@@ -1,6 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.abstracting;
 
-public class Archer extends Character{
+public class Archer extends Character {
 
     public Archer(String name) {
         super(name);
