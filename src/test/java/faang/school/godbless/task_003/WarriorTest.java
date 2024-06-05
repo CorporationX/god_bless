@@ -48,6 +48,22 @@ public class WarriorTest {
     }
 
     @Test
+    void testHealthBelowZero() {
+        // Arrange
+        Character defender = new Warrior("Knight");
+        int damage = 100;
+        int expHealth = 0;
+
+        // Act
+        defender.takeDamage(damage);
+
+        // Assert
+        int actHealth = defender.getHealth();
+        assertEquals(expHealth, actHealth, "There should have been 0 hp left");
+
+    }
+
+    @Test
     void testAttack() {
         // Arrange
         Character attacker = new Warrior("Barbarian");
