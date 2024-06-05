@@ -33,10 +33,8 @@ public class Main {
             FacultyAndYear current = new FacultyAndYear(student.getFaculty(), student.getYear());
             if (!result.containsKey(current)) {
                 result.put(current, new ArrayList<>());
-                result.get(current).add(student);
-            } else {
-                result.get(current).add(student);
             }
+            result.get(current).add(student);
         }
         return result;
     }
@@ -52,6 +50,7 @@ public class Main {
 
     public static void addStudent(Map<FacultyAndYear, List<Student>> facultyAndYearMap, Student student) {
         Objects.requireNonNull(facultyAndYearMap);
+        Objects.requireNonNull(student);
         FacultyAndYear studentParam = new FacultyAndYear(student.getFaculty(), student.getYear());
 
         if (facultyAndYearMap.containsKey(studentParam)) {
