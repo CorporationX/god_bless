@@ -16,38 +16,29 @@ public class User {
         this.age = age;
         this.job = job;
         this.address = address;
-
     }
 
-    public void setage(int age) {
-
+    public void setAge(int age) {
         this.age = age;
     }
 
     public void setJob(String job) {
-
         this.job = job;
     }
 
     public void setAddress(String address) {
-
         this.address = address;
     }
 
-
     public void setUsername(String username) {
-
         this.username = username;
     }
 
-
     public int getAge() {
-
         return age;
     }
 
     public String getJob() {
-
         return job;
     }
 
