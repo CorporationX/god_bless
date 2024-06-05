@@ -1,12 +1,12 @@
 package faang.school.godbless;
 
-public class Example {
+public  class Example {
     public int[] reverse(int[] arr){
+        int[] reversedArr = new int[arr.length];
         for (int start=0,end=arr.length-1;start<=end;start++,end--) {
-            int tmp = arr[start];
-            arr[start] = arr[end];
-            arr[end] = tmp;
+            reversedArr[start] = arr[end];
+            reversedArr[end] = arr[start];
         }
-        return arr;
+        return reversedArr;
     }
 }
