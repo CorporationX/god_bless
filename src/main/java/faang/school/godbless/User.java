@@ -28,11 +28,15 @@ public class User {
             for (String hobby : user.userHobbies) {
                 for (String hobbyFromAllHobbies : allHobbies) {
                     if (hobby.equals(hobbyFromAllHobbies)) {
-                        hobbyLovers.put(user.id, hobby);
+                        hobbyLovers.put(user.getId(), hobby);
                     }
                 }
             }
         }
         return hobbyLovers;
+    }
+
+    public int getId() {
+        return id;
     }
 }
