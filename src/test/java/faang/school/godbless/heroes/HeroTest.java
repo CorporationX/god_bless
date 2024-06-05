@@ -62,13 +62,13 @@ class HeroTest {
     }
 
     @Test
-    void testRemoveCreature_removeZeroQuantityNegative() {
+    void testRemoveCreature_RemoveZeroQuantityNegative() {
         Creature pikeman = new Pikeman("pikeman", 2);
         assertThrows(IllegalArgumentException.class, () -> hero.removeCreature(pikeman, 0));
     }
 
     @Test
-    void testRemoveCreature_removeNullCreatureNegative() {
+    void testRemoveCreature_RemoveNullCreatureNegative() {
         Creature pikeman = null;
         assertThrows(IllegalArgumentException.class, () -> hero.removeCreature(pikeman, 10));
     }
