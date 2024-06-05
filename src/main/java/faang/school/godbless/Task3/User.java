@@ -1,39 +1,21 @@
 package faang.school.godbless.Task3;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@AllArgsConstructor
+@Getter
 public class User {
 
     private String name;
     private int age;
     private String place;
     private String address;
-
-    public User(String name, int age, String place, String address) {
-        this.name = name;
-        this.age = age;
-        this.place = place;
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
-    public String getAddress() {
-        return address;
-    }
 
     @Override
     public String toString() {
