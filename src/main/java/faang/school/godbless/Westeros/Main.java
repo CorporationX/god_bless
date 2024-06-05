@@ -16,7 +16,9 @@ public class Main {
     public static void outputListHouses(Map<String, House> houses) {
         if (houses.isEmpty()) {
             System.out.println("There are no entries");
-        } else houses.forEach((key, value) -> System.out.println(key + ": " + value));
+        } else {
+            houses.forEach((key, value) -> System.out.println(key + ": " + value));
+        }
     }
 
     public static void searchByName(Map<String, House> houses, String nameHouse) {
@@ -24,7 +26,9 @@ public class Main {
 
         if (house != null) {
             System.out.println(house.getName() + ", sigil: " + house.getSigil());
-        } else System.out.println("There is no such house");
+        } else {
+            System.out.println("There is no such house");
+        }
     }
 
     public static void main(String[] args) {
