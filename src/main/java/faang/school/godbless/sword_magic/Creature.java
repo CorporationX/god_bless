@@ -3,6 +3,8 @@ package faang.school.godbless.sword_magic;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 public abstract class Creature {
@@ -52,11 +54,6 @@ public abstract class Creature {
 
     @Override
     public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + getLevel();
-        result = 31 * result + getAttack();
-        result = 31 * result + getArmor();
-        result = 31 * result + getSpeed();
-        return result;
+        return Objects.hash(name, level);
     }
 }
