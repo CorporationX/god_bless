@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@AllArgsConstructor
 @Getter
 @EqualsAndHashCode
 public class User {
@@ -20,10 +22,12 @@ public class User {
         Map<User, String> hobbyLovers = new HashMap<>();
 
         for (User user : users) {
-            for (String activity : user.getActivities()) {
-                if (activities.contains(activity)) {
-                    hobbyLovers.put(user, activity);
-                }
+            Set<String> currentActivities = user.getActivities();
+            currentActivities.retainAll(activities);
+            if (currentActivities.isEmpty()) {
+                throw new RuntimeException("User " + user.getName() + " has no activities like in params");
+            } else {
+                hobbyLovers.put(user, currentActivities.iterator().next());
             }
         }
 
