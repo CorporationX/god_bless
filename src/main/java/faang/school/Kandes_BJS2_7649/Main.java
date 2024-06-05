@@ -2,7 +2,7 @@ package faang.school.Kandes_BJS2_7649;
 
 import java.util.Arrays;
 
-public class Application {
+public class Main {
     public static void main(String[] args) {
 
         int[] array = new int[]{5, 4, 3, 2, 1};
