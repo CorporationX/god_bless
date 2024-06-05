@@ -1,0 +1,46 @@
+package faang.school.godbless.students;
+
+import java.util.List;
+import java.util.Map;
+
+public class Main {
+
+    public static void main(String[] args) {
+        List<Student> students = List.of(
+                new Student("Joffrey", "Economics", 2015),
+                new Student("John", "CS", 2011),
+                new Student("Sergey", "Physics", 1998),
+                new Student("Larey", "Physics", 1998),
+                new Student("Norman", "Physics", 2005),
+                new Student("Cristoph", "Physics", 2005),
+                new Student("Mann", "CS", 2011),
+                new Student("Liam", "Math", 2005),
+                new Student("Ben", "Forensics", 2014),
+                new Student("Vlad", "Math", 2005),
+                new Student("Noah", "Literature", 2000),
+                new Student("Mads", "Linguistics", 2014)
+        );
+        System.out.println("=======================================");
+        System.out.println("Organizing students by faculty and year");
+        System.out.println("=======================================");
+        Map<FacultyYearKey, List<Student>> organizedStudents = StudentOrganizer.organizeStudentsByFacultyToYear(students);
+        StudentOrganizer.printOrganizedMap(organizedStudents);
+        System.out.println("=======================================");
+        System.out.println("Adding a new student to Physics faculty");
+        System.out.println("=======================================");
+        Student steven = new Student("Steven", "Physics", 1998);
+        FacultyYearKey physicsFaculty = new FacultyYearKey("Physics", 1998);
+        StudentOrganizer.addNewStudent(organizedStudents, steven);
+        List<Student> studentsFromSingleGroup = StudentOrganizer.getStudentsFromSingleGroup(organizedStudents, physicsFaculty);
+        System.out.println(studentsFromSingleGroup);
+        System.out.println("=======================================");
+        System.out.println("Removing a student from Physics faculty");
+        System.out.println("=======================================");
+        StudentOrganizer.removeStudent(organizedStudents, steven);
+        System.out.println(studentsFromSingleGroup);
+    }
+
+
+
+
+}
