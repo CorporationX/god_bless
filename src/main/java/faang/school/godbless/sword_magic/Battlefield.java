@@ -6,9 +6,9 @@ import lombok.NonNull;
 @AllArgsConstructor
 public class Battlefield {
     @NonNull
-    Hero heroOfLight;
+    private final Hero heroOfLight;
     @NonNull
-    Hero heroOfDarkness;
+    private final Hero heroOfDarkness;
 
     public Hero battle(){
         System.out.println("The army of the Hero of Light " + heroOfLight.getName() + " has: ");
