@@ -3,6 +3,8 @@ package gameofthrones;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Data
@@ -21,10 +23,13 @@ public class House {
     }
 
     public static String getSigil(Map<String, House> map, String name) {
+        if (map.get(name) == null) {
+            throw new IllegalArgumentException("There is not house with " + name + " name!");
+        }
         return map.get(name).getSigil();
     }
 
-    public static Map<String, House> getAllHouses(Map<String, House> houses) {
-        return houses;
+    public static List<House> getAllHouses(Map<String, House> houses) {
+        return new ArrayList<>(houses.values());
     }
 }
