@@ -21,31 +21,26 @@ public class User {
         if (!name.isEmpty()) {
             this.name = name;
         } else {
-            throw new IllegalArgumentException(name + " Illigal name");
+            throw new IllegalArgumentException(name + " Illegal name");
         }
 
         if (age >= 18) {
             this.age = age;
         } else {
-            throw new IllegalArgumentException(age + " is Illigal age");
+            throw new IllegalArgumentException(age + " is Illegal age");
         }
 
         if (VALID_JOBS.contains(workPlace)) {
             this.workPlace = workPlace;
         } else {
-            throw new IllegalArgumentException(workPlace + " is Illigal work place");
+            throw new IllegalArgumentException(workPlace + " is Illegal work place");
         }
 
         if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         } else {
-            throw new IllegalArgumentException(address + " is Illigal address");
+            throw new IllegalArgumentException(address + " is Illegal address");
         }
-    }
-
-    @Override
-    public String toString() {
-        return name + " " + age + " " + workPlace + " " + address;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userData) {
@@ -80,5 +75,10 @@ public class User {
 
     public String getAddress() {
         return this.address;
+    }
+
+    @Override
+    public String toString() {
+        return name + ", age: " + age + ", works in " + workPlace + ", " + address;
     }
 }
