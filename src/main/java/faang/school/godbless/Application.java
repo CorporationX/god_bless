@@ -14,7 +14,7 @@ public class Application {
 
         Set<String> allHobbies = Set.of("Football", "Basketball", "Run", "Fight", "Draw");
 
-        User user = new User();
+        User user = new User(6, "Igor", 2, Set.of("Basketball"));
 
         System.out.println(user.findHobbyLovers(users, allHobbies));
 
