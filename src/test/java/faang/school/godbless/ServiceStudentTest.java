@@ -1,5 +1,8 @@
 package faang.school.godbless;
 
+import faang.school.godbless.university.ServiceStudent;
+import faang.school.godbless.university.Student;
+import faang.school.godbless.university.Subject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ServiceStudentTest {
-    private ServiceStudent handler = new ServiceStudent();
+    private ServiceStudent service = new ServiceStudent();
 
     @BeforeEach
     void setUp() {
-        handler = new ServiceStudent();
+        service = new ServiceStudent();
     }
 
     @Test
@@ -25,7 +28,7 @@ class ServiceStudentTest {
 
         Map<Student, Map<Subject, Integer>> expected = new HashMap<>();
         expected.put(student, subjectWithGrade);
-        var result = handler.createSubjectByStudent(student, subjectWithGrade);
+        var result = service.createSubjectByStudent(student, subjectWithGrade);
 
         assertEquals(expected, result);
     }
@@ -42,24 +45,23 @@ class ServiceStudentTest {
 
         var expected = subjectByStudent;
         expected.put(newStudent, subjectWithGrade);
-        var result = handler.addNewSubjectsToStudent(subjectByStudent, newStudent, subject, 3);
+        var result = service.addNewSubjectsToStudent(subjectByStudent, newStudent, subject, 3);
 
         assertEquals(expected, result);
     }
 
     @Test
     void testRemoveStudent_Positive() {
-        Map<Student, Map<Subject, Integer>> subjectByStudent = new HashMap<>();
-        Map<Subject, Integer> subjectWithGrade = new HashMap<>();
         var student = new Student(1, "s1");
         var removeStudent = new Student(2, "s2");
-        subjectWithGrade.put(new Subject(1, "su1"), 3);
-        subjectByStudent.put(student, subjectWithGrade);
+        subjectByStudent.put();
         subjectByStudent.put(removeStudent, subjectWithGrade);
+        Map<Subject, Integer> subjectWithGrade = Map.of(new Subject(1, "su1"), 3);
+        Map<Student, Map<Subject, Integer>> subjectByStudent = Map.of(student, subjectWithGrade);
 
         var expected = subjectByStudent;
         expected.remove(removeStudent);
-        var result = handler.removeStudent(subjectByStudent, removeStudent);
+        var result = service.removeStudent(subjectByStudent, removeStudent);
 
         assertEquals(expected, result);
     }
@@ -70,7 +72,7 @@ class ServiceStudentTest {
         Student nullStudent = null;
         subjectWithGrade.put(new Subject(1, "su1"), 3);
 
-        assertThrows(IllegalArgumentException.class, () -> handler.createSubjectByStudent(nullStudent, subjectWithGrade));
+        assertThrows(IllegalArgumentException.class, () -> service.createSubjectByStudent(nullStudent, subjectWithGrade));
     }
 
     @Test
@@ -78,7 +80,7 @@ class ServiceStudentTest {
         Map<Subject, Integer> subjectWithGrade = new HashMap<>();
         var notNullStudent = new Student(1, "s1");
 
-        assertThrows(IllegalArgumentException.class, () -> handler.createSubjectByStudent(notNullStudent, subjectWithGrade));
+        assertThrows(IllegalArgumentException.class, () -> service.createSubjectByStudent(notNullStudent, subjectWithGrade));
     }
 
     @Test
@@ -92,7 +94,7 @@ class ServiceStudentTest {
         Student nullStudent = null;
 
         assertThrows(IllegalArgumentException.class,
-                () -> handler.addNewSubjectsToStudent(subjectByStudent, nullStudent, subject, 3));
+                () -> service.addNewSubjectsToStudent(subjectByStudent, nullStudent, subject, 3));
     }
 
     @Test
@@ -103,6 +105,6 @@ class ServiceStudentTest {
         var newStudent = new Student(2, "s2");
 
         assertThrows(IllegalArgumentException.class,
-                () ->  handler.addNewSubjectsToStudent(subjectByStudent, newStudent, subject, 3));
+                () -> service.addNewSubjectsToStudent(subjectByStudent, newStudent, subject, 3));
     }
 }

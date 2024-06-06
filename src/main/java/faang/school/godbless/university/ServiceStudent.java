@@ -1,13 +1,13 @@
-package faang.school.godbless;
+package faang.school.godbless.university;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class ServiceStudent {
 
-    public Map<Student, Map<Subject, Integer>>  createSubjectByStudent(
+    public Map<Student, Map<Subject, Integer>> createSubjectByStudent(
             Student student, Map<Subject, Integer> subjectsWithGrade) {
-        if(student == null || subjectsWithGrade.isEmpty()) {
+        if (student == null || subjectsWithGrade.isEmpty()) {
             throw new IllegalArgumentException();
         }
         Map<Student, Map<Subject, Integer>> subjectByStudent = new HashMap<>();
@@ -18,7 +18,7 @@ public class ServiceStudent {
     public Map<Student, Map<Subject, Integer>> addNewSubjectsToStudent(
             Map<Student, Map<Subject, Integer>> subjectByStudent, Student student,
             Subject subject, int grade) {
-        if(student == null || subjectByStudent.isEmpty()) {
+        if (student == null || subjectByStudent.isEmpty()) {
             throw new IllegalArgumentException();
         }
         subjectByStudent.get(student).put(subject, grade);
@@ -27,7 +27,7 @@ public class ServiceStudent {
 
     public Map<Student, Map<Subject, Integer>> removeStudent(
             Map<Student, Map<Subject, Integer>> subjectByStudent, Student student) {
-        if(student == null || subjectByStudent.isEmpty()) {
+        if (student == null || subjectByStudent.isEmpty()) {
             throw new IllegalArgumentException();
         }
         subjectByStudent.remove(student);
@@ -35,7 +35,7 @@ public class ServiceStudent {
     }
 
     public void printAllStudents(Map<Student, Map<Subject, Integer>> subjectWithEstimatesByStudent) {
-        if(subjectWithEstimatesByStudent.isEmpty()) {
+        if (subjectWithEstimatesByStudent.isEmpty()) {
             throw new IllegalArgumentException();
         }
         subjectWithEstimatesByStudent.forEach((k, v) -> System.out.println(k + ": " + v));

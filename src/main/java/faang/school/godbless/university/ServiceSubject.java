@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.university;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.Map;
 public class ServiceSubject {
 
     public Map<Subject, List<Student>> createStudentBySubject(Subject subject, List<Student> students) {
-        if(students == null) {
+        if (students == null || students.isEmpty() || subject == null) {
             throw new IllegalArgumentException();
         }
         Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
@@ -16,7 +16,7 @@ public class ServiceSubject {
     }
 
     public void addNewStudentToSubject(Map<Subject, List<Student>> studentsBySubject, Subject subject, Student student) {
-        if(studentsBySubject.isEmpty() || subject == null || student == null) {
+        if (studentsBySubject.isEmpty() || subject == null || student == null) {
             throw new IllegalArgumentException();
         }
         studentsBySubject.get(subject).add(student);
@@ -30,7 +30,7 @@ public class ServiceSubject {
     }
 
     public void printAllSubject(Map<Subject, List<Student>> studentsBySubject) {
-        if(studentsBySubject.isEmpty()) {
+        if (studentsBySubject.isEmpty()) {
             throw new IllegalArgumentException();
         }
         studentsBySubject.forEach((k, v) -> System.out.println(k + ": " + v));

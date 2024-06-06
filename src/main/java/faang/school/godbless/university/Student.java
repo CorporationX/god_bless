@@ -1,18 +1,19 @@
-package faang.school.godbless;
+package faang.school.godbless.university;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Subject {
+public class Student {
     private int id;
     private String name;
 
     @Override
     public String toString() {
-        return "Subject{" +
+        return "Student{" +
                 "name='" + name + '\'' +
                 '}';
     }
+
 }
