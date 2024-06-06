@@ -65,11 +65,4 @@ public class Server {
             requestMap.remove(request.getId());
         }
     }
-
-    @Override
-    public String toString() {
-        return "Server{" +
-                "load=" + load +
-                '}';
-    }
 }
