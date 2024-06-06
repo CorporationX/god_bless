@@ -10,7 +10,7 @@ public class Battlefield {
     @NonNull
     private final Hero heroOfDarkness;
 
-    public Hero battle(){
+    public Hero battle() {
         System.out.println("The army of the Hero of Light " + heroOfLight.getName() + " has: ");
         heroOfLight.showArmy();
 
@@ -25,10 +25,10 @@ public class Battlefield {
         int armorOfDarkness = heroOfDarkness.getArmorOfArmy();
         int powerOfDarknessArmy = damageOfDarkness + armorOfDarkness;
 
-        if(powerOfLightArmy > powerOfDarknessArmy){
+        if (powerOfLightArmy > powerOfDarknessArmy) {
             System.out.println(heroOfLight.getName() + " from " + heroOfLight.getFraction() + " wins!");
             return heroOfLight;
-        } else if(powerOfLightArmy < powerOfDarknessArmy){
+        } else if (powerOfLightArmy < powerOfDarknessArmy) {
             System.out.println(heroOfDarkness.getName() + " from " + heroOfDarkness.getFraction() + " wins!");
             return heroOfDarkness;
         } else {

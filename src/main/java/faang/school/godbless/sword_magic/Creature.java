@@ -14,12 +14,13 @@ public abstract class Creature {
     protected int armor;
     protected int speed;
     protected int quantity;
+
     public Creature(String name, int level) {
         this.name = name;
         this.level = level;
     }
 
-    public int getDamage(){
+    public int getDamage() {
         return attack * speed;
     }
 

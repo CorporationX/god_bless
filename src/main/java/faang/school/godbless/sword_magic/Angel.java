@@ -1,6 +1,6 @@
 package faang.school.godbless.sword_magic;
 
-public class Angel extends Creature{
+public class Angel extends Creature {
     public static final int ATTACK_BOOST_PER_LEVEL = 1;
     public static final int ARMOR_BOOST_PER_LEVEL = 6;
     public static final int SPEED_BOOST_PER_LEVEL = 2;

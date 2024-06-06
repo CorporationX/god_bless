@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 class BattlefieldTest {
 
     @Test
-    void testBattlefield_battleTwoEqualHeroes(){
+    void testBattlefield_battleTwoEqualHeroes() {
         Hero hero = new Hero("Hero", "FractionOfHero", 1, 1);
         Angel angels = new Angel(1);
         Pikeman pikemen = new Pikeman(2);
@@ -28,7 +28,7 @@ class BattlefieldTest {
     }
 
     @Test
-    void testBattlefield_battleHeroesFirstWins(){
+    void testBattlefield_battleHeroesFirstWins() {
         Hero hero1 = new Hero("Hero1", "FractionOfHero1", 1, 1);
         Angel angels1 = new Angel(1);
         Pikeman pikemen1 = new Pikeman(2);
@@ -56,7 +56,7 @@ class BattlefieldTest {
     }
 
     @Test
-    void testBattlefield_battleHeroesSecondWins(){
+    void testBattlefield_battleHeroesSecondWins() {
         Hero hero1 = new Hero("Hero1", "FractionOfHero1", 1, 1);
         Angel angels1 = new Angel(1);
         Pikeman pikemen1 = new Pikeman(2);
