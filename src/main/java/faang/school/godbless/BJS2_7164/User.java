@@ -19,17 +19,17 @@ public class User {
     private Set<String> hobbies;
 
     public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> hobbiesSet) {
-        Map<User, String> result = new HashMap<>();
+        Map<User, String> collectionOfUsersByHobby = new HashMap<>();
         for (User user : userList) {
             for (String hobby : hobbiesSet) {
                 if (user.hobbies.contains(hobby)) {
-                    result.put(user, hobby);
+                    collectionOfUsersByHobby.put(user, hobby);
                     break;
                 }
             }
         }
 
-        return result;
+        return collectionOfUsersByHobby;
     }
 
 
