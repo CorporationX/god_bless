@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS27524;
+package faang.school.godbless.BJS27555;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,7 +37,6 @@ public class User {
         this.age = age;
         this.placeofwork = placeofwork;
         this.adds = adds;
-
     }
 
     public static Map<Integer, List<User>> groupUser(List<User> listOfUser, Set<Integer> newSet) {
