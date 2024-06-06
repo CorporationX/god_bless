@@ -19,6 +19,15 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
+        validateFields(name, age, job, address);
+
+        this.name = name;
+        this.age = age;
+        this.job = job;
+        this.address = address;
+    }
+
+    private void validateFields(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         } else if (age < 18) {
@@ -28,11 +37,6 @@ public class User {
         } else if (address == null || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid address");
         }
-
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
