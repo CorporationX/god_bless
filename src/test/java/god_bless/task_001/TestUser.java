@@ -18,12 +18,16 @@ class TestUser {
         User user3 = new User("User3", 20, "placeWork3", "address3");
         User user4 = new User("User4", 20, "placeWork4", "address4");
         List<User> users = Arrays.asList(user1, user2, user3, user4);
+        int groupCount = 3;
+        int ageGroup = 18;
+        int ageGroupTwoMembers = 20;
+        int countMembersInGroup = 2;
 
         Map<Integer, List<User>> groupUsers = User.groupUsers(users);
 
-        assertEquals(3, groupUsers.size(), "there should be 3 user groups");
-        assertTrue(groupUsers.containsKey(18), "there should be a group of 18 year olds");
-        assertEquals(2, groupUsers.get(20).size(),
-                "there must be two users in the group of twenty-somethings");
+        assertEquals(groupCount, groupUsers.size(), "there should be %d user groups".formatted(groupCount));
+        assertTrue(groupUsers.containsKey(ageGroup), "there should be a group of %d year olds".formatted(ageGroup));
+        assertEquals(countMembersInGroup, groupUsers.get(ageGroupTwoMembers).size(),
+                "there must be %d users in the group of %d year olds".formatted(countMembersInGroup, ageGroupTwoMembers));
     }
 }

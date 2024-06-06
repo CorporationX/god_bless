@@ -29,7 +29,7 @@ public class Main {
         for (int i = 1; i <= count; i++) {
             users.add(new User(
                     "User" + i,
-                    rand.nextInt(12, 18),
+                    rand.nextInt(20, 30),
                     "work" + i,
                     "address" + i)
             );
