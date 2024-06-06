@@ -20,7 +20,7 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         if (users == null) {
-            throw new UnsupportedOperationException();
+            throw new IllegalArgumentException();
         }
 
         Map<Integer, List<User>> usersMap = new HashMap<>();
