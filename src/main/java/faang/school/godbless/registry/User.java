@@ -18,21 +18,25 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        setName(name);
-        setAge(age);
-        setPlaceOfWork(placeOfWork);
-        setAddress(address);
+        if (name.isEmpty() || name.equals(" ") || age < 18
+                || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESS.contains(address)) {
+            throw new IllegalArgumentException("Invalid data was received in the constructor of the User class");
+        }
+        this.name = name;
+        this.age = age;
+        this.placeOfWork = placeOfWork;
+        this.address = address;
     }
 
     public void setName(String name) {
-        if(name.isEmpty() || name.equals(" ")) {
+        if (name.isEmpty() || name.equals(" ")) {
             throw new IllegalArgumentException("Name restriction: Name not must be is empty");
         }
         this.name = name;
     }
 
     public void setAge(int age) {
-        if(age < 18) {
+        if (age < 18) {
             throw new IllegalArgumentException(
                     "Age restriction: Must be at least 18 years old. Provided user {user} age: {user.age}.");
         }
@@ -40,7 +44,7 @@ public class User {
     }
 
     public void setPlaceOfWork(String placeOfWork) {
-        if(!VALID_JOBS.contains(placeOfWork)) {
+        if (!VALID_JOBS.contains(placeOfWork)) {
             throw new IllegalArgumentException(
                     "The place must be valid. Provided {user} placeOfWork: {user.placeOfWork}");
         }
@@ -48,7 +52,7 @@ public class User {
     }
 
     public void setAddress(String address) {
-        if(!VALID_ADDRESS.contains(address)) {
+        if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException(
                     "The place must be valid. Provided {user} placeOfWork: {user.placeOfWork}");
         }
