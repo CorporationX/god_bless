@@ -2,23 +2,13 @@ package faang.school.godbless.Task1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+
+import static faang.school.godbless.Task1.User.findHobbyLovers;
 
 public class Main {
-
-    public static HashMap<User, String> findHobbyLovers(ArrayList<User> users, ArrayList<String> hobbies) {
-        HashMap<User, String> hobbyLovers = new HashMap<>();
-        for (User user : users) {
-            ArrayList<String> userActivities = user.getActivities();
-            for (String activity: userActivities) {
-                if (hobbies.contains(activity)) {
-                    hobbyLovers.put(user, activity);
-                    break;
-                }
-            }
-        }
-        return hobbyLovers;
-    }
 
     public static void showMap(HashMap<User, String> map) {
         for (Map.Entry entry : map.entrySet()) {
@@ -28,22 +18,22 @@ public class Main {
 
     public static void main(String[] args) {
 
-        ArrayList<String> user1Hobbies = new ArrayList<>();
+        Set<String> user1Hobbies = new HashSet<>();
         user1Hobbies.add("football");
         user1Hobbies.add("TV");
         user1Hobbies.add("running");
 
-        ArrayList<String> user2Hobbies = new ArrayList<>();
+        Set<String> user2Hobbies = new HashSet<>();
         user2Hobbies.add("baseball");
         user2Hobbies.add("TV");
         user2Hobbies.add("fashion");
 
-        ArrayList<String> user3Hobbies = new ArrayList<>();
+        Set<String> user3Hobbies = new HashSet<>();
         user3Hobbies.add("dancing");
         user3Hobbies.add("TV");
         user3Hobbies.add("swimming");
 
-        ArrayList<String> hobbies = new ArrayList<>();
+        Set<String> hobbies = new HashSet<>();
         hobbies.add("football");
         hobbies.add("TV");
         hobbies.add("dancing");

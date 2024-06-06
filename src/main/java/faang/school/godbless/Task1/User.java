@@ -2,59 +2,38 @@ package faang.school.godbless.Task1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
+@EqualsAndHashCode
 
 public class User {
 
     private int id;
     private String name;
     private int age;
-    private ArrayList<String> activities;
-
-    public User(int id, String name, int age, ArrayList<String> activities){
-        this.id = id;
-        this.name = name;
-        this.age = age;
-        this.activities = activities;
-    }
-
-    public int getId(){
-        return id;
-    }
-
-    public String getName(){
-        return name;
-    }
-
-    public int getAge(){
-        return age;
-    }
-
-    public ArrayList<String> getActivities(){
-        return activities;
-    }
+    private Set<String> activities;
 
     @Override
     public String toString() {
         return name;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, age, activities);
-    }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
+    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = new HashMap<>();
+        for (User user : users) {
+
         }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        User other = (User) obj;
-        return id == other.id && age == other.age && name.equals(other.name)
-                && activities.equals(other.activities);
+        return (HashMap<User, String>) hobbyLovers;
     }
 
 }
