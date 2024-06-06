@@ -8,8 +8,6 @@ public class Application {
         Archer archer = new Archer("Лучник");
 
 
-
-
         while (warrior.getHealthPoints() > 0 && archer.getHealthPoints() > 0) {
             warrior.attack(archer);
             archer.attack(warrior);
