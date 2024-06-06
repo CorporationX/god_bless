@@ -34,43 +34,50 @@ public class Main {
 
         System.out.println("==============================");
         System.out.println(searchEvent(4));
-        System.out.println(searchStreamEvent("C"));;
+        System.out.println(searchStreamEvent("C"));
+        ;
     }
 
     // добавления нового события потока
-    static void addEventStream(StreamEvent streamEvent){
-        mapIdEvent.put(streamEvent.getId(), streamEvent);
-        updateMapListEvent(streamEvent);
+    static void addEventStream(StreamEvent streamEvent) {
+        if (!mapIdEvent.containsKey(streamEvent.getId())) {
+            mapIdEvent.put(streamEvent.getId(), streamEvent);
+            updateMapListEvent(streamEvent);
+        } else
+            throw new IllegalArgumentException("ID такого элемента уже существует");
 
     }
 
     // Обновление дополненной HashMap, где группируются объекты по типу события
-    static void updateMapListEvent(StreamEvent streamEvent){
-        if (mapListEvent.containsKey(streamEvent.getEventType())){
+    static void updateMapListEvent(StreamEvent streamEvent) {
+        if (mapListEvent.containsKey(streamEvent.getEventType()))
             mapListEvent.get(streamEvent.getEventType()).add(streamEvent);
-        }
         else
             mapListEvent.computeIfAbsent(streamEvent.getEventType(), newListEvent -> new ArrayList<>()).add(streamEvent);
     }
 
     // Поиск события потока по ID
-    static StreamEvent searchEvent(int id){
+    static StreamEvent searchEvent(int id) {
         return mapIdEvent.get(id);
     }
 
     //поиск списка событий потока по типу события
-    static List<StreamEvent> searchStreamEvent(String typeEvent){
+    static List<StreamEvent> searchStreamEvent(String typeEvent) {
         return mapListEvent.get(typeEvent);
     }
 
     //удаление события потока по его ID
-    static void deleteEventStream(int id){
-        updateDeleteMapListEvent(mapIdEvent.get(id));
-        mapIdEvent.remove(id);
+    static void deleteEventStream(int id) {
+        if (mapIdEvent.containsKey(id)) {
+            updateDeleteMapListEvent(mapIdEvent.get(id));
+            mapIdEvent.remove(id);
+        } else
+            throw new NullPointerException("Такого ID нет");
 
     }
+
     // Обновление измененной HashMap
-    static void updateDeleteMapListEvent(StreamEvent streamEvent){
+    static void updateDeleteMapListEvent(StreamEvent streamEvent) {
         mapListEvent.get(streamEvent.getEventType()).remove(streamEvent);
     }
 }
