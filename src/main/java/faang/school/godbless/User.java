@@ -8,11 +8,16 @@ public class User {
     private Integer year;
     private Set<String> manyActivities;
 
+    public User(){
+        //исправить
+        this.manyActivities = new HashSet<>(Arrays.asList("бег", "велоспорт"));
+    }
+
     public User(int id, String name, Integer year) {
+        super();
         this.id = id;
         this.name = name;
         this.year = year;
-        this.manyActivities = new HashSet<>(Arrays.asList("бег", "велоспорт"));
     }
 
     public String getName() {
@@ -27,15 +32,15 @@ public class User {
     public static HashMap<User, String> findHobbyLovers (List<User> user, Set<String> manyActivities) {
         HashMap<User, String> findHobbyMap = new HashMap<>();
 
-        user.forEach(userFind -> {
-            if(manyActivities != null){
-                manyActivities.forEach(activities -> {
-                    if(userFind.getManyActivities().contains(activities)) {
-                        findHobbyMap.put(userFind, activities);
-                    }
-                });
-            }
-        });
+        if (manyActivities != null) {
+            user.forEach(userFind -> {
+                    manyActivities.forEach(activities -> {
+                        if (userFind.getManyActivities().contains(activities)) {
+                            findHobbyMap.put(userFind, activities);
+                        }
+                    });
+            });
+        }
         return findHobbyMap;
     }
 }
