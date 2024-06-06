@@ -43,11 +43,19 @@ public class Main {
     }
 
     static void addWeatherInCities(String nameCity, WeatherData weatherData){
-        weatherInCities.put(nameCity, weatherData);
+        if (weatherData.getCity().equals(nameCity)) {
+            weatherInCities.put(nameCity, weatherData);
+        }
+        else
+            throw new IllegalArgumentException("Введены некорректные данные");
     }
 
     static void update(String nameCity, WeatherData weatherData){   // обновление информации о погоде в кэше для определённого города;
-        weatherInCities.get(nameCity).setTempAndHumi(weatherData.getTemperature(), weatherData.getHumidity());
+        if (weatherData.getCity().equals(nameCity)) {
+            weatherInCities.get(nameCity).setTempAndHumi(weatherData.getTemperature(), weatherData.getHumidity());
+        }
+        else
+            throw new IllegalArgumentException("Введены некорректные данные");
     }
     static void delete(String nameCity){
         weatherInCities.get(nameCity).setTempAndHumi(null, null);
