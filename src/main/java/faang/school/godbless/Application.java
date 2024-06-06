@@ -7,21 +7,21 @@ import java.util.Map;
 public class Application {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        User user1 = new User("Vlad", 17,"McDonald's","Rostov, Lenina street");
-        User user2 = new User("Gleb", 22,"Ozon","Saint Petersburg");
-        User user3 = new User("Zlata", 32,"Yandex","Voronezh");
-        User user4 = new User("Varvara", 17,"LV Store consultant","Moscow");
-        User user5 = new User("Nikolas", 24,"Suhoi Engineer","Illinois");
-        User user6 = new User("Mathew", 22,"Suhoi","Chicago");
-        User user7 = new User("Jennifer", 17,"Pizza Promoter","New York");
-        User user8 = new User("Andrew", 30,"T1 Java developer","Moscow");
-        User user9 = new User("Alice", 35,"Sber Lead Java developer","Novosibirsk");
-        User user10 = new User("Jane", 35,"Bethesda","Melbourne");
-        User user11 = new User("Merry", 24,"FlowWow","Rostov");
-        User user12 = new User("Lisa", 30,"CarMain's Mechanic","Ekaterinburg");
-        User user13 = new User("Arnold", 27,"Sber Security","Moscow");
-        User user14 = new User("Gwen", 17,"McDonald's","Odessa");
-        User user15 = new User("Michael", 35,"McDonald's","Ivanovo");
+        User user1 = new User(1,"Vlad", 17, "music","tennis");
+        User user2 = new User(2,"Gleb", 22,"football");
+        User user3 = new User(3,"Zlata", 32,"");
+        User user4 = new User(4,"Varvara", 17,"movies", "martial arts","games");
+        User user5 = new User(5,"Nikolas", 24,"reading","drawing");
+        User user6 = new User(6,"Mathew", 22,"travels");
+        User user7 = new User(7,"Jennifer", 17,"singing","movies");
+        User user8 = new User(8,"Andrew", 30,"theater", "swimming");
+        User user9 = new User(9,"Alice", 35,"theater", "teachings","reading");
+        User user10 = new User(10,"Jane", 35,"writings", "readings","poems");
+        User user11 = new User(11,"Merry", 24,"dances","languages");
+        User user12 = new User(12,"Lisa", 30,"yacht sport");
+        User user13 = new User(13,"Arnold", 27,"football","games","movies");
+        User user14 = new User(14,"Gwen", 17,"readings");
+        User user15 = new User(15,"Michael", 35,"bikes","cars","auto sport");
         users.add(user1);
         users.add(user2);
         users.add(user3);
@@ -37,7 +37,15 @@ public class Application {
         users.add(user13);
         users.add(user14);
         users.add(user15);
-        Map<Integer,List<User>> groupedUsers = User.groupUsers(users);
+        List<String> hobbies = new ArrayList<>();
+       hobbies.add("auto sport");
+       hobbies.add("reading");
+       hobbies.add("languages");
+       hobbies.add("dances");
+       hobbies.add("travels");
+       hobbies.add("bikes");
+       Map<User,String> groupedUsers = User.findHobbyFrom(hobbies, users);
+
         System.out.println(groupedUsers);
     }
 }

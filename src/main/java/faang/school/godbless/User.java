@@ -1,24 +1,33 @@
 package faang.school.godbless;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import lombok.EqualsAndHashCode;
+import java.util.*;
 
 @Data
-@AllArgsConstructor
+@EqualsAndHashCode
+//@
 public class User {
+    private int id;
     private String name;
     private int age;
-    private String workPlace;
-    private String address;
+    private ArrayList<String> hobbyList;
 
-    public static Map<Integer, List<User>> groupUsers (List<User> users){
-        Map<Integer, List<User>> groupedUsersList = new HashMap<>();
-        users.forEach(user-> groupedUsersList.computeIfAbsent(user.getAge(), k-> new ArrayList<>()).add(user));
-        return groupedUsersList;
+    public User (int id, String name, int age, String ... hobbies){
+        this.id=id;
+        this.name=name;
+        this.age=age;
+        hobbyList = new ArrayList<>();
+        Collections.addAll(hobbyList, hobbies);
+    }
+
+    public static Map<User,String> findHobbyFrom(List<String> hobbies, List<User> users){
+        Map<User,String> groupedList = new HashMap<>();
+        users.forEach(user -> hobbies.forEach(hobby -> {
+            if (user.getHobbyList().contains(hobby)){
+                groupedList.computeIfAbsent(user, k -> hobby);
+            }
+        }));
+        return groupedList;
     }
 }
