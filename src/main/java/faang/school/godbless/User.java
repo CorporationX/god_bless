@@ -40,13 +40,10 @@ public class User {
             userList.forEach(user -> {
                 if (user.getYear() != null) {
                     if (userMap.containsKey(user.getYear())) {
-                        //тут не пойму как переписать в одну строку, мне же надо как-то в лист записать
-                        List userNewList = userMap.get(user.getYear());
-                        userNewList.add(user);
-                        userMap.put(user.getYear(), userNewList);
-//                    userMap.put(user.getYear(), user); но как передать лист?
+                        userMap.get(user.getYear()).add(user);
                     } else {
                         userMap.put(user.getYear(), new ArrayList<>());
+                        userMap.get(user.getYear()).add(user);
                     }
                 }
             });
