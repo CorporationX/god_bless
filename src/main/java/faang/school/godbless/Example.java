@@ -9,6 +9,6 @@ public class Example {
             numsReverse[k] = nums[i];
             k = k+1;
         }
-        return numsReverse;
+        return numsReverse;//kll
     }
 }
