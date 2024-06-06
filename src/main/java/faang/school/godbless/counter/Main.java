@@ -27,7 +27,7 @@ public class Main {
     StudentService.addStudent(new Student("Валерий Шмель", "Мех.мат", 3));
     log.info(String.format("Студенты первого курса факультета Биологии: %s",
         StudentService.findStudentsByFacultyAndYear("Биологии", 1)));
-    StudentService.removeStudentByInfo("Лев Лещенко", "Зоологии", 4);
+    StudentService.removeStudentByInfo("Лев Лещенко1", "Зоологии", 4);
 
     Map<String, List<Student>> mappedStudents = StudentService.mapStudentsByFacultyAndYear();
     StudentService.printMappedStudents(mappedStudents);
@@ -44,8 +44,13 @@ public class Main {
     }
 
     static void removeStudentByInfo(String name, String faculty, Integer year) {
-      students.remove(new Student(name, faculty, year));
-      log.info(String.format("Отчислили студента: %s | %s", name, students));
+      boolean result = students.remove(new Student(name, faculty, year));
+      if (result) {
+        log.info(String.format("Отчислили студента: %s | %s", name, students));
+      }
+      else {
+        log.info(String.format("Неизвестный студент: %s | %s", name, students));
+      }
     }
 
     static List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
