@@ -35,7 +35,7 @@ public class WebPage {
     }
 
     public static List<String> processContent(String content){
-        String onlyWords = content.replaceAll("[+\\-*/:^;,.!?@#$%&(){}\\[\\]`~'\"\\\\]", "").toLowerCase();
+        String onlyWords = content.toLowerCase().replaceAll("[^a-z 0-9]", "");
         return Arrays.stream(onlyWords.split(" ")).filter(string -> !string.isBlank()).toList();
     }
 }

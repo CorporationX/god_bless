@@ -10,7 +10,7 @@ public class Main {
 
         WebPage webPage1 = new WebPage("youtube.com", "SomeYouTuber",
                 "hello, chanel!?? subscribe +-*/:^;,.!?@#$%&(){}[]`~'\"\\\\\\");
-        WebPage webPage2 = new WebPage("someshop.org", "SomeItem", "buy!!! subscribe,,. HELLO");
+        WebPage webPage2 = new WebPage("someshop.org", "SomeItem", "buy!!! subscribe,,. HELLO 10kkSUBS");
 
         WebPage.addToIndex(webPageMap, webPage1);
         WebPage.addToIndex(webPageMap, webPage2);
