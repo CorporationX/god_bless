@@ -16,7 +16,7 @@ public class Main {
         System.out.println("================================");
         System.out.println("Indexing all web pages");
         System.out.println("================================");
-        searchEngine.getWebPagesByKeyword().forEach((k, v) -> System.out.println(k + ": " + v));
+        searchEngine.webPagesByKeyword().forEach((k, v) -> System.out.println(k + ": " + v));
 
         System.out.println("================================");
         System.out.println("Searching for a list of web pages that contain information on HashMaps");

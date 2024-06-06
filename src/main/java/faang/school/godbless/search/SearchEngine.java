@@ -1,7 +1,5 @@
 package faang.school.godbless.search;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -13,11 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Slf4j
-@Data
-@AllArgsConstructor
-public class SearchEngine {
-
-    private Map<String, List<WebPage>> webPagesByKeyword;
+public record SearchEngine(Map<String, List<WebPage>> webPagesByKeyword) {
 
     public void indexWebPage(WebPage webPage) {
         Objects.requireNonNull(webPage);
