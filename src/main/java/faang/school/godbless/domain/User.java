@@ -1,14 +1,11 @@
 package faang.school.godbless.domain;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 public class User {
     private int id;
     private String name;
-    private  int age;
+    private int age;
     private Set<String> activitys;
 
     public int getId() {
@@ -43,18 +40,4 @@ public class User {
         this.activitys = activitys;
     }
 
-    public Map<User, String> findHobbyLovers(List<User> users, Set<String> activitys){
-        Map<User, String> map = new HashMap<>();
-        for (User user: users){
-
-            for(String activity : user.activitys) {
-                if (activitys.contains(activity)) {
-                    map.put(user, activity);
-                    break;
-                }
-            }
-        }
-
-        return map;
-    }
 }
