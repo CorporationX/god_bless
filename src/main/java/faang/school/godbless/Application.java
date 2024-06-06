@@ -42,11 +42,7 @@ public class Application {
 
 //    вывод списка всех домов и их гербов
     static List<House> listAllHouseAndSigil(){
-        List<House> houses = new ArrayList<>();
-        for (Map.Entry<String, House> map:houseAll.entrySet()) {
-            houses.add(map.getValue());
-        }
-        return houses;
+        return houseAll.values().stream().toList();
     }
 
 }
