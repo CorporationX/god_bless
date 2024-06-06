@@ -16,15 +16,25 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList(ADDRESSES));
     private static final String[] JOBS = {"Google", "Uber", "Amazon"};
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList(JOBS));
+    private static final int CRITICAL_AGE = 18;
 
     private String name;
     private int age;
     private String companyName;
     private String adress;
 
-    public User(String name, int age, String companyName, String adress) throws IllegalArgumentException {
-        if (name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(companyName) || !VALID_JOBS.contains(adress)){
-            throw new IllegalArgumentException("Wrong arguments");
+    public User(String name, int age, String companyName, String adress)  {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name is empty");
+        }
+        if (age < CRITICAL_AGE) {
+            throw new IllegalArgumentException("Must be greater than or equal to 18 years of age");
+        }
+        if (!VALID_JOBS.contains(companyName)) {
+            throw new IllegalArgumentException("The name of the company is invalid");
+        }
+        if (!VALID_ADDRESSES.contains(adress)) {
+            throw new IllegalArgumentException("The adress of the company is invalid");
         }
         this.name = name;
         this.age = age;
