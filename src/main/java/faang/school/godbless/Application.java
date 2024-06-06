@@ -4,7 +4,7 @@ import static faang.school.godbless.Example.reverse;
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
+        int nums[] = {1, 4, 6, 7, 8};
         int resultNums[];
 
         resultNums = reverse(nums);
