@@ -16,16 +16,13 @@ public class User {
             ("London", "New York", "Amsterdam"));
 
     public User(String name, int age, String job, String address) {
-        if (name.isBlank()) {
+        if (name.isBlank() || age < 18 || !VALID_ADDRESSES.contains(address) ||
+                !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Name cannot be empty");
-        } else this.name = name;
-        if (age < 18) {
-            throw new IllegalArgumentException("User cannot be under 18");
-        } else this.age = age;
-        if (VALID_JOBS.contains(job)) {
+        } else {
+            this.name = name;
+            this.age = age;
             this.job = job;
-        } else throw new IllegalArgumentException("invalid job");
-        if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
         }
     }
