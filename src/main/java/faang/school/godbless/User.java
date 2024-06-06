@@ -25,16 +25,10 @@ public class User {
 
         if (userList != null) {
             for (var user: userList) {
-                if (!userMap.containsKey(user.getAge())) {
-                    userMap.put(user.getAge(), new ArrayList<>());
-                }
-
-                userMap.get(user.getAge()).add(user);
+                userMap.computeIfAbsent(user.getAge(), key -> new ArrayList<>()).add(user);
             }
-
-            return userMap;
         }
 
-        return null;
+        return userMap;
     }
 }
