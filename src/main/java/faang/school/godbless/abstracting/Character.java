@@ -2,14 +2,16 @@ package faang.school.godbless.abstracting;
 
 public abstract class Character {
     protected String name;
-    protected int force, dexterity, intelest;
+    protected int force;
+    protected int dexterity;
+    protected int intelligence;
     protected int health = 100;
 
-    public Character(String name, int force, int dexterity, int intelest) {
+    public Character(String name, int force, int dexterity, int intelligence) {
         this.name = name;
         this.force = force;
         this.dexterity = dexterity;
-        this.intelest = intelest;
+        this.intelligence = intelligence;
     }
 
     public Character(String name) {
@@ -24,7 +26,7 @@ public abstract class Character {
                 "name='" + name + '\'' +
                 ", force=" + force +
                 ", dexterity=" + dexterity +
-                ", intelest=" + intelest +
+                ", intelest=" + intelligence +
                 ", health=" + health +
                 '}';
     }
