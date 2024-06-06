@@ -17,7 +17,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class SearchEngine {
 
-    Map<String, List<WebPage>> webPagesByKeyword;
+    private Map<String, List<WebPage>> webPagesByKeyword;
 
     public void indexWebPage(WebPage webPage) {
         Objects.requireNonNull(webPage);
