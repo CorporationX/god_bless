@@ -6,8 +6,10 @@ public class Application {
         Warrior warrior = new Warrior("Oleg");
         System.out.println(archer);
         System.out.println(warrior);
+
         archer.attack(warrior);
         warrior.attack(archer);
+
         System.out.println(archer);
         System.out.println(warrior);
     }

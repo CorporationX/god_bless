@@ -5,13 +5,9 @@ public class Archer extends Character {
         super(name, 3, 10, 5);
     }
 
-    public Archer(String name, int power, int agility, int intelligence) {
-        super(name, power, agility, intelligence);
-    }
-
     @Override
     public void attack(Character character) {
-        character.health -= super.power;
+        character.health -= this.power;
     }
 
     @Override
