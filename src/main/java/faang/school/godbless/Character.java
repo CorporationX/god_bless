@@ -89,4 +89,10 @@ public abstract class Character {
     public int getHealth() {
         return this.health;
     }
+
+    @Override
+    public String toString() {
+        return "|" + this.name + "| force: " + this.force + ", dexterity: " + this.dexterity +
+                ", intelligence: " + this.intelligence + ", health: " + this.health;
+    }
 }
