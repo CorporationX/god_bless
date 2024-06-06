@@ -26,16 +26,16 @@ public class Test {
         user3Activities.add("Aiki-jūjutsu");
 
 
-        userList.add(new User(0,"John",33,user1Activities));
-        userList.add(new User(1,"Jimmy",51,user2Activities));
-        userList.add(new User(2,"Steve",14,user3Activities));
-        userList.add(new User(3,"Carl",18,user4Activities));
+        userList.add(new User(0, "John", 33, user1Activities));
+        userList.add(new User(1, "Jimmy", 51, user2Activities));
+        userList.add(new User(2, "Steve", 14, user3Activities));
+        userList.add(new User(3, "Carl", 18, user4Activities));
 
 
-        Map<User,String> map = User.findHobbyLovers(userList,userActivities);
+        Map<User, String> map = User.findHobbyLovers(userList, userActivities);
 
-        for(Map.Entry<User,String> entry : map.entrySet()){
-            System.out.println("User - "+entry.getKey().getName()+" | activity - "+entry.getValue());
+        for (Map.Entry<User, String> entry : map.entrySet()) {
+            System.out.println("User - " + entry.getKey().getName() + " | activity - " + entry.getValue());
         }
     }
 }
