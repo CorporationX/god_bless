@@ -8,16 +8,12 @@ public class User {
     private Integer year;
     private Set<String> manyActivities;
 
-    public User(){
-        //исправить
-        this.manyActivities = new HashSet<>(Arrays.asList("бег", "велоспорт"));
-    }
-
-    public User(int id, String name, Integer year) {
+    public User(int id, String name, Integer year, Set<String> manyActivities) {
         super();
         this.id = id;
         this.name = name;
         this.year = year;
+        this.manyActivities = manyActivities;
     }
 
     public String getName() {
