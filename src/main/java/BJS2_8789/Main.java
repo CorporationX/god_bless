@@ -24,9 +24,7 @@ public class Main {
         deleteEvent(3);
 
         printAllEvents();
-
     }
-
 
     public static void addEvent(StreamEvent event) {
         events.putIfAbsent(event.getId(), event);
@@ -47,12 +45,6 @@ public class Main {
         groupEvents.values()
                 .forEach(events -> events.removeIf(event -> event.getId() == id));
     }
-
-//    public static void deleteEventById(int id) {
-//        groupEvents.remove(events.get(id).getEventType());
-//        events.remove(id);
-//    }
-
 
     public static void printAllEvents() {
         groupEvents.forEach((k, v) -> {
