@@ -31,7 +31,11 @@ public class User {
     public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
-
+            for (String hobby : user.getActivities()) {
+                if (hobbies.contains(hobby)) {
+                    hobbyLovers.put(user, hobby);
+                }
+            }
         }
         return (HashMap<User, String>) hobbyLovers;
     }

@@ -11,6 +11,7 @@ import static faang.school.godbless.Task1.User.findHobbyLovers;
 public class Main {
 
     public static void showMap(HashMap<User, String> map) {
+        System.out.println("The Map is below:");
         for (Map.Entry entry : map.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
