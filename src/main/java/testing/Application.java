@@ -1,16 +1,15 @@
 package testing;
 
-import static faang.school.godbless.Example.reverse;
+import faang.school.godbless.Archer;
+import faang.school.godbless.Character;
+import faang.school.godbless.Warrior;
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        Character Geralt = new Warrior("Geralt");
+        Character Elf = new Archer("Vingels");
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
-        }//sd
+        Geralt.attack(Elf);
+        Elf.attack(Geralt);
     }
 }
