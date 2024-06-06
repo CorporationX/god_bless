@@ -2,7 +2,7 @@ package abstraction;
 
 public class Archer extends Character {
 
-    public Archer(String name, int power, int agility, int intelligence) {
+    public Archer(String name) {
         super(name, 3, 10, 5);
     }
 
