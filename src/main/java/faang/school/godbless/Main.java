@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Main {
     private static Map<String, WeatherData> weatherInCities = new HashMap<>();
+
     public static void main(String[] args) {
         addWeatherInCities("London", new WeatherData("London", 34.4, 50.0));
         addWeatherInCities("Parish", new WeatherData("Parish", 54.4, 77.0));
@@ -35,38 +36,39 @@ public class Main {
         System.out.println(allCities());
 
     }
-    static String infoWeather(String nameCity){
+
+    static String infoWeather(String nameCity) {
         if (!weatherInCities.containsKey(nameCity)) {
             addWeatherInCities(nameCity, OutsourcedService.requestToService(nameCity));
         }
         return weatherInCities.get(nameCity).getTemperature() + " " + weatherInCities.get(nameCity).getHumidity();
     }
 
-    static void addWeatherInCities(String nameCity, WeatherData weatherData){
+    static void addWeatherInCities(String nameCity, WeatherData weatherData) {
         if (weatherData.getCity().equals(nameCity)) {
             weatherInCities.put(nameCity, weatherData);
-        }
-        else
+        } else
             throw new IllegalArgumentException("Введены некорректные данные");
     }
 
-    static void update(String nameCity, WeatherData weatherData){   // обновление информации о погоде в кэше для определённого города;
+    static void update(String nameCity, WeatherData weatherData) {   // обновление информации о погоде в кэше для определённого города;
         if (weatherData.getCity().equals(nameCity)) {
             weatherInCities.get(nameCity).setTempAndHumi(weatherData.getTemperature(), weatherData.getHumidity());
-        }
-        else
+        } else
             throw new IllegalArgumentException("Введены некорректные данные");
     }
-    static void delete(String nameCity){
+
+    static void delete(String nameCity) {
         weatherInCities.get(nameCity).setTempAndHumi(null, null);
     }
 
-    static List<String> allCities(){
+    static List<String> allCities() {
         List<String> citiesList = new ArrayList<>();
-        for (var map:weatherInCities.entrySet()) {
-            if (map.getValue().getHumidity() != null & map.getValue().getTemperature() != null){
+        for (var map : weatherInCities.entrySet()) {
+            if (map.getValue().getHumidity() != null & map.getValue().getTemperature() != null) {
                 citiesList.add(map.getKey());
             }
-        }return citiesList;
+        }
+        return citiesList;
     }
 }
