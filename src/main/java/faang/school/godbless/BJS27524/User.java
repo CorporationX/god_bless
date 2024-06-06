@@ -37,6 +37,7 @@ public class User {
         this.age = age;
         this.placeofwork = placeofwork;
         this.adds = adds;
+
     }
 
     public static Map<Integer, List<User>> groupUser(List<User> listOfUser, Set<Integer> newSet) {
