@@ -24,20 +24,28 @@ public class Application {
     }
 
     public static void addHouse(String name, House house) {
-        allHouseMap.put(name, house);
+        if ((name != null || !name.trim().isEmpty()) && house != null) {
+            allHouseMap.put(name, house);
+        }
     }
 
     public static void delHouse(String name) {
-        allHouseMap.remove(name);
+        if (name != null || !name.trim().isEmpty()) {
+            allHouseMap.remove(name);
+        }
     }
 
     public static String findHouse(String name) {
-        return allHouseMap.get(name).getSigil();
+        if(name != null || !name.trim().isEmpty()) {
+            return allHouseMap.get(name).getSigil();
+        }else{
+            return "Ошибка имя равно нулю";
+        }
     }
 
     public static void printAll() {
         allHouseMap.forEach((s, house) -> {
-            System.out.println("Дом: " + s + ", Герб: " +house.getSigil());
+            System.out.println("Дом: " + s + ", Герб: " + house.getSigil());
         });
     }
 }
