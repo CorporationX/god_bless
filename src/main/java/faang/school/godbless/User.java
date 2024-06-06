@@ -13,7 +13,7 @@ public class User{
     private String adress;
 
     public User(String name, int year, String department, String adress) {
-        if(name == null || name.isEmpty() || year < 18
+        if(name.isBlank() || year < 18
                 || !VALID_JOBS.contains(department)
                 || !VALID_ADDRESSES.contains(adress)){
             throw new IllegalArgumentException("not valid");
