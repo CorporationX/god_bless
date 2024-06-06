@@ -16,5 +16,7 @@ public abstract class Creature {
     protected int peekNumber;
 
 
-    abstract int getDamage();
+    int getDamage(){
+        return  (int) (attack + (speed * 0.4) + (level * 0.8));
+    }
 }

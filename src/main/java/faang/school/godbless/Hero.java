@@ -1,12 +1,8 @@
 package faang.school.godbless;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 
-import java.util.List;
 import java.util.Map;
 
 
@@ -19,6 +15,7 @@ public class Hero {
     private String faction;
     private int experience;
     private int level;
+    @Setter
     private Map<Creature, Integer> army;
 
 
@@ -26,7 +23,7 @@ public class Hero {
     void addCreature(Creature creature, int quantity){
         this.army.put(creature, quantity);
     }
-    void removeCreature(Creature creature, int quantity){
+    void removeCreature(Creature creature){
         this.army.remove(creature);
     }
 
