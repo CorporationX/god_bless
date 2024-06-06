@@ -40,7 +40,9 @@ public class Main {
   }
 
   public static void deleteStudent(String name, String faculty, int year) {
-    students.remove(new Student(name, faculty, year));
+    students =  students.stream()
+      .filter(s -> !s.getName().equals(name) && !s.getFaculty().equals(faculty) && s.getYear() != year)
+      .toList();
   }
 
   public static List<Student> getStudentsByFacultyAndYear(String faculty, int year) {
