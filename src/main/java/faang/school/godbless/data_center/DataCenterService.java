@@ -29,18 +29,18 @@ public class DataCenterService {
     }
 
     public void allocateResources(DataCenter dataCenter, ResourceRequest request) {
-        if(dataCenter.getResourceRequests().contains(request.getId())){
+        if (dataCenter.getResourceRequests().contains(request.getId())) {
             releaseResources(dataCenter, request);
             allocateResources(dataCenter, request);
         } else {
             Server serverToAddRequest = null;
-            for(Server server : dataCenter.getServers()){
-                if(server.getMaxLoad() - server.getLoad() >= request.getLoad()){
+            for (Server server : dataCenter.getServers()) {
+                if (server.getMaxLoad() - server.getLoad() >= request.getLoad()) {
                     serverToAddRequest = server;
                     break;
                 }
             }
-            if(serverToAddRequest == null){
+            if (serverToAddRequest == null) {
                 throw new RuntimeException("No server is available");
             } else {
                 dataCenter.getServers().remove(serverToAddRequest);
@@ -53,13 +53,13 @@ public class DataCenterService {
 
     public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         Server serverToReleaseRequest = null;
-        for(Server server : dataCenter.getServers()){
-            if(server.getRequestMap().containsKey(request.getId())){
+        for (Server server : dataCenter.getServers()) {
+            if (server.getRequestMap().containsKey(request.getId())) {
                 serverToReleaseRequest = server;
                 break;
             }
         }
-        if(serverToReleaseRequest != null){
+        if (serverToReleaseRequest != null) {
             dataCenter.getServers().remove(serverToReleaseRequest);
             serverToReleaseRequest.removeRequest(request);
             dataCenter.getResourceRequests().remove(request.getId());
@@ -71,8 +71,8 @@ public class DataCenterService {
         Set<ResourceRequest> resourceRequests = new HashSet<>();
         Set<Server> serverSet = new HashSet<>();
 
-        for(Server server : dataCenter.getServers()){
-            for(Map.Entry<Integer, ResourceRequest> resourceRequest : server.getRequestMap().entrySet()){
+        for (Server server : dataCenter.getServers()) {
+            for (Map.Entry<Integer, ResourceRequest> resourceRequest : server.getRequestMap().entrySet()) {
                 resourceRequests.add(resourceRequest.getValue());
             }
             serverSet.add(server);
@@ -82,11 +82,11 @@ public class DataCenterService {
         dataCenter.setServers(new TreeSet<>(dataCenter.getOptimizationStrategy().getCompareStrategy()));
         dataCenter.getResourceRequests().clear();
 
-        for(Server server : serverSet){
+        for (Server server : serverSet) {
             addServer(dataCenter, server);
             server.getRequestMap().clear();
         }
-        for(ResourceRequest resourceRequest : resourceRequests){
+        for (ResourceRequest resourceRequest : resourceRequests) {
             allocateResources(dataCenter, resourceRequest);
         }
     }

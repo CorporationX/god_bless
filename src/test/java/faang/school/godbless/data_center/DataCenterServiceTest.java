@@ -3,7 +3,8 @@ package faang.school.godbless.data_center;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataCenterServiceTest {
     DataCenterService dataCenterService;
@@ -73,14 +74,14 @@ class DataCenterServiceTest {
         dataCenterService.changeOptimizationStrategy(dataCenter, OptimizationStrategy.ENERGY_EFFICIENCY_OPTIMIZATION_STRATEGY);
         dataCenterService.changeOptimizationStrategy(dataCenter, OptimizationStrategy.LOAD_BALANCING_OPTIMIZATION_STRATEGY);
 
-        for(Server server : dataCenter.getServers()){
+        for (Server server : dataCenter.getServers()) {
             System.out.println(server);
         }
         assertArrayEquals(new Object[]{server1, server2, server3, server4}, dataCenter.getServers().toArray());
     }
 
     @Test
-    void testDataCenterService_totalEnergyConsumption(){
+    void testDataCenterService_totalEnergyConsumption() {
         assertEquals(400, dataCenterService.getTotalEnergyConsumption(dataCenter));
     }
 }

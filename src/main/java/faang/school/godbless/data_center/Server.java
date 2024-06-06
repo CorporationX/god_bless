@@ -41,13 +41,13 @@ public class Server {
         return getId();
     }
 
-    public void addRequest(ResourceRequest request){
-        if(requestMap.containsKey(request.getId())){
+    public void addRequest(ResourceRequest request) {
+        if (requestMap.containsKey(request.getId())) {
             removeRequest(request);
             addRequest(request);
         } else {
             double requestLoad = request.getLoad();
-            if(requestLoad + load > maxLoad){
+            if (requestLoad + load > maxLoad) {
                 throw new RuntimeException("Server is running out of resources that can be provided");
             } else {
                 load += requestLoad;
@@ -57,8 +57,8 @@ public class Server {
         }
     }
 
-    public void removeRequest(ResourceRequest request){
-        if(requestMap.containsKey(request.getId())){
+    public void removeRequest(ResourceRequest request) {
+        if (requestMap.containsKey(request.getId())) {
             double requestLoad = request.getLoad();
             load -= requestLoad;
             energyConsumption -= requestLoad * 1.2;

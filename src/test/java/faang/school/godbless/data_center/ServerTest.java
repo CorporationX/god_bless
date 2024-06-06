@@ -10,12 +10,12 @@ class ServerTest {
     Server serverForTest;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         serverForTest = new Server(1, 200);
     }
 
     @Test
-    void testServer_testAddRequest_EnergyConsumption(){
+    void testServer_testAddRequest_EnergyConsumption() {
         ResourceRequest resourceRequestToAdd = new ResourceRequest(1, 20);
         serverForTest.addRequest(resourceRequestToAdd);
 
@@ -23,7 +23,7 @@ class ServerTest {
     }
 
     @Test
-    void testServer_testAddRequestAndRemove_EnergyConsumption(){
+    void testServer_testAddRequestAndRemove_EnergyConsumption() {
         ResourceRequest resourceRequestToAddAndRemove = new ResourceRequest(1, 20);
         serverForTest.addRequest(resourceRequestToAddAndRemove);
         serverForTest.removeRequest(resourceRequestToAddAndRemove);
@@ -32,8 +32,8 @@ class ServerTest {
     }
 
     @Test
-    void testServer_requiringTooMuchLoad(){
-        ResourceRequest resourceRequestToAdd= new ResourceRequest(1, 2000);
+    void testServer_requiringTooMuchLoad() {
+        ResourceRequest resourceRequestToAdd = new ResourceRequest(1, 2000);
 
         assertThrows(RuntimeException.class, () -> serverForTest.addRequest(resourceRequestToAdd));
     }

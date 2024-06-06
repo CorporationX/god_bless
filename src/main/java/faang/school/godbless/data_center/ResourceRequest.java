@@ -9,7 +9,7 @@ public class ResourceRequest {
 
     public ResourceRequest(int id, double load) {
         this.id = id;
-        if(load < 0){
+        if (load < 0) {
             throw new RuntimeException("Cannot require negative load");
         }
         this.load = load;
