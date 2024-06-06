@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class MainTest {
@@ -42,8 +42,7 @@ class MainTest {
         String actual = main.getSigilByHouseName("Stark");
         assertEquals(expected, actual, "Return Direwolf for House Stark");
 
-        actual = main.getSigilByHouseName("Targaryen");
-        assertNull(actual, "Return null for not existed House");
+        assertThrows(HouseNotFoundException.class, () -> main.getSigilByHouseName("Targaryen"), "Returns exception for not existed House");
     }
 
     @Test

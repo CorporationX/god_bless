@@ -12,10 +12,6 @@ public class Main {
         houses.put("Stark", new House("Stark", "Direwolf"));
         houses.put("Lannister", new House("Lannister", "Lion"));
         houses.put("Baratheon", new House("Baratheon", "Stag"));
-//        houses.put("Targaryen", new House("Targaryen", "Dragon"));
-//        houses.put("Greyjoy", new House("Greyjoy", "Kraken"));
-//        houses.put("Martell", new House("Martell", "Sun and Spear"));
-//        houses.put("Tyrell", new House("Tyrell", "Rose"));
     }
 
     public void addNewHouse(House house) {
@@ -27,11 +23,13 @@ public class Main {
     }
 
     public String getSigilByHouseName(String name) {
-        if (!houses.containsKey(name)) {
-            return null;
+        House house = houses.get(name);
+
+        if (house == null) {
+            throw new HouseNotFoundException("House " + name + " not found.");
         }
 
-        return houses.get(name).sigil();
+        return house.sigil();
     }
 
     public List<String> getHouses() {
