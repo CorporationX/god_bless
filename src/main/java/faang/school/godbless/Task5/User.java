@@ -18,7 +18,7 @@ public class User {
     public User(String name, int age, String job, String address) {
         if (name.isBlank() || age < 18 || !VALID_ADDRESSES.contains(address) ||
                 !VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException("Name cannot be empty");
+            throw new IllegalArgumentException("invalid argument(s)");
         } else {
             this.name = name;
             this.age = age;
