@@ -19,22 +19,28 @@ public class Main {
         List<Student> studentList = List.of(student1, student2, student3, student4, student5, student6,
                 student7, student8, student9, student10);
 
-        Map<FacultyAndYearPair, List<Student>> groupedStudents = Student.groupStudentsByFacultyAndYear(studentList);
-        Student.showStudentsGropedByFacultyAndYear(groupedStudents);
 
-        System.out.println("EngineeringFaculty");
-        List<Student> engineeringFaculty = Student.searchByFaculty(groupedStudents, "Engineering", 1);
-        for(Student student : engineeringFaculty){
+        System.out.println("Group Students By Faculty And Year");
+        Map<String, List<Student>> groupedStudents = Student.groupStudentsByFacultyAndYear(studentList);
+        Student.showStudentsGropedByFacultyAndYear(groupedStudents);
+        System.out.println();
+
+
+        System.out.println("Get Students By Faculty And Year: Engineering and 1 Year");
+        List<Student> engineeringFaculty = Student.searchByFacultyAndYear(groupedStudents, "Engineering", 1);
+        for (Student student : engineeringFaculty) {
             System.out.println(student);
         }
+        System.out.println();
 
-        System.out.println("After removing all students in Engineering faculty Year 1:");
 
-        Student.deleteStudentFromMap(groupedStudents,"A", "Engineering", 1);
-        Student.deleteStudentFromMap(groupedStudents,"E", "Engineering", 1);
-        Student.deleteStudentFromMap(groupedStudents,"I", "Engineering", 1);
+        System.out.println("After removing all students in Engineering and Year 1:");
+        Student.deleteStudentFromMap(groupedStudents, "A", "Engineering", 1);
+        Student.deleteStudentFromMap(groupedStudents, "E", "Engineering", 1);
+        Student.deleteStudentFromMap(groupedStudents, "I", "Engineering", 1);
         Student.showStudentsGropedByFacultyAndYear(groupedStudents);
+        System.out.println();
 
-
+        System.out.println(Student.composeKey("Some faculty", 324));
     }
 }
