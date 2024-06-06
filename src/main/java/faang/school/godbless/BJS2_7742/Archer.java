@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS2_7742;
 
 public class Archer extends Character {
     private final int strength = 3;

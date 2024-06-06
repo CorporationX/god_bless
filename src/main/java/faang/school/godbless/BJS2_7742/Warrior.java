@@ -1,11 +1,11 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS2_7742;
+
+import faang.school.godbless.BJS2_7742.Character;
 
 public class Warrior extends Character {
     private final int strength = 10;
     private final int agility = 5;
     private final int intelligence = 3;
-
-
     protected Warrior(String name) {
         super(name);
     }
