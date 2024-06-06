@@ -1,17 +1,26 @@
 package faang.school.godbless;
 
 public class Application {
-    public static void main(String[] args) {
 
-        int[] nums = new int[] {1,18,-158,-5,78,65,12,4};
-        for (int num: nums){
-            System.out.print(num + " ");
-        }
-        System.out.println();
-        Example revExample = new Example();
-        revExample.reverse(nums);
-        for (int num: nums){
-            System.out.print(num + " ");
-        }
+    public static void main(String[] args) {
+        Westeros westeros = new Westeros();
+        House stark = new House("Stark","Wolf");
+        House lannister = new House("Lannister","Lion");
+        House arren = new House("Arryn","Eagle");
+        House targaryen = new House("Targaryen","Three heads dragon");
+        westeros.addHouses(stark,lannister,arren,targaryen);
+        westeros.getHousesAndCrest();
+        House arr = new House("Arryn","Bear");
+        westeros.addHouse(arr);
+        westeros.getHousesAndCrest();
+        westeros.deleteHouseFromWesterosHouses("Arryn");
+        westeros.getHousesAndCrest();
+        westeros.getCrestInfo("Targaryen");
+        westeros.getCrestInfo("Targaryenf");
+
     }
+
+
+
+
 }
