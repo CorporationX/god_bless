@@ -1,11 +1,11 @@
 package faang.school.godbless;
 
 public class Character {
-    private String name;
+    protected String name;
     private int force;
-    private int dexterity;
-    private int intelligence;
-    private int health = 100;
+    protected int dexterity;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
