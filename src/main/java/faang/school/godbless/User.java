@@ -13,27 +13,22 @@ public class User {
 
     public User(String username, int age, String job, String address) {
 
-        boolean haveError = false;
-
         if (username == null || username.trim().isEmpty()) {
-            haveError = true;
+            throw new IllegalArgumentException("Username cannot be null or empty");
         }
 
         if (age < 18) {
-            haveError = true;
+            throw new IllegalArgumentException("Age must be at least 18");
         }
 
         if (job == null || !VALID_JOBS.contains(job)){
-            haveError = true;
+            throw new IllegalArgumentException("Invalid job");
         }
 
         if (address == null || !VALID_ADDRESSES.contains(address)){
-            haveError = true;
+            throw new IllegalArgumentException("Invalid address");
         }
 
-        if (haveError){
-            throw new IllegalArgumentException("Не прошел тест");
-        }
 
         this.username = username;
         this.age = age;
