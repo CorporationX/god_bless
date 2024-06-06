@@ -16,6 +16,7 @@ public class User {
     private String work;
     private String address;
 
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> result = new HashMap<>();
 
