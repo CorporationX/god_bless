@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Battlefield {
-    List<Hero> heroes;
+    private final List<Hero> heroes;
 
     public Battlefield(List<Hero> heroes) {
         this.heroes = heroes;

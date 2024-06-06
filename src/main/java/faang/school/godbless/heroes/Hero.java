@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Random;
 
 public class Hero {
-    private String name;
-    private String fraction;
-    private String experience;
-    private int level;
+    private final String name;
+    private final String fraction;
+    private final String experience;
+    private final int level;
 
-    private List<Creature> army;
+    private final List<Creature> army;
 
     public Hero(String name, String fraction, String experience, int level) {
         this.name = name;
