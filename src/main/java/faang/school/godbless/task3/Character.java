@@ -1,5 +1,8 @@
 package faang.school.godbless.task3;
 
+import lombok.Data;
+
+@Data
 abstract public class Character {
     protected String name;
     protected int power;
