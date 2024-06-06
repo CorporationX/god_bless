@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS2_7582;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.ToString;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Getter
 @AllArgsConstructor
@@ -18,13 +19,7 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> convertListToMapOfGroupUsers(List<User> userList) {
-        Map<Integer, List<User>> listUsersMap = new HashMap<>();
-
-        for (User user : userList) {
-            listUsersMap.put(user.getAge(), userList.stream().filter(user1 -> user1.getAge() == user.getAge()).toList());
-        }
-
-        return listUsersMap;
+       return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
     public static void main(String[] args) {
