@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.hero;
 
 import faang.school.godbless.creation.Creature;
 import lombok.Data;
@@ -34,7 +34,7 @@ public class Hero {
     }
 
     public Map<Creature, Integer> removeCreature(Creature creature, int quantity) {
-        if(creature == null || quantity == 0) {
+        if(creature == null || quantity == 0 || heroArmy.get(creature) < quantity) {
             throw new IllegalArgumentException();
         }
         if(heroArmy.containsKey(creature)) {
@@ -44,4 +44,6 @@ public class Hero {
         }
         return heroArmy;
     }
+
+
 }
