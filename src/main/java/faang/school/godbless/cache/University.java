@@ -21,6 +21,7 @@ public class University {
             throw new IllegalArgumentException("Student and their grades must not be null");
         }
         studentGrades.computeIfAbsent(student, v -> new HashMap<>()).putAll(gradesBySubject);
+        gradesBySubject.keySet().forEach(subject -> studentsBySubjects.computeIfAbsent(subject, v -> new ArrayList<>()).add(student));
     }
 
     public void addSubjectGrade(Student student, Subject subject, int grade) {
@@ -29,6 +30,7 @@ public class University {
         }
         if (studentGrades.containsKey(student)) {
             studentGrades.get(student).putIfAbsent(subject, grade);
+            studentsBySubjects.computeIfAbsent(subject, v -> new ArrayList<>()).add(student);
         } else {
             throw new IllegalArgumentException("There's no mapping for this student.");
         }
@@ -39,6 +41,14 @@ public class University {
             throw new IllegalArgumentException("Student must not be null");
         }
         studentGrades.remove(student);
+        var iterator = studentsBySubjects.entrySet().iterator();
+        while (iterator.hasNext()) {
+            var students = iterator.next().getValue();
+            students.remove(student);
+            if (students.isEmpty()) {
+                iterator.remove();
+            }
+        }
     }
 
     public void printStudentGrades() {
@@ -54,6 +64,7 @@ public class University {
             throw new IllegalArgumentException("Subject and students taking that class must not be null");
         }
         studentsBySubjects.computeIfAbsent(subject, v -> new ArrayList<>()).addAll(students);
+        students.forEach(student -> studentGrades.computeIfAbsent(student, v -> new HashMap<>()).put(subject, null));
     }
 
     public void addStudentToCurrentSubject(Subject subject, Student student) {
@@ -61,6 +72,7 @@ public class University {
             throw new IllegalArgumentException("Subject and their students must not be null");
         }
         studentsBySubjects.computeIfAbsent(subject, v -> new ArrayList<>()).add(student);
+        studentGrades.computeIfAbsent(student, v -> new HashMap<>()).put(subject, null);
     }
 
     public void removeStudentFromSubject(Subject subject, Student student) {
@@ -68,6 +80,14 @@ public class University {
             throw new IllegalArgumentException("Subject and their students must not be null");
         }
         studentsBySubjects.get(subject).remove(student);
+        var iterator = studentGrades.entrySet().iterator();
+        while (iterator.hasNext()) {
+            var studentSubjectGrades = iterator.next().getValue();
+            studentSubjectGrades.remove(subject);
+            if (studentSubjectGrades.isEmpty()) {
+                iterator.remove();
+            }
+        }
     }
 
     public void printAllSubjects() {

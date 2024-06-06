@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -23,14 +24,15 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Adding a student with grades should increase map size and have a value with subject and grades")
-    void testAddStudentWithGradesSavesNewData() {
+    @DisplayName("Adding a student with grades should update both maps")
+    void testAddStudentWithGradesSavesNewDataAndUpdatesTwoMaps() {
         Student student = new Student(1L, "Trevor");
         Map<Subject, Integer> defaultGrades = prepareDefaultGrades();
 
         university.addStudentWithGrades(student, defaultGrades);
 
         assertEquals(defaultGrades, university.getStudentGrades().get(student));
+        university.getStudentsBySubjects().forEach((subject, grades) -> assertTrue(grades.contains(student)));
     }
 
     @Test
@@ -50,15 +52,17 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Adding new graded subject to student should increase subjects size")
+    @DisplayName("Adding new graded subject to student should update both maps")
     void testAddSubjectGradeSavesNewData() {
         Student student = new Student(1L, "Trevor");
         Map<Student, Map<Subject, Integer>> studentGrades = prepareStudentWithDefaultGrades(student);
         university.setStudentGrades(studentGrades);
+        Subject literature = new Subject(17L, "Literature");
 
-        university.addSubjectGrade(student, new Subject(17L, "Literature"), 3);
+        university.addSubjectGrade(student, literature, 3);
 
         assertEquals(5, university.getStudentGrades().get(student).size());
+        assertTrue(university.getStudentsBySubjects().get(literature).contains(student));
     }
 
     @Test
@@ -78,7 +82,7 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Adding a subject grade for student that is not present")
+    @DisplayName("Adding a subject grade for student that is not present should throw exception")
     void testAddSubjectGradeForNonExistentStudent() {
         Student student = new Student(2L, "Marco");
 
@@ -86,15 +90,18 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Removing a student should remove their subject grades")
+    @DisplayName("Removing a student should remove their subject grades and update second map")
     void testRemoveStudentRemovesSubjectGrades() {
         Student student = new Student(1L, "Trevor");
         Map<Student, Map<Subject, Integer>> studentGrades = prepareStudentWithDefaultGrades(student);
         university.setStudentGrades(studentGrades);
+        Map<Subject, List<Student>> studentsBySubjects = prepareSubjectsWithOneStudent(studentGrades.get(student).keySet(), student);
+        university.setStudentsBySubjects(studentsBySubjects);
 
         university.removeStudent(student);
 
         assertEquals(0, university.getStudentGrades().size());
+        university.getStudentsBySubjects().forEach((subject, students) -> assertFalse(students.contains(student)));
     }
 
     @Test
@@ -104,7 +111,7 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Adding a subject with students should increase map size and have list of students as value")
+    @DisplayName("Adding a subject with students should update both maps")
     void testAddSubjectWithStudents() {
         Subject art = new Subject(1L, "Art");
         List<Student> artStudents = List.of(new Student(1L, "Trevor"), new Student(2L, "Marco"));
@@ -112,6 +119,7 @@ class UniversityTest {
         university.addSubjectWithStudents(art, artStudents);
 
         assertEquals(1, university.getStudentsBySubjects().size());
+        university.getStudentGrades().forEach((student, subjectGrades) -> assertTrue(subjectGrades.containsKey(art)));
     }
 
     @Test
@@ -129,7 +137,7 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Adding a student to the subject increases class size")
+    @DisplayName("Adding a student to the subject updates both maps")
     void testAddStudentToCurrentSubject() {
         Subject art = new Subject(1L, "Art");
         List<Student> artStudents = List.of(new Student(1L, "Trevor"), new Student(2L, "Marco"));
@@ -139,6 +147,7 @@ class UniversityTest {
         university.addStudentToCurrentSubject(art, newStudent);
 
         assertEquals(3, university.getStudentsBySubjects().get(art).size());
+        assertTrue(university.getStudentGrades().get(newStudent).containsKey(art));
     }
 
     @Test
@@ -156,15 +165,20 @@ class UniversityTest {
     }
 
     @Test
-    @DisplayName("Removing a student from subject should decrease student list size")
+    @DisplayName("Removing a student from subject should update both maps")
     void testRemoveStudentFromSubject() {
         Subject art = new Subject(1L, "Art");
         List<Student> artStudents = List.of(new Student(1L, "Trevor"), new Student(2L, "Marco"));
         university.setStudentsBySubjects(prepareSubjectsWithStudents(art, artStudents));
+        Student studentToBeDeleted = artStudents.get(0);
+        Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
+        studentGrades.put(studentToBeDeleted, new HashMap<>(Map.of(art, 5)));
+        university.setStudentGrades(studentGrades);
 
-        university.removeStudentFromSubject(art, artStudents.get(0));
+        university.removeStudentFromSubject(art, studentToBeDeleted);
 
         assertEquals(1, university.getStudentsBySubjects().get(art).size());
+        assertTrue(university.getStudentGrades().isEmpty());
     }
 
     @Test
@@ -198,5 +212,11 @@ class UniversityTest {
 
     private Map<Subject, List<Student>> prepareSubjectsWithStudents(Subject subject, List<Student> students) {
         return new HashMap<>(Map.of(subject, new ArrayList<>(students)));
+    }
+
+    private Map<Subject, List<Student>> prepareSubjectsWithOneStudent(Set<Subject> subjects, Student student) {
+        HashMap<Subject, List<Student>> studentsBySubjects = new HashMap<>();
+        subjects.forEach(subject -> studentsBySubjects.computeIfAbsent(subject, v -> new ArrayList<>()).add(student));
+        return studentsBySubjects;
     }
 }
