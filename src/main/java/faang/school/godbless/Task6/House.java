@@ -25,4 +25,12 @@ class House {
         houses.remove(name);
     }
 
+    public static void findHouse(String name, Map<String, House> houses) {
+        for (House house : houses.values()) {
+            if (house.getName().equals(name)) {
+                System.out.println("The house's sigil is " + house.getSigil());
+            }
+        }
+    }
+
 }
