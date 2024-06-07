@@ -37,7 +37,7 @@ public class User {
     public static HashMap<Integer, List<User>> groupUser(List<User> userList) {
         HashMap<Integer, List<User>> userMap = new HashMap<>();
 
-        if (!userList.isEmpty()) {
+        if (!userList.isEmpty() && userList != null) {
             userList.forEach(user -> {
                 if (user.getYear() != null) {
                     if (userMap.containsKey(user.getYear())) {
