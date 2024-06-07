@@ -15,7 +15,7 @@ import java.util.Map;
 public class StudentManager {
     private Map<String, List<Student>> facultyStudentMap;
 
-    public StudentManager(){
+    public StudentManager() {
         facultyStudentMap = new HashMap<>();
     }
 
