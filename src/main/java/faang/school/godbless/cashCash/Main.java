@@ -16,8 +16,15 @@ public class Main {
         System.out.println(getWeatherOfCity("France"));
         System.out.println(getWeatherOfCity("Chily"));
 
+        System.out.println("Изменение параметров города Chily");
         System.out.println(updateWeather("Chily", new WeatherData("New York", 70, 90)));
 
+        System.out.println("Напечатать всех:");
+        printAll();
+        deleteCity("Afrika");
+
+        System.out.println("Удаление города: Afrika");
+        printAll();
 
     }
 
@@ -49,5 +56,17 @@ public class Main {
         }else{
             throw new IllegalArgumentException("Неправильное значение!");
         }
+    }
+
+    public static void deleteCity(String city){
+        gorodWeatherData.remove(city);
+    }
+
+    public static void printAll(){
+        gorodWeatherData.forEach((city, gorodWeather) ->{
+            System.out.println("Город: " + city + " , " +
+                                "Температура: " + gorodWeather.getTemperature() + " , " +
+                                "Влажность: " + gorodWeather.getHumidity());
+        });
     }
 }
