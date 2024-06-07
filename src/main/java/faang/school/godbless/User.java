@@ -4,12 +4,12 @@ import java.util.*;
 import java.util.Map;
 import java.util.List;
 
-public class User extends Application{
+public class User {
 
-    protected String name;
-    protected int age;
-    protected String workplace;
-    protected String adress;
+    private String name;
+    private int age;
+    private String workplace;
+    private String adress;
 
     public User(String name, int age, String workplace, String adress){
         this.name = name;
@@ -19,16 +19,19 @@ public class User extends Application{
     }
 
     public static Map<Integer , List<User>> groupUsers(List<User> user){
-        Map<Integer , List<User>> map = new HashMap<>();
-        for(User users : user){
-            if(map.containsKey(users.age)){
-                map.get(users.age).add(users);
+        Map<Integer , List<User>> groupedUsers = new HashMap<>();
+        for(User record : user){
+            if(groupedUsers.containsKey(record.age)){
+                groupedUsers.get(record.age).add(record);
             } else {
-                List<User> Userlist = new ArrayList<>();
-                Userlist.add(users);
-                map.put(users.age , Userlist);
+                List<User> userList = new ArrayList<>();
+                userList.add(record);
+                groupedUsers.put(record.age , userList);
             }
         }
-        return map;
+        return groupedUsers;
+    }
+    public void getRecord(){
+        System.out.println(name + " , " + workplace + " , " + adress);
     }
 }

@@ -21,7 +21,7 @@ public class Application {
     for(Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()){
         System.out.println("User with age: " + entry.getKey());
         for(User users : entry.getValue()){
-            System.out.println(users.name + "," + users.workplace + "," + users.age);
+            users.getRecord();
         }
     }
     }
