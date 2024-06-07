@@ -13,7 +13,7 @@ public class User {
     private static final Set <String> VALID_ADDRESSES = new HashSet(Arrays.asList("London","New York","Amsterdam"));
 
     public User(String name, int age, String workPlace, String address) throws IllegalArgumentException {
-        if (name!=null && !name.equals("") && age>=18 && VALID_JOBS.contains(workPlace) && VALID_ADDRESSES.contains(address)) {
+        if (!name.isBlank() && age >= 18 && VALID_JOBS.contains(workPlace) && VALID_ADDRESSES.contains(address)) {
             this.name = name;
             this.age = age;
             this.workPlace = workPlace;
