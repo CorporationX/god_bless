@@ -10,7 +10,7 @@ public class Main {
     // допустим, что у нас одна школа с общей базой, сделаю пока так,
     // чтобы не передавать каждый раз мапы. Для реальной базы данных
     // если бы не задание, я бы лучше сделал мапу уроков как параметр у Student
-    public static Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    public final static Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
 
     // аналогично сделал бы лист студентов как параметр в Subject
     public static Map<Subject, List<Student>> subjectStudentList = new HashMap<>();
