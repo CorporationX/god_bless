@@ -16,12 +16,15 @@ public class Battlefield {
         heroTwo.addCreature(new Angel(), 20);
         heroTwo.addCreature(new Swordsman(), 20);
         heroTwo.addCreature(new Pikeman(), 10);
+
         System.out.println("---------Before battle-------");
         heroOne.printArmy();
         heroTwo.printArmy();
         System.out.println("The winner in this battle is :" + battle().getName());
         System.out.println("---------After battle-------");
+        heroOne.removeCreature(new Angel(), 6);
         heroOne.printArmy();
+        heroTwo.addCreature(new Pikeman(), 15);
         heroTwo.printArmy();
     }
 
@@ -31,12 +34,12 @@ public class Battlefield {
         double armyOneDefence = calculateArmyDefence(heroOne);
         double armyTwoDefence = calculateArmyDefence(heroTwo);
         if (armyOneDamage - armyTwoDefence > armyTwoDamage - armyOneDefence) {
-            afterBattle(heroTwo,0.5);
-            afterBattle(heroOne,0.9);
+            afterBattle(heroTwo, 0.5);
+            afterBattle(heroOne, 0.9);
             return heroOne;
         } else {
-            afterBattle(heroTwo,0.9);
-            afterBattle(heroOne,0.5);
+            afterBattle(heroTwo, 0.9);
+            afterBattle(heroOne, 0.5);
             return heroTwo;
         }
     }
@@ -56,11 +59,9 @@ public class Battlefield {
         }
         return armyDefence;
     }
-    public static void afterBattle(Hero hero, double punishFactor){
-        for (Creature heroCreature : hero.getArmy().keySet()) {
-            int newQuantity = (int) (hero.getArmy().get(heroCreature) * punishFactor);
-            hero.removeCreature(heroCreature,newQuantity);
-        }
+
+    public static void afterBattle(Hero hero, double punishFactor) {
+        hero.getArmy().forEach((creature, quantity) -> hero.getArmy().put(creature, (int) (quantity * punishFactor)));
     }
 
 }

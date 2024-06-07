@@ -29,6 +29,7 @@ public class Hero {
     public void removeCreature(Creature creature, int quantity) {
         if (!army.containsKey(creature)) {
             int newQuantity = army.get(creature) - quantity;
+            System.out.println("from removeCreature -" + newQuantity);
             if (newQuantity < 0) {
                 army.remove(creature);
             } else {
@@ -38,9 +39,10 @@ public class Hero {
             System.out.println("Creature not found.");
         }
     }
-    public void printArmy(){
+
+    public void printArmy() {
         System.out.println(name + "'s, army:");
-        army.forEach((key, value)-> System.out.println(key.getName()+ ", quantity:"+value));
+        army.forEach((key, value) -> System.out.println(key.getName() + ", quantity:" + value));
     }
 }
 
