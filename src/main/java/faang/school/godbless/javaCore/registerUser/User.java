@@ -14,22 +14,14 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        /*
         if (name == null || name.isEmpty() || name.isBlank()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Имя не может быть пустым");
         } else if (age < 18) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Возраст должен быть больше 18 лет");
         } else if (!VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Место работы не подходит");
         } else if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
-        }
-        */
-        if (name == null || name.isBlank() || name.isEmpty()
-                || age < 18
-                || !VALID_JOBS.contains(job)
-                || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Адрес не подходит");
         }
         this.job = job;
         this.name = name;
