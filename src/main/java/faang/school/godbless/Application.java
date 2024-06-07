@@ -7,8 +7,6 @@ import java.util.Map;
 
 
 public class Application {
-
-
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
         Student student1 = new Student("Hermione Granger", "Gryffindor", 1);
@@ -35,7 +33,5 @@ public class Application {
 
         Map<String, List<Student>> groupedStudents = Student.StudentsHash(students);
         System.out.println(groupedStudents);
-
     }
-
 }
