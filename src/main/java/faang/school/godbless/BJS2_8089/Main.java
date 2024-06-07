@@ -18,8 +18,6 @@ public class Main {
         removeHouse("Stark");
 
         printInformationAboutHouse("Stark");
-
-
     }
 
     public static void removeHouse(String name) {
