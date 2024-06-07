@@ -34,7 +34,7 @@ public class CacheMap {
       map.put(data.getId(), data);
       return;
     }
-    log.error("Ошибка добавления данных. Стэк переполнен");
+    throw new RuntimeException("Ошибка добавления данных. Стэк переполнен");
   }
 
   private void clearOldestData() {
