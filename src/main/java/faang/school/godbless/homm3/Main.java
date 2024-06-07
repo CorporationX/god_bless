@@ -21,6 +21,6 @@ public class Main {
         BattleField battlefield = new BattleField();
         String winner = battlefield.battle(hero1, hero2);
 
-        System.out.println(winner);
+        System.out.println(winner);///
     }
 }
