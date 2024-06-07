@@ -18,7 +18,7 @@ public class Main {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
         for (Product product : products) {
             if (!groupedProducts.containsKey(product.getCategory())) {
-                groupedProducts.put(product.getCategory(), new ArrayList<>(List.of(product)));
+                groupedProducts.put(product.getCategory(), new ArrayList<>(Collections.singletonList(product)));
             } else groupedProducts.get(product.getCategory()).add(product);
         }
         return groupedProducts;
@@ -29,9 +29,7 @@ public class Main {
             String category = entry.getKey();
             List<Product> products = entry.getValue();
 
-            System.out.println("Category: " + category);
-            System.out.println("Products: " + products);
-            System.out.println();
+            System.out.println("Category: " + category + "\nProducts: " + products + "\n");
         }
     }
 
