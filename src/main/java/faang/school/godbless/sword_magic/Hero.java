@@ -3,7 +3,6 @@ package faang.school.godbless.sword_magic;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,8 +11,8 @@ import java.util.Map;
 public class Hero {
     private String name;
     private String fraction;
-    private int experience;  // Влияет на damage армии
-    private int level;       // Влияет на armor армии
+    private int experience;
+    private int level;
     private Map<Creature, Integer> army;
 
     public Hero(String name, String fraction, int experience, int level) {
@@ -52,43 +51,30 @@ public class Hero {
     }
 
     public int getDamageOfArmy() {
-        // Использование double не всегда точно дает результат. Один hero может иметь преимущества над другим,
-        // хотя у них все характеристики равные
-        BigDecimal damage = new BigDecimal(0);
+        double totalDamage = 0;
         for (Map.Entry<Creature, Integer> creatureAndQuantityEntry : army.entrySet()) {
             int damageOfCreatures = creatureAndQuantityEntry.getKey().getDamage() * creatureAndQuantityEntry.getValue();
-            // Влияние level на защиту армии Героя
-            // finalArmor = armor * (1 + 0.01 * experience)
-            BigDecimal finalDamage = increaseByPercentage(damageOfCreatures, experience);
-            damage = damage.add(finalDamage);
+            // experience of hero impacts on creature's damage
+            double finalDamageOfCreature = damageOfCreatures * (1 + 0.01 * experience);
+            totalDamage += finalDamageOfCreature;
         }
-        return damage.intValue();
+        return (int) (totalDamage);
     }
 
     public int getArmorOfArmy() {
-        // Использование double не всегда точно дает результат. Один hero может иметь преимущества над другим,
-        // хотя у них все характеристики равные
-        BigDecimal armor = new BigDecimal(0);
+        double totalArmor = 0;
         for (Map.Entry<Creature, Integer> creatureAndQuantityEntry : army.entrySet()) {
             int armorOfCreatures = creatureAndQuantityEntry.getKey().getArmor() * creatureAndQuantityEntry.getValue();
-            // Влияние level на защиту армии Героя
-            // finalArmor = armor * (1 + 0.01 * level)
-            BigDecimal finalArmorOfCreature = increaseByPercentage(armorOfCreatures, level);
-            armor = armor.add(finalArmorOfCreature);
+            // level of hero impacts on creature's armor
+            double finalArmorOfCreature = armorOfCreatures * (1 + 0.01 * level);
+            totalArmor += finalArmorOfCreature;
         }
-        return armor.intValue();
+        return (int) (totalArmor);
     }
 
     public void showArmy() {
         for (Map.Entry<Creature, Integer> creatureEntry : army.entrySet()) {
             System.out.println(creatureEntry.getKey() + " in quality: " + creatureEntry.getValue());
         }
-    }
-
-    public BigDecimal increaseByPercentage(double initDouble, int percentage){
-        return new BigDecimal("0.01")
-                .multiply(new BigDecimal(percentage))
-                .add(new BigDecimal(1))
-                .multiply(new BigDecimal(initDouble));
     }
 }

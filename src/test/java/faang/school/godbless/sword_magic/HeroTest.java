@@ -19,7 +19,7 @@ class HeroTest {
         Griffin griffins = new Griffin(3);   // damage = 27;  armor = 9 -> {810, 270}
         Swordman swordmen = new Swordman(4); // damage = 64; armor = 8 -> {2560, 320}
         // 3630          770
-        // 11536         800   boosted by exp and level
+        // 3703          800   boosted by exp and level
         hero.addCreature(angels, 10);
         hero.addCreature(pikemen, 20);
         hero.addCreature(griffins, 30);
