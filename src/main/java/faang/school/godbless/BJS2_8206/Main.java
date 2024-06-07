@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_8206;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
   static Map<Book, String> books = new HashMap<>();
@@ -26,11 +27,15 @@ public class Main {
   }
 
   public static void deleteBook(String title, String author, int year) {
-    books.remove(new Book(title, author, year));
+    Optional<Book> deleteBook = books.keySet().stream().filter(
+      s -> s.getTitle().equals(title) && s.getAuthor().equals(author) && s.getYear() == year).findFirst();
+    deleteBook.ifPresent(book -> books.remove(book));
   }
 
   public static String findBook(String title, String author, int year) {
-    return books.get(new Book(title, author, year));
+    Optional<Book> book = books.keySet().stream().filter(
+      s -> s.getTitle().equals(title) && s.getAuthor().equals(author) && s.getYear() == year).findFirst();
+    return book.map(value -> books.get(value)).orElse(null);
   }
 
   public static void getAllBooks() {
