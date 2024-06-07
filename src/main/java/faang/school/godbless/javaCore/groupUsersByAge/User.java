@@ -19,12 +19,13 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groups = new HashMap<>();
         for (User user : users) {
-            List<User> sameAgeUsers = groups.get(user.age);
-            if (sameAgeUsers == null) {
-                sameAgeUsers = new ArrayList<>();
+            if (groups.containsKey(user.age)) {
+                groups.get(user.age).add(user);
+            } else {
+                List<User> userList = new ArrayList<>();
+                userList.add(user);
+                groups.put(user.age, userList);
             }
-            sameAgeUsers.add(user);
-            groups.put(user.age, sameAgeUsers);
         }
         return groups;
     }
