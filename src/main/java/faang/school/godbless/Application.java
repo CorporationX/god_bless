@@ -31,6 +31,7 @@ public class Application {
             System.out.println("Возраст: " + year);
             user.forEach(userName -> {
                 System.out.println("ФИО: " + userName.getName().toString() + ",  "
+                        + "место работы" + userName.getDepartment() + ", "
                         + "адрес: " + userName.getAdress());
             });
         });

@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,8 +43,7 @@ public class User {
                     if (userMap.containsKey(user.getYear())) {
                         userMap.get(user.getYear()).add(user);
                     } else {
-                        userMap.put(user.getYear(), new ArrayList<>());
-                        userMap.get(user.getYear()).add(user);
+                        userMap.put(user.getYear(), new ArrayList<>(Arrays.asList(user)));
                     }
                 }
             });
