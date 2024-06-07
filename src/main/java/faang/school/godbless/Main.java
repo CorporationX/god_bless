@@ -19,22 +19,22 @@ public class Main {
 
         removeStudent("Fedor", "Prograing", 4);
         removeStudent("Fedor", "Programming", 4);
-        System.out.println(searchByUniversity("Math", 1));
+        System.out.println(searchByFlow("Math", 1));
         printAll();
     }
 
-    public static Map<University, List<Student>> findAll() {
-        Map<University, List<Student>> allInfo = new HashMap<>();
+    public static Map<Flow, List<Student>> findAll() {
+        Map<Flow, List<Student>> allInfo = new HashMap<>();
 
         for (Student student : students){
-            University university = new University(student.getFaculty(), student.getYear());
+            Flow flow = new Flow(student.getFaculty(), student.getYear());
 
-            if (allInfo.containsKey(university) && !allInfo.get(university).contains(student)) allInfo.get(student).add(student);
-            else if (!allInfo.containsKey(university)) {
+            if (allInfo.containsKey(flow) && !allInfo.get(flow).contains(student)) allInfo.get(student).add(student);
+            else if (!allInfo.containsKey(flow)) {
                 List<Student> studentsOnFlow = new ArrayList();
 
                 studentsOnFlow.add(student);
-                allInfo.put(university, studentsOnFlow);
+                allInfo.put(flow, studentsOnFlow);
             }
         }
         return allInfo;
@@ -51,20 +51,20 @@ public class Main {
         else System.out.println("There is no student: " + student);
     }
 
-    public static List<Student> searchByUniversity(String faculty, int course) {
-        List<Student> studentsByUniversity = new ArrayList<>();
+    public static List<Student> searchByFlow(String faculty, int course) {
+        List<Student> studentsByFlow = new ArrayList<>();
 
         for (Student student : students) {
-            if (student.getFaculty().equals(faculty) && student.getYear() == course) studentsByUniversity.add(student);
+            if (student.getFaculty().equals(faculty) && student.getYear() == course) studentsByFlow.add(student);
         }
-        return studentsByUniversity;
+        return studentsByFlow;
     }
 
     public static void printAll() {
-        Map<University, List<Student>> allInfo = findAll();
+        Map<Flow, List<Student>> allInfo = findAll();
 
-        for (University university : allInfo.keySet()) {
-            System.out.println(university + " -> " + allInfo.get(university));
+        for (Flow flow : allInfo.keySet()) {
+            System.out.println(flow + " -> " + allInfo.get(flow));
         }
     }
 }

@@ -2,11 +2,11 @@ package faang.school.godbless;
 
 import java.util.Objects;
 
-public class University {
+public class Flow {
     private String faculty;
     private int year;
 
-    public University(String faculty, int year) {
+    public Flow(String faculty, int year) {
         this.faculty = faculty;
         this.year = year;
     }
@@ -24,7 +24,7 @@ public class University {
         if (this == o) return true;
         else if (o == null || this.getClass() != o.getClass()) return false;
         else {
-            University student = (University) o;
+            Flow student = (Flow) o;
             return this.faculty == student.faculty && this.year == student.year;
         }
     }
