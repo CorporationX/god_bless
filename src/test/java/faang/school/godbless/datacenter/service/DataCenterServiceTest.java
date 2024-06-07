@@ -29,7 +29,13 @@ class DataCenterServiceTest {
     void testAddServerIncreasesSize() {
         dataCenterService.addServer(new Server());
 
-        assertEquals(3, dataCenterService.getDataCenter().getServers().size());
+        assertEquals(3, dataCenterService.dataCenter().servers().size());
+    }
+
+    @Test
+    @DisplayName("Adding a null server results in thrown exception")
+    void testAddNullServerThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> dataCenterService.addServer(null));
     }
 
     @Test
@@ -40,7 +46,13 @@ class DataCenterServiceTest {
 
         dataCenterService.deleteServer(serverToBeDeleted);
 
-        assertEquals(2, dataCenterService.getDataCenter().getServers().size());
+        assertEquals(2, dataCenterService.dataCenter().servers().size());
+    }
+
+    @Test
+    @DisplayName("Removing a null server results in thrown exception")
+    void testDeleteNullServerThrowsException() {
+        assertThrows(IllegalArgumentException.class, () -> dataCenterService.deleteServer(null));
     }
 
     @Test
@@ -55,24 +67,39 @@ class DataCenterServiceTest {
     @Test
     @DisplayName("Allocating resources should increase a load on a server")
     void testAllocateResourcesIncrementsLoad() {
-        ResourceRequest requestedLoad = new ResourceRequest(250.0d);
-        List<Server> servers = dataCenterService.getDataCenter().getServers();
+        ResourceRequest requestedLoad = new ResourceRequest(200.0d);
+        List<Server> servers = dataCenterService.dataCenter().servers();
         servers.get(0).regulateLoad(500.0d, OptimizationOperation.INCREASE);
 
         dataCenterService.allocateResources(requestedLoad);
 
-        assertEquals(250.0d, servers.get(1).getLoad());
+        assertEquals(200.0d, servers.get(1).getLoad());
+        assertEquals(140.0d, servers.get(1).getEnergyConsumption());
+    }
+
+    @Test
+    @DisplayName("Allocating null resources should throw exception")
+    void testAllocateResourcesWithNull() {
+        assertThrows(IllegalArgumentException.class, () -> dataCenterService.allocateResources(null));
     }
 
     @Test
     @DisplayName("Releasing resources should decrease a load on a server")
     void testReleaseResourcesDecrementsLoad() {
-        ResourceRequest requestedLoad = new ResourceRequest(250.0d);
-        List<Server> servers = dataCenterService.getDataCenter().getServers();
+        ResourceRequest requestedLoad = new ResourceRequest(200.0d);
+        List<Server> servers = dataCenterService.dataCenter().servers();
+        // energy consumption becomes 200.0
         servers.get(0).regulateLoad(500.0d, OptimizationOperation.INCREASE);
 
         dataCenterService.releaseResources(requestedLoad);
 
-        assertEquals(250.0d, servers.get(0).getLoad());
+        assertEquals(300.0d, servers.get(0).getLoad());
+        assertEquals(160.0d, servers.get(0).getEnergyConsumption());
+    }
+
+    @Test
+    @DisplayName("Releasing null resources should throw exception")
+    void testReleaseResourcesWithNull() {
+        assertThrows(IllegalArgumentException.class, () -> dataCenterService.releaseResources(null));
     }
 }

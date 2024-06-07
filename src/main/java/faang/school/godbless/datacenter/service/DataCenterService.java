@@ -4,35 +4,38 @@ import faang.school.godbless.datacenter.model.DataCenter;
 import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
 import java.util.Comparator;
 import java.util.Optional;
 
-@Data
-@AllArgsConstructor
-public class DataCenterService {
-
-    private final DataCenter dataCenter;
+public record DataCenterService(DataCenter dataCenter) {
 
     public void addServer(Server server) {
-        dataCenter.getServers().add(server);
+        if (server == null) {
+            throw new IllegalArgumentException("Server must not be null");
+        }
+        dataCenter.servers().add(server);
     }
 
     public void deleteServer(Server server) {
-        dataCenter.getServers().remove(server);
+        if (server == null) {
+            throw new IllegalArgumentException("Server must not be null");
+        }
+        dataCenter.servers().remove(server);
     }
 
     public double getTotalEnergyConsumption() {
-        return dataCenter.getServers()
+        return dataCenter.servers()
                 .stream()
                 .mapToDouble(Server::getEnergyConsumption)
                 .sum();
     }
 
     public void allocateResources(ResourceRequest resourceRequest) {
-        Optional<Server> leastLoadedServer = dataCenter.getServers()
+        if (resourceRequest == null) {
+            throw new IllegalArgumentException("Requests for resources cannot be null");
+        }
+        Optional<Server> leastLoadedServer = dataCenter.servers()
                 .stream()
                 .min(Comparator.comparingDouble(Server::getLoad));
         if (leastLoadedServer.isPresent()) {
@@ -42,7 +45,10 @@ public class DataCenterService {
     }
 
     public void releaseResources(ResourceRequest resourceRequest) {
-        Optional<Server> maxLoadedServer = dataCenter.getServers()
+        if (resourceRequest == null) {
+            throw new IllegalArgumentException("Requests for resources cannot be null");
+        }
+        Optional<Server> maxLoadedServer = dataCenter.servers()
                 .stream()
                 .max(Comparator.comparingDouble(Server::getLoad));
         if (maxLoadedServer.isPresent()) {

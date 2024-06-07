@@ -22,8 +22,14 @@ public class Server {
 
     public void regulateLoad(double load, OptimizationOperation optimizationOperation) {
         switch (optimizationOperation) {
-            case INCREASE -> this.load += load;
-            case DECREASE -> this.load -= load;
+            case INCREASE -> {
+                this.load += load;
+                this.energyConsumption += load * 0.2;
+            }
+            case DECREASE ->  {
+                this.load -= load;
+                this.energyConsumption -= load * 0.2;
+            }
         }
     }
 

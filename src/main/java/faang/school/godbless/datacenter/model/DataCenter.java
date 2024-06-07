@@ -1,13 +1,7 @@
 package faang.school.godbless.datacenter.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.util.List;
 
-@Data
-@AllArgsConstructor
-public class DataCenter {
+public record DataCenter(List<Server> servers) {
 
-    private List<Server> servers;
 }
