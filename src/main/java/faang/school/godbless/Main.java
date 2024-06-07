@@ -71,8 +71,6 @@ public class Main {
 
         if (currentList != null) {
             facultyAndYearMap.get(pairFromParam).remove(new Student(name, faculty, year));
-        } else {
-            throw new RuntimeException(String.format("There is no key {%s, %d}", faculty, year));
         }
     }
 
@@ -85,7 +83,7 @@ public class Main {
         if (result != null) {
             return result;
         } else {
-            throw new RuntimeException(String.format("There is no key {%s, %d}", faculty, year));
+            return new ArrayList<>();
         }
     }
 }
