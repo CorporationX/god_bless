@@ -20,8 +20,6 @@ public class Main {
         printInformationAboutHouse("Stark");
 
 
-
-
     }
 
     public static void removeHouse(String name) {
@@ -44,7 +42,7 @@ public class Main {
     }
 
     public static void printAllHousesInformation() {
-        for (var house: houses.entrySet()) {
+        for (var house : houses.entrySet()) {
             printInformationAboutHouse(house.getKey());
             System.out.println("-".repeat(20));
         }
