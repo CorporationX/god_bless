@@ -19,7 +19,7 @@ public class BattleField {
 
     private static void battleCreature(Hero heroOne, Hero heroTwo) {
         while (true) {
-            Creature creatureOne = heroOne.getSquadCreature().get(heroOne.getSquadCreature().size() - 1);
+            Creature creatureOne = heroOne.getSquadCreature().get(0);
             creatureOne.getDamage(heroTwo.getSquadCreature().get(0));
             if (creatureOne.getHealth() <= 0) {
                 heroOne.removeCreature();
