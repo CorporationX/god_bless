@@ -12,9 +12,9 @@ public class Server {
     private double maxLoad;
     private double energyConsumption;
 
-    public Server(double load, double maxLoad) {
+    public Server(double load) {
         this.load = load;
-        this.maxLoad = maxLoad;
+        this.maxLoad = 100;
         this.energyConsumption = (load * 100) / maxLoad;
     }
 }
