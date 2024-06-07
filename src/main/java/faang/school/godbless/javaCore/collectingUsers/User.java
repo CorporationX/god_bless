@@ -18,11 +18,13 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
-        for (User user : users) {
-            for (String hobby : user.hobbies) {
-                if (hobbies.contains(hobby)) {
-                    hobbyLovers.put(user, hobby);
-                    break;
+        if (users != null && hobbies != null && users.size() > 0 && hobbies.size() > 0) {
+            for (User user : users) {
+                for (String hobby : user.hobbies) {
+                    if (hobbies.contains(hobby)) {
+                        hobbyLovers.put(user, hobby);
+                        break;
+                    }
                 }
             }
         }
