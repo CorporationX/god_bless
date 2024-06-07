@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.doCache;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -9,13 +9,12 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 @AllArgsConstructor
-public class WeatherData {
-
+public class WeaterData {
     private String city;
     private Double temperature;
     private Double humidity;
 
-    public void setTempAndHumi(Double temperature, Double humidity){
+    public void setTempAndHum(Double temperature, Double humidity) {
         this.temperature = temperature;
         this.humidity = humidity;
     }
