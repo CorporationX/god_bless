@@ -23,7 +23,7 @@ public class StreamEventService {
 
     public StreamEvent findStreamEventById(int id){
         if(!eventMap.containsKey(id)){
-            System.out.println("StreamEvent not found");
+            log.warn("Stream Event with this id: {} is not found", id);
             return null;
         } else {
             return eventMap.get(id);
@@ -32,7 +32,7 @@ public class StreamEventService {
 
     public List<StreamEvent> findStreamEventByEventType(String eventType){
         if(!eventListMap.containsKey(eventType)){
-            System.out.println("List of events with this event type not found");
+            log.warn("List of events with this event type: {} is not found", eventType);
             return null;
         } else {
             return eventListMap.get(eventType);
