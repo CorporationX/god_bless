@@ -4,15 +4,12 @@ import java.util.Arrays;
 public class Example {
 
     public static int[] reverseArray(int[] array) {
-
+        if(array == null) throw new IllegalArgumentException("Массив пустой");
         for (int start = 0, end = array.length - 1; start < end; start++, end--) {
-
             int startValue = array[start];
             array[start] = array[end];
             array[end] = startValue;
-
         }
-
         return array;
     }
 
