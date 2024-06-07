@@ -14,11 +14,12 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intellect;
-    protected int health = 100;
+    protected int health;
     private RandomGenerator generator = RandomGenerator.getDefault();
 
     public Character(String name) {
         this.name = name;
+        this.health = 100;
     }
 
     protected abstract int getAttackPower();
