@@ -19,7 +19,5 @@ public class Main {
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
-
-
     }
 }
