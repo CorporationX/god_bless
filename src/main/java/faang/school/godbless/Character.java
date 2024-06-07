@@ -24,7 +24,7 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health=DEFAULT_HEALTH;
+        this.health = DEFAULT_HEALTH;
     }
 
     public abstract void attack(Character character);
