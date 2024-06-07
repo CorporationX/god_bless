@@ -4,38 +4,38 @@ public abstract class Character {
 
     private String name;
     //сила
-    private Integer power;
+    private int power;
     //ловкость
-    private Integer skill;
+    private int skill;
     //интеллект
-    private Integer mind;
+    private int mind;
     //здоровье
-    private Integer health = 100;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
     }
 
-    public Character(String name, Integer power, Integer skill, Integer mind) {
+    public Character(String name, int power, int skill, int mind) {
         this.name = name;
         this.power = power;
         this.skill = skill;
         this.mind = mind;
     }
 
-    public Integer getHealth() {
-        return this.health = health;
+    public int getHealth() {
+        return health;
     }
 
-    public Integer setHealth(Integer health) {
-        return this.health = health;
+    public void setHealth(int health) {
+        this.health = health;
     }
 
-    public Integer getPower() {
+    public int getPower() {
         return this.power;
     }
 
-    public Integer getSkill() {
+    public int getSkill() {
         return this.skill;
     }
 
