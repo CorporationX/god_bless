@@ -28,15 +28,11 @@ public class User {
         if (address == null || !VALID_ADDRESSES.contains(address)){
             throw new IllegalArgumentException("Invalid address");
         }
-
-
         this.username = username;
         this.age = age;
         this.job = job;
         this.address = address;
-
     }
-
 
     @Override
     public String toString(){
@@ -47,7 +43,5 @@ public class User {
                 ", адрес='" + address + '\'' +
                 '}';
     }
-
-
 }
 
