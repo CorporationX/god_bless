@@ -39,15 +39,15 @@ public class User {
         }
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> targetUsers) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
-        for (User user : users) {
-            List<User> usersList = groupedUsers.containsKey(user.age) ? groupedUsers.get(user.age) : new ArrayList<>();
+        for (User user : targetUsers) {
+            List<User> users = groupedUsers.containsKey(user.age) ? groupedUsers.get(user.age) : new ArrayList<>();
 
-            usersList.add(user);
+            users.add(user);
 
-            groupedUsers.put(user.age, usersList);
+            groupedUsers.put(user.age, users);
         }
 
         return groupedUsers;
