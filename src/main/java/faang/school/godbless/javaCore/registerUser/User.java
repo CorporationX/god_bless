@@ -14,23 +14,26 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        boolean isValid = true;
-        if (name.isEmpty() || name.isBlank()) {
-            isValid = false;
+        /*
+        if (name == null || name.isEmpty() || name.isBlank()) {
+            throw new IllegalArgumentException();
         } else if (age < 18) {
-            isValid = false;
+            throw new IllegalArgumentException();
         } else if (!VALID_JOBS.contains(job)) {
-            isValid = false;
+            throw new IllegalArgumentException();
         } else if (!VALID_ADDRESSES.contains(address)) {
-            isValid = false;
-        }
-        if (isValid) {
-            this.job = job;
-            this.name = name;
-            this.age = age;
-            this.address = address;
-        } else {
             throw new IllegalArgumentException();
         }
+        */
+        if (name == null || name.isBlank() || name.isEmpty()
+                || age < 18
+                || !VALID_JOBS.contains(job)
+                || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException();
+        }
+        this.job = job;
+        this.name = name;
+        this.age = age;
+        this.address = address;
     }
 }
