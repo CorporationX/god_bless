@@ -1,12 +1,4 @@
 package BJS2_8221;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class Book {
-    private String title;
-    private String author;
-    private int year;
+public record Book(String title, String author, int year) {
 }

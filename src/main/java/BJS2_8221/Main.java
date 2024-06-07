@@ -23,18 +23,11 @@ public class Main {
     }
 
     public static void removeBook(String title, String author, int year) {
-        locationBooks.entrySet()
-                .removeIf(entry -> entry.getKey().getTitle().equals(title) &&
-                        entry.getKey().getAuthor().equals(author) &&
-                        entry.getKey().getYear() == year);
+        locationBooks.remove(new Book(title, author, year));
     }
 
     public static String findBook(String title, String author, int year) {
-        return locationBooks.entrySet().stream()
-                .filter(entry -> entry.getKey().getTitle().equals(title) &&
-                        entry.getKey().getAuthor().equals(author) &&
-                        entry.getKey().getYear() == year)
-                .map(Map.Entry::getValue).findFirst().orElse(null);
+        return locationBooks.get(new Book(title, author, year));
     }
 
     public static void printAllBooks() {
