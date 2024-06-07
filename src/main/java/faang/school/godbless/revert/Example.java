@@ -1,14 +1,15 @@
 package faang.school.godbless.revert;
 
 public class Example {
-    public int[] reverse(int[] nums) {
-        int[] reversedNums = new int[nums.length];
-        int currentIndex = 0;
+    public void reverse(int[] nums) {
+        int left = 0, right = nums.length - 1;
 
-        for (int i = nums.length - 1; i >=0; --i) {
-            reversedNums[currentIndex] = nums[i];
-            currentIndex++;
+        while (left <= right) {
+            int temp = nums[left];
+            nums[left] = nums[right];
+            nums[right] = temp;
+            left++;
+            right--;
         }
-        return reversedNums;
     }
 }

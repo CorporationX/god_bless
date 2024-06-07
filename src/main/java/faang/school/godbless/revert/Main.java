@@ -5,9 +5,9 @@ public class Main {
         Example example = new Example();
 
         int[] array = new int[]{1, 2, 3, 4, 5};
-        int[] reversedArray = example.reverse(array);
+        example.reverse(array);
 
-        for (int num : reversedArray) {
+        for (int num : array) {
             System.out.println(num);
         }
     }
