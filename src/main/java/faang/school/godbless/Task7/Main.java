@@ -5,6 +5,10 @@ import java.util.Map;
 
 public class Main {
 
+    public static void addToMap(Book newbook, String shelf, Map<Book, String> library) {
+        library.put(newbook, shelf);
+    }
+
     public static void main(String[] args) {
 
         Map<Book, String> library = new HashMap<>();
@@ -14,6 +18,9 @@ public class Main {
         library.put(calculus, "shelf1");
         library.put(algebra, "shelf2");
         library.put(geometry, "shelf3");
-
+        System.out.println(library);
+        Book combinatorics = new Book("combinatorics", "Alekseev", 2002);
+        addToMap(combinatorics, "shelf4", library);
+        System.out.println(library);
     }
 }
