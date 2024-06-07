@@ -1,25 +1,27 @@
 package faang.school.godbless.heroes.of.might.and.magic.creatures;
 
-import faang.school.godbless.heroes.of.might.and.magic.heros.Hero;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@EqualsAndHashCode
 public abstract class Creature {
     protected String name;
     protected int level;
     protected int attack;
     protected int protection;
     protected int speed;
-    protected int quantity;
+    @Setter
+    protected int health;
 
-    public Creature(int quantity){
-        this.quantity = quantity;
+    public void getDamage(Creature creature) {
+        int opponentDamage = (int) ((creature.level + creature.attack + creature.speed) * 0.8);
+        this.setHealth(this.health - opponentDamage);
     }
 
-    public int getDamage() {
-        return (level + attack + speed);
-    }
-
-    public void herosInfluence(Hero hero){
+    @Override
+    public String toString() {
+        return name;
     }
 }
