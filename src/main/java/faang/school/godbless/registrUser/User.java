@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.registrUser;
 
 import java.util.*;
 
