@@ -2,19 +2,13 @@ package faang.school.godbless;
 
 import java.util.Objects;
 
-public class Student {
-    private String name;
+public class University {
     private String faculty;
     private int year;
 
-    public Student(String name, String faculty, int year) {
-        this.name = name;
+    public University(String faculty, int year) {
         this.faculty = faculty;
         this.year = year;
-    }
-
-    public String getName() {
-        return this.name;
     }
 
     public String getFaculty() {
@@ -30,18 +24,18 @@ public class Student {
         if (this == o) return true;
         else if (o == null || this.getClass() != o.getClass()) return false;
         else {
-            Student student = (Student) o;
-            return this.name == student.name && this.faculty == student.faculty && this.year == student.year;
+            University student = (University) o;
+            return this.faculty == student.faculty && this.year == student.year;
         }
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.faculty, this.year);
+        return Objects.hash(this.faculty, this.year);
     }
 
     @Override
     public String toString() {
-        return "|" + this.name + "| |" + this.faculty + "| course |" + this.year + "|";
+        return "|" + this.faculty + "| course |" + this.year + "|";
     }
 }
