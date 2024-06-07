@@ -11,7 +11,7 @@ import lombok.experimental.FieldDefaults;
 public class Server {
 
     double load;
-    final double maxLoad;
+    double maxLoad;
     double energyConsumption;
 
     public Server() {
@@ -31,6 +31,10 @@ public class Server {
                 this.energyConsumption -= load * 0.2;
             }
         }
+    }
+
+    public void scaleVertically(double load) {
+        this.maxLoad += load;
     }
 
 

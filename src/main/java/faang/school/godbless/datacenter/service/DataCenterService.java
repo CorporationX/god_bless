@@ -4,11 +4,26 @@ import faang.school.godbless.datacenter.model.DataCenter;
 import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
+import faang.school.godbless.datacenter.strategy.OptimizationStrategy;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NonNull;
+import lombok.experimental.FieldDefaults;
 
 import java.util.Comparator;
 import java.util.Optional;
 
-public record DataCenterService(DataCenter dataCenter) {
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class DataCenterService {
+
+    final DataCenter dataCenter;
+    OptimizationStrategy optimizationStrategy;
+
+    public DataCenterService(@NonNull DataCenter dataCenter, @NonNull OptimizationStrategy optimizationStrategy) {
+        this.dataCenter = dataCenter;
+        this.optimizationStrategy = optimizationStrategy;
+    }
 
     public void addServer(Server server) {
         if (server == null) {
@@ -55,5 +70,9 @@ public record DataCenterService(DataCenter dataCenter) {
             Server server = maxLoadedServer.get();
             server.regulateLoad(resourceRequest.load(), OptimizationOperation.DECREASE);
         }
+    }
+
+    public void optimize(OptimizationStrategy strategy) {
+        strategy.optimize(this.dataCenter);
     }
 }

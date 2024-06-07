@@ -4,6 +4,7 @@ import faang.school.godbless.datacenter.model.DataCenter;
 import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
+import faang.school.godbless.datacenter.strategy.DefaultOptimizationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,7 +22,7 @@ class DataCenterServiceTest {
     public void setUp() {
         List<Server> servers = new ArrayList<>(List.of(new Server(), new Server()));
         DataCenter dataCenter = new DataCenter(servers);
-        dataCenterService = new DataCenterService(dataCenter);
+        dataCenterService = new DataCenterService(dataCenter, new DefaultOptimizationStrategy());
     }
 
     @Test
@@ -29,7 +30,7 @@ class DataCenterServiceTest {
     void testAddServerIncreasesSize() {
         dataCenterService.addServer(new Server());
 
-        assertEquals(3, dataCenterService.dataCenter().servers().size());
+        assertEquals(3, dataCenterService.getDataCenter().servers().size());
     }
 
     @Test
@@ -46,7 +47,7 @@ class DataCenterServiceTest {
 
         dataCenterService.deleteServer(serverToBeDeleted);
 
-        assertEquals(2, dataCenterService.dataCenter().servers().size());
+        assertEquals(2, dataCenterService.getDataCenter().servers().size());
     }
 
     @Test
@@ -68,7 +69,7 @@ class DataCenterServiceTest {
     @DisplayName("Allocating resources should increase a load on a server")
     void testAllocateResourcesIncrementsLoad() {
         ResourceRequest requestedLoad = new ResourceRequest(200.0d);
-        List<Server> servers = dataCenterService.dataCenter().servers();
+        List<Server> servers = dataCenterService.getDataCenter().servers();
         servers.get(0).regulateLoad(500.0d, OptimizationOperation.INCREASE);
 
         dataCenterService.allocateResources(requestedLoad);
@@ -87,7 +88,7 @@ class DataCenterServiceTest {
     @DisplayName("Releasing resources should decrease a load on a server")
     void testReleaseResourcesDecrementsLoad() {
         ResourceRequest requestedLoad = new ResourceRequest(200.0d);
-        List<Server> servers = dataCenterService.dataCenter().servers();
+        List<Server> servers = dataCenterService.getDataCenter().servers();
         // energy consumption becomes 200.0
         servers.get(0).regulateLoad(500.0d, OptimizationOperation.INCREASE);
 
@@ -101,5 +102,17 @@ class DataCenterServiceTest {
     @DisplayName("Releasing null resources should throw exception")
     void testReleaseResourcesWithNull() {
         assertThrows(IllegalArgumentException.class, () -> dataCenterService.releaseResources(null));
+    }
+
+    @Test
+    @DisplayName("Default optimization strategy scales the most loaded servers vertically")
+    void testOptimizeWithDefaultStrategy() {
+        List<Server> servers = dataCenterService.getDataCenter().servers();
+        servers.forEach(server -> server.regulateLoad(9800.0d, OptimizationOperation.INCREASE));
+
+        dataCenterService.optimize(dataCenterService.getOptimizationStrategy());
+
+        assertEquals(DefaultOptimizationStrategy.class, dataCenterService.getOptimizationStrategy().getClass());
+        servers.forEach(server -> assertEquals(15000.0d, server.getMaxLoad()));
     }
 }
