@@ -10,6 +10,10 @@ public record User(String name, Integer age, String workPlace, String address) {
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User {
+        validate(name, age, workPlace, address);
+    }
+
+    private void validate(String name, Integer age, String workPlace, String address) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty or null");
         }
@@ -29,3 +33,4 @@ public record User(String name, Integer age, String workPlace, String address) {
                 .collect(Collectors.groupingBy(User::age));
     }
 }
+
