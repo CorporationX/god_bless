@@ -19,7 +19,8 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> convertListToMapOfGroupUsers(List<User> userList) {
-       return userList.stream().collect(Collectors.groupingBy(User::getAge));
+        if (userList == null || userList.isEmpty()) throw new IllegalArgumentException();
+        return userList.stream().collect(Collectors.groupingBy(User::getAge));
     }
 
     public static void main(String[] args) {
