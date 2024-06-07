@@ -15,13 +15,18 @@ public class Main {
         addHouse(lanister);
         addHouse(barateon);
 
+        removeHouse("Lanster");
         removeHouse("Lanister");
         searchHouse("Barateon");
         printHouses();
     }
 
     public static void removeHouse(String name) {
-        houses.remove(name);
+        if (houses.containsKey(name)) {
+            houses.remove(name);
+        } else {
+            System.out.println("There is no " + name);
+        }
     }
 
     public static void addHouse(House house) {
