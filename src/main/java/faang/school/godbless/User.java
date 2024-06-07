@@ -22,13 +22,11 @@ public class User {
         Map<User, String> hobbyLovers = new HashMap<>();
 
         for (User user : users) {
-            String matchingHobby = user.userHobbies.stream()
-                    .filter(allHobbies::contains)
-                    .findFirst().toString();
-
-            if (!matchingHobby.isEmpty()) {
-                hobbyLovers.put(user, matchingHobby);
-            }
+           for (String hobby : user.userHobbies) {
+               if(allHobbies.contains(hobby)) {
+                   hobbyLovers.put(user, hobby);
+               }
+           }
         }
         return hobbyLovers;
     }
