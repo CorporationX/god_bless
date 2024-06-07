@@ -1,4 +1,4 @@
 package BJS2_8169;
 
-public class Key {
+public record Key(String faculty, int year) {
 }

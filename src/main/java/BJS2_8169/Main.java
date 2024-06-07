@@ -28,15 +28,15 @@ public class Main {
                 && student.getFaculty().equals(faculty) && student.getYear() == year);
     }
 
-    public static Map<List<Object>, List<Student>> findGroupStudents() {
+    public static Map<Key, List<Student>> findGroupStudents() {
         return students.stream()
                 .collect(Collectors
-                        .groupingBy(user -> Arrays.asList(user.getFaculty(), user.getYear())));
+                        .groupingBy(user -> new Key(user.getFaculty(), user.getYear())));
     }
 
-    public static void printGroupUsers(Map<List<Object>, List<Student>> studentsByFacultyAndYear) {
+    public static void printGroupUsers(Map<Key, List<Student>> studentsByFacultyAndYear) {
         studentsByFacultyAndYear.forEach((key, value) -> {
-            System.out.format("Faculty: %s, Year: %d\n", key.get(0), (Integer) key.get(1));
+            System.out.format("Faculty: %s, Year: %d\n", key.faculty(), key.year());
             value.forEach(System.out::println);
         });
     }
