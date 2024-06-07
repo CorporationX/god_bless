@@ -24,9 +24,4 @@ public class Server {
     public void releaseLoad(double load) {
         this.load -= load;
     }
-
-
-
-
-
 }

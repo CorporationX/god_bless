@@ -10,9 +10,7 @@ public class DataCenterService implements OptimizationStrategy {
 
     public void createServer(double load, double maxLoad, double energy) {
         Server server = new Server(load, maxLoad, energy);
-
         dataCenter.addServer(server);
-
     }
 
 
@@ -50,8 +48,6 @@ public class DataCenterService implements OptimizationStrategy {
 
             maxLoadServer.setLoad(averegeLoad);
             minLoadServer.setLoad(averegeLoad);
-
-
         }
     }
 }

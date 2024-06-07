@@ -9,6 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResourceRequest {
 
-    private double load;
-
+    private final double load;
 }

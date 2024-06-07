@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 public class DataCenter {
 
-    private List<Server> servers;
+    private final List<Server> servers;
 
     public void addServer(Server server) {
         servers.add(server);
@@ -20,8 +20,5 @@ public class DataCenter {
     public void removeServer(Server server) {
         servers.add(server);
     }
-
-
-
 
 }
