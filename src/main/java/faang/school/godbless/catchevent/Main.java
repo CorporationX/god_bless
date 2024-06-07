@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<Integer, StreamEvent> events = new HashMap<>();
-    private static Map<String, List<StreamEvent>> eventTypeGroup = new HashMap<>();
+    private static final Map<Integer, StreamEvent> events = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> eventTypeGroup = new HashMap<>();
 
     public static void main(String[] args) {
         addStreamEvent(new StreamEvent(1, "Сообщение", "Привет"));
