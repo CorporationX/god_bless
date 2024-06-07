@@ -1,11 +1,11 @@
 package faang.school.godbless;
 
 
+
 import faang.school.godbless.domain.Book;
 
 import java.util.HashMap;
 import java.util.Map;
-
 public class Application {
 
     public static Map<Book, String> mapBook = new HashMap<>();
