@@ -29,35 +29,37 @@ public class Main {
     }
 
     public static void studentCheck(Subject subject, Student student, List<Student> students) {
-        if (students!=null) {
+        if (students != null) {
             students.add(student);
-        } else {
-            List<Student> newStudents = new ArrayList<>();
-            newStudents.add(student);
-            subjectStudentList.put(subject, newStudents);
+            return;
         }
+        List<Student> newStudents = new ArrayList<>();
+        newStudents.add(student);
+        subjectStudentList.put(subject, newStudents);
+
     }
 
     public static void subjectCheck(Subject subject, Student student, Map<Subject, Integer> subjects, int grade) {
-        if (subjects!=null) {
+        if (subjects != null) {
             subjects.put(subject, grade);
-        } else {
-            Map<Subject, Integer> gradeSubject = new HashMap<>();
-            gradeSubject.put(subject, grade);
-            studentSubjects.put(student, gradeSubject);
+            return;
         }
+        Map<Subject, Integer> gradeSubject = new HashMap<>();
+        gradeSubject.put(subject, grade);
+        studentSubjects.put(student, gradeSubject);
+
     }
 
-    public static void removeStudent(Student student) {
-        studentSubjects.remove(student);
+    public static void removeStudent(Student stud) {
+        studentSubjects.remove(stud);
 
-        subjectStudentList.forEach((k, v) -> v.remove(student));
+        subjectStudentList.forEach((k, v) -> v.remove(stud));
     }
 
-    public static void removeSubject(Subject subject) {
-        subjectStudentList.remove(subject);
+    public static void removeSubject(Subject sbj) {
+        subjectStudentList.remove(sbj);
 
-        studentSubjects.forEach((k, v) -> v.remove(subject));
+        studentSubjects.forEach((k, v) -> v.remove(sbj));
     }
 
     public static void outputStudentMap() {
@@ -65,34 +67,34 @@ public class Main {
     }
 
     public static void outpputSubjectMap() {
-        subjectStudentList.forEach((k,v) -> System.out.println((k.toString() + ": " + v.toString())));
+        subjectStudentList.forEach((k, v) -> System.out.println((k.toString() + ": " + v.toString())));
     }
 
 
     public static void main(String[] args) {
 
-        Student st0 = new Student(0, "Alen");
-        Student st1 = new Student(1, "Bob");
-        Student st2 = new Student(2, "Masha");
+        Student alen = new Student(0, "Alen");
+        Student bob = new Student(1, "Bob");
+        Student masha = new Student(2, "Masha");
 
 
-        Subject sbj0 = new Subject(0, "Math");
-        Subject sbj1 = new Subject(1, "Bio");
-        Subject sbj2 = new Subject(2, "Angl");
-        Subject sbj3 = new Subject(3, "Geography");
-        Subject sbj4 = new Subject(4, "Geometry");
+        Subject math = new Subject(0, "Math");
+        Subject bio = new Subject(1, "Bio");
+        Subject angl = new Subject(2, "Angl");
+        Subject geography = new Subject(3, "Geography");
+        Subject geometry = new Subject(4, "Geometry");
 
-        addNewStudent(sbj0, st0, 3);
-        addNewStudent(sbj1, st0, 5);
+        addNewStudent(math, alen, 3);
+        addNewStudent(bio, alen, 5);
 
-        addNewStudent(sbj1, st1, 3);
-        addNewStudent(sbj3, st1, 3);
+        addNewStudent(geometry, bob, 3);
+        addNewStudent(angl, bob, 3);
 
-        addNewStudent(sbj2, st2, 4);
-        addNewStudent(sbj4, st2, 2);
+        addNewStudent(angl, masha, 4);
+        addNewStudent(geography, masha, 2);
 
-        removeStudent(st1);
-        removeSubject(sbj0);
+        removeStudent(bob);
+        removeSubject(angl);
 
         outputStudentMap();
         System.out.println();

@@ -1,15 +1,4 @@
 package faang.school.godbless.studentDBHandler;
 
+record Subject(int id, String name) {}
 
-import lombok.AllArgsConstructor;
-import lombok.ToString;
-
-@ToString
-@AllArgsConstructor
-public class Subject {
-
-    private int id;
-
-    private String name;
-
-}
