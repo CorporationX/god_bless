@@ -40,10 +40,11 @@ public class Main {
     }
 
     public static void deleteEvent(int id) {
-        events.entrySet().removeIf(event -> events.containsKey(id));
-
-        groupEvents.values()
-                .forEach(events -> events.removeIf(event -> event.getId() == id));
+        StreamEvent event = events.get(id);
+        if (event != null) {
+            events.remove(id);
+            groupEvents.get(event.getEventType()).remove(event);
+        }
     }
 
     public static void printAllEvents() {
