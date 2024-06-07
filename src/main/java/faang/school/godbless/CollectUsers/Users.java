@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.CollectUsers;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,15 +12,15 @@ import java.util.Set;
 @Getter
 @ToString
 @AllArgsConstructor
-public class User {
+public class Users {
     private long id;
     private String name;
     private int age;
     private Set<String> activityUser;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activityAll) {
-        Map<User, String> foundHobby = new HashMap<>();
-        for (User user : users) {
+    public static Map<Users, String> findHobbyLovers(List<Users> users, Set<String> activityAll) {
+        Map<Users, String> foundHobby = new HashMap<>();
+        for (Users user : users) {
             for (String oneActivityUser : user.getActivityUser()) {
                 if (activityAll.contains(oneActivityUser)) {
                     foundHobby.put(user, oneActivityUser);
