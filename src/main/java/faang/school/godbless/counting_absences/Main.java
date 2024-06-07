@@ -1,7 +1,6 @@
 package faang.school.godbless.counting_absences;
 
 import java.util.List;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,13 +20,13 @@ public class Main {
 
 
         System.out.println("Group Students By Faculty And Year");
-        Map<String, List<Student>> groupedStudents = Student.groupStudentsByFacultyAndYear(studentList);
-        Student.showStudentsGropedByFacultyAndYear(groupedStudents);
+        StudentManager groupedStudents = StudentManager.groupStudentsByFacultyAndYear(studentList);
+        groupedStudents.showStudentsGropedByFacultyAndYear();
         System.out.println();
 
 
         System.out.println("Get Students By Faculty And Year: Engineering and 1 Year");
-        List<Student> engineeringFaculty = Student.searchByFacultyAndYear(groupedStudents, "Engineering", 1);
+        List<Student> engineeringFaculty = groupedStudents.searchByFacultyAndYear("Engineering", 1);
         for (Student student : engineeringFaculty) {
             System.out.println(student);
         }
@@ -35,12 +34,12 @@ public class Main {
 
 
         System.out.println("After removing all students in Engineering and Year 1:");
-        Student.deleteStudentFromMap(groupedStudents, "A", "Engineering", 1);
-        Student.deleteStudentFromMap(groupedStudents, "E", "Engineering", 1);
-        Student.deleteStudentFromMap(groupedStudents, "I", "Engineering", 1);
-        Student.showStudentsGropedByFacultyAndYear(groupedStudents);
+        groupedStudents.deleteStudentFromMap("A", "Engineering", 1);
+        groupedStudents.deleteStudentFromMap("E", "Engineering", 1);
+        groupedStudents.deleteStudentFromMap("I", "Engineering", 1);
+        groupedStudents.showStudentsGropedByFacultyAndYear();
         System.out.println();
 
-        System.out.println(Student.composeKey("Some faculty", 324));
+        System.out.println(StudentManager.composeKey("Some faculty", 324));
     }
 }
