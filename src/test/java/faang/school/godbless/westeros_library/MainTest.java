@@ -15,4 +15,11 @@ class MainTest {
         main.libraryInspection();
     }
 
+    @Test
+    public void nullEquals() {
+        Book book1 = new Book("Snow", "Three-Eyed Raven", 304);
+        Book book2 = new Book("Snow", "Three-Eyed Raven", 304);
+        System.out.println(book1.equals(null));
+    }
+
 }
