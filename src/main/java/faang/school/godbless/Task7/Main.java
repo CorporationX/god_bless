@@ -9,6 +9,12 @@ public class Main {
         library.put(newbook, shelf);
     }
 
+    public static void deleteFromMap(String bookName, String bookAuthor, int year, Map<Book, String> library) {
+        library.computeIfPresent(new Book(bookName, bookAuthor, year), (a, b)->null);
+    }
+
+    // можно было в теле написать просто remove(new book(...))
+
     public static void main(String[] args) {
 
         Map<Book, String> library = new HashMap<>();
@@ -22,5 +28,8 @@ public class Main {
         Book combinatorics = new Book("combinatorics", "Alekseev", 2002);
         addToMap(combinatorics, "shelf4", library);
         System.out.println(library);
+        deleteFromMap("combinatorics", "Alekseev", 2002, library);
+        System.out.println(library);
+
     }
 }
