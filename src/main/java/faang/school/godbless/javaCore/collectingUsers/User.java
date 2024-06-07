@@ -1,0 +1,33 @@
+package faang.school.godbless.javaCore.collectingUsers;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@Data
+@AllArgsConstructor
+public class User {
+    private int id;
+    private String name;
+    private int age;
+    private Set<String> hobbies;
+
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = new HashMap<>();
+        if (users != null && hobbies != null && users.size() > 0 && hobbies.size() > 0) {
+            for (User user : users) {
+                for (String hobby : user.hobbies) {
+                    if (hobbies.contains(hobby)) {
+                        hobbyLovers.put(user, hobby);
+                        break;
+                    }
+                }
+            }
+        }
+        return hobbyLovers;
+    }
+}
