@@ -10,8 +10,8 @@ public class User {
     // множество каких-то активностей пользователя
     private HashSet<String> activities;
 
-    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        HashMap<User, String> userActivities = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        Map<User, String> userActivities = new HashMap<>();
 
         // валидация на null
         if (users == null || activities == null) {
@@ -30,7 +30,7 @@ public class User {
         return userActivities;
     }
 
-    public HashSet<String> getUserActivities() {
+    public Set<String> getUserActivities() {
         return activities;
     }
 }
