@@ -7,6 +7,7 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -19,13 +20,17 @@ public class User {
     private Set<String> activities;
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        Objects.requireNonNull(users);
+        Objects.requireNonNull(activities);
         Map<User, String> hobbyLovers = new HashMap<>();
 
         for (User user : users) {
             Set<String> currentActivities = user.getActivities();
-            currentActivities.retainAll(activities);
-            if (!currentActivities.isEmpty()) {
-                hobbyLovers.put(user, currentActivities.iterator().next());
+            for (String activity : currentActivities) {
+                if (activities.contains(activity)) {
+                    hobbyLovers.put(user, activity);
+                    break;
+                }
             }
         }
 
