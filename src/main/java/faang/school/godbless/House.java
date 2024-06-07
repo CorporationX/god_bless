@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-public final class House {
+public class House {
     private String name;
     private String sigil;
 
