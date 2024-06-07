@@ -1,47 +1,40 @@
 package faang.school.godbless;
 
 import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 public class Westeros {
-    private HashMap<String,House> houses = new HashMap<>();
+    private HashMap<String, House> houses = new HashMap<>();
 
-    public void addHouses (House ... houses){
-        for(House house:houses){
+    public void addHouses(House... houses) {
+        for (House house : houses) {
             addHouse(house);
         }
     }
 
-    public void addHouse(House house){
+    public void addHouse(House house) {
         houses.putIfAbsent(house.getName(), house);
     }
 
-    public void deleteHouseFromWesterosHouses(String name){
-        if (validateHousesList()){
-            if (houses.containsKey(name)) {
-                houses.remove(name);
-            }
-            else {
-                System.out.println(name + " house doesn't belong to Westeros");
-            }
-        }
+    public void deleteHouseFromWesterosHouses(String name) {
+        houses.remove(name);
     }
 
-    public void getCrestInfo(String name){
+    public void getCrestInfo(String name) {
         if (validateHousesList()) {
             if (houses.containsKey(name)) {
                 System.out.println(name + " House has " + houses.get(name).getCrest() + " etched on their crest");
-            }
-            else {
+            } else {
                 System.out.println(name + " house doesn't belong to Westeros");
             }
         }
     }
 
-    public void getHousesAndCrest(){
-        int num=1;
+    public void getHousesAndCrest() {
+        int num = 1;
         if (validateHousesList()) {
             System.out.println();
             for (Map.Entry<String, House> entry : houses.entrySet()) {
@@ -51,13 +44,14 @@ public class Westeros {
             }
         }
     }
-    private boolean validateHousesList(){
-        if(!houses.isEmpty()){
+
+    private boolean validateHousesList() {
+        if (!houses.isEmpty()) {
             return true;
-        }
-        else {
+        } else {
             System.out.println("There's no one house in Westeros");
-            return false;}
+            return false;
+        }
     }
 
 }

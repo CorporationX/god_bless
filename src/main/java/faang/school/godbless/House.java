@@ -2,13 +2,14 @@ package faang.school.godbless;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
 import java.util.Objects;
 
 @Getter
 @AllArgsConstructor
 public class House {
     private String name;
-    private  String crest;
+    private String crest;
 
     @Override
     public boolean equals(Object o) {
