@@ -19,9 +19,11 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof Book other) {
-            return year == other.year && title.equals(other.title) && author.equals(other.author);
-        }
-        return false;
+        if (this == obj) return true;
+        if (obj == null) return false;
+        if (getClass() != obj.getClass()) return false;
+
+        Book book = (Book) obj;
+        return  Objects.equals(year, book.year) && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 }
