@@ -9,11 +9,27 @@ public class Main {
         library.put(newbook, shelf);
     }
 
-    public static void deleteFromMap(String bookName, String bookAuthor, int year, Map<Book, String> library) {
+    public static void deleteFromMap(String bookName, String bookAuthor,
+                                     int year, Map<Book, String> library) {
         library.computeIfPresent(new Book(bookName, bookAuthor, year), (a, b)->null);
     }
 
     // можно было в теле написать просто remove(new book(...))
+
+    public static void findBook(String bookName, String bookAuthor, int year,
+                           Map<Book, String> library) {
+        for (Map.Entry entry : library.entrySet()) {
+            if (entry.getKey().equals(new Book(bookName,bookAuthor,year))) {
+                System.out.println("This book is on the " + entry.getValue());
+            }
+        }
+    }
+
+    public static void showLibrary(Map<Book, String> library) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            System.out.println(entry.getKey() + "is on the " + entry.getValue());
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -30,6 +46,8 @@ public class Main {
         System.out.println(library);
         deleteFromMap("combinatorics", "Alekseev", 2002, library);
         System.out.println(library);
+        findBook("Algebra", "Kostrikin", 2000, library);
+        showLibrary(library);
 
     }
 }
