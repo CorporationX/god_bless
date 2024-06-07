@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.collectible;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;
@@ -22,18 +22,17 @@ public class User {
     private Set<String> activity;
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> AllActivity) {
-        Map<User, String> mapUserActivity = new HashMap<User, String>();
+        Map<User, String> mapUserActivity = new HashMap<>();
 
         for (User user : users) {
             Set<String> actUser = user.activity;
 
-            Set<String> resultIntersection = new HashSet<String>(actUser);
+            Set<String> resultIntersection = new HashSet<>(actUser);
             resultIntersection.retainAll(AllActivity);
 
             if (!resultIntersection.isEmpty()) {
                 mapUserActivity.put(user, resultIntersection.iterator().next());
             }
-
         }
 
         return mapUserActivity;
