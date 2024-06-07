@@ -15,7 +15,6 @@ public class User {
     private String workplace;
     private String address;
 
-
     public User(String name, int age, String workplace, String address) {
         if (validateInputDataByUser(name, age, workplace, address)) throw new IllegalArgumentException();
 
@@ -24,7 +23,6 @@ public class User {
         this.workplace = workplace;
         this.address = address;
     }
-
 
     private boolean validateInputDataByUser(String name, int age, String workplace, String address) {
         return (name.isEmpty() ||
