@@ -1,6 +1,6 @@
 package faang.school.godbless.creation;
 
-public class Griffin extends Creature{
+public class Griffin extends Creature {
 
     public Griffin(String name, int level) {
         super(name, level);

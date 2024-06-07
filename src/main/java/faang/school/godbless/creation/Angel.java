@@ -1,6 +1,6 @@
 package faang.school.godbless.creation;
 
-public class Angel extends Creature{
+public class Angel extends Creature {
 
     public Angel(String name, int level) {
         super(name, level);
