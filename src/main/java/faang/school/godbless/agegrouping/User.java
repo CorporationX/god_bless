@@ -26,14 +26,8 @@ public class User {
         Map<Integer, List<User>> usersMap = new HashMap<>();
         for (User user : users) {
             Integer age = user.getAge();
-
-            if (usersMap.containsKey(age)) {
-                usersMap.get(age).add(user);
-            } else {
-                List<User> usersSameAge = new ArrayList<>();
-                usersSameAge.add(user);
-                usersMap.put(age, usersSameAge);
-            }
+            usersMap.computeIfAbsent(age, key -> new ArrayList<>())
+                    .add(user);
         }
         return usersMap;
     }
