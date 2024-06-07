@@ -19,8 +19,9 @@ public class Main {
         Set<Product> productSet = Set.of(product1, product2, product3, product4, product5,
                                          product6, product7, product8, product9);
 
-        Map<String, List<Product>> categoryMap = Product.groupByCategory(productSet);
+        ProductManager productManager = new ProductManager();
+        Map<String, List<Product>> groupedProducts = productManager.getProductsGroupedByCategory(productSet);
 
-        Product.showAllProductsGroupedByCategory(categoryMap);
+        productManager.showProductsGroupedByCategory(groupedProducts);
     }
 }
