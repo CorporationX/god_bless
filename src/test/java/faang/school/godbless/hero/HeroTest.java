@@ -1,6 +1,5 @@
-package faang.school.godbless.heroes;
+package faang.school.godbless.hero;
 
-import faang.school.godbless.hero.Hero;
 import faang.school.godbless.creation.Angel;
 import faang.school.godbless.creation.Creature;
 import faang.school.godbless.creation.Griffin;
