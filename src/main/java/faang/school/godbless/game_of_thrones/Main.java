@@ -16,11 +16,11 @@ public class Main {
     }
 
     public void addHouse(House house) {
-        westeros.put(house.name, house);
+        westeros.put(house.getName(), house);
     }
 
     public String getSigil(String houseName) {
-        return westeros.get(houseName).sigil;
+        return westeros.get(houseName).getSigil();
     }
 
     public void removeHouse(String houseName) {
