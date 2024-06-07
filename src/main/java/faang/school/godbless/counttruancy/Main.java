@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<FacultyYear, List<Student>> studentGroups;
-    private static List<Student> students = new ArrayList<>();
-    private static Map<Student, List<Integer>> indexStudents = new HashMap<>();
+    private static final List<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println((students));
@@ -23,14 +21,14 @@ public class Main {
         addStudent(new Student("Петя2", "ЛФИ", 3));
         addStudent(new Student("Ваня2", "ФБМФ", 4));
 
-        studentGroups = groupStudents(students);
+        Map<FacultyYear, List<Student>> studentGroups = groupStudents(students);
         System.out.println(students);
 
         removeStudent(new Student("Петя", "ЛФИ", 3));
         System.out.println(students);
 
-        System.out.println(getStudents(new FacultyYear("ФРТК", 1)));
-        showFacultyYearStudent();
+        System.out.println(getStudents(studentGroups, new FacultyYear("ФРТК", 1)));
+        showFacultyYearStudent(studentGroups);
     }
 
     public static Map<FacultyYear, List<Student>> groupStudents(List<Student> students) {
@@ -49,28 +47,18 @@ public class Main {
 
     public static void addStudent(Student student) {
         students.add(student);
-
-        // if (!indexStudents.containsKey(student)) {
-        //    indexStudents.put(student, new LinkedList<>(Arrays.asList(students.size())));
-        // } else {
-        //     indexStudents.get(student).add(students.size());
-        // }
     }
 
     public static void removeStudent(Student student) {
         students.remove(student);
-        // List<Integer> indexies = indexStudents.get(student);
-        // for(int index : indexies) {
-        //     students.remove(index);
-        // }
-        //indexStudents.remove(student);
     }
 
-    public static List<Student> getStudents(FacultyYear facultyYear) {
+    public static List<Student> getStudents(Map<FacultyYear, List<Student>> studentGroups, FacultyYear facultyYear) {
+
         return studentGroups.get(facultyYear);
     }
 
-    public static void showFacultyYearStudent() {
+    public static void showFacultyYearStudent(Map<FacultyYear, List<Student>> studentGroups) {
         for (Map.Entry<FacultyYear, List<Student>> entry : studentGroups.entrySet()) {
             System.out.println("Факультет-курс: " + entry.getKey() + " студенты: " + entry.getValue());
         }
