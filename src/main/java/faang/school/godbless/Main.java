@@ -11,35 +11,27 @@ public class Main {
     public static WeatherData getWeatherData(String city) {
         Objects.requireNonNull(city);
         WeatherData weatherData = WEATHER_DATA_CACHE.get(city);
+        MockWeatherService mockWeatherService = new MockWeatherService();
 
         if (weatherData == null) {
-            weatherData = new MockWeatherService().getWeather(city);
+            weatherData = mockWeatherService.getWeather(city);
             WEATHER_DATA_CACHE.put(city, weatherData);
-            return weatherData;
         }
 
         return weatherData;
     }
 
-    public static void updateWeatherData(String city, WeatherData weatherData) {
-        Objects.requireNonNull(city);
+    public static void updateWeatherData(WeatherData weatherData) {
         Objects.requireNonNull(weatherData);
 
-        if (WEATHER_DATA_CACHE.containsKey(city)) {
-            WEATHER_DATA_CACHE.put(city, weatherData);
-        } else {
-            throw new RuntimeException("WeatherData not found");
+        if (WEATHER_DATA_CACHE.containsKey(weatherData.getCity())) {
+            WEATHER_DATA_CACHE.put(weatherData.getCity(), weatherData);
         }
     }
 
     public static void deleteWeatherData(String city) {
         Objects.requireNonNull(city);
-
-        if (WEATHER_DATA_CACHE.containsKey(city)) {
-            WEATHER_DATA_CACHE.remove(city);
-        } else {
-            throw new RuntimeException("WeatherData not found");
-        }
+        WEATHER_DATA_CACHE.remove(city);
     }
 
     public static void printWeatherData() {
