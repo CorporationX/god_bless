@@ -1,26 +1,28 @@
-package faang.school.godbless;
+package faang.school.godbless.CatchTheEvent;
+
+import faang.school.godbless.StreamEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
-    private static Map<Integer, StreamEvent> mapIdEvent = new HashMap<>();
-    private static Map<String, List<StreamEvent>> mapListEvent = new HashMap<>();
+public class Maln {
+    private static Map<Integer, StreamEvenT> mapIdEvent = new HashMap<>();
+    private static Map<String, List<StreamEvenT>> mapListEvent = new HashMap<>();
 
     public static void main(String[] args) {
-        addEventStream(new StreamEvent(1, "A", "aaa"));
-        addEventStream(new StreamEvent(2, "B", "bbb"));
-        addEventStream(new StreamEvent(3, "C", "ccc"));
-        addEventStream(new StreamEvent(4, "A", "aaa"));
-        addEventStream(new StreamEvent(5, "C", "ccc"));
+        addEventStream(new StreamEvenT(1, "A", "aaa"));
+        addEventStream(new StreamEvenT(2, "B", "bbb"));
+        addEventStream(new StreamEvenT(3, "C", "ccc"));
+        addEventStream(new StreamEvenT(4, "A", "aaa"));
+        addEventStream(new StreamEvenT(5, "C", "ccc"));
 
         System.out.println(mapIdEvent);
         System.out.println("----------------------------");
         System.out.println(mapListEvent);
 
-        addEventStream(new StreamEvent(6, "C", "ccc"));
+        addEventStream(new StreamEvenT(6, "C", "ccc"));
 
         System.out.println(mapIdEvent);
         System.out.println("----------------------------");
@@ -39,30 +41,32 @@ public class Main {
     }
 
     // добавления нового события потока
-    static void addEventStream(StreamEvent streamEvent) {
+    static void addEventStream(StreamEvenT streamEvent) {
         if (!mapIdEvent.containsKey(streamEvent.getId())) {
             mapIdEvent.put(streamEvent.getId(), streamEvent);
             updateMapListEvent(streamEvent);
-        } else
+        } else {
             throw new IllegalArgumentException("ID такого элемента уже существует");
+        }
 
     }
 
     // Обновление дополненной HashMap, где группируются объекты по типу события
-    static void updateMapListEvent(StreamEvent streamEvent) {
-        if (mapListEvent.containsKey(streamEvent.getEventType()))
+    static void updateMapListEvent(StreamEvenT streamEvent) {
+        if (mapListEvent.containsKey(streamEvent.getEventType())) {
             mapListEvent.get(streamEvent.getEventType()).add(streamEvent);
-        else
+        } else {
             mapListEvent.computeIfAbsent(streamEvent.getEventType(), newListEvent -> new ArrayList<>()).add(streamEvent);
+        }
     }
 
     // Поиск события потока по ID
-    static StreamEvent searchEvent(int id) {
+    static StreamEvenT searchEvent(int id) {
         return mapIdEvent.get(id);
     }
 
     //поиск списка событий потока по типу события
-    static List<StreamEvent> searchStreamEvent(String typeEvent) {
+    static List<StreamEvenT> searchStreamEvent(String typeEvent) {
         return mapListEvent.get(typeEvent);
     }
 
@@ -71,13 +75,14 @@ public class Main {
         if (mapIdEvent.containsKey(id)) {
             updateDeleteMapListEvent(mapIdEvent.get(id));
             mapIdEvent.remove(id);
-        } else
-            throw new NullPointerException("Такого ID нет");
+        } else {
+            throw new IllegalArgumentException("Такого ID нет");
+        }
 
     }
 
     // Обновление измененной HashMap
-    static void updateDeleteMapListEvent(StreamEvent streamEvent) {
+    static void updateDeleteMapListEvent(StreamEvenT streamEvent) {
         mapListEvent.get(streamEvent.getEventType()).remove(streamEvent);
     }
 }
