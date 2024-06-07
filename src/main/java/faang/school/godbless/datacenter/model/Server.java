@@ -36,6 +36,4 @@ public class Server {
     public void scaleVertically(double load) {
         this.maxLoad += load;
     }
-
-
 }

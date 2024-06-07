@@ -9,11 +9,13 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Comparator;
 import java.util.Optional;
 
 @Data
+@Slf4j
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DataCenterService {
 
@@ -56,6 +58,8 @@ public class DataCenterService {
         if (leastLoadedServer.isPresent()) {
             Server server = leastLoadedServer.get();
             server.regulateLoad(resourceRequest.load(), OptimizationOperation.INCREASE);
+        } else {
+            log.warn("There appears to be no servers to allocate resources on.");
         }
     }
 
@@ -69,6 +73,8 @@ public class DataCenterService {
         if (maxLoadedServer.isPresent()) {
             Server server = maxLoadedServer.get();
             server.regulateLoad(resourceRequest.load(), OptimizationOperation.DECREASE);
+        } else {
+            log.warn("There appears to be no servers to release resources from.");
         }
     }
 

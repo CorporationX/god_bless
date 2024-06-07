@@ -5,6 +5,7 @@ import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
 import faang.school.godbless.datacenter.strategy.DefaultOptimizationStrategy;
+import faang.school.godbless.datacenter.strategy.LoadBalancingOptimizationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -114,5 +115,20 @@ class DataCenterServiceTest {
 
         assertEquals(DefaultOptimizationStrategy.class, dataCenterService.getOptimizationStrategy().getClass());
         servers.forEach(server -> assertEquals(15000.0d, server.getMaxLoad()));
+    }
+
+    @Test
+    @DisplayName("Load balancing optimization strategy scales the most loaded server horizontally")
+    void testOptimizeWithLoadBalancingStrategy() {
+        List<Server> servers = dataCenterService.getDataCenter().servers();
+        servers.get(0).regulateLoad(600.0d, OptimizationOperation.INCREASE);
+        servers.get(1).regulateLoad(800.0d, OptimizationOperation.INCREASE);
+        dataCenterService.setOptimizationStrategy(new LoadBalancingOptimizationStrategy());
+
+        dataCenterService.optimize(dataCenterService.getOptimizationStrategy());
+
+        assertEquals(LoadBalancingOptimizationStrategy.class, dataCenterService.getOptimizationStrategy().getClass());
+        assertEquals(3, dataCenterService.getDataCenter().servers().size());
+        assertEquals(400.0d, dataCenterService.getDataCenter().servers().get(2).getLoad());
     }
 }

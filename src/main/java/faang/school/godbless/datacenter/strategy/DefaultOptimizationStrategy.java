@@ -2,7 +2,7 @@ package faang.school.godbless.datacenter.strategy;
 
 import faang.school.godbless.datacenter.model.DataCenter;
 
-public class DefaultOptimizationStrategy implements OptimizationStrategy {
+public record DefaultOptimizationStrategy() implements OptimizationStrategy {
 
     @Override
     public void optimize(DataCenter dataCenter) {
