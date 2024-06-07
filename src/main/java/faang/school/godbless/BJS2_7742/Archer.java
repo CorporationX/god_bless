@@ -1,12 +1,15 @@
 package faang.school.godbless.BJS2_7742;
 
 public class Archer extends Character {
-    private final int strength = 3;
-    private final int agility = 10;
-    private final int intelligence = 5;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
 
     protected Archer(String name) {
         super(name);
+        strength = 3;
+        agility = 10;
+        intelligence = 5;
     }
 
     @Override

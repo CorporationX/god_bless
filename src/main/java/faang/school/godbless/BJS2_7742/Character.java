@@ -8,10 +8,11 @@ public abstract class Character {
     private int strength;
     private int agility;
     private int intelligence;
-    private int health = 100;
+    private int health;
 
     protected Character(String name) {
         this.name = name;
+        health = 100;
     }
 
     protected Character(String name, int strength, int agility, int intelligence) {
