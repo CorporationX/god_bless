@@ -21,7 +21,9 @@ public class Main {
     public static void outputListHouses(Map<Book, String> books) {
         if (books.isEmpty()) {
             System.out.println("There are no entries");
-        } else books.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+        } else {
+            books.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+        }
     }
 
     public static void searchByName(Map<Book, String> books, String title, String author, int year) {
@@ -30,8 +32,10 @@ public class Main {
         String place = books.get(book);
 
         if (place != null) {
-            System.out.println("title " + book.getTitle() + ", place: " + place);
-        } else System.out.println("There is no such house");
+            System.out.println("title " + book.title() + ", place: " + place);
+        } else {
+            System.out.println("There is no such house");
+        }
     }
 
     public static void main(String[] args) {
