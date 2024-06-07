@@ -16,12 +16,13 @@ public class Users {
     static final int NUMBER_CONSTANT = 18;
 
     public Users(String name, int age, String workPlace, String address) {
-        if (!name.isBlank() & age >= NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)){
+        if (!name.isBlank() & age >= NUMBER_CONSTANT & VALID_JOBS.contains(workPlace) & VALID_ADDRESSES.contains(address)) {
             this.name = name;
             this.age = age;
             this.workPlace = workPlace;
             this.address = address;
-        }else
+        } else {
             throw new IllegalArgumentException("ошибка");
+        }
     }
 }
