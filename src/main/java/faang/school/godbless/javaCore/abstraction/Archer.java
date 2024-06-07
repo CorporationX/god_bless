@@ -2,10 +2,7 @@ package faang.school.godbless.javaCore.abstraction;
 
 public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        power = 3;
-        dexterity = 10;
-        intellect = 5;
+        super(name, 3, 10, 5);
     }
 
     @Override
