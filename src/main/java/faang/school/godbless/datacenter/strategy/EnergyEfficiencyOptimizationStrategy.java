@@ -6,6 +6,7 @@ public record EnergyEfficiencyOptimizationStrategy() implements OptimizationStra
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        throw new UnsupportedOperationException();
+        dataCenter.servers()
+                .forEach(server -> server.regulateEnergyConsumption(server.getEnergyConsumption() * 0.1));
     }
 }

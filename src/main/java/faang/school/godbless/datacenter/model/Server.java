@@ -36,4 +36,8 @@ public class Server {
     public void scaleVertically(double load) {
         this.maxLoad += load;
     }
+
+    public void regulateEnergyConsumption(double energyConsumption) {
+        this.energyConsumption -= energyConsumption;
+    }
 }

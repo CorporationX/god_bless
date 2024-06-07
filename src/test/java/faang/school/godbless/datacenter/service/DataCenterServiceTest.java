@@ -5,6 +5,7 @@ import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
 import faang.school.godbless.datacenter.strategy.DefaultOptimizationStrategy;
+import faang.school.godbless.datacenter.strategy.EnergyEfficiencyOptimizationStrategy;
 import faang.school.godbless.datacenter.strategy.LoadBalancingOptimizationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -130,5 +131,17 @@ class DataCenterServiceTest {
         assertEquals(LoadBalancingOptimizationStrategy.class, dataCenterService.getOptimizationStrategy().getClass());
         assertEquals(3, dataCenterService.getDataCenter().servers().size());
         assertEquals(400.0d, dataCenterService.getDataCenter().servers().get(2).getLoad());
+    }
+
+    @Test
+    @DisplayName("Energy consumption optimization strategy optimizes energy spent for all servers")
+    void testOptimizeWithEnergyConsumptionStrategy() {
+        dataCenterService.setOptimizationStrategy(new EnergyEfficiencyOptimizationStrategy());
+
+        dataCenterService.optimize(dataCenterService.getOptimizationStrategy());
+
+        assertEquals(EnergyEfficiencyOptimizationStrategy.class, dataCenterService.getOptimizationStrategy().getClass());
+        assertEquals(90.0d, dataCenterService.getDataCenter().servers().get(0).getEnergyConsumption());
+        assertEquals(90.0d, dataCenterService.getDataCenter().servers().get(1).getEnergyConsumption());
     }
 }
