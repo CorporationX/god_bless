@@ -1,9 +1,6 @@
 package faang.school.godbless.task8;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static Map<Integer, StreamEvent> eventsMap = new HashMap<>();
@@ -15,13 +12,12 @@ public class Main {
         addNewEvent(new StreamEvent(3, "1", "3"));
         findEventById(1);
         removeEvent(2);
-        printEvents();
     }
 
     public static void addNewEvent(StreamEvent event) {
         eventsMap.put(event.getId(), event);
         if (!eventsListMap.containsKey(event.getEventType())) {
-            eventsListMap.put(event.getEventType(), new ArrayList<>(List.of(event)));
+            eventsListMap.put(event.getEventType(), new ArrayList<>(Collections.singletonList(event)));
         } else eventsListMap.get(event.getEventType()).add(event);
     }
 
@@ -33,12 +29,6 @@ public class Main {
         eventsMap.remove(id);
         for (List<StreamEvent> eventList : eventsListMap.values()) {
             eventList.removeIf(event -> event.getId() == id);
-        }
-    }
-
-    public static void printEvents() {
-        for (Map.Entry<Integer, StreamEvent> e : eventsMap.entrySet()) {
-            System.out.println(e.getValue());
         }
     }
 }
