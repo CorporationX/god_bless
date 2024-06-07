@@ -25,20 +25,20 @@ public class User{
     public User(String name, int age, String workplace, String adress){
         if(name.isEmpty()) {
             throw new IllegalArgumentException("имя не может быть пустым");
-        } else {
-            this.name = name;
         }if(age < 18) {
             throw new IllegalArgumentException("возраст не может быть меньше 18");
-        } else {
-            this.age =age;
         }if(!VALID_JOBS.contains(workplace)) {
             throw new IllegalArgumentException("место работы должно соответствовать одному из предложенных вариантов ");
-        } else {
-            this.workplace = workplace;
         }if(!VALID_ADDRESSES.contains(adress)){
                 throw new IllegalArgumentException("адрес доленж соответствовать одному из предложенных варинатов");
-            } else {
+        }else{
+            this.name = name;
+            this.age = age;
+            this.workplace = workplace;
             this.adress = adress;
         }
+    }
+    public void getValue(){
+        System.out.println(name + age + workplace + adress);
     }
 }
