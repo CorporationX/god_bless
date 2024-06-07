@@ -11,18 +11,18 @@ public class User {
     private List<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, List<String> activities) {
-        Map<User, String> sortedMap = new HashMap<>();
+        Map<User, String> usersHobby = new HashMap<>();
 
         for (User currentUser : users) {
             for (String activity : activities) {
                 if (currentUser.activities.contains(activity)) {
-                    sortedMap.put(currentUser, activity);
+                    usersHobby.put(currentUser, activity);
                     break;
                 }
             }
         }
 
-        return sortedMap;
+        return usersHobby;
     }
 
     public User(long id, String name, int age, List<String> activities) {
