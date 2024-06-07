@@ -1,0 +1,15 @@
+package faang.school.godbless.BJS2_5188;
+import lombok.SneakyThrows;
+
+public class Main {
+
+    @SneakyThrows
+    public static void main(String[] args){
+        try {
+            new User("Alex", 19, "Google", "London");
+            System.out.println("All fields are correct");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
