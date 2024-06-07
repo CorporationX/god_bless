@@ -1,19 +1,20 @@
 package faang.school.godbless.datacenter.service;
 
 import faang.school.godbless.datacenter.model.DataCenter;
+import faang.school.godbless.datacenter.model.OptimizationOperation;
 import faang.school.godbless.datacenter.model.ResourceRequest;
 import faang.school.godbless.datacenter.model.Server;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.experimental.FieldDefaults;
+
+import java.util.Comparator;
+import java.util.Optional;
 
 @Data
 @AllArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE)
 public class DataCenterService {
 
-    DataCenter dataCenter;
+    private final DataCenter dataCenter;
 
     public void addServer(Server server) {
         dataCenter.getServers().add(server);
@@ -24,14 +25,29 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption() {
-        throw new UnsupportedOperationException();
+        return dataCenter.getServers()
+                .stream()
+                .mapToDouble(Server::getEnergyConsumption)
+                .sum();
     }
 
     public void allocateResources(ResourceRequest resourceRequest) {
-        throw new UnsupportedOperationException();
+        Optional<Server> leastLoadedServer = dataCenter.getServers()
+                .stream()
+                .min(Comparator.comparingDouble(Server::getLoad));
+        if (leastLoadedServer.isPresent()) {
+            Server server = leastLoadedServer.get();
+            server.regulateLoad(resourceRequest.load(), OptimizationOperation.INCREASE);
+        }
     }
 
     public void releaseResources(ResourceRequest resourceRequest) {
-        throw new UnsupportedOperationException();
+        Optional<Server> maxLoadedServer = dataCenter.getServers()
+                .stream()
+                .max(Comparator.comparingDouble(Server::getLoad));
+        if (maxLoadedServer.isPresent()) {
+            Server server = maxLoadedServer.get();
+            server.regulateLoad(resourceRequest.load(), OptimizationOperation.DECREASE);
+        }
     }
 }

@@ -1,15 +1,17 @@
 package faang.school.godbless.datacenter.model;
 
 import lombok.AccessLevel;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.experimental.FieldDefaults;
 
-@Data
+@Getter
+@EqualsAndHashCode
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Server {
 
     double load;
-    double maxLoad;
+    final double maxLoad;
     double energyConsumption;
 
     public Server() {
@@ -17,4 +19,13 @@ public class Server {
         this.maxLoad = 10_000.0d;
         this.energyConsumption = 100.0d;
     }
+
+    public void regulateLoad(double load, OptimizationOperation optimizationOperation) {
+        switch (optimizationOperation) {
+            case INCREASE -> this.load += load;
+            case DECREASE -> this.load -= load;
+        }
+    }
+
+
 }
