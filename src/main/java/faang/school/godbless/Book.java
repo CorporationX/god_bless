@@ -8,7 +8,6 @@ public class Book {
     private String author;
     private Integer year;
 
-
     public Book(String title, String author, Integer year) {
         this.title = title;
         this.author = author;
@@ -62,8 +61,6 @@ public class Book {
 
         Book book = (Book) obj;
 
-
-
         return Objects.equals(title, book.title) &&
                 Objects.equals(author, book.author) &&
                 Objects.equals(year, book.year);
@@ -82,5 +79,4 @@ public class Book {
                 ", year=" + year +
                 '}';
     }
-
 }
