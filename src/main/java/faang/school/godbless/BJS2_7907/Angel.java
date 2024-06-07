@@ -4,9 +4,4 @@ public class Angel extends Creature {
   public Angel(int quantity) {
     super("Angel", 15, 3, 12, 8, quantity);
   }
-
-  @Override
-  public int getDamage() {
-    return this.getAttack();
-  }
 }
