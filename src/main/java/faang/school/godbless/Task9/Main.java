@@ -36,6 +36,8 @@ public class Main {
 
         System.out.println(cityInfo("Milan", weather));
         System.out.println(cityInfo("Amsterdam", weather));
+        updateInfo("Milan", 29, 75, weather);
+        System.out.println(weather);
 
     }
 
