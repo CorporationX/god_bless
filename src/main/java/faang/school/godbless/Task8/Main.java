@@ -80,7 +80,7 @@ public class Main {
         showList(students);
         System.out.println(); // для визуализации
         removeStudent("Mike", "Physics", 1, students);
-        removeStudent("Steven", "Physcis", 2, students);
+        removeStudent("Steven", "Physics", 2, students);
         showList(students);
         System.out.println(); // для визуализации
         findStudents("Math", 1, students);
