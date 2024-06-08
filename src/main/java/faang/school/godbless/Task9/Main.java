@@ -54,7 +54,6 @@ public class Main {
         System.out.println(weather);
         showAllInfo(weather);
 
-
     }
 
 }
