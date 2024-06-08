@@ -1,5 +1,9 @@
 package faang.school.godbless;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
 //Создайте класс WeatherData, который будет содержать поля city (город), temperature (температура) и humidity (влажность).
 //
 //В классе Main, создайте HashMap с ключом типа String (название города) и значением типа WeatherData (объект класса WeatherData).
@@ -14,6 +18,9 @@ package faang.school.godbless;
 //
 //Тестируйте вашу программу, выполняя различные операции с HashMap и убедитесь, что она работает корректно,
 // предоставляя быстрый доступ к информации о погоде с использованием кэширования.
+@AllArgsConstructor
+@Setter
+@Getter
 public class WeatherData {
     private String city;
     private Integer temperature;

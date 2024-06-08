@@ -30,7 +30,6 @@ import java.util.Set;
 //
 //Если хотя бы одно из условий не выполняется,
 // то выбросить исключение IllegalArgumentException.
-// Иначе сохранить переданные значения в поля.
 public class User {
     static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -52,7 +51,6 @@ public class User {
     ////
     ////Если хотя бы одно из условий не выполняется,
     //// то выбросить исключение IllegalArgumentException.
-    //// Иначе сохранить переданные значения в поля.
     public User (String name, Integer age, String workplace, String address) {
         if (name == "" || !VALID_JOBS.contains(workplace) || age < 18 || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("incorrect arguments");
