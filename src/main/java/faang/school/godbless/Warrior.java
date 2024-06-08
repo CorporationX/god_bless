@@ -6,7 +6,7 @@ public class Warrior extends Character{
     }
 
     public void attack(Character enemy) {
-        System.out.println(super.name + " attacks " + enemy.name);
-        enemy.getInjured(super.force);
+        System.out.println(this.name + " attacks " + enemy.name);
+        enemy.getInjured(this.force);
     }
 }

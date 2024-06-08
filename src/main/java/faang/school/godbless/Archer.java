@@ -6,7 +6,7 @@ public class Archer extends Character{
     }
 
     public void attack(Character enemy) {
-        System.out.println(super.name + " attacks " + enemy.name);
-        enemy.getInjured(super.dexterity);
+        System.out.println(this.name + " attacks " + enemy.name);
+        enemy.getInjured(this.dexterity);
     }
 }
