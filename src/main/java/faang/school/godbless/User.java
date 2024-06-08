@@ -9,37 +9,43 @@ public class User {
     private int id;
     private String username;
     private int age;
-    private Set<String> activites;
 
-    public User(int id, String username, int age, Set<String> activites) {
-        this.id = id;
+    private String job;
+    private String address;
+
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    public User(String username, int age, String job, String address) {
+
+        if (username == null || username.trim().isEmpty()) {
+            throw new IllegalArgumentException("Username cannot be null or empty");
+        }
+
+        if (age < 18) {
+            throw new IllegalArgumentException("Age must be at least 18");
+        }
+
+        if (job == null || !VALID_JOBS.contains(job)){
+            throw new IllegalArgumentException("Invalid job");
+        }
+
+        if (address == null || !VALID_ADDRESSES.contains(address)){
+            throw new IllegalArgumentException("Invalid address");
+        }
         this.username = username;
         this.age = age;
-        this.activites = activites;
+        this.job = job;
+        this.address = address;
     }
 
-    public Set<String> getActivites() {
-        return activites;
+    @Override
+    public String toString(){
+        return "Пользователь{" +
+                "имя='" + username + '\'' +
+                ", возраст=" + age +
+                ", работа='" + job + '\'' +
+                ", адрес='" + address + '\'' +
+                '}';
     }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> hobbyLovers = new HashMap<>();
-        if (activities.isEmpty()) {
-            return hobbyLovers;
-        }
-        for (User user : users) {
-            for (String activity : user.getActivites()) {
-                if (activites.contains(activity)) {
-                    hobbyLovers.put(user, activity);
-                    break;
-                }
-            }
-        }
-        return hobbyLovers;
-    }
-
 }
