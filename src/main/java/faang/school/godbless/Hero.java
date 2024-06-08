@@ -26,10 +26,10 @@ public class Hero {
 
     public void removeCreature(Creature creature, int quantity) {
         if (army.containsKey(creature)) {
-            if (quantity > army.get(creature)) {
+            if (quantity >= army.get(creature)) {
                 army.remove(creature);
             } else {
-                army.put(creature, quantity - army.get(creature));
+                army.put(creature, army.get(creature) - quantity);
             }
         }
     }

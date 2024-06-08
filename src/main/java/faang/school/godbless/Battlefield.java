@@ -14,11 +14,12 @@ public class Battlefield {
 
     private int totalPowerArmyWhite;
     private int totalPowerArmyBlack;
-    private Hero heroWhite;
-    private Hero heroBlack;
 
     public Hero battle(Map<Hero, Map<Creature, Integer>> armies) {
         calculation();
+
+        Hero heroWhite = null;
+        Hero heroBlack = null;
 
         int i = 0;
         for (Map.Entry<Hero, Map<Creature, Integer>> entry : armies.entrySet()) {
