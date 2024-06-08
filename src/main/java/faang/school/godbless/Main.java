@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static List<Student> students= new ArrayList();
+    private static List<Student> students= new ArrayList<>();
+    private static Map<Student, Integer> hashStudents = new HashMap<>();
 
     public static void main(String[] args) {
         Student Ivan = new Student("Ivan", "Physics", 2);
@@ -41,14 +42,19 @@ public class Main {
     }
 
     public static void addStudent(Student student) {
-        if (!students.contains(student)) students.add(student);
-        else System.out.println("Student " + student + " already exists");
+        students.add(student);
+        hashStudents.put(student, students.size() - 1);
     }
 
     public static void removeStudent(String name, String faculty, int course) {
         Student student = new Student(name, faculty, course);
-        if (students.contains(student)) students.remove(student);
-        else System.out.println("There is no student: " + student);
+
+        if (hashStudents.containsKey(student)) {
+            students.remove(hashStudents.get(student));
+            for (int i = 0; i < students.size(); i++) {
+                hashStudents.put(student, i);
+            }
+        } else System.out.println("There is no student: " + student);
     }
 
     public static List<Student> searchByFlow(String faculty, int course) {
@@ -61,10 +67,6 @@ public class Main {
     }
 
     public static void printAll() {
-        Map<Flow, List<Student>> allInfo = findAll();
-
-        for (Flow flow : allInfo.keySet()) {
-            System.out.println(flow + " -> " + allInfo.get(flow));
-        }
+        for (Flow flow : findAll().keySet()) System.out.println(flow + " -> " + findAll().get(flow));
     }
 }
