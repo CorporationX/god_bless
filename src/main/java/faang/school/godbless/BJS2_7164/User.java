@@ -19,6 +19,9 @@ public class User {
     private Set<String> hobbies;
 
     public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> hobbiesSet) {
+        if (userList.isEmpty() || hobbiesSet.isEmpty()
+                || userList == null || hobbiesSet == null) throw new IllegalArgumentException();
+
         Map<User, String> collectionOfUsersByHobby = new HashMap<>();
         for (User user : userList) {
             for (String hobby : hobbiesSet) {
