@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.catch_events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,17 +13,14 @@ public class Main {
     public void addEvent(StreamEvent event) {
         Objects.requireNonNull(event);
         EVENTS.put(event.getId(), event);
+        addEventToList(event);
     }
 
-    public void addEvents(List<StreamEvent> events) {
-        Objects.requireNonNull(events);
-
-        for (StreamEvent event : events) {
-            if (EVENTS_LIST_BY_TYPE.get(event.getEventType()) == null) {
-                EVENTS_LIST_BY_TYPE.put(event.getEventType(), new ArrayList<>());
-            }
-            EVENTS_LIST_BY_TYPE.get(event.getEventType()).add(event);
+    private void addEventToList(StreamEvent event) {
+        if (EVENTS_LIST_BY_TYPE.get(event.getEventType()) == null) {
+            EVENTS_LIST_BY_TYPE.put(event.getEventType(), new ArrayList<>());
         }
+        EVENTS_LIST_BY_TYPE.get(event.getEventType()).add(event);
     }
 
     public StreamEvent findEventById(int id) {
@@ -48,7 +45,9 @@ public class Main {
     }
 
     public void deleteEventById(int id) {
+        StreamEvent event = findEventById(id);
         EVENTS.remove(id);
+        EVENTS_LIST_BY_TYPE.get(event.getEventType()).remove(event);
     }
 
     public void updateEventById(int id, StreamEvent event) {
@@ -58,19 +57,9 @@ public class Main {
         if (streamEvent == null) {
             throw new RuntimeException("No such event with id " + id);
         }
-    }
 
-    public void updateEventsByType(String type, List<StreamEvent> events) {
-        Objects.requireNonNull(type);
-        Objects.requireNonNull(events);
-        List<StreamEvent> eventList = EVENTS_LIST_BY_TYPE.get(type);
-
-        if (eventList == null) {
-            throw new RuntimeException("No such event type " + type);
-        }
-
-        EVENTS_LIST_BY_TYPE.get(type).clear();
-        EVENTS_LIST_BY_TYPE.get(type).addAll(events);
+        EVENTS_LIST_BY_TYPE.get(event.getEventType()).remove(findEventById(id));
+        EVENTS_LIST_BY_TYPE.get(event.getEventType()).add(event);
     }
 
     public void printAllEvents() {
