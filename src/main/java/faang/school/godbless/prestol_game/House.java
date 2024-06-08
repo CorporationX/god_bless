@@ -5,6 +5,7 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @Data
 @AllArgsConstructor
@@ -18,17 +19,8 @@ public class House {
         houses.put(house.getName(), house);
     }
 
-    //удаление дома по его названию
-    public void deleteHouseByName(String name, HashMap<String, House> houses) {
-        if (houses.containsKey(name)) {
-            houses.remove(name);
-        } else {
-            throw new RuntimeException("Такого дома не существует!");
-        }
-    }
-
     //поиск дома и вывод информации о гербе дома по его названию
-    public void getHouseInformationByHisName(String name, HashMap<String, House> houses) {
+    public static void getHouseInformationByHisName(String name, HashMap<String, House> houses) {
         if (houses.containsKey(name)) {
             System.out.println("Дом " + name + " имеет аттрибуты: " + houses.get(name));
         } else {
@@ -39,6 +31,17 @@ public class House {
     //вывод списка всех домов и их гербов
     public static void showAllHousesData(Map<String, House> houses) {
         System.out.println(houses);
+    }
+
+    //удаление дома по его названию
+    public static void deleteHouseByHisName(String houseName, HashMap<String, House> houses) {
+
+        if (!houses.containsKey(houseName)) {
+            throw new NoSuchElementException("Такого дома не существует");
+        } else {
+
+            houses.remove(houseName);
+        }
     }
 }
 
