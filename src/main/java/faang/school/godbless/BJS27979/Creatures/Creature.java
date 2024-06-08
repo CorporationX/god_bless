@@ -13,19 +13,30 @@ public abstract class Creature {
     protected int speed;
     protected int price;
     protected int totalHealth;
+    protected int quantity;
     protected Hero owner;
 
     public int getDamage() {
-        return attack * owner.getArmy().get(this);
-
+        return attack * quantity;
     }
 
-    public int takeDamage(int damage, int quantityAttackers) {
-        int damagePerUnit = damage / quantityAttackers - defense;
-        return damagePerUnit > 0 ? damagePerUnit * quantityAttackers : 1;
+    public void takeDamage(int damage) {
+        totalHealth = Math.max(totalHealth - getFinalDamage(damage), 0);
+        quantity = totalHealth / health;
+        if (totalHealth % health != 0) {
+            quantity++;
+        }
     }
 
-    public Creature(int level, int health, int attack, int defense, int speed, int price) {
+    public boolean canTakeDamage(int damage) {
+        return totalHealth >= getFinalDamage(damage);
+    }
+
+    private int getFinalDamage(int damage) {
+        return Math.max(damage - quantity * defense, 0);
+    }
+
+    public Creature(int level, int health, int attack, int defense, int speed, int price, int quantity) {
         name = getClass().getSimpleName();
         this.level = level;
         this.health = health;
@@ -33,14 +44,13 @@ public abstract class Creature {
         this.defense = defense;
         this.speed = speed;
         this.price = price;
-        totalHealth = health;
+        this.quantity = quantity;
+        totalHealth = health * quantity;
     }
 
-    public void updateTotalHealth(int quantity) {
-        totalHealth += health * quantity;
+    public void addTotalHealthByQuantity(int quantity) {
+        totalHealth += quantity * health;
     }
 
-    public boolean canTakeDamage(int damage, int quantityAttackers) {
-        return totalHealth >= this.takeDamage(damage, quantityAttackers);
-    }
+
 }
