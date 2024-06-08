@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.counting_absenteesim;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -53,12 +53,10 @@ public class Main {
         Objects.requireNonNull(student);
         FacultyAndYear studentParam = new FacultyAndYear(student.getFaculty(), student.getYear());
 
-        if (facultyAndYearMap.containsKey(studentParam)) {
-            facultyAndYearMap.get(studentParam).add(student);
-        } else {
+        if (!facultyAndYearMap.containsKey(studentParam)) {
             facultyAndYearMap.put(studentParam, new ArrayList<>());
-            facultyAndYearMap.get(studentParam).add(student);
         }
+        facultyAndYearMap.get(studentParam).add(student);
     }
 
     public static void deleteStudent(Map<FacultyAndYear, List<Student>> facultyAndYearMap, String name, String faculty, int year) {

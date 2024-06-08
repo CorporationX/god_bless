@@ -1,7 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.counting_absenteesim;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 @Getter
