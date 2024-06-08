@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,7 @@ public class User {
             if (groups.containsKey(user.age)) {
                 groups.get(user.age).add(user);
             } else {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                groups.put(user.age, userList);
+                groups.put(user.age, new ArrayList<>(Arrays.asList(user)));
             }
         }
         return groups;
