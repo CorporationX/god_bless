@@ -14,10 +14,10 @@ public class Main {
         all.add(s1);
         all.add(s2);
         all.add(s3);
-        all.add(s4);
         DataCenter dataCenter = new DataCenter(all);
         ResourceRequest resourceRequest = new ResourceRequest(100.2);
-        dataCenter.allocateResources(resourceRequest);
+        DataCenterService dataCenterService = new DataCenterService();
+        dataCenterService.addServer(dataCenter, s4);
 
     }
 }

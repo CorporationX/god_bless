@@ -1,24 +1,18 @@
 package faang.school.godbless.OptimizeTheOperationOfDataCenter;
 
-import lombok.Data;
-
-
-public class DataCenterService {
+public class DataCenterService implements OptimizationStrategy {
     private static final int HIGHEST_PERCENTAGE = 90;
-    DataCenter dataCent;
 
-
-    public void addServer(Server server) {
+    public void addServer(DataCenter dataCent, Server server) {
         dataCent.getServers().add(server);
     }
 
-    public void deleteServer(Server server) {
+    public void deleteServer(DataCenter dataCent, Server server) {
         dataCent.getServers().remove(server);
     }
 
-    ;
 
-    public int getTotalEnergyConsumption() {
+    public int getTotalEnergyConsumption(DataCenter dataCent) {
         int sumTotalEnergyConsumption = 0;
         for (Server server : dataCent.getServers()) {
             sumTotalEnergyConsumption += server.getEnergyConsumption();
@@ -26,8 +20,7 @@ public class DataCenterService {
         return sumTotalEnergyConsumption;
     }
 
-
-    public void allocateResources(ResourceRequest request) {
+    public void allocateResources(ResourceRequest request, DataCenter dataCent) {
         double requestLoad = request.getLoad();
         for (Server server : dataCent.getServers()) {
             double loadPercent = server.getLoad() * 100 / server.getMaxLoad();
@@ -44,8 +37,7 @@ public class DataCenterService {
         }
     }
 
-
-    public void releaseResources(ResourceRequest request) {
+    public void releaseResources(ResourceRequest request, DataCenter dataCent) {
         double requestLoad = request.getLoad();
         for (Server server : dataCent.getServers()) {
             if (requestLoad > server.getLoad()) {
@@ -59,6 +51,17 @@ public class DataCenterService {
         }
         if (requestLoad > 0) {
             requestLoad = 0;
+        }
+    }
+
+    @Override
+    public void optimize(DataCenter dataCenter) {
+        double allLoad = 0;
+        for (Server server : dataCenter.getServers()) {
+            allLoad += server.getLoad();
+        }
+        for (Server server : dataCenter.getServers()) {
+            server.setLoad(allLoad / dataCenter.getServers().size());
         }
     }
 }
