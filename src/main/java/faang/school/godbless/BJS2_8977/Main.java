@@ -10,7 +10,6 @@ public class Main {
     private HashMap<Integer, StreamEvent> mapIdEvent = new HashMap<>();
     private HashMap<String, List<StreamEvent>> mapEventsType = new HashMap<>();
 
-
     public void addStreamEvent(int id, String eventType, String data) {
         checkInputValidation(id, eventType, data);
 
@@ -24,6 +23,7 @@ public class Main {
         checkInputValidation(id, eventType, data);
         mapEventsType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(createStreamEvent(id, eventType, data));
     }
+
     public StreamEvent findEventTypeById(int id) {
         checkInputId(id);
 
