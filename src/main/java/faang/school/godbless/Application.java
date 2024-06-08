@@ -1,42 +1,25 @@
 package faang.school.godbless;
-
-
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Application {
     public static void main(String[] args) {
-        HashMap<String, WeatherData> weatherData = new HashMap<>();
+        User user1 = new User(1, "Боб", 25, new HashSet<>(Arrays.asList("Бег", "Турник")));
+        User user2 = new User(2, "Bob", 30, new HashSet<>(Arrays.asList("Бег", "Отжмания")));
 
-        WeatherData data1 = new WeatherData("Almaty", 22, 70);
-        WeatherData data2 = new WeatherData("Moscow", 25, 65);
+        List<User> users = Arrays.asList(user1, user2);
 
+        Set<String> activities = new HashSet<>(Arrays.asList("Бег", "Плаванье"));
 
-        WeatherData.updateWeatherData(weatherData, "Berlin", data1);
-        WeatherData.updateWeatherData(weatherData, "Tokyo", data2);
+        Map<User, String> hobbyLovers = user1.findHobbyLovers(users, activities);
 
-        System.out.println("Все города мапы");
-        WeatherData.printAllCities(weatherData);
+        // Выводим результаты
+        for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
+            System.out.println(entry.getKey().getUsername() + " любит " + entry.getValue());
+        }
 
-        System.out.println("Получение по getWeatherData");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Berlin"));
-
-        System.out.println("Получение по неизвестному городу");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Chicago"));
-
-
-        WeatherData newData = new WeatherData("New York", 20, 75);
-        WeatherData.updateWeatherData(weatherData, "New York", newData);
-
-        WeatherData.removeWeatherData(weatherData, "Los Angeles");
-
-        System.out.println("Вывод списка всех городов");
-        WeatherData.printAllCities(weatherData);
-
-        System.out.println("Информация о Берлине");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Berlin"));
-
-        System.out.println("Информация Los Angeles:");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Los Angeles"));
-
-  }
+    }
 }
