@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.users_collecting;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -24,12 +24,14 @@ public class User {
         Objects.requireNonNull(activities);
         Map<User, String> hobbyLovers = new HashMap<>();
 
-        for (User user : users) {
-            Set<String> currentActivities = user.getActivities();
-            for (String activity : currentActivities) {
-                if (activities.contains(activity)) {
-                    hobbyLovers.put(user, activity);
-                    break;
+        if (!activities.isEmpty()) {
+            for (User user : users) {
+                Set<String> currentActivities = user.getActivities();
+                for (String activity : currentActivities) {
+                    if (activities.contains(activity)) {
+                        hobbyLovers.put(user, activity);
+                        break;
+                    }
                 }
             }
         }
