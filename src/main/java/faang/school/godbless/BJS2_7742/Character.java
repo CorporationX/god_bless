@@ -20,6 +20,7 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
+        health = 100;
     }
 
     protected abstract void attack(Character enemy);
