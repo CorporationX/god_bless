@@ -2,13 +2,11 @@ package faang.school.godbless.Task10;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
-
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@ToString
+@AllArgsConstructor
 
 public class Hero {
 
@@ -19,13 +17,8 @@ public class Hero {
     private int level;
     private List<Creature> army;
 
-    public Hero(String name, String fraction, int exp, int level, List<Creature> army) {
-        this.name = name;
-        this.fraction = fraction;
-        this.exp = exp;
-        this.level = level;
-        this.army = new ArrayList<>(MAX_CAPACITY);
-        this.army = army;
+    {
+        army = new ArrayList<>(MAX_CAPACITY);
     }
 
     public void addToArmy(Creature creature, int quantity) {
