@@ -2,12 +2,10 @@ package faang.school.godbless.heroes_of_might_and_magic;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.util.Objects;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 public abstract class Creature {
     private String name;
