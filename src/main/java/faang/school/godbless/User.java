@@ -1,10 +1,15 @@
 package faang.school.godbless;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-
 public class User {
+    private int id;
     private String username;
     private int age;
+
     private String job;
     private String address;
 
@@ -44,4 +49,3 @@ public class User {
                 '}';
     }
 }
-
