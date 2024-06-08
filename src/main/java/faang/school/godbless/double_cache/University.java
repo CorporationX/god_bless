@@ -9,8 +9,8 @@ import java.util.Map;
 
 @Slf4j
 public class University {
-    Map<Student, Map<Subject, Integer>> studentMarks;
-    Map<Subject, List<Student>> subjectStudentMap;
+    private Map<Student, Map<Subject, Integer>> studentMarks;
+    private Map<Subject, List<Student>> subjectStudentMap;
 
     public void addNewStudentToUniversity(Student student, Map<Subject, Integer> marks) {
         studentMarks.put(student, marks);
