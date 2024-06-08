@@ -16,4 +16,8 @@ public abstract class Creature {
     private int haste;
     private int quantity;
 
+    public void setQuantity(int newQuantity) {
+        quantity = newQuantity;
+    }
+
 }
