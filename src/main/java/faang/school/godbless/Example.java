@@ -5,7 +5,6 @@ import java.util.List;
 import java.lang.reflect.Array;
 
 public class Example {
-
     public static void reverseArray(int[] array){
         for (int i = 0; i < array.length / 2; i++) {
             int temp = array[i];
