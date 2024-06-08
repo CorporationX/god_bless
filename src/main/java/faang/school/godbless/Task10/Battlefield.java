@@ -61,7 +61,7 @@ public class Battlefield {
         anduinArmy.add(footmen);
         anduinArmy.add(griffins);
         anduinArmy.add(priests);
-        Hero anduin = new Hero("Anduin", "Allaince", 60, 12, anduinArmy);
+        Hero anduin = new Hero("Anduin", "Alliance", 60, 12, anduinArmy);
         battle(thrall, anduin);
 
     }
