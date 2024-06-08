@@ -6,10 +6,10 @@ import lombok.Data;
 public abstract class Character {
 
     protected String name;
-    protected Integer force;
-    protected Integer agility;
-    protected Integer intelligence;
-    protected Integer health = 100;
+    protected int force;
+    protected int agility;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
