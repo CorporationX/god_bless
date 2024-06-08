@@ -30,6 +30,16 @@ public class WeatherData {
 
     @Override
     public boolean equals(Object o) {
-        return this.city == o.city && this.temperature == o.temperature && this.humidity == o.humidity;
+        if (this == o) return true;
+        else if (this.getClass() != o.getClass() || o == null) return false;
+        else {
+            WeatherData weatherData = (WeatherData) o;
+            return this.city == weatherData.city && this.temperature == weatherData.temperature && this.humidity == weatherData.humidity;
+        }
+    }
+
+    @Override
+    public int HashCode(WeatherData) {
+
     }
 }
