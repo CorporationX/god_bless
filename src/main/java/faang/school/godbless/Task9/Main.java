@@ -24,6 +24,13 @@ public class Main {
         weather.remove(city);
     }
 
+    public static void showAllInfo(Map<String, WeatherData> weather) {
+        for (Map.Entry<String, WeatherData> entry : weather.entrySet()) {
+            System.out.println(entry.getKey() + ": " + entry.getValue().getTemperature() + " degree(s) " +
+                    entry.getValue().getHumidity() + " %");
+        }
+    }
+
     public static void main(String[] arg) {
 
         Map<String, WeatherData> weather = new HashMap<>();
@@ -45,6 +52,7 @@ public class Main {
         System.out.println(cityInfo("Milan", weather));
         removeInfo("Moscow", weather);
         System.out.println(weather);
+        showAllInfo(weather);
 
 
     }
