@@ -25,31 +25,23 @@ public abstract class Creature {
         }
     }
 
-    public boolean canTakeDamage(Creature creature) {
-        return totalHealth >= countFinalTakeDamage(creature);
+    public int canTakeDamage(Creature creature) {
+        return Math.min(totalHealth, countFinalTakeDamage(creature));
     }
 
     private double getAttackDefenseModifier(Creature creature) {
-        // AttackDefenseModifier
-        // Модификатор урона от характеристики "атака" атакующего стека и характеристики "защита" атакуемого стека.
-        //
-        //Формула состоит из 2-х частей:
-        //Если "атака" атакующего >= "защиты" атакуемого, то
-        //AttackDefenseModifier = 1+("атака"-"защита")*0,05.
-        //Если "атака" атакующего < "защиты" атакуемого, то
-        //AttackDefenseModifier = 1/(1+("защита"-"атака")*0,05).
-
         if (creature.attack >= defense) {
             return 1 + (creature.attack - defense) * 0.05;
         } else {
             return 1 / (1 + (defense - creature.attack) * 0.05);
         }
     }
+
     private int countFinalTakeDamage(Creature attacker) {
         if (quantity == 0) {
             return 0;
         }
-        return (int)(attacker.getBaseAttack() * getAttackDefenseModifier(attacker) * attacker.getQuantity());
+        return (int) (attacker.getBaseAttack() * getAttackDefenseModifier(attacker) * attacker.getQuantity());
     }
 
     public Creature(int level, int health, int attack, int baseAttack, int defense, int speed, int price, int quantity) {

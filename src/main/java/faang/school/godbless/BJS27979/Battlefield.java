@@ -11,32 +11,35 @@ public class Battlefield {
     private Hero badHero;
 
     public void getBattle() {
-        System.out.println("\nSTART FIGHTING!\n");
+        System.out.println("\nSTART FIGHTING!");
         int round = 1;
         while (checkLooser() == 0) {
-            System.out.println("\nRound " + round + "\n");
+            System.out.println("\nROUND " + round + "\n");
             fightRound();
             round++;
         }
         if (checkLooser() == 1) {
-            System.out.println("\nFINISH FIGHTING!\n" + badHero.getName() + " WIN!");
+            System.out.println("FINISH FIGHTING!\n" + badHero.getName() + " WIN!\n");
         } else {
-            System.out.println("\nFINISH FIGHTING!\n" + goodHero.getName() + " WIN!");
+            System.out.println("FINISH FIGHTING!\n" + goodHero.getName() + " WIN!\n");
         }
     }
+
     public void fightRound() {
         List<Creature> fightingCreatures = getTurnOrder();
 
         for (Creature attackerCreature : fightingCreatures) {
-            Hero attackerHero = attackerCreature.getOwner();
-            Hero defenderHero = attackerHero.equals(this.goodHero) ? this.badHero : this.goodHero;
-            Creature defenderCreature = getTarget(attackerCreature, defenderHero);
+            if (attackerCreature.getTotalHealth() != 0) {
+                Hero attackerHero = attackerCreature.getOwner();
+                Hero defenderHero = attackerHero.equals(this.goodHero) ? this.badHero : this.goodHero;
+                Creature defenderCreature = getTarget(attackerCreature, defenderHero);
 
-            System.out.println("\nattack!\n");
-            attack(attackerCreature, defenderCreature);
-            if (defenderCreature.getTotalHealth() != 0) {
-                System.out.println("\ncounterattack!\n");
-                attack(defenderCreature, attackerCreature);
+                System.out.println(attackerHero.getName() + " attacks!\n");
+                attack(attackerCreature, defenderCreature);
+                if (defenderCreature.getTotalHealth() != 0) {
+                    System.out.println(defenderHero.getName() + " counterattacks!\n");
+                    attack(defenderCreature, attackerCreature);
+                }
             }
         }
     }
@@ -50,7 +53,7 @@ public class Battlefield {
         lostUnits -= defenderCreature.getQuantity();
         lostHP -= defenderCreature.getTotalHealth();
         System.out.println(defenderCreature.getName() + " lost " + lostHP + "HP, what means " +
-                lostUnits + " units. And now it's: " + defenderCreature.getQuantity());
+                lostUnits + " units. And now it's: " + defenderCreature.getQuantity() + "\n");
     }
 
     private List<Creature> getTurnOrder() {
@@ -67,11 +70,12 @@ public class Battlefield {
         List<Creature> targets = new ArrayList<>();
         targets.addAll(defender.getArmy());
         targets.sort((creature1, creature2) -> {
-            if (creature1.canTakeDamage(attacker)
-                    != creature2.canTakeDamage(attacker)) {
-                return creature1.canTakeDamage(attacker) ? 1 : -1;
+            int maxDamageCompare = -Integer.
+                    compare(creature1.canTakeDamage(attacker), creature2.canTakeDamage(attacker));
+            if (maxDamageCompare == 0) {
+                return compareSpeedAndHeroLevel(creature1, creature2);
             }
-            return compareSpeedAndHeroLevel(creature1, creature2);
+            return maxDamageCompare;
         });
         return targets.get(0);
     }

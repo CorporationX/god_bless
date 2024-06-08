@@ -40,10 +40,14 @@ public class Hero {
         int index = getIndexByName(name);
         if (index == -1) {
             System.out.println("There's no units with name " + name + " in " + this.name + "'s army");
-        } else {
+            return;
+        } else if (quantity <= army.get(index).getQuantity()) {
             army.get(index).setQuantity(army.get(index).getQuantity() - quantity);
             army.get(index).addTotalHealthByQuantity(-quantity);
+        } else {
+            army.get(index).setQuantity(0);
         }
+        checkLoose();
     }
 
     public boolean checkLoose() {
@@ -58,10 +62,17 @@ public class Hero {
 
     public void printArmy() {
         if (army.size() == 0) {
-            System.out.println("Hero " + name + " has no army");
+            System.out.println("\nHero " + name + " has no army");
         } else {
-            System.out.println("Hero " + name + " has next army: ");
+            System.out.println("\nHero " + name + " has an army worth " + getWorthArmy() +
+                    " gold, which include the following creatures:");
             army.forEach(creature -> System.out.println(creature.getName() + ": " + creature.getQuantity()));
         }
+    }
+
+    public int getWorthArmy() {
+        return army.stream().
+                mapToInt(creature -> creature.getPrice() * creature.getQuantity()).
+                sum();
     }
 }
