@@ -1,16 +1,15 @@
-package faang.school.godbless;
+package faang.school.godbless.registration;
 
 import lombok.Data;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.Set;
 
 @Data
 public class User {
 
+    public static final int USER_AGE_18 = 18;
     private String name;
     private Integer age;
     private String job;
@@ -20,32 +19,25 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(List.of("London", "New York", "Amsterdam"));
 
     public User(String name, Integer age, String job, String address) {
-        if (!this.validate(name, age, job, address)) {
-            throw new IllegalArgumentException();
-        }
+        this.validate(name, age, job, address);
         this.name = name;
         this.age = age;
         this.job = job;
         this.address = address;
     }
 
-    private boolean validate(String name, Integer age, String job, String address) {
-        if (name== null || name.isEmpty()) {
-            return false;
+    private void validate(String name, Integer age, String job, String address) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Error: name is null or empty");
         }
-        if (age< 18) {
-            return false;
+        if (age < USER_AGE_18) {
+            throw new IllegalArgumentException("Error: age is less than 18");
         }
         if (!VALID_ADDRESSES.contains(address)) {
-            return false;
+            throw new IllegalArgumentException("Error: address is not valid");
         }
         if (!VALID_JOBS.contains(job)) {
-            return false;
+            throw new IllegalArgumentException("Error: job is not valid");
         }
-        return true;
-    }
-
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        return users.stream().collect(Collectors.groupingBy(User::getAge));
     }
 }
