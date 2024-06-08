@@ -24,8 +24,8 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
-        Map<Integer, List<User>> userMap = new HashMap<>();
-        userList.forEach(user -> userMap.computeIfAbsent(user.getAge(), v -> new ArrayList<>()).add(user));
-        return userMap;
+        Map<Integer, List<User>> groupUserByAgeMap = new HashMap<>();
+        userList.forEach(user -> groupUserByAgeMap.computeIfAbsent(user.getAge(), v -> new ArrayList<>()).add(user));
+        return groupUserByAgeMap;
     }
 }
