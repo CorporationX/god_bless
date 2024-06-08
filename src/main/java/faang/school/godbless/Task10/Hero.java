@@ -29,8 +29,10 @@ public class Hero {
     }
 
     public void addToArmy(Creature creature, int quantity) {
-        if (army.size() < MAX_CAPACITY) {
-            army.add(creature);
+        if (army.size() + quantity < MAX_CAPACITY) {
+            for (int i = 0; i < quantity; i++) {
+                army.add(creature);
+            }
         } else {
             throw new IllegalStateException("hero " + name + " has no slots");
         }
