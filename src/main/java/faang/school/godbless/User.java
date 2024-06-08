@@ -28,6 +28,9 @@ public class User {
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobbyLovers = new HashMap<>();
+        if (activities.isEmpty()) {
+            return hobbyLovers;
+        }
         for (User user : users) {
             for (String activity : user.getActivites()) {
                 if (activites.contains(activity)) {
