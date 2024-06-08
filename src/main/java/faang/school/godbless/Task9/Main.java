@@ -8,6 +8,7 @@ public class Main {
     public static WeatherData cityInfo(String cityName, Map<String, WeatherData> weather) {
         if (weather.get(cityName) == null) {
             WeatherData newData = Connection.connectToServer(cityName);
+            weather.put(cityName, newData);
             return newData;
         } else {
             return weather.get(cityName);
@@ -17,6 +18,10 @@ public class Main {
     public static void updateInfo(String city, int temperature, int humidity,
                                   Map<String, WeatherData> weather) {
         weather.computeIfPresent(city, (key, value)-> new WeatherData(city, temperature, humidity));
+    }
+
+    public static void removeInfo(String city, Map<String, WeatherData> weather) {
+        weather.remove(city);
     }
 
     public static void main(String[] arg) {
@@ -37,7 +42,10 @@ public class Main {
         System.out.println(cityInfo("Milan", weather));
         System.out.println(cityInfo("Amsterdam", weather));
         updateInfo("Milan", 29, 75, weather);
+        System.out.println(cityInfo("Milan", weather));
+        removeInfo("Moscow", weather);
         System.out.println(weather);
+
 
     }
 
