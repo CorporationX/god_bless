@@ -2,14 +2,14 @@ package faang.school.godbless;
 
 import faang.school.godbless.creatures.Creature;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
+@Data
 public class Hero {
-    @Getter
     private static final Map<Creature, Integer> army = new HashMap<>();
 
     private String name;
