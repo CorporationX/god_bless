@@ -6,7 +6,7 @@ public class Main {
 
         Character war = new Warrior("Thrall");
         System.out.println(war.getHealth());
-        Character hunt = new Archer("Handzo");
+        Character hunt = new Archer("Hanzo");
         System.out.println(hunt.getHealth());
         war.attack(hunt);
         System.out.println(hunt.getHealth());
