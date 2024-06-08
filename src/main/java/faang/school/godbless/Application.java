@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+
 import java.util.HashMap;
 
 public class Application {
@@ -36,5 +37,6 @@ public class Application {
 
         System.out.println("Информация Los Angeles:");
         System.out.println(WeatherData.getWeatherData(weatherData, "Los Angeles"));
-    }
+
+  }
 }
