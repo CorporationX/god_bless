@@ -3,6 +3,7 @@ package faang.school.godbless.Task9;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 @AllArgsConstructor

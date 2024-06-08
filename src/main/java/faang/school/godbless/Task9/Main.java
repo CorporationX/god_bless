@@ -6,12 +6,17 @@ import java.util.Map;
 public class Main {
 
     public static WeatherData cityInfo(String cityName, Map<String, WeatherData> weather) {
-        if (weather.get(cityName) == null)  {
+        if (weather.get(cityName) == null) {
             WeatherData newData = Connection.connectToServer(cityName);
             return newData;
         } else {
             return weather.get(cityName);
         }
+    }
+
+    public static void updateInfo(String city, int temperature, int humidity,
+                                  Map<String, WeatherData> weather) {
+        weather.computeIfPresent(city, (key, value)-> new WeatherData(city, temperature, humidity));
     }
 
     public static void main(String[] arg) {
@@ -27,6 +32,10 @@ public class Main {
         weather.put(madrid.getCity(), madrid);
         weather.put(london.getCity(), london);
         weather.put(milan.getCity(), milan);
+        System.out.println(weather);
+
+        System.out.println(cityInfo("Milan", weather));
+        System.out.println(cityInfo("Amsterdam", weather));
 
     }
 
