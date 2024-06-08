@@ -39,5 +39,4 @@ public class User {
     public void setActivitys(Set<String> activitys) {
         this.activitys = activitys;
     }
-
 }
