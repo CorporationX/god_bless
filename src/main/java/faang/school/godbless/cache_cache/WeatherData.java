@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.cache_cache;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,20 +1,20 @@
-package faang.school.godbless;
+package faang.school.godbless.cache_cache;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
 public class Main {
+    private static final MockWeatherService MOCK_WEATHER_SERVICE = new MockWeatherService();
 
     private static final Map<String, WeatherData> WEATHER_DATA_CACHE = new HashMap<>();
 
     public static WeatherData getWeatherData(String city) {
         Objects.requireNonNull(city);
         WeatherData weatherData = WEATHER_DATA_CACHE.get(city);
-        MockWeatherService mockWeatherService = new MockWeatherService();
 
         if (weatherData == null) {
-            weatherData = mockWeatherService.getWeather(city);
+            weatherData = MOCK_WEATHER_SERVICE.getWeather(city);
             WEATHER_DATA_CACHE.put(city, weatherData);
         }
 
