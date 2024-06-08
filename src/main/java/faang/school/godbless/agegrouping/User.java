@@ -13,10 +13,10 @@ import java.util.Set;
 @Getter
 @ToString
 public class User {
-    private static final Set<String> VALID_JOBS = new HashSet<>(
-            List.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(
-            List.of("London", "New York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS =
+            Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES =
+            Set.of("London", "New York", "Amsterdam");
 
     private String name;
     private Integer age;
