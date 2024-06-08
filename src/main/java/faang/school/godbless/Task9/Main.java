@@ -5,6 +5,15 @@ import java.util.Map;
 
 public class Main {
 
+    public static WeatherData cityInfo(String cityName, Map<String, WeatherData> weather) {
+        if (weather.get(cityName) == null)  {
+            WeatherData newData = Connection.connectToServer(cityName);
+            return newData;
+        } else {
+            return weather.get(cityName);
+        }
+    }
+
     public static void main(String[] arg) {
 
         Map<String, WeatherData> weather = new HashMap<>();
