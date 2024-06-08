@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_7742;
 
-import faang.school.godbless.BJS2_7742.Character;
-
 public class Warrior extends Character {
     protected Warrior(String name) {
         super(name, 10, 5, 3);
