@@ -11,7 +11,7 @@ import java.util.Set;
 @AllArgsConstructor
 @ToString
 public class User {
-    private Integer id;
+    private int id;
     private String name;
     private Integer age;
     private Set<String> activities;
@@ -19,13 +19,10 @@ public class User {
     public static Map<User, String> findHobbyLovers(List<User> users,
                                                     Set<String> activities) {
         Map<User, String> resultMap = new HashMap<>();
-
-        for (User user : users) {
-            user.activities.stream()
-                    .filter(activities::contains)
-                    .findFirst()
-                    .ifPresent(s -> resultMap.put(user, s));
-        }
+        users.stream().forEach(user -> user.activities.stream()
+                .filter(activities::contains)
+                .findFirst()
+                .ifPresent(s -> resultMap.put(user, s)));
         return resultMap;
     }
 }
