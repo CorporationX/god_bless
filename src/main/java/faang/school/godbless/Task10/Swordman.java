@@ -2,11 +2,8 @@ package faang.school.godbless.Task10;
 
 public class Swordman extends Creature{
 
-    private static final String NAME = "Swordman";
-    private static final int LEVEL = 4;
-    private static final int DAMAGE = 8;
-    private static final int DEFENSE = 4;
-    private static final int HASTE = 4;
-    private static final int QUANTITY = 10;
+    public Swordman(String name, int level, int damage, int defense, int haste, int quantity) {
+        super("swordman", 3, 5, 2, 1, 6);
+    }
 
 }

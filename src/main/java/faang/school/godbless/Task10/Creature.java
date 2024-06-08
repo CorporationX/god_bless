@@ -1,5 +1,9 @@
 package faang.school.godbless.Task10;
 
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 public abstract class Creature {
 
     private String name;
