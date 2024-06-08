@@ -1,12 +1,13 @@
 package faang.school.godbless.datacenter.service;
 
-import faang.school.godbless.datacenter.model.DataCenter;
-import faang.school.godbless.datacenter.model.OptimizationOperation;
-import faang.school.godbless.datacenter.model.ResourceRequest;
-import faang.school.godbless.datacenter.model.Server;
-import faang.school.godbless.datacenter.strategy.DefaultOptimizationStrategy;
-import faang.school.godbless.datacenter.strategy.EnergyEfficiencyOptimizationStrategy;
-import faang.school.godbless.datacenter.strategy.LoadBalancingOptimizationStrategy;
+import faang.school.godbless.intro.datacenter.model.DataCenter;
+import faang.school.godbless.intro.datacenter.model.OptimizationOperation;
+import faang.school.godbless.intro.datacenter.model.ResourceRequest;
+import faang.school.godbless.intro.datacenter.model.Server;
+import faang.school.godbless.intro.datacenter.service.DataCenterService;
+import faang.school.godbless.intro.datacenter.strategy.DefaultOptimizationStrategy;
+import faang.school.godbless.intro.datacenter.strategy.EnergyEfficiencyOptimizationStrategy;
+import faang.school.godbless.intro.datacenter.strategy.LoadBalancingOptimizationStrategy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
