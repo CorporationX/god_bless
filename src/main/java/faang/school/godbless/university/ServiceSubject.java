@@ -31,7 +31,7 @@ public class ServiceSubject {
 
     public void printAllSubject(Map<Subject, List<Student>> studentsBySubject) {
         if (studentsBySubject.isEmpty()) {
-            throw new IllegalArgumentException();
+            System.out.println("The passed data structure is empty");
         }
         studentsBySubject.forEach((k, v) -> System.out.println(k + ": " + v));
     }

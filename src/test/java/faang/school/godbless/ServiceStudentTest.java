@@ -54,10 +54,10 @@ class ServiceStudentTest {
     void testRemoveStudent_Positive() {
         var student = new Student(1, "s1");
         var removeStudent = new Student(2, "s2");
-        subjectByStudent.put();
-        subjectByStudent.put(removeStudent, subjectWithGrade);
         Map<Subject, Integer> subjectWithGrade = Map.of(new Subject(1, "su1"), 3);
-        Map<Student, Map<Subject, Integer>> subjectByStudent = Map.of(student, subjectWithGrade);
+        Map<Student, Map<Subject, Integer>> subjectByStudent = new HashMap<>();
+        subjectByStudent.put(student, subjectWithGrade);
+        subjectByStudent.put(removeStudent, subjectWithGrade);
 
         var expected = subjectByStudent;
         expected.remove(removeStudent);
