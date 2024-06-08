@@ -1,5 +1,8 @@
 package faang.school.godbless.cache;
 
+import faang.school.godbless.intro.cache.Student;
+import faang.school.godbless.intro.cache.Subject;
+import faang.school.godbless.intro.cache.University;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
