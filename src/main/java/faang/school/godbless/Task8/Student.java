@@ -6,6 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 @EqualsAndHashCode
@@ -16,5 +18,9 @@ public class Student {
     private String name;
     private String faculty;
     private int year;
+
+    public void addToList(List<Student> students) {
+        students.add(this);
+    }
 
 }
