@@ -17,6 +17,7 @@ class LRUCache {
     private DataNode head;
     private DataNode tail;
     private Database database;
+
     public LRUCache(int CACHE_SIZE) {
         this.CACHE_SIZE = CACHE_SIZE;
         this.map = new HashMap<>();
@@ -24,7 +25,7 @@ class LRUCache {
     }
 
     public String get(int key) {
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             DataNode dataNode = map.get(key);
             removeNode(dataNode);
             addToHead(dataNode);
@@ -33,7 +34,7 @@ class LRUCache {
             Data data = database.getData(key);
             DataNode dataNode = new DataNode(data);
             put(key, dataNode);
-            if(data.getValue() == null){
+            if (data.getValue() == null) {
                 log.warn("Could not find data in database");
                 return null;
             } else {
@@ -43,13 +44,13 @@ class LRUCache {
     }
 
     public void put(int key, DataNode dataNode) {
-        if(map.containsKey(key)){
+        if (map.containsKey(key)) {
             DataNode node = map.get(key);
             node.setData(dataNode.getData());
             removeNode(node);
             addToHead(node);
         } else {
-            if(map.size() == CACHE_SIZE){
+            if (map.size() == CACHE_SIZE) {
                 int nodeToDelete = removeTail();
                 map.remove(nodeToDelete);
             }
@@ -58,16 +59,16 @@ class LRUCache {
         }
     }
 
-    public void removeNode(DataNode dataNode){
-        if(dataNode == head){
-            if(dataNode == tail){
+    public void removeNode(DataNode dataNode) {
+        if (dataNode == head) {
+            if (dataNode == tail) {
                 head = null;
                 tail = null;
             } else {
                 head = head.getNext();
                 head.setPrevious(null);
             }
-        } else if(dataNode == tail){
+        } else if (dataNode == tail) {
             tail = tail.getPrevious();
         } else {
             dataNode.getPrevious().setNext(dataNode.getNext());
@@ -75,9 +76,9 @@ class LRUCache {
         }
     }
 
-    public void addToHead(DataNode dataNode){
+    public void addToHead(DataNode dataNode) {
         dataNode.getData().setTimestamp(System.currentTimeMillis());
-        if(head == null){
+        if (head == null) {
             head = dataNode;
             tail = dataNode;
         } else {
@@ -88,9 +89,9 @@ class LRUCache {
         }
     }
 
-    public int removeTail(){
+    public int removeTail() {
         int key = tail.getData().getId();
-        if(head == tail){
+        if (head == tail) {
             tail = null;
             head = null;
         } else {
