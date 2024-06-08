@@ -59,6 +59,20 @@ public class Main {
         }
     }
 
+    public static void showGroupedStudents(List<Student> students) {
+        Map<Pair, List<Student>> table = createTable(students);
+        System.out.println("The list of students:");
+        for (Map.Entry<Pair, List<Student>> entry : table.entrySet()) {
+            System.out.println("faculty: " + entry.getKey().getFaculty() +
+                    ", year: " + entry.getKey().getYear());
+            int j = 1;
+            for (Student student : entry.getValue()) {
+                System.out.println(j + ". " + student.getName());
+                j++;
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
         List<Student> students = new ArrayList<>();
@@ -85,6 +99,8 @@ public class Main {
         System.out.println(); // для визуализации
         findStudents("Math", 1, students);
         findStudents("Math", 3, students);
+        System.out.println(); // для визуализации
+        showGroupedStudents(students);
     }
 
 }
