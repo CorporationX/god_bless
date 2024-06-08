@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import java.util.Objects;
+
 public class WeatherData {
     private String city;
     private int temperature;
@@ -39,7 +41,7 @@ public class WeatherData {
     }
 
     @Override
-    public int HashCode(WeatherData) {
-
+    public int hashCode() {
+        return Objects.hash(this.city, this.temperature, this.humidity);
     }
 }
