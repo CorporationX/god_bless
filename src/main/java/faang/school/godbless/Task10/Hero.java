@@ -29,7 +29,7 @@ public class Hero {
     }
 
     public void addToArmy(Creature creature, int quantity) {
-        if (army.size() + quantity < MAX_CAPACITY) {
+        if (army.size() + quantity <= MAX_CAPACITY) {
             for (int i = 0; i < quantity; i++) {
                 army.add(creature);
             }
