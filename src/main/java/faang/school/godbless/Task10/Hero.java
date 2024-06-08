@@ -38,4 +38,8 @@ public class Hero {
         }
     }
 
+    public void removeFromArmy(Creature creature) {
+        army.remove(creature);
+    }
+
 }
