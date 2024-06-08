@@ -2,8 +2,11 @@ package faang.school.godbless.Task10;
 
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
+@ToString
+
 public abstract class Creature {
 
     private String name;
