@@ -1,10 +1,10 @@
 package faang.school.godbless.creatures;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
 @AllArgsConstructor
-@Getter
+@Data
 public abstract class Creature {
     protected String name;
     protected int damage;
