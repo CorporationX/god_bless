@@ -19,13 +19,13 @@ public class Main {
         Hero merlin = new Hero("Merlin", "Asylum", 10, new ArrayList<>());
         merlin.printArmy();
 
-        arthur.addCreature(new Dwarf(600));
-        arthur.addCreature(new GoldGolem(60));
-        arthur.addCreature(new Naga(20));
-        arthur.addCreature(new Titan(4));
+        arthur.addCreature(new Dwarf(300));
+        // arthur.addCreature(new GoldGolem(60));
+        // arthur.addCreature(new Naga(1));
+        arthur.addCreature(new Titan(1));
         arthur.printArmy();
 
-        merlin.addCreature(new Bandit(600));
+        merlin.addCreature(new Bandit(300));
         merlin.addCreature(new Minotaur(60));
         merlin.addCreature(new Efreet(20));
         merlin.addCreature(new BlackDragon(2));

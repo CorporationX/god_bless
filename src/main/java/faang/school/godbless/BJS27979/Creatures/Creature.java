@@ -9,6 +9,7 @@ public abstract class Creature {
     protected int level;
     protected int health;
     protected int attack;
+    protected int baseAttack;
     protected int defense;
     protected int speed;
     protected int price;
@@ -16,30 +17,46 @@ public abstract class Creature {
     protected int quantity;
     protected Hero owner;
 
-    public int getDamage() {
-        return attack * quantity;
-    }
-
-    public void takeDamage(int damage) {
-        totalHealth = Math.max(totalHealth - getFinalDamage(damage), 0);
+    public void takeDamage(Creature attacker) {
+        totalHealth = Math.max(totalHealth - countFinalTakeDamage(attacker), 0);
         quantity = totalHealth / health;
-        if (totalHealth % health != 0) {
+        if (totalHealth != 0 && quantity != 0) {
             quantity++;
         }
     }
 
-    public boolean canTakeDamage(int damage) {
-        return totalHealth >= getFinalDamage(damage);
+    public boolean canTakeDamage(Creature creature) {
+        return totalHealth >= countFinalTakeDamage(creature);
     }
 
-    private int getFinalDamage(int damage) {
-        return Math.max(damage - quantity * defense, 0);
+    private double getAttackDefenseModifier(Creature creature) {
+        // AttackDefenseModifier
+        // Модификатор урона от характеристики "атака" атакующего стека и характеристики "защита" атакуемого стека.
+        //
+        //Формула состоит из 2-х частей:
+        //Если "атака" атакующего >= "защиты" атакуемого, то
+        //AttackDefenseModifier = 1+("атака"-"защита")*0,05.
+        //Если "атака" атакующего < "защиты" атакуемого, то
+        //AttackDefenseModifier = 1/(1+("защита"-"атака")*0,05).
+
+        if (creature.attack >= defense) {
+            return 1 + (creature.attack - defense) * 0.05;
+        } else {
+            return 1 / (1 + (defense - creature.attack) * 0.05);
+        }
+    }
+    private int countFinalTakeDamage(Creature attacker) {
+        if (quantity == 0) {
+            return 0;
+        }
+        return (int)(attacker.getBaseAttack() * getAttackDefenseModifier(attacker) * attacker.getQuantity());
     }
 
-    public Creature(int level, int health, int attack, int defense, int speed, int price, int quantity) {
+    public Creature(int level, int health, int attack, int baseAttack, int defense, int speed, int price, int quantity) {
         name = getClass().getSimpleName();
         this.level = level;
         this.health = health;
+        this.baseAttack = baseAttack;
         this.attack = attack;
         this.defense = defense;
         this.speed = speed;

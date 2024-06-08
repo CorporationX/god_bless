@@ -16,6 +16,7 @@ public class Battlefield {
         while (checkLooser() == 0) {
             System.out.println("\nRound " + round + "\n");
             fightRound();
+            round++;
         }
         if (checkLooser() == 1) {
             System.out.println("\nFINISH FIGHTING!\n" + badHero.getName() + " WIN!");
@@ -33,18 +34,23 @@ public class Battlefield {
 
             System.out.println("\nattack!\n");
             attack(attackerCreature, defenderCreature);
-            System.out.println("\ncounterattack!\n");
-            attack(defenderCreature, attackerCreature);
+            if (defenderCreature.getTotalHealth() != 0) {
+                System.out.println("\ncounterattack!\n");
+                attack(defenderCreature, attackerCreature);
+            }
         }
     }
 
     private void attack(Creature attackerCreature, Creature defenderCreature) {
         int lostUnits = defenderCreature.getQuantity();
-        System.out.println(attackerCreature.getName() + " attacks " + defenderCreature.getName());
-        defenderCreature.takeDamage(attackerCreature.getDamage());
-        lostUnits = defenderCreature.getQuantity() - lostUnits;
-        System.out.println(defenderCreature.getName() + " lost " + lostUnits +
-                " units. And now it's: " + defenderCreature.getQuantity());
+        int lostHP = defenderCreature.getTotalHealth();
+        System.out.println(attackerCreature.getQuantity() + " " + attackerCreature.getName() +
+                " attacks " + defenderCreature.getQuantity() + " " + defenderCreature.getName());
+        defenderCreature.takeDamage(attackerCreature);
+        lostUnits -= defenderCreature.getQuantity();
+        lostHP -= defenderCreature.getTotalHealth();
+        System.out.println(defenderCreature.getName() + " lost " + lostHP + "HP, what means " +
+                lostUnits + " units. And now it's: " + defenderCreature.getQuantity());
     }
 
     private List<Creature> getTurnOrder() {
@@ -61,9 +67,9 @@ public class Battlefield {
         List<Creature> targets = new ArrayList<>();
         targets.addAll(defender.getArmy());
         targets.sort((creature1, creature2) -> {
-            if (creature1.canTakeDamage(attacker.getDamage())
-                    != creature2.canTakeDamage(attacker.getDamage())) {
-                return creature1.canTakeDamage(attacker.getDamage()) ? 1 : -1;
+            if (creature1.canTakeDamage(attacker)
+                    != creature2.canTakeDamage(attacker)) {
+                return creature1.canTakeDamage(attacker) ? 1 : -1;
             }
             return compareSpeedAndHeroLevel(creature1, creature2);
         });
