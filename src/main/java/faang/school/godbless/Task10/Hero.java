@@ -34,7 +34,7 @@ public class Hero {
                 army.add(creature);
             }
         } else {
-            throw new IllegalStateException("hero " + name + " has no slots");
+            throw new IllegalArgumentException("hero " + name + " has no slots");
         }
     }
 
