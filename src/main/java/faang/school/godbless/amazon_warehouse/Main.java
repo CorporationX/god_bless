@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.amazon_warehouse;
 
 import java.util.ArrayList;
 import java.util.HashMap;

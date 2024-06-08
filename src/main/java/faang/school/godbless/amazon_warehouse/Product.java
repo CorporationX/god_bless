@@ -1,7 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.amazon_warehouse;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.Objects;
