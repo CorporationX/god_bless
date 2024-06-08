@@ -10,6 +10,7 @@ import java.util.Set;
 public class Application {
     public static void main(String[] args) {
 
+
     }
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activitys) {
