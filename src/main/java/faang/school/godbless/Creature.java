@@ -23,7 +23,7 @@ public abstract class Creature {
     }
 
     private int criticalStrike() {
-        return new Random().nextInt(0, 5);
+        return new Random().nextInt(0, 20);
     }
 
     ;

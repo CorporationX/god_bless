@@ -43,12 +43,20 @@ public class Hero {
     }
 
     public int totalArmyDefense() {
-        Optional<Integer> defense = getArmy().entrySet().stream().map(x -> x.getKey().getDefend() * x.getValue()).reduce(Integer::sum);
+        Optional<Integer> defense = getArmy().entrySet().stream().
+                map(entryDefense -> entryDefense.getKey().getDefend() * entryDefense.getValue()).reduce(Integer::sum);
         return defense.orElse(0);
     }
 
     public int totalArmyAttack() {
-        Optional<Integer> attack = getArmy().entrySet().stream().map(x -> x.getKey().getDamage() * x.getValue()).reduce(Integer::sum);
+        Optional<Integer> attack = getArmy().entrySet().stream().
+                map(entryAttack -> entryAttack.getKey().getDamage() * entryAttack.getValue()).reduce(Integer::sum);
+        return attack.orElse(0);
+    }
+
+    public int totalArmyHealth() {
+        Optional<Integer> attack = getArmy().entrySet().stream().
+                map(entryHealth -> entryHealth.getKey().getHealth() * entryHealth.getValue()).reduce(Integer::sum);
         return attack.orElse(0);
     }
 }
