@@ -8,5 +8,7 @@ public class Griffin extends Creature{
         this.protection = 2;
         this.speed = 9;
         this.quantity = count;
+        this.allDamage = this.damage * this.quantity;
+        this.allProtection = this.protection * this.quantity;
     }
 }

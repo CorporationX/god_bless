@@ -8,5 +8,7 @@ public class Angel extends Creature{
         this.protection = 10;
         this.speed = 10;
         this.quantity = count;
+        this.allDamage = this.damage * this.quantity;
+        this.allProtection = this.protection * this.quantity;
     }
 }

@@ -10,6 +10,7 @@ public class Battlefield {
     private static Map<String, Creature> armyTwo = new HashMap<>();
 
     private static void battle() {
-
     }
+
+    public static void attack(Creature creature)
 }

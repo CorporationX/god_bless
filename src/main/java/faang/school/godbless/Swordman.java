@@ -8,5 +8,7 @@ public class Swordman extends Creature{
         this.protection = 9;
         this.speed = 5;
         this.quantity = count;
+        this.allDamage = this.damage * this.quantity;
+        this.allProtection = this.protection * this.quantity;
     }
 }
