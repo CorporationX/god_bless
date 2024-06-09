@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final HashMap<User, List<Query>> HISTORY = new HashMap<>();
+    private static final Map<User, List<Query>> HISTORY = new HashMap<>();
 
     public static void main(String[] args) {
         Query query1 = new Query("11aa", "content 1", LocalDateTime.of(2024, 1, 1, 1, 1));
@@ -72,7 +72,7 @@ public class Main {
         }
     }
 
-    public static HashMap<User, List<Query>> getAllUsers() {
+    public static Map<User, List<Query>> getAllUsers() {
         return HISTORY;
     }
 
