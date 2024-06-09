@@ -49,9 +49,6 @@ public class DataCenterService implements OptimizationStrategy {
                 break;
             }
         }
-        if (requestLoad > 0) {
-            requestLoad = 0;
-        }
     }
 
     @Override
