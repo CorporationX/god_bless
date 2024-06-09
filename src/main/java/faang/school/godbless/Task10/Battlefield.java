@@ -54,6 +54,8 @@ public class Battlefield {
         thrallArmy.add(goblins);
         thrallArmy.add(shamans);
         Hero thrall = new Hero("Thrall", "Horde", 75, 10, thrallArmy);
+        Creature newOrcs = new Pikerman("Orcs");
+        thrall.addToArmy(newOrcs,1);
         Creature footmen = new Swordman("Footmen");
         Creature griffins = new Griffin("Griffins");
         Creature priests = new Angel("Priests");
@@ -62,6 +64,8 @@ public class Battlefield {
         anduinArmy.add(griffins);
         anduinArmy.add(priests);
         Hero anduin = new Hero("Anduin", "Alliance", 60, 12, anduinArmy);
+        Creature newFootmen = new Swordman("Footmen");
+        anduin.addToArmy(newFootmen, 1);
         battle(thrall, anduin);
 
     }
