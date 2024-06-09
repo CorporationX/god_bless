@@ -25,10 +25,18 @@ public class Student {
         return this.year;
     }
 
+    public Stage getStage() {
+        return new Stage(this.getFaculty(), this.getYear());
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        else if (o == null || this.getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        else if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
         else {
             Student student = (Student) o;
             return this.name == student.name && this.faculty == student.faculty && this.year == student.year;

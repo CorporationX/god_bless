@@ -2,11 +2,11 @@ package faang.school.godbless;
 
 import java.util.Objects;
 
-public class Flow {
+public class Stage {
     private String faculty;
     private int year;
 
-    public Flow(String faculty, int year) {
+    public Stage(String faculty, int year) {
         this.faculty = faculty;
         this.year = year;
     }
@@ -21,10 +21,14 @@ public class Flow {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        else if (o == null || this.getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        else if (o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
         else {
-            Flow student = (Flow) o;
+            Stage student = (Stage) o;
             return this.faculty == student.faculty && this.year == student.year;
         }
     }
