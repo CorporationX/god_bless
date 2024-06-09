@@ -2,6 +2,7 @@ package faang.school.godbless.googleEngine;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +59,7 @@ public class Main {
 
     public static List<WebPage> getPagesByWord(String page) {
         if (page == null) {
-            return null;
+            return Collections.emptyList();
         }
 
         return INDEXED_PAGES.get(page);
