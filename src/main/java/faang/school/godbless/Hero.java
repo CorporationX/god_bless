@@ -2,9 +2,7 @@ package faang.school.godbless;
 
 import lombok.*;
 
-
 import java.util.Map;
-
 
 @AllArgsConstructor
 @Getter
@@ -18,13 +16,15 @@ public class Hero {
     @Setter
     private Map<Creature, Integer> army;
 
-
-
-    void addCreature(Creature creature, int quantity){
+    void addCreature(Creature creature, int quantity) {
         this.army.put(creature, quantity);
     }
-    void removeCreature(Creature creature){
-        this.army.remove(creature);
-    }
 
+    void removeCreature(Creature creature, int quantity) {
+        if (quantity >= this.army.get(creature)) {
+            this.army.remove(creature);
+        } else {
+            this.army.putIfAbsent(creature, this.army.get(creature) - quantity);
+        }
+    }
 }
