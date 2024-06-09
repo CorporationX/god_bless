@@ -17,9 +17,7 @@ public class Main {
     public static Map<String, List<Product>> groupProducts(Set<Product> products) {
         Map<String, List<Product>> groupedProducts = new HashMap<>();
         for (Product product : products) {
-            if (!groupedProducts.containsKey(product.getCategory())) {
-                groupedProducts.put(product.getCategory(), new ArrayList<>(Collections.singletonList(product)));
-            } else groupedProducts.get(product.getCategory()).add(product);
+            groupedProducts.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
         return groupedProducts;
     }
