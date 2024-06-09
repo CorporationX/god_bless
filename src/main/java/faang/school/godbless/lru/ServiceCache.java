@@ -1,62 +1,75 @@
 package faang.school.godbless.lru;
 
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 public class ServiceCache {
     private static final int CACHE_SIZE = 5;
+    private final Map<Integer, Data> DBAllRequest = new HashMap<>();
     private final Map<Integer, Data> cacheRequest;
-    private int requestСounter = 0;
-    private int counterID;
 
     public ServiceCache(Map<Integer, Data> cacheRequest) {
-        if (cacheRequest == null) {
+        if (cacheRequest == null || cacheRequest.isEmpty()) {
             throw new IllegalArgumentException("Trying to create ServiceCache with empty Map");
         }
         this.cacheRequest = cacheRequest;
-        requestСounter = cacheRequest.size();
-        counterID = cacheRequest.size();
+        DBAllRequest.putAll(cacheRequest);
+        while (cacheRequest.size() > CACHE_SIZE) {
+            removeLastRequest();
+        }
     }
 
     public void addNewData(Data data) {
         if (data == null) {
-            throw new IllegalArgumentException("attempt to create an empty request");
+            throw new IllegalArgumentException(
+                    "Attempt to create an empty request, in method addNewData class ServiceCache");
         }
-        searchRequest(data);
+        searchOrAddRequest(data);
     }
 
-    public Data searchData(Data data) {
-        if (data == null) {
-            throw new IllegalArgumentException("attempt to create an empty request");
+    public Data searchData(int ID) {
+        if(!cacheRequest.containsKey(ID)) {
+            if(!DBAllRequest.containsKey(ID)) {
+                throw new RuntimeException("The query cannot be found in the database");
+            }
+            searchOrAddRequest(DBAllRequest.get(ID));
+            return DBAllRequest.get(ID);
         }
-        return cacheRequest.get(searchRequest(data));
+        updateTime(cacheRequest.get(ID));
+        return cacheRequest.get(ID);
     }
 
     public void printAllCache() {
         cacheRequest.forEach((k, v) -> System.out.println(k + ": " + v));
     }
 
-    private int searchRequest(Data data) {
-        Date date = new Date();
+    private int searchOrAddRequest(Data data) {
         if (cacheRequest.containsKey(data.getID())) {
-            data.setTimestamp(date.getTime());
-            requestСounter++;
+            updateTime(data);
         } else {
-            if (requestСounter < CACHE_SIZE) {
-                cacheRequest.put(data.getID(), data);
-            } else {
-                cacheRequest.remove(cacheRequest
-                        .entrySet()
-                        .stream()
-                        .mapToLong(entry -> entry.getValue().getTimestamp())
-                );
-                data.setTimestamp(date.getTime());
-                cacheRequest.put(counterID, data);
+            while (cacheRequest.size() >= CACHE_SIZE) {
+                removeLastRequest();
             }
-            requestСounter++;
-            while (counterID == data.getID())
-                counterID++;
+            updateTime(data);
+            cacheRequest.put(data.getID(), data);
         }
         return data.getID();
+    }
+
+    private void removeLastRequest() {
+        cacheRequest.remove(cacheRequest
+                .values()
+                .stream()
+                .min(Comparator.comparing(data -> data.getTimestamp()))
+                .get()
+                .getID()
+        );
+    }
+
+    private void updateTime(Data request) {
+        Date date = new Date();
+        request.setTimestamp(date.getTime());
     }
 }
