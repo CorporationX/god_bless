@@ -3,25 +3,35 @@ package faang.school.godbless.bjs2_8413;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Pattern;
 
 public class Main {
+
+  private static final Pattern WORDS_SEPARATOR_REGEX = Pattern.compile("[^a-z A-Z а-я]+", Pattern.UNICODE_CHARACTER_CLASS);
 
   private static final Map<String, List<WebPage>> webPages = new HashMap<>();
 
   public static void main(String[] args) {
-    WebPage webPage1 = new WebPage("", "", "");
-    WebPage webPage2 = new WebPage("", "", "");
-    WebPage webPage3 = new WebPage("", "", "");
-    WebPage webPage4 = new WebPage("", "", "");
-    WebPage webPage5 = new WebPage("", "", "");
-    WebPage webPage6 = new WebPage("", "", "");
-    WebPage webPage7 = new WebPage("", "", "");
-    WebPage webPage8 = new WebPage("", "", "");
+    List<String> l = List.of("привет", "Привет");
+
+    l.forEach(s -> System.out.println(s));
+//    String[] sss = {"привет", "Привет"};
+//    System.out.println(sss);
+
+
+
+
+
+    WebPage ggg = new WebPage("https://testOne.com", "ddddd", "test2 test1 test3 test4");
+
+    method(ggg);
   }
 
   private static void method(WebPage webPage) {
-//    Set<String> words = webPage.content().split()
+    String[] words = webPage.getContent().split(String.valueOf(WORDS_SEPARATOR_REGEX));
+    for (String s : words) {
+      System.out.println(s);
+    }
   }
 
 }
