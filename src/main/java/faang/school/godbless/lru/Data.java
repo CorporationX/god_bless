@@ -1,21 +1,23 @@
 package faang.school.godbless.lru;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.Objects;
 
 @Getter
 public class Data {
     private int ID;
-    private int values;
+    private int value;
     @Setter
     private Long timestamp;
 
-    public Data(int ID, int values) {
+    public Data(int ID, int value) {
         this.ID = ID;
-        this.values = values;
+        this.value = value;
+        Date date = new Date();
+        timestamp = date.getTime();
     }
 
     @Override
@@ -23,18 +25,18 @@ public class Data {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Data data = (Data) o;
-        return ID == data.ID && values == data.values;
+        return ID == data.ID && value == data.value;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, values);
+        return Objects.hash(ID, value);
     }
 
     @Override
     public String toString() {
         return "Data{" +
-                "values=" + values +
+                "values=" + value +
                 ", ID=" + ID +
                 '}';
     }
