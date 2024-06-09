@@ -5,7 +5,6 @@ import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,27 +17,12 @@ public class User {
     private final String placeOfWork;
     private final String address;
 
-    /*private static HashMap<Integer, List<User>> groupUser(List<User> userList) {
+    public static Map<Integer, List<User>> groupUser(List<User> userList) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
-
-        for (User user : userList) {
-
-            List<User> nextList = new ArrayList<>();
-
-            //userMap.computeIfAbsent(user.getAge(), nextList.add(user));
-
-        }
-
-
+            for (User user : userList) {
+                userMap.computeIfAbsent(user.getAge(), u -> new ArrayList<>()).add(user);
+            }
         return userMap;
-
     }
-
-    /*public static void addUser (User u){
-        List<User> nextList = new LinkedList<>();
-        nextList.add(u);
-    }*/
-
-
 }

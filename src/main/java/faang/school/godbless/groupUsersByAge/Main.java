@@ -1,20 +1,27 @@
 package faang.school.godbless.groupUsersByAge;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
 
-    List<User> userList = new ArrayList<>();
+    public static void main(String[] args) {
 
-    User maria = new User("Maria", 36, "JokGroup", "Minsk");
-    User nik = new User("Nik", 24, "Ntkost", "Moscow");
-    User max = new User("Max", 30, "FEnergy", "Ufa");
-    User ksenia = new User("Ksenia", 24, "BookShop", "Mogilev");
-    User boris = new User("Boris", 30, "GHConsulting", "Minsk");
-    User vadim = new User("Vadim", 24, "NOK", "Moscow");
+        List<User> userList = new ArrayList<>();
 
+        userList.add(new User("Maria", 36, "JokGroup", "Minsk"));
+        userList.add(new User("Nik", 24, "Ntkost", "Moscow"));
+        userList.add(new User("Max", 30, "FEnergy", "Ufa"));
+        userList.add(new User("Ksenia", 24, "BookShop", "Mogilev"));
+        userList.add(new User("Boris", 30, "GHConsulting", "Minsk"));
+        userList.add(new User("Vadim", 24, "NOK", "Moscow"));
+
+        for (var entry : User.groupUser(userList).entrySet()) {
+            System.out.println(entry);
+        }
+    }
 }
+
+
+
