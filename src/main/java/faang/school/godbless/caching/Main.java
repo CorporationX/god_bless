@@ -1,27 +1,26 @@
 package faang.school.godbless.caching;
 
-import java.util.HashMap;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<String, WeatherData> weatherCacheMap = new HashMap<>();
+        WeatherIndex weatherIndex = new WeatherIndex();
 
-        WeatherData luxembourgWeather = WeatherData.getWeather(weatherCacheMap, "Luxembourg");
-        WeatherData moscowWeather = WeatherData.getWeather(weatherCacheMap, "Moscow");
-        WeatherData londonWeather = WeatherData.getWeather(weatherCacheMap, "London");
+        Weather luxembourgWeather = weatherIndex.getWeather("Luxembourg");
+        Weather moscowWeather = weatherIndex.getWeather("Moscow");
+        Weather londonWeather = weatherIndex.getWeather("London");
 
         System.out.println(luxembourgWeather);
         System.out.println(moscowWeather);
         System.out.println(londonWeather);
 
-        WeatherData.updateCityWeather(weatherCacheMap, "Luxembourg");
+        weatherIndex.updateCityWeather("Luxembourg");
 
         System.out.println("All Weathers");
-        WeatherData.showAllWeatherDate(weatherCacheMap);
+        weatherIndex.showAllWeatherDate();
 
         System.out.println("All Weathers after deleting londonWeather");
-        WeatherData.deleteCityWeather(weatherCacheMap, "London");
-        WeatherData.showAllWeatherDate(weatherCacheMap);
+        weatherIndex.deleteCityWeather("London");
+        weatherIndex.deleteCityWeather("London");
+        weatherIndex.showAllWeatherDate();
     }
 }
