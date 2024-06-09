@@ -33,13 +33,7 @@ public class Main {
                 .split(" ")).toList();
 
         for (String keyword : allKeywords) {
-            if (webPagesByKeyword.containsKey(keyword)) {
-                webPagesByKeyword.get(keyword).add(page);
-            } else {
-                List<WebPage> webPages = new ArrayList<>();
-                webPages.add(page);
-                webPagesByKeyword.put(keyword, webPages);
-            }
+            webPagesByKeyword.computeIfAbsent(keyword, k -> new ArrayList<>()).add(page);
         }
     }
 
