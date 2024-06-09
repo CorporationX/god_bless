@@ -1,11 +1,13 @@
 package faang.school.godbless.Task11_Double_Cache;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Main {
 
+    //methods for 1st HashMap
     public static void addStudentAndMarks(Map<Student, Map<Subject, Integer>> marks, Student student,
                                           Map<Subject, Integer> subjectMarks) {
         marks.put(student, subjectMarks);
@@ -32,6 +34,35 @@ public class Main {
         }
     }
 
+    //methods for 2nd HashMap
+    public static void addSubjectAndStudents(Subject subject, List<Student> visitors,
+                                            Map<Subject, List<Student>> attenders) {
+        attenders.put(subject, visitors);
+    }
+
+    public static void addStudentToSubject(Student student, Subject subject,
+                                           Map<Subject, List<Student>> attenders) {
+        attenders.compute(subject, (key, value)->value).add(student);
+    }
+
+    public static void removeStudentFromSubject(Student student, Subject subject,
+                                                Map<Subject, List<Student>> attenders) {
+        attenders.compute(subject, (key, value)->value).remove(student);
+        if(attenders.get(subject).isEmpty()) {
+            attenders.remove(subject);
+        }
+    }
+
+    public static void showSubjectsAndStudents(Map<Subject, List<Student>> attenders) {
+        for (Map.Entry<Subject, List<Student>> entry : attenders.entrySet()) {
+            System.out.print(entry.getKey().getName() + ": ");
+            for (Student student : entry.getValue()) {
+                System.out.print (student.getName() + " ");
+            }
+            System.out.println();
+        }
+    }
+
     public static void main(String[] args) {
 
     Map<Student, Map<Subject, Integer>> marks = new HashMap<>();
@@ -43,7 +74,7 @@ public class Main {
     ivanMarks.put(math, 5);
     Student alex = new Student(2,"Alex");
     Map<Subject, Integer> alexMarks = new HashMap<>();
-    Subject phys = new Subject(2, "Subject");
+    Subject phys = new Subject(2, "Physics");
     alexMarks.put(phys, 4);
 
     marks.put(ivan, ivanMarks);
@@ -62,9 +93,25 @@ public class Main {
     removeStudentAndMarks(alex, marks);
     System.out.println(marks);
     showStudentsAndMarks(marks);
+    System.out.println();
 
-
-
+    List<Student> mathLovers = new ArrayList<>();
+    mathLovers.add(ivan);
+    mathLovers.add(john);
+    attenders.put(math, mathLovers);
+    System.out.println(attenders);
+    List<Student> physicsEnjoyers = new ArrayList<>();
+    physicsEnjoyers.add(alex);
+    addSubjectAndStudents(phys, physicsEnjoyers, attenders);
+    System.out.println(attenders);
+    Student mike = new Student(4, "Mike");
+    addStudentToSubject(mike, math, attenders);
+    System.out.println(attenders);
+    removeStudentFromSubject(alex, phys, attenders);
+    System.out.println(attenders);
+    physicsEnjoyers.add(ivan);
+    addSubjectAndStudents(phys, physicsEnjoyers, attenders);
+    showSubjectsAndStudents(attenders);
 
     }
 
