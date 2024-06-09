@@ -1,4 +1,4 @@
-package faang.school.godbless.module1.spring1.task8;
+package faang.school.godbless.module1.sprint1.task8;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
