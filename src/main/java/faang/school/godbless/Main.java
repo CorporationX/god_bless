@@ -16,14 +16,22 @@ public class Main {
     }
 
     public static void updateWeatherByCity(String city) {
+        WeatherData updatedWeather = GlobalWeather.getWeather(city);
         if (cache.containsKey(city)) {
-            WeatherData updatedWeather = GlobalWeather.getWeather(city);
             cache.replace(city, updatedWeather);
+        } else {
+            System.out.println(city + " not found in the cache");
+            System.out.println("Weather has been added to the cache");
+            cache.put(city, updatedWeather);
         }
     }
 
     public static void deleteWeatherByCity(String city) {
-        cache.remove(city);
+        if (!cache.containsKey(city)) {
+            System.out.println(city + " not found in the cache");
+        } else {
+            cache.remove(city);
+        }
     }
 
     public static void showAllCities() {
