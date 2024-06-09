@@ -54,3 +54,5 @@ out/
 
 ### VS Code ###
 .vscode/
+/src/main/java/testing/Application.java
+/src/main/java/faang/school/godbless/Application.java
