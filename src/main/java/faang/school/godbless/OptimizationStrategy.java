@@ -1,2 +1,5 @@
-package faang.school.godbless;public interface OptimizationStrategy {
+package faang.school.godbless;
+
+public interface OptimizationStrategy {
+    void optimize(DataCenter datacenter);
 }
