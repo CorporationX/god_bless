@@ -7,8 +7,10 @@ public class BattleField {
     public String battle(Hero hero1, Hero hero2) {
         int hero1ArmyPoints = calculateArmyPoints(hero1);
         int hero2ArmyPoints = calculateArmyPoints(hero2);
-
-        Hero winner = hero1ArmyPoints > hero2ArmyPoints ? hero1 : hero2;
+        Hero winner;
+        if (hero1ArmyPoints != hero2ArmyPoints) {
+            winner = hero1ArmyPoints > hero2ArmyPoints ? hero1 : hero2;
+        } else return "Ничья";
         return "Победу одержал - " + winner;
     }
 

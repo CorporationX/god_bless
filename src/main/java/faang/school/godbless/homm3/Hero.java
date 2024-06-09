@@ -21,9 +21,12 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
+        if (army.get(creature.getName()).getQuantity() < quantity)
+            throw new IllegalArgumentException("ОшЫбка, вы пытаетесь удалить существ " + creature.getName() + " больше, чем их в вашей армии");
         if (army.get(creature.getName()).getQuantity() == quantity) {
             army.remove(creature.getName());
         } else army.get(creature.getName()).setQuantity(army.get(creature.getName()).getQuantity() - quantity);
+
     }
 
     public void addCreature(Creature creature, int quantity) {
