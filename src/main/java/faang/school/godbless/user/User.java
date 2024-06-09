@@ -15,3 +15,4 @@ public record User(int id, String name, int age, Set<String> activity) {
         return resultHobbyLovers;
     }
 }
+

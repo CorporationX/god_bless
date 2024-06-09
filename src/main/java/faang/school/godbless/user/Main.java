@@ -18,6 +18,7 @@ public class Main {
                 new User(10, "Vladimir", 40, Set.of("Gaming", "Coding"))
         );
 
+
         User.findHobbyLovers(users, Set.of("Gaming", "Coding"))
                 .forEach((user, activity) -> System.out.println(user + " : " + activity));
     }
