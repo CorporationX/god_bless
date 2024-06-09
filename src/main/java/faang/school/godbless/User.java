@@ -33,7 +33,7 @@ public class User {
     }
 
     public void setId(long id) {
-        if (id >= 100000 && id <= 999999) {
+        if (id > 0) {
             this.id = id;
         } else {
             throw new IllegalArgumentException(id + " is incorrect id");
