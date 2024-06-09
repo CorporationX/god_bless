@@ -8,10 +8,11 @@ public class Main {
 
     public static void main(String[] args) {
         System.out.println("Adding");
-        System.out.println(add(new House("name1", "sigil1")));
-        System.out.println(add(new House("name2", "sigil2")));
-        System.out.println(add(new House("name3", "sigil3")));
-        System.out.println(add(new House("name4", "sigil4")));
+        add(new House("name1", "sigil1"));
+        add(new House("name2", "sigil2"));
+        add(new House("name3", "sigil3"));
+        add(new House("name4", "sigil4"));
+        printAll();
 
         System.out.println("\nFinding");
         System.out.println(findByName("name1"));
@@ -24,9 +25,8 @@ public class Main {
         printAll();
     }
 
-    public static House add(House house) {
+    public static void add(House house) {
         westerosHouses.put(house.getName(), house);
-        return westerosHouses.get(house.getName());
     }
 
     public static void deleteByName(String name) {
