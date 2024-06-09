@@ -2,6 +2,7 @@ package faang.school.godbless;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     private static Map<Book, String> booksLocation = new HashMap<>();
@@ -28,15 +29,24 @@ public class Main {
         else booksLocation.put(book, location);
     }
 
-    public static String searchBook(String title, String author, int age) {
-        return booksLocation.get(new Book(title, author, age));
+    public static String searchBook(String title, String author, int year) {
+        String bookLocation = "";
+        for (Book book : booksLocation.keySet()) {
+            if (book.getYear() == year && Objects.equals(book.getTitle(), title) && Objects.equals(book.getAuthor(), author)) {
+                return booksLocation.get(book);
+            }
+        }
+        return "There is no " + "|" + title + "| |" + author + "|  " + year;
     }
 
-    public static void removeBook(String title, String author, int age) {
-        Book necessaryBook = new Book(title, author, age);
-
-        if (booksLocation.containsKey(necessaryBook)) booksLocation.remove(necessaryBook);
-        else System.out.println("There is no book: " + necessaryBook);
+    public static void removeBook(String title, String author, int year) {
+        for (Book book : booksLocation.keySet()) {
+            if (book.getYear() == year && Objects.equals(book.getTitle(), title) && Objects.equals(book.getAuthor(), author)) {
+                booksLocation.remove(book);
+                return;
+            }
+        }
+        System.out.println("There is no " + "|" + title + "| |" + author + "|  " + year);
     }
 
     public static void printBook() {
