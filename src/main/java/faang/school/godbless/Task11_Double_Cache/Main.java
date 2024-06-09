@@ -16,6 +16,22 @@ public class Main {
         marks.compute(student, (key, value)-> value).put(subject, mark);
     }
 
+    public static void removeStudentAndMarks(Student student, Map<Student,
+            Map<Subject, Integer>> marks) {
+        marks.remove(student);
+    }
+
+    public static void showStudentsAndMarks (Map<Student, Map<Subject, Integer>> marks) {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : marks.entrySet()) {
+            String name = entry.getKey().getName();
+            System.out.println("Student: " + name);
+            for (Map.Entry<Subject, Integer> subjectMark : entry.getValue().entrySet()) {
+                System.out.println("Subject: " + subjectMark.getKey().getName() + ", mark: "
+                + subjectMark.getValue());
+            }
+        }
+    }
+
     public static void main(String[] args) {
 
     Map<Student, Map<Subject, Integer>> marks = new HashMap<>();
@@ -29,12 +45,23 @@ public class Main {
     Map<Subject, Integer> alexMarks = new HashMap<>();
     Subject phys = new Subject(2, "Subject");
     alexMarks.put(phys, 4);
+
     marks.put(ivan, ivanMarks);
     marks.put(alex, alexMarks);
     System.out.println(marks);
+
     Student john = new Student(3,"John");
     Subject chemistry = new Subject(3,"Chemistry");
-
+    Map<Subject, Integer> johnMarks = new HashMap<>();
+    johnMarks.put(chemistry, 5);
+    johnMarks.put(math, 4);
+    addStudentAndMarks(marks, john, johnMarks);
+    System.out.println(marks);
+    addSubjectForStudent(chemistry, 4, ivan, marks);
+    System.out.println(marks);
+    removeStudentAndMarks(alex, marks);
+    System.out.println(marks);
+    showStudentsAndMarks(marks);
 
 
 
