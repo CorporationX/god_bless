@@ -17,8 +17,11 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        if (name.isEmpty() || name.isBlank()) {
-            throw new IllegalArgumentException("Error: name is empty or null");
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Error: name is null");
+        }
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Error: name is empty");
         }
         if (age < 18) {
             throw new IllegalArgumentException("not 18 years old");
