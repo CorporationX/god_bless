@@ -44,7 +44,11 @@ public class StudentManager {
     public List<Student> searchByFacultyAndYear(String faculty, int year) {
         String key = composeKey(faculty, year);
 
-        return facultyStudentMap.get(key);
+        List<Student> studentList = facultyStudentMap.get(key);
+        if (studentList == null) {
+            throw new RuntimeException("Could not find list of students faculty:" + faculty + " year " + year);
+        }
+        return studentList;
     }
 
     public void showStudentsGropedByFacultyAndYear() {
