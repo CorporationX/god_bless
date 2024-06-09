@@ -16,6 +16,7 @@ public class Main {
         User anton = new User(1, "Anton");
         User john = new User(2, "John");
         User jane = new User(3, "Jane");
+        User jack = new User(4, "Jack");
 
         userQueries.put(anton, new ArrayList<>());
         userQueries.put(john, new ArrayList<>());
@@ -50,6 +51,7 @@ public class Main {
         printHistoryUser(john);
         System.out.println("-----------------------");
         printHistoryUser(jane);
+        removeUser(jack);
     }
 
     public static void addUserWithQueries(User user, List<Query> queries) {
@@ -61,7 +63,11 @@ public class Main {
     }
 
     public static void removeUser(User user) {
-        userQueries.remove(user);
+        if (userQueries.containsKey(user)) {
+            userQueries.remove(user);
+        } else {
+            throw new IllegalArgumentException("User " + user + " does not exist");
+        }
     }
 
     public static void printAllUserWithQueries() {
