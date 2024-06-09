@@ -18,10 +18,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        if (name.isEmpty() || name.equals(" ") || age < 18
-                || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESS.contains(address)) {
-            throw new IllegalArgumentException("Invalid data was received in the constructor of the User class");
-        }
+        validDataForConstructor(name, age, placeOfWork, address);
         this.name = name;
         this.age = age;
         this.placeOfWork = placeOfWork;
@@ -65,4 +62,18 @@ public class User {
         return usersByAge;
     }
 
+    private void validDataForConstructor(String name, int age, String placeOfWork, String address) {
+        if (name.isEmpty() || name.equals(" ")) {
+            throw new IllegalArgumentException("Invalid name was received in the constructor of the User class was received: " + name);
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Age not be less 18 age in constructor of the User was received: " + age);
+        }
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("Not valid place of work in constructor of the User class");
+        }
+        if (!VALID_ADDRESS.contains(address)) {
+            throw new IllegalArgumentException("Not valid address in constructor of the User class");
+        }
+    }
 }
