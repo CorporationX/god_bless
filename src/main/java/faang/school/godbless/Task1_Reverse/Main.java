@@ -1,4 +1,4 @@
-package faang.school.godbless.Task1;
+package faang.school.godbless.Task1_Reverse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import static faang.school.godbless.Task1.User.findHobbyLovers;
+import static faang.school.godbless.Task1_Reverse.User.findHobbyLovers;
 
 public class Main {
 
