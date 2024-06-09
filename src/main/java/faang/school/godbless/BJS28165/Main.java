@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS28165;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,31 +49,19 @@ public class Main {
 
     public static void addNewStudent(Student student, Map<FacultyYear, List<Student>> mapStudents) {
         FacultyYear facultyYear = new FacultyYear(student.getFaculty(), student.getYear());
-        if (mapStudents.containsKey(facultyYear)) {
-            if (mapStudents.get(facultyYear).contains(student)) {
-                System.out.println(student + " has already exists in the map");
-            } else {
-                mapStudents.get(facultyYear).add(student);
-                System.out.println(student + " added successfully for existing FacultyYear");
-            }
+        List<Student> students = mapStudents.computeIfAbsent(facultyYear, key -> new ArrayList<>());
+        if (students.contains(student)) {
+            System.out.println(student + " has already exists in the map\n");
         } else {
-            mapStudents.put(facultyYear, new ArrayList<>());
-            mapStudents.get(facultyYear).add(student);
-            System.out.println(student + " added successfully for new FacultyYear");
+            students.add(student);
+            System.out.println(student + " added successfully\n");
         }
     }
 
     public static void removeStudent(Student student, Map<FacultyYear, List<Student>> mapStudents) {
         FacultyYear facultyYear = new FacultyYear(student.getFaculty(), student.getYear());
-        if (mapStudents.containsKey(facultyYear)) {
-            if (mapStudents.get(facultyYear).contains(student)) {
-                mapStudents.get(facultyYear).remove(student);
-                System.out.println(student + " successfully removed");
-            } else {
-                System.out.println(student + " doesn't exist in the map, but FacultyYear is correct");
-            }
-        } else {
-            System.out.println(student + " and even FacultyYear don't exist in the map");
+        if (!mapStudents.containsKey(facultyYear) || !mapStudents.get(facultyYear).removeIf(s -> s.equals(student))) {
+            System.out.println(student + " doesn't exist in the map");
         }
     }
 
@@ -91,7 +80,7 @@ public class Main {
         if (mapStudents.containsKey(facultyYear)) {
             List<Student> students = mapStudents.get(facultyYear);
             System.out.println(facultyYear.toString() + " includes next students:");
-            if (students.size() > 0) {
+            if (!students.isEmpty()) {
                 students.forEach(student -> System.out.println(student));
             } else {
                 System.out.println("There's no students in " + facultyYear.toString());
