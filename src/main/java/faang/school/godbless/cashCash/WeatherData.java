@@ -12,23 +12,24 @@ public class WeatherData {
         this.humidity = humidity;
     }
 
-    public String getCity(){
+    public String getCity() {
         return city;
     }
-
 
 
     public void setCity(String city) {
         this.city = city;
     }
-    public Integer getTemperature(){
+
+    public Integer getTemperature() {
         return temperature;
     }
+
     public void setTemperature(Integer temperature) {
         this.temperature = temperature;
     }
 
-    public Integer getHumidity(){
+    public Integer getHumidity() {
         return humidity;
     }
 

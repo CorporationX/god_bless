@@ -33,40 +33,42 @@ public class Main {
             gorodWeatherData.put(weatherData.getCity(), weatherData);
         }
     }
+
     public static String getWeatherOfCity(String city) {
-        if(!city.isBlank()) {
+        if (!city.isBlank()) {
             if (!gorodWeatherData.containsKey(city)) {
                 addWeather(WeatherSourceService.getWeatherData(city));
             }
             return ("Город: " + gorodWeatherData.get(city).getCity() + " , " +
                     "Температура: " + gorodWeatherData.get(city).getTemperature() + " , " +
                     "Влажность: " + gorodWeatherData.get(city).getHumidity());
-        }else{
+        } else {
             throw new IllegalArgumentException("Неправильное значение!");
         }
     }
-    public static String updateWeather(String city, WeatherData weatherData){
-        if(!city.isBlank()) {
+
+    public static String updateWeather(String city, WeatherData weatherData) {
+        if (!city.isBlank()) {
             gorodWeatherData.get(city).setTemperature(weatherData.getTemperature());
             gorodWeatherData.get(city).setHumidity(weatherData.getHumidity());
 
             return ("Город: " + gorodWeatherData.get(city).getCity() + " , " +
                     "Температура: " + gorodWeatherData.get(city).getTemperature() + " , " +
                     "Влажность: " + gorodWeatherData.get(city).getHumidity());
-        }else{
+        } else {
             throw new IllegalArgumentException("Неправильное значение!");
         }
     }
 
-    public static void deleteCity(String city){
+    public static void deleteCity(String city) {
         gorodWeatherData.remove(city);
     }
 
-    public static void printAll(){
-        gorodWeatherData.forEach((city, gorodWeather) ->{
+    public static void printAll() {
+        gorodWeatherData.forEach((city, gorodWeather) -> {
             System.out.println("Город: " + city + " , " +
-                                "Температура: " + gorodWeather.getTemperature() + " , " +
-                                "Влажность: " + gorodWeather.getHumidity());
+                    "Температура: " + gorodWeather.getTemperature() + " , " +
+                    "Влажность: " + gorodWeather.getHumidity());
         });
     }
 }
