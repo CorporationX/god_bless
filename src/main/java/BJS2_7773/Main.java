@@ -12,7 +12,7 @@ public class Main {
         archer.attack(warrior);
         archer.attack(warrior);
 
-        System.out.println(warrior.getName() +" "+warrior.health);
-        System.out.println(archer.getName() +" "+archer.health);
+        System.out.println(warrior.getName() + " " + warrior.health);
+        System.out.println(archer.getName() + " " + archer.health);
     }
 }
