@@ -1,4 +1,7 @@
 package faang.school.godbless;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 
@@ -13,5 +16,6 @@ public class Application {
             System.out.println("Здоровье " + warrior.getName() + ": " + warrior.getHealthPoints());
             System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealthPoints());
         }
+
     }
 }
