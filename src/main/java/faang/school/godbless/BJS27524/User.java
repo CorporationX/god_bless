@@ -1,4 +1,6 @@
 package faang.school.godbless.BJS27524;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ groupUsers, который принимает List из объектов User и
 а значением — список из всех пользователей в оригинальном списке, которые имеют соответствующий возраст.
  */
 
-
+@Getter
 public class User {
     private String firstname;
     private int age;
@@ -40,11 +42,11 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUser(List<User> listOfUser, Set<Integer> newSet) {
-        Map<Integer, List<User>> groupedUsers = new HashMap<>();
+        Map<Integer, List<User>> groupedUser = new HashMap<>();
             for (User i : listOfUser) {
-                groupedUsers.computeIfAbsent(i.getAge(), k -> new ArrayList<>()).add(i);
+                groupedUser.computeIfAbsent(i.getAge(), k -> new ArrayList<>()).add(i);
             }
-        return groupedUsers;
+        return groupedUser;
     }
 }
 
