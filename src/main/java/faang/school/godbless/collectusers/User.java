@@ -18,6 +18,13 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users,
                                                     Set<String> activities) {
+        if (users == null || activities == null) {
+            throw new IllegalArgumentException();
+        }
+        if (activities.isEmpty()) {
+            return Map.of();
+        }
+
         Map<User, String> resultMap = new HashMap<>();
         users.stream().forEach(user -> user.activities.stream()
                 .filter(activities::contains)
