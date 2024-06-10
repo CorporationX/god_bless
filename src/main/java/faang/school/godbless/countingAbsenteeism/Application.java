@@ -58,8 +58,9 @@ public class Application {
     private static HashMap<FacultyAndYear, List<Student>> groupStudents(List<Student> students) {
         HashMap<FacultyAndYear, List<Student>> resultStudents = new HashMap<>();
         if (!students.isEmpty()) {
+            FacultyAndYear facultyAndYear = new FacultyAndYear();
             for (Student student : students) {
-                if (!resultStudents.containsKey(new FacultyAndYear(student.getFaculty(), student.getYear()))) {
+                if (!resultStudents.containsKey(facultyAndYear)) {
                     resultStudents.put(new FacultyAndYear(student.getFaculty(), student.getYear()), new ArrayList<>());
                 }
                 resultStudents.get(new FacultyAndYear(student.getFaculty(), student.getYear())).add(student);

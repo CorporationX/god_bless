@@ -6,6 +6,11 @@ public class FacultyAndYear {
     private String faculty;
     private Integer year;
 
+    public FacultyAndYear(){
+        this.faculty = faculty;
+        this.year = year;
+    }
+
     public FacultyAndYear(String faculty, Integer year){
         this.faculty = faculty;
         this.year = year;
