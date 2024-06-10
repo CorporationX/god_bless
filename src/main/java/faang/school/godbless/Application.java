@@ -27,6 +27,7 @@ public class Application {
 
 
     }
+<<<<<<< danya9375
 
     public static void addBook(Book book, String number) {
         mapBook.put(new Book(book.title(), book.author(), book.year()), number);
@@ -46,3 +47,6 @@ public class Application {
     }
 
 }
+=======
+}
+>>>>>>> master
