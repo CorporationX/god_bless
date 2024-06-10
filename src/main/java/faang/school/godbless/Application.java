@@ -1,16 +1,25 @@
 package faang.school.godbless;
 
-import static faang.school.godbless.Example.reverse;
+import java.util.Arrays;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        MessageProcessor messageProcessor = new MessageProcessor();
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
+        // Создание фильтров
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
+        MessageFilter lengthFilter = message -> message.length() > 10;
+        MessageFilter emojiFilter = message -> !message.contains("😀");
+
+        List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
+
+        // Обработка сообщений
+        String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
+
+        for (String message : messages) {
+            boolean isFiltered = messageProcessor.processMessage(message, filters);
+            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
         }
     }
 }
