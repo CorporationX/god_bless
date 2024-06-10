@@ -1,5 +1,6 @@
 package faang.school.godbless.LordOfTheRingsRPG;
 
+import java.util.List;
 import java.util.ListIterator;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -16,12 +17,7 @@ public class InventoryManager {
     }
 
     void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        ListIterator<Item> itemIterator = character.getInventory().listIterator();
-        while (itemIterator.hasNext()) {
-            Item currentItem = itemIterator.next();
-            if (predicate.test(currentItem)) {
-                itemIterator.set(function.apply(currentItem));
-            }
-        }
+        List<Item> inventory = character.getInventory();
+        inventory.replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
     }
 }

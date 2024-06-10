@@ -17,6 +17,8 @@ public class Main {
         // Обновляем предмет в инвентаре
         inventoryManager.updateItem(character, (item) -> item.getName().equals("C"), (item) -> new Item(item.getName(), item.getValue() * 2));
 
+        System.out.println(character.getInventory());
+
 
     }
 }
