@@ -11,9 +11,6 @@ public class NotificationManager {
         if(notificationID == null) {
             throw new IllegalArgumentException("ID notification not be null");
         }
-        if(handler == null) {
-            throw new IllegalArgumentException("Consumer<Notification> not be null");
-        }
         managerNotification.put(notificationID, handler);
     }
 
