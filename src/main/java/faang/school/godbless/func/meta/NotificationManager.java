@@ -4,18 +4,23 @@ import lombok.NoArgsConstructor;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 @NoArgsConstructor
 public class NotificationManager {
 
-    private final Map<String, Consumer<Notification>> plainNotifications = new HashMap<>();
+    private final Map<String, Function<Notification, ?>> notificationHandlers = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> handler) {
-        this.plainNotifications.put(type, handler);
+    public void registerHandler(String type, Function<Notification, ?> handler) {
+        this.notificationHandlers.put(type, handler);
     }
 
-    public void sendNotification(Notification notification) {
-        plainNotifications.get(notification.type()).accept(notification);
+    @SuppressWarnings("unchecked")
+    public <N> N sendNotification(Notification notification) {
+        Function<Notification, ?> handler = notificationHandlers.get(notification.type());
+        if (handler != null) {
+            return (N) handler.apply(notification);
+        }
+        return null;
     }
 }
