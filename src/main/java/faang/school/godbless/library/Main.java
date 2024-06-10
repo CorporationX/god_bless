@@ -28,14 +28,23 @@ public class Main {
       books.put(book, place);
       log.info(String.format("Added book: %s | %s", book.getTitle(), books));
     }
+
     static void removeBookByBookInfo(String title, String author, Integer year) {
       Book bookForRemove = new Book(title, author, year);
-      books.remove(bookForRemove);
-      log.info(String.format("Removed book: %s | %s", bookForRemove.getTitle(), books));
+      var result = books.remove(bookForRemove);
+      if (result == null) {
+        log.info(String.format("Unknown book: %s | %s", bookForRemove.getTitle(), books));
+      } else {
+        log.info(String.format("Removed book: %s | %s", bookForRemove.getTitle(), books));
+      }
     }
 
     static String getBookPlaceByInfo(String title, String author, Integer year) {
       Book bookKey = new Book(title, author, year);
+      String bookPlace = books.get(bookKey);
+      if (bookPlace == null) {
+        return(String.format("Unknown book: %s | %s", bookKey.getTitle(), books));
+      }
       return books.get(bookKey);
     }
 
