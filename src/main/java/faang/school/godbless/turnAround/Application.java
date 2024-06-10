@@ -1,6 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.turnAround;
 
-import static faang.school.godbless.Example.reverse;
+import static faang.school.godbless.turnAround.Example.reverse;
 
 public class Application {
     public static void main(String[] args) {
