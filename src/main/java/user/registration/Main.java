@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package user.registration;
 
 import java.util.List;
 import java.util.ArrayList;
