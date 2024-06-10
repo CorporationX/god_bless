@@ -1,6 +1,5 @@
 package faang.school.godbless.CatchTheEvent;
 
-import faang.school.godbless.StreamEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
