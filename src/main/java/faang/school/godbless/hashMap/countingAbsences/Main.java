@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Main {
     private static List<Student> students = new ArrayList<>();
+
     public static void main(String[] args) {
         add("name1", "faculty1", 1);
         add("name2", "faculty1", 2);
@@ -40,14 +41,14 @@ public class Main {
         }
     }
 
-    public static Map<Map<String, Integer>, List<Student>> getSortedStudents(List<Student> students) {
+    public static Map<CourseInfo, List<Student>> getSortedStudents(List<Student> students) {
         if (students == null) {
             throw new IllegalArgumentException("Passed null");
         }
 
-        Map<Map<String, Integer>, List<Student>> sortedStudents = new HashMap<>();
+        Map<CourseInfo, List<Student>> sortedStudents = new HashMap<>();
         for (Student student : students) {
-            Map<String, Integer> key = Map.of(student.getFaculty(), student.getYear());
+            CourseInfo key = new CourseInfo(student.getFaculty(), student.getYear());
             sortedStudents.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
         return sortedStudents;
@@ -67,14 +68,12 @@ public class Main {
         return foundStudents;
     }
 
-    public static void printSortedStudents(Map<Map<String, Integer>, List<Student>> sortedStudents) {
+    public static void printSortedStudents(Map<CourseInfo, List<Student>> sortedStudents) {
         StringBuilder sb = new StringBuilder();
-        for (Map.Entry<Map<String, Integer>, List<Student>> entry : sortedStudents.entrySet()) {
-            for (Map.Entry<String, Integer> innerEntry : entry.getKey().entrySet()) {
-                sb.append("\nFaculty: ").append(innerEntry.getKey()).append(", year: ").append(innerEntry.getValue());
-            }
-
-            sb.append("\nStudents:");
+        for (Map.Entry<CourseInfo, List<Student>> entry : sortedStudents.entrySet()) {
+            sb.append("\nFaculty: ").append(entry.getKey().getFaculty())
+                    .append(", year: ").append(entry.getKey().getYear())
+                    .append("\nStudents:");
             for (Student student : entry.getValue()) {
                 sb.append("\n").append(student);
             }
