@@ -1,10 +1,10 @@
-package faang.school.godbless;
+package faang.school.godbless.groupingUsersByAge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static faang.school.godbless.User.*;
+import static faang.school.godbless.groupingUsersByAge.User.*;
 
 public class Application {
     public static void main(String[] args) {
