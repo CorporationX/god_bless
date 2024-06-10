@@ -13,6 +13,7 @@ public class Application {
         Map<Book, String> library = new HashMap<>();
 
         Book book1 = new Book("The song of ice and fire", "J. Martin", 2008);
+
         Book book2 = new Book("Prisoner of Azkaban", "J. Rowling", 2005);
 
 
