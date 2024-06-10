@@ -3,10 +3,9 @@ package faang.school.godbless.caching;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 public class Main {
-    private static Random rnd = new Random();
+    private static ExternalSource externalSource = new ExternalSource();
     private static Map<String, WeatherData> cachedWeatherDataByCityName
             = new HashMap<>();
 
@@ -39,7 +38,7 @@ public class Main {
         }
 
         return cachedWeatherDataByCityName.computeIfAbsent(
-                cityName, key -> requestExternalData(cityName));
+                cityName, key -> externalSource.getWeatherData(cityName));
     }
 
     // Получаем список всех городов, для которых есть информация в кэше.
@@ -65,21 +64,5 @@ public class Main {
         }
 
         cachedWeatherDataByCityName.remove(cityName);
-    }
-
-    // Обращаемся к "внешнему источнику"
-    private static WeatherData requestExternalData(String cityName) {
-        System.out.println("Request to external source");
-        return new WeatherData(cityName, getRandomTemp(), getRandomHumidity());
-    }
-
-    // random temp -50.0 - +50.0
-    private static double getRandomTemp() {
-        return (double) rnd.nextInt(-500, 500 + 1) / 10;
-    }
-
-    // random humidity 0.0 - 100.0
-    private static double getRandomHumidity() {
-        return (double) rnd.nextInt(100 + 1) / 10;
     }
 }
