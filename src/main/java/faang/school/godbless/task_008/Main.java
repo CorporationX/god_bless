@@ -79,8 +79,7 @@ public class Main {
     /*
     Группирует студентов по факультету и курсу.
      */
-    private static Map<List<String>, List<Student>>
-    groupStudentsByFacultyAndYear(List<Student> students) {
+    private static Map<List<String>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
         Map<List<String>, List<Student>> result = new HashMap<>();
 
         for (Student student : students) {
