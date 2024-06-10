@@ -10,10 +10,10 @@ import java.util.Map;
 public class Main {
   static Map<User, List<Query>> users = new HashMap<>();
   public static void main(String[] args) {
-    List<Query> queries1 = new ArrayList<>();
-    queries1.add(new Query(1l, "content", new Date()));
-    queries1.add(new Query(2l, "content2", new Date()));
-    addUserAndQuery(new User(1l, "name1"), queries1);
+    List<Query> queriesFirst = new ArrayList<>();
+    queriesFirst.add(new Query(1l, "content", new Date()));
+    queriesFirst.add(new Query(2l, "content2", new Date()));
+    addUserAndQuery(new User(1l, "name1"), queriesFirst);
     addUserAndQuery(new User(2l, "name2"), List.of(new Query(1l, "content", new Date()),
       new Query(2l, "content2", new Date())));
     System.out.println(users);
@@ -33,15 +33,15 @@ public class Main {
   }
 
   public static void addQueryFromUser(User user, Query query) {
-//    users.computeIfPresent(user, (key, value) -> {
-//      value.add(query);
-//      return value;
-//    });
     users.computeIfAbsent(user, s -> new ArrayList<>()).add(query);
   }
 
   public static void deleteUser(User user) {
-    users.remove(user);
+    if (users.containsKey(user)) {
+      users.remove(user);
+    } else {
+      System.out.println("По данному ключу не найден пользователь");
+    }
   }
 
   public static void printAllUsers() {
