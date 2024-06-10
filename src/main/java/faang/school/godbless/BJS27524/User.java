@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS27555;
+package faang.school.godbless.BJS27524;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,17 +40,11 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUser(List<User> listOfUser, Set<Integer> newSet) {
-        Map<Integer, List<User>> map1 = new HashMap<>();
-        for (Integer i : newSet) {
-            List<User> list = new ArrayList<>();
-            for (User user : listOfUser) {
-                if (newSet.contains(user.getAge())) {
-                    list.add(user);
-                    map1.put(user.getAge(), list);
-                }
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
+            for (User i : listOfUser) {
+                groupedUsers.computeIfAbsent(i.getAge(), k -> new ArrayList<>()).add(i);
             }
-        }
-        return map1;
+        return groupedUsers;
     }
 }
 
