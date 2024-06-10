@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
-import static java.util.Optional.*;
-import static java.util.stream.Collectors.*;
+import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toList;
 
 public class Main {
     List<Student> studentsList = new ArrayList<>(List.of(
@@ -21,7 +21,7 @@ public class Main {
     public Map<FacultyYear, List<Student>> getStudentsByFacultyYear(List<Student> students) {
         return students.stream()
                 .collect(groupingBy(
-                        student -> new FacultyYear(student.getFaculty(), student.getYear()),
+                        student -> new FacultyYear(student.faculty(), student.year()),
                         HashMap::new,
                         toList())
                 );
@@ -32,9 +32,9 @@ public class Main {
     }
 
     public boolean deleteStudent(String studentName, String studentFaculty, Integer year) {
-        return studentsList.removeIf(s -> s.getName().equals(studentName)
-                && s.getFaculty().equals(studentFaculty)
-                && s.getYear().equals(year));
+        return studentsList.removeIf(s -> s.name().equals(studentName)
+                && s.faculty().equals(studentFaculty)
+                && s.year().equals(year));
     }
 
     public List<Student> findAllStudentByFacultyYear(FacultyYear facultyYear) {
