@@ -51,10 +51,10 @@ public class Student {
         return studentList;
     }
 
-    public static Map<String, List<Student>> StudentsHash(List<Student> students) {
-        Map<String, List<Student>> map = new HashMap<>();
+    public static Map<FacultyYear, List<Student>> StudentsHash(List<Student> students) {
+        Map<FacultyYear, List<Student>> map = new HashMap<>();
         for (Student student : students) {
-            String key = student.getFaculty() + " " + student.getYear();
+            FacultyYear key = new FacultyYear(student.getFaculty(), student.getYear());
             if (!map.containsKey(key)) {
                 map.put(key, new ArrayList<>());
             }

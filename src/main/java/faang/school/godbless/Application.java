@@ -31,7 +31,7 @@ public class Application {
         List<Student> searchedStudents = Student.getStudents(students, "Slytherin", 1);
         System.out.println(searchedStudents);
 
-        Map<String, List<Student>> groupedStudents = Student.StudentsHash(students);
+        Map<FacultyYear, List<Student>> groupedStudents = Student.StudentsHash(students);
         System.out.println(groupedStudents);
     }
 }
