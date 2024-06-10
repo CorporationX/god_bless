@@ -5,6 +5,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/*Создайте класс Student, который будет содержать поля id (ID студента) и name (имя студента).
+
+        Создайте класс Subject, который будет содержать поля id (ID предмета) и name (название предмета).
+
+        В классе Main, создайте две HashMap: Первая HashMap с ключом типа Student и значением типа Map<Subject, Integer>
+(список предметов и оценок студента по каждому предмету); Вторая HashMap с ключом типа Subject и значением типа List<Student>
+(список студентов, изучающих данный предмет).*/
+
 /*Реализуйте методы для следующих действий: добавление нового студента и его предметов с оценками; добавление нового
 предмета для существующего студента с оценкой; удаление студента и его предметов с оценками; вывод списка всех студентов
 и их оценок по предметам.
@@ -15,36 +23,30 @@ import java.util.Map;
 
 public class Main {
 
-    public static void addStudentWithSubjectsAndGrades(Map<Student, Map<Subject, Integer>> studentGradesSubjects,
-                                                Map<Subject, List<Student>> subjectAndGrade,
-                                                Student student, Subject subject, Integer grade) {
-        List<Student> students = new ArrayList<>();
-        students.add(student);
-        subjectAndGrade.put(subject, students);
-        Map<Subject, Integer> subjectWithGrade = new HashMap<>();
-        subjectWithGrade.put(subject, grade);
-        studentGradesSubjects.put(student, subjectWithGrade);
+    Map<Student, Map<Subject, Integer>> studentGradesSubjects = new HashMap<>();
+    Map<Subject, List<Student>> studentsOnSubject = new HashMap<>();
+
+    public void addStudentWithSubjectsAndGrades(Student student, Map<Subject, Integer> subjectsWithGrades) {
+        studentGradesSubjects.put(student, subjectsWithGrades);
         System.out.println(studentGradesSubjects);
     }
 
-    public static void addSubject(Map<Student, Map<Subject, Integer>> studentGradesSubjects,
-                           Student student, Subject subject, Integer grade) throws Exception {
-        if (studentGradesSubjects.get(student) == null) {
-            throw new Exception("Student not found!");
+    public void addSubject(Map<Subject, Integer> subjectsWithGrades, Student student) {
+        if (studentGradesSubjects.containsKey(student)) {
+            Map<Subject, Integer> subjects = studentGradesSubjects.get(student);
+            subjects.putAll(subjectsWithGrades);
         }
-        Map<Subject, Integer> newSubjectWithGrade = new HashMap<>();
-        newSubjectWithGrade.put(subject, grade);
-        studentGradesSubjects.put(student, newSubjectWithGrade);
         System.out.println(studentGradesSubjects);
     }
 
     public static void deleteStudentWithSubjectsAndGrades(Map<Student, Map<Subject, Integer>> studentGradesSubjects,
-                                                   Student student) {
+                                                          Student student) {
         studentGradesSubjects.remove(student);
         System.out.println(studentGradesSubjects);
     }
 
     public static void main(String[] args) throws Exception {
+        Main main = new Main();
 
         Student student = new Student(1, "Vova");
         Student student2 = new Student(2, "Max");
@@ -52,19 +54,18 @@ public class Main {
         Subject subject2 = new Subject(2, "Info");
         Subject subject3 = new Subject(3, "Physic");
         Subject subject4 = new Subject(4, "History");
+        Map<Subject, Integer> subjectsWithGrades = new HashMap<>();
         Map<Student, Map<Subject, Integer>> studentGradesSubjects = new HashMap<>();
-        Map<Subject, List<Student>> studentsOnSubject = new HashMap<>();
 
-        addStudentWithSubjectsAndGrades(studentGradesSubjects, studentsOnSubject, student, subject, 5);
-        addStudentWithSubjectsAndGrades(studentGradesSubjects, studentsOnSubject, student, subject2, 4);
-        addStudentWithSubjectsAndGrades(studentGradesSubjects, studentsOnSubject, student, subject3, 3);
-        addStudentWithSubjectsAndGrades(studentGradesSubjects, studentsOnSubject, student2, subject3, 3);
+        System.out.println("*** Adding students with subjects and grades ***");
+        main.addStudentWithSubjectsAndGrades(student, subjectsWithGrades);
 
-        System.out.println("!!!!!!!!!!!!!!!");
-        addSubject(studentGradesSubjects, student2, subject4, 5);
+        System.out.println();
+        System.out.println("*** Adding subject and grade for student ***");
+//        main.addSubject();
 
-        System.out.println("!!!!!!!!!!!!!!!");
-        deleteStudentWithSubjectsAndGrades(studentGradesSubjects, student2);
+        System.out.println();
+        System.out.println("*** Deleting specific student ***");
 
     }
 }
