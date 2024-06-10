@@ -1,4 +1,6 @@
 package faang.school.godbless.func.lotr;
 
-public record Item(String name, int value) {
+import lombok.NonNull;
+
+public record Item(@NonNull String name, int value) {
 }
