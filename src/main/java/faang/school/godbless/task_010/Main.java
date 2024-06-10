@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class Main {
-    private static Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
-    private static Map<String, List<StreamEvent>> typeEventMap = new HashMap<>();
+    private static final Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> typeEventMap = new HashMap<>();
     private static int id = 0;
 
     public static void main(String[] args) {
