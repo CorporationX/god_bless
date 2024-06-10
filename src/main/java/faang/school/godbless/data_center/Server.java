@@ -2,12 +2,15 @@ package faang.school.godbless.data_center;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Getter
 @Setter
+@Slf4j
 public class Server {
     private double BASIC_ENERGY_CONSUMPTION = 10;
 
@@ -38,7 +41,7 @@ public class Server {
 
     @Override
     public int hashCode() {
-        return getId();
+        return Objects.hash(id);
     }
 
     public void addRequest(ResourceRequest request) {
@@ -63,6 +66,8 @@ public class Server {
             load -= requestLoad;
             energyConsumption -= requestLoad * 1.2;
             requestMap.remove(request.getId());
+        } else {
+            log.warn("Could not find and remove request - {}", request);
         }
     }
 }

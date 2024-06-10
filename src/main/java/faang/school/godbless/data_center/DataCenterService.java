@@ -1,15 +1,20 @@
 package faang.school.godbless.data_center;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+@Slf4j
 public class DataCenterService {
 
     public void addServer(DataCenter dataCenter, Server server) {
         if (server != null) {
             dataCenter.getServers().add(server);
+        } else {
+            log.warn("Cannot add non-existing server");
         }
     }
 
@@ -17,7 +22,11 @@ public class DataCenterService {
         if (!server.getRequestMap().isEmpty()) {
             throw new RuntimeException("This server is providing some Service to Clients");
         }
-        dataCenter.getServers().remove(server);
+        if (dataCenter.getServers().contains(server)) {
+            dataCenter.getServers().remove(server);
+        } else {
+            log.warn("Could not find and remove server {}", server);
+        }
     }
 
     public double getTotalEnergyConsumption(DataCenter dataCenter) {
@@ -64,6 +73,8 @@ public class DataCenterService {
             serverToReleaseRequest.removeRequest(request);
             dataCenter.getResourceRequests().remove(request.getId());
             dataCenter.getServers().add(serverToReleaseRequest);
+        } else {
+            log.warn("Could not find and release resources of request {}", request);
         }
     }
 
@@ -77,6 +88,7 @@ public class DataCenterService {
             }
             serverSet.add(server);
             server.setLoad(0);
+            server.getRequestMap().clear();
         }
 
         dataCenter.setServers(new TreeSet<>(dataCenter.getOptimizationStrategy().getCompareStrategy()));
@@ -84,7 +96,6 @@ public class DataCenterService {
 
         for (Server server : serverSet) {
             addServer(dataCenter, server);
-            server.getRequestMap().clear();
         }
         for (ResourceRequest resourceRequest : resourceRequests) {
             allocateResources(dataCenter, resourceRequest);
