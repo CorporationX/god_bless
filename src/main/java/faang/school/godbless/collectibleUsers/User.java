@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.collectibleUsers;
 
 import java.util.*;
 
@@ -9,7 +9,6 @@ public class User {
     private Set<String> manyActivities;
 
     public User(int id, String name, Integer year, Set<String> manyActivities) {
-        super();
         this.id = id;
         this.name = name;
         this.year = year;
@@ -25,16 +24,16 @@ public class User {
     }
 
 
-    public static HashMap<User, String> findHobbyLovers (List<User> user, Set<String> manyActivities) {
+    public static HashMap<User, String> findHobbyLovers(List<User> user, Set<String> manyActivities) {
         HashMap<User, String> findHobbyMap = new HashMap<>();
 
-        if (manyActivities != null) {
+        if (manyActivities != null || !manyActivities.isEmpty()) {
             user.forEach(userFind -> {
-                    manyActivities.forEach(activities -> {
-                        if (userFind.getManyActivities().contains(activities)) {
-                            findHobbyMap.put(userFind, activities);
-                        }
-                    });
+                manyActivities.forEach(activities -> {
+                    if (userFind.getManyActivities().contains(activities)) {
+                        findHobbyMap.put(userFind, activities);
+                    }
+                });
             });
         }
         return findHobbyMap;
