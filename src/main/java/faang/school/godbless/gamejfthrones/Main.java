@@ -49,8 +49,9 @@ public class Main {
     public static void findHouse(String name) {
         validateInput(name);
         if (HOUSES.containsKey(name)) {
-            System.out.println("House with name: \"" + HOUSES.get(name).name() + "\" is found\n" +
-                    "Sigil is: \"" + HOUSES.get(name).sigil() + "\"");
+            House h = HOUSES.get(name);
+            System.out.println("House with name: \"" + h.name() + "\" is found\n" +
+                    "Sigil is: \"" + h.sigil() + "\"");
         } else {
             throw new HouseNotFoundException("House with name: \"" + name + "\" is not found");
         }
