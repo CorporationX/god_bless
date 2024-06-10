@@ -6,7 +6,6 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
-@ToString
 
 public class Notification {
     private String type;
