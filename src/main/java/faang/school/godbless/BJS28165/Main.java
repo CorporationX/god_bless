@@ -80,11 +80,10 @@ public class Main {
         if (mapStudents.containsKey(facultyYear)) {
             List<Student> students = mapStudents.get(facultyYear);
             System.out.println(facultyYear.toString() + " includes next students:");
-            if (!students.isEmpty()) {
-                students.forEach(student -> System.out.println(student));
-            } else {
+            if (students.isEmpty()) {
                 System.out.println("There's no students in " + facultyYear.toString());
             }
+            students.forEach(student -> System.out.println(student));
         } else {
             System.out.println(facultyYear.toString() + " doesn't exist");
         }
