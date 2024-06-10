@@ -1,16 +1,15 @@
 package faang.school.godbless;
 
-import static faang.school.godbless.Example.reverse;
-
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        SpellCaster spellCaster = new SpellCaster();
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
-        }
+        String alohorma = "Alohorma";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
+
+        spellCaster.cast(alohorma, (spell) -> "The door is unlocked by " + spell);
+        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
     }
 }
