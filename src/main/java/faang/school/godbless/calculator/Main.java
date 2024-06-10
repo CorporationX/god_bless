@@ -12,7 +12,7 @@ public class Main {
         }
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
-            result = calculator.calculate(result, i);
+            result = calculator.calculate(result, nums.get(i));
         }
         return result;
     }
