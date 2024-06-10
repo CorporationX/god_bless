@@ -8,7 +8,7 @@ import lombok.ToString;
 @Setter
 @ToString
 public class WeatherData {
-    private City city;
+    private String cityName;
     private double temperature;
     private double humidity;
 }

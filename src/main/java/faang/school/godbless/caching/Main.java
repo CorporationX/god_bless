@@ -70,7 +70,7 @@ public class Main {
     // Обращаемся к "внешнему источнику"
     private static WeatherData requestExternalData(String cityName) {
         System.out.println("Request to external source");
-        return new WeatherData(new City(cityName), getRandomTemp(), getRandomHumidity());
+        return new WeatherData(cityName, getRandomTemp(), getRandomHumidity());
     }
 
     // random temp -50.0 - +50.0
