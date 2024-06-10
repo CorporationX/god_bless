@@ -18,7 +18,7 @@ public class Character {
         this.name = name;
     }
 
-    public void showInventory(){
+    public void showInventory() {
         System.out.println("Inventory of " + name);
         inventory.forEach(System.out::println);
         System.out.println();
