@@ -2,7 +2,7 @@ package BJS2_10010;
 
 public class Main {
     public static void main(String[] args) {
-        FilterAndModifierManager manager = new FilterAndModifierManager();
+        FilterManager manager = new FilterManager();
 
     // Регистрация обработчиков оповещений
         manager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
