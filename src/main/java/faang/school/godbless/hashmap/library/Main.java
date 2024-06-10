@@ -34,7 +34,6 @@ public class Main {
 
         addBook(book, bookPosition);
         printAllBooks();
-        deleteBook(book.getTitle(), book.getAuthor(), book.getYear());
-//        deleteBook(book.getTitle(), book.getAuthor(), 1234);
+        deleteBook(book.title(), book.author(), book.year());
     }
 }
