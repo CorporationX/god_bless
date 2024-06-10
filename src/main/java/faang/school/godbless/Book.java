@@ -50,7 +50,6 @@ public class Book {
 
     @Override
     public boolean equals(Object obj) {
-        // Проверяем здеь на равенство ссылок
         if (obj == this){
             return true;
         }
