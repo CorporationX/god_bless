@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.countingAbsenteeism;
 
 import java.util.Objects;
 

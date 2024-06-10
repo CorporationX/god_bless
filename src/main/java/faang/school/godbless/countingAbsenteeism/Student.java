@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.countingAbsenteeism;
 public class Student {
     private String name;
     private String faculty;
