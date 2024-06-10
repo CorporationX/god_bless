@@ -1,14 +1,8 @@
 package faang.school.godbless.filtersInstagram;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@ToString
-@AllArgsConstructor
-@Setter
+@Data
 public class Image {
     private String nameFile;
     private String description;
