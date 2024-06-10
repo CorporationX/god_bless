@@ -37,7 +37,12 @@ public class Application {
 
     public static String findHouse(String name) {
         if(name != null || !name.trim().isEmpty()) {
-            return allHouseMap.get(name).getSigil();
+            if (!allHouseMap.containsKey(name)) {
+                throw new NullPointerException("Такого дома нет");
+            }else {
+
+                return allHouseMap.get(name).getSigil();
+            }
         }else{
             return "Ошибка имя равно нулю";
         }
