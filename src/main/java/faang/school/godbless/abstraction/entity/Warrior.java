@@ -1,4 +1,4 @@
-package faang.school.godbless.abstraction;
+package faang.school.godbless.abstraction.entity;
 
 public class Warrior extends Character {
     public Warrior(String name) {

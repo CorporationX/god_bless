@@ -1,22 +1,33 @@
 package faang.school.godbless.abstraction;
 
+import faang.school.godbless.abstraction.entity.Archer;
+import faang.school.godbless.abstraction.entity.Warrior;
+
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
+        String MESSAGE_ATTACK = "%s attack %s";
+        String MESSAGE_HEALTH = "%s health %d";
+        String MESSAGE_WINNER = "%s winner!!!";
         Archer archer = new Archer("Legolas");
         Warrior warrior = new Warrior("Aragorn");
-        System.out.println("Aragorn health " + warrior.health);
-        System.out.println("Legolas health " + archer.health);
-        System.out.println("Legolas attack Aragorn");
-        archer.attack(warrior);
-        System.out.println("Aragorn health " + warrior.health);
-        warrior.attack(archer);
-        System.out.println("Legolas health " + archer.health);
-        archer.attack(warrior);
-        archer.attack(warrior);
-        System.out.println("Aragorn health " + warrior.health);
-        warrior.attack(archer);
-        warrior.attack(archer);
-        warrior.attack(archer);
-        System.out.println("Legolas health " + archer.health);
+        for(int i =0; i<10; i++){
+            if(new Random().nextBoolean()){
+                System.out.println(String.format(MESSAGE_ATTACK,warrior.getName(),archer.getName()));
+                warrior.attack(archer);
+                System.out.println(String.format(MESSAGE_HEALTH,archer.getName(),archer.getHealth()));
+            }else{
+                System.out.println(String.format(MESSAGE_ATTACK,archer.getName(),warrior.getName()));
+                archer.attack(warrior);
+                System.out.println(String.format(MESSAGE_HEALTH,warrior.getName(),warrior.getHealth()));
+            }
+        }
+        if(warrior.getHealth() > archer.getHealth()){
+            System.out.println(String.format(MESSAGE_WINNER,warrior.getName()));
+        }else {
+            System.out.println(String.format(MESSAGE_WINNER,archer.getName()));
+        }
+
     }
 }
