@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.abstractionAbstraction;
 
 public class Archer extends Character{
 
