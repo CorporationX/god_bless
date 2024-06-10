@@ -45,19 +45,4 @@ public class Application {
 
     }
 
-    public Map<User, String> findHobbyLovers(List<User> users, Set<String> activitys) {
-        Map<User, String> map = new HashMap<>();
-        for (User user : users) {
-
-            for (String activity : user.getActivitys()) {
-                if (activitys.contains(activity)) {
-                    map.put(user, activity);
-                    break;
-                }
-            }
-        }
-
-        return map;
-
-    }
 }
