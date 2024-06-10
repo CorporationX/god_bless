@@ -1,11 +1,11 @@
 package faang.school.godbless.LordOfTheRingsRPG;
 
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class Item {
     private String name;
-    private String value;
+    private int value;
 }

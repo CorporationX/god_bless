@@ -1,10 +1,10 @@
 package faang.school.godbless.LordOfTheRingsRPG;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Getter
 public class Character {
     private String name;
