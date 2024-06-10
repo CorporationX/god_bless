@@ -1,9 +1,6 @@
-package faang.school.godbless.BJS27524;
+package faang.school.godbless.group_user;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 public class Main {
@@ -15,11 +12,8 @@ public class Main {
         users.add(user1);
         users.add(user2);
         users.add(user3);
-        Set<Integer> setOfAges = new HashSet<>();
-        setOfAges.add(user1.getAge());
-        setOfAges.add(user2.getAge());
-        setOfAges.add(user3.getAge());
-
-
+        Map<Integer, List<User>> groupedUser = User.groupUser(users);
+        List<User> users1 = groupedUser.get(30);
+        System.out.println(users1.get(0).getFirstname());
     }
 }
