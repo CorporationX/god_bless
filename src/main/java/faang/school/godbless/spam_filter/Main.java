@@ -8,13 +8,14 @@ public class Main {
         MessageProcessor messageProcessor = new MessageProcessor();
 
         MessageFilter greetingFilter = (message) -> message.toLowerCase().contains("hello");
-        MessageFilter lengthFilter = (message) -> message.length() > 15;
-        MessageFilter emojiFilter = (message) -> message.toLowerCase().contains("emoji");
-        MessageFilter isUpperCaseFilter = (message) -> message.equals(message.toUpperCase());
+        MessageFilter lengthFilter = (message) -> message.length() >= 15;
+        MessageFilter emojiFilter = (message) -> !message.toLowerCase().contains("emoji");
+        MessageFilter isUpperCaseFilter = (message) -> !message.equals(message.toUpperCase());
 
         List<MessageFilter> messageFilters = Arrays.asList(greetingFilter, lengthFilter, emojiFilter, isUpperCaseFilter);
 
-        String[] messages = new String[]{"Hello", "This message is long", "Emoji is used", "BIG", "no filters"};
+        String[] messages = new String[]{"Hello, this is good message", "Hello this message contains emoji",
+                "Emoji is used", "HELLO, THIS MESSAGE IS BIG", "no filters"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, messageFilters);

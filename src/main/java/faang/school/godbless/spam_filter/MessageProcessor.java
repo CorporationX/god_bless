@@ -4,9 +4,12 @@ import java.util.List;
 
 public class MessageProcessor {
     public boolean processMessage(String message, List<MessageFilter> messageFilters) {
-        boolean result = false;
-        for (MessageFilter messageFilter : messageFilters) {
-            result |= messageFilter.filter(message);
+        if(message == null || messageFilters == null){
+            throw new IllegalArgumentException("Message and messageFilters cannot be null");
+        }
+        boolean result = true;
+        for (MessageFilter messageFilter : messageFilters){
+            result &= messageFilter.filter(message);
         }
         return result;
     }
