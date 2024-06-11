@@ -1,2 +1,5 @@
-package faang.school.godbless;public interface SpellAction {
+package faang.school.godbless;
+@FunctionalInterface
+public interface SpellAction {
+    String cast(String spell);
 }
