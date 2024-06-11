@@ -26,7 +26,10 @@ public class Main {
     }
 
     public static void addHouse(House house) {
-        houses.put(house.getName(), house);
+
+        if (house != null) {
+            houses.put(house.getName(), house);
+        }
     }
 
     public static void deleteHouse(String name) {
