@@ -1,6 +1,6 @@
 package faang.school.godbless.doCache;
 
-
+import faang.school.godbless.WeatherData;
 
 import java.util.Random;
 
