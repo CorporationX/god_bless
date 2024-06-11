@@ -1,6 +1,7 @@
-package faang.school.godbless;
+package faang.school.godbless.core_split;
 
-import java.util.ArrayList;
+import faang.school.godbless.core_split.User;
+
 import java.util.List;
 
 public class TestUser {

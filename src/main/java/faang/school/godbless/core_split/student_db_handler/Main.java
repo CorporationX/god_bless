@@ -1,4 +1,4 @@
-package faang.school.godbless.studentDBHandler;
+package faang.school.godbless.core_split.student_db_handler;
 
 import java.util.ArrayList;
 import java.util.HashMap;

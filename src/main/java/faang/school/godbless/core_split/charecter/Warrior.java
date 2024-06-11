@@ -1,4 +1,4 @@
-package faang.school.godbless.task3;
+package faang.school.godbless.core_split.charecter;
 
 
 public class Warrior extends Character {

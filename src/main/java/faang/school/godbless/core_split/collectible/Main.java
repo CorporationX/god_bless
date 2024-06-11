@@ -1,4 +1,4 @@
-package faang.school.godbless.collectible;
+package faang.school.godbless.core_split.collectible;
 
 import java.util.ArrayList;
 import java.util.HashSet;

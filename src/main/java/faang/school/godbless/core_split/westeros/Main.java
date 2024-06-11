@@ -1,4 +1,4 @@
-package faang.school.godbless.Westeros;
+package faang.school.godbless.core_split.westeros;
 
 import java.util.HashMap;
 import java.util.Map;

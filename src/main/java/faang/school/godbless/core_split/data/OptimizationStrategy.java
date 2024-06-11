@@ -1,4 +1,4 @@
-package faang.school.godbless.data;
+package faang.school.godbless.core_split.data;
 
 public interface OptimizationStrategy {
 

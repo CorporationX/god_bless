@@ -1,4 +1,4 @@
-package faang.school.godbless.lru;
+package faang.school.godbless.core_split.lru;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

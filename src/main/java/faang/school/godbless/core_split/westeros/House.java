@@ -1,4 +1,4 @@
-package faang.school.godbless.Westeros;
+package faang.school.godbless.core_split.westeros;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,13 +1,11 @@
-package faang.school.godbless;
+package faang.school.godbless.core_split;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +32,7 @@ public class User {
             this.name = name;
             this.age = age;
             this.placeOfWork = placeOfWork;
-            this.adress = adress;
+            this.address = adress;
         } else throw new IllegalArgumentException("invalid user");
     }
 

@@ -1,8 +1,7 @@
-package faang.school.godbless.data;
+package faang.school.godbless.core_split.data;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import lombok.Setter;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package faang.school.godbless.collectible;
+package faang.school.godbless.core_split.collectible;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;
