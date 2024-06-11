@@ -22,8 +22,8 @@ public class Main {
 
         System.out.println("Entertainment events");
         List<StreamEvent> streamEventList = streamEventService.findStreamEventByEventType("Entertainment");
-        if(streamEventList != null){
-            for(StreamEvent streamEvent : streamEventList){
+        if (streamEventList != null) {
+            for (StreamEvent streamEvent : streamEventList) {
                 System.out.println(streamEvent);
             }
         }
@@ -39,8 +39,8 @@ public class Main {
 
         System.out.println("Entertainment events");
         streamEventList = streamEventService.findStreamEventByEventType("Entertainment");
-        if(streamEventList != null){
-            for(StreamEvent streamEvent : streamEventList){
+        if (streamEventList != null) {
+            for (StreamEvent streamEvent : streamEventList) {
                 System.out.println(streamEvent);
             }
         }
