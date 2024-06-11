@@ -19,7 +19,7 @@ public class Main {
         }
     }
 
-    public static HashMap<Pair, List<Student>> createTable(List<Student> students) {
+    public static Map<Pair, List<Student>> createTable(List<Student> students) {
         Map<Pair, List<Student>> table = new HashMap<>();
         for (Student student : students) {
             table.computeIfAbsent(new Pair(student.getFaculty(), student.getYear()),
