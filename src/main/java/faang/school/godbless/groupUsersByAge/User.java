@@ -20,9 +20,12 @@ public class User {
     public static Map<Integer, List<User>> groupUser(List<User> userList) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
+        if (userList != null) {
+
             for (User user : userList) {
                 userMap.computeIfAbsent(user.getAge(), u -> new ArrayList<>()).add(user);
             }
+        }
         return userMap;
     }
 }
