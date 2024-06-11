@@ -60,7 +60,7 @@ public class Main {
         }
     }
 
-    public static void showGroupedStudents(List<Student> students) {
+    public static void showGroupedStudents() {
         Map<Pair, List<Student>> table = createTable();
         System.out.println("The list of students:");
         for (Map.Entry<Pair, List<Student>> entry : table.entrySet()) {
