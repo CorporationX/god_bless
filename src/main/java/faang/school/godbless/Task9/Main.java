@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static WeatherData cityInfo(String cityName, Map<String, WeatherData> weather) {
+    public static WeatherData getCityInfo(String cityName, Map<String, WeatherData> weather) {
         if (weather.get(cityName) == null) {
             WeatherData newData = Connection.connectToServer(cityName);
             weather.put(cityName, newData);
@@ -46,10 +46,10 @@ public class Main {
         weather.put(milan.getCity(), milan);
         System.out.println(weather);
 
-        System.out.println(cityInfo("Milan", weather));
-        System.out.println(cityInfo("Amsterdam", weather));
+        System.out.println(getCityInfo("Milan", weather));
+        System.out.println(getCityInfo("Amsterdam", weather));
         updateInfo("Milan", 29, 75, weather);
-        System.out.println(cityInfo("Milan", weather));
+        System.out.println(getCityInfo("Milan", weather));
         removeInfo("Moscow", weather);
         System.out.println(weather);
         showAllInfo(weather);
