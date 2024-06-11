@@ -3,8 +3,10 @@ package faang.school.godbless.countingAbsenteeism;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 public class Application {
     public static List<Student> students = new ArrayList<>();
+
     public static void main(String[] args) {
         Student student1 = new Student("student1", "faculty1", 2023);
         Student student2 = new Student("student2", "faculty2", 2024);
@@ -58,12 +60,12 @@ public class Application {
     private static HashMap<FacultyAndYear, List<Student>> groupStudents(List<Student> students) {
         HashMap<FacultyAndYear, List<Student>> resultStudents = new HashMap<>();
         if (!students.isEmpty()) {
-            FacultyAndYear facultyAndYear = new FacultyAndYear();
             for (Student student : students) {
+                FacultyAndYear facultyAndYear = new FacultyAndYear(student.getFaculty(), student.getYear());
                 if (!resultStudents.containsKey(facultyAndYear)) {
-                    resultStudents.put(new FacultyAndYear(student.getFaculty(), student.getYear()), new ArrayList<>());
+                    resultStudents.put(facultyAndYear, new ArrayList<>());
                 }
-                resultStudents.get(new FacultyAndYear(student.getFaculty(), student.getYear())).add(student);
+                resultStudents.get(facultyAndYear).add(student);
             }
         }
         return resultStudents;
