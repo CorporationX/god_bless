@@ -1,4 +1,4 @@
-package faang.school.godbless.LambdaStreamApi.Hogwarts;
+package faang.school.godbless.lamdbastreamapi.hogwarts;
 
 public class SpellCaster {
     public void cast(String spellName, SpellAction spellAction) {

@@ -1,4 +1,4 @@
-package faang.school.godbless.LambdaStreamApi.Hogwarts;
+package faang.school.godbless.lamdbastreamapi.hogwarts;
 
 public class Main {
     public static void main(String[] args) {
