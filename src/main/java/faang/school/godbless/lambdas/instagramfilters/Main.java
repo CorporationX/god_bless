@@ -10,8 +10,8 @@ public class Main {
 
         // Создание фильтров
         Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getFileName(), image.getDescription() + " " + "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getFileName(),image.getDescription() + " " + "Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getFileName(),image.getDescription() + " " + "Фильтр: виньетка");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getFileName(), image.getDescription() + " " + "Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getFileName(), image.getDescription() + " " + "Фильтр: виньетка");
 
         // Применение фильтров
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
