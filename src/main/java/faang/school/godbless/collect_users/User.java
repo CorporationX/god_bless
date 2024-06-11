@@ -29,5 +29,4 @@ public class User {
         }
         return (HashMap<User, String>) usersHobby;
     }
-
 }
