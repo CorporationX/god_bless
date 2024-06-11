@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class Main {
 
+    public static List<Student> pupils = new ArrayList<>();
+
     public static void showMap(Map<Pair, List<Student>> table) {
         for (Map.Entry entry : table.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
