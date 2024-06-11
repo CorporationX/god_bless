@@ -6,6 +6,7 @@ import java.util.Map;
 public class Application {
     public static void main(String[] args) {
 
+
         Map<Book, String> library = new HashMap<>();
 
         Book book1 = new Book("The song of ice and fire", "J. Martin", 2008);
@@ -28,6 +29,7 @@ public class Application {
 
     static void getAllBooks(Map<Book, String> library) {
         System.out.println(library.keySet());
+
     }
 
     static void addBook(Map<Book, String> library, Book book, String value) {
