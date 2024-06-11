@@ -5,8 +5,13 @@ import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
+        int[] numbers = {1,2,3,4,5};
 
-        System.out.println("Hello World!");
+        Reverse.reverseArray(numbers);
 
+        for (int number: numbers){
+            System.out.println(number);
+        }
     }
+
 }
