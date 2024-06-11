@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ public class Main {
         addStudent(Kate);
         addStudent(Fedor);
 
+        System.out.println(findAll(Arrays.asList(Ivan, Kate, Fedor)));
         removeStudent("Fedor", "Prograing", 4);
         removeStudent("Fedor", "Programming", 4);
         System.out.println(searchByStage("Math", 1));
