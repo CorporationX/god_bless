@@ -1,5 +1,8 @@
 package countabsent;
 
+import faang.school.godbless.countabsent.Student;
+import faang.school.godbless.countabsent.StudentStream;
+
 import java.util.*;
 
 public class Main {
