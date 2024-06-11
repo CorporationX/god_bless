@@ -1,9 +1,9 @@
 package faang.school.godbless.abstract_abstract;
 
-public class Archer extends Character{
+public class Archer extends Character {
 
-    public Archer(String name, int power,  int agility, int intellect) {
-        super(name, 3, 10,5);
+    public Archer(String name, int power, int agility, int intellect) {
+        super(name, 3, 10, 5);
     }
 
     @Override
