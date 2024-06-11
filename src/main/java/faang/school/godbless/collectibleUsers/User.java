@@ -27,7 +27,7 @@ public class User {
     public static HashMap<User, String> findHobbyLovers(List<User> user, Set<String> manyActivities) {
         HashMap<User, String> findHobbyMap = new HashMap<>();
 
-        if (manyActivities != null || !manyActivities.isEmpty()) {
+        if (manyActivities != null && !manyActivities.isEmpty()) {
             user.forEach(userFind -> {
                 manyActivities.forEach(activities -> {
                     if (userFind.getManyActivities().contains(activities)) {
