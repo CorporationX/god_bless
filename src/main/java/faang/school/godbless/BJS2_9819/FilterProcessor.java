@@ -11,13 +11,20 @@ applyFilter: принимает объект типа Image и функцию в
 import java.util.function.Function;
 
 public class FilterProcessor {
-    public Image applyFilter(Image image, Function<Image, Image> imageFunction){
-       return imageFunction.apply(image);
+    public Image applyFilter(Image image, Function<Image, Image> imageFunction) {
+        Image newImage = null;
+        if (image != null || imageFunction != null) {
+            newImage = imageFunction.apply(image);
+        }
+        return newImage;
     }
 
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> imageFilterOne, Function<Image, Image> imageFilterTwo){
-        Function<Image, Image> function = (image) -> imageFilterTwo.apply(imageFilterOne.apply(image));
+    public Function<Image, Image> combineFilters(Function<Image, Image> imageFilterOne, Function<Image, Image> imageFilterTwo) {
+        Function<Image, Image> function = null;
+        if (imageFilterOne != null || imageFilterTwo != null) {
+            function = (image) -> imageFilterTwo.apply(imageFilterOne.apply(image));
+        }
         return function;
     }
 }
