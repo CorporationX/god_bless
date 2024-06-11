@@ -33,11 +33,9 @@ public class Main {
     }
 
     public static void delete(String name, String faculty, int year) {
-        Student student = new Student(name, faculty, year);
-        if (students.contains(student)) {
-            students.remove(student);
-        } else {
-            throw new NotFoundException("Student " + student + " not found");
+        boolean isDeleted = students.remove(new Student(name, faculty, year));
+        if (!isDeleted) {
+            throw new NotFoundException("Student " + name + " not found");
         }
     }
 
@@ -71,8 +69,8 @@ public class Main {
     public static void printSortedStudents(Map<CourseInfo, List<Student>> sortedStudents) {
         StringBuilder sb = new StringBuilder();
         for (Map.Entry<CourseInfo, List<Student>> entry : sortedStudents.entrySet()) {
-            sb.append("\nFaculty: ").append(entry.getKey().getFaculty())
-                    .append(", year: ").append(entry.getKey().getYear())
+            sb.append("\nFaculty: ").append(entry.getKey().faculty())
+                    .append(", year: ").append(entry.getKey().year())
                     .append("\nStudents:");
             for (Student student : entry.getValue()) {
                 sb.append("\n").append(student);
