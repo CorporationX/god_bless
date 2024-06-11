@@ -26,7 +26,7 @@ public class Main {
         deleteHouse(houseHashMap, thirdHouse.getName());
         printAllHouses(houseHashMap);
         System.out.println("----------------------------");
-        printHouseDescription(houseHashMap, firstHouse.getName());
+        printHouseSigil(houseHashMap, firstHouse.getName());
     }
 
     static void addHouse(HashMap<String, House> houseHashMap, House house) {
@@ -37,13 +37,13 @@ public class Main {
         houseHashMap.remove(houseName);
     }
 
-    static void printHouseDescription(HashMap<String, House> houseHashMap, String houseName) {
+    static void printHouseSigil(HashMap<String, House> houseHashMap, String houseName) {
         System.out.println(houseHashMap.get(houseName).getSigil());
     }
 
     static void printAllHouses(HashMap<String, House> houseHashMap) {
         houseHashMap.keySet().forEach(houseName ->
-                System.out.println(houseName + houseHashMap.get(houseName).toString())
+                System.out.println("House: " + houseName + ", sigil: " + houseHashMap.get(houseName).getSigil())
         );
     }
 }
