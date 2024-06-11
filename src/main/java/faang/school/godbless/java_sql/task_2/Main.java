@@ -22,15 +22,17 @@ public class Main {
     static void addBook(HashMap<Book, String> booksLocation, Book book, String bookLocation) {
         booksLocation.put(book, bookLocation);
     }
+
     static void deleteBook(HashMap<Book, String> booksLocation, Book book) {
         booksLocation.remove(book);
     }
+
     static void printBookLocation(HashMap<Book, String> booksLocation, Book book) {
         System.out.println(booksLocation.get(book));
     }
+
     static void printAllBooksAndTheirLocation(HashMap<Book, String> booksLocation) {
-        booksLocation.keySet().forEach(book ->
-                System.out.println("Book: " + book + ", location: " + booksLocation.get(book))
-        );
+        booksLocation.keySet().forEach(book -> System.out.println("Book: " + book + ", location: "
+                + booksLocation.get(book)));
     }
 }
