@@ -1,16 +1,20 @@
 package faang.school.godbless;
 
-import static faang.school.godbless.Example.reverse;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        int nums[] = {1, 4, 6, 7};
-        int resultNums[];
+        List<Integer> userNumbers = new ArrayList<>();
 
-        resultNums = reverse(nums);
-        System.out.print("Массив: ");
-        for(int i = 0; i < resultNums.length; i++){
-            System.out.print(resultNums[i] + " ");
+        Calculator summ = (int numberOne, int numberTwo) -> numberOne + numberTwo;
+    }
+
+    public static int product(List<Integer> nums) {
+        int result = 0;
+
+        for (int number : nums) {
+            summAll
         }
     }
 }
