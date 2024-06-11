@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
+
         Warrior warrior = new Warrior("Воин");
         Archer archer = new Archer("Лучник");
 
@@ -17,5 +18,9 @@ public class Application {
             System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealthPoints());
         }
 
+        for (int number: numbers){
+            System.out.println(number);
+        }
     }
+
 }
