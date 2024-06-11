@@ -21,7 +21,11 @@ public class Main {
     }
 
     public static void removeInfo(String city, Map<String, WeatherData> weather) {
-        weather.remove(city);
+        if (weather.get(city)==null) {
+            throw new IllegalArgumentException("the city was not found");
+        } else {
+            weather.remove(city);
+        }
     }
 
     public static void showAllInfo(Map<String, WeatherData> weather) {
@@ -51,6 +55,7 @@ public class Main {
         updateInfo("Milan", 29, 75, weather);
         System.out.println(getCityInfo("Milan", weather));
         removeInfo("Moscow", weather);
+        //removeInfo("Dallas", weather); 
         System.out.println(weather);
         showAllInfo(weather);
 
