@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            addBook("", "Tolstoy", 1822, "g-1");
+            addBook("Borodino", "Tolstoy", 1822, "g-1");
             addBook("Hamlet", "Shakespeare", 1555, "c-2");
             deleteBook("War and peace", "Tolstoy", 1822);
             getBookInfo("War and peace", "Tolstoy", 1822);
