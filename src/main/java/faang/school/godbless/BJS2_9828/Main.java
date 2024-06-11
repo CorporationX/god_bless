@@ -19,12 +19,15 @@ public class Main {
         Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
         Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
 
+        System.out.println(grayscaleImage);
+        System.out.println(sepiaImage);
+        System.out.println(vignetteImage);
+
 // Создание и применение комбинированного фильтра
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
 
-        System.out.println(combinedImage.getName());
-        combinedImage.showAppliedFilters();
+        System.out.println(combinedImage);
 
     }
 }

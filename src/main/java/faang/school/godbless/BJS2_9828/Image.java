@@ -3,22 +3,14 @@ package faang.school.godbless.BJS2_9828;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
+@AllArgsConstructor
+@ToString
 public class Image {
     private String name;
-    private String description = "Оригинальное изображение";
-    private List<String> appliedFilters = new ArrayList<>();
+    private String description;
 
-    public Image(String name, String description) {
-        this.name = name;
-        this.appliedFilters.add(description);
-    }
-
-    public void showAppliedFilters() {
-        appliedFilters.forEach(description -> System.out.println(description));
-    }
 }
