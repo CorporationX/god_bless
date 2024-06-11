@@ -81,8 +81,8 @@ public class Main {
         Student john = new Student("John", "Physics", 2);
         Student jane = new Student("Jane", "Physics", 2);
         Student jordan = new Student("Jordan", "Math", 1);
-        Student zero = new Student("", "Physics", 1);
-        Student doubleZero = new Student("", "", 0);
+        //Student zero = new Student("", "Physics", 1);
+        //Student doubleZero = new Student("", "", 1);
 
         students.add(ivan);
         students.add(andrey);
@@ -90,6 +90,7 @@ public class Main {
         students.add(jane);
         students.add(jordan);
         students.add(zero);
+        students.add(doubleZero);
 
         Map<Pair, List<Student>> tableOfStudents = createTable();
         showMap(tableOfStudents);
