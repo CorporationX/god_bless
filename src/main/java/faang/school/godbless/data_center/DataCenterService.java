@@ -50,7 +50,7 @@ public class DataCenterService {
                 }
             }
             if (serverToAddRequest == null) {
-                throw new RuntimeException("No server is available");
+                log.warn("No server is available");
             } else {
                 dataCenter.getServers().remove(serverToAddRequest);
                 serverToAddRequest.addRequest(request);
