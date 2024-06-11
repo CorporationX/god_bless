@@ -8,7 +8,7 @@ import java.util.function.Function;
 public class FilterProcessor {
 
     public Image applyFilter(Image image, Function<Image, Image> filterFunc) {
-        return new Image(image.getName(), )
+        return filterFunc.apply(image);
     }
 
 }
