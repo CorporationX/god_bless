@@ -105,7 +105,7 @@ public class Main {
         findStudents("Math", 1);
         findStudents("Math", 3);
         System.out.println(); // для визуализации
-        showGroupedStudents(students);
+        showGroupedStudents();
     }
 
 }
