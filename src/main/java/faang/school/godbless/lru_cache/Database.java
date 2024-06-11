@@ -14,12 +14,11 @@ import java.util.Map;
 public class Database {
     private Map<Integer, Data> idDataMap;
 
-    public Data getData(int id){
-        if(idDataMap.containsKey(id)){
+    public Data getData(int id) {
+        if (idDataMap.containsKey(id)) {
             return idDataMap.get(id);
         } else {
-            log.warn("Could not find and provide Data");
-            return null;
+            throw new RuntimeException("Could not find data in database");
         }
     }
 }

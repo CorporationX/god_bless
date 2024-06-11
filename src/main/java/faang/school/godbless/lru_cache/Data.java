@@ -11,7 +11,7 @@ public class Data {
     private String value;
     private long timestamp;
 
-    Data(int id, String value, long timestamp) {
+    public Data(int id, String value, long timestamp) {
         this.id = id;
         this.value = value;
         this.timestamp = timestamp;
