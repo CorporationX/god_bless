@@ -1,5 +1,7 @@
 package faang.school.godbless.gmail_rich_filters;
 
+import lombok.NonNull;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
@@ -8,11 +10,12 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
 
-    public void processEmails(List<Email> letters, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
+    public void processEmails(@NonNull List<Email> letters, @NonNull Predicate<Email> predicate, @NonNull Consumer<Email> consumer, @NonNull Function<Email, String> function) {
         for (Email email : letters) {
-            System.out.println(predicate.test(email));
-            consumer.accept(email);
-            function.apply(email);
+            if (predicate.test(email)) {
+                email.setSubject(function.apply(email));
+                consumer.accept(email);
+            }
         }
     }
 
@@ -22,13 +25,21 @@ public class EmailProcessor {
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Спам", "Текст спама", false),
+                new Email("Notification", "You received new notification", true)
         );
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Predicate<Email> isNotBlankMessage = email -> !email.getBody().isBlank();
+        Consumer<Email> sendMessage = email -> System.out.printf("Sending email: %s\n", email);
+        Function<Email, String> importantFunction = email -> {
+            if (email.isImportant()) {
+                return "Важно! " + email.getSubject();
+            } else {
+                return email.getSubject();
+            }
+        };
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+
+        emailProcessor.processEmails(emails, isNotBlankMessage, sendMessage, importantFunction);
     }
 }
