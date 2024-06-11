@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
-    private static List<Student> students= new ArrayList<>();
-    private static Map<Student, Integer> studentsMap = new HashMap<>();
+    private static List<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
         Student Ivan = new Student("Ivan", "Physics", 2);
@@ -27,17 +27,15 @@ public class Main {
     public static Map<Stage, List<Student>> findAll(List<Student> someStudents) {
         Map<Stage, List<Student>> allInfo = new HashMap<>();
 
-        for (Student student : someStudents){
+        for (Student student : someStudents) {
             Stage stage = new Stage(student.getFaculty(), student.getYear());
             if (students.contains(student) && !allInfo.keySet().contains(stage)) {
-                List<Student> studentsOnStage = new ArrayList();
+                List<Student> studentsOnStage = new ArrayList<>();
                 studentsOnStage.add(student);
                 allInfo.put(stage, studentsOnStage);
-            }
-            else if (students.contains(student) && allInfo.keySet().contains(stage)) {
+            } else if (students.contains(student) && allInfo.keySet().contains(stage)) {
                 allInfo.get(stage).add(student);
-            }
-            else {
+            } else {
                 System.out.println(student + " is not our student");
             }
         }
@@ -45,19 +43,26 @@ public class Main {
     }
 
     public static void addStudent(Student student) {
-        students.add(student);
-        studentsMap.put(student, students.size() - 1);
+        if (!students.contains(student)) {
+            students.add(student);
+        } else {
+            System.out.println(student + " is already exists");
+        }
     }
 
-    public static void removeStudent(String name, String faculty, int course) {
-        Student student = new Student(name, faculty, course);
+    public static void removeStudent(String name, String faculty, int year) {
+        boolean isRemoved = false;
 
-        if (studentsMap.containsKey(student)) {
-            students.remove(studentsMap.get(student));
-            for (int i = 0; i < students.size(); i++) {
-                studentsMap.put(student, i);
+        for (Student student : students) {
+            if (Objects.equals(student.getName(), name) && Objects.equals(student.getFaculty(), faculty) && student.getYear() == year) {
+                students.remove(student);
+                isRemoved = true;
+                break;
             }
-        } else System.out.println("There is no student: " + student);
+        }
+        if (!isRemoved) {
+            System.out.println("There is already no " + "|" + name + "| |" + faculty + "| course |" + year + "|");
+        }
     }
 
     public static List<Student> searchByStage(String faculty, int course) {
@@ -74,15 +79,16 @@ public class Main {
     public static void printAll() {
         Map<Stage, List<Student>> allInfo = new HashMap<>();
 
-        for (Student student : students){
-            Stage flow = new Stage(student.getFaculty(), student.getYear());
+        for (Student student : students) {
+            Stage stage = new Stage(student.getFaculty(), student.getYear());
 
-            if (allInfo.containsKey(flow) && !allInfo.get(flow).contains(student)) allInfo.get(student).add(student);
-            else if (!allInfo.containsKey(flow)) {
-                List<Student> studentsOnFlow = new ArrayList();
+            if (allInfo.containsKey(stage) && !allInfo.get(stage).contains(student)) {
+                allInfo.get(stage).add(student);
+            } else if (!allInfo.containsKey(stage)) {
+                List<Student> studentsOnStage = new ArrayList<>();
 
-                studentsOnFlow.add(student);
-                allInfo.put(flow, studentsOnFlow);
+                studentsOnStage.add(student);
+                allInfo.put(stage, studentsOnStage);
             }
         }
         for (Stage stage : allInfo.keySet()) System.out.println(stage + " -> " + allInfo.get(stage));
