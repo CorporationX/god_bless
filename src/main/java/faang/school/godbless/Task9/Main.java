@@ -55,7 +55,7 @@ public class Main {
         updateInfo("Milan", 29, 75, weather);
         System.out.println(getCityInfo("Milan", weather));
         removeInfo("Moscow", weather);
-        //removeInfo("Dallas", weather); 
+        //removeInfo("Dallas", weather);
         System.out.println(weather);
         showAllInfo(weather);
 
