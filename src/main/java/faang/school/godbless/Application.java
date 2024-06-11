@@ -10,8 +10,8 @@ public class Application {
         WeatherData data2 = new WeatherData("Moscow", 25, 65);
 
 
-        WeatherData.updateWeatherData(weatherData, "Berlin", data1);
-        WeatherData.updateWeatherData(weatherData, "Tokyo", data2);
+        WeatherData.updateWeatherData(weatherData, data1);
+        WeatherData.updateWeatherData(weatherData, data2);
 
         System.out.println("Все города мапы");
         WeatherData.printAllCities(weatherData);
@@ -24,7 +24,7 @@ public class Application {
 
 
         WeatherData newData = new WeatherData("New York", 20, 75);
-        WeatherData.updateWeatherData(weatherData, "New York", newData);
+        WeatherData.updateWeatherData(weatherData, newData);
 
         WeatherData.removeWeatherData(weatherData, "Los Angeles");
 
