@@ -26,23 +26,14 @@ public class Main {
         if (CACHE_WEATHER.containsKey(city)) {
             return CACHE_WEATHER.get(city);
         } else {
-            getWeatherMoc();
             CACHE_WEATHER.put(city, new WeatherData(city, 10, 10));
             return CACHE_WEATHER.get(city);
         }
     }
 
-    private static void getWeatherMoc() {
-    }
-
     public static void updateWeather(String city, int temperature, int humidity) {
-        if (CACHE_WEATHER.containsKey(city)) {
-            WeatherData weatherData = CACHE_WEATHER.get(city);
-            weatherData.setTemperature(temperature);
-            weatherData.setHumidity(humidity);
-        } else {
-            System.out.println(ERROR);
-        }
+        deleteDataFromBase(city);
+        CACHE_WEATHER.put(city, new WeatherData(city, temperature, humidity));
     }
 
     public static void deleteDataFromBase(String city) {
@@ -56,7 +47,7 @@ public class Main {
     public static void displayCache() {
         for (Map.Entry<String, WeatherData> entry : CACHE_WEATHER.entrySet()) {
             System.out.printf("%s : темпиратура - %s, влажность - %s%n",
-                    entry.getKey(), entry.getValue().getTemperature(), entry.getValue().getHumidity());
+                    entry.getKey(), entry.getValue().temperature(), entry.getValue().humidity());
         }
     }
 }
