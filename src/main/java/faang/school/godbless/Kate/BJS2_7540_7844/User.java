@@ -19,24 +19,29 @@ public class User {
     public static ArrayList<User> users = new ArrayList<>();
 
     public User(String name, int age, String job, String address) {
-        try {
-            if (name.isEmpty() || age<18 || !(VALID_JOBS.contains(job)) ||
-                    !(VALID_ADDRESSES.contains(address))) {
-                System.out.println("ошибка ввода");
-                throw new IllegalArgumentException();
-            }
+        if (name.isEmpty()) {
+            System.out.println("Имя не должно быть пустым");
+            throw new IllegalArgumentException();
+        } else if (age < 18) {
+            System.out.println("Возраст меньше 18");
+            throw new IllegalArgumentException();
+        } else if (!(VALID_JOBS.contains(job))) {
+            System.out.println("Место работы не входит в список обрабатываемых");
+            throw new IllegalArgumentException();
+        } else if (!(VALID_ADDRESSES.contains(address))) {
+            System.out.println("Адрес не входит в список обрабатываемых");
+            throw new IllegalArgumentException();
+        } else {
             this.name = name;
             this.age = age;
             this.job = job;
             this.address = address;
             users.add(this);
-        }  catch (IllegalArgumentException e) {
-        return;
-    }
+        }
     }
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public static HashMap<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
@@ -56,9 +61,3 @@ public class User {
     }
 
 }
-
-
-
-
-
-
