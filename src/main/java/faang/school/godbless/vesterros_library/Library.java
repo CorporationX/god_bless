@@ -22,6 +22,30 @@ public class Library {
     }
 
     public void deleteBookFromLibrary(String title, String author, int year) {
+        Book bookToDelete = findBookInLibrary(title, author, year);
+        if (bookToDelete == null) {
+            log.warn("Could find and remove book");
+        } else {
+            bookMap.remove(bookToDelete);
+        }
+    }
+
+    public void searchBookInLibrary(String title, String author, int year) {
+        Book neededBook = findBookInLibrary(title, author, year);
+        if (neededBook == null) {
+            log.warn("Could find book");
+        } else {
+            System.out.println(neededBook);
+        }
+    }
+
+    public void showAllBooksInLibrary() {
+        for (Map.Entry<Book, String> book : bookMap.entrySet()) {
+            System.out.println(book.getKey() + " расположена на " + book.getValue());
+        }
+    }
+
+    public Book findBookInLibrary(String title, String author, int year){
         Book book = null;
         for (Map.Entry<Book, String> bookPositionEntry : bookMap.entrySet()) {
             Book bookIteration = bookPositionEntry.getKey();
@@ -32,25 +56,6 @@ public class Library {
                 break;
             }
         }
-        if (book == null) {
-            log.warn("Could find and remove book");
-        } else {
-            bookMap.remove(book);
-        }
-    }
-
-    public void searchBookInLibrary(String title, String author, int year) {
-        Book bookToSearch = new Book(title, author, year);
-        if (bookMap.containsKey(bookToSearch)) {
-            System.out.println(bookToSearch);
-        } else {
-            log.warn("Could not find book in library {}", bookToSearch);
-        }
-    }
-
-    public void showAllBooksInLibrary() {
-        for (Map.Entry<Book, String> book : bookMap.entrySet()) {
-            System.out.println(book.getKey() + " расположена на " + book.getValue());
-        }
+        return book;
     }
 }
