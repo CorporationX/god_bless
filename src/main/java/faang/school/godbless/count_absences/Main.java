@@ -1,7 +1,6 @@
 package faang.school.godbless.count_absences;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class Main {
@@ -28,13 +27,15 @@ public class Main {
     private static final ArrayList<Student> students
             = new ArrayList<>(List.of(STUDENT1, STUDENT2, STUDENT3,
             STUDENT4, STUDENT5, STUDENT6, STUDENT7, STUDENT8, STUDENT9, STUDENT10));
+    private static final Student STUDENT11
+            = new Student("Алексей", "Кибернетика", 2002);
 
     public static void main(String[] args) {
-        HashMap<Key, ArrayList<Student>> hashMap
-                = Student.groupStudentsByFacultyAndYear(students);
-        System.out.println(hashMap);
+        System.out.println(students);
         System.out.println();
-        Student.findStudentsByFacultyAndYear("Кибернетика", 2001, hashMap);
-
+        Student.addStudentToList(STUDENT11, students);
+        Student.deleteStudent("Алексей", "Кибернетика", 2002, students);
+        Student.findStudentsByFacultyAndYear("Кибернетика", 2001, students);
+        Student.getStudentsGroupedByFacultyAndYears(students);
     }
 }
