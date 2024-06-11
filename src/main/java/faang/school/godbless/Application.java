@@ -36,4 +36,5 @@ public class Application {
         Map<FacultyYear, List<Student>> groupedStudents = Student.StudentsHash(students);
         System.out.println(groupedStudents);
     }
+
 }
