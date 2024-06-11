@@ -17,12 +17,14 @@ public class User {
 
     public static HashMap<User, String> findHobbyLovers(List<User> users, List<String> activities) {
         Map<User, String> usersHobby = new HashMap<>();
-        for (User user : users) {
-            if (user.usersActivities != null || !user.usersActivities.isEmpty()) {
-                for (String oneActivity : user.usersActivities) {
-                    if (activities.contains(oneActivity)) {
-                        usersHobby.put(user, oneActivity);
-                        break;
+        if (activities != null || !activities.isEmpty()) {
+            for (User user : users) {
+                if (user.usersActivities != null || !user.usersActivities.isEmpty()) {
+                    for (String oneActivity : user.usersActivities) {
+                        if (activities.contains(oneActivity)) {
+                            usersHobby.put(user, oneActivity);
+                            break;
+                        }
                     }
                 }
             }
