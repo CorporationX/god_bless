@@ -2,7 +2,9 @@ package BJS2_7733;
 
 public abstract class Character {
     public String name;
-    public int power, skill, intellect;
+    public int power;
+    public int skill;
+    public int intellect;
     public int hp = 100;
 
     public Character(String name) {
@@ -14,7 +16,6 @@ public abstract class Character {
         this.skill = skill;
         this.intellect = intellect;
     }
-
 
     public abstract void attack(Character character);
 }
