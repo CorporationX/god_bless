@@ -1,6 +1,6 @@
 package faang.school.godbless.gameofthrones;
 
-import helpers.CustomException;
+import faang.school.godbless.helpers.CustomException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
