@@ -22,10 +22,32 @@ public class Application {
         }
 
 
-        findBook(library, "Prisoner of Azkaban", "J. Rowling", 2005);
-        removeBook(library, "Prisoner of Azkaban", "J. Rowling", 2005);
+        findBook(library, book2, "2");
+        findBook(library, book2, "2");
+    }
 
+    static void getAllBooks(Map<Book, String> library) {
+        System.out.println(library.keySet());
+    }
 
+    static void addBook(Map<Book, String> library, Book book, String value) {
+        library.put(book, value);
+    }
+
+    static void findBook(Map<Book, String> library, Book book, String value) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
+        }
+    }
+
+    static void removeBook(Map<Book, String> library, Book book, String value) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            if (entry.getValue().equals(value)) {
+                library.remove(entry.getKey());
+            }
+        }
 
     }
 }
