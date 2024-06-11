@@ -89,8 +89,8 @@ public class Main {
         students.add(john);
         students.add(jane);
         students.add(jordan);
-        students.add(zero);
-        students.add(doubleZero);
+        //students.add(zero);
+        //students.add(doubleZero);
 
         Map<Pair, List<Student>> tableOfStudents = createTable();
         showMap(tableOfStudents);
