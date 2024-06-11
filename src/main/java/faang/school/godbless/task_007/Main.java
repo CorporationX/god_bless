@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<Book, String> bookAddressMap = new HashMap<>();
+    private final static Map<Book, String> bookAddressMap = new HashMap<>();
 
     public static void main(String[] args) {
         bookAddressMap.put(new Book("Приключение Чипполино", "Джанни Радари", 1951), "J");
