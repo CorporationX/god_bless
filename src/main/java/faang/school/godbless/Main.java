@@ -30,11 +30,19 @@ public class Main {
     }
 
     public static void addHouse(House house) {
-        houses.put(house.getName(), house);
+        if (!houses.containsValue(house)) {
+            houses.put(house.getName(), house);
+        } else {
+            System.out.println("House " + house + " is already exists");
+        }
     }
 
     public static void searchHouse(String name) {
-        System.out.println(houses.get(name).getSigil());
+        if (houses.containsKey(name)) {
+            System.out.println(houses.get(name).getSigil());
+        } else {
+            System.out.println("There is no " + name);
+        }
     }
 
     public static void printHouses() {
