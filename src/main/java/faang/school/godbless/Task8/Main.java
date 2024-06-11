@@ -10,7 +10,7 @@ public class Main {
     public static List<Student> students = new ArrayList<>();
 
     public static void showMap(Map<Pair, List<Student>> table) {
-        for (Map.Entry entry : table.entrySet()) {
+        for (Map.Entry<Pair, List<Student>> entry : table.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
