@@ -16,7 +16,7 @@ public class Main {
         houseMap.put("Lanisters", new House("Lanisters", "Lion"));
         houseMap.put("Martels", new House("Martels", "Spear"));
 
-        System.out.println("Изначальный список домов:");
+        System.out.println("изначальный список домов:");
         printAllHouses();
         System.out.println();
 
@@ -28,7 +28,7 @@ public class Main {
         removeHouse("Starks");
         System.out.println();
 
-        System.out.println("Итоговый список домов: ");
+        System.out.println("итоговый список домов: ");
         printAllHouses();
 
     }
