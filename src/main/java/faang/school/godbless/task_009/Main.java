@@ -5,30 +5,29 @@ import java.util.Map;
 import java.util.Random;
 
 public class Main {
-    private static Map<String, WeatherData> weatherDataMap;
+    private static final Map<String, WeatherData> weatherDataMap = new HashMap<>();
 
     public static void main(String[] args) {
 
         System.out.println("Добавляем в хэш данные о погоде в Москве");
-        weatherDataMap = new HashMap<>();
-        String city1 = "Moscow";
-        weatherDataMap.put(city1, WeatherService.getWeather(city1));
+        String moscowCity = "Moscow";
+        weatherDataMap.put(moscowCity, WeatherService.getWeather(moscowCity));
 
         System.out.println();
         System.out.println("Добавляем в хэш данные о погоде во Владимире");
-        String city2 = "Vladimir";
+        String vladimirCity = "Vladimir";
 
         System.out.println();
         System.out.println("Погода во Владимире");
-        System.out.println(getWeatherInfo(city2));
+        System.out.println(getWeatherInfo(vladimirCity));
 
         System.out.println();
         System.out.println("Обновляем данные о погоде во Владимире");
-        updateWeather(city2);
+        updateWeather(vladimirCity);
 
         System.out.println();
         System.out.println("Погода во Владимире(обновлённая");
-        System.out.println(getWeatherInfo(city2));
+        System.out.println(getWeatherInfo(vladimirCity));
 
         System.out.println();
         System.out.println("Список городов с погодой в хэш");
@@ -36,7 +35,7 @@ public class Main {
 
         System.out.println();
         System.out.println("Удаляем из хэша данные по Москве");
-        deleteWeatherDate(city1);
+        deleteWeatherDate(moscowCity);
 
         System.out.println();
         System.out.println("Список городов с погодой в хэш (после удаления)");
@@ -66,11 +65,10 @@ public class Main {
     private static String getWeatherInfo(String city) {
         if (weatherDataMap.containsKey(city)) {
             return weatherDataMap.get(city).toString();
-        } else {
-            WeatherData weatherData = WeatherService.getWeather(city);
-            weatherDataMap.put(city, weatherData);
-            return weatherData.toString();
         }
+        WeatherData weatherData = WeatherService.getWeather(city);
+        weatherDataMap.put(city, weatherData);
+        return weatherData.toString();
     }
 
     /**
@@ -83,8 +81,6 @@ public class Main {
             weatherDataMap.put(city, WeatherService.getWeather(city));
         }
     }
-
-
 }
 
 /**
