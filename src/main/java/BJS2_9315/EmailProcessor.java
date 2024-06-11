@@ -10,9 +10,8 @@ public class EmailProcessor {
                               Consumer<Email> handler, Function<Email, String> transformer) {
         List<Email> filterEmails = emails.stream().filter(filter).toList();
 
-        filterEmails.forEach(email -> {
-            email.setBody(transformer.apply(email));
-            handler.accept(email);
-        });
+        filterEmails.stream()
+                .peek(email -> email.setBody(transformer.apply(email)))
+                .forEach(handler::accept);
     }
 }
