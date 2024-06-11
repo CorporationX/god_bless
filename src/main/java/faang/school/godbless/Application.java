@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Application {
     public static void main(String[] args) {
+        int[] numbers = {1,2,3,4,5};
 
         Map<Book, String> library = new HashMap<>();
 
@@ -26,6 +27,9 @@ public class Application {
         removeBook(library, "Prisoner of Azkaban", "J. Rowling", 2005);
 
 
-
+        for (int number: numbers){
+            System.out.println(number);
+        }
     }
+
 }
