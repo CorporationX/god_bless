@@ -8,6 +8,8 @@ class SpellCasterTest {
     void cast() {
         SpellCaster spellCaster = new SpellCaster();
 
+        var asd = "фывфыафывафва";
+
         String alohomora = "Alohomora";
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
