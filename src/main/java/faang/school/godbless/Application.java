@@ -3,10 +3,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 
+
+
 public class Application {
     public static void main(String[] args) {
-
-
         Map<Book, String> library = new HashMap<>();
 
         Book book1 = new Book("The song of ice and fire", "J. Martin", 2008);
@@ -25,6 +25,7 @@ public class Application {
 
         findBook(library, book2, "2");
         findBook(library, book2, "2");
+
     }
 
     static void getAllBooks(Map<Book, String> library) {
