@@ -1,10 +1,10 @@
 package faang.school.godbless.bjs2_7878;
 
-import faang.school.godbless.bjs2_7565.User;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -35,12 +35,21 @@ public class Main {
             users.add(user9);
             users.add(user10);
 
-            for (Map.Entry entry : User.groupUsers(users).entrySet()) {
+            for (Map.Entry entry : groupUsers(users).entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
 
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> userGroups = new HashMap<>();
+        if (users != null) {
+            userGroups = users.stream()
+                    .collect(Collectors.groupingBy(User::getAge));
+        }
+        return userGroups;
     }
 }
