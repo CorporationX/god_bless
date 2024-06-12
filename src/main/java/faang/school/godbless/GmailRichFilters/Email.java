@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.GmailRichFilters;
 
 public class Email {
     private String subject;
