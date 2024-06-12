@@ -2,7 +2,6 @@ package faang.school.godbless.BJS29535;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
 class SpellCasterTest {
 
     @Test
