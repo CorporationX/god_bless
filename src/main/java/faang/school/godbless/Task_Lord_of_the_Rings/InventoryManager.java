@@ -29,9 +29,12 @@ public class InventoryManager {
                            Function<Item, Item> function) {
         boolean isFound = false;
         for (Item item : character.inventory) {
-            if (predicate.test(item)) function.apply(item);
-            isFound = true;
-            break;
+            if (predicate.test(item)) {
+                item = function.apply(item);
+                System.out.println(item);
+                isFound = true;
+                break;
+            }
         }
         if (!isFound) throw new IllegalArgumentException("item not found");
     }

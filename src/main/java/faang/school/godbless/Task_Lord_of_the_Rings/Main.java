@@ -16,7 +16,7 @@ public class Main {
         thrall.showInventory();
         jivs.removeItem(thrall, (item)->item.getName().equals("Ring"));
         thrall.showInventory();
-        jivs.updateItem(thrall, (item)->item.getName().equals("Hammer"),
+        jivs.updateItem(thrall, (item)->item.getName().equals("Shield"),
                 (item)->new Item(item.getName(), item.getValue()*2));
         thrall.showInventory();
 

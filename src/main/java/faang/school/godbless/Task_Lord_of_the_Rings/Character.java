@@ -21,7 +21,7 @@ public class Character {
 
     public void addItemToInventory(Item item) {
         if (this.inventory.contains(item)) {
-            System.out.println("The item is already in inventory");
+            System.out.println("The item is already in the inventory");
         } else {
             this.inventory.add(item);
         }
