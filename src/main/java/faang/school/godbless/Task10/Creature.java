@@ -13,6 +13,8 @@ public abstract class Creature {
     protected int haste;
     protected int quantity;
 
+    public abstract int getDmg();
+
     public Creature(String name) {
         this.name = name;
     }
