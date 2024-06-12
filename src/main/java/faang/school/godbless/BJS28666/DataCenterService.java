@@ -1,16 +1,24 @@
 package faang.school.godbless.BJS28666;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Queue;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DataCenterService {
+    private DataCenter dataCenter;
     private List<Server> servers;
-    private Queue<ResourceRequest> requestQueue;
+    private List<ResourceRequest> requestList;
+    private OptimizationStrategy optimizationStrategy;
 
     public void addServer(Server server) {
         if (!servers.contains(server)) {
             servers.add(server);
+            System.out.println("The server added successfully to the DC");
+            tryProcessRequestQueue();
         } else {
             System.out.println("This server already exists in the DC");
         }
@@ -18,7 +26,7 @@ public class DataCenterService {
 
     public void removeServer(Server server) {
         if (servers.removeIf(s -> s.equals(server))) {
-            System.out.println("The server removed successfully from the the DC");
+            System.out.println("The server removed successfully from the DC");
         } else {
             System.out.println("The DC doesn't include this server");
         }
@@ -38,10 +46,11 @@ public class DataCenterService {
     }
 
     public void allocateResources(ResourceRequest request) {
+        double needResources = request.getLoad();
         if (!checkOpportunityForAllocate(request)) {
-            requestQueue.add(request);
-            System.out.println("Unfortunately, the DC hasn't enough resources now. " +
-                    "But don't worry, your request will be processed later");
+            requestList.add(request);
+            System.out.println("Unfortunately, the DC hasn't " + needResources + " now.\n" +
+                    "But don't worry, your request will be processed later\n");
             return;
         }
 
@@ -49,38 +58,30 @@ public class DataCenterService {
 
         for (Server server : servers) {
              if (server.tryAllocateResources(request)) {
-                System.out.println("The resources allocated successfully");
+                System.out.println("The resources allocated successfully: " + needResources + "\n");
                 return;
             }
             request.setLoad(request.getLoad() - server.loadMax());
         }
     }
 
-    private void releaseResources(ResourceRequest request) {
+    public void releaseResources(ResourceRequest request) {
+        double needToRelease = request.getLoad();
         if (!checkOpportunityForRelease(request)) {
-            System.out.println("DC releases maximum resources, but not enough for this request");
+            System.out.println("DC releases only " + (needToRelease - request.getLoad()) +
+                    " resources, but not enough for this request\n");
         }
 
         servers.sort(Comparator.comparing(Server::getEnergyConsumption).reversed());
         for (Server server : servers) {
             if (server.tryReleaseResources(request)) {
-                System.out.println("The resources released successfully");
+                System.out.println("The resources released successfully: " + needToRelease + "\n");
+                tryProcessRequestQueue();
                 return;
             }
             request.setLoad(request.getLoad() - server.releaseMax());
         }
     }
-
-//    private void optimizeResources(ResourceRequest request) {
-//        servers.sort(Comparator.comparing(Server::getEnergyConsumption).reversed());
-//        for (int i = 0; i < servers.size(); i++) {
-//            for (int j = servers.size() - 1; j > i; j--) {
-//                if (servers.get(i).redistributeTo(servers.get(j))) {
-//                    break;
-//                }
-//            }
-//        }
-//    }
 
     private boolean checkOpportunityForAllocate(ResourceRequest request) {
         return getTotalFreeResources() >= request.getLoad();
@@ -90,7 +91,46 @@ public class DataCenterService {
         return getTotalLoad() >= request.getLoad();
     }
 
+    public void optimizeDataCenter() {
+        if (optimizationStrategy != null) {
+            optimizationStrategy.optimize(dataCenter);
+            System.out.println("DataCenter is optimized successfully");
+        }
+    }
+
+    public ScheduledExecutorService runOptimizationStrategy(OptimizationStrategy strategy, int secondsInterval) {
+        optimizationStrategy = strategy;
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(this::optimizeDataCenter, 0, secondsInterval, TimeUnit.SECONDS);
+        return scheduler;
+    }
+
+
+    public void printServers() {
+        System.out.println("DataCenter consists of:");
+        if (servers.isEmpty()) {
+            System.out.println("There's no servers in the DC");
+        }
+        servers.forEach(System.out::println);
+        System.out.println();
+    }
+
     public DataCenterService (DataCenter dataCenter) {
+        this.dataCenter = dataCenter;
         this.servers = dataCenter.getServers();
+        requestList = new ArrayList<>();
+    }
+
+    private void tryProcessRequestQueue() {
+        Iterator<ResourceRequest> iterator = requestList.iterator();
+        while (iterator.hasNext()) {
+            ResourceRequest request = iterator.next();
+            if (!checkOpportunityForAllocate(request)) {
+                continue;
+            }
+            System.out.println("request " + request + " from queue is process");
+            allocateResources(request);
+            iterator.remove();
+        }
     }
 }

@@ -20,7 +20,7 @@ public class Server {
     }
 
     public boolean tryReleaseResources(ResourceRequest request) {
-        if (load < request.getLoad()) {
+        if (load > request.getLoad()) {
             load -= request.getLoad();
             request.setLoad(0);
             return true;
