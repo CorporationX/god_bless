@@ -18,7 +18,10 @@ public class Figure {
             throw new IllegalArgumentException("Side length can't be negative");
         }
         double halfOfPerimeter = div.apply(sum.apply(a).apply(sum.apply(b).apply(c))).apply(2.0);
-        double area = sqrt.apply(mul.apply(halfOfPerimeter).apply(mul.apply(mul.apply(sub.apply(halfOfPerimeter).apply(c)).apply(sub.apply(halfOfPerimeter).apply(b))).apply(sub.apply(halfOfPerimeter).apply(a))));
+        double pSubA = sub.apply(halfOfPerimeter).apply(a);
+        double pSubB = sub.apply(halfOfPerimeter).apply(b);
+        double pSubC = sub.apply(halfOfPerimeter).apply(c);
+        double area = sqrt.apply(mul.apply(halfOfPerimeter).apply(mul.apply(pSubA).apply(mul.apply(pSubB).apply(pSubC))));
         return area;
     }
 }
