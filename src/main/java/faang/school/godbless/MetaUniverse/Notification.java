@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.MetaUniverse;
 
 public class Notification {
     private String type;
