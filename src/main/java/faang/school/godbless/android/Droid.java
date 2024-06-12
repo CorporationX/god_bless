@@ -1,7 +1,5 @@
 package faang.school.godbless.android;
 
-import lombok.Data;
-
 import java.util.stream.Collectors;
 
 public class Droid {
