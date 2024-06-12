@@ -24,6 +24,6 @@ public class Application {
         Function<Email, String> upperCase = email -> email.getBody().toUpperCase();
         Function<Email, String> deleteDots = email -> email.getBody().replace(".", "");
         EmailProcessor emailProcessor = new EmailProcessor();
-        emailProcessor.processEmail(emails, notImportantFilter, printEmail, upperCase);
+        emailProcessor.processEmail(emails, importantFilter, printEmail, upperCase);
     }
 }
