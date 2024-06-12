@@ -4,10 +4,10 @@ import java.util.Set;
 import java.util.HashSet;
 
 public class User{
-    private String name;
-    private int age;
-    private String workplace;
-    private String adress;
+    private final String name;
+    private final int age;
+    private final String workplace;
+    private final String adress;
 
     private static final Set <String> VALID_JOBS = new HashSet<>();
     private static final Set <String> VALID_ADDRESSES = new HashSet<>();
@@ -23,21 +23,25 @@ public class User{
     }
 
     public User(String name, int age, String workplace, String adress){
-        if(name.isEmpty()) {
-            throw new IllegalArgumentException("имя не может быть пустым");
-        }if(age < 18) {
-            throw new IllegalArgumentException("возраст не может быть меньше 18");
-        }if(!VALID_JOBS.contains(workplace)) {
-            throw new IllegalArgumentException("место работы должно соответствовать одному из предложенных вариантов ");
-        }if(!VALID_ADDRESSES.contains(adress)){
-                throw new IllegalArgumentException("адрес доленж соответствовать одному из предложенных варинатов");
-        }else{
-            this.name = name;
-            this.age = age;
-            this.workplace = workplace;
-            this.adress = adress;
+        this.name = name;
+        this.age = age;
+        this.workplace = workplace;
+        this.adress = adress;
+        validate();
+    }
+
+    private void validate(){
+        if(this.name.isEmpty()){
+            throw new IllegalArgumentException("Name не может быть пустым");
+        } if (this.age < 18){
+            throw new IllegalArgumentException("Указаны неверные данные");
+        } if (!VALID_JOBS.contains(this.workplace)){
+            throw new IllegalArgumentException("Место работы выбранно не верно");
+        } if (!VALID_ADDRESSES.contains(this.adress)){
+            throw new IllegalArgumentException("Адресс проживания выбран не верно");
         }
     }
+
     public void getValue(){
         System.out.println(name + age + workplace + adress);
     }
