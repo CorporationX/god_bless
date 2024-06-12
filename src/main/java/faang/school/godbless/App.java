@@ -12,7 +12,7 @@ public class App {
 
 
         addNewHouse(houses, "Lannister", "Lion");
-        addNewHouse(houses, null, null);
+        addNewHouse(houses, "", null);
         printAllHouses(houses);
 
         System.out.println("_________________________________");
@@ -26,26 +26,17 @@ public class App {
     }
 
     private static void addNewHouse(Map<String, House> houses, String name, String sigil) {
-        if (name != null && sigil != null) {
-            if (name.isEmpty() || sigil.isEmpty()) {
-                System.out.println("name or sigil is empty!");
-                return;
-            }
-        } else {
+
+        if (name == null || sigil == null || name.isEmpty() || sigil.isEmpty()) {
+            System.out.println("name or sigil is empty or null!");
             return;
         }
 
-        if (!houses.containsKey("House " + name)) {
-            houses.put("House " + name, new House(name, sigil));
-        } else {
-            System.out.println("Such a house is already on the list!");
-        }
-
-
+        houses.computeIfAbsent("House " + name, (n) -> new House(name, sigil));
     }
 
     private static void deleteHouse(Map<String, House> houses, String name) {
-        houses.remove(name);
+        houses.keySet().removeIf(entry -> entry.equals(name));
     }
 
     private static void printAllHouses(Map<String, House> houses) {
