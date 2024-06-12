@@ -1,18 +1,32 @@
 package faang.school.godbless.lambda;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
-@AllArgsConstructor
 public class Droid {
 
-/*    private String message;
-    private int keyCrypt;*/
-
     public String sendEncryptedMessage(String message, int keyCrypt) {
-        return message + keyCrypt;
+        DroidMessageEncryptor droidMessageEncryptor = (message1, key) -> {
+            StringBuilder sb = new StringBuilder();
+
+            for (char c : message.toCharArray()
+            ) {
+                sb.append((char) (c + keyCrypt));
+            }
+            return sb.toString();
+        };
+        return droidMessageEncryptor.encryptor(message, keyCrypt);
+
     }
 
+    public String receiveEncryptedMessage(String message, int keyCrypt) {
+        DroidMessageEncryptor droidMessageEncryptor = (message1, key) -> {
 
+            StringBuilder sb = new StringBuilder();
+            for (char c : message.toCharArray()
+            ) {
+                sb.append((char) (c - keyCrypt));
+            }
+            return sb.toString();
+        };
+        return droidMessageEncryptor.encryptor(message, keyCrypt);
+    }
 }
