@@ -12,14 +12,20 @@ public class Main {
     private static List<Student> students = new ArrayList<>();
 
     public static void addStudent(Student student) {
-        students.add(student);
+        if(!students.contains(student)) {
+            students.add(student);
+        }
+        else {
+            System.err.println("Error!");
+        }
+
     }
 
     public static void removeStudent(String name, String faculty, LocalDate year) {
         students.removeIf(student -> student.equals(new Student(name, faculty, year)));
     }
 
-    public static HashMap<String, List<Student>> groupStudentsByFacultyAndYear() {
+    public static Map<String, List<Student>> groupStudentsByFacultyAndYear() {
         HashMap<String, List<Student>> groupedStudents = new HashMap<>();
         for(Student student : students) {
             String key = student.getFaculty() + "-" + student.getYear();
@@ -29,7 +35,7 @@ public class Main {
     }
 
     public static void printGroupedStudents() {
-        HashMap<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear();
+        Map<String, List<Student>> groupedStudents = groupStudentsByFacultyAndYear();
         for(Map.Entry<String, List<Student>> entry : groupedStudents.entrySet()) {
             System.out.println("Faculty-Year: " + entry.getKey());
             for (Student student : entry.getValue()) {
