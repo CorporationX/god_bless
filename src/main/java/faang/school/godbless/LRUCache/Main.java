@@ -32,19 +32,20 @@ public class Main {
         dataList.put(data.getId(), data);
     }
 
-    static Data getData(int dataId) {
+    static void getData(int dataId) {
         if (dataObjectsCash.containsKey(dataId)) {
-            dataObjectsCash.get(dataId).setTimestamp(LocalDateTime.now());
-            return dataObjectsCash.get(dataId);
-        } else {
-            if (dataObjectsCash.size() >= CACHE_SIZE) {
-                removeCash();
-            }
-            Data d = dataList.get(dataId);
-            d.setTimestamp(LocalDateTime.now());
-            dataObjectsCash.put(d.getId(), d);
-            return d;
+            update(dataId);
+            dataObjectsCash.get(dataId);
         }
+        putDataObjectCash(dataId);
+        update(dataId);
+        removeCash();
+        dataList.get(dataId);
+    }
+
+    static void putDataObjectCash(int id) {
+        Data data = dataList.get(id);
+        dataObjectsCash.put(data.getId(), data);
     }
 
     static void info() {
@@ -54,14 +55,20 @@ public class Main {
     }
 
     static void removeCash() {
-        LocalDateTime n = LocalDateTime.now();
+        LocalDateTime timeNow = LocalDateTime.now();
         int id = 0;
-        for (Map.Entry<Integer, Data> map : dataObjectsCash.entrySet()) {
-            if (n.isAfter(map.getValue().getTimestamp())) {
-                n = map.getValue().getTimestamp();
-                id = map.getKey();
+        if (dataObjectsCash.size() > CACHE_SIZE) {
+            for (Data data : dataObjectsCash.values()) {
+                if (timeNow.isAfter(data.getTimestamp())) {
+                    timeNow = data.getTimestamp();
+                    id = data.getId();
+                }
             }
+            dataObjectsCash.remove(id);
         }
-        dataObjectsCash.remove(id);
+    }
+
+    static void update(int id) {
+        dataObjectsCash.get(id).setTimestamp(LocalDateTime.now());
     }
 }
