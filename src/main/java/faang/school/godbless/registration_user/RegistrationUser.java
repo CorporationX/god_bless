@@ -1,52 +1,74 @@
 package faang.school.godbless.registration_user;
 
-import.java.util.Set;
-
-import lombok.Getter;
-
-import java.util.HashSet;
-import java.util.Set;
-
-@Getter
+import java.util.ArrayList;
+import java.util.List;
 
 
-public RegistrationUser(String firstname, int age, String placeofwork, String adds) {
+public class RegistrationUser {
+    private String firstname;
+    private int age;
+    private String placeOfWork;
+    private String adds;
 
-    private static final Set<String> VALID_JOBS = new HashSet<>();
-
-    static {
-        VALID_JOBS.add("Google");
-        VALID_JOBS.add("Uber");
-        VALID_JOBS.add("Amazon");
+    public RegistrationUser(String firstname, int age, String placeOfWork, String adds) {
+        this.firstname = isValidFirstName(firstname);
+        this.age = isValidAge(age);
+        this.placeOfWork = isValidPlaceOfWork(placeOfWork);
+        this.adds = isValidAddress(adds);
     }
 
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>();
-
-    static {
-        VALID_ADDRESSES.add("London");
-        VALID_ADDRESSES.add("New York");
-        VALID_ADDRESSES.add("Amsterdam");
+    private static int isValidAge(int age) {
+        if (age > 18) {
+            return age;
+        } else {
+            throw new IllegalArgumentException("Age cannot be less 18");
+        }
     }
 
-    if (firstname == null || firstname.isEmpty()) {
-        throw new IllegalArgumentException("Name cannot be null or empty");
+    private static String isValidPlaceOfWork(String placeOfWork) {
+        List<String> works = new ArrayList<>();
+        works.add("Google");
+        works.add("Uber");
+        works.add("Amazon");
+        String value = "";
+
+        for (String work : works) {
+            if (work.contains(placeOfWork)) {
+                value = work;
+                break;
+            } else {
+                throw new IllegalArgumentException("Invalid place of work");
+            }
+        }
+
+        return value;
     }
 
-    if (age < 18) {
-        throw new IllegalArgumentException("Age cannot be less than 18");
+    private static String isValidAddress(String adds) {
+        List<String> address = new ArrayList<>();
+        address.add("London");
+        address.add("New York");
+        address.add("Amsterdam");
+        String valueadds = "";
+
+        for (String homeaddress : address) {
+            if (address.contains(adds)) {
+                valueadds = homeaddress;
+                return adds;
+            } else {
+                throw new IllegalArgumentException("Invalid addresses");
+            }
+        }
+        return valueadds;
     }
 
-    if (!VALID_JOBS.contains(placeofwork)) {
-        throw new IllegalArgumentException("Invalid place of work");
+    private static String isValidFirstName(String firstname) {
+        if (firstname == null) {
+            return firstname;
+        } else {
+            throw new IllegalArgumentException("Firstname cannot be null");
+        }
     }
-
-
-    if (!VALID_ADDRESSES.contains(adds)) {
-        throw new IllegalArgumentException("Invalid addresses");
-    }
-
-    this.firstname = firstname;
-    this.age = age;
-    this.placeofwork = placeofwork;
-    this.adds = adds;
 }
+
+
