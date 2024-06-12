@@ -21,15 +21,33 @@ public class Main {
 
 
     public static StreamEvent findEventById(int id) {
-        return eventById.get(id);
+        if(id != 0) {
+            return eventById.get(id);
+        }
+        else {
+            System.err.println("Error!");
+            return null;
+        }
     }
 
     public static List<StreamEvent> findEventsByType(String eventType) {
-        return eventByType.get(eventType);
+        if(eventType != null) {
+            return eventByType.get(eventType);
+        }
+        else {
+            System.err.println("Error!");
+            return null;
+        }
     }
 
     public static void removeEventById(int id) {
-        eventById.remove(id);
+        if(id != 0 && !eventById.containsKey(id)) {
+            eventById.remove(id);
+        }
+        else {
+            System.err.println("Error!");
+        }
+
     }
 
     public static void printAllEvents() {
