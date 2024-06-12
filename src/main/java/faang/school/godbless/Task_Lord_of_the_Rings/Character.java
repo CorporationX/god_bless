@@ -29,6 +29,7 @@ public class Character {
 
     public void showInventory() {
         this.inventory.forEach((item)->System.out.println(item));
+        System.out.println(); //для отедления
     }
 
 }

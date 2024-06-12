@@ -29,9 +29,7 @@ public class InventoryManager {
                            Function<Item, Item> function) {
         boolean isFound = false;
         for (Item item : character.inventory) {
-            if (predicate.test(item)) {
-                item = function.apply(item);
-            }
+            if (predicate.test(item)) function.apply(item);
             isFound = true;
             break;
         }
