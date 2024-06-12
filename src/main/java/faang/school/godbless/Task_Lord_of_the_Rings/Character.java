@@ -27,12 +27,8 @@ public class Character {
         }
     }
 
-    public void removeItemFromInventory(Item item) {
-        if (!this.inventory.contains(item)) {
-            System.out.println("can't find the item...");
-        } else {
-            this.inventory.remove(item);
-        }
+    public void showInventory() {
+        this.inventory.forEach((item)->System.out.println(item));
     }
 
 }

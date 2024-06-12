@@ -13,17 +13,29 @@ public class InventoryManager {
         consumer.accept(item);
     }
 
-    public void removeItem(Character character, Item item, Predicate<Item> predicate) {
-        if (predicate.test(item)) {
-            character.removeItemFromInventory(item);
+    public void removeItem(Character character, Predicate<Item> predicate) {
+        boolean isFound = false;
+        for (Item item : character.inventory) {
+            if (predicate.test(item)) {
+                character.inventory.remove(item);
+                isFound = true;
+                break;
+            }
         }
+        if (!isFound) throw new IllegalArgumentException("item not found");
     }
 
-    public void updateItem(Character character, Item item,
-                           Predicate<Item> predicate, Function<Item, Item> function) {
-        this.removeItem(character, item, predicate);
-        Item newItem = function.apply(item);
-        character.addItemToInventory(newItem);
+    public void updateItem(Character character, Predicate<Item> predicate,
+                           Function<Item, Item> function) {
+        boolean isFound = false;
+        for (Item item : character.inventory) {
+            if (predicate.test(item)) {
+                item = function.apply(item);
+            }
+            isFound = true;
+            break;
+        }
+        if (!isFound) throw new IllegalArgumentException("item not found");
     }
 
 }
