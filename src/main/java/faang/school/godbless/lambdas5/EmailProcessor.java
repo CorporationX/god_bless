@@ -9,9 +9,10 @@ public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> handler,
                               Function<Email, String> converting) {
         emails.forEach((email) -> {
-            filter.test(email);
+            if (filter.test(email)) {
+                converting.apply(email);
+            }
             handler.accept(email);
-            converting.apply(email);
         });
     }
 }

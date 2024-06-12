@@ -24,6 +24,5 @@ public class Main {
 
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        System.out.println("sdsd");
     }
 }
