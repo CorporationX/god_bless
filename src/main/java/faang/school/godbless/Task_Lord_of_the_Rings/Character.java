@@ -1,14 +1,13 @@
 package faang.school.godbless.Task_Lord_of_the_Rings;
 
 import lombok.Getter;
-import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 public class Character {
 
     private String name;
-    protected List<Item> inventory = new ArrayList<>();
+    protected List<Item> inventory;
 
     public Character(String name, List<Item> inventory) {
         if (name.isBlank()) {
@@ -28,7 +27,9 @@ public class Character {
     }
 
     public void showInventory() {
-        this.inventory.forEach((item)->System.out.println(item));
+        for (Item item: this.inventory) {
+            System.out.println(item);
+        }
         System.out.println(); //для отедления
     }
 

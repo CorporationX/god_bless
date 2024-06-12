@@ -2,6 +2,7 @@ package faang.school.godbless.Task_Lord_of_the_Rings;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,13 +12,14 @@ public class Main {
         Item ring = new Item("Ring", 7);
         Character thrall = new Character("Thrall", new ArrayList<>(Arrays.asList(shield, weapon)));
         thrall.showInventory();
+
         InventoryManager jivs = new InventoryManager();
         jivs.addItem(thrall, ring, (item)->System.out.println(item.getName() + " was added to the inventory"));
         thrall.showInventory();
         jivs.removeItem(thrall, (item)->item.getName().equals("Ring"));
         thrall.showInventory();
         jivs.updateItem(thrall, (item)->item.getName().equals("Shield"),
-                (item)->new Item(item.getName(), item.getValue()*2));
+                (item)->new Item(item.getName(), item.getValue()*3));
         thrall.showInventory();
 
     }

@@ -27,16 +27,16 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> predicate,
                            Function<Item, Item> function) {
-        boolean isFound = false;
-        for (Item item : character.inventory) {
-            if (predicate.test(item)) {
-                item = function.apply(item);
-                System.out.println(item);
-                isFound = true;
+        int j = character.inventory.size();
+        boolean found = false;
+        for (int i=0; i<j; i++) {
+            if (predicate.test(character.inventory.get(i))) {
+                found = true;
+                character.inventory.set(i,function.apply(character.inventory.get(i)));
                 break;
             }
         }
-        if (!isFound) throw new IllegalArgumentException("item not found");
+        if (!found) System.out.println("we didn't find this...");
     }
 
 }
