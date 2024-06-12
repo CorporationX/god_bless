@@ -8,7 +8,7 @@ import java.util.List;
 public class Character {
 
     private String name;
-    private List<Item> inventory = new ArrayList<>();
+    protected List<Item> inventory = new ArrayList<>();
 
     public Character(String name, List<Item> inventory) {
         if (name.isBlank()) {
@@ -24,6 +24,14 @@ public class Character {
             System.out.println("The item is already in inventory");
         } else {
             this.inventory.add(item);
+        }
+    }
+
+    public void removeItemFromInventory(Item item) {
+        if (!this.inventory.contains(item)) {
+            System.out.println("can't find the item...");
+        } else {
+            this.inventory.remove(item);
         }
     }
 
