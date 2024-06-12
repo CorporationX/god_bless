@@ -9,7 +9,6 @@ public class Application {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         Map<Integer, List<User>> result;
-
         users.add(new User("John", 33, "Google", "761 Angus Road"));
         users.add(new User("Katy", 31, "Amazon", "4414 Farm Meadow Drive"));
         users.add(new User("Peter", 33, "Uber", "1842 Breezewood Court"));
