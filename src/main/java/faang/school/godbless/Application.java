@@ -8,38 +8,49 @@ import java.util.List;
 import java.util.Map;
 
 
-
-
 public class Application {
     public static void main(String[] args) {
 
+        Map<Book, String> library = new HashMap<>();
 
-        List<Student> students = new ArrayList<>();
-        Student student1 = new Student("Hermione Granger", "Gryffindor", 1);
-        Student student2 = new Student("Harry Pooter", "Gryffindor", 1);
-        Student student3 = new Student("Ron Weasley", "Gryffindor", 1);
+        Book book1 = new Book("The song of ice and fire", "J. Martin", 2008);
 
-        Student student4 = new Student("Draco Malfoy", "Slytherin", 1);
-
-        Student.addStudent(students, student1);
-        Student.addStudent(students, student2);
-        Student.addStudent(students, student3);
-        Student.addStudent(students, student4);
-
-        System.out.println("Студенты");
-        System.out.println(students);
+        Book book2 = new Book("Prisoner of Azkaban", "J. Rowling", 2005);
 
 
-        Student.removeStudent(students, student2);
+        addBook(library, book1, "1");
+        addBook(library, book2, "2");
 
-        System.out.println(students);
 
-        List<Student> searchedStudents = Student.getStudents(students, "Slytherin", 1);
-        System.out.println(searchedStudents);
-
-        Map<FacultyYear, List<Student>> groupedStudents = Student.StudentsHash(students);
-        System.out.println(groupedStudents);
-
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            System.out.println(entry.getKey() + " " + entry.getValue());
+        }
+        findBook(library, book2);
+        findBook(library, book2);
     }
 
+    static void getAllBooks(Map<Book, String> library) {
+        System.out.println(library.keySet());
+    }
+
+    static void addBook(Map<Book, String> library, Book book, String value) {
+        library.put(book, value);
+    }
+
+    static void findBook(Map<Book, String> library, Book book) {
+        if (library.containsKey(book)) {
+            System.out.println("Книга нашлась" + library.get(book) + "находиться в " + library.get(book));
+        } else {
+            System.out.println("Книга не найдена" + book);
+        }
+    }
+
+    static void removeBook(Map<Book, String> library, Book book) {
+        if (library.containsKey(book)) {
+            library.remove(book);
+            System.out.println("Книга удалена" + book);
+        } else {
+            System.out.println("Книга не найдена");
+        }
+    }
 }
