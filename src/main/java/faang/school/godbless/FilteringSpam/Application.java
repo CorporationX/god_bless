@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.FilteringSpam;
 
 import java.util.Arrays;
 import java.util.List;
