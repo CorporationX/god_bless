@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.CacheCache;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,8 +20,9 @@ public class Main {
     }
 
     public static WeatherData forecastOf(String city) {
-        if (weatherOfCity.containsKey(city)) return weatherOfCity.get(city);
-        else {
+        if (weatherOfCity.containsKey(city)) {
+            return weatherOfCity.get(city);
+        } else {
             WeatherService weather = WeatherService.getForecast(city);
             weatherOfCity.put(city, new WeatherData(weather.getCity(), weather.getTemperature(), weather.getHumidity()));
             return new WeatherData(weather.getCity(), weather.getTemperature(), weather.getHumidity());
@@ -36,11 +37,14 @@ public class Main {
     }
 
     public static void removeForecast(String city) {
-        if (weatherOfCity.containsKey(city)) weatherOfCity.remove(city);
-        else System.out.println("There is already no weather of the " + city);
+        if (weatherOfCity.containsKey(city)) {
+            weatherOfCity.remove(city);
+        } else System.out.println("There is already no weather of the " + city);
     }
 
     public static void printAllCities() {
-        for (String city : weatherOfCity.keySet()) System.out.println(city);
+        for (String city : weatherOfCity.keySet()) {
+            System.out.println(city);
+        }
     }
 }
