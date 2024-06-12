@@ -5,17 +5,16 @@ import java.util.Set;
 
 class NotificationManagerTest {
 
-    //TODO:12.06.2024 неуверен что правильно понял условие дополнительного задание на добовление фильтра и мапера
     @Test
     void test() {
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler("censored-email",
-                (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
-                , Set.of("дурак", "идиот", "кретин")::contains
+                (notification) -> System.out.println("РћС‚РїСЂР°РІРєР° РїРѕ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚Рµ: " + notification.getMessage())
+                , Set.of("РґСѓСЂР°Рє", "РёРґРёРѕС‚", "РєСЂРµС‚РёРЅ")::contains
                 , obsceneWord -> new StringBuilder(obsceneWord).reverse().toString());
 
-        Notification censoredNotification = new Notification("censored-email", "Вы некомпетентный дурак. Начитались идиотов и сами ведете себя как кретинушка");
+        Notification censoredNotification = new Notification("censored-email", "Р’С‹ РґСѓСЂР°Рє. РќР°С‡РёС‚Р°Р»РёСЃСЊ РёРґРёРѕС‚РѕРІ Рё СЃР°РјРё РІРµРґРµС‚Рµ СЃРµР±СЏ РєР°Рє РєСЂРµС‚РёРЅСѓС€РєР°");
 
         notificationManager.sendNotification(censoredNotification);
     }

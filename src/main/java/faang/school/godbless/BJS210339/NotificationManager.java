@@ -28,7 +28,8 @@ public class NotificationManager {
         filterHandlers.put(type, filter);
     }
 
-    //TODO:12.06.2024 -  неуверен за реализацю, хотел бы как нибудь максимально от этих if избавиться + хотел бы узнать уместно ли тут применить патерн заместитель?
+    //TODO:12.06.2024 - РЅРµСѓРІРµСЂРµРЅ Р·Р° СЂРµР°Р»РёР·Р°С†СЋ, С…РѕС‚РµР» Р±С‹ РєР°Рє РЅРёР±СѓРґСЊ РјР°РєСЃРёРјР°Р»СЊРЅРѕ РѕС‚ СЌС‚РёС… if РёР·Р±Р°РІРёС‚СЊСЃСЏ + С…РѕС‚РµР» Р±С‹ СѓР·РЅР°С‚СЊ СѓРјРµСЃС‚РЅРѕ Р»Рё С‚СѓС‚ РїСЂРёРјРµРЅРёС‚СЊ РїР°С‚РµСЂРЅ Р¦РµРїРѕС‡РєР° РѕР±СЏР·Р°РЅРЅРѕСЃС‚РµР№?
+
     public void sendNotification(Notification notification) {
         Notification cloneNotification = notification.clone();
         String type = cloneNotification.getType();
@@ -45,13 +46,14 @@ public class NotificationManager {
 
                     if (filter.test(substringMessageWord)) {
                         if (!mapperHandlers.containsKey(type)) {
-                            new RuntimeException("Отправка сообщения заблокирована");
+                           throw new RuntimeException("РћС‚РєР°Р·Р°РЅРѕ РІ РѕС‚РїСЂР°РІРєРµ");
                         } else {
                             char lastChar = messageWord.charAt(messageWord.length() - 1);
                             if (!Character.isLetterOrDigit(lastChar)) {
-                                messageWord = mapperHandlers.get(type).apply(messageWord.substring(0, messageWord.length() - 1)) + lastChar;
+                                messageWords[i] = mapperHandlers.get(type).apply(messageWord.substring(0, messageWord.length() - 1)) + lastChar;
+                            } else {
+                                messageWords[i] = mapperHandlers.get(type).apply(messageWord);
                             }
-                            messageWords[i] = mapperHandlers.get(type).apply(messageWord);
                         }
                         break;
                     }
