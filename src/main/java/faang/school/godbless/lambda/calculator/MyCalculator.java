@@ -10,10 +10,6 @@ public class MyCalculator {
 
         int result = nums.get(0);
 
-        if (nums.size() == 1) {
-            return result;
-        }
-
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
         }

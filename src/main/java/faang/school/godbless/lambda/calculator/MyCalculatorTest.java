@@ -12,6 +12,11 @@ class MyCalculatorTest {
     @Test
     void calculate() {
         assertThrows(IllegalArgumentException.class, () -> MyCalculator.calculate(new ArrayList<>(), (a, b) -> a * b));
+
+        int expected = 1;
+        int actual = MyCalculator.calculate(List.of(1), (a, b) -> a * b);
+
+        assertEquals(expected, actual);
     }
 
     @Test
