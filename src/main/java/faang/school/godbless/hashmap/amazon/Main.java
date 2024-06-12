@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.groupingBy;
 import static java.util.stream.Collectors.toList;
 
 public class Main {
-    private final Set<Product> productsSet = new HashSet<>();
+    private static final Set<Product> PRODUCTS_SET = new HashSet<>();
 
     public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
         return products.stream().collect(groupingBy(
@@ -26,7 +26,6 @@ public class Main {
     }
 
     public void printProducts(Map<String, List<Product>> productsMap) {
-        productsMap.entrySet().forEach(entry ->
-                System.out.println("Category: " + entry.getKey() + " Products: " + entry.getValue()));
+        productsMap.forEach((key, value) -> System.out.println("Category: " + key + " Products: " + value));
     }
 }
