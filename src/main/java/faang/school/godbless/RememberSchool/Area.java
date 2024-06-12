@@ -24,11 +24,11 @@ public class Area {
                         sum.apply(a).apply(b)
                 ).apply(c)
         ).apply(2.0);
+        double pMinA = sub.apply(pDiv2).apply(a);
+        double pMinB = sub.apply(pDiv2).apply(b);
+        double pMinC = sub.apply(pDiv2).apply(c);
+        double mulABC = mul.apply(mul.apply(pMinA).apply(pMinB)).apply(pMinC);
         return sqrt.apply(
-                mul.apply(pDiv2).apply(
-                        mul.apply(
-                                mul.apply(sub.apply(pDiv2).apply(a))
-                                        .apply(sub.apply(pDiv2).apply(b))
-                        ).apply(sub.apply(pDiv2).apply(c))));
+                mul.apply(pDiv2).apply(mulABC));
     }
 }
