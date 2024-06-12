@@ -29,7 +29,11 @@ public class Main {
     }
 
     public static void removeHouse(Map<String, House> nameSigilMap, @NonNull String houseName) {
+        if (Objects.isNull(nameSigilMap.remove(houseName))) {
+            throw new NoSuchElementException("В мапе не найдено дома с именем " + houseName);
+        }
         nameSigilMap.remove(houseName);
+
     }
 
     public static String getSigilByHouseName(Map<String, House> nameSigilMap, @NonNull String houseName) {
