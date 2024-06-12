@@ -1,6 +1,6 @@
 package faang.school.godbless;
 
-public class Application {
+public class Main {
     public static void main(String[] args) {
         SpellCaster spellCaster = new SpellCaster();
         String alohorma = "Alohorma";
