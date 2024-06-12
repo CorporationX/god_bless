@@ -31,8 +31,26 @@ public class Hero {
         }
     }
 
-    public void removeFromArmy(Creature creature) {
-        army.remove(creature);
+    public void removeCreatures(Creature creature, int quantity) {
+        if (!army.contains(creature)) {
+            System.out.println("no such creatures in army");
+        } else {
+            int count = 0;
+            for (Creature unit : army) {
+                if (unit == creature);
+                count = count + 1;
+            }
+            if (count<quantity) System.out.println("invalid quantity");
+            else {
+                for (Creature unit : army) {
+                    if (unit==creature) {
+                        army.remove(unit);
+                        quantity = quantity - 1;
+                        if (quantity==0) break;
+                    }
+                }
+            }
+        }
     }
 
 }
