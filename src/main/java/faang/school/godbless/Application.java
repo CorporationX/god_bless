@@ -8,11 +8,22 @@ public class Application {
     private static Map<String, House> houses = new HashMap<>();
 
     public static void addNewHouse(House house) {
-        houses.put(house.getName(), house);
+        if(house.getName() != null) {
+            houses.put(house.getName(), house);
+        }
+        else {
+            System.err.println("Error!");
+        }
+
     }
 
     public static void deleteHouseByName(String name) {
-        houses.remove(name);
+        if(name != null && houses.containsKey(name)) {
+            houses.remove(name);
+        }
+        else {
+            System.err.println("Error!");
+        }
     }
 
     public static void getInfoByName(String name) {
