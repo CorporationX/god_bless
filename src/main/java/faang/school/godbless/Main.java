@@ -36,7 +36,7 @@ public class Main {
                 return booksLocation.get(book);
             }
         }
-        return "There is no " + "|" + title + "| |" + author + "|  " + year;
+        throw new IllegalArgumentException("There is no " + "|" + title + "| |" + author + "|  " + year);
     }
 
     public static void removeBook(String title, String author, int year) {
