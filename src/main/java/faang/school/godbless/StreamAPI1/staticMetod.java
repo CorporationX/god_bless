@@ -12,14 +12,12 @@ public class staticMetod {
 
     //    Максимальный элемент в списке чисел
     static int maxNumList(List<Integer> nums) {
-        Optional<Integer> maxNum = nums.stream().max((t, u) -> t - u);
-        return maxNum.orElse(0);
+        return nums.stream().max((t, u) -> t - u).orElse(0);
     }
 
     //    Среднее значение чисел в списке
     static double avgNumsList(List<Integer> nums) {
-        OptionalDouble d = nums.stream().mapToDouble(i -> i).average();
-        return d.orElse(0);
+        return nums.stream().mapToDouble(i -> i).average().orElse(0);
     }
 
     //    Количество строк, начинающихся с определённого символа в списке строк
@@ -44,8 +42,7 @@ public class staticMetod {
 
     //    Наименьший элемент в списке, который больше заданного числа
     static int minNumListBigNum(List<Integer> nums, int num) {
-        Optional<Integer> min = nums.stream().filter(i -> i > num).min((t, u) -> t - u);
-        return min.orElse(0);
+        return nums.stream().filter(i -> i > num).min((t, u) -> t - u).orElse(0);
     }
 
     //    Преобразовать список строк в список их длин
