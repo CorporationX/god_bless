@@ -17,5 +17,4 @@ public class Main {
 
         System.out.println("Словарь: " + dictionary);
     }
-
 }
