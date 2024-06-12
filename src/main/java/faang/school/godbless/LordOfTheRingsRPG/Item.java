@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.LordOfTheRingsRPG;
 
 public class Item {
     private String name;

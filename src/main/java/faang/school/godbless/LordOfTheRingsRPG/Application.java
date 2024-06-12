@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.LordOfTheRingsRPG;
 
 public class Application {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.LordOfTheRingsRPG;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
