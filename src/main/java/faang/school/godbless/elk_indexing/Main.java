@@ -25,14 +25,12 @@ public class Main {
         }
     }
 
-//    remove user from map
-    public void youBeingSuedDeleteUserData(User user) {
-        if(queryMap.containsKey(user)) {
-            queryMap.remove(user);
-            return;
+//    remove user from map :(
+    public void boringCorpotateUserDelete(User user) {
+        if(!queryMap.containsKey(user)) {
+            throw new IllegalArgumentException("User is not spied on, hes scammer and cant sue you, sue him!");
         }
-
-        throw new IllegalArgumentException("User is not spied on, hes scammer and cant sue you, sue him!");
+        queryMap.remove(user);
     }
 
 //    print map
