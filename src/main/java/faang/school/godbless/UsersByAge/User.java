@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.UsersByAge;
 
 import java.util.ArrayList;
 import java.util.HashMap;
