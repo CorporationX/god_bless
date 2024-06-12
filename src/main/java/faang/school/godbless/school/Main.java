@@ -4,7 +4,7 @@ import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(calculateTriangleArea(7.0, 1.0, 13.0));
+        System.out.println(calculateTriangleArea(7.0, 10.0, 13.0));
     }
 
     static Double calculateTriangleArea(double a, double b, double c) {
@@ -17,11 +17,16 @@ public class Main {
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
         Double perimeter = div.apply(sum.
-                apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);   //sqrt(p * ( ((p-a) * (p-b)) * (p-c)) )
-        Double area = sqrt.apply(mul.apply(perimeter).apply(
-                mul.apply(mul.apply(sub.apply(perimeter).apply(a)).apply(sub.apply(perimeter).apply(b)))
-                        .apply(sub.apply(perimeter).apply(c))));
-        return area;
+                apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);
+        Double perimeterSubA = sub.apply(perimeter).apply(a);
+        Double perimeterSubB = sub.apply(perimeter).apply(b);
+        Double perimeterSubC = sub.apply(perimeter).apply(c);
+        Double multiplication = mul
+                .apply(mul.apply(mul.apply(perimeterSubA).apply(perimeterSubB))
+                        .apply(perimeterSubC))
+                .apply(perimeter);
+
+        return sqrt.apply(multiplication);
     }
 
     private static void validateTriangleSides(double a, double b, double c) {
