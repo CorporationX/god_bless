@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.InstagramFilter;
 
 public class Image {
     private String name;
