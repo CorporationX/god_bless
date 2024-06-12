@@ -1,7 +1,6 @@
 package faang.school.godbless.filters_instagram;
 
-public record Image(String name,
-                    String description) {
+public record Image(String name, String description) {
 
     public String getName() {
         return name;
