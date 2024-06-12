@@ -4,7 +4,6 @@ import lombok.ToString;
 
 @ToString
 @Getter
-
 public abstract class Creature {
 
     private String name;
