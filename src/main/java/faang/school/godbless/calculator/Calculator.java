@@ -1,5 +1,6 @@
 package faang.school.godbless.calculator;
 
-public interface Calculator {
-    public Integer act(Integer a,Integer b);
+@FunctionalInterface
+public interface Calculator<T,U,R> {
+    public R act(T a,U b);
 }
