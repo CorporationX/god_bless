@@ -8,7 +8,7 @@ public class Item {
     private int value;
 
     public Item(String name, int value) {
-        if (name.isBlank()) {
+        if (name.isBlank() || value < 0) {
             throw new IllegalArgumentException("The name can't be blank");
         } else {
             this.name = name;
