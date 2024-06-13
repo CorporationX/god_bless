@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.game.of.throne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
