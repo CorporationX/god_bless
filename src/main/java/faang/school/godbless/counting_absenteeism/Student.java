@@ -1,10 +1,12 @@
 package faang.school.godbless.counting_absenteeism;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
 @AllArgsConstructor
+@Getter
+@EqualsAndHashCode
 public class Student {
     private String name;
     private String faculty;
