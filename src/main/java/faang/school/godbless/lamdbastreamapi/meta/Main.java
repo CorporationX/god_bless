@@ -6,25 +6,25 @@ public class Main {
         notificationManager.registerHandler(
                 "email",
                 (notification) -> System.out.println(
-                        "Отправка сообщения по электронной почте: " + notification.getMessage()
+                        "Отправка сообщения по электронной почте: " + notification.message()
                 )
         );
         notificationManager.registerHandler(
                 "push",
                 (notification) -> System.out.println(
-                        "Отправка push уведомления: " + notification.getMessage()
+                        "Отправка push уведомления: " + notification.message()
                 )
         );
         notificationManager.registerHandler(
                 "sms",
                 (notification) -> System.out.println(
-                        "Отправка sms-сообщения: " + notification.getMessage()
+                        "Отправка sms-сообщения: " + notification.message()
                 )
         );
         notificationManager.registerHandler(
                 "telegram",
                 (notification) -> System.out.println(
-                        "Отправка сообщение в телеграме: " + notification.getMessage()
+                        "Отправка сообщение в телеграме: " + notification.message()
                 )
         );
 

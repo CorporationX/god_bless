@@ -12,6 +12,6 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        notificationProcessor.get(notification.getType()).accept(notification);
+        notificationProcessor.get(notification.type()).accept(notification);
     }
 }
