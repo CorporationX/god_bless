@@ -1,18 +1,9 @@
 package BJS2_8268;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.ToString;
-
 import java.util.Objects;
 
-@AllArgsConstructor
-@ToString
-@Data
-public class Book {
-    private String title;
-    private String author;
-    private int year;
+
+public record Book (String title, String author, int year){
 
     @Override
     public boolean equals(Object o) {
