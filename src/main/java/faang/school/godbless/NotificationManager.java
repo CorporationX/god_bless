@@ -2,7 +2,6 @@ package faang.school.godbless;
 
 import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +23,7 @@ public class NotificationManager {
     }
 
     public void sendNotification(@NonNull Notification notification) {
-        notifications.get(notification.getType());
+        notifications.get(notification.getType()).accept(notification);
     }
 
     public void checkNotificationOnSpam(Notification notification) {
