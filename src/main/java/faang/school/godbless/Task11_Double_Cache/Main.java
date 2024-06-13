@@ -24,7 +24,7 @@ public class Main {
         marks.remove(student);
     }
 
-    public static void showStudentsAndMarks(Map<Student, Map<Subject, Integer>> marks) {
+    public static void showStudentsAndMarks() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : marks.entrySet()) {
             String name = entry.getKey().getName();
             System.out.println("Student: " + name);
@@ -36,18 +36,15 @@ public class Main {
     }
 
     //methods for 2nd HashMap
-    public static void addSubjectAndStudents(Subject subject, List<Student> visitors,
-                                             Map<Subject, List<Student>> attenders) {
+    public static void addSubjectAndStudents(Subject subject, List<Student> visitors) {
         attenders.put(subject, visitors);
     }
 
-    public static void addStudentToSubject(Student student, Subject subject,
-                                           Map<Subject, List<Student>> attenders) {
+    public static void addStudentToSubject(Student student, Subject subject) {
         attenders.compute(subject, (key, value) -> value).add(student);
     }
 
-    public static void removeStudentFromSubject(Student student, Subject subject,
-                                                Map<Subject, List<Student>> attenders) {
+    public static void removeStudentFromSubject(Student student, Subject subject) {
         attenders.compute(subject, (key, value) -> value).remove(student);
         if (attenders.get(subject).isEmpty()) {
             attenders.remove(subject);
@@ -90,7 +87,7 @@ public class Main {
         System.out.println(marks);
         removeStudentAndMarks(alex);
         System.out.println(marks);
-        showStudentsAndMarks(marks);
+        showStudentsAndMarks();
         System.out.println();
 
         List<Student> mathLovers = new ArrayList<>();
@@ -100,15 +97,15 @@ public class Main {
         System.out.println(attenders);
         List<Student> physicsEnjoyers = new ArrayList<>();
         physicsEnjoyers.add(alex);
-        addSubjectAndStudents(phys, physicsEnjoyers, attenders);
+        addSubjectAndStudents(phys, physicsEnjoyers);
         System.out.println(attenders);
         Student mike = new Student(4, "Mike");
-        addStudentToSubject(mike, math, attenders);
+        addStudentToSubject(mike, math);
         System.out.println(attenders);
-        removeStudentFromSubject(alex, phys, attenders);
+        removeStudentFromSubject(alex, phys);
         System.out.println(attenders);
         physicsEnjoyers.add(ivan);
-        addSubjectAndStudents(phys, physicsEnjoyers, attenders);
+        addSubjectAndStudents(phys, physicsEnjoyers);
         showSubjectsAndStudents(attenders);
 
     }
