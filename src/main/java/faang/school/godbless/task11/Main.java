@@ -1,6 +1,9 @@
 package faang.school.godbless.task11;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static HashMap<String, List<WebPage>> webPages = new HashMap<>();
@@ -31,11 +34,8 @@ public class Main {
 
     public static void indexPages(WebPage page) {
         for (String keyWord : page.getContent().split(" ")) {
-            if (webPages.containsKey(keyWord)) {
-                webPages.get(keyWord).add(page);
-            } else webPages.put(keyWord, new ArrayList<>(Collections.singletonList(page)));
+            webPages.computeIfAbsent(keyWord, k -> new ArrayList<>()).add(page);
         }
-
     }
 
     public static List<WebPage> getWebPages(String keyWord) {
