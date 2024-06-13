@@ -1,4 +1,4 @@
-package faang.school.godbless.JavaBaisic.BJS2_7165;
+package faang.school.godbless.JavaBeisic.BJS2_7165;
 
 import java.util.*;
 
