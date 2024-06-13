@@ -1,0 +1,22 @@
+package faang.school.godbless.task14;
+
+public class SpellCaster {
+    public static void main(String[] args) {
+        SpellCaster spellCaster = new SpellCaster();
+
+        String alohomora = "Alohomora";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
+
+        spellCaster.cast(alohomora, (spell) -> {
+            System.out.println("The door is unlocked by " + spell);
+            return spell;
+        });
+        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+    }
+
+    public void cast(String name, SpellAction spellAction) {
+        spellAction.spell(name);
+    }
+}
