@@ -12,8 +12,8 @@ public class EmailProcessor {
                               Function<Email, String> modify) {
         for (Email email : emails) {
             if (filter.test(email)) {
-                process.accept(email);
                 email.setSubject(modify.apply(email));
+                process.accept(email);
             }
         }
     }
