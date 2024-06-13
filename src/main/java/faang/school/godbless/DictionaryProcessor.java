@@ -7,7 +7,8 @@ import java.util.function.BiConsumer;
 public class DictionaryProcessor {
 
     @NonNull
-    public void processWord(String word, String wordTranslation, BiConsumer biConsumer) {
-        biConsumer.accept(word, wordTranslation);
+    public void processWord(String word, String wordTranslation,
+                            BiConsumer puttingIntoTheDictionary) {
+        puttingIntoTheDictionary.accept(word, wordTranslation);
     }
 }
