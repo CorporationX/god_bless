@@ -16,7 +16,7 @@ public class Main {
         marks.put(student, subjectMarks);
     }
 
-    //работает, если есть есть студент, и у него нет оценки; если оценка есть, то ничего не делает
+    //работает, если есть есть студент, и у него нет оценки и предмета; если предмет есть, то ничего не делает
     public static void addSubjectForStudent(Subject subject, int mark, Student student) {
         marks.computeIfPresent(student, (key, value) -> value).computeIfAbsent(subject, (val1) ->mark);
     }
