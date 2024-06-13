@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -15,19 +16,32 @@ public class User {
     private int age;
     private final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private final Set<String> VALID_ADDRESSES = new HashSet(Arrays.asList("London", "New York", "Amsterdam"));
+    private final int MAJORITY = 18;
 
     public int getAge() {
-        return age;
+        return this.age;
     }
 
     public User(String name, String job, String address, int age) {
-        if (name != null && VALID_JOBS.contains(job) && VALID_ADDRESSES.contains(address) && age >= 18) {
+        if (name != null) {
             this.name = name;
-            this.job = job;
-            this.address = address;
-            this.age = age;
+            if (VALID_JOBS.contains(job)) {
+                this.job = job;
+                if (VALID_ADDRESSES.contains(address)) {
+                    this.address = address;
+                        if (age >= MAJORITY) {
+                            this.age = age;
+                        } else {
+                        throw new IllegalArgumentException("Age is not majority");
+                        }
+                } else {
+                    throw new IllegalArgumentException("address not listed");
+                }
+            } else {
+                throw new IllegalArgumentException("job not listed");
+            }
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("name not specified");
         }
     }
 
