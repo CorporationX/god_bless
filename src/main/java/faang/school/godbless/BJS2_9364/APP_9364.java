@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS2_9364;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public class Application {
+public class APP_9364 {
 
     public static void main(String[] args) {
         List<Email> emails = Arrays.asList(
