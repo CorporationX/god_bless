@@ -9,17 +9,16 @@ import java.util.function.Function;
 @NoArgsConstructor
 public class NotificationManager {
 
-    private final Map<String, Function<Notification, ?>> notificationHandlers = new HashMap<>();
+    private final Map<String, Function<Notification, Notification>> notificationHandlers = new HashMap<>();
 
-    public void registerHandler(String type, Function<Notification, ?> handler) {
+    public void registerHandler(String type, Function<Notification, Notification> handler) {
         this.notificationHandlers.put(type, handler);
     }
 
-    @SuppressWarnings("unchecked")
-    public <N> N sendNotification(Notification notification) {
-        Function<Notification, ?> handler = notificationHandlers.get(notification.type());
+    public Notification sendNotification(Notification notification) {
+        var handler = notificationHandlers.get(notification.getType());
         if (handler != null) {
-            return (N) handler.apply(notification);
+            return handler.apply(notification);
         }
         return null;
     }
