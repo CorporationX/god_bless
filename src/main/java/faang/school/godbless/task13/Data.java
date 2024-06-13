@@ -12,6 +12,7 @@ public class Data {
     private LocalDate timestamp;
 
     public Data(int id, String value) {
+        System.out.println();
         this.id = id;
         this.value = value;
         this.timestamp = LocalDate.now();
