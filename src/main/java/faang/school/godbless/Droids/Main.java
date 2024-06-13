@@ -3,11 +3,13 @@ package faang.school.godbless.Droids;
 public class Main {
     public static void main(String[] args) {
 
-        Droid testDroid = new Droid();
+        Droid sender = new Droid();
+        Droid receiver = new Droid();
         int key = 3;
-        String message = "hello";
-        String msg = testDroid.sendEncryptedMessage(message,3);
-        System.out.println(msg);
-
+        String message = "abcxyz";
+        String encryptedMessage = sender.sendEncryptedMessage(message,3);
+        System.out.println(encryptedMessage);
+        String decryptedMessage = receiver.receiveEncryptedMessage(encryptedMessage,3);
+        System.out.println(decryptedMessage);
     }
 }
