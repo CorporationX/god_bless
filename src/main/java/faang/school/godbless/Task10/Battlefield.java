@@ -5,21 +5,28 @@ import java.util.ArrayList;
 
 public class Battlefield {
 
+    public static int overallDamage(Hero hero) {;
+        int additionalDamage = hero.getLevel();
+        for (Creature creature : hero.getArmy()) {
+            additionalDamage =  creature.getDamage()*(creature.getLevel()+creature.getQuantity()) + additionalDamage;
+        }
+        return additionalDamage;
+    }
+    public static int overallHealth(Hero hero) {
+        int additionalHealth = hero.getExp();
+        for (Creature creature : hero.getArmy()) {
+            additionalHealth = creature.getQuantity()*(25 + creature.getDefense()) + additionalHealth;
+        }
+        return additionalHealth;
+    }
+
     public static Hero battle(Hero one, Hero two) {
         Boolean oneIsAlive = true;
         Boolean twoIsAlive = true;
-        int totalHealthOne = one.getExp();
-        int totalHealthTwo = two.getExp();
-        int totalDamageOne = one.getLevel();
-        int totalDamageTwo = two.getLevel();
-        for (Creature creature : one.getArmy()) {
-            totalHealthOne = creature.getQuantity()*(25 + creature.getDefense()) + totalHealthOne;
-            totalDamageOne = creature.getDamage()*(creature.getLevel()+creature.getQuantity()) + totalDamageOne;
-        }
-        for (Creature creature : two.getArmy()) {
-            totalHealthTwo = creature.getQuantity()*(25 + creature.getDefense()) + totalHealthTwo;
-            totalDamageTwo = creature.getDamage()*(creature.getLevel()+creature.getQuantity()) + totalDamageTwo;
-        }
+        int totalHealthOne = overallHealth(one);
+        int totalHealthTwo = overallHealth(two);
+        int totalDamageOne = overallDamage(one);
+        int totalDamageTwo = overallDamage(two);
         System.out.println("Hero " + one.getName() + "attacked hero " + two.getName());
         while (oneIsAlive && twoIsAlive) {
             totalHealthOne = totalHealthOne - totalDamageTwo;
