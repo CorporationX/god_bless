@@ -9,7 +9,6 @@ public class Main {
         int sum = sum(nums);
         System.out.println(multiplication);
         System.out.println(sum);
-
     }
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
