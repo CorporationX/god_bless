@@ -20,7 +20,7 @@ public class Main {
 
     public static WeatherData getWeatherDataInfo(String city) {
         if (city == null)
-            return null;
+            throw new IllegalArgumentException("The city was not transferred");
 
         if (cache.containsKey(city)) {
             return cache.get(city);
@@ -32,18 +32,24 @@ public class Main {
     }
 
     public static void updateInfo(String city, WeatherData newInfo) {
-        if (city != null && newInfo != null) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (newInfo != null) {
             cache.put(city, newInfo);
         } else {
-            System.out.println("Данные не заполены");
+            System.out.println("The WeatherDate was not transferred");
         }
     }
 
     public static void deleteInfo(String city) {
-        if (city != null && cache.containsKey(city)) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (cache.containsKey(city)) {
             cache.remove(city);
         } else {
-            System.out.println("Город не найден");
+            throw new IllegalArgumentException("The city is not included in cache");
         }
     }
 
