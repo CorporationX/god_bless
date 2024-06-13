@@ -11,14 +11,14 @@ public class Application {
         EmailProcessor emailProcessor = new EmailProcessor();
 
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false),
-                new Email("Письмо 3", "Текст письма 3", true)
+                new Email("Letter 1", "Text letter 1", false),
+                new Email("Letter 2", "Text letter 2", true),
+                new Email("Spam", "Text spam", false),
+                new Email("Letter 3", "Text letter 3", true)
         );
 
         Predicate<Email> importantFilter = email -> email.getIsImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("The letter has been processed: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
