@@ -1,25 +1,17 @@
 package faang.school.godbless.GmailRichFilters;
 
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
 public class Email {
     private String subject;
     private String body;
     private boolean isImportant;
 
-    public Email(String subject, String body, boolean isImportant) {
-        this.subject = subject;
-        this.body = body;
-        this.isImportant = isImportant;
-    }
-
-    public String getSubject() {
-        return this.subject;
-    }
-
-    public String getBody() {
-        return this.subject;
-    }
-
-    public boolean isImportant() {
+    public boolean getIsImportant() {
         return this.isImportant;
     }
 }
