@@ -8,16 +8,16 @@ public class Main {
         FilterProcessor filterProcessor = new FilterProcessor();
 
         Function<Image, Image> grayscaleFilter = (image) -> new Image(
-                image.getName() + "_grayscale",
-                image.getDescription() + "\nФильтр: черно-белый"
+                image.name() + "_grayscale",
+                image.description() + "\nФильтр: черно-белый"
         );
         Function<Image, Image> sepiaFilter = (image) -> new Image(
-                image.getName() + "_sepia",
-                image.getDescription() + "\nФильтр: сепия"
+                image.name() + "_sepia",
+                image.description() + "\nФильтр: сепия"
         );
         Function<Image, Image> vignetteFilter = (image) -> new Image(
-                image.getName() + "_vignette",
-                image.getDescription() + "\nФильтр: виньетка"
+                image.name() + "_vignette",
+                image.description() + "\nФильтр: виньетка"
         );
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
