@@ -3,18 +3,7 @@ package faang.school.godbless.fist_task;
 
 import java.util.*;
 
-public class User {
-    private String name;
-    private int age;
-    private String placeWork;
-    private String address;
-
-    public User(String name, int age, String placeWork, String address) {
-        this.name = name;
-        this.age = age;
-        this.placeWork = placeWork;
-        this.address = address;
-    }
+public record  User(String name, int age, String placeWork, String address) {
 
     public static HashMap groupUsers(List<User> users) {
         HashMap<Integer, List<User>> workers = new HashMap<>();
@@ -27,15 +16,5 @@ public class User {
                 }
             }
         return workers;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", placeWork='" + placeWork + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
