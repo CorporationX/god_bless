@@ -71,12 +71,9 @@ public class Main {
         Student alex = new Student(2, "Alex");
         Student john = new Student(3, "John");
         Student mike = new Student(4, "Mike");
-
         Subject math = new Subject(1, "Math");
         Subject phys = new Subject(2, "Physics");
         Subject chemistry = new Subject(3, "Chemistry");
-
-
         Map<Subject, Integer> alexMarks = new HashMap<>();
         Map<Subject, Integer> ivanMarks = new HashMap<>();
         Map<Subject, Integer> johnMarks = new HashMap<>();
@@ -84,7 +81,6 @@ public class Main {
         alexMarks.put(phys, 4);
         johnMarks.put(chemistry, 5);
         johnMarks.put(math, 4);
-
         marks.put(ivan, ivanMarks);
         marks.put(alex, alexMarks);
         System.out.println(marks);
@@ -92,6 +88,8 @@ public class Main {
         addStudentAndMarks(john, johnMarks);
         System.out.println(marks);
         addSubjectForStudent(chemistry, 4, ivan);
+        System.out.println(marks);
+        addSubjectForStudent(phys, 3, alex); //ничего не сделает, так как это предмет уже есть
         System.out.println(marks);
         removeStudentAndMarks(alex);
         System.out.println(marks);
