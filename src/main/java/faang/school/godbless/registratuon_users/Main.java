@@ -2,7 +2,6 @@ package faang.school.godbless.registratuon_users;
 
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
@@ -40,4 +39,11 @@ public class Main {
         assertThrows(IllegalArgumentException.class, () -> new User("  ", 15, "Epam", "Warsaw"));
     }
 
+    @Test
+    void createUserWithNullParamTest(){
+        assertThrows(NullPointerException.class, () -> new User(null,20, null, null));
+        assertThrows(NullPointerException.class, () -> new User(null,20, "Uber", "London"));
+        assertThrows(NullPointerException.class, () -> new User("Vladimir",20, null, "London"));
+        assertThrows(NullPointerException.class, () -> new User("Vladimir",20, "Uber", null));
+    }
 }
