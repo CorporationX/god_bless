@@ -23,11 +23,11 @@ public class Main {
         EmailProcessor emailProcessor = new EmailProcessor();
 
         Predicate<Email> isImportant = Email::isImportant;
-        Consumer<Email> readRemained = email -> System.out.println("Email " + email.getSubject() + " was read");
-        Function<Email, String> modifyEmails = email -> email.getSubject().toUpperCase();
+        Consumer<Email> readRemained = email -> System.out.println("Email " + email.subject() + " was read");
+        Function<Email, Email> modifyEmails = email -> new Email(email.subject().toUpperCase(), email.body(), false);
 
-        emailProcessor.processEmails(emailList, isImportant, readRemained, modifyEmails);
-        for (Email email : emailList) {
+        List<Email> modifiedEmails = emailProcessor.processEmails(emailList, isImportant, readRemained, modifyEmails);
+        for (Email email : modifiedEmails) {
             System.out.println(email);
         }
     }
