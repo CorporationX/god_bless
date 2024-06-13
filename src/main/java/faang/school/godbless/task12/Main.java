@@ -34,7 +34,7 @@ public class Main {
     }
 
     public static void addNewQuery(User user, Query queries) {
-        addNewQueries(user, new ArrayList<>(Collections.singletonList(queries)));
+        addNewQueries(user, new ArrayList<>(List.of(queries)));
     }
 
     public static void printQueries(User user) {
