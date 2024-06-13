@@ -3,7 +3,7 @@ package faang.school.godbless;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Main {
+public class Westeros {
     static Map<String, House> westeros = new HashMap<>();
 
     static {
@@ -25,23 +25,43 @@ public class Main {
     }
 
     public static void addNewHouse(String nameHouse, House newHouse) {
-        if (newHouse != null && nameHouse != null)
-            westeros.put(nameHouse, newHouse);
+        if (newHouse != null) {
+            if (nameHouse != null) {
+                westeros.put(nameHouse, newHouse);
+            } else {
+                throw new IllegalArgumentException("Name not specified");
+            }
+        } else {
+            throw new IllegalArgumentException("The house has not been transferred");
+        }
     }
 
     public static void deleteHouse(String nameHouse) {
-        if (nameHouse != null && westeros.containsKey(nameHouse))
-            westeros.remove(nameHouse);
+        if (nameHouse != null) {
+            if (westeros.containsKey(nameHouse)) {
+                westeros.remove(nameHouse);
+            } else {
+                throw new IllegalArgumentException("Westeros not contains this name");
+            }
+        } else {
+            throw new IllegalArgumentException("Name not specified");
+        }
     }
 
     public static void getInfoOnSigil(String nameHouse) {
-        if (nameHouse != null && westeros.containsKey(nameHouse))
-            System.out.println(westeros.get(nameHouse).getSigil());
+        if (nameHouse != null) {
+            if (westeros.containsKey(nameHouse)) {
+                System.out.println(westeros.get(nameHouse).getSigil());
+            } else {
+                throw new IllegalArgumentException("Westeros not contains this name");
+            }
+        } else {
+            throw new IllegalArgumentException("Name not specified");
+        }
     }
 
     public static void getInfoAboutHousesWesteros() {
         for (Map.Entry<String, House> x : westeros.entrySet())
             System.out.println("Home name:" + x.getValue().getName() + " sigil:" + x.getValue().getSigil());
     }
-
 }
