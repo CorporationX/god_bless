@@ -8,6 +8,10 @@ public class NotificationManager {
     Map<String, Consumer<Notification>> notificationHandler = new HashMap<>();
 
     protected void registerHandler(String type, Consumer<Notification> consumer) {
+        if(type==null || type.isEmpty()){
+            throw new IllegalArgumentException("Type can't be empty");
+        }
+
         notificationHandler.put(type, consumer);
     }
 
