@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static Map<Book, String> books = new HashMap<>();
+    public static final Map<Book, String> books = new HashMap<>();
 
     public static void main(String[] args) {
 
