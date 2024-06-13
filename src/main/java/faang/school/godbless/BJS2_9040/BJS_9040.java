@@ -1,6 +1,6 @@
 package faang.school.godbless.BJS2_9040;
 
-public class Application {
+public class BJS_9040 {
 
     public static void main(String[] args) {
         Character frodo = new Character("Frodo");

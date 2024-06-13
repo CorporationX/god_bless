@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS2_9040;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -11,13 +12,13 @@ public class InventoryManager {
     }
 
     public void deleteItem(Character character, Predicate<Item> condition) {
-        character.getInventory().stream().filter(condition).toList().forEach(item -> character.getInventory().remove(item));
+        List<Item> inventory = character.getInventory().stream().filter(condition).toList();
+        character.getInventory().removeAll(inventory);
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updatedItem) {
-        character.getInventory().stream().filter(condition).toList().forEach(item -> {
-            character.getInventory().remove(item);
-            character.getInventory().add(updatedItem.apply(item));
-        });
+        List<Item> items = character.getInventory().stream().filter(condition).toList();
+        character.getInventory().removeAll(items);
+        items.forEach(item -> character.getInventory().add(updatedItem.apply(item)));
     }
 }
