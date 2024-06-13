@@ -43,6 +43,12 @@ public class StreamOperations {
     }
 
     public static Set<List<String>> findUnknownFriends(@NonNull Map<String, List<String>> friends) {
+//        friends.keySet().stream()
+//                .flatMap(friend -> friends.keySet().stream()
+//                        .filter(anotherFriend -> !friend.equals(anotherFriend))
+//                        .filter(anotherFriend -> !friends.get(friend).contains(anotherFriend))
+//                        .filter(anotherFriend -> friends.get(friend).retainAll(friends.get(anotherFriend)));
+
         Set<List<String>> farFriends = new HashSet<>();
 
         friends.keySet().forEach(primaryFriendName -> {
@@ -82,15 +88,8 @@ public class StreamOperations {
     public static List<String> filterByAlphabetAndSortByLength(@NonNull List<String> strings,
                                                                @NonNull String alphabet) {
         return strings.stream()
-                .filter(string -> {
-                    boolean result = true;
-                    for (int i = 0; i < string.length(); i++) {
-                        result &= alphabet.indexOf(string.charAt(i)) != -1;
-                    }
-                    return result;
-                })
-                .sorted(Comparator.comparingInt(String::length))
-                .toList();
+                .filter(string -> IntStream.range(0, string.length())
+                        .allMatch(index -> alphabet.indexOf(string.charAt(index)) != -1)).toList();
     }
 
     public static List<String> binaryConverter(@NonNull List<Integer> integers) {
