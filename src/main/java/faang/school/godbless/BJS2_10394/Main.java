@@ -8,18 +8,18 @@ public class Main {
 
     //Найти сумму четных чисел в списке. На вход получаем список чисел, на выходе должны получать int;
     public static int findEvenNumber(List<Integer> list) {
-        return list.stream().filter(num -> num % 2 == 0).reduce((first, second) -> first + second).get();
+        return list.stream().filter(num -> num % 2 == 0).reduce((first, second) -> first + second).orElse(0);
     }
 
     //Найти максимальный элемент в списке чисел;
     public static int findMaxNumber(List<Integer> list) {
-        return list.stream().max((first, second) -> first - second).get();
+        return list.stream().max((first, second) -> first - second).orElse(0);
     }
 
     //Найти среднее значение чисел в списке;
     public static int findAverageNumber(List<Integer> list) {
         return list.stream()
-                .reduce((first, second) -> (first + second)).get() / list.size();
+                .reduce((first, second) -> (first + second)).orElse(0) / list.size();
     }
 
     //Найти количество строк, начинающихся с определённого символа в списке строк;
@@ -44,7 +44,7 @@ public class Main {
 
     //Найти наименьший элемент в списке, который больше заданного числа;
     public static int findMinNumber(List<Integer> list, int num) {
-        return list.stream().sorted((min, max) -> max - min).findFirst().get();
+        return list.stream().sorted((min, max) -> max - min).findFirst().orElse(0);
     }
 
     //Преобразовать список строк в список их длин.
