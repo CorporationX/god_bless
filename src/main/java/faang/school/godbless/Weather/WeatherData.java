@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Weather;
 
 import java.util.Map;
 import java.util.Random;
