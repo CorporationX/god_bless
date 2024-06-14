@@ -8,19 +8,19 @@ import java.util.List;
 
 @ToString
 public class Hero {
-    public static final String ERROR = "Нет такого существа";
-    private final String NAME;
-    private final String FRACTION;
-    private final int EXPERIENCE;
-    private final int LVL;
+    public static final String ERROR = "РўР°РєРѕРіРѕ СЃСѓС‰РµСЃС‚РІР° РЅРµС‚";
+    private final String name;
+    private final String fraction;
+    private final int experience;
+    private final int lvl;
     @Getter
     private final List<Creature> army;
 
     public Hero(String name, String fraction, int experience, int lvl) {
-        this.NAME = name;
-        this.FRACTION = fraction;
-        this.EXPERIENCE = experience;
-        this.LVL = lvl;
+        this.name = name;
+        this.fraction = fraction;
+        this.experience = experience;
+        this.lvl = lvl;
         this.army = new ArrayList<>();
     }
 

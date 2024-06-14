@@ -6,14 +6,14 @@ import java.util.List;
 
 @AllArgsConstructor
 public class Battlefield {
-    private final Hero ATTACKER;
-    private final Hero DEFENDER;
+    private final Hero attacker;
+    private final Hero defender;
 
     public Hero battle() {
-        if (getStrength(ATTACKER.getArmy()) > getStrength(DEFENDER.getArmy())) {
-            return ATTACKER;
+        if (getStrength(attacker.getArmy()) > getStrength(defender.getArmy())) {
+            return attacker;
         } else {
-            return DEFENDER;
+            return defender;
         }
     }
 
