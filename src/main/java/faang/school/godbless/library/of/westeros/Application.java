@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.library.of.westeros;
 
 import faang.school.godbless.library.of.westeros.Book;
 
