@@ -29,6 +29,9 @@ public class Main {
     }
 
     public static void addStudent(Map<FacultyYear, List<Student>> map, Student student) {
+        if (student.getFaculty() == null || student.getName() == null){
+            return;
+        }
         map.get(new FacultyYear(student.getFaculty(), student.getYear())).add(student);
     }
 
@@ -37,7 +40,10 @@ public class Main {
     }
 
     public static void printStudents(Map<FacultyYear, List<Student>> map, String faculty, int year) {
-        map.get(new FacultyYear(faculty, year)).forEach(System.out::println);
+        if (map.containsKey(new FacultyYear(faculty, year))){
+            map.get(new FacultyYear(faculty, year)).forEach(System.out::println);
+        }
+
     }
 
     public static void printAllStudents(Map<FacultyYear, List<Student>> map) {
