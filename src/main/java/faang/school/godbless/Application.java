@@ -1,5 +1,4 @@
 package faang.school.godbless;
-
 import java.util.function.Function;
 
 public class Application {
@@ -23,6 +22,5 @@ public class Application {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getFilename());
-
     }
 }
