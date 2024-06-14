@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS29403;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,12 +17,12 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.subject());
+        Function<Email, Email> toUpperCase = email -> new Email(email.subject().toUpperCase(), email.body().toLowerCase(), email.isImportant());
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        var newList = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        emails.forEach(email -> System.out.println(email.getSubject() + " " + email.getBody() + " " + email.isImportant()));
+        newList.forEach(email -> System.out.println(email.subject() + " " + email.subject() + " " + email.isImportant()));
 
     }
 
