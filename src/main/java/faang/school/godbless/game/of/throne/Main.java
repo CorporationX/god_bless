@@ -3,7 +3,7 @@ package faang.school.godbless.game.of.throne;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Application {
+public class Main {
 
     private static Map<String, House> houses = new HashMap<>();
 
