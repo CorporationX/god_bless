@@ -1,12 +1,8 @@
-package faang.school.godbless;
-
-import faang.school.godbless.Notification;
+package faang.school.godbless.Notification;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 public class NotificationManager {
     private Map<String, Consumer<Notification>> notificationHandler;
