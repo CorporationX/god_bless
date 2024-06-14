@@ -19,5 +19,6 @@ public class Application {
 
         Battlefield battlefield = new Battlefield(firstHero , secondHero);
         Hero winner = battlefield.battle();
+
     }
 }
