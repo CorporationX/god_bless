@@ -14,7 +14,7 @@ public class Main {
 
         StreamOperations.avgNumber(list).ifPresentOrElse(System.out::println, () -> System.out.println("Provided null value"));
 
-        long stringCount = StreamOperations.countStringsContaining(strings, "be");
+        long stringCount = StreamOperations.countStringsStartingWithCharacter(strings, 'b');
         System.out.println(stringCount);
 
         StreamOperations.remainContaining(strings, "be").forEach(System.out::println);

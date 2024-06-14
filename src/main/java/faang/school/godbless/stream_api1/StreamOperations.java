@@ -21,9 +21,9 @@ public class StreamOperations {
         return list.stream().mapToDouble(Double::valueOf).average();
     }
 
-    public static long countStringsContaining(@NonNull List<String> list,
-                                              @NonNull String containing) {
-        return list.stream().filter(string -> string.contains(containing)).count();
+    public static long countStringsStartingWithCharacter(@NonNull List<String> list,
+                                                         @NonNull Character start) {
+        return list.stream().filter(string -> string.startsWith(String.valueOf(start))).count();
     }
 
     public static List<String> remainContaining(@NonNull List<String> list,
