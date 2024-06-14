@@ -28,22 +28,22 @@ public record ActivityAnalyzer() {
             throw new IllegalArgumentException("Actions cannot be null");
         }
         Pattern pattern = Pattern.compile("#\\w+");
-        var hashtagsCounted = userActions.stream()
+        Map<String, Long> hashtagsCounted = userActions.stream()
                 .filter(userAction -> userAction.actionType().equals(ActionType.POST) ||
                         userAction.actionType().equals(ActionType.COMMENT))
                 .flatMap(userAction -> {
-                    var matcher = pattern.matcher(userAction.content());
+                    var matcher = pattern.matcher(userAction.content()); // расплющиваем стрим до строк и вычленяем хэштеги
                     Set<String> hashtags = new HashSet<>();
                     while (matcher.find()) {
                         hashtags.add(matcher.group());
                     }
                     return hashtags.stream();
                 })
-                .collect(Collectors.groupingBy(hashtag -> hashtag, Collectors.counting()));
+                .collect(Collectors.groupingBy(hashtag -> hashtag, Collectors.counting())); // формируем маппинг хэштегов с их количеством
         return hashtagsCounted.entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed()) // сортируем в порядке убывания количества вхождений хэштега
                 .limit(5)
-                .map(Map.Entry::getKey)
+                .map(Map.Entry::getKey) // вовзращаем только самые популярные хэштеги
                 .toList();
     }
 
