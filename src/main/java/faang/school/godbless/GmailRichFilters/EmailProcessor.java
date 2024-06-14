@@ -9,8 +9,8 @@ public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> isImportant, Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
         for (Email email : emails) {
             if (isImportant.test(email)) {
-                email.setBody(toUpperCase.apply(email));
                 printEmail.accept(email);
+                System.out.println(toUpperCase.apply(email));
             }
         }
     }
