@@ -24,10 +24,11 @@ public class StreamOperations {
                 .distinct().toList();
     }
 
-    public static void showCountriesAndCapitals(@NonNull Map<String, String> countryCapital) {
-        countryCapital.entrySet().stream()
+    public static List<String> getCountriesAndCapitals(@NonNull Map<String, String> countryCapital) {
+        return countryCapital.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
-                .forEach(System.out::println);
+                .map(Map.Entry::getValue)
+                .toList();
     }
 
     public static List<String> filterBeginsWithAndSortByLength(@NonNull List<String> strings,
@@ -41,7 +42,7 @@ public class StreamOperations {
     public static Set<List<String>> findUnknownFriends(@NonNull Map<String, List<String>> friends) {
         Set<List<String>> farFriends = new HashSet<>();
 
-        // Using BFS algorithm
+        // used bfs algorithm
         friends.keySet().forEach(primaryFriendName -> {
             Map<String, Boolean> isProcessed = new HashMap<>();
             Queue<FriendWalkingNode> queue = new LinkedList<>();

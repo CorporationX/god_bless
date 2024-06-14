@@ -24,7 +24,8 @@ public class Main {
                 "Helsinki", "Finland",
                 "Oslo", "Norway"
         );
-        StreamOperations.showCountriesAndCapitals(capitals);
+        List<String> capitalsList = StreamOperations.getCountriesAndCapitals(capitals);
+        System.out.println(capitalsList);
         System.out.println();
 
         // test third task -
