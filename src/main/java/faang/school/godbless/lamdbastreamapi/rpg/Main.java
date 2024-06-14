@@ -11,27 +11,27 @@ public class Main {
         inventoryManager.addItem(
                 frodo,
                 ring,
-                (item) -> System.out.println(item.getName() + " было добавлено в инвентарь")
+                (item) -> System.out.println(item.name() + " было добавлено в инвентарь")
         );
         inventoryManager.addItem(
                 frodo,
                 sword,
-                (item) -> System.out.println(item.getName() + " успешно добавлен в инвентарь")
+                (item) -> System.out.println(item.name() + " успешно добавлен в инвентарь")
         );
         inventoryManager.addItem(
                 frodo,
                 armor,
-                (item) -> System.out.println(item.getName() + " получен персонажем")
+                (item) -> System.out.println(item.name() + " получен персонажем")
         );
         System.out.println(frodo);
 
-        inventoryManager.removeItem(frodo, (item) -> item.getValue() > 500);
+        inventoryManager.removeItem(frodo, (item) -> item.value() > 500);
         System.out.println(frodo);
 
         inventoryManager.updateItem(
                 frodo,
-                (item) -> item.getValue() == 500,
-                (item) -> new Item(item.getName(), item.getValue() + 100)
+                (item) -> item.value() == 500,
+                (item) -> new Item(item.name(), item.value() + 100)
         );
         System.out.println(frodo);
     }
