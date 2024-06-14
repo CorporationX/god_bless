@@ -8,7 +8,7 @@ public abstract class Character {
         this.name = name;
     }
 
-    /* public Character(int sila, int lovkost, int intelect) {  // не вижу смысла в этом конструкторе
+    /* public Character(int sila, int lovkost, int intelect) {  // не вижу смысла в этом конструкторе.
         this.sila = sila;                                    // когда переопределю конструктор под воина и лучника
         this.lovkost = lovkost;                              // в теле конструктора хоть и укажу заданные значения
         this.intelect = intelect;                       //для силы и т.д все равно они изменяться когда создам обьект
