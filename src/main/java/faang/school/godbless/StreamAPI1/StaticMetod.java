@@ -1,6 +1,7 @@
 package faang.school.godbless.StreamAPI1;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class StaticMetod {
     //    Сумма четных чисел в списке
@@ -34,8 +35,8 @@ public class StaticMetod {
     }
 
     //    Все ли элементы списка удовлетворяют определённому условию
-    public static boolean anyMatchTest(List<String> str) {
-        return str.stream().anyMatch(s -> s.length() > 2);
+    public static boolean anyMatchTest(List<String> str, Predicate<String> predicate) {
+        return str.stream().anyMatch(predicate);
     }
 
     //    Наименьший элемент в списке, который больше заданного числа

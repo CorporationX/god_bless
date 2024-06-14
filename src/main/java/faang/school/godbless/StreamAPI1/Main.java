@@ -1,6 +1,7 @@
 package faang.school.godbless.StreamAPI1;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +14,8 @@ public class Main {
         System.out.println(StaticMetod.findNumLine(str, "L"));
         System.out.println(StaticMetod.filterList(str2, "Лето"));
         System.out.println(StaticMetod.sortListString(str));
-        System.out.println(StaticMetod.anyMatchTest(str));
+        Predicate<String> predicate = s -> s.length() > 2;
+        System.out.println(StaticMetod.anyMatchTest(str, predicate));
         System.out.println(StaticMetod.minNumListBigNum(nums, 4));
         System.out.println(StaticMetod.stringConvertLength(str));
     }
