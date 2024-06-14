@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.library.of.westeros;
 
 public class Application {
     public static void main(String[] args) {
