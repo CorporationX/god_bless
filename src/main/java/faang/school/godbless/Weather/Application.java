@@ -1,8 +1,6 @@
 package faang.school.godbless.Weather;
 
 import java.util.HashMap;
-
-
 import faang.school.godbless.Weather.WeatherData;
 
 public class Application {
