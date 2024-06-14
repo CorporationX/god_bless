@@ -2,7 +2,6 @@ package faang.school.godbless;
 
 public class Application {
     public static void main(String[] args) {
-
         Hero firstHero = new Hero("Zoltan","Light");
         Hero secondHero = new Hero("Goldran","Darkness");
 
@@ -20,12 +19,5 @@ public class Application {
 
         Battlefield battlefield = new Battlefield(firstHero , secondHero);
         Hero winner = battlefield.battle();
-
-        if(winner == null){
-            System.out.println("Ничья");
-            return;
-        }
-
-        System.out.println("Поебидтель: " + winner);
     }
 }
