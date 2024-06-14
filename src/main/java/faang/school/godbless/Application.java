@@ -1,25 +1,21 @@
 package faang.school.godbless;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class Application {
     public static void main(String[] args) {
-        MessageProcessor messageProcessor = new MessageProcessor();
+        DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("spam");
-        MessageFilter lengthFilter = message -> message.length() > 10;
-        MessageFilter emojiFilter = message -> !message.contains("😀");
-        MessageFilter emailFilter = message -> !message.contains("@");
+        Map<String, String> dictionary = new HashMap<>();
 
-        List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter, emailFilter);
+        BiConsumer<String, String> addWordToDictionary = dictionary::put;
 
-        String[] messages = {"Hi!", "This spam!", "How are you? 😀", "A long message without spam and emojis",
-                "Message over 10 symbols", "Message", "email@mail.ru"};
+        dictionaryProcessor.processWord("Мяч", "Ball", addWordToDictionary);
+        dictionaryProcessor.processWord("Вода", "Water", addWordToDictionary);
+        dictionaryProcessor.processWord("Огонь", "Fire", addWordToDictionary);
 
-        for (String message : messages) {
-            boolean isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
-        }
+        System.out.println("Словарь: " + dictionary);
     }
 }
