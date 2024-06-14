@@ -25,7 +25,7 @@ public class Main {
         System.out.println(MathMethods.allElementsMatchCondition(stringList, 'b'));
 
         try {
-            System.out.println(MathMethods.findMinGreaterThan(nums, 4));
+            System.out.println(MathMethods.findMinGreaterThan(nums, 3));
         } catch (NoSuchElementException e) {
             System.out.println(e.getMessage());
         }

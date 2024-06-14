@@ -2,7 +2,6 @@ package faang.school.godbless.streamapi1;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class MathMethods {
     public static int sumOfEvenNumbers(List<Integer> nums) {
@@ -49,10 +48,10 @@ public class MathMethods {
     }
 
     public static int findMinGreaterThan(List<Integer> nums, int target) {
-        Optional<Integer> res = nums.stream()
+        return nums.stream()
                 .filter(num -> num > target)
-                .min(Comparator.naturalOrder());
-        return res.orElseThrow(() -> new NoSuchElementException("No element found greater that target"));
+                .min(Comparator.naturalOrder())
+                .orElseThrow(() -> new NoSuchElementException("No element found greater that target"));
     }
 
     public static List<Integer> listToLength(List<String> stringList) {
