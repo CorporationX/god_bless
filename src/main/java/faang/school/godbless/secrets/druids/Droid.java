@@ -11,7 +11,14 @@ public class Droid {
         DroidMessageEncryptor messageEncryptor = (msg, k) -> {
             char[] charMessage = msg.toCharArray();
             for(int i = 0; i < charMessage.length; i++) {
-                charMessage[i] += k;
+                char c = charMessage[i];
+                if(Character.isLetter(c)) {
+                    if (Character.isLowerCase(c)) {
+                        charMessage[i] = (char) ('a' + (c - 'a' + k) % 26);
+                    } else if (Character.isUpperCase(c)) {
+                        charMessage[i] = (char) ('A' + (c - 'A' + k) % 26);
+                    }
+                }
             }
             return new String(charMessage);
         };
@@ -22,7 +29,14 @@ public class Droid {
         DroidMessageEncryptor messageEncryptor = (msg, k) -> {
             char[] charMessage = msg.toCharArray();
             for(int i = 0; i < charMessage.length; i++) {
-                charMessage[i] -= k;
+                char c = charMessage[i];
+                if (Character.isLetter(c)) {
+                    if (Character.isLowerCase(c)) {
+                        charMessage[i] = (char) ('a' + (c - 'a' - k + 26) % 26);
+                    } else if (Character.isUpperCase(c)) {
+                        charMessage[i] = (char) ('A' + (c - 'A' - k + 26) % 26);
+                    }
+                }
             }
             return new String(charMessage);
         };

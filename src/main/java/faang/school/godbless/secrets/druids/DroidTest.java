@@ -39,4 +39,28 @@ class DroidTest {
         assertEquals(expectedMessage, encryptedMessage);
     }
 
+    @Test
+    @DisplayName("Тестирование отправки зашифрованных сообщения на границе алфавита")
+    void testSendEncryptedMessageBorder() {
+        String message = "xyz";
+        int key = 3;
+        String expectedMessage = "abc";
+
+        String encryptedMessage = r2d2.sendEncryptedMessage(message, key);
+
+        assertEquals(expectedMessage, encryptedMessage);
+    }
+
+    @Test
+    @DisplayName("Тестирование приема зашифрованных сообщений на границе алфавита")
+    void testReceiveEncryptedMessageBorder() {
+        String message = "abc";
+        int key = 3;
+        String expectedMessage = "xyz";
+
+        String encryptedMessage = r2d2.receiveEncryptedMessage(message, key);
+
+        assertEquals(expectedMessage, encryptedMessage);
+    }
+
 }
