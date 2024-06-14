@@ -12,8 +12,9 @@ public class EmailProcessor {
         emails.stream()
                 .peek(email -> {
                     if (predicate.test(email)) {
-                        consumer.accept(email);
                         email.setBody(function.apply(email));
+                        consumer.accept(email);
+
                     }
                 })
                 .toList();
