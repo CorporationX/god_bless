@@ -11,6 +11,8 @@ public class Main {
     private static final Set<Product> products = new HashSet<>();
 
     public static void main(String[] args) {
+
+        // Создание продуктов
         int id = 0;
         products.add(new Product(++id, "Фасоль", "Консервы"));
         products.add(new Product(++id, "Горошек", "Консервы"));
@@ -18,12 +20,14 @@ public class Main {
         products.add(new Product(++id, "Бананы", "Фрукты"));
         products.add(new Product(++id, "Апельсины", "Фрукты"));
         products.add(new Product(++id, "Яблоки", "Фрукты"));
-        products.add(new Product(++id, "Печенье", "Кон. Изделия"));
-        products.add(new Product(++id, "Булочка", "Кон. Изделия"));
-        products.add(new Product(++id, "Вафли", "Кон. Изделия"));
+        products.add(new Product(++id, "Печенье", "Кон. изделия"));
+        products.add(new Product(++id, "Булочка", "Кон. изделия"));
+        products.add(new Product(++id, "Вафли", "Кон. изделия"));
 
+        // Группировка по категориям
         Map<String, List<Product>> groupByCategory = groupByCategory(products);
 
+        // Вывод сгурппированных продуктов
         showGroupProducts(groupByCategory);
 
     }
@@ -36,7 +40,9 @@ public class Main {
     private static void showGroupProducts(Map<String, List<Product>> groupByCategory) {
         for (var entry : groupByCategory.entrySet()) {
             System.out.println(entry.getKey());
-            entry.getValue().forEach(System.out::println);
+            for (Product product : entry.getValue()) {
+                System.out.println("\t"+ product.name());
+            }
         }
         System.out.println();
     }
