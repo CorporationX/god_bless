@@ -12,6 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        directionAndMessage.get(notification.getType()).accept(notification);
+        if (directionAndMessage.containsKey(notification.type())) {
+            directionAndMessage.get(notification.type()).accept(notification);
+        } else {
+            System.out.println("There is no " + notification);
+        }
     }
 }
