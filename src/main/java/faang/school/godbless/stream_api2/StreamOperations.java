@@ -17,21 +17,17 @@ import java.util.stream.Stream;
 
 public class StreamOperations {
     public static List<List<Integer>> pairConstructor(@NonNull List<Integer> integers, int sum) {
-        Set<Integer> set = new HashSet<>();
         return integers.stream()
-                .distinct()
-                .flatMap(integer -> {
-                    if (set.contains(sum - integer)) {
-                        return Stream.of(List.of(sum - integer, integer));
-                    } else {
-                        set.add(integer);
-                        return Stream.empty();
-                    }
-                }).toList();
+                .filter(integer -> integers.contains(sum - integer))
+                .filter(integer -> integers.indexOf(integer) != integers.lastIndexOf(sum - integer))
+                .map(integer -> List.of(Math.min(integer, sum - integer), Math.max(integer, sum - integer)))
+                .distinct().toList();
     }
 
     public static void showCountriesAndCapitals(@NonNull Map<String, String> countryCapital) {
-        countryCapital.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(System.out::println);
+        countryCapital.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(System.out::println);
     }
 
     public static List<String> filterBeginsWithAndSortByLength(@NonNull List<String> strings,
@@ -43,19 +39,13 @@ public class StreamOperations {
     }
 
     public static Set<List<String>> findUnknownFriends(@NonNull Map<String, List<String>> friends) {
-//        friends.keySet().stream()
-//                .flatMap(friend -> friends.keySet().stream()
-//                        .filter(anotherFriend -> !friend.equals(anotherFriend))
-//                        .filter(anotherFriend -> !friends.get(friend).contains(anotherFriend))
-//                        .filter(anotherFriend -> friends.get(friend).retainAll(friends.get(anotherFriend)));
-
         Set<List<String>> farFriends = new HashSet<>();
 
+        // Using BFS algorithm
         friends.keySet().forEach(primaryFriendName -> {
             Map<String, Boolean> isProcessed = new HashMap<>();
             Queue<FriendWalkingNode> queue = new LinkedList<>();
-            FriendWalkingNode node = new FriendWalkingNode(primaryFriendName, primaryFriendName, 0);
-            queue.add(node);
+            queue.add(new FriendWalkingNode(primaryFriendName, primaryFriendName, 0));
 
             while (!queue.isEmpty()) {
                 FriendWalkingNode nodeToProcess = queue.poll();
@@ -63,14 +53,11 @@ public class StreamOperations {
                 int depth = nodeToProcess.getDepth();
                 isProcessed.put(friendToProcessName, true);
 
-                for (String friendName : friends.get(friendToProcessName)) {
-                    if (!isProcessed.getOrDefault(friendName, false)) {
-                        queue.add(new FriendWalkingNode(friendName, primaryFriendName, depth + 1));
-                        if (depth >= 1) {
-                            farFriends.add(Stream.of(friendName, primaryFriendName).sorted().toList());
-                        }
-                    }
-                }
+                friends.get(friendToProcessName).stream()
+                        .filter(friendName -> !isProcessed.getOrDefault(friendName, false))
+                        .peek(friendName -> queue.add(new FriendWalkingNode(friendName, primaryFriendName, depth + 1)))
+                        .filter(friendName -> depth >= 1)
+                        .forEach(friendName -> farFriends.add(Stream.of(friendName, primaryFriendName).sorted().toList()));
             }
         });
 
@@ -89,11 +76,15 @@ public class StreamOperations {
                                                                @NonNull String alphabet) {
         return strings.stream()
                 .filter(string -> IntStream.range(0, string.length())
-                        .allMatch(index -> alphabet.indexOf(string.charAt(index)) != -1)).toList();
+                        .allMatch(index -> alphabet.indexOf(string.charAt(index)) != -1))
+                .sorted(Comparator.comparing(String::length))
+                .toList();
     }
 
     public static List<String> binaryConverter(@NonNull List<Integer> integers) {
-        return integers.stream().map(Integer::toBinaryString).toList();
+        return integers.stream()
+                .map(Integer::toBinaryString)
+                .toList();
     }
 
     public static List<Integer> findPalindromeIntegersInRange(int lowerBound, int upperBound) {
@@ -113,25 +104,12 @@ public class StreamOperations {
     }
 
     public static List<Integer> findAllPerfectNumbersInRange(int start, int end) {
-        if (start <= 1) {
-            start = 2;
-        }
         return IntStream.rangeClosed(start, end)
-                .filter(integer -> countSumOfDivisors(integer) == integer)
+                .filter(integer -> integer > 1)
+                .filter(integer -> IntStream.range(2, integer)
+                        .filter(divisor -> integer % divisor == 0)
+                        .reduce(1, Integer::sum) == integer)
                 .boxed()
                 .toList();
-    }
-
-    private static int countSumOfDivisors(int divisible) {
-        int sum = 1;
-        for (int i = 2; i * i <= divisible; i++) {
-            if (divisible % i == 0) {
-                sum += i;
-                if (divisible / i != i) {
-                    sum += divisible / i;
-                }
-            }
-        }
-        return sum;
     }
 }

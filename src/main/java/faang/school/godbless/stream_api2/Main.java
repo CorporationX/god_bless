@@ -9,7 +9,7 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         // test first task - Construct Pairs
-        List<Integer> integerList = List.of(1, 9, 3, 6, 4, 5);
+        List<Integer> integerList = List.of(1, 9, 3, 6, 4, 5, 1, 9, 5);
         System.out.println(StreamOperations.pairConstructor(integerList, 10));
         System.out.println();
 
