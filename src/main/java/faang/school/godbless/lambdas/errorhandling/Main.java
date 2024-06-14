@@ -35,22 +35,4 @@ public class Main {
             return handler.handle(e);
         }
     }
-
-    private static class RemoteService {
-        private String call() {
-            return "Заглушка";
-        }
-
-        private String call(Integer i) {
-            return "Заглушка + " + i;
-        }
-
-        private String callWithException() {
-            throw new RuntimeException("Эксеншен");
-        }
-
-        private String callWithException(Integer i) {
-            return "Эксеншен + " + i;
-        }
-    }
 }
