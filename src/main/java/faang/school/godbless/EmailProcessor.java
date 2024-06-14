@@ -15,9 +15,12 @@ public class EmailProcessor {
             Consumer<Email> consumer, Function<Email, String> function) {
 
         emails.stream().forEach(email -> {
-            predicate.test(email);
-            consumer.accept(email);
-            function.apply(email);
+            Email copyEmail = new Email(email.getSubject(),
+                    email.getBody(), email.getIsImportant());
+
+            predicate.test(copyEmail);
+            function.apply(copyEmail);
+            consumer.accept(copyEmail);
         });
     }
 }
