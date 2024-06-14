@@ -1,4 +1,4 @@
-package Spell;
+package faang.school.godbless.Spell;
 
 public class Example {
     public static void main(String[] args) {

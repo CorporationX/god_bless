@@ -1,4 +1,4 @@
-package Spell;
+package faang.school.godbless.Spell;
 
 @FunctionalInterface
 interface SpellAction{
