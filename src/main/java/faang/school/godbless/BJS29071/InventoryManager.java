@@ -8,12 +8,10 @@ import java.util.function.Predicate;
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> predicate) {
         if (item == null) {
-            System.out.println("Item is null");
-            return;
+            throw new NullPointerException("Item is null");
         }
         if (character == null) {
-            System.out.println("Character is null");
-            return;
+            throw new NullPointerException("Character is null");
         }
 
         character.getInventory().add(item);
@@ -23,7 +21,6 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
         if (character.getInventory().isEmpty()) {
             System.out.println(character.getName() + "'s inventory is empty");
-            return;
         }
         character.getInventory().removeIf(predicate);
     }
@@ -31,7 +28,6 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> func) {
         if (character.getInventory().isEmpty()) {
             System.out.println(character.getName() + "'s inventory is empty");
-            return;
         }
         List<Item> updatedItems = character.getInventory().stream().filter(predicate)
                 .map(item -> func.apply(item)).toList();
