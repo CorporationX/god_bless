@@ -5,7 +5,7 @@ import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 public class CsvFormatter {
-    public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
+    public static String toCsv(List<List<String>> table) {
         BiFunction<List<String>, String, String> collector = (list, delimiter) -> {
             if (list == null || list.isEmpty()) {
                 throw new IllegalArgumentException("Cannot process null or empty list");
@@ -24,7 +24,11 @@ public class CsvFormatter {
         VectorJoiner<String> vectorJoiner = (row) -> collector.apply(row, ", ");
 
         MatrixJoiner<String> matrixJoiner = (rows) ->
-                collector.apply(rows.stream().map(vectorJoiner::join).collect(Collectors.toList()), "\n");
+                collector.apply(
+                        rows.stream()
+                                .map(vectorJoiner::join)
+                                .collect(Collectors.toList()),
+                        "\n");
 
         return matrixJoiner.join(table);
     }
