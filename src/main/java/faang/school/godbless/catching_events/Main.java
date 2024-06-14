@@ -9,21 +9,10 @@ public class Main {
     public static HashMap<String, List<StreamEvent>> groupedEvents = new HashMap<>();
 
     public static void main(String[] args) {
-        List<StreamEvent> streamEvents = new ArrayList<>();
-        StreamEvent streamEvent1 = new StreamEvent(1, "type1", "abc");
-        StreamEvent streamEvent2 = new StreamEvent(2, "type2", "def");
-        StreamEvent streamEvent3 = new StreamEvent(3, "type3", "ghi");
-        StreamEvent streamEvent4 = new StreamEvent(4, "type2", "jkl");
-
-        streamEvents.add(streamEvent1);
-        streamEvents.add(streamEvent2);
-        streamEvents.add(streamEvent3);
-        streamEvents.add(streamEvent4);
-
-        addNewStreamEvent(streamEvent1);
-        addNewStreamEvent(streamEvent2);
-        addNewStreamEvent(streamEvent3);
-        addNewStreamEvent(streamEvent4);
+        addNewStreamEvent(new StreamEvent(1, "type1", "abc"));
+        addNewStreamEvent(new StreamEvent(2, "type2", "def"));
+        addNewStreamEvent(new StreamEvent(3, "type3", "ghi"));
+        addNewStreamEvent(new StreamEvent(4, "type2", "jkl"));
         printEvents();
         printGroupedEvents();
         System.out.println(searchStreamEventByIdInEvents(3));
