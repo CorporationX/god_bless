@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 
 public class DataAnalyzer {
 
+    final static int salaryScala = 50;
+
     //метод, который выводит топ-5 самые популярные скиллы для кандидата
     public static List<String> getRequiredSkills(@NonNull List<Job> jobList) {
         return jobList.stream()
@@ -52,10 +54,8 @@ public class DataAnalyzer {
 
     private static String getRange(Double number) {
         long round = Math.round(number);
-        while (round % 50 != 0) {
-            round--;
-        }
-        return round + "-" + (round + 50);
+        long start = round - (round % salaryScala);
+        return start + "-" + (start + salaryScala);
     }
 
     //метод, который возвращает 5 наиболее популярных местоположений офисов;
