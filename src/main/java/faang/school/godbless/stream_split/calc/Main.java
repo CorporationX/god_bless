@@ -20,7 +20,9 @@ public class Main {
                 sum = calculator.operation(sum, nums.get(i));
             }
             return sum;
-        } else throw new IllegalArgumentException();
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     public static void main(String[] args) {
