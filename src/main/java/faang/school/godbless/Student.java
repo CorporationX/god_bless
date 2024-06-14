@@ -8,15 +8,15 @@ public class Student {
     private int year;
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getFaculty() {
-        return faculty;
+        return this.faculty;
     }
 
     public int getYear() {
-        return year;
+        return this.year;
     }
 
     public Student(String name, String faculty, int year) {

@@ -6,7 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static List<Student> allStudents = new ArrayList<>();
+    public static final int LAST_YEAR_TEACHING = 5;
+    public static final int FIRST_YEAR_TEACHING = 1;
+    private static final List<Student> allStudents = new ArrayList<>();
 
     static {
         allStudents.add(new Student("Bill", "Mathematics", 2));
@@ -27,22 +29,23 @@ public class Main {
             System.out.println(x.getKey() + " " + x.getValue());
         System.out.println();
 
-        deleteStudent("Masha", "Physics", 3);
+        removeStudent(new Student("Masha", "Physics", 3));
 
         List<Student> testMethod = searchStudentAboutFacultyAndYears("Mathematics", 2);
-        for (Student student : testMethod)
-            System.out.println(student);
-        System.out.println();
+        testMethod.forEach(System.out::println);
 
         printStudentAboutFacultyAndYears("Physics", 3);
     }
 
     public static HashMap<String, List<Student>> groupingByFacultyAndCourse(List<Student> students) {
+        if (students == null)
+            throw new IllegalArgumentException("Invalid list of students submitted");
+
         HashMap<String, List<Student>> result = new HashMap<>();
         String facultyAndYear;
 
         for (Student student : students) {
-            facultyAndYear = student.getFaculty() + "_" + String.valueOf(student.getYear());
+            facultyAndYear = student.getFaculty() + "_" + student.getYear();
 
             if (!result.containsKey(facultyAndYear)) {
                 List<Student> valueMap = new ArrayList<>();
@@ -55,47 +58,66 @@ public class Main {
     }
 
     public static void addNewStudent(String name, String faculty, int year) {
-        if (name != null && faculty != null && year > 0 && year <= 5) {
+        if (checkingInformation(name, faculty, year)) {
             allStudents.add(new Student(name, faculty, year));
-        } else {
-            System.out.println("Введенные данные не верны");
         }
     }
 
-    public static void deleteStudent(String name, String faculty, int years) {
-        if (name != null && faculty != null && years > 0 && years <= 5) {
-            Student deletStudent = new Student(name, faculty, years);
-            if (allStudents.contains(deletStudent)) {
-                allStudents.remove(deletStudent);
+    public static void removeStudent(Student student) {
+        if (student != null) {
+            if (allStudents.contains(student)) {
+                allStudents.remove(student);
             } else {
-                System.out.println("Такого студента не существует");
+                throw new IllegalArgumentException("Student not on the list");
             }
         } else {
-            System.out.println("Введенные данные не верны либо такого студента не существует");
+            throw new IllegalArgumentException("Student is null");
         }
     }
 
     public static List<Student> searchStudentAboutFacultyAndYears(String faculty, int year) {
-        if (faculty != null && year > 0 && year <= 5) {
-            HashMap<String, List<Student>> x = groupingByFacultyAndCourse(allStudents);
+        if (checkingInformation(faculty,year)) {
             String facultyAndYear = faculty + "_" + year;
-            return x.get(facultyAndYear);
+            return groupingByFacultyAndCourse(allStudents).get(facultyAndYear);
         } else {
-            System.out.println("Данные не верны");
-            return null;
+            return new ArrayList<>();
         }
     }
 
     public static void printStudentAboutFacultyAndYears(String faculty, int year) {
-        if (faculty != null && year > 0 && year <= 5) {
-            HashMap<String, List<Student>> x = groupingByFacultyAndCourse(allStudents);
+        if (checkingInformation(faculty, year)) {
             String facultyAndYear = faculty + "_" + year;
-            List<Student> students = x.get(facultyAndYear);
-            for (Student student : students) {
-                System.out.println(student);
-            }
-        } else {
-            System.out.println("Данные не верны");
+            List<Student> students = groupingByFacultyAndCourse(allStudents).get(facultyAndYear);
+            students.forEach(System.out::println);
         }
     }
+
+    public static boolean checkingInformation(String name, String faculty, int year) {
+        if (name != null) {
+            if (faculty != null) {
+                if (year >= FIRST_YEAR_TEACHING && year <= LAST_YEAR_TEACHING) {
+                    return true;
+                } else {
+                    throw new IllegalArgumentException("Not true years");
+                }
+            } else {
+                throw new IllegalArgumentException("Faculty is null");
+            }
+        } else {
+            throw new IllegalArgumentException("Name is null");
+        }
+    }
+
+    public static boolean checkingInformation(String faculty, int year) {
+        if (faculty != null) {
+            if (year >= FIRST_YEAR_TEACHING && year <= LAST_YEAR_TEACHING) {
+                return true;
+            } else {
+                throw new IllegalArgumentException("Not true years");
+            }
+        } else {
+            throw new IllegalArgumentException("Faculty is null");
+        }
+    }
+
 }
