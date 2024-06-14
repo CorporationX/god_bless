@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Main {
 
-    public static final Map<String, Calculator<Integer>> CALCULATOR = new HashMap<>();
+    public static final Map<String, Calculator<Integer>> calculatorOperation = new HashMap<>();
 
     public static void main(String[] args) {
-        CALCULATOR.put("sum", (a, b) -> a + b);
-        CALCULATOR.put("product", (a, b) ->  a * b);
+        calculatorOperation.put("sum", (a, b) -> a + b);
+        calculatorOperation.put("product", (a, b) ->  a * b);
 
         List<Integer> nums = new ArrayList<>(List.of(2, 3, 4, 5));
         System.out.println("Сумма: " + sum(nums));
@@ -28,10 +28,10 @@ public class Main {
     }
 
     public static int product(List<Integer> nums) {
-        return calculate(nums, CALCULATOR.get("product"));
+        return calculate(nums, calculatorOperation.get("product"));
     }
 
     public static int sum(List<Integer> nums) {
-        return calculate(nums, CALCULATOR.get("sum"));
+        return calculate(nums, calculatorOperation.get("sum"));
     }
 }
