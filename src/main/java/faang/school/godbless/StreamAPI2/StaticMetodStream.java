@@ -23,12 +23,18 @@ public class StaticMetodStream {
 
     //    Отсортируйте страны по алфавиту, а затем выведите названия их столиц в виде списка
     public static List<String> capitalsList(Map<String, String> map) {
-        return map.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
+        return map.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .toList();
     }
 
     //    Отфильтруйте строки, которые начинаются с заданной буквы, и отсортируйте их по длине в порядке возрастания
     public static List<String> filterString(List<String> strings, char s) {
-        return strings.stream().filter(i -> i.charAt(0) == s).sorted(Comparator.comparingInt(String::length)).toList();
+        return strings.stream()
+                .filter(i -> i.charAt(0) == s)
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     //    Найдите среднюю зарплату для каждого отдела
@@ -41,7 +47,10 @@ public class StaticMetodStream {
 
     //    Отфильтруйте строки, которые содержат только буквы заданного алфавита
     public static List<String> filterString(List<String> strings, List<Character> chars) {
-        return strings.stream().filter(i -> chars.stream().anyMatch(j -> i.contains(j.toString()))).collect(Collectors.toList());
+        return strings.stream()
+                .filter(i -> chars.stream()
+                        .anyMatch(j -> i.contains(j.toString())))
+                .collect(Collectors.toList());
     }
 
     //    метод, который преобразует список целых чисел в список строк, где каждое число записано в двоичном виде
