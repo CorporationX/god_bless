@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.HandlingErrorsGracefully;
 
 @FunctionalInterface
 public interface ExceptionHandler<T> {
