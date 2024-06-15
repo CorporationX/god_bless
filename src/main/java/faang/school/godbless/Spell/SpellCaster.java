@@ -1,9 +1,6 @@
 package faang.school.godbless.Spell;
 
-@FunctionalInterface
-interface SpellAction{
-    String perform(String spellName);
-}
+
 
 public class SpellCaster {
     public void cast(String spellName, SpellAction spellAction) {
