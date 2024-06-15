@@ -12,7 +12,7 @@ class StreamLibTest {
     @Test
     public void testEvenList() {
         List<Integer> input = Arrays.asList(1, 2, 3, 4, 5, 6);
-        List<Integer> expected = Arrays.asList(2, 4, 6);
+        Integer expected = 12;
         assertEquals(expected, StreamLib.evenList(input));
     }
 

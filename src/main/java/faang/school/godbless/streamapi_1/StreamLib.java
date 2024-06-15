@@ -6,8 +6,8 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class StreamLib {
-    public static List<Integer> evenList(List<Integer> list) {
-        return list.stream().filter(num -> num % 2 == 0).toList();
+    public static Integer evenList(List<Integer> list) {
+        return list.stream().filter(num -> num % 2 == 0).reduce(Integer::sum).orElse(0);
     }
 
     public static Integer maxNumber(List<Integer> list) {
@@ -19,7 +19,7 @@ public class StreamLib {
     }
 
     public static Integer grepCount(List<String> list, String pattern) {
-        return (int) list.stream().filter(s -> s.startsWith("a")).count();
+        return (int) list.stream().filter(s -> s.startsWith(pattern)).count();
     }
 
     public static List<String> regexFilter(List<String> list, String pattern) {
