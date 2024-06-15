@@ -9,7 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class IntPair {
-    private Integer firstInt;
-    private Integer secondInt;
+public class Pair<T> {
+    private T firstInt;
+    private T secondInt;
 }
