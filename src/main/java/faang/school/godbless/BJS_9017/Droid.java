@@ -12,22 +12,19 @@ public class Droid {
     private int key;
     private DroidMessageEncryptor messageEncryptor;
 
-    public void sendEncryptedMessage(Droid droid, String message, int key) {
+    public String sendEncryptedMessage(String message, int key) {
         messageEncryptor = (msg, k) -> msg.chars().mapToObj(ch -> {
             ch += k;
             return String.valueOf((char) ch);
         }).collect(Collectors.joining());
-
-        droid.setMessage(messageEncryptor.implement(message, key));
-        droid.setKey(key);
+        return messageEncryptor.implement(message, key);
     }
 
-    public void receiveEncryptedMessage() {
-        System.out.println(this.getMessage());
+    public String receiveEncryptedMessage(String message, int key) {
         messageEncryptor = (msg, k) -> msg.chars().mapToObj(ch -> {
             ch -= k;
             return String.valueOf((char) ch);
         }).collect(Collectors.joining());
-        System.out.println(messageEncryptor.implement(this.message, this.key));
+        return messageEncryptor.implement(message, key);
     }
 }

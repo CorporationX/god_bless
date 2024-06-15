@@ -5,7 +5,9 @@ public class Application {
     public static void main(String[] args) {
         Droid r2d2 = new Droid();
         Droid c3p0 = new Droid();
-        r2d2.sendEncryptedMessage(c3p0, "May the force be with you", 1);
-        c3p0.receiveEncryptedMessage();
+        String encryptedMsg = r2d2.sendEncryptedMessage("May the force be with you", 1);
+        System.out.println("Encrypted message is: " + encryptedMsg);
+        String receivedMessage = c3p0.receiveEncryptedMessage(encryptedMsg, 1);
+        System.out.println("Received message is: " + receivedMessage);
     }
 }
