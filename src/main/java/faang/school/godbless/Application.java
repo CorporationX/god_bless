@@ -8,11 +8,11 @@ public class Application {
 
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getFilename() + "_grayscale", "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getFilename() + "_sepia", "Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getFilename() + "_vignette", "Фильтр: виньетка");
-        Function<Image, Image> brightnessFilter = image -> new Image(image.getFilename() + "_bright", "Фильтр: увеличение яркости");
-        Function<Image, Image> blurFilter = image -> new Image(image.getFilename() + "_blur", "Фильтр: размытие");
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image + "_grayscale", "Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image + "_sepia", "Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) -> new Image(image + "_vignette", "Фильтр: виньетка");
+        Function<Image, Image> brightnessFilter = image -> new Image(image + "_bright", "Фильтр: увеличение яркости");
+        Function<Image, Image> blurFilter = image -> new Image(image + "_blur", "Фильтр: размытие");
 
 
         Function<Image, Image> brithAndBlurFilter = filterProcessor.combineFilters(brightnessFilter, blurFilter);
