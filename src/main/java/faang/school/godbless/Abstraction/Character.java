@@ -1,11 +1,11 @@
 package faang.school.godbless.Abstraction;
 
 public abstract class Character {
-    int health = 100;
-    String name;
-    int power;
-    int agility;
-    int intelligence;
+    protected int health = 100;
+    protected String name;
+    protected int power;
+    protected int agility;
+    protected int intelligence;
 
     public Character(String name) {
         this.name = name;
@@ -15,14 +15,15 @@ public abstract class Character {
 }
 
     class Warrior extends Character {
-    Warrior(String name) {              //задаю конструктор воину где ввожу имя воина , а его данные
-        super(name);                   // сила ловкость интелект будут всегда заданны стандартно
+    Warrior(String name) {
+        super(name);
         power = 10;
         agility = 5;
         intelligence = 3;
     }
 
-   public void attack(Character character) {               //метод атаки для воина
+   public void attack(Character character) {
+
         character.health = character.health - power;
     }
 }
@@ -35,12 +36,12 @@ public abstract class Character {
         intelligence = 5;
     }
 
-    public void attack(Character character) {                    //метод атаки для лучника
+    public void attack(Character character) {
         character.health= character.health - agility;
     }
 }
 
-class Test {
+    class Test {
 
     public static void main(String[] args) {
         Warrior war1 = new Warrior("Knight");
