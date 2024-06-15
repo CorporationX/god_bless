@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-   private static final Map<String, House> houses = new HashMap<>();
+   public static final Map<String, House> houses = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -24,19 +24,19 @@ public class Main {
         printAll();
     }
 
-    private static void add(String name, House house) {
+    public static void add(String name, House house) {
         houses.put(name, house);
     }
 
-    private static void remove(String name) {
+    public static void remove(String name) {
         houses.remove(name);
     }
 
-    private static String find(String name) {
+    public static String find(String name) {
         return houses.get(name).getSigil();
     }
 
-    private static void printAll() {
+    public static void printAll() {
         boolean home = false;
         houses.forEach((name, house) -> System.out.println(home + ":" + house.getSigin()));
     }
