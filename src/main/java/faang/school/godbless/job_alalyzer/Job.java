@@ -3,7 +3,6 @@ package faang.school.godbless.job_alalyzer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,6 +15,5 @@ public class Job {
     private List<String> requirements;
     private int salary;
     private String location;
-    @NonNull
     private LocalDate jobPublicationTimestamp;
 }

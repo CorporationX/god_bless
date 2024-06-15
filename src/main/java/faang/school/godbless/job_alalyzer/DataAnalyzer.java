@@ -1,5 +1,7 @@
 package faang.school.godbless.job_alalyzer;
 
+import lombok.NonNull;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -8,68 +10,73 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataAnalyzer {
-    public final long SCALE_INTERVAL = 50000L;
+    public final long SALARY_SCALE_INTERVAL = 50000L;
 
-    public List<String> topMostRelevantSkills(List<Job> jobList, int top) {
-        return jobList.stream()
+    public List<String> topNMostRelevantSkills(@NonNull List<Job> jobList, int top) {
+        Map<String, Long> skillAndCountMap = jobList.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(requirement -> requirement, Collectors.counting()))
-                .entrySet()
+                .collect(Collectors.groupingBy(requirement -> requirement, Collectors.counting()));
+
+        return skillAndCountMap.entrySet()
                 .stream()
-                .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public List<String> topMostPopularPositions(List<Job> jobList, int top) {
-        return jobList.stream()
-                .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()))
-                .entrySet()
+    public List<String> topMostPopularPositions(@NonNull List<Job> jobList, int top) {
+        Map<String, Long> positionAndCountMap = jobList.stream()
+                .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()));
+
+        return positionAndCountMap.entrySet()
                 .stream()
-                .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public Map<String, Long> countJobSalaries(List<Job> jobList) {
+    public Map<String, Long> countJobSalaries(@NonNull List<Job> jobList) {
         return jobList.stream()
                 .map(Job::getSalary)
                 .collect(Collectors.groupingBy(salary -> {
-                    long lowerBound = (salary / SCALE_INTERVAL) * SCALE_INTERVAL;
-                    long upperBound = lowerBound + SCALE_INTERVAL;
+                    long lowerBound = (salary / SALARY_SCALE_INTERVAL) * SALARY_SCALE_INTERVAL;
+                    long upperBound = lowerBound + SALARY_SCALE_INTERVAL;
                     return lowerBound + "k - " + upperBound + "k";
                 }, Collectors.counting()));
     }
 
-    public List<String> topMostPopularOfficeLocations(List<Job> jobList, int top) {
-        return jobList.stream()
+    public List<String> topMostPopularOfficeLocations(@NonNull List<Job> jobList, int top) {
+        Map<String, Long> locationAndCountMap = jobList.stream()
                 .map(Job::getLocation)
-                .collect(Collectors.groupingBy(location -> location, Collectors.counting()))
-                .entrySet()
+                .collect(Collectors.groupingBy(location -> location, Collectors.counting()));
+
+        return locationAndCountMap.entrySet()
                 .stream()
-                .sorted((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()))
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public Map<LocalDate, JobChanges> analyzeTrends(List<Job> jobList, LocalDate startDate, LocalDate endDate, TrendGranularity granularity) {
+    public Map<LocalDate, JobChanges> analyzeTrends(@NonNull List<Job> jobList,
+                                                    @NonNull LocalDate startDate,
+                                                    @NonNull LocalDate endDate,
+                                                    TrendGranularity granularity) {
         Map<LocalDate, JobChanges> result = new HashMap<>();
 
         while (startDate.isBefore(endDate)) {
             LocalDate currentDate = startDate;
-            System.out.println(currentDate);
 
-            long numberOfJobs = checkPeriodsOfJob(jobList, currentDate, granularity)
+            long numberOfJobs = getJobsInTimeRange(jobList, currentDate, granularity)
                     .count();
 
-            Map<String, Long> jobRequirementSkills = checkPeriodsOfJob(jobList, currentDate, granularity)
+            Map<String, Long> jobRequirementSkills = getJobsInTimeRange(jobList, currentDate, granularity)
                     .flatMap(job -> job.getRequirements().stream())
                     .collect(Collectors.groupingBy(requirement -> requirement, Collectors.counting()));
 
-            Map<String, Long> jobLocation = checkPeriodsOfJob(jobList, currentDate, granularity)
+            Map<String, Long> jobLocation = getJobsInTimeRange(jobList, currentDate, granularity)
                     .map(Job::getLocation)
                     .collect(Collectors.groupingBy(location -> location, Collectors.counting()));
 
@@ -80,14 +87,16 @@ public class DataAnalyzer {
         return result;
     }
 
-    private Stream<Job> checkPeriodsOfJob(List<Job> jobList, LocalDate currentDate, TrendGranularity granularity) {
+    private Stream<Job> getJobsInTimeRange(@NonNull List<Job> jobList,
+                                           @NonNull LocalDate timeStart,
+                                           TrendGranularity period) {
         return jobList.stream()
                 .filter(job -> {
                     LocalDate jobPublication = job.getJobPublicationTimestamp();
-                    return currentDate.isBefore(jobPublication) || currentDate.isEqual(jobPublication);
+                    return timeStart.isBefore(jobPublication) || timeStart.isEqual(jobPublication);
                 })
                 .filter(job -> {
-                    LocalDate endOfPeriod = granularity.getFunction().apply(currentDate).minusDays(1);
+                    LocalDate endOfPeriod = period.getFunction().apply(timeStart).minusDays(1);
                     LocalDate jobPublication = job.getJobPublicationTimestamp();
                     return endOfPeriod.isAfter(jobPublication) || endOfPeriod.isEqual(jobPublication);
                 });
