@@ -18,8 +18,16 @@ public record DataAnalyzer() {
                 .toList();
     }
 
-    public List<String> listTop5JobTitlesDescending(List<Job> jobs) {
+    public List<String> listTop5JobTitles(List<Job> jobs) {
         return findTop5ByCriteria(jobs, Job::title);
+    }
+
+    public SalaryRangeInfo categorizeBySalaryRange(List<Job> jobs) {
+        var result = new SalaryRangeInfo();
+        jobs.stream()
+                .map(Job::offeredSalary)
+                .forEach(result::appendStatistics);
+        return result;
     }
 
     public List<String> listTop5Locations(List<Job> jobs) {
