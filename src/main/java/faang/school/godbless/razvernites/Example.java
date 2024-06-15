@@ -1,25 +1,20 @@
 package faang.school.godbless.razvernites;
 
 class Example {
-    static void reverse(int[] massiv) {
-        int count = 0;
-        int[] numNew = new int[massiv.length];
+    static void reverse(int[] array) {
+        int[] reversedArray = new int[array.length];
 
-        for (int i = 0; i < massiv.length; i++) {
+        for (int i = 0; i < array.length; i++) {
             int numberMassiv = 0;
-            numberMassiv = massiv[(massiv.length - 1 - count)];
-            count++;
-            int countIndexnumNew = 0;
-            numNew[countIndexnumNew] = numberMassiv;
-            countIndexnumNew++;
+
+            numberMassiv = array[(array.length - 1 - i)];
+            reversedArray[i] = numberMassiv;
+
             System.out.println(numberMassiv);
         }
-
     }
-
     public static void main(String[] args) {
         int[] num = {1, 2, 3, 4, 5, 6, 7};
         reverse(num);
-
     }
 }
