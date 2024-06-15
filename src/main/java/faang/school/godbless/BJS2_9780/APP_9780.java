@@ -2,9 +2,9 @@ package faang.school.godbless.BJS2_9780;
 
 import java.util.function.Function;
 
-public class Application {
-
+public class APP_9780 {
     public static void main(String[] args) {
+
         Image image = new Image("File.png", "Original Image");
         ImageProcessor imageProcessor = new ImageProcessor();
         Filter grayscaleFilter = new Filter("_grayscale", "Filter: Grayscale");
@@ -23,5 +23,6 @@ public class Application {
         imageProcessor.applyFilter(image, vignetteFilter.getFilter());
         imageProcessor.applyFilter(image, combineFilters);
         imageProcessor.applyFilter(image, sequentialFunction);
+
     }
 }
