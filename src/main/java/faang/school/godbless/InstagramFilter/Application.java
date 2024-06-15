@@ -21,6 +21,7 @@ public class Application {
         System.out.println(grayscaleImage);
         System.out.println(sepiaImage);
         System.out.println(vignetteImage);
+
         // Создание и применение комбинированного фильтра
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
