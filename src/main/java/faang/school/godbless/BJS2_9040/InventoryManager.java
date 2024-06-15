@@ -18,7 +18,12 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updatedItem) {
         List<Item> items = character.getInventory().stream().filter(condition).toList();
-        character.getInventory().removeAll(items);
-        items.forEach(item -> character.getInventory().add(updatedItem.apply(item)));
+        items.forEach(item -> {
+            if (character.getInventory().contains(item)) {
+                int id = character.getInventory().indexOf(item);
+                item = updatedItem.apply(item);
+                character.getInventory().set(id, item);
+            }
+        });
     }
 }
