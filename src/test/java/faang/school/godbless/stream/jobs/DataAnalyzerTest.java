@@ -37,8 +37,8 @@ class DataAnalyzerTest {
     );
 
     @Test
-    void listTop5InDemandSkills() {
-        var topSkills = dataAnalyzer.listTop5InDemandSkills(jobs);
+    void listTopFiveInDemandSkills() {
+        var topSkills = dataAnalyzer.listTopFiveInDemandSkills(jobs);
 
         assertEquals(5, topSkills.size());
         assertEquals("SQL", topSkills.get(0));
@@ -46,8 +46,8 @@ class DataAnalyzerTest {
     }
 
     @Test
-    void testListTop5JobTitles() {
-        var topJobTitles = dataAnalyzer.listTop5JobTitles(jobs);
+    void testListTopFiveJobTitles() {
+        var topJobTitles = dataAnalyzer.listTopFiveJobTitles(jobs);
 
         assertEquals(5, topJobTitles.size());
         assertEquals("Data Scientist", topJobTitles.get(0));
@@ -55,8 +55,8 @@ class DataAnalyzerTest {
     }
 
     @Test
-    void listTop5Locations() {
-        var topLocations = dataAnalyzer.listTop5Locations(jobs);
+    void listTopFiveLocations() {
+        var topLocations = dataAnalyzer.listTopFiveLocations(jobs);
 
         assertEquals(5, topLocations.size());
         assertEquals("Amsterdam", topLocations.get(0));
