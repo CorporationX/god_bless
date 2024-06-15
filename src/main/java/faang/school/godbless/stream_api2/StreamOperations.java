@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 
 public class StreamOperations {
+    private static final int NEGATIVE_INTEGERS_AND_ONE = 1;
     public static List<List<Integer>> pairsWithCertainSumConstructor(@NonNull List<Integer> integers, int sum) {
         return integers.stream()
                 .filter(integer -> integers.contains(sum - integer))
@@ -85,10 +86,10 @@ public class StreamOperations {
 
     public static List<Integer> findAllPerfectNumbersInRange(int start, int end) {
         return IntStream.rangeClosed(start, end)
-                .filter(integer -> integer > 1)
-                .filter(integer -> IntStream.range(2, integer)
+                .filter(integer -> integer > NEGATIVE_INTEGERS_AND_ONE)
+                .filter(integer -> IntStream.range(1, integer)
                         .filter(divisor -> integer % divisor == 0)
-                        .reduce(1, Integer::sum) == integer)
+                        .reduce(0, Integer::sum) == integer)
                 .boxed()
                 .toList();
     }
