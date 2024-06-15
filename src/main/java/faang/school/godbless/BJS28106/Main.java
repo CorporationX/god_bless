@@ -50,7 +50,7 @@ public class Main {
 
     public static void findHouse(String nameHouse) {
         House sigilOfHouse = mapOfHouses.get(nameHouse);
-        System.out.println("Грб - " + sigilOfHouse.sigil());
+        System.out.println("Герб - " + sigilOfHouse.sigil());
         System.out.println();
     }
 
