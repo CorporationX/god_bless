@@ -1,5 +1,6 @@
 package faang.school.godbless.stream.jobs;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -32,6 +33,10 @@ public record DataAnalyzer() {
 
     public List<String> listTop5Locations(List<Job> jobs) {
         return findTop5ByCriteria(jobs, Job::location);
+    }
+
+    public void analyzeTrends(LocalDate startDate, LocalDate endDate, TrendGranularity trendGranularity) {
+        
     }
 
     private static List<String> findTop5ByCriteria(List<Job> jobs, Function<Job, String> criteria) {
