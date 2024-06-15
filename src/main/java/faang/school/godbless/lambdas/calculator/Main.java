@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> nums = List.of(5000, 20, 3, 5);
+        List<Integer> nums = List.of(5000, 33, 4, 2);
         System.out.println("Перемножение: " + product(nums));
         System.out.println("Суммирование: " + sum(nums));
         System.out.println("Целочисленное деление: " + div(nums));
@@ -12,6 +12,12 @@ public class Main {
     }
 
     public static int calculate(List<Integer> nums, Calculator calculator) {
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("Passed empty list");
+        }
+        if (nums.size() == 1) {
+            throw new IllegalArgumentException("Passed one number only");
+        }
         int result = nums.get(0);
         for (int i = 1; i < nums.size(); i++) {
             result = calculator.calculate(result, nums.get(i));
