@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DataAnalyzer {
-    public final long SCALE_INTERVAL = 50000;
+    public final long SCALE_INTERVAL = 50000L;
 
     public List<String> topMostRelevantSkills(List<Job> jobList, int top) {
         return jobList.stream()
@@ -80,7 +80,7 @@ public class DataAnalyzer {
         return result;
     }
 
-    public Stream<Job> checkPeriodsOfJob(List<Job> jobList, LocalDate currentDate, TrendGranularity granularity) {
+    private Stream<Job> checkPeriodsOfJob(List<Job> jobList, LocalDate currentDate, TrendGranularity granularity) {
         return jobList.stream()
                 .filter(job -> {
                     LocalDate jobPublication = job.getJobPublicationTimestamp();
