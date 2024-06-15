@@ -12,7 +12,7 @@ public class Main {
         for (int i = 0; i < 25; i++) {
             StringBuilder content = new StringBuilder();
             for (int j = 0; j < 3; j++) {
-                content.append(tags[(int) (tags.length * Math.random())]).append(",");
+                content.append(tags[(int) (tags.length * Math.random())]).append(", ");
             }
             UserAction userAction = new UserAction((int) (20 * Math.random()), "Random",
                     actionTypes[(int) (actionTypes.length * Math.random())], "Today", content.toString());
@@ -20,9 +20,9 @@ public class Main {
         }
 
         users.forEach(System.out::println);
-        System.out.println(UserActionProcessor.findTopTenMostActiveUsers(users, Arrays.asList(actionTypes)));
-        System.out.println(UserActionProcessor.findTopFiveMostDiscussedThemes(users));
-        System.out.println(UserActionProcessor.findTopThreeMostActiveUsersInComments(users));
+        System.out.println(UserActionProcessor.findIdOfTopNMostActiveUsers(users, Arrays.asList(actionTypes), 10));
+        System.out.println(UserActionProcessor.findTopNMostDiscussedThemes(users, 5));
+        System.out.println(UserActionProcessor.findIdOfTopNMostActiveUsersInComments(users, 5));
         System.out.println(UserActionProcessor.countPercentageOfEachActionType(users, Arrays.asList(actionTypes)));
     }
 }
