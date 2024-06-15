@@ -13,7 +13,7 @@ class ActivityAnalyzerTest {
     private final ActivityAnalyzer activityAnalyzer = new ActivityAnalyzer();
 
     @Test
-    void findTop10ActiveUsers() {
+    void findTopTenActiveUsers() {
         var comments = List.of(
                 new UserAction("7777777777777", "Henry", ActionType.COMMENT, LocalDateTime.now(), "BS"),
                 new UserAction("7777777777777", "Henry", ActionType.COMMENT, LocalDateTime.now(), "BS"),
@@ -70,15 +70,15 @@ class ActivityAnalyzerTest {
                 new UserAction("222222222", "Steve", ActionType.COMMENT, LocalDateTime.now(), "BS")
         );
 
-        var top10ActiveUsers = activityAnalyzer.findTop10ActiveUsers(comments);
+        var mostActiveUsers = activityAnalyzer.findTopTenActiveUsers(comments);
 
-        assertEquals(10, top10ActiveUsers.size());
-        assertEquals("3", top10ActiveUsers.get(0));
-        assertEquals("f2bia7sd", top10ActiveUsers.get(top10ActiveUsers.size() - 1));
+        assertEquals(10, mostActiveUsers.size());
+        assertEquals("3", mostActiveUsers.get(0));
+        assertEquals("f2bia7sd", mostActiveUsers.get(mostActiveUsers.size() - 1));
     }
 
     @Test
-    void findTop3CommentAuthorsLastMonth() {
+    void findTopThreeCommentAuthorsLastMonth() {
         var actions = List.of(
                 new UserAction("7777777777777", "Henry", ActionType.COMMENT, LocalDateTime.now(), "BS"),
                 new UserAction("7777777777777", "Henry", ActionType.COMMENT, LocalDateTime.now(), "BS"),
@@ -104,11 +104,11 @@ class ActivityAnalyzerTest {
                 new UserAction("5", "Paul", ActionType.POST, LocalDateTime.now(), "BS")
         );
 
-        var top3CommentAuthorsLastMonth = activityAnalyzer.findTop3CommentAuthorsLastMonth(actions);
+        var topCommentAuthorsLastMonth = activityAnalyzer.findTopThreeCommentAuthorsLastMonth(actions);
 
-        assertEquals(3, top3CommentAuthorsLastMonth.size());
-        assertEquals("dsfgxc", top3CommentAuthorsLastMonth.get(0));
-        assertEquals("2", top3CommentAuthorsLastMonth.get(top3CommentAuthorsLastMonth.size() - 1));
+        assertEquals(3, topCommentAuthorsLastMonth.size());
+        assertEquals("dsfgxc", topCommentAuthorsLastMonth.get(0));
+        assertEquals("2", topCommentAuthorsLastMonth.get(topCommentAuthorsLastMonth.size() - 1));
     }
 
     @Test
@@ -133,7 +133,7 @@ class ActivityAnalyzerTest {
     }
 
     @Test
-    void findTop5HotTopicsInPostsAndComments() {
+    void findTopFiveHotTopicsInPostsAndComments() {
         var actions = List.of(
                 new UserAction("1", "Henry", ActionType.POST, LocalDateTime.now(), "#Euro2024 is starting today in Germany"),
                 new UserAction("2", "Henry", ActionType.SHARE, LocalDateTime.now(), "#Euro2024 is starting today in Germany"),
@@ -163,10 +163,10 @@ class ActivityAnalyzerTest {
                 new UserAction("10", "Henry", ActionType.COMMENT, LocalDateTime.now(), "#2035")
         );
 
-        var top5HotTopicsInPostsAndComments = activityAnalyzer.findTop5HotTopicsInPostsAndComments(actions);
+        var topHotTopicsInPostsAndComments = activityAnalyzer.findTopFiveHotTopicsInPostsAndComments(actions);
 
-        assertEquals(5, top5HotTopicsInPostsAndComments.size());
-        assertEquals("#2030", top5HotTopicsInPostsAndComments.get(0));
-        assertEquals("#Oscars", top5HotTopicsInPostsAndComments.get(top5HotTopicsInPostsAndComments.size() - 1));
+        assertEquals(5, topHotTopicsInPostsAndComments.size());
+        assertEquals("#2030", topHotTopicsInPostsAndComments.get(0));
+        assertEquals("#Oscars", topHotTopicsInPostsAndComments.get(topHotTopicsInPostsAndComments.size() - 1));
     }
 }

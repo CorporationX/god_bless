@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public record ActivityAnalyzer() {
 
-    public List<String> findTop10ActiveUsers(List<UserAction> userActions) {
+    public List<String> findTopTenActiveUsers(List<UserAction> userActions) {
         if (userActions == null) {
             throw new IllegalArgumentException("Actions cannot be null");
         }
@@ -23,7 +23,7 @@ public record ActivityAnalyzer() {
                 .toList();
     }
 
-    public List<String> findTop5HotTopicsInPostsAndComments(List<UserAction> userActions) {
+    public List<String> findTopFiveHotTopicsInPostsAndComments(List<UserAction> userActions) {
         if (userActions == null) {
             throw new IllegalArgumentException("Actions cannot be null");
         }
@@ -47,7 +47,7 @@ public record ActivityAnalyzer() {
                 .toList();
     }
 
-    public List<String> findTop3CommentAuthorsLastMonth(List<UserAction> userActions) {
+    public List<String> findTopThreeCommentAuthorsLastMonth(List<UserAction> userActions) {
         if (userActions == null) {
             throw new IllegalArgumentException("Actions cannot be null");
         }
