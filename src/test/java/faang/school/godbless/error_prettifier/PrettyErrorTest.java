@@ -13,7 +13,6 @@ class PrettyErrorTest {
 
     @Test
     void testWithErrorHandlingException() {
-        String result = PrettyError.withErrorHandling(() -> { throw new RuntimeException("Custom Error"); }, (e) -> System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение: " + e.toString()));
-        assertNull(result);
+        assertThrows(RuntimeException.class, () -> PrettyError.withErrorHandling(() -> { throw new RuntimeException("Custom Error"); }, (e) -> System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение: " + e.toString())));
     }
 }

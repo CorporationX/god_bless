@@ -8,8 +8,7 @@ public class PrettyError{
             return supplier.get();
         } catch (RuntimeException e) {
             exceptionHandler.handle(e);
+            throw e;
         }
-//        idk how it can be handled in parametrized function without null
-        return null;
     }
 }
