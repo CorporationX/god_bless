@@ -3,12 +3,8 @@ package faang.school.godbless.stream_api2;
 import lombok.NonNull;
 
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -16,7 +12,7 @@ import java.util.stream.Stream;
 
 
 public class StreamOperations {
-    public static List<List<Integer>> pairConstructor(@NonNull List<Integer> integers, int sum) {
+    public static List<List<Integer>> pairsWithCertainSumConstructor(@NonNull List<Integer> integers, int sum) {
         return integers.stream()
                 .filter(integer -> integers.contains(sum - integer))
                 .filter(integer -> integers.indexOf(integer) != integers.lastIndexOf(sum - integer))
@@ -24,45 +20,28 @@ public class StreamOperations {
                 .distinct().toList();
     }
 
-    public static List<String> getCountriesAndCapitals(@NonNull Map<String, String> countryCapital) {
+    public static List<String> getCapitalsSortedByCountryNames(@NonNull Map<String, String> countryCapital) {
         return countryCapital.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public static List<String> filterBeginsWithAndSortByLength(@NonNull List<String> strings,
-                                                               char letter) {
+    public static List<String> filterByBeginningAndSortByLength(@NonNull List<String> strings,
+                                                                char letter) {
         return strings.stream()
                 .filter(string -> string.toLowerCase().startsWith(String.valueOf(letter).toLowerCase()))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static Set<List<String>> findUnknownFriends(@NonNull Map<String, List<String>> friends) {
-        Set<List<String>> farFriends = new HashSet<>();
-
-        // used bfs algorithm
-        friends.keySet().forEach(primaryFriendName -> {
-            Map<String, Boolean> isProcessed = new HashMap<>();
-            Queue<FriendWalkingNode> queue = new LinkedList<>();
-            queue.add(new FriendWalkingNode(primaryFriendName, primaryFriendName, 0));
-
-            while (!queue.isEmpty()) {
-                FriendWalkingNode nodeToProcess = queue.poll();
-                String friendToProcessName = nodeToProcess.getName();
-                int depth = nodeToProcess.getDepth();
-                isProcessed.put(friendToProcessName, true);
-
-                friends.get(friendToProcessName).stream()
-                        .filter(friendName -> !isProcessed.getOrDefault(friendName, false))
-                        .peek(friendName -> queue.add(new FriendWalkingNode(friendName, primaryFriendName, depth + 1)))
-                        .filter(friendName -> depth >= 1)
-                        .forEach(friendName -> farFriends.add(Stream.of(friendName, primaryFriendName).sorted().toList()));
-            }
-        });
-
-        return farFriends;
+    public static Set<List<String>> findDistantFriends(@NonNull Map<String, List<String>> friends) {
+        return friends.keySet().stream().flatMap(primary -> friends.get(primary).stream()
+                        .flatMap(secondFriend -> friends.get(secondFriend).stream())
+                        .filter(thirdFriend -> !primary.equals(thirdFriend))
+                        .filter(thirdFriend -> !friends.get(primary).contains(thirdFriend))
+                        .map(thirdFriend -> Stream.of(primary, thirdFriend).sorted().toList()))
+                .collect(Collectors.toSet());
     }
 
     public static Map<String, Double> getAverageSalaryByDepartment(@NonNull List<Employee> employees) {

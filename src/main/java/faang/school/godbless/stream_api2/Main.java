@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         // test first task - Construct Pairs
         List<Integer> integerList = List.of(1, 9, 3, 6, 4, 5, 1, 9, 5);
-        System.out.println(StreamOperations.pairConstructor(integerList, 10));
+        System.out.println(StreamOperations.pairsWithCertainSumConstructor(integerList, 10));
         System.out.println();
 
         // test second task - Sort capitals and show them
@@ -24,13 +24,13 @@ public class Main {
                 "Helsinki", "Finland",
                 "Oslo", "Norway"
         );
-        List<String> capitalsList = StreamOperations.getCountriesAndCapitals(capitals);
+        List<String> capitalsList = StreamOperations.getCapitalsSortedByCountryNames(capitals);
         System.out.println(capitalsList);
         System.out.println();
 
         // test third task -
         List<String> stringsToFilterAndSortByLength = List.of("Character", "char", "book", "rest", "best");
-        List<String> result = StreamOperations.filterBeginsWithAndSortByLength(stringsToFilterAndSortByLength, 'c');
+        List<String> result = StreamOperations.filterByBeginningAndSortByLength(stringsToFilterAndSortByLength, 'c');
         result.forEach(System.out::println);
         System.out.println();
 
@@ -54,7 +54,7 @@ public class Main {
         friends.get("d").add("b");
         friends.get("d").add("e");
         friends.get("e").add("d");
-        Set<List<String>> friendsPairs = StreamOperations.findUnknownFriends(friends);
+        Set<List<String>> friendsPairs = StreamOperations.findDistantFriends(friends);
         System.out.println(friendsPairs);
         System.out.println();
 
