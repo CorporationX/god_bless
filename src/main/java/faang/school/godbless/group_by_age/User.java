@@ -1,4 +1,4 @@
-package group_by_age;
+package faang.school.godbless.group_by_age;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
