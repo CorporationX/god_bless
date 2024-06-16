@@ -23,7 +23,7 @@ public class ActivityAnalyzer {
         .collect(Collectors.toList());
   }
 
-  public static List<String> getMostDiscussedThemes(@NonNull List<UserAction> actions, List<ActionType> types, int limit) {
+  public static List<String> getMostDiscussedThemes(@NonNull List<UserAction> actions, @NonNull List<ActionType> types, int limit) {
     Pattern pattern = Pattern.compile("#\\w+");
     return actions.stream()
         .filter((act) -> types.contains(act.getActionType()))
