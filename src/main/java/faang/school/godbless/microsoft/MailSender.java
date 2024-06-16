@@ -9,7 +9,7 @@ public class MailSender {
     private static final int QUANTITY_THREAD = 5;
     private static int quantityAllEmail = 100;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         ExecutorService executor = Executors.newFixedThreadPool(QUANTITY_THREAD);
         for (int i = 1; i <= QUANTITY_THREAD; i++) {
             List<String> partListForPool = new ArrayList<>();
