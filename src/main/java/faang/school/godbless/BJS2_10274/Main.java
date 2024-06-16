@@ -7,19 +7,19 @@ public class Main {
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-// Создание фильтров
-        MessageFilter spamFilter = message -> !message.toLowerCase().contains("спам");
+// РЎРѕР·РґР°РЅРёРµ С„РёР»СЊС‚СЂРѕРІ
+        MessageFilter spamFilter = message -> !message.toLowerCase().contains("СЃРїР°Рј");
         MessageFilter lengthFilter = message -> message.length() > 10;
         MessageFilter emojiFilter = message -> !message.contains("?");
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
-// Обработка сообщений
-        String[] messages = {"Привет!", "Это спам", "Как дела? ?", "Длинное сообщение без спама и эмодзи"};
+// РћР±СЂР°Р±РѕС‚РєР° СЃРѕРѕР±С‰РµРЅРёР№
+        String[] messages = {"РџСЂРёРІРµС‚!", "Р­С‚Рѕ СЃРїР°Рј", "РљР°Рє РґРµР»Р°? ?", "Р”Р»РёРЅРЅРѕРµ СЃРѕРѕР±С‰РµРЅРёРµ Р±РµР· СЃРїР°РјР° Рё СЌРјРѕРґР·Рё"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
+            System.out.println("РЎРѕРѕР±С‰РµРЅРёРµ: " + message + " | РџСЂРѕРїСѓС‰РµРЅРѕ: " + isFiltered);
         }
     }
 }
