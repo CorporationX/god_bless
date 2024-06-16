@@ -9,7 +9,6 @@ public class Main {
     static Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
     static Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-
     public static void main(String[] args) {
         double a = 2;
         double b = 2;
@@ -20,7 +19,7 @@ public class Main {
         System.out.println(triangleArea(a, b, c));
     }
 
-    // Даны три стороны треугольника, вычислить его площадь
+    // Р”Р°РЅС‹ С‚СЂРё СЃС‚РѕСЂРѕРЅС‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°, РІС‹С‡РёСЃР»РёС‚СЊ РµРіРѕ РїР»РѕС‰Р°РґСЊ
     static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
         double result;
 
@@ -33,11 +32,12 @@ public class Main {
         double pDiv2MinusA = sub.apply(pDiv2).apply(a);
         double pDiv2MinusB = sub.apply(pDiv2).apply(b);
         double pDiv2MinusC = sub.apply(pDiv2).apply(c);
+        double mulABC = mul.apply
+                (mul.apply(pDiv2MinusA).apply(pDiv2MinusB))
+                .apply(pDiv2MinusC);
 
-        result = mul.apply(
-                        mul.apply(pDiv2).apply(pDiv2MinusA)).
-                apply(mul.apply(pDiv2MinusB).apply(pDiv2MinusC)
-                );
+        result = sqrt.apply(
+                mul.apply(pDiv2).apply(mulABC));
 
         sqrt.apply(result);
 
