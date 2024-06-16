@@ -34,4 +34,12 @@ public class StaticMethod {
         return str.stream().filter(st -> predicate.test(st)).toList();
     }
 
+    public static int minFind(List<Integer> nums, Integer element) {
+        return nums.stream().filter(num -> num > element).sorted().findFirst().get();
+    }
+
+    public static List<Integer> strLenght(List<String> str) {
+        return str.stream().map(s -> s.length()).toList();
+    }
+
 }

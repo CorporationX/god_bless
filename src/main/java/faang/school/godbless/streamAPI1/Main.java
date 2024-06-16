@@ -16,5 +16,9 @@ public class Main {
 
         Predicate<String> predicate = s -> s.length() > 5;
         System.out.println("Условие: " + StaticMethod.anyMatchFind(str, predicate));
+
+        System.out.println("Первый мин элемент: " +  StaticMethod.minFind(nums, 4));
+        System.out.println("Строка -> длина: " +  StaticMethod.strLenght(str));
+
     }
 }
