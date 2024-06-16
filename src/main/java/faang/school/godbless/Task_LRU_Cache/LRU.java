@@ -15,19 +15,19 @@ public class LRU {
 
     public void addToLRU(int x, Data data) {
         if (cache.size() == 0) {
-            data.timestamp = new Time(x,x);
+            data.timestamp = new Time(x, x);
             first = x;
             last = x;
             cache.put(x, data);
         } else if (cache.size() < MAX) {
             data.timestamp = new Time(first, x);
-            cache.compute(first, (key, value)->value).timestamp.next = x;
+            cache.compute(first, (key, value) -> value).timestamp.next = x;
             first = x;
             cache.put(x, data);
         } else {
             int newLast = cache.get(last).timestamp.next;
-            cache.compute(newLast, (key, value)->value).timestamp.prev = newLast;
-            cache.compute(first, (key, value)->value).timestamp.next = x;
+            cache.compute(newLast, (key, value) -> value).timestamp.prev = newLast;
+            cache.compute(first, (key, value) -> value).timestamp.next = x;
             int newFirst = first;
             first = x;
             cache.remove(last);
@@ -40,10 +40,10 @@ public class LRU {
     public void getFromLRU(int x) {
         if (x == last) {
             int afterLast = cache.get(x).timestamp.next;
-            cache.compute(afterLast, (key, value)->value).timestamp.prev = afterLast;
-            cache.compute(x, (key, value)->value).timestamp.prev = first;
-            cache.compute(x, (key, value)->value).timestamp.next = x;
-            cache.compute(first, (key, value)->value).timestamp.next = x;
+            cache.compute(afterLast, (key, value) -> value).timestamp.prev = afterLast;
+            cache.compute(x, (key, value) -> value).timestamp.prev = first;
+            cache.compute(x, (key, value) -> value).timestamp.next = x;
+            cache.compute(first, (key, value) -> value).timestamp.next = x;
             System.out.println(cache.get(x));
             first = x;
             last = afterLast;
@@ -52,11 +52,11 @@ public class LRU {
         } else {
             int lastPrev = cache.get(x).timestamp.prev;
             int lastNext = cache.get(x).timestamp.next;
-            cache.compute(lastPrev, (key, value)->value).timestamp.next = lastNext;
-            cache.compute(lastNext, (key, value)->value).timestamp.prev = lastPrev;
-            cache.compute(x, (key, value)->value).timestamp.prev = first;
-            cache.compute(x, (key, value)->value).timestamp.next = x;
-            cache.compute(first, (key, value)->value).timestamp.next = x;
+            cache.compute(lastPrev, (key, value) -> value).timestamp.next = lastNext;
+            cache.compute(lastNext, (key, value) -> value).timestamp.prev = lastPrev;
+            cache.compute(x, (key, value) -> value).timestamp.prev = first;
+            cache.compute(x, (key, value) -> value).timestamp.next = x;
+            cache.compute(first, (key, value) -> value).timestamp.next = x;
             System.out.println(cache.get(x));
             first = x;
         }
