@@ -29,8 +29,8 @@ public class CacheRepositoryImpl implements CacheRepository {
     }
 
     @Override
-    public Data create(Data data) {
-        if (CACHED_DATA.containsKey(data.getId())) {
+    public Optional<Data> create(Data data) {
+        if (containsDataInCache(data.getId())) {
             ID_DATA.remove(data.getId());
             ID_DATA.addFirst(data.getId());
 
@@ -47,14 +47,15 @@ public class CacheRepositoryImpl implements CacheRepository {
             ID_DATA.addFirst(data.getId());
             MAIN_REPOSITORY.add(data);
         }
-        return null;
+
+        return Optional.of(data);
     }
 
     @Override
     public Data get(Integer id) {
         Data data;
 
-        if (CACHED_DATA.containsKey(id)) {
+        if (containsDataInCache(id)) {
             ID_DATA.remove(id);
             ID_DATA.addFirst(id);
 
@@ -85,5 +86,9 @@ public class CacheRepositoryImpl implements CacheRepository {
         }
 
         return data;
+    }
+
+    private boolean containsDataInCache(Integer id) {
+        return CACHED_DATA.containsKey(id);
     }
 }

@@ -1,8 +1,10 @@
 package faang.school.godbless.lruCache;
 
+import java.util.Optional;
+
 public interface CacheRepository {
 
-    Data create(Data data);
+    Optional<Data> create(Data data);
 
     Data get(Integer id);
 }

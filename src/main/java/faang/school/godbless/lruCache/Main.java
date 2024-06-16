@@ -3,9 +3,7 @@ package faang.school.godbless.lruCache;
 
 public class Main {
 
-
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         try {
             CacheRepository cacheRepository = new CacheRepositoryImpl();
@@ -54,7 +52,7 @@ public class Main {
             Data foundedData3 = cacheService.get(2);
 
         } catch (Exception e) {
-            System.out.println("message error: " + e.getMessage());
+            throw new Exception("Exception message: " + e.getMessage());
         }
     }
 }
