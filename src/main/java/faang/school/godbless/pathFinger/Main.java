@@ -26,6 +26,11 @@ public class Main {
         }
         executorService.shutdown();
         long afterThread = System.currentTimeMillis();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Error in the main thread going to sleep in the Main class", e);
+        }
         System.out.println("Program execution time some thread: " + (afterThread - beforeThread));
     }
 
