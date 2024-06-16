@@ -2,6 +2,7 @@ package faang.school.godbless.gmailRichFilters;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -23,6 +24,6 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        Map<String, String> importantBits = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 }
