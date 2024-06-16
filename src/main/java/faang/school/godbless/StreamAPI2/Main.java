@@ -19,10 +19,11 @@ public class Main {
         );
         List<Character> s = List.of('R', 'u', 's', 'i', 'a');
 
-        StreamAPITestDrive.CountriesAndCapitals(a);
+        StreamAPITestDrive.countriesAndCapitals(a);
         System.out.println(StreamAPITestDrive.stringFilter(collect, 'I'));
         System.out.println(StreamAPITestDrive.averageSalary(employees));
         System.out.println(StreamAPITestDrive.sortByAlphabet(collect, s));
         System.out.println(StreamAPITestDrive.numbersToStrings(List.of(1, 2, 3)));
+        System.out.println(StreamAPITestDrive.integersBySum(List.of(1, 2, 3, 4, 5, 5, 6, 7, 8, 9), 10));
     }
 }

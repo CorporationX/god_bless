@@ -1,14 +1,23 @@
 package faang.school.godbless.StreamAPI2;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StreamAPITestDrive {
+    //Task 1
+    public static List<List<Integer>> integersBySum(List<Integer> numbers, int sum) {
+        return numbers.stream()
+                .filter(integer -> numbers.contains(sum - integer))
+                .filter(integer -> numbers.indexOf(integer) != numbers.lastIndexOf(sum - integer))
+                .map(integer -> List.of(Math.min(integer, sum - integer), Math.max(integer, sum - integer)))
+                .distinct()
+                .toList();
+    }
+
     //Task 2
-    public static void CountriesAndCapitals(Map<String, String> countriesAndCapitals) {
+    public static void countriesAndCapitals(Map<String, String> countriesAndCapitals) {
         countriesAndCapitals.keySet().stream()
                 .sorted()
                 .map(countriesAndCapitals::get)
@@ -59,7 +68,7 @@ public class StreamAPITestDrive {
     }
 
     //Task 8
-    public static List<Integer> numericPalindromes(int start, int end) {
-        return
-    }
+    //public static List<Integer> numericPalindromes(int start, int end) {
+    //    return
+    //}
 }
