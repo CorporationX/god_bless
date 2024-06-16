@@ -10,7 +10,7 @@ public class Server {
     private double maxLoad;
     private double energyConsumption;
 
-    public boolean tryAllocateResources(ResourceRequest request) {
+    public boolean isAllocateResourcesSuccess(ResourceRequest request) {
         if (load + request.getLoad() <= maxLoad) {
             load += request.getLoad();
             request.setLoad(0);
@@ -19,7 +19,7 @@ public class Server {
         return false;
     }
 
-    public boolean tryReleaseResources(ResourceRequest request) {
+    public boolean isReleaseResourcesSuccess(ResourceRequest request) {
         if (load > request.getLoad()) {
             load -= request.getLoad();
             request.setLoad(0);
@@ -44,7 +44,7 @@ public class Server {
         return result;
     }
 
-    public boolean redistributeTo(Server server) {
+    public boolean isFullRedistributeSuccess(Server server) {
         if (load < server.getFreeResources()) {
             server.setLoad(server.getLoad() + load);
             load = 0;

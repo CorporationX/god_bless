@@ -32,19 +32,6 @@ public class DataCenterService {
         }
     }
 
-    public double getTotalEnergyConsumption() {
-        return servers.stream().mapToDouble(Server::getEnergyConsumption).sum();
-    }
-
-    public double getTotalFreeResources() {
-        return servers.stream().mapToDouble(Server::getMaxLoad).sum()
-                - servers.stream().mapToDouble(Server::getLoad).sum();
-    }
-
-    public double getTotalLoad() {
-        return servers.stream().mapToDouble(Server::getLoad).sum();
-    }
-
     public void allocateResources(ResourceRequest request) {
         double needResources = request.getLoad();
         if (!checkOpportunityForAllocate(request)) {
@@ -57,7 +44,7 @@ public class DataCenterService {
         servers.sort(Comparator.comparing(Server::getEnergyConsumption));
 
         for (Server server : servers) {
-             if (server.tryAllocateResources(request)) {
+             if (server.isAllocateResourcesSuccess(request)) {
                 System.out.println("The resources allocated successfully: " + needResources + "\n");
                 return;
             }
@@ -74,7 +61,7 @@ public class DataCenterService {
 
         servers.sort(Comparator.comparing(Server::getEnergyConsumption).reversed());
         for (Server server : servers) {
-            if (server.tryReleaseResources(request)) {
+            if (server.isReleaseResourcesSuccess(request)) {
                 System.out.println("The resources released successfully: " + needToRelease + "\n");
                 tryProcessRequestQueue();
                 return;
@@ -84,11 +71,11 @@ public class DataCenterService {
     }
 
     private boolean checkOpportunityForAllocate(ResourceRequest request) {
-        return getTotalFreeResources() >= request.getLoad();
+        return dataCenter.getTotalFreeResources() >= request.getLoad();
     }
 
     private boolean checkOpportunityForRelease(ResourceRequest request) {
-        return getTotalLoad() >= request.getLoad();
+        return dataCenter.getTotalLoad() >= request.getLoad();
     }
 
     public void optimizeDataCenter() {

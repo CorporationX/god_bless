@@ -26,9 +26,9 @@ public class Main {
         service.removeServer(server1);
         service.printServers();
 
-        System.out.println("DataCenter total energy consumption: " + service.getTotalEnergyConsumption());
-        System.out.println("DataCenter total free resources: " + service.getTotalFreeResources());
-        System.out.println("DataCenter total load: " + service.getTotalLoad());
+        System.out.println("DataCenter total energy consumption: " + dataCenter.getTotalEnergyConsumption());
+        System.out.println("DataCenter total free resources: " + dataCenter.getTotalFreeResources());
+        System.out.println("DataCenter total load: " + dataCenter.getTotalLoad());
 
         service.allocateResources(new ResourceRequest(200));
         service.allocateResources(new ResourceRequest(100));
@@ -48,6 +48,21 @@ public class Main {
 
         service.printServers();
         service.addServer(server5);
+        service.printServers();
+
+        Thread.sleep(5000);
+        service.printServers();
+
+
+        scheduler.shutdown();
+
+        System.out.println("\nChecking AverageLoadOptimizationStrategy\n");
+
+        scheduler = service.runOptimizationStrategy(new AverageLoadOptimizationStrategy(), 5);
+        Thread.sleep(1000);
+
+        service.printServers();
+        service.addServer(new Server(30, 200, 100));
         service.printServers();
 
         Thread.sleep(5000);
