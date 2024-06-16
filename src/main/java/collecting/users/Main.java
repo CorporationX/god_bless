@@ -1,5 +1,6 @@
 package collecting.users;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,20 +19,20 @@ public class Main {
                 "Бег", "Футбол", "Велопрогулка", "Кулинария");
 
         Main main = new Main();
-        Map<String, User> hobbyLovers = main.findHobbyLovers(users, targetActivities);
+        Map<User, List<String>> hobbyLovers = main.findHobbyLovers(users, targetActivities);
 
-        for (Map.Entry<String, User> entry : hobbyLovers.entrySet()) {
-            System.out.println("Хобби: " + entry.getKey() + ", Пользователь: " + entry.getValue().name);
+        for (Map.Entry<User, List<String>> entry : hobbyLovers.entrySet()) {
+            System.out.println( "Пользователь: " + entry.getKey().name + ", Хобби: " + entry.getValue());
         }
     }
 
-    public Map<String, User> findHobbyLovers(List<User> users, Set<String> targetActivities) {
-        Map<String, User> result = new HashMap<>();
+    public Map<User, List<String>> findHobbyLovers(List<User> users, Set<String> targetActivities) {
+        Map<User, List<String>> result = new HashMap<>();
 
         for (User user : users) {
             for (String hobby : user.activities) {
                 if (targetActivities.contains(hobby)) {
-                    result.put(hobby, user);
+                    result.put(user, Collections.singletonList(hobby));
                     break;
                 }
             }
@@ -39,6 +40,4 @@ public class Main {
 
         return result;
     }
-
-
 }
