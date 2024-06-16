@@ -30,4 +30,14 @@ public class Calculate {
         }
     }
 
+    public static int findStrings(List<String> strings, char s) {
+        if (strings.isEmpty()) return 0;
+        else {
+            return strings.stream()
+                    .filter(string ->string.startsWith(Character.toString(s)))
+                    .map(string->1)
+                    .reduce(0,(quantity,number)->quantity+1);
+        }
+    }
+
 }
