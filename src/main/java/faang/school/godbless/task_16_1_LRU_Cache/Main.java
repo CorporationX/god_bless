@@ -1,4 +1,4 @@
-package faang.school.godbless.task_16_LRU_Cache;
+package faang.school.godbless.task_16_1_LRU_Cache;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
