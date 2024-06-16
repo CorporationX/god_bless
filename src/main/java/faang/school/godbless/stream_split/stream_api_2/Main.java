@@ -6,36 +6,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
     public static Set<Pair<Integer>> uniquePair(List<Integer> nums, int target) {
 
-//        Set<Integer> setNum = new HashSet<>(nums);
-//        Set<Pair> pairs = new HashSet<>();
-//
-//        nums.forEach(n -> {
-//            if (setNum.contains(target - n)) {
-//                pairs.add(new Pair(n, target - n));
-//            }
-//        });
-//
-//        return pairs;
-
-        return nums.stream().filter(n -> nums.stream().anyMatch(num -> (n + num == target && !n.equals(num))))
+        return nums.stream().filter(n -> nums.stream()
+                        .anyMatch(num -> (n + num == target && !n.equals(num))))
                 .map(n -> new Pair<>(n, target - n).sort())
                 .collect(Collectors.toSet());
-
     }
 
     public static List<String> sortCountry(Map<String, String> country) {
-        List<String> cap = country.entrySet().stream().sorted(Map.Entry.comparingByKey()).map(Map.Entry::getValue).toList();
 
-        return cap;
+        return country.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).toList();
     }
 
     public static List<String> sortStrings(List<String> srs, char letter) {
-
         return srs.stream().filter(s -> s.charAt(0) == letter).sorted().toList();
     }
 
@@ -51,23 +41,52 @@ public class Main {
                             return !set.isEmpty();
                         }).map(u2 -> new Pair<>(u1.getKey(), u2.getKey()).sort())
                 ).collect(Collectors.toSet());
-
     }
 
 
+    public static Map<String, Float> averageSalaryDep(List<Employee> workers) {
+        Map<String, Float> averageSal = new HashMap<>();
 
-//    public static Map<String, Integer> averageSalaryDep(List<Employee> workers) {
-//        Map<String, Integer> averageSal = new HashMap<>();
-//
-//        workers.stream().filter(w -> {
-//            if (averageSal.get(w.))
-//        })
-//    }
+        workers.stream()
+                .map(Employee::department).distinct().forEach(d -> {
+                    long count = workers.stream()
+                            .filter(w -> w.department().equals(d)).count();
+                    float sum = workers.stream()
+                            .filter(w -> w.department().equals(d))
+                            .map(Employee::salary).reduce(0, Integer::sum);
+                    averageSal.put(d, sum / count);
+                });
+
+        return averageSal;
+    }
+
+    public static List<String> alphabetSorting(List<String> stgs, List<Character> alphabet) {
+
+        return stgs.stream()
+                .filter(s -> alphabet.containsAll(s.chars().mapToObj(c -> (char) c)
+                        .toList()))
+                .toList();
+    }
+
+    public static List<String> translateIntToBinary(List<Integer> nums) {
+        return nums.stream().map(Integer::toBinaryString).toList();
+    }
+
+    public static List<Integer> palindrome(int start, int end) {
+        IntStream range = IntStream.range(start, end);
+        return range.boxed().filter(n -> {
+            String st = String.valueOf(n);
+            StringBuffer reverse = new StringBuffer(st).reverse();
+            return reverse.toString().equals(st);
+        }).toList();
+    }
+
 
     public static void main(String[] args) {
-        System.out.println(uniquePair(List.of(1, 9, 3, 6, 4, 5), 10)); // (1,9) (4,6)
+        List<Integer> nums = List.of(1, 9, 3, 6, 4, 5);
+        System.out.println(uniquePair(nums, 10)); // (1,9) (4,6)
 
-        Map<String, String> countries = Map.of("Russia","Moscow","Kazakstan","Astana","Japan","Tokio");
+        Map<String, String> countries = Map.of("Russia", "Moscow", "Kazakstan", "Astana", "Japan", "Tokio");
 
         System.out.println(sortCountry(countries));
 
@@ -84,11 +103,21 @@ public class Main {
 
         System.out.println(getListFriend(userToFriendsMap));
 
-        Pair2 p1 = new Pair2("User 2","User 4");
-        Pair2 p2 = new Pair2("User 4","User 2");
-        System.out.println(p1.equals(p2));
+        List<Employee> employees = List.of(new Employee("John", 10, "A"),
+                new Employee("Ann", 3, "B"),
+                new Employee("Nik", 7, "A"),
+                new Employee("Max", 9, "B"),
+                new Employee("Max", 20, "IT"));
 
+        System.out.println(averageSalaryDep(employees));
 
+        List<String> strings = List.of("apple", "banana", "123", "dog", "cat", "@df");
+        List<Character> al = List.of('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
 
+        System.out.println(alphabetSorting(strings, al));
+
+        System.out.println(translateIntToBinary(nums));
+
+        System.out.println(palindrome(0, 102));
     }
 }
