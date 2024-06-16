@@ -11,9 +11,10 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class House {
     private final static int NUMS_THREAD = 5;
-    private List<Room> roms;
     private List<Food> findFood = new ArrayList<>();
+    private List<Room> roms;
     private int countRoom = 0;
+    private Object lock = new Object();
 
     public House(List<Room> roms) {
         if (roms.isEmpty() || roms == null) {
@@ -28,7 +29,7 @@ public class House {
         House house = new House(Room.getListRoom());
         for (int i = 0; i < house.getRoms().size(); i++) {
             if (i % 2 == 0) {
-                executor.schedule(house::collectFood, 1L, TimeUnit.SECONDS);
+                executor.schedule(house::collectFood, 10L, TimeUnit.SECONDS);
             } else {
                 executor.submit(house::collectFood);
             }
@@ -37,7 +38,7 @@ public class House {
         executor.shutdown();
     }
 
-    private void collectFood() {
+    private synchronized void collectFood() {
         findFood.addAll(roms.get(countRoom).getFoodInRoom());
         System.out.println(String.format("Room № %d, cleansed", countRoom));
         roms.get(countRoom).getFoodInRoom().clear();
