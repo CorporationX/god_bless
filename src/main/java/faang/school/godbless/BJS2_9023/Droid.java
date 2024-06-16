@@ -1,9 +1,6 @@
 package faang.school.godbless.BJS2_9023;
 
 public class Droid {
-    private String message;
-    private int key;
-
     DroidMessageEncryptor encryptor;
     DroidMessageEncryptor decryptor;
 
