@@ -10,7 +10,7 @@ public class Main {
         String symbol = "f";
         String substring = "ve";
         String condition = "длина слова < 6";
-        int givenNumber = 4;
+        int givenNumber = 7;
 
         System.out.println("Сумма четных чисел в списке: " + sumEvenNumbers(numbers));
         System.out.println("Максимальное число в списке: " + maxNumber(numbers));
@@ -22,8 +22,7 @@ public class Main {
         System.out.println("Отсортированный список строк по длине: " + sortedStringsByLength(words));
         System.out.println("Удовлетворяют ли все элементы списка условию \"" + condition + "\": "
                 + areStringsSatisfyTheCondition(words));
-        System.out.println("Наименьший элемент в списке, который больше числа " + givenNumber + ": "
-                + searchMinNumberThanMoreGivenNumber(numbers, givenNumber));
+        searchMinNumberThanMoreGivenNumber(numbers, givenNumber);
         System.out.println("Список длин, преобразованный из списка их строк: "
                 + transformationStringsToStringsLengths(words));
     }
@@ -68,10 +67,21 @@ public class Main {
     }
 
 
-    public static int searchMinNumberThanMoreGivenNumber(List<Integer> nums, int givenNumber){
-        return nums.stream()
-                .filter(num -> num > givenNumber)
-                .reduce(9, Integer::min);
+    public static void searchMinNumberThanMoreGivenNumber(List<Integer> nums, int givenNumber) {
+        Integer identity = nums.stream()
+                .reduce(0, Integer::max);
+        if (givenNumber > identity) {
+            System.out.println("Заданное значение числа больше значений всех элементов в списке. Ведите подходящее число");
+        }
+        if (givenNumber == identity) {
+            System.out.println("Заданное значение числа равно значению самого большего элемента в списке. " +
+                    "Ведите подходящее число");
+        } else {
+            System.out.println("Наименьший элемент в списке, который больше числа " + givenNumber + ": " +
+                    nums.stream()
+                            .filter(num -> num > givenNumber)
+                            .reduce(identity, Integer::min));
+        }
     }
 
     public static List<Integer> transformationStringsToStringsLengths(List<String> words) {
