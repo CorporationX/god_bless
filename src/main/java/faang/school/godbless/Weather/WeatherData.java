@@ -1,16 +1,17 @@
 package faang.school.godbless.Weather;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 public class WeatherData {
     private String city;
-    private Integer temperature;
+    private int temperature;
     private int humidity;
 
-    private static final String[] DESCRIPTIONS = {"Sunny", "Cloudy", "Rainy", "Stormy"};
+    private static Map<String, WeatherData> weatherCache = new HashMap<>();
 
-    public WeatherData(String city, Integer temperature, int humidity) {
+    public WeatherData(String city, Integer temperature, int humidity, String description) {
         this.city = city;
         this.temperature = temperature;
         this.humidity = humidity;
@@ -21,24 +22,23 @@ public class WeatherData {
     }
 
     public static String getWeatherData(Map<String, WeatherData> weatherData, String city) {
+        if (weatherCache.containsKey(city)) {
+            return weatherCache.get(city).toString();
+        }
+
         if (weatherData.containsKey(city)) {
-            return weatherData.get(city).toString();
+            WeatherData data = weatherData.get(city);
+            weatherCache.put(city, data);
+            return data.toString();
         } else {
-            WeatherData externalServiceWeather = getWeatherDataFromExternalService(city);
+            WeatherData externalServiceWeather = WeatherService.getWeatherDataFromExternalService(city);
             if (externalServiceWeather != null) {
+                weatherCache.put(city, externalServiceWeather);
                 return externalServiceWeather.toString();
             } else {
-                return "Нет информациип о данному городу " + city;
+                return "Нет информации о данном городе" + city;
             }
         }
-    }
-
-    public static WeatherData getWeatherDataFromExternalService(String city) {
-        Random random = new Random();
-        int temperature = random.nextInt(30);
-        int humidity = random.nextInt(100);
-        String description = DESCRIPTIONS[random.nextInt(DESCRIPTIONS.length)];
-        return new WeatherData(city, temperature, humidity);
     }
 
     public static void updateWeatherData(Map<String, WeatherData> weatherData, WeatherData newData) {
@@ -57,7 +57,7 @@ public class WeatherData {
 
     @Override
     public String toString() {
-        return city + " temperature: " + temperature + " humidity:  " + humidity;
+        return city + " temperature: " + temperature + " humidity:  " + humidity + "description";
     }
 
 }

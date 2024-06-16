@@ -1,14 +1,14 @@
 package faang.school.godbless.Weather;
 
 import java.util.HashMap;
-import faang.school.godbless.Weather.WeatherData;
 
-public class Application {
+public class Example {
     public static void main(String[] args) {
         HashMap<String, WeatherData> weatherData = new HashMap<>();
 
-        WeatherData data1 = new WeatherData("Almaty", 22, 70);
-        WeatherData data2 = new WeatherData("Moscow", 25, 65);
+        WeatherData data1 = new WeatherData("Almaty", 22, 70, "Sunny");
+        WeatherData data2 = new WeatherData("Moscow", 25, 65, "Cloudy");
+
 
 
         WeatherData.updateWeatherData(weatherData, data1);
@@ -24,8 +24,8 @@ public class Application {
         System.out.println(WeatherData.getWeatherData(weatherData, "Chicago"));
 
 
-        WeatherData newData = new WeatherData("New York", 20, 75);
-        WeatherData.updateWeatherData(weatherData, newData);
+
+        WeatherData.updateWeatherData(weatherData, data1);
 
         WeatherData.removeWeatherData(weatherData, "Los Angeles");
 
