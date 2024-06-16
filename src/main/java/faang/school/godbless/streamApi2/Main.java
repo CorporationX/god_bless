@@ -20,9 +20,11 @@ public class Main {
     char startingChar = 'S';
 
     Map<String, List<String>> userFriends = new HashMap<>();
-    userFriends.put("Alan", List.of("John", "Ivan"));
-    userFriends.put("John", List.of("Alan"));
-    userFriends.put("Ivan", List.of("Alan"));
+    userFriends.put("Alice", Arrays.asList("John", "Charlie", "David"));
+    userFriends.put("John", Arrays.asList("Alice", "Charlie"));
+    userFriends.put("Eve", List.of("David"));
+    userFriends.put("David", Arrays.asList("Alice", "Eve"));
+
 
     List<Employee> employees = Arrays.asList(
         new Employee("Alice", 3, "Marketing"),

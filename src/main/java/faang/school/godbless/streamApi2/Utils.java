@@ -36,9 +36,13 @@ public class Utils {
         .toList();
   }
 
-  public static Map<String, String> getNonFriendsUsers(Map<String, List<String>> userFriends) {
-    // TODO: Доделать
-    return null;
+  public static List<List<String>> getNonFriendsUsers(Map<String, List<String>> userFriends) {
+    return userFriends.entrySet().stream()
+        .flatMap((entry) -> userFriends.entrySet().stream()
+            .filter((e) -> !e.getKey().equals(entry.getKey()) && !entry.getValue().contains(e.getKey()))
+            .filter((e) -> e.getValue().stream().anyMatch(name -> entry.getValue().contains(name)))
+            .map((user) -> List.of(entry.getKey(), user.getKey())))
+        .toList();
   }
 
   public static Map<String, Double> getDepartmentAverageSalary(List<Employee> employees) {
