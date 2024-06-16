@@ -13,7 +13,7 @@ public class Main {
     public void addStreamEvent(int id, String eventType, String data) {
         checkInputValidation(id, eventType, data);
 
-        if(mapIdEvent.containsKey(id)) throwIllegalArgument("ID события уже существует");
+        if(mapIdEvent.containsKey(id)) throwIllegalArgument("ID СЃРѕР±С‹С‚РёСЏ СѓР¶Рµ СЃСѓС‰РµСЃС‚РІСѓРµС‚");
         mapIdEvent.put(id, createStreamEvent(id, eventType, data));
 
         updateMapEventsType(id, eventType, data);
@@ -28,7 +28,7 @@ public class Main {
         checkInputId(id);
 
         StreamEvent streamEvent = mapIdEvent.get(id);
-        if (streamEvent == null) throwIllegalArgument("Не найдено событие");
+        if (streamEvent == null) throwIllegalArgument("РќРµ РЅР°Р№РґРµРЅРѕ СЃРѕР±С‹С‚РёРµ");
         return streamEvent;
     }
 
@@ -37,7 +37,7 @@ public class Main {
 
         List<StreamEvent> streamsEvent = mapEventsType.get(eventType);
 
-        if (streamsEvent == null) throwIllegalArgument("По такому типу события не найдено списка событий");
+        if (streamsEvent == null) throwIllegalArgument("РџРѕ С‚Р°РєРѕРјСѓ С‚РёРїСѓ СЃРѕР±С‹С‚РёСЏ РЅРµ РЅР°Р№РґРµРЅРѕ СЃРїРёСЃРєР° СЃРѕР±С‹С‚РёР№");
 
         return streamsEvent;
     }
@@ -46,12 +46,12 @@ public class Main {
         checkInputId(id);
 
         StreamEvent streamEvent = mapIdEvent.get(id);
-        if (streamEvent == null) throwIllegalArgument("По такому id не найдено событие");
+        if (streamEvent == null) throwIllegalArgument("РџРѕ С‚Р°РєРѕРјСѓ id РЅРµ РЅР°Р№РґРµРЅРѕ СЃРѕР±С‹С‚РёРµ");
         mapIdEvent.remove(id);
 
         List<StreamEvent> streamsEventList = mapEventsType.get(streamEvent.getEventType());
         if (streamsEventList == null)
-            throwIllegalArgument("По такому типу события не найдено списка событий");
+            throwIllegalArgument("РџРѕ С‚Р°РєРѕРјСѓ С‚РёРїСѓ СЃРѕР±С‹С‚РёСЏ РЅРµ РЅР°Р№РґРµРЅРѕ СЃРїРёСЃРєР° СЃРѕР±С‹С‚РёР№");
         mapEventsType.remove(streamEvent.getEventType());
     }
 
@@ -78,11 +78,11 @@ public class Main {
 
     private void checkInputString(String input) {
         if (input == null || input.trim().isEmpty())
-            throw new IllegalArgumentException("Входящее значение невалидно");
+            throw new IllegalArgumentException("Р’С…РѕРґСЏС‰РµРµ Р·РЅР°С‡РµРЅРёРµ РЅРµРІР°Р»РёРґРЅРѕ");
     }
 
     private void checkInputId(int id) {
-        if (id < 0) throwIllegalArgument("Id не может быть меньше 0");
+        if (id < 0) throwIllegalArgument("Id РЅРµ РјРѕР¶РµС‚ Р±С‹С‚СЊ РјРµРЅСЊС€Рµ 0");
     }
 
     private void throwIllegalArgument(String error) {
