@@ -1,6 +1,7 @@
 package faang.school.godbless.Task_Train_API_1;
 
 import lombok.NoArgsConstructor;
+
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,7 @@ public class Calculate {
         if (numbers.isEmpty()) System.out.println("the list is empty");
         else {
             int res = numbers.stream()
-                    .reduce(0,(sum, number)->number+sum)/numbers.size();
+                    .reduce(0, (sum, number) -> number + sum) / numbers.size();
             System.out.println(res);
         }
     }
@@ -33,9 +34,9 @@ public class Calculate {
         if (strings.isEmpty()) return 0;
         else {
             return strings.stream()
-                    .filter(string ->string.startsWith(Character.toString(s)))
-                    .map(string->1)
-                    .reduce(0,(quantity,number)->quantity+1);
+                    .filter(string -> string.startsWith(Character.toString(s)))
+                    .map(string -> 1)
+                    .reduce(0, (quantity, number) -> quantity + 1);
         }
     }
 
@@ -44,9 +45,17 @@ public class Calculate {
         else {
             System.out.print("We found...");
             strings.stream()
-                    .filter(string->string.contains(condition))
-                    .forEach(string->System.out.print(string + " "));
+                    .filter(string -> string.contains(condition))
+                    .forEach(string -> System.out.print(string + " "));
         }
     }
+
+    public static List<String> sortByLength(List<String> input) {
+        return input.stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+
 
 }

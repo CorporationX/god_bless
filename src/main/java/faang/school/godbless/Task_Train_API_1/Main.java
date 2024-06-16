@@ -13,5 +13,7 @@ public class Main {
         List<String> newNumbers = List.of("one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten");
         System.out.println("We found " + Calculate.findStrings(newNumbers, 's') + " word(s)");
         Calculate.filterStrings(newNumbers, "ne");
+        System.out.println();
+        System.out.println(Calculate.sortByLength(newNumbers));
     }
 }
