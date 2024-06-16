@@ -14,7 +14,7 @@ public abstract class Character {
     protected abstract void attack(Character charter);
 }
 
-    class Warrior extends Character {
+class Warrior extends Character {
     Warrior(String name) {
         super(name);
         power = 10;
@@ -22,13 +22,13 @@ public abstract class Character {
         intelligence = 3;
     }
 
-   public void attack(Character character) {
+    public void attack(Character character) {
 
         character.health = character.health - power;
     }
 }
 
-     class Archer extends Character {
+class Archer extends Character {
     Archer(String name) {
         super(name);
         power = 3;
@@ -37,11 +37,11 @@ public abstract class Character {
     }
 
     public void attack(Character character) {
-        character.health= character.health - agility;
+        character.health = character.health - agility;
     }
 }
 
-    class Test {
+class Test {
 
     public static void main(String[] args) {
         Warrior war1 = new Warrior("Knight");
