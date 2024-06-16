@@ -1,53 +1,56 @@
 package faang.school.godbless.BJS2_10394;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class Main {
 
-    //Найти сумму четных чисел в списке. На вход получаем список чисел, на выходе должны получать int;
+    //РќР°Р№С‚Рё СЃСѓРјРјСѓ С‡РµС‚РЅС‹С… С‡РёСЃРµР» РІ СЃРїРёСЃРєРµ. РќР° РІС…РѕРґ РїРѕР»СѓС‡Р°РµРј СЃРїРёСЃРѕРє С‡РёСЃРµР», РЅР° РІС‹С…РѕРґРµ РґРѕР»Р¶РЅС‹ РїРѕР»СѓС‡Р°С‚СЊ int;
     public static int findEvenNumber(List<Integer> list) {
-        return list.stream().filter(num -> num % 2 == 0).reduce((first, second) -> first + second).orElse(0);
+        return list.stream()
+                .filter(num -> num % 2 == 0)
+                .reduce((first, second) -> first + second)
+                .orElse(0);
     }
 
-    //Найти максимальный элемент в списке чисел;
+    //РќР°Р№С‚Рё РјР°РєСЃРёРјР°Р»СЊРЅС‹Р№ СЌР»РµРјРµРЅС‚ РІ СЃРїРёСЃРєРµ С‡РёСЃРµР»;
     public static int findMaxNumber(List<Integer> list) {
         return list.stream().max((first, second) -> first - second).orElse(0);
     }
 
-    //Найти среднее значение чисел в списке;
-    public static int findAverageNumber(List<Integer> list) {
-        return list.stream()
-                .reduce((first, second) -> (first + second)).orElse(0) / list.size();
+    //РќР°Р№С‚Рё СЃСЂРµРґРЅРµРµ Р·РЅР°С‡РµРЅРёРµ С‡РёСЃРµР» РІ СЃРїРёСЃРєРµ;
+    public static double findAverageNumber(List<Integer> list) {
+        return list.stream().mapToDouble(i -> i).average().orElse(0);
     }
 
-    //Найти количество строк, начинающихся с определённого символа в списке строк;
+    //РќР°Р№С‚Рё РєРѕР»РёС‡РµСЃС‚РІРѕ СЃС‚СЂРѕРє, РЅР°С‡РёРЅР°СЋС‰РёС…СЃСЏ СЃ РѕРїСЂРµРґРµР»С‘РЅРЅРѕРіРѕ СЃРёРјРІРѕР»Р° РІ СЃРїРёСЃРєРµ СЃС‚СЂРѕРє;
     public static int findString(List<String> list, Character symbol) {
         return (int) list.stream().filter((line) -> symbol.equals(line.charAt(0))).count();
     }
 
-    //Отфильтровать список строк и оставить только те, которые содержат определенную подстроку;
+    //РћС‚С„РёР»СЊС‚СЂРѕРІР°С‚СЊ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє Рё РѕСЃС‚Р°РІРёС‚СЊ С‚РѕР»СЊРєРѕ С‚Рµ, РєРѕС‚РѕСЂС‹Рµ СЃРѕРґРµСЂР¶Р°С‚ РѕРїСЂРµРґРµР»РµРЅРЅСѓСЋ РїРѕРґСЃС‚СЂРѕРєСѓ;
     public static List<String> findSubString(List<String> list, String substring) {
         return list.stream().filter((line) -> line.startsWith(substring)).toList();
     }
 
-    //Отсортировать список строк по длине;
+    //РћС‚СЃРѕСЂС‚РёСЂРѕРІР°С‚СЊ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє РїРѕ РґР»РёРЅРµ;
     public static List<String> sortByLength(List<String> list) {
         return list.stream().sorted((first, second) -> first.length() - second.length()).toList();
     }
 
-    //Проверить, все ли элементы списка удовлетворяют определённому условию;
+    //РџСЂРѕРІРµСЂРёС‚СЊ, РІСЃРµ Р»Рё СЌР»РµРјРµРЅС‚С‹ СЃРїРёСЃРєР° СѓРґРѕРІР»РµС‚РІРѕСЂСЏСЋС‚ РѕРїСЂРµРґРµР»С‘РЅРЅРѕРјСѓ СѓСЃР»РѕРІРёСЋ;
     public static boolean filterList(List<String> list, Predicate<String> predicate) {
-        return list.stream().filter(line -> predicate.test(line)).count() > 0;
+        return list.stream().allMatch(line -> predicate.test(line));
     }
 
-    //Найти наименьший элемент в списке, который больше заданного числа;
+    //РќР°Р№С‚Рё РЅР°РёРјРµРЅСЊС€РёР№ СЌР»РµРјРµРЅС‚ РІ СЃРїРёСЃРєРµ, РєРѕС‚РѕСЂС‹Р№ Р±РѕР»СЊС€Рµ Р·Р°РґР°РЅРЅРѕРіРѕ С‡РёСЃР»Р°;
     public static int findMinNumber(List<Integer> list, int num) {
-        return list.stream().sorted((min, max) -> max - min).findFirst().orElse(0);
+        return list.stream().filter(i -> i > num).min(Comparator.comparingInt(t -> t)).orElse(0);
     }
 
-    //Преобразовать список строк в список их длин.
+    //РџСЂРµРѕР±СЂР°Р·РѕРІР°С‚СЊ СЃРїРёСЃРѕРє СЃС‚СЂРѕРє РІ СЃРїРёСЃРѕРє РёС… РґР»РёРЅ.
     public static List<Integer> convertToListOfLength(List<String> list) {
         return list.stream().map(first -> first.length()).toList();
     }
