@@ -44,6 +44,7 @@ public class TrainingStreamAPI {
         System.out.println(palindromeNumbers(100, 200));
     }
 
+    // Найдите все уникальные пары чисел, сумма которых равна заданному числу.
     public static Map<Integer, Integer> uniquePairsEqualsToParam(@NonNull List<Integer> numbers, int target) {
         Map<Integer, Integer> result = new HashMap<>();
 
@@ -60,12 +61,17 @@ public class TrainingStreamAPI {
                         Map.Entry::getValue));
     }
 
+    // На вход получаем мапу с названиями стран и их столицами.
+    // Отсортируйте страны по алфавиту, а затем выведите названия их столиц в виде списка.
     public static List<String> sortByCountry(@NonNull Map<String, String> countries) {
         return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue).toList();
     }
 
+    //Получаем список строк и букву в виде char. Отфильтруйте строки,
+    // которые начинаются с заданной буквы, и отсортируйте их по длине в порядке возрастания,
+    // и верните список этих строк.
     public static List<String> filterWordsByFirstLetterAndSort(@NonNull List<String> words, char target) {
         return words.stream()
                 .filter(word -> word.startsWith(Character.toString(target)))
@@ -73,6 +79,9 @@ public class TrainingStreamAPI {
                 .toList();
     }
 
+    // Дана мапа, где ключами являются имена людей,
+    // а значениями — списки имен их друзей.
+    // Найдите все пары людей, которые не являются друзьями, но у них есть общие друзья.
     public static Map<String, String> findCommonFriendsPair(@NonNull Map<String, List<String>> friendsMap) {
         Map<String, String> result = new HashMap<>();
 
@@ -90,6 +99,8 @@ public class TrainingStreamAPI {
         return result;
     }
 
+    // Получаем список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел.
+    // Найдите среднюю зарплату для каждого отдела. Должна получится Map с названием отдела и средней зарплатой.
     public static Map<String, Double> averageSalaryPerDepartment(@NonNull List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy(
@@ -98,6 +109,9 @@ public class TrainingStreamAPI {
                 ));
     }
 
+    // Дан список строк и массив букв, представляющий алфавит.
+    // Отфильтруйте строки, которые содержат только буквы заданного алфавита,
+    // и отсортируйте их в порядке возрастания длины строк.
     public static List<String> wordsByAlphabet(@NonNull List<String> words, @NonNull String alphabet) {
         return words.stream()
                 .filter(word -> word.chars()
@@ -105,10 +119,14 @@ public class TrainingStreamAPI {
                 .toList();
     }
 
+
+    // Написать метод, который преобразует список целых чисел в список строк, где каждое число записано в двоичном виде.
     public static List<String> mapToBinary(@NonNull List<Integer> numbers) {
         return numbers.stream().map(num -> Integer.toString(num, 2)).toList();
     }
 
+    // Написать метод, который найдет все числа-палиндромы в заданном диапазоне.
+    // На вход получаем число для начала диапазона и число для второй границы диапазона.
     public static List<Integer> palindromeNumbers(int start, int end) {
         List<Integer> palindromes = new ArrayList<>();
         StringBuilder stringBuilder = new StringBuilder();
