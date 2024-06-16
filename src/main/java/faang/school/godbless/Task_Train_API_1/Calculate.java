@@ -72,4 +72,10 @@ public class Calculate {
         return -1;
     }
 
+    public static List<Integer> convertToLength(List<String> strings) {
+        return strings.stream()
+                .map(x->x.length())
+                .toList();
+    }
+
 }

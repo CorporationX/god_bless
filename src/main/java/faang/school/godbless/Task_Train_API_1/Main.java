@@ -23,6 +23,6 @@ public class Main {
         System.out.println(Calculate.findMinWithCondition(numbers, x->x>1));
         System.out.println(Calculate.findMinWithCondition(numbers, x->x>5));
 
-
+        System.out.println(Calculate.convertToLength(newNumbers));
     }
 }
