@@ -15,5 +15,7 @@ public class Main {
         Calculate.filterStrings(newNumbers, "ne");
         System.out.println();
         System.out.println(Calculate.sortByLength(newNumbers));
+        System.out.println(Calculate.ifSuffice(numbers, x->x>0));
+        System.out.println(Calculate.ifSuffice(numbers, x->x>2));
     }
 }

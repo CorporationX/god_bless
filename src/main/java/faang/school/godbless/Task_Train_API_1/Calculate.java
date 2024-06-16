@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 @NoArgsConstructor
 public class Calculate {
@@ -33,10 +34,9 @@ public class Calculate {
     public static int findStrings(List<String> strings, char s) {
         if (strings.isEmpty()) return 0;
         else {
-            return strings.stream()
+            return (int) strings.stream()
                     .filter(string -> string.startsWith(Character.toString(s)))
-                    .map(string -> 1)
-                    .reduce(0, (quantity, number) -> quantity + 1);
+                    .count();
         }
     }
 
@@ -56,6 +56,9 @@ public class Calculate {
                 .toList();
     }
 
-
+    public static boolean ifSuffice(List<Integer> elements, Predicate<Integer> predicate) {
+        return elements.stream()
+                .allMatch(predicate);
+    }
 
 }
