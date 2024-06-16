@@ -12,6 +12,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Diary {
+    final int PERCENTAGE_PER_SCALE = 20;
     public Map<String, Double> getSchoolCoursesAndAverageGradesMap(List<Student> studentList) {
         return studentList.stream()
                 .flatMap(student -> student.getCourses().entrySet().stream())
@@ -43,7 +44,6 @@ public class Diary {
 
     public void gradeCourseGradesTable(List<Student> studentList,
                                        List<String> courseNameList) {
-        final int PERCENTAGE_PER_SCALE = 20;
 
         Collector<Student, StringBuilder, String> tableBuildingCollector = new Collector<>() {
             @Override
