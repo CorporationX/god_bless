@@ -1,5 +1,6 @@
 package faang.school.godbless.streamapi.useractivity;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -11,16 +12,14 @@ public class UserActivityService {
 
     private static final int DEFAULT_MOST_ACTIVE_USERS_LIMIT = 10;
     private static final int DEFAULT_MOST_POPULAR_SUBJECT_LIMIT = 5;
+    private static final int DEFAULT_MOST_COMMENTING_USERS = 5;
+    private static final int DEFAULT_DAYS_FOR_MOST_COMMENTING_USERS = 30;
 
     public static void main(String[] args) {
-        String s = "Lorem ipsum  dolor sit\namet";
-
-        String[] split1 = s.split("[ \n]+");
-        System.out.println(Arrays.toString(split1));
-        System.out.println(split1.length);
     }
 
     // Найти топ-N самых активных пользователей
+    // Возвращаем Set из userId
     public Set<Integer> findMostActiveUser(List<UserAction> userActions, int limit) {
         return getUserIdToActionsNumberMap(userActions).entrySet().stream()
                 .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
@@ -57,6 +56,45 @@ public class UserActivityService {
     public Set<String> findMostPopularDiscussionSubject(List<UserAction> userActions) {
         return findMostPopularDiscussionSubject(userActions, DEFAULT_MOST_POPULAR_SUBJECT_LIMIT);
     }
+
+    // Найти Топ-N пользователей, которые оставили наибольшее количество комментариев в последнее время
+    public Set<Integer> findMostCommentingUsersLastDays(List<UserAction> userActions,
+                                                        long days, int limit) {
+        Map<Integer, Integer> userIdToCommentsNumber = userActions.stream()
+                .filter(userAction -> userAction.getActionType().equals("comment"))
+                .filter(userAction -> userAction.getActionDate().isAfter(
+                        LocalDate.now().minusDays(days + 1)
+                ))
+                .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.summingInt(x -> 1)));
+
+        return userIdToCommentsNumber.entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .limit(limit)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toSet());
+    }
+
+    public Set<Integer> findMostCommentingUsersLastDays(List<UserAction> userActions) {
+        return findMostCommentingUsersLastDays(userActions, DEFAULT_DAYS_FOR_MOST_COMMENTING_USERS,
+                DEFAULT_MOST_COMMENTING_USERS);
+    }
+
+    // Вычислить процент действий (посты, комментарии, лайки и репосты) для каждого типа действий
+    public Map<String, Double> calculatePercentageForEachActionType(List<UserAction> userActions) {
+
+        Map<String, Integer> actionTypeToActionsNumber = userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.summingInt(x -> 1)));
+
+        Integer totalActionsNumber = actionTypeToActionsNumber.entrySet().stream()
+                .reduce(0, (x, entry) -> x + entry.getValue(), Integer::sum);
+
+        return actionTypeToActionsNumber.entrySet().stream()
+                .map(origEntry -> Map.entry(origEntry.getKey(),
+                        ((double) origEntry.getValue()) / totalActionsNumber)
+                )
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+
 
     // Получаем мапу где key - userId, value - количество выполненных действий пользователем
     // (посты, комментарии, лайки и репосты)

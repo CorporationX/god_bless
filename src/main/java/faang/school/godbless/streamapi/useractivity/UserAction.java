@@ -3,7 +3,7 @@ package faang.school.godbless.streamapi.useractivity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
@@ -14,7 +14,7 @@ public class UserAction {
 
     private String actionType;
 
-    private Date actionDate;
+    private LocalDate actionDate;
 
     private String content;
 }
