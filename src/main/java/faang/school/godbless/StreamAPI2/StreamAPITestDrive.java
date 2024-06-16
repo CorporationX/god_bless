@@ -61,7 +61,6 @@ public class StreamAPITestDrive {
 
     //Task 7
     public static List<String> numbersToStrings(List<Integer> numbers) {
-        //return List.of(Integer.toBinaryString(21));
         return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
