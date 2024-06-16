@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, String> function) {
-        if (emails != null || !emails.isEmpty() &&
+        if (emails != null && !emails.isEmpty() &&
                 predicate != null && consumer != null &&
                 function != null) {
             for (Email email : emails) {
