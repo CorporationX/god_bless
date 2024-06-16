@@ -61,4 +61,15 @@ public class Calculate {
                 .allMatch(predicate);
     }
 
+    public static int findMinWithCondition(List<Integer> elements, Predicate<Integer> predicate) {
+        List<Integer> yieldCondition = elements.stream()
+                .filter(element -> predicate.test(element))
+                .toList();
+        Optional<Integer> minimum = yieldCondition.stream()
+                .min(Comparator.comparingInt(x -> x));
+        if (minimum.isPresent()) return minimum.get();
+        else System.out.print("Something is wrong with input");
+        return -1;
+    }
+
 }
