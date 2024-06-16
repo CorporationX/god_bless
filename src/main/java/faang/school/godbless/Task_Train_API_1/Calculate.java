@@ -1,7 +1,6 @@
 package faang.school.godbless.Task_Train_API_1;
 
 import lombok.NoArgsConstructor;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +36,16 @@ public class Calculate {
                     .filter(string ->string.startsWith(Character.toString(s)))
                     .map(string->1)
                     .reduce(0,(quantity,number)->quantity+1);
+        }
+    }
+
+    public static void filterStrings(List<String> strings, String condition) {
+        if (strings.isEmpty() || condition.isBlank()) System.out.println("invalid input");
+        else {
+            System.out.print("We found...");
+            strings.stream()
+                    .filter(string->string.contains(condition))
+                    .forEach(string->System.out.print(string + " "));
         }
     }
 
