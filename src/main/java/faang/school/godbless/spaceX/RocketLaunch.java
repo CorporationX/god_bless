@@ -23,7 +23,8 @@ public class RocketLaunch {
         try {
             Thread.sleep(timeLaunch);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(
+                    "Error when putting a stream to sleep in the RocketLaunch class launch method", e);
         }
         System.out.println("The rocket was successfully launched");
     }

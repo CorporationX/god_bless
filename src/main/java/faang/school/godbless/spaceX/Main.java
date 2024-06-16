@@ -21,7 +21,7 @@ public class Main {
         try {
             executor.awaitTermination(50, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("In class Main method main execution time exceeded 50 seconds", e);
         }
         long after = System.currentTimeMillis();
         System.out.println(after - before);
