@@ -1,7 +1,10 @@
 package faang.school.godbless.Task_Train_API_1;
 import lombok.NoArgsConstructor;
+
+import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @NoArgsConstructor
 public class Calculate {
@@ -13,10 +16,8 @@ public class Calculate {
     }
 
     public static int findMax(List<Integer> numbers) {
-        int res = numbers.stream()
-                .mapToInt(x->x)
-                .max().orElseThrow(NoSuchElementException::new);
-        return res;
+        return numbers.stream()
+                .max(Comparator.comparingInt(x -> x)).orElseThrow(NoSuchElementException::new);
     }
 
     public static int findAverage(List<Integer> numbers) {
@@ -27,5 +28,6 @@ public class Calculate {
                     return res/numbers.size();
         }
     }
+
 
 }

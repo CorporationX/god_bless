@@ -9,5 +9,6 @@ public class Main {
         System.out.println(Calculate.findSum(numbers));
         System.out.println(Calculate.findMax(numbers));
         System.out.println(Calculate.findAverage(numbers));
+
     }
 }
