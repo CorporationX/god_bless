@@ -3,6 +3,7 @@ package BJS2_10615;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,6 +22,10 @@ public class Main {
         String alphabet = "abcdnkr";
 
         System.out.println(filterAndSortString(strings, alphabet));
+
+        System.out.println(findNonFriendsWithCommonFriends(Map.of(
+                "Yaroslav", List.of("Dima", "Kirill", "Ella", "Ars"),
+                "Kirill", List.of("Dima", "Ella"))));
 
         List<Integer> nums = List.of(1, 2, 3, 4);
         System.out.println(convertToBinary(nums));
@@ -64,12 +69,17 @@ public class Main {
     }
 
 //  Дана мапа, где ключами являются имена людей, а значениями — списки их друзей. Найдите все пары людей, которые не являются друзьями, но у них есть общие друзья.
-//    public static List<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> informationAboutFriends) {
-//        informationAboutFriends.entrySet().stream()
-//                .flatMap(person -> )
-//    }
-//    ХЗ
-//    todo
+    public static List<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> informationAboutFriends) {
+        return informationAboutFriends.keySet().stream()
+                .flatMap(person -> informationAboutFriends.keySet().stream()
+                        .filter(person2 -> !informationAboutFriends.get(person).contains(person2) && !person.equals(person2))
+                        .flatMap(person2 -> {
+                            Set<String> commonFriends = new HashSet<>(informationAboutFriends.get(person));
+                            commonFriends.retainAll(informationAboutFriends.get(person2));
+
+                            return commonFriends.isEmpty() ? Stream.empty() : Stream.of(List.of(person, person2));
+                        })).toList();
+    }
 
     //  Получаем список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел. Найдите среднюю зарплату для каждого отдела. Должна получится map с именем отдела и средней зарплатой.
     public static Map<String, Double> averageSalaryByDepartment(List<Employee> employees) {
