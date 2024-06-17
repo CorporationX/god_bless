@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class Droid {
-    private String message;
-    private int key;
     private DroidMessageEncryptor messageEncryptor;
 
     public String sendEncryptedMessage(String message, int key) {
