@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.dictionary;
 
 import java.util.HashMap;
 import java.util.Map;
