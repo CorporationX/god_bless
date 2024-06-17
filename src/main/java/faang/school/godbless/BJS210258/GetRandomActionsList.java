@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Random;
 
 public class GetRandomActionsList {
+    public static final LocalDate START_DATE = LocalDate.of(2024, 5, 1);
+    public static final LocalDate END_DATE = LocalDate.of(2024, 6, 14);
 
     public static String getRandomContent() {
         String[] contents = {
@@ -53,8 +55,8 @@ public class GetRandomActionsList {
     }
 
     public static LocalDate getRandomDate() {
-        LocalDate startDate = LocalDate.of(2024, 5, 1);
-        LocalDate endDate = LocalDate.of(2024, 6, 14);
+        LocalDate startDate = START_DATE;
+        LocalDate endDate = END_DATE;
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
         return startDate.plusDays(new Random().nextInt((int) daysBetween + 1));
     }

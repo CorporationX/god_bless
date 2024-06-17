@@ -9,13 +9,13 @@ public class Main {
         UserStatistics statistics = new UserStatistics();
 
         System.out.println("% ACTIONS:");
-        System.out.println(statistics.percentOfActions(userActions)+"\n");
+        System.out.println(statistics.getPercentOfActions(userActions)+"\n");
         System.out.println("TRENDS WORDS:");
-        System.out.println(statistics.topFiveTrends(userActions)+"\n");
+        System.out.println(statistics.getListOfTrends(userActions, 3)+"\n");
         System.out.println("TOP 3 USERS:");
-        System.out.println(statistics.topThreeUsers(userActions)+"\n");
+        System.out.println(statistics.getTopNUsersByCommentByDate(userActions,3, 1)+"\n");
         System.out.println("TOP 10 USERS:");
-        System.out.println(statistics.topTenUsers(userActions)+"\n");
+        System.out.println(statistics.getTopNUsers(userActions,10)+"\n");
 
     }
 
