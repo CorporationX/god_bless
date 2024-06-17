@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_10460;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class APP_10460 {
@@ -19,7 +18,6 @@ public class APP_10460 {
         System.out.println(satisfyCondition(num -> num > 0, bigNums));
         System.out.println(getMinElementGreaterThenNum(10, bigNums));
         System.out.println(turnStringsListToLengthList(rows));
-
     }
 
     public static int sumEvenNums(List<Integer> nums) {
