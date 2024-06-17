@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading;
+package faang.school.godbless.multithreading.foodDelivery;
 
 import java.util.Arrays;
 import java.util.Random;

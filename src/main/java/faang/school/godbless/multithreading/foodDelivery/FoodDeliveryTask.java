@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading;
+package faang.school.godbless.multithreading.foodDelivery;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
