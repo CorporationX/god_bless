@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-
 import GroupingUsersByAge.User;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class Application {
     public static Map<Integer, List<User>> grouping(List<User> users) {
         Map<Integer, List<User>> usersMap = new HashMap<>();
         for (User user : users) {
-            int userAge = user.age;
+            int userAge = user.getAge();
             if (usersMap.containsKey(userAge)) {
                 List<User> array = usersMap.get(userAge);
                 array.add(user);
