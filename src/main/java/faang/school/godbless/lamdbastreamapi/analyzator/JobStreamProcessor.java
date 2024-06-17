@@ -7,16 +7,17 @@ import java.util.stream.Stream;
 
 public class JobStreamProcessor {
 
+    private Stream<Job> getSteamJob(String string) {
+        try {
+            return Stream.of(JobScraper.parseJsonToJob(string));
+        } catch(JsonProcessingException e) {
+            return Stream.empty();
+        }
+    }
 
     public List<Job> getJobs(Stream<String> stringJobs) {
         return stringJobs
-                .flatMap(string -> {
-                        try {
-                            return Stream.of(JobScraper.parseJsonToJob(string));
-                        } catch(JsonProcessingException e) {
-                            return Stream.empty();
-                        }
-                })
+                .flatMap(this::getSteamJob)
                 .peek(System.out::println)
                 .toList();
     }

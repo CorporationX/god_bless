@@ -19,9 +19,7 @@ public class DataAnalyzer {
 
     public static List<String> getTopSkills(List<Job> jobs, int limitTop) {
         Map<String, Long> jobCount = jobs.stream()
-                .flatMap(job -> {
-                    return job.requirements().stream();
-                })
+                .flatMap(job -> job.requirements().stream())
                 .collect(Collectors.groupingBy(requirement -> requirement, Collectors.counting()));
 
         return jobCount.entrySet().stream()
@@ -41,20 +39,20 @@ public class DataAnalyzer {
                 .toList();
     }
 
+    private static Stream<String> getStreamBorders(Map.Entry<String, List<Integer>> element, Job job) {
+        List<Integer> borders = element.getValue();
+        if (borders.get(0) <= job.proposedSalary() &&
+                job.proposedSalary() < borders.get(1)) {
+            return Stream.of(element.getKey());
+        } else {
+            return Stream.empty();
+        }
+    }
+
     public static Map<String, Long> getDistributionOfSalaries(List<Job> jobs) {
         return jobs.stream()
-                .flatMap(job -> {
-                    return diapasonOfSalary.entrySet().stream()
-                            .flatMap(element -> {
-                                List<Integer> borders = element.getValue();
-                                if (borders.get(0) <= job.proposedSalary() &&
-                                        job.proposedSalary() < borders.get(1)) {
-                                    return Stream.of(element.getKey());
-                                } else {
-                                    return Stream.empty();
-                                }
-                            });
-                })
+                .flatMap(job -> diapasonOfSalary.entrySet().stream()
+                        .flatMap(element -> getStreamBorders(element, job)))
                 .collect(Collectors.groupingBy(str -> str,Collectors.counting()));
     }
 
