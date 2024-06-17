@@ -5,10 +5,8 @@ import java.util.List;
 public class Program {
 
     public static int calculate(List<Integer> nums, Calculator calculator) throws IllegalArgumentException {
-        if (nums == null) {
-            throw new NullPointerException("null passed");
-        } else if (nums.isEmpty()) {
-            throw new IllegalArgumentException("The list is empty");
+        if (nums == null || nums.isEmpty()) {
+            throw new IllegalArgumentException("incorrect parameter");
         }
 
         int result = nums.get(0);

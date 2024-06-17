@@ -30,17 +30,12 @@ public class ProgramTest {
     public void testCalculate_throwsIllegalArgumentException() {
         // Arrange
         List<Integer> listEmpty = new ArrayList<>();
-
-        // Assert
-        assertThrows(IllegalArgumentException.class, () -> Program.sum(listEmpty), "При передачи пустого списка метод должен выбрасывать IllegalArgumentException");
-    }
-
-    @Test
-    public void testCalculate_NullPointerException() {
-        // Arrange
         List<Integer> listNull = null;
 
         // Assert
-        assertThrows(NullPointerException.class, () -> Program.sum(listNull), "При передачи null метод должен выбрасывать NullPointerException");
+        assertThrows(IllegalArgumentException.class, () -> Program.sum(listEmpty), "При передачи пустого списка метод должен выбрасывать IllegalArgumentException");
+        assertThrows(IllegalArgumentException.class, () -> Program.sum(listNull), "При передачи null метод должен выбрасывать IllegalArgumentException");
     }
+
+
 }
