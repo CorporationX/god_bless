@@ -12,8 +12,8 @@ public class Army {
     }
 
     public int calculateTotalStrengthArmy() throws InterruptedException {
+        startTread();
         return threadArmies.stream()
-                .peek(a -> a.start())
                 .peek(a -> {
                     try {
                         a.join();
@@ -23,7 +23,11 @@ public class Army {
                 })
                 .mapToInt(a -> a.getAllPower())
                 .sum();
+    }
 
+    private void startTread() {
+        threadArmies.stream()
+                .forEach(a -> a.start());
     }
 }
 
