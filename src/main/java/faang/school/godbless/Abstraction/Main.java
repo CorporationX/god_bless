@@ -1,10 +1,7 @@
-package faang.school.godbless;
-
-import faang.school.godbless.Abstraction.Archer;
-import faang.school.godbless.Abstraction.Warrior;
-
-public class Application {
-    public static void main(String[] args)  {
+package faang.school.godbless.Abstraction;
+import faang.school.godbless.Abstraction.Warrior;  /*
+public class Main  {
+    public static void main(String[] args) {
         Warrior war1 = new Warrior("Knight");
         Archer archer1 = new Archer("Bowman");
 
@@ -16,4 +13,5 @@ public class Application {
         System.out.println(war1.getName());
 
     }
-    }
+}
+*/
