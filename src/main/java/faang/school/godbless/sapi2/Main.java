@@ -87,15 +87,19 @@ public class Main {
     //    Считаем, что все имена уникальные
     public static Map<String, String> pairsNotFriends(Map<String, List<String>> map) {
         Map<String, String> result = new HashMap<>();
-        map.forEach((user, friends) -> map.forEach((another, anotherFriends) -> {
-            if (!user.equals(another) && !friends.contains(another)) {
-                friends.stream()
-                        .filter(anotherFriends::contains)
-                        .findFirst()
-                        .ifPresent(friend -> result.put(user, another));
-            }
-        }));
+        map.forEach((user, friends) -> map
+                .forEach((another, anotherFriends) -> makeNewFriends(user, friends, another, anotherFriends, result)));
         return result;
+    }
+
+    private static void makeNewFriends(String user, List<String> friends, String another,
+                                       List<String> anotherFriends, Map<String, String> result) {
+        if (!user.equals(another) && !friends.contains(another)) {
+            friends.stream()
+                    .filter(anotherFriends::contains)
+                    .findFirst()
+                    .ifPresent(friend -> result.put(user, another));
+        }
     }
 
     //    Найдите среднюю зарплату для каждого отдела
@@ -128,12 +132,14 @@ public class Main {
     //    Написать метод, который найдет все числа-палиндромы в заданном диапазоне
     public static List<Integer> findPalindromes(int start, int finish) {
         return Stream.iterate(start, n -> n + STEP).limit(finish - start)
-                .filter(num -> {
-                    String str = String.valueOf(num);
-                    String reverseStr = new StringBuilder(str)
-                            .reverse()
-                            .toString();
-                    return str.equals(reverseStr);
-                }).toList();
+                .filter(Main::checkStringEquality).toList();
+    }
+
+    private static boolean checkStringEquality(Integer num) {
+        String str = String.valueOf(num);
+        String reverseStr = new StringBuilder(str)
+                .reverse()
+                .toString();
+        return str.equals(reverseStr);
     }
 }
