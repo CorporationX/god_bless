@@ -1,6 +1,6 @@
 package faang.school.godbless.lambda;
 
-public class Main {
+public class MainDroid {
     public static void main(String[] args) {
         Droid r2d2 = new Droid();
         Droid c3po = new Droid();
