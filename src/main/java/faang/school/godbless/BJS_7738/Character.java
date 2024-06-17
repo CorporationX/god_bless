@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS_7738;
 
 import lombok.Getter;
 import lombok.Setter;
