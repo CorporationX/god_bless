@@ -47,6 +47,6 @@ public class APP_9144 {
         } catch (Exception e) {
             log.warn("there's an error with input occur" + e);
         }
-        return 0d;
+        return area;
     }
 }
