@@ -3,7 +3,7 @@ package faang.school.godbless.heroes;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
-        army.addWarrior(new Archer(28, 27));
+        army.addWarrior(new Archer(28, 25));
         army.addWarrior(new Archer(11, 33));
         army.addWarrior(new Swordsman(22, 32));
         army.addWarrior(new Swordsman(33, 44));
