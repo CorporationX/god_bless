@@ -2,7 +2,7 @@ package faang.school.godbless.lambda;
 
 import java.util.ArrayList;
 
-public class Main {
+public class MainInventory {
     public static void main(String[] args) {
 
         Character frodo = new Character("Frodo", new ArrayList<>());
