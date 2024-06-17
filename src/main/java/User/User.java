@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,13 +19,7 @@ public class User {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
             int userAge = user.getAge();
-            if (result.containsKey(userAge)) {
-                result.get(userAge).add(user);
-            } else {
-                List<User> s = new ArrayList<>();
-                s.add(user);
-                result.put(userAge, s);
-            }
+            result.computeIfAbsent(userAge, value -> new ArrayList<>()).add(user);
         }
         return result;
     }
