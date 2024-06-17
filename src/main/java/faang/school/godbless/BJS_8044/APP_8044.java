@@ -1,6 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS_8044;
 
-public class Application {
+public class APP_8044 {
 
     public static void main(String[] args) {
         Westeros westeros = new Westeros();
