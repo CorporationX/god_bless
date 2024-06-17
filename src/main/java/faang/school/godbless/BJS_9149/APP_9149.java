@@ -1,6 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS_9149;
 
-public class Application {
+public class APP_9149 {
     public static void main(String[] args) {
         String alohomora = "Alohomora";
         String lumos = "Lumos";
