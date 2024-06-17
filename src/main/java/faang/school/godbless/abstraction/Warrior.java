@@ -1,7 +1,7 @@
-package faang.school.godbless.Abstraction;
+package faang.school.godbless.abstraction;
 
 public class Warrior extends Character {
-   public Warrior(String setName) {
+    public Warrior(String setName) {
         super(setName);
         setPower(10);
         setAgility(5);
