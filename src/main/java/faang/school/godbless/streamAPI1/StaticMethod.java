@@ -30,8 +30,8 @@ public class StaticMethod {
         return str.stream().sorted((s1, s2) -> s1.length() - s2.length()).toList();
     }
 
-    public static List<String> anyMatchFind(List<String> str, Predicate predicate) {
-        return str.stream().filter(st -> predicate.test(st)).toList();
+    public static Boolean anyMatchFind(List<String> str, Predicate predicate) {
+        return str.stream().filter(st -> predicate.test(st)).findFirst().isPresent();
     }
 
     public static int minFind(List<Integer> nums, Integer element) {
