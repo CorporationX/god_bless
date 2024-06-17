@@ -20,8 +20,13 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> consumer = noteService.get(notification.getType());
-        consumer.accept(notification);
+        if (!noteService.containsKey(notification.getType())) {
+            System.out.println("Notification manager for " + notification.getType() + " was not found");
+        }
+        else {
+            Consumer<Notification> consumer = noteService.get(notification.getType());
+            consumer.accept(notification);
+        }
     }
 
 }
