@@ -9,24 +9,32 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Army {
-    private final Map<String, List<Units>> units = new HashMap<>();
+    private final Map<String, List<Units>> allUnits = new HashMap<>();
 
     public int calculateTotalPower() {
-        Set<String> types = units.keySet();
+        Set<String> types = allUnits.keySet();
         ExecutorService threadPool = Executors.newFixedThreadPool(types.size());
 
         for (String type : types) {
-
+            threadPool.submit(calculatePowerOfType(type));
         }
     }
 
+    public Runnable calculatePowerOfType(String type) {
+        int result = 0;
+        for (Units unit : allUnits.get(type)) {
+            result += unit.getPower();
+        }
+        return null;
+    }
+
     public void addUnit(Units unit) {
-        if (!units.containsKey("Archer")) {
+        if (!allUnits.containsKey("Archer")) {
             List<Units> list = new ArrayList<>();
             list.add(unit);
-            units.put("Archer", list);
+            allUnits.put("Archer", list);
         } else {
-            units.get(unit.getType()).add(unit);
+            allUnits.get(unit.getType()).add(unit);
         }
     }
 }
