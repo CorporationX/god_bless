@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 @Slf4j
-public class Application {
+public class APP_9144 {
 
     public static void main(String[] args) {
         Double area = triangleArea(15, 36, 39.0);
@@ -23,8 +23,8 @@ public class Application {
         Function<Double, Double> sqrt = Math::sqrt;
 
         Double hypotenuse = sqrt.apply(sum.apply(mul.apply(a).apply(a)).apply(mul.apply(b).apply(b)));
+        Double area = 0d;
         try {
-            Double area = 0d;
             if (a >= 0 && b >= 0 && c >= 0) {
                 if (c != hypotenuse) {
                     throw new IllegalArgumentException("Hypotenuse is incorrect, it should be: " + hypotenuse);
