@@ -1,6 +1,6 @@
 package faang.school.godbless.BJS_9017;
 
-public class Application {
+public class APP_9017 {
 
     public static void main(String[] args) {
         Droid r2d2 = new Droid();
