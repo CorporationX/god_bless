@@ -1,4 +1,4 @@
-package faang.school.godbless.multithreading;
+package faang.school.godbless.multithreading.weasleyFamily;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
