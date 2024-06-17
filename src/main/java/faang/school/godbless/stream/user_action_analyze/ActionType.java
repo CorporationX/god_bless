@@ -1,4 +1,4 @@
-package faang.school.godbless.stream;
+package faang.school.godbless.stream.user_action_analyze;
 
 import lombok.Getter;
 
