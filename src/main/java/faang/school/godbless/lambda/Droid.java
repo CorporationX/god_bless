@@ -7,8 +7,7 @@ public class Droid {
         DroidMessageEncryptor droidMessageEncryptor = (message1, key) -> {
             StringBuilder sb = new StringBuilder();
 
-            for (char c : message.toCharArray()
-            ) {
+            for (char c : message.toCharArray()) {
                 sb.append((char) (c + keyCrypt));
             }
             return sb.toString();
