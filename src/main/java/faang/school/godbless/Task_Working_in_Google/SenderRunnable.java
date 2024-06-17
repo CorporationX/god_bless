@@ -1,6 +1,6 @@
 package faang.school.godbless.Task_Working_in_Google;
 
-public class SenderRunnable implements Runnable{
+public class SenderRunnable implements Runnable {
 
     private final int startIndex;
     private final int endIndex;
@@ -16,7 +16,9 @@ public class SenderRunnable implements Runnable{
 
     @Override
     public void run() {
-        Runnable newRun = () -> System.out.println("The message has been sent");
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.println("the message " + i + "has been sent");
+        }
     }
 
 }
