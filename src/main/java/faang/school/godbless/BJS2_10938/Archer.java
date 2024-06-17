@@ -6,7 +6,6 @@ import lombok.Getter;
 public class Archer extends Soldier {
 
     public Archer() {
-        this.power = 10;
-        this.group = "Archer";
+        super(10, "Archer");
     }
 }

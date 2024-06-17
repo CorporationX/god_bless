@@ -6,4 +6,9 @@ import lombok.Getter;
 public abstract class Soldier {
     protected int power;
     protected String group;
+
+    public Soldier(int power, String group) {
+        this.power = power;
+        this.group = group;
+    }
 }

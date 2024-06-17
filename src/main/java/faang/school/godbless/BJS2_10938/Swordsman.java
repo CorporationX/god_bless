@@ -7,7 +7,6 @@ import lombok.Getter;
 public class Swordsman extends Soldier {
 
     public Swordsman() {
-        this.power = 10;
-        this.group = "Swordsman";
+        super(10, "Swordsman");
     }
 }

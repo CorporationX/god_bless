@@ -6,7 +6,6 @@ import lombok.Getter;
 @Getter
 public class Mage extends Soldier {
     public Mage() {
-        this.power = 10;
-        this.group = "Mage";
+        super(10, "Mage");
     }
 }
