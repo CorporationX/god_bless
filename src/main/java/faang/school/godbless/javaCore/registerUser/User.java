@@ -1,4 +1,4 @@
-package faang.school.godbless.javaCore;
+package faang.school.godbless.javaCore.registerUser;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

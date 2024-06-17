@@ -1,4 +1,4 @@
-package faang.school.godbless.javaCore;
+package faang.school.godbless.javaCore.registerUser;
 
 import org.junit.jupiter.api.Test;
 
