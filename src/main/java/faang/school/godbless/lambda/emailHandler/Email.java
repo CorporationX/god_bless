@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.emailHandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

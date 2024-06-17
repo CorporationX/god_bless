@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.emailHandler;
 
 import lombok.Data;
 
@@ -12,11 +12,11 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> emails,
                               Predicate<Email> emailFilter,
-                              Consumer<Email> emailHandler,
+                              Consumer<String> emailHandler,
                               Function<Email, String> emailFunction) {
         emails.stream()
                 .filter(emailFilter)
-                .peek(emailHandler)
-                .forEach(emailFunction::apply);
+                .map(emailFunction)
+                .forEach(emailHandler);
     }
 }

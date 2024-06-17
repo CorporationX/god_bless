@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.emailHandler;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Main {
 
         Predicate<Email> emailFilter = email -> email.getBody().contains("message");
         Function<Email, String> emailFunction = email -> email.getBody().toLowerCase();
-        Consumer<Email> emailHandler = email -> System.out.println("Письмо обработано - " + email.getSubject());
+        Consumer<String> emailHandler = body -> System.out.println("Письмо обработано - " + body);
 
         emailProcessor.processEmails(emails, emailFilter, emailHandler, emailFunction);
     }
