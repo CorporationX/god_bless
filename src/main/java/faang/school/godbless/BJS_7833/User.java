@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS_7833;
 
 import lombok.Data;
 import java.util.*;

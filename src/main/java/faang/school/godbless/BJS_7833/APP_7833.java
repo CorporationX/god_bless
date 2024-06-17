@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.BJS_7833;
 
 import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 @Slf4j
 
-public class Application {
+public class APP_7833 {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
 
