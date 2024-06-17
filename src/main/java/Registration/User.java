@@ -1,6 +1,5 @@
 package faang.school.godbless;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -29,11 +28,11 @@ public class User {
                 this.job = job;
                 if (VALID_ADDRESSES.contains(address)) {
                     this.address = address;
-                        if (age >= MAJORITY) {
-                            this.age = age;
-                        } else {
+                    if (age >= MAJORITY) {
+                        this.age = age;
+                    } else {
                         throw new IllegalArgumentException("Age is not majority");
-                        }
+                    }
                 } else {
                     throw new IllegalArgumentException("address not listed");
                 }
@@ -49,13 +48,7 @@ public class User {
         Map<Integer, List<User>> result = new HashMap<>();
         for (User user : users) {
             int userAge = user.getAge();
-            if (result.containsKey(userAge)) {
-                result.get(userAge).add(user);
-            } else {
-                List<User> s = new ArrayList<>();
-                s.add(user);
-                result.put(userAge, s);
-            }
+            result.computeIfAbsent(userAge, value -> new ArrayList<>()).add(user);
         }
         return result;
     }
