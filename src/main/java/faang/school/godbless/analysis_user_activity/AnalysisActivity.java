@@ -31,14 +31,14 @@ public class AnalysisActivity {
                         new UserAction(6, Action.POST, LocalDate.now(), "#blog finally, holidays!!!"),
                         new UserAction(7, Action.POST, LocalDate.now(), "#cook cooking napoleon today, don't miss my news!!"));
 
-        System.out.println(top10UsersByActivities(userActions));
-        System.out.println(top5Topics(userActions));
-        System.out.println(top3UsersByCommentsLastMonth(userActions));
+        System.out.println(topTenUsersByActivities(userActions));
+        System.out.println(topFiveTopics(userActions));
+        System.out.println(topThreeUsersByCommentsLastMonth(userActions));
         System.out.println(actionsPercent(userActions));
     }
 
     // Найти топ-10 самых активных пользователей (по количеству действий: посты, комментарии, лайки и репосты)
-    public static List<Integer> top10UsersByActivities(@NonNull List<UserAction> userActions) {
+    public static List<Integer> topTenUsersByActivities(@NonNull List<UserAction> userActions) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet()
@@ -50,7 +50,7 @@ public class AnalysisActivity {
     }
 
     // Определить Топ-5 наиболее популярных тем обсуждения (по количеству упоминаний хештегов в постах и комментариях. Хэштег — слово, начинающееся с символа #).
-    public static List<String> top5Topics(@NonNull List<UserAction> userActions) {
+    public static List<String> topFiveTopics(@NonNull List<UserAction> userActions) {
         Map<String, Long> hashtags = userActions.stream()
                 .filter(userAction -> userAction.getActionType() == Action.POST || userAction.getActionType() == Action.COMMENT)
                 .flatMap(userAction -> Arrays.stream(userAction.getContent().split("\\s")))
@@ -66,7 +66,7 @@ public class AnalysisActivity {
     }
 
     // Найти Топ-3 пользователей, которые оставили наибольшее количество комментариев в последний месяц.
-    public static List<Integer> top3UsersByCommentsLastMonth(@NonNull List<UserAction> userActions) {
+    public static List<Integer> topThreeUsersByCommentsLastMonth(@NonNull List<UserAction> userActions) {
         Map<Integer, Long> users = userActions.stream()
                 .filter(userAction -> userAction.getActionType() == Action.COMMENT &&                  // в условии проверяется тип действия,
                         userAction.getActionDate().getYear() == LocalDate.now().getYear()              // соответствия нынешнему году,
