@@ -19,9 +19,10 @@ public class UserActionAnalyze {
 
 
     public List<Integer> getTenMostPopularUsers(@NonNull List<UserAction> userActions) {
-        return userActions.stream()
-                .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
-                .entrySet()
+        Map<Integer, Long> usersById = userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()));
+
+        return usersById.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(TOP_POPULAR_USERS)
