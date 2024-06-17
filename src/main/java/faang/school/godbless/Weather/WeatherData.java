@@ -21,22 +21,16 @@ public class WeatherData {
         return city;
     }
 
-    public static String getWeatherData(Map<String, WeatherData> weatherData, String city) {
+    public static String getWeatherData(String city) {
         if (weatherCache.containsKey(city)) {
             return weatherCache.get(city).toString();
-        }
-
-        if (weatherData.containsKey(city)) {
-            WeatherData data = weatherData.get(city);
-            weatherCache.put(city, data);
-            return data.toString();
         } else {
             WeatherData externalServiceWeather = WeatherService.getWeatherDataFromExternalService(city);
             if (externalServiceWeather != null) {
                 weatherCache.put(city, externalServiceWeather);
                 return externalServiceWeather.toString();
             } else {
-                return "Нет информации о данном городе" + city;
+                return "Нет информации о погоде для города" + city;
             }
         }
     }

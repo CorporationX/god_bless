@@ -18,10 +18,10 @@ public class Example {
         WeatherData.printAllCities(weatherData);
 
         System.out.println("Получение по getWeatherData");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Berlin"));
+        System.out.println(WeatherData.getWeatherData("Berlin"));
 
         System.out.println("Получение по неизвестному городу");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Chicago"));
+        System.out.println(WeatherData.getWeatherData( "Chicago"));
 
 
 
@@ -33,10 +33,10 @@ public class Example {
         WeatherData.printAllCities(weatherData);
 
         System.out.println("Информация о Берлине");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Berlin"));
+        System.out.println(WeatherData.getWeatherData( "Berlin"));
 
         System.out.println("Информация Los Angeles:");
-        System.out.println(WeatherData.getWeatherData(weatherData, "Los Angeles"));
+        System.out.println(WeatherData.getWeatherData("Los Angeles"));
 
     }
 }
