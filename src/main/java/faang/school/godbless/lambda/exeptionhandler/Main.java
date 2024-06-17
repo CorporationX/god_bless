@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.exeptionhandler;
 
 import java.util.Random;
 import java.util.function.Supplier;
