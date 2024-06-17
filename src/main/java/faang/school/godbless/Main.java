@@ -1,43 +1,61 @@
 package faang.school.godbless;
 
 import lombok.NonNull;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    static Map<Book, String> manual = new HashMap<>();
-
-    static {
-        manual.put(new Book("Человек в футляре", "А.П.Чехов", 1898), "В шкафу \"А\" на 4 полке");
-        manual.put(new Book("Анна Каренина", "Л.Н.Толстой", 1873), "На складе");
-        manual.put(new Book("Мертвые души", "Н.В.Гоголь", 1852), "Сгорела");
-    }
+    static HashMap<String, WeatherData> cache = new HashMap<>();
 
     public static void main(String[] args) {
-        getFullInfo();
+        System.out.println(getWeatherDataInfo("Moscow"));
+        getWeatherDataInfo("London");
+        getWeatherDataInfo("Texas");
+        System.out.println();
 
-        getInfoLocationBook(new Book("Анна Каренина", "Л.Н.Толстой", 1873));
-
-        deleteBook(new Book("Анна Каренина", "Л.Н.Толстой", 1873));
-        addNewBook(new Book("Евгений Онегин", "А.С.Пушкин", 1967), "Шкаф №6");
-        getFullInfo();
+        updateInfo("Moscow", new WeatherData("Moscow", 18, 10));
+        System.out.println(getWeatherDataInfo("Moscow"));
+        deleteInfo("Texas");
+        getCityOnCache();
     }
 
-    public static void addNewBook(@NonNull Book newBook, String location) {
-            manual.put(newBook, location);
+    public static WeatherData getWeatherDataInfo(String city) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (cache.containsKey(city)) {
+            return cache.get(city);
+        } else {
+            WeatherData newInfo = Stub.getInfoWeatherData(city);
+            cache.put(city, newInfo);
+            return newInfo;
+        }
     }
 
-    public static void deleteBook(@NonNull Book book) {
-            manual.remove(book);
+    public static void updateInfo(String city, WeatherData newInfo) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (newInfo != null) {
+            cache.put(city, newInfo);
+        } else {
+            System.out.println("The WeatherDate was not transferred");
+        }
     }
 
-    public static void getInfoLocationBook(@NonNull Book book) {
-        System.out.println(manual.getOrDefault(book, "Книги нету в справочнике"));
+    public static void deleteInfo(String city) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (cache.containsKey(city)) {
+            cache.remove(city);
+        } else {
+            throw new IllegalArgumentException("The city is not included in cache");
+        }
     }
 
-
-    public static void getFullInfo() {
-        manual.forEach((key, value) -> System.out.println(key + " Расположение: " + value));
+    public static void getCityOnCache() {
+        for (Map.Entry<String, WeatherData> city : cache.entrySet())
+            System.out.println(city.getKey());
     }
 }
