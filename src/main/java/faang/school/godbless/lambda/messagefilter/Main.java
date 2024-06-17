@@ -1,4 +1,4 @@
-package faang.school.godbless.lambda;
+package faang.school.godbless.lambda.messagefilter;
 
 import java.util.ArrayList;
 import java.util.List;
