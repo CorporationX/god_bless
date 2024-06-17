@@ -78,9 +78,7 @@ public class Main {
                             .filter(idxPair -> {
                                 return !Objects.equals(idx,idxPair) && nums.get(idx) + nums.get(idxPair) == numSum;
                             })
-                            .map(idxPair ->{
-                                return new HashSet<>(Set.of(nums.get(idx), nums.get(idxPair)));
-                            });
+                            .map(idxPair -> new HashSet<>(Set.of(nums.get(idx), nums.get(idxPair))));
                 })
                 .collect(Collectors.toSet());
     }
