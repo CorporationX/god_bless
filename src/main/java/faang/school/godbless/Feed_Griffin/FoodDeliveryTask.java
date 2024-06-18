@@ -7,8 +7,8 @@ import java.util.Random;
 @Getter
 public class FoodDeliveryTask implements Runnable {
 
-    private String character;
-    private int foodAmount;
+    private final String character;
+    private final int foodAmount;
 
     public FoodDeliveryTask(String character, int foodAmount) {
         if (character.isBlank() || foodAmount < 0) throw new IllegalArgumentException();
@@ -28,7 +28,9 @@ public class FoodDeliveryTask implements Runnable {
         String food = this.getFoodType();
         for (int i=1; i<=foodAmount; i++) {
             System.out.println(food + " : portion number " + i + " was sent");
+            System.out.println(this.character + " received portion number " + i);
         }
+        System.out.println(this.character + " received all the  food!");
     }
 
 }
