@@ -19,4 +19,5 @@ public class NotificationManager {
             System.out.println("Объект не найден");
         }
     }
+
 }
