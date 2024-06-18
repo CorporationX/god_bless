@@ -1,8 +1,5 @@
 package faang.school.godbless.DistributedArmyOfHeroesOfMightAndMagic;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         Army army = new Army();
@@ -10,7 +7,6 @@ public class Main {
         army.addUnit(new Swordsman(40)); // считаем в потоке 2
         army.addUnit(new Mage(50)); // считаем в потоке 3
         army.addUnit(new Mage(20)); // считаем в потоке 4
-        //System.out.println(army.getClass());
 
         int totalPower = army.calculateTotalPower();
         System.out.println("Total army power: " + totalPower);
