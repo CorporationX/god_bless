@@ -1,59 +1,14 @@
-package faang.school.godbless.stream_api_parttwo;
+package faang.school.godbless.stream_api_part_two;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
-public class StreamService {
-    private final static List<Integer> NUMBERS = List.of(1, 9, 6, 5, 3, 5, 4, 5, 5);
-    private final static Map<String, String> COUNTRIES = Map.of(
-            "Russia", "Moscow",
-            "France", "Paris",
-            "USA", "Washington",
-            "China", "Beijing",
-            "Germany", "Berlin"
-    );
-    private final static List<String> STRINGS = List.of(
-            "Hello",
-            "What is your name?",
-            "Just do it",
-            "You are welcome",
-            "Hi",
-            "How are you?",
-            "What are you doing?"
-    );
-    private final static Map<String, List<String>> PERSON_FRIENDS = Map.of(
-            "Vladimir", List.of("Anton", "Vlad", "Andrei"),
-            "Alexandr", List.of("Andrei"),
-            "Vlad", List.of("Vladimir", "Anton", "Alexandr"),
-            "Anton", List.of("Vladimir", "Vlad"),
-            "Andrei", List.of("Vladimir", "Alexandr")
-    );
-
-    private final static List<Employee> EMPLOYEES = List.of(
-            new Employee("Kirk Dunkan", 1000.0, "Sales"),
-            new Employee("Maikl Hembon", 1350.0, "Logistics"),
-            new Employee("Kira Naithli", 1456.0, "Finance"),
-            new Employee("Big Maik", 2600.5, "Sales"),
-            new Employee("Hilary Maknil", 960.8, "Sales"),
-            new Employee("Robert Patricson", 2200.0, "Finance"),
-            new Employee("Natali Portman", 1500.5, "Finance")
-    );
-
-    private final static List<String> DIFFERENT_STRING = List.of("apple", "banana", "123", "dog", "cat");
-    private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
-
-    public static void main(String[] args) {
-        System.out.println(findUniquePairs(NUMBERS, 10));
-        System.out.println(sortedMapAndShowCapitals(COUNTRIES));
-        System.out.println(filteredStringSortedStringByChar(STRINGS, 'H'));
-        System.out.println(findPeopleNonFriends(PERSON_FRIENDS));
-        System.out.println(getDepartmentAverageSalary(EMPLOYEES));
-        System.out.println(filterAndSortStringsByAlphabet(DIFFERENT_STRING, ALPHABET));
-    }
+public class StreamsUtil {
 
     public static List<List<Integer>> findUniquePairs(List<Integer> numbers, int sum) {
-        if (numbers.isEmpty() || numbers == null) {
-            throw new IllegalArgumentException("Numbers shouldn't be empty or null");
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("Numbers shouldn't be empty");
         }
         return numbers.stream().filter(num -> num < sum)
                 .flatMap(numOne -> numbers.stream()
@@ -99,12 +54,40 @@ public class StreamService {
         if (strings.isEmpty() || alphabet.length == 0) {
             throw new IllegalArgumentException("arguments shouldn't be empty");
         }
-
-
-        Set<Character> alphabetSet = Arrays.st.collect(Collectors.toSet());
-        return strings.stream().filter(str -> str.chars().anyMatch(character -> alphabetSet.contains(character)))
+        return strings.stream().filter(str -> str.chars().allMatch(character ->
+                        containsCharacter(character, alphabet)))
                 .sorted(Comparator.comparingInt(String::length)).toList();
+    }
 
+    private static boolean containsCharacter(int numChar, char[] chars) {
+        if (chars.length == 0) {
+            new IllegalArgumentException("chars shouldn't be empty");
+        }
+        for (char checkChar : chars) {
+            if (numChar == checkChar) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static List<String> numsToBinaryStrings(List<Integer> nums) {
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("nums shouldn't be empty");
+        }
+        return nums.stream().map(Integer::toBinaryString).toList();
+    }
+
+    public static List<Integer> findPalindromes(int start, int end) {
+        return IntStream.range(start, end).boxed()
+                .filter(num -> num / 10 != 0)
+                .filter(num -> checkNumberIsPalindromes(num)).toList();
+    }
+
+    private static boolean checkNumberIsPalindromes(int num) {
+        String currentNum = String.valueOf(num);
+        String reverseNum = new StringBuffer(currentNum).reverse().toString();
+        return currentNum.equals(reverseNum);
     }
 }
 
