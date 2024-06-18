@@ -3,7 +3,6 @@ package faang.school.godbless.PaveTheWayWithYourFinger;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static java.lang.Math.pow;
 import static java.lang.Math.sqrt;
@@ -18,28 +17,26 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        long startTime = System.nanoTime();
-
         matchingMonsterAndCoordinate(monsters, areas);
         Monster nearestMonster = findNearestMonster();
         long journeyDistance = getJourneyDistance(nearestMonster);
         long timeToKillNearestMonster = getKillTime(journeyDistance);
-
-        long endTime = System.nanoTime();;
-        long totalTime = endTime - startTime;
-
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.println(city.getName() +
                 ": nearest monster " + nearestMonster.getName() +
                 ", time to kill " + timeToKillNearestMonster +
-                ", journey distance " + journeyDistance +
-                ", " + totalTime);
+                ", journey distance " + journeyDistance);
     }
 
     public Monster findNearestMonster() {
         Map<Integer, Monster> toCityDistanceAndMonsters = new HashMap<>();
-        for (Monster monster : monsters) {
-            monsterAndToCityDistance.put(monster, calculateDistanceTo(monsterAndCoordinate.get(monster)));
-        }
+        monsters.forEach(
+                (monster) -> monsterAndToCityDistance.put(monster, calculateDistanceTo(monsterAndCoordinate.get(monster)))
+        );
         monsterAndToCityDistance.keySet()
                 .forEach((monster) -> toCityDistanceAndMonsters.put(monsterAndToCityDistance.get(monster), monster));
         return toCityDistanceAndMonsters.get(monsterAndToCityDistance.values().stream()
@@ -51,13 +48,9 @@ public class CityWorker implements Runnable {
     }
 
     private void matchingMonsterAndCoordinate(List<Monster> monsters, List<Area> areas) {
-        for (Monster monster : monsters) {
-            for (Area area : areas) {
-                if (Objects.equals(monster.getLocation(), area.getName())) {
-                    monsterAndCoordinate.put(monster, area.getLocation());
-                }
-            }
-        }
+        monsters.forEach((monster) -> areas.stream()
+                        .filter((area) -> monster.getLocation() == area.getName())
+                        .forEach((area) -> monsterAndCoordinate.put(monster, area.getLocation())));
     }
 
     public long getKillTime(long journeyDistance) {
