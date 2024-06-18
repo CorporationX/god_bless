@@ -2,29 +2,62 @@ package faang.school.godbless;
 
 import java.util.function.Function;
 
+import lombok.NonNull;
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
+    static HashMap<String, WeatherData> cache = new HashMap<>();
+
     public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        System.out.println(getWeatherDataInfo("Moscow"));
+        getWeatherDataInfo("London");
+        getWeatherDataInfo("Texas");
+        System.out.println();
 
-        FilterProcessor filterProcessor = new FilterProcessor();
+        updateInfo("Moscow", new WeatherData("Moscow", 18, 10));
+        System.out.println(getWeatherDataInfo("Moscow"));
+        deleteInfo("Texas");
+        getCityOnCache();
+    }
 
-// Создание фильтров
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName() + "_grayscale", "Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", "Фильтр: сепия");
-        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName() + "_vignette", "Фильтр: виньетка");
+    public static WeatherData getWeatherDataInfo(String city) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
 
-// Применение фильтров
-        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
+        if (cache.containsKey(city)) {
+            return cache.get(city);
+        } else {
+            WeatherData newInfo = Stub.getInfoWeatherData(city);
+            cache.put(city, newInfo);
+            return newInfo;
+        }
+    }
 
-        System.out.println(grayscaleImage);
-        System.out.println(sepiaImage);
-        System.out.println(vignetteImage);
+    public static void updateInfo(String city, WeatherData newInfo) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
 
-// Создание и применение комбинированного фильтра
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        System.out.println(combinedImage);
+        if (newInfo != null) {
+            cache.put(city, newInfo);
+        } else {
+            System.out.println("The WeatherDate was not transferred");
+        }
+    }
+
+    public static void deleteInfo(String city) {
+        if (city == null)
+            throw new IllegalArgumentException("The city was not transferred");
+
+        if (cache.containsKey(city)) {
+            cache.remove(city);
+        } else {
+            throw new IllegalArgumentException("The city is not included in cache");
+        }
+    }
+
+    public static void getCityOnCache() {
+        for (Map.Entry<String, WeatherData> city : cache.entrySet())
+            System.out.println(city.getKey());
     }
 }
