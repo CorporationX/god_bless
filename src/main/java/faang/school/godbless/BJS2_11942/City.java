@@ -17,12 +17,9 @@ public class City {
 
         return cityMonsters.stream()
                 .min((monster1, monster2) -> {
-                    // нужно посчитать длину вектора от города до монстра или наоборот, неважно
-                    double monster2Distance = Math.sqrt(Math.pow(monster2.getLocation().getXCord() - location.getXCord(), 2) + Math.pow(monster2.getLocation().getYCord() - location.getYCord(), 2));
-                    double monster1Distance = Math.sqrt(Math.pow(monster1.getLocation().getXCord() - location.getXCord(), 2) + Math.pow(monster1.getLocation().getYCord() - location.getYCord(), 2));
-
-                    // тут будет округляться но допустим пусть будет только целое расстояние
-                    return (int) (monster1Distance - monster2Distance);
+//                    // нужно посчитать длину вектора от города до монстра или наоборот, неважно
+//                    // тут будет округляться но допустим пусть будет только целое расстояние
+                    return (int) (CityWorker.getDistanceBetween(monster1, this) - CityWorker.getDistanceBetween(monster2, this));
                 }).get();
     }
 }

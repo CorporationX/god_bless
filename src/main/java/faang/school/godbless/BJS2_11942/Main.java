@@ -19,10 +19,10 @@ import java.util.concurrent.Executors;
 
 // время не замерить тк имитация действия это слип потока со случайным значением
 public class Main {
-    public static final int NUM_THREADS = 500;
-    public static final int NUM_CITIES = 25;
-    public static final int NUM_MONSTERS = 25;
-    public static final int NUM_WITCHERS = 25;
+    public static final int NUM_THREADS = 15;
+    public static final int NUM_CITIES = 421;
+    public static final int NUM_MONSTERS = 412;
+    public static final int NUM_WITCHERS = 41;
     public static void main(String[] args) {
         // создаю и инициализирую лист из 200 монстров
         List<Monster> monsters = new ArrayList<>();
