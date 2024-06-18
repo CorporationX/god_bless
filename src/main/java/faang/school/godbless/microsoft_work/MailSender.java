@@ -23,7 +23,7 @@ public class MailSender {
             try {
                 currentMailSenderThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Caught Interrupted Exception: " + e.getMessage());
             }
         }
 
