@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 
 public class GriffinsFoodDelivery {
     private static final int THREAD_AMOUNT = 3;
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);
 
@@ -15,5 +15,9 @@ public class GriffinsFoodDelivery {
         }
 
         executorService.shutdown();
+
+        System.out.println("Потоки завершены: " + executorService.isTerminated());
+        Thread.sleep(30000);
+        System.out.println("Потоки завершены: " + executorService.isTerminated());
     }
 }
