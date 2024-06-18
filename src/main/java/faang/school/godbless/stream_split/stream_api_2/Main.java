@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -30,34 +31,41 @@ public class Main {
     }
 
     public static Set<Pair<String>> getListFriend(Map<String, List<String>> users) {
-
         return users.entrySet().stream()
-                .flatMap(u1 -> users.entrySet().stream()
-                        .filter(u2 -> !u2.equals(u1))
-                        .filter(u2 -> !u1.getValue().contains(u2.getKey()))
-                        .filter(u2 -> {
-                            Set<String> set = new HashSet<>(u2.getValue());
-                            set.retainAll(u1.getValue());
-                            return !set.isEmpty();
-                        }).map(u2 -> new Pair<>(u1.getKey(), u2.getKey()).sort())
-                ).collect(Collectors.toSet());
+                .flatMap(mainUser -> removeUnsuitableFriends(users, mainUser)).collect(Collectors.toSet());
     }
 
+    public static Stream<Pair<String>> removeUnsuitableFriends(Map<String, List<String>> users, Map.Entry<String, List<String>> mainUser) {
+
+        return users.entrySet().stream()
+                .filter(u -> !u.equals(mainUser))
+                .filter(u -> !mainUser.getValue().contains(u.getKey()))
+                .filter(u -> {
+                    Set<String> set = new HashSet<>(u.getValue());
+                    set.retainAll(mainUser.getValue());
+                    return !set.isEmpty();
+                }).map(u -> new Pair<>(mainUser.getKey(), u.getKey()).sort());
+    }
 
     public static Map<String, Float> averageSalaryDep(List<Employee> workers) {
         Map<String, Float> averageSal = new HashMap<>();
 
         workers.stream()
-                .map(Employee::department).distinct().forEach(d -> {
-                    long count = workers.stream()
-                            .filter(w -> w.department().equals(d)).count();
-                    float sum = workers.stream()
-                            .filter(w -> w.department().equals(d))
-                            .map(Employee::salary).reduce(0, Integer::sum);
-                    averageSal.put(d, sum / count);
-                });
+                .map(Employee::department).distinct()
+                .forEach(worker -> calcAverageSalary(workers, worker, averageSal));
 
         return averageSal;
+    }
+
+    public static void calcAverageSalary(List<Employee> workers, String worker, Map<String, Float> averageSal) {
+        long count = workers.stream()
+                .filter(w -> w.department().equals(worker)).count();
+
+        float sum = workers.stream()
+                .filter(w -> w.department().equals(worker))
+                .map(Employee::salary).reduce(0, Integer::sum);
+
+        averageSal.put(worker, sum / count);
     }
 
     public static List<String> alphabetSorting(List<String> stgs, List<Character> alphabet) {
@@ -74,11 +82,14 @@ public class Main {
 
     public static List<Integer> palindrome(int start, int end) {
         IntStream range = IntStream.range(start, end);
-        return range.boxed().filter(n -> {
-            String st = String.valueOf(n);
-            StringBuffer reverse = new StringBuffer(st).reverse();
-            return reverse.toString().equals(st);
-        }).toList();
+
+        return range.boxed().filter(Main::checkPalindrome).toList();
+    }
+
+    public static Boolean checkPalindrome(Integer n) {
+        String st = String.valueOf(n);
+        StringBuffer reverse = new StringBuffer(st).reverse();
+        return reverse.toString().equals(st);
     }
 
 
