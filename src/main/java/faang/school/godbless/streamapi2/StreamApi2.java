@@ -21,6 +21,11 @@ public class StreamApi2 {
     public static List<List<Integer>> findPairs(List<Integer> nums, int target) {
         Set<Integer> seen = new HashSet<>();
         Set<List<Integer>> pairs = new HashSet<>();
+        processPairs(nums, target, seen, pairs);
+        return new ArrayList<>(pairs);
+    }
+
+    private static void processPairs(List<Integer> nums, int target, Set<Integer> seen, Set<List<Integer>> pairs) {
         nums.forEach(num -> {
             int complement = target - num;
             if (seen.contains(complement)) {
@@ -29,7 +34,6 @@ public class StreamApi2 {
             }
             seen.add(num);
         });
-        return new ArrayList<>(pairs);
     }
 
     public static List<String> sorted(Map<String, String> countryCapitalMap) {
@@ -119,12 +123,9 @@ public class StreamApi2 {
     }
 
     private static boolean containsChar(char[] array, char c) {
-        for (char ch : array) {
-            if (ch == c) {
-                return true;
-            }
-        }
-        return false;
+        return IntStream.range(0, array.length)
+                .mapToObj(i -> array[i])
+                .anyMatch(character -> character == c);
     }
 
     public static List<String> integerToBinaryString(List<Integer> integerList) {
