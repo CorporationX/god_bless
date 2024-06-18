@@ -14,7 +14,7 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         System.out.printf("%s receiving %d %s\n", this.character, this.foodAmount, getFoodType());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(new Random().nextInt(1000, 5000));
         } catch (InterruptedException e) {
             throw new RuntimeException(String.format("Food delivering to %s failed: %s", this.character, Thread.currentThread().getName()));
         }
