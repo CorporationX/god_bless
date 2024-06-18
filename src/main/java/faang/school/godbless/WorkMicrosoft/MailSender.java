@@ -11,6 +11,6 @@ public class MailSender implements Runnable {
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
         }
-        System.out.println(Thread.currentThread().getName() + " завершил отправку писем");
+        System.out.println(Thread.currentThread().getName() + " завершил отправку " + (endIndex - startIndex) + " писем");
     }
 }

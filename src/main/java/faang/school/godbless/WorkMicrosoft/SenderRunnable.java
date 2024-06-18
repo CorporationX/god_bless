@@ -4,22 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SenderRunnable {
+    private static final int COUNT_LETTERS_IN_ONE_THREAD = 200;
+    private static final int COUNT_THREAD = 5;
+
     public static void main(String[] args) throws InterruptedException {
-        int letters = 100;
-        int countThread = 5;
-        int start = 1;
-        int end = 0;
         List<Thread> threads = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            end++;
-            if (end % (letters / countThread) == 0){
-                Thread thread = new Thread(new MailSender(start, end));
-                thread.start();
-                threads.add(thread);
-                start = end + 1;
-            }
+        for (int i = 0; i < COUNT_THREAD; i++) {
+            int start = i * COUNT_LETTERS_IN_ONE_THREAD;
+            Thread thread = new Thread(new MailSender(start, start + COUNT_LETTERS_IN_ONE_THREAD));
+            thread.start();
+            threads.add(thread);
         }
-        for (Thread thread:threads) {
+        for (Thread thread : threads) {
             thread.join();
         }
         System.out.println("End!");
