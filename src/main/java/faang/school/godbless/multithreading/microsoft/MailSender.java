@@ -8,11 +8,6 @@ public class MailSender {
             int endIndex = startIndex + 200;
             var thread = new Thread(new SenderRunnable(startIndex, endIndex));
             thread.start();
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
         System.out.printf("Sending is complete. From %s", Thread.currentThread().getName());
     }
