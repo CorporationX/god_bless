@@ -11,8 +11,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Mail sent successfully from thread: " + Thread.currentThread().getName());
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.printf("Mail %d sent successfully from thread: %s\n", i, Thread.currentThread().getName());
         }
     }
 }
