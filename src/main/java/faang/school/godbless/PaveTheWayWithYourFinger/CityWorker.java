@@ -1,6 +1,5 @@
 package faang.school.godbless.PaveTheWayWithYourFinger;
 
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,13 +26,13 @@ public class CityWorker implements Runnable {
         long timeToKillNearestMonster = getKillTime(journeyDistance);
 
         long endTime = System.nanoTime();;
-        long t = endTime - startTime;
+        long totalTime = endTime - startTime;
 
         System.out.println(city.getName() +
                 ": nearest monster " + nearestMonster.getName() +
                 ", time to kill " + timeToKillNearestMonster +
                 ", journey distance " + journeyDistance +
-                " " + t);
+                ", " + totalTime);
     }
 
     public Monster findNearestMonster() {

@@ -34,11 +34,6 @@ public class Witcher {
         for (City city : cities) {
             execute.submit(new CityWorker(city, monsters, areas, getCurrentWitcherLocation()));
         }
-        try {
-            execute.awaitTermination(4, SECONDS);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         execute.shutdown();
     }
 
