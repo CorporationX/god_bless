@@ -2,9 +2,18 @@ package faang.school.godbless.Army;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
-@AllArgsConstructor
-public class Swordsman {
-    private int power;
+
+public class Swordsman extends Unit {
+
+    public Swordsman(int power) {
+        super(power);
+    }
+
+    @Override
+    public boolean isSwordsMan(){
+        return true;
+    }
+
 }

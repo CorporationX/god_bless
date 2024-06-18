@@ -2,9 +2,16 @@ package faang.school.godbless.Army;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
-@Data
-@AllArgsConstructor
-public class Archer {
-    private int power;
+public class Archer extends Unit {
+
+    public Archer(int power){
+        super(power);
+    }
+
+    @Override
+    public boolean isArcher(){
+        return true;
+    }
 }
