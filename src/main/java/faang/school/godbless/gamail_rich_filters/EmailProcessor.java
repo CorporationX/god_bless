@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails,
-                              Predicate<Email> filter,                              
+                              Predicate<Email> filter,
                               Consumer<Email> handler,
                               Function<Email, String> reform) {
         for (Email email : emails) {
