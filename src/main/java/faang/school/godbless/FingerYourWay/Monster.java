@@ -1,13 +1,17 @@
 package faang.school.godbless.FingerYourWay;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
-import javax.xml.stream.Location;
-
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @Getter
 public class Monster {
     private String name;
-    private String address;
+    private Location location;
+
+
 }

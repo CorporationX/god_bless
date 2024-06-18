@@ -8,6 +8,6 @@ import lombok.Getter;
 @Getter
 public class City {
     private String name;
-    private Location xy;
+    private Location location;
     private int distance;
 }
