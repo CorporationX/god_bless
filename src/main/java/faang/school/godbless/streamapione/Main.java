@@ -19,32 +19,54 @@ public class Main {
         System.out.println(lengthList(List.of("Ali","al","abcd")).toString());
     }
     public static int evenNumSum(List<Integer> list) {
-        int res = list.stream().filter(el->el%2==0).mapToInt(num->num).sum();
+        int res = list.stream()
+                .filter(el->el%2==0)
+                .mapToInt(num->num)
+                .sum();
         return res;
     }
     public static int maxNumber(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).max().orElse(0);
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .max()
+                .orElse(0);
     }
     public static double average(List<Integer> numbers) {
-        return numbers.stream().mapToInt(Integer::intValue).average().orElse(0);
+        return numbers.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
     }
     public static int beginsWith(List<String> strings,Character ch) {
         Predicate<String> filterFn = (el)->el.charAt(0)==ch;
-        return strings.stream().filter(filterFn).toList().size();
+        return strings.stream()
+                .filter(filterFn)
+                .toList()
+                .size();
     }
     public static List<String> matchesSubstring(List<String> strings,String substring) {
-        return strings.stream().filter(el->el.contains(substring)).toList();
+        return strings.stream()
+                .filter(el->el.contains(substring))
+                .toList();
     }
     public static List<Integer> sortByStringLength(List<String> strings) {
-        return strings.stream().map(String::length).sorted(Comparator.naturalOrder()).toList();
+        return strings.stream()
+                .map(String::length)
+                .sorted(Comparator.naturalOrder())
+                .toList();
     }
     public static <T> boolean matchesCondition(List<T> arr,Predicate<T> cond) {
         return arr.stream().allMatch(cond);
     }
     public static Integer moreThanMax(List<Integer> ints,Integer num) {
-        return ints.stream().filter(el->el>num).min(Comparator.naturalOrder()).orElse(0);
+        return ints.stream()
+                .filter(el->el>num)
+                .min(Comparator.naturalOrder())
+                .orElse(0);
     }
     public static List<Integer> lengthList(List<String> strings) {
-        return strings.stream().map(String::length).toList();
+        return strings.stream()
+                .map(String::length)
+                .toList();
     }
 }
