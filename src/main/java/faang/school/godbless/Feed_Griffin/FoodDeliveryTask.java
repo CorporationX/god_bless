@@ -1,7 +1,6 @@
 package faang.school.godbless.Feed_Griffin;
 
 import lombok.Getter;
-
 import java.util.Random;
 
 @Getter
@@ -27,10 +26,10 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         String food = this.getFoodType();
         for (int i=1; i<=foodAmount; i++) {
-            System.out.println(food + " : portion number " + i + " was sent");
-            System.out.println(this.character + " received portion number " + i);
+            System.out.println(food + " : portion number " + i + " was sent to " + character);
+            System.out.println(character + " received portion number " + i);
         }
-        System.out.println(this.character + " received all the  food!");
+        System.out.println(character + " received all the  food!");
     }
 
 }
