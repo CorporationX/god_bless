@@ -20,10 +20,10 @@ public class FoodDeliveryTask implements Runnable{
     public void run() {
         int delaySeconds = new Random().nextInt(5) + 1;
         String foodtype = this.getFoodType();
-        int foodAmount = new Random().nextInt(100) + 1;
+        int foodAmount = this.getFoodAmount();
 
         try{
-            Thread.sleep(delaySeconds);
+            Thread.sleep(foodAmount * 1000L);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
