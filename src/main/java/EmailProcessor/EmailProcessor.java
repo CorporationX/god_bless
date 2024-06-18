@@ -1,4 +1,3 @@
-package faang.school.godbless;
 
 import java.util.List;
 import java.util.function.Consumer;
