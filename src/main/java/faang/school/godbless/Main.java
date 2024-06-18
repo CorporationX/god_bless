@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import java.util.function.Function;
+
 import lombok.NonNull;
 import java.util.HashMap;
 import java.util.Map;
