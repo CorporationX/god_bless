@@ -1,5 +1,7 @@
 package faang.school.godbless.multithreading_parallelism.task_6;
 
+import lombok.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -24,7 +26,7 @@ public class King {
         startTrials(knights);
     }
 
-    private static void startTrials(List<Knight> knights) {
+    private static void startTrials(@NonNull List<Knight> knights) {
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         knights.stream()
                 .flatMap(knight -> knight.getTrials().stream())
