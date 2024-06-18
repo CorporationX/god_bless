@@ -9,24 +9,20 @@ public class Main {
     private static final List<String> STRINGS = List.of("one", "_one", "two", "_three", "four");
 
     public static int findSumNumbers(List<Integer> numbers) {
-        int sum;
-        sum = numbers.stream()
+        return numbers.stream()
                 .reduce(0, Integer::sum);
-        return sum;
     }
 
     public static int findMax(List<Integer> numbers) {
-        int result = 0;
+//        int result = 0;
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .orElse(result);
+                .orElse(Integer.MIN_VALUE);
     }
 
     public static double findAverage(List<Integer> numbers) {
-        double result;
-        result = (double) numbers.stream()
-                .reduce(0, (before, next) -> before + next);
-        return result / numbers.size();
+        return (double) numbers.stream()
+                .reduce(0, (before, next) -> before + next)/numbers.size();
     }
 
     public static long getAmountStringsBeginningConcreteSymbol(List<String> strings, char symbol) {
