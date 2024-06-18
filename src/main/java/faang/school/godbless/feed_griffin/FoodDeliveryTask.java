@@ -16,7 +16,7 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(new Random().nextInt(1, 6) * 1000L);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Caught Interrupted Exception: During thread sleeping " + e.getMessage());
         }
 
         System.out.println(character + " ест " + foodAmount + " " + getFoodType());
