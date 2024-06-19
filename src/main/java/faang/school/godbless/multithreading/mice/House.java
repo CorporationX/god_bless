@@ -4,7 +4,6 @@ import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -40,13 +39,16 @@ public class House {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
-        for (Room room: rooms) {
-            executor.scheduleWithFixedDelay(() -> house.collectFood(room), 3, 1, TimeUnit.SECONDS);
+        for (Room room : rooms) {
+            executor.scheduleWithFixedDelay(() -> house.collectFood(room), 30, 5, TimeUnit.SECONDS);
         }
 
-        executor.awaitTermination(15, TimeUnit.SECONDS);
+        if (executor.awaitTermination(15, TimeUnit.SECONDS)) {
+            System.out.println("Долгая уборка");
+        }
+        executor.shutdown();
+
         System.out.println(cleanRooms);
         System.out.println(collectedFood);
-        executor.shutdown();
     }
 }
