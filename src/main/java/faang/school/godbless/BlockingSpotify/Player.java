@@ -8,7 +8,6 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-//            isPlaying = true;
             isPlaying = "play";
             System.out.println(isPlaying + " " + LocalTime.now());
         }
@@ -16,7 +15,6 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-//            isPlaying = false;
             isPlaying = "pause";
             System.out.println(isPlaying + " " + LocalTime.now());
         }
