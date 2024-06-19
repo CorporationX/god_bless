@@ -1,6 +1,7 @@
 package faang.school.godbless.feedPeterGriffin;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -12,9 +13,12 @@ public class GriffinsFoodDelivery {
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-        for (String character : characterNames) {
-            executorService.submit(new FoodDeliveryTask(character, new Random().nextInt(50)));
-        }
+//        for (String character : characterNames) {
+//            executorService.submit(new FoodDeliveryTask(character, new Random().nextInt(50)));
+//        }
+
+        Arrays.stream(characterNames)
+                .forEach(character -> executorService.submit(new FoodDeliveryTask(character, new Random().nextInt(50))));
         executorService.shutdown();
     }
 }
