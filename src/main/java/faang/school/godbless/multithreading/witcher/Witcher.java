@@ -32,7 +32,7 @@ public class Witcher {
 
         for (City city : cities) {
             CityWorker cityWorker = new CityWorker(city, monsters);
-            executor.submit(cityWorker);
+            executor.execute(cityWorker);
         }
 
         executor.shutdown();
