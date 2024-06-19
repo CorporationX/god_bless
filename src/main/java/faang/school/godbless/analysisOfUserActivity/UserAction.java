@@ -13,6 +13,4 @@ public class UserAction {
     private ActionType actionType;
     private LocalDate actionDate;
     private String content;
-
-//    public record UserAction(String id, String user, ActionType actionType, LocalDate actionDate, String content)
 }
