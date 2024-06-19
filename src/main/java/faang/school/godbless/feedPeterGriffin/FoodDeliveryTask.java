@@ -13,6 +13,13 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         String foodType = getFoodType();
         System.out.println(character + " gets " + foodAmount + " " + foodType);
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println(character + " eats " + foodAmount + " " + foodType);
     }
 
