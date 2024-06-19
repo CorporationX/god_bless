@@ -23,7 +23,7 @@ public class StreamAPITestDrive {
     }
 
     public static int numberOfStringsStartsWith(List<String> strings, char first) {
-        return (strings.stream().filter(str -> first == str.charAt(0)).collect(Collectors.toList())).size();
+        return (strings.stream().filter(str -> first == str.charAt(0)).toList()).size();
     }
 
     public static List<String> stringsContains(List<String> strings, String string) {
@@ -31,11 +31,11 @@ public class StreamAPITestDrive {
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return strings.stream().sorted((a, b) -> b.length() - a.length()).collect(Collectors.toList());
+        return strings.stream().sorted((strOne, strTwo) -> strTwo.length() - strOne.length()).collect(Collectors.toList());
     }
 
     public static <T> boolean allMatch(List<T> elements, Predicate<T> condition) {
-        return elements.stream().allMatch(elem -> condition.test(elem));
+        return elements.stream().allMatch(condition);
     }
 
     public static int minimumThatBiggerThan(List<Integer> numbers, int number) {
@@ -43,6 +43,6 @@ public class StreamAPITestDrive {
     }
 
     public static List<Integer> stringsToTheirLength(List<String> strings) {
-        return strings.stream().map(str -> str.length()).collect(Collectors.toList());
+        return strings.stream().map(String::length).collect(Collectors.toList());
     }
 }
