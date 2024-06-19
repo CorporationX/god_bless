@@ -13,8 +13,8 @@ public class EmailProcessor {
             throw new IllegalArgumentException("Nothing to process here.");
         }
         return email.stream()
-                .filter(predicate)
                 .peek(consumer)
+                .filter(predicate)
                 .collect(Collectors.toMap(Email::getSubject, function));
     }
 }
