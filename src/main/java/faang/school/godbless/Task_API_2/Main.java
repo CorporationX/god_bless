@@ -1,7 +1,9 @@
 package faang.school.godbless.Task_API_2;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Main {
@@ -13,6 +15,14 @@ public class Main {
 
         Set<Solver.Pair> task1 = Solver.findPairs(numbers, target);
         System.out.println(task1);
+
+        Map<String, String> countriesAndCapitals = new HashMap<>();
+        countriesAndCapitals.put("Russia", "Moscow");
+        countriesAndCapitals.put("England", "London");
+        countriesAndCapitals.put("Spain", "Madrid");
+        countriesAndCapitals.put("France", "Paris");
+        System.out.println(Converter.sortCapitals(countriesAndCapitals));
+
     }
 
 }
