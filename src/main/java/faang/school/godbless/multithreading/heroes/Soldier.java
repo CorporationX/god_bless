@@ -1,9 +1,15 @@
 package faang.school.godbless.multithreading.heroes;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 
-@Data
-public class Soldier {
+@Getter
+@RequiredArgsConstructor
+public abstract class Soldier {
 
-    private int power;
+    private final int power;
+
+    public abstract boolean isMage();
+    public abstract boolean isArcher();
+    public abstract boolean isSwordsman();
 }
