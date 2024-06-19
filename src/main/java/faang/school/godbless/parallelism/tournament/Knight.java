@@ -20,14 +20,9 @@ public class Knight {
             this.trials.add(trial);
     }
 
-    public void startTrials(ExecutorService executor) {
+    public void startTrials() {
         for (Trial trial : trials) {
-            executor.submit(trial);
+            trial.run();
         }
     }
-
-    public List<Trial> getTrials() {
-        return trials;
-    }
-
 }

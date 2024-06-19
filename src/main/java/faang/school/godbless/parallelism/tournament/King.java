@@ -16,7 +16,7 @@ public class King {
     private final static int POOL_SIZE = 2;
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
+        ExecutorService executorService = Executors.newFixedThreadPool(POOL_SIZE);
         List<Knight> knights = new ArrayList<>();
 
         knights.add(STARK);
@@ -27,8 +27,8 @@ public class King {
         }
 
         for (Knight knight : knights) {
-            knight.startTrials(executor);
+            executorService.submit(knight::startTrials);
         }
-        executor.shutdown();
+        executorService.shutdown();
     }
 }
