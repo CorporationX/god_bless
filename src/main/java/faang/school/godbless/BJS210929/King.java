@@ -23,7 +23,7 @@ public class King {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         executorService.execute(knight1::startTrials);
         executorService.execute(knight2::startTrials);
-        executorService.shutdownNow();
+        executorService.shutdown();
 
     }
 }
