@@ -9,7 +9,5 @@ public abstract class Soldier {
 
     private final int power;
 
-    public abstract boolean isMage();
-    public abstract boolean isArcher();
-    public abstract boolean isSwordsman();
+    public abstract SoldierType getType();
 }

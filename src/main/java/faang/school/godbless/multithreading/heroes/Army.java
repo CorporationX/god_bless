@@ -44,15 +44,15 @@ public class Army {
     }
 
     public void addSoldier(Soldier soldier) {
-        if (soldier.isMage()) {
+        if (soldier.getType().equals(SoldierType.MAGE)) {
             var mageThread = new PowerThread(soldier);
             this.mageThreads.add(mageThread);
             mageThread.start();
-        } else if (soldier.isArcher()) {
+        } else if (soldier.getType().equals(SoldierType.ARCHER)) {
             var archerThread = new PowerThread(soldier);
             this.archerThreads.add(archerThread);
             archerThread.start();
-        } else if (soldier.isSwordsman()) {
+        } else if (soldier.getType().equals(SoldierType.SWORDSMAN)) {
             var swordsmanThread = new PowerThread(soldier);
             this.swordsmenThreads.add(swordsmanThread);
             swordsmanThread.start();

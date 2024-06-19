@@ -2,22 +2,15 @@ package faang.school.godbless.multithreading.heroes;
 
 public class Swordsman extends Soldier {
 
+    private SoldierType soldierType;
+
     public Swordsman(int power) {
         super(power);
+        soldierType = SoldierType.SWORDSMAN;
     }
 
     @Override
-    public boolean isMage() {
-        return false;
-    }
-
-    @Override
-    public boolean isArcher() {
-        return false;
-    }
-
-    @Override
-    public boolean isSwordsman() {
-        return true;
+    public SoldierType getType() {
+        return soldierType;
     }
 }
