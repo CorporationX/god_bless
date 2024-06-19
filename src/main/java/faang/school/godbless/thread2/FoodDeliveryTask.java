@@ -7,6 +7,11 @@ public record FoodDeliveryTask(String character, int foodAmount) implements Runn
     public void run() {
         String foodType = getFoodType();
         System.out.format("%s получает %d %s \n", character, foodAmount, foodType);
+        try {
+            Thread.sleep(foodAmount * 1000L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         System.out.format("%s ест %d %s \n", character, foodAmount, foodType);
     }
 
