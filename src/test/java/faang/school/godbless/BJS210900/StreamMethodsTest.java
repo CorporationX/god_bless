@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class StreamMethodsTest {
@@ -15,7 +14,7 @@ public class StreamMethodsTest {
     void testGetPairsWithSumOf() {
         List<Integer> nums = List.of(5, 5, 5, 6, 6, 6, 4, 4, 4, 1, 9, 8, 2, 3, 8, 2, 20, -10);
         Set<List<Integer>> expected = Set.of(
-                List.of(5, 5), List.of(4,6), List.of(1, 9), List.of(2, 8), List.of(-10, 20)
+                List.of(5, 5), List.of(4, 6), List.of(1, 9), List.of(2, 8), List.of(-10, 20)
         );
 
         assertEquals(expected, StreamMethods.getPairsWithSumOf(nums, 10));
@@ -50,6 +49,6 @@ public class StreamMethodsTest {
         Set<Set<String>> expected = Set.of(Set.of("Petya", "Grisha"), Set.of("Tanya", "Vasya"));
 
 
-        assertEquals(expected, StreamMethods.findStrangersWithCommonFriends(friends));
+        assertEquals(expected, actual);
     }
 }
