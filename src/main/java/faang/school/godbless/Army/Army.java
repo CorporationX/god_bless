@@ -30,11 +30,13 @@ public class Army {
     int calculateTotalPower() throws InterruptedException {
 
         for (Unit unit : units) {
-            if (unit.isMage()) {
+
+            UnitClass unitClass = unit.getUnitClass();
+            if (unitClass == UnitClass.MAGE){
                 processUnit(unit, mageThreads);
-            } else if (unit.isArcher()) {
+            } else if (unitClass == UnitClass.ARCHER) {
                 processUnit(unit, archerThread);
-            } else if (unit.isSwordsMan()) {
+            } else if (unitClass == UnitClass.SWORDSMAN) {
                 processUnit(unit, swordsmenThread);
             }
         }
