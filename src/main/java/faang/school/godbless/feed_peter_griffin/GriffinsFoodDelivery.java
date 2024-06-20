@@ -10,8 +10,8 @@ public class GriffinsFoodDelivery {
         ExecutorService executor = Executors.newFixedThreadPool(3);
 
         for (String characterName : characterNames) {
-            executor.submit(() -> new FoodDeliveryTask(characterName,
-                    new Random().nextInt() * 100));
+            executor.submit(new FoodDeliveryTask(characterName,
+                    new Random().nextInt(100)));
         }
         executor.shutdown();
     }
