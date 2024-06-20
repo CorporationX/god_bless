@@ -55,7 +55,7 @@ public class Main {
         List<Integer> values = Arrays.asList(1, 2, 16, 31, 37, -2); //для 32-битных чисел, другие отфильтруются
         System.out.println(Solver.convertToBinary(values));
         //task8
-        System.out.println(Solver.findPalindrome(0,100));
+        System.out.println(Solver.findPalindrome(0,200));
     }
 
 }
