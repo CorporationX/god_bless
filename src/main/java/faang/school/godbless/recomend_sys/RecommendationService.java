@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data
@@ -29,52 +30,26 @@ public class RecommendationService {
     public List<Optional<Product>> getTopNMostBoughtProductsBySimilarPeople(int userId, int top) {
         UserProfile primaryUserProfile = getUserProfileById(userId);
 
-        List<Integer> similarPeopleId = userProfileList.stream()
-                .filter(userProfile -> userProfile.getAge() == primaryUserProfile.getAge() &&
-                        userProfile.getGender() == primaryUserProfile.getGender() &&
-                        userProfile.getLocation().equals(primaryUserProfile.getLocation()))
-                .map(UserProfile::getUserId)
-                .toList();
+        Set<Integer> similarPeopleId = getSimilarPeopleId(primaryUserProfile);
 
-        Map<Integer, Long> productIdAndBoughtNumberMap = productOrderList.stream()
-                .filter(productOrder -> similarPeopleId.contains(productOrder.getProductId()))
-                .collect(Collectors.groupingBy(ProductOrder::getProductId,
-                        Collectors.counting()));
+        Map<Integer, Long> productIdAndBoughtNumberMapOfSimilarPeople =
+                getProductIdAndBoughtNumberMapOfSimilarPeople(similarPeopleId);
 
-        List<Integer> mostBoughtProductIdList = productIdAndBoughtNumberMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
-                .limit(top)
-                .map(Map.Entry::getKey)
-                .toList();
+        List<Integer> mostBoughtProductIdList =
+                getTopNBoughtProductIdList(productIdAndBoughtNumberMapOfSimilarPeople, top);
 
-        return mostBoughtProductIdList.stream()
-                .map(productId -> productList.stream()
-                        .filter(product -> product.getId() == productId)
-                        .findFirst())
-                .toList();
+        return getProductListByProductId(mostBoughtProductIdList);
     }
 
     public String getCategoryPersonalDiscount(int userId) {
-        List<ProductOrder> userProductOrderList = productOrderList.stream()
-                .filter(productOrder -> productOrder.getUserId() == userId)
-                .toList();
+        List<ProductOrder> userProductOrderList = getUserProductOrderList(userId);
 
-        List<Product> userProductList = userProductOrderList.stream()
-                .map(productOrder -> productList.stream()
-                        .filter(product -> productOrder.getProductId() == product.getId())
-                        .findFirst().orElseThrow(() -> new RuntimeException("Product with this id is " +
-                                "not registered in DataBase")))
-                .toList();
+        List<Product> userProductList = getUserProductList(userProductOrderList);
 
         UserProfile userProfile = getUserProfileById(userId);
         List<String> userInterests = userProfile.getInterests();
 
-        Map<String, Long> categoryAndFrequencyMap = userProductList.stream()
-                .map(Product::getCategory)
-                .filter(userInterests::contains)
-                .collect(Collectors.groupingBy(category -> category,
-                        Collectors.counting()));
+        Map<String, Long> categoryAndFrequencyMap = getCategoryAndFrequencyMap(userProductList, userInterests);
 
         return categoryAndFrequencyMap.entrySet().stream()
                 .min(Map.Entry.comparingByValue())
@@ -83,8 +58,7 @@ public class RecommendationService {
     }
 
     private UserProfile getUserProfileById(int userId) {
-        Optional<UserProfile> userProfileOptional = userProfileList
-                .stream()
+        Optional<UserProfile> userProfileOptional = userProfileList.stream()
                 .filter(userProfile -> userProfile.getUserId() == userId)
                 .findFirst();
 
@@ -100,5 +74,63 @@ public class RecommendationService {
         copyOfFirstList.retainAll(secondList);
 
         return !copyOfFirstList.isEmpty();
+    }
+
+    private Set<Integer> getSimilarPeopleId(UserProfile primaryUserProfile) {
+        return userProfileList.stream()
+                .filter(userProfile -> userProfile.getAge() == primaryUserProfile.getAge() &&
+                        userProfile.getGender() == primaryUserProfile.getGender() &&
+                        userProfile.getLocation().equals(primaryUserProfile.getLocation()) &&
+                        userProfile.getUserId() != primaryUserProfile.getUserId())
+                .map(UserProfile::getUserId)
+                .collect(Collectors.toSet());
+    }
+
+    private Map<Integer, Long> getProductIdAndBoughtNumberMapOfSimilarPeople(Set<Integer> similarPeopleId) {
+        return productOrderList.stream()
+                .filter(productOrder -> similarPeopleId
+                        .contains(productOrder.getProductId()))
+                .collect(Collectors.groupingBy(ProductOrder::getProductId,
+                        Collectors.counting()));
+    }
+
+    private List<Integer> getTopNBoughtProductIdList(Map<Integer, Long> productIdAndBoughtNumberMap, int top) {
+        return productIdAndBoughtNumberMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
+                .limit(top)
+                .map(Map.Entry::getKey)
+                .toList();
+    }
+
+    private List<ProductOrder> getUserProductOrderList(int userId) {
+        return productOrderList.stream()
+                .filter(productOrder -> productOrder.getUserId() == userId)
+                .toList();
+    }
+
+    private List<Product> getUserProductList(List<ProductOrder> userProductOrderList) {
+        return userProductOrderList.stream()
+                .map(productOrder -> productList.stream()
+                        .filter(product -> productOrder.getProductId() == product.getId())
+                        .findFirst().orElseThrow(() ->
+                                new RuntimeException("Product with this id is not registered in DataBase")))
+                .toList();
+    }
+
+    private Map<String, Long> getCategoryAndFrequencyMap(List<Product> userProductList, List<String> userInterests) {
+        return userProductList.stream()
+                .map(Product::getCategory)
+                .filter(userInterests::contains)
+                .collect(Collectors.groupingBy(category -> category,
+                        Collectors.counting()));
+    }
+
+    private List<Optional<Product>> getProductListByProductId(List<Integer> productIdList) {
+        return productIdList.stream()
+                .map(productId -> productList.stream()
+                        .filter(product -> product.getId() == productId)
+                        .findFirst())
+                .toList();
     }
 }
