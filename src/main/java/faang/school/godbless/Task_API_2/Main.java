@@ -52,8 +52,10 @@ public class Main {
         List<String> words = Arrays.asList("abc", "2", "123", "", "@", "dream");
         System.out.println(StringService.alphabetFilter(words));
         //task7
-        List<Integer> values = Arrays.asList(1, 2, 16, 31); //для 32-битных чисел
+        List<Integer> values = Arrays.asList(1, 2, 16, 31, 37, -2); //для 32-битных чисел, другие отфильтруются
         System.out.println(Solver.convertToBinary(values));
+        //task8
+        System.out.println(Solver.findPalindrome(0,100));
     }
 
 }

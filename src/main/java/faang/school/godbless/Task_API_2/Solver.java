@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @NoArgsConstructor
 public class Solver {
@@ -21,9 +22,14 @@ public class Solver {
     }
 
     public static List<String> convertToBinary(List<Integer> integers) {
-        return integers.stream()
+        return integers.stream().filter(x -> (x > -1 && x < 32))
                 .map(Solver::toBinary)
                 .collect(Collectors.toList());
+    }
+
+    public static List<Integer> findPalindrome(int a, int b) {
+        return IntStream.rangeClosed(a, b).filter(x -> x > 0)
+                .filter(Solver::ifPalindrome).boxed().collect(Collectors.toList());
     }
 
     public record Pair(int a, int b) {
@@ -52,6 +58,20 @@ public class Solver {
             } else result.append("0");
         }
         return result.toString();
+    }
+
+    public static boolean ifPalindrome(int k) {
+        if (k < 10) return true;
+        else {
+            StringBuilder builder = new StringBuilder();
+            String str = "" + k;
+            for (int i = 0; i < str.length(); i++) {
+                builder.append(str.charAt(i));
+            }
+            String string = builder.toString();
+            String reverse = builder.reverse().toString();
+            return string.equals(reverse);
+        }
     }
 
 }
