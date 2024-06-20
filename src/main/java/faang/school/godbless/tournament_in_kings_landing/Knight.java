@@ -11,19 +11,10 @@ import java.util.List;
 
 
 @Getter
-@Setter
+@AllArgsConstructor
 public class Knight {
     private String name;
     private ArrayList<Trial> trials;
-
-    public Knight(String name) {
-        this.name = name;
-    }
-
-    public Knight(String name, ArrayList<Trial> trials) {
-        this.name = name;
-        this.trials = trials;
-    }
 
     public void addTrial(Trial trial){
         trials.add(trial);

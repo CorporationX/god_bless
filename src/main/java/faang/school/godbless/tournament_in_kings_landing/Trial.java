@@ -12,6 +12,6 @@ public class Trial implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("Knight " + knightName + "performs the trial " + trialName);
+        System.out.println("Knight " + knightName + " performs the trial " + trialName);
     }
 }
