@@ -4,17 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private final Object lock;
-    private final List<String> photosToUpload;
-
-    public GooglePhotosAutoUploader() {
-        this.lock = new Object();
-        this.photosToUpload = new ArrayList<>();
-    }
+    private final Object lock = new Object();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
-            while (true) {
+        while (Thread.currentThread().isAlive()) {
+            synchronized (lock) {
                 System.out.println("Trying to add photo to Google Cloud");
 
                 while (photosToUpload.isEmpty()) {
@@ -40,9 +35,7 @@ public class GooglePhotosAutoUploader {
     }
 
     public void uploadPhotos() {
-        photosToUpload.forEach((photoPath) -> {
-            System.out.println("Photo " + photoPath + " was added to Google Cloud");
-        });
+        photosToUpload.forEach((photoPath) -> System.out.println("Photo " + photoPath + " was added to Google Cloud"));
         photosToUpload.clear();
     }
 }
