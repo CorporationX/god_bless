@@ -4,13 +4,13 @@ public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
-        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
-        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler("email", (notification) -> System.out.println("РћС‚РїСЂР°РІРєР° РїРѕ СЌР»РµРєС‚СЂРѕРЅРЅРѕР№ РїРѕС‡С‚Рµ: " + notification.getMessage()));
+        notificationManager.registerHandler("sms", (notification) -> System.out.println("РћС‚РїСЂР°РІРєР° SMS: " + notification.getMessage()));
+        notificationManager.registerHandler("push", (notification) -> System.out.println("РћС‚РїСЂР°РІРєР° push-СѓРІРµРґРѕРјР»РµРЅРёСЏ: " + notification.getMessage()));
 
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        Notification emailNotification = new Notification("email", "Р’Р°С€Р° СѓС‡РµС‚РЅР°СЏ Р·Р°РїРёСЃСЊ СѓСЃРїРµС€РЅРѕ Р°РєС‚РёРІРёСЂРѕРІР°РЅР°");
+        Notification smsNotification = new Notification("sms", "Р’С‹ СѓСЃРїРµС€РЅРѕ РёР·РјРµРЅРёР»Рё СЃРІРѕР№ РїР°СЂРѕР»СЊ");
+        Notification pushNotification = new Notification("push", "РќРѕРІС‹Р№ РїРѕСЃС‚ РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
