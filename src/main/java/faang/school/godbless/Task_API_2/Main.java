@@ -1,5 +1,6 @@
 package faang.school.godbless.Task_API_2;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -36,7 +37,17 @@ public class Main {
         FRIENDS.put("Kyle", kyleFriends);
         FRIENDS.put("Ben", benFriends);
         System.out.println(StringService.findCommonFriend(FRIENDS));
-
+        //task5
+        Employee alex = new Employee("Alex", 50,"user support");
+        Employee john = new Employee("John", 100,"user support");
+        Employee paul = new Employee("Paul", 100,"IT");
+        Employee mark = new Employee("Mark", 200,"IT");
+        List<Employee> workers = new ArrayList<>();
+        workers.add(alex);
+        workers.add(john);
+        workers.add(paul);
+        workers.add(mark);
+        System.out.println(Employee.findAvgSalary(workers));
 
     }
 
