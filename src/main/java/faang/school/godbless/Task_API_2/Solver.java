@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class Solver {
@@ -19,11 +20,17 @@ public class Solver {
         return result;
     }
 
+    public static List<String> convertToBinary(List<Integer> integers) {
+        return integers.stream()
+                .map(Solver::toBinary)
+                .collect(Collectors.toList());
+    }
+
     public record Pair(int a, int b) {
 
         @Override
         public int hashCode() {
-            return Objects.hash(a + b); //зависимость от одной переменной
+            return Objects.hash(a + b); //можно и по-другому, главное, один аргумент у hash
         }
 
         @Override
@@ -34,6 +41,17 @@ public class Solver {
             return (c.a == this.a && c.b == this.b) || (c.b == this.a && c.a == this.b);
         }
 
+    }
+
+    public static String toBinary(int number) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 31; i >= 0; i--) {
+            int k = number >> i;
+            if ((k & 1) > 0) {
+                result.append("1");
+            } else result.append("0");
+        }
+        return result.toString();
     }
 
 }

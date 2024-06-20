@@ -38,10 +38,10 @@ public class Main {
         FRIENDS.put("Ben", benFriends);
         System.out.println(StringService.findCommonFriend(FRIENDS));
         //task5
-        Employee alex = new Employee("Alex", 50,"user support");
-        Employee john = new Employee("John", 100,"user support");
-        Employee paul = new Employee("Paul", 100,"IT");
-        Employee mark = new Employee("Mark", 200,"IT");
+        Employee alex = new Employee("Alex", 50, "user support");
+        Employee john = new Employee("John", 100, "user support");
+        Employee paul = new Employee("Paul", 100, "IT");
+        Employee mark = new Employee("Mark", 200, "IT");
         List<Employee> workers = new ArrayList<>();
         workers.add(alex);
         workers.add(john);
@@ -49,8 +49,11 @@ public class Main {
         workers.add(mark);
         System.out.println(Employee.findAvgSalary(workers));
         //task6
-        List<String> words = Arrays.asList("abc", "2", "123", "dream");
+        List<String> words = Arrays.asList("abc", "2", "123", "", "@", "dream");
         System.out.println(StringService.alphabetFilter(words));
+        //task7
+        List<Integer> values = Arrays.asList(1, 2, 16, 31); //для 32-битных чисел
+        System.out.println(Solver.convertToBinary(values));
     }
 
 }
