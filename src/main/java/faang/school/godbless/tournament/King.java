@@ -1,5 +1,6 @@
 package faang.school.godbless.tournament;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -20,11 +21,17 @@ public class King {
         knightRoger.addTrial(firstTrialForRoger);
         knightRoger.addTrial(secondTrialForRoger);
 
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        startTrials(List.of(knightJohn, knightRoger));
+    }
 
-        executor.submit(knightJohn::startTrials);
-        executor.submit(knightRoger::startTrials);
+    public static void startTrials(List<Knight> candidates) {
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
-        executor.shutdown();
+        candidates.forEach(
+                candidate -> candidate.getTrials()
+                        .forEach(executorService::execute)
+        );
+
+        executorService.shutdown();
     }
 }
