@@ -1,5 +1,6 @@
 package faang.school.godbless.task22;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class Main {
@@ -15,16 +16,16 @@ public class Main {
             System.out.println("Обработка ошибки: " + e.getMessage());
         };
 
-        String result = withErrorHandling(action, errorHandler);
+        String result = withErrorHandling(action, errorHandler).orElseThrow(()->new RuntimeException("Запрос не вернул результатов"));
         System.out.println("Результат: " + result);
     }
 
-    public static <T> T withErrorHandling(Supplier<T> consumer, ExceptionHandler errorHandling) {
+    public static <T> Optional<T> withErrorHandling(Supplier<T> consumer, ExceptionHandler errorHandling) {
         try {
-            return consumer.get();
+            return Optional.ofNullable(consumer.get());
         } catch (Exception e) {
             errorHandling.handle(e);
-            return null;
+            return Optional.empty();
         }
     }
 
