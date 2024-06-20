@@ -35,16 +35,18 @@ public class Witcher {
         cities.add(new City("Oxenfurt", new Location(60, 0), 70));
         cities.add(new City("Vizima", new Location(120, 50), 30));
         cities.add(new City("Kaer Morhen", new Location(180, 70), 0));
-        CityWorker worker = new CityWorker(cities, new Witcher(new City("Kaer Morhen", new Location(180, 70), 0)));
-        worker.addMonsters(monsters);
-        long startTime = System.currentTimeMillis();
-        ExecutorService service = Executors.newFixedThreadPool(4);
 
+        ExecutorService service = Executors.newFixedThreadPool(4);
+        long startTime = System.currentTimeMillis();
             for (City c : cities) {
                 service.submit(() ->{
+                    CityWorker worker = new CityWorker(cities, new Witcher(new City("Kaer Morhen", new Location(180, 70), 0)));
+                    worker.addMonsters(monsters);
+
+                    worker.goToCity(c);
                     worker.run();
                     System.out.println("After all, Withcer went to " + c.getName());
-                    worker.goToCity(c);
+
                 });
             }
 
