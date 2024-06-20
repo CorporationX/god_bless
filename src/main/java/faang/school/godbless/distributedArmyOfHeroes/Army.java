@@ -8,7 +8,6 @@ public class Army {
 
     public Army() {
         this.subdivisions = new ArrayList<>();
-        ;
     }
 
     public void addUnit(Subdivision subdivision) {
