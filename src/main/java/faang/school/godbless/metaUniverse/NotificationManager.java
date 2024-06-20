@@ -23,7 +23,11 @@ public class NotificationManager {
     }
 
     public void sendNotification(@NonNull Notification notification) {
-        notifications.get(notification.getType()).accept(notification);
+        if (notifications.containsKey(notification.getType())) {
+            notifications.get(notification.getType()).accept(notification);
+        } else {
+            throw new IllegalArgumentException("Notification does not exist");
+        }
     }
 
     public void checkNotificationOnSpam(Notification notification) {
