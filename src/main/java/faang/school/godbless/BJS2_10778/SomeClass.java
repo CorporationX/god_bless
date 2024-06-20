@@ -62,16 +62,16 @@ public class SomeClass {
                         Collectors.averagingDouble(Employee::getSalary)));
     }
 
-    public static List<String> filterByAlphabetAndSort(List<String> strings, char[] alphabet){
-        Set<Integer> alphabetSet=String.valueOf(alphabet).chars().boxed().collect(Collectors.toSet());
+    public static List<String> filterByAlphabetAndSort(List<String> strings, char[] alphabet) {
+        Set<Integer> alphabetSet = String.valueOf(alphabet).chars().boxed().collect(Collectors.toSet());
 
         return strings.stream()
-                .filter(s->s.chars().allMatch(alphabetSet::contains))
+                .filter(s -> s.chars().allMatch(alphabetSet::contains))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static List<String> convertIntegerToBinary(List<Integer> numbers){
+    public static List<String> convertIntegerToBinary(List<Integer> numbers) {
         return numbers.stream()
                 .map(Integer::toBinaryString)
                 .toList();

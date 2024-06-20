@@ -25,7 +25,6 @@ public class Main {
         SomeClass.filterLinesStartWithChar(lines, 'W').forEach(System.out::println);
 
 
-
         Map<String, List<String>> userToFriendsMap = Map.of(
                 "User 1", List.of(),
                 "User 2", List.of("User 3"),
