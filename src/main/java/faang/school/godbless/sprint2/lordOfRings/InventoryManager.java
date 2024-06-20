@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> successConsumer) {
-        if (Character.isValidCharacter(character) && Item.isValidItem(item) && successConsumer != null) {
+        if (ValidatorUtils.isValidCharacter(character) && ValidatorUtils.isValidItem(item) && successConsumer != null) {
             character.getInventory().add(item);
 
             successConsumer.accept(item);
@@ -23,7 +23,7 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        if (Character.isValidCharacter(character) && isValidPredicate(predicate)) {
+        if (ValidatorUtils.isValidCharacter(character) && ValidatorUtils.isValidPredicate(predicate)) {
             character.getInventory().removeIf(predicate);
         } else {
             throw new IllegalArgumentException("Incorrect arguments");
@@ -31,7 +31,7 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        if (Character.isValidCharacter(character) && isValidPredicate(predicate) && function != null) {
+        if (ValidatorUtils.isValidCharacter(character) && ValidatorUtils.isValidPredicate(predicate) && function != null) {
             character.setInventory(character.getInventory().stream()
                     .filter(predicate)
                     .map(function)
@@ -39,9 +39,5 @@ public class InventoryManager {
         } else {
             throw new IllegalArgumentException("Incorrect arguments");
         }
-    }
-
-    private boolean isValidPredicate(Predicate predicate) {
-        return predicate != null;
     }
 }

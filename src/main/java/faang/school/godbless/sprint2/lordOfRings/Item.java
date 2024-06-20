@@ -9,8 +9,4 @@ public class Item {
 
     private String name;
     private Integer value;
-
-    public static boolean isValidItem(Item item) {
-        return item != null;
-    }
 }

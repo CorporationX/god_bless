@@ -21,8 +21,4 @@ public class Character {
         this.inventory = new ArrayList<>();
         this.name = name;
     }
-
-    public static boolean isValidCharacter(Character character) {
-        return character != null;
-    }
 }
