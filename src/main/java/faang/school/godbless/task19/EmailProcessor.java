@@ -17,17 +17,17 @@ public class EmailProcessor {
         );
 
 // Создание фильтров, обработчиков и преобразователей
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Predicate<Email> importantFilter = Email::isImportant;
+        Consumer<Email> printEmail = email -> System.out.println("Обрабатывается письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 
-    public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> consumer, Function<Email, String> function) {
+    public List<String> processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> consumer, Function<Email, String> function) {
         List<Email> filteredEmails = emails.stream().filter(filter).toList();
         filteredEmails.forEach(consumer);
-        List<String> strings = filteredEmails.stream().map(function).toList();
+         return filteredEmails.stream().map(function).toList();
     }
 }
