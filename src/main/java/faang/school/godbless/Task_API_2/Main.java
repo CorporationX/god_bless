@@ -11,6 +11,7 @@ public class Main {
     static final List<Integer> numbers = Arrays.asList(1, 9, 3, 6, 4, 5);
     static final int target = 10;
     static final List<String> strings = Arrays.asList("something", "some", "sad", "new", "now", "sold");
+    static final Map<String, List<String>> FRIENDS = new HashMap<>();
 
     public static void main(String[] args) {
         //task1
@@ -25,6 +26,18 @@ public class Main {
         System.out.println(StringService.sortCapitals(countriesAndCapitals));
         //task3
         System.out.println(StringService.stringFilter(strings, 's'));
+        //task4
+        List<String> johnFriends = Arrays.asList("Jordan", "Ben");
+        List<String> mikeFriends = Arrays.asList("Kyle", "Andrew");
+        List<String> kyleFriends = Arrays.asList("Ben", "Mark", "Mike");
+        List<String> benFriends = Arrays.asList("Kyle", "John");
+        FRIENDS.put("John", johnFriends);
+        FRIENDS.put("Mike", mikeFriends);
+        FRIENDS.put("Kyle", kyleFriends);
+        FRIENDS.put("Ben", benFriends);
+        System.out.println(StringService.findCommonFriend(FRIENDS));
+
+
     }
 
 }

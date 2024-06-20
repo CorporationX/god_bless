@@ -13,8 +13,8 @@ public class Solver {
     public static Set<Pair> findPairs(List<Integer> numbers, int target) {
         Set<Integer> numberSet = new HashSet<>(numbers);
         Set<Pair> result = new HashSet<>();
-        numbers.forEach( x-> {
-            if (numberSet.contains(target-x) && (target-x != x)) result.add(new Pair(x, target - x));
+        numbers.forEach(x -> {
+            if (numberSet.contains(target - x) && (target - x != x)) result.add(new Pair(x, target - x));
         });
         return result;
     }
@@ -23,7 +23,7 @@ public class Solver {
 
         @Override
         public int hashCode() {
-            return Objects.hash(a+b); //зависимость от одной переменной
+            return Objects.hash(a + b); //зависимость от одной переменной
         }
 
         @Override
