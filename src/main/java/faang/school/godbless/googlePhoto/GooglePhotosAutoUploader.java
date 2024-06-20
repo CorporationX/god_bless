@@ -59,7 +59,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public static void stopAutoUpload() {
-        isRunning = false;
+        if (isRunning) {
+            isRunning = false;
+        }
     }
 
 
