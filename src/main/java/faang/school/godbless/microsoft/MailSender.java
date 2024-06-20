@@ -6,36 +6,62 @@ import java.util.List;
 import java.util.Queue;
 
 public class MailSender {
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws InterruptedException {
+        // создаём очередь из писем
         Queue<String> inputMails = new LinkedList<>();
-        ArrayList<String> mailPool1 = new ArrayList<>();
-        List<String> mailPool2 = new ArrayList<>();
-        List<String> mailPool3 = new ArrayList<>();
-        List<String> mailPool4 = new ArrayList<>();
-        List<String> mailPool5 = new ArrayList<>();
 
         for (int i = 1; i <= 1000; i++) {
             inputMails.offer("Письмо " + i);
         }
-        System.out.println("inputMails = " + inputMails);
 
-        for (int i = 0; i < 201; i++) {
-            mailPool1.add(inputMails.peek());
+// создаём список объектов пулов строк
+        List<SenderRunnable> senderRunnables = new ArrayList<>();
+
+        // создаём объекты пулов строк и заполняем список пулов строк
+        SenderRunnable senderRunnable1
+                = new SenderRunnable(1, 200, inputMails);
+        senderRunnables.add(senderRunnable1);
+
+        SenderRunnable senderRunnable2
+                = new SenderRunnable(201, 400, inputMails);
+        senderRunnables.add(senderRunnable2);
+
+        SenderRunnable senderRunnable3
+                = new SenderRunnable(401, 600, inputMails);
+        senderRunnables.add(senderRunnable3);
+
+        SenderRunnable senderRunnable4
+                = new SenderRunnable(601, 800, inputMails);
+        senderRunnables.add(senderRunnable4);
+
+        SenderRunnable senderRunnable5
+                = new SenderRunnable(801, 1000, inputMails);
+        senderRunnables.add(senderRunnable5);
+
+        List<Thread> threads = new ArrayList<>();
+//       создаём потоки, в каждый из  которых передаём объект пула строк
+        for (int i = 0; i < 5; i++) {
+            Thread thread = new Thread(senderRunnables.get(i), "Поток " + (i + 1));
+            threads.add(thread);
+            thread.start();
+            System.out.println(thread.getName() + " запущен");
         }
 
-        System.out.println("mailPool1 = " + mailPool1);
-
-//        SenderRunnable senderRunnable1 =
-//                new SenderRunnable(1,200, inputMails);
-
-//        System.out.println("mailPool1 = " + mailPool1);
-//        System.out.println("inputMails = " + inputMails);
-//        System.out.println("senderRunnable1 = " + senderRunnable1);
-//        for (int i = 0; i < 5; i++) {
-//
-//            Thread thread = new Thread(senderRunnable1, "Поток " + i);
-//            thread.start();
-//        }
+        //сообщаем основному потоку, чтобы он ждал завершения всех потоков
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        //после завершения всех потоков выводим сообщение
+        if (threads.stream()
+                .filter(Thread::isAlive)
+                .toList()
+                .isEmpty()) {
+            System.out.println("Все письма были отправлены!");
+        }
     }
 }
+
