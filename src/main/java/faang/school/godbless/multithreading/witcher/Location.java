@@ -1,4 +1,5 @@
 package faang.school.godbless.multithreading.witcher;
 
-public record Location(double x, double y) {
+public record Location(int x, int y) {
+
 }
