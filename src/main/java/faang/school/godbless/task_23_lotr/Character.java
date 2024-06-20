@@ -15,7 +15,9 @@ public class Character {
         inventory = new ArrayList<>();
     }
 
-    public void removeItem(Item item){
+    public void removeItem(Item item) {
         inventory.remove(item);
     }
+
+
 }

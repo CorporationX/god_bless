@@ -7,11 +7,13 @@ public class Main {
 
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.name() + " was added to the inventory."));
 
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(frodo, (item) -> item.name().equals("The One Ring"), (item) -> new Item(item.name(), item.value() * 2));
 
-        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+        manager.showItem(frodo, System.out::println);
+
+        manager.removeItem(frodo, (item) -> item.name().equals("The One Ring"));
 
     }
 }
