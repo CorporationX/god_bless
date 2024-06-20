@@ -2,13 +2,7 @@ package faang.school.godbless.tournament_in_kings_landing;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
 import java.util.ArrayList;
-import java.util.List;
-
 
 @Getter
 @AllArgsConstructor
