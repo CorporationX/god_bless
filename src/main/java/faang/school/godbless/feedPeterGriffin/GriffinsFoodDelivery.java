@@ -13,10 +13,12 @@ public class GriffinsFoodDelivery {
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
+        // Первый вариант ршения
 //        for (String character : characterNames) {
 //            executorService.submit(new FoodDeliveryTask(character, new Random().nextInt(50)));
 //        }
 
+        //Второй вариант ршения
         Arrays.stream(characterNames)
                 .forEach(character -> executorService.submit(new FoodDeliveryTask(character, new Random().nextInt(50))));
         executorService.shutdown();
