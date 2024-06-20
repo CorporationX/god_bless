@@ -63,6 +63,4 @@ public class GooglePhotosAutoUploader {
             isRunning = false;
         }
     }
-
-
 }
