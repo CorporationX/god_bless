@@ -1,4 +1,4 @@
-package faang.school.godbless.module1.sptint3.task1;
+package faang.school.godbless.module1.sprint3.task1;
 
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
