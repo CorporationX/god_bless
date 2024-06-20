@@ -16,8 +16,7 @@ public class BigBangTheory {
 
     public static void DistributeTasks(List<Task> taskList) {
         ExecutorService service = Executors.newFixedThreadPool(4);
-        taskList.stream()
-                .forEach(a -> service.submit(a::run));
+        taskList.forEach(service::submit);
         service.shutdown();
     }
 }
