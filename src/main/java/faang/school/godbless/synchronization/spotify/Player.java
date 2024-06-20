@@ -9,6 +9,9 @@ public class Player {
     private boolean playing;
 
     public void play() {
+        if (playing) {
+            return;
+        }
         synchronized (lock) {
             playing = true;
             System.out.println("Play");
@@ -17,6 +20,9 @@ public class Player {
     }
 
     public void pause() {
+        if (!playing) {
+            return;
+        }
         synchronized (lock) {
             playing = false;
             System.out.println("Pause");
