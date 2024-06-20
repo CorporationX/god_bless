@@ -1,5 +1,6 @@
 package faang.school.godbless.Task_API_2;
 
+
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StringService {
+
+    private static final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
     public static List<String> sortCapitals(Map<String, String> countries) {
         return countries.entrySet().stream()
@@ -37,6 +40,20 @@ public class StringService {
             });
         });
         return result;
+    }
+
+    public static List<String> alphabetFilter(List<String> inputStrings) {
+        return inputStrings.stream().filter(x->!x.isBlank()).filter(x->{
+            char[] chars = x.toCharArray();
+            boolean result = true;
+            for (char aChar : chars) {
+                if (!ALPHABET.contains(String.valueOf(aChar))) {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }).collect(Collectors.toList());
     }
 
 }

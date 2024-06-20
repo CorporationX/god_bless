@@ -48,7 +48,9 @@ public class Main {
         workers.add(paul);
         workers.add(mark);
         System.out.println(Employee.findAvgSalary(workers));
-
+        //task6
+        List<String> words = Arrays.asList("abc", "2", "123", "dream");
+        System.out.println(StringService.alphabetFilter(words));
     }
 
 }
