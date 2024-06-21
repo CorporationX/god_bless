@@ -27,7 +27,7 @@ public class CityWorker implements Runnable {
 
     public Monster findNearestMonster() {
         return monsters.stream().min((monster1, monster2) -> Double.compare(findDistanceFormula(monster1, city),
-                findDistanceFormula(monster2, city))).orElse(null);
+                findDistanceFormula(monster2, city))).orElse(new Monster("default", new Location(0, 0)));
     }
 
     public long getKillTime() {
