@@ -7,7 +7,7 @@ public class MailSender {
 
     public static final List<Thread> threads = new ArrayList<>();
 
-    public static void runAllThread(List<Thread> threads) throws InterruptedException {
+    public static void joinAllThreads(List<Thread> threads) throws InterruptedException {
         for (Thread thread : threads) {
             thread.join();
         }
@@ -25,7 +25,7 @@ public class MailSender {
             thread.start();
         }
 
-        runAllThread(threads);
+        joinAllThreads(threads);
 
     }
 
