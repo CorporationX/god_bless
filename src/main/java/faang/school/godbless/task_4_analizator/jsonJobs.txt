@@ -1,0 +1,8 @@
+{"position": "позиция_1","requirements": ["req1","req3", "req5", "req3"],"salary": 250000,"location": "Russian Federation","dataAdded": [2024,6,21]}
+{"position": "позиция_2","requirements": ["req2","req4", "req5", "req3"],"salary": 140000,"location": "Russian Federation","dataAdded": [2024,6,21]}
+{"position": "позиция_2","requirements": ["req3","req5", "req4", "req4"],"salary": 120000,"location": "Russian Federation","dataAdded": [2024,6,20]}
+{"position": "позиция_3","requirements": ["req1","req1", "req3", "req1"],"salary": 110000,"location": "Russian Federation","dataAdded": [2024,5,20]}
+{"position": "позиция_3","requirements": ["req2","req2", "req2", "req2"],"salary": 150000,"location": "Russian Federation","dataAdded": [2024,2,21]}
+{"position": "позиция_3","requirements": ["req3","req3", "req1", "req5"],"salary": 135000,"location": "Russian Federation","dataAdded": [2024,1,21]}
+{"position": "позиция_4","requirements": ["req1","req4", "req1", "req4"],"salary": 70000,"location": "Russian Federation","dataAdded": [2023,7,21]}
+{"position": "позиция_4","requirements": ["req2","req5", "req2", "req1"],"salary": 100000,"location": "Russian Federation","dataAdded": [2023,6,21]}
