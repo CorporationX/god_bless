@@ -8,7 +8,7 @@ public class MailSender {
     private static final List<Thread> THREADS = new ArrayList<>();
 
     public static void main(String[] args) {
-        for (int i = 1; i <= 5; i++) {
+        for (int i = 1; i < 5; i++) {
             int startIndex = i * SIZE_BATCH;
             int endIndex = startIndex + SIZE_BATCH;
 
