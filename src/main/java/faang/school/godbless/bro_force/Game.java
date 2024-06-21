@@ -25,11 +25,11 @@ public class Game {
             if (player.isAlive()) {
                 synchronized (scoreLock) {
                     score++;
+                    lives--;
                     System.out.printf("%s: %s scored!\n", Thread.currentThread().getName(), player.getName());
                 }
             } else {
                 synchronized (livesLock) {
-                    lives--;
                     gameOver(player);
                 }
             }
