@@ -10,8 +10,8 @@ public class MailSender {
 
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < numOfThreads; i++) {
-            int startIndex = i * mailsPerThread + 1;
-            int endIndex = startIndex + mailsPerThread - 1;
+            int startIndex = i * mailsPerThread;
+            int endIndex = startIndex + mailsPerThread-1;
 
             SenderRunnable senderRunnable = new SenderRunnable(startIndex, endIndex);
             Thread thread = new Thread(senderRunnable);
