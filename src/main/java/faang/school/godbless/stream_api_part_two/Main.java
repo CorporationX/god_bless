@@ -43,13 +43,13 @@ public class Main {
     private final static char[] ALPHABET = "abcdefghijklmnopqrstuvwxyz".toCharArray();
 
     public static void main(String[] args) {
-        System.out.println(StreamUtils.findUniquePairs(NUMBERS, 10));
-        System.out.println(StreamUtils.sortedMapAndShowCapitals(COUNTRIES));
-        System.out.println(StreamUtils.filteredStringSortedStringByChar(STRINGS, 'H'));
-        System.out.println(StreamUtils.findPeopleNonFriends(PERSON_FRIENDS));
-        System.out.println(StreamUtils.getDepartmentAverageSalary(EMPLOYEES));
-        System.out.println(StreamUtils.filterAndSortStringsByAlphabet(DIFFERENT_STRING, ALPHABET));
-        System.out.println(StreamUtils.numsToBinaryStrings(NUMBERS));
-        System.out.println(StreamUtils.findPalindromes(1, 220));
+        System.out.println(StreamsUtil.findUniquePairs(NUMBERS, 10));
+        System.out.println(StreamsUtil.sortedMapAndShowCapitals(COUNTRIES));
+        System.out.println(StreamsUtil.filteredStringSortedStringByChar(STRINGS, 'H'));
+        System.out.println(StreamsUtil.findPeopleNonFriends(PERSON_FRIENDS));
+        System.out.println(StreamsUtil.getDepartmentAverageSalary(EMPLOYEES));
+        System.out.println(StreamsUtil.filterAndSortStringsByAlphabet(DIFFERENT_STRING, ALPHABET));
+        System.out.println(StreamsUtil.numsToBinaryStrings(NUMBERS));
+        System.out.println(StreamsUtil.findPalindromes(1, 220));
     }
 }
