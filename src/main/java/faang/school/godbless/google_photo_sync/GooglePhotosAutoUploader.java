@@ -15,8 +15,8 @@ public class GooglePhotosAutoUploader {
             while (true) {
                 if (photosToUpload.isEmpty()) {
                     photosToUpload.wait();
-                    uploadPhotos();
                 }
+                uploadPhotos();
             }
         }
     }
