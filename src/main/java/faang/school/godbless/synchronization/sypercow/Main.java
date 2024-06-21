@@ -8,13 +8,13 @@ import java.util.concurrent.Executors;
 public class Main {
     private static final int MAX_NUMBER_PLAYER_ATTACKED = 3;
     private static final int MAX_PLAYERS = 10;
-    private static final int MAX_POOL_SIZE = 2;
+    private static final int MAX_POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Boss boss = new Boss(MAX_NUMBER_PLAYER_ATTACKED);
         ExecutorService executor = Executors.newFixedThreadPool(MAX_POOL_SIZE);
         List<Player> players = getPlayers();
-        for(Player player : players){
+        for (Player player : players) {
             executor.submit(() -> player.startBattle(boss));
         }
         executor.shutdown();
