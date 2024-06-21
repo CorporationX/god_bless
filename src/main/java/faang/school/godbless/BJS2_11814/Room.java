@@ -18,4 +18,12 @@ public class Room {
         }
         foods.addAll(Arrays.asList(food));
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+
+                " name='" + name + '\'' +
+                '}';
+    }
 }
