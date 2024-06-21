@@ -29,8 +29,9 @@ public class Main {
         executor.shutdown();
 
         try {
-            executor.awaitTermination(20, TimeUnit.SECONDS);
-            executor.shutdown();
+            if (executor.awaitTermination(20, TimeUnit.SECONDS)) {
+                System.out.println("All views have been added on time");
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
