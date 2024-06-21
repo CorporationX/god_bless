@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -13,32 +14,28 @@ import java.util.concurrent.TimeUnit;
 public class House {
 
     private final List<Room> rooms;
-    private List<Food> collectedFood = new ArrayList<>();
+    private final List<Food> collectedFood = Collections.synchronizedList(new ArrayList<>());
 
     public House(List<Room> rooms) {
-        this.rooms = rooms;
+        this.rooms = Collections.synchronizedList(rooms);
     }
 
-    public void collectFood() {
-        synchronized (rooms) {
-            for (Room room : rooms) {
-                collectedFood.addAll(room.foods());
-                room.foods().clear();
-            }
-        }
+    public void collectFood(Room room) {
+        collectedFood.addAll(room.foods());
+        room.foods().clear();
     }
 
     public static void main(String[] args) throws InterruptedException {
         var threadPool = Executors.newScheduledThreadPool(5);
         var house = new House(getRooms());
-        for (int i = 0; i < house.rooms.size(); i++) {
-            threadPool.schedule(house::collectFood, 5, TimeUnit.SECONDS);
+        for (Room room : house.rooms) {
+            threadPool.schedule(() -> house.collectFood(room), 5, TimeUnit.SECONDS);
         }
         threadPool.shutdown();
         var isCollected = threadPool.awaitTermination(30, TimeUnit.SECONDS);
         if (isCollected) {
             log.info("All food collected.");
-            house.getCollectedFood().forEach(System.out::println);
+            house.getCollectedFood().forEach(food -> System.out.println(food.name()));
         } else {
             log.info("Time's out!");
         }
