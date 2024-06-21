@@ -1,17 +1,18 @@
 package GooglePhotoSync;
 
-import lombok.SneakyThrows;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
-    @SneakyThrows
+    private static GooglePhotosAutoUploader googlePhotos = new GooglePhotosAutoUploader();
+    private static String pathToNewPhotos = "C:\\...";
+    private static final int AMOUNT_THREAD = 2;
+
     public static void main(String[] args) {
-        GooglePhotosAutoUploader googlePhotos = new GooglePhotosAutoUploader();
-        String pathToNewPhotos = "C:\\...";
-
-        Thread uploadPhotoTread = new Thread(googlePhotos::startAutoUpload);
-        Thread watchPhotoTread = new Thread(() -> googlePhotos.onNewPhotoAdded(pathToNewPhotos));
-
-        uploadPhotoTread.start();
-        watchPhotoTread.start();
+        ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_THREAD);
+        executorService.execute(googlePhotos::startAutoUpload);
+        executorService.execute(() -> googlePhotos.onNewPhotoAdded(pathToNewPhotos));
+        executorService.shutdown();
     }
 }
