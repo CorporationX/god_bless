@@ -9,7 +9,7 @@ public class User {
     private final Role role;
 
     public synchronized void joinHouse() {
-        if (house.roleIsIsOccupied(role)) {
+        if (house.isRoleOccupied(role)) {
             try {
                 wait();
 
@@ -22,7 +22,7 @@ public class User {
     }
 
     public synchronized void leaveHouse() {
-        if (house.roleIsIsOccupied(role)) {
+        if (house.isRoleOccupied(role)) {
             house.removeRole(role);
             notifyAll();
             System.out.printf("%s was removed from the house\n", this.name);

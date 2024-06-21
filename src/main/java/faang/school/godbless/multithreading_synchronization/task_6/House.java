@@ -18,7 +18,7 @@ public class House {
         System.out.printf("%s removing user...\n", role.toString());
     }
 
-    public boolean roleIsIsOccupied(Role role) {
+    public boolean isRoleOccupied(Role role) {
         return roles.get(role) == 0;
     }
 }
