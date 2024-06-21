@@ -19,9 +19,5 @@ public class BigBangTheory {
         executorService.execute(task4);
 
         executorService.shutdown();
-
-        if (executorService.isTerminated()) {
-            System.out.println("все задачи в пуле были выполнены и все потоки были завершены");
-        }
     }
 }
