@@ -29,8 +29,14 @@ public class House {
         Food beefSteak = new Food("beefSteak");
         Food fish = new Food("Fish");
 
+        dinningRoom.addFoodToRoom(pasta,fish);
+        kitchenRoom.addFoodToRoom(pasta,pie,beefSteak);
+        bedRoom.addFoodToRoom(frenchFry,fish,cake);
+        livingRoom.addFoodToRoom(cake,fish,pasta,pizza);
+        attic.addFoodToRoom(pasta,fish,beefSteak,frenchFry);
+
         house.addRooms(dinningRoom,kitchenRoom,bedRoom,livingRoom,attic);
-        house.addFood(pasta,frenchFry,pizza,pie,cake,beefSteak,fish);
+
 
     }
 
