@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class Application {
@@ -19,6 +18,19 @@ public class Application {
         return namesAndActions.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed()).limit(10)
                 .map(Map.Entry::getKey).toList();
+    }
+
+    public static List<String> findPopularTopics(List<UserAction> userActions) {
+        Map<String, Integer> hashtagStats = new HashMap<>();
+        List<String> hashtags = userActions.stream().map(UserAction::getContent).
+                filter(x -> x.startsWith("#")).toList();
+        hashtags.forEach(x -> {
+            int quantity = (int) hashtags.stream().filter(y -> y.equals(x)).count();
+            hashtagStats.put(x, quantity);
+        });
+        return hashtagStats.entrySet().stream().
+                sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
+                limit(5).map(Map.Entry::getKey).toList();
     }
 
 }
