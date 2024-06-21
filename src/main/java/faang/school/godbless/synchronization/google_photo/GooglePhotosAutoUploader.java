@@ -8,7 +8,6 @@ import java.util.Queue;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private Queue<String> photosToUpload = new ArrayDeque<>();
-
     private boolean AUTO_UPLOAD = true;
 
     public void startAutoUpload() {
@@ -46,6 +45,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void offAutoUpload() {
-        this.AUTO_UPLOAD = false;
+        synchronized (lock){
+            this.AUTO_UPLOAD = false;
+            lock.notify();
+        }
     }
 }
