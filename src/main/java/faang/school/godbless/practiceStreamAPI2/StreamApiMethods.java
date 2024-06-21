@@ -6,27 +6,13 @@ import java.util.List;
 import java.util.Map;
 
 public class StreamApiMethods {
-    public Map<Integer, Integer> pairsForTargetNum(int targetNum, List<Integer> nums) {
-        Map<Integer, Integer> resultPairs = new HashMap<>();
-        List<Integer> copyNum = new ArrayList<>(nums);
+    public List<List<Integer>> pairsForTargetNum(int targetNum, List<Integer> nums) {
 
-        for (int i = 0; i < copyNum.size(); i++) {
-            for (int j = 0; j < copyNum.size(); j++) {
-                if (copyNum.get(i) == copyNum.get(j)) {
-                    continue;
-                }
-
-                if (copyNum.get(i) + copyNum.get(j) == targetNum) {
-                    int numOne = copyNum.get(i);
-                    int numTwo = copyNum.get(j);
-
-                    resultPairs.put(copyNum.get(i), copyNum.get(j));
-
-                    copyNum.removeIf(num -> num == numOne || num == numTwo);
-                }
-            }
-        }
-        return resultPairs;
+        return nums.stream()
+                .filter(integer -> nums.contains(targetNum - integer))
+                .filter(integer -> nums.indexOf(integer) != nums.lastIndexOf(targetNum - integer))
+                .map(integer -> List.of(Math.min(integer, targetNum - integer), Math.max(integer, targetNum - integer)))
+                .distinct().toList();
     }
 
     public void printSortedListCountryCapital(Map<String, String> countries) {
@@ -71,27 +57,7 @@ public class StreamApiMethods {
     public Map<String, Double> countAvgSalaryForDepartments(List<Employee> employees) {
         Map<String, List<Integer>> departments = new HashMap<>();
 
-        employees.forEach(employee -> {
-            if (departments.containsKey(employee.department())) {
-                List<Integer> salariesForDepartment = departments.get(employee.department());
-                salariesForDepartment.add(employee.salary());
 
-                departments.put(employee.department(), salariesForDepartment);
-            } else {
-                departments.put(employee.department(), new ArrayList<>());
-                departments.get(employee.department()).add(employee.salary());
-            }
-        });
-
-        Map<String, Double> averageSalaryForDepartments = new HashMap<>();
-        departments.entrySet()
-                .forEach(entry -> {
-                    averageSalaryForDepartments.put(entry.getKey(), entry.getValue().stream()
-                            .mapToDouble(salary -> salary)
-                            .average().getAsDouble());
-                });
-
-        return averageSalaryForDepartments;
     }
 
     public List<String> filterAndSortStringsByAlphabet(List<String> words, List<Character> alphabet) {
@@ -114,14 +80,7 @@ public class StreamApiMethods {
 
     public List<Integer> palindromeNumbersInTheRange(int start, int end) {
         List<Integer> palindromes = new ArrayList<>();
-        for (int i = start; i <= end; i++) {
-            String number = Integer.toString(i);
-            StringBuilder reversed = new StringBuilder(number).reverse();
 
-            if (number.contentEquals(reversed)) {
-                palindromes.add(i);
-            }
-        }
         return palindromes;
     }
 }
