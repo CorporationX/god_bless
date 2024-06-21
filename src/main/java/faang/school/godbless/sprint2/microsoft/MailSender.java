@@ -10,7 +10,7 @@ public class MailSender {
   public static void main(String[] args) throws InterruptedException {
     Thread[] threads = new Thread[POOL_SIZE];
     for (int i = 0; i < POOL_SIZE; i++) {
-      int startIndex = i * MAIL_SIZE / POOL_SIZE + 1;
+      int startIndex = i * MAIL_SIZE / POOL_SIZE;
       int endIndex = startIndex + MAIL_SIZE / POOL_SIZE;
       SenderRunnable sender = new SenderRunnable(startIndex, endIndex);
       threads[i] = new Thread(sender);
