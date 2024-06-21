@@ -10,11 +10,10 @@ import java.util.List;
 @Setter
 @Getter
 public class Boss {
-    private Integer maxPlayers;
+    private final static Integer maxPlayers = 3;
     private List<Players> currentPlayers;
 
     public Boss() {
-        this.maxPlayers = 3;
         this.currentPlayers = new ArrayList<>();
     }
 
