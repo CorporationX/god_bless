@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 
 public class StreamOperations {
     private static final int NEGATIVE_INTEGERS_AND_ONE = 1;
+
     public static List<List<Integer>> pairsWithCertainSumConstructor(@NonNull List<Integer> integers, int sum) {
         return integers.stream()
                 .filter(integer -> integers.contains(sum - integer))
@@ -70,7 +71,7 @@ public class StreamOperations {
 
     public static List<Integer> findPalindromeIntegersInRange(int lowerBound, int upperBound) {
         return IntStream.rangeClosed(lowerBound, upperBound)
-                .filter(integer -> String.valueOf(integer).contentEquals(new StringBuilder(String.valueOf(integer)).reverse()))
+                .filter(StreamOperations::isPalindrome)
                 .boxed()
                 .toList();
     }
@@ -80,7 +81,7 @@ public class StreamOperations {
                 .boxed()
                 .flatMap(integer -> IntStream.range(integer + 1, originalString.length())
                         .mapToObj(end -> originalString.substring(integer, end + 1)))
-                .filter(string -> string.contentEquals(new StringBuilder(string).reverse()))
+                .filter(StreamOperations::isPalindrome)
                 .collect(Collectors.toSet());
     }
 
@@ -92,5 +93,24 @@ public class StreamOperations {
                         .reduce(0, Integer::sum) == integer)
                 .boxed()
                 .toList();
+    }
+
+    private static boolean isPalindrome(String stringToCheck) {
+        int leftBound = 0;
+        int rightBound = stringToCheck.length() - 1;
+
+        while (leftBound <= rightBound) {
+            if (stringToCheck.charAt(leftBound) != stringToCheck.charAt(rightBound)) {
+                return false;
+            }
+            leftBound++;
+            rightBound--;
+        }
+
+        return true;
+    }
+
+    private static boolean isPalindrome(int integerToCheck) {
+        return isPalindrome(String.valueOf(integerToCheck));
     }
 }
