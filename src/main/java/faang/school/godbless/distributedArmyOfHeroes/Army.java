@@ -1,13 +1,10 @@
 package faang.school.godbless.distributedArmyOfHeroes;
 
-import lombok.Synchronized;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
     private static final List<Unit> ARMY = new ArrayList<>();
-
 
     private int powerArmy;
 
@@ -36,12 +33,11 @@ public class Army {
         ARMY.add(unit);
     }
 
-    @Synchronized
-    public void setPowerArmy(int powerArmy) {
+    public synchronized void setPowerArmy(int powerArmy) {
         this.powerArmy = powerArmy;
     }
 
-    public int getPowerArmy() {
+    public synchronized int getPowerArmy() {
         return powerArmy;
     }
 }
