@@ -2,7 +2,6 @@ package faang.school.godbless.Set_the_Path;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
