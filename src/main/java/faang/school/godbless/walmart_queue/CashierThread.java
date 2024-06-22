@@ -1,21 +1,27 @@
 package faang.school.godbless.walmart_queue;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 
 @Getter
 @Setter
-@AllArgsConstructor
 public class CashierThread extends Thread {
     private int cashierId;
     private List<Item> customerItems;
-    private AtomicInteger paymentReference;
-    private ConcurrentHashMap<String, Integer> soldItemsLogger;
+    private final PaymentTaker paymentReference;
+    private final Map<String, Integer> soldItemsLogger;
+
+    public CashierThread(int cashierId, List<Item> customerItems,
+                         PaymentTaker paymentReference,
+                         Map<String, Integer> soldItemsLogger) {
+        this.cashierId = cashierId;
+        this.customerItems = customerItems;
+        this.paymentReference = paymentReference;
+        this.soldItemsLogger = soldItemsLogger;
+    }
 
     @Override
     public void run() {
@@ -25,9 +31,13 @@ public class CashierThread extends Thread {
     private void processClient() {
         int totalPrice = calculateTotalPrice(customerItems);
 
-        getPayment(totalPrice);
+        synchronized (paymentReference) {
+            getPayment(totalPrice);
+        }
 
-        registerAllSoldProducts(customerItems);
+        synchronized (soldItemsLogger) {
+            registerAllSoldProducts(customerItems);
+        }
     }
 
     private int calculateTotalPrice(List<Item> itemList) {
@@ -37,7 +47,7 @@ public class CashierThread extends Thread {
     }
 
     private void getPayment(int bill) {
-        paymentReference.addAndGet(bill);
+        paymentReference.addMoney(bill);
     }
 
     private void registerAllSoldProducts(List<Item> itemList) {

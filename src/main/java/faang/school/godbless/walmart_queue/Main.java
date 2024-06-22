@@ -1,15 +1,15 @@
 package faang.school.godbless.walmart_queue;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) {
-        AtomicInteger totalEarn = new AtomicInteger();
-        ConcurrentHashMap<String, Integer> soldItemsLogger = new ConcurrentHashMap<>();
+        PaymentTaker totalEarn = new PaymentTaker();
+        Map<String, Integer> soldItemsLogger = new HashMap<>();
 
         List<CashierThread> cashierThreadList = getCashierThreads(totalEarn, soldItemsLogger);
 
@@ -23,7 +23,7 @@ public class Main {
             }
         });
 
-        System.out.println("Total earn: " + totalEarn.get());
+        System.out.println("Total earn: " + totalEarn);
         System.out.println("Total sold items: " + soldItemsLogger);
     }
 
@@ -37,14 +37,15 @@ public class Main {
         );
     }
 
-    private static List<CashierThread> getCashierThreads(AtomicInteger totalEarn, ConcurrentHashMap<String, Integer> soldItemsLogger) {
+    private static List<CashierThread> getCashierThreads(PaymentTaker paymentReference,
+                                                         Map<String, Integer> soldItemsLogger) {
         Random randomizer = new Random();
         List<List<Item>> customers = getCustomers();
         List<CashierThread> cashierThreads = new ArrayList<>();
 
         for (List<Item> customer : customers) {
             cashierThreads.add(new CashierThread(randomizer.nextInt(1, 100), customer,
-                    totalEarn, soldItemsLogger));
+                    paymentReference, soldItemsLogger));
         }
 
         return cashierThreads;
