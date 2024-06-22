@@ -32,5 +32,10 @@ public class SenderRunnable implements Runnable {
         for(int i = startIndex; i <= endIndex; i++) {
             System.out.println(Thread.currentThread().getName() + " " + messages.get(i));
         }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
