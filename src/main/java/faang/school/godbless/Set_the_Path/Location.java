@@ -2,12 +2,9 @@ package faang.school.godbless.Set_the_Path;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
-
 import java.util.Objects;
 
 @Getter
-@Setter
 @AllArgsConstructor
 public class Location {
     private double x;
