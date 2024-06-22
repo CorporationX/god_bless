@@ -9,11 +9,11 @@ public class GriffinsFoodDelivery {
     static final String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
     public static void main(String[] args) {
-        ExecutorService deliveryExecutor = Executors.newFixedThreadPool(3);
-        for (String characterName : characterNames) {
-            deliveryExecutor.submit(new FoodDeliveryTask(characterName, new Random().nextInt(1,5)));
-        }
-        deliveryExecutor.shutdown();
+            ExecutorService deliveryExecutor = Executors.newFixedThreadPool(3);
+            for (String characterName : characterNames) {
+                deliveryExecutor.submit(new FoodDeliveryTask(characterName, new Random().nextInt(1, 5)));
+            }
+            deliveryExecutor.shutdown();
     }
 
 }
