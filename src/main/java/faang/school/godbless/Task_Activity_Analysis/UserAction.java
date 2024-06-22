@@ -1,6 +1,8 @@
 package faang.school.godbless.Task_Activity_Analysis;
 
 import lombok.Getter;
+import java.time.LocalDate;
+
 
 @Getter
 public class UserAction {
@@ -12,12 +14,12 @@ public class UserAction {
     private int id;
     private String name;
     private ActionType actionType;
-    private String actionDate;
+    private LocalDate actionDate;
     private String content;
 
 
-    public UserAction(int id, String name, ActionType actionType, String actionDate, String content) {
-        if (id < 0 || name.isBlank() || actionDate.isBlank() || content.isBlank()) {
+    public UserAction(int id, String name, ActionType actionType, LocalDate actionDate, String content) {
+        if (id < 0 || name.isBlank() || content.isBlank()) {
             throw new IllegalArgumentException("invalid arg(s)");
         } else {
             this.id = id;
@@ -36,7 +38,7 @@ public class UserAction {
     public static void main(String[] args) {
 
         UserAction testAction = new UserAction(1, "test", ActionType.post,
-                "01.01.01.", "test");
+                LocalDate.of(2024, 1, 1), "test");
         System.out.println(testAction);
 
     }

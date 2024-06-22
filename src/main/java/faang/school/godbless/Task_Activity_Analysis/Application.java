@@ -2,9 +2,11 @@ package faang.school.godbless.Task_Activity_Analysis;
 
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class Application {
@@ -31,6 +33,18 @@ public class Application {
         return hashtagStats.entrySet().stream().
                 sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).
                 limit(5).map(Map.Entry::getKey).toList();
+    }
+
+    public static List<Integer> findTopCommentators(List<UserAction> userAction) {
+        Map<Integer, Integer> idsAndComments = new HashMap<>();
+        List<UserAction> comments = userAction.stream().filter(x -> x.getActionType().equals(UserAction.ActionType.comment))
+                .filter(x -> x.getActionDate().isAfter(LocalDate.of(2024, 5, 31))).toList();
+        comments.stream().forEach(x -> {
+            int commentQuantity = (int) comments.stream().filter(y -> y.getId() == (x.getId())).count();
+            idsAndComments.put(x.getId(), commentQuantity);
+        });
+        return idsAndComments.entrySet().stream().sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
+                .limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 
 }
