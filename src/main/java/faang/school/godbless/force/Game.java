@@ -16,9 +16,10 @@ public class Game {
     }
 
     public void update() {
-        scope++;
-        lives--;
         synchronized (lock) {
+            scope++;
+            lives--;
+            System.out.println("count increased");
             if (lives == 0) {
                 gameOver();
             }
