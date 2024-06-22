@@ -17,28 +17,28 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("I found a monster! city - " + city +", monster - " + findNearestMonster());
-//        System.out.println("I'm going to kill it: " + getKillTime());
-//        System.out.println("The Distance to the city: " + getJourneyDistance());
+        System.out.println("I found a monster! city - " + city + ", monster - " + findNearestMonster());
+        System.out.println("I'm going to kill it: " + getKillTime() + " hours");
+        System.out.println("The Distance to the city: " + getJourneyDistance());
     }
 
     public Monster findNearestMonster() {
         Location origin = city.getLocation();
         Map<Double, Monster> distances = new HashMap<>();
-        monsters.forEach(x->{
-           Double distance = Location.getDistance(origin,x.getLocation());
-           distances.put(distance, x);
+        monsters.forEach(x -> {
+            Double distance = Location.getDistance(origin, x.getLocation());
+            distances.put(distance, x);
         });
         Double needed = distances.keySet().stream().min(Double::compare).get();
         return distances.get(needed);
     }
 
-//    public long getKillTime() {
-//
-//    }
-//
-//    public long getJourneyDistance() {
-//
-//    }
+    public long getKillTime() {
+        return (long) ((Math.random() + 1) * 5);
+    }
+
+    public long getJourneyDistance() {
+        return (long) city.getDistFromMage();
+    }
 
 }
