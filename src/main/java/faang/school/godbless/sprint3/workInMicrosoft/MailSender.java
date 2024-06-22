@@ -25,8 +25,9 @@ public class MailSender {
             Thread thread5 = new Thread(senderRunnable5);
             thread5.start();
 
-
             thread1.join();
+
+            System.out.println("All threads have done");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
