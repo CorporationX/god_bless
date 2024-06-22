@@ -12,6 +12,5 @@ public class Music {
         previousThread.start();
         pauseThread.start();
         skipThread.start();
-        Thread.sleep(5000);
     }
 }
