@@ -31,24 +31,24 @@ public class Main {
                         new UserAction(7, "user11", ActionType.POST, LocalDate.now(), "#cook cooking napoleon today, don't miss my news!!"));
 
 
-        System.out.println("Top 10: " + activeUsers(userActions));
-        System.out.println("Top 3: " + findTopThemes(userActions));
-        System.out.println("Top 3 many comment: " + findTopComment(userActions));
+        System.out.println("Top 10: " + activeUsers(userActions, 10));
+        System.out.println("Top 3: " + findTopThemes(userActions, 3));
+        System.out.println("Top 3 many comment: " + findTopComment(userActions, 3));
         System.out.println("Top 3 many comment: " + percentAction(userActions));
     }
 
-    public static List<Integer> activeUsers(List<UserAction> userActions) {
+    public static List<Integer> activeUsers(List<UserAction> userActions, int limit) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static List<String> findTopThemes(List<UserAction> userActions) {
+    public static List<String> findTopThemes(List<UserAction> userActions, int limit) {
         Map<String, Long> hashtagAndCountMap = userActions.stream()
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT
                         || userAction.getActionType() == ActionType.POST)
@@ -61,18 +61,18 @@ public class Main {
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue()
                         .reversed())
-                .limit(3)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static List<Integer> findTopComment(List<UserAction> userActions) {
+    public static List<Integer> findTopComment(List<UserAction> userActions, int limit) {
         return userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getId, Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -84,6 +84,6 @@ public class Main {
                 .entrySet()
                 .stream()
                 .map(Map.Entry::getKey,
-                        entry -> (100.0 * entry.getValue() / sizeOfList));
+                        entry -> (100.0 * entry.getValue() / sizeOfList)); //как тут получить?
     }
 }
