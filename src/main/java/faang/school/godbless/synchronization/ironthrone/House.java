@@ -5,21 +5,26 @@ import lombok.Getter;
 import java.util.EnumSet;
 import java.util.Set;
 
-@Getter
+
 public class House {
+    @Getter
     private final String name;
-    private Set<Role> freeRoles;
+    private final Set<Role> freeRoles;
 
     public House(String name) {
         this.name = name;
         this.freeRoles = EnumSet.allOf(Role.class);
     }
 
-    public void takeRole(Role role) {
+    public synchronized Set<Role> getFreeRoles() {
+        return freeRoles;
+    }
+
+    public synchronized void takeRole(Role role) {
         freeRoles.remove(role);
     }
 
-    public void releaseRole(Role role) {
+    public synchronized void releaseRole(Role role) {
         freeRoles.add(role);
         this.notifyAll();
     }
