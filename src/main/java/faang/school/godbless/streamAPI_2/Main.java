@@ -77,7 +77,7 @@ public class Main {
 
         System.out.println("Point 5.");
 
-        List<Employee> employees = new ArrayList<>();
+        List<Employee> employees = new ArrayList<>();//список работников
         Set<String> keys = new HashSet<>();//список ключей
 
         Map<String, Double> avgSalaries = new HashMap<>();//итоговая мапа
@@ -93,32 +93,24 @@ public class Main {
         employees.add(new Employee("Vlad", 250, "Production"));
         employees.add(new Employee("Oleg", 350, "Production"));
 
-        System.out.println(employees);
-
-        for (int i=0; i<employees.size(); i++){
-            keys.add(employees.get(i).department());
+        //получаем список ключей
+        for (Employee employee : employees) {
+            keys.add(employee.department());
         }
-        System.out.println(keys);
-
-        //вычисляем среднюю зарплату по отделу Development
 
         for (String key : keys) {
-            employees.stream()
+            //вычисляем кол-во работников в каждом отделе
+            long amountEmployeesInDepartment = employees.stream()
                     .filter(dep -> dep.department().equals(key))
-                    .reduce((employee, employee2) -> employee.salary()+employee2.salary());
+                    .count();
+            //вычисляем среднюю зарплату в каждом отделе
+            double avgSalary = (double) employees.stream()
+                    .filter(dep -> dep.department().equals(key))
+                    .map(Employee::salary)
+                    .reduce(0, Integer::sum) / amountEmployeesInDepartment;
+            avgSalaries.put(key, avgSalary);
         }
-        System.out.println(employees.stream()
-                .filter(dep -> dep.department().equals("Development"))
-                .toList());
 
-        avgSalaries.put()
-
-        System.out.println(employees.stream()
-                .filter(dep -> dep.department().equals("Engineering"))
-                .toList());
-
-        System.out.println(employees.stream()
-                .filter(dep -> dep.department().equals("Production"))
-                .toList());
+        System.out.println("avgSalaries = " + avgSalaries);
     }
 }
