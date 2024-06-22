@@ -32,7 +32,7 @@ public class House {
         House house = new House(Room.getListRoom());
         for (int i = 0; i < house.getRooms().size(); i++) {
             if (i % 2 != 0) {
-                executor.schedule(house::collectFood, 3, TimeUnit.SECONDS);
+                executor.schedule(house::collectFood, 30, TimeUnit.SECONDS);
             } else {
                 executor.submit(house::collectFood);
             }
