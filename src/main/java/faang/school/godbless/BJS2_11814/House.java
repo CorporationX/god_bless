@@ -5,21 +5,21 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Getter
 public class House {
     private List<Room> rooms;
     private List<Food> foods;
-    private Room recentRoom;
 
-    public void collectFood() {
-
+    public void collectFood(Room room) {
+        if (this.foods == null) {
+            foods = new ArrayList<>();
+        }
+        this.foods.addAll(room.getFoods());
     }
 
     public static void main(String[] args) {
@@ -54,13 +54,23 @@ public class House {
             service.schedule(() ->
             {
                 for (Room room : subList) {
-                    house.recentRoom = room;
-                    house.collectFood();
+                    System.out.println("Gathering food from " + room.getName());
+                    house.collectFood(room);
                 }
-            }, 30, TimeUnit.SECONDS);
-        }
+                System.out.println("Thread is working on task is " + Thread.currentThread().getName());
+                System.out.println(house.foods + " food amount is " + house.foods.size());
+            }, new Random().nextInt(5), TimeUnit.SECONDS);
 
-        System.out.println(house.partitionListBy(2, house.getRooms()));
+        }
+        service.shutdown();
+
+        try {
+            service.awaitTermination(20, TimeUnit.SECONDS);
+            System.out.println(house.partitionListBy(2, house.getRooms()));
+            System.out.println(house.foods);
+        } catch (InterruptedException e) {
+            e.getStackTrace();
+        }
     }
 
     private List<List<Room>> partitionListBy(int num, List<Room> list) {
@@ -87,12 +97,4 @@ public class House {
         }
         rooms.addAll(Arrays.asList(room));
     }
-
-    public void addFood(Food... food) {
-        if (foods == null) {
-            foods = new ArrayList<>();
-        }
-        foods.addAll(Arrays.asList(food));
-    }
-
 }
