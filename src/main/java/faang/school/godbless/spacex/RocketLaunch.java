@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @AllArgsConstructor
 public class RocketLaunch {
-    private final long INITIAL_LAUNCH_TIME = 1000L;
+    private final long INITIAL_LAUNCH_TIME_IN_MILLIS = 1000L;
     private String rocketName;
     private LocalDateTime launchTime;
 
@@ -15,11 +15,11 @@ public class RocketLaunch {
         long delay = Duration.between(LocalDateTime.now(), launchTime).toMillis();
 
         if (delay < 0) {
-            throw new RuntimeException("Time is out this rocket is outdated");
+            throw new RuntimeException("Time is out " + rocketName + " is outdated");
         }
 
         rocketPreparation(delay);
-        rocketPreparation(INITIAL_LAUNCH_TIME);
+        rocketPreparation(INITIAL_LAUNCH_TIME_IN_MILLIS);
 
         System.out.println("The rocket " + rocketName + " is gone now");
     }
@@ -28,7 +28,7 @@ public class RocketLaunch {
         try {
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Thread was interrupted during rocket preparation: " + e.getMessage());
         }
     }
 }

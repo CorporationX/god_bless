@@ -19,7 +19,7 @@ public class RocketLauncher {
         try {
             executor.awaitTermination(TIME_OUT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("The thread was interrupted during waiting termination:" + e.getMessage());
         }
     }
 }
