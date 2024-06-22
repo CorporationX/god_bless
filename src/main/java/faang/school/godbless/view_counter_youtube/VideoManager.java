@@ -13,7 +13,7 @@ public class VideoManager {
         if (viewsMap.containsKey(videoId)) {
             viewsMap.put(videoId, viewsMap.get(videoId) + 1);
         } else {
-            viewsMap.put(videoId, 0);
+            viewsMap.put(videoId, 1);
         }
     }
 
