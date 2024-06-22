@@ -2,18 +2,21 @@ package faang.school.godbless.Set_the_Path;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Witcher {
 
     private static final List<Monster> MONSTERS = new ArrayList<>();
     private static final List<City> CITIES = new ArrayList<>();
+    private static final int NUM_THREADS = 4;
 
     public static void main(String[] args) {
 
-
-
-
-
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+        for (City city: CITIES) {
+            executorService.submit(new CityWorker());
+        }
 
     }
 
