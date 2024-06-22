@@ -9,7 +9,7 @@ public class Monster {
     private String location;
 
     public Monster(String name, String location) {
-        if (name.isBlank() || location.isBlank()) throw new IllegalArgumentException("invalid arg(s)");
+        if (name.isBlank()) throw new IllegalArgumentException("invalid arg(s)");
         else {
             this.name = name;
             this.location = location;
