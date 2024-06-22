@@ -1,6 +1,8 @@
 package faang.school.godbless.MiceAreVeryNice;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,39 +10,42 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@Data
+@Getter
 public class House {
-    private final static int NUMS_THREAD = 5;
+    private static final int NUMS_THREAD = 5;
+    private final Object lock = new Object();
     private List<Food> findFood = new ArrayList<>();
-    private List<Room> roms;
-    private int countRoom = 0;
-    private Object lock = new Object();
+    private List<Room> rooms;
+    private int countRoom = 1;
 
-    public House(List<Room> roms) {
-        if (roms.isEmpty() || roms == null) {
+    public House(List<Room> rooms) {
+        if (rooms.isEmpty() || rooms == null) {
             throw new IllegalArgumentException(
                     "The constructor of the House class received an empty or non-existent list of rooms");
         }
-        this.roms = roms;
+        this.rooms = rooms;
     }
 
+    @SneakyThrows
     public static void main(String[] args) {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUMS_THREAD);
         House house = new House(Room.getListRoom());
-        for (int i = 0; i < house.getRoms().size(); i++) {
-            if (i % 2 == 0) {
-                executor.schedule(house::collectFood, 10L, TimeUnit.SECONDS);
+        for (int i = 0; i < house.getRooms().size(); i++) {
+            if (i % 2 != 0) {
+                executor.schedule(house::collectFood, 3, TimeUnit.SECONDS);
             } else {
                 executor.submit(house::collectFood);
             }
-            house.setCountRoom(house.getCountRoom() + 1);
         }
         executor.shutdown();
     }
 
-    private synchronized void collectFood() {
-        findFood.addAll(roms.get(countRoom).getFoodInRoom());
-        System.out.println(String.format("Room № %d, cleansed", countRoom));
-        roms.get(countRoom).getFoodInRoom().clear();
+    private void collectFood() {
+        synchronized (lock) {
+            findFood.addAll(rooms.get(countRoom).getFoodInRoom());
+            System.out.println(String.format("Room № %d, cleansed", countRoom));
+            rooms.get(countRoom).getFoodInRoom().clear();
+            countRoom++;
+        }
     }
 }

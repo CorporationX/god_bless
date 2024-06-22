@@ -2,7 +2,7 @@ package faang.school.godbless.MiceAreVeryNice;
 
 import lombok.AllArgsConstructor;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -10,30 +10,10 @@ public class Food {
     private String foodDescription;
 
     public static List<Food> getListFood() {
-        return Arrays.asList(
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food"),
-                new Food("Some food")
-        );
+        List<Food> foods = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            foods.add(new Food("Some food"));
+        }
+        return foods;
     }
 }
