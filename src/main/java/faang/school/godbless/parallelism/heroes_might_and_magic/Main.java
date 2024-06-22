@@ -1,0 +1,18 @@
+package faang.school.godbless.parallelism.heroes_might_and_magic;
+
+import faang.school.godbless.parallelism.heroes_might_and_magic.entity.Archer;
+import faang.school.godbless.parallelism.heroes_might_and_magic.entity.Mage;
+import faang.school.godbless.parallelism.heroes_might_and_magic.entity.Swordsman;
+
+public class Main {
+    public static void main(String[] args) throws InterruptedException {
+        Army army = new Army();
+        army.addUnit(new Archer(25));
+        army.addUnit(new Swordsman(40));
+        army.addUnit(new Mage(50));
+        army.addUnit(new Mage(20));
+
+        int totalPower = army.calculateTotalPower();
+        System.out.println("Total army power: " + totalPower);
+    }
+}
