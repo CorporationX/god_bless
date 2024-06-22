@@ -6,16 +6,7 @@ import lombok.Getter;
 public class Monster {
 
     private String name;
-    private String place;
     private Location location;
-
-    public Monster(String name, String place) {
-        if (name.isBlank()) throw new IllegalArgumentException("invalid arg(s)");
-        else {
-            this.name = name;
-            this.place = place;
-        }
-    }
 
     public Monster(String name, Location location) {
         if (name.isBlank()) throw new IllegalArgumentException("blank name");

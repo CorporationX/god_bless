@@ -18,7 +18,7 @@ public class CityWorker implements Runnable {
     @Override
     public void run() {
         System.out.println("I found a monster! city - " + city + ", monster - " + findNearestMonster());
-        System.out.println("I'm going to kill it: " + getKillTime() + " hours");
+        System.out.println("I'm going to kill it in : " + getKillTime() + " hours");
         System.out.println("The Distance to the city: " + getJourneyDistance());
     }
 
