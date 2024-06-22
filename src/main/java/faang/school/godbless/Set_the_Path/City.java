@@ -1,7 +1,6 @@
 package faang.school.godbless.Set_the_Path;
 
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 public class City {

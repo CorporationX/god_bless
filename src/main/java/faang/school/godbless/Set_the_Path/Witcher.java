@@ -24,7 +24,7 @@ public class Witcher {
             executorService.submit(new CityWorker(city, MONSTERS));
         }
         executorService.shutdown();
-        while(!executorService.awaitTermination(3, TimeUnit.SECONDS));
+        while(!executorService.awaitTermination(3, TimeUnit.SECONDS)) {}
         long end = System.currentTimeMillis();
         System.out.println(end - start);
 
