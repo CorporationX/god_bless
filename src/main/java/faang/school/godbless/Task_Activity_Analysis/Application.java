@@ -39,7 +39,7 @@ public class Application {
         Map<Integer, Integer> idsAndComments = new HashMap<>();
         List<UserAction> comments = userAction.stream().filter(x -> x.getActionType().equals(UserAction.ActionType.comment))
                 .filter(x -> x.getActionDate().isAfter(LocalDate.of(2024, 5, 31))).toList();
-        comments.stream().forEach(x -> {
+        comments.forEach(x -> {
             int commentQuantity = (int) comments.stream().filter(y -> y.getId() == (x.getId())).count();
             idsAndComments.put(x.getId(), commentQuantity);
         });
