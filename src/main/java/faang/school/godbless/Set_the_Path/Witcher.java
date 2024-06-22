@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
 
@@ -15,13 +16,17 @@ public class Witcher {
     private static final City VIZIMA = new City("Vizima", new Location(120, 50), 30);
     private static final City KAER = new City("Kaer Morhen", new Location(180, 150), 0);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
+        long start = System.currentTimeMillis();
         for (City city : CITIES) {
             executorService.submit(new CityWorker(city, MONSTERS));
         }
         executorService.shutdown();
+        while(!executorService.awaitTermination(3, TimeUnit.SECONDS));
+        long end = System.currentTimeMillis();
+        System.out.println(end - start);
 
     }
 
