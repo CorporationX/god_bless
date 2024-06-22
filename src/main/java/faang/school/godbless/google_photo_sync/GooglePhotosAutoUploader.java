@@ -15,7 +15,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         System.out.println("New photos are uploading to server");
         photosToUpload.clear();
     }
