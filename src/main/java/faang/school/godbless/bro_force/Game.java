@@ -29,9 +29,7 @@ public class Game {
                     System.out.printf("%s: %s scored!\n", Thread.currentThread().getName(), player.getName());
                 }
             } else {
-                synchronized (livesLock) {
-                    gameOver(player);
-                }
+                gameOver(player);
             }
         }
     }
