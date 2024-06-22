@@ -2,6 +2,7 @@ package faang.school.godbless.electronic_diary;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,7 +20,11 @@ public class Main {
         Student student2 = new Student("Dasha", "Ivanova", student2Courses);
         List<Student> studentList = List.of(student1, student2);
 
-        diary.gradeCourseGradesTable(studentList, courseList);
+        Collector<Student, StringBuilder, String> tableCreatorCollector =
+                diary.gradeCourseGradesTable(studentList, courseList);
+        String table = diary.getTable(tableCreatorCollector);
+        System.out.println(table);
+
         System.out.println(diary.getStudentFinalGrades(student1));
         System.out.println(diary.getStudentFinalGrades(student2));
 

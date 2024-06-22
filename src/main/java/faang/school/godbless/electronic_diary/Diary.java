@@ -12,26 +12,25 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class Diary {
-    final int PERCENTAGE_PER_SCALE = 20;
+    private final int PERCENTAGE_PER_SCALE = 20;
+    private final int CHARS_NUM_FOR_NAME = 20;
+
     public Map<String, Double> getSchoolCoursesAndAverageGradesMap(List<Student> studentList) {
         return studentList.stream()
                 .flatMap(student -> student.getCourses().entrySet().stream())
-                .collect(
-                        Collectors.groupingBy(
-                                Map.Entry::getKey,
-                                Collectors.averagingDouble(entry -> entry.getValue()
-                                        .stream()
-                                        .reduce(0, Integer::sum)
-                                )));
+                .collect(Collectors.groupingBy(
+                        Map.Entry::getKey,
+                        Collectors.averagingDouble(entry -> entry.getValue().stream()
+                                .reduce(0, Integer::sum))));
     }
 
     public Map<String, Integer> getStudentFinalGrades(Student student) {
-        Map<String, Double> courseAndAvgGrade = getStudentCoursesAverageGradesMap(student);
+        Map<String, Double> courseAndAvgGrade = getStudentCoursesAndAverageGradesMap(student);
 
         return courseAndAvgGrade.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey,
-                        entry -> Math.toIntExact(Math.round(entry.getValue())))
-                );
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> Math.toIntExact(Math.round(entry.getValue()))));
     }
 
     public Optional<String> getHardestCourse(List<Student> studentList) {
@@ -42,18 +41,21 @@ public class Diary {
                 .map(Map.Entry::getKey);
     }
 
-    public void gradeCourseGradesTable(List<Student> studentList,
-                                       List<String> courseNameList) {
+    public Collector<Student, StringBuilder, String> gradeCourseGradesTable(List<Student> studentList,
+                                                                            List<String> courseNameList) {
 
         Collector<Student, StringBuilder, String> tableBuildingCollector = new Collector<>() {
+
             @Override
             public Supplier<StringBuilder> supplier() {
                 StringBuilder result = new StringBuilder();
 
-                result.append(String.format("%-20s", "Name Surname"));
-                courseNameList.forEach(courseName -> {
-                    result.append(" | ").append(String.format("%-" + courseName.length() + "s", courseName));
-                });
+                result.append(String.format(getFormatForNCharacters(CHARS_NUM_FOR_NAME), "Name Surname"));
+
+                courseNameList.forEach(courseName ->
+                        result.append(" | ")
+                                .append(String.format(getFormatForNCharacters(courseName.length()), courseName)));
+
                 result.append(" |   %  ").append(" | Total Grade");
                 result.append("\n");
 
@@ -63,25 +65,28 @@ public class Diary {
             @Override
             public BiConsumer<StringBuilder, Student> accumulator() {
                 return (studentInfoRow, student) -> {
-                    Map<String, Double> studentCourseAverageGradeMap = getStudentCoursesAverageGradesMap(student);
+                    Map<String, Double> studentCourseAverageGradeMap = getStudentCoursesAndAverageGradesMap(student);
 
                     double totalAverageGrade = studentCourseAverageGradeMap.values().stream()
                             .collect(Collectors.averagingDouble(value -> value));
 
-                    studentInfoRow.append(String.format("%-20s", student.getFirstName() + " " + student.getLastName()));
+                    studentInfoRow.append(String.format(getFormatForNCharacters(CHARS_NUM_FOR_NAME),
+                            student.getFirstName() + " " + student.getLastName()));
+
                     courseNameList.forEach(courseName -> {
                         int courseNameLength = courseName.length();
                         studentInfoRow
                                 .append(" | ")
-                                .append(String.format("%-" + courseNameLength + "s",
-                                        roundToNAfterComma(studentCourseAverageGradeMap.get(courseName), 1)));
+                                .append(String.format(getFormatForNCharacters(courseNameLength),
+                                        roundToNDigitsAfterComma(studentCourseAverageGradeMap.get(courseName), 1)));
                     });
-                    studentInfoRow
-                            .append(" | ")
-                            .append(String.format("%3.1f",
-                                    roundToNAfterComma(totalAverageGrade * PERCENTAGE_PER_SCALE, 1)))
+
+                    studentInfoRow.append(" | ")
+                            .append(String.format("%3.2f",
+                                    roundToNDigitsAfterComma(totalAverageGrade * PERCENTAGE_PER_SCALE, 1)))
                             .append(" | ");
-                    studentInfoRow.append(String.format("%11.1f", roundToNAfterComma(totalAverageGrade, 1)));
+
+                    studentInfoRow.append(String.format("%11.1f", roundToNDigitsAfterComma(totalAverageGrade, 1)));
                     studentInfoRow.append("\n");
                 };
             }
@@ -108,11 +113,18 @@ public class Diary {
             }
         };
 
-        String table = tableBuildingCollector.finisher().apply(tableBuildingCollector.supplier().get());
-        System.out.println(table);
+        return tableBuildingCollector;
     }
 
-    private Map<String, Double> getStudentCoursesAverageGradesMap(Student student) {
+    public String getTable(Collector<Student, StringBuilder, String> tableConstructor) {
+        return tableConstructor.finisher().apply(tableConstructor.supplier().get());
+    }
+
+    private String getFormatForNCharacters(int n) {
+        return "%-" + n + "s";
+    }
+
+    private Map<String, Double> getStudentCoursesAndAverageGradesMap(Student student) {
         return student.getCourses()
                 .entrySet().stream()
                 .collect(
@@ -122,8 +134,8 @@ public class Diary {
                 );
     }
 
-    private double roundToNAfterComma(double toRound, int n) {
-        double tenToN = Math.pow(10, n);
-        return Math.round(toRound * tenToN) / tenToN;
+    private double roundToNDigitsAfterComma(double toRound, int n) {
+        double tenToNthPower = Math.pow(10, n);
+        return Math.round(toRound * tenToNthPower) / tenToNthPower;
     }
 }
