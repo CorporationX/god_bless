@@ -21,19 +21,19 @@ public class Chat {
         System.out.println(firstUser.getName() + " and " + secondUser.getName() + " are chatting.");
     }
 
-    public void deliverMessage(){
+    public void deliverMessage() {
         int whoSends = ThreadLocalRandom.current().nextInt(2);
-        if(whoSends == 0){
+        if (whoSends == 0) {
             System.out.println(firstUser.getName() + " sends message to " + secondUser.getName());
         } else {
             System.out.println(secondUser.getName() + " sends message to " + firstUser.getName());
         }
     }
 
-    public void isItTimeToCloseConversation(){
+    public void isItTimeToCloseConversation() {
         boolean isConversationSuccessful = ThreadLocalRandom.current().nextBoolean();
 
-        if(!isConversationSuccessful){
+        if (!isConversationSuccessful) {
             System.out.println("It is time to close conversation");
             chatManager.endChat();
         } else {
