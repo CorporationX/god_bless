@@ -17,7 +17,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos () {
+    private void uploadPhotos () {
         photosToUpload.stream().forEach(photo -> System.out.println("Файл загружен в Gogle Photo:" + photo));
         photosToUpload.clear();
     }
