@@ -1,8 +1,11 @@
 package faang.school.godbless.view_counter_youtube;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
 
