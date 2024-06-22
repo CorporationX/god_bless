@@ -1,6 +1,7 @@
 package faang.school.godbless.Set_the_Path;
 
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 public class City {
@@ -16,5 +17,10 @@ public class City {
             this.location = location;
             this.distFromMage = distance;
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

@@ -2,32 +2,43 @@ package faang.school.godbless.Set_the_Path;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Getter
 public class CityWorker implements Runnable {
 
     private City city;
-    private List<Monster> monster;
+    private List<Monster> monsters;
 
     @Override
     public void run() {
-        System.out.println("I found a monster: " + findNearestMonster());
-        System.out.println("I'm going to kill it: " + getKillTime());
-        System.out.println("The Distance to the city: " + getJourneyDistance());
+        System.out.println("I found a monster! city - " + city +", monster - " + findNearestMonster());
+//        System.out.println("I'm going to kill it: " + getKillTime());
+//        System.out.println("The Distance to the city: " + getJourneyDistance());
     }
 
     public Monster findNearestMonster() {
-
+        Location origin = city.getLocation();
+        Map<Double, Monster> distances = new HashMap<>();
+        monsters.forEach(x->{
+           Double distance = Location.getDistance(origin,x.getLocation());
+           distances.put(distance, x);
+        });
+        Double needed = distances.keySet().stream().min(Double::compare).get();
+        return distances.get(needed);
     }
 
-    public long getKillTime() {
-
-    }
-
-    public long getJourneyDistance() {
-
-    }
+//    public long getKillTime() {
+//
+//    }
+//
+//    public long getJourneyDistance() {
+//
+//    }
 
 }

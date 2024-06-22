@@ -25,13 +25,18 @@ public class Monster {
         }
     }
 
-    public Location getPlace() {
+    public static Location getCoordinates(String place) {
         switch (place) {
             case "Velen" -> {return new Location(0,90);}
             case "Toussaint" -> {return new Location(50,20);}
             case "White Orchard" -> {return new Location(120,70);}
-            case "Skellige" -> {return new Location(-5,160);}
+            case "Skellige" -> {return new Location(180,150);}
             default -> {return new Location(0,0);}
         }
+    }
+
+    @Override
+    public String toString() {
+        return name +" x: " + location.getX() + ", y: " + location.getY();
     }
 }
