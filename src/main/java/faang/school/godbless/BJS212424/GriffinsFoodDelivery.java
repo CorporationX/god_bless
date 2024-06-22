@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS212424;
 
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,12 +20,17 @@ public class GriffinsFoodDelivery {
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(10, TimeUnit.SECONDS);
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                List<Runnable> unfinishedTasks = executorService.shutdownNow();
+                unfinishedTasks.forEach(System.out::println);
+            } else {
+                System.out.println("Every Griffin ate successfully");
+            }
         } catch (InterruptedException e) {
-            executorService.shutdown();
             Thread.currentThread().interrupt();
+            executorService.shutdownNow();
+            throw new RuntimeException("Thread was interrupted: " + e.getMessage());
         }
 
-        System.out.println("Every Griffin ate successfully");
     }
 }
