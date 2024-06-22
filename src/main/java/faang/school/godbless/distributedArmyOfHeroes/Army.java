@@ -15,17 +15,18 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        List<Thread> threads = new ArrayList<>();
+        List<SubdivisionThred> subdivisionThreds = new ArrayList<>();
         List<Integer> power = new ArrayList<>();
 
         for (Subdivision subdivision : subdivisions) {
-            Thread thread = new Thread(() -> power.add(subdivision.getPower()));
-            threads.add(thread);
-            thread.start();
+            SubdivisionThred subdivisionThred = new SubdivisionThred(subdivision);
+            power.add(subdivision.getPower());
+            subdivisionThreds.add(subdivisionThred);
+            subdivisionThred.run();
         }
 
-        for (Thread thread : threads) {
-            thread.join();
+        for (SubdivisionThred subdivisionThred : subdivisionThreds) {
+            subdivisionThred.getSubdivision().join(); //тут вопрос
         }
 
         return power.stream()
