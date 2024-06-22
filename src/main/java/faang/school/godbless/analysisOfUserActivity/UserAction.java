@@ -2,6 +2,7 @@ package faang.school.godbless.analysisOfUserActivity;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import lombok.Getter;
 import lombok.AllArgsConstructor;
 
