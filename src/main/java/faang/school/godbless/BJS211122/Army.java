@@ -20,12 +20,14 @@ public class Army {
         service.shutdown();
 
         try {
-            if (service.awaitTermination(10, TimeUnit.SECONDS)) {
-                service.shutdown();
+            if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
+                List<Runnable> unfinishedTasks = service.shutdownNow();
+                unfinishedTasks.forEach(System.out::println);
             }
         } catch (InterruptedException e) {
-            service.shutdown();
-            throw new RuntimeException("Something went wrong" + e);
+            Thread.currentThread().interrupt();
+            service.shutdownNow();
+            throw new RuntimeException("Thread was interrupted: " + e.getMessage());
         }
 
         return armyPower.get();
