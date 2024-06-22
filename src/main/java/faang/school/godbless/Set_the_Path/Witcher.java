@@ -15,7 +15,7 @@ public class Witcher {
 
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         for (City city: CITIES) {
-            executorService.submit(new CityWorker());
+            executorService.submit(new CityWorker(city, MONSTERS));
         }
 
     }

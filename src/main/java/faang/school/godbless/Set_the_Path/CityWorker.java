@@ -1,8 +1,10 @@
 package faang.school.godbless.Set_the_Path;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.util.List;
 
+@AllArgsConstructor
 @Getter
 public class CityWorker implements Runnable {
 
