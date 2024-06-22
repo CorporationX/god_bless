@@ -13,7 +13,7 @@ public class Main {
         System.out.println("top 10 active user's ids: " + Application.findTheMostActiveUsers(ALL_ACTIONS));
         System.out.println("top 5 popular hashtags: " + Application.findPopularTopics(ALL_ACTIONS));
         System.out.println("top 3 commentators' ids: " + Application.findTopCommentators(ALL_ACTIONS));
-
+        System.out.println("structure of action types: " + Application.calculatePercentsOfActions(ALL_ACTIONS));
     }
 
     static {

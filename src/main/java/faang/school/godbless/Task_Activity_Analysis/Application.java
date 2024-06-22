@@ -35,9 +35,9 @@ public class Application {
                 limit(5).map(Map.Entry::getKey).toList();
     }
 
-    public static List<Integer> findTopCommentators(List<UserAction> userAction) {
+    public static List<Integer> findTopCommentators(List<UserAction> userActions) {
         Map<Integer, Integer> idsAndComments = new HashMap<>();
-        List<UserAction> comments = userAction.stream().filter(x -> x.getActionType().equals(UserAction.ActionType.comment))
+        List<UserAction> comments = userActions.stream().filter(x -> x.getActionType().equals(UserAction.ActionType.comment))
                 .filter(x -> x.getActionDate().isAfter(LocalDate.of(2024, 5, 31))).toList();
         comments.forEach(x -> {
             int commentQuantity = (int) comments.stream().filter(y -> y.getId() == (x.getId())).count();
@@ -45,6 +45,20 @@ public class Application {
         });
         return idsAndComments.entrySet().stream().sorted(Map.Entry.<Integer, Integer>comparingByValue().reversed())
                 .limit(3).map(Map.Entry::getKey).collect(Collectors.toList());
+    }
+
+    public static Map<String, Double> calculatePercentsOfActions(List<UserAction> userActions) {
+        double numberOfActions = userActions.size();
+        Map<String, Double> results = new HashMap<>();
+        userActions.stream().map(UserAction::getActionType)
+                .forEach(x -> {
+                    results.computeIfPresent(x.toString(), (key, value) -> (value + 1));
+                    results.computeIfAbsent(x.toString(), y -> 1.);
+                });
+        return (Map<String, Double>) results.entrySet().stream().map(entry->{
+            double updatedValue = entry.getValue()/numberOfActions;
+            return new HashMap.SimpleEntry<>(entry.getKey(),updatedValue);
+        }).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
 }
