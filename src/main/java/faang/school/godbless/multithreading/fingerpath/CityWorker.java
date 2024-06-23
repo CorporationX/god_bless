@@ -28,7 +28,6 @@ public record CityWorker(City city, List<Monster> monsters) implements Runnable 
     }
 
     public double getKillTime() {
-//        int sleepTime = ThreadLocalRandom.current().nextInt(100, 1000);
         int sleepTime = 500;
         try {
             Thread.sleep(sleepTime);
