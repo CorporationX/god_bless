@@ -22,7 +22,7 @@ public class Main {
         for (Player player : players)
             executorAttackKingWarrior.execute(() -> player.startBattle(bossKingWarrior, player));
         executorAttackKingWarrior.shutdown();
-        executorAttackKingWarrior.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        executorAttackKingWarrior.awaitTermination(15, TimeUnit.SECONDS);
         System.out.println("King Warrior is loss");
     }
 }

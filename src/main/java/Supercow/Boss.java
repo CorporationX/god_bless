@@ -18,7 +18,7 @@ public class Boss {
 
     public synchronized void battle(Player player) throws InterruptedException {
         System.out.println(player.getName() + " started a boss battle: " + name);
-        Thread.sleep(3000);
+        Thread.sleep(2000);
         currentPlayers--;
         notifyAll();
     }
