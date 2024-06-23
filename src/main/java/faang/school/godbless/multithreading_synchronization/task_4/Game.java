@@ -23,7 +23,7 @@ public class Game {
                     lives++;
                     bro.setLives(bro.getLives() - 1);
                     System.out.println("Player: " + bro.getName() + " lives: " + bro.getLives());
-                    if (!isEveryoneAlive()) {
+                    if (bro.isBroAlive()) {
                         gameOver();
                     }
                 }
@@ -36,13 +36,13 @@ public class Game {
         System.out.println("Lost lives: " + lives);
     }
 
-    public boolean isEveryoneAlive() {
+    public void addBro(Bro bro) {
+        bros.add(bro);
+    }
+
+    private boolean isEveryoneAlive() {
         synchronized (livesLock) {
             return bros.stream().allMatch(bro -> bro.getLives() > 0);
         }
-    }
-
-    public void addBro(Bro bro) {
-        bros.add(bro);
     }
 }
