@@ -1,5 +1,7 @@
 package faang.school.godbless.task_003;
 
+import faang.school.godbless.sprint_1.java_core.task_003.Character;
+import faang.school.godbless.sprint_1.java_core.task_003.Warrior;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

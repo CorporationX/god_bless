@@ -1,7 +1,7 @@
 package faang.school.godbless.task_4_analizator;
 
-import faang.school.godbless.task_4_analizator.models.Job;
-import faang.school.godbless.task_4_analizator.scrappers.JsonJobScrapper;
+import faang.school.godbless.sprint_2.stream_API.task_4_analizator.models.Job;
+import faang.school.godbless.sprint_2.stream_API.task_4_analizator.scrappers.JsonJobScrapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

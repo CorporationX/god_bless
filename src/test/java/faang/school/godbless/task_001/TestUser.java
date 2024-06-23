@@ -1,5 +1,6 @@
 package faang.school.godbless.task_001;
 
+import faang.school.godbless.sprint_1.java_core.task_001.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;

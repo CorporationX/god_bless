@@ -1,5 +1,7 @@
 package faang.school.godbless.task_21_gmail_filters;
 
+import faang.school.godbless.sprint_2.functional_interface.task_17_hogwarts.task_21_gmail_filters.Email;
+import faang.school.godbless.sprint_2.functional_interface.task_17_hogwarts.task_21_gmail_filters.EmailProcessor;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

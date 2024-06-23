@@ -1,5 +1,6 @@
 package faang.school.godbless.task_17_hogwarts;
 
+import faang.school.godbless.sprint_2.functional_interface.task_17_hogwarts.SpellCaster;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

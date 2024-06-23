@@ -1,5 +1,7 @@
 package faang.school.godbless.task_22_filter_spam;
 
+import faang.school.godbless.sprint_2.functional_interface.task_17_hogwarts.task_22_filter_spam.MessageFilter;
+import faang.school.godbless.sprint_2.functional_interface.task_17_hogwarts.task_22_filter_spam.MessageProcessor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
