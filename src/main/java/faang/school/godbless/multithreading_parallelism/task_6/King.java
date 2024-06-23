@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 
 public class King {
     private static final int THREAD_COUNT = 2;
+    private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
 
     public static void main(String[] args) {
         List<Knight> knights = new ArrayList<>();
@@ -27,7 +28,6 @@ public class King {
     }
 
     private static void startTrials(@NonNull List<Knight> knights) {
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
         knights.stream()
                 .flatMap(knight -> knight.getTrials().stream())
                 .forEach(executor::submit);
