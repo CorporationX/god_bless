@@ -15,13 +15,14 @@ public class GooglePhotosAutoUploader {
     private boolean offTurn = true;
 
     @SneakyThrows
-    public void startAutoUpload() {
+    public void startAutoUpload(List<String> emails) {
         synchronized (lock) {
             while (offTurn) {
-                if (photosToUpload.size() == 0) {
+                if (emails.size() == 0) {
                     lock.wait(3000);
+                } else {
+                    uploadPhotos();
                 }
-                uploadPhotos();
             }
         }
     }
