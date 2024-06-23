@@ -18,7 +18,7 @@ public class Boss {
     }
 
     @SneakyThrows
-    void joinBattle(Players players) {
+    public void joinBattle(Players players) {
         synchronized (currentPlayers) {
             if (currentPlayers.size() >= maxPlayers) {
                 currentPlayers.wait(0);
