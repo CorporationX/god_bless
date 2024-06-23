@@ -13,19 +13,20 @@ public class VladController {
     private String ownerName;
     private final List<TamagotchiVlad> tamagotchiVladList;
 
-    public void feedAll(){
+    public void feedAll() {
         synchronized (tamagotchiVladList) {
             informControllerUserName();
             tamagotchiVladList.forEach(TamagotchiVlad::feed);
         }
     }
 
-    public void playAll(){
+    public void playAll() {
         synchronized (tamagotchiVladList) {
             informControllerUserName();
             tamagotchiVladList.forEach(TamagotchiVlad::play);
         }
     }
+
     public void cleanAll() {
         synchronized (tamagotchiVladList) {
             informControllerUserName();
@@ -33,14 +34,31 @@ public class VladController {
         }
     }
 
-    public void sleepAll(){
+    public void sleepAll() {
         synchronized (tamagotchiVladList) {
             informControllerUserName();
             tamagotchiVladList.forEach(TamagotchiVlad::sleep);
         }
     }
 
-    private void informControllerUserName(){
+    public void addTamagtochiToList(TamagotchiVlad newTamagotchiVlad) {
+        synchronized (tamagotchiVladList) {
+            tamagotchiVladList.add(newTamagotchiVlad);
+        }
+    }
+
+    public void removeTamagtochiToList(int tamagotchiIndex) {
+        synchronized (tamagotchiVladList) {
+            if (tamagotchiIndex < tamagotchiVladList.size()) {
+                TamagotchiVlad tamagotchiVlad = tamagotchiVladList.remove(tamagotchiIndex);
+                log.info(tamagotchiVlad.getSurname() + " WAS REMOVED FROM CONTROLLER");
+            } else {
+                log.warn("Cannot remove tamagotchi that is out of range");
+            }
+        }
+    }
+
+    private void informControllerUserName() {
         log.info(ownerName + " is taking action now");
     }
 }

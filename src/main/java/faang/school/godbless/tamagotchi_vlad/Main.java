@@ -1,5 +1,6 @@
 package faang.school.godbless.tamagotchi_vlad;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,6 +19,9 @@ public class Main {
         executorService.execute(() -> {
             vladControllerFirst.cleanAll();
             vladControllerFirst.feedAll();
+
+            vladControllerFirst.removeTamagtochiToList(0);
+
             vladControllerFirst.sleepAll();
             vladControllerFirst.playAll();
         });
@@ -25,6 +29,9 @@ public class Main {
         executorService.execute(() -> {
             vladControllerSecond.sleepAll();
             vladControllerSecond.playAll();
+
+            vladControllerFirst.removeTamagtochiToList(0);
+
             vladControllerSecond.feedAll();
             vladControllerSecond.cleanAll();
         });
@@ -33,11 +40,16 @@ public class Main {
     }
 
     private static List<TamagotchiVlad> getTamagotchiVladList() {
-        return List.of(
-                new TamagotchiVlad("First"), new TamagotchiVlad("Second")
-//                , new TamagotchiVlad("Third"),
-//                new TamagotchiVlad("Fourth"), new TamagotchiVlad("Fifth"), new TamagotchiVlad("Sixth")
-        );
+        List<TamagotchiVlad> tamagotchiVladList = new ArrayList<>();
+
+        tamagotchiVladList.add(new TamagotchiVlad("First"));
+        tamagotchiVladList.add(new TamagotchiVlad("Second"));
+        tamagotchiVladList.add(new TamagotchiVlad("Third"));
+        tamagotchiVladList.add(new TamagotchiVlad("Fourth"));
+        tamagotchiVladList.add(new TamagotchiVlad("Fifth"));
+        tamagotchiVladList.add(new TamagotchiVlad("Sixth"));
+
+        return tamagotchiVladList;
     }
 
     private static VladController getVladController(String ownerName, List<TamagotchiVlad> tamagotchiVladList) {
