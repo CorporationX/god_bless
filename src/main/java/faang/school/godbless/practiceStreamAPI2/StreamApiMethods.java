@@ -4,21 +4,25 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class StreamApiMethods {
     public List<List<Integer>> pairsForTargetNum(int targetNum, List<Integer> nums) {
 
         return nums.stream()
-                .filter(integer -> nums.contains(targetNum - integer))
-                .filter(integer -> nums.indexOf(integer) != nums.lastIndexOf(targetNum - integer))
+                .filter(num -> nums.contains(targetNum - num))
+                .filter(num -> nums.indexOf(num) != nums.lastIndexOf(targetNum - num))
                 .map(integer -> List.of(Math.min(integer, targetNum - integer), Math.max(integer, targetNum - integer)))
                 .distinct().toList();
     }
 
     public void printSortedListCountryCapital(Map<String, String> countries) {
-        countries.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry -> {
-            System.out.println(entry.getValue());
-        });
+        countries.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(entry -> {
+                    System.out.println(entry.getValue());
+                });
     }
 
     public List<String> filterAndSortByLength(List<String> words, Character symbol) {
@@ -55,9 +59,11 @@ public class StreamApiMethods {
     }
 
     public Map<String, Double> countAvgSalaryForDepartments(List<Employee> employees) {
-        Map<String, List<Integer>> departments = new HashMap<>();
-
-
+        return employees.stream()
+                .collect(Collectors.groupingBy(
+                        Employee::department,
+                        Collectors.averagingDouble(Employee::salary)
+                ));
     }
 
     public List<String> filterAndSortStringsByAlphabet(List<String> words, List<Character> alphabet) {
@@ -75,12 +81,19 @@ public class StreamApiMethods {
 
     public List<String> convertsIntegersIntoBinary(List<Integer> nums) {
         return nums.stream()
-                .map(Integer::toBinaryString).toList();
+                .map(Integer::toBinaryString)
+                .toList();
     }
 
     public List<Integer> palindromeNumbersInTheRange(int start, int end) {
-        List<Integer> palindromes = new ArrayList<>();
+        return IntStream.rangeClosed(start, end)
+                .filter(StreamApiMethods::checkNumberIsPalindromes)
+                .boxed()
+                .toList();
+    }
 
-        return palindromes;
+    private static boolean checkNumberIsPalindromes(int num) {
+        String intStr = String.valueOf(num);
+        return intStr.equals(new StringBuilder(intStr).reverse().toString());
     }
 }
