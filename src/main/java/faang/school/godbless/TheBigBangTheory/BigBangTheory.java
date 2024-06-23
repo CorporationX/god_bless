@@ -15,7 +15,7 @@ public class BigBangTheory {
         executorService.execute(new Task("Rajesh", "Data analysis."));
 
         executorService.shutdown();
-        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        executorService.awaitTermination(2, TimeUnit.SECONDS);
         System.out.println("All tasks completed");
     }
 }
