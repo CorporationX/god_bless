@@ -7,11 +7,10 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private static final int NUMS_THREAD_FOR_UPDATE_MESSAGE = 2;
-    private static final int NUMS_THREAD_FOR_SEND_MESSAGE = 2;
+    private static final int NUMS_THREAD = 10;
 
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(NUMS_THREAD_FOR_UPDATE_MESSAGE);
+        ExecutorService executor = Executors.newFixedThreadPool(NUMS_THREAD);
         GooglePhotosAutoUploader photosAutoUploader = new GooglePhotosAutoUploader();
         photosAutoUploader.getPhotosToUpload().addAll(Arrays.asList(
                 "Some path to photo",
@@ -21,10 +20,12 @@ public class Main {
                 "Some path to photo",
                 "Some path to photo"
         ));
-        int quantityEmails = photosAutoUploader.getPhotosToUpload().size() / NUMS_THREAD_FOR_UPDATE_MESSAGE;
-        for(int i = 0; i < NUMS_THREAD_FOR_UPDATE_MESSAGE; i++) {
-            List<String> emails = photosAutoUploader.getPhotosToUpload().subList(
-                    i * quantityEmails, ((i + 1)*quantityEmails) - 1);
+        int totalPhotos = photosAutoUploader.getPhotosToUpload().size();
+        int quantityPhotosPerThread = totalPhotos / NUMS_THREAD;
+        for (int i = 0; i < NUMS_THREAD; i++) {
+            int startIndex = 0;
+            int endIndex = Math.min(startIndex + quantityPhotosPerThread, totalPhotos);
+            List<String> emails = photosAutoUploader.getPhotosToUpload().subList(startIndex, endIndex);
             executor.submit(() -> photosAutoUploader.startAutoUpload(emails));
         }
         executor.submit(() -> {
