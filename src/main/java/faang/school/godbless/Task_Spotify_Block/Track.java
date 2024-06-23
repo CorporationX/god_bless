@@ -18,4 +18,9 @@ public class Track {
         else this.length = seconds;
     }
 
+    @Override
+    public String toString() {
+        return title;
+    }
+
 }
