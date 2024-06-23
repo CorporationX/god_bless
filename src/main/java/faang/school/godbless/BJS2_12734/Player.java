@@ -8,17 +8,17 @@ import java.util.Random;
 
 @Getter
 public class Player {
-    private final Object lock = new Object();
     private boolean isPlaying;
     private String recentSong;
     private List<String> music = Arrays.asList("Linking Park - Numb", "3 Days Grace - I hate everything about you", "Stone Sour - Made of Scars", "Papa Roach - Scars", "In this moment - adrenalize");
+    int pos = new Random().nextInt(music.size());
 
     public void play() {
-        synchronized (lock) {
-            System.out.println("Play method hase started");
+
+        synchronized (this) {
+            System.out.println("Play method has started");
             this.isPlaying = true;
-            if (this.recentSong == null || this.recentSong.isEmpty()) {
-                int pos = new Random().nextInt(music.size());
+            if (this.recentSong == null) {
                 recentSong = music.get(pos);
                 System.out.println(recentSong + " is playing now");
             } else {
@@ -28,11 +28,10 @@ public class Player {
     }
 
     public void pause() {
-
-        synchronized (lock) {
+        synchronized (this) {
             this.isPlaying = false;
             System.out.println("Pause method hase started");
-            if (this.recentSong == null || this.recentSong.isEmpty()) {
+            if (this.recentSong == null) {
                 System.out.println("push Play for the first");
             }
             System.out.println(this.recentSong + " has been paused");
@@ -40,41 +39,30 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (lock) {
+        synchronized (this) {
             int pos;
             System.out.println("Skip method hase started");
-            if (!recentSong.isEmpty()) {
-                pos = music.indexOf(recentSong);
-                pos++;
-                if (pos == music.size()) {
-                    pos = 0;
-                }
-                recentSong = music.get(pos);
-                System.out.println(recentSong + " is playing now");
-            } else {
-                System.out.println("push Play for the first");
+            pos = music.indexOf(recentSong);
+            pos++;
+            if (pos == music.size()) {
+                pos = 0;
             }
+            recentSong = music.get(pos);
+            System.out.println(recentSong + " is playing now");
         }
     }
 
     public void previous() {
-
-        synchronized (lock) {
+        synchronized (this) {
             System.out.println("Previous method hase started");
             int pos;
-            if (!recentSong.isEmpty()) {
-                pos = music.indexOf(recentSong);
-                pos--;
-                if (pos < 0) {
-                    pos = music.size();
-                }
-                recentSong = music.get(pos);
-                System.out.println(recentSong + " is playing now");
-            } else {
-                System.out.println("push Play for the first");
+            pos = music.indexOf(recentSong);
+            pos--;
+            if (pos < 0) {
+                pos = music.size();
             }
+            recentSong = music.get(pos);
+            System.out.println(recentSong + " is playing now");
         }
     }
-
-
 }
