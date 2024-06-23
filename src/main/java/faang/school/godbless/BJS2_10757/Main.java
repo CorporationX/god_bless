@@ -2,13 +2,33 @@ package faang.school.godbless.BJS2_10757;
 
 import com.google.gson.Gson;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
+        List<String> jobsInJson = jobsArrayInJsonCreating();
+        String fileName = "src/main/java/faang/school/godbless/BJS2_10757/JobsInJson.json";
+
+        JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
+        List<Job> jobs = jobStreamProcessor.parseJobs(jobsInJson.stream());
+        jobs.add(jobStreamProcessor.parseJobStringFromFile(fileName));
+
+        DataAnalyzer dataAnalyzer = new DataAnalyzer();
+        dataAnalyzer.findTopFiveSkills(jobs);
+        System.out.println("*********************************************************");
+        dataAnalyzer.findTopFiveJobNames(jobs);
+        System.out.println("*********************************************************");
+        dataAnalyzer.findTopFiveJobLocations(jobs);
+        System.out.println("*********************************************************");
+        System.out.println(dataAnalyzer.analyzeSalary(jobs));
+
+    }
+
+    private static List<String> jobsArrayInJsonCreating() {
         Gson gson = new Gson();
 
         String job_1 = gson.toJson(new Job(JobNames.DEVELOPER, List.of(Skills.SKILL_1, Skills.SKILL_2), 155000, Locations.BERLIN, LocalDateTime.now().toString()));
@@ -35,17 +55,6 @@ public class Main {
         jobsInJson.add(job_9);
         jobsInJson.add(job_10);
 
-        JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
-        List<Job> jobs = jobStreamProcessor.parseJobs(jobsInJson.stream());
-
-        DataAnalyzer dataAnalyzer = new DataAnalyzer();
-        dataAnalyzer.findTopFiveSkills(jobs);
-        System.out.println("*********************************************************");
-        dataAnalyzer.findTopFiveJobNames(jobs);
-        System.out.println("*********************************************************");
-        dataAnalyzer.findTopFiveJobLocations(jobs);
-        System.out.println("*********************************************************");
-        System.out.println(dataAnalyzer.analyzeSalary(jobs));
-
+        return jobsInJson;
     }
 }

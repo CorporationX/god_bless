@@ -14,7 +14,7 @@ import java.util.List;
 @ToString
 @EqualsAndHashCode
 public class Job {
-    @SerializedName("position")
+    @SerializedName("positionName")
     @Expose
     String positionName;
     @SerializedName("skills")
@@ -26,7 +26,7 @@ public class Job {
     @SerializedName("location")
     @Expose
     String location;
-    @SerializedName("creation")
+    @SerializedName("creationDateTime")
     @Expose
     String creationDateTime;
 }
