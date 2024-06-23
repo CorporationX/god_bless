@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public abstract class Unit {
-    protected final int power;
+    private final int power;
 }
