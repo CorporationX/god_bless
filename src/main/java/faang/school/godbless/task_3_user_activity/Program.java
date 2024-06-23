@@ -16,7 +16,6 @@ import static java.util.stream.Collectors.toMap;
 
 public class Program {
     public static void main(String[] args) {
-//        List<UserAction> userActions = new ArrayList<>();
         List<UserAction> userActions = List.of(
                 new UserAction(1, ActionType.POST, LocalDate.now(), "#theme1 " + 1),
                 new UserAction(2, ActionType.COMMENT, LocalDate.now(), "#theme1 " + 2),
