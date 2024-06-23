@@ -1,11 +1,13 @@
 package faang.school.godbless.BroForce;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 public class Game {
     private static final Random random = new Random();
 
@@ -18,23 +20,21 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
 
-    public synchronized void update() {
+    public void update() {
         while (isAllAlive()) {
             int playerIndex = random.nextInt(players.size());
             Player player = players.get(playerIndex);
 
-            System.out.print(player.getName() + " attacks!...  ");
-
             if (player.won()) {
                 synchronized (scoreLock) {
                     player.setScore(player.getScore() + 1);
-                    System.out.println("won! score: " + player.getScore());
+                    log.info(player.getName() + " Attacks...   won! score: " + player.getScore());
                     this.score++;
                 }
             } else {
                 synchronized (livesLock) {
                     player.setLives(player.getLives() - 1);
-                    System.out.println("lose( lives: " + player.getLives());
+                    log.info(player.getName() + " Attacks...   lose( lives: " + player.getLives());
                     this.lives++;
                     if (player.getLives() == 0) {
                         gameOver();
@@ -44,9 +44,9 @@ public class Game {
         }
     }
 
-    private synchronized void gameOver() {
-        System.out.println("Total score " + score);
-        System.out.println("Total lives " + lives);
+    private void gameOver() {
+        log.info("Total score " + score);
+        log.info("Total lives " + lives);
     }
 
     public boolean isAllAlive() {

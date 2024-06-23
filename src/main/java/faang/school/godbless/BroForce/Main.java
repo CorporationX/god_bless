@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
+
 public class Main {
     private static final int NUM_OF_THREADS = 3;
 
@@ -14,6 +16,11 @@ public class Main {
         Game game = new Game(players);
         startGame(game);
         execute.shutdown();
+        try {
+            execute.awaitTermination(2, SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("execute.awaitTermination in main was interrupted while waiting " + e);
+        }
     }
 
     public static void startGame(Game game) {
