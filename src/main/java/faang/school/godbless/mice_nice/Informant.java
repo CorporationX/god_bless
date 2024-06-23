@@ -1,8 +1,7 @@
 package faang.school.godbless.mice_nice;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Random;
 
 public class Informant {
@@ -12,10 +11,10 @@ public class Informant {
 
         Random randomizer = new Random();
 
-        List<Room> roomList = Collections.synchronizedList(new ArrayList<>());
+        Queue<Room> roomList = new LinkedList<>();
 
         for (String roomName : rooms) {
-            List<Food> foodList = Collections.synchronizedList(new ArrayList<>());
+            Queue<Food> foodList = new LinkedList<>();
 
             for (int foodIndex = 0; foodIndex < 3; foodIndex++) {
                 Food foodToRoom = new Food(foods[randomizer.nextInt(0, foods.length)]);
