@@ -15,12 +15,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class User {
-  private String name;
-  private int age;
-  private String company;
-  private String address;
+    private String name;
+    private int age;
+    private String company;
+    private String address;
 
-  public static Map<Integer, List<User>> groupUsers(List<User> users) {
-    return users.stream().collect(Collectors.groupingBy(User::getAge));
-  }
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        return users.stream().collect(Collectors.groupingBy(User::getAge));
+    }
 }
