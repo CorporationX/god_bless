@@ -1,4 +1,4 @@
-package faang.school.godbless.stream;
+package faang.school.godbless.stream.collectionHandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

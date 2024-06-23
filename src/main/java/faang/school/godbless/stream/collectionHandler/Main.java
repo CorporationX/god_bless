@@ -1,4 +1,4 @@
-package faang.school.godbless.stream;
+package faang.school.godbless.stream.collectionHandler;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +8,8 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        List<List<Integer>> pairsBySum = CollectionHandler.findPairsBySum(List.of(1, 2, 3, 4, 5, 6, 7, 8, 9), 15);
+        List<List<Integer>> pairsBySum = CollectionHandler.findPairsBySum(
+                List.of(1, 1, 9, 2, 3, 4, 5, 6, 7, 8, 9), 10);
         pairsBySum.forEach(System.out::println);
 
 
@@ -53,7 +54,7 @@ public class Main {
         System.out.println(convertToBinary);
 
 
-        List<Integer> palindromes = CollectionHandler.findPalindromes(100, 1000);
+        List<Integer> palindromes = CollectionHandler.findPalindromes(-100, 1000);
         palindromes.forEach(System.out::println);
     }
 }
