@@ -18,11 +18,8 @@ public class CityWorker implements Runnable {
         return RANDOM.nextInt(5, 30);
     }
 
-
     public long getJourneyDistance(Monster monster, City city) {
-        return (long) Math.sqrt(Math.pow(
-                (city.getLocation().getX() - monster.getLocation().getX()), 2) +
-                Math.pow((city.getLocation().getY() - monster.getLocation().getY()), 2));
+        return distanceBetweenMonsterAndCity(monster, city);
     }
 
     @Override
@@ -44,10 +41,16 @@ public class CityWorker implements Runnable {
         }
     }
 
-    private Optional<Monster> considerTheNearestMonster(City city, List<Monster> monsters){
+    private Optional<Monster> considerTheNearestMonster(City city, List<Monster> monsters) {
         return monsters.stream()
                 .min(Comparator.comparingDouble(i -> Math.sqrt(Math.pow(
                         (city.getLocation().getX() - i.getLocation().getX()), 2) +
                         Math.pow((city.getLocation().getY() - i.getLocation().getY()), 2))));
+    }
+
+    private long distanceBetweenMonsterAndCity(Monster monster, City city) {
+        return (long) Math.sqrt(Math.pow(
+                (city.getLocation().getX() - monster.getLocation().getX()), 2) +
+                Math.pow((city.getLocation().getY() - monster.getLocation().getY()), 2));
     }
 }
