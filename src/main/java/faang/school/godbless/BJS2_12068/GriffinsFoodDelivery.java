@@ -9,20 +9,17 @@ public class GriffinsFoodDelivery {
     public static void main(String[] args) {
         ExecutorService service = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        for(String name: characterNames){
-            service.submit(()-> new FoodDeliveryTask(name , new Random().nextInt(50)).run());
-            if (name.equals(characterNames[characterNames.length-1])){
-                service.shutdown();
-            }
+        for (String name : characterNames) {
+            service.submit(new FoodDeliveryTask(name, new Random().nextInt(50)));
         }
+        service.shutdown();
         try {
             service.awaitTermination(1, TimeUnit.MINUTES);
-            if(service.isShutdown()){
+            if (service.isShutdown()) {
                 System.out.println("Delivery to all participants has been accomplished");
             }
-        }catch (InterruptedException exception){
+        } catch (InterruptedException exception) {
             exception.getStackTrace();
         }
-
     }
 }
