@@ -15,7 +15,6 @@ public class Main {
     public static void main(String[] args) {
         Main mainThread = new Main();
         mainThread.doAll();
-
     }
 
     @SneakyThrows
