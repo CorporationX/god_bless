@@ -15,7 +15,7 @@ public class WeasleyFamily {
             executorService.execute(new Chore(chore));
         }
         executorService.shutdown();
-        executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+        executorService.awaitTermination(2, TimeUnit.SECONDS);
         System.out.println("All chores completed");
     }
 }
