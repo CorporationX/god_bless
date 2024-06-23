@@ -12,8 +12,9 @@ public class Trial implements Runnable {
     private String knightName;
     private String trialName;
 
-    public Trial(String name) {
+    public Trial(String name, String knightName) {
         this.trialName = name;
+        this.knightName = knightName;
     }
 
     @Override

@@ -8,10 +8,10 @@ public class King {
     public static void main(String[] args) {
         Knight Arthur = new Knight("Arthur");
         Knight Frank = new Knight("Frank");
-        Trial horseRace = new Trial("Horse race");
-        Trial swordFight = new Trial("Sword fight");
-        Trial bowShooting = new Trial("Bow shooting");
-        Trial spearFight = new Trial("Joust");
+        Trial horseRace = new Trial("Horse race", Arthur.getName());
+        Trial swordFight = new Trial("Sword fight", Arthur.getName());
+        Trial bowShooting = new Trial("Bow shooting", Frank.getName());
+        Trial spearFight = new Trial("Joust", Frank.getName());
         Arthur.addTrial(horseRace);
         Arthur.addTrial(swordFight);
         Frank.addTrial(bowShooting);

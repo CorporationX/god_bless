@@ -21,12 +21,10 @@ public class Knight {
         if (trials == null) {
             trials = new ArrayList<>();
         }
-        trial.setKnightName(this.getName());
         trials.add(trial);
     }
 
     public void startTrials() {
         trials.forEach(Trial::run);
     }
-
 }
