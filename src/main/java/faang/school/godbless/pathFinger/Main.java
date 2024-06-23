@@ -7,13 +7,14 @@ import java.util.concurrent.Executors;
 
 public class Main {
     private final static int NUMS_THREADS = 5;
+
     public static void main(String[] args) {
         Map<Monster, Long> monsterKillTime = getMonsterKillTime();
         List<Monster> monsters = monsterKillTime.keySet().stream().toList();
-        List<CityWorker> listWorkers = getListWither(monsters, monsterKillTime);
+        List<CityWorker> listWither = getListWither(monsters, monsterKillTime);
 
         long before = System.currentTimeMillis();
-        for(CityWorker works: listWorkers) {
+        for (CityWorker works : listWither) {
             works.run();
         }
         long after = System.currentTimeMillis();
@@ -21,8 +22,8 @@ public class Main {
 
         ExecutorService executorService = Executors.newFixedThreadPool(NUMS_THREADS);
         long beforeThread = System.currentTimeMillis();
-        for(CityWorker works: listWorkers) {
-            executorService.submit(works);
+        for (CityWorker workers : listWither) {
+            executorService.submit(workers);
         }
         executorService.shutdown();
         long afterThread = System.currentTimeMillis();
