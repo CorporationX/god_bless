@@ -52,15 +52,15 @@ public class Program {
     }
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) throws IllegalAccessException {
-        MatrixTransformer transformer;
-
         switch (flipDirection) {
-
-            case VERTICAL -> transformer = c -> new Coordinates(matrix.length - 1 - c.x(), c.y());
-            case HORIZONTAL -> transformer = c -> new Coordinates(c.x(), matrix.length - 1 - c.y());
+            case VERTICAL -> {
+                return transformMatrix(matrix, c -> new Coordinates(matrix.length - 1 - c.x(), c.y()));
+            }
+            case HORIZONTAL -> {
+                return transformMatrix(matrix, c -> new Coordinates(c.x(), matrix.length - 1 - c.y()));
+            }
             default -> throw new IllegalAccessException("Не существующий вариант поворота.");
         }
-        return transformMatrix(matrix, transformer);
     }
 }
 
