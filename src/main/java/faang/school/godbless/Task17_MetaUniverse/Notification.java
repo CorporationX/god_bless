@@ -1,8 +1,7 @@
-package faang.school.godbless.Task_MetaUniverse;
+package faang.school.godbless.Task17_MetaUniverse;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @Getter

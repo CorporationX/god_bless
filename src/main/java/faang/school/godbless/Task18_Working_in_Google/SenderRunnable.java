@@ -1,4 +1,4 @@
-package faang.school.godbless.Task_Working_in_Google;
+package faang.school.godbless.Task18_Working_in_Google;
 
 public class SenderRunnable implements Runnable {
 

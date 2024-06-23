@@ -1,4 +1,4 @@
-package faang.school.godbless.Task_Working_in_Google;
+package faang.school.godbless.Task20_Working_in_Google;
 
 import java.util.List;
 import java.util.ArrayList;

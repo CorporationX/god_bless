@@ -1,6 +1,4 @@
-package faang.school.godbless.Task_MetaUniverse;
-
-import lombok.NoArgsConstructor;
+package faang.school.godbless.Task17_MetaUniverse;
 
 import java.util.HashMap;
 import java.util.Map;

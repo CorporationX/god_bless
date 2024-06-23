@@ -1,4 +1,4 @@
-package faang.school.godbless.Task_MetaUniverse;
+package faang.school.godbless.Task19_MetaUniverse;
 
 public class Main {
 
