@@ -30,7 +30,7 @@ public class Knight {
 
     public void startTrials() {
         ExecutorService service = Executors.newFixedThreadPool(2);
-        trials.forEach(Trial::run);
+        trials.forEach(trial-> service.submit(()-> trial.run()));
         service.shutdown();
         try {
             service.awaitTermination(10, TimeUnit.SECONDS);
