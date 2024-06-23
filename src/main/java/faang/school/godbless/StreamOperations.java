@@ -7,22 +7,18 @@ public class StreamOperations {
         return list.stream().filter(n -> n % 2 == 0).mapToInt(Integer::intValue).sum();
     }
     public static int findMaxInt(List<Integer> list) {
-        Optional<Integer> max = list.stream().max(Comparator.naturalOrder());
-        if (max.isPresent()) {
-            return max.get();
-        } else {
-            return 0;
-        }
+        return list.stream().max(Comparator.naturalOrder()).orElse(0);
     }
     //Найти среднее значение чисел в списке;
     public static double findAverage(List<Integer> list) {
-        OptionalDouble max = list.stream().mapToInt(Integer::intValue).average();
+        return list.stream().mapToInt(Integer::intValue).average().orElse(0);
+    }
+        /*OptionalDouble max = list.stream().mapToInt(Integer::intValue).average();
         if (max.isPresent()) {
             return max.getAsDouble();
         } else {
             return 0;
-        }
-    }
+        }*/
     //Найти количество строк, начинающихся с определённого символа в списке строк;
     public static long findQuantityStringsFromSymbol(List<String> list, String symbol) {
         return list.stream().filter(name -> name.startsWith(symbol)).count();
@@ -41,12 +37,7 @@ public class StreamOperations {
     }
     //Найти наименьший элемент в списке, который больше заданного числа;
     public static int findMinMoreThen(List<Integer> list, int number) {
-        Optional <Integer> result = list.stream().filter(intInList -> intInList > number).min(Comparator.naturalOrder());
-        if (result.isPresent()) {
-            return result.get();
-        } else {
-            return 0;
-        }
+        return list.stream().filter(intInList -> intInList > number).min(Comparator.naturalOrder()).orElse(0);
     }
     //Преобразовать список строк в список их длин.
     public static List<Integer> makeStringsLengths(List<String> list) {
