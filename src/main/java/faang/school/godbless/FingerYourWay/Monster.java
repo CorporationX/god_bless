@@ -12,6 +12,4 @@ import lombok.ToString;
 public class Monster {
     private String name;
     private Location location;
-
-
 }
