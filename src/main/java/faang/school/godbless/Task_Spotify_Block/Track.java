@@ -1,26 +1,21 @@
 package faang.school.godbless.Task_Spotify_Block;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@EqualsAndHashCode
 public class Track {
-
     public String title;
-    public int length;
 
     public Track(String title) {
         if (title.isBlank()) throw new IllegalArgumentException("the name is blank");
-        else this. title = title;
-    }
-
-    public void setLength(int seconds) {
-        if (seconds == 0) throw new IllegalArgumentException("zero time");
-        else this.length = seconds;
+        else this.title = title;
     }
 
     @Override
     public String toString() {
         return title;
     }
-
 }

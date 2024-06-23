@@ -12,7 +12,7 @@ public class Player {
     private int currentTrack;
     private Status isPlaying;
 
-    private static final List<Track> TRACK_LIST = new ArrayList<>();
+    static final List<Track> TRACK_LIST = new ArrayList<>();
 
     public Player() {
         this.isPlaying = Status.pause;
@@ -26,47 +26,47 @@ public class Player {
     }
 
     public synchronized void play(Track track) {
-        synchronized (track) {
             if (!TRACK_LIST.contains(track)) System.out.println("The track is not in the playlist");
             else {
                 this.isPlaying = Status.playing;
                 currentTrack = TRACK_LIST.indexOf(track);
-                System.out.println("Track " + track + " is now playing");
+                System.out.println(track + " is now playing");
             }
-        }
     }
 
     public synchronized void pause() {
         this.isPlaying = Status.pause;
-        System.out.println("paused");
+        System.out.println(TRACK_LIST.get(currentTrack) + " is paused");
     }
 
     public synchronized void skip() {
         if (currentTrack == TRACK_LIST.size() - 1) {
             currentTrack = 0;
             isPlaying = Status.playing;
-            System.out.println("Track " + TRACK_LIST.get(0).getTitle() + " is playing");
+            System.out.println(TRACK_LIST.get(0) + " is now playing");
         } else {
             currentTrack = currentTrack + 1;
-            System.out.println("The next track " + TRACK_LIST.get(currentTrack).getTitle() + " is playing");
+            System.out.println("The next track " + TRACK_LIST.get(currentTrack) + " is now playing");
         }
+        isPlaying = Status.playing;
     }
 
     public synchronized void previous() {
         if (currentTrack == 0) {
             currentTrack = TRACK_LIST.size() - 1;
-            System.out.println("The track " + TRACK_LIST.get(currentTrack) + " is playing");
+            System.out.println(TRACK_LIST.get(currentTrack) + " is now playing");
         } else {
-            currentTrack = currentTrack + 1;
-            System.out.println("The track " + TRACK_LIST.get(currentTrack) + " is playing");
+            currentTrack = currentTrack - 1;
+            System.out.println(TRACK_LIST.get(currentTrack) + " is now playing");
         }
+        isPlaying = Status.playing;
     }
 
     public synchronized static void addTrack(Track track) {
         synchronized (TRACK_LIST) {
-            synchronized (track) {
                 TRACK_LIST.add(track);
-            }
+                System.out.println("The playlist was updated");
+                System.out.println(TRACK_LIST);
         }
     }
 
