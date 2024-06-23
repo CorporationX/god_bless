@@ -27,9 +27,11 @@ public class StreamOperations {
         return new ArrayList<Pair>();
         //помогите с этим пунктом, как-то сложно и нет идей
     }
-    //Получаем список объектов класса Employee, у каждого из которых есть имя, зарплата и отдел.
-    //Найдите среднюю зарплату для каждого отдела. Должна получится map с именем отдела и средней зарплатой.
-    //Тоже нет идей
+    public static Map<String,Double> findAvSalaryInDep (List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingInt(Employee::getSalary)));
+    }
 
     public static List<String> convertToBinary(List<Integer> numbers) {
         return numbers.stream().map(Integer::toBinaryString).toList();
@@ -38,8 +40,7 @@ public class StreamOperations {
     //Дан список строк. Отфильтруйте строки, которые содержат только буквы заданного алфавита,
     // и отсортируйте их в порядке возрастания длины строк.
     // C последовательностью символов легко, а вот именно с алфавитом сложно, нет идей, прошу помощи
-    public static List<String> sortStringsWithLetters(List<String> strings, char[] letters) {
-        CharSequence charSequence = Arrays.toString(letters);
+    public static List<String> sortStringsWithLetters(List<String> strings, CharSequence charSequence) {
         return strings.stream()
                 .filter(str -> str.contains(charSequence))
                 .sorted(Comparator.comparingInt(String::length)).toList();
@@ -83,9 +84,20 @@ public class StreamOperations {
         friends.put("Sveta", List.of("Maria", "Dima"));
 
         System.out.println(convertToBinary(listToStream));
-        char[] charArray = new char[2];
-        charArray = "12".toCharArray();
-        //System.out.println(charArray);
-        //System.out.println(sortStringsWithLetters(Strings, charArray));
+        System.out.println(sortStringsWithLetters(Strings,"222"));
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(new Employee("Vasya",4000,"DEVOPS"));
+        employees.add(new Employee("Petya",3000,"QA"));
+        employees.add(new Employee("Mikhail",5000,"DEVOPS"));
+        employees.add(new Employee("Mikhail",2000,"QA"));
+        Map<String, Double> avSalariesInDep = findAvSalaryInDep(employees);
+        //Просто тренировка вывода списка отделов
+        List<String> departments = employees.stream()
+                .map(e -> e.getDepartment()).distinct().toList();
+        avSalariesInDep.entrySet().stream()
+                .map(e -> " "+e.getKey()+" "+e.getValue())
+                .forEach(System.out::println);
+        departments.stream().forEach(System.out::println);
     }
 }
