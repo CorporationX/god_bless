@@ -2,7 +2,6 @@ package faang.school.godbless.lambdaEx;
 
 public class Main {
     public static void main(String[] args) {
-
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
@@ -17,9 +16,14 @@ public class Main {
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+      
+        SpellCaster spellCaster = new SpellCaster();
+        String alohomora = "Alohomora";
+        String lumos = "Lumos";
+        String expelliarmus = "Expelliarmus";
 
-
-
-
+        spellCaster.cast(alohomora, spellName -> "открывает дверь");
+        spellCaster.cast(lumos, spellName -> "создает свет");
+        spellCaster.cast(expelliarmus, spellName -> "разоружает противника");
     }
 }
