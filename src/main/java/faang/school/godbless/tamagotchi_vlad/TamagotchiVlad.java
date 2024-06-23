@@ -2,7 +2,6 @@ package faang.school.godbless.tamagotchi_vlad;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.SneakyThrows;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +24,14 @@ public class TamagotchiVlad {
         log.info(surname + " has been cleaned");
     }
 
-    @SneakyThrows // I take whole responsibility
     public synchronized void sleep() {
         log.info(surname + " started sleeping");
 
-        Thread.sleep(2000);
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         log.info(surname + " woke up");
     }
