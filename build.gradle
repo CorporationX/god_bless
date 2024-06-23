@@ -22,6 +22,7 @@ dependencies {
 
     testImplementation("org.assertj:assertj-core:3.24.2")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.23.1'
 }
 
 test {
