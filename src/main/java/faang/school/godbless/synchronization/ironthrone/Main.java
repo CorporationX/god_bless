@@ -20,7 +20,7 @@ public class Main {
             executorService.execute(() -> {
                 try {
                     user.joinHouse(house);
-                    Thread.sleep(new Random().nextInt(5));
+                    Thread.sleep(1000L * new Random().nextInt(5));
                     user.leaveHouse();
                 } catch (InterruptedException ex) {
                     throw new RuntimeException();

@@ -31,7 +31,7 @@ public class User {
                     name, Thread.currentThread().getName());
             // Пользователь выбирает роль по какой-то своей логике
             selectedRole = pickRandomSetElement(house.getFreeRoles());
-            System.out.printf("House free roles: %s\n", house.getFreeRoles());
+            System.out.printf("User [%s]: House free roles: %s\n", name, house.getFreeRoles());
             house.takeRole(selectedRole);
             System.out.printf("User [%s] took role [%s] of house [%s] -- %s\n",
                     name, selectedRole, house.getName(), Thread.currentThread().getName());
