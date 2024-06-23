@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     private static final int nThreads = 4;
+    private static final int threadTerminationTimeout = 60;
+
     public static void main(String[] args) {
         System.out.println("Hello Almas!");
 
@@ -24,10 +26,10 @@ public class BigBangTheory {
         executor.shutdown();
 
         try {
-            executor.awaitTermination(2, TimeUnit.MINUTES);
-            System.out.println("All threads finished");
+            if (executor.awaitTermination(threadTerminationTimeout, TimeUnit.SECONDS))
+                System.out.println("All threads finished");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Threads were interrupted", e);
         }
     }
 }
