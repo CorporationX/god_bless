@@ -5,52 +5,45 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
 
-    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
     private boolean running = true;
 
-    public void startAutoUpload() {
-        synchronized (lock) {
-            while (running) {
-                while (photosToUpload.isEmpty() && running) {
-                    try {
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-                if (!photosToUpload.isEmpty()) {
-                    uploadPhotos();
+    public synchronized void startAutoUpload() {
+        while (running) {
+            while (photosToUpload.isEmpty() && running) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-            System.out.println("Auto-upload stopped.");
+            if (!photosToUpload.isEmpty()) {
+                uploadPhotos();
+            }
         }
     }
 
-    private void uploadPhotos() {
+    private synchronized void uploadPhotos() {
         System.out.println("Started cloud sync...");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        this.photosToUpload.clear();
+        photosToUpload.clear();
         System.out.println("Queue: " + this.photosToUpload);
         System.out.println("Finished cloud sync!");
     }
 
-    public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
-            this.photosToUpload.add(photoPath);
-            System.out.println("Added a photo at " + photoPath);
-            lock.notify();
-        }
+    public synchronized void onNewPhotoAdded(String photoPath) {
+        this.photosToUpload.add(photoPath);
+        System.out.println("Added a photo at " + photoPath);
+        notify();
     }
 
-    public void stopAutoUpload() {
-        synchronized (lock) {
-            running = false;
-            lock.notify();
-        }
+    public synchronized void stopAutoUpload() {
+        running = false;
+        System.out.println("Auto-upload stopped.");
+        notify();
     }
 }
