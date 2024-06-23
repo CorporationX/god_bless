@@ -20,7 +20,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Thread interrupted", e);
             }
         }
         return totalPower;
