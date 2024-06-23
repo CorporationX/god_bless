@@ -26,11 +26,11 @@ public class CityWorker implements Runnable {
     }
 
     public long getKillTime() {
-        return (long) (Math.random() * 5000) + 1000; // Время на убийство от 1 до 5 секунд
+        return (long) (Math.random() * 5000) + 1000;
     }
 
     public long getJourneyDistance() {
-        return (long) calculateDistance(new Location(0, 0), city.getLocation()); // Расстояние от Каэр Морхена до города
+        return (long) calculateDistance(new Location(0, 0), city.getLocation());
     }
 
     private double calculateDistance(Location loc1, Location loc2) {
