@@ -27,17 +27,13 @@ public class Main {
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = Math::sqrt;
 
-        Double result;
-//        Double perimeter = sum.apply(c).apply(sum.apply(a).apply(b));
-//        Double halfPerimeter = div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0);
-//        Double hpa = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(a);
-//        Double hpb = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(b);
-//        Double hpc = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(c);
-//        Double hppa = mul.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(a));
-//        Double pbpc = mul.apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(b)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(c));
-//        Double hppapbpc = mul.apply(mul.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(a))).apply(mul.apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(b)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(c)));
-        result = sqrt.apply(mul.apply(mul.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(a))).apply(mul.apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(b)).apply(sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(c))));
-
-        return result;
+        Double halfPerimeter = div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0);
+        Double hp_minus_a = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(a);
+        Double hp_minus_b = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(b);
+        Double hp_minus_c = sub.apply(div.apply(sum.apply(c).apply(sum.apply(a).apply(b))).apply(2.0)).apply(c);
+        Double hp_multiple_hp_minus_a = mul.apply(halfPerimeter).apply(hp_minus_a);
+        Double hp_minus_b_multiple_hp_minus_c = mul.apply(hp_minus_b).apply(hp_minus_c);
+        Double hp_mul_hp_minus_a_mul_hp_minus_b_mul_hp_minus_c = mul.apply(hp_multiple_hp_minus_a).apply(hp_minus_b_multiple_hp_minus_c);
+        return sqrt.apply(hp_mul_hp_minus_a_mul_hp_minus_b_mul_hp_minus_c);
     }
 }
