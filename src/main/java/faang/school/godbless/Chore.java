@@ -17,7 +17,7 @@ public class Chore implements Runnable {
             Thread.sleep(new Random().nextInt(10000) + 1000);
             System.out.printf("%s finished %s.\n", threadName, chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(String.format("%s was interrupted on %s.\n", threadName, chore), e);
         }
     }
 }
