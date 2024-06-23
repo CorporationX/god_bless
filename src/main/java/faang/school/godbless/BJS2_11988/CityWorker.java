@@ -1,7 +1,6 @@
 package faang.school.godbless.BJS2_11988;
 
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class CityWorker implements Runnable {
@@ -73,14 +72,11 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-
         System.out.println("Withcer started his journey from " + witcher.getCity().getName());
         Monster nearestMonster = findNearestMonster(witcher.getCity(), monsters);
         System.out.println(nearestMonster.getMonsterName() + " is the nearest monster to Witcher's recent location");
         System.out.println("He decided to hunt it down and defeat it");
         System.out.println("After " + getKillTime() + " seconds he finally managed to defeat the monster and got the trophy");
         System.out.println("Journey was " + getJourneyDistance() + " miles and now he is " + witcher.getCity().getDistance() + " from " + witcher.getCity().getName());
-
-
     }
 }
