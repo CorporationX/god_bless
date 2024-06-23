@@ -62,6 +62,14 @@ public class Player {
         }
     }
 
+    public synchronized static void addTrack(Track track) {
+        synchronized (TRACK_LIST) {
+            synchronized (track) {
+                TRACK_LIST.add(track);
+            }
+        }
+    }
+
     static {
         TRACK_LIST.add(new Track("Stick Stickly"));
         TRACK_LIST.add(new Track("Take One Last Breath"));
