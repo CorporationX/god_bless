@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 @Getter
 public class Knight {
@@ -29,14 +26,7 @@ public class Knight {
     }
 
     public void startTrials() {
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        trials.forEach(trial-> service.submit(()-> trial.run()));
-        service.shutdown();
-        try {
-            service.awaitTermination(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.getStackTrace();
-        }
+        trials.forEach(Trial::run);
     }
 
 }
