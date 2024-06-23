@@ -9,7 +9,9 @@ public class MailSender {
   public static void main(String[] args) {
     ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
     for (int i = 0 ; i < THREADS; i++) {
-      executorService.execute(new SenderRunnable(i * 200 + 1, i * 200 + 1 + 200));
+      int start = i * 200;
+      int end = start + 200;
+      executorService.execute(new SenderRunnable(start, end));
     }
     executorService.shutdown();
     try {
