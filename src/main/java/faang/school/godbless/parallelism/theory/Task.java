@@ -1,4 +1,4 @@
-package faang.school.godbless.theory;
+package faang.school.godbless.parallelism.theory;
 
 import lombok.AllArgsConstructor;
 

@@ -1,4 +1,4 @@
-package faang.school.godbless.theory;
+package faang.school.godbless.parallelism.theory;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;

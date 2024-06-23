@@ -1,4 +1,4 @@
-package faang.school.godbless.google.photo.sync;
+package faang.school.godbless.multithreading.googlephotosync;
 
 import lombok.Getter;
 import lombok.SneakyThrows;

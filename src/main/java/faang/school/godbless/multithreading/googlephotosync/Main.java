@@ -1,4 +1,4 @@
-package faang.school.godbless.google.photo.sync;
+package faang.school.godbless.multithreading.googlephotosync;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
