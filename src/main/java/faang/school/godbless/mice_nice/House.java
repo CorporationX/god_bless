@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @AllArgsConstructor
 public class House {
     private static final int THREAD_QUANTITY = 6;
-    private static final int PLAN_CONSTRUCTION_TIME = 3;
+    private static final int PLAN_CONSTRUCTION_TIME = 30;
     private static final int TIME_OUT = 60;
 
     private Queue<Room> roomList;
