@@ -8,6 +8,7 @@ public class ChatManager {
     private final List<Chat> chats = new ArrayList<>();
 
     private static final int CHAT_TIME_CREATION_MS = 3000;
+    private static final Random random = new Random();
 
     public synchronized void startChat(User user, String message) {
         final UserList userList = new UserList();
@@ -19,7 +20,7 @@ public class ChatManager {
                 throw new RuntimeException("Interrupted while waiting for users to be online", e);
             }
         }
-        final User otherUser = onlineUsers.get(new Random().nextInt(onlineUsers.size()));
+        final User otherUser = onlineUsers.get(random.nextInt(onlineUsers.size()));
         System.out.printf("Starting chat with users: %s and %s with message: %s\n", user.getName(), otherUser.getName(), message);
         try {
             Thread.sleep(CHAT_TIME_CREATION_MS);
