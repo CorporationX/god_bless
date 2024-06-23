@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Knight {
-    String name;
+    private final String name;
     List<Trial> trials;
 
     public Knight(String name) {

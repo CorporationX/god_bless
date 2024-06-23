@@ -3,8 +3,8 @@ package faang.school.godbless;
 import java.util.Random;
 
 public class Trial implements Runnable {
-    String knightName;
-    String trialName;
+    private final String knightName;
+    private final String trialName;
 
     public Trial(String knightName, String trialName) {
         this.knightName = knightName;
@@ -18,7 +18,7 @@ public class Trial implements Runnable {
             Thread.sleep(new Random().nextInt(10000) + 1000);
             System.out.printf("%s finished the trial: %s\n", knightName, trialName);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException(String.format("Knight %s was interrupted on the trial: %s\n", knightName, trialName), e);
         }
     }
 }
