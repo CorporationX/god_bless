@@ -1,5 +1,6 @@
 package faang.school.godbless.multithreading.way;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -34,21 +35,13 @@ public class CityWorker implements Runnable {
 
     public Monster findNearestMonster() {
         return monsters.stream()
-                .sorted((m1, m2) -> {
+                .sorted(Comparator.comparingDouble(m -> {
                     try {
-                        double result = calculateDistance(nameCities.get(m1.cityName()).location(), city.location())
-                                - calculateDistance(nameCities.get(m2.cityName()).location(), city.location());
-                        if (result > 0) {
-                            return 1;
-                        } else if (result < 0) {
-                            return -1;
-                        } else {
-                            return 0;
-                        }
+                        return calculateDistance(nameCities.get(m.cityName()).location(), city.location());
                     } catch (NullPointerException e) {
-                        throw new NullPointerException("\nВведенного города '" + m1.cityName() + "' нет в списке городов");
+                        throw new NullPointerException("\nВведенного города '" + m.cityName() + "' нет в списке городов");
                     }
-                })
+                }))
                 .limit(1)
                 .toList().get(0);
     }
