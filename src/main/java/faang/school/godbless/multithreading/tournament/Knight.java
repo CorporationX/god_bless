@@ -6,9 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 
 @RequiredArgsConstructor
 @Getter
@@ -24,15 +22,8 @@ public class Knight {
     public void startTrials(ExecutorService threadPool) {
         synchronized (trials) {
             for (Trial trial : trials) {
-                Future<?> future = threadPool.submit(trial);
-                try {
-                    future.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
+                threadPool.execute(trial);
             }
         }
     }
-
 }
