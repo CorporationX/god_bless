@@ -11,33 +11,39 @@ import java.util.List;
 @AllArgsConstructor
 public class Army {
 
-    private List<Character> armies;
+    private List<Character> characters;
 
     public Army() {
-        this.armies = new ArrayList<>();
+        this.characters = new ArrayList<>();
     }
 
     public int calculateTotalPower() {
         List<CharacterThread> characterThreads = new ArrayList<>();
-        armies.forEach(character -> characterThreads.add(new CharacterThread(character, character.getPower())));
+        characters.forEach(character -> characterThreads.add(new CharacterThread(character, character.getPower())));
         return getTotalPower(characterThreads);
     }
 
     private int getTotalPower(List<CharacterThread> characterThreads) {
-        int totalPower = 0;
         for (CharacterThread characterThread : characterThreads) {
             characterThread.start();
+        }
+        return calculatePower(characterThreads);
+    }
+
+    private int calculatePower(List<CharacterThread> characterThreads) {
+        int totalPower = 0;
+        for (CharacterThread characterThread : characterThreads) {
             try {
                 characterThread.join();
+                totalPower += characterThread.getPower();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            totalPower += characterThread.getPower();
         }
         return totalPower;
     }
 
     public void addUnit(@NonNull Character character) {
-        armies.add(character);
+        characters.add(character);
     }
 }
