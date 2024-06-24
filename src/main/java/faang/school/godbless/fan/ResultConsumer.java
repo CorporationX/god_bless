@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicLong;
@@ -30,16 +29,7 @@ public class ResultConsumer {
             int finalInt = i;
             futureList.add(CompletableFuture.supplyAsync(() -> longTimeSquare(finalInt), executor).thenAccept(atomicLong::getAndAdd));
         }
-        futureList.forEach(future -> {
-            try {
-                future.get();
-            } catch (InterruptedException | ExecutionException e) {
-                // Когда получается такая болльшая строчка, то ее стоит разрывать или оставлять как есть?
-                // Просто когда мы разрывает строку то это делается через конкернацию, следственно дополнительные
-                // затраты памяти. Что считается лучшей практикой в током случае?
-                throw new RuntimeException("Error while waiting to receive results from asynchronous operations from List in the fanOutFanIn method of the ResultConsumer class", e);
-            }
-        });
+        futureList.forEach(CompletableFuture::join);
         return atomicLong.get();
     }
 
