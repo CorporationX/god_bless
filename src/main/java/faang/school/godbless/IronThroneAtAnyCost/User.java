@@ -17,22 +17,16 @@ public class User {
     //private final Object lock = new Object();
 
     public synchronized void joinHouse(House house) {
-            List<String> avaliableRoles = house.getAvaliableRoles();
-            if (house.getNumOfAvaliableRoles() <= 0) {
-                log.info(this.name + " is waiting");
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException("available.wait() in joinHouse was interrupted while waiting " + e);
-                }
-            } else {
-                this.role = avaliableRoles.get(RANDOM.nextInt(avaliableRoles.size()));
-                this.house = house;
-                this.houseName = house.getName();
-                log.info(this.name + " got role " + this.role + " in " + this.houseName + "'s house");
-                house.addRole(this.role);
-            }
-            inHouseAction();
+        List<String> avaliableRoles = house.getAvaliableRoles();
+        if (house.getNumOfAvaliableRoles() <= 0) {
+            userIsWaiting();
+        }
+        String choosenRole = avaliableRoles.get(RANDOM.nextInt(avaliableRoles.size()));
+        if (!avaliableRoles.contains(choosenRole)) {
+            userIsWaiting();
+        }
+        setUserData(house, choosenRole);
+        inHouseAction();
     }
 
     public void inHouseAction() {
@@ -46,10 +40,35 @@ public class User {
     }
 
     public synchronized void leaveHouse() {
-            List<String> avaliableRoles = this.house.getAvaliableRoles();
+            //List<String> avaliableRoles = this.house.getAvaliableRoles();
             house.removeRole(role);
+            clearUserData();
             log.info(this.name + " leaved " + this.houseName + "'s house");
             notifyAll();
+    }
+
+    public void clearUserData() {
+        this.house = null;
+        this.role = null;
+        this.houseName = null;
+    }
+
+    public void userIsWaiting() {
+        log.info(this.name + " is waiting");
+        try {
+            wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException("available.wait() in joinHouse was interrupted while waiting " + e);
+        }
+    }
+
+    public void setUserData(House house, String choosenRole) {
+        this.role = choosenRole;
+        //this.role = avaliableRoles.get(avaliableRoles.size() - 1);
+        this.house = house;
+        this.houseName = house.getName();
+        log.info(this.name + " got role " + this.role + " in " + this.houseName + "'s house");
+        house.addRole(this.role);
     }
 
     public User(String name) {

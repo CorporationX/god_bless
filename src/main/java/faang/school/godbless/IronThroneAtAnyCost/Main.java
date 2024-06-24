@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 public class Main {
-    private static final int NUM_THREADS = 1;
+    private static final int NUM_THREADS = 3;
     //private static final Random RANDOM = new Random();
     //private static final ExecutorService execute = Executors.newFixedThreadPool(NUM_THREADS);
 
