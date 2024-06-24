@@ -4,19 +4,25 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class MailSender {
+    private static final int THREAD_NUMS = 5;
+    private static final int QUANTITY = 1010;
+
     public static void main(String[] args) {
-        int threadNums = 5;
-        int count=0;
+        int count = 0;
         int n = 0;
-        for (int i=0; i<=1000+(threadNums-1);i++){
-            count ++;
-            if (count==200){
-                var thread = new Thread(new SenderRunnable(i-199+n,i+1+n) );
+        for (int i = 0; i <= QUANTITY + (THREAD_NUMS - 1); i++) {
+            count++;
+            if (count == 200) {
+                var thread = new Thread(new SenderRunnable(i - 199 + n, i + 1 + n));
                 n++;
-                count=0;
+                count = 0;
                 thread.start();
             }
+            if (n == THREAD_NUMS && i < QUANTITY + (THREAD_NUMS - 1)) {
+                var thread = new Thread(new SenderRunnable((i + 1 + n), QUANTITY + (THREAD_NUMS - 1)));
+                thread.start();
+                break;
+            }
         }
-        System.out.println("All thread were launched");
     }
 }
