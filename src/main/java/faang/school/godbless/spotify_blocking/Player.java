@@ -1,12 +1,14 @@
 package faang.school.godbless.spotify_blocking;
 
-import java.util.ArrayList;
+import lombok.Getter;
+
 import java.util.List;
 
+@Getter
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying;
-    List<String> tracks = new ArrayList<>();
+    private final List<String> playList = List.of("track 1", "track 2", "track 3", "track 4", "track 5");
 
     public void play(String trackName) throws InterruptedException {
         synchronized (lock) {
