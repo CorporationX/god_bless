@@ -6,23 +6,18 @@ import lombok.RequiredArgsConstructor;
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
-    private Object lock = new Object();
 
-    public void joinBattle(Player player) throws InterruptedException {
-        synchronized (lock) {
-            if (currentPlayers == maxPlayers) {
-                lock.wait();
-            }
-            currentPlayers++;
-            System.out.println("Player " + player.getName() + " join battle");
+    public synchronized void joinBattle(Player player) throws InterruptedException {
+        if (currentPlayers == maxPlayers) {
+            wait();
         }
+        currentPlayers++;
+        System.out.println("Player " + player.getName() + " join battle");
     }
 
-    public void finishBattle(Player player) throws InterruptedException {
-        synchronized (lock) {
-            currentPlayers--;
-            lock.notify();
-            System.out.println("Player " + player.getName() + " finish battle");
-        }
+    public synchronized void finishBattle(Player player) throws InterruptedException {
+        currentPlayers--;
+        notify();
+        System.out.println("Player " + player.getName() + " finish battle");
     }
 }
