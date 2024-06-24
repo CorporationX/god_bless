@@ -43,9 +43,7 @@ public class CityWorker implements Runnable {
 
     private Optional<Monster> considerTheNearestMonster(City city, List<Monster> monsters) {
         return monsters.stream()
-                .min(Comparator.comparingDouble(i -> Math.sqrt(Math.pow(
-                        (city.getLocation().getX() - i.getLocation().getX()), 2) +
-                        Math.pow((city.getLocation().getY() - i.getLocation().getY()), 2))));
+                .min(Comparator.comparingDouble(i -> distanceBetweenMonsterAndCity(i, city)));
     }
 
     private long distanceBetweenMonsterAndCity(Monster monster, City city) {
