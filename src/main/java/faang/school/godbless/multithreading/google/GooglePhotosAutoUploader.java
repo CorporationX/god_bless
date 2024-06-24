@@ -22,11 +22,7 @@ public class GooglePhotosAutoUploader {
                 }
             }
             photosToUpload.add(photo);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(1000);
             System.out.println("Adding " + photo.name());
             photosToUpload.notifyAll();
         }
@@ -44,11 +40,7 @@ public class GooglePhotosAutoUploader {
                     }
                 }
                 uploadPhotos();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                sleep(1000);
                 photosToUpload.notifyAll();
             }
         }
@@ -59,8 +51,12 @@ public class GooglePhotosAutoUploader {
         if (photo != null) {
             System.out.printf("%s is uploaded.\n", photo.name());
         }
+        sleep(1000);
+    }
+
+    private static void sleep(int time) {
         try {
-            Thread.sleep(1000);
+            Thread.sleep(time);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
