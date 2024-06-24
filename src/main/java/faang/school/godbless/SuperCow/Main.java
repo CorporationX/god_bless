@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        Boss boss = new Boss(10, 0, new Object());
+        Boss boss = new Boss(10, 0);
         List<Player> players = List.of(
                 new Player("Player 1"), new Player("Player 2"),
                 new Player("Player3"), new Player("Player 4"),
