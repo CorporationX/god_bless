@@ -1,17 +1,22 @@
 package faang.school.godbless;
 
+import java.util.Arrays;
+
 public class MailSender {
+    private static final int BATCH = 200;
     public static void main(String[] args) {
-        Thread thread = null;
+        Thread [] thread = new Thread[5];
         for (int i = 0; i < 5; i++) {
-            int startIndex = i * 200 + 1;
-            int endIndex = (i + 1) * 200;
+            int startIndex = i * BATCH + 1;
+            int endIndex = (i + 1) * BATCH;
             SenderRunnable sender = new SenderRunnable(startIndex, endIndex);
-            thread = new Thread(sender);
-            thread.start();
+            thread[i] = new Thread(sender);
+            thread[i].start();
         }
         try {
-            thread.join();
+            for (int i = 0; i < 5; i++) {
+                thread[i].join();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
