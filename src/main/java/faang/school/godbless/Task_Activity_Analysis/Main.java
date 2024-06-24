@@ -10,10 +10,10 @@ public class Main {
     private static final List<UserAction> ALL_ACTIONS;
 
     public static void main(String[] args) {
-        System.out.println("top 10 active user's ids: " + Application.findTheMostActiveUsers(ALL_ACTIONS));
-        System.out.println("top 5 popular hashtags: " + Application.findPopularTopics(ALL_ACTIONS));
-        System.out.println("top 3 commentators' ids: " + Application.findTopCommentators(ALL_ACTIONS));
-        System.out.println("structure of action types: " + Application.calculatePercentsOfActions(ALL_ACTIONS));
+        System.out.println("top active user's ids: " + Application.findTheMostActiveUsers(ALL_ACTIONS,10));
+        System.out.println("top popular hashtags: " + Application.findPopularTopics(ALL_ACTIONS, 4));
+        System.out.println("top commentators' ids: " + Application.getTopCommentators(ALL_ACTIONS, 3, 1));
+        System.out.println("structure (%) of actions types: " + Application.getStructure(ALL_ACTIONS));
     }
 
     static {
