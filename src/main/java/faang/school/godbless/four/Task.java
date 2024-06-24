@@ -1,7 +1,12 @@
 package faang.school.godbless.four;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
 public class Task {
     private String name;
-    private String difficulty;
-    private String reward;
+    private int difficulty;
+    @Getter
+    private int reward;
 }
