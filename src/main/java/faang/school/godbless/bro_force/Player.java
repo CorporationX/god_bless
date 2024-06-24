@@ -1,10 +1,12 @@
 package faang.school.godbless.bro_force;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
 public class Player {
     private String name;
+    @Setter
     private boolean isAlive;
 
     public Player(String name) {

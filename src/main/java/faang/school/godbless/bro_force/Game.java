@@ -9,7 +9,8 @@ import java.util.Random;
 public class Game {
     private int score = 0;
     private int lives = 0;
-    private Object lock = new Object();
+    private Object scoreLock = new Object();
+    private Object livesLock = new Object();
     private List<Player> players = new ArrayList<>();
     private Random random = new Random();
 
@@ -22,7 +23,7 @@ public class Game {
 
         for (Player player : players) {
             if (player.isAlive()) {
-                synchronized (lock) {
+                synchronized (scoreLock) {
                     score++;
                     lives--;
                     System.out.printf("%s: %s scored!\n", Thread.currentThread().getName(), player.getName());
@@ -34,7 +35,9 @@ public class Game {
     }
 
     public void addPlayer(@NonNull Player player) {
-        players.add(player);
-        lives++;
+        synchronized (livesLock) {
+            players.add(player);
+            lives++;
+        }
     }
 }
