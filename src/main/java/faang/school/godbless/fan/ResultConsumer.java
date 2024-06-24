@@ -34,6 +34,9 @@ public class ResultConsumer {
             try {
                 future.get();
             } catch (InterruptedException | ExecutionException e) {
+                // Когда получается такая болльшая строчка, то ее стоит разрывать или оставлять как есть?
+                // Просто когда мы разрывает строку то это делается через конкернацию, следственно дополнительные
+                // затраты памяти. Что считается лучшей практикой в током случае?
                 throw new RuntimeException("Error while waiting to receive results from asynchronous operations from List in the fanOutFanIn method of the ResultConsumer class", e);
             }
         });
