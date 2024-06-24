@@ -15,6 +15,7 @@ public class Boss {
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
+        System.out.println("Hello");
     }
 
 
