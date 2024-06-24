@@ -8,11 +8,12 @@ import java.util.concurrent.ThreadLocalRandom;
 public class MasterCardService {
     private final int COLLECT_PAYMENT_TAKING_TIME = 10_000;
     private final int SEND_ANALYTICS_TAKING_TIME = 1_000;
+    private final int DATA_NUMBER_UPPER_BOUND = 10_000;
 
     public int collectPayment() {
         try {
             Thread.sleep(COLLECT_PAYMENT_TAKING_TIME);
-            return ThreadLocalRandom.current().nextInt(1000, 10000);
+            return ThreadLocalRandom.current().nextInt(DATA_NUMBER_UPPER_BOUND);
         } catch (InterruptedException e) {
             log.warn("Caught an exception during collectingPayment: " + e.getMessage());
             throw new RuntimeException("Caught an InterruptedException during collectingPayment: " + e.getMessage());
@@ -22,7 +23,7 @@ public class MasterCardService {
     public int sendAnalytics() {
         try {
             Thread.sleep(SEND_ANALYTICS_TAKING_TIME);
-            return ThreadLocalRandom.current().nextInt(1000, 10000);
+            return ThreadLocalRandom.current().nextInt(DATA_NUMBER_UPPER_BOUND);
         } catch (InterruptedException e) {
             log.warn("Caught an exception during collectingPayment: " + e.getMessage());
             throw new RuntimeException("Caught an InterruptedException during collectingPayment: " + e.getMessage());
