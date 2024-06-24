@@ -15,7 +15,6 @@ public class MasterCardService {
             Thread.sleep(COLLECT_PAYMENT_TAKING_TIME);
             return ThreadLocalRandom.current().nextInt(DATA_NUMBER_UPPER_BOUND);
         } catch (InterruptedException e) {
-            log.warn("Caught an exception during collectingPayment: " + e.getMessage());
             throw new RuntimeException("Caught an InterruptedException during collectingPayment: " + e.getMessage());
         }
     }
@@ -25,8 +24,7 @@ public class MasterCardService {
             Thread.sleep(SEND_ANALYTICS_TAKING_TIME);
             return ThreadLocalRandom.current().nextInt(DATA_NUMBER_UPPER_BOUND);
         } catch (InterruptedException e) {
-            log.warn("Caught an exception during collectingPayment: " + e.getMessage());
-            throw new RuntimeException("Caught an InterruptedException during collectingPayment: " + e.getMessage());
+            throw new RuntimeException("Caught an InterruptedException during sendingAnalytics: " + e.getMessage());
         }
     }
 }
