@@ -13,12 +13,12 @@ import java.util.Random;
 public class Game {
     private int score;
     private int lives;
-    private boolean isPlaying = true;
     private List<Player> players = new ArrayList<>();
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
     private final int MAX_RANDOM_SCORE = 3;
-
+    private Random random = new Random();
+    private int countActivePlayer = 0;
 
     public void update() {
         Player player = getRandomPlayer();
@@ -28,18 +28,20 @@ public class Game {
 
     public void addPlayer(Player player) {
         players.add(player);
+        countActivePlayer++;
     }
 
     private Player getRandomPlayer() {
         if (!players.isEmpty()) {
-            return players.get(new Random().nextInt(players.size()));
+            return players.get(random.nextInt(players.size()));
         } else {
             throw new NoSuchElementException("No player selected");
         }
     }
 
     private void gameOver(Player player) {
-        log.info(String.format("%s game over! Score: %d. Lost lives: %d", player.getName(), this.getScore(), this.getLives()));
+        log.info(String.format("%s game over! Current all score: %d. All lost players lives: %d",
+                player.getName(), this.getScore(), this.getLives()));
     }
 
     private int getRandomScore() {
@@ -52,12 +54,12 @@ public class Game {
                 int randomScore = getRandomScore();
                 player.setScore(player.getScore() + randomScore);
                 score += randomScore;
+                log.info(String.format("%s earned score:%d", player.getName(), player.getScore()));
             }
         }
     }
 
     private void increaseLives(Player player) {
-        int numberOfActivePlayers = players.size();
         synchronized (livesLock) {
             if (player.isAlive()) {
                 player.setLives(player.getLives() - 1);
@@ -65,11 +67,8 @@ public class Game {
                 log.info(player.getName() + " lives: " + player.getLives());
                 if (player.getLives() == 0) {
                     player.setAlive(false);
-                    --numberOfActivePlayers;
+                    countActivePlayer--;
                     gameOver(player);
-                    if (numberOfActivePlayers == 0) {
-                        isPlaying = false;
-                    }
                 }
             }
         }
