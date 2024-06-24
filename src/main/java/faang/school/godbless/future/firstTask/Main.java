@@ -1,4 +1,4 @@
-package faang.school.godbless.future;
+package faang.school.godbless.future.firstTask;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
