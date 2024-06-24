@@ -12,11 +12,7 @@ public class Player {
             if (!isPlaying) {
                 isPlaying = true;
                 System.out.println("Music is playing.");
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                }
+                sleep(2000);
             }
         }
     }
@@ -34,67 +30,53 @@ public class Player {
         synchronized (lock) {
             isPlaying = true;
             System.out.println("Next track is playing");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(1000);
         }
     }
     public void previous() {
         synchronized (lock) {
             isPlaying = true;
             System.out.println("Previous track is playing");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(1000);
         }
     }
-
     public static void main(String[] args) throws InterruptedException {
         Player player = new Player();
         ExecutorService threadPool = Executors.newFixedThreadPool(4);
 
         threadPool.submit(() -> {
-            try {
-                Thread.sleep(500);
-                player.play();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(500);
+            player.play();
         });
 
         threadPool.submit(() -> {
-            try {
-                Thread.sleep(1000);
-                player.pause();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(1000);
+            player.pause();
         });
 
         threadPool.submit(() -> {
-            try {
-                Thread.sleep(1500);
-                player.skip();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(1500);
+            player.skip();
         });
 
         threadPool.submit(() -> {
-            try {
-                Thread.sleep(2000);
-                player.previous();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            sleep(2000);
+            player.previous();
+
         });
 
         threadPool.shutdown();
         threadPool.awaitTermination(5, TimeUnit.SECONDS);
     }
+
+    private static void sleep(int millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+
 }
 
