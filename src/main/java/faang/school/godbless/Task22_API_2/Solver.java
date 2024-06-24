@@ -1,4 +1,4 @@
-package faang.school.godbless.Task_API_2;
+package faang.school.godbless.Task22_API_2;
 
 import lombok.NoArgsConstructor;
 

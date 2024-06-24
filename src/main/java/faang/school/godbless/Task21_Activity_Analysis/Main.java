@@ -1,4 +1,4 @@
-package faang.school.godbless.Task_Activity_Analysis;
+package faang.school.godbless.Task21_Activity_Analysis;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
