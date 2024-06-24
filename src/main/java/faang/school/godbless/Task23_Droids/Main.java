@@ -1,4 +1,4 @@
-package faang.school.godbless.Droids;
+package faang.school.godbless.Task23_Droids;
 
 public class Main {
     public static void main(String[] args) {

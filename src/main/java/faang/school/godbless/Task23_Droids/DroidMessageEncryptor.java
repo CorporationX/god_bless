@@ -1,4 +1,4 @@
-package faang.school.godbless.Droids;
+package faang.school.godbless.Task23_Droids;
 
 @FunctionalInterface
 public interface DroidMessageEncryptor {

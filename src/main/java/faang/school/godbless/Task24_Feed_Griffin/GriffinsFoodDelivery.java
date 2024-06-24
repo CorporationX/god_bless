@@ -1,4 +1,4 @@
-package faang.school.godbless.Feed_Griffin;
+package faang.school.godbless.Task24_Feed_Griffin;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
