@@ -8,16 +8,39 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserList users = new UserList(List.of(new User("John", true, true),
-                new User("Ann", true, true),
-                new User("Toma", false, true)));
+        User john = new User("John", true, true);
+        User ann = new User("Ann", true, true);
+        User toma = new User("Toma", true, true);
 
+        UserList users = new UserList(List.of(john, ann, toma));
 
         ChatManager chatManager = new ChatManager(users);
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        executor.execute(() -> chatManager.startChat(new User("Bob", true, true)));
+        executor.execute(() -> {
+            try {
+                chatManager.startChat(new User("Bob", true, true));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        executor.execute(() -> {
+            try {
+                chatManager.startChat(ann);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        executor.execute(() -> {
+            try {
+                chatManager.startChat(toma);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
 
         executor.shutdown();
 
