@@ -11,6 +11,7 @@ public class MasterCardService {
         CompletableFuture completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
         System.out.println("Future: " + future.get());
         System.out.println("CompletableFuture: " + future.get());
+        executorService.shutdown();
     }
 
     static int collectPayment() {
