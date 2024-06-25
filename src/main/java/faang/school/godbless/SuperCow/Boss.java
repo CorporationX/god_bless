@@ -3,7 +3,6 @@ package faang.school.godbless.SuperCow;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@Data
 @AllArgsConstructor
 public class Boss {
     private int maxPlayers;
