@@ -10,7 +10,6 @@ public class MasterCard implements CardService {
             Thread.sleep(10_000);
             return 10_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
             throw new RuntimeException();
         }
     }
@@ -21,7 +20,6 @@ public class MasterCard implements CardService {
             Thread.sleep(1_000);
             return 1_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
             throw new RuntimeException();
         }
     }
