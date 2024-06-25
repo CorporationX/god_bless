@@ -5,7 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
-    private  final static int POOL_SIZE = 2;
+    private final static int POOL_SIZE = 2;
+    private final static long PLAYING_TIME = 100;
+
     public static void main(String[] args) throws InterruptedException {
         List<Role> roles = List.of(Role.LORD, Role.KNIGHT, Role.MAGE);
         House house = new House("Stark", roles);
@@ -22,6 +24,7 @@ public class Main {
                     });
                     executorService.submit(user::leaveHouse);
                 });
+        Thread.sleep(PLAYING_TIME);
         executorService.shutdown();
     }
 

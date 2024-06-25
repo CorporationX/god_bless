@@ -11,23 +11,21 @@ public class User {
     private Role role;
     private final Object lock = new Object();
 
-    public synchronized void joinHouse() throws InterruptedException {
-
-        if (house.getCountActiveRole() == 0) {
-            lock.wait();
+    public void joinHouse() throws InterruptedException {
+        synchronized (lock) {
+            if (house.getAvailableRoles().isEmpty()) {
+                lock.wait();
+            }
+            log.info(String.format("%s join house with role:%s", name, role.name()));
+            house.addRole(role);
         }
-        house.addRole(role);
-        log.info(String.format("%s join house with role:%s", name, role.name()));
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (lock) {
-            if (house.getMaxCountRole() != 0) {
-                house.removeRole(role);
-                log.info(String.format("%s leave this house", name));
-                lock.notifyAll();
-            }
+            log.info(String.format("%s leave this house", name));
+            house.removeRole(role);
+            lock.notifyAll();
         }
-
     }
 }
