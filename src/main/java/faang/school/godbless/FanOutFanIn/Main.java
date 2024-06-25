@@ -1,6 +1,5 @@
 package faang.school.godbless.FanOutFanIn;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import java.util.stream.LongStream;
