@@ -5,7 +5,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class QuestSystem {
-
     private static final int THREAD_COUNT = 2;
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_COUNT);
 
