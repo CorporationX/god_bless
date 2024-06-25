@@ -9,8 +9,8 @@ public class Point {
     private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 
     public Point() {
-        this.x = RANDOM.nextDouble(0.0, 1.0);
-        this.y = RANDOM.nextDouble(0.0, 1.0);
+        this.x = RANDOM.nextDouble(-1.0, 1.0);
+        this.y = RANDOM.nextDouble(-1.0, 1.0);
     }
 
     public boolean isInside() {
