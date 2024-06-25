@@ -1,8 +1,5 @@
 package faang.school.godbless.sync.supercow;
 
-import lombok.Data;
-
-@Data
 public class Boss {
 
     private final Object lock = new Object();
@@ -24,9 +21,9 @@ public class Boss {
             currentPlayers++;
             System.out.printf("Great, %s! The battle begins!%n", player.name());
         }
+    }
 
-        Thread.sleep(1000);
-
+    public void exitBattle(Player player) {
         synchronized (lock) {
             System.out.printf("Good, %s! Your part is done.%n", player.name());
             currentPlayers--;
