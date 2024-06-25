@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.regex.Pattern;
@@ -28,8 +29,6 @@ public class StreamApiExercises {
 
         return preparedNumbers.stream()
                 .flatMap(num1 -> {
-                    // Обрезаю массив, чтобы каждый раз не бегать заново по всему массиву,
-                    // а только со следующего числа после num1
                     List<Integer> slicedNumbers = preparedNumbers.subList(preparedNumbers.indexOf(num1) + 1, preparedNumbers.size());
 
                     return slicedNumbers.stream()
@@ -107,11 +106,10 @@ public class StreamApiExercises {
                     .mapToInt(Employee::salary)
                     .average();
 
-            if (averageDepartmentSalary.isPresent()) {
-                salaryByDepartment.put(department, (int) averageDepartmentSalary.getAsDouble());
-            } else {
-                salaryByDepartment.put(department, 0);
-            }
+            averageDepartmentSalary.ifPresentOrElse(
+                    (averageSalary) -> salaryByDepartment.put(department, (int) averageSalary),
+                    () -> salaryByDepartment.put(department, 0)
+            );
         });
 
 
@@ -149,21 +147,24 @@ public class StreamApiExercises {
      * в заданном диапазоне. На вход получаем число для начала диапазона и число для второй границы диапазона.
      */
     public static List<Integer> findIntegerPalindromes(int start, int end) {
-        // Мудрить с генерация чисел-палидромов не стал, перебрал в лоб, сорий
         return IntStream.range(start, end)
-                .filter(num -> {
-                    String str = String.valueOf(num);
-
-                    if (str.length() < 2) {
-                        return false;
-                    }
-
-                    String reversed = new StringBuilder(str).reverse().toString();
-
-                    return str.equals(reversed);
-                })
+                .filter(StreamApiExercises.isPalindrome()::test)
                 .boxed()
                 .toList();
+    }
+
+    private static Predicate<Integer> isPalindrome() {
+        return num -> {
+            String str = String.valueOf(num);
+
+            if (str.length() < 2) {
+                return false;
+            }
+
+            String reversed = new StringBuilder(str).reverse().toString();
+
+            return str.equals(reversed);
+        };
     }
 
     /**
@@ -186,8 +187,6 @@ public class StreamApiExercises {
      * в заданном диапазоне. На вход получаем число для начала диапазона и число для второй границы диапазона.
      */
     public static List<Integer> getPerfectNumbersWithinRange(int start, int end) {
-        // Остальные совершенные числа больше Integer.MAX_VALUE
-        // Я так понимаю, что в Java нет возможности указывать числа больше Integer.MAX_VALUE
         List<Integer> knownPerfectNumbers = List.of(6, 28, 496, 8128, 33550336);
 
         return knownPerfectNumbers.stream()
