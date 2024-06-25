@@ -2,8 +2,6 @@ package faang.school.godbless.data.service;
 
 import faang.school.godbless.domain.service.CardService;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MasterCard implements CardService {
     @Override
