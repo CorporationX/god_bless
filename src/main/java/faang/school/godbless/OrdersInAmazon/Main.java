@@ -13,14 +13,13 @@ public class Main {
 
     public static void main(String[] args) {
         OrderProcessor orderProcessor = new OrderProcessor();
-        List<Order> orders = createOrders(COUNT_ORDER);
-        orderProcessing(orders, orderProcessor);
+        orderProcessing(createOrders(COUNT_ORDER), orderProcessor);
         System.out.println(orderProcessor.getTotalProcessedOrders().get());
         executorService.shutdown();
     }
 
     private static void orderProcessing(List<Order> orderList, OrderProcessor orderProcessor) {
-        List<CompletableFuture<Void>> o = orderList.stream()
+        List<CompletableFuture<Void>> futures = orderList.stream()
                 .map(i -> CompletableFuture.runAsync(
                                 () -> orderProcessor.processOrder(i), executorService)
                         .handle((result, ex) -> {
@@ -30,7 +29,7 @@ public class Main {
                             return result;
                         }))
                 .toList();
-        CompletableFuture.allOf(o.toArray(new CompletableFuture[0])).join();
+        futures.forEach(CompletableFuture::join);
     }
 
     private static List<Order> createOrders(int count) {
