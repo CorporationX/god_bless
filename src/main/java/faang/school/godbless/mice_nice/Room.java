@@ -3,11 +3,11 @@ package faang.school.godbless.mice_nice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.Queue;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 public class Room {
     private String roomName;
-    private Queue<Food> roomFoodList;
+    private List<Food> roomFoodList;
 }
