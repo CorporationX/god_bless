@@ -1,4 +1,4 @@
-package faang.school.godbless.fallout_fallin;
+package faang.school.godbless.fan_out_fan_in;
 
 import java.util.List;
 import java.util.Set;
