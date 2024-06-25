@@ -6,11 +6,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import static faang.school.godbless.YoutubeWatches.VideoManager.NUM_THREADS;
-import static faang.school.godbless.YoutubeWatches.VideoManager.NUM_VIDEOS;
-
 public class Main {
     public static void main(String[] args) {
+        final int NUM_THREADS = 20;
+        final int NUM_VIDEOS = 10;
         VideoManager videoManager = new VideoManager();
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
@@ -28,7 +27,7 @@ public class Main {
             }
         }
 
-    executor.shutdown();
+        executor.shutdown();
 
         try {
             if (!executor.awaitTermination(10, TimeUnit.SECONDS)){
@@ -38,10 +37,6 @@ public class Main {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-
-
-
-        System.out.println(videoManager.getViewsMap());
     }
 }
 

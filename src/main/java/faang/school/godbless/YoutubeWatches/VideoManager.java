@@ -6,12 +6,8 @@ import lombok.Getter;
 import java.util.HashMap;
 import java.util.Map;
 
-@Getter
 public class VideoManager {
     private Map<String, Integer> viewsMap = new HashMap<>();
-
-    public static final int NUM_THREADS = 20;
-    public static final int NUM_VIDEOS = 10;
 
     public synchronized void addView(String videoId){
         int currentViews = viewsMap.getOrDefault(videoId, 0);
@@ -21,10 +17,5 @@ public class VideoManager {
     public synchronized int getViewCount(String videoId){
         return viewsMap.getOrDefault(videoId, 0);
     }
-
-
-
-
-
 
 }
