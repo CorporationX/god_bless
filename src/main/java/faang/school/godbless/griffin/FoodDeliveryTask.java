@@ -1,6 +1,6 @@
 package faang.school.godbless.griffin;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 public record FoodDeliveryTask(String character, int foodAmount) implements Runnable {
     @Override
@@ -18,6 +18,7 @@ public record FoodDeliveryTask(String character, int foodAmount) implements Runn
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        int rand = new SecureRandom().nextInt(foodTypes.length);
+        return foodTypes[rand];
     }
 }
