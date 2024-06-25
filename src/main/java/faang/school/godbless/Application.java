@@ -8,13 +8,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 public class Application {
 
     private final static int POOL_SIZE = 2;
+    private final static int AWAIT_THRESHOLD_SEC = 11;
 
     public static void main(String[] args) {
-        long duration = measurement(() -> doAll());
+        System.out.println("Application started");
+
+        long duration = measurement(Application::doAll);
 
         System.out.println("Execution time:" + duration + " ms");
     }
@@ -22,23 +27,26 @@ public class Application {
     private static void doAll() {
         CardService cardService = new MasterCard();
 
-        try (var pool = Executors.newFixedThreadPool(POOL_SIZE)) {
+        var pool = Executors.newFixedThreadPool(POOL_SIZE);
 
-            Future<Integer> paymentFuture = pool.submit(cardService::collectPayment);
+        Future<Integer> paymentFuture = pool.submit(cardService::collectPayment);
 
-            CompletableFuture.supplyAsync(cardService::sendAnalytics, pool)
-                    .thenAccept(analytics -> {
-                        System.out.println("Analytics:" + analytics);
-                        try {
-                            int payment = paymentFuture.get();
-                            System.out.println("Payment:" + payment);
-                        } catch (InterruptedException | ExecutionException | CancellationException e) {
-                            throw new RuntimeException(e);
-                        }
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(cardService::sendAnalytics, pool);
+
+        analyticsFuture.thenAccept(analytics -> {
+                    System.out.println("Analytics: " + analytics);
+                    try {
+                        int payment = paymentFuture.get(AWAIT_THRESHOLD_SEC, TimeUnit.SECONDS);
+                        System.out.println("Payment: " + payment);
+                    } catch (InterruptedException | ExecutionException | CancellationException | TimeoutException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).exceptionally(ex -> {
+                    throw new RuntimeException(ex);
+                })
+                .join();
+
+        pool.shutdown();
     }
 
     private static long measurement(Runnable task) {
