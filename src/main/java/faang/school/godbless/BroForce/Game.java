@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
-
 public class Game {
     private int score;
     private int lives;
@@ -43,17 +42,13 @@ public class Game {
 
     private void checkIfDeath(){
         if (lives <= 0){
-            handleDeath();
+            gameOver();
         }
     }
 
-    private void handleDeath(){
-        gameOver();
-    }
 
     private void gameOver(){
         System.out.println("The game is over");
     }
-
 
 }
