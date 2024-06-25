@@ -2,8 +2,13 @@ package faang.school.godbless.sprint_3.multithreading_parallelism_thread.task_6_
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class King {
+    public static final String MSG_FINISH = "Турнир окончен.";
+    public static final String MSG_ERROR = "Работа программы прервана.";
+    public static final int TIME_OUT = 20;
+
     public static void main(String[] args) {
         int numberCompetitors = 2;
         ExecutorService executorService = Executors.newFixedThreadPool(numberCompetitors);
@@ -31,8 +36,12 @@ public class King {
         }
 
         executorService.shutdown();
-        while (!executorService.isTerminated()) ;
+        try {
+            executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(MSG_ERROR);
+        }
 
-        System.out.println("конец");
+        System.out.println(MSG_FINISH);
     }
 }
