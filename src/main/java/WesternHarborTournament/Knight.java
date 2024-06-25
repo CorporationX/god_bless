@@ -18,7 +18,7 @@ public class Knight {
     private static final int AMOUNT_TREAD = 2;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(AMOUNT_TREAD);
 
-    public static void addTrail(@NonNull Trial trial) {
+    public void addTrail(@NonNull Trial trial) {
         trials.add(trial);
     }
 
@@ -27,7 +27,7 @@ public class Knight {
             trials.forEach(executorService::submit);
             executorService.shutdown();
         } else {
-            throw new NullPointerException("No available trials");
+            throw new IllegalArgumentException("No available trials");
         }
     }
 }

@@ -5,10 +5,10 @@ public class King {
         Knight charles = new Knight("Charles");
         Knight robert = new Knight("Robert");
 
-        Knight.addTrail(new Trial(charles.getName(), "The Trial of Strength"));
-        Knight.addTrail(new Trial(robert.getName(), "The Trial of Courage"));
-        Knight.addTrail(new Trial(charles.getName(), "The Trial of Wisdom"));
-        Knight.addTrail(new Trial(robert.getName(), "The Trial of Virtue"));
+        charles.addTrail(new Trial(charles.getName(), "The Trial of Strength"));
+        robert.addTrail(new Trial(robert.getName(), "The Trial of Courage"));
+        charles.addTrail(new Trial(charles.getName(), "The Trial of Wisdom"));
+        robert.addTrail(new Trial(robert.getName(), "The Trial of Virtue"));
 
         Knight.startTrail();
     }
