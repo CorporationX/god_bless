@@ -22,7 +22,7 @@ public class FoodDeliveryTask implements Runnable{
             Thread.sleep(new Random().nextInt(5) * 1000);
             System.out.println(character + " is eating " + foodAmount + " " + foodType);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
