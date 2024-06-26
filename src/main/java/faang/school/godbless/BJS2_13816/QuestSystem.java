@@ -6,10 +6,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class QuestSystem {
-
+    private ExecutorService service;
+    private CompletableFuture<Player> playerCompletableFuture;
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        ExecutorService service = Executors.newFixedThreadPool(2);
-        return CompletableFuture.supplyAsync(() -> {
+        this.service = Executors.newFixedThreadPool(2);
+        playerCompletableFuture = CompletableFuture.supplyAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(10);
                 player.upExperience(quest.getReward());
@@ -18,5 +19,14 @@ public class QuestSystem {
             }
             return player;
         }, service);
+        return playerCompletableFuture;
+    }
+
+    public void stopThreadPool(ExecutorService service){
+        service.shutdown();
+    }
+
+    public ExecutorService getService(){
+        return service;
     }
 }
