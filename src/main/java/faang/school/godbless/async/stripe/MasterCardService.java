@@ -33,10 +33,9 @@ public class MasterCardService {
     public void doAll() {
         var threadPool = Executors.newSingleThreadExecutor();
         Future<Integer> payment = threadPool.submit(this::collectPayment);
-        CompletableFuture.supplyAsync(this::sendAnalytics, threadPool)
-                .thenAccept(analytics -> log.info("Analytics: {}", analytics))
-                .join();
+        var analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, threadPool);
         try {
+            log.info("Gathering analytics: {}", analyticsFuture.join());
             log.info("Payment is collected: {}", payment.get());
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
