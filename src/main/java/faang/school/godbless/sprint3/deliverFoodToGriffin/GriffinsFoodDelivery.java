@@ -24,8 +24,9 @@ public class GriffinsFoodDelivery {
                 System.out.println("Thread pool haven't closed for 30 seconds");
             }
         } catch (InterruptedException e) {
-            executorService.shutdownNow();
             throw new RuntimeException(e);
+        } finally {
+            executorService.shutdownNow();
         }
     }
 }
