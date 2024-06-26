@@ -15,9 +15,10 @@ public class MasterCardService {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         Future<Integer> futureCollectPayment = executorService.submit(MasterCardService::collectPayment);
         Future<Integer> futureSendAnalytics = executorService.submit(MasterCardService::sendAnalytics);
+        executorService.shutdown();
+
         System.out.println("Отправил аналитику в сервис сбора платежей: " + futureSendAnalytics.get());
         System.out.println("Платеж произошел: " + futureCollectPayment.get());
-        executorService.shutdown();
     }
 
     private static int collectPayment() {
