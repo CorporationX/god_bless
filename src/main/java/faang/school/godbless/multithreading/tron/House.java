@@ -6,7 +6,7 @@ import java.util.List;
 
 public class House {
     @Getter
-    private volatile List<String> availableRoles;
+    private List<String> availableRoles;
     @Getter
     private volatile int countAvailableRoles = 0;
     private final Object lock = new Object();
