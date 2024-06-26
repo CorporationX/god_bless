@@ -20,6 +20,6 @@ public class Main {
             e.printStackTrace();
         }
 
-
+        System.out.println("Пока чего-нибудь поделаю");
     }
 }
