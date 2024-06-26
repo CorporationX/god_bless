@@ -26,7 +26,7 @@ public class Calculator {
                 IntStream.range(0, ALL_POINTS).mapToObj(i -> CompletableFuture.runAsync(() -> {
                             double x = ThreadLocalRandom.current().nextDouble(0, 1.0);
                             double y = ThreadLocalRandom.current().nextDouble(0, 1.0);
-                            if (Math.pow(x, 2) + Math.pow(y, 2) <= 1){
+                            if (Math.pow(x, 2) + Math.pow(y, 2) <= 1) {
                                 insidePoints.incrementAndGet();
                             }
                         },
@@ -37,8 +37,7 @@ public class Calculator {
         CompletableFuture<Void> allOfCompletableFuture =
                 CompletableFuture.allOf(futurePointList.toArray(CompletableFuture[]::new));
 
-        allOfCompletableFuture
-                .thenRun(() -> System.out.println(4.0 * insidePoints.get() / ALL_POINTS));
+        allOfCompletableFuture.thenRun(() -> System.out.println(4.0 * insidePoints.get() / ALL_POINTS)).join();
 
         executorService.shutdown();
     }
