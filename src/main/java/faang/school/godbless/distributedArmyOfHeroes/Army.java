@@ -16,21 +16,23 @@ public class Army {
 
     public int calculateTotalPower() throws InterruptedException {
         List<SubdivisionThred> subdivisionThreds = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
         List<Integer> power = new ArrayList<>();
 
         for (Subdivision subdivision : subdivisions) {
             SubdivisionThred subdivisionThred = new SubdivisionThred(subdivision);
-            power.add(subdivision.getPower());
+            Thread thread = new Thread(subdivisionThred);
+            threads.add(thread);
             subdivisionThreds.add(subdivisionThred);
-            subdivisionThred.run();
+            thread.start();
         }
 
-        for (SubdivisionThred subdivisionThred : subdivisionThreds) {
-            subdivisionThred.getSubdivision().join(); //тут вопрос
+        for (Thread thread : threads) {
+            thread.join();
         }
 
-        return power.stream()
-                .mapToInt(num -> num)
+        return subdivisionThreds.stream()
+                .mapToInt(SubdivisionThred::getPowerSubdivision)
                 .sum();
     }
 }
