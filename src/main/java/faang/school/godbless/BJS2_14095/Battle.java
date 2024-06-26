@@ -1,12 +1,18 @@
 package faang.school.godbless.BJS2_14095;
 
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public class Battle {
+    private ExecutorService service;
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
         int diff = (robot1.getAttackPower() - robot2.getDefensePower()) - (robot2.getAttackPower() - robot1.getDefensePower());
-        ExecutorService service = Executors.newFixedThreadPool(3);
+        service = Executors.newFixedThreadPool(3);
         Future<Robot> winner = service.submit(() -> {
             if (diff > 0) {
                 return robot1;
@@ -16,6 +22,10 @@ public class Battle {
         });
         service.shutdown();
         return winner;
+    }
+
+    public void shutdownPool() {
+        service.shutdown();
     }
 
     public static void main(String[] args) {
@@ -31,12 +41,10 @@ public class Battle {
         Future<Robot> secondWinnerFuture = battle.fight(bd1, l337);
         Future<Robot> thirdWinnerFuture = battle.fight(k2s0, bb8);
         try {
-
             Robot firstWinner = firstWinnerFuture.get(10, TimeUnit.SECONDS);
             Robot secondWinner = secondWinnerFuture.get(10, TimeUnit.SECONDS);
             Robot thirdWinner = thirdWinnerFuture.get(10, TimeUnit.SECONDS);
             System.out.println("first winner is " + firstWinner.getName() + " second winner is " + secondWinner.getName() + " third winner is " + thirdWinner.getName());
-
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         } catch (ExecutionException | TimeoutException e) {
