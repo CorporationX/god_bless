@@ -39,7 +39,7 @@ public class NotificationManagerImpl implements NotificationManager {
                             notificationId,
                             "some message with ID " + notificationId);
 
-                    long timeout =  10_000; //new Random().nextInt(2001) + 1000;
+                    long timeout = new Random().nextInt(8001) + 3000;
 
                     try {
                         Thread.sleep(timeout);
