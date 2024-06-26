@@ -13,7 +13,7 @@ public class Main {
 
         List<CompletableFuture<Void>> futureFollowingList =
                 IntStream.range(0, NEW_SUBSCRIPTIONS_NUM)
-                        .mapToObj(i -> twitterSubscriptionSystem.followAccount(twitterAccount))
+                        .mapToObj(subscriber -> twitterSubscriptionSystem.followAccount(twitterAccount))
                         .toList();
 
         CompletableFuture<Void> allOfCompletableFuture =
