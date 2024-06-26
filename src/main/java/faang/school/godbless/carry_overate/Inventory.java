@@ -16,9 +16,9 @@ public class Inventory {
             Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private final List<Item> items = new ArrayList<>();
 
-    public void getCombinedItem() {
-        getItemFromChest().thenCombine(getItemFromStore(), this::combineItems)
-                .thenCompose(resultItem -> CompletableFuture.runAsync(() -> addItem(resultItem))).join();
+    public CompletableFuture<Void> getCombinedItem() {
+        return getItemFromChest().thenCombine(getItemFromStore(), this::combineItems)
+                .thenCompose(resultItem -> CompletableFuture.runAsync(() -> addItem(resultItem)));
     }
 
     private Item combineItems(Item firstItem, Item secondItem) {
@@ -34,7 +34,7 @@ public class Inventory {
             try {
                 Thread.sleep(1000L);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Chest opening was interrupted: " + e.getMessage());
             }
             log.info("You got a ChestItem with power 50");
 
@@ -48,7 +48,7 @@ public class Inventory {
             try {
                 Thread.sleep(1000L);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Trading was interrupted: " + e.getMessage());
             }
             log.info("You got a StoreItem with power 50");
 
