@@ -29,7 +29,7 @@ public class Main {
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                log.error(e.getMessage());
             }
             totalIngredients.addAndGet(potion.requiredIngredients());
         });
