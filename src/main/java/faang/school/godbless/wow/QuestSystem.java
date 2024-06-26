@@ -28,12 +28,15 @@ public class QuestSystem {
             case HIGH:
                 Thread.sleep(10_000);
                 player.setExperience(player.getExperience() + 10);
+                System.out.println(player.getName() + " опыт " + player.getExperience());
             case LOW:
                 Thread.sleep(5_000);
                 player.setExperience(player.getExperience() + 5);
+                System.out.println(player.getName() + " опыт " + player.getExperience());
             case MIN:
                 Thread.sleep(1_000);
                 player.setExperience(player.getExperience() + 1);
+                System.out.println(player.getName() + " опыт " + player.getExperience());
         }
         return player;
     }
