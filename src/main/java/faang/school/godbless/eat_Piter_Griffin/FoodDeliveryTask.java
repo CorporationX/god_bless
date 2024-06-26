@@ -2,7 +2,7 @@ package faang.school.godbless.eat_Piter_Griffin;
 
 import lombok.Data;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 @Data
 public class FoodDeliveryTask implements Runnable {
@@ -14,9 +14,11 @@ public class FoodDeliveryTask implements Runnable {
         this.foodAmount = foodAmount;
     }
 
+    public static final SecureRandom RANDOM_FOOD_TYPE = new SecureRandom();
+
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[RANDOM_FOOD_TYPE.nextInt(foodTypes.length)];
     }
 
     @Override
@@ -28,7 +30,7 @@ public class FoodDeliveryTask implements Runnable {
                     " получает " + this.getFoodAmount() +
                     " " + foodType);
 
-            Thread.sleep(new Random().nextInt(5 * 1000));
+            Thread.sleep(RANDOM_FOOD_TYPE.nextInt(5 * 1000));
 
             System.out.println(this.getCharacter() +
                     " ест " + this.getFoodAmount() +
