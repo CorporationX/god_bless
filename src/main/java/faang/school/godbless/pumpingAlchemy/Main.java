@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     private static final int NUM_THREADS = 4;
@@ -26,10 +27,10 @@ public class Main {
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]))
                 .thenRun(() -> {
-                    int result = 0;
+                    AtomicInteger result = new AtomicInteger(0);
                     for (CompletableFuture<Integer> future : futures) {
                         try {
-                            result += future.get();
+                            result.addAndGet(future.get());
                         } catch (InterruptedException | ExecutionException e) {
                             throw new RuntimeException(e);
                         }
