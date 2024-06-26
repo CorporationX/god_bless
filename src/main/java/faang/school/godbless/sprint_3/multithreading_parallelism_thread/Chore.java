@@ -6,7 +6,7 @@ public record Chore(String chore) implements Runnable {
 
         try {
             System.out.println("Работает: " + Thread.currentThread().getName());
-            Thread.sleep(1000);
+            Thread.sleep(100);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
