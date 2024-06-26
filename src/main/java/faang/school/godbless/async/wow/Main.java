@@ -1,7 +1,11 @@
 package faang.school.godbless.async.wow;
 
-import java.util.concurrent.CompletableFuture;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -16,7 +20,9 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
-        player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " XP."));
-        player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " XP."));
+        Consumer<Player> playerConsumer = player -> log.info("{} has completed the quest and now has {} XP.", player.getName(), player.getExperience());
+
+        player1Quest.thenAccept(playerConsumer);
+        player2Quest.thenAccept(playerConsumer);
     }
 }
