@@ -16,7 +16,7 @@ public class OrderProcessor {
             try {
                 TimeUnit.SECONDS.sleep(2);
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+                log.error(e.getMessage(), e);
             }
             order.setStatus("PROCESSED");
             totalProcessedOrders.incrementAndGet();
