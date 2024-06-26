@@ -28,17 +28,7 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         List<PersonNamePrinter> printers = Stream.iterate(0, n -> n + 1).limit(NUM_THREADS)
-                .map(i -> {
-                    List<Person> personsToPrinter = Stream
-                            .iterate(
-                                    i * NUM_PERSONS / NUM_THREADS,
-                                    n -> n + 1
-                            )
-                            .limit(NUM_PERSONS / NUM_THREADS)
-                            .map(persons::get)
-                            .toList();
-                    return new PersonNamePrinter(personsToPrinter);
-                })
+                .map(i -> getPersonNamePrinter(i, persons))
                 .toList();
 
         for (PersonNamePrinter printer : printers) {
@@ -48,5 +38,17 @@ public class Main {
         executor.shutdown();
         boolean isTerminated = executor.awaitTermination(1, TimeUnit.MINUTES);
         System.out.println("Все потоки завершены: " + isTerminated);
+    }
+
+    private static PersonNamePrinter getPersonNamePrinter(int i, List<Person> persons) {
+        List<Person> personsToPrinter = Stream
+                .iterate(
+                        i * NUM_PERSONS / NUM_THREADS,
+                        n -> n + 1
+                )
+                .limit(NUM_PERSONS / NUM_THREADS)
+                .map(persons::get)
+                .toList();
+        return new PersonNamePrinter(personsToPrinter);
     }
 }
