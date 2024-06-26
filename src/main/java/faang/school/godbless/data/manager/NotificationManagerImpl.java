@@ -27,6 +27,11 @@ public class NotificationManagerImpl implements NotificationManager {
     }
 
     @Override
+    public List<Notification> getAllNotifications() {
+        return mNotificationList;
+    }
+
+    @Override
     public CompletableFuture<Notification> fetchNotification() {
         return CompletableFuture.supplyAsync(() -> {
                     long notificationId = UUID.randomUUID().getMostSignificantBits();
@@ -42,6 +47,7 @@ public class NotificationManagerImpl implements NotificationManager {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
+                    return null;
                 },
                 mExecutor
         );
