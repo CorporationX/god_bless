@@ -2,7 +2,11 @@ package faang.school.godbless.BJS2_13548;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeoutException;
 
 public class APP_13548 {
     public static final Integer QUANTITY_OF_NUMS = 1000;
