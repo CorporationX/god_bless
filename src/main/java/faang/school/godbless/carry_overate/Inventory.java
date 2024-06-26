@@ -21,7 +21,7 @@ public class Inventory {
                 .thenCompose(resultItem -> CompletableFuture.runAsync(() -> addItem(resultItem)));
     }
 
-    private Item combineItems(Item firstItem, Item secondItem) {
+    public Item combineItems(Item firstItem, Item secondItem) {
         String newItemName = firstItem.name() + "And" + secondItem.name();
         int newItemPower = firstItem.power() + secondItem.power();
 
