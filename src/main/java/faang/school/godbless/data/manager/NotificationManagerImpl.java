@@ -43,7 +43,7 @@ public class NotificationManagerImpl implements NotificationManager {
 
                     try {
                         Thread.sleep(timeout);
-                        return notification;
+                        addNotification(notification);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
