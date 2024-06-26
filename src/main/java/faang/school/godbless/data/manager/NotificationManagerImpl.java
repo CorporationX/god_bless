@@ -32,7 +32,7 @@ public class NotificationManagerImpl implements NotificationManager {
     }
 
     @Override
-    public CompletableFuture<Notification> fetchNotification() {
+    public CompletableFuture<Void> fetchNotification() {
         return CompletableFuture.supplyAsync(() -> {
                     long notificationId = UUID.randomUUID().getMostSignificantBits();
                     Notification notification = new Notification(
