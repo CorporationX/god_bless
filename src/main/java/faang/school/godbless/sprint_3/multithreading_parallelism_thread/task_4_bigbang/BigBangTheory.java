@@ -3,9 +3,12 @@ package faang.school.godbless.sprint_3.multithreading_parallelism_thread.task_4_
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
-    private static final String END_WORK = "Well done";
+    private static final String MSG_FINISH = "Well done";
+    private static final String MSG_ERROR = "Work interrupted";
+    public static final int TIME_OUT = 10;
 
     public static void main(String[] args) {
         Map<String, String> nameTaskMap = Map.of(
@@ -23,11 +26,13 @@ public class BigBangTheory {
 
         executorService.shutdown();
 
-        while (!executorService.isTerminated()){
-
+        try {
+            executorService.awaitTermination(TIME_OUT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(MSG_ERROR);
         }
 
-        System.out.println(END_WORK);
+        System.out.println(MSG_FINISH);
 
     }
 }
