@@ -11,6 +11,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.IntStream;
 
 public class Application {
 
@@ -27,22 +28,16 @@ public class Application {
 
         System.out.println(countNotification + " - notifications scheduled");
 
-        CompletableFuture<Notification>[] awaitableNotification = new CompletableFuture[countNotification];
-
-        for (int i = 0; i < countNotification; i++) {
-            awaitableNotification[i] = notificationManager.fetchNotification();
-        }
+        var awaitableNotification = IntStream.range(0, countNotification)
+                .mapToObj(i -> notificationManager.fetchNotification())
+                .toArray(CompletableFuture[]::new);
 
         CompletableFuture.allOf(awaitableNotification).join();
 
         executorService.shutdown();
 
-        for (CompletableFuture<Notification> completableFuture : awaitableNotification) {
-            try {
-                System.out.println(completableFuture.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
+        for (var notification : notificationManager.getAllNotifications()) {
+            System.out.println(notification.message());
         }
     }
 }
