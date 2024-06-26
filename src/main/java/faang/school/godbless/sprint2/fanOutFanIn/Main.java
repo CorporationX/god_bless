@@ -31,13 +31,13 @@ public class Main {
                 .toList();
         executorService.shutdown();
 
-        CompletableFuture<Void> futures = CompletableFuture.allOf(requestsFuture.toArray(new CompletableFuture[0]));
-        futures.join();
-        return resultConsumer.getSumOfSquaredNumbers().get();
+        return CompletableFuture.allOf(requestsFuture.toArray(new CompletableFuture[0]))
+                .thenApply((v) -> resultConsumer.getSumOfSquaredNumbers().get())
+                .join();
     }
 
     public static List<SquareRequest> launch() {
-        return LongStream.rangeClosed(1, 100)
+        return LongStream.rangeClosed(1, 10)
                 .boxed()
                 .map(SquareRequest::new)
                 .toList();
