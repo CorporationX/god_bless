@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private List<Room> rooms;
     private final List<Food> foods = new ArrayList<>();
-    private static final Random random = new Random();
+    private static final Random RANDOM = new Random();
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
@@ -46,11 +46,11 @@ public class House {
     }
 
     private static Food getRandomFood(Room room) {
-        return room.getFoods().get(random.nextInt(0, room.getFoods().size()));
+        return room.getFoods().get(RANDOM.nextInt(0, room.getFoods().size()));
     }
 
     private static Room getRandomRoom(House house) {
-        return house.rooms.get(random.nextInt(0, house.rooms.size()));
+        return house.rooms.get(RANDOM.nextInt(0, house.rooms.size()));
     }
 
     private static void takeAndRemoveFood(House house, Room room, Food food) {
