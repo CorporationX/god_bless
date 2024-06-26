@@ -24,7 +24,7 @@ public class Main {
                 .map(orderProcessor::processOrder)
                 .toList();
 
-        var allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]));
+        var allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         allFutures.join();
 
         log.info("Total orders completed: {}", orderProcessor.getTotalProcessedOrders());
