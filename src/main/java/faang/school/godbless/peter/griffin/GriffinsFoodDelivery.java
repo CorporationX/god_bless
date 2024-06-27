@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         for(var character : characterNames) {
@@ -19,9 +19,10 @@ public class GriffinsFoodDelivery {
             if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
-        } catch (InterruptedException e) {
-            executorService.shutdownNow();
-            Thread.currentThread().interrupt();
+        } finally {
+            if (!executorService.isTerminated()) {
+                executorService.shutdownNow();
+            }
         }
     }
 }

@@ -23,11 +23,10 @@ public class FoodDeliveryTask implements Runnable{
     @Override
     public void run() {
         System.out.println(String.format("%s gets %d %s", getCharacter(), getFoodAmount(), getFoodType()));
-        int sleepTime = new Random().nextInt(5) + 1;
         try {
-            TimeUnit.SECONDS.sleep(sleepTime);
+            Thread.sleep(foodAmount * 1000L);
         } catch (InterruptedException e) {
-            throw new RuntimeException("Ошибка реализации: \"TimeUnit.SECONDS.sleep(sleepTime);\"");
+            throw new RuntimeException("We have a problem!");
         }
         System.out.println(String.format("%s is eating %d %s", getCharacter(), getFoodAmount(), getFoodType()));
     }
