@@ -1,6 +1,5 @@
 package faang.school.godbless.Task_FanOut_FanIn;
 
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -9,7 +8,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
-
 
 public class SquareRequest {
     private static final Long MIN_TIME = 3000L;
@@ -30,26 +28,13 @@ public class SquareRequest {
         }
     }
 
-    public static void Launch() throws InterruptedException{
+    public static void Launch() throws InterruptedException {
         List<SquareRequest> requests = new ArrayList<>();
-        IntStream.rangeClosed(1,1000).mapToLong(x->(long)x).boxed()
-                .forEach(x->requests.add(new SquareRequest(x)));
-        ResultConsumer zero = new SquareRequest.ResultConsumer(0L);
+        IntStream.rangeClosed(1, 1000).mapToLong(x -> (long) x).boxed()
+                .forEach(x -> requests.add(new SquareRequest(x)));
+        ResultConsumer zero = new ResultConsumer(0L);
         Long result = fanOutFanIn(requests, zero);
         System.out.println(result);
-    }
-
-    public static class ResultConsumer{
-        private final AtomicLong sumOfSquaredNumbers;
-        public ResultConsumer(Long init) {
-            sumOfSquaredNumbers = new AtomicLong(init);
-        }
-        public Long add(final Long num) {
-            return sumOfSquaredNumbers.addAndGet(num);
-        }
-        public Long getValue() {
-            return sumOfSquaredNumbers.longValue();
-        }
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer)
@@ -57,7 +42,7 @@ public class SquareRequest {
         ExecutorService execution = Executors.newFixedThreadPool(requests.size());
         for (int i = 0; i < requests.size(); i++) {
             int index = i;
-            CompletableFuture.runAsync(()->{
+            CompletableFuture.runAsync(() -> {
                 requests.get(index).longTimeSquare(resultConsumer);
             }, execution);
         }
@@ -67,7 +52,7 @@ public class SquareRequest {
         return resultConsumer.getValue();
     }
 
-    public static void main(String[] args) throws InterruptedException{
+    public static void main(String[] args) throws InterruptedException {
         Launch();
     }
 }
