@@ -18,6 +18,6 @@ public class Game {
 //when player will finish quest write the message
         player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-//Не знаю как в данном случае сказать что потоки больше создавать не нужно и можно завершить программу.
+        questSystem.stopThreadsPool();
     }
 }

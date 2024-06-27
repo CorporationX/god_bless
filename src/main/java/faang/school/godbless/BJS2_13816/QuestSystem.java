@@ -6,9 +6,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class QuestSystem {
-
+    private final ExecutorService service = Executors.newFixedThreadPool(2);
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        ExecutorService service = Executors.newFixedThreadPool(2);
         return CompletableFuture.supplyAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(10);
@@ -18,5 +17,9 @@ public class QuestSystem {
             }
             return player;
         }, service);
+    }
+
+    public void stopThreadsPool(){
+        this.service.shutdown();
     }
 }
