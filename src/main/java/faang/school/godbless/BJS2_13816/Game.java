@@ -1,8 +1,6 @@
 package faang.school.godbless.BJS2_13816;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 
 public class Game {
 
@@ -22,12 +20,6 @@ public class Game {
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
 //Не знаю как в данном случае сказать что потоки больше создавать не нужно и можно завершить программу.
         CompletableFuture<Void> doneTask = CompletableFuture.allOf(player1Quest, player2Quest);
-        try {
-            doneTask.thenRun(() ->
-                questSystem.stopThreadsPool()
-            );
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            e.getStackTrace();
-        }
+            doneTask.thenRun(questSystem::stopThreadsPool);
     }
 }
