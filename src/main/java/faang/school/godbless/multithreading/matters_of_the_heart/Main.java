@@ -24,22 +24,13 @@ public class Main {
             executor.execute(() -> chatManager.startChat(user));
         }
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         executor.execute(() -> {
             User newUser = new User("Дима", true);
             chatManager.addUser(newUser);
         });
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleepThread(3000);
 
         executor.execute(() -> {
             User delUser = new User("Петя", true);
@@ -55,5 +46,13 @@ public class Main {
         }
 
         System.out.println("Все потоки завершены: " + isTerminated);
+    }
+
+    public static void sleepThread(long time) {
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
