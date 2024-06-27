@@ -10,8 +10,4 @@ public class QuestSystem {
             return player;
         });
     }
-
-    public void printResults(Player player) {
-        System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points.");
-    }
 }

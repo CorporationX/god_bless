@@ -1,6 +1,7 @@
 package faang.school.godbless.wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -18,8 +19,11 @@ public class Main {
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
+        Consumer<Player> consumer = player -> System.out.println(player.getName()
+                + " has completed the quest and now has " + player.getExperience() + " experience points.");
+
 // Обработка результатов заданий
-        player1Quest.thenAccept(questSystem::printResults);
-        player2Quest.thenAccept(questSystem::printResults);
+        player1Quest.thenAccept(consumer);
+        player2Quest.thenAccept(consumer);
     }
 }
