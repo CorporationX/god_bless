@@ -12,7 +12,4 @@ public class Robot {
     private int attackPower;
     private int defensePower;
 
-    public Robot get() {
-        return this;
-    }
 }
