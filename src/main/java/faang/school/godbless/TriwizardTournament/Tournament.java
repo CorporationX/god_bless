@@ -11,11 +11,10 @@ public class Tournament {
     private ExecutorService service = Executors.newFixedThreadPool(4);
 
     public CompletableFuture<School> startTask(School school, Task task) {
-        int rewardOneStudent = task.getReward() / school.getTeam().size();
         CompletableFuture[] completableFutures = school.getTeam().stream()
                 .map(student -> CompletableFuture.runAsync(() ->
-                        student.setPoints(
-                                student.getPoints() + rewardOneStudent),
+                                student.setPoints(
+                                        student.getPoints() + task.getReward() / school.getTeam().size()),
                         service))
                 .toArray(CompletableFuture[]::new);
         return CompletableFuture.allOf(completableFutures)
