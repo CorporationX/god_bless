@@ -6,7 +6,7 @@ public class Music {
 
         Thread playThread = new Thread(() -> {
             try {
-                player.play(player.getPlayList().get(1));
+                player.play();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -14,7 +14,7 @@ public class Music {
 
         Thread pauseThread = new Thread(() -> {
             try {
-                player.pause(player.getPlayList().get(0));
+                player.pause();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -22,7 +22,7 @@ public class Music {
 
         Thread skipThread = new Thread(() -> {
             try {
-                player.skip(player.getPlayList().get(3));
+                player.skip();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -30,7 +30,7 @@ public class Music {
 
         Thread previousThread = new Thread(() -> {
             try {
-                player.previous(player.getPlayList().get(4));
+                player.previous();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
