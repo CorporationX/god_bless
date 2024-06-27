@@ -11,7 +11,7 @@ public class Tournament {
                             Thread.sleep(1000L * task.getDifficulty());
                             student.addedPoints(task.getReward());
                         } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+                            System.err.println("Thread was interrupted: " + e.getMessage());
                         }
                     });
             return school;
