@@ -29,9 +29,7 @@ public class House {
 
         for (int i = 0; i < THREAD_NUM; i++) {
             executor.schedule(
-                    () -> houseToSteelFood.collectFood(stolenFoodList),
-                    PLAN_CONSTRUCTION_TIME, TimeUnit.SECONDS
-            );
+                    () -> houseToSteelFood.collectFood(stolenFoodList), PLAN_CONSTRUCTION_TIME, TimeUnit.SECONDS);
         }
 
         executor.shutdown();
@@ -67,7 +65,7 @@ public class House {
             try {
                 Thread.sleep(3000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Mission was interrupted during execution: " + e.getMessage());
             }
 
             steelFoodFromRoom(roomToSteelFood, stolenFoodList);
