@@ -4,9 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Map;
+
 @AllArgsConstructor
 @Getter
 public class Potion {
     private String name;
-    private Map<String,Integer> requiredIngredients;
+    private Map<String, Integer> requiredIngredients;
 }
