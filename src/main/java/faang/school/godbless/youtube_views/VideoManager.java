@@ -12,17 +12,15 @@ public class VideoManager {
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
-        viewsMap.putIfAbsent(videoId, 0);
-
-        viewsMap.put(videoId, viewsMap.get(videoId) + 1);
-        System.out.println(videoId + " has one new view");
+        viewsMap.merge(videoId, 1, Integer::sum);
+        log.info(videoId + " has one new view");
     }
 
     public synchronized int getViewCount(String videoId) {
-        if (!viewsMap.containsKey(videoId)) {
-            log.warn("Could not find video by this videoId");
-            return -1;
+        int views = viewsMap.getOrDefault(videoId, 0);
+        if (views == 0) {
+            log.warn("Could not video by videoId: " + videoId);
         }
-        return viewsMap.get(videoId);
+        return views;
     }
 }
