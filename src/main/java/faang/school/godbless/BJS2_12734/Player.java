@@ -46,9 +46,7 @@ public class Player {
 
     public synchronized void previous() {
         System.out.println("Previous method hase started");
-        int pos;
-        pos = music.indexOf(recentSong);
-        pos--;
+        pos = music.indexOf(recentSong)-1;
         if (pos < 0) {
             pos = music.size();
         }
