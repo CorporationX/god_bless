@@ -13,7 +13,7 @@ public class Player {
         try {
             boss.joinBattle(player);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.err.println("Thread was interrupted: " + e.getMessage());
         }
     }
 }

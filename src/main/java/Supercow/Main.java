@@ -12,8 +12,10 @@ public class Main {
     private static final ExecutorService executorAttackKingWarrior = Executors.newFixedThreadPool(MAX_PLAYER_BOSS_KING_WARRIOR);
 
     public static void main(String[] args) throws InterruptedException {
-        List<Player> playersAttackWarrior = Arrays.asList(new Player("Tom"), new Player("Rob"), new Player("Bob"),
-                new Player("Misha"), new Player("Fill"), new Player("Mot"));
+        List<Player> playersAttackWarrior = Arrays.asList(
+                new Player("Tom"), new Player("Rob"),
+                new Player("Bob"), new Player("Misha"),
+                new Player("Fill"), new Player("Mot"));
 
         attackBossWarrior(playersAttackWarrior);
     }
@@ -21,6 +23,7 @@ public class Main {
     public static void attackBossWarrior(List<Player> players) throws InterruptedException {
         for (Player player : players)
             executorAttackKingWarrior.execute(() -> player.startBattle(bossKingWarrior, player));
+
         executorAttackKingWarrior.shutdown();
         executorAttackKingWarrior.awaitTermination(15, TimeUnit.SECONDS);
         System.out.println("King Warrior is loss");
