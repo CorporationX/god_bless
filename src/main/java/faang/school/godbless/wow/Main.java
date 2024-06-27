@@ -2,10 +2,16 @@ package faang.school.godbless.wow;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         QuestSystem questSystem = new QuestSystem();
+
+        Consumer<Player> consumer = (player) -> System.out.printf("%s has completed the quest and now on %d level with %d experience points\n", player.getName(), player.getLevel(), player.getExperience());
 
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
@@ -15,17 +21,15 @@ public class Main {
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
         Quest quest3 = new Quest("Do something hard", 10, 900);
 
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
-        CompletableFuture<Player> player3Quest = questSystem.startQuest(player3, quest3);
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1, executorService);
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2, executorService);
+        CompletableFuture<Player> player3Quest = questSystem.startQuest(player3, quest3, executorService);
 
 
-        player1Quest.thenAccept(player -> System.out.printf("%s has completed the quest and now on %d level with %d experience points\n", player.getName(), player.getLevel(), player.getExperience()));
-        player2Quest.thenAccept(player -> System.out.printf("%s has completed the quest and now on %d level with %d experience points\n", player.getName(), player.getLevel(), player.getExperience()));
-        player3Quest.thenAccept(player -> System.out.printf("%s has completed the quest and now on %d level with %d experience points\n", player.getName(), player.getLevel(), player.getExperience()));
+        player1Quest.thenAccept(consumer);
+        player2Quest.thenAccept(consumer);
+        player3Quest.thenAccept(consumer);
 
-        player1Quest.join();
-        player2Quest.join();
-        player3Quest.join();
+        executorService.shutdown();
     }
 }
