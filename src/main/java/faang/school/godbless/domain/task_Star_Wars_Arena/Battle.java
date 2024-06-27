@@ -21,11 +21,9 @@ public class Battle {
                     System.out.println(secondRobot.name() + " Начал атаку " + firstRobot.name() + ".Здоровье " + firstRobot.name() + ": " + firstRobotHealth);
                 }
             }
-            if (firstRobotHealth > 0) {
+            if (firstRobotHealth > 0){
                 return firstRobot;
-            } else {
-                return secondRobot;
-            }
+            }return secondRobot;
         });
     }
 }
