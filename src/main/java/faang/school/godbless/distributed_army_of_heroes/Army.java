@@ -15,22 +15,22 @@ public class Army {
         this.creatures = creatures;
     }
 
-    public void addCreature(Creature creature){
+    public void addCreature(Creature creature) {
         creatures.add(creature);
     }
 
     public int calculateTotalPower() throws InterruptedException {
 
-        for (Creature creature : creatures){
-            if (creature.isArcher()){
+        for (Creature creature : creatures) {
+            if (creature.getType() == Type.ARCHER) {
                 CreatureThread creatureThread = new CreatureThread(creature);
                 archerThreads.add(creatureThread);
                 creatureThread.start();
-            } else if (creature.isSwordsman()) {
+            } else if (creature.getType() == Type.MAGE) {
                 CreatureThread creatureThread = new CreatureThread(creature);
                 mageThreads.add(creatureThread);
                 creatureThread.start();
-            } else if (creature.isMage()) {
+            } else if (creature.getType() == Type.SWORDSMAN) {
                 CreatureThread creatureThread = new CreatureThread(creature);
                 swordsmanThreads.add(creatureThread);
                 creatureThread.start();
@@ -51,9 +51,9 @@ public class Army {
         return totalArcherPower + totalMagePower + totalSwordsmanPower;
     }
 
-    private int getPowerSum (List<CreatureThread> creatures) throws InterruptedException {
+    private int getPowerSum(List<CreatureThread> creatures) throws InterruptedException {
         int totalPower = 0;
-        for (CreatureThread creatureThread : creatures){
+        for (CreatureThread creatureThread : creatures) {
             creatureThread.join();
             totalPower += creatureThread.getPower();
         }

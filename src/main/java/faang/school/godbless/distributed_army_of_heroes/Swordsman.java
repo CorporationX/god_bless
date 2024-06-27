@@ -1,13 +1,11 @@
 package faang.school.godbless.distributed_army_of_heroes;
 
-public class Swordsman extends Creature{
+import static faang.school.godbless.distributed_army_of_heroes.Type.SWORDSMAN;
+
+public class Swordsman extends Creature {
 
     public Swordsman(int power) {
-        super(power);
+        super(power, SWORDSMAN);
     }
 
-    @Override
-    public boolean isSwordsman() {
-        return true;
-    }
 }

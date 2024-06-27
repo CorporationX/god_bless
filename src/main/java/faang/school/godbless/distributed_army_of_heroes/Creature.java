@@ -7,16 +7,5 @@ import lombok.Getter;
 @AllArgsConstructor
 public abstract class Creature {
     private int power;
-
-    public boolean isArcher(){
-        return false;
-    }
-
-    public boolean isSwordsman(){
-        return false;
-    }
-
-    public boolean isMage(){
-        return false;
-    }
+    private Type type;
 }
