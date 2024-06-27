@@ -5,19 +5,19 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
+    private static final int COLLECT_PAYMENT_TIME = 10_000;
+    private static final int SEND_ANALYTICS_TIME = 1_000;
     public static int collectPayment() {
-        try {
-            Thread.sleep(10_000);
-            return 10_000;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        return sleep(COLLECT_PAYMENT_TIME);
     }
     public static int sendAnalytics() {
+       return sleep(SEND_ANALYTICS_TIME);
+    }
+
+    private static int sleep(int sleepTime){
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(sleepTime);
+            return sleepTime;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
