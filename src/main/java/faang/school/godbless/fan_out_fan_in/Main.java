@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static final long START_NUMBER = 1;
-    public static final long END_NUMBER = 10;
+    public static final long END_NUMBER = 1000;
 
     public static void main(String[] args) {
         launch(new ArrayList<>());
@@ -33,6 +33,7 @@ public class Main {
         }
         CompletableFuture<Void> allOf = CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
         allOf.join();
+        executorService.shutdown();
         return resultConsumer.getSumOfSquaredNumbers().get();
     }
 }
