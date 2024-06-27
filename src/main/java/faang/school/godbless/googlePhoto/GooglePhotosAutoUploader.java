@@ -12,6 +12,7 @@ public class GooglePhotosAutoUploader {
 
     public static void main(String[] args) {
         Photo photo = new Photo("123");
+
         ExecutorService executor = Executors.newFixedThreadPool(2);
 
         for (int i = 0; i < 2; i++) {
@@ -20,8 +21,15 @@ public class GooglePhotosAutoUploader {
             } else {
                 executor.submit(() -> onNewPhotoAdded(photo));
             }
-            stopAutoUpload();
         }
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        stopAutoUpload();
+        executor.shutdown();
     }
 
     public static void startAutoUpload() {
@@ -38,7 +46,13 @@ public class GooglePhotosAutoUploader {
                         throw new RuntimeException("Interrupted while waiting for auto upload", e);
                     }
                 }
-                System.out.println("Auto upload complete");
+
+                if (!photosToUpload.isEmpty()) {
+                    uploadPhotos(photosToUpload.get(0));
+                    System.out.println("Auto upload complete");
+                } else {
+                    System.out.println("Auto upload stopped");
+                }
             }
         }
     }
@@ -47,20 +61,20 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             photosToUpload.add(photo);
             lock.notify();
-            uploadPhotos(photo);
         }
     }
 
     private static void uploadPhotos(Photo photo) {
-        synchronized (lock) {
-            System.out.println("Uploading photos to google");
-            photosToUpload.remove(photo);
-        }
+        System.out.println("Uploading photos to google");
+        photosToUpload.remove(photo);
     }
 
     public static void stopAutoUpload() {
-        if (isRunning) {
-            isRunning = false;
+        synchronized (lock) {
+            if (isRunning) {
+                isRunning = false;
+                lock.notify();
+            }
         }
     }
 }
