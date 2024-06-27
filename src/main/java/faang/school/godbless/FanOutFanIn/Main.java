@@ -1,4 +1,7 @@
 package faang.school.godbless.FanOutFanIn;
+import faang.school.godbless.FanOutFanIn.SquareRequest;
+
+import com.fasterxml.jackson.databind.ext.SqlBlobSerializer;
 
 import javax.xml.transform.Result;
 import java.util.ArrayList;
@@ -7,7 +10,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Main {
-
     public static void main(String[] args) {
         List<SquareRequest> requests = launch();
 
@@ -25,5 +27,6 @@ public class Main {
                 .collect(Collectors.toList());
         return requests;
     }
+
 
 }

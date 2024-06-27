@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+
 public class SquareRequest {
     private static final long MIN_TIMEOUT = 3000L;
     private final long number;
@@ -25,6 +26,7 @@ public class SquareRequest {
         }
     }
 
+
     public static long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executor = Executors.newFixedThreadPool(requests.size());
         List<CompletableFuture<Void>> futures = new ArrayList<>(requests.size());
@@ -41,4 +43,5 @@ public class SquareRequest {
 
         return resultConsumer.getResult();
     }
+
 }
