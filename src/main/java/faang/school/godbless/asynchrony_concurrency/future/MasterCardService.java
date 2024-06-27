@@ -9,20 +9,22 @@ import java.util.concurrent.TimeoutException;
 
 public class MasterCardService {
 
-    static int collectPayment() {
-        try {
-            Thread.sleep(10_000);
-            return 10_000;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+    public static final int TIME_ANALYSTIC = 1000;
+
+    private static final int TIME_PAYMENT = 10000;
+
+    public static int collectPayment() {
+        return wait(TIME_PAYMENT);
     }
 
-    static int sendAnalystics() {
+    public static int sendAnalystics() {
+        return wait(TIME_ANALYSTIC);
+    }
+
+    public static int wait(int time) {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(time);
+            return time;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
