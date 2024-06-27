@@ -7,8 +7,8 @@ public class MasterCardService {
             Thread.sleep(5_000);
             return 5_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            System.err.println("Thread was interrupted: " + e.getMessage());
+            return -1;
         }
     }
 
@@ -17,8 +17,8 @@ public class MasterCardService {
             Thread.sleep(1_000);
             return 1_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            System.err.println("Thread was interrupted: " + e.getMessage());
+            return -1;
         }
     }
 }
