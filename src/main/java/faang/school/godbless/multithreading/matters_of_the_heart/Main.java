@@ -36,7 +36,7 @@ public class Main {
 
         executor.execute(() -> {
             try {
-                chatManager.startChat(toma);
+                chatManager.startChat(new User("Sam", true, true));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
