@@ -11,11 +11,12 @@ public class Main {
     public static final long END_NUMBER = 1000;
 
     public static void main(String[] args) {
-        launch(new ArrayList<>());
+        launch();
     }
 
-    public static void launch(List<SquareRequest> requests) {
+    public static void launch() {
         ResultConsumer resultConsumer = new ResultConsumer(0L);
+        List<SquareRequest> requests = new ArrayList<>();
         for (long i = START_NUMBER; i <= END_NUMBER; i++) {
             requests.add(new SquareRequest(i));
         }
