@@ -27,7 +27,6 @@ public class MasterCardService {
             throw new RuntimeException();
         }
     }
-
     public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
 
@@ -44,10 +43,5 @@ public class MasterCardService {
 
 
         executorService.shutdown();
-    }
-
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        MasterCardService masterCardService = new MasterCardService();
-        masterCardService.doAll();
     }
 }
