@@ -15,7 +15,7 @@ public class OrderProcessor {
                 order.setStatus("Processed");
                 totalProcessedOrders.incrementAndGet();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.err.println("Thread was interrupted: " + e.getMessage());
             }
         });
     }
