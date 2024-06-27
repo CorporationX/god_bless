@@ -1,19 +1,22 @@
 package faang.school.godbless.asynch1;
 
 public class MasterCardService {
+
+    private static final int TIME_TO_COLLECT_PAYMENT = 10_000;
+    private static final int TIME_TO_SEND_ANALYTICS = 1_000;
+
     public int collectPayment() {
-        try {
-            Thread.sleep(10_000);
-            return 10_000;
-        } catch (InterruptedException e) {
-            throw new RuntimeException();
-        }
+        return waitAndReturnWaitingTime(TIME_TO_COLLECT_PAYMENT);
     }
 
     public int sendAnalytics() {
+        return waitAndReturnWaitingTime(TIME_TO_SEND_ANALYTICS);
+    }
+
+    private static int waitAndReturnWaitingTime(int time) {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(time);
+            return time;
         } catch (InterruptedException e) {
             throw new RuntimeException();
         }
