@@ -18,34 +18,16 @@ public class Game {
     public void update() {
         Random random = new Random();
         int index = random.nextInt(players.size());
-        Player player = players.get(0);
+        Player player = players.get(index);
         while (true) {
             boolean lossLive = getLossLive();
             if (lossLive) {
-                synchronized (livesLock) {
-                    if (!isDeath) {
-                        player.decreaseLive();
-                        lives++;
-
-                        if (!player.isAlive()) {
-                            gameOver(player);
-                            isDeath = true;
-                            return;
-                        }
-                    } else {
-                        return;
-                    }
+                if (decreaseLiveOrGameOver(player)) {
+                    break;
                 }
             } else {
-                synchronized (scoreLock) {
-                    synchronized (livesLock) {
-                        if (!isDeath) {
-                            player.increaseScore();
-                            score++;
-                        } else {
-                            return;
-                        }
-                    }
+                if (increaseScore(player)) {
+                    break;
                 }
             }
         }
@@ -59,5 +41,37 @@ public class Game {
         System.out.println("Игра завершилась на игроке: " + player.getName());
         System.out.println("Игра окончена с max score: " + score);
         System.out.println("Игра окончена с max lives: " + lives);
+    }
+
+    private boolean decreaseLiveOrGameOver(Player player) {
+        synchronized (livesLock) {
+            if (!isDeath) {
+                player.decreaseLive();
+                lives++;
+
+                if (!player.isAlive()) {
+                    gameOver(player);
+                    isDeath = true;
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean increaseScore(Player player) {
+        synchronized (scoreLock) {
+            synchronized (livesLock) {
+                if (!isDeath) {
+                    player.increaseScore();
+                    score++;
+                } else {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
