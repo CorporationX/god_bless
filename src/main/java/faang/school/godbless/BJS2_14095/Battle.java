@@ -6,31 +6,29 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Battle {
-    private ExecutorService service;
+    private final ExecutorService service = Executors.newFixedThreadPool(2);
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
-        int diff = (robot1.getAttackPower() - robot2.getDefensePower()) - (robot2.getAttackPower() - robot1.getDefensePower());
-        service = Executors.newFixedThreadPool(3);
-        Future<Robot> winner = service.submit(() -> {
-            if (diff > 0) {
+        AtomicInteger diff = new AtomicInteger();
+        return service.submit(() -> {
+            diff.set((robot1.getAttackPower() - robot2.getDefensePower()) - (robot2.getAttackPower() - robot1.getDefensePower()));
+            if (diff.get() > 0) {
                 return robot1;
             } else {
                 return robot2;
             }
         });
-        service.shutdown();
-        return winner;
     }
 
     public void shutdownPool() {
-        service.shutdown();
+        this.service.shutdown();
     }
 
     public static void main(String[] args) {
         Battle battle = new Battle();
-
         Robot r2d2 = new Robot("r2d2", 5, 3);
         Robot c3po = new Robot("c3po", 8, 4);
         Robot bd1 = new Robot("BD-1", 6, 3);
@@ -41,13 +39,13 @@ public class Battle {
         Future<Robot> secondWinnerFuture = battle.fight(bd1, l337);
         Future<Robot> thirdWinnerFuture = battle.fight(k2s0, bb8);
         try {
+
             Robot firstWinner = firstWinnerFuture.get(10, TimeUnit.SECONDS);
             Robot secondWinner = secondWinnerFuture.get(10, TimeUnit.SECONDS);
             Robot thirdWinner = thirdWinnerFuture.get(10, TimeUnit.SECONDS);
+            battle.shutdownPool();
             System.out.println("first winner is " + firstWinner.getName() + " second winner is " + secondWinner.getName() + " third winner is " + thirdWinner.getName());
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        } catch (ExecutionException | TimeoutException e) {
+        } catch (InterruptedException | ExecutionException | TimeoutException e) {
             e.getStackTrace();
         }
     }
