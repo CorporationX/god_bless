@@ -18,7 +18,7 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(foodAmount * 100L);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         System.out.println(character + " ест " + foodAmount + " " + food);
     }
