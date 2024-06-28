@@ -1,10 +1,12 @@
 package faang.school.godbless.starWarsArena;
 
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class Battle {
-    ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(2);
     Random random = new Random();
 
     public Future<Robot> fight(Robot firstRobot, Robot secondRobot) {
