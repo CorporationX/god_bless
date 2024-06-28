@@ -1,11 +1,16 @@
 package faang.school.godbless.wow;
 
+import lombok.Getter;
+
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
+@Getter
 public class QuestSystem {
+    private ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-    public CompletableFuture<Player> startQuest(Player player, Quest quest, Executor executor) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 System.out.printf("%s: %s started %s\n", Thread.currentThread().getName(), player.getName(), quest.getName());
@@ -17,7 +22,7 @@ public class QuestSystem {
             updateExperienceAndLevel(player);
 
             return player;
-        }, executor);
+        }, executorService);
     }
 
     private void updateExperienceAndLevel(Player player) {
