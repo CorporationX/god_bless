@@ -7,7 +7,7 @@ public enum Difficult {
 
     private String title;
 
-    Difficult(String title) {
+    private Difficult(String title) {
         this.title = title;
     }
 
