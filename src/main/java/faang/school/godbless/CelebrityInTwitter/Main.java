@@ -7,9 +7,11 @@ public class Main {
     public static void main(String[] args) {
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
         List<TwitterAccount> accounts = createAccounts();
-        List<CompletableFuture<Void>> completableFutures = accounts.stream()
-                .map(system::followAccount).toList();
-        CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture
+                .allOf(accounts.stream()
+                        .map(system::followAccount)
+                        .toArray(CompletableFuture[]::new))
+                .join();
         accounts.forEach(System.out::println);
         system.getExecutorService().shutdown();
     }
