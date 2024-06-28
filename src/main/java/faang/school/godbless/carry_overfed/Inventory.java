@@ -22,7 +22,7 @@ public class Inventory {
         return new Item(first.getName() + second.getName(), first.getPower() + second.getPower());
     }
 
-    public CompletableFuture<Item> getFromChest(Executor executor) {
+    private CompletableFuture<Item> getFrom(List<String> items, Executor executor) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(1000));
@@ -30,23 +30,17 @@ public class Inventory {
                 throw new RuntimeException(Thread.currentThread().getName() + " interrupted");
             }
 
-            String name = ITEMS_CHEST.get(ThreadLocalRandom.current().nextInt(ITEMS_CHEST.size()));
+            String name = items.get(ThreadLocalRandom.current().nextInt(items.size()));
             int power = ThreadLocalRandom.current().nextInt(100);
             return new Item(name, power);
         }, executor);
     }
 
-    public CompletableFuture<Item> getFromShop(Executor executor) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(1000));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(Thread.currentThread().getName() + " interrupted");
-            }
+    public CompletableFuture<Item> getFromChest(Executor executor) {
+        return getFrom(ITEMS_CHEST, executor);
+    }
 
-            String name = ITEMS_SHOP.get(ThreadLocalRandom.current().nextInt(ITEMS_SHOP.size()));
-            int power = ThreadLocalRandom.current().nextInt(100);
-            return new Item(name, power);
-        }, executor);
+    public CompletableFuture<Item> getFromShop(Executor executor) {
+        return getFrom(ITEMS_SHOP, executor);
     }
 }

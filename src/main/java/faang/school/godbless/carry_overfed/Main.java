@@ -6,12 +6,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int THREADS = 4;
+    private static final int TOTAL_COMBINES = 10;
+
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
         Inventory inventory = new Inventory();
 
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < TOTAL_COMBINES; i++) {
             inventory.getFromChest(executorService)
                     .thenCombine(inventory.getFromShop(executorService), inventory::combineItems)
                     .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)))
