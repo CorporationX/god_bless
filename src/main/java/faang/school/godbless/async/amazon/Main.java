@@ -20,12 +20,13 @@ public class Main {
                 new Order(7L, "NEW")
         );
 
-        var futures = orders.stream()
+        var futures = CompletableFuture.allOf(
+                orders.stream()
                 .map(orderProcessor::processOrder)
-                .toList();
+                .toArray(CompletableFuture[]::new)
+        );
 
-        var allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        allFutures.join();
+        futures.join();
 
         log.info("Total orders completed: {}", orderProcessor.getTotalProcessedOrders());
     }
