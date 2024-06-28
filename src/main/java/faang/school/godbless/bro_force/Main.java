@@ -18,13 +18,15 @@ public class Main {
 
         playerList.forEach(executorService::execute);
 
+        executorService.shutdown();
+
         try {
             executorService.awaitTermination(TIME_LIMIT, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
-        executorService.shutdown();
+        playerList.forEach(System.out::println);
     }
 
     private static List<Player> getPlayerList(Game game) {

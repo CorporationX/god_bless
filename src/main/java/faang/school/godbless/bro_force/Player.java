@@ -10,25 +10,26 @@ import java.util.Random;
 @Setter
 @ToString
 public class Player implements Runnable {
-    private final Random fightResultTeller = new Random();
-    private final String playerName;
+    private Game game;
     private int lives;
     private int score;
     private boolean isAlive;
-    private Game game;
+    private final String playerName;
+    private final Random fightResultTeller = new Random();
+    private UpdateResult lastUpdatedResult = UpdateResult.GAME_NOT_STARTED;
 
     public Player(String playerName, int initialLives, Game game) {
         this.playerName = playerName;
         this.lives = initialLives;
+        this.game = game;
         this.isAlive = true;
         this.score = 0;
-        this.game = game;
     }
 
     @Override
     public void run() {
         while (isAlive && !Thread.currentThread().isInterrupted()) {
-            game.update(this);
+            lastUpdatedResult = game.update(this);
         }
     }
 
