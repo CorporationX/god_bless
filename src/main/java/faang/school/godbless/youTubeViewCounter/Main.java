@@ -18,18 +18,14 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         List<Video> videoList = new ArrayList<>();
         for (int i = 0; i < NUM_VIDEOS; i++) {
-            videoList.add(new Video(new Random(NUM_VIDEOS) + LocalDateTime.now().toString()));
+            videoList.add(new Video("Video" + LocalDateTime.now()));
         }
 
         videoList.forEach(video -> {
             for (int i = 0; i < NUM_THREADS / NUM_VIDEOS; i++) {
                 executorService.submit(() -> {
-                    try {
                         videoManager.addView(video);
                         videoManager.getViewCount(video);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
                 });
             }
         });
