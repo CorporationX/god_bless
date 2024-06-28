@@ -33,6 +33,7 @@ public class SquareRequest {
         IntStream.rangeClosed(1, 1000).mapToLong(x -> (long) x).boxed()
                 .forEach(x -> requests.add(new SquareRequest(x)));
         ResultConsumer zero = new ResultConsumer(0L);
+        System.out.println("The calculation has been started! Wait a little bit");
         Long result = fanOutFanIn(requests, zero);
         System.out.println(result);
     }
@@ -50,9 +51,5 @@ public class SquareRequest {
         execution.awaitTermination(4, TimeUnit.SECONDS);
         System.out.print("The result is ");
         return resultConsumer.getValue();
-    }
-
-    public static void main(String[] args) throws InterruptedException {
-        Launch();
     }
 }
