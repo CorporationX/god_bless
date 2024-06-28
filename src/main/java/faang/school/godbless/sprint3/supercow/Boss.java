@@ -1,7 +1,10 @@
 package faang.school.godbless.sprint3.supercow;
 
+import lombok.ToString;
+
 import java.util.List;
 
+@ToString
 public class Boss {
 
     private final Integer maxPlayers;
@@ -49,12 +52,4 @@ public class Boss {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Boss{" +
-                "maxPlayers=" + maxPlayers +
-                ", currentPlayers=" + currentPlayers +
-                ", lock=" + lock +
-                '}';
-    }
 }

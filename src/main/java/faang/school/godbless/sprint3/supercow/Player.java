@@ -1,5 +1,8 @@
 package faang.school.godbless.sprint3.supercow;
 
+import lombok.ToString;
+
+@ToString
 public class Player {
 
     private String name;
@@ -17,10 +20,4 @@ public class Player {
         return name;
     }
 
-    @Override
-    public String toString() {
-        return "Player{" +
-                "name='" + name + '\'' +
-                '}';
-    }
 }
