@@ -28,14 +28,13 @@ public class SquareRequest {
         }
     }
 
-    public static void Launch() throws InterruptedException {
+    public static void launch() throws InterruptedException {
         List<SquareRequest> requests = new ArrayList<>();
         IntStream.rangeClosed(1, 1000).mapToLong(x -> (long) x).boxed()
                 .forEach(x -> requests.add(new SquareRequest(x)));
-        ResultConsumer zero = new ResultConsumer(0L);
+        ResultConsumer resultConsumer = new ResultConsumer(0L);
         System.out.println("The calculation has been started! Wait a little bit");
-        Long result = fanOutFanIn(requests, zero);
-        System.out.println(result);
+        System.out.println(fanOutFanIn(requests, resultConsumer));
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer)
@@ -48,7 +47,7 @@ public class SquareRequest {
             }, execution);
         }
         execution.shutdown();
-        execution.awaitTermination(4, TimeUnit.SECONDS);
+        execution.awaitTermination(5, TimeUnit.SECONDS);
         System.out.print("The result is ");
         return resultConsumer.getValue();
     }
