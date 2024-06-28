@@ -9,7 +9,7 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private static final Integer CORE_POOL_SIZE = 5;
+    private static final int CORE_POOL_SIZE = 5;
 
     public static void main(String[] args) {
         Room room1 = new Room(Arrays.asList(new Food("food1"), new Food("food2")));
