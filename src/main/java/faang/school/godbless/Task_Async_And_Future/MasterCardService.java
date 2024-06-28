@@ -19,8 +19,7 @@ public class MasterCardService {
         int sentData = analyticsData.get();
         System.out.println("The data has been sent: " + sentData);
         System.out.println("Receiving payment...");
-        int receivedPayment = futurePayment.get();
-        System.out.println("The payment has been received: " + receivedPayment);
+        System.out.println("The payment has been received: " + futurePayment.get());
         executor.shutdown();
     }
 
