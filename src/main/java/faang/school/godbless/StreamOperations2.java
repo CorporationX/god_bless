@@ -3,7 +3,7 @@ package faang.school.godbless;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StreamOperations {
+public class StreamOperations2 {
     public static Set<Pair> findPairs(List<Integer> list, int summ) {
         Set<Pair> sumPair = list.stream()
                 .flatMap(i -> list.stream()
