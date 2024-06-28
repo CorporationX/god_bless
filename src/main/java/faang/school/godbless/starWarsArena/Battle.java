@@ -16,9 +16,7 @@ public class Battle {
             switch (random.nextInt(1)) {
                 case 0:
                     if (firstRobot.getHelth() > 0) {
-                        secondRobot.setHelth(secondRobot.getHelth() - (firstRobot.getAttackPower() - secondRobot.getDefensePower()));
-                        System.out.println(firstRobot.getName() + " атаковал " + secondRobot.getName()
-                                + " жизней " + secondRobot.getName() + " :" + secondRobot.getHelth());
+                        setRobotHealth(secondRobot, firstRobot);
                         if (secondRobot.getHelth() <= 0) {
                             return firstRobot;
                         }
@@ -27,9 +25,7 @@ public class Battle {
                     }
                 case 1:
                     if (secondRobot.getHelth() > 0) {
-                        firstRobot.setHelth(firstRobot.getHelth() - (secondRobot.getAttackPower() - firstRobot.getDefensePower()));
-                        System.out.println(secondRobot.getName() + " атаковал " + firstRobot.getName()
-                                + " жизней " + firstRobot.getName() + " :" + firstRobot.getHelth());
+                        setRobotHealth(firstRobot, secondRobot);
                         if (firstRobot.getHelth() <= 0) {
                             return secondRobot;
                         }
@@ -38,5 +34,11 @@ public class Battle {
                     }
             }
         }
+    }
+
+    private void setRobotHealth(Robot firstRobot, Robot secondRobot) {
+        firstRobot.setHelth(firstRobot.getHelth() - (secondRobot.getAttackPower() - firstRobot.getDefensePower()));
+        System.out.println(secondRobot.getName() + " атаковал " + firstRobot.getName()
+                + " жизней " + firstRobot.getName() + " :" + firstRobot.getHelth());
     }
 }
