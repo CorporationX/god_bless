@@ -9,33 +9,30 @@ public class Main {
     private static final String MSG_EXIT = "Завершение работы.";
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         GooglePhotosAutoUploader googlePhoto = new GooglePhotosAutoUploader();
-        List<String> urlsPhoto = createUrlList();
+        List<String> urlsPhoto = new ArrayList<>();
         DownLoaderThread downLoader = new DownLoaderThread(googlePhoto, "Downloader");
-        UpLoaderThread upLoader = new UpLoaderThread(googlePhoto, "Uploader");
+        UpLoaderThread upLoader = new UpLoaderThread(googlePhoto, "Uploader", urlsPhoto);
 
         downLoader.start();
         upLoader.start();
 
-        for (String path : urlsPhoto) {
-            upLoader.upload(path);
+        for (int i = 1; i <= COUNT_URLS; i++) {
+            synchronized (urlsPhoto){
+                urlsPhoto.add("ulr_" + i);
+                Thread.sleep(200);
+            }
         }
 
         try {
             Thread.sleep(2000);
+            googlePhoto.setOff();
+            Thread.sleep(1000);
             System.out.println(MSG_EXIT);
             System.exit(0);
         } catch (InterruptedException e) {
             throw new RuntimeException(MSG_ERROR);
         }
-    }
-
-    private static List<String> createUrlList() {
-        List<String> urls = new ArrayList<>();
-        for (int i = 1; i <= COUNT_URLS; i++) {
-            urls.add("ulr_" + i);
-        }
-        return urls;
     }
 }

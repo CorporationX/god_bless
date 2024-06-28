@@ -15,5 +15,6 @@ public class DownLoaderThread extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        System.out.printf("%s: завершает работу.\n", this.getName());
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     public static final Object lock = new Object();
     public static final List<String> photosToUpload = new ArrayList<>();
+    private boolean isActive = true;
 
     public void startAutoUpload() throws InterruptedException {
         synchronized (lock) {
@@ -21,7 +22,6 @@ public class GooglePhotosAutoUploader {
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
-            // По какой-то причине сюда уже приходит поток с именем main
             System.out.printf("%s: добавляет путь %s в очередь на загрузку.\n", Thread.currentThread().getName(), photoPath);
             photosToUpload.add(photoPath);
             lock.notify();
@@ -34,6 +34,11 @@ public class GooglePhotosAutoUploader {
             System.out.printf("\tupload \"%s\" & remove from list\n", photosToUpload.remove(i));
         }
     }
+    public synchronized void setOff() {
+        isActive = !isActive;
+    }
 
-
+    public synchronized boolean isActive() {
+        return isActive;
+    }
 }
