@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-
 @Slf4j
 @Getter
 @Setter
@@ -15,21 +13,11 @@ public class MarketingDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (marketingResources) {
-            log.info("Marketing Started Working");
+        marketingResources.addFile("Marketing file");
+        log.info("Marketing Started Working");
 
-            try {
-                Thread.sleep(1000L);
-                marketingResources.addFile("Marketing file");
-                System.out.println(marketingResources);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+        marketingResources.addFile(designDepartment.getDesignResources().readFiles().get(0));
 
-            log.info("Trying to read Design files");
-            List<String> marketingDepartmentFiles = designDepartment.getDesignResources().readFiles();
-            log.info("Got design files");
-            System.out.println(marketingDepartmentFiles);
-        }
+        System.out.println(marketingResources);
     }
 }
