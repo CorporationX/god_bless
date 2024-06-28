@@ -7,10 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@AllArgsConstructor
 public class Game {
-    private Integer scope;
-    private Integer lives;
+    private int scope;
+    private int lives;
     private Object scopeLock = new Object();
     private Object liveLock = new Object();
     private List<Player> players = new ArrayList<>();
