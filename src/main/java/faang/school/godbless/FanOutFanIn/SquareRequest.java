@@ -40,7 +40,7 @@ public class SquareRequest {
         }
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[requests.size()])).join();
-
+        executor.shutdown();
         return resultConsumer.getResult();
     }
 
