@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+    private static final int NUM_THREADS = 2;
     private static List<Player> allPlayers = List.of(new Player("Nik"),
             new Player("Andrey"),
             new Player("Vika"),
@@ -22,10 +23,10 @@ public class Main {
     }
 
     private static void startBattle(Boss boss) {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         for (Player player : allPlayers) {
             executor.submit(() -> {
-                boss.joinBattle(player);
+                player.joinBattle(boss);
             });
         }
         executor.shutdown();
@@ -33,12 +34,12 @@ public class Main {
     }
 
     private static void endBattle(Boss boss) {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        List<Player> playersCopy = new ArrayList<>(boss.getCurrentPlayer());
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        List<Player> playersCopy = new ArrayList<>(boss.getCurrentPlayers());
 
         for (Player player : playersCopy) {
             executor.submit(() -> {
-                boss.leaveBattle(player);
+                player.leaveBattle(boss);
             });
         }
         executor.shutdown();
