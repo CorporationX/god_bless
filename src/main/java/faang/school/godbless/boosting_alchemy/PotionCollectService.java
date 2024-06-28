@@ -3,7 +3,6 @@ package faang.school.godbless.boosting_alchemy;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -12,7 +11,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 @Getter
 public class PotionCollectService {
-    private List<Potion> potions;
     private AtomicInteger totalIngredients;
 
     public CompletableFuture<Integer> gatherIngredients(Potion potion, Executor executor) {

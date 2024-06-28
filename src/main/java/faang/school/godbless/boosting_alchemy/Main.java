@@ -3,6 +3,7 @@ package faang.school.godbless.boosting_alchemy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -23,11 +24,11 @@ public class Main {
                 new Potion("Potion9", 1),
                 new Potion("Potion10", 12));
 
-        PotionCollectService potionCollectService = new PotionCollectService(potions, new AtomicInteger(0));
+        PotionCollectService potionCollectService = new PotionCollectService(new AtomicInteger(0));
 
         List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
 
-        for (Potion potion : potionCollectService.getPotions()) {
+        for (Potion potion : potions) {
             completableFutures.add(
                     potionCollectService
                             .gatherIngredients(potion, executorService)
@@ -35,8 +36,12 @@ public class Main {
             );
         }
 
-        for (CompletableFuture<Void> cmfs : completableFutures) {
-            cmfs.join();
+        CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(completableFutures.toArray(CompletableFuture[]::new));
+
+        try {
+            combinedFuture.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
         }
 
         executorService.shutdown();
