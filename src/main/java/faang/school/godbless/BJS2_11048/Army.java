@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<Unit> units = new ArrayList<>();
+    private final List<Unit> units;
+    private final List<PowerThread> archerThreads;
+    private final List<PowerThread> mageThreads;
+    private final List<PowerThread> swordsmanThreads;
 
-
-    List<PowerThread> archerThreads = new ArrayList<>();
-    List<PowerThread> mageThreads = new ArrayList<>();
-    List<PowerThread> swordsmanThreads = new ArrayList<>();
-
+    public Army() {
+        units = new ArrayList<>();
+        archerThreads = new ArrayList<>();
+        mageThreads = new ArrayList<>();
+        swordsmanThreads = new ArrayList<>();
+    }
 
     protected void addUnit(Unit unit) {
         units.add(unit);
@@ -19,17 +23,11 @@ public class Army {
     protected int calculateTotalPower() throws InterruptedException {
         for (Unit unit : units) {
             if (unit.isMage()) {
-                PowerThread powerThread = new PowerThread(unit);
-                mageThreads.add(powerThread);
-                powerThread.start();
+                startThreads(unit, mageThreads);
             } else if (unit.isArcher()) {
-                PowerThread powerThread = new PowerThread(unit);
-                archerThreads.add(powerThread);
-                powerThread.start();
+                startThreads(unit, archerThreads);
             } else if (unit.isSwordsman()) {
-                PowerThread powerThread = new PowerThread(unit);
-                swordsmanThreads.add(powerThread);
-                powerThread.start();
+                startThreads(unit, swordsmanThreads);
             }
         }
         return getTotal();
