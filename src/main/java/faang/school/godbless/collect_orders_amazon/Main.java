@@ -20,8 +20,11 @@ public class Main {
 
         OrderProcessor orderProcessor = new OrderProcessor();
 
-        List<CompletableFuture<Void>> futures = orders.stream().map(orderProcessor::processOrder).toList();
-        futures.forEach(CompletableFuture::join);
+        List<CompletableFuture<Void>> futures = orders.stream()
+                .map(orderProcessor::processOrder)
+                .toList();
+
+        CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new)).join();
 
         System.out.println("Total orders: " + orderProcessor.getAllProcessedOrders());
     }
