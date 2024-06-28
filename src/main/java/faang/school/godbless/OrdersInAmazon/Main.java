@@ -19,17 +19,16 @@ public class Main {
     }
 
     private static void orderProcessing(List<Order> orderList, OrderProcessor orderProcessor) {
-        List<CompletableFuture<Void>> futures = orderList.stream()
-                .map(i -> CompletableFuture.runAsync(
-                                () -> orderProcessor.processOrder(i), executorService)
-                        .handle((result, ex) -> {
-                            if (ex != null) {
-                                ex.getMessage();
-                            }
-                            return result;
-                        }))
-                .toList();
-        futures.forEach(CompletableFuture::join);
+        CompletableFuture.allOf(orderList.stream()
+                        .map(i -> CompletableFuture.runAsync(() -> orderProcessor.processOrder(i), executorService)
+                                .handle((result, ex) -> {
+                                    if (ex != null) {
+                                        ex.getMessage();
+                                    }
+                                    return result;
+                                }))
+                        .toArray(CompletableFuture[]::new))
+                .join();
     }
 
     private static List<Order> createOrders(int count) {

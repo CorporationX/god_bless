@@ -7,10 +7,10 @@ import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
-@Setter
 @ToString
 public class Order {
     private int id;
+    @Setter
     private String status;
 
 }

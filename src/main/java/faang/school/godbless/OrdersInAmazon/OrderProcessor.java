@@ -16,6 +16,6 @@ public class OrderProcessor {
             throw new RuntimeException("Ошибка в обработке заказа");
         }
         order.setStatus("Обработано");
-        totalProcessedOrders.addAndGet(1);
+        totalProcessedOrders.incrementAndGet();
     }
 }
