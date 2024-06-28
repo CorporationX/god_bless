@@ -11,16 +11,16 @@ import java.util.concurrent.Future;
 @Slf4j
 @AllArgsConstructor
 public class Stripe {
-    private MasterCardService gettingPaymentTool;
+    private MasterCardService masterCardService;
 
     public void doAll(ExecutorService executorService) {
         long startTime = System.currentTimeMillis();
 
         Future<Integer> paymentCollection =
-                executorService.submit(() -> gettingPaymentTool.collectPayment());
+                executorService.submit(() -> masterCardService.collectPayment());
 
         CompletableFuture<Integer> sentAnalytics =
-                CompletableFuture.supplyAsync(() -> gettingPaymentTool.sendAnalytics(), executorService);
+                CompletableFuture.supplyAsync(() -> masterCardService.sendAnalytics(), executorService);
 
         System.out.println(getValue(paymentCollection));
         System.out.println("Main waited until payment will be collected: " + (System.currentTimeMillis() - startTime));

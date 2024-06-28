@@ -9,16 +9,11 @@ public class Main {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_NUM);
 
-        Stripe stripe = getStripe();
+        MasterCardService masterCardService = new MasterCardService();
+        Stripe stripe = new Stripe(masterCardService);
 
         stripe.doAll(executorService);
 
         executorService.shutdown();
-    }
-
-    private static Stripe getStripe() {
-        MasterCardService masterCardService = new MasterCardService();
-
-        return new Stripe(masterCardService);
     }
 }

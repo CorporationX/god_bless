@@ -6,9 +6,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
 public class MasterCardService {
-    private final int COLLECT_PAYMENT_TAKING_TIME = 10_000;
-    private final int SEND_ANALYTICS_TAKING_TIME = 1_000;
     private final int DATA_NUMBER_UPPER_BOUND = 10_000;
+    private final int SEND_ANALYTICS_TAKING_TIME = 1_000;
+    private final int COLLECT_PAYMENT_TAKING_TIME = 10_000;
 
     public int collectPayment() {
         try {
