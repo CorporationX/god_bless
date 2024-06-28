@@ -7,7 +7,7 @@ import java.util.List;
 @ToString
 public class Boss {
 
-    private final Integer maxPlayers;
+    private final int maxPlayers;
     private final List<Player> currentPlayers;
     private final Object lock = new Object();
 
