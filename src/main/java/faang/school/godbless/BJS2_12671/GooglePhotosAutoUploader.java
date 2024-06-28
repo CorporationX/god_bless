@@ -28,6 +28,7 @@ public class GooglePhotosAutoUploader {
             }
     }
 
+
     public void NewPhotoAdded(){
             synchronized (lock) {
                 String photoPath = "some/new/photo/path";

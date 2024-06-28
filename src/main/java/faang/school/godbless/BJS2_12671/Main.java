@@ -12,5 +12,6 @@ public class Main {
 
         uploadThread.start();
         vievThread.start();
+
     }
 }
