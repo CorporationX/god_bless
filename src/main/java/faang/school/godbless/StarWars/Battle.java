@@ -9,7 +9,7 @@ public class Battle {
         return executorService.submit(() -> fighting(robot1, robot2));
     }
 
-    public static Robot fighting(Robot robot1, Robot robot2) {
+    private Robot fighting(Robot robot1, Robot robot2) {
         int r1 = robot1.getAttackPower() - robot2.getDefensePower();
         int r2 = robot2.getAttackPower() - robot1.getDefensePower();
         if (r1 > r2){

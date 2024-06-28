@@ -19,7 +19,7 @@ public class Main {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-
+        
         System.out.println("Пока чего-нибудь поделаю");
     }
 }
