@@ -4,16 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
-        synchronized (lock) {
+        synchronized (photosToUpload) {
             while (true) {
                 if (photosToUpload.isEmpty()) {
                     try {
                         System.out.println("Waiting new photo...");
-                        lock.wait();
+                        photosToUpload.wait();
                     } catch (InterruptedException e) {
                         throw new RuntimeException("Thread was interrupted");
                     }
@@ -29,9 +28,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
+        synchronized (photosToUpload) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            photosToUpload.notify();
         }
     }
 }
