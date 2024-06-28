@@ -7,8 +7,8 @@ public class MasterCardService {
 
     public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREAD);
-        Future future = executorService.submit(MasterCardService::collectPayment);
-        CompletableFuture completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        Future<Integer> future = executorService.submit(MasterCardService::collectPayment);
+        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
         System.out.println("Future: " + future.get());
         System.out.println("CompletableFuture: " + completableFuture.get());
         executorService.shutdown();
