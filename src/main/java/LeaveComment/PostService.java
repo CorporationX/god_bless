@@ -2,51 +2,46 @@ package LeaveComment;
 
 import lombok.NonNull;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostService {
-    private static final Object lock = new Object();
-    private static final List<Post> posts = createPosts();
+    private final Object lock = new Object();
+    private final List<Post> posts = new ArrayList<>();
 
-    public static List<Post> createPosts() {
-        return Arrays.asList(
-                new Post(1, "Bob", "Dragon", "text1"),
-                new Post(2, "Rob", "Home", "text2"),
-                new Post(3, "Tom", "PHP", "text3"),
-                new Post(4,"Bart", "World", "text4"));
-    }
-
-    public void addComment(int id, Comment comment) {
+    public void addComment(@NonNull int id, Comment comment) {
         synchronized (lock) {
-            posts.stream().filter(post -> post.getID() == id).forEach(post -> post.addComment(comment));
+            posts.stream()
+                    .filter(post -> post.getID() == id)
+                    .findFirst()
+                    .ifPresent(post -> post.addComment(comment));
         }
     }
 
     public void addPost(@NonNull Post post) {
         synchronized (lock) {
-            System.out.println("added Post " + post.getTitle());
+            System.out.println("add Post " + post.getTitle());
             posts.add(post);
         }
     }
 
-    public static void deletePost(@NonNull String user, Post post) {
+    public void deletePost(@NonNull String user, Post post) {
         synchronized (lock) {
             if (user.equals(post.getAuthor())) {
                 posts.remove(post);
-                System.out.println("Пост удален");
+                System.out.println("Post deleted");
             } else {
-                System.out.println("Этот пользователь не владелец поста");
+                System.out.println("This user is not the owner of the post");
             }
         }
     }
 
-    public static void deleteComment(@NonNull String user, Comment comment, Post post) {
+    public void deleteComment(@NonNull String user, Comment comment, Post post) {
         synchronized (lock) {
             if (user.equals(comment.getName()) && posts.contains(post)) {
                 post.deleteComment(comment);
             } else {
-                System.out.println("Этот коментарий пренадлежит другому пользователю");
+                System.out.println("This comment belongs to another user");
             }
         }
     }
@@ -56,6 +51,6 @@ public class PostService {
     }
 
     public void printComment() {
-        posts.forEach(post -> post.print());
+        posts.forEach(Post::print);
     }
 }

@@ -6,27 +6,26 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 @Getter
-
+@AllArgsConstructor
 public class Post {
     private final int ID;
     private String author;
     private String title;
     private String text;
-    private static final List<Comment> commentList = new ArrayList<>();
+    private final List<Comment> commentList = new ArrayList<>();
 
     public void addComment(Comment comment) {
         commentList.add(comment);
-        System.out.println("Comment added " + comment.getComment());
+        System.out.println("Comment add " + comment.getComment());
     }
 
     public void deleteComment(Comment comment) {
         commentList.remove(comment);
-        System.out.println("Коментарий был удален");
+        System.out.println("Comment has been deleted");
     }
 
     public void print() {
-        commentList.forEach(comment -> System.out.println(comment.getComment()));
+        commentList.forEach(System.out::println);
     }
 }

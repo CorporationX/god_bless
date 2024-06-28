@@ -1,14 +1,24 @@
 package LeaveComment;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @Getter
 public class Comment {
     private String name;
     private String comment;
     private LocalDateTime dateTime;
+
+    public Comment(String name, String comment) {
+        this.name = name;
+        this.comment = comment;
+        this.dateTime = LocalDateTime.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Comment " + name +
+                ": " + comment;
+    }
 }
