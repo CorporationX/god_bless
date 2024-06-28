@@ -1,7 +1,11 @@
 package faang.school.godbless.DownloadAlchemy;
 
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
@@ -17,16 +21,13 @@ public class Main {
 
     public static Integer allIngredients(List<Potion> potions) throws ExecutionException, InterruptedException {
         AtomicInteger allPotion = new AtomicInteger(0);
-        List<CompletableFuture<Integer>> result = potions.stream()
-                .map(i -> CompletableFuture.supplyAsync(
-                        () -> gatherIngredients(i), executorService))
-                .toList();
-        CompletableFuture<Void> resultOperations = CompletableFuture.allOf(result.toArray(new CompletableFuture[0]));
-        CompletableFuture<Integer> finallyResult = resultOperations.thenApply(item -> {
-            result.forEach(futureCountPotion -> allPotion.addAndGet(futureCountPotion.join()));
-            return allPotion.get();
-        });
-        return finallyResult.get();
+        CompletableFuture<Void> getPotion = CompletableFuture.allOf(
+                potions.stream()
+                        .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion), executorService)
+                                .thenAccept(allPotion::addAndGet))
+                        .toArray(CompletableFuture[]::new));
+        getPotion.join();
+        return allPotion.get();
     }
 
     public static int gatherIngredients(Potion potion) {
