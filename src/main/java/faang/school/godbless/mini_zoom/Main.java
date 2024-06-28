@@ -13,18 +13,18 @@ public class Main {
         executorService.shutdown();
     }
 
-    private static List<Participant> getParticipants(){
+    private static List<Participant> getParticipants() {
         return List.of(
-          new Participant("First"),
-          new Participant("Second"),
-          new Participant("Third"),
-          new Participant("Fourth"),
-          new Participant("Fifth"),
-          new Participant("Sixth"),
-          new Participant("Seventh"),
-          new Participant("Eighth"),
-          new Participant("Ninth"),
-          new Participant("Tenth")
+                new Participant("First"),
+                new Participant("Second"),
+                new Participant("Third"),
+                new Participant("Fourth"),
+                new Participant("Fifth"),
+                new Participant("Sixth"),
+                new Participant("Seventh"),
+                new Participant("Eighth"),
+                new Participant("Ninth"),
+                new Participant("Tenth")
         );
     }
 

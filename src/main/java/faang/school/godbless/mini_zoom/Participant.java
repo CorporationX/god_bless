@@ -13,7 +13,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class Participant {
     private String name;
 
-    public void joinConference(){
+    public void joinConference() {
         try {
             int connectionTime = ThreadLocalRandom.current().nextInt(1000, 4000);
 
