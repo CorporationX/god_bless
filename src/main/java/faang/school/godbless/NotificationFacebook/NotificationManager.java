@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
 public class NotificationManager {
     private static final int COUNT_THREAD = 4;
@@ -17,11 +18,15 @@ public class NotificationManager {
     }
 
     public void finalNot(int item) {
-        List<CompletableFuture<Void>> transactionWait = new ArrayList<>();
-        for (int i = 1; i <= item; i++) {
-            transactionWait.add(fetchNotification(i));
-        }
-        CompletableFuture.allOf(transactionWait.toArray(new CompletableFuture[0])).join();
+        CompletableFuture
+                .allOf(IntStream
+                        .rangeClosed(1, item)
+                        .mapToObj(this::fetchNotification)
+                        .toArray(CompletableFuture[]::new))
+                .join();
+    }
+
+    public void shutdownCall() {
         executorService.shutdown();
     }
 
@@ -33,7 +38,7 @@ public class NotificationManager {
 
     private void addNotification(Notification newNotification) {
         synchronized (notifications) {
-            try{
+            try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(4));
             } catch (InterruptedException e) {
                 throw new RuntimeException("Ошибка в добавлении уведомления в список");
