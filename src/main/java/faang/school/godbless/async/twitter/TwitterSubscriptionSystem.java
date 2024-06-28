@@ -4,7 +4,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TwitterSubscriptionSystem {
 
-    public synchronized void addFollower(TwitterAccount account) {
+    private synchronized void addFollower(TwitterAccount account) {
         account.setFollowers(account.getFollowers() + 1);
     }
 

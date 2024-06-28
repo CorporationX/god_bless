@@ -7,12 +7,14 @@ import java.util.concurrent.CompletableFuture;
 @Slf4j
 public class Main {
 
+    private static final int SUBSCRIBERS_COUNT = 20;
+
     public static void main(String[] args) {
         var system = new TwitterSubscriptionSystem();
         var account = new TwitterAccount("example");
 
-        var futures = new CompletableFuture[20];
-        for (int i = 0; i < 20; i++) {
+        var futures = new CompletableFuture[SUBSCRIBERS_COUNT];
+        for (int i = 0; i < SUBSCRIBERS_COUNT; i++) {
             futures[i] = system.followAccount(account);
         }
 
