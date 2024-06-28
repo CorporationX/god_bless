@@ -16,11 +16,12 @@ public class Main {
                 new Potion("Healing potion", 3),
                 new Potion("Stealth potion", 7));
         AtomicInteger totalIngredients = new AtomicInteger(0);
-        var futures = potions.stream()
+        var futures = CompletableFuture.allOf(
+                potions.stream()
                 .map(potion -> gatherIngredients(potion, totalIngredients))
-                .toList();
-        var allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        allFutures.join();
+                .toArray(CompletableFuture[]::new)
+        );
+        futures.join();
         log.info("Общее количество собранных ингредиентов: {}", totalIngredients);
     }
 
