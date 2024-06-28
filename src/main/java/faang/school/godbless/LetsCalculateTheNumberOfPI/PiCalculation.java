@@ -28,6 +28,7 @@ public class PiCalculation {
     }
 
     public void generateAndCountPoints(int numPoints) {
+        all.addAndGet(numPoints);
         int rootOfNumPoints = (int) pow(numPoints, 0.5);
         IntStream.range(0, rootOfNumPoints).forEach(integer -> {
             CompletableFuture<Void> partOfAllFuture = CompletableFuture.runAsync(() -> {
@@ -37,9 +38,6 @@ public class PiCalculation {
                         .forEach(point -> {
                             if (pow(point.x(), 2) + pow(point.y(), 2) <= 1) {
                                 inside.incrementAndGet();
-                                all.incrementAndGet();
-                            } else {
-                                all.incrementAndGet();
                             }
                         });
             }, EXECUTOR);
