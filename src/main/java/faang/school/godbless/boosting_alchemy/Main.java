@@ -1,6 +1,5 @@
 package faang.school.godbless.boosting_alchemy;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -26,17 +25,15 @@ public class Main {
 
         PotionCollectService potionCollectService = new PotionCollectService(new AtomicInteger(0));
 
-        List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
+        CompletableFuture<Void>[] completableFutures = new CompletableFuture[potions.size()];
 
-        for (Potion potion : potions) {
-            completableFutures.add(
-                    potionCollectService
-                            .gatherIngredients(potion, executorService)
-                            .thenAccept(result -> potionCollectService.getTotalIngredients().addAndGet(result))
-            );
+        for (int i = 0; i < completableFutures.length; i++) {
+            completableFutures[i] = potionCollectService
+                    .gatherIngredients(potions.get(i), executorService)
+                    .thenAccept(result -> potionCollectService.getTotalIngredients().addAndGet(result));
         }
 
-        CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(completableFutures.toArray(CompletableFuture[]::new));
+        CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(completableFutures);
 
         try {
             combinedFuture.get();
