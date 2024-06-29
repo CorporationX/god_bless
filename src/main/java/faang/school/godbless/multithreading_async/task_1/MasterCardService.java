@@ -8,34 +8,42 @@ import java.util.concurrent.*;
 public class MasterCardService {
     private static final int THREAD_COUNT = 4;
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_COUNT);
+    private static final int COLLECTING_PAYMENT_DURATION = 10_000;
+    private static final int SENDING_ANALYTICS_DURATION = 1_000;
 
     public void doAll() {
         final Future<Integer> collectedPaymentFuture = EXECUTOR.submit(MasterCardService::collectPayment);
-        final CompletableFuture<Integer> sentAnalyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, EXECUTOR);
+        final CompletableFuture<Integer> sentAnalyticsFuture =
+            CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, EXECUTOR);
         final int sentAnalytics = getFutureResult(sentAnalyticsFuture);
         log.info("Sent analytics: {}", sentAnalytics);
         final int collectedPayment = getFutureResult(collectedPaymentFuture);
         log.info("Collected payment: {}", collectedPayment);
+    }
+
+    public void shutdownExecutor() {
         EXECUTOR.shutdown();
     }
 
     private static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(COLLECTING_PAYMENT_DURATION);
+            return COLLECTING_PAYMENT_DURATION;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            log.error("Interrupted during collecting payment", e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted during collecting payment", e);
         }
     }
 
     private static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(SENDING_ANALYTICS_DURATION);
+            return SENDING_ANALYTICS_DURATION;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            log.error("Interrupted during sending analytics", e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted during collecting payment", e);
         }
     }
 
@@ -45,10 +53,12 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             log.error("Thread was interrupted while waiting for the collectedPaymentFuture result", e);
             Thread.currentThread().interrupt();
-            throw new RuntimeException("Thread was interrupted while waiting for the collectedPaymentFuture result", e);
+            throw new RuntimeException("Thread was interrupted while waiting for the " +
+                "collectedPaymentFuture" + " result", e);
         } catch (ExecutionException e) {
             log.error("Exception occurred while trying to get the future result", e);
             throw new RuntimeException("Exception occurred while trying to get the future result", e);
         }
     }
+
 }
