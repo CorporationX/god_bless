@@ -24,7 +24,7 @@ public class Main {
 
                 futureTransferResults.add(
                         CompletableFuture.supplyAsync(
-                                () -> bank.transfer(senderId, receiverId, 300), executorService)
+                                () -> bank.transfer(senderId, receiverId, 500), executorService)
                 );
             }
         }

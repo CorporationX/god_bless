@@ -12,50 +12,50 @@ import java.util.concurrent.locks.Lock;
 @Slf4j
 @Getter
 public class Bank {
+    private final long CHECKING_TIME = 1000L;
     private final Map<Integer, Account> accounts = new ConcurrentHashMap<>();
 
     public boolean transfer(int senderAccountId, int receiverAccountId, int transferAmount) {
-        Lock firstLock = accounts.get(Math.min(senderAccountId, receiverAccountId)).getLock();
-        Lock secondLock = accounts.get(Math.max(senderAccountId, receiverAccountId)).getLock();
+        Lock accoutWithMinIdLock = accounts.get(Math.min(senderAccountId, receiverAccountId)).getLock();
+        Lock accoutWithMaxIdLock = accounts.get(Math.max(senderAccountId, receiverAccountId)).getLock();
 
-        firstLock.lock();
-        secondLock.lock();
-
-        if (!accounts.containsKey(senderAccountId)) {
-            log.warn("Could not find Account sending money by id");
-            return false;
-        }
-
-        if (!accounts.containsKey(receiverAccountId)) {
-            log.warn("Could not find Account receiving money by id");
-            return false;
-        }
-
-        Account sender = accounts.get(senderAccountId);
-        Account receiver = accounts.get(receiverAccountId);
+        accoutWithMinIdLock.lock();
+        accoutWithMaxIdLock.lock();
 
         try {
-            sender.withdraw(transferAmount);
-            receiver.deposit(transferAmount);
-
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-
+            checkAreAccountsValid(senderAccountId, receiverAccountId);
+            processTransaction(senderAccountId, receiverAccountId, transferAmount);
+            Thread.sleep(CHECKING_TIME);
             log.info(senderAccountId + " SENT " + receiverAccountId + " at: " + LocalDateTime.now());
             return true;
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException | InterruptedException e) {
             log.warn("Transfer failed: " + e.getMessage());
             return false;
         } finally {
-            secondLock.unlock();
-            firstLock.unlock();
+            accoutWithMaxIdLock.unlock();
+            accoutWithMinIdLock.unlock();
         }
     }
 
     public void addAccounts(List<Account> accountList) {
         accountList.forEach(account -> accounts.put(account.getId(), account));
+    }
+
+    private void checkAreAccountsValid(int senderAccountId, int receiverAccountId) {
+        if (!accounts.containsKey(senderAccountId)) {
+            throw new IllegalArgumentException("Could not find Account sending by id");
+        }
+
+        if (!accounts.containsKey(receiverAccountId)) {
+            throw new IllegalArgumentException("Could not find Account receiver by id");
+        }
+    }
+
+    private void processTransaction(int senderAccountId, int receiverAccountId, int transferAmount) {
+        Account sender = accounts.get(senderAccountId);
+        Account receiver = accounts.get(receiverAccountId);
+
+        sender.withdraw(transferAmount);
+        receiver.deposit(transferAmount);
     }
 }
