@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 
 public class Player {
     private final static Object lock = new Object();
-    private boolean isPlaying = false;
+    private volatile boolean isPlaying = false;
 
     @SneakyThrows
     public void play() {
@@ -12,17 +12,15 @@ public class Player {
             isPlaying = true;
             Thread.sleep(5000);
             System.out.println("play");
-            isPlaying = false;
         }
     }
 
     @SneakyThrows
     public void pause() {
         synchronized (lock) {
-            isPlaying = true;
+            isPlaying = false;
             Thread.sleep(5000);
             System.out.println("pause");
-            isPlaying = false;
         }
     }
 
@@ -32,7 +30,6 @@ public class Player {
             isPlaying = true;
             Thread.sleep(5000);
             System.out.println("skip");
-            isPlaying = false;
         }
     }
 
@@ -42,7 +39,6 @@ public class Player {
             isPlaying = true;
             Thread.sleep(5000);
             System.out.println("previous");
-            isPlaying = false;
         }
     }
 }
