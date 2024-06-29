@@ -43,10 +43,8 @@ public class User {
         System.out.println("leaveHouse");
         synchronized (lock) {
             if (house.getUserRoles().containsKey(this)) {
-                synchronized (lock) {
-                    house.getUserRoles().remove(this);
-                    house.addRole(house.getUserRoles().get(this), lock);
-                }
+                house.getUserRoles().remove(this);
+                house.addRole(house.getUserRoles().get(this), lock);
             } else {
                 throw new IllegalStateException("User " + this.name + " is not in the house");
             }
