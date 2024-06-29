@@ -11,26 +11,23 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
 
-    public void joinBattle(Player player) {
-        synchronized (this) {
-            if (currentPlayers == maxPlayers) {
-                try {
-                    System.out.println(player.getName() + " is waiting...");
-                    this.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Interrupted while waiting queue");
-                }
+    public synchronized void joinBattle(Player player) {
+        if (currentPlayers == maxPlayers) {
+            try {
+                System.out.println(player.getName() + " is waiting...");
+                this.wait();
+            } catch (InterruptedException e) {
+                System.out.println("Interrupted while waiting queue");
             }
-            currentPlayers++;
-            System.out.println(player.getName() + " joined to battle");
         }
+        currentPlayers++;
+        System.out.println(player.getName() + " joined to battle");
     }
 
-    public void leaveBattle(Player player) {
-        synchronized (this) {
-            currentPlayers--;
-            this.notify();
-            System.out.println(player.getName() + " finished battle");
-        }
+    public synchronized void leaveBattle(Player player) {
+        currentPlayers--;
+        this.notify();
+        System.out.println(player.getName() + " finished battle");
+
     }
 }

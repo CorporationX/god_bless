@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) {
         Boss boss = new Boss(3);
+        int nThreads = 10;
         List<Player> players = List.of(
                 new Player("Vasya"),
                 new Player("Petya"),
@@ -16,7 +17,7 @@ public class Main {
                 new Player("Kirill")
         );
 
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newFixedThreadPool(nThreads);
 
         players.forEach((player) -> executor.execute(() -> player.startBattle(boss)));
 

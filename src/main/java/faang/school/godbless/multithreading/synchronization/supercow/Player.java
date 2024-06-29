@@ -8,11 +8,11 @@ import java.util.Random;
 public class Player {
     private String name;
 
+    private Random random = new Random();
+
     public Player(String name) {
         this.name = name;
     }
-
-    private Random random = new Random();
 
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
