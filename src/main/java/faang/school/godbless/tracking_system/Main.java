@@ -8,7 +8,7 @@ public class Main {
 
         getVehicles().forEach(vehicle -> vehicleTracker.getTransportManagementSystem().addVehicle(vehicle));
 
-        vehicleTracker.updateVehicleStatuses();
+        vehicleTracker.updateVehiclesEveryThreeSeconds();
     }
 
     private static List<Vehicle> getVehicles() {

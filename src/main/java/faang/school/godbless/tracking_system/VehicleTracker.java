@@ -13,7 +13,7 @@ public class VehicleTracker {
     private final TransportManagementSystem transportManagementSystem = new TransportManagementSystem();
     private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_NUM);
 
-    public void updateVehicleStatuses() {
+    public void updateVehiclesEveryThreeSeconds() {
         executorService.scheduleWithFixedDelay(() -> {
             transportManagementSystem.updateAllVehicles();
             System.out.println(transportManagementSystem.getIdAndVehicleMap());
