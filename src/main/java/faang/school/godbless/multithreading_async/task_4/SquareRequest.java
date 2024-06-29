@@ -19,6 +19,7 @@ public class SquareRequest {
             Thread.sleep(MIN_TIMEOUT + randomTimeout);
         } catch (InterruptedException e) {
             log.error("Thread interrupted while calculating square for number: {}", number, e);
+            Thread.currentThread().interrupt();
         } finally {
             resultConsumer.add(number * number);
         }

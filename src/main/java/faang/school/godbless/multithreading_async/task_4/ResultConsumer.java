@@ -16,7 +16,7 @@ public class ResultConsumer {
     private static final int SQUARE_REQUEST_COUNT = 1000;
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(SQUARE_REQUEST_COUNT);
 
-    ResultConsumer(Long init) {
+    public ResultConsumer(Long init) {
         sumOfSquaredNumbers = new AtomicLong(init);
     }
 
@@ -26,7 +26,7 @@ public class ResultConsumer {
 
     public void launch() {
         final List<SquareRequest> squareRequests = new ArrayList<>();
-        for (int i = 0; i <= SQUARE_REQUEST_COUNT; i++) {
+        for (int i = 1; i <= SQUARE_REQUEST_COUNT; i++) {
             squareRequests.add(new SquareRequest((long) i));
         }
         log.info("Sum: {}", fanOutFanIn(squareRequests, this));
@@ -35,15 +35,17 @@ public class ResultConsumer {
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         final List<CompletableFuture<Void>> completableFutures = new ArrayList<>();
         requests.forEach(request -> {
-            final CompletableFuture<Void> completableFuture = CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), EXECUTOR);
+            final CompletableFuture<Void> completableFuture =
+                CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), EXECUTOR);
             completableFutures.add(completableFuture);
         });
-        final CompletableFuture<Void> allFutures = CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
+        final CompletableFuture<Void> allFutures =
+            CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0]));
         allFutures.join();
         return resultConsumer.sumOfSquaredNumbers.get();
     }
 
-    public void shutdown() {
+    public void shutdownExecutor() {
         EXECUTOR.shutdown();
     }
 }
