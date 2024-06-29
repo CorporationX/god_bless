@@ -1,5 +1,6 @@
 package faang.school.godbless.sprint3.asyncAndFuture;
 
+import ch.qos.logback.core.joran.conditional.ThenAction;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
@@ -18,66 +19,79 @@ public class MasterCardService {
     }
 
     public int collectPayment() {
+        int result = -1;
         try {
             log.info("collectPayment start");
-            Thread.sleep(2_000);
+            Thread.sleep(10_000);
             log.info("collectPayment end");
-            return 10_000;
+            result = 10_000;
         } catch (InterruptedException e) {
-            log.error("error: {}", e.getMessage());
-            e.printStackTrace();
-            return -1;
+            log.error("collectPayment interrupted: {}.", e.getMessage());
+            Thread.currentThread().interrupt();
+        } finally {
+            return result;
         }
     }
 
     public int sendAnalytics() {
+        int result = -1;
         try {
             log.info("sendAnalytics start");
-            Thread.sleep(1_000);
+            Thread.sleep(2_000);
             log.info("sendAnalytics end");
-            return 1_000;
+            result = 1_000;
         } catch (InterruptedException e) {
-            log.error("error: {}", e.getMessage());
-            e.printStackTrace();
-            return -1;
+            log.error("sendAnalytics interrupted: {}", e.getMessage());
+            Thread.currentThread().interrupt();
+        } finally {
+            return result;
         }
     }
 
     public void doAll() {
+        log.info("thread doAll method {}", Thread.currentThread().getName());
         Future<Integer> submitFuture = executorService.submit(this::collectPayment);
 
-        CompletableFuture
+        CompletableFuture<Integer> sendAnalyticsCompletableFuture = CompletableFuture
                 .supplyAsync(this::sendAnalytics, executorService)
-                .thenAccept(result -> log.info("the result of completable future: {}", result))
-                .thenRun(() -> {
-                    while (!submitFuture.isDone()) {
-                        System.out.println("submit future hasn't ready, do something...");
-                    }
-
-                    Integer futureResult = null;
-                    try {
-                        futureResult = submitFuture.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        log.error("error : {}", e.getMessage());
-                        e.printStackTrace();
-                    } finally {
-                        log.info("the result of future: {}", futureResult);
-                    }
+                .thenApply(result -> {
+                    log.info("{} the result of completable future: {}", Thread.currentThread().getName(), result);
+                    return result;
                 });
-
 
         executorService.shutdown();
 
-
         try {
-            if (!executorService.awaitTermination(20L, TimeUnit.SECONDS)) {
-                log.info("threads hasn't been done tasks. start closing threads immediately");
-                executorService.shutdown();
+            if (!executorService.awaitTermination(30L, TimeUnit.SECONDS)) {
+                log.info("Executor threads hasn't been done tasks. start closing threads immediately");
+                executorService.shutdownNow();
+
+                if (!executorService.awaitTermination(2L, TimeUnit.SECONDS)) {
+                    log.error("Executor did not terminate");
+                }
             } else {
                 log.info("all threads has been done tasks");
             }
         } catch (InterruptedException e) {
             log.error("error: {}", e.getMessage());
+        }
+
+        while (true) {
+            if (!sendAnalyticsCompletableFuture.isDone() && !submitFuture.isDone()) {
+                log.info("doing something");
+            } else {
+                try {
+                    Integer sendAnalyticsResult = sendAnalyticsCompletableFuture.get();
+                    log.info("{} send analytics result: {}", Thread.currentThread().getName(), sendAnalyticsResult);
+                    Integer collectPaymentResult = submitFuture.get();
+                    log.info("{} collect payment result: {}", Thread.currentThread().getName(), collectPaymentResult);
+
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                } finally {
+                    break;
+                }
+            }
         }
     }
 }
