@@ -5,13 +5,12 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class QuestSystem {
-
+    private ExecutorService executorService;
     public QuestSystem(ExecutorService executorService) {
         this.executorService = executorService;
     }
 
-    CompletableFuture completableFuture = new CompletableFuture<String>();
-    private ExecutorService executorService = Executors.newFixedThreadPool(4);
+    CompletableFuture completableFuture;
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return completableFuture.supplyAsync(() -> {
