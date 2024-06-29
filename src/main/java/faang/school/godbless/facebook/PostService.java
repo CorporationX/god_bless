@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PostService {
-    private ConcurrentHashMap<Long, Post> postById = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, Post> postById = new ConcurrentHashMap<>();
 
     public void addComment(Comment comment, Post post) {
         post.addComment(comment);

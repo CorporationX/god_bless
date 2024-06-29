@@ -8,11 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Post {
     @Getter
-    private Long id;
-    private String title;
-    private String text;
+    private final Long id;
+    private final String title;
+    private final String text;
     private String author;
-    private ConcurrentHashMap<Long, Comment> commentById = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Long, Comment> commentById = new ConcurrentHashMap<>();
 
     public Post(Long id, String title, String text) {
         if (title == null) {
