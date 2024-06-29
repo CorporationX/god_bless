@@ -14,6 +14,10 @@ public class QuestSystem {
     private final ExecutorService executorService;
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+        if (isInvalidParameters(player, quest)) {
+            throw new IllegalArgumentException("Incorrect parameters");
+        }
+
         return CompletableFuture.supplyAsync(() -> {
             boolean isDoneQuest = false;
 
@@ -39,11 +43,7 @@ public class QuestSystem {
         });
     }
 
-    private boolean isValidParameters(Player player, Quest quest) {
-        if (player == null || quest == null) {
-            throw new IllegalArgumentException("Can't be nullable objects");
-        }
-
-        return true;
+    private boolean isInvalidParameters(Player player, Quest quest) {
+        return player == null || quest == null;
     }
 }
