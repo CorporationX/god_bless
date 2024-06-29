@@ -23,7 +23,7 @@ public class Battle {
         }
     }
 
-    public void shutdown() {
+    public void shutdownExecutor() {
         EXECUTOR.shutdown();
     }
 }

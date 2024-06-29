@@ -1,4 +1,3 @@
-
 package faang.school.godbless.multithreading_async.task_2;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,7 @@ public class Main {
         } catch (ExecutionException e) {
             log.error("Exception occurred while trying to get the future result", e);
         } finally {
-            battle.shutdown();
+            battle.shutdownExecutor();
         }
     }
 }
