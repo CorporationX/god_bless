@@ -8,8 +8,7 @@ public class Main {
     public static final List<Potion> potions = new ArrayList<>();
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
-        Potion cola = new Potion("cola", 3);
-        PotionMaker.gatherIngredients(cola);
+        PotionMaker.gatherAllIngredients(potions);
     }
 
     static {
