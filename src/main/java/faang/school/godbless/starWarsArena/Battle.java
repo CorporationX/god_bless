@@ -7,7 +7,7 @@ import java.util.concurrent.Future;
 
 public class Battle {
     private final ExecutorService executorService = Executors.newFixedThreadPool(2);
-    Random random = new Random();
+    private Random random = new Random();
 
     public Future<Robot> fight(Robot firstRobot, Robot secondRobot) {
         return executorService.submit(() -> attach(firstRobot, secondRobot));
@@ -17,30 +17,22 @@ public class Battle {
         while (true) {
             switch (random.nextInt(1)) {
                 case 0:
-                    if (firstRobot.getHelth() > 0) {
-                        setRobotHealth(secondRobot, firstRobot);
-                        if (secondRobot.getHelth() <= 0) {
-                            return firstRobot;
-                        }
-                    } else {
-                        return secondRobot;
-                    }
+                    robotAttach(firstRobot, secondRobot);
                 case 1:
-                    if (secondRobot.getHelth() > 0) {
-                        setRobotHealth(firstRobot, secondRobot);
-                        if (firstRobot.getHelth() <= 0) {
-                            return secondRobot;
-                        }
-                    } else {
-                        return firstRobot;
-                    }
+                    robotAttach(secondRobot, firstRobot);
             }
         }
     }
 
-    private void setRobotHealth(Robot firstRobot, Robot secondRobot) {
-        firstRobot.setHelth(firstRobot.getHelth() - (secondRobot.getAttackPower() - firstRobot.getDefensePower()));
-        System.out.println(secondRobot.getName() + " атаковал " + firstRobot.getName()
-                + " жизней " + firstRobot.getName() + " :" + firstRobot.getHelth());
+    private Robot robotAttach(Robot firstRobot, Robot secondRobot) {
+        if (firstRobot.getHelth() > 0) {
+            firstRobot.setHelth(firstRobot.getHelth() - (secondRobot.getAttackPower() - firstRobot.getDefensePower()));
+            System.out.println(secondRobot.getName() + " атаковал " + firstRobot.getName()
+                    + " жизней " + firstRobot.getName() + " :" + firstRobot.getHelth());
+            if (secondRobot.getHelth() <= 0) {
+                return firstRobot;
+            }
+        }
+        return secondRobot;
     }
 }
