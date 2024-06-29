@@ -21,9 +21,10 @@ public class Game {
 
     public void update(Player player) {
         boolean isAlive = player.getIsAlive();
+        players.add(player);
         while (isPlayerAlive()) {
             if(isAlive){
-                synchronized (liveLock) {
+                synchronized (scopeLock) {
                     scope++;
                     lives--;
                     player.setLeave(player.getLeave() - 1);
