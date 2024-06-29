@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS212424;
 
+import jdk.jfr.StackTrace;
 import lombok.AllArgsConstructor;
 
 import java.util.Random;
@@ -16,7 +17,8 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(new Random().nextInt(5000));
         } catch (InterruptedException e) {
-            throw new RuntimeException("Something get wrong: " + e);
+            Thread.currentThread().interrupt();
+            throw new RuntimeException("Interrupted during sleep", e);
         }
         System.out.println(character + " eats " + foodAmount + " of " + foodType);
     }

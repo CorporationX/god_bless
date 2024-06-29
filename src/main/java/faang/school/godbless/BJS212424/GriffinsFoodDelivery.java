@@ -28,8 +28,9 @@ public class GriffinsFoodDelivery {
             }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            throw new RuntimeException("Thread was interrupted", e);
+        } finally {
             executorService.shutdownNow();
-            throw new RuntimeException("Thread was interrupted: " + e.getMessage());
         }
 
     }
