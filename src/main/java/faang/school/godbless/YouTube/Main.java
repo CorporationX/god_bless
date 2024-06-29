@@ -26,7 +26,6 @@ public class Main {
             }
         }
         executor.shutdown();
-        Thread.sleep(15000);
         executor.awaitTermination(10, TimeUnit.MINUTES);
     }
 }
