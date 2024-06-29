@@ -6,12 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class Inventory {
     private final List<Item> items = new ArrayList<>();
 
     private static final int GAINING_ITEM_DURATION = 4000;
+    private static final int THREAD_COUNT = 4;
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(THREAD_COUNT);
 
     public void addItem(Item item) {
         items.add(item);
@@ -20,10 +23,10 @@ public class Inventory {
 
     public Item combineItem(Item firstItem, Item secondItem) {
         return new Item(String.join(" ", firstItem.name(), secondItem.name()),
-                firstItem.power() + secondItem.power());
+            firstItem.power() + secondItem.power());
     }
 
-    public CompletableFuture<Item> getItemFromChest(ExecutorService executor) {
+    public CompletableFuture<Item> getItemFromChest() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(GAINING_ITEM_DURATION);
@@ -32,10 +35,10 @@ public class Inventory {
                 Thread.currentThread().interrupt();
             }
             return new Item("Infinity", 100);
-        }, executor);
+        }, EXECUTOR);
     }
 
-    public CompletableFuture<Item> getItemFromShop(ExecutorService executor) {
+    public CompletableFuture<Item> getItemFromShop() {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(GAINING_ITEM_DURATION);
@@ -44,6 +47,10 @@ public class Inventory {
                 Thread.currentThread().interrupt();
             }
             return new Item("Blade", 50);
-        }, executor);
+        }, EXECUTOR);
+    }
+
+    public void shutdownExecutor() {
+        EXECUTOR.shutdown();
     }
 }
