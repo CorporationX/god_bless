@@ -10,7 +10,7 @@ import java.util.List;
 @Builder
 public class School {
     private String name;
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students;
 
     public int getTotalPoints() {
         return students
