@@ -7,6 +7,7 @@ import java.util.stream.IntStream;
 
 public class Main {
     private static final int THREAD_NUM = 10;
+    private static final int MONEY_AMOUNT_SCALE = 1000;
     private static final long TIME_LIMIT = 5000L;
 
     public static void main(String[] args) {
@@ -15,7 +16,7 @@ public class Main {
 
         IntStream.range(0, THREAD_NUM).forEach(
                 i -> executorService.execute(
-                        () -> organization.addDonation(new Donation(i, i * 1000))
+                        () -> organization.addDonation(new Donation(i, i * MONEY_AMOUNT_SCALE))
                 )
         );
 
