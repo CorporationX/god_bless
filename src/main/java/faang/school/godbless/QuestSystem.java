@@ -32,12 +32,11 @@ public class QuestSystem {
 // Запуск заданий
         CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
         CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
-        //Без строчки ниже у меня не работает, не ждёт основной поток выполнения тех двух потоков.
-        //Подскажите, почему, пожалуйста?
-        while(!player1Quest.isDone()&&!player2Quest.isDone()) {
-        }
+        player1Quest.join();
+        player2Quest.join();
 // Обработка результатов заданий
         player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
     }
+
 }
