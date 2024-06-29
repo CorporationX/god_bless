@@ -20,27 +20,32 @@ public class MagicalTournament {
         final CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         allTasks.thenRun(() -> {
             if (hogwarts.getTotalPoints() > beauxbatons.getTotalPoints()) {
-                log.info("The winner of the magical tournament is {} with {} points.", hogwarts.name(), hogwarts.getTotalPoints());
+                logTournamentWinner(hogwarts);
             } else if (beauxbatons.getTotalPoints() > hogwarts.getTotalPoints()) {
-                log.info("The winner of the magical tournament is " + beauxbatons.name() + " with " + beauxbatons.getTotalPoints() + " points.");
+                logTournamentWinner(beauxbatons);
             } else {
                 log.info("The magical tournament ended in a tie!");
             }
         }).join();
-        tournament.shutdown();
+        tournament.shutdownExecutor();
     }
 
-    public static School getHogwarts() {
-        List<Student> hogwartStudents = new ArrayList<>();
-        hogwartStudents.add(new Student("Harry", Year.SENIOR, 85));
-        hogwartStudents.add(new Student("Hermione", Year.JUNIOR, 70));
-        hogwartStudents.add(new Student("Ron", Year.SOPHOMORE, 90));
-        hogwartStudents.add(new Student("Draco", Year.SENIOR, 80));
-        hogwartStudents.add(new Student("Luna", Year.JUNIOR, 75));
-        return new School("Hogwarts", hogwartStudents);
+    private static void logTournamentWinner(School school) {
+        log.info("The winner of the magical tournament is {} with {} points.", school.name(),
+            school.getTotalPoints());
     }
 
-    public static School getBeauxbatonsStudents() {
+    private static School getHogwarts() {
+        List<Student> hogwartsStudents = new ArrayList<>();
+        hogwartsStudents.add(new Student("Harry", Year.SENIOR, 85));
+        hogwartsStudents.add(new Student("Hermione", Year.JUNIOR, 70));
+        hogwartsStudents.add(new Student("Ron", Year.SOPHOMORE, 90));
+        hogwartsStudents.add(new Student("Draco", Year.SENIOR, 80));
+        hogwartsStudents.add(new Student("Luna", Year.JUNIOR, 75));
+        return new School("Hogwarts", hogwartsStudents);
+    }
+
+    private static School getBeauxbatonsStudents() {
         List<Student> beauxbatonStudents = new ArrayList<>();
         beauxbatonStudents.add(new Student("Fleur", Year.SOPHOMORE, 88));
         beauxbatonStudents.add(new Student("Gabrielle", Year.JUNIOR, 82));

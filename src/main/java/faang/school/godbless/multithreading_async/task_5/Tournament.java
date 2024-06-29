@@ -15,7 +15,7 @@ public class Tournament {
         }, EXECUTOR);
     }
 
-    public void shutdown() {
+    public void shutdownExecutor() {
         EXECUTOR.shutdown();
     }
 }
