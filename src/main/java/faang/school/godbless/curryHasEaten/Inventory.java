@@ -8,6 +8,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class Inventory {
     private final List<Item> items = new ArrayList<>();
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     public void add(Item item) {
         items.add(item);
@@ -16,7 +17,7 @@ public class Inventory {
     public Item combine(Item first, Item second) {
         Item item = new Item();
         item.setName(first.getName() + " " + second.getName()
-                + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")) + " ");
+                + LocalDateTime.now().format(dateTimeFormatter) + " ");
         item.setPower(first.getPower() + second.getPower());
         return item;
     }
@@ -29,7 +30,7 @@ public class Inventory {
                 throw new RuntimeException(e);
             }
             Item item = new Item();
-            item.setName("Sword " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.setName("Sword " + LocalDateTime.now().format(dateTimeFormatter));
             item.setPower(10);
             return item;
         });
@@ -43,7 +44,7 @@ public class Inventory {
                 throw new RuntimeException(e);
             }
             Item item = new Item();
-            item.setName("Spear " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+            item.setName("Spear " + LocalDateTime.now().format(dateTimeFormatter));
             item.setPower(20);
             return item;
         });
