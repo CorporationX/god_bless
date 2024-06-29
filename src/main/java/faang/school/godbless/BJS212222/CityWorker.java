@@ -10,6 +10,13 @@ public class CityWorker implements Runnable {
     private Location geraltLocation;
     private City city;
     private List<Monster> monsters;
+
+    public CityWorker(City geraltLocation, City destiny, List<Monster> monsters) {
+        this.geraltLocation = geraltLocation.getLocation();
+        this.city = destiny;
+        this.monsters = monsters;
+    }
+
     @Override
     public void run() {
         String monstersName = findNearestMonster(city, monsters).getName();
@@ -49,11 +56,5 @@ public class CityWorker implements Runnable {
     public int getDistance(Location location) {
         return Math.abs(city.getLocation().getX() - location.getX())
                 + Math.abs(city.getLocation().getY() - location.getY());
-    }
-
-    public CityWorker(City geraltLocation, City destiny, List<Monster> monsters) {
-        this.geraltLocation = geraltLocation.getLocation();
-        this.city = destiny;
-        this.monsters = monsters;
     }
 }
