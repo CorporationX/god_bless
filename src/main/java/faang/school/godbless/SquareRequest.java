@@ -17,7 +17,9 @@ public class SquareRequest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            resultConsumer.add(number * number);
+            synchronized (resultConsumer) {
+                resultConsumer.add(number * number);
+            }
         }
     }
 }
