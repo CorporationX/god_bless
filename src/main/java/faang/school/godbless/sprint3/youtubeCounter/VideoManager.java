@@ -6,7 +6,6 @@ import java.util.Map;
 public class VideoManager {
 
     private final Map<String, Integer> viewsMap = new HashMap<>();
-    private final Object lock = new Object();
 
     public VideoManager() {
     }
