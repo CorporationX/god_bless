@@ -9,7 +9,7 @@ public class ResultConsumer {
         sumOfSquaredNumbers = new AtomicLong(init);
     }
 
-    public AtomicLong getSumOfSquaredNumbers () {
+    public AtomicLong getSumOfSquaredNumbers() {
         return this.sumOfSquaredNumbers;
     }
 
