@@ -20,7 +20,7 @@ public class Knight {
         }
     }
 
-    void startTrials() {
+    public void startTrials() {
         trials.stream().forEach(Trial::run);
     }
 }
