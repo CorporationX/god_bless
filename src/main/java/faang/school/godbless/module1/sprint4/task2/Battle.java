@@ -5,18 +5,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
-    private final ExecutorService service;
-
-    public Battle() {
-        this.service = Executors.newCachedThreadPool();
-    }
+    private final ExecutorService service = Executors.newCachedThreadPool();
 
 
     public Future<Robot> fight(Robot firstRobot, Robot secondRobot) {
         return service.submit(() -> callWinner(firstRobot, secondRobot));
     }
 
-    public void shutdownAllThreads(){
+    public void shutdownAllThreads() {
         service.shutdown();
     }
 
