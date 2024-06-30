@@ -4,14 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 public class Inventory {
-    private final List<Item> items = new ArrayList<>();
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-
-    public void add(Item item) {
-        items.add(item);
+    private final List<Item> itemsChest = new ArrayList<>();
+    private final List<Item> itemsBuy = new ArrayList<>();
+    public void addItemChest(Item item) {
+        itemsChest.add(item);
+    }
+    public void addItemBuy(Item item) {
+        itemsBuy.add(item);
     }
 
     public Item combine(Item first, Item second) {
@@ -29,10 +33,7 @@ public class Inventory {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Item item = new Item();
-            item.setName("Sword " + LocalDateTime.now().format(dateTimeFormatter));
-            item.setPower(10);
-            return item;
+            return itemsChest.get(new Random(2).nextInt());
         });
     }
 
@@ -43,10 +44,7 @@ public class Inventory {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            Item item = new Item();
-            item.setName("Spear " + LocalDateTime.now().format(dateTimeFormatter));
-            item.setPower(20);
-            return item;
+            return itemsBuy.get(new Random(2).nextInt());
         });
     }
 }
