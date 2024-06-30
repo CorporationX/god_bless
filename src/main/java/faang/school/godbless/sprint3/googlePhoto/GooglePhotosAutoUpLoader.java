@@ -14,22 +14,22 @@ public class GooglePhotosAutoUpLoader {
     }
 
     public void startAutoUpload() {
-        try {
-            System.out.println("startAutoUpload");
-            synchronized (lock) {
-                if (photosToUpload.isEmpty()) {
-                    System.out.println("startAutoUpload sync. thread is gonna call lock wait");
+        System.out.println("startAutoUpload");
+        synchronized (lock) {
+            if (photosToUpload.isEmpty()) {
+                System.out.println("startAutoUpload sync. thread is gonna call lock wait");
+                try {
                     lock.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-
-            System.out.println("startAutoUpload. thread is gonna call upload photo");
-            System.out.println("startAutoUpload. photos: " + photosToUpload);
-
-            uploadPhotos();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
+
+        System.out.println("startAutoUpload. thread is gonna call upload photo");
+        System.out.println("startAutoUpload. photos: " + photosToUpload);
+
+        uploadPhotos();
     }
 
     public void uploadPhotos() {
