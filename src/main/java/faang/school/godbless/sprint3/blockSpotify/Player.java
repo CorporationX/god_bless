@@ -2,11 +2,10 @@ package faang.school.godbless.sprint3.blockSpotify;
 
 public class Player {
 
-    private Boolean isPlaying;
+    private boolean isPlaying = false;
     private final Object lock = new Object();
 
     public Player() {
-        this.isPlaying = false;
     }
 
     public void play() {
