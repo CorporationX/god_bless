@@ -1,21 +1,23 @@
 package faang.school.godbless.BJS2_13889;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Supplier;
 
 public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player , Quest quest){
-        return CompletableFuture.supplyAsync(() -> {
+        CompletableFuture<Player> players = new CompletableFuture<>();
+
+        new Thread(() -> {
             try{
-                System.out.println("Task is starting");
-                Thread.sleep(quest.difficulty() * 1000);
-                player.setExperience(player.experience() + quest.reward());
+                System.out.println("Task " + quest.getName() + " is perform " + player.getName());
+                Thread.sleep(quest.getDifficulty() * 1000);
+                int newExperience = player.getExperience() + quest.getReward();
+                player.setExperience(newExperience);
+                players.complete(player);
             } catch (InterruptedException e){
-                e.printStackTrace();
+                players.completeExceptionally(e);
             }
-            return player;
-        });
+        }).start();
+        return players;
     }
 }
