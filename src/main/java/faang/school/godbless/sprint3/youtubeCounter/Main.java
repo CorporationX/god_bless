@@ -1,5 +1,7 @@
 package faang.school.godbless.sprint3.youtubeCounter;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -8,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 public class Main {
 
     private static final Integer NUM_THREADS = 20;
@@ -26,8 +29,13 @@ public class Main {
 
             videos.forEach(video -> {
                 for (int i = 1; i <= NUM_THREADS / NUM_VIDEOS; i++) {
-                    executorService.submit(() -> videoManager.addView(video));
-                    executorService.submit(() -> videoManager.getViewCount(video));
+                    executorService.submit(() -> {
+                        videoManager.addView(video);
+
+                        int viewCount = videoManager.getViewCount(video);
+
+                        log.info("{} view count: {}", video, viewCount);
+                    });
                 }
             });
 
