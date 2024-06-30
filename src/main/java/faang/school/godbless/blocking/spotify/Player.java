@@ -3,18 +3,28 @@ package faang.school.godbless.blocking.spotify;
 public class Player {
 
     private final Object lock = new Object();
-    private boolean isPlaying = false;
+    private boolean isPlaying;
 
     public void play() {
         synchronized (lock) {
-            isPlaying = true;
-            System.out.println(Thread.currentThread().getName() + " \"play\" music");
+            if(!isPlaying) {
+                isPlaying = true;
+                System.out.println(Thread.currentThread().getName() + " \"play\" music");
+            }
+            else {
+                System.err.println("Music already playing!");
+            }
         }
     }
     public void pause() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println(Thread.currentThread().getName() + " \"pause\" music");
+            if(isPlaying) {
+                isPlaying = false;
+                System.out.println(Thread.currentThread().getName() + " \"pause\" music");
+            }
+            else {
+                System.err.println("Music already paused!");
+            }
         }
     }
     public void skip() {
