@@ -14,13 +14,14 @@ public class VideoManager {
         if(!viewsMap.containsKey(videoId)) {
             throw new RuntimeException("We couldn't find video with id: " + videoId);
         }
-        viewsMap.replace(videoId, viewsMap.get(videoId) + 1);
+        int currentViews = viewsMap.getOrDefault(videoId, 0);
+        viewsMap.put(videoId, currentViews + 1);
     }
 
     public synchronized int getViewCount(int videoId) {
         if(!viewsMap.containsKey(videoId)) {
             throw new RuntimeException("We couldn't find video with id: " + videoId);
         }
-        return viewsMap.get(videoId);
+        return viewsMap.getOrDefault(videoId, 0);
     }
 }
