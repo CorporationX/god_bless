@@ -2,6 +2,9 @@ package faang.school.godbless.BJS213131;
 
 import lombok.Getter;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class Gamer {
     @Getter
     private static int scoreTotal;
@@ -12,6 +15,7 @@ public class Gamer {
     @Getter
     private String name;
     private boolean isAlive;
+
     public Gamer(String name) {
         isAlive = true;
         this.name = name;
@@ -21,10 +25,14 @@ public class Gamer {
         }
     }
 
-    public synchronized void killEnemy() {
+    public synchronized void killEnemy() throws InterruptedException {
         if (!isAlive) {
             System.out.println("Gamer " + name + " already dead");
             return;
+        }
+        Thread.sleep(1000);
+        if (Thread.interrupted()) {
+            throw new InterruptedException();
         }
         score += 1;
         synchronized (Gamer.class) {
@@ -34,10 +42,14 @@ public class Gamer {
         }
     }
 
-    public synchronized boolean isGameContinueAfterDeath() {
+    public synchronized boolean isGameContinueAfterDeath(ExecutorService executor) throws InterruptedException {
         if (!isAlive) {
             System.out.println("Gamer " + name + " already dead");
         } else {
+            Thread.sleep(1000);
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
+            }
             lives -= 1;
             synchronized (Gamer.class) {
                 livesTotal -= 1;
@@ -46,6 +58,16 @@ public class Gamer {
 
                 if (lives == 0) {
                     System.out.println("GAME OVER! Thanks " + name);
+                    executor.shutdownNow();
+                    try {
+                        if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                            System.out.println("Not all tasks terminated");
+                            executor.shutdownNow();
+                        }
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("Thread interrupted while finishing game");
+                    }
                     return false;
                 }
             }
@@ -53,5 +75,4 @@ public class Gamer {
         }
         return true;
     }
-
 }

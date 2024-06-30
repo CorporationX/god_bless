@@ -4,10 +4,11 @@ import lombok.Getter;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
 
 public class Game {
     @Getter
-    private boolean isActive;
+    volatile boolean isActive;
 
     public List<Gamer> createGamers() {
         isActive = true;
@@ -19,21 +20,29 @@ public class Game {
         );
     }
 
-
-    public void update(Gamer gamer) {
+    public void update(Gamer gamer, ExecutorService executor) {
         Random randomAction = new Random();
-        while (isActive) {
-            if (randomAction.nextInt(2) == 1) {
-                gamer.killEnemy();
-            } else if (!gamer.isGameContinueAfterDeath()) {
-                gameOver();
+        try {
+            while (isActive) {
+                if (Thread.interrupted()) {
+                    throw new InterruptedException();
+                }
+                if (randomAction.nextInt(2) == 1) {
+                    gamer.killEnemy();
+                } else if (!gamer.isGameContinueAfterDeath(executor)) {
+                    gameOver(executor);
+                }
             }
+        } catch (InterruptedException e) {
+            System.out.println("Update was interrupted");
         }
+
     }
 
-    private void gameOver() {
+    private void gameOver(ExecutorService executor) {
         synchronized (Gamer.class) {
             isActive = false;
+            executor.shutdownNow();
         }
     }
 }

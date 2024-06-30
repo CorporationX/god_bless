@@ -9,10 +9,11 @@ public class Main {
     public static void main(String[] args) {
         Game game = new Game();
         List<Gamer> gamers = game.createGamers();
+
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
         gamers.forEach(gamer -> {
-            executor.execute(() -> game.update(gamer));
+            executor.execute(() -> game.update(gamer, executor));
         });
 
         executor.shutdown();
@@ -28,7 +29,7 @@ public class Main {
         }
 
         try {
-            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
