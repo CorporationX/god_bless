@@ -10,7 +10,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Ïèñüìî ñ èíäåêñîì " + i + " îòïðàâëåíî");
+            System.out.println("ÐŸÐ¸ÑÑŒÐ¼Ð¾ " + i + " Ð±Ñ‹Ð»Ð¾ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð¾Ñ‚Ð¿Ñ€Ð°Ð²Ð»ÐµÐ½Ð¾");
         }
     }
 }
