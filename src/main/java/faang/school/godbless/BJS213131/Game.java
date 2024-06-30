@@ -1,17 +1,12 @@
 package faang.school.godbless.BJS213131;
 
-import lombok.Getter;
-
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 
 public class Game {
-    @Getter
-    volatile boolean isActive;
 
     public List<Gamer> createGamers() {
-        isActive = true;
         return List.of(
                 new Gamer("Rambro"),
                 new Gamer("Indiana Brones"),
@@ -23,14 +18,25 @@ public class Game {
     public void update(Gamer gamer, ExecutorService executor) {
         Random randomAction = new Random();
         try {
-            while (isActive) {
-                if (Thread.interrupted()) {
-                    throw new InterruptedException();
-                }
+            while (!gamer.checkDeathGamers()) {
                 if (randomAction.nextInt(2) == 1) {
-                    gamer.killEnemy();
-                } else if (!gamer.isGameContinueAfterDeath(executor)) {
-                    gameOver(executor);
+                    Thread.sleep(1000);
+                    if (Thread.interrupted()) {
+                        throw new InterruptedException();
+                    } else if (!gamer.checkDeathGamers()) {
+                        gamer.killEnemy();
+                    }
+                } else if (gamer.isAlive()) {
+                    Thread.sleep(1000);
+                    if (Thread.interrupted()) {
+                        throw new InterruptedException();
+                    } else if (!gamer.checkDeathGamers()) {
+                        gamer.takeDamage();
+                        if (gamer.checkDeathGamers()) {
+                            executor.shutdownNow();
+                            gameOver(executor, gamer);
+                        }
+                    }
                 }
             }
         } catch (InterruptedException e) {
@@ -39,10 +45,12 @@ public class Game {
 
     }
 
-    private void gameOver(ExecutorService executor) {
+    private void gameOver(ExecutorService executor, Gamer gamer) throws InterruptedException {
         synchronized (Gamer.class) {
-            isActive = false;
-            executor.shutdownNow();
+            if (gamer.checkDeathGamers()) {
+                executor.shutdownNow();
+                System.out.println("GAME OVER! Thanks " + gamer.getName());
+            }
         }
     }
 }

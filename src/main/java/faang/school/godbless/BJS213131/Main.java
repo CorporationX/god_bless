@@ -12,24 +12,13 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        gamers.forEach(gamer -> {
-            executor.execute(() -> game.update(gamer, executor));
-        });
+        gamers.forEach(gamer -> executor.execute(() -> game.update(gamer, executor)));
 
         executor.shutdown();
 
-        while (game.isActive()) {
-            System.out.println("Waiting finish game");
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                throw new RuntimeException("Thread interrupted while program waiting finish", e);
-            }
-        }
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(15, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
