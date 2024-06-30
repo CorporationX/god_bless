@@ -10,7 +10,9 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
-            isPlaying = true;
+            if (!isPlaying) {
+                isPlaying = true;
+            }
         }
     }
 
