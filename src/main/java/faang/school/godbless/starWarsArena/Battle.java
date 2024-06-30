@@ -1,11 +1,14 @@
 package faang.school.godbless.starWarsArena;
 
+import lombok.Getter;
+
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
+    @Getter
     private final ExecutorService executorService = Executors.newFixedThreadPool(2);
     private Random random = new Random();
 
@@ -14,7 +17,7 @@ public class Battle {
     }
 
     private Robot attach(Robot firstRobot, Robot secondRobot) {
-        while (true) {
+        while (firstRobot.getHelth() > 0 || secondRobot.getHelth() > 0) {
             switch (random.nextInt(1)) {
                 case 0:
                     robotAttach(firstRobot, secondRobot);
@@ -22,6 +25,7 @@ public class Battle {
                     robotAttach(secondRobot, firstRobot);
             }
         }
+        return firstRobot.getHelth() < 0 ? secondRobot : firstRobot;
     }
 
     private Robot robotAttach(Robot firstRobot, Robot secondRobot) {

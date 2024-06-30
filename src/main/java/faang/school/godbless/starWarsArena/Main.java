@@ -17,6 +17,7 @@ public class Main {
         try {
             Robot winner = winnerFuture.get();
             System.out.println("Победитель битвы: " + winner.getName());
+            battle.getExecutorService().shutdown();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
