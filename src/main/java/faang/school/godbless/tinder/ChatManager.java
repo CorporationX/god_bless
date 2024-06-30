@@ -31,8 +31,9 @@ public class ChatManager {
             User firstUser = users.getWaitingUsers().poll();
             User secondUser = users.getWaitingUsers().poll();
 
-            assert firstUser != null;
-            assert secondUser != null;
+            if (firstUser == null || secondUser == null) {
+                throw new IllegalArgumentException("no such users");
+            }
 
             Chat chat = new Chat(UUID.randomUUID().toString(), List.of(firstUser, secondUser));
 
