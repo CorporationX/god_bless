@@ -20,7 +20,7 @@ public class FoodDeliveryTask implements Runnable {
         String info = character + " %s " + foodAmount + " " + food;
         try {
             System.out.println(String.format(info, "получает"));
-            Thread.sleep(new Random().nextInt(1, 5));
+            Thread.sleep(new Random().nextInt(1, 5) * 1000);
             System.out.println(String.format(info, "ест"));
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
