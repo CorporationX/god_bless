@@ -5,11 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 @AllArgsConstructor
-@Setter
+@Getter
 public class Player {
-    @Getter
     private String name;
     private Integer level;
-    @Getter
+    @Setter
     private Integer experience;
 }
