@@ -12,8 +12,8 @@ public class Boss {
         this.currentPlayers = new ArrayList<>();
     }
 
-    synchronized void joinBattle(Player player){
-        if (currentPlayers.size() < maxPlayers) {
+    synchronized void joinBattle(Player player) {
+        if (currentPlayers.size() <= maxPlayers) {
             System.out.println("Добавлен игрок: " + player);
             currentPlayers.add(player);
         } else {
