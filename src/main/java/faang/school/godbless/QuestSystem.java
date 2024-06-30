@@ -3,7 +3,7 @@ package faang.school.godbless;
 import java.util.concurrent.CompletableFuture;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest (Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         PassQuest ref = (pl, q) -> {
             try {
                 Thread.sleep(q.getDifficulty());
@@ -13,7 +13,7 @@ public class QuestSystem {
             pl.setExperience(pl.getExperience() + q.getReward());
             return pl;
         };
-        CompletableFuture<Player> changedPlayer = CompletableFuture.supplyAsync(()-> ref.changePlayer(player,quest));
+        CompletableFuture<Player> changedPlayer = CompletableFuture.supplyAsync(() -> ref.changePlayer(player, quest));
         return changedPlayer;
     }
 
