@@ -1,5 +1,6 @@
 package faang.school.godbless.multithreading.wow;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -39,7 +40,7 @@ public class Main {
 
         var playersCompletedQuests = playerCompletableFuture3.thenCombine(playerCompletableFuture4, (p1, p2) -> {
             System.out.printf("%s and %s have completed their quests.\n", p1.getName(), p2.getName());
-            return null;
+            return List.of(p1, p2);
         });
 
         CompletableFuture.allOf(playerLevelAndExperienceUp, player2StartsNewQuest, playersCompletedQuests).join();
