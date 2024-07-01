@@ -30,33 +30,37 @@ public class Inventory {
 
     public CompletableFuture<Item> getItemFromChest() {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("Started opening chest");
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Chest opening was interrupted: " + e.getMessage());
-            }
-            log.info("You got a ChestItem with power 50");
+                    log.info("Started opening chest");
+                    try {
+                        Thread.sleep(1000L);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.error("Getting item from chest was interrupted:", e);
+                    }
+                    log.info("You got a ChestItem with power 50");
 
-            return new Item("ChestItem", 50);
-        }, executorService);
+                    return new Item("ChestItem", 50);
+                }, executorService)
+                .exceptionally(exception -> new Item("Default", 10));
     }
 
     public CompletableFuture<Item> getItemFromStore() {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("Started trading in store");
-            try {
-                Thread.sleep(1000L);
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Trading was interrupted: " + e.getMessage());
-            }
-            log.info("You got a StoreItem with power 50");
+                    log.info("Started trading in store");
+                    try {
+                        Thread.sleep(1000L);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        log.error("Getting item from store was interrupted:", e);
+                    }
+                    log.info("You got a StoreItem with power 50");
 
-            return new Item("StoreItem", 50);
-        }, executorService);
+                    return new Item("StoreItem", 50);
+                }, executorService)
+                .exceptionally(exception -> new Item("Default", 10));
     }
 
-    public void addItem(Item item) {
+    public synchronized void addItem(Item item) {
         items.add(item);
     }
 }
