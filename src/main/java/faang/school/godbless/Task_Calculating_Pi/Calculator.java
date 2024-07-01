@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 public class Calculator {
@@ -14,16 +16,30 @@ public class Calculator {
 
     public static double calculatePi(int n) {
         int k = getThreadNumber(n);
-        ExecutorService evaluator = Executors.newFixedThreadPool(k);
-        IntStream.range(0, k).parallel().mapToObj((x) -> CompletableFuture.supplyAsync((Point::new), evaluator)
-                .thenAccept((point) -> {
-                    if (point.checkIfInside()) {
-                        circlePoints.add(point);
-                        allPoints.add(point);
-                    } else allPoints.add(point);
-                })).forEach(CompletableFuture::join);
-        evaluator.shutdown();
-        return (double) (4 * circlePoints.size()) / allPoints.size();
+        ExecutorService service = Executors.newFixedThreadPool(k);
+        AtomicInteger inside = new AtomicInteger(0);
+        AtomicInteger all = new AtomicInteger(0);
+        IntStream.range(0, k).parallel().mapToObj(
+                (i) -> CompletableFuture.supplyAsync(
+                        () -> {
+                            double x = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
+                            double y = ThreadLocalRandom.current().nextDouble(0.0, 1.0);
+                            return new Point(x, y);
+                        },
+                        service
+                )
+        ).map(
+                cf -> cf.thenAccept(
+                        point -> {
+                            all.incrementAndGet();
+                            if (point.isInside()) {
+                                inside.incrementAndGet();
+                            }
+                        }
+                )
+        ).forEach(CompletableFuture::join);
+        service.shutdown();
+        return 4.0 * inside.get() / all.get();
     }
 
     public static int getThreadNumber(int n) {

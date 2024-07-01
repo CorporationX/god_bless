@@ -18,15 +18,15 @@ public class Point {
     }
 
     public Point(double x, double y) {
-        if (x < 0 || y < 0 || x > 1 || y > 1) throw new IllegalArgumentException("invalid value(s)");
+        if (x < 0 || y < 0 || x > 1.0 || y > 1.0) throw new IllegalArgumentException("invalid value(s)");
         else {
             this.x = x;
             this.y = y;
         }
     }
 
-    public boolean checkIfInside() {
-        return this.x * this.x + this.y * this.y <= 1;
+    public boolean isInside() {
+        return Math.sqrt(this.x * this.x + this.y * this.y) <= 1.0;
     }
 
 }
