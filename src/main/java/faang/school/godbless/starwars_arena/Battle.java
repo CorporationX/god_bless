@@ -11,16 +11,17 @@ import java.util.concurrent.ThreadLocalRandom;
 @Slf4j
 public class Battle {
     private static final int THREAD_NUM = 5;
+    private static final int FIGHT_DURATION = 5000;
 
     private final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUM);
 
     public Future<Robot> fight(@NonNull Robot firstRobot,
                                @NonNull Robot secondRobot) {
         if (executorService.isShutdown()) {
-            throw new RuntimeException("We are not accepting any candidates for battle anymore");
+            throw new IllegalStateException("We are not accepting any candidates for battle anymore");
         }
-        log.info("We have two candidates: " + firstRobot.getName() + " and " + secondRobot.getName());
-        return executorService.submit(() -> getStrongestRobot(firstRobot, secondRobot));
+        log.info("We have two candidates: {} and  {} ", firstRobot.getName(), secondRobot.getName());
+        return executorService.submit(() -> determineWinner(firstRobot, secondRobot));
     }
 
     public void closeCandidateAccept() {
@@ -28,28 +29,37 @@ public class Battle {
         executorService.shutdown();
     }
 
-    private Robot getStrongestRobot(Robot firstRobot, Robot secondRobot) {
+    private Robot determineWinner(Robot firstRobot, Robot secondRobot) {
         int firstRobotPower = firstRobot.calculatePower();
         int secondRobotPower = secondRobot.calculatePower();
 
-        try {
-            log.info("Robots are fighting...");
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Someone has вмешался to the fighting: " + e.getMessage());
-        }
+        log.info("Robots are fighting...");
+        simulateFight();
 
+        return comparePower(firstRobot, secondRobot, firstRobotPower, secondRobotPower);
+    }
+
+    private void simulateFight() {
+        try {
+            Thread.sleep(FIGHT_DURATION);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("The fight was interrupted: ", e);
+        }
+    }
+
+    private Robot comparePower(Robot firstRobot, Robot secondRobot, int firstRobotPower, int secondRobotPower) {
         if (firstRobotPower > secondRobotPower) {
             return firstRobot;
-        } else if (secondRobotPower > firstRobotPower) {
+        } else if (firstRobotPower < secondRobotPower) {
             return secondRobot;
         } else {
-            boolean isFirstLucky = ThreadLocalRandom.current().nextBoolean();
-            if (isFirstLucky) {
-                return firstRobot;
-            } else {
-                return secondRobot;
-            }
+            return breakTie(firstRobot, secondRobot);
         }
+    }
+
+    private Robot breakTie(Robot firstRobot, Robot secondRobot) {
+        boolean isFirstLucky = ThreadLocalRandom.current().nextBoolean();
+        return isFirstLucky ? firstRobot : secondRobot;
     }
 }
