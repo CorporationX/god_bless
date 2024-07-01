@@ -1,10 +1,11 @@
 package faang.school.godbless.synchronization.sypercow;
 
-import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class Boss {
     private int maxPlayers;
     private List<Player> currentPlayers = new ArrayList<>();
@@ -14,24 +15,25 @@ public class Boss {
         this.maxPlayers = maxPlayers;
     }
 
-    public synchronized void joinBattle(Player player) {
+    public synchronized void addPlayerToBattle(Player player) {
         if (currentPlayers.size() >= maxPlayers) {
             try {
-                System.out.println(String.format("Slots is full! %s please wait....", player.getName()));
+                log.info(String.format("Slots is full! %s please wait....", player.getName()));
                 this.wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error("Thread is interrupted when players waiting free slots!");
+                throw new RuntimeException("Thread is interrupted when players waiting free slots!", e);
             }
         }
-        System.out.println(String.format("%s joined the battle", player.getName()));
+        log.info(String.format("%s joined the battle", player.getName()));
         currentPlayers.add(player);
     }
 
-    public synchronized void leaveBattle(Player player) {
+    public synchronized void removePlayerFromBattle(Player player) {
         if (currentPlayers.contains(player)) {
-            System.out.println(String.format("%s left the battle", player.getName()));
+            log.info(String.format("%s left the battle", player.getName()));
             currentPlayers.remove(player);
-            this.notify();
+            this.notifyAll();
         }
     }
 }
