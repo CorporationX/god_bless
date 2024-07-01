@@ -20,16 +20,11 @@ public class Main {
         orders.add(new Order(4, Status.progress));
         orders.add(new Order(5, Status.progress));
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
-
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        for (Order order : orders) {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
-                orderProcessor.processOrder(order);
-            }, executor);
-            futures.add(future);
-        }
+        List<CompletableFuture<Void>> futures = orders.stream()
+                .map((order) -> CompletableFuture.runAsync(() -> orderProcessor.processOrder(order), executor))
+                .toList();
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenRun(() -> {
