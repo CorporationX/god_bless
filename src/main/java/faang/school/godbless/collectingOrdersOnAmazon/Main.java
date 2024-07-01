@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int NUM_THREADS = 4;
@@ -29,8 +30,18 @@ public class Main {
             }, executor);
             futures.add(future);
         }
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]))
-                .thenRunAsync(() -> System.out.println(orderProcessor.getTotalProcessedOrders()));
-        executor.shutdown();
+
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenRun(() -> {
+                    System.out.println("Обработано заказов: " + orderProcessor.getTotalProcessedOrders());
+                    executor.shutdown();
+                    try {
+                        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                            executor.shutdownNow();
+                        }
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }).join();
     }
 }

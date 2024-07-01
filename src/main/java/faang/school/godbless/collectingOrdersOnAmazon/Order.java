@@ -8,4 +8,11 @@ import lombok.Data;
 public class Order {
     private int id;
     private Status status;
+
+    public synchronized void setStatus(Status status) {
+        this.status = status;
+    }
+    public synchronized Status getStatus() {
+        return status;
+    }
 }

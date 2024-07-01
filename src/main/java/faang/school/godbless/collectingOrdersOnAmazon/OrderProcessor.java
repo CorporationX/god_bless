@@ -10,7 +10,7 @@ public class OrderProcessor {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         CompletableFuture.runAsync(() -> {
             if (order.getStatus() == Status.progress) {
