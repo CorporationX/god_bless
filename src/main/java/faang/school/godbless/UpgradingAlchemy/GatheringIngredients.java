@@ -1,6 +1,7 @@
 package faang.school.godbless.UpgradingAlchemy;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Random;
@@ -10,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
+@Slf4j
 public class GatheringIngredients {
     private static final int NUM_THREADS = 3;
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
@@ -21,6 +23,7 @@ public class GatheringIngredients {
             try {
                 Thread.sleep((long) random.nextInt(1000) * potion.getRequiredIngredients().size());
             } catch (InterruptedException e) {
+                log.error(".sleep in gatheringIngredients was interrupted while waiting");
                 throw new RuntimeException(e);
             }
         });
