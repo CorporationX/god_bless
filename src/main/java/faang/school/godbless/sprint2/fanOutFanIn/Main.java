@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 
 /**
@@ -15,6 +13,8 @@ import java.util.stream.LongStream;
  */
 @Slf4j
 public class Main {
+
+    private static final int POOL_SIZE = 8;
 
     public static void main(String[] args) {
         ResultConsumer resultConsumer = new ResultConsumer(0L);
@@ -25,15 +25,17 @@ public class Main {
     }
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-        ExecutorService executorService = Executors.newFixedThreadPool(requests.size());
+        ExecutorService executorService = Executors.newFixedThreadPool(POOL_SIZE);
         List<CompletableFuture<Void>> requestsFuture = requests.stream()
-                .map((request) -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)))
+                .map((request) -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executorService))
                 .toList();
-        executorService.shutdown();
 
-        return CompletableFuture.allOf(requestsFuture.toArray(new CompletableFuture[0]))
+        long result = CompletableFuture.allOf(requestsFuture.toArray(new CompletableFuture[0]))
                 .thenApply((v) -> resultConsumer.getSumOfSquaredNumbers().get())
                 .join();
+
+        executorService.shutdown();
+        return result;
     }
 
     public static List<SquareRequest> launch() {

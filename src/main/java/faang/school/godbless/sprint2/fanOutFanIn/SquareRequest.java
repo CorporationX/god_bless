@@ -22,7 +22,8 @@ public class SquareRequest {
             log.info("Расчет для числа: {}", number);
             Thread.sleep(MIN_TIMEOUT + randomTimeout);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
         } finally {
             resultConsumer.add(number * number);
         }
