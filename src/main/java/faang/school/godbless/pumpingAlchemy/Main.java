@@ -25,17 +25,12 @@ public class Main {
                 .map(potion -> CompletableFuture.supplyAsync(() -> potion.gatherIngredients(potion), executor))
                 .toList();
 
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]))
-                .thenRun(() -> {
-                    AtomicInteger result = new AtomicInteger(0);
-                    for (CompletableFuture<Integer> future : futures) {
-                        try {
-                            result.addAndGet(future.get());
-                        } catch (InterruptedException | ExecutionException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    System.out.println(result);
-                });
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()])).join();
+
+        AtomicInteger result = new AtomicInteger(0);
+        for (CompletableFuture<Integer> future : futures) {
+            future.thenAccept(result::addAndGet);
+        }
+        System.out.println(result);
     }
 }

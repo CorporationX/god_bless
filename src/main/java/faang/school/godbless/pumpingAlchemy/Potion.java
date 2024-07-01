@@ -19,7 +19,7 @@ public class Potion {
         return getRequiredIngredients();
     }
 
-    public synchronized int getRequiredIngredients() {
+    public int getRequiredIngredients() {
         return requiredIngredients;
     }
 }
