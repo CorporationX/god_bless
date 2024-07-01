@@ -41,7 +41,7 @@ public class QuestSystem {
             }
             System.out.println(player.getName() + " has completed the quest: " + quest.getName());
             System.out.println(player.getName() + " received " + quest.getReward() + " experience points.");
-            player.setExperience(player.getExperience() + quest.getDifficulty());
+            player.setExperience(player.getExperience() + quest.getReward());
             return player;
         });
     }
