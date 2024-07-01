@@ -7,7 +7,7 @@ import java.util.concurrent.Future;
 
 public class PaymentService {
     private MasterCardService card = new MasterCardService();
-    private ExecutorService executor = Executors.newFixedThreadPool(2);
+    private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public void doAll() {
         Future future = executor.submit(card::collectPayment);
