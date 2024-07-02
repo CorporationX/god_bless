@@ -10,14 +10,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Conference {
     private String name;
     private int amount;
-    private final CyclicBarrier BARRIER;
+    private final CyclicBarrier barrier;
     private final List<Participant> participants = new ArrayList<>();
     private final ReentrantLock lock = new ReentrantLock();
 
     public Conference(String name, int amount) {
         this.name = name;
         this.amount = amount;
-        this.BARRIER = new CyclicBarrier(amount);
+        this.barrier = new CyclicBarrier(amount);
     }
 
     @Override
@@ -41,7 +41,7 @@ public class Conference {
 
     public void join(Participant participant) {
         try {
-            BARRIER.await();
+            barrier.await();
             lock.lock();
             participants.add(participant);
         } catch (BrokenBarrierException | InterruptedException e) {
