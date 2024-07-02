@@ -6,12 +6,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
-    private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final int TIME_ORDER = 3000;
 
     public CompletableFuture<Void> processOrder(@NonNull Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(3000);
+                Thread.sleep(TIME_ORDER);
                 order.setStatus("Processed");
                 totalProcessedOrders.incrementAndGet();
             } catch (InterruptedException e) {

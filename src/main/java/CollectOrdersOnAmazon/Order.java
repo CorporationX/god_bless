@@ -6,8 +6,11 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @Getter
-@Setter
 public class Order {
     private int id;
     private String status;
+
+    public synchronized void setStatus(String status) {
+        this.status = status;
+    }
 }
