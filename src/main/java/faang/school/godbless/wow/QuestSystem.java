@@ -2,18 +2,16 @@ package faang.school.godbless.wow;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class QuestSystem {
-    private ExecutorService executorService;
+    private final ExecutorService executorService;
+
     public QuestSystem(ExecutorService executorService) {
         this.executorService = executorService;
     }
 
-    CompletableFuture completableFuture;
-
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        return completableFuture.supplyAsync(() -> {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 return startAttach(player, quest);
             } catch (InterruptedException e) {
