@@ -7,7 +7,7 @@ import java.util.stream.LongStream;
 
 public class Main {
     public static void main(String[] args) {
-        int calculatedNumber = 10;
+        int calculatedNumber = 1000;
         CompletableFuture<Void> future = launch(calculatedNumber);
         future.join();
     }
@@ -17,8 +17,8 @@ public class Main {
                 .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)))
                 .toList();
 
-        CompletableFuture<Void> allTask = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        return allTask.thenApply(result -> resultConsumer.getSumOfSquaredNumbers().get());
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .thenApply(result -> resultConsumer.getSumOfSquaredNumbers().get());
     }
 
     public static CompletableFuture<Void> launch(int amountSquareRequest) {
