@@ -18,8 +18,11 @@ public class QuestSystem {
                 }, executor)
                 .thenApply(result -> {
                     player.levelUp(quest.getReward());
-                    executor.shutdown();
                     return player;
                 });
+    }
+
+    public static void executorShutdown() {
+        executor.shutdown();
     }
 }
