@@ -1,18 +1,19 @@
 package faang.school.godbless.multithreading.async.wow;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
+    private static final long QUEST_TIME = 1000L;
+
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(quest.getDifficulty() * 1000L);
+                Thread.sleep(quest.getDifficulty() * QUEST_TIME);
             } catch (InterruptedException e) {
                 throw new RuntimeException("Interrupted in quest", e);
             }
             player.setExperience(player.getExperience() + quest.getReward());
             return player;
-        }, executor);
+        });
     }
 }

@@ -4,12 +4,17 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args) {
         int nThreads = 5;
         QuestSystem questSystem = new QuestSystem();
         ExecutorService executor = Executors.newFixedThreadPool(nThreads);
+        Consumer<Player> playerConsumer = player ->
+                System.out.println(player.getName()
+                + " has completed the quest and now has "
+                + player.getExperience() + " experience points.");
 
 // Создание игроков
         Player player1 = new Player("Thrall", 10, 250);
@@ -21,17 +26,11 @@ public class Main {
 
 // Запуск заданий
         List<CompletableFuture<Player>> quests = List.of(
-                questSystem.startQuest(player1, quest1, executor),
-                questSystem.startQuest(player2, quest2, executor));
+                questSystem.startQuest(player1, quest1),
+                questSystem.startQuest(player2, quest2));
 
 // Обработка результатов заданий
-        for (CompletableFuture<Player> quest : quests) {
-            executor.execute(() -> quest
-                    .thenAccept(player -> System.out.println(
-                            player.getName() + " has completed the quest and now has "
-                            + player.getExperience() + " experience points."))
-                    .join());
-        }
+            quests.forEach(quest -> executor.execute(() -> quest.thenAccept(playerConsumer).join()));
 
         executor.shutdown();
     }
