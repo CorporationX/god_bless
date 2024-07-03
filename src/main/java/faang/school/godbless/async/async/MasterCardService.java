@@ -8,16 +8,12 @@ import java.util.concurrent.Future;
 
 public class MasterCardService {
 
-    public static void main(String[] args) {
-        doAll();
-    }
-
-    private static void doAll() {
+    public void doAll() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-        Future<Integer> future = executorService.submit(MasterCardService::collectPayment);
+        Future<Integer> future = executorService.submit(this::collectPayment);
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(
-                MasterCardService::sendAnalytics, executorService);
+                this::sendAnalytics, executorService);
 
         Integer resultSendAnalytics = completableFuture.join();
         System.out.printf("Analytics received: %d -- %s\n", resultSendAnalytics, Thread.currentThread().getName());
@@ -34,7 +30,7 @@ public class MasterCardService {
         executorService.shutdown();
     }
 
-    private static int collectPayment() {
+    private int collectPayment() {
         try {
             System.out.printf("Collecting payment -- %s\n", Thread.currentThread().getName());
             Thread.sleep(10_000);
@@ -44,7 +40,7 @@ public class MasterCardService {
         }
     }
 
-    private static int sendAnalytics() {
+    private int sendAnalytics() {
         try {
             System.out.printf("Sending analytics -- %s\n", Thread.currentThread().getName());
             Thread.sleep(1_000);
