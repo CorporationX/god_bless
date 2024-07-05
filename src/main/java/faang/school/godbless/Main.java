@@ -1,17 +1,36 @@
 package faang.school.godbless;
 
+import java.util.concurrent.*;
+
 public class Main {
+    private static final MasterCardService masterCardService = new MasterCardService();
+    private static final ExecutorService executorService = Executors.newSingleThreadExecutor();
+
     public static void main(String[] args) {
         System.out.println("Hello Almas!");
 
-        Army army = new Army();
-        army.addUnit(new Archer(25));
-        army.addUnit(new Swordsman(40));
-        army.addUnit(new Swordsman(65));
-        army.addUnit(new Mage(20));
-        army.addUnit(new Mage(50));
+        doAll();
+    }
 
-        int totalPower = army.calculateTotalPower();
-        System.out.println("Total army power: " + totalPower);
+    public static void doAll() {
+        Future<Integer> collectedPayment = executorService.submit(masterCardService::collectPayment);
+        CompletableFuture<Integer> sendedAnalytics = CompletableFuture.supplyAsync(masterCardService::sendAnalytics);
+
+        try {
+            int analyticsResult = sendedAnalytics.get();
+            System.out.println("Analytics result: " + analyticsResult);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Analytics is interrupted", e);
+        }
+
+        // Затем ждем завершения collectPayment
+        try {
+            int paymentResult = collectedPayment.get();
+            System.out.println("Payment result: " + paymentResult);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Payment is interrupted", e);
+        }
     }
 }
