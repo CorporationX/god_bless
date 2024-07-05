@@ -15,7 +15,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class Server {
     private double load;
     private double maxLoad;

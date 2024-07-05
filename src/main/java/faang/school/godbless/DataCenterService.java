@@ -1,50 +1,45 @@
 package faang.school.godbless;
 
-import java.util.Map;
-
-//Создать класс DataCenterService, в котором будут:
-// Методы для добавления и удаления сервера;
-// Метод для получения информации о потреблении электроэнергии всеми серверами (getTotalEnergyConsumption());
-// Методы для выделения и высвобождения ресурсов на запрос
-// (allocateResources(ResourceRequest request), releaseResources(ResourceRequest request)).
 public class DataCenterService {
-    public void addServer (DataCenter datacenter, String name, double maxLoad, double defaultEnergy) {
-        datacenter.servers.put(name, new Server(0,maxLoad, defaultEnergy));
-        datacenter.setTotalServers(datacenter.getTotalServers()+1);
+    public void addServer(DataCenter dataCenter, String name, Server server) {
+        dataCenter.servers.put(name, server);
+        dataCenter.setTotalServers(dataCenter.getTotalServers() + 1);
     }
-    public void removeServer (DataCenter datacenter, String name) {
-        if (datacenter.servers.get(name) == null) {
-            throw new RuntimeException("No such server");
-        }
-        if (datacenter.servers.get(name).getLoad() >
-                (datacenter.countFreeRPS()-datacenter.servers.get(name).getMaxLoad()+datacenter.servers.get(name).getLoad())) {
+
+    public void removeServer(DataCenter dataCenter, String name) {
+        dataCenter.exists(name);
+        if (dataCenter.servers.get(name).getLoad() >
+                (dataCenter.countFreeRPS() - dataCenter.servers.get(name).getMaxLoad() + dataCenter.servers.get(name).getLoad())) {
             throw new RuntimeException("Not enough free RPS");
         }
-        double loadToAdd = datacenter.servers.get(name).getLoad();
-        datacenter.servers.remove(name);
-        datacenter.setTotalServers(datacenter.getTotalServers()-1);
-        datacenter.addResources(loadToAdd);
+        double loadToAdd = dataCenter.servers.get(name).getLoad();
+        dataCenter.servers.remove(name);
+        dataCenter.setTotalServers(dataCenter.getTotalServers() - 1);
+        dataCenter.updateResources(loadToAdd);
     }
-    public void allocateResources(DataCenter datacenter,ResourceRequest request) {
-        if (request.getLoad() > datacenter.countFreeRPS()) {
+
+    public void allocateResources(DataCenter datacenter, ResourceRequest request) {
+        if (request.load() > datacenter.countFreeRPS()) {
             throw new RuntimeException("Not enough free RPS");
         }
-        datacenter.addResources(request.getLoad());
+        datacenter.updateResources(request.load());
     }
+
     public void releaseResources(DataCenter datacenter, ResourceRequest request) {
-        datacenter.removeResources(request.getLoad());
+        datacenter.updateResources(-request.load());
     }
+
     public static void main(String[] args) {
         DataCenterService datacenterService = new DataCenterService();
         DataCenter datacenter = new DataCenter();
-        datacenterService.addServer(datacenter,"A",10000, 4300);
-        datacenterService.addServer(datacenter,"B",8000, 3300);
-        datacenterService.addServer(datacenter,"C",7000, 3000);
-        datacenterService.addServer(datacenter,"D",6000, 2500);
-        datacenterService.allocateResources(datacenter,new ResourceRequest(6000));
+        datacenterService.addServer(datacenter, "A", new Server( 0,10000, 4300));
+        datacenterService.addServer(datacenter, "B", new Server( 0,8000, 3300));
+        datacenterService.addServer(datacenter, "C", new Server( 0,7000, 3000));
+        datacenterService.addServer(datacenter, "D", new Server( 0,6000, 2500));
+        datacenterService.allocateResources(datacenter, new ResourceRequest(6000));
         datacenter.showResources();
-        datacenterService.releaseResources(datacenter,new ResourceRequest(3000));
-        datacenterService.removeServer(datacenter,"C");
+        datacenterService.releaseResources(datacenter, new ResourceRequest(3000));
+        datacenterService.removeServer(datacenter, "C");
         datacenter.showResources();
         LoadBalancingOptimizationStrategy strategy = new LoadBalancingOptimizationStrategy();
         strategy.optimize(datacenter);
