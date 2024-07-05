@@ -10,16 +10,20 @@ public class SquareCount {
 
     public static AtomicLong fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executor = Executors.newFixedThreadPool(requests.size());
+        CompletableFuture[] futures = new CompletableFuture[requests.size()];
         for (int i = 0; i < requests.size(); i++) {
             int finalI = i;
-            CompletableFuture.runAsync(() -> requests.get(finalI).longTimeSquare(resultConsumer), executor);
+            futures[finalI] = CompletableFuture.runAsync(() -> requests.get(finalI).longTimeSquare(resultConsumer), executor);
         }
-        executor.shutdown();
+        CompletableFuture<Void> resultFuture = CompletableFuture.allOf(futures);
+        resultFuture.join();
+        executor.shutdownNow();
+        /*executor.shutdown();
         try {
             executor.awaitTermination(10, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        }
+        }*/
         return resultConsumer.getSumOfSquaredNumbers();
     }
 
