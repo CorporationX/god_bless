@@ -10,12 +10,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class TransportManagementSystem {
     private final Map<Integer, Vehicle> idAndVehicleMap = new ConcurrentHashMap<>();
 
-    public void updateAllVehicles() {
-        synchronized (idAndVehicleMap) {
-            idAndVehicleMap.values().forEach(this::updateVehicle);
-        }
-    }
-
     public void addVehicle(Vehicle vehicle) {
         idAndVehicleMap.put(vehicle.getId(), vehicle);
     }
@@ -27,7 +21,7 @@ public class TransportManagementSystem {
         return idAndVehicleMap.get(vehicleId);
     }
 
-    private void updateVehicle(Vehicle vehicle) {
+    public void updateVehicle(Vehicle vehicle) {
         Location location = vehicle.getLocation();
 
         double differenceLatitude = ThreadLocalRandom.current().nextDouble(0, 10);

@@ -15,7 +15,7 @@ public class VehicleTracker {
 
     public void updateVehiclesEveryThreeSeconds() {
         executorService.scheduleWithFixedDelay(() -> {
-            transportManagementSystem.updateAllVehicles();
+            transportManagementSystem.getIdAndVehicleMap().values().forEach(transportManagementSystem::updateVehicle);
             System.out.println(transportManagementSystem.getIdAndVehicleMap());
         }, UPDATE_PERIOD, UPDATE_PERIOD, TimeUnit.SECONDS);
 
