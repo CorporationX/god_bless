@@ -21,11 +21,11 @@ public class PostService {
 
         try {
             Post postToComment = postList.stream()
-                    .filter(post -> post.id() == postId)
+                    .filter(post -> post.getId() == postId)
                     .findFirst()
                     .orElseThrow(() -> new IllegalArgumentException("Could not find post by this id"));
 
-            postToComment.commentList().add(comment);
+            postToComment.getCommentList().add(comment);
         } finally {
             postListModificationLock.unlock();
         }
@@ -42,16 +42,16 @@ public class PostService {
     }
 
     public void deletePost(String author, Post postToDelete) {
-        if (!author.equals(postToDelete.author())) {
+        if (!author.equals(postToDelete.getAuthor())) {
             throw new IllegalArgumentException("Author: " + author + " does not have rights to delete post with id:"
-                    + postToDelete.id());
+                    + postToDelete.getId());
         }
 
         postListModificationLock.lock();
         try {
             boolean isDeleteSuccessful = postList.remove(postToDelete);
             if (!isDeleteSuccessful) {
-                log.warn("Could not find and delete post with id: " + postToDelete.id());
+                log.warn("Could not find and delete post with id: " + postToDelete.getId());
             }
         } finally {
             postListModificationLock.unlock();

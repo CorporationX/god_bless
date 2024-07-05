@@ -1,5 +1,7 @@
 package faang.school.godbless.leaving_comments;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +9,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     public static final int THREAD_NUM = 10;
+    public static final int TIME_LIMIT_IN_SECONDS = 10;
+
     public static final PostService postService = new PostService();
     public static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUM);
 
@@ -29,6 +35,16 @@ public class Main {
 
         postService.showAllPosts();
         executorService.shutdown();
+
+        try {
+            boolean result = executorService.awaitTermination(TIME_LIMIT_IN_SECONDS, TimeUnit.SECONDS);
+            if (result) {
+                log.info("All tasks were executed on time");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Main thread was interrupted during awaiting termination");
+        }
     }
 
     private static CompletableFuture<Void> deletePostAsynchronously(String personDeletingPostName, Post postToDelete) {
