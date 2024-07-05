@@ -3,7 +3,7 @@ package faang.school.godbless;
 import java.util.concurrent.CompletableFuture;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+    public CompletableFuture<PlayerQuest> startQuest(PlayerQuest player, Quest quest) {
         PassQuest ref = (pl, q) -> {
             try {
                 Thread.sleep(q.getDifficulty());
@@ -13,7 +13,7 @@ public class QuestSystem {
             pl.setExperience(pl.getExperience() + q.getReward());
             return pl;
         };
-        CompletableFuture<Player> changedPlayer = CompletableFuture.supplyAsync(() -> ref.changePlayer(player, quest));
+        CompletableFuture<PlayerQuest> changedPlayer = CompletableFuture.supplyAsync(() -> ref.changePlayer(player, quest));
         return changedPlayer;
     }
 
@@ -22,16 +22,16 @@ public class QuestSystem {
         QuestSystem questSystem = new QuestSystem();
 
 // Создание игроков
-        Player player1 = new Player("Thrall", 10, 250);
-        Player player2 = new Player("Sylvanas", 12, 450);
+        PlayerQuest player1 = new PlayerQuest("Thrall", 10, 250);
+        PlayerQuest player2 = new PlayerQuest("Sylvanas", 12, 450);
 
 // Создание заданий
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
 // Запуск заданий
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
+        CompletableFuture<PlayerQuest> player1Quest = questSystem.startQuest(player1, quest1);
+        CompletableFuture<PlayerQuest> player2Quest = questSystem.startQuest(player2, quest2);
         player1Quest.join();
         player2Quest.join();
 // Обработка результатов заданий

@@ -5,7 +5,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class Player {
+public class PlayerQuest {
     private String name;
     private int level;
     private int experience;
