@@ -30,6 +30,7 @@ public class MasterCardService {
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> collectResult = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> sendResult = CompletableFuture.supplyAsync(MasterCardService::sendAnalystics);
+
         try {
             System.out.println(sendResult.get());
         } catch (InterruptedException | ExecutionException e) {
@@ -41,6 +42,7 @@ public class MasterCardService {
             throw new RuntimeException(e);
         }
         executor.shutdown();
+        sendResult.join();
     }
     public static void main(String[] args) {
         doAll();
