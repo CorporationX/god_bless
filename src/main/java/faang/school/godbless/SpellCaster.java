@@ -1,4 +1,5 @@
 package faang.school.godbless;
+
 public class SpellCaster {
     String cast(String spell, SpellAction spellAction) {
         return spellAction.cast(spell);
