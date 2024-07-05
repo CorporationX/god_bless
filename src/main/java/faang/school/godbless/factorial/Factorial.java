@@ -1,17 +1,22 @@
 package faang.school.godbless.factorial;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Factorial {
     private static final int MIN_VALUE = 0;
     private static final int THREAD_NUM = 4;
     private static final int MAX_INT_FACTORIAL = 12;
     private static final int MAX_LONG_FACTORIAL = 19;
+    private static final int TIME_LIMIT_IN_SECONDS = 5;
     private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_NUM);
 
     public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
@@ -47,13 +52,12 @@ public class Factorial {
 
         if (n <= MAX_INT_FACTORIAL) {
             return factorialInt(n);
-        } else {
-            long result = 1;
-            for (int i = 1; i < n; i++) {
-                result *= i;
-            }
-            return result;
         }
+        long result = 1;
+        for (int i = 1; i < n; i++) {
+            result *= i;
+        }
+        return result;
     }
 
     public static BigInteger factorialBig(int n) {
@@ -74,5 +78,14 @@ public class Factorial {
 
     public static void closeFactorialCalculator() {
         executorService.shutdown();
+        try {
+            boolean result = executorService.awaitTermination(TIME_LIMIT_IN_SECONDS, TimeUnit.SECONDS);
+            if (result) {
+                log.info("All tasks were executed on time");
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.warn("Executor service was interrupted during awaiting termination");
+        }
     }
 }
