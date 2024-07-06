@@ -1,23 +1,22 @@
 package faang.school.godbless.asynchrony.and.future;
 
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 
 public class Main {
     private static final MasterCardService masterCardService = new MasterCardService();
 
     public static void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
-        CompletableFuture<Integer> completableFutureOne = CompletableFuture.supplyAsync(
-                () -> masterCardService.collectPayment(), executorService);
+        Future<Integer> futureOne = executorService.submit(
+                masterCardService::collectPayment);
         CompletableFuture<Integer> completableFutureTwo = CompletableFuture.supplyAsync(
-                () -> masterCardService.sendAnalystics(), executorService);
-        int resultOne = completableFutureOne.get();
-        int resultTwo = completableFutureTwo.get();
+                masterCardService::sendAnalystics, executorService);
 
         executorService.shutdown();
+        while(!futureOne.isDone() && !completableFutureTwo.isDone()) {
+            System.out.println("Future: " + futureOne.get());
+            System.out.println("CompletableFuture: " + completableFutureTwo.get());
+        }
 
     }
 
