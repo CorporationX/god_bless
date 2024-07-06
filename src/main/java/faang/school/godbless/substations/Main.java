@@ -17,10 +17,12 @@ public class Main {
 
     public static void main(String[] args) {
         MonitoringSystem monitoringSystem = new MonitoringSystem();
-        Substation substation = new Substation(1, monitoringSystem, executorService);
-        List<Sensor> sensorList = getSensorList(substation);
+        List<Substation> substationList = getSubstationList(monitoringSystem);
+        List<Sensor> sensorList = substationList.stream()
+                .flatMap(substation -> getSensorList(substation).stream())
+                .toList();
         sensorList.forEach(Sensor::startGeneratingData);
-        substation.startCalculatingAverages();
+        substationList.forEach(Substation::startCalculatingAverages);
 
         try {
             Thread.sleep(TIME_LIMIT_IN_MILLIS);
@@ -30,7 +32,7 @@ public class Main {
         }
 
         sensorList.forEach(Sensor::closeSensor);
-        substation.closeSubstation();
+        substationList.forEach(Substation::closeSubstation);
         if (!executorService.isShutdown()) {
             executorService.shutdown();
         }
@@ -46,12 +48,33 @@ public class Main {
         }
     }
 
+    private static List<Substation> getSubstationList(MonitoringSystem monitoringSystem) {
+        return List.of(
+                new Substation(1, monitoringSystem, executorService),
+                new Substation(2, monitoringSystem, executorService),
+                new Substation(3, monitoringSystem, executorService),
+                new Substation(4, monitoringSystem, executorService),
+                new Substation(5, monitoringSystem, executorService),
+                new Substation(6, monitoringSystem, executorService),
+                new Substation(7, monitoringSystem, executorService),
+                new Substation(8, monitoringSystem, executorService),
+                new Substation(9, monitoringSystem, executorService),
+                new Substation(10, monitoringSystem, executorService)
+        );
+    }
+
     private static List<Sensor> getSensorList(Substation substation) {
         return List.of(
                 new Sensor(1, substation, executorService),
                 new Sensor(2, substation, executorService),
                 new Sensor(3, substation, executorService),
-                new Sensor(4, substation, executorService)
+                new Sensor(4, substation, executorService),
+                new Sensor(5, substation, executorService),
+                new Sensor(6, substation, executorService),
+                new Sensor(7, substation, executorService),
+                new Sensor(8, substation, executorService),
+                new Sensor(9, substation, executorService),
+                new Sensor(10, substation, executorService)
         );
     }
 }
