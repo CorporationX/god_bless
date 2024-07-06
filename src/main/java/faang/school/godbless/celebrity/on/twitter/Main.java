@@ -1,5 +1,7 @@
 package faang.school.godbless.celebrity.on.twitter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
@@ -7,11 +9,16 @@ public class Main {
         TwitterAccount account = new TwitterAccount("user1", 0L);
         TwitterSubscriptionSystem system = new TwitterSubscriptionSystem();
 
-        CompletableFuture<Void> future1 = system.followAccount(account);
-        CompletableFuture<Void> future2 = system.followAccount(account);
-        CompletableFuture<Void> future3 = system.followAccount(account);
+        List<CompletableFuture<Void>> futureList = new ArrayList<>();
+        for(int i = 0; i < 3; i++) {
+            futureList.add(system.followAccount(account));
+        }
 
-        CompletableFuture.allOf(future1, future2, future3).join();
+        CompletableFuture allFutures = CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0]));
+        allFutures.thenRun(() -> {
+            System.out.println("All followers added.");
+            System.out.println("Total followers for account @" + account.getUsername() + ": " + account.getFollowers());
+        }).join();
 
         System.out.println("Total followers: " + account.getFollowers());
     }
