@@ -31,7 +31,7 @@ public class Tournament {
         }
     }
 
-    private School studentDoingTask(School school, Task task) {
+    private synchronized School studentDoingTask(School school, Task task) {
         school.getStudents().stream().forEach(student ->
         {
             doingTask(task, student);
