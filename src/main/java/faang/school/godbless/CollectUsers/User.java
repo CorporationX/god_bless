@@ -26,8 +26,8 @@ public class User {
             for(String activity : user.getActivities()){
                 if(activities.contains(activity)){
                     groupingMap.put(user, activity);
+                    break;
                 }
-                break;
             }
         }
 
