@@ -7,11 +7,11 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>(5);
-        users.add(new User("John", 20, "Software Engineer", "123 Main St"));
-        users.add(new User("Jane", 20, "Product Manager", "456 Elm St"));
-        users.add(new User("Bob", 30, "UX Designer", "789 Oak St"));
-        users.add(new User("Alice", 30, "Software Engineer", "321 Pine St"));
-        users.add(new User("Mike", 40, "Product Manager", "654 Cedar St"));
+        users.add(new User("John", 20, "Google", "London"));
+        users.add(new User("Jane", 20, "Uber", "Amsterdam"));
+        users.add(new User("Bob", 30, "Amazon", "New York"));
+        users.add(new User("Alice", 30, "Google", "Amsterdam"));
+        users.add(new User("Mike", 17, "Microsoft", "Chicago"));
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
