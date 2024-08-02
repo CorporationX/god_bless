@@ -36,6 +36,8 @@ public class User {
     }
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        if(users == null || activities == null)
+            return null;
         Map<User, String> userActivityMap = new HashMap<>();
         users.forEach(user -> {
             user.getActivities().forEach(activity -> {
