@@ -1,6 +1,5 @@
 package faang.school.godbless.UsersRegistration;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.Set;
