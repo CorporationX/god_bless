@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -81,6 +83,24 @@ class UserTest {
         expected = null;
 
         actual = user.findHobbyLovers(users, null);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFindHobbyLovers_emptyActivities() {
+        expected = new HashMap<>();
+
+        actual = user.findHobbyLovers(users, new HashSet<>());
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testFindHobbyLovers_emptyUsers() {
+        expected = new HashMap<>();
+
+        actual = user.findHobbyLovers(new ArrayList<User>(), activitiesForMethod);
 
         assertEquals(expected, actual);
     }
