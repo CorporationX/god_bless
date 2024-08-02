@@ -19,9 +19,4 @@ public class UserTest {
 
         assertEquals(1, sortedUsers.size());
     }
-
-    @Test
-    void testThrows(){
-
-    }
 }
