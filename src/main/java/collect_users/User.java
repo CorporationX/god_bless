@@ -1,4 +1,4 @@
-package CollectUsers;
+package collect_users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

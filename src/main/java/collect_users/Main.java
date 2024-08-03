@@ -1,4 +1,4 @@
-package CollectUsers;
+package collect_users;
 
 import java.util.List;
 import java.util.Set;
