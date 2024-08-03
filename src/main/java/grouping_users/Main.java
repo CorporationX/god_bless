@@ -1,4 +1,4 @@
-package faang.school.godbless.GroupingUsers;
+package grouping_users;
 
 import java.util.List;
 

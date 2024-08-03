@@ -1,4 +1,4 @@
-package faang.school.godbless.GroupingUsers;
+package grouping_users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,13 +17,13 @@ public class User {
     private String address;
 
     /*
-    * Time-complexity: O(n), n - кол-во пользователей
-    * Space-complexity: O(n), n - кол-во пользователей
-    * */
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
+     * Time-complexity: O(n), n - кол-во пользователей
+     * Space-complexity: O(n), n - кол-во пользователей
+     * */
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupingMap = new HashMap<>();
-        for(User user : users){
-            if(!groupingMap.containsKey(user.getAge())){
+        for (User user : users) {
+            if (!groupingMap.containsKey(user.getAge())) {
                 groupingMap.put(user.getAge(), new ArrayList<>());
             }
             groupingMap.get(user.getAge()).add(user);
