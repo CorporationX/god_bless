@@ -1,4 +1,4 @@
-package CatchingEvents;
+package catching_events;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
