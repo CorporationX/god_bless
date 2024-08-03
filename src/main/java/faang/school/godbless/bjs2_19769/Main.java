@@ -20,10 +20,6 @@ public class Main {
         System.out.println(outputSigil(houses, "Старк"));
         removeHouse(houses, barateon);
         printAllHouses(houses);
-
-
-
-
     }
 
     public static void addHouse(Map<String, House> houses, House house) {

@@ -1,11 +1,5 @@
 package faang.school.godbless.bjs2_19769;
 
-//import lombok.AllArgsConstructor;
-
-import java.util.HashMap;
-import java.util.Map;
-
-//@AllArgsConstructor
 public class House {
     private String name;
     private String sigil;
