@@ -30,8 +30,6 @@ public class WeatherData {
     }
 
     public static void printAllCities(Map<String, WeatherData> weatherCity) {
-        for (String city : weatherCity.keySet()) {
-            System.out.println(city);
-        }
+        weatherCity.keySet().forEach(System.out::println);
     }
 }
