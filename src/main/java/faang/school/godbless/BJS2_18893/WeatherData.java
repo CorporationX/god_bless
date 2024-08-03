@@ -20,4 +20,18 @@ public class WeatherData {
         }
         return weatherCity.get(city);
     }
+
+    public static void updateWeatherData(Map<String, WeatherData> weatherCity, String city, WeatherData weatherData) {
+        weatherCity.put(city, weatherData);
+    }
+
+    public static void deleteWeatherData(Map<String, WeatherData> weatherCity, String city) {
+        weatherCity.remove(city);
+    }
+
+    public static void printAllCities(Map<String, WeatherData> weatherCity) {
+        for (String city : weatherCity.keySet()) {
+            System.out.println(city);
+        }
+    }
 }

@@ -17,5 +17,13 @@ public class Main {
         WeatherData weatherDataInKazan = WeatherData.getWeatherData(weatherCity, "Kazan");
         System.out.println(weatherDataInKazan);
         System.out.println(weatherCity);
+
+        WeatherData.updateWeatherData(weatherCity, "Piter", new WeatherData("Piter", -13, 76));
+        System.out.println(weatherCity);
+
+        WeatherData.deleteWeatherData(weatherCity, "London");
+        System.out.println(weatherCity);
+
+        WeatherData.printAllCities(weatherCity);
     }
 }
