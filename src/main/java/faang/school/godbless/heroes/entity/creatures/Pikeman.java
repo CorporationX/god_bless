@@ -1,8 +1,5 @@
 package faang.school.godbless.heroes.entity.creatures;
 
-import lombok.EqualsAndHashCode;
-
-@EqualsAndHashCode(callSuper = false)
 public class Pikeman extends Creature {
     private static final int BASE_LEVEL = 2;
     private static final int BASE_ATTACK = 5;

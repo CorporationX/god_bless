@@ -1,7 +1,7 @@
 package faang.school.godbless.heroes.entity.creatures;
 
 public class Swordman extends Creature {
-        private static final int BASE_LEVEL = 3;
+    private static final int BASE_LEVEL = 3;
     private static final int BASE_DAMAGE = 6;
     private static final int BASE_DEFENSE = 8;
     private static final int BASE_SPEED = 5;
