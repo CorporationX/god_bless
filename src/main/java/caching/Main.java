@@ -1,4 +1,4 @@
-package Caching;
+package caching;
 
 import java.util.HashMap;
 import java.util.Random;
@@ -18,10 +18,10 @@ public class Main {
     }
 
     public static WeatherData getWeatherInCity(String city) {
-        if(cache.containsKey(city)) {
+        if (cache.containsKey(city)) {
             System.out.println("Информация есть в кэше!");
             return cache.get(city);
-        }else{
+        } else {
             System.out.println("Информации нет в кэше, запрашиваем!");
             WeatherData fetchedWeatherData = fetchWeatherData(city);
             cache.put(city, fetchedWeatherData);
@@ -29,7 +29,7 @@ public class Main {
         }
     }
 
-    private static WeatherData fetchWeatherData(String city){
+    private static WeatherData fetchWeatherData(String city) {
         Random rnd = new Random();
         return new WeatherData(city, rnd.nextDouble(), rnd.nextDouble());
     }
