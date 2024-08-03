@@ -1,9 +1,6 @@
-package faang.school.godbless.BJS2_18494;
+package faang.school.godbless.BJS2_18433;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class User {
     private String name;
@@ -11,11 +8,19 @@ public class User {
     private String job;
     private String address;
 
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
     public User(String name, int age, String job, String address) {
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
+
+        if(name == null || name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException();
+        } else {
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            this.address = address;
+        }
     }
 
     public String getName() {
