@@ -1,4 +1,4 @@
-package CountGaps;
+package count_gaps;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -6,9 +6,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Student {
-
     private String name;
     private String faculty;
     private int year;
-
 }
