@@ -1,11 +1,10 @@
-package CatchingEvents;
+package catching_events;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 public class Main {
-
     private static final HashMap<Integer, StreamEvent> streamEvents = new HashMap<>();
     private static final HashMap<String, List<StreamEvent>> streamEventsByType = new HashMap<>();
 
@@ -26,7 +25,7 @@ public class Main {
     public static StreamEvent addStreamEvent(int id, String eventType, String data) {
         StreamEvent streamEvent = new StreamEvent(id, eventType, data);
         streamEvents.put(id, streamEvent);
-        if(!streamEventsByType.containsKey(eventType)) {
+        if (!streamEventsByType.containsKey(eventType)) {
             streamEventsByType.put(eventType, new ArrayList<>());
         }
         streamEventsByType.get(eventType).add(streamEvent);
@@ -36,6 +35,7 @@ public class Main {
     public static StreamEvent getStreamEventById(int id) {
         return streamEvents.get(id);
     }
+
     public static List<StreamEvent> getStreamEventsByType(String eventType) {
         return streamEventsByType.get(eventType);
     }
@@ -46,8 +46,8 @@ public class Main {
         streamEvents.remove(id);
     }
 
-    public static void printInfoAboutStreamEvents(){
-        for(StreamEvent streamEvent : streamEvents.values()) {
+    public static void printInfoAboutStreamEvents() {
+        for (StreamEvent streamEvent : streamEvents.values()) {
             System.out.println(streamEvent);
         }
     }
