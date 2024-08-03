@@ -1,4 +1,4 @@
-package VesterossLibrary;
+package vesteross_library;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,20 +9,20 @@ public class Main {
     private static final HashMap<Book, String> library = new HashMap<>();
 
     public static void main(String[] args) {
-        putBookToLibrary("1984","G.Oruwell", 1949,"1");
-        putBookToLibrary("Fahrenheit 451","R.Bradbury", 1953,"1");
-        putBookToLibrary("Clean Code","R.Martin", 2012,"2");
-        putBookToLibrary("Spring in Action","C.Walls", 2005,"2");
-        putBookToLibrary("The Shining","S.King", 1977,"3");
+        putBookToLibrary("1984", "G.Oruwell", 1949, "1");
+        putBookToLibrary("Fahrenheit 451", "R.Bradbury", 1953, "1");
+        putBookToLibrary("Clean Code", "R.Martin", 2012, "2");
+        putBookToLibrary("Spring in Action", "C.Walls", 2005, "2");
+        putBookToLibrary("The Shining", "S.King", 1977, "3");
 
         printInfoAboutAllBooks();
 
-        deleteBook("Spring in Action","C.Walls", 2005);
+        deleteBook("Spring in Action", "C.Walls", 2005);
         printInfoAboutAllBooks();
 
-        getInfoAboutBook("Spring in Action","C.Walls", 2005);
+        getInfoAboutBook("Spring in Action", "C.Walls", 2005);
 
-        getInfoAboutBook("The Shining","S.King", 1977);
+        getInfoAboutBook("The Shining", "S.King", 1977);
 
     }
 
@@ -31,6 +31,7 @@ public class Main {
         library.put(newBook, shelf);
         return newBook;
     }
+
     public static Book putBookToLibrary(Book book, String shelf) {
         library.put(book, shelf);
         return book;
@@ -45,7 +46,7 @@ public class Main {
         Book targetBook = new Book(title, author, year);
         if (!library.containsKey(targetBook)) {
             System.out.println("В библиотеке нет такой книги");
-        }else{
+        } else {
             System.out.printf("Книга %s лежит на полке %s%n", targetBook, library.get(targetBook));
         }
     }
@@ -64,7 +65,7 @@ public class Main {
             for (Book book : groupingMap.get(shelf)) {
                 sb.append(book.toString()).append(", ");
             }
-            sb.replace(sb.length()-2, sb.length(), "");
+            sb.replace(sb.length() - 2, sb.length(), "");
             sb.append("\n");
         }
         System.out.println(sb);
