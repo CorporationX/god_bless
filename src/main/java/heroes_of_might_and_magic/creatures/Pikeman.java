@@ -1,6 +1,6 @@
-package HeroesOfMightAndMagic.creatures;
+package heroes_of_might_and_magic.creatures;
 
-public class Pikeman extends Creature{
+public class Pikeman extends Creature {
 
     public Pikeman(String name) {
         super(name);

@@ -1,6 +1,6 @@
-package HeroesOfMightAndMagic.creatures;
+package heroes_of_might_and_magic.creatures;
 
-public class Swordman extends Creature{
+public class Swordman extends Creature {
     public Swordman(String name) {
         super(name);
         this.armor = 12;

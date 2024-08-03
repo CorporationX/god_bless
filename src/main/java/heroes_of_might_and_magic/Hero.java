@@ -1,6 +1,6 @@
-package HeroesOfMightAndMagic;
+package heroes_of_might_and_magic;
 
-import HeroesOfMightAndMagic.creatures.Creature;
+import heroes_of_might_and_magic.creatures.Creature;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,13 +25,13 @@ public class Hero {
         this.army = new ArrayList<>();
     }
 
-    public void addCreature(Creature creature, int quanitiy){
+    public void addCreature(Creature creature, int quanitiy) {
         army.addAll(Collections.nCopies(quanitiy, creature));
     }
 
-    public void removeCreature(Creature creature, int quantity){
+    public void removeCreature(Creature creature, int quantity) {
         int i = 0;
-        while (i < quantity){
+        while (i < quantity) {
             army.remove(creature);
             i++;
         }

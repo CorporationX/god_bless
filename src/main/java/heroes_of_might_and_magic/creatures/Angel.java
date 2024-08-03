@@ -1,6 +1,6 @@
-package HeroesOfMightAndMagic.creatures;
+package heroes_of_might_and_magic.creatures;
 
-public class Angel extends Creature{
+public class Angel extends Creature {
 
     public Angel(String name) {
         super(name);
