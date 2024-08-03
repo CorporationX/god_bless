@@ -10,17 +10,16 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 public class User {
-
     private long id;
     private String name;
     private int age;
     private Set<String> activities;
-
     /*
     Time complexity: O(N * M), где N - кол-во пользователей, M - кол-во активностей пользователя
     Space complexity: O(N), где N - кол-во пользователей
      */
-    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> activities ){
+    public static HashMap<User, String> findHobbyLovers(List<User> users,
+                                                        Set<String> activities) {
         HashMap<User, String> groupingMap = new HashMap<>();
 
         for (User user : users) {
@@ -33,5 +32,4 @@ public class User {
         }
         return groupingMap;
     }
-
 }

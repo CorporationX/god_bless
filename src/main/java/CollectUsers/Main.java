@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        User user1 = new User(1L, "Testname", 12, Set.of("soccer", "baseball","programming"));
+        User user1 = new User(1L, "Testname", 12, Set.of("soccer", "baseball", "programming"));
         User user2 = new User(2L, "Testname2", 13, Set.of("programming"));
         User user3 = new User(2L, "Testname2", 13, Set.of("gaming"));
 
