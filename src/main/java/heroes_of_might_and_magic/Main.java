@@ -1,7 +1,7 @@
-package HeroesOfMightAndMagic;
+package heroes_of_might_and_magic;
 
-import HeroesOfMightAndMagic.creatures.Angel;
-import HeroesOfMightAndMagic.creatures.Griffin;
+import heroes_of_might_and_magic.creatures.Angel;
+import heroes_of_might_and_magic.creatures.Griffin;
 
 public class Main {
 

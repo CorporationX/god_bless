@@ -1,4 +1,4 @@
-package HeroesOfMightAndMagic.creatures;
+package heroes_of_might_and_magic.creatures;
 
 import lombok.Getter;
 import lombok.Setter;

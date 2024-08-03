@@ -1,4 +1,4 @@
-package HeroesOfMightAndMagic.creatures;
+package heroes_of_might_and_magic.creatures;
 
 public class Griffin extends Creature {
     public Griffin(String name) {
