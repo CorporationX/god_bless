@@ -1,4 +1,4 @@
-package AmazonStock;
+package amazon_stock;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,6 +9,4 @@ public class Product {
     private int id;
     private String name;
     private String category;
-
-
 }
