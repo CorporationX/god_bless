@@ -1,7 +1,6 @@
-package Abstraction;
+package abstraction;
 
-public class Warrior extends Character{
-
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name);
@@ -14,5 +13,4 @@ public class Warrior extends Character{
     void attack(Character character) {
         character.setHealth(character.getHealth() - this.strength);
     }
-
 }

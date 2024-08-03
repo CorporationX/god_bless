@@ -1,4 +1,4 @@
-package Abstraction;
+package abstraction;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,8 +19,6 @@ public class Main {
 
         System.out.printf("Warrior's health: %d%n", warrior.getHealth());
         System.out.printf("Archer's health: %d%n", archer.getHealth());
-
-
 
 
     }

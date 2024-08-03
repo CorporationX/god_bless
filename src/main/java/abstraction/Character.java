@@ -1,4 +1,4 @@
-package Abstraction;
+package abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,13 +6,11 @@ import lombok.Setter;
 @Setter
 @Getter
 public abstract class Character {
-
     protected String name;
     protected int strength;
     protected int dexterity;
     protected int intelligence;
     protected int health = 100;
-
 
     public Character(String name) {
         this.name = name;
