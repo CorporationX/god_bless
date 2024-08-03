@@ -1,4 +1,4 @@
-package CountGaps;
+package count_gaps;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,38 +23,37 @@ public class Main {
 
     }
 
-    public static Student addStudent(Student student){
+    public static Student addStudent(Student student) {
         students.add(student);
         return student;
     }
 
-    public static Student addStudent(String name, String faculty, int year){
+    public static Student addStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
         students.add(student);
         return student;
     }
 
-    public static void deleteStudent(String name, String faculty, int year){
+    public static void deleteStudent(String name, String faculty, int year) {
         Student target = new Student(name, faculty, year);
         students.remove(target);
     }
 
-    public static List<Student> getStudentsByFacultyAndYear(String faculty, int year){
+    public static List<Student> getStudentsByFacultyAndYear(String faculty, int year) {
         return students
                 .stream()
                 .filter(el ->
-                        Objects.equals(el.getFaculty(), faculty) &&
-                        el.getYear() == year)
+                        Objects.equals(el.getFaculty(), faculty) && el.getYear() == year)
                 .toList();
     }
 
-    public static HashMap<Map.Entry<String,Integer>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students){
-        HashMap<Map.Entry<String,Integer>, List<Student>> groupingMap = new HashMap<>();
-        for(Student student : students){
+    public static HashMap<Map.Entry<String, Integer>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
+        HashMap<Map.Entry<String, Integer>, List<Student>> groupingMap = new HashMap<>();
+        for (Student student : students) {
             String faculty = student.getFaculty();
             int year = student.getYear();
-            Map.Entry<String,Integer> key = Map.entry(faculty, year);
-            if(!groupingMap.containsKey(key)){
+            Map.Entry<String, Integer> key = Map.entry(faculty, year);
+            if (!groupingMap.containsKey(key)) {
                 groupingMap.put(key, new ArrayList<>());
             }
             groupingMap.get(key).add(student);
@@ -62,9 +61,9 @@ public class Main {
         return groupingMap;
     }
 
-    public static void printGroupingMap(HashMap<Map.Entry<String,Integer>, List<Student>> groupingMap){
+    public static void printGroupingMap(HashMap<Map.Entry<String, Integer>, List<Student>> groupingMap) {
         StringBuilder sb = new StringBuilder();
-        for(Map.Entry<String,Integer> key : groupingMap.keySet()){
+        for (Map.Entry<String, Integer> key : groupingMap.keySet()) {
             sb.append("(Факультет:")
                     .append(key.getKey())
                     .append(", ")
