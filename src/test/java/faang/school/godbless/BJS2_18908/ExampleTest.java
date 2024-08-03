@@ -1,4 +1,4 @@
-package faang.school.godbless.reverse;
+package faang.school.godbless.BJS2_18908;
 
 import org.junit.jupiter.api.Test;
 
