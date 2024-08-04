@@ -1,17 +1,14 @@
-package faang.school.godbless.bjs218291;
+package faang.school.godbless.bjs219358;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
+@Data
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Getter
-@ToString
-public class Student {
-    String name;
+public class CompositeKey {
     String faculty;
     int year;
 }
