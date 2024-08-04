@@ -46,7 +46,6 @@ public class Main {
             return name;
         }
 
-
         public Set<String> getActivities() {
             return activities;
         }
