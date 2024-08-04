@@ -13,9 +13,10 @@ public class User {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int MIN_AGE = 18;
 
     public User(String id, String name, int age, String job, String address) {
-        if (name.isEmpty() || age < 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
+        if (name.isEmpty() || age < MIN_AGE || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Incorrect user");
         }
         this.id = id;
