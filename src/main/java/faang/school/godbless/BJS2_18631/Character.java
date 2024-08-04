@@ -1,10 +1,14 @@
 package faang.school.godbless.BJS2_18631;
 
+import lombok.Getter;
+import lombok.Setter;
+
 public abstract class Character {
     private String name;
-    private int strength;
-    private int agility;
-    private int intelligence;
+    protected int strength;
+    protected int agility;
+    protected int intelligence;
+    @Getter @Setter
     private int health;
 
     public Character(String name) {
