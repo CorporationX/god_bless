@@ -23,7 +23,6 @@ public class Main {
     public static void indexWebPage(WebPage webPage) {
         List<String> tokens = Arrays.stream(webPage.getContent().split(" "))
                 .map(token -> token.replaceAll("[.,;:_']","")).toList();
-        System.out.println(tokens);
         for (String token : tokens) {
             if (!indexingMap.containsKey(token)) {
                 indexingMap.put(token, new ArrayList<>());
