@@ -12,6 +12,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int LEGAL_AGE = 18;
     private String name;
     private int age;
     private String job;
@@ -22,7 +23,7 @@ public class User {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
 
-        if (age < 18) {
+        if (age < LEGAL_AGE) {
             throw new IllegalArgumentException("Must be at least 18 years old.");
         }
 
