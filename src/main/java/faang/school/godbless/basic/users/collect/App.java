@@ -56,5 +56,44 @@ public class App {
         // Resul Group users by age
         HashMap<Integer, ArrayList<User>> groupUsersByAge = User.groupUsers(users);
         System.out.println("Grouped users by age: " + groupUsersByAge);
+
+        // Register user
+        try {
+            User user5 = new User(5, "", 16, "Google", "Amsterdam" );
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            User user5 = new User(5, "John", 16, "Google", "Amsterdam" );
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            User user6 = new User(6, "Dan", 25, "Uber", "Amsterdam");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            User user7 = new User(7, "Alex", 35, "Yandex", "Amsterdam");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            User user8 = new User(8, "Konstantin", 35, "Google", "Moscow");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+        try {
+            User user9 = new User(9, "Rex", 35, "Google", "New York");
+            System.out.println("User " + user9 + " matches all requirements ");
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+
+
+
     }
 }
