@@ -3,7 +3,9 @@ package faang.school.godbless.basic.users.collect;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,5 +25,25 @@ public class User {
                 }
             }
         return map;
+    }
+
+    public static HashMap<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
+        HashMap<Integer, ArrayList<User>> map = new HashMap<>();
+
+        for (User user: users) {
+            if (map.containsKey(user.age)) {
+                ArrayList<User> userEntity = map.get(user.age);
+                userEntity.add(user);
+                map.put(user.age, userEntity);
+            } else {
+                map.put(user.age, new ArrayList<>(List.of(user)));
+            }
+        }
+        return map;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }
