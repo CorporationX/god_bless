@@ -30,7 +30,7 @@ public class User {
     private String workPlace;
     private String address;
 
-    public User(String name, int age, String workPlace, String address) throws IllegalArgumentException{
+    public User(String name, int age, String workPlace, String address) {
         if (
                 name.isEmpty()
                 || age < 18
