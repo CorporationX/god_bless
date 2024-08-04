@@ -13,8 +13,15 @@ public class User {
 
     public User(String name, int age, String job, String address) {
 
-        if(name == null || name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
+//        if(name == null || name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || VALID_JOBS.contains(job)) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        } else if (age < 18) {
+            throw new IllegalArgumentException("Age cannot be less than 18");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        } else if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Invalid job");
         } else {
             this.name = name;
             this.age = age;
