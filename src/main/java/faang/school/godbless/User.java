@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -23,20 +24,29 @@ public class User {
 
     public static Map groupUsers(List<User> users) {
         Map<Integer, List> map = new HashMap<Integer, List>();
-        Map<List, Integer> UsersTheirAge = new HashMap<>();
-
-        for (User user : users) {
-            if ()
-            UsersTheirAge.put(user, user.getAge());
-
-        }
 
         for (User user : users) {
             if (map.containsKey(user.getAge())) {
-                map.put(user.getAge(), users);
+                map.get(user.getAge()).add(user);
+            } else {
+                List<User> newListUsers = new ArrayList<>();
+                newListUsers.add(user);
+                map.put(user.getAge(), newListUsers);
             }
         }
-
         return map;
+    }
+
+//  Тестовая функция для проверки.
+    public static void readingMap(Map<Integer, List<User>> map) {
+        for (Map.Entry<Integer, List<User>> pair : map.entrySet()) {
+            Integer key = pair.getKey();
+            List<User> users = pair.getValue();
+            System.out.println(key);
+
+            for (User user : users) {
+                System.out.println(user);
+            }
+        }
     }
 }

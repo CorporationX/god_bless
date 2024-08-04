@@ -2,6 +2,7 @@ package faang.school.godbless;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,7 +17,7 @@ public class Main {
         users.add(us3);
         users.add(us4);
 
-        System.out.println(User.groupUsers(users));
+        User.readingMap(User.groupUsers(users));
 
     }
 }
