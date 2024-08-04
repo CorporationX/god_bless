@@ -7,7 +7,7 @@ public class Warrior extends Character{
 
     @Override
     public void attack(Character character) {
-        int currentHealth = character.getHealth();
-        character.setHealth(currentHealth - super.strength);
+        character.health -= this.strength;
+        System.out.printf("Воин %s наносит %d урона\n", this.name, this.strength);
     }
 }
