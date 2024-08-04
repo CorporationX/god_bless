@@ -1,6 +1,6 @@
 package faang.school.godbless.project3;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Data
 @ToString
-
 public class User {
     private String name;
     private int age;
