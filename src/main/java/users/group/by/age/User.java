@@ -15,13 +15,15 @@ public class User {
     private final int age;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        HashMap<Integer, List<User>> groupedUsers = new HashMap<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
         for (User user : users) {
             if (groupedUsers.containsKey(user.age)) {
                 groupedUsers.get(user.age).add(user);
             } else {
-                groupedUsers.put(user.age, new LinkedList<>(List.of(user)));
+                List<User> oneUserinList = new LinkedList<>();
+                users.add(user);
+                groupedUsers.put(user.age, oneUserinList);
             }
         }
 
