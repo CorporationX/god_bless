@@ -18,9 +18,9 @@ public class User {
     @Getter
     private int age;
     private String workPlace;
-    private String address;
+    private String workAddress;
 
-    public static Map<Integer, List<User>> groupUser(List<User> users) {
+    public static Map<Integer, List<User>> groupUserByAge(List<User> users) {
         Map<Integer, List<User>> usersGroupsByAge = new HashMap<>();
         for (User user : users) {
             List<User> ageGroup = usersGroupsByAge.getOrDefault(user.getAge(), new ArrayList<>());
