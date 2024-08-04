@@ -2,18 +2,16 @@ package faang.school.godbless.BJS2_18399;
 
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class User {
 
     private int id;
     private String name;
     private int age;
-    private HashSet<String> hobbies;
+    private Set<String> hobbies;
 
-    public User(int id, String name, int age, HashSet<String> hobbies) {
+    public User(int id, String name, int age, Set<String> hobbies) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -29,12 +27,12 @@ public class User {
     public int getAge() {
         return age;
     }
-    public HashSet<String> getHobbies() {
+    public Set<String> getHobbies() {
         return hobbies;
     }
 
-    public static HashMap<User, String> findHobbyLovers(List<User> users, HashSet<String> hobbies) {
-        HashMap<User, String> hobbyLoversMap = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLoversMap = new HashMap<>();
         for (User user : users) {
             for (String hobby : user.hobbies) {
                 if (hobbies.contains(hobby)) {
