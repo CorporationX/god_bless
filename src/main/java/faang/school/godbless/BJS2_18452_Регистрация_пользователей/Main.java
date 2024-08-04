@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_18507;
+package faang.school.godbless.BJS2_18452_Регистрация_пользователей;
 
 import java.util.ArrayList;
 import java.util.List;
