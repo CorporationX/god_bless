@@ -26,7 +26,7 @@ public class User {
 
 
     public User(String name, int age, String workPlace, String workAddress) {
-        if (Objects.nonNull(name) && age >= 18 && VALID_JOB.contains(workPlace) && VALID_ADDRESSES.contains(workAddress)) {
+        if (Objects.nonNull(name) && !name.isBlank() && age >= 18 && VALID_JOB.contains(workPlace) && VALID_ADDRESSES.contains(workAddress)) {
             this.name = name;
             this.age = age;
             this.workPlace = workPlace;
