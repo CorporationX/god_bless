@@ -1,7 +1,7 @@
 package reverse;
 
 public class Example {
-    public static void reverse(int[] array) throws NullPointerException {
+    public static void reverse(int[] array)  {
         if (array == null) {
             throw new NullPointerException("Array is null!");
         }
