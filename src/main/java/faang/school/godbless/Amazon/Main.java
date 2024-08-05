@@ -1,4 +1,4 @@
-package Amazon;
+package faang.school.godbless.Amazon;
 
 import java.util.*;
 
@@ -16,13 +16,11 @@ public class Main {
         GROUPED_PRODUCTS = groupProducts(PRODUCTS);
 
         printGroupedProducts();
-
     }
 
     public static HashMap<String, List<Product>> groupProducts(Set<Product> products) {
         HashMap<String, List<Product>> grouped = new HashMap<>();
-        products.forEach(product ->
-        {
+        products.forEach(product -> {
             grouped.putIfAbsent(product.getCategory(), new ArrayList<>());
             grouped.get(product.getCategory()).add(product);
         });
@@ -30,8 +28,7 @@ public class Main {
     }
 
     public static void printGroupedProducts() {
-        for (Map.Entry<String, List<Product>> entry : GROUPED_PRODUCTS.entrySet())
-        {
+        for (Map.Entry<String, List<Product>> entry : GROUPED_PRODUCTS.entrySet()) {
             System.out.println(entry.getKey());
             entry.getValue().forEach((product -> System.out.println(product.getName())));
             System.out.println("_________________________________");

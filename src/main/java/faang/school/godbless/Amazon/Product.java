@@ -1,6 +1,5 @@
-package Amazon;
+package faang.school.godbless.Amazon;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
