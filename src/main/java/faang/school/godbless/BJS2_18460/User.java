@@ -15,11 +15,10 @@ public class User {
 
     public User(String name, int age, String address, String placeOfWork) {
         this.name = name;
-        if (age >= 0) {
-            this.age = age;
-        } else {
+        if (age <= 0) {
             throw new IllegalArgumentException("Age must be greater than or equal to 0");
         }
+        this.age = age;
         this.address = address;
         this.placeOfWork = placeOfWork;
     }
@@ -28,7 +27,7 @@ public class User {
         Map<Integer, List<User>> userGroupsByAge = new HashMap<>();
         for (User user : users) {
             List<User> userListByAge = users.stream()
-                    .filter(s -> s.getAge() == user.getAge())
+                    .filter(currentUser -> currentUser.getAge() == user.getAge())
                     .toList();
             userGroupsByAge.put(user.getAge(), userListByAge);
         }
