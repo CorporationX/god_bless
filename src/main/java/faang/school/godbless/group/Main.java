@@ -9,12 +9,12 @@ import java.util.logging.Logger;
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>(Arrays.asList(
-                new User("1", 1, "1", "1"),
-                new User("2", 1, "2", "2"),
-                new User("3", 2, "3", "3"),
-                new User("4", 2, "4", "4"),
-                new User("5", 3, "5", "5"),
-                new User("6", 3, "6", "6")
+                new User("1", 18, "Google", "Amsterdam"),
+                new User("2", 18, "Google", "Amsterdam"),
+                new User("3", 19, "Google", "Amsterdam"),
+                new User("4", 19, "Google", "Amsterdam"),
+                new User("5", 20, "Google", "Amsterdam"),
+                new User("6", 20, "Google", "Amsterdam")
         ));
         Map<Integer, List<User>> map = User.groupUsers(users);//проверка через дебаг
     }
