@@ -7,6 +7,5 @@ import lombok.NonNull;
 public class Id {
     @NonNull
     private final String faculty;
-    @NonNull
     private final int year;
 }
