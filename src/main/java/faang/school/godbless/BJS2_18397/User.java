@@ -19,14 +19,14 @@ public class User {
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> hobbyLovers = new HashMap<>();
+        Map<User, String> resultMap = new HashMap<>();
         for (User user : users) {
-            Set<String> tempSet = new HashSet<>(user.activities);
-            tempSet.retainAll(activities);
-            if (!tempSet.isEmpty()) {
-                hobbyLovers.put(user, tempSet.iterator().next());
+            for (String activity : user.getActivities()) {
+                if (activities.contains(activity)) {
+                    resultMap.put(user, activity);
+                }
             }
         }
-        return hobbyLovers;
+        return resultMap;
     }
 }
