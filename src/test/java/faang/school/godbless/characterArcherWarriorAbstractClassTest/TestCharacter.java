@@ -1,4 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.characterArcherWarriorAbstractClassTest;
+
+import faang.school.godbless.characterArcherWarriorAbstractClass.Character;
 
 public class TestCharacter extends Character {
 

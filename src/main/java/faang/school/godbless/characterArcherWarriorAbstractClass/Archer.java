@@ -1,6 +1,6 @@
-package faang.school.godbless;
+package faang.school.godbless.characterArcherWarriorAbstractClass;
 
-public class Archer extends Character{
+public class Archer extends Character {
     private static int NTELLIGENCE = 5;
     private static int DEXTERITY = 10;
     private static int FORCE = 3;

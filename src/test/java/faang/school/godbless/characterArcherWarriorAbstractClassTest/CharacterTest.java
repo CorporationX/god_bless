@@ -1,5 +1,7 @@
-package faang.school.godbless;
+package faang.school.godbless.characterArcherWarriorAbstractClassTest;
 
+import faang.school.godbless.characterArcherWarriorAbstractClass.Archer;
+import faang.school.godbless.characterArcherWarriorAbstractClass.Warrior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
