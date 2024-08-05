@@ -10,7 +10,7 @@ public class UserTest {
     private User user;
 
     @Test
-    void testUsersAreSorted(){
+    void testUsersAreGroupped(){
         List<User> users = List.of(
                 new User("A", 19, "Yandex", "Pupsnaya"),
                 new User("F", 19, "Pandex", "Pupsnaya"));
