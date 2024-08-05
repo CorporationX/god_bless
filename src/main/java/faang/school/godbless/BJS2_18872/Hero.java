@@ -1,17 +1,22 @@
 package faang.school.godbless.BJS2_18872;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.Map;
 
+@Getter @Setter
 public class Hero {
 
-    @Getter @Setter private String name;
-    @Getter @Setter private String faction;
-    @Getter @Setter private int experience;
-    @Getter @Setter private int level;
-    @Getter private HashMap<Creature, Integer>  army;
+    private String name;
+    private String faction;
+    private int experience;
+    private int level;
+
+    @Setter(AccessLevel.NONE)
+    private Map<Creature, Integer> army;
 
     public Hero(String name, String faction) {
         this.name = name;
@@ -23,20 +28,28 @@ public class Hero {
 
 
     public void addCreature(Creature creature, int quantity) {
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        }
+
         if (army == null) {
             army = new HashMap<>();
-            army.put(creature, quantity);
-        } else {
-            army.put(creature, army.getOrDefault(creature, 0) + quantity);
         }
+
+        army.merge(creature, quantity, Integer::sum);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (army != null) {
-            if (army.containsKey(creature)) {
-                army.put(creature, army.get(creature) - quantity);
-            }
+        if (quantity <= 0 || quantity > army.get(creature)) {
+            throw new IllegalArgumentException("Quantity must be greater than 0 and less than or equal to " + army.get(creature));
+        } else if (creature == null) {
+            throw new IllegalArgumentException("Creature cannot be null");
         }
+
+        if (army != null && army.containsKey(creature)) {
+                army.put(creature, army.get(creature) - quantity);
+        }
+
     }
 
     public int calculateTotalDamage() {
@@ -45,6 +58,19 @@ public class Hero {
             totalDamage += army.get(creature) * creature.getDamage();
         }
         return totalDamage;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder armyString = new StringBuilder();
+        for (Map.Entry<Creature, Integer> armyEntry : army.entrySet()) {
+            armyString.append(armyEntry.getKey().getName())
+                    .append(": ")
+                    .append(armyEntry.getValue())
+                    .append("\n");
+        }
+        return "Hero: " + name + ", Faction: " + faction + ", Exp: " + experience + ", Lvl: " + level + "\n" +
+                "Has army: \n" + armyString.toString();
     }
 
 }
