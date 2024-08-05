@@ -9,11 +9,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class User {
-    private String name, placeOfWork, address;
-    private int age;
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
+    private String name, placeOfWork, address;
+    private int age;
 
     public User(String name, String placeOfWork, String address, int age) {
         if (name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(placeOfWork)) {
