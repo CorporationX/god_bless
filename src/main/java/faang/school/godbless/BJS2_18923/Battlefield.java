@@ -34,21 +34,16 @@ public class Battlefield {
 
     public void attack(Hero attacker, Hero defender) {
         Random random = new Random();
-        if (attacker.getArmy().isEmpty()) {
-            attacker.setDefeated(true);
-            return;
-        }
         int attackerCreatureIdx = 0;
         if (attacker.getArmy().size() != 1) {
             attackerCreatureIdx = random.nextInt(0, attacker.getArmy().size() - 1);
         }
         int damage = attacker.getArmy().get(attackerCreatureIdx).getDamage();
         System.out.println("Герой " + attacker.getName() + " наносит урон " + damage + " существом " + attacker.getArmy().get(attackerCreatureIdx).getName());
+        defence(defender, random, damage);
+    }
 
-        if (defender.getArmy().isEmpty()) {
-            defender.setDefeated(true);
-            return;
-        }
+    public void defence(Hero defender, Random random, int damage) {
         int defenderCreatureIdx = 0;
         if (defender.getArmy().size() != 1) {
             defenderCreatureIdx = random.nextInt(0, defender.getArmy().size() - 1);
@@ -67,8 +62,5 @@ public class Battlefield {
         if (defender.getArmy().isEmpty()) {
             defender.setDefeated(true);
         }
-    }
-    public void defence () {
-
     }
 }
