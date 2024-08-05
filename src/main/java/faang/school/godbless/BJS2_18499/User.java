@@ -1,6 +1,5 @@
 package faang.school.godbless.BJS2_18499;
 
-import java.util.HashSet;
 import java.util.Set;
 
 public class User {
