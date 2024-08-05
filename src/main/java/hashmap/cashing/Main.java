@@ -1,5 +1,7 @@
 package hashmap.cashing;
 
+import lombok.NonNull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,7 +25,7 @@ public class Main {
         printCache();
     }
 
-    public static WeatherData getWeather(String city) {
+    public static WeatherData getWeather(@NonNull String city) {
         if (!WEATHER_CACHE.containsKey(city)) {
             WeatherData weatherData = WeatherService.getWeather(city);
             WEATHER_CACHE.put(city, weatherData);
@@ -31,12 +33,12 @@ public class Main {
         return WEATHER_CACHE.get(city);
     }
 
-    public static void updateCache(String city) {
+    public static void updateCache(@NonNull String city) {
         System.out.println("\nUpdated cache for " + city);
         WEATHER_CACHE.put(city, WeatherService.getWeather(city));
     }
 
-    public static void removeDataFromCache(String city) {
+    public static void removeDataFromCache(@NonNull String city) {
         if (WEATHER_CACHE.containsKey(city)) {
             System.out.println("\nNo data for this city in cache");
         }
