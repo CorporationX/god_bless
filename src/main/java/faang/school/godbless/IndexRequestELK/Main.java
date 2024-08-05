@@ -38,41 +38,34 @@ public class Main {
         printQueries();
     }
 
-    public static void printQueries()
-    {
-        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet())
-        {
+    public static void printQueries() {
+        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet()) {
             System.out.println(entry.getKey().toString());
-            entry.getValue().forEach( query -> {
+            entry.getValue().forEach(query -> {
                 System.out.println(query.toString());
             });
             System.out.println("__________________________");
         }
     }
 
-    public static void printQueriesSortedByTime()
-    {
-        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet())
-        {
+    public static void printQueriesSortedByTime() {
+        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet()) {
             System.out.println(entry.getKey().toString());
-            entry.getValue().sort( (firstQuery, secondQuery) ->
-            {
-                return firstQuery.getTimestamp().before(secondQuery.getTimestamp()) ? 1 : -1;
+            entry.getValue().sort((firstQuery, secondQuery) -> {
+                return firstQuery.getTimestamp().compareTo(secondQuery.getTimestamp());
             });
-            entry.getValue().forEach( query -> {
+            entry.getValue().forEach(query -> {
                 System.out.println(query.toString());
             });
             System.out.println("________________________________________");
         }
     }
 
-    public static void addUserWithQuery(User user, List<Query> queries)
-    {
+    public static void addUserWithQuery(User user, List<Query> queries) {
         USER_QUERIES.put(user, queries);
     }
 
-    public static void removeUserWithQuery(User user)
-    {
+    public static void removeUserWithQuery(User user) {
         USER_QUERIES.remove(user);
     }
 }
