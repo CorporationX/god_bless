@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Main {
     private static final Map<String, WeatherData> weatherData = new HashMap<>();
+
     public static void main(String[] args) {
         weatherData.put("Moscow", new WeatherData("Moscow", 23.4, 50));
         weatherData.put("Berlin", new WeatherData("Berlin", 18, 70));
@@ -12,15 +13,12 @@ public class Main {
         System.out.print(getWeatherData("Moscow").toString());
         System.out.print(getWeatherData("Berlin").toString());
         System.out.println(getWeatherData("САРАТОВ").toString());
-        weatherData.forEach( ( city, data ) ->
-        {
-            System.out.print(data.toString());
-        });
+
+        weatherData.forEach((city, data) -> System.out.print(data.toString()));
     }
 
     public static WeatherData getWeatherData(String city) {
-        if (weatherData.containsKey(city))
-        {
+        if (weatherData.containsKey(city)) {
             return weatherData.get(city);
         }
 
