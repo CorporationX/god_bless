@@ -3,6 +3,7 @@ package faang.school.godbless;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,12 +11,18 @@ import java.util.Set;
 public class User {
     private String name, placeOfWork, address;
     private int age;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
 
     public User(String name, String placeOfWork, String address, int age) {
-        this.name = name;
-        this.placeOfWork = placeOfWork;
-        this.address = address;
-        this.age = age;
+        if (name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException();
+        }
+            this.name = name;
+            this.age = age;
+            this.address = address;
+            this.placeOfWork = placeOfWork;
     }
 
     @Override
@@ -32,8 +39,8 @@ public class User {
         return age;
     }
 
-    public static Map groupUsers(List<User> users) {
-        Map<Integer, List> map = new HashMap<Integer, List>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> map = new HashMap<>();
 
         for (User user : users) {
             if (map.containsKey(user.getAge())) {
