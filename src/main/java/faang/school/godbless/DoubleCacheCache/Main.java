@@ -66,8 +66,7 @@ public class Main {
     }
 
     private static void printStudentsWithSubjectsGrades() {
-        STUDENT_SUBJECTS_GRADES.forEach((student, subjectGrade) ->
-        {
+        STUDENT_SUBJECTS_GRADES.forEach((student, subjectGrade) -> {
             System.out.println(student.getName());
             subjectGrade.forEach((subject, grade) -> {
                 System.out.println(subject.getName() + " : " + grade);
@@ -96,8 +95,7 @@ public class Main {
 
     private static void printSubjectAndStudents()
     {
-        STUDENTS_BY_SUBJECTS.forEach((subject, students) ->
-        {
+        STUDENTS_BY_SUBJECTS.forEach((subject, students) -> {
             System.out.println(subject.getName());
             students.forEach( student -> {
                 System.out.println(student.getName());
