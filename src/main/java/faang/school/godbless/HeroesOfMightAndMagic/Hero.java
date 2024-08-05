@@ -40,8 +40,7 @@ public class Hero {
     }
 
     public void deleteCreatures(Creature creature, int quantity) {
-        if (!HERO_ARMY.isEmpty())                   //Проверка на пустую армию, что бы он просто так не отнимал HP армии и не уводил в минус
-        {
+        if (!HERO_ARMY.isEmpty()) {                //Проверка на пустую армию, что бы он просто так не отнимал HP армии и не уводил в минус
             for (int i = 0; i < quantity; i++) {
                 HERO_ARMY.remove(creature);
                 armyHp -= creature.getDefence();
