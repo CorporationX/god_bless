@@ -14,4 +14,22 @@ class ExampleTest {
 
         assertArrayEquals(new int[]{5, 4, 3, 2, 1}, nums);
     }
+
+    @Test
+    void testReverseOnlyOneNumber() {
+        int[] nums = {1};
+
+        Example.reverse(nums);
+
+        assertArrayEquals(new int[]{1}, nums);
+    }
+
+    @Test
+    void testReverseEmptyInput() {
+        int[] nums = {};
+
+        Example.reverse(nums);
+
+        assertArrayEquals(new int[]{}, nums);
+    }
 }
