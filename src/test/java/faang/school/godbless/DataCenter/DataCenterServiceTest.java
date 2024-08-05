@@ -37,8 +37,7 @@ class DataCenterServiceTest {
     }
 
     @Test
-    public void releaseResources()
-    {
+    public void releaseResources() {
         dataCenterService.addServerToDataCenter(new Server(60));
         dataCenterService.addServerToDataCenter(new Server(60));
         dataCenterService.allocateResources(new ResourceRequest(30));
@@ -63,8 +62,7 @@ class DataCenterServiceTest {
     }
 
     @Test
-    public void testEnergyConsumption()
-    {
+    public void testEnergyConsumption() {
         dataCenterService.addServerToDataCenter(new Server(60));
         dataCenterService.allocateResources(new ResourceRequest(30));
 
@@ -80,8 +78,7 @@ class DataCenterServiceTest {
     }
 
     @Test
-    public void testOptimization()
-    {
+    public void testOptimization() {
         dataCenterService.addServerToDataCenter(new Server(60));
         dataCenterService.addServerToDataCenter(new Server(150));
         dataCenterService.allocateResources(new ResourceRequest(100));
