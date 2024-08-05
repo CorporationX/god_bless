@@ -34,7 +34,7 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-
+//
     }
 
 }
