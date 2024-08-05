@@ -9,6 +9,6 @@ public abstract class Creature {
     private int attack;
     private int defense;
     private int speed;
-    private int count;
+    private int quantity;
     public abstract int getDamage();
 }
