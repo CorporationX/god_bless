@@ -50,11 +50,9 @@ public class Main {
         System.out.println("ЗА ЗАПРОСУ " + keyword + " НАЙДЕНО:");
         if (PAGES_BY_KEYWORD.get(keyword) == null) {
             System.out.println("НИЧЕГО");
-        } else {
-            PAGES_BY_KEYWORD.get(keyword).forEach(webpage ->
-            {
-                System.out.println(webpage.getTitle());
-            });
+        }
+        else {
+            PAGES_BY_KEYWORD.get(keyword).forEach(webpage -> System.out.println(webpage.getTitle()));
         }
     }
 
@@ -72,18 +70,13 @@ public class Main {
         }
         PAGES_BY_KEYWORD.remove(url);
 
-        keyWordsToDelete.forEach(keyWordToDelete ->
-        {
-            PAGES_BY_KEYWORD.get(keyWordToDelete).remove(pageToDelete);
-        });
+        keyWordsToDelete.forEach(keyWordToDelete -> PAGES_BY_KEYWORD.get(keyWordToDelete).remove(pageToDelete));
     }
 
     private static void printAllIndexesAndPages() {
         PAGES_BY_KEYWORD.forEach((word, page) -> {
             System.out.println(word);
-            PAGES_BY_KEYWORD.get(word).forEach(webPage -> {
-                System.out.println(webPage.getTitle());
-            });
+            PAGES_BY_KEYWORD.get(word).forEach(webPage -> System.out.println(webPage.getTitle()));
             System.out.println("________________________________");
         });
 
