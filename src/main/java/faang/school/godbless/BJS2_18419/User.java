@@ -44,7 +44,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroupsByAge = new HashMap<>();
         for (User user : users) {
-            List<User> userListByAge = users.stream().filter(s -> s.getAge() == user.getAge()).toList();
+            List<User> userListByAge = users.stream().filter(currentUser -> currentUser.getAge() == user.getAge()).toList();
             userGroupsByAge.put(user.getAge(), userListByAge);
         }
         return userGroupsByAge;
