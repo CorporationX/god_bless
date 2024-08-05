@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User us1 = new User("Andrew", "Uber", "Amsterdam", 17);
+        User us1 = new User("Andrew", "Uber", "Amsterdam", 19);
         User us2 = new User("Stepan", "Google", "Amsterdam", 25);
         User us3 = new User("Vladislav", "Amazon", "New York", 25);
         User us4 = new User("Alexandr", "Amazon", "London", 22);
@@ -18,6 +18,14 @@ public class Main {
         users.add(us4);
 
         User.readingMap(User.groupUsers(users));
+
+        System.out.println();
+
+        Warrior war1 = new Warrior("Dragon knight");
+        Archer arch1 = new Archer("Draw ranger");
+
+        war1.attack(arch1);
+
 
     }
 }
