@@ -23,8 +23,11 @@ public class Main {
     }
 
     public static void deleteStreamEvent(int id){
-        cacheByEvent.get(cacheById.get(id).getEventType()).remove(cacheById.get(id));
-        cacheById.remove(id);
+        StreamEvent streamEvent = cacheById.get(id);
+        if(streamEvent != null){
+            cacheByEvent.get(streamEvent.getEventType()).remove(streamEvent);
+            cacheById.remove(id);
+        }
     }
 
     public static void getAllStreamEvent(){
