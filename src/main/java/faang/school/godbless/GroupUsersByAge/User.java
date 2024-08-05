@@ -16,31 +16,20 @@ public class User {
     private String job;
     private String address;
 
-    public static Map<Integer, List<User>> groupUsersByAge(List<User> users)
-    {
-        Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
-        users.forEach(user ->
-        {
-            int currentUserAge = user.getAge();
+    public static Map<Integer, List<User>> groupUsersByAge(List<User> users) {
+        final Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
 
-            if (groupedUsersByAge.containsKey(currentUserAge))
-            {
-                groupedUsersByAge.get(currentUserAge).add(user);
-            }
-            else
-            {
-                List<User> newGroup = new ArrayList<>();
-                newGroup.add(user);
-                groupedUsersByAge.put(currentUserAge, newGroup);
-            }
+        users.forEach(user -> {
+            int currentUserAge = user.getAge();
+            groupedUsersByAge.computeIfAbsent(currentUserAge, k -> new ArrayList<>()).add(user);
         });
+
         return groupedUsersByAge;
     }
 
     //Для теста в Main
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format("%s: %d лет ", name, age);
     }
 }
