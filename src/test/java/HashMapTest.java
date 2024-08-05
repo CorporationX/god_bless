@@ -1,7 +1,11 @@
 import hasmap.library.Book;
 import hasmap.library.Main;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -9,15 +13,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashMapTest {
+    private static Map<Book, String> libraryMap;
+
+    @BeforeEach
+    void setUp() {
+        libraryMap = new HashMap<>();
+    }
+
     @Test
     @DisplayName("Adding book in map")
     void hashMapTest_addBook() {
         Book testBook = new Book("Test", "Test", 100);
 
-        Main.addBook(testBook, "section test");
+        Main.addBook(libraryMap, testBook, "section test");
 
-        assertTrue(Main.LIBRARY_MAP.containsKey(testBook));
-        Main.removeBook(testBook.getTitle(), testBook.getAuthor(), testBook.getYear());
+        assertTrue(libraryMap.containsKey(testBook));
     }
 
     @Test
@@ -25,7 +35,7 @@ public class HashMapTest {
     void hashMapTest_addNullBook() {
         Book testBook = null;
 
-        assertThrows(NullPointerException.class, () -> Main.addBook(testBook, "section test"));
+        assertThrows(NullPointerException.class, () -> Main.addBook(libraryMap, testBook, "section test"));
     }
 
     @Test
@@ -33,7 +43,7 @@ public class HashMapTest {
     void hashMapTest_addBookInNullSection() {
         Book testBook = new Book("Test", "Test", 100);
 
-        assertThrows(NullPointerException.class, () -> Main.addBook(testBook, null));
+        assertThrows(NullPointerException.class, () -> Main.addBook(libraryMap, testBook, null));
     }
 
     @Test
@@ -41,16 +51,17 @@ public class HashMapTest {
     void hashMapTest_removeBook() {
         Book testBook = new Book("Test", "Test", 100);
 
-        Main.addBook(testBook, "section test");
-        Main.removeBook(testBook.getTitle(), testBook.getAuthor(), testBook.getYear());
+        Main.addBook(libraryMap, testBook, "section test");
+        assertTrue(libraryMap.containsKey(testBook));
 
-        assertFalse(Main.LIBRARY_MAP.containsKey(testBook));
+        Main.removeBook(libraryMap, testBook.getTitle(), testBook.getAuthor(), testBook.getYear());
+        assertFalse(libraryMap.containsKey(testBook));
     }
 
     @Test
     @DisplayName("Remove book with null arguments from map")
     void hashMapTest_removeNullBook() {
-        assertThrows(NullPointerException.class, () -> Main.removeBook(null, null, 0));
+        assertThrows(NullPointerException.class, () -> Main.removeBook(libraryMap, null, null, 0));
     }
 
     @Test
@@ -58,8 +69,8 @@ public class HashMapTest {
     void hashMapTest_searchBook() {
         Book testBook = new Book("Test", "Test", 100);
 
-        Main.addBook(testBook, "section test");
-        Book result = Main.searchBook(testBook.getTitle(), testBook.getAuthor(), testBook.getYear());
+        Main.addBook(libraryMap, testBook, "section test");
+        Book result = Main.searchBook(libraryMap, testBook.getTitle(), testBook.getAuthor(), testBook.getYear());
 
         assertEquals(testBook, result);
     }
@@ -67,6 +78,6 @@ public class HashMapTest {
     @Test
     @DisplayName("Search book with null arguments")
     void hashMapTest_searchNullBook() {
-        assertThrows(NullPointerException.class, () -> Main.searchBook(null, null, 9));
+        assertThrows(NullPointerException.class, () -> Main.searchBook(libraryMap, null, null, 9));
     }
 }
