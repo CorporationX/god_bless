@@ -3,11 +3,6 @@ package faang.school.godbless.ageGroup;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @Data
 @AllArgsConstructor
 public class User {
@@ -15,15 +10,4 @@ public class User {
     private int age;
     private String job;
     private String address;
-
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> result = new HashMap<>();
-        for (User user : users) {
-            if (!result.containsKey(user.age)) {
-                result.put(user.age, new ArrayList<>());
-            }
-            result.get(user.age).add(user);
-        }
-        return result;
-    }
 }
