@@ -34,10 +34,7 @@ public class Main {
 
         System.out.println();
 
-        findEventsByType("dota").forEach( streamEvent -> {
-            System.out.println(streamEvent.toString());
-        });
-
+        findEventsByType("dota").forEach( streamEvent -> System.out.println(streamEvent.toString()));
     }
 
     private static void addNewEvent(StreamEvent event) {
@@ -61,10 +58,7 @@ public class Main {
         return EVENTS_BY_TYPE.get(type);
     }
 
-    private static void printAllEventsInfo()
-    {
-        EVENT_BY_ID.forEach( (id, event) -> {
-            System.out.println(id + " " + event.toString());
-        });
+    private static void printAllEventsInfo() {
+        EVENT_BY_ID.forEach( (id, event) -> System.out.println(id + " " + event.toString()));
     }
 }
