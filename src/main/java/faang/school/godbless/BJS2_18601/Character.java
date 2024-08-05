@@ -7,6 +7,13 @@ public abstract class Character {
     protected int intelligence;
     protected int health = 100;
 
+    public Character(String name, int strength, int dexterity, int intelligence) {
+        this.name = name;
+        this.strength = strength;
+        this.dexterity = dexterity;
+        this.intelligence = intelligence;
+    }
+
     public Character(String name) {
         this.name = name;
     }
@@ -19,13 +26,6 @@ public abstract class Character {
         this.health = health;
     }
 
-
-    public Character(String name, int strength, int dexterity, int intelligence) {
-        this.name = name;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-    }
 
     public abstract void attack(Character c);
 }
