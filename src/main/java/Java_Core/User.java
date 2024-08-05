@@ -22,7 +22,7 @@ public class User {
         this.age = age;
         this.job = job;
         this.adress = adress;
-        System.out.println(VALID_JOBS.contains(job));
+
     }
 
 
