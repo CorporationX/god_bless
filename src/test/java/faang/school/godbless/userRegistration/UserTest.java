@@ -67,7 +67,7 @@ class UserTest {
 
         private static void getUserWithInvalidName() {
             User.builder()
-                    .name("")
+                    .name(" ")
                     .age(27)
                     .job("Google")
                     .address("London")
