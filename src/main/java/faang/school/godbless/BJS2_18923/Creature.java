@@ -23,6 +23,6 @@ public abstract class Creature {
     }
 
     public int getDamage() {
-        return (int) ((attack + speed + quantity + level) * DAMAGE_COEFFICIENT);
+        return (int) (((attack + speed + level)*quantity) * DAMAGE_COEFFICIENT);
     }
 }

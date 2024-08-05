@@ -13,10 +13,13 @@ public class Main {
         artas.addCreature(new Angel("Падший ангел"), 3);
         artas.addCreature(new Pikeman("Тесак"), 5);
         artas.addCreature(new Griffin("Змей горыныч"), 3);
+
         djaina.addCreature(new Angel("Ветрокрыл"), 5);
-        djaina.addCreature(new Swordman("Лесоруб"),10);
+        djaina.addCreature(new Swordman("Лесоруб"), 10);
 
         Battlefield battlefield = new Battlefield(artas, djaina);
         battlefield.battle();
+
+
     }
 }
