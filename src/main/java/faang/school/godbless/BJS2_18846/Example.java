@@ -10,12 +10,16 @@ public class Example {
         }
     }
 
-    public static void reverse(int[] numbers) {
+    private static void reverse(int[] numbers) {
 
-        for (int i = 0; i < numbers.length / 2; i++) {
+        if(numbers.length == 0 || numbers == null) {
+            throw new IllegalArgumentException("Provided array is null or empty");
+        }
+
+        for (int i = 0, j = numbers.length - 1; i < j; i++, j--) {
             int temp = numbers[i];
-            numbers[i] = numbers[numbers.length - 1 - i];
-            numbers[numbers.length - 1 - i] = temp;
+            numbers[i] = numbers[j];
+            numbers[j] = temp;
         }
 
     }
