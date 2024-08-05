@@ -17,15 +17,15 @@ public class Main {
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> result = new HashMap<>();
+        Map<User, String> userActivities = new HashMap<>();
         for (User user : users) {
             for (String activity : user.getActivities()) {
                 if (activities.contains(activity)) {
-                    result.put(user, activity);
+                    userActivities.put(user, activity);
                     break;
                 }
             }
         }
-        return result;
+        return userActivities;
     }
 }
