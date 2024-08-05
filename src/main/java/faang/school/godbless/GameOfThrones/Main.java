@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<String, House> HOUSE_BY_NAME = new HashMap<String, House>();
+    private static final Map<String, House> HOUSE_BY_NAME = new HashMap<>();
 
     public static void main(String[] args) {
         House stark = new House("Stark", "sigilstark");
@@ -43,12 +43,8 @@ public class Main {
         System.out.println(HOUSE_BY_NAME.get(houseName).getSigil());
     }
 
-    private static void printAllHousesAndSigils()
-    {
-        HOUSE_BY_NAME.forEach( (houseName , house) ->
-        {
-            System.out.println(houseName + " : " + house.getSigil());
-        });
+    private static void printAllHousesAndSigils() {
+        HOUSE_BY_NAME.forEach( (houseName , house) -> System.out.println(houseName + " : " + house.getSigil()));
         System.out.println("\n");
     }
 }
