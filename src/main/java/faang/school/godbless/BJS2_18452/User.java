@@ -17,6 +17,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOB = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private static final int VALID_AGE = 18;
 
     private String name;
     @Getter
@@ -24,16 +25,40 @@ public class User {
     private String workPlace;
     private String workAddress;
 
+    private void checkName(String name) {
+        if (!Objects.nonNull(name) || name.isBlank()) {
+            throw new IllegalArgumentException("Wrong user name!");
+        }
+    }
+
+    private void checkAge(int age) {
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Wrong user age!");
+        }
+    }
+
+    private void checkWorkPlace(String workPlace) {
+        if (!VALID_JOB.contains(workPlace)) {
+            throw new IllegalArgumentException("Wrong work place!");
+        }
+    }
+
+    private void checkWorkAddress(String workAddress) {
+        if (!VALID_ADDRESSES.contains(workAddress)) {
+            throw new IllegalArgumentException("Wrong work address!");
+        }
+    }
+
 
     public User(String name, int age, String workPlace, String workAddress) {
-        if (Objects.nonNull(name) && !name.isBlank() && age >= 18 && VALID_JOB.contains(workPlace) && VALID_ADDRESSES.contains(workAddress)) {
-            this.name = name;
-            this.age = age;
-            this.workPlace = workPlace;
-            this.workAddress = workAddress;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        checkName(name);
+        checkAge(age);
+        checkWorkPlace(workPlace);
+        checkWorkAddress(workAddress);
+        this.name = name;
+        this.age = age;
+        this.workPlace = workPlace;
+        this.workAddress = workAddress;
     }
 
     public static Map<Integer, List<User>> groupUserByAge(List<User> users) {
