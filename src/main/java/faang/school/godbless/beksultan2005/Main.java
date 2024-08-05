@@ -1,17 +1,14 @@
 package faang.school.godbless.beksultan2005;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        Set<String> activity1 = new HashSet<>();
-        Set<String> activity2 = new HashSet<>();
-
-        activity1.add("football");
-        activity1.add("voleyball");
-
-        activity2.add("voleyball");
-        activity2.add("basketball");
+        Set<String> activity1 = Set.of("football", "voleyball");
+        Set<String> activity2 = Set.of("voleyball", "basketball");
 
         User user1 = new User(1, "Beks", 19, activity1);
         User user2 = new User(2, "Sula", 28, activity2);
