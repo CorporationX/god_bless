@@ -6,42 +6,42 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static final Map<String, House> HOUSES_MAP = new HashMap<>();
     public static void main(String[] args) {
+        Map<String, House> housesMap = new HashMap<>();
         House stark = new House("Stark", "Direwolf");
         House lannister = new House("Lannister", "Lion");
         House baratheon = new House("Baratheon", "Deer");
-        addToMap(stark);
-        addToMap(lannister);
-        addToMap(baratheon);
-        printAllHouses();
-        searchingHouse("Baratheon");
-        searchingHouse("Arryn");
-        removeFromMap("Lannister");
-        removeFromMap("Greyjoy");
-        printAllHouses();
+        addToMap(housesMap, stark);
+        addToMap(housesMap, lannister);
+        addToMap(housesMap, baratheon);
+        printAllHouses(housesMap);
+        searchingHouse(housesMap, "Baratheon");
+        searchingHouse(housesMap, "Arryn");
+        removeFromMap(housesMap, "Lannister");
+        removeFromMap(housesMap, "Greyjoy");
+        printAllHouses(housesMap);
     }
 
-    public static void addToMap(@NonNull House house) {
-        if (HOUSES_MAP.containsKey(house.getName())) {
+    public static void addToMap(@NonNull Map<String, House> housesMap, @NonNull House house) {
+        if (housesMap.containsKey(house.getName())) {
             System.out.println("House is already added");
         } else {
-            HOUSES_MAP.put(house.getName(), house);
+            housesMap.put(house.getName(), house);
             System.out.println("House " + house.getName() + " is added");
         }
     }
 
-    public static void removeFromMap(@NonNull String name) {
-        if (!HOUSES_MAP.containsKey(name)) {
+    public static void removeFromMap(@NonNull Map<String, House> housesMap, @NonNull String name) {
+        if (!housesMap.containsKey(name)) {
             System.out.println("Map doesn't contain this house");
         } else {
-            HOUSES_MAP.remove(name);
+            housesMap.remove(name);
             System.out.println("House remove from map");
         }
     }
 
-    public static House searchingHouse(@NonNull String name) {
-        House house = HOUSES_MAP.get(name);
+    public static House searchingHouse(@NonNull Map<String, House> housesMap, @NonNull String name) {
+        House house = housesMap.get(name);
         if (house == null) {
             System.out.println("Map doesn't contain this house");
         } else {
@@ -51,8 +51,8 @@ public class Main {
         return house;
     }
 
-    public static void printAllHouses() {
-        for (Map.Entry<String, House> entry : HOUSES_MAP.entrySet()) {
+    public static void printAllHouses(@NonNull Map<String, House> housesMap) {
+        for (Map.Entry<String, House> entry : housesMap.entrySet()) {
             System.out.println(entry.getValue());
         }
     }

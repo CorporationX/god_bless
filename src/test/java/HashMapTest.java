@@ -1,8 +1,12 @@
 import hashmap.got.House;
 import hashmap.got.Main;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -10,15 +14,20 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashMapTest {
+    private static Map<String, House> housesMap;
+    
+    @BeforeEach
+    void setUp() {
+        housesMap = new HashMap<>();
+    }
     @Test
     @DisplayName("Adding house to map")
     void hashMapTest_AddingHouse() {
         House testHouse = new House("Test", "Test");
 
-        Main.addToMap(testHouse);
+        Main.addToMap(housesMap, testHouse);
 
-        assertTrue(Main.HOUSES_MAP.containsKey(testHouse.getName()));
-        Main.removeFromMap(testHouse.getName());
+        assertTrue(housesMap.containsKey(testHouse.getName()));
     }
 
     @Test
@@ -26,7 +35,7 @@ public class HashMapTest {
     void hashMapTest_AddingNullHouse() {
         House testHouse = null;
 
-        assertThrows(NullPointerException.class, () -> Main.addToMap(testHouse));
+        assertThrows(NullPointerException.class, () -> Main.addToMap(housesMap, testHouse));
     }
 
     @Test
@@ -34,10 +43,11 @@ public class HashMapTest {
     void hashMapTest_RemoveHouse() {
         House testHouse = new House("Test", "Test");
 
-        Main.addToMap(testHouse);
-        Main.removeFromMap(testHouse.getName());
+        Main.addToMap(housesMap, testHouse);
+        assertTrue(housesMap.containsKey(testHouse.getName()));
 
-        assertFalse(Main.HOUSES_MAP.containsKey(testHouse.getName()));
+        Main.removeFromMap(housesMap, testHouse.getName());
+        assertFalse(housesMap.containsKey(testHouse.getName()));
     }
 
     @Test
@@ -45,7 +55,7 @@ public class HashMapTest {
     void hashMapTest_RemoveNullHouse() {
         String name = null;
 
-        assertThrows(NullPointerException.class, () -> Main.removeFromMap(name));
+        assertThrows(NullPointerException.class, () -> Main.removeFromMap(housesMap, name));
     }
 
     @Test
@@ -53,11 +63,10 @@ public class HashMapTest {
     void hashMapTest_SearchingHouse() {
         House testHouse = new House("Test", "Test");
 
-        Main.addToMap(testHouse);
-        House result = Main.searchingHouse(testHouse.getName());
+        Main.addToMap(housesMap, testHouse);
+        House result = Main.searchingHouse(housesMap, testHouse.getName());
 
         assertEquals(testHouse, result);
-        Main.removeFromMap(testHouse.getName());
     }
 
     @Test
@@ -65,6 +74,6 @@ public class HashMapTest {
     void hashMapTest_SearchingNullHouse() {
         String name = null;
 
-        assertThrows(NullPointerException.class, () -> Main.searchingHouse(name));
+        assertThrows(NullPointerException.class, () -> Main.searchingHouse(housesMap, name));
     }
 }
