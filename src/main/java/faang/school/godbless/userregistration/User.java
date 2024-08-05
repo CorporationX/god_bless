@@ -16,16 +16,19 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        validate(name, age, job, address);
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
-    }
-
-    private static void validate(String name, int age, String job, String address) {
-        if (name.isBlank() || age < 18 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("Incorrect name!");
+        } else if (age < 18) {
+            throw new IllegalArgumentException("You are under 18");
+        } else if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Job is incorrect");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Address is incorrect");
+        } else {
+            this.name = name;
+            this.age = age;
+            this.job = job;
+            this.address = address;
         }
     }
 }
