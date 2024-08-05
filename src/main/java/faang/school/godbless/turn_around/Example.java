@@ -1,13 +1,11 @@
 package faang.school.godbless.turn_around;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 public class Example {
-    public List<Integer> reverse(Integer[] nums) {
-        List<Integer> numsToList = Arrays.asList(nums);
-        Collections.reverse(numsToList);
-        return List.of(numsToList.toArray(nums));
+    public int[] reverse(int[] nums) {
+        int[] reversed = new int[nums.length];
+        for (int i = 0; i < nums.length; i++) {
+            reversed[i] = nums[nums.length - 1 - i];
+        }
+        return reversed;
     }
 }
