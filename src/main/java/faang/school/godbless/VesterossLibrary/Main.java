@@ -25,12 +25,15 @@ public class Main {
     private static void addBook(Book book, String location) {
         LIBRARY.put(book, location);
     }
+
     private static void removeBook(String bookName, String author, int year) {
         LIBRARY.remove(new Book(bookName, author, year));
     }
+
     private static String bookInfo(String bookName, String author, int year) {
         return LIBRARY.get(new Book(bookName, author, year));
     }
+
     private static void printAllBooks()
     {
         LIBRARY.forEach( (book, location) -> {

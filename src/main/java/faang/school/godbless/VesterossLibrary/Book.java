@@ -15,14 +15,12 @@ public class Book {
     //ПЕРЕОПРЕДЕЛЯЛ ИХ ВРУЧНУЮ А НЕ ЧЕРЕЗ ЛОМБОК, ПОТОМУ ЧТО ВРОДЕ ТАК НАДО ПО ЗАДАНИЮ
 
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Objects.hash(title, author, year);
     }
 
     @Override
-    public boolean equals(Object obj)
-    {
+    public boolean equals(Object obj) {
         if (this == obj) return true;
         if (this.getClass() != obj.getClass()) return false;
         Book other = (Book) obj;
