@@ -5,11 +5,11 @@ public class Main {
         Archer archer = new Archer("Rick");
         Warrior warrior = new Warrior("Pig");
 
-        System.out.println(archer.getName() + ": " + archer.getHp() + " "  + warrior.getName() + ": " + warrior.getHp());
+        System.out.println(archer + ": " + archer.hp + "\n" + warrior + ": " + warrior.hp);
 
         archer.attack(warrior);
         warrior.attack(archer);
 
-        System.out.println(archer.getName() + ": " + archer.getHp() + " "  + warrior.getName() + ": " + warrior.getHp());
+        System.out.println(archer + ": " + archer.hp + "\n" + warrior + ": " + warrior.hp);
     }
 }
