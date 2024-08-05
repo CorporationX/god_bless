@@ -14,8 +14,8 @@ public class Main {
         splitUrl(yandex);
         splitUrl(instagram);
         System.out.println(PAGES);
-        findWebPagesByKeyword("This");
-        findWebPagesByKeyword("notexist");
+        System.out.println(findWebPagesByKeyword("This"));
+        System.out.println(findWebPagesByKeyword("notexist"));
 
     }
 
@@ -25,7 +25,11 @@ public class Main {
         });
     }
 
-    public static void findWebPagesByKeyword(String keyword){
-        Optional.ofNullable(PAGES.get(keyword)).ifPresent(list -> list.forEach(webPage -> System.out.println(webPage.url())));
+    public static List<WebPage> findWebPagesByKeyword(String keyword){
+        List<WebPage> webPages = new ArrayList<>();
+
+        Optional.ofNullable(PAGES.get(keyword)).ifPresent(webPages::addAll);
+
+        return webPages;
     }
 }
