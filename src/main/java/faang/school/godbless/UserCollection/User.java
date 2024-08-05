@@ -1,10 +1,12 @@
 package faang.school.godbless.UserCollection;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 import java.util.*;
 
 @Getter
+@EqualsAndHashCode
 public class User {
 
     private String name;
@@ -21,13 +23,10 @@ public class User {
         this.activities = activities;
     }
 
-    public static Map<User, String> getHobbyLovers(List<User> users, Set<String> requiredActivities)
-    {
+    public static Map<User, String> getHobbyLovers(List<User> users, Set<String> requiredActivities) {
         Map<User, String> activityLovers = new HashMap<User, String>();
-        users.forEach(user ->
-        {
-            for(String requiredActivity : requiredActivities)
-            {
+        users.forEach(user -> {
+            for(String requiredActivity : requiredActivities) {
                 if(user.getActivities().contains(requiredActivity)) {
                     activityLovers.put(user, requiredActivity);
                     break;

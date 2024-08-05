@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<User>();
+        List<User> users = new ArrayList<>();
 
         users.add(new User("valera", 12, "pushkina-kolotushkina", "a", Set.of("gta", "dota")));
         users.add(new User("danya", 12, "pushkina-kolotushkina", "a", Set.of("dota", "lol")));
@@ -13,8 +13,7 @@ public class Main {
 
         Map<User, String> activitiesLovers = User.getHobbyLovers(users, Set.of("dota", "cs"));
 
-        activitiesLovers.forEach((user, activity) ->
-        {
+        activitiesLovers.forEach((user, activity) -> {
             System.out.println(user.getName() + " " + activity);
         });
     }
