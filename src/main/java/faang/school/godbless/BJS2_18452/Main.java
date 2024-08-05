@@ -5,7 +5,7 @@ public class Main {
         try {
             new User(null, 25, "Google", "Amsterdam");
         } catch (IllegalArgumentException exception) {
-            System.out.println("Null name!");
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -13,7 +13,7 @@ public class Main {
         try {
             new User("Oleg", 12, "Google", "Amsterdam");
         } catch (IllegalArgumentException exception) {
-            System.out.println("Wrong age!");
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -21,7 +21,7 @@ public class Main {
         try {
             new User("Oleg", 25, "Yandex", "Amsterdam");
         } catch (IllegalArgumentException exception) {
-            System.out.println("Wrong work place!");
+            System.out.println(exception.getMessage());
         }
     }
 
@@ -29,7 +29,7 @@ public class Main {
         try {
             new User("Oleg", 25, "Uber", "Moscow");
         } catch (IllegalArgumentException exception) {
-            System.out.println("Wrong work address!");
+            System.out.println(exception.getMessage());
         }
     }
 
