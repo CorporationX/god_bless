@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.*;
 
+@Getter
 public class User {
 
     private int id;
@@ -18,18 +19,6 @@ public class User {
         this.hobbies = hobbies;
     }
 
-    public int getId() {
-        return id;
-    }
-    public String getName() {
-        return name;
-    }
-    public int getAge() {
-        return age;
-    }
-    public Set<String> getHobbies() {
-        return hobbies;
-    }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLoversMap = new HashMap<>();
