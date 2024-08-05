@@ -6,25 +6,25 @@ public class Main {
     // это дело в Меине это странно и неудобно
 
     public static void main(String[] args) {
-        WeatherDataGetterService weatherDataGetterService = new WeatherDataGetterService();
+        WeatherGetterService weatherService = new WeatherGetterService();
 
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Moscow"));
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Warsaw"));
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Amsterdam"));
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Paris"));
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Warsaw"));
-        System.out.println(weatherDataGetterService.getCityToWeatherData("Paris"));
+        System.out.println(weatherService.getFor("Moscow"));
+        System.out.println(weatherService.getFor("Warsaw"));
+        System.out.println(weatherService.getFor("Amsterdam"));
+        System.out.println(weatherService.getFor("Paris"));
+        System.out.println(weatherService.getFor("Warsaw"));
+        System.out.println(weatherService.getFor("Paris"));
 
         System.out.println();
-        weatherDataGetterService.weatherDataCacheService.printAllCacheData();
+        weatherService.weatherCacheService.printAllCache();
 
-        weatherDataGetterService.weatherDataCacheService.editCityWeatherData("Warsaw", new WeatherData("Warsaw", 10.0f, 23.5f));
+        weatherService.weatherCacheService.editData("Warsaw", new WeatherData("Warsaw", 10.0f, 23.5f));
         System.out.println();
-        weatherDataGetterService.weatherDataCacheService.printAllCacheData();
+        weatherService.weatherCacheService.printAllCache();
 
-        weatherDataGetterService.weatherDataCacheService.removeCityWeatherData("Paris");
+        weatherService.weatherCacheService.removeData("Paris");
         System.out.println();
-        weatherDataGetterService.weatherDataCacheService.printAllCacheData();
+        weatherService.weatherCacheService.printAllCache();
     }
 
 

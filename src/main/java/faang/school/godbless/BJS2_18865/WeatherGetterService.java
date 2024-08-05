@@ -1,10 +1,10 @@
 package faang.school.godbless.BJS2_18865;
 
-public class WeatherDataGetterService {
-    public WeatherDataCacheService weatherDataCacheService;
+public class WeatherGetterService {
+    public WeatherCacheService weatherCacheService;
 
-    public WeatherDataGetterService() {
-        weatherDataCacheService = new WeatherDataCacheService(); // Weather Data Cache initialization
+    public WeatherGetterService() {
+        weatherCacheService = new WeatherCacheService(); // Weather Data Cache initialization
     }
 
     // Random weather data generation
@@ -16,14 +16,14 @@ public class WeatherDataGetterService {
     }
 
     // Returns Weather Data for city
-    public WeatherData getCityToWeatherData(String city) {
+    public WeatherData getFor(String city) {
 
         // Checking if our citi is stored in cache
-        if (weatherDataCacheService.containsCity(city)) {
-            return weatherDataCacheService.getCityWeatherData(city);
+        if (weatherCacheService.containsCity(city)) {
+            return weatherCacheService.weatherFor(city);
         } else { // If not - store it to cache
             WeatherData newCityData = getWeatherData(city);
-            weatherDataCacheService.storeCityToWeatherCache(city, newCityData);
+            weatherCacheService.storeData(city, newCityData);
             return newCityData;
         }
     }
