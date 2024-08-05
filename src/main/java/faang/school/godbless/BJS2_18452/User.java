@@ -49,7 +49,6 @@ public class User {
         }
     }
 
-
     public User(String name, int age, String workPlace, String workAddress) {
         checkName(name);
         checkAge(age);
