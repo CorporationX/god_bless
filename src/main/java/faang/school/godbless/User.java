@@ -18,6 +18,16 @@ public class User {
         this.age = age;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", placeOfWork='" + placeOfWork + '\'' +
+                ", address='" + address + '\'' +
+                ", age=" + age +
+                '}';
+    }
+
     public int getAge() {
         return age;
     }
