@@ -17,7 +17,7 @@ public class User {
         this.age = age;
         this.address = address;
         this.job = job;
-        if (age < 18 || VALID_ADDRESSES.contains(address) || VALID_JOBS.contains(job)) {
+        if (age < 18 || !VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(job) || name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Wrong arguments, mate");
         }
     }
