@@ -27,23 +27,34 @@ public class Main {
 
         System.out.println(findBook("Beneath the Starlit Veil", "Marcus Eldridge", 2018));
 
+        printAllBooks(books);
 
     }
 
-    public static void addBook(Book book, String place) {
+    private static void addBook(Book book, String place) {
         books.put(book, place);
     }
 
-    public static void deleteBook(String title, String author, int year) {
+    private static void deleteBook(String title, String author, int year) {
         books.remove(new Book(title, author, year));
     }
 
-    public static String findBook(String title, String author, int year) {
+    private static String getBookAndPlace(Book book, String place) {
+        return book + " at " + place;
+    }
+
+    private static String findBook(String title, String author, int year) {
         for (Map.Entry<Book, String> entry : books.entrySet()) {
             if (entry.getKey().equals(new Book(title, author, year))) {
-                return title + "\t" + author + "\t" + year + "\t" + entry.getValue();
+                return getBookAndPlace(entry.getKey(), entry.getValue());
             }
         }
         return "Book not found";
+    }
+
+    private static void printAllBooks(Map<Book, String> booksMap) {
+        for (Map.Entry<Book, String> entry : booksMap.entrySet()) {
+            System.out.println(getBookAndPlace(entry.getKey(), entry.getValue()));
+        }
     }
 }
