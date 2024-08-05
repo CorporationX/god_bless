@@ -1,6 +1,5 @@
 import hashmap.got.House;
 import hashmap.got.Main;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,11 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HashMapTest {
     private static Map<String, House> housesMap;
-    
+
     @BeforeEach
     void setUp() {
         housesMap = new HashMap<>();
     }
+
     @Test
     @DisplayName("Adding house to map")
     void hashMapTest_AddingHouse() {
