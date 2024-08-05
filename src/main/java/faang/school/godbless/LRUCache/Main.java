@@ -39,7 +39,8 @@ public class Main {
     private static void addDataToCache(Data data) {
         if (CACHE.size() < CACHE_SIZE) {
             CACHE.put(LAST_ID++, data);
-        } else {
+        }
+        else {
             Data oldestData = new Data(-1, 5, Calendar.getInstance());
 
             for (Map.Entry<Integer, Data> entry : CACHE.entrySet()) {
