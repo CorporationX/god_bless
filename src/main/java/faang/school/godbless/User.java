@@ -1,49 +1,39 @@
 package faang.school.godbless;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class User {
-    private final int id;
     private String name;
     private int age;
-    private HashSet<String> activities = new HashSet<>();
+    private String workPlace;
+    private String address;
 
-    public User(int id, String name, int age) {
-        this.id = id;
+    public User(String name, int age) {
         this.name = name;
         this.age = age;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                '}';
+        return name;
     }
 
-    public void setActivities(String[] activities){
-        for (String activity : activities){
-            this.activities.add(activity);
-        }
+    public int getAge() {
+        return age;
     }
 
-    public HashSet<String> getActivities() {
-        return activities;
-    }
-
-    public static Map<User, String> findHobbyLovers(HashSet<User> usersList, HashSet<String> targetActivities){
-        Map<User, String> matchedUsers = new HashMap<>();
-        for (User user : usersList){
-            for (String activity : user.getActivities()){
-                if (targetActivities.contains(activity)){
-                    matchedUsers.put(user, activity);
-                    break;
-                }
+    public static HashMap<Integer, List<User>> groupUsers(ArrayList<User> usersList) {
+        HashMap<Integer, List<User>> usersGroupedByAge = new HashMap<>();
+        for (User user : usersList) {
+            int userAge = user.getAge();
+            if (!(usersGroupedByAge.containsKey(userAge))) {
+                usersGroupedByAge.put(userAge, new ArrayList<User>());
             }
+            usersGroupedByAge.get(userAge).add(user);
         }
-        return matchedUsers;
+        return usersGroupedByAge;
     }
 }
