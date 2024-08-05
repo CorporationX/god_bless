@@ -11,10 +11,21 @@ public class Main {
 
         Set<String> activities = Set.of("Football", "Tennis", "Gaming");
 
-        Map<User, String> hobbyLovers = User.findHobbyLovers(users, activities);
+        Map<User, String> hobbyLovers = findHobbyLovers(users, activities);
 
-        for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
-            System.out.println(entry.getKey().getName() + ": " + entry.getValue());
+        hobbyLovers.forEach((key, value) -> System.out.println(key.getName() + ": " + value));
+    }
+
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
+        Map<User, String> result = new HashMap<>();
+        for (User user : users) {
+            for (String activity : user.getActivities()) {
+                if (activities.contains(activity)) {
+                    result.put(user, activity);
+                    break;
+                }
+            }
         }
+        return result;
     }
 }
