@@ -3,7 +3,7 @@ package faang.school.godbless.beksultan2005;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Set<String> activity1 = new HashSet<>();
         Set<String> activity2 = new HashSet<>();
 
