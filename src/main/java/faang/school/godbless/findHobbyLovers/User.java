@@ -22,10 +22,8 @@ public class User {
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> usersList, Set<String> activities) {
-        System.out.println("hi!");
         return usersList.stream()
                 .filter(el -> el.getActivities().stream().anyMatch(activities::contains))
-                .peek(el -> System.out.println(el.getId()))
                 .collect(
                         Collectors.toMap(
                                 el -> el,
@@ -33,7 +31,7 @@ public class User {
                                         .filter(activities::contains)
                                         .limit(1)
                                         .findFirst()
-                                        .orElse(null)
+                                        .orElse("")
                         )
                 );
     }
