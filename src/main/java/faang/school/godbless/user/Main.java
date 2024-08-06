@@ -9,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
         checkFindHobbyLovers();
         checkGroupUsers();
+        checkCharacters();
     }
 
     public static void checkFindHobbyLovers() {
@@ -50,6 +51,21 @@ public class Main {
         } catch (IllegalArgumentException exception) {
             System.out.println(exception.getMessage());
         }
+    }
+
+    public static void checkCharacters() {
+        Character warrior = new Warrior("Thor");
+        Character archer = new Archer("Legolas");
+
+        System.out.println(warrior.getName() + " - Health: " + warrior.getHealth());
+        System.out.println(archer.getName() + " - Health: " + archer.getHealth());
+
+        // Battle sequence
+        warrior.attack(archer);
+        archer.attack(warrior);
+
+        System.out.println(warrior.getName() + " - Health: " + warrior.getHealth());
+        System.out.println(archer.getName() + " - Health: " + archer.getHealth());
     }
 
 }
