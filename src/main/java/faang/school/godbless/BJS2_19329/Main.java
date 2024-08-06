@@ -10,5 +10,9 @@ public class Main {
                 new Server(45, 100),
                 new Server(15, 100)
         ));
+        DataCenterService dataCenterService = new DataCenterService(dataCenter);
+        dataCenterService.printDataCenterConfiguration();
+        dataCenterService.allocateResources(new ResourceRequest(400));
+        dataCenterService.printDataCenterConfiguration();
     }
 }

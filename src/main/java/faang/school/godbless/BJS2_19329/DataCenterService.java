@@ -17,25 +17,28 @@ public class DataCenterService implements OptimizationStrategy {
                 .sum();
     }
 
-    private void allocateResources(ResourceRequest request) {
+    public void allocateResources(ResourceRequest request) {
         double requestedLoad = request.getLoad();
         if (requestedLoad >= getServersFreeLoad()) {
             System.out.println("Resources not enough, let's add new server");
             if (requestedLoad <= SMALL_SERVER_LOAD) {
-                dataCenter.getServersList().add(new Server(33333333, SMALL_SERVER_LOAD));
+                dataCenter.getServersList().add(new Server(requestedLoad, SMALL_SERVER_LOAD));
             }
         }
         System.out.println("You can use current configuration of DataCenter " +
                 "no need to add new server");
+        distributeLoadByServers(requestedLoad) ;
+    }
+
+    private void distributeLoadByServers(double requestedLoad) {
         for (Server server : dataCenter.getServersList()) {
-            double maxCurDiff = server.getMaxLoad() - server.getLoad();
-            sfdgsdfg
-            if (maxCurDiff != 0) {
-                server.setLoad(server.getLoad() + maxCurDiff);
-                requestedLoad -= maxCurDiff;
-            }
-            if (requestedLoad <= 0) {
+            double srvFreeLoad = server.getMaxLoad() - server.getLoad();
+            if (srvFreeLoad >= requestedLoad) {
+                server.setLoad(server.getLoad() + requestedLoad);
                 break;
+            } else {
+                server.setLoad(server.getMaxLoad());
+                requestedLoad -= srvFreeLoad;
             }
         }
     }
@@ -55,6 +58,12 @@ public class DataCenterService implements OptimizationStrategy {
                 .flatMapToDouble(server -> DoubleStream.of(server.getMaxLoad()))
                 .sum();
         return maxServersLoad - getCurrentServersLoad();
+    }
+
+    public void printDataCenterConfiguration() {
+        for (int i = 0; i < dataCenter.getServersList().size(); i++) {
+            System.out.println("Загрузка сервера #" + i + ": " + dataCenter.getServersList().get(i).getLoad());
+        }
     }
 
     @Override
