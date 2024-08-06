@@ -7,8 +7,8 @@ public class User {
     private int age;
     private String placeWork;
     private String address;
-    Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeWork, String address) {
         if (name == null || name.isEmpty()) {
