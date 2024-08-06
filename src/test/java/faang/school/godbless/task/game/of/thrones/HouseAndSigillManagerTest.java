@@ -10,14 +10,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HouseAndSigillManagerTest {
-    HouseAndSigillManager houseAndSigillManager;
-    Object expected;
-    Object actual;
+    private HouseAndSigillManager houseAndSigillManager;
+    private Object expected;
+    private Object actual;
 
-    private House house1 = new House("Lannister", "Yellow Lion");
-    private House house2 = new House("Baratheon", "Reindeer");
-    private House house3 = new House("Stark", "Wolf");
-    private House house4 = new House("Targaryen", "Dragon");
+    private final House house1 = new House("Lannister", "Yellow Lion");
+    private final House house2 = new House("Baratheon", "Reindeer");
+    private final House house3 = new House("Stark", "Wolf");
+    private final House house4 = new House("Targaryen", "Dragon");
 
     @BeforeEach
     void setUp() {
