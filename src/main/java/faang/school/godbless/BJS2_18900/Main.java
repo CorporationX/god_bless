@@ -12,8 +12,17 @@ public class Main {
     public Main() {
         this.weatherService = new MockWeatherService();
         this.cache = new HashMap<>();
-        cache.put("Москва", new WeatherData("Москва", 20.0, 70.0));
-        cache.put("Сочи", new WeatherData("Сочи", 30.0, 65.0));
+        cache.put("Москва", WeatherData.builder()
+                .city("Москва")
+                .temperature(20.0)
+                .humidity(70.0)
+                .build());
+
+        cache.put("Сочи", WeatherData.builder()
+                .city("Сочи")
+                .temperature(30.0)
+                .humidity(65.0)
+                .build());
     }
 
     public WeatherData getWeatherInfo(String city) {
