@@ -5,6 +5,7 @@ import java.util.Map;
 
 public class Application {
 
+    static Map<Book, String> library = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
@@ -15,47 +16,24 @@ public class Application {
         Book book4 = new Book("Bizan", "Sophia", 1698);
         Book book5 = new Book("Alchimia", "Pascal", 1789);
 
-        public static void addBook(Book book, String number) {
-            library.put(book, number);
-        }
+        addBook(book1, "1");
+        addBook(book2, "1");
+        addBook(book3, "2");
+        addBook(book4, "3");
+        addBook(book5, "3");
 
-        public static void delBook(String title, String author, int year) {
-            library.remove(new Book(title, author, year));
-        }
-
-        public static void researchBook(String title, String author, int year) {
-            for (Map.Entry<Book, String> pair : library.entrySet()) {
-                if (pair.getKey().getTitle().equals(title)) {
-                    System.out.println("Книга на полке под номером: " + library.get(pair.getKey()));
-                }
-            }
-
-        }
-
-        public static void allLibrary() {
-            for (Map.Entry<Book, String> pair : library.entrySet()) {
-                System.out.println(pair.getKey() + " " + pair.getValue());
-            }
-        }
-
-        Book.addBook(book1, "1");
-        Book.addBook(book2, "1");
-        Book.addBook(book3, "2");
-        Book.addBook(book4, "3");
-        Book.addBook(book5, "3");
-
-        Book.allLibrary();
+        allLibrary();
 
         System.out.println();
 
-        Book.researchBook("Math", "Nuthon", 1698);
-        Book.researchBook( "Manifest", "VKPb", 1934);
+        researchBook("Math", "Nuthon", 1698);
+        researchBook( "Manifest", "VKPb", 1934);
 
-        Book.delBook("Bizan", "Sophia", 1698);
+        delBook("Bizan", "Sophia", 1698);
 
         System.out.println();
 
-        Book.allLibrary();
+        allLibrary();
     }
 
 
