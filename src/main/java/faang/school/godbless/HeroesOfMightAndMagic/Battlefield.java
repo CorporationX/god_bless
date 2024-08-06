@@ -5,16 +5,16 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class Battlefield {
 
-    private final Hero PLAYER_ONE, PLAYER_TWO;
+    private final Hero playerOne, playerTwo;
 
     public void fight() {
         while (true) {
-            PLAYER_ONE.attack(PLAYER_TWO);
-            if (checkWin(PLAYER_ONE, PLAYER_TWO)) {
+            playerOne.attack(playerTwo);
+            if (checkWin(playerOne, playerTwo)) {
                 break;
             }
-            PLAYER_TWO.attack(PLAYER_ONE);
-            if (checkWin(PLAYER_TWO, PLAYER_ONE)) {
+            playerTwo.attack(playerOne);
+            if (checkWin(playerTwo, playerOne)) {
                 break;
             }
         }
