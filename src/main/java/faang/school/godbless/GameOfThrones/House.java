@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.GameOfThrones;
 
 public class House {
     private String name;
