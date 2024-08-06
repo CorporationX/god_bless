@@ -13,7 +13,7 @@ public class User {
     private int age;
     private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(ArrayList<User> users, Set<String> activities) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
             for (String activity : activities) {

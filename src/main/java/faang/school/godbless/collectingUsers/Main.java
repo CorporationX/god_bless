@@ -1,9 +1,6 @@
 package faang.school.godbless.collectingUsers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,11 +10,11 @@ public class Main {
         User user4 = new User(4, "Tom", 37, new HashSet<>(Arrays.asList("running", "skiing")));
         User user5 = new User(5, "Ben", 15, new HashSet<>(Arrays.asList("coding", "reading")));
 
-        Map<User, String> result1 = User.findHobbyLovers(new ArrayList<>(Arrays.asList(user1, user2, user3, user4, user5)),
-                new HashSet<>(Arrays.asList("painting", "singing", "cycling", "dancing")));
+        Map<User, String> result1 = User.findHobbyLovers(List.of(user1, user2, user3, user4, user5),
+                Set.of("painting", "singing", "cycling", "dancing"));
 
-        Map<User, String> result2 = User.findHobbyLovers(new ArrayList<>(Arrays.asList(user1, user2, user3, user4, user5)),
-                new HashSet<>(Arrays.asList("coding", "painting")));
+        Map<User, String> result2 = User.findHobbyLovers(List.of(user1, user2, user3, user4, user5),
+                Set.of("coding", "painting"));
 
         //Mike, Kate, Mary
         for (Map.Entry<User, String> entry : result1.entrySet()) {
