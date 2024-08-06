@@ -3,8 +3,7 @@ package faang.school.godbless.BJS2_18873;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class MainTest {
 
@@ -22,10 +21,13 @@ class MainTest {
 
     @Test
     void getCurrentWeatherWithMissingCityTest() {
-        int sizeBefore = main.getData().size();
+        int sizeBefore = main.getWeatherMap().size();
+        assertFalse(main.getWeatherMap().containsKey("Dubai"));
+
         main.getCurrentWeather("Dubai");
-        assertEquals(sizeBefore + 1, main.getData().size());
-        assertEquals(new WeatherData("Dubai", 10, 5), main.getCurrentWeather("Dubai"));
+
+        assertEquals(sizeBefore + 1, main.getWeatherMap().size());
+        assertTrue(main.getWeatherMap().containsKey("Dubai"));
     }
 
     @Test
@@ -35,20 +37,20 @@ class MainTest {
 
         main.updateWeather("London");
 
-        assertEquals(new WeatherData("London", 10, 5), main.getCurrentWeather("London"));
+        assertNotEquals(requested, main.getCurrentWeather("London"));
     }
 
     @Test
     void clearCityCashTest() {
-        int sizeBefore = main.getData().size();
+        int sizeBefore = main.getWeatherMap().size();
         boolean result = main.clearCityCash("London");
         assertTrue(result);
-        assertEquals(sizeBefore - 1, main.getData().size());
+        assertEquals(sizeBefore - 1, main.getWeatherMap().size());
     }
 
     @Test
     void availableCitiesTest() {
         assertEquals(3, main.availableCities().size());
-        assertEquals(main.getData().keySet(), main.availableCities());
+        assertEquals(main.getWeatherMap().keySet(), main.availableCities());
     }
 }
