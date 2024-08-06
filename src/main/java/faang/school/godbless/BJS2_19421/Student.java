@@ -1,42 +1,21 @@
 package faang.school.godbless.BJS2_19421;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+@AllArgsConstructor
+@Data
 
 public class Student {
 
     private String name;
     private String faculty;
     private int year;
-
-    public Student(String name, String faculty, int year) {
-        this.name = name;
-        this.faculty = faculty;
-        this.year = year;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + name + '\'' +
-                ", faculty='" + faculty + '\'' +
-                ", year=" + year +
-                '}';
-    }
 
     public static Map<String, List<Student>> groupStudents(List<Student> students) {
         Map<String, List<Student>> studentMap = new HashMap<>();
