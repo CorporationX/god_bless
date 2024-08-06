@@ -1,35 +1,46 @@
 package faang.school.godbless.Heroes.UI;
 
 
-public abstract class Creature {
-    protected String name;
-    protected int level;
-    protected int attack;
-    protected int protection;
-    protected int speed;
-    protected int health;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NonNull;
+import lombok.Setter;
 
-    public Creature(String name, int level, int attack, int protection, int speed) {
-        this.name = name;
+@EqualsAndHashCode
+public abstract class Creature {
+    @Getter
+    protected String name;
+    @NonNull
+    protected int level;
+    @NonNull
+    protected int damage;
+    @NonNull
+    protected int protection;
+    @NonNull
+    protected int speed;
+    @Getter
+    @Setter
+    protected int count = 0;
+
+    public Creature(int level, int damage, int protection, int speed, int count) {
         this.level = level;
-        this.attack = attack;
-        this.protection = protection;
-        this.speed = speed;
-        health = 100;
+        this.damage = damage*(level);
+        this.protection = protection*(level);
+        this.speed = speed*(level);
+        this.count += count;
     }
 
     //метод атаки
-    public void attack(Creature creature){
-        //возможность уклониться засчет ловкости:
-        //если случайно выпавшее число от 0 до 100 меньше, чем значение скорости,
-        //то количество наносимого урона сокращается до 5% от начального числа
-        if((int)(Math.random()*100)<creature.speed){
-            creature.health-=(attack-creature.protection/3)/20;
-            //механизм атаки:
-            //кол-во наносимого урона равно количеству атаки у атакующего
-            //за вычетом трети защиты у защищающегося
-        }else {
-            creature.health-=(attack-creature.protection/3);
+    public void attack(Creature creature) {
+        //возможность уклониться засчет ловкости и защиты:
+        //если случайно выпавшее число от 0 до 100 + дамаг
+        //меньше , чем значение скорости + треть дамага,
+        //то юнит не умирает
+        if ((int) (Math.random() * 100 + damage) < (creature.speed + creature.protection/3)) {
+            creature.count--;
+        }
+        if (creature.count<=0 || count<=0){
+            throw new IllegalArgumentException();//если несуществующие мобы бьют/защищаются
         }
     }
 }
