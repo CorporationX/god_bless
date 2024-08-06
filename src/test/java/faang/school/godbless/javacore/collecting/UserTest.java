@@ -2,6 +2,7 @@ package faang.school.godbless.javacore.collecting;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -54,7 +55,7 @@ class UserTest {
 
     @Test
     void testFindHobbyLoversNoUsers() {
-        List<User> users = List.of();
+        List<User> users = Collections.emptyList();
         Set<String> activities = Set.of(READING);
 
         Map<User, String> hobbyLovers = User.findHobbyLovers(users, activities);
