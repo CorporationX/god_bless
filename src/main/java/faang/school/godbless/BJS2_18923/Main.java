@@ -18,8 +18,6 @@ public class Main {
         djaina.addCreature(new Swordman("Лесоруб"), 5);
 
         Battlefield battlefield = new Battlefield(artas, djaina);
-        System.out.println("Победил "+battlefield.battle().getName());
-
-
+        System.out.println("Победил " + battlefield.battle().getName());
     }
 }

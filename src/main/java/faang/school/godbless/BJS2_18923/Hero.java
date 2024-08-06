@@ -27,14 +27,17 @@ public class Hero {
 
     public void addCreature(Creature creature, int quantity) {
         if (army.size() >= MAX_ARMY_SIZE) {
-            throw new IllegalStateException("Too many creatures in hero");
+            throw new IllegalStateException("Слишком много существ в армии");
         }
         creature.setQuantity(quantity);
         army.add(creature);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-//
+        if ((creature.getQuantity() - quantity) <= 0) {
+            army.remove(creature);
+        } else {
+            creature.setQuantity(creature.getQuantity() - quantity);
+        }
     }
-
 }
