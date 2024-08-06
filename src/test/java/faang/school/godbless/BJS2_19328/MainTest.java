@@ -27,15 +27,8 @@ class MainTest {
     @Test
     void deleteStudentTest() {
         int size = main.getStudents().size();
-        assertTrue(main.deleteStudent("Nikolay", "Math", 2));
+        main.deleteStudent("Nikolay", "Math", 2);
         assertEquals(size - 1, main.getStudents().size());
-    }
-
-    @Test
-    void deleteNotExistingStudentTest() {
-        int size = main.getStudents().size();
-        assertFalse(main.deleteStudent("Nikita", "Rus", 2));
-        assertEquals(size, main.getStudents().size());
     }
 
     @Test

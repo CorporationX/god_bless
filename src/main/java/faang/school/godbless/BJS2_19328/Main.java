@@ -25,24 +25,15 @@ public class Main {
         students.add(student);
     }
 
-    public boolean deleteStudent(String name, String faculty, Integer year) {
-        Iterator<Student> iterator = students.iterator();
-        Student student;
-        while(iterator.hasNext()) {
-            student = iterator.next();
-            if (Objects.equals(student.getName(), name)
-                    && Objects.equals(student.getFaculty(), faculty)
-                    && Objects.equals(student.getYear(), year)) {
-                students.remove(student);
-                return true;
-            }
-        }
-        return false;
+    public void deleteStudent(String name, String faculty, Integer year) {
+        students.removeIf(student -> Objects.equals(student.getName(), name)
+                && Objects.equals(student.getFaculty(), faculty)
+                && Objects.equals(student.getYear(), year));
     }
 
     public List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
         return students.stream()
-                .filter(s-> Objects.equals(s.getFaculty(), faculty) && Objects.equals(s.getYear(), year))
+                .filter(s -> Objects.equals(s.getFaculty(), faculty) && Objects.equals(s.getYear(), year))
                 .toList();
     }
 
@@ -50,12 +41,12 @@ public class Main {
     public Map<Group, List<Student>> getStudentsGroupedByFacultyAndYear(List<Student> students) {
         Map<Group, List<Student>> result = new HashMap<>();
         for (Student student : students) {
-            Group pair = new Group(student.getFaculty(), student.getYear());
-            result.merge(pair, new ArrayList<>(Arrays.asList(student)),
-                    (x, y) -> {
-                        x.addAll(y);
-                        return x;
-                    });
+            Group group = new Group(student.getFaculty(), student.getYear());
+            if (result.containsKey(group)) {
+                result.get(group).add(student);
+            } else {
+                result.put(group, new ArrayList<>(List.of(student)));
+            }
         }
         return result;
     }
