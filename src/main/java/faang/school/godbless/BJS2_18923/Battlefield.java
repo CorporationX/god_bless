@@ -10,10 +10,7 @@ public class Battlefield {
     private Hero secondFighter;
 
     public Hero battle() {
-        Hero attacker;
-        Hero defender;
         int move = 0;
-
         System.out.println("Начальные армии");
         printHeroArmy(firstFighter);
         printHeroArmy(secondFighter);
@@ -21,16 +18,12 @@ public class Battlefield {
 
         while (!firstFighter.isDefeated() && !secondFighter.isDefeated()) {
             if (move % 2 == 0) {
-                attacker = firstFighter;
-                defender = secondFighter;
+                attack(firstFighter, secondFighter);
             } else {
-                attacker = secondFighter;
-                defender = firstFighter;
+                attack(secondFighter, firstFighter);
             }
-            attack(attacker, defender);
             move++;
         }
-
         if (firstFighter.isDefeated()) {
             return secondFighter;
         } else {
@@ -46,7 +39,8 @@ public class Battlefield {
         }
         int damage = attacker.getArmy().get(attackerCreatureIdx).getDamage();
         System.out.println("Новый раунд");
-        System.out.println("Герой " + attacker.getName() + " наносит урон " + damage + " существом " + attacker.getArmy().get(attackerCreatureIdx).getName());
+        System.out.println("Герой " + attacker.getName() + " наносит урон " + damage
+                + " существом " + attacker.getArmy().get(attackerCreatureIdx).getName());
         defence(defender, random, damage);
     }
 
@@ -55,7 +49,6 @@ public class Battlefield {
         if (defender.getArmy().size() != 1) {
             defenderCreatureIdx = random.nextInt(0, defender.getArmy().size() - 1);
         }
-
         Creature defenderCreature = defender.getArmy().get(defenderCreatureIdx);
         int absorbDamageCreature = defenderCreature.getQuantity() * defenderCreature.getDefense();
         int newQuantity = (absorbDamageCreature - damage) / defenderCreature.getDefense();
