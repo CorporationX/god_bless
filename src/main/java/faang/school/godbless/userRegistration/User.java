@@ -6,6 +6,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    private final int MIN_AGE = 18;
 
     private String name;
     private int age;
@@ -16,7 +17,7 @@ public class User {
         if (name.trim().isEmpty()) {
             System.out.println("имя не может быть пустым");
         }
-        if (age < 18) {
+        if (age < MIN_AGE) {
             throw new IllegalArgumentException("возраст не может быть меньше 18");
         }
         if (!VALID_JOBS.contains(placeOfWork)) {
