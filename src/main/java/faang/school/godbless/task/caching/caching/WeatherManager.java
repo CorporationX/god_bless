@@ -13,7 +13,7 @@ public class WeatherManager {
 
     public WeatherData findWeatherDataByCity(String city) {
         var weatherData = cityWeatherDataCache.get(city);
-        if(weatherData == null) {
+        if (weatherData == null) {
             weatherData = new MockWeatherDataCenterForTest().getRandomWeatherDataByCityMock(city);
             cityWeatherDataCache.put(city, weatherData);
         }
