@@ -1,4 +1,4 @@
-package faang.school.godbless.BJS2_18384;
+package faang.school.godbless.BJS2_18446;
 
 import org.junit.jupiter.api.Test;
 
