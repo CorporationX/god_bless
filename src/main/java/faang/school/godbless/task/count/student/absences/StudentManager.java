@@ -12,18 +12,17 @@ public class StudentManager {
     public StudentManager(Map<Student, Student> stringStudentMap, List<Student> studentList) {
         this.studentMap = stringStudentMap;
         this.studentList = studentList;
-
     }
 
     public void addNewStudent(Student student) {
-        if(student != null) {
+        if (student != null) {
             studentMap.put(student, student);
             studentList.add(student);
         }
     }
 
     public void deleteStudent(Student student) {
-        if(student != null) {
+        if (student != null) {
             studentMap.remove(student);
             studentList.remove(student);
         }
@@ -44,7 +43,7 @@ public class StudentManager {
     }
 
     public Map<FacultyYear, List<Student>> sortStudentByFacultyAndYear(List<Student> students) {
-        if(students == null) {
+        if (students == null) {
             return null;
         }
         Map<FacultyYear, List<Student>> sortedStudentMap = new HashMap<>();

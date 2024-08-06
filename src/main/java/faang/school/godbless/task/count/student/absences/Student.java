@@ -11,12 +11,12 @@ public class Student {
     private final int year;
 
     public Student(String name, String faculty, int year) {
-        if(name != null && !name.isBlank() && faculty != null && !faculty.isBlank()) {
+        if (name != null && !name.isBlank() && faculty != null && !faculty.isBlank()) {
             this.name = name;
             this.faculty = faculty;
             this.year = year;
         } else {
-            throw new IllegalArgumentException("Name and faculty should not be empty!");
+            throw new IllegalArgumentException("Не верные данные пользователя!");
         }
     }
 }
