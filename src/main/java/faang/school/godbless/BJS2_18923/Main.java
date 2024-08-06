@@ -5,6 +5,8 @@ import faang.school.godbless.BJS2_18923.creatures.Griffin;
 import faang.school.godbless.BJS2_18923.creatures.Pikeman;
 import faang.school.godbless.BJS2_18923.creatures.Swordman;
 
+import java.util.Random;
+
 public class Main {
     public static void main(String[] args) {
         Hero artas = new Hero("Артас", "Люди", 5, 4);

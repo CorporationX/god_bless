@@ -15,7 +15,7 @@ public class Hero {
     private int level;
 
     @Setter
-    private boolean isDefeated = false;
+    private boolean isNotDefeated = true;
     private List<Creature> army = new ArrayList<>(MAX_ARMY_SIZE);
 
     public Hero(String name, String fraction, int experience, int level) {

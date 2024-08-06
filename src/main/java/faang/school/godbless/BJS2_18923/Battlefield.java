@@ -16,7 +16,7 @@ public class Battlefield {
         printHeroArmy(secondFighter);
         System.out.println("++++++++++++++++++");
 
-        while (!firstFighter.isDefeated() && !secondFighter.isDefeated()) {
+        while (firstFighter.isNotDefeated() && secondFighter.isNotDefeated()) {
             if (move % 2 == 0) {
                 attack(firstFighter, secondFighter);
             } else {
@@ -24,7 +24,7 @@ public class Battlefield {
             }
             move++;
         }
-        if (firstFighter.isDefeated()) {
+        if (firstFighter.isNotDefeated()) {
             return secondFighter;
         } else {
             return firstFighter;
@@ -34,9 +34,7 @@ public class Battlefield {
     public void attack(Hero attacker, Hero defender) {
         Random random = new Random();
         int attackerCreatureIdx = 0;
-        if (attacker.getArmy().size() != 1) {
-            attackerCreatureIdx = random.nextInt(0, attacker.getArmy().size() - 1);
-        }
+            attackerCreatureIdx = random.nextInt( attacker.getArmy().size());
         int damage = attacker.getArmy().get(attackerCreatureIdx).getDamage();
         System.out.println("Новый раунд");
         System.out.println("Герой " + attacker.getName() + " наносит урон " + damage
@@ -46,9 +44,7 @@ public class Battlefield {
 
     public void defence(Hero defender, Random random, int damage) {
         int defenderCreatureIdx = 0;
-        if (defender.getArmy().size() != 1) {
-            defenderCreatureIdx = random.nextInt(0, defender.getArmy().size() - 1);
-        }
+            defenderCreatureIdx = random.nextInt(0, defender.getArmy().size());
         Creature defenderCreature = defender.getArmy().get(defenderCreatureIdx);
         int absorbDamageCreature = defenderCreature.getQuantity() * defenderCreature.getDefense();
         int newQuantity = (absorbDamageCreature - damage) / defenderCreature.getDefense();
@@ -56,7 +52,7 @@ public class Battlefield {
         printHeroArmy(defender);
         System.out.println("==========");
         if (defender.getArmy().isEmpty()) {
-            defender.setDefeated(true);
+            defender.setNotDefeated(false);
         }
     }
 
