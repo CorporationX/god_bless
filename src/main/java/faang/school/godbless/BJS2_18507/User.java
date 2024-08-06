@@ -1,0 +1,30 @@
+package faang.school.godbless.BJS2_18507;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class User {
+    private String name;
+    @Getter
+    private int age;
+    private String workPlace;
+    private String workAddress;
+
+    public static Map<Integer, List<User>> groupUserByAge(List<User> users) {
+        Map<Integer, List<User>> usersGroupsByAge = new HashMap<>();
+        for (User user : users) {
+            usersGroupsByAge.computeIfAbsent(user.getAge(), age -> new ArrayList<>()).add(user);
+        }
+        return usersGroupsByAge;
+    }
+}
