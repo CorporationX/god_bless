@@ -12,20 +12,10 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> ageOfUsers = new HashMap<>();
-        Set<Integer> ages = new HashSet<>();
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            ages.add(user.getAge());
+            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
-        for (Integer age : ages) {
-            List<User> usersWithSameAge = new ArrayList<>();
-            for (User user : usersWithSameAge) {
-                if (user.getAge() == age) {
-                    usersWithSameAge.add(user);
-                }
-            }
-            ageOfUsers.put(age, usersWithSameAge);
-        }
-        return ageOfUsers;
+        return groupedUsers;
     }
 }
