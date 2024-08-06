@@ -1,8 +1,8 @@
 package faang.school.godbless.BJS2_18970;
 
 public class Angel extends Creature {
-    public Angel(String name) {
-        super(name, 8, 9, 12, 10, 10);
+    public Angel() {
+        super("Angel", 8, 9, 12, 10, 10);
     }
 
     @Override
