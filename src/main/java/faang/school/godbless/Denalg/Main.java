@@ -10,7 +10,7 @@ public class Main {
         User user1 = new User("Denis", 1, 31, Set.of("Football", "Basketball"));
         User user2 = new User("Ivan", 2, 20, Set.of("Tennis", "Boxing"));
 
-        Map<User, String> result = User.findHobbyLovers(Arrays.asList(user1, user2),
+        Map<User, String> result = user1.findHobbyLovers(Arrays.asList(user1, user2),
                 new HashSet<>(Arrays.asList("Football", "Shooting")));
         System.out.println(result);
     }
