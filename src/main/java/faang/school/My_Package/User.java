@@ -1,18 +1,13 @@
 package faang.school.My_Package;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-@ToString
 
+@ToString
 public class User {
     private int id;
     private int age;
@@ -70,21 +65,7 @@ public class User {
                 if (human.getActivities().contains(activ)) {
                     hobbies.put(human, activ);
                 }
-
             }
-            //Set<String> intersection = new HashSet<>(Humans); // делаю новый хэш сет копию этих активностей
-            // intersection.retainAll(activities);//вырезаю из этого сета все несовпадающие активности
-            //if (!intersection.isEmpty()) {
-
-            // hobbies.put(human,)
-
-            // }
-            // }
-
-            // Создание множества для хранения общих элементов
-            // Set<Integer> intersection = new HashSet<>();
-            //intersection.retainAll(activities);
-
         }
         return hobbies;
     }
