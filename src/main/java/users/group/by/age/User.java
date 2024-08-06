@@ -2,8 +2,8 @@ package users.group.by.age;
 
 import lombok.Data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +18,13 @@ public class User {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
         for (User user : users) {
-            if (groupedUsers.containsKey(user.age)) {
-                groupedUsers.get(user.age).add(user);
-            } else {
-                List<User> oneUserinList = new LinkedList<>();
-                users.add(user);
-                groupedUsers.put(user.age, oneUserinList);
+            if (!groupedUsers.containsKey(user.age)) {
+                List<User> oneUserInList = new ArrayList<>();
+                oneUserInList.add(user);
+                groupedUsers.put(user.age, oneUserInList);
             }
+
+            groupedUsers.get(user.age).add(user);
         }
 
         return groupedUsers;
