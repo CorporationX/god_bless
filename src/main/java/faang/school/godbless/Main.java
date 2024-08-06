@@ -37,6 +37,7 @@ public class Main {
             WeatherData newWeatherData = WeatherCentre.getWeatherData(city);
             weatherDataCache.put(city, newWeatherData);
         }
+        System.out.print(city + ": ");
         return weatherDataCache.get(city);
     }
 
@@ -60,10 +61,9 @@ public class Main {
             return;
         }
         System.out.println("\nСписок городов, о которых есть данные в кэше: ");
-        for (Map.Entry<String, WeatherData> entry : weatherCache.entrySet()) {
-            WeatherData weatherData = entry.getValue();
+        for (WeatherData weatherData : weatherCache.values()) {
             if (weatherData != null) {
-                System.out.println(entry.getKey() + " : " + weatherData);
+                System.out.println(weatherData.getCity() + ": " + weatherData);
             }
         }
     }
@@ -78,7 +78,7 @@ public class Main {
             if (weatherData != null) {
                 System.out.println(entry.getKey() + " : " + weatherData);
             } else {
-                System.out.println(entry.getKey() + " данных к кэше нет");
+                System.out.println(entry.getKey() + " : данных к кэше нет");
             }
         }
     }

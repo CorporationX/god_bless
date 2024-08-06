@@ -5,7 +5,6 @@ import java.util.Random;
 public class WeatherCentre {
 
     public static Random random = new Random();
-    public static void main(String[] args) {}
 
     public static WeatherData getWeatherData(String city) {
         WeatherData weatherData = new WeatherData();
@@ -14,6 +13,4 @@ public class WeatherCentre {
         weatherData.setHumidity(random.nextInt(60) + 30);
         return weatherData;
     }
-
-
 }
