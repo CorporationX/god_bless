@@ -34,10 +34,10 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if ((creature.getQuantity() - quantity) <= 0) {
+        if ( quantity <= 0) {
             army.remove(creature);
         } else {
-            creature.setQuantity(creature.getQuantity() - quantity);
+            creature.setQuantity(quantity);
         }
     }
 }

@@ -52,11 +52,7 @@ public class Battlefield {
         Creature defenderCreature = defender.getArmy().get(defenderCreatureIdx);
         int absorbDamageCreature = defenderCreature.getQuantity() * defenderCreature.getDefense();
         int newQuantity = (absorbDamageCreature - damage) / defenderCreature.getDefense();
-        if (newQuantity > 0) {
-            defenderCreature.setQuantity(newQuantity);
-        } else {
-            defender.getArmy().remove(defenderCreature);
-        }
+        defender.removeCreature(defenderCreature, newQuantity);
         printHeroArmy(defender);
         System.out.println("==========");
         if (defender.getArmy().isEmpty()) {
