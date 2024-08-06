@@ -44,15 +44,18 @@ public class Main {
     public static void addNewStudentWithGrade(Student student, Map<Subject, Integer> subjectsAndGrades){
         subjectsAndGrades.forEach((subject, grade) ->
                 gradesBySubjects.computeIfAbsent(student, (k) -> new HashMap<>()).put(subject, grade));
+        subjectsAndGrades.keySet().forEach(subject ->
+                studentsBySubject.computeIfAbsent(subject, (x) -> new ArrayList<>()).add(student));
     }
 
     public static void addSubjectToStudent(Student student, Subject newSubject, Integer newGrade){
         gradesBySubjects.computeIfAbsent(student, (x) -> new HashMap<>()).put(newSubject, newGrade);
+        studentsBySubject.computeIfAbsent(newSubject, (x) -> new ArrayList<>()).add(student);
     }
 
     public static void removeStudent(Student student){
         gradesBySubjects.remove(student);
-        studentsBySubject.forEach((subject, listStudents) -> listStudents.removeIf(st -> st.equals(student)));
+        studentsBySubject.values().forEach(studentList -> studentList.remove(student));
     }
 
     public static void printAllStudentsAndGrades(){
