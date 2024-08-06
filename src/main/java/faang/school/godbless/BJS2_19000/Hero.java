@@ -10,16 +10,14 @@ import java.util.Map;
 public class Hero {
     private String name;
     private String fraction;
-    private Integer experience;
-    private int level;
+    private static final Integer EXPERIENCE = 1;
+    private static final Integer LEVEL = 1;
     @Getter
     private Map<Creature, Integer> army;
 
     public Hero(String name, String fraction) {
         this.name = name;
         this.fraction = fraction;
-        this.experience = 1;
-        this.level = 1;
         this.army = new HashMap<>();
     }
 
