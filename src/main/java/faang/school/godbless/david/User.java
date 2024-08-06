@@ -1,7 +1,9 @@
 package faang.school.godbless.david;
 
-import java.util.*;
+import lombok.Getter;
 
+import java.util.*;
+@Getter
 public class User {
     private int id;
     private String name;
@@ -15,23 +17,6 @@ public class User {
         this.activities = activities;
     }
 
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Set<String> getActivities() {
-        return activities;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobby = new HashMap<>();
 
@@ -43,7 +28,6 @@ public class User {
                 }
             }
         }
-
         return hobby;
     }
 
