@@ -9,10 +9,10 @@ public class Main {
     }
 
     public static void testGroupedUsers() {
-        User user1 = new User("Alex", 21, "Facebook", "123 Main Street");
-        User user2 = new User("Egor", 18, "Amazon", "456 Elm Street");
-        User user3 = new User("Dima", 18, "Apple", "789 Oak Street");
-        User user4 = new User("Vika", 21, "Netflix", "1011 Pine Street");
+        User user1 = new User("Alex", 21, "Google", "Amsterdam");
+        User user2 = new User("Egor", 18, "Amazon", "London");
+        User user3 = new User("Dima", 18, "Uber", "New York");
+        User user4 = new User("Vika", 21, "Google", "London");
 
         List<User> users = List.of(user1, user2, user3, user4);
 
