@@ -3,6 +3,8 @@ package faang.school.godbless.BJS2_19329;
 import ch.qos.logback.core.joran.spi.NoAutoStartUtil;
 import lombok.AllArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
 @AllArgsConstructor
