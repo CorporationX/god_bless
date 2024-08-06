@@ -18,12 +18,18 @@ public class Main {
         houses.put(house.getName(), house);
     }
 
-    public House deleteHouse(String name) {
-        return houses.remove(name);
+    public boolean deleteHouse(String name) {
+        if (houses.containsKey(name)) {
+            houses.remove(name);
+            return true;
+        } else return false;
     }
 
     public String getSigil(String name) {
-        return houses.get(name).getSigil();
+        House house;
+        if ((house = houses.get(name)) != null) {
+            return house.getSigil();
+        } else return "Дома с названием " + name + " не существует";
     }
 
     public List<String> getAllHouses() {

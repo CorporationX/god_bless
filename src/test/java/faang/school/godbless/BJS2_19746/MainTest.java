@@ -25,10 +25,20 @@ class MainTest {
     void deleteHouseTest() {
         assertEquals(4, main.getAllHouses().size());
 
-        main.deleteHouse("Lanister");
+        boolean result = main.deleteHouse("Lanister");
 
         assertEquals(3, main.getAllHouses().size());
-        assertNull(main.deleteHouse("no house"));
+        assertTrue(result);
+    }
+
+    @Test
+    void deleteNotExistingHouseTest() {
+        assertEquals(4, main.getAllHouses().size());
+
+        boolean result = main.deleteHouse("No house");
+
+        assertEquals(4, main.getAllHouses().size());
+        assertFalse(result);
     }
 
     @Test
