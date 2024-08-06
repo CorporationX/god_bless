@@ -39,9 +39,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return " " +
-                " " + name + '\'' +
-                " " + faculty + '\'' +
-                " " + year;
+        return name  +
+                " " + faculty  +
+                ", курс: " + year;
                     }
 }
