@@ -6,7 +6,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         testAddConstructor();
+        System.out.println();
         testGroupedUsers();
+        System.out.println();
         testWarriorAndArcher();
     }
 
