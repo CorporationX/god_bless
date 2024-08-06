@@ -3,7 +3,7 @@ package faang.school.godbless.BJS2_18911;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +17,7 @@ class BattlefieldTest {
 
     @BeforeEach
     void setUp() {
-        List<Creature> redArmy = new ArrayList<>(List.of(
+        List<Creature> redArmy = new LinkedList<>(List.of(
                 new Griffin(5),
                 new Pikeman(4),
                 new Pikeman(6),
@@ -25,7 +25,7 @@ class BattlefieldTest {
         ));
         redSide = new Hero("Robert", "FAANG", 213, 3, redArmy);
 
-        List<Creature> blueArmy = new ArrayList<>(List.of(
+        List<Creature> blueArmy = new LinkedList<>(List.of(
                 new Griffin(4),
                 new Angel(1),
                 new Pikeman(4),

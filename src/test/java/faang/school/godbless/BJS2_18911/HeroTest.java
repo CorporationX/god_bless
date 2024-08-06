@@ -3,7 +3,7 @@ package faang.school.godbless.BJS2_18911;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +39,7 @@ class HeroTest {
 
     @BeforeEach
     void setUp() {
-        List<Creature> army = new ArrayList<>(List.of(
+        List<Creature> army = new LinkedList<>(List.of(
                 new Pikeman(2),
                 new Swordman(1),
                 new Griffin(3),
@@ -98,7 +98,7 @@ class HeroTest {
     @Test
     void removeCreature_FromEmptyListAndNoCreatureInList() {
         Hero hero = new Hero("Robert", "FAANG", 123, 3);
-        List<Creature> correctAnswer = new ArrayList<>();
+        List<Creature> correctAnswer = new LinkedList<>();
 
         hero.removeCreature(new Angel(2), 1);
 

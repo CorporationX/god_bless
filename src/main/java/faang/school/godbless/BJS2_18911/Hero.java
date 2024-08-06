@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Getter
@@ -18,7 +19,7 @@ public class Hero {
     private List<Creature> army;
 
     public Hero(String name, String fraction, int experience, int level) {
-        this(name, fraction, experience, level, new ArrayList<>());
+        this(name, fraction, experience, level, new LinkedList<>());
     }
 
     public Hero(String name, String fraction, int experience, int level, List<Creature> army) {
