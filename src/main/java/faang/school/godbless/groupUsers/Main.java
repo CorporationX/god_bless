@@ -13,8 +13,8 @@ public class Main {
         User user7 = new User("Julia", 20, "T-Bank", "Tomsk");
         User user8 = new User("Sam", 20, "Sber", "Novosibirsk");
 
-        Map<Integer, List<User>> result = User.groupUsers(new LinkedList<>(Arrays.asList(
-                user1, user2, user3, user4, user5, user6, user7, user8)));
+        Map<Integer, List<User>> result = User.groupUsers(Arrays.asList(
+                user1, user2, user3, user4, user5, user6, user7, user8));
 
         for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             System.out.println(entry.getKey() + ": " + entry.getValue());

@@ -15,25 +15,13 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
-
-        Set<Integer> ages = new HashSet<>();
         for (User user : users) {
-            ages.add(user.getAge());
-        }
-
-        for (Integer age : ages) {
-            List<User> usersWithThisAge = new LinkedList<>();
-            for (User user : users){
-                if (user.getAge() == age){
-                    usersWithThisAge.add(user);
-                }
-            }
-            userGroups.put(age, usersWithThisAge);
+            userGroups.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return userGroups;
     }
 
-    public String toString(){
+    public String toString() {
         return name + " (" + age + " y.o., " + company + ", " + address + ")";
     }
 }
