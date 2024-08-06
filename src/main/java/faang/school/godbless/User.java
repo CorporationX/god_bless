@@ -1,9 +1,6 @@
 package faang.school.godbless;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +11,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString(of = {"name"})
+@EqualsAndHashCode(of = {"id", "name"})
 public class User {
 
     private Integer id;
@@ -32,28 +31,5 @@ public class User {
             }
         }
         return hobbyCoincidenceMap;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-
-        if (!getId().equals(user.getId())) return false;
-        return getName().equals(user.getName());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + getName().hashCode();
-        return result;
     }
 }
