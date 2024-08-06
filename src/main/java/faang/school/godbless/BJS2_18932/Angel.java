@@ -8,6 +8,6 @@ public class Angel extends Creature {
     private static final int ANGEL_SPEED = 40;
 
     public Angel() {
-        super(ANGEL_NAME, ANGEL_LVL,ANGEL_DAMAGE, ANGEL_DEFENCE, ANGEL_SPEED);
+        super(ANGEL_NAME, ANGEL_LVL, ANGEL_DAMAGE, ANGEL_DEFENCE, ANGEL_SPEED);
     }
 }

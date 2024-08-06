@@ -1,6 +1,6 @@
 package faang.school.godbless.BJS2_18932;
 
-public class Swordman extends Creature{
+public class Swordman extends Creature {
     private static final String SWORDMAN_NAME = "Swordman";
     private static final int SWORDMAN_LVL = 4;
     private static final int SWORDMAN_DAMAGE = 10;
