@@ -1,12 +1,14 @@
 package faang.school.godbless.BJS2_19243;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
+@Builder
 public class Book {
     private String title;
     private String author;
