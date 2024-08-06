@@ -12,27 +12,18 @@ import java.util.Set;
 @NoArgsConstructor
 public class User {
 
-    private Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
-
-        if (age < 18) {
-            throw new IllegalArgumentException();
-        }
-
-        if (placeOfWork == null || !VALID_JOBS.contains(placeOfWork)) {
-            throw new IllegalArgumentException();
-        }
-
-        if (address == null || !VALID_ADDRESSES.contains(address)) {
+        if ((name == null || name.isBlank()) ||
+            (age < 18) ||
+            (!VALID_ADDRESSES.contains(address)) ||
+            (!VALID_JOBS.contains(placeOfWork))) {
             throw new IllegalArgumentException();
         }
 
@@ -49,7 +40,6 @@ public class User {
             usersByAge.putIfAbsent(user.getAge(), new ArrayList<>());
             usersByAge.get(user.getAge()).add(user);
         }
-
         return usersByAge;
     }
 }
