@@ -4,48 +4,57 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 
 @Data
-@EqualsAndHashCode
 public class User {
+    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York"));
+    public static final int MIN_AGE = 18;
+
     private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
-    private static final Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York"));
-
     public User(String name, int age, String placeOfWork, String address) {
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty.");
         }
-        this.name = name;
 
-        if (age < 18) {
-            throw new IllegalArgumentException("Age must be at least 18.");
+
+        if (age < MIN_AGE) {
+            throw new IllegalArgumentException("Age must be at least " + MIN_AGE + ".");
         }
-        this.age = age;
 
         if (!VALID_JOBS.contains(placeOfWork)) {
             throw new IllegalArgumentException("Invalid place of work.");
         }
-        this.placeOfWork = placeOfWork;
+
 
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Invalid address.");
         }
+
+        this.name = name;
+        this.age = age;
+        this.placeOfWork = placeOfWork;
         this.address = address;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> result = new HashMap<>();
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
 
         for(var user : users) {
-            result.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+            groupUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
 
-        return result;
+        return groupUsers;
     }
 }
