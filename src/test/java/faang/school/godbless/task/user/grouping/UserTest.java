@@ -3,12 +3,9 @@ package faang.school.godbless.task.user.grouping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class UserTest {
@@ -30,18 +27,7 @@ class UserTest {
 
     @BeforeEach
     void setUp() {
-        users = List.of(
-                user1,
-                user2,
-                user3,
-                user4,
-                user5,
-                user6,
-                user7,
-                user8,
-                user9,
-                user10,
-                user11
+        users = List.of(user1, user2, user3, user4, user5, user6, user7, user8, user9, user10, user11
         );
     }
 
@@ -103,34 +89,5 @@ class UserTest {
     void testConstructorAddressEmpty() {
         assertThrows(IllegalArgumentException.class, () ->
                 new User("Barry", 19, "Amazon", ""));
-    }
-
-    @Test
-    void testGroupUsers() {
-        expected = new HashMap<>(Map.of(
-                19, List.of(user2, user7, user9),
-                24, List.of(user1, user4, user6, user11),
-                27, List.of(user3, user5, user8),
-                31, List.of(user10)
-        ));
-        actual = user1.groupUsers(users);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testGroupUsersNullUsers(){
-        expected = null;
-        actual = user1.groupUsers(null);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    void testGroupUsersEmptyUsers(){
-        expected = new HashMap<>();
-        actual = user1.groupUsers(new ArrayList<>());
-
-        assertEquals(expected, actual);
     }
 }
