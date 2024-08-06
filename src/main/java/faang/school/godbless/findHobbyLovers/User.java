@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,7 +33,7 @@ public class User {
                                         .filter(activities::contains)
                                         .limit(1)
                                         .findFirst()
-                                        .get()
+                                        .orElse(null)
                         )
                 );
     }

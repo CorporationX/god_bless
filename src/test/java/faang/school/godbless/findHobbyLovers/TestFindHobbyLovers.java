@@ -13,7 +13,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestFindHobbyLovers {
 
@@ -45,10 +47,10 @@ public class TestFindHobbyLovers {
         assertAll(
                 () -> assertNotNull(usersMap),
                 () -> assertEquals(3, usersMap.size()),
-                () -> assertEquals(true, usersMap.containsKey(user1)),
-                () -> assertEquals(true, usersMap.containsKey(user2)),
-                () -> assertEquals(true, usersMap.containsKey(user3)),
-                () -> assertEquals(false, usersMap.containsKey(user4))
+                () -> assertTrue(usersMap.containsKey(user1)),
+                () -> assertTrue(usersMap.containsKey(user2)),
+                () -> assertTrue(usersMap.containsKey(user3)),
+                () -> assertFalse(usersMap.containsKey(user4))
         );
     }
 }
