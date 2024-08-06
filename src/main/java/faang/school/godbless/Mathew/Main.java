@@ -5,8 +5,8 @@ public class Main {
         Character warior = new Warior("Waluev");
         Character archer = new Archer("Joe");
         warior.attack(archer);
-        System.out.println(archer.toString());
+        System.out.println(archer);
         archer.attack(warior);
-        System.out.println(warior.toString());
+        System.out.println(warior);
     }
 }

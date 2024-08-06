@@ -3,6 +3,7 @@ package faang.school.godbless.Mathew;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
 @Setter
 @Getter
 @ToString
@@ -12,7 +13,6 @@ public abstract class Character {
     private int agility;
     private int inteligence;
     private int health;
-
 
     public Character(String name) {
         this.name = name;
@@ -25,8 +25,8 @@ public abstract class Character {
         this.inteligence = inteligence;
         this.health = 100;
     }
-    public abstract void attack(Character character);
 
+    public abstract void attack(Character character);
 
 
 }
