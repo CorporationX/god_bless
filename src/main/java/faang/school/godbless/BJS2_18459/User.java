@@ -20,16 +20,15 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-        Map<Integer, List<User>> result = new HashMap<>();
+        Map<Integer, List<User>> usersGroupedByAgeMap = new HashMap<>();
 
         for(User user: users) {
-            List<User> temp = new ArrayList<>();
-            temp.add(user);
-            result.merge(user.getAge(), temp, (x, y) -> {
-                x.add(y.get(0));
-                return x;
-            });
+            if (usersGroupedByAgeMap.containsKey(user.getAge())) {
+                usersGroupedByAgeMap.get(user.getAge()).add(user);
+            } else {
+                usersGroupedByAgeMap.put(user.getAge(), new ArrayList<>(List.of(user)));
+            }
         }
-        return result;
+        return usersGroupedByAgeMap;
     }
 }
