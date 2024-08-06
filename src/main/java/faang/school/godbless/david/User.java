@@ -1,8 +1,8 @@
 package faang.school.godbless.david;
 
 import lombok.Getter;
-
 import java.util.*;
+
 @Getter
 public class User {
     private int id;
