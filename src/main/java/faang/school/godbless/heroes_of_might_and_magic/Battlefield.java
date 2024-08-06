@@ -1,25 +1,10 @@
 package faang.school.godbless.heroes_of_might_and_magic;
 
-import java.util.ArrayList;
+import java.util.Map;
 
 public class Battlefield {
-    private final Hero HERO_LEFT = new Hero(
-            "Elf",
-            "Elf",
-            100,
-            10,
-            new ArrayList<>()
-    );
-    private final Hero HERO_RIGHT = new Hero(
-            "Dwarf",
-            "Dwarf",
-            140,
-            3,
-            new ArrayList<>()
-    );
-
     public void battle(Hero heroLeft, Hero heroRight) {
-        if (heroLeft.getArmy().size() > heroRight.getArmy().size()) {
+        if (calculateHeroScore(heroLeft) > calculateHeroScore(heroRight)) {
             System.out.println(heroLeft.getFraction() + " wins!");
         } else {
             System.out.println(heroRight.getFraction() + " wins!");
@@ -27,8 +12,8 @@ public class Battlefield {
     }
 
     public static void main(String[] args) {
-        Hero heroLeft = new Hero("Elf", "Elf", 100, 10, new ArrayList<>());
-        Hero heroRight = new Hero("Dwarf", "Dwarf", 140, 3, new ArrayList<>());
+        Hero heroLeft = new Hero("Elf", "Elf", 100, 10);
+        Hero heroRight = new Hero("Dwarf", "Dwarf", 140, 3);
 
         heroLeft.addCreature(new Pikeman(), 3);
         heroLeft.addCreature(new Angel(), 10);
@@ -41,5 +26,15 @@ public class Battlefield {
 
         Battlefield battlefield = new Battlefield();
         battlefield.battle(heroLeft, heroRight);
+    }
+
+    private int calculateHeroScore(Hero hero) {
+        int totalScore = 0;
+        for (Map.Entry<Creature, Integer> entry : hero.getArmy().entrySet()) {
+            Creature creature = entry.getKey();
+            int quantity = entry.getValue();
+            totalScore += creature.getDamage() * quantity;
+        }
+        return totalScore;
     }
 }

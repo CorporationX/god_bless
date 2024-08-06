@@ -1,30 +1,43 @@
 package faang.school.godbless.heroes_of_might_and_magic;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class Hero {
     private String name;
     private String fraction;
     private int experience;
     private int level;
-    private List<Creature> army;
+    private Map<Creature, Integer> army;
+
+    public Hero(String name, String fraction, int experience, int level) {
+        this.name = name;
+        this.fraction = fraction;
+        this.experience = experience;
+        this.level = level;
+        this.army = new HashMap<>();
+    }
 
     public void addCreature(Creature creature, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            army.add(creature);
-        }
+        army.put(creature, quantity);
+        creature.setQuantity(quantity);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        for (int i = 0; i < quantity; i++) {
-            army.remove(creature);
+        if (army.containsKey(creature)) {
+            int currentQuantity = army.get(creature);
+            int newQuantity = Math.max(currentQuantity - quantity, 0);
+            if (newQuantity == 0) {
+                army.remove(creature);
+            } else {
+                army.put(creature, newQuantity);
+                creature.setQuantity(newQuantity);
+            }
         }
     }
 }
