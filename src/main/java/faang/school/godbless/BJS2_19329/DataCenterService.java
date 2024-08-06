@@ -1,10 +1,7 @@
 package faang.school.godbless.BJS2_19329;
 
-import ch.qos.logback.core.joran.spi.NoAutoStartUtil;
 import lombok.AllArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.DoubleStream;
 
 @AllArgsConstructor
@@ -21,15 +18,26 @@ public class DataCenterService implements OptimizationStrategy {
     }
 
     private void allocateResources(ResourceRequest request) {
-        if (request.getLoad() >= getServersFreeLoad()) {
+        double requestedLoad = request.getLoad();
+        if (requestedLoad >= getServersFreeLoad()) {
             System.out.println("Resources not enough, let's add new server");
-            if (request.getLoad()<=SMALL_SERVER_LOAD) {
-                dataCenter.getServersList().add(new Server(SMALL_SERVER_LOAD,100,500));
+            if (requestedLoad <= SMALL_SERVER_LOAD) {
+                dataCenter.getServersList().add(new Server(33333333, SMALL_SERVER_LOAD));
             }
         }
-        System.out.println("You can use current configuration of DataCenter");
-
-
+        System.out.println("You can use current configuration of DataCenter " +
+                "no need to add new server");
+        for (Server server : dataCenter.getServersList()) {
+            double maxCurDiff = server.getMaxLoad() - server.getLoad();
+            sfdgsdfg
+            if (maxCurDiff != 0) {
+                server.setLoad(server.getLoad() + maxCurDiff);
+                requestedLoad -= maxCurDiff;
+            }
+            if (requestedLoad <= 0) {
+                break;
+            }
+        }
     }
 
     private void releaseResources(ResourceRequest request) {
