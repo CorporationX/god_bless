@@ -4,32 +4,47 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    static HashMap <Book, String> mapBooks = new HashMap<>();
+    static private final HashMap<Book, String> mapBooks = new HashMap<>();
     public static void main(String[] args) {
-        mapBooks.put(new Book("Вишневый сад","Антон Чехов",1904),"A1-1");
-        mapBooks.put(new Book("Дом с мезонином","Антон Чехов",1896),"A1-2");
-        mapBooks.put(new Book("Чайка","Антон Чехов",1896),"A1-2");
-        mapBooks.put(new Book("Человек в футляре","Антон Чехов",1898),"A2-4");
-        mapBooks.put(new Book("Исповедь","Лев Толстой",1882),"А1-2");
+        Book cherryOrchard = new Book("Вишневый сад", "Антон Чехов", 1904);
+        Book houseWithMezzanine = new Book("Дом с мезонином", "Антон Чехов", 1896);
+        Book seagull = new Book("Чайка", "Антон Чехов", 1896);
+        Book theManInTheCase = new Book("Человек в футляре", "Антон Чехов", 1898);
+        Book confession = new Book("Исповедь", "Лев Толстой", 1882);
+        Book sunday = new Book("Воскресение", "Лев Толстой", 1889);
 
-        addBook(new Book("Воскресение","Лев Толстой",1889),"А2-4");
-        listBook();
-        infoShelfNumb("Воскресение","Лев Толстой",1889);
-        deleteBook("Воскресение","Лев Толстой",1889);
-        listBook();
+        addBook(cherryOrchard, "");
+        addBook(houseWithMezzanine, "A1-2");
+        addBook(seagull, "A1-2");
+        addBook(theManInTheCase, "A2-4");
+        addBook(confession, "А1-2");
+        addBook(sunday, "А2-4");
+
+        printListBook();
+        infoShelfNumb(sunday);
+        deleteBook(sunday);
+        printListBook();
 
     }
-    public static void addBook (Book book, String shelfNumb){
-        mapBooks.put(book,shelfNumb);
+
+    private static void addBook(Book book, String shelfNumb) {
+        if (!(shelfNumb.isBlank())) {
+            mapBooks.put(book, shelfNumb);
+        } else {
+            System.out.println("Введите название полки");
+        }
     }
-    public static void deleteBook (String bTitle, String bAuthor, int bYear){
-        mapBooks.remove(new Book(bTitle,bAuthor,bYear));
+
+    private static void deleteBook(Book book) {
+        mapBooks.remove(book);
     }
-    public static void infoShelfNumb (String bTitle, String bAuthor, int bYear){
-        System.out.println(mapBooks.get(new Book(bTitle,bAuthor,bYear)));
+
+    private static void infoShelfNumb(Book book) {
+        System.out.println(mapBooks.get(book));
     }
-    public static void listBook () {
-        for (Map.Entry entry: mapBooks.entrySet()){
+
+    private static void printListBook() {
+        for (Map.Entry<Book, String> entry : mapBooks.entrySet()) {
             System.out.println(entry);
         }
     }
