@@ -18,14 +18,11 @@ public class User {
     private String placeWork;
     private String address;
 
-    public static Map<Integer, List<User>> groupedUsers(List<User> userList) {
+    public static Map<Integer, List<User>> groupingUsersByAge(List<User> listOfUser) {
         Map<Integer, List<User>> result = new HashMap<>();
-        for (User user : userList){
+        for (User user : listOfUser) {
             int age = user.getAge();
-            if(!result.containsKey(age)){
-                result.put(age, new ArrayList<>());
-            }
-            result.get(age).add(user);
+            result.computeIfAbsent(age, key -> new ArrayList<>()).add(user);
         }
         return result;
 

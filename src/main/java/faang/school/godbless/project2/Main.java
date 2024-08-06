@@ -11,7 +11,7 @@ public class Main {
         users.add(new User("Denis", 31, "T-Bank", "street2"));
         users.add(new User("Demid", 25, "WB", "street3"));
 
-        var result = User.groupedUsers(users);
+        var result = User.groupingUsersByAge(users);
         result.entrySet().forEach(System.out::println);
     }
 }
