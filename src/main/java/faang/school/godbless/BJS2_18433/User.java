@@ -13,7 +13,6 @@ public class User {
 
     public User(String name, int age, String job, String address) {
 
-//        if(name == null || name.isEmpty() || age < 18 || !VALID_ADDRESSES.contains(address) || VALID_JOBS.contains(job)) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         } else if (age < 18) {
@@ -38,12 +37,9 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
         for (User user : users) {
-            if (userGroups.containsKey(user.age)) {
-                userGroups.get(user.age).add(user);
-            } else {
-                userGroups.put(user.age, new ArrayList<User>());
-                userGroups.get(user.age).add(user);
-            }
+            List<User> usersList = userGroups.getOrDefault(user.age, new ArrayList<>());
+            usersList.add(user);
+            userGroups.put(user.age, usersList);
         }
         return userGroups;
     }
