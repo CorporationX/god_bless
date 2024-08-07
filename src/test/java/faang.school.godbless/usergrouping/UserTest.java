@@ -8,11 +8,14 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UserTest {
     private List<User> users;
@@ -20,13 +23,13 @@ class UserTest {
 
     @BeforeEach
     public void setUp() {
-        users = new ArrayList<>();
-        users.add(new User("Alice", 30, "Company A", "Address 1"));
-        users.add(new User("Bob", 25, "Company B", "Address 2"));
-        users.add(new User("Charlie", 30, "Company C", "Address 3"));
-        users.add(new User("David", 25, "Company D", "Address 4"));
-        users.add(new User("Eve", 35, "Company E", "Address 5"));
-
+        users = new ArrayList<>(List.of(
+                new User("Alice", 30, "Company A", "Address 1"),
+                new User("Bob", 25, "Company B", "Address 2"),
+                new User("Charlie", 30, "Company C", "Address 3"),
+                new User("David", 25, "Company D", "Address 4"),
+                new User("Eve", 35, "Company E", "Address 5"))
+        );
         groupedUsers = User.groupUsers(users);
     }
 
@@ -59,28 +62,29 @@ class UserTest {
     }
 
     @Test
-    @DisplayName("Проверка группы 25-летних")
-    public void testAge25Group() {
-        List<User> age25Group = groupedUsers.get(25);
+    @DisplayName("Проверка пустого списка пользователей")
+    public void testEmptyUserList() {
+        List<User> emptyUsers = new ArrayList<>();
+        Map<Integer, List<User>> emptyGroupedUsers = User.groupUsers(emptyUsers);
 
         assertAll(
-                () -> assertNotNull(age25Group),
-                () -> assertEquals(2, age25Group.size()),
-                () -> assertThat(groupedUsers.get(25)).extracting(User::getName)
-                        .containsExactlyInAnyOrder("Bob", "David")
+                () -> assertNotNull(emptyGroupedUsers),
+                () -> assertTrue(emptyGroupedUsers.isEmpty())
         );
     }
 
     @Test
-    @DisplayName("Проверка группы 35-летних")
-    public void testAge35Group() {
-        List<User> age35Group = groupedUsers.get(35);
+    @DisplayName("Проверка наличия всех уникальных возрастов")
+    public void testAllUniqueAgesPresent() {
+        Set<Integer> uniqueAges = users.stream()
+                .map(User::getAge)
+                .collect(Collectors.toSet());
 
         assertAll(
-                () -> assertNotNull(age35Group),
-                () -> assertEquals(1, age35Group.size()),
-                () -> assertThat(groupedUsers.get(35)).extracting(User::getName)
-                        .containsExactly("Eve")
+                () -> assertNotNull(groupedUsers),
+                () -> uniqueAges.forEach(age ->
+                        assertTrue(groupedUsers.containsKey(age))
+                )
         );
     }
 }
