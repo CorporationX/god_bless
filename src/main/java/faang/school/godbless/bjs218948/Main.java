@@ -38,8 +38,6 @@ public class Main {
     }
 
     public static void allWeatherInCache(){
-        weather.forEach((city,weatherData)->{
-            System.out.println(weatherData);
-        });
+        weather.forEach((city,weatherData)-> System.out.println(weatherData));
     }
 }
