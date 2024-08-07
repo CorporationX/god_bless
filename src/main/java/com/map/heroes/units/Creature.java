@@ -25,7 +25,7 @@ public abstract class Creature {
             this.speed = speed;
             this.health = health;
             this.quantity = quantity;
-        }else {
+        } else {
             throw new IllegalArgumentException("Argument is not valid");
         }
     }

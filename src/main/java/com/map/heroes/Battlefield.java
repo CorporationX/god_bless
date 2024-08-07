@@ -26,20 +26,24 @@ public class Battlefield {
         cyra.addCreature(griffin, 60);
         cyra.addCreature(swordman, 30);
         cyra.addCreature(pikeman, 100);
-        System.out.println( battle(edric,cyra));
+        System.out.println(battle(edric, cyra));
 
     }
 
     public static String battle(Hero heroOne, Hero heroTwo) {
+        if (strengthArmy(heroOne) == strengthArmy(heroTwo)) {
+            return "Draw!";
+        }
         return strengthArmy(heroOne) > strengthArmy(heroTwo) ? "Winner: " + heroOne.getName()
                 : "Winner: " + heroTwo.getName();
     }
-    public static Integer strengthArmy (Hero hero){
+
+    public static Integer strengthArmy(Hero hero) {
         int totalDmg = 0;
         int totalHealth = 0;
-        int totalArmor =0 ;
-        int totalSpeed =0;
-        for (Map.Entry<Creature, Integer> entry : hero.getCreaturesMap().entrySet()){
+        int totalArmor = 0;
+        int totalSpeed = 0;
+        for (Map.Entry<Creature, Integer> entry : hero.getCreaturesMap().entrySet()) {
             totalDmg += entry.getKey().getDamage() * entry.getValue();
             totalHealth += entry.getKey().getHealth() * entry.getValue();
             totalArmor += entry.getKey().getArmor() * entry.getValue();

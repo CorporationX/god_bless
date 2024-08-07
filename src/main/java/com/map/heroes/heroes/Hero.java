@@ -23,7 +23,7 @@ public class Hero {
             this.fraction = fraction;
             this.experience = experience;
             this.level = level;
-        }else {
+        } else {
             throw new IllegalArgumentException("Argument is not valid");
         }
     }
