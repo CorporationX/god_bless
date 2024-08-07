@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -80,7 +79,13 @@ public class StudentManagerTest {
 
     @Test
     void testDeleteStudentNullValue() {
-        studentManager.deleteStudent(null);
+        assertThrows(NoSuchElementException.class, () -> studentManager.deleteStudent(null));
+    }
+
+    @Test
+    void testDeleteStudentNotExistValue() {
+        assertThrows(NoSuchElementException.class,
+                () -> studentManager.deleteStudent(new Student("Bob", "?", 1)));
     }
 
     @Test

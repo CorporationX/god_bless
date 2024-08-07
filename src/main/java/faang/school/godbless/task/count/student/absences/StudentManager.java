@@ -25,14 +25,19 @@ public class StudentManager {
             studentMap.put(std, std);
             studentList.add(std);
         }, () -> {
-            throw new NoSuchElementException("Студент не может быть null");
+            throw new NoSuchElementException("Студент не может быть %s".formatted(student));
         });
     }
 
-    public void deleteStudent(Student student) {
-        Optional.ofNullable(student).ifPresent(std -> {
-            studentMap.remove(std);
-            studentList.remove(std);
+    public void deleteStudent(Student student) throws NoSuchElementException {
+        Optional.ofNullable(student).ifPresentOrElse(std -> {
+            if (studentList.remove(std)) {
+                studentMap.remove(std);
+            } else {
+                throw new NoSuchElementException("Студент с именем %s не найден".formatted(student));
+            }
+        }, () -> {
+            throw new NoSuchElementException("Студент не может быть %s".formatted(student));
         });
     }
 
