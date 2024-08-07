@@ -5,9 +5,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,12 +19,8 @@ public class User {
     private String placeOfWork;
     private String address;
 
-    private final Set<String> VALID_JOBS = new HashSet<>(
-            Arrays.asList("Google", "Uber", "Amazon")
-    );
-    private final HashSet<String> VALID_ADDRESSES = new HashSet<>(
-            Arrays.asList("London", "New York", "Amsterdam")
-    );
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
         if (name.isEmpty()) {
