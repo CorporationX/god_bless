@@ -1,8 +1,5 @@
 package faang.school.godbless.Heroes.UI;
 
-import lombok.Getter;
-import lombok.experimental.SuperBuilder;
-
 
 public class Griffin extends Creature {
     private static final int ATTACK_CONST = 8;

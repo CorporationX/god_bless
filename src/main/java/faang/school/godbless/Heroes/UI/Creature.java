@@ -5,7 +5,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
-import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode
 public abstract class Creature {
@@ -23,7 +22,7 @@ public abstract class Creature {
     @Setter
     protected int count = 0;
 
-    public Creature(int level, int damage, int protection, int speed, int count) {
+    Creature(int level, int damage, int protection, int speed, int count) {
         this.level = level;
         this.damage = damage*(level);
         this.protection = protection*(level);
