@@ -2,6 +2,16 @@ package faang.school.godbless;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("God Bless!");
+        Character warrior = new Warrior("Gimly");
+        Character archer = new Archer("Legolas");
+
+        System.out.println(warrior + "\n" + archer);
+
+        warrior.attack(archer);
+        archer.attack(warrior);
+
+        System.out.println(warrior + "\n" + archer);
+
+
     }
 }
