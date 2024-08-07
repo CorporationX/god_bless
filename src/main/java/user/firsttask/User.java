@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package user.firsttask;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
