@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Main {
     private static Map<Integer, StreamEvent> eventMap = new HashMap<>();
-    private static Map<String, List<StreamEvent>> eventList = new HashMap<>();
+    private static Map<String, List<StreamEvent>> eventsByType = new HashMap<>();
 
     public static void main(String[] args) {
         var rockEvent = new StreamEvent(1, "rock", "Rock concert");
@@ -29,7 +29,7 @@ public class Main {
 
     private static void addEventToMaps(StreamEvent event) {
         eventMap.put(event.id(), event);
-        eventList.computeIfAbsent(event.eventType(), (x) -> new ArrayList<>()).add(event);
+        eventsByType.computeIfAbsent(event.eventType(), (x) -> new ArrayList<>()).add(event);
     }
 
     private static StreamEvent getStreamEventById(int id) {
@@ -37,12 +37,12 @@ public class Main {
     }
 
     private static List<StreamEvent> getEventListByEventType(String eventType) {
-        return eventList.get(eventType);
+        return eventsByType.get(eventType);
     }
 
     private static void removeStreamEvent(int id) {
         StreamEvent deletedEvent = eventMap.remove(id);
-        eventList.get(deletedEvent.eventType()).remove(deletedEvent);
+        eventsByType.get(deletedEvent.eventType()).remove(deletedEvent);
     }
 
     private static void printAllStreanEvents(){
