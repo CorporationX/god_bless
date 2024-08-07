@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import static homm.Battlefield.battle;
+
 public class Main {
     public static void main(String[] args) {
         Hero hero1 = new Hero("Garry", "Castle");
@@ -20,7 +22,7 @@ public class Main {
         initHero(hero1);
         initHero(hero2);
 
-        Battlefield.battle(hero1, hero2);
+        battle(hero1, hero2);
     }
 
     public static void initHero(@NonNull Hero hero) {
