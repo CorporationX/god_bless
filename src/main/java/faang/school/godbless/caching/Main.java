@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Main {
     private static final Map<String, WeatherData> weatherDataCache = new HashMap<>();
+    private static final Weather weather = new Weather();
 
     public static void main(String[] args) {
         WeatherData weatherData = getWeather("London");
@@ -27,7 +28,7 @@ public class Main {
                         " degrees Celcius and humidity is " + weatherData.getHumidity()
         );
 
-        updateWeather("Paris", new WeatherData("Paris", 20, 50));
+        updateWeather(new WeatherData("Paris", 20, 50));
         weatherData = getWeather("Paris");
         System.out.println(
                 "Weather in " + weatherData.getCity() + " is " + weatherData.getTemperature() +
@@ -49,14 +50,13 @@ public class Main {
         if (weatherDataCache.containsKey(city)) {
             return weatherDataCache.get(city);
         }
-        Weather weather = new Weather();
         WeatherData weatherData = weather.getWeatherData(city);
         weatherDataCache.put(city, weatherData);
         return weatherData;
     }
 
-    public static void updateWeather(String city, WeatherData weatherData) {
-        weatherDataCache.put(city, weatherData);
+    public static void updateWeather(WeatherData weatherData) {
+        weatherDataCache.put(weatherData.getCity(), weatherData);
     }
 
     public static void removeWeather(String city) {
