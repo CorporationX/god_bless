@@ -48,8 +48,8 @@ public class Hero{
 
     public int summaryPower(){//метод для подсчета силы армии
         int sum = 0;
-        for (Map.Entry pair:army.entrySet()){
-            sum+=((Creature)pair.getValue()).summaryPower()*((Creature) pair.getValue()).getCount();
+        for (Map.Entry<String, Creature> pair:army.entrySet()){
+            sum+=(pair.getValue()).summaryPower()*(pair.getValue()).getCount();
         }
         return sum;
     }

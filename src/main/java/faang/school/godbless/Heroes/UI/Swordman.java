@@ -1,6 +1,5 @@
 package faang.school.godbless.Heroes.UI;
 
-import lombok.Getter;
 
 public class Swordman extends Creature {
     private static final int ATTACK_CONST = 9;

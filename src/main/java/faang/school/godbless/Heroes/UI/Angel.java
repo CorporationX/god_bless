@@ -1,7 +1,5 @@
 package faang.school.godbless.Heroes.UI;
 
-import lombok.Getter;
-
 public class Angel extends Creature {
     private static final int  ATTACK_CONST = 4;
     private static final int  PROTECTION_CONST = 6;
