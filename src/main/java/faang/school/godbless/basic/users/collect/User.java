@@ -6,6 +6,7 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Data
@@ -27,19 +28,13 @@ public class User {
         return map;
     }
 
-    public static HashMap<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
-        HashMap<Integer, ArrayList<User>> map = new HashMap<>();
+    public static Map<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
+        Map<Integer, ArrayList<User>> userMap = new HashMap<>();
 
         for (User user: users) {
-            if (map.containsKey(user.age)) {
-                ArrayList<User> userEntity = map.get(user.age);
-                userEntity.add(user);
-                map.put(user.age, userEntity);
-            } else {
-                map.put(user.age, new ArrayList<>(List.of(user)));
-            }
+            userMap.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
         }
-        return map;
+        return userMap;
     }
 
     @Override

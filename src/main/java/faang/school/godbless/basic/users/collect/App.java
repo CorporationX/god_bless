@@ -3,6 +3,8 @@ package faang.school.godbless.basic.users.collect;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class App {
@@ -43,7 +45,7 @@ public class App {
         users.add(user3);
         users.add(user4);
 
-        // Result Collect users
+        // Result
         HashMap<Integer, String> result = new HashMap<>();
         for (User user: users) {
             HashMap<Integer, String> userHobbyLovers = user.findHobbyLovers(user, hobbies);
@@ -53,8 +55,9 @@ public class App {
         System.out.println("Result: " + result);
 
 
-        // Resul Group users by age
-        HashMap<Integer, ArrayList<User>> groupUsersByAge = User.groupUsers(users);
+        // Result
+        Map<Integer, ArrayList<User>> groupUsersByAge = User.groupUsers(users);
         System.out.println("Grouped users by age: " + groupUsersByAge);
+
     }
 }
