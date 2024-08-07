@@ -41,32 +41,38 @@ public class Battlefield {
         }
     }
 
-    /*Выглядит очень грязно, но очень хотелось сделать что-нибудь в таком духе.
     /* Этот метод описывает "обмен ударами" между двумя существами: сначала удар делает существо1, затем, если сущ-во 2 выживает, отвечает ему
      * в задании попросили добавить поле брони, решил его тут применить, броня просто показывает сопротивление урону в процентах
      */
     private void damageExchange(Creature creature1, Creature creature2, Hero hero1, Hero hero2) {
-        int damageTo = creature1.getDamage() * (1 - creature2.getArmor() / 100);
-        creature2.setHealth(creature2.getHealth() - damageTo);
-
-        System.out.printf("%s нанес %s %d урона%n",
-                creature1.getName(), creature2.getName(), damageTo);
-
-        if (creature2.getHealth() <= 0) {
-            hero2.removeCreature(creature2, 1);
-            System.out.printf("Существо %s погибло. У героя %s осталось %d существ%n",
-                    creature2.getName(), hero2.getName(), hero2.getArmy().size());
-        } else {
-            damageTo = creature2.getDamage() * (1 - creature1.getArmor() / 100);
-            creature1.setHealth(creature1.getHealth() - damageTo);
-            System.out.printf("%s нанес %s %d урона%n",
-                    creature2.getName(), creature1.getName(), damageTo);
-            if (creature1.getHealth() <= 0) {
-                hero1.removeCreature(creature1, 1);
-                System.out.printf("Существо %s погибло. У героя %s осталось %d существ%n",
-                        creature1.getName(), hero1.getName(), hero1.getArmy().size());
-            }
+        makeDamageToCreature(creature1, creature2);
+        if(!removeCreatureIfDied(creature2, hero2)) {
+            makeDamageToCreature(creature2, creature1);
+            removeCreatureIfDied(creature1, hero1);
         }
+    }
+
+    private void makeDamageToCreature(Creature creatureFrom, Creature creatureto) {
+        int damageTo = creatureFrom.getDamage() * (1 - creatureto.getArmor() / 100);
+        creatureto.setHealth(creatureto.getHealth() - damageTo);
+        System.out.printf("%s нанес %s %d урона%n",
+                creatureFrom.getName(), creatureto.getName(), damageTo);
+    }
+    /*
+    я видел, что например
+    в реализации ArrayList в методе remove возвращается сущность, которую удалили,
+    вообще норм, то что метод, который по факту void, еще и возвращает что-то?
+    не смог придумать название, которое бы говорило, что он что-то возвращает,
+    но и не смог придумать, как это все разделить получше
+    */
+    private boolean removeCreatureIfDied(Creature creature, Hero hero){
+        if(creature.getHealth() <= 0){
+            hero.removeCreature(creature, 1);
+            System.out.printf("Существо %s погибло. У героя %s осталось %d существ%n",
+                    creature.getName(), hero.getName(), hero.getArmy().size());
+            return true;
+        }
+        return false;
     }
 
 }
