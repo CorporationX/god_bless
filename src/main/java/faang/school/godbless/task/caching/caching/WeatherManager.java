@@ -1,27 +1,26 @@
 package faang.school.godbless.task.caching.caching;
 
-import java.util.ArrayList;
+import lombok.RequiredArgsConstructor;
+
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 public class WeatherManager {
-    private Map<String, WeatherData> cityWeatherDataCache;
-
-    public WeatherManager(Map<String, WeatherData> cityWeatherDataCache) {
-        this.cityWeatherDataCache = cityWeatherDataCache;
-    }
+    private final Map<String, WeatherData> cityWeatherDataCache;
+    private final MockWeatherDataCenterForTest mockWeatherDataCenterForTest;
 
     public WeatherData findWeatherDataByCity(String city) {
         var weatherData = cityWeatherDataCache.get(city);
         if (weatherData == null) {
-            weatherData = new MockWeatherDataCenterForTest().getRandomWeatherDataByCityMock(city);
+            weatherData = mockWeatherDataCenterForTest.getRandomWeatherDataByCityMock(city);
             cityWeatherDataCache.put(city, weatherData);
         }
         return weatherData;
     }
 
     public WeatherData updateWeatherDataByCityInCache(String city) {
-        var weatherData = new MockWeatherDataCenterForTest().getRandomWeatherDataByCityMock(city);
+        var weatherData = mockWeatherDataCenterForTest.getRandomWeatherDataByCityMock(city);
         cityWeatherDataCache.put(city, weatherData);
         return weatherData;
     }
@@ -31,8 +30,6 @@ public class WeatherManager {
     }
 
     public List<String> findAllCitiesInCache() {
-        List<String> cities = new ArrayList<>();
-        cityWeatherDataCache.forEach((k, v) -> cities.add(k));
-        return cities;
+        return cityWeatherDataCache.keySet().stream().toList();
     }
 }

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -17,7 +18,8 @@ public class WeatherManagerTest {
 
     @BeforeEach
     void setUp() {
-        weatherManager = new WeatherManager(new HashMap<>());
+        weatherManager = new WeatherManager(new HashMap<>(),
+                new MockWeatherDataCenterForTest(new Random()));
         citiesInCache = new ArrayList<>(List.of(
                 "New York", "Amsterdam", "Paris"
         ));
