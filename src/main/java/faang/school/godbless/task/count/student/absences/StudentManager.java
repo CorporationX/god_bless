@@ -20,8 +20,8 @@ public class StudentManager {
 
     static int c = 0;
 
-    public void addNewStudent(Optional<Student> student) throws NoSuchElementException {
-        student.ifPresentOrElse(std -> {
+    public void addNewStudent(Student student) throws NoSuchElementException {
+        Optional.ofNullable(student).ifPresentOrElse(std -> {
             studentMap.put(std, std);
             studentList.add(std);
         }, () -> {
@@ -30,8 +30,7 @@ public class StudentManager {
     }
 
     public void deleteStudent(Student student) {
-        var studentOpt = Optional.ofNullable(student);
-        studentOpt.ifPresent(std -> {
+        Optional.ofNullable(student).ifPresent(std -> {
             studentMap.remove(std);
             studentList.remove(std);
         });

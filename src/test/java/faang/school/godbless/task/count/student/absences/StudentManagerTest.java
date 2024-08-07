@@ -46,34 +46,34 @@ public class StudentManagerTest {
                 new FacultyYear("Mathematics", 2), List.of(student4, student5, student6, student11),
                 new FacultyYear("Physics", 3), List.of(student7, student8, student9)
         ));
-        studentManager.addNewStudent(Optional.of(student1));
-        studentManager.addNewStudent(Optional.of(student2));
-        studentManager.addNewStudent(Optional.of(student3));
-        studentManager.addNewStudent(Optional.of(student4));
-        studentManager.addNewStudent(Optional.of(student5));
-        studentManager.addNewStudent(Optional.of(student6));
-        studentManager.addNewStudent(Optional.of(student7));
-        studentManager.addNewStudent(Optional.of(student8));
-        studentManager.addNewStudent(Optional.of(student9));
-        studentManager.addNewStudent(Optional.of(student10));
-        studentManager.addNewStudent(Optional.of(student11));
+        studentManager.addNewStudent(student1);
+        studentManager.addNewStudent(student2);
+        studentManager.addNewStudent(student3);
+        studentManager.addNewStudent(student4);
+        studentManager.addNewStudent(student5);
+        studentManager.addNewStudent(student6);
+        studentManager.addNewStudent(student7);
+        studentManager.addNewStudent(student8);
+        studentManager.addNewStudent(student9);
+        studentManager.addNewStudent(student10);
+        studentManager.addNewStudent(student11);
     }
 
     @Test
     void testAddNewStudentAndFindStudent() {
-        studentManager.addNewStudent(Optional.of(student));
+        studentManager.addNewStudent(student);
         assertEquals(student, studentManager.findStudent(student));
     }
 
     @Test
     void testAddNewStudentNullValue() {
         Student stdNull = null;
-        assertThrows(NoSuchElementException.class, () -> studentManager.addNewStudent(Optional.ofNullable(stdNull)));
+        assertThrows(NoSuchElementException.class, () -> studentManager.addNewStudent(stdNull));
     }
 
     @Test
     void testDeleteStudent() {
-        studentManager.addNewStudent(Optional.of(student));
+        studentManager.addNewStudent(student);
         studentManager.deleteStudent(student);
         assertNull(studentManager.findStudent(student));
     }
