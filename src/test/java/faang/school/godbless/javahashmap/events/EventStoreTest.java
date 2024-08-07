@@ -34,19 +34,19 @@ class EventStoreTest {
     void testAddOrUpdateEvent_OnlyAdd() {
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
 
-        Map<Integer, StreamEvent> eventsGroupById = eventStore.getAllEventsGroupById();
+        Map<Integer, StreamEvent> eventsGroupById = eventStore.getDeepCopyOfAllEventsGroupById();
         assertEquals(4, eventsGroupById.size());
         assertEquals(EVENT_1, eventsGroupById.get(1));
         assertEquals(EVENT_2, eventsGroupById.get(2));
         assertEquals(EVENT_3, eventsGroupById.get(3));
         assertEquals(EVENT_4, eventsGroupById.get(4));
 
-        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getAllEventsGroupByType();
+        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getDeepCopyOfAllEventsGroupByType();
         assertEquals(1, eventsGroupByType.size());
         List<StreamEvent> streamEvents = eventsGroupByType.get(USER_CREATED_TYPE);
         assertEquals(4, streamEvents.size());
@@ -60,20 +60,20 @@ class EventStoreTest {
     void testAddOrUpdateEvent_AddAndUpdate() {
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
-        eventStore.addOrUpdateEvent(2, EVENT_5);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_5);
 
-        Map<Integer, StreamEvent> eventsGroupById = eventStore.getAllEventsGroupById();
+        Map<Integer, StreamEvent> eventsGroupById = eventStore.getDeepCopyOfAllEventsGroupById();
         assertEquals(4, eventsGroupById.size());
         assertEquals(EVENT_1, eventsGroupById.get(1));
         assertEquals(EVENT_5, eventsGroupById.get(2));
         assertEquals(EVENT_3, eventsGroupById.get(3));
         assertEquals(EVENT_4, eventsGroupById.get(4));
 
-        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getAllEventsGroupByType();
+        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getDeepCopyOfAllEventsGroupByType();
         assertEquals(2, eventsGroupByType.size());
 
         List<StreamEvent> streamEventsCreated = eventsGroupByType.get(USER_CREATED_TYPE);
@@ -91,10 +91,10 @@ class EventStoreTest {
     void testFindEventById() {
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
 
         assertEquals(EVENT_1, eventStore.findEventById(1));
         assertEquals(EVENT_2, eventStore.findEventById(2));
@@ -107,11 +107,11 @@ class EventStoreTest {
     void testFindEventsByType() {
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
-        eventStore.addOrUpdateEvent(2, EVENT_5);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_5);
 
         List<StreamEvent> eventsCreated = eventStore.findEventsByType(USER_CREATED_TYPE);
         assertEquals(3, eventsCreated.size());
@@ -130,20 +130,20 @@ class EventStoreTest {
     void testDeleteEventById() {
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
 
         eventStore.deleteEventById(2);
 
-        Map<Integer, StreamEvent> eventsGroupById = eventStore.getAllEventsGroupById();
+        Map<Integer, StreamEvent> eventsGroupById = eventStore.getDeepCopyOfAllEventsGroupById();
         assertEquals(3, eventsGroupById.size());
         assertEquals(EVENT_1, eventsGroupById.get(1));
         assertEquals(EVENT_3, eventsGroupById.get(3));
         assertEquals(EVENT_4, eventsGroupById.get(4));
 
-        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getAllEventsGroupByType();
+        Map<String, List<StreamEvent>> eventsGroupByType = eventStore.getDeepCopyOfAllEventsGroupByType();
         assertEquals(1, eventsGroupByType.size());
         List<StreamEvent> eventsCreated = eventsGroupByType.get(USER_CREATED_TYPE);
         assertEquals(3, eventsCreated.size());
@@ -158,10 +158,10 @@ class EventStoreTest {
         outContent.reset();
         EventStore eventStore = new EventStore();
 
-        eventStore.addOrUpdateEvent(1, EVENT_1);
-        eventStore.addOrUpdateEvent(2, EVENT_2);
-        eventStore.addOrUpdateEvent(3, EVENT_3);
-        eventStore.addOrUpdateEvent(4, EVENT_4);
+        eventStore.addOrUpdateEvent(EVENT_1);
+        eventStore.addOrUpdateEvent(EVENT_2);
+        eventStore.addOrUpdateEvent(EVENT_3);
+        eventStore.addOrUpdateEvent(EVENT_4);
 
         eventStore.printAllEvents();
 
