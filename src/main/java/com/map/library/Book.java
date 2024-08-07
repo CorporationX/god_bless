@@ -17,12 +17,10 @@ public class Book {
     public Book(String title, String author, int year) {
         if (title.isEmpty() && author.isEmpty() && year < 0) {
             throw new IllegalArgumentException("Argument is not valid");
-        } else {
-            this.title = title;
-            this.author = author;
-            this.year = year;
         }
-
+        this.title = title;
+        this.author = author;
+        this.year = year;
     }
 
     @Override
