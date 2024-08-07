@@ -1,4 +1,4 @@
-package faang.school.godbless.groupUsers;
+package faang.school.godbless.groupusers;
 
 
 import org.junit.jupiter.api.DisplayName;
