@@ -30,7 +30,7 @@ public class HousesKeeper {
         }
     }
 
-    public HashMap<String, House> getHouses() {
+    public HashMap<String, House> getDeepCopyOfHouses() {
         HashMap<String, House> housesForReturn = new HashMap<>();
         houses.forEach((houseName, house) -> housesForReturn.put(houseName, new House(houseName, house.getSigil())));
         return housesForReturn;

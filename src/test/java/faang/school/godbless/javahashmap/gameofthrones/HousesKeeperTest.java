@@ -33,7 +33,7 @@ class HousesKeeperTest {
     void testAddHouse() {
         HousesKeeper housesKeeper = getFilledHousesKeeper();
 
-        HashMap<String, House> houses = housesKeeper.getHouses();
+        HashMap<String, House> houses = housesKeeper.getDeepCopyOfHouses();
         assertEquals(3, houses.size());
         assertEquals(STARK_HOUSE, houses.get(STARK_HOUSENAME));
         assertEquals(LANNISTER_HOUSE, houses.get(LANNISTER_HOUSENAME));
@@ -46,7 +46,7 @@ class HousesKeeperTest {
 
         housesKeeper.removeHouse(LANNISTER_HOUSENAME);
 
-        HashMap<String, House> houses = housesKeeper.getHouses();
+        HashMap<String, House> houses = housesKeeper.getDeepCopyOfHouses();
         assertEquals(2, houses.size());
         assertEquals(STARK_HOUSE, houses.get(STARK_HOUSENAME));
         assertNull(houses.get(LANNISTER_HOUSENAME));
@@ -61,7 +61,7 @@ class HousesKeeperTest {
 
         housesKeeper.removeHouse(LANNISTER_HOUSENAME);
 
-        HashMap<String, House> houses = housesKeeper.getHouses();
+        HashMap<String, House> houses = housesKeeper.getDeepCopyOfHouses();
         assertEquals(2, houses.size());
         assertEquals(STARK_HOUSE, houses.get(STARK_HOUSENAME));
         assertNull(houses.get(LANNISTER_HOUSENAME));
