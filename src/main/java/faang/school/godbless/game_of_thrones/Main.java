@@ -39,8 +39,6 @@ public class Main {
     }
 
     public static void printAllInfoAboutHouse(Map<String, House> houses) {
-        for (House house : houses.values()) {
-            System.out.println("House: " + house.getName() + ", Sigil: " + house.getSigil());
-        }
+        houses.forEach((name, house) -> System.out.println(name + " " + house));
     }
 }
