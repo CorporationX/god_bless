@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode
 public abstract class Creature {
@@ -30,17 +31,8 @@ public abstract class Creature {
         this.count += count;
     }
 
-    //метод атаки
-    public void attack(Creature creature) {
-        //возможность уклониться засчет ловкости и защиты:
-        //если случайно выпавшее число от 0 до 100 + дамаг
-        //меньше , чем значение скорости + треть дамага,
-        //то юнит не умирает
-        if ((int) (Math.random() * 100 + damage) < (creature.speed + creature.protection/3)) {
-            creature.count--;
-        }
-        if (creature.count<=0 || count<=0){
-            throw new IllegalArgumentException();//если несуществующие мобы бьют/защищаются
-        }
+
+    public int summaryPower(){//сила юнита
+        return speed+protection+damage+level;
     }
 }

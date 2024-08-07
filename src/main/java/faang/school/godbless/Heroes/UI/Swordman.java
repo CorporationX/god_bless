@@ -11,7 +11,13 @@ public class Swordman extends Creature {
 
     public Swordman(int level, int count) {
         super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Pikeman";
+        name = "Swordman";
+    }
+
+    public Swordman(Swordman swordman) {
+        super(swordman.level, swordman.damage, swordman.protection,
+                swordman.speed, swordman.count);
+        name = "Swordman";
     }
 
 }
