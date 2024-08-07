@@ -18,13 +18,10 @@ public class Main {
         Student student10 = new Student("Jack Thomas", "Electrical Engineering", 4);
 
         Collections.addAll(studentsList, student1, student2, student3, student4, student5, student6, student7, student8, student9, student10);
-
-        System.out.println(groupStudents(studentsList));
-
     }
 
-    public static HashMap<FacultyYearPair, List<Student>> groupStudents(List<Student> studentsList){
-        HashMap<FacultyYearPair, List<Student>> result = new HashMap<>();
+    public static Map<FacultyYearPair, List<Student>> groupStudents(List<Student> studentsList){
+        Map<FacultyYearPair, List<Student>> result = new HashMap<>();
 
         for (Student student : studentsList) {
             FacultyYearPair key = new FacultyYearPair(student.getFaculty(), student.getYear());
