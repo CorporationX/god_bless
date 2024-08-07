@@ -7,19 +7,14 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
-        Set<String> activities1 = Set.of("music", "sport");
-        Set<String> activities2 = Set.of("game", "art");
-        User user1 = new User(1, "Bob", 25, activities1);
-        User user2 = new User(2, "Diana", 29, activities2);
 
-        List<User> users = Arrays.asList(user1, user2);
+        Example example = new Example();
+        int[] nums = {1, 2, 3, 4, 5};
 
-        Set<String> activities = Set.of("music", "sport");
+        example.reverse(nums);
 
-        Map<User, String> hobby = User.findHobbyLovers(users, activities);
-
-        for (Map.Entry<User, String> entry : hobby.entrySet()) {
-            System.out.println(entry.getKey());
+        for (int num : nums) {
+            System.out.print(num + " ");
         }
     }
 }
