@@ -1,9 +1,6 @@
 package faang.school.godbless.BJS2_20311;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     private static Map<Integer, StreamEvent> eventMap = new HashMap<>();
@@ -33,11 +30,13 @@ public class Main {
     }
 
     private static StreamEvent getStreamEventById(int id) {
-        return eventMap.get(id);
+        return Optional.ofNullable(eventMap.get(id)).orElseThrow(
+                () -> new IllegalArgumentException("Event with id " + id + " was not found in events"));
     }
 
     private static List<StreamEvent> getEventListByEventType(String eventType) {
-        return eventsByType.get(eventType);
+        return Optional.ofNullable(eventsByType.get(eventType)).orElseThrow(
+                () -> new IllegalArgumentException("Events with type " + eventType + " were not found"));
     }
 
     private static void removeStreamEvent(int id) {
