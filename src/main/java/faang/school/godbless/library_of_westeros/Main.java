@@ -31,19 +31,12 @@ public class Main {
         }
 
         public static void printIfoBookHerLocation(Map<Book, String> books, Book book) {
-            System.out.println("Book: " + book.getTitle() + ", location shelf: " + books.get(book));
+            System.out.println(books.get(book));
         }
 
         public static void printInfoAllBooks(Map<Book, String> books) {
             for (Map.Entry<Book, String> entry : books.entrySet()) {
-                Book book = entry.getKey();
-                System.out.printf(
-                        "Book title: %s, author: %s, year: %s, location shelf: %s\n",
-                        book.getTitle(),
-                        book.getAuthor(),
-                        book.getYear(),
-                        entry.getValue()
-                );
+                System.out.println(entry.getKey());
             }
         }
 }
