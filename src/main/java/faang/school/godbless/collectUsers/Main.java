@@ -1,6 +1,5 @@
 package faang.school.godbless.collectUsers;
 
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
