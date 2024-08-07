@@ -1,16 +1,16 @@
 package com.map.cache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
 @Data
-@Getter
-@ToString
-@AllArgsConstructor
 public class WeatherData {
     private String city;
     private int temperature;
     private double humidity;
+
+    public WeatherData(String city, int temperature, double humidity) {
+        this.city = city;
+        this.temperature = temperature;
+        this.humidity = humidity;
+    }
 }
