@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,16 +29,14 @@ class MainTest {
     @Test
     void deleteExsistingBookTest() {
         int sizeBefore = main.getAllBooks().size();
-        boolean result = main.deleteBook("Ruslan and Liudmila", "Pushkin", 1735);
-        assertTrue(result);
+        main.deleteBook("Ruslan and Liudmila", "Pushkin", 1735);
         assertEquals(sizeBefore - 1, main.getAllBooks().size());
     }
 
     @Test
     void deleteNotExsistingBookTest() {
         int sizeBefore = main.getAllBooks().size();
-        boolean result = main.deleteBook("No such book", "author", 1000);
-        assertFalse(result);
+        assertThrows(NoSuchElementException.class, () -> main.deleteBook("No such book", "author", 1000));
         assertEquals(sizeBefore, main.getAllBooks().size());
     }
 

@@ -1,11 +1,10 @@
 package faang.school.godbless.BJS2_19243;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Main {
+
+    private final String NO_SUCH_BOOK_MESSAGE = "There is no such book in library";
 
     private final Map<Book, String> library = new HashMap<>();
 
@@ -34,20 +33,23 @@ public class Main {
         library.put(book, shelf);
     }
 
-    public boolean deleteBook(String title, String author, Integer year) {
-        return library.keySet().removeIf(book -> Objects.equals(book.getTitle(), title)
-                && Objects.equals(book.getAuthor(), author)
-                && Objects.equals(book.getYear(), year));
+    public void deleteBook(String title, String author, Integer year) {
+        Book book = library.keySet().stream()
+                .filter(b -> b.getTitle().equals(title) && b.getAuthor().equals(author) && b.getYear().equals(year))
+                .findFirst()
+                .orElseThrow(() -> new NoSuchElementException(NO_SUCH_BOOK_MESSAGE));
+        library.remove(book);
     }
 
     public String findBookShelf(String title, String author, Integer year) {
-        Book book = new Book(title, author, year);
-        String shelf = library.get(book);
-        if (shelf != null) {
-            return String.format("Your book is on %s shelf", shelf);
-        } else {
-            return "There is no such book in library";
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            if (entry.getKey().getTitle().equals(title)
+                    && entry.getKey().getAuthor().equals(author)
+                    && entry.getKey().getYear().equals(year)) {
+                return String.format("Your book is on %s shelf", entry.getValue());
+            }
         }
+        return NO_SUCH_BOOK_MESSAGE;
     }
 
     public List<String> getAllBooks() {
