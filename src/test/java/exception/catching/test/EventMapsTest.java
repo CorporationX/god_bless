@@ -1,3 +1,5 @@
+package exception.catching.test;
+
 import exceptions.catching.Main;
 import exceptions.catching.StreamEvent;
 import org.junit.jupiter.api.BeforeEach;

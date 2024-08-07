@@ -1,3 +1,5 @@
+package exception.catching.test;
+
 import exceptions.catching.StreamEvent;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
