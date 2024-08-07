@@ -1,3 +1,5 @@
+package hashmap.group.test;
+
 import hashmap.group.Student;
 
 import org.junit.jupiter.api.DisplayName;

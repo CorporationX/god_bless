@@ -1,3 +1,5 @@
+package hashmap.group.test;
+
 import hashmap.group.Id;
 import hashmap.group.Main;
 import hashmap.group.Student;
