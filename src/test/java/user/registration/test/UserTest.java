@@ -1,3 +1,5 @@
+package user.registration.test;
+
 import user.registration.User;
 
 import org.junit.jupiter.api.DisplayName;
