@@ -40,7 +40,7 @@ public class Hero {
         }
 
         this.army.stream().filter(addedCreature -> addedCreature.equals(creature)).forEach(cr -> {
-            if (cr.getQuantity() - quantity < 0){
+            if (cr.getQuantity() < quantity){
                 this.army.remove(creature);
             } else {
                 cr.setQuantity(cr.getQuantity() - quantity);
@@ -48,7 +48,11 @@ public class Hero {
         });
     }
 
-//    public void getArmy(){
-//        this.army.forEach(System.out::println);
-//    }
+    public boolean hasArmy(){
+        return !this.getArmy().isEmpty();
+    }
+
+    public int getArmyPower(){
+        return this.getArmy().stream().mapToInt(Creature::getDamage).sum();
+    }
 }

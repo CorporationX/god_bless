@@ -2,24 +2,36 @@ package faang.school.godbless.BJS2_18922;
 
 public class Battlefield {
 
-    public static void battle(Hero attacker, Hero defender){
-        //надеюсь тут не надо было просчитывать каж
-        if(attacker.getArmy().isEmpty() && defender.getArmy().isEmpty()) {
-            System.out.println("Ничья");
-        } else if(attacker.getArmy().isEmpty()){
-            System.out.println("Победил " + defender.getName());
-        } else if(defender.getArmy().isEmpty()){
-            System.out.println("Победил " + attacker.getName());
+    public static String battle(Hero attacker, Hero defender) {
+        String result = checkStartArmy(attacker, defender);
+
+        if(result.isEmpty())
+            return startFight(attacker, defender);
+        else
+            return result;
+    }
+
+    private static String checkStartArmy(Hero attacker, Hero defender){
+        if (!attacker.hasArmy() && !defender.hasArmy()) {
+            return "Ничья";
+        } else if (!attacker.hasArmy()) {
+            return "Победил " + defender.getName();
+        } else if (!defender.hasArmy()) {
+            return "Победил " + attacker.getName();
         }
 
-        int attackerDamage = attacker.getArmy().stream().mapToInt(creature -> creature.getDamage()).sum();
-        int defenderDamage = defender.getArmy().stream().mapToInt(creature -> creature.getDamage()).sum();
+        return "";
+    }
 
-        if(attackerDamage == defenderDamage)
-            System.out.println("Ничья");
-        else if(attackerDamage > defenderDamage)
-            System.out.println("Победил " + attacker.getName());
-        else if(defenderDamage > attackerDamage)
-            System.out.println("Победил " + defender.getName());
+    private static String startFight(Hero attacker, Hero defender){
+        int attackerDamage = attacker.getArmyPower();
+        int defenderDamage = defender.getArmyPower();
+
+        if (attackerDamage == defenderDamage)
+           return "Ничья";
+        else if (attackerDamage > defenderDamage)
+            return "Победил " + attacker.getName();
+        else
+            return "Победил " + defender.getName();
     }
 }

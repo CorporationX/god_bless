@@ -7,8 +7,9 @@ public class Main {
         Hero shakti = new Hero("Shakri", "Dungeon", 15, 15422);
 
         ciel.addCreature(new Griffin(), 10);
+        ciel.addCreature(new Griffin(), 13);
         shakti.addCreature(new Angel(), 2);
-
-        Battlefield.battle(ciel, shakti);
+        System.out.println(ciel.getArmy());
+        System.out.println(Battlefield.battle(ciel, shakti));
     }
 }
