@@ -1,11 +1,17 @@
 package faang.school.godbless.beksultan2005;
 
+import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.List;
+
+@Getter
 public class Server {
     private double load;
     private double maxLoad;
     private double energyConsumption;
 
-    public Server(double load, double maxLoad, double energyConsumption) {
+    public Server(double maxLoad) {
         this.load = 0.00;
         this.maxLoad = maxLoad;
         this.energyConsumption = 0.00;
@@ -16,7 +22,7 @@ public class Server {
     }
 
     public boolean canReleaseLoad(double requestedLoad) {
-        return load > requestedLoad;
+        return load >= requestedLoad;
     }
 
     public void allocateLoad(double requestedLoad) {
@@ -26,15 +32,10 @@ public class Server {
         }
     }
 
-    public double releaseLoad(double releasedLoad) {
+    public void releaseLoad(double releasedLoad) {
         if (canReleaseLoad(releasedLoad)){
             load -= releasedLoad;
             updateEnergyConsumption();
-            return 0;
-        }else {
-            load = 0;
-            updateEnergyConsumption();
-            return (releasedLoad - load);
         }
     }
 

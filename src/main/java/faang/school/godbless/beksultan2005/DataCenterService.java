@@ -15,13 +15,18 @@ public class DataCenterService {
         dataCenterService.removeServer(server);
     }
 
-    private void getTotalEnergyConsumption(){
-
+    private double getTotalEnergyConsumption(){
+        double totalEnergyConsumption = 0.00;
+        for (Server server : dataCenter.getServers()) {
+            totalEnergyConsumption += server.getEnergyConsumption();
+        }
+        return totalEnergyConsumption;
     }
 
     private boolean allocateResources(ResourceRequest request){
         for (Server server : dataCenter.getServers()) {
             if (server.canAllocate(request.getLoad())) {
+                dataCenter.getResourceRequests().put(request, server);
                 server.allocateLoad(request.getLoad());
                 return true;
             }
@@ -30,13 +35,8 @@ public class DataCenterService {
     }
 
     public void releaseResources(ResourceRequest request) {
-        double load;
-        for (Server server : dataCenter.getServers()) {
-            load = server.releaseLoad(request.getLoad());
-            if (load == 0){
-                break;
-            }
-        }
+        Server server = dataCenter.getResourceRequests().get(request);
+        server.releaseLoad(request.getLoad());
+        dataCenter.getResourceRequests().remove(request);
     }
-
 }
