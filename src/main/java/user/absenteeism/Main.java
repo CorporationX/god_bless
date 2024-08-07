@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package user.absenteeism;
 
 import java.util.ArrayList;
 import java.util.HashMap;

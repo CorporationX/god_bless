@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package user.absenteeism;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
