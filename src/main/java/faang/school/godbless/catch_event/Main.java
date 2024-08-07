@@ -31,26 +31,18 @@ public class Main {
     public static void addNewEvent(int id, String eventType, String data) {
         StreamEvent event = new StreamEvent(id, eventType, data);
         dataOfEvents.put(event.getId(), event);
-        if (listEvents.containsKey(eventType)) {
-            listEvents.get(eventType).add(event);
-        } else {
-            List<StreamEvent> eventList = new ArrayList<>();
-            eventList.add(event);
-            listEvents.put(eventType, eventList);
-        }
+        listEvents.computeIfAbsent(eventType, k -> new ArrayList<>()).add(event);
     }
 
     public static void searchEvents(int id) {
         if (dataOfEvents.containsKey(id)) {
-            System.out.println("id = " + dataOfEvents.get(id).getId() + ", eventType = " + dataOfEvents.get(id).getEventType() + ", data = " + dataOfEvents.get(id).getData());
+            System.out.println(dataOfEvents.get(id));
         }
     }
 
     public static void searchEvents(String eventType) {
         if (listEvents.containsKey(eventType)) {
-            for (StreamEvent event : listEvents.get(eventType)) {
-                System.out.println("id = " + event.getId() + ", eventType = " + event.getEventType() + ", data = " + event.getData());
-            }
+            listEvents.get(eventType).forEach(System.out::println);
         }
     }
 
@@ -63,9 +55,9 @@ public class Main {
 
     public static void printAllInfo() {
         for (Map.Entry<String, List<StreamEvent>> entry : listEvents.entrySet()) {
-            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+            System.out.println(entry);
             for (StreamEvent event : entry.getValue()) {
-                System.out.println("\tid = " + event.getId() + ", eventType = " + event.getEventType() + ", data = " + event.getData());
+                System.out.println("\t" + event);
             }
         }
     }
