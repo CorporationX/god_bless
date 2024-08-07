@@ -25,7 +25,6 @@ public class Main {
         for (Map.Entry<String, List<StreamEvent>> entry : mapListEvent.entrySet()) {
             System.out.println(entry.getKey() + "=" + entry.getValue());
         }
-
     }
 
 }
