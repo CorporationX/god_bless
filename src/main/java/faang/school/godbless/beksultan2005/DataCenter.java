@@ -2,9 +2,7 @@ package faang.school.godbless.beksultan2005;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 @Getter
 public class DataCenter {
