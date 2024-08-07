@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_19328;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.*;
@@ -10,16 +8,6 @@ import java.util.*;
 public class Main {
 
     private final List<Student> students = new ArrayList<>();
-
-    {
-        students.add(new Student("Ivan", "Math", 1));
-        students.add(new Student("Stepan", "Rus", 1));
-        students.add(new Student("Nikolay", "Math", 2));
-        students.add(new Student("Irina", "Biology", 3));
-        students.add(new Student("Olga", "Chemistry", 2));
-        students.add(new Student("Aleksandr", "Rus", 1));
-        students.add(new Student("Igor", "Chemistry", 3));
-    }
 
     public void addStudent(Student student) {
         students.add(student);
@@ -45,17 +33,11 @@ public class Main {
             if (result.containsKey(group)) {
                 result.get(group).add(student);
             } else {
-                result.put(group, new ArrayList<>(List.of(student)));
+                List<Student> list = new ArrayList<>();
+                list.add(student);
+                result.put(group, list);
             }
         }
         return result;
-    }
-
-
-    @AllArgsConstructor
-    @Data
-    static class Group {
-        private String faculty;
-        private Integer year;
     }
 }

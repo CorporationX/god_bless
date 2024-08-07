@@ -15,6 +15,14 @@ class MainTest {
     @BeforeEach
     void init() {
         main = new Main();
+
+        main.getStudents().add(new Student("Ivan", "Math", 1));
+        main.getStudents().add(new Student("Stepan", "Rus", 1));
+        main.getStudents().add(new Student("Nikolay", "Math", 2));
+        main.getStudents().add(new Student("Irina", "Biology", 3));
+        main.getStudents().add(new Student("Olga", "Chemistry", 2));
+        main.getStudents().add(new Student("Aleksandr", "Rus", 1));
+        main.getStudents().add(new Student("Igor", "Chemistry", 3));
     }
 
     @Test
@@ -39,7 +47,7 @@ class MainTest {
 
     @Test
     void getStudentsGroupingByFacultyAndYear() {
-        Map<Main.Group, List<Student>> result = main.getStudentsGroupedByFacultyAndYear(main.getStudents());
-        assertEquals(2, result.get(new Main.Group("Rus", 1)).size());
+        Map<Group, List<Student>> result = main.getStudentsGroupedByFacultyAndYear(main.getStudents());
+        assertEquals(2, result.get(new Group("Rus", 1)).size());
     }
 }
