@@ -8,6 +8,7 @@ public class Battlefield {
     public static int MAX_CREATURES = 20;
     public static int MAX_EXPERIENCE = 700;
     public static String[] FRACTIONS = new String[]{"Warrior", "Healer"};
+    public static int ROUNDS_TO_WIN = 3;
 
     public static Pikeman PIKEMAN = new Pikeman();
     public static Griffin GRIFFIN = new Griffin();
@@ -32,7 +33,7 @@ public class Battlefield {
         int countDraw = 0;
         int round = 1;
 
-        while (countWinHero1 < 1 && countWinHero2 < 1) {
+        while (countWinHero1 < ROUNDS_TO_WIN && countWinHero2 < ROUNDS_TO_WIN) {
             System.out.println("\n< Битва: " + round + " >");
             round++;
 
@@ -91,7 +92,7 @@ public class Battlefield {
         int level = experience / 100;
         String fraction = FRACTIONS[RANDOM.nextInt(FRACTIONS.length)];
         Hero newHero = new Hero(name, fraction, experience, level);
-        System.out.println("Герой " + newHero.getName() + " создан: " + newHero.toString());
+        System.out.println("Герой " + newHero.getName() + " создан: " + newHero);
         return newHero;
     }
 }

@@ -74,7 +74,7 @@ public class Hero {
             armour += entry.getKey().getArmour();
         }
         if (fraction.equals("Healer")) {
-            System.out.println(">>>Опыт " + name + " усиляет защиту армию на " + buffArmy() + " очков!<<<");
+            System.out.println(">>>Опыт " + name + " усиляет защиту армии на " + buffArmy() + " очков!<<<");
             return armour + buffArmy();
         }
         return armour;
