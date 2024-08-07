@@ -71,9 +71,8 @@ class MainTest {
         int postEventsSize = main.getStreamEventsByType("SMS").size();
         Integer id = 1;
 
-        boolean result = main.deleteStreamEvent(id);
+        main.deleteStreamEvent(id);
 
-        assertTrue(result);
         assertEquals(eventsByIdSizeBefore - 1, main.getEventsById().size());
         assertEquals(postEventsSize - 1, main.getStreamEventsByType("SMS").size());
     }

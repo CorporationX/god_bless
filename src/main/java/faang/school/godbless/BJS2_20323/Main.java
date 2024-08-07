@@ -36,24 +36,31 @@ public class Main {
         return eventsByTypes.get(type);
     }
 
-    public boolean deleteStreamEvent(Integer id) {
-        StreamEvent event = deleteStreamEventById(id);
+    public void deleteStreamEvent(Integer id) {
+        StreamEvent event = eventsById.get(id);
         if (event != null) {
-            return deleteStreamEventFromEventsByType(event);
+            deleteStreamEventById(id);
+            deleteStreamEventFromEventsByType(event);
         }
-        return false;
     }
 
-    private StreamEvent deleteStreamEventById(Integer id) {
-        return eventsById.remove(id);
+    private void deleteStreamEventById(Integer id) {
+        if (eventsById.containsKey(id)) {
+            eventsById.remove(id);
+        } else {
+            throw new NoSuchElementException("There is no Event in event_by_id storage with id = " + id);
+        }
     }
 
-    private boolean deleteStreamEventFromEventsByType(StreamEvent streamEvent) {
+    private void deleteStreamEventFromEventsByType(StreamEvent streamEvent) {
         List<StreamEvent> events = eventsByTypes.get(streamEvent.getEventType());
-        if (events != null) {
-            return events.remove(streamEvent);
+        if (events != null && !events.isEmpty()) {
+            if (!events.remove(streamEvent)) {
+                throw new NoSuchElementException("There is no Event in events_by_type storage with id = " + streamEvent.getId());
+            }
+        } else {
+            throw new RuntimeException("List of type = " + streamEvent.getEventType() + "is empty or null");
         }
-        return false;
     }
 
     public void printEvents() {
