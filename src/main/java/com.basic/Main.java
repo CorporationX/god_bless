@@ -13,7 +13,6 @@ public class Main {
         User vlad= new User(2, "Vlad", 22, List.of("football", "running"));
         User denis = new User(3, "Denis", 31, List.of("snowboarding"));
 
-
         List<User> userList = List.of(david, vlad, denis);
 
         if(user.findHobbyLovers(userList, allActivities).isEmpty()){
