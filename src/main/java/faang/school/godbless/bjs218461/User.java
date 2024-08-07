@@ -22,21 +22,12 @@ public class User {
     String address;
 
     public User(String name, int age, String workPlace, String address) {
-        if (name.isEmpty() || name.isBlank()) {
-            throw new IllegalArgumentException("Name cannot be empty");
+        if (name.isEmpty() || name.isBlank() || age < 18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Bad parameters");
         }
         this.name = name;
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18");
-        }
         this.age = age;
-        if (!VALID_JOBS.contains(workPlace) || workPlace == null) {
-            throw new IllegalArgumentException("Bad work place");
-        }
         this.workPlace = workPlace;
-        if (!VALID_ADDRESSES.contains(address) || address == null) {
-            throw new IllegalArgumentException("Bad address");
-        }
         this.address = address;
     }
 
