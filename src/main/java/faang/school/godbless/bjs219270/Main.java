@@ -22,7 +22,12 @@ public class Main {
     }
 
     public static void addBook(Book book, String place) {
-        books.put(book, place);
+
+        if (!books.containsKey(book)) {
+            books.put(book, place);
+        } else {
+            System.out.println("This book is already added");
+        }
     }
 
     public static void removeBook(Book book) {
