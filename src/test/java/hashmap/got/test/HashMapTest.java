@@ -1,3 +1,5 @@
+package hashmap.got.test;
+
 import hashmap.got.House;
 import hashmap.got.Main;
 
