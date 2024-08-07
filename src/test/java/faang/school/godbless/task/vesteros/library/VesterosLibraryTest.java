@@ -48,9 +48,9 @@ public class VesterosLibraryTest {
     @Test
     void testFindAllBooks() {
         List<String> expectedList = new ArrayList<>(List.of(
-                book1 + " " + "1",
-                book2 + " " + "2",
-                book3 + " " + "3"
+                book1 + " Location: " + "1",
+                book2 + " Location: " + "2",
+                book3 + " Location: " + "3"
         ));
         Collections.sort(expectedList);
         List<String> actualList = vesterosLibrary.findAllBooks();

@@ -1,8 +1,8 @@
 package faang.school.godbless.task.vesteros.library;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class VesterosLibrary {
     private Map<Book, String> bookStringMap;
@@ -25,10 +25,8 @@ public class VesterosLibrary {
     }
 
     public List<String> findAllBooks() {
-        List<String> listOfBooks = new ArrayList<>();
-        bookStringMap.forEach((book, location) -> {
-            listOfBooks.add(book + " " + location);
-        });
-        return listOfBooks;
+        return bookStringMap.entrySet().stream()
+                .map(entry -> entry.getKey() + " Location: " + entry.getValue())
+                .collect(Collectors.toList());
     }
 }
