@@ -1,4 +1,4 @@
-../../../../../.gradle
+.gradle
 **/build/
 !src/**/build/
 
@@ -54,5 +54,5 @@ out/
 
 ### VS Code ###
 .vscode/
-README.md
 README
+README.md
