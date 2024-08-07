@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.abstraction;
 
 import org.junit.jupiter.api.Test;
 
