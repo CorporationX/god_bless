@@ -7,13 +7,12 @@ import lombok.ToString;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @ToString(onlyExplicitlyIncluded = true)
 public class Server {
+    private static final double MAX_POSSIBLE_LOAD = 100.0;
     private static final double MIN_POSSIBLE_LOAD = 0.0;
-    private static final double LOAD_TO_ENERGY_FACTOR = 10.0;
     private static int serverIndex = 0;
     @ToString.Include
     @EqualsAndHashCode.Include
     private int id; //для генерации уникального hash
-    @ToString.Include
     @EqualsAndHashCode.Include
     @Getter
     private final double maxLoad;
@@ -23,22 +22,22 @@ public class Server {
     @Getter
     @ToString.Include
     private double energyConsumption;
+    private double maxEnergyConsumption;
 
-    public Server(double maxLoad) {
+    public Server(double maxEnergyConsumption) {
         this.id = ++serverIndex;
-        this.maxLoad = maxLoad;
-        //при создании сервера нагрузка на сервер равна 0
-        setLoadToMinValue();
+        this.maxLoad = MAX_POSSIBLE_LOAD;
+        this.maxEnergyConsumption = maxEnergyConsumption;
+        this.energyConsumption = load * maxEnergyConsumption / MAX_POSSIBLE_LOAD;
     }
 
     public void setLoad(double load) {
         this.load = load;
-        //потребление энергии зависит от нагрузки;
-        this.energyConsumption = load * LOAD_TO_ENERGY_FACTOR;
+        this.energyConsumption = load * maxEnergyConsumption / MAX_POSSIBLE_LOAD;
     }
 
     public void setLoadToMaxValue() {
-        setLoad(maxLoad);
+        setLoad(MAX_POSSIBLE_LOAD);
     }
 
     public void setLoadToMinValue() {

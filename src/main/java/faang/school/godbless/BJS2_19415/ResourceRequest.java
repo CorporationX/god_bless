@@ -1,8 +1,6 @@
 package faang.school.godbless.BJS2_19415;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 
 
 public class ResourceRequest {
@@ -16,7 +14,7 @@ public class ResourceRequest {
 
     private void checkLoad(double load) {
         if (load < 0.0) {
-            throw new IllegalArgumentException("Значение запрашиваемой нагрузки не может быть отрицательным");
+            throw new IllegalArgumentException("The value of the requested load cannot be negative");
         }
     }
 }

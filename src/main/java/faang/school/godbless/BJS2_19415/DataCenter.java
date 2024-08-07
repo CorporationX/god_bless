@@ -8,4 +8,8 @@ import java.util.Set;
 public class DataCenter {
     @Getter
     private Set<Server> cluster = new HashSet<>();
+
+    public int getServersQuantity() {
+        return cluster.size();
+    }
 }

@@ -1,9 +1,12 @@
 package faang.school.godbless.BJS2_19415;
 
+import faang.school.godbless.BJS2_19415.OptimizationStrategy.OptimizationStrategy;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 @AllArgsConstructor
 public class DataCenterService {
+    @Getter
     private DataCenter dataCenter;
 
     public void addServer(Server server) {
@@ -22,6 +25,14 @@ public class DataCenterService {
         return totalEnergyConsumption;
     }
 
+    public double getTotalLoad() {
+        double totalLoad = 0.0;
+        for (Server server : dataCenter.getCluster()) {
+            totalLoad += server.getLoad();
+        }
+        return totalLoad;
+    }
+
     public double getTotalFreeLoad() {
         double totalFreeLoad = 0.0;
         for (Server server : dataCenter.getCluster()) {
@@ -32,35 +43,27 @@ public class DataCenterService {
 
     private void checkAllocateResourcesLoad(double load) {
         if (load > getTotalFreeLoad()) {
-            throw new IllegalArgumentException("Количество выделяемых ресурсов превышает количество неиспользуемой нагрузки кластера");
+            throw new IllegalArgumentException("The amount of resources allocated exceeds the amount of unused cluster load");
         }
-    }
-
-    private double getTotalLoad() {
-        double totalLoad = 0.0;
-        for (Server server : dataCenter.getCluster()) {
-            totalLoad += server.getLoad();
-        }
-        return totalLoad;
     }
 
     private void checkReleaseResourcesLoad(double load) {
         if (load > getTotalLoad()) {
-            throw new IllegalArgumentException("Количество освобождаемых ресурсов превышает количество текущей нагрузки кластера");
+            throw new IllegalArgumentException("The number of resources being released exceeds the amount of current cluster load");
         }
     }
 
-    //добавляем значение нагрузки на серверах
+    //добавляет значение нагрузки на серверах
     public void allocateResources(ResourceRequest request) {
         double requestLoadValue = request.getLoad();
         checkAllocateResourcesLoad(requestLoadValue);
         for (Server server : dataCenter.getCluster()) {
-            requestLoadValue -= server.getMaxLoad() - server.getLoad();;
-            if (requestLoadValue <= 0.0) {
+            if (requestLoadValue - (server.getMaxLoad() - server.getLoad()) <= 0.0) {
                 server.setLoad(server.getLoad() + requestLoadValue);
                 break;
             } else {
                 server.setLoadToMaxValue();
+                requestLoadValue -= server.getLoad();
             }
         }
     }
@@ -70,13 +73,22 @@ public class DataCenterService {
         double requestsLoadValue = request.getLoad();
         checkReleaseResourcesLoad(requestsLoadValue);
         for (Server server : dataCenter.getCluster()) {
-            requestsLoadValue -= server.getLoad();
-            if (requestsLoadValue <= 0.0) {
+            if (requestsLoadValue - server.getLoad() <= 0.0) {
                 server.setLoad(server.getLoad() - requestsLoadValue);
                 break;
             } else {
                 server.setLoadToMinValue();
+                requestsLoadValue -= server.getMaxLoad();
             }
         }
+    }
+
+    public void optimizeCluster(OptimizationStrategy strategy) {
+        strategy.optimize(dataCenter);
+    }
+
+    public void viewCluster() {
+        dataCenter.getCluster().forEach(System.out::println);
+        System.out.println();
     }
 }
