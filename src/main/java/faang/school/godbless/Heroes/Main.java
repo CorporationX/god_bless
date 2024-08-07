@@ -8,6 +8,7 @@ import faang.school.godbless.Heroes.UI.Hero;
 import faang.school.godbless.Heroes.UI.Pikeman;
 import faang.school.godbless.Heroes.UI.Swordman;
 
+
 public class Main {
     public static void main(String[] args) {
         Creature griffin = new Griffin(1, 1);
