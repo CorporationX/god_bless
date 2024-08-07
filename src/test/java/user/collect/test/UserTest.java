@@ -1,3 +1,5 @@
+package user.collect.test;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import user.collect.User;
