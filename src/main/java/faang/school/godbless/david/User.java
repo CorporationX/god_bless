@@ -10,7 +10,23 @@ public class User {
     private String workplace;
     private String address;
 
+    public static Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon");
+    public static Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
+
     public User(String name, int age, String workplace, String address) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(workplace)) {
+            throw new IllegalArgumentException("Место работы должно быть одним из допустимых:" + VALID_JOBS);
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес должен быть одним из допустимых:" + VALID_ADDRESSES);
+        }
+
         this.name = name;
         this.age = age;
         this.workplace = workplace;
