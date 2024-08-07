@@ -1,3 +1,5 @@
+package hashmap.amazon.test;
+
 import hashmap.amazon.Product;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

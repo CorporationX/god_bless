@@ -1,3 +1,5 @@
+package hashmap.amazon.test;
+
 import hashmap.amazon.Main;
 import hashmap.amazon.Product;
 import org.junit.jupiter.api.BeforeEach;
