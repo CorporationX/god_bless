@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.groupusers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,12 +25,16 @@ public class User {
         return age;
     }
 
-    public static HashMap<Integer, List<User>> groupUsers(ArrayList<User> usersList) {
-        HashMap<Integer, List<User>> usersGroupedByAge = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
+        if (usersList == null) {
+            throw new IllegalArgumentException("usersList cannot be null");
+        }
+
+        Map<Integer, List<User>> usersGroupedByAge = new HashMap<>();
         for (User user : usersList) {
             int userAge = user.getAge();
-            if (!(usersGroupedByAge.containsKey(userAge))) {
-                usersGroupedByAge.put(userAge, new ArrayList<User>());
+            if (!usersGroupedByAge.containsKey(userAge)) {
+                usersGroupedByAge.put(userAge, new ArrayList<>());
             }
             usersGroupedByAge.get(userAge).add(user);
         }

@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.groupusers;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ public class Application {
         User user4 = new User("James", 28);
         User user5 = new User("Olivia", 35);
 
-        ArrayList<User> usersList = new ArrayList<>();
+        List<User> usersList = new ArrayList<>();
         Collections.addAll(usersList, user1, user2, user3, user4, user5);
 
         System.out.println(User.groupUsers(usersList));
