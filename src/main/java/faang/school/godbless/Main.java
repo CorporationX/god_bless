@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<Integer, StreamEvent> streamIdEventsMap = new HashMap<>();
-    private static Map<String, List<StreamEvent>> streamTypeListMap = new HashMap<>();
+    private static final Map<Integer, StreamEvent> STREAM_ID_EVENT_MAP = new HashMap<>();
+    private static final Map<String, List<StreamEvent>>  STREAM_TYPE_LIST_MAP = new HashMap<>();
 
     public static void main(String[] args) {
         StreamEvent event1 = new StreamEvent(1, "type1", "data1");
@@ -35,31 +35,31 @@ public class Main {
     }
 
     public static void addNewStreamEvent(StreamEvent streamEvent) {
-        if (streamIdEventsMap.containsKey(streamEvent.getId())) {
+        if (STREAM_ID_EVENT_MAP.containsKey(streamEvent.getId())) {
             return;
         }
-        streamIdEventsMap.put(streamEvent.getId(), streamEvent);
-        streamTypeListMap.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
+        STREAM_ID_EVENT_MAP.put(streamEvent.getId(), streamEvent);
+        STREAM_TYPE_LIST_MAP.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     public static StreamEvent getStreamEventById(int id) {
-        if (streamIdEventsMap.containsKey(id)) {
-            return streamIdEventsMap.get(id);
+        if (STREAM_ID_EVENT_MAP.containsKey(id)) {
+            return STREAM_ID_EVENT_MAP.get(id);
         }
         return null;
     }
 
     public static List<StreamEvent> getStreamEventsByType(String eventType) {
-        if (streamTypeListMap.containsKey(eventType)) {
-            return streamTypeListMap.get(eventType);
+        if (STREAM_TYPE_LIST_MAP.containsKey(eventType)) {
+            return STREAM_TYPE_LIST_MAP.get(eventType);
         }
         return null;
     }
 
     public static void deleteStreamEventById(int id) {
-        streamIdEventsMap.remove(id);
+        STREAM_ID_EVENT_MAP.remove(id);
         List<String> keysToDelete = new ArrayList<>();
-        for (Map.Entry<String, List<StreamEvent>> entry : streamTypeListMap.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : STREAM_TYPE_LIST_MAP.entrySet()) {
             String eventType = entry.getKey();
             List<StreamEvent> eventList = entry.getValue();
 
@@ -75,13 +75,13 @@ public class Main {
             }
         }
         for (String key : keysToDelete) {
-            streamTypeListMap.remove(key);
+            STREAM_TYPE_LIST_MAP.remove(key);
             System.out.println("Удален тип события " + key);
         }
     }
 
     public static void printAllStreamEvents() {
-        for (Map.Entry<Integer, StreamEvent> entry : streamIdEventsMap.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : STREAM_ID_EVENT_MAP.entrySet()) {
             System.out.println(entry.getValue());
         }
     }
