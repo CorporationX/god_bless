@@ -3,47 +3,66 @@ package faang.school.hashmap.countingabsenteeism;
 import java.util.*;
 
 public class Main {
-    static final Set<Student> setStudent = new HashSet<>();
-    static final HashMap<List, List> mapStudent = new HashMap<>();
-    public static void main(String[] args) {
-        setStudent.add(new Student("Alex", "Biographical", 2));
-        setStudent.add(new Student("Oleg", "Сhemical", 1));
-        setStudent.add(new Student("Ivan", "Сhemical", 1));
-        setStudent.add(new Student("Max", "Physical", 2));
-        setStudent.add(new Student("Anna", "Physical", 2));
+    static private final Set<Student> setStudent = new HashSet<>();
+    static private final HashMap<List, List> mapStudent = new HashMap<>();
 
-        for (Map.Entry entry: students(setStudent).entrySet()){
-            System.out.println(entry);
+    public static void main(String[] args) {
+        Student alex = new Student("Alex", "Biographical", 2);
+        Student oleg = new Student("Oleg", "Сhemical", 1);
+        Student ivan = new Student("Ivan", "Сhemical", 1);
+        Student max = new Student("Max", "Physical", 2);
+        Student anna = new Student("Anna", "Physical", 2);
+
+        addNewStudent(alex);
+        addNewStudent(oleg);
+        addNewStudent(ivan);
+        addNewStudent(max);
+        addNewStudent(anna);
+
+        HashMap<List, List> mapStudent = addStudentsMap(setStudent);
+
+        for (Map.Entry<List, List> student : mapStudent.entrySet()) {
+            System.out.println(student);
         }
-        printAllStudentFacultyEndYear("Сhemical",1);
+
+        deleteStudent(ivan);
+
+        printAllStudentFacultyEndYear("Сhemical", 1);
+        printAllStudentFacultyEndYear("Сhemical", 0);
+        printAllStudentFacultyEndYear("", 1);
+
+        for (Student studentSet : setStudent) {
+            System.out.println(studentSet);
+        }
     }
 
-    public static HashMap<List, List> students(Set<Student> studentSet) {
-        for (Student student: studentSet){
-            ArrayList <String> kay = new ArrayList<>();
+    private static HashMap<List, List> addStudentsMap(Set<Student> studentSet) {
+        for (Student student : studentSet) {
+            ArrayList<String> kay = new ArrayList<>();
             kay.add(student.getFaculty());
             kay.add(String.valueOf(student.getYear()));
-            if (!(mapStudent.containsKey(kay))){
-                mapStudent.put(kay,new ArrayList<>());
-                mapStudent.get(kay).add(student.getName());
-            } else {
-                mapStudent.get(kay).add(student.getName());
-            }
+            mapStudent.computeIfAbsent(kay, k -> new LinkedList()).add(student.getName());
         }
         return mapStudent;
     }
-    public static void addNewStudent (Student student){
+
+    private static void addNewStudent(Student student) {
         setStudent.add(student);
     }
-    public static void deleteStudent (Student student){
+
+    private static void deleteStudent(Student student) {
         setStudent.remove(student);
     }
 
-    public static void printAllStudentFacultyEndYear (String faculty, int year){
-        for (Student student: setStudent){
-            if (student.getFaculty().equals(faculty) && student.getYear() == year){
-                System.out.println(student);
+    private static void printAllStudentFacultyEndYear(String faculty, int year) {
+        if (!(faculty.isBlank() || year != 0)) {
+            for (Student student : setStudent) {
+                if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                    System.out.println(student);
+                }
             }
+        } else {
+            System.out.println("Введите факультет и курс студента");
         }
     }
 }
