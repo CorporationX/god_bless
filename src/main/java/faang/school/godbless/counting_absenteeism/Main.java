@@ -20,7 +20,7 @@ public class Main {
         for (Map.Entry<Faculty, List<Student>> item : groupStudentsByFaculty(students).entrySet()) {
             System.out.println(item.getKey().getTitle() + " " + item.getKey().getYear());
             for (Student student : item.getValue()) {
-                System.out.println("\t" + student.getName() + " " + student.getYear());
+                System.out.println("\t" + student);
             }
         }
         System.out.println("\n");
@@ -30,7 +30,7 @@ public class Main {
         for (Map.Entry<Faculty, List<Student>> item : groupStudentsByFaculty(students).entrySet()) {
             System.out.println(item.getKey().getTitle() + " " + item.getKey().getYear());
             for (Student student : item.getValue()) {
-                System.out.println("\t" + student.getName() + " " + student.getYear());
+                System.out.println("\t" + student);
             }
         }
 
@@ -43,19 +43,12 @@ public class Main {
         printAllStudents(students);
     }
 
-    public static HashMap<Faculty, List<Student>> groupStudentsByFaculty(List<Student> students) {
-        HashMap<Faculty, List<Student>> groupedStudents = new HashMap<>();
-        for (Student student : students) {
-            if (groupedStudents.containsKey(new Faculty(student.getFaculty(), student.getYear()))) {
-                List<Student> studentsInSameFaculty = groupedStudents.get(new Faculty(student.getFaculty(), student.getYear()));
-                studentsInSameFaculty.add(student);
-                groupedStudents.put(new Faculty(student.getFaculty(), student.getYear()), studentsInSameFaculty);
-            } else {
-                List<Student> studentsInSameFaculty = new ArrayList<>();
-                studentsInSameFaculty.add(student);
-                groupedStudents.put(new Faculty(student.getFaculty(), student.getYear()), studentsInSameFaculty);
-            }
-        }
+    public static Map<Faculty, List<Student>> groupStudentsByFaculty(List<Student> students) {
+        Map<Faculty, List<Student>> groupedStudents = new HashMap<>();
+        students.forEach(
+                student -> groupedStudents.computeIfAbsent(
+                        new Faculty(student.getFaculty(), student.getYear()), key -> new ArrayList<>()
+                ).add(student));
         return groupedStudents;
     }
 
@@ -70,7 +63,7 @@ public class Main {
     public static void searchStudentByFaculty(List<Student> students, Faculty faculty) {
         for (Student student : students) {
             if (student.getFaculty().equals(faculty.getTitle()) && student.getYear() == faculty.getYear()) {
-                System.out.println(student.getName() + " " + student.getYear());
+                System.out.println(student);
             }
         }
     }
@@ -79,7 +72,7 @@ public class Main {
         for (Map.Entry<Faculty, List<Student>> item : groupStudentsByFaculty(students).entrySet()) {
             System.out.println(item.getKey().getTitle() + " " + item.getKey().getYear());
             for (Student student : item.getValue()) {
-                System.out.println("\t" + student.getName() + " " + student.getYear());
+                System.out.println("\t" + student);
             }
         }
     }
