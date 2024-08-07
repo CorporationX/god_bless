@@ -29,7 +29,7 @@ public class User {
             }
             return userActivitiesMap;
         }
-        return null;
+        return new HashMap<>();
     }
 
 }

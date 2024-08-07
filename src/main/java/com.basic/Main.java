@@ -1,5 +1,6 @@
 package com.basic;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Main {
@@ -8,13 +9,16 @@ public class Main {
 
         User user = new User();
 
-        User userOne = new User(1, "David", 28, List.of("tennis", "box", "hockey"));
-        User userTwo = new User(2, "Vlad", 22, List.of("football", "running"));
-        User userTree = new User(3, "Denis", 31, List.of("snowboarding"));
+        User david = new User(1, "David", 28, List.of("tennis", "box", "hockey"));
+        User vlad= new User(2, "Vlad", 22, List.of("football", "running"));
+        User denis = new User(3, "Denis", 31, List.of("snowboarding"));
 
-        List<User> userList = List.of(userOne, userTwo, userTree);
 
-        System.out.println(user.findHobbyLovers(userList, allActivities));
+        List<User> userList = List.of(david, vlad, denis);
+
+        if(user.findHobbyLovers(userList, allActivities).isEmpty()){
+            System.out.println("Map is Empty");
+        } else System.out.println(user.findHobbyLovers(userList, allActivities));
 
     }
 }
