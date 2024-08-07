@@ -38,7 +38,6 @@ public class Hero {
         return this.army;
     }
 
-    // Проверить работу!!!!!!!!!!!!!
     Creature attack(Hero hero) {
         Random random = new Random();
         int creatureNumber = random.nextInt(army.size() - 1);
