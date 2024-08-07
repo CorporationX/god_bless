@@ -10,7 +10,6 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class TestUserGroup {
 
@@ -39,7 +38,6 @@ public class TestUserGroup {
         usersMap = User.groupUsers(usersList);
 
         assertAll(
-                () -> assertNotNull(usersMap),
                 () -> assertEquals(2, usersMap.size()),
                 () -> assertEquals(2, usersMap.get(19).size()),
                 () -> assertEquals(3, usersMap.get(20).size())
