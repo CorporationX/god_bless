@@ -25,6 +25,7 @@ public class Application {
         ID_PRODUCT.add(fourthProduct);
 
         allCategoryProduct(groupProduct(ID_PRODUCT));
+        System.out.println();
 
     }
 
