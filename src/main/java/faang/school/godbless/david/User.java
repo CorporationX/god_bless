@@ -5,10 +5,10 @@ import java.util.*;
 
 @Getter
 public class User {
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
+    final private String name;
+    final private int age;
+    final private String workplace;
+    final private String address;
 
     public static Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon");
     public static Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
