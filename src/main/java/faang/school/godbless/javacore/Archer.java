@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.javacore;
 
 public class Archer extends Character {
     public Archer(String name) {
