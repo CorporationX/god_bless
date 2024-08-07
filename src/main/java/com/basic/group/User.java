@@ -14,31 +14,32 @@ public class User {
     private int age;
     private String workPlace;
     private String address;
+
     public static Map<Integer, List<User>> groupUser(List<User> users) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
-        if (users != null) {
+        if (users.isEmpty() && getAgeUser(users).isEmpty()) {
+            return new HashMap<>();
+        }else {
             for (Integer age : getAgeUser(users)) {
-                List<User> userList = new ArrayList<>();
                 for (User user : users) {
                     if (age == user.getAge()) {
-                        userList.add(user);
+                        userMap.computeIfAbsent(user.getAge(), v -> new ArrayList<>()).add(user);
                     }
                 }
-                userMap.put(age, userList);
             }
             return userMap;
         }
-        return null;
     }
 
     private static Set<Integer> getAgeUser(List<User> users) {
         Set<Integer> setAge = new HashSet<>();
         for (User user : users) {
+            if (user.getAge() < 0) {
+                return new HashSet<>();
+            }
             setAge.add(user.getAge());
         }
         return setAge;
     }
-
-
 }

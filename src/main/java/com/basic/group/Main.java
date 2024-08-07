@@ -14,10 +14,11 @@ public class Main {
 
         List<User> users = List.of(user1, user2, user3, user4);
 
-        System.out.println(   User.groupUser(users));
+        if (User.groupUser(users).isEmpty()) {
+            System.out.println("Map is Empty");
+        } else {
+            System.out.println(User.groupUser(users));
+        }
 
-        System.out.println(users.contains(user1));
     }
-
-
 }
