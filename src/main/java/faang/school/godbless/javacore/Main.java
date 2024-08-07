@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.javacore;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,6 +12,23 @@ public class Main {
         testGroupedUsers();
         System.out.println();
         testHobbyLovers();
+        System.out.println();
+        testWarriorAndArcher();
+    }
+
+    public static void testWarriorAndArcher() {
+        Character warrior = new Warrior("Artas");
+        System.out.println("Create " + warrior);
+        Character archer = new Archer("Legolas");
+        System.out.println("Create " + archer);
+
+        System.out.println("Warrior attack on archer");
+        warrior.attack(archer);
+        System.out.println(archer);
+
+        System.out.println("Archer attack on warrior");
+        archer.attack(warrior);
+        System.out.println(warrior);
     }
 
     public static void testGroupedUsers() {
