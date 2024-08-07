@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class User {
     private int id;
-    private final String name;
+    private String name;
     private int age;
     private Set<String> actions;
 
