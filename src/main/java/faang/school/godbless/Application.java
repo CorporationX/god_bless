@@ -1,9 +1,6 @@
 package faang.school.godbless;
 
-
-
 import faang.school.godbless.david.User;
-
 import java.util.*;
 
 public class Application {
