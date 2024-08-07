@@ -7,35 +7,45 @@ public class Main {
     private static Map<String, List<StreamEvent>> typesEvents = new HashMap<>();
 
     public static void main(String[] args) {
-        addEvent(new StreamEvent("auth", "login"));
-        addEvent(new StreamEvent("sendEmail", "asdf@asdf.ru"));
-        addEvent(new StreamEvent("auth", "logout"));
-        addEvent(new StreamEvent("auth", "login"));
-        addEvent(new StreamEvent("sendEmail", "fasa@fasd.ru"));
-        addEvent(new StreamEvent("db", "deleteFromDB"));
-        addEvent(new StreamEvent("auth", "login"));
-        addEvent(new StreamEvent("updates", "install"));
-        addEvent(new StreamEvent("db", "updateDb"));
-        addEvent(new StreamEvent("db", "addToDb"));
-        addEvent(new StreamEvent("updates", "rollback"));
-
-        StreamEvent event = findEventById(5);
-        System.out.println(event.getId() + " " + event.getEventType() + " " + event.getData());
+        addEvent(new StreamEvent(1, "auth", "login"));
+        addEvent(new StreamEvent(2, "sendEmail", "asdf@asdf.ru"));
+        addEvent(new StreamEvent(3, "auth", "logout"));
+        addEvent(new StreamEvent(4, "auth", "login"));
+        addEvent(new StreamEvent(5, "sendEmail", "fasa@fasd.ru"));
+        addEvent(new StreamEvent(6, "db", "deleteFromDB"));
+        addEvent(new StreamEvent(7, "auth", "login"));
+        addEvent(new StreamEvent(8, "updates", "install"));
+        addEvent(new StreamEvent(9, "db", "updateDb"));
+        addEvent(new StreamEvent(10, "db", "addToDb"));
+        addEvent(new StreamEvent(11, "updates", "rollback"));
+        Optional<StreamEvent> optionalEvent = Optional.ofNullable(findEventById(10));
+        if (optionalEvent.isPresent()) {
+            System.out.println(optionalEvent.get().getId() + " " + optionalEvent.get().getEventType()
+                    + " " + optionalEvent.get().getData());
+        } else {
+            System.out.println("No event found");
+        }
         System.out.println("-------------");
         printAllEvents();
         System.out.println("-------------");
-        List<StreamEvent> listEvents = findEventsByType("db");
-        listEvents.forEach(eventType -> System.out.println(eventType.getId() + " " + eventType.getData()));
+
+        Optional<List<StreamEvent>>optionalListEvent = Optional.ofNullable(findEventsByType("db"));
+        if (optionalListEvent.isPresent()) {
+            List<StreamEvent> eventList = optionalListEvent.get();
+            eventList.forEach(eventType -> System.out.println(eventType.getId() + " " + eventType.getData()));
+        } else {
+            System.out.println("No such even type found");
+        }
         System.out.println("-------------");
-        removeEvent(6);
+        removeEvent(66);
         printAllEvents();
     }
 
     public static void addEvent(StreamEvent event) {
-        event.setId(events.size() + 1);
         events.put(event.getId(), event);
+        System.out.println("evenid " + event.getId());
         if (!typesEvents.containsKey(event.getEventType())) {
-            typesEvents.put(event.getEventType(), new ArrayList<>(List.of(event)));
+            typesEvents.put(event.getEventType(), new ArrayList<>(){{add(event);}});
         } else {
             typesEvents.get(event.getEventType()).add(event);
         }
@@ -52,8 +62,16 @@ public class Main {
     public static void removeEvent(int id) {
         StreamEvent event = events.get(id);
         events.remove(id);
-        List<StreamEvent> list = typesEvents.get(event.getEventType());
-        list.remove(event);
+
+        Optional<List<StreamEvent>>optionalTypesEvents = Optional.ofNullable(typesEvents.get(event.getEventType()));
+        if (optionalTypesEvents.isPresent()) {
+            List<StreamEvent> list = optionalTypesEvents.get();
+            list.remove(event);
+        } else {
+            System.out.println("No such event found for remove");
+        }
+//        List<StreamEvent> list = typesEvents.get(event.getEventType());
+
     }
 
     public static void printAllEvents() {

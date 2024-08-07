@@ -12,8 +12,9 @@ public class StreamEvent {
     private String eventType;
     private String data;
 
-    public StreamEvent(String eventType, String data) {
+    public StreamEvent(int id, String eventType, String data) {
         this.eventType = eventType;
         this.data = data;
+        this.id = id;
     }
 }
