@@ -1,20 +1,22 @@
 package faang.school.godbless.BJS2_19329;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class Server {
 
-    @Setter
-    private double load;
+    private double load = 0;
     private final double maxLoad;
-    private double energyComsumption;
-    private final int ENERGY_COEFFICIENT = 20;
 
-    public Server(double load, double maxLoad) {
-        this.load = load;
+    private final int ENERGY_COEFFICIENT = 2;
+    private double energyConsumption = load * ENERGY_COEFFICIENT;
+
+    public Server(double maxLoad) {
         this.maxLoad = maxLoad;
-        this.energyComsumption =  maxLoad/ENERGY_COEFFICIENT;
+    }
+
+    public void setLoad(double load) {
+        this.load = load;
+        energyConsumption = load * ENERGY_COEFFICIENT;
     }
 }
