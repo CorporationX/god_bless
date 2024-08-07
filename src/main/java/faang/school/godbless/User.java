@@ -23,7 +23,7 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> listOfUsers) throws Exception {
         Map<Integer, List<User>> result = new HashMap<>();
-//        Set<Integer> ageGroups = result.keySet();
+
         if (listOfUsers.isEmpty()) {
             throw new IllegalArgumentException();
         }
