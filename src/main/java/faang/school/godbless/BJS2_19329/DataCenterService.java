@@ -1,18 +1,26 @@
 package faang.school.godbless.BJS2_19329;
 
 import lombok.AllArgsConstructor;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.DoubleStream;
 
 @AllArgsConstructor
-public class DataCenterService implements OptimizationStrategy {
+public class DataCenterService {
     private final double SMALL_SERVER_LOAD = 100;
     private final double MEDIUM_SERVER_LOAD = 150;
     private final double LARGE_SERVER_LOAD = 200;
     private final double ZERO_LOAD = 0.0;
     DataCenter dataCenter;
+
+    @Setter
+    OptimizationStrategy optimizationStrategy;
+
+    public void optimize() {
+        optimizationStrategy.optimize(dataCenter);
+    }
 
     public double getTotalEnergyConsumption() {
         return dataCenter.getServersList().stream()
@@ -108,20 +116,6 @@ public class DataCenterService implements OptimizationStrategy {
         }
     }
 
-    @Override
-    public void optimize(DataCenter dataCenter) {
-
-    }
-
-    @Override
-    public void LoadBalancingOptimizationStrategy(DataCenter dataCenter) {
-
-    }
-
-    @Override
-    public void EnergyEfficencyOptimizationStrategy(DataCenter dataCenter) {
-
-    }
 }
 
 

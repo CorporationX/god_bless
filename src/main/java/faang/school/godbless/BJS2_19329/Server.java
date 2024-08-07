@@ -5,11 +5,15 @@ import lombok.Getter;
 @Getter
 public class Server {
 
+    private final double SMALL_SERVER = 100;
+    private final double MEDIUM_SERVER = 150;
+    private final double BIG_SERVER = 200;
     private double load = 0;
     private final double maxLoad;
+    private double energyEfficiency;
 
-    private final int ENERGY_COEFFICIENT = 2;
-    private double energyConsumption = load * ENERGY_COEFFICIENT;
+    private final int ENERGY_COEFFICIENT = 50;
+    private double energyConsumption;
 
     public Server(double maxLoad) {
         this.maxLoad = maxLoad;
@@ -17,6 +21,16 @@ public class Server {
 
     public void setLoad(double load) {
         this.load = load;
-        energyConsumption = load * ENERGY_COEFFICIENT;
+        energyEfficiency = check(maxLoad);
+        energyConsumption = ENERGY_COEFFICIENT * energyEfficiency * load;
+    }
+
+    private double check(Double maxLoad) {
+        if (maxLoad == SMALL_SERVER) {
+            return 0.2;
+        } else if (maxLoad == MEDIUM_SERVER) {
+            return 0.15;
+        }
+        return 0.12;
     }
 }

@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_19329;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,24 +10,23 @@ public class Main {
                 new Server(150),
                 new Server(200)
         )));
-        DataCenterService dataCenterService = new DataCenterService(dataCenter);
+        DataCenterService dataCenterService = new DataCenterService(dataCenter, new LoadBalancingOptimizationStrategy());
         dataCenterService.printDataCenterConfiguration();
         System.out.println("------------");
         System.out.println("Request new resources");
-        dataCenterService.allocateResources(new ResourceRequest(1490));
-        dataCenterService.printDataCenterConfiguration();
-        System.out.println("Request new resources");
-        dataCenterService.allocateResources(new ResourceRequest(2673));
+        dataCenterService.allocateResources(new ResourceRequest(1475));
         dataCenterService.printDataCenterConfiguration();
 
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
-        System.out.println("All servers energy consumption: "+dataCenterService.getTotalEnergyConsumption());
+        System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
         System.out.println("=========================");
         System.out.println("Request release resources");
-        dataCenterService.releaseResources(new ResourceRequest(1354));
+        dataCenterService.releaseResources(new ResourceRequest(654));
         dataCenterService.printDataCenterConfiguration();
 
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
-        System.out.println("All servers energy consumption: "+dataCenterService.getTotalEnergyConsumption());
+        System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
+
+        dataCenterService.optimize();
     }
 }
