@@ -81,7 +81,6 @@ public class Battlefield {
         if (countToKill > 0) {
             hero.removeCreature(target, countToKill);
             int exp = countToKill * target.getLevel() * target.getHealth();
-            System.out.println(exp);
             System.out.println(
                     "Oof! Army of Hero " + hero.getName() + " lost " + countToKill + " " + target.getName());
             return exp;
@@ -92,9 +91,9 @@ public class Battlefield {
     }
 
     private static int doTurn(Hero attacker, @NonNull Hero defender) {
-        System.out.println("Hero " + attacker.getName() + " is attacking!");
-        System.out.println("Attack: " + attacker.getDamage());
-        System.out.println("Defense: " + defender.getDefense());
+        System.out.println("\nHero " + attacker.getName() + " is attacking!");
+        System.out.println("Attack of hero: " + attacker.getDamage());
+        System.out.println("Defense of enemy: " + defender.getDefense());
         int finalDamage = attacker.getDamage() - defender.getDefense();
         int successAttack = 0;
         if (finalDamage > 0) {
