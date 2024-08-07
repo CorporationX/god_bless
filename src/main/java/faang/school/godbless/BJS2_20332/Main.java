@@ -18,6 +18,7 @@ public class Main {
         addEvent(new StreamEvent(9, "db", "updateDb"));
         addEvent(new StreamEvent(10, "db", "addToDb"));
         addEvent(new StreamEvent(11, "updates", "rollback"));
+
         Optional<StreamEvent> optionalEvent = Optional.ofNullable(findEventById(10));
         if (optionalEvent.isPresent()) {
             System.out.println(optionalEvent.get().getId() + " " + optionalEvent.get().getEventType()
@@ -29,7 +30,7 @@ public class Main {
         printAllEvents();
         System.out.println("-------------");
 
-        Optional<List<StreamEvent>>optionalListEvent = Optional.ofNullable(findEventsByType("db"));
+        Optional<List<StreamEvent>> optionalListEvent = Optional.ofNullable(findEventsByType("db"));
         if (optionalListEvent.isPresent()) {
             List<StreamEvent> eventList = optionalListEvent.get();
             eventList.forEach(eventType -> System.out.println(eventType.getId() + " " + eventType.getData()));
@@ -45,7 +46,9 @@ public class Main {
         events.put(event.getId(), event);
         System.out.println("evenid " + event.getId());
         if (!typesEvents.containsKey(event.getEventType())) {
-            typesEvents.put(event.getEventType(), new ArrayList<>(){{add(event);}});
+            typesEvents.put(event.getEventType(), new ArrayList<>() {{
+                add(event);
+            }});
         } else {
             typesEvents.get(event.getEventType()).add(event);
         }
@@ -60,18 +63,15 @@ public class Main {
     }
 
     public static void removeEvent(int id) {
-        StreamEvent event = events.get(id);
-        events.remove(id);
-
-        Optional<List<StreamEvent>>optionalTypesEvents = Optional.ofNullable(typesEvents.get(event.getEventType()));
-        if (optionalTypesEvents.isPresent()) {
-            List<StreamEvent> list = optionalTypesEvents.get();
+        Optional<StreamEvent> optionalEvent = Optional.ofNullable(events.get(id));
+        if (optionalEvent.isPresent()) {
+            StreamEvent event = optionalEvent.get();
+            events.remove(id);
+            List<StreamEvent> list = typesEvents.get(event.getEventType());
             list.remove(event);
         } else {
             System.out.println("No such event found for remove");
         }
-//        List<StreamEvent> list = typesEvents.get(event.getEventType());
-
     }
 
     public static void printAllEvents() {
