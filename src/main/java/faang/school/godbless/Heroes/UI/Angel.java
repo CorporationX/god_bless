@@ -11,7 +11,13 @@ public class Angel extends Creature {
 
     public Angel(int level, int count) {
         super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Pikeman";
+        name = "Angel";
+    }
+
+    public Angel(Angel angel) {
+        super(angel.level, angel.damage, angel.protection,
+                angel.speed, angel.count);
+        name = "Angel";
     }
 
 

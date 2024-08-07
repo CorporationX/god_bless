@@ -46,22 +46,12 @@ public class Hero{
         }
     }
 
-    public void attack(Hero hero){
-        for (Map.Entry<String, Creature> attacker: army.entrySet()){
-            for (Map.Entry<String, Creature> defender: hero.army.entrySet()){
-                try {
-                    attacker.getValue().attack(defender.getValue());
-                    defender.getValue().attack(attacker.getValue());
-                }catch (IllegalArgumentException e){
-                    if (attacker.getValue().getCount() == 0){
-                        army.remove(attacker.getKey());
-                    }else if (defender.getValue().getCount() == 0){
-                        hero.getArmy().remove(defender.getKey());
-                    }
-                }
-            }
+    public int summaryPower(){//метод для подсчета силы армии
+        int sum = 0;
+        for (Map.Entry pair:army.entrySet()){
+            sum+=((Creature)pair.getValue()).summaryPower()*((Creature) pair.getValue()).getCount();
         }
-
+        return sum;
     }
 
 }

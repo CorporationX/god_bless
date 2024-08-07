@@ -1,6 +1,8 @@
 package faang.school.godbless.Heroes.UI;
 
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
+
 
 public class Griffin extends Creature {
     private static final int ATTACK_CONST = 8;
@@ -13,6 +15,9 @@ public class Griffin extends Creature {
         name = "Griffin";
     }
 
-
-
+    public Griffin(Griffin griffin) {
+        super(griffin.level, griffin.damage, griffin.protection,
+                griffin.speed, griffin.count);
+        name = "Griffin";
+    }
 }
