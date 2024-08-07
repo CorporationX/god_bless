@@ -35,7 +35,7 @@ class MeteorologistTest {
 
         fillCache(meteorologist);
 
-        HashMap<String, WeatherData> weatherDataCache = meteorologist.getWeatherDataCache();
+        HashMap<String, WeatherData> weatherDataCache = meteorologist.getDeepCopyOfWeatherDataCache();
         assertEquals(4, weatherDataCache.size());
         assertEquals(weatherDataLondon, weatherDataCache.get(LONDON));
         assertEquals(weatherDataMoscow, weatherDataCache.get(MOSCOW));
@@ -49,9 +49,9 @@ class MeteorologistTest {
 
         fillCache(meteorologist);
         WeatherData updatedWeatherDataLondon = new WeatherData(LONDON, 21, 20);
-        meteorologist.updateWeatherData(LONDON, updatedWeatherDataLondon);
+        meteorologist.updateWeatherData(updatedWeatherDataLondon);
 
-        HashMap<String, WeatherData> weatherDataCache = meteorologist.getWeatherDataCache();
+        HashMap<String, WeatherData> weatherDataCache = meteorologist.getDeepCopyOfWeatherDataCache();
         assertEquals(4, weatherDataCache.size());
         assertEquals(updatedWeatherDataLondon, weatherDataCache.get(LONDON));
         assertEquals(weatherDataMoscow, weatherDataCache.get(MOSCOW));
@@ -66,7 +66,7 @@ class MeteorologistTest {
         fillCache(meteorologist);
         meteorologist.deleteWeatherData(LONDON);
 
-        HashMap<String, WeatherData> weatherDataCache = meteorologist.getWeatherDataCache();
+        HashMap<String, WeatherData> weatherDataCache = meteorologist.getDeepCopyOfWeatherDataCache();
         assertEquals(3, weatherDataCache.size());
         assertEquals(weatherDataMoscow, weatherDataCache.get(MOSCOW));
         assertEquals(weatherDataParis, weatherDataCache.get(PARIS));

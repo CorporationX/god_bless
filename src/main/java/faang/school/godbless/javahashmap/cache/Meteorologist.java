@@ -16,8 +16,8 @@ public class Meteorologist {
         return weatherData;
     }
 
-    public void updateWeatherData(String cityName, WeatherData updatedWeatherData) {
-        weatherDataCache.put(cityName, updatedWeatherData);
+    public void updateWeatherData(WeatherData updatedWeatherData) {
+        weatherDataCache.put(updatedWeatherData.getCity(), updatedWeatherData);
     }
 
     public void deleteWeatherData(String cityName) {
@@ -32,7 +32,7 @@ public class Meteorologist {
         }
     }
 
-    public HashMap<String, WeatherData> getWeatherDataCache() {
+    public HashMap<String, WeatherData> getDeepCopyOfWeatherDataCache() {
         HashMap<String, WeatherData> weatherDataCacheToReturn = new HashMap<>();
         weatherDataCache.forEach((city, data) -> weatherDataCacheToReturn.put(city,
                 new WeatherData(data.getCity(), data.getTemperature(), data.getHumidity())));
