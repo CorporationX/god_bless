@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StudentManagerTest {
@@ -74,7 +73,7 @@ public class StudentManagerTest {
     void testDeleteStudent() {
         studentManager.addNewStudent(student);
         studentManager.deleteStudent(student);
-        assertNull(studentManager.findStudent(student));
+        assertThrows(NoSuchElementException.class, () -> studentManager.findStudent(student));
     }
 
     @Test

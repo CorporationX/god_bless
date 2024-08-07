@@ -7,9 +7,9 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 public class StudentManager {
-    private Map<Student, Student> studentMap;
-    private Map<FacultyYear, List<Student>> sortedStudentMap;
-    private List<Student> studentList;
+    private final Map<Student, Student> studentMap;
+    private final Map<FacultyYear, List<Student>> sortedStudentMap;
+    private final List<Student> studentList;
 
     public StudentManager(Map<Student, Student> stringStudentMap, List<Student> studentList,
                           Map<FacultyYear, List<Student>> sortedStudentMap) {
@@ -18,14 +18,12 @@ public class StudentManager {
         this.studentList = studentList;
     }
 
-    static int c = 0;
-
     public void addNewStudent(Student student) throws NoSuchElementException {
         Optional.ofNullable(student).ifPresentOrElse(std -> {
             studentMap.put(std, std);
             studentList.add(std);
         }, () -> {
-            throw new NoSuchElementException("Студент не может быть %s".formatted(student));
+            studentShouldNotNullExceptionThrow();
         });
     }
 
@@ -34,15 +32,30 @@ public class StudentManager {
             if (studentList.remove(std)) {
                 studentMap.remove(std);
             } else {
-                throw new NoSuchElementException("Студент с именем %s не найден".formatted(student));
+                studentNotFoundExceptionThrow(student);
             }
         }, () -> {
-            throw new NoSuchElementException("Студент не может быть %s".formatted(student));
+            studentShouldNotNullExceptionThrow();
         });
     }
 
-    public Student findStudent(Student student) {
+    public Student findStudent(Student student) throws NoSuchElementException {
+        Optional.ofNullable(student).ifPresentOrElse(std -> {
+            if (studentMap.get(student) == null) {
+                studentNotFoundExceptionThrow(student);
+            }
+        }, () -> {
+            studentShouldNotNullExceptionThrow();
+        });
         return studentMap.get(student);
+    }
+
+    private void studentShouldNotNullExceptionThrow() throws NoSuchElementException {
+        throw new NoSuchElementException("Студент не может быть null");
+    }
+
+    private void studentNotFoundExceptionThrow(Student student) throws NoSuchElementException {
+        throw new NoSuchElementException("Студент: %s не найден".formatted(student));
     }
 
     public List<Student> findAllStudentByFacultyAndYear(String faculty, int year) {
