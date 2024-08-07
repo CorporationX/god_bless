@@ -58,6 +58,5 @@ public class App {
         // Result
         Map<Integer, ArrayList<User>> groupUsersByAge = User.groupUsers(users);
         System.out.println("Grouped users by age: " + groupUsersByAge);
-
     }
 }

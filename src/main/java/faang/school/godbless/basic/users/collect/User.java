@@ -1,6 +1,5 @@
 package faang.school.godbless.basic.users.collect;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -10,12 +9,45 @@ import java.util.Map;
 import java.util.Set;
 
 @Data
-@AllArgsConstructor
 public class User {
+    public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    public static final Set<String> VALID_ADDRESSES = Set.of( "London", "New York", "Amsterdam");
+    public static final int MIN_AGE = 18;
+
     private int id;
     private String name;
     private int age;
     private Set<String> hobbies;
+
+    public User(int id, String name, int age, String jobTitle, String city) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name can not be empty");
+        }
+
+        if (!User.VALID_JOBS.contains(jobTitle)) {
+            throw new IllegalArgumentException("The " + name + " Job has to be from the following list: " + String.join(", ", User.VALID_JOBS));
+        }
+
+        if (!User.VALID_ADDRESSES.contains(city)) {
+            throw new IllegalArgumentException("The " + name + " has to be from the following city: " + String.join(", ", User.VALID_ADDRESSES));
+        }
+
+        if (age < User.MIN_AGE) {
+            throw new IllegalArgumentException("The " + name + " age has tobe greater than: " + User.MIN_AGE);
+        }
+
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
+
+    public User(int id, String name, int age, Set<String> hobbies) {
+        this.id = id;
+        this.name = name;
+        this.age = age;
+        this.hobbies = hobbies;
+    }
+
 
     public HashMap<Integer, String> findHobbyLovers(User user, Set<String> hobbies) {
         HashMap<Integer, String> map = new HashMap<>();
