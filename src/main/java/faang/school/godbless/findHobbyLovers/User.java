@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,30 @@ public class User {
     private int age;
     private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> usersList, Set<String> activities) {
+    public static Map<User, String> findHobbyLoversByLoopsAndIfs(List<User> usersList, Set<String> activities) {
+        Map<User, String> resultMap = new HashMap<>();
+
+        for (User user : usersList) {
+            for (String userActiviti : user.getActivities()) {
+                int resultMapSize = resultMap.size();
+
+                for (String setActivity : activities) {
+                    if (userActiviti.equals(setActivity)) {
+                        resultMap.put(user, userActiviti);
+                        break;
+                    }
+                }
+
+                if (resultMapSize != resultMap.size()) {
+                    break;
+                }
+            }
+        }
+
+        return resultMap;
+    }
+
+    public static Map<User, String> findHobbyLoversByStream(List<User> usersList, Set<String> activities) {
         return usersList.stream()
                 .filter(el -> el.getActivities().stream().anyMatch(activities::contains))
                 .collect(
@@ -35,4 +59,6 @@ public class User {
                         )
                 );
     }
+
+
 }
