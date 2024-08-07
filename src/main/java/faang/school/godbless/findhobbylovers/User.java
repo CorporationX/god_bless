@@ -1,4 +1,4 @@
-package faang.school.godbless.findHobbyLovers;
+package faang.school.godbless.findhobbylovers;
 
 
 import lombok.AllArgsConstructor;
