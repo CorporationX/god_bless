@@ -1,3 +1,5 @@
+package hashmap.cashing.test;
+
 import hashmap.cashing.WeatherData;
 
 import org.junit.jupiter.api.DisplayName;

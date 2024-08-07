@@ -1,3 +1,5 @@
+package hashmap.cashing.test;
+
 import hashmap.cashing.Main;
 import hashmap.cashing.WeatherData;
 import hashmap.cashing.WeatherService;
