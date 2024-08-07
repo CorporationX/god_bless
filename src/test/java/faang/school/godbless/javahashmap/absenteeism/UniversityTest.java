@@ -36,7 +36,7 @@ class UniversityTest {
         university.addStudent(STUDENT_1);
         university.addStudent(STUDENT_2);
 
-        List<Student> students = university.getStudents();
+        List<Student> students = university.getDeepCopyOfStudents();
         assertEquals(2, students.size());
         assertEquals(STUDENT_1, students.get(0));
         assertEquals(STUDENT_2, students.get(1));
@@ -51,14 +51,14 @@ class UniversityTest {
 
         university.removeStudent(STUDENT_2.getName(), STUDENT_2.getFaculty(), STUDENT_2.getYear());
 
-        List<Student> students = university.getStudents();
+        List<Student> students = university.getDeepCopyOfStudents();
         assertEquals(2, students.size());
         assertEquals(STUDENT_1, students.get(0));
         assertEquals(STUDENT_3, students.get(1));
     }
 
     @Test
-    void testGetStudentsByFacultyAndYear() {
+    void testGetDeepCopyOfStudentsByFacultyAndYear() {
         University university = new University();
         university.addStudent(STUDENT_1);
         university.addStudent(STUDENT_2);
@@ -95,7 +95,7 @@ class UniversityTest {
         university.addStudent(STUDENT_3);
         university.addStudent(STUDENT_4);
 
-        List<Student> students = university.getStudents();
+        List<Student> students = university.getDeepCopyOfStudents();
         HashMap<Pair<String, Integer>, List<Student>> studentsByFacultyAndYear = university.getAllStudentsByFacultyAndYear(students);
 
         assertEquals(3, studentsByFacultyAndYear.size());

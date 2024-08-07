@@ -46,7 +46,7 @@ public class University {
         ));
     }
 
-    public List<Student> getStudents() {
+    public List<Student> getDeepCopyOfStudents() {
         List<Student> studentsToReturn = new ArrayList<>();
         students.forEach(student -> studentsToReturn.add(
                 new Student(student.getName(), student.getFaculty(), student.getYear())));
