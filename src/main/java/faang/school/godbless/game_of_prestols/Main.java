@@ -3,6 +3,7 @@ package faang.school.godbless.game_of_prestols;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Main {
     public static void main(String[] args) {
         Map<String, House> map;
