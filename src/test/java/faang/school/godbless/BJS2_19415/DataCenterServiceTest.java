@@ -175,6 +175,4 @@ public class DataCenterServiceTest {
         dataCenterService.allocateResources(allocateRequest);
         assertThrows(IllegalArgumentException.class, () -> dataCenterService.releaseResources(releaseRequest));
     }
-
-
 }
