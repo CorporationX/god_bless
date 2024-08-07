@@ -5,39 +5,48 @@ import java.util.*;
 
 @Getter
 public class User {
-    private int id;
     private String name;
     private int age;
-    private Set<String> activities;
+    private String workplace;
+    private String address;
 
-    public User(int id, String name, int age, Set<String> activities) {
-        this.id = id;
+    public static Set<String> VALID_JOBS = Set.of("Google","Uber","Amazon");
+    public static Set<String> VALID_ADDRESSES = Set.of("London","New York","Amsterdam");
+
+    public User(String name, int age, String workplace, String address) {
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        if (age < 18) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(workplace)) {
+            throw new IllegalArgumentException("Место работы должно быть одним из допустимых:" + VALID_JOBS);
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Адрес должен быть одним из допустимых:" + VALID_ADDRESSES);
+        }
+
         this.name = name;
         this.age = age;
-        this.activities = activities;
+        this.workplace = workplace;
+        this.address = address;
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> hobby = new HashMap<>();
-
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> userGroups = new HashMap<>();
         for (User user : users) {
-            for (String activity : user.getActivities()) {
-                if(activities.contains(activity)) {
-                    hobby.put(user, activity);
-                    break;
-                }
+            int age = user.getAge();
+            if(!userGroups.containsKey(age)) {
+                userGroups.put(age, new ArrayList<>());
             }
+            userGroups.get(age).add(user);
         }
-        return hobby;
+        return userGroups;
     }
 
+    @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", activities=" + activities +
-                '}';
+        return "User{name='" + name + "', age=" + age + ", workplace='" + workplace + "', address='" + address + "'}";
     }
-
 }
