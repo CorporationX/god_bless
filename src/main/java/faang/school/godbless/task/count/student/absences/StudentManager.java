@@ -1,37 +1,44 @@
 package faang.school.godbless.task.count.student.absences;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class StudentManager {
     private Map<Student, Student> studentMap;
+    private Map<FacultyYear, List<Student>> sortedStudentMap;
     private List<Student> studentList;
 
-    public StudentManager(Map<Student, Student> stringStudentMap, List<Student> studentList) {
+    public StudentManager(Map<Student, Student> stringStudentMap, List<Student> studentList,
+                          Map<FacultyYear, List<Student>> sortedStudentMap) {
         this.studentMap = stringStudentMap;
+        this.sortedStudentMap = sortedStudentMap;
         this.studentList = studentList;
     }
 
-    public void addNewStudent(Student student) {
-        if (student != null) {
-            studentMap.put(student, student);
-            studentList.add(student);
-        }
+    static int c = 0;
+
+    public void addNewStudent(Optional<Student> student) throws NoSuchElementException {
+        student.ifPresentOrElse(std -> {
+            studentMap.put(std, std);
+            studentList.add(std);
+        }, () -> {
+            throw new NoSuchElementException("Студент не может быть null");
+        });
     }
 
     public void deleteStudent(Student student) {
-        if (student != null) {
-            studentMap.remove(student);
-            studentList.remove(student);
-        }
+        var studentOpt = Optional.ofNullable(student);
+        studentOpt.ifPresent(std -> {
+            studentMap.remove(std);
+            studentList.remove(std);
+        });
     }
 
     public Student findStudent(Student student) {
-        return student != null ?
-                studentMap.get(student) :
-                null;
+        return studentMap.get(student);
     }
 
     public List<Student> findAllStudentByFacultyAndYear(String faculty, int year) {
@@ -46,7 +53,7 @@ public class StudentManager {
         if (students == null) {
             return null;
         }
-        Map<FacultyYear, List<Student>> sortedStudentMap = new HashMap<>();
+        sortedStudentMap.clear();
         students.forEach(student -> {
             sortedStudentMap.computeIfAbsent(
                     new FacultyYear(student.getFaculty(), student.getYear()), k -> new ArrayList<>()).add(student);

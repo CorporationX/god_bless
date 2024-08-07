@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class StudentManagerTest {
     Student student1 = new Student("Alice", "Engineering", 1);
@@ -33,7 +36,7 @@ public class StudentManagerTest {
 
     @BeforeEach
     void setUp() {
-        studentManager = new StudentManager(new HashMap<>(), new ArrayList<>());
+        studentManager = new StudentManager(new HashMap<>(), new ArrayList<>(), new HashMap<>());
         studentsList = new ArrayList<>(List.of(
                 student1, student2, student3, student4, student5, student6,
                 student7, student8, student9, student10, student11
@@ -43,30 +46,41 @@ public class StudentManagerTest {
                 new FacultyYear("Mathematics", 2), List.of(student4, student5, student6, student11),
                 new FacultyYear("Physics", 3), List.of(student7, student8, student9)
         ));
-        studentManager.addNewStudent(student1);
-        studentManager.addNewStudent(student2);
-        studentManager.addNewStudent(student3);
-        studentManager.addNewStudent(student4);
-        studentManager.addNewStudent(student5);
-        studentManager.addNewStudent(student6);
-        studentManager.addNewStudent(student7);
-        studentManager.addNewStudent(student8);
-        studentManager.addNewStudent(student9);
-        studentManager.addNewStudent(student10);
-        studentManager.addNewStudent(student11);
+        studentManager.addNewStudent(Optional.of(student1));
+        studentManager.addNewStudent(Optional.of(student2));
+        studentManager.addNewStudent(Optional.of(student3));
+        studentManager.addNewStudent(Optional.of(student4));
+        studentManager.addNewStudent(Optional.of(student5));
+        studentManager.addNewStudent(Optional.of(student6));
+        studentManager.addNewStudent(Optional.of(student7));
+        studentManager.addNewStudent(Optional.of(student8));
+        studentManager.addNewStudent(Optional.of(student9));
+        studentManager.addNewStudent(Optional.of(student10));
+        studentManager.addNewStudent(Optional.of(student11));
     }
 
     @Test
     void testAddNewStudentAndFindStudent() {
-        studentManager.addNewStudent(student);
+        studentManager.addNewStudent(Optional.of(student));
         assertEquals(student, studentManager.findStudent(student));
     }
 
     @Test
+    void testAddNewStudentNullValue() {
+        Student stdNull = null;
+        assertThrows(NoSuchElementException.class, () -> studentManager.addNewStudent(Optional.ofNullable(stdNull)));
+    }
+
+    @Test
     void testDeleteStudent() {
-        studentManager.addNewStudent(student);
+        studentManager.addNewStudent(Optional.of(student));
         studentManager.deleteStudent(student);
         assertNull(studentManager.findStudent(student));
+    }
+
+    @Test
+    void testDeleteStudentNullValue() {
+        studentManager.deleteStudent(null);
     }
 
     @Test
