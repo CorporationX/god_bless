@@ -10,9 +10,10 @@ public class Archer extends Character {
         if (enemy == null) {
             throw new NullPointerException("Enemy Character is null!");
         }
-        enemy.health -= this.agility;
-        if (enemy.health < 0) {
+        if (enemy.health - this.agility < 0) {
             enemy.health = 0;
+        } else {
+            enemy.health -= this.agility;
         }
     }
 }

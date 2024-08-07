@@ -9,9 +9,10 @@ public class Warrior extends Character {
         if (enemy == null) {
             throw new NullPointerException("Enemy character is null!");
         }
-        enemy.health -= this.strength;
-        if (enemy.health < 0) {
+        if (enemy.health - this.strength < 0) {
             enemy.health = 0;
+        } else {
+            enemy.health -= this.strength;
         }
     }
 }
