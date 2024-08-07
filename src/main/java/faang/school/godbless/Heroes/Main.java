@@ -20,10 +20,10 @@ public class Main {
         player1.addCreature(angel, 2);
         player1.addCreature(swordman, 2);
         Hero player2 = new Hero("2", "1", 1, 1);
-        player2.addCreature(new Griffin((Griffin) griffin), 1);
-        player2.addCreature(new Pikeman((Pikeman) pikeman), 1);
-        player2.addCreature(new Angel((Angel)angel), 1);
-        player2.addCreature(new Swordman((Swordman)swordman), 1);
+        player2.addCreature(new Griffin((Griffin) griffin), 3);
+        player2.addCreature(new Pikeman((Pikeman) pikeman), 3);
+        player2.addCreature(new Angel((Angel)angel), 3);
+        player2.addCreature(new Swordman((Swordman)swordman), 3);
         Battlefield battlefield = new Battlefield(player1, player2);
         battlefield.battle();
     }
