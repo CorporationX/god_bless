@@ -32,8 +32,4 @@ public class Product {
     public int hashCode() {
         return Objects.hash(id, name, getCategory());
     }
-
-    public String getName() {
-        return name;
-    }
 }
