@@ -10,7 +10,29 @@ public class DataCenterService implements OptimizationStrategy {
     private final DataCenter dataCenter = new DataCenter();
 
     public void addServerToDataCenter(final Server server) {
-        dataCenter.getSERVERS().add(server);
+        dataCenter.addServer(server);
+    }
+
+    public void deleteServerFromDataCenterById(int id, boolean forceDelete) {
+        Server server = dataCenter.getServerById(id);
+        if (forceDelete)
+        {
+            dataCenter.deleteServer(server);
+        }
+        else
+        {
+            double potentialMaxLoad = getMaximumLoad() - server.getMAX_LOAD();
+            double loadToAllocate = server.getLoad();
+            if (getTotalLoad() > potentialMaxLoad)
+            {
+                System.out.println("Невозможно удалить сервер. Сначала снизьте нагрузку на " + (getTotalLoad() - potentialMaxLoad));
+            }
+            else
+            {
+                allocateResources(new ResourceRequest(loadToAllocate));
+                dataCenter.deleteServer(server);
+            }
+        }
     }
 
     public double getTotalEnergyConsumption() {
@@ -38,16 +60,20 @@ public class DataCenterService implements OptimizationStrategy {
     }
 
     public void allocateResources(ResourceRequest request) {
-        double toAllocate = request.getLoad();
+        double loadToAllocate = request.getLoad();
         for (Server server : dataCenter.getSERVERS()) {
-            server.setLoad(server.getLoad() + toAllocate);
-            toAllocate = 0;
-            if (server.getLoad() > server.getMAX_LOAD()) {
-                toAllocate = server.getLoad() - server.getMAX_LOAD();
+            double currentServerLoad = server.getLoad();
+            if ((currentServerLoad + loadToAllocate) > server.getMAX_LOAD()) {
+                loadToAllocate -= server.getMAX_LOAD() - server.getLoad();
+                request.setLoad(loadToAllocate);
                 server.setLoad(server.getMAX_LOAD());
-            } else break;
+            } else {
+                server.setLoad(server.getLoad() + loadToAllocate);
+                request.setLoad(0);
+                break;
+            }
         }
-        if (toAllocate != 0) {
+        if (!request.isRequestAllocated()) {
             System.out.println("Серверам не хватило мощности, что бы обработать весь запрос");
         }
     }
@@ -55,17 +81,19 @@ public class DataCenterService implements OptimizationStrategy {
     public void releaseResources(ResourceRequest request) {
         double toRelease = request.getLoad();
         for (Server server : dataCenter.getSERVERS()) {
-            server.setLoad(server.getLoad() - toRelease);
-            if (server.getLoad() < 0) {
-                toRelease = server.getLoad() * -1;
+            double loadAfterRelease = server.getLoad() - toRelease;
+            if (loadAfterRelease < 0) {
+                toRelease = loadAfterRelease * -1;
                 server.setLoad(0);
-            } else break;
+            } else {
+                break;
+            }
         }
     }
 
 
     @Override
-    public void optimize() {                                 //ну короче он пытается распределить нагрузку равномерно между всеми серверами (насколько это возможно)
+    public void optimize() {
         double dividor = dataCenter.getSERVERS().size();
         double loadToBalance = getTotalLoad();
         double balanced = loadToBalance / dividor;

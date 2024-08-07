@@ -10,4 +10,21 @@ import java.util.List;
 @NoArgsConstructor
 public class DataCenter {
     private final List<Server> SERVERS = new ArrayList<>();
+
+    public void addServer(Server server) {
+        SERVERS.add(server);
+    }
+
+    public void deleteServer(Server server) {
+        SERVERS.remove(server);
+    }
+
+    public Server getServerById(int id) {
+        for (Server server : SERVERS) {
+            if (server.getId() == id) {
+                return server;
+            }
+        }
+        return null;
+    }
 }
