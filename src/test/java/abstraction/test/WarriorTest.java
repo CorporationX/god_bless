@@ -1,5 +1,7 @@
+package abstraction.test;
+
 import abstraction.Character;
-import abstraction.Archer;
+import abstraction.Warrior;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -7,26 +9,26 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ArcherTest {
+public class WarriorTest {
     @Test
     @DisplayName("Testing attack on other character")
     void warriorTest_testingAttack() {
-        Archer archer = new Archer("Legolas");
-        Character enemy = new Archer("Hawkeye");
+        Warrior warrior = new Warrior("Malakat");
+        Character enemy = new Warrior("Konan");
 
-        archer.attack(enemy);
+        warrior.attack(enemy);
 
-        assertEquals(100 - archer.getAgility(), enemy.getHealth());
+        assertEquals(100 - warrior.getStrength(), enemy.getHealth());
     }
 
     @Test
     @DisplayName("Testing health below zero after attack")
     void warriorTest_testingBelowZeroHealth() {
-        Archer archer = new Archer("Legolas");
-        Character enemy = new Archer("Hawkeye");
+        Warrior warrior = new Warrior("Malakat");
+        Character enemy = new Warrior("Konan");
 
         for (int i = 0; i < 15; i++) {
-            archer.attack(enemy);
+            warrior.attack(enemy);
         }
 
         assertEquals(0, enemy.getHealth());
@@ -35,9 +37,9 @@ public class ArcherTest {
     @Test
     @DisplayName("Testing attack null enemy")
     void warriorTest_testingAttackNullEnemy() {
-        Archer archer = new Archer("Legolas");
+        Warrior warrior = new Warrior("Malakat");
         Character enemy = null;
 
-        assertThrows(NullPointerException.class, () -> archer.attack(enemy));
+        assertThrows(NullPointerException.class, () -> warrior.attack(enemy));
     }
 }
