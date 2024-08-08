@@ -1,13 +1,14 @@
 package faang.school.godbless.BJS2_19401;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
+@ToString
 @AllArgsConstructor
 public class Product {
     private int id;
@@ -16,15 +17,10 @@ public class Product {
 
     public static Map<String, List<Product>> GroupingProductsByCategory(Set<Product> productSet) {
         Map<String, List<Product>> productMap = new HashMap<>();
-        List<Product> productList = new ArrayList<>();
+
         for (Product product : productSet) {
-            if (productList.contains(product.category)) {
-                productList.add(product);
-                productMap.put(product.category, productList);
-            } else {
-                List<Product> newList = new ArrayList<>();
-                productMap.put(product.category, newList);
-            }
+            productMap.putIfAbsent(product.category, new ArrayList<>());
+            productMap.get(product.category).add(product);
         }
         return productMap;
     }
