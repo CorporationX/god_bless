@@ -19,23 +19,22 @@ import static java.util.stream.Collectors.toMap;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class User {
     @EqualsAndHashCode.Include
-    private Integer id;
+    private int id;
     private String name;
-    private Integer age;
+    private int age;
     private Set<String> activities;
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        var result = new HashMap<User, String>();
+        var userActivity = new HashMap<User, String>();
         for (User user : users) {
-            var userActivities = user.getActivities();
-            for (String activity : userActivities) {
+            for (String activity : user.getActivities()) {
                 if (activities.contains(activity)) {
-                    result.put(user, activity);
+                    userActivity.put(user, activity);
                     break;
                 }
             }
         }
-        return result;
+        return userActivity;
     }
 
     public static Map<User, String> findHobbyLoversJava8(List<User> users, Set<String> activities) {

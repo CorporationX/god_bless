@@ -12,11 +12,11 @@ import static faang.school.godbless.bjs2_18412.ActivityConstants.VOLLEYBALL;
 
 public class Main {
     public static void main(String[] args) {
-        var user1 = new User(1, "", null, Set.of(FOOTBALL, BASKETBALL));
-        var user2 = new User(2, "", null, Set.of(VOLLEYBALL));
-        var user3 = new User(3, "", null, Set.of(RUNNING, FOOTBALL));
-        var user4 = new User(4, "", null, Set.of(READING));
-        var user5 = new User(5, "", null, Set.of(CODING, FOOTBALL, RUNNING));
+        var user1 = new User(1, "", 20, Set.of(FOOTBALL, BASKETBALL));
+        var user2 = new User(2, "", 25, Set.of(VOLLEYBALL));
+        var user3 = new User(3, "", 30, Set.of(RUNNING, FOOTBALL));
+        var user4 = new User(4, "", 60, Set.of(READING));
+        var user5 = new User(5, "", 35, Set.of(CODING, FOOTBALL, RUNNING));
 
         var users = List.of(user1, user2, user3, user4, user5);
 

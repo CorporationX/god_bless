@@ -1,7 +1,6 @@
 package faang.school.godbless.bjs2_18412;
 
 public final class ActivityConstants {
-
     private ActivityConstants() {}
 
     public static final String FOOTBALL = "Football";
