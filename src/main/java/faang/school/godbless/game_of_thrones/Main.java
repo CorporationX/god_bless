@@ -4,41 +4,45 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+
+    static final Map<String, House> houses = new HashMap<>();
     public static void main(String[] args) {
-        Map<String, House> houses = new HashMap<>();
-        houses.put("Stark", new House("Stark", "Winter is coming"));
-
-        add(houses, "Lannister", new House("Lannister", "Hear me Roar!"));
-        add(houses, "Targaryen", new House("Targaryen", "Fire and Blood"));
+        add(new House("Stark", "Winter is coming"));
+        add(new House("Lannister", "Hear me Roar!"));
+        add(new House("Targaryen", "Fire and Blood"));
         System.out.println(houses);
 
-        remove(houses, "Targaryen");
+        remove("Targaryen");
         System.out.println(houses);
 
-        add(houses, "Baratheon", new House("Baratheon", "Ours is the Fury"));
-        printInfoAboutSigilHouse(houses, "Baratheon");
+        add(new House("Baratheon", "Ours is the Fury"));
+        printInfoAboutSigilHouse("Baratheon");
 
-        printAllInfoAboutHouse(houses);
+        printAllInfoAboutHouse();
     }
 
-    public static void add(Map<String, House> houses, String name, House house) {
-        houses.put(name, house);
+    public static void add(House house) {
+        houses.put(house.getName(), house);
     }
 
-    public static void remove(Map<String, House> houses, String name) {
+    public static void remove(String name) {
         houses.remove(name);
     }
 
-    public static House search(Map<String, House> houses, String name) {
+    public static House search(String name) {
         return houses.get(name);
     }
 
-    public static void printInfoAboutSigilHouse(Map<String, House> houses, String name) {
-        House house = search(houses, name);
-        System.out.println(house.getSigil());
+    public static void printInfoAboutSigilHouse(String name) {
+        House house = search(name);
+        if (house != null) {
+            System.out.println(house.getSigil());
+            return;
+        }
+        System.out.println("House not found");
     }
 
-    public static void printAllInfoAboutHouse(Map<String, House> houses) {
+    public static void printAllInfoAboutHouse() {
         houses.forEach((name, house) -> System.out.println(name + " " + house));
     }
 }
