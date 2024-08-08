@@ -22,7 +22,7 @@ public class ProductManagerTest {
     Product product7 = new Product(7, "Table", "Furniture");
     Product product8 = new Product(8, "Jeans", "Clothing");
     Product product9 = new Product(9, "T-Shirt", "Clothing");
-   Product product10 = new Product(10, "Jacket", "Clothing");
+    Product product10 = new Product(10, "Jacket", "Clothing");
 
     ProductManager productManager;
     Set<Product> productSet;
@@ -30,9 +30,9 @@ public class ProductManagerTest {
 
     @BeforeEach
     void setUp() {
-        productManager = new ProductManager();
+        productManager = new ProductManager(new HashSet<>());
         productSet = new HashSet<>(Set.of(product1, product2, product3, product4, product5,
-                                          product6, product7, product8, product9, product10
+                product6, product7, product8, product9, product10
         ));
         expectedMap = new HashMap<>();
         productSet.forEach(product -> expectedMap.computeIfAbsent(product.category(), k ->
@@ -42,5 +42,11 @@ public class ProductManagerTest {
     @Test
     void testGroupingByCategory() {
         assertEquals(expectedMap, productManager.groupingByCategory(productSet));
+    }
+
+    @Test
+    void testPrintProductsByCategory() {
+        productManager.setProductSet(productSet);
+        productManager.printProductsByCategory();
     }
 }
