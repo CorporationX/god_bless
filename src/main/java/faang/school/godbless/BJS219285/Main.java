@@ -3,17 +3,33 @@ package faang.school.godbless.BJS219285;
 import java.util.*;
 
 public class Main {
-    private Set<Product> productCache = new HashSet<>();
+    private static Set<Product> products = new HashSet<>();
 
-    public Map<String, List<Product>> setProducts(Set<Product> products){
+    public static Map<String, List<Product>> setProducts(Set<Product> products) {
         Map<String, List<Product>> result = new HashMap<>();
-        for (Product product : products){
-            result.computeIfAbsent(product.getCategory().toLowerCase(), w -> new ArrayList<>()).add(product);
+        for (Product product : products) {
+            result.computeIfAbsent(product.getCategory(), w -> new ArrayList<>()).add(product);
         }
         return result;
     }
 
-    public void getProducts(){
-        productCache
+    public static void printProducts(Map<String, List<Product>> products) {
+        for (Map.Entry<String, List<Product>> productByCategory : products.entrySet()) {
+            System.out.println(productByCategory.getKey() + ":");
+            productByCategory.getValue().forEach(key -> System.out.println(key.toString()));
+        }
+    }
+
+    public static void main(String[] args) {
+        // Добавляем товары в коллекцию
+        products.add(new Product(1, "Laptop", "Electronics"));
+        products.add(new Product(2, "Smartphone", "Electronics"));
+        products.add(new Product(3, "Shirt", "Clothing"));
+        products.add(new Product(4, "Pants", "Clothing"));
+        products.add(new Product(5, "Blender", "Home Appliances"));
+
+        Map<String, List<Product>> productsByCategory = setProducts(products);
+
+        printProducts(productsByCategory);
     }
 }
