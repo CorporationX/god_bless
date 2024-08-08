@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static final Map<String, List<WebPage>> PAGES_KEYWORD_INDEX = new HashMap<>();
-
     public static void main(String[] args) {
+        Map<String, List<WebPage>> pagesKeywordIndex = new HashMap<>();
         WebPage springContext = new WebPage("https://github.com/user/spring-context",
                 "Spring-Context",
                 "GitHib repository 'Spring-Context'.");
@@ -27,30 +26,30 @@ public class Main {
                         "How Can I attach this project collection ?\n" +
                         "\n" +
                         "I run TfsConfig commands to register this collection database. Checked all necessary service account permissions.");
-        indexWebPage(springContext);
-        indexWebPage(mvcExample);
-        indexWebPage(databaseNotFound);
-        System.out.println(findWebPagesByKeyword("GitHib"));
-        System.out.println(findWebPagesByKeyword("commands"));
-        removeWebPageByUrl("https://github.com/user/mvc-example");
-        System.out.println(findWebPagesByKeyword("GitHib"));
+        indexWebPage(springContext, pagesKeywordIndex);
+        indexWebPage(mvcExample, pagesKeywordIndex);
+        indexWebPage(databaseNotFound, pagesKeywordIndex);
+        System.out.println(findWebPagesByKeyword("GitHib", pagesKeywordIndex));
+        System.out.println(findWebPagesByKeyword("commands", pagesKeywordIndex));
+        removeWebPageByUrl("https://github.com/user/mvc-example", pagesKeywordIndex);
+        System.out.println(findWebPagesByKeyword("GitHib", pagesKeywordIndex));
     }
 
-    public static void indexWebPage(WebPage webPage) {
-        List<String> tokens = Arrays.stream(webPage.getContent().split(" "))
+    public static void indexWebPage(WebPage webPage, Map<String, List<WebPage>> pagesKeywordIndex) {
+        List<String> tokens = Arrays.stream(webPage.getContent().split("\\W+"))
                 .map(token -> (token.replaceAll("[,./';|_-]", ""))).toList();
         for (String token : tokens) {
-            PAGES_KEYWORD_INDEX.computeIfAbsent((token), k -> new ArrayList<>()).add(webPage);
+            pagesKeywordIndex.computeIfAbsent((token), k -> new ArrayList<>()).add(webPage);
         }
     }
 
-    public static List<WebPage> findWebPagesByKeyword(String keyword) {
-        return PAGES_KEYWORD_INDEX.get(keyword);
+    public static List<WebPage> findWebPagesByKeyword(String keyword, Map<String, List<WebPage>> pagesKeywordIndex) {
+        return pagesKeywordIndex.get(keyword);
     }
 
-    public static void removeWebPageByUrl(String url) {
-        for (String key : PAGES_KEYWORD_INDEX.keySet()) {
-            List<WebPage> webPages = PAGES_KEYWORD_INDEX.get(key);
+    public static void removeWebPageByUrl(String url, Map<String, List<WebPage>> pagesKeywordIndex) {
+        for (String key : pagesKeywordIndex.keySet()) {
+            List<WebPage> webPages = pagesKeywordIndex.get(key);
             webPages.removeIf(webPage -> webPage.getUrl().equals(url));
         }
     }
