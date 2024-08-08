@@ -41,16 +41,16 @@ public class Main {
         printHistory();
     }
 
-    public static void addUserAndQuery(User user, Query query) {
-        queryStack.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
+    public static boolean addUserAndQuery(User user, Query query) {
+        return queryStack.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
     }
 
-    public static void addQuery(User user, Query query) {
-        queryStack.get(user).add(query);
+    public static boolean addQuery(User user, Query query) {
+        return queryStack.get(user).add(query);
     }
 
-    public static void removeQuery(User user) {
-        queryStack.remove(user);
+    public static boolean removeQuery(User user) {
+        return queryStack.remove(user) != null;
     }
 
     public static void printAllUsersWithQueries() {
