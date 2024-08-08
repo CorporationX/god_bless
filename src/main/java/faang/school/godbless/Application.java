@@ -22,18 +22,18 @@ public class Application {
         addBook(book4, "3");
         addBook(book5, "3");
 
-        allLibrary();
+        GetLibrary();
 
         System.out.println();
 
-        researchBook("Math", "Nuthon", 1698);
-        researchBook( "Manifest", "VKPb", 1934);
+        getBook("Math", "Nuthon", 1698);
+        getBook( "Manifest", "VKPb", 1934);
 
-        delBook("Bizan", "Sophia", 1698);
+        deleteBook(book4);
 
         System.out.println();
 
-        allLibrary();
+        GetLibrary();
     }
 
 
@@ -41,11 +41,11 @@ public class Application {
         library.put(book, number);
     }
 
-    public static void delBook(String title, String author, int year) {
-        library.remove(new Book(title, author, year));
+    public static void deleteBook(Book book) {
+        library.remove(book);
     }
 
-    public static void researchBook(String title, String author, int year) {
+    public static void getBook(String title, String author, int year) {
         for (Map.Entry<Book, String> pair : library.entrySet()) {
             if (pair.getKey().getTitle().equals(title)) {
                 System.out.println("Книга на полке под номером: " + library.get(pair.getKey()));
@@ -54,7 +54,7 @@ public class Application {
 
     }
 
-    public static void allLibrary() {
+    public static void GetLibrary() {
         for (Map.Entry<Book, String> pair : library.entrySet()) {
             System.out.println(pair.getKey() + " " + pair.getValue());
         }
