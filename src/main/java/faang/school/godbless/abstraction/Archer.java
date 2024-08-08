@@ -3,17 +3,15 @@ package faang.school.godbless.abstraction;
 
 public class Archer extends Character {
 
-    public Archer(String name) {
-        super(name);
-        this.power = 3;
-        this.dexterity = 10;
-        this.intelligence = 5;
+    public Archer(String name, int power, int dexterity, int intelligence) {
+        super(name, power, dexterity, intelligence);
     }
+
 
     @Override
     public void attack(Character character) {
         super.attack(character);
-        character.health = character.health - this.dexterity;
+        character.health -= this.dexterity;
 
         System.out.println(character.name + " health > " + character.health);
     }
