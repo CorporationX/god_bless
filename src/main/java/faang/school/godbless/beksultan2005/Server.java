@@ -1,11 +1,12 @@
 package faang.school.godbless.beksultan2005;
 
 import lombok.Getter;
-
-import java.util.HashMap;
-import java.util.List;
+import lombok.Setter;
+import lombok.ToString;
 
 @Getter
+@Setter
+@ToString
 public class Server {
     private double load;
     private double maxLoad;
@@ -33,13 +34,13 @@ public class Server {
     }
 
     public void releaseLoad(double releasedLoad) {
-        if (canReleaseLoad(releasedLoad)){
+        if (canReleaseLoad(releasedLoad)) {
             load -= releasedLoad;
             updateEnergyConsumption();
         }
     }
 
-    private void updateEnergyConsumption(){
+    public void updateEnergyConsumption() {
         energyConsumption = load / maxLoad;
     }
 }
