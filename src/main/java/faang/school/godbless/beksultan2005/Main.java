@@ -7,13 +7,13 @@ import java.util.*;
 @Getter
 public class Main {
     private static Map<String, List<WebPage>> webPages = new HashMap<>();
-    private static Map<String, List<String>> urlIndex = new HashMap<>();
+    private static Map<String, HashSet<String>> urlIndex = new HashMap<>();
 
     public static void addWord(WebPage webPage) {
         String[] words = webPage.getContent().split("\\W+");
         for (String word : words) {
             webPages.computeIfAbsent(word.toLowerCase(), w -> new ArrayList<>()).add(webPage);
-            urlIndex.computeIfAbsent(webPage.getUrl(), w -> new ArrayList<>()).add(word.toLowerCase());
+            urlIndex.computeIfAbsent(webPage.getUrl(), w -> new HashSet<>()).add(word.toLowerCase());
         }
     }
 
@@ -30,7 +30,7 @@ public class Main {
     }
 
     public static void removeWebPage(String url) {
-        List<String> words = urlIndex.remove(url);
+        Set<String> words = urlIndex.remove(url);
         if (words != null) {
             for (String word : words) {
                 List<WebPage> pages = webPages.get(word);
