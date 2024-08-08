@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import faang.school.godbless.Weather.WeatherData;
-
 import java.util.*;
 
 public class Application {
