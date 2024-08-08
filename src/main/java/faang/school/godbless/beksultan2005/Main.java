@@ -1,32 +1,45 @@
 package faang.school.godbless.beksultan2005;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Main {
+    private static Map<Book, String> cacheBook = new HashMap<>();
+
+    public static void addBook(Book book, String location) {
+        cacheBook.put(book, location);
+    }
+
+    public static void removeBook(String title, String author, int year) {
+        cacheBook.remove(new Book(title, author, year));
+    }
+
+    public static String getLocation(String title, String author, int year) {
+        return cacheBook.get(new Book(title, author, year));
+    }
+
+    public static void getAllCacheBook() {
+        cacheBook.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+    }
+
+
     public static void main(String[] args) {
-        Hero hero1 = new Hero("Arthur", 3, 1);
-        Hero hero2 = new Hero("Morgana", 4, 2);
+        Book book1 = new Book("Title1", "Author1", 2001);
+        Book book2 = new Book("Title2", "Author2", 2002);
+        Book book3 = new Book("Title3", "Author3", 2003);
 
-        Creature pikeman = new Pikeman();
-        Creature griffin = new Griffin();
-        Creature swordman = new Swordman();
-        Creature angel = new Angel();
+        addBook(book1, "Shelf1");
+        addBook(book2, "Shelf2");
+        addBook(book3, "Shelf3");
 
-        hero1.addCreature(pikeman, 10);
-        hero1.addCreature(griffin, 5);
-        hero1.addCreature(swordman, 7);
-        hero1.addCreature(angel, 12);
+        System.out.println("All books in cache:");
+        getAllCacheBook();
 
-        hero2.addCreature(pikeman, 15);
-        hero2.addCreature(griffin, 4);
-        hero2.addCreature(swordman, 6);
-        hero2.addCreature(angel, 3);
+        System.out.println("\nLocation of Title2 by Author2, 2002: " + getLocation("Title2", "Author2", 2002));
 
-        hero1.removeCreature(angel, 1);
+        removeBook("Title1", "Author1", 2001);
 
-        hero1.getArmy();
-        hero2.getArmy();
-
-        Battlefield battlefield = new Battlefield(hero1, hero2);
-        battlefield.battle();
+        System.out.println("\nAll books in cache after removing Title1:");
+        getAllCacheBook();
     }
 }
-
