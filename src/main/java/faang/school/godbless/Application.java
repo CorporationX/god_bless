@@ -5,22 +5,26 @@ import java.util.*;
 
 public class Application {
     public static void main(String[] args) {
-        try{
-            List<User> users = new ArrayList<>();
-            users.add(new User("Ura", 30, "Google", "London"));
-            users.add(new User("David", 25, "Uber", "Amsterdam"));
-            users.add(new User("Konstantin", 30, "Amazon", "New York"));
+        Hero hero1 = new Hero("Sir Christian", "Castle");
+        Hero hero2 = new Hero("Vey", "Necropolis");
 
-            Map<Integer, List<User>> group = User.groupUsers(users);
+        Creature pikeman = new Pikeman(50);
+        Creature griffin = new Griffin(20);
+        Creature swordman = new Swordman(30);
+        Creature angel = new Angel(5);
 
-            for (Map.Entry<Integer, List<User>> entry : group.entrySet()) {
-                System.out.println("Age" + entry.getKey());
-                for (User user : entry.getValue()) {
-                    System.out.println(user);
-                }
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        hero1.addCreature(pikeman, 50);
+        hero1.addCreature(griffin, 20);
+        hero1.addCreature(swordman, 30);
+        hero1.addCreature(angel, 5);
+
+        Creature skeleton = new Pikeman(100);
+        Creature vampire = new Griffin(10);
+
+        hero2.addCreature(skeleton, 100);
+        hero2.addCreature(vampire, 10);
+
+        Battlefield battlefield = new Battlefield(hero1, hero2);
+        battlefield.battle();
     }
 }
