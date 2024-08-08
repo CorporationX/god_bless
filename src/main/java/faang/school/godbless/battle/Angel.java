@@ -1,7 +1,6 @@
 package faang.school.godbless.battle;
 
 public class Angel extends Creature{
-    private final int N = 4;
 
     public Angel(String name){
         super(name);
@@ -12,6 +11,12 @@ public class Angel extends Creature{
 
     @Override
     public int getDamage() {
-        return attack + speed * N;
+        int n = 4;
+        return attack + speed * n;
+    }
+
+    @Override
+    public String toString() {
+        return "Angel (health=" + getHealth() + ")";
     }
 }

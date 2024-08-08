@@ -1,7 +1,6 @@
 package faang.school.godbless.battle;
 
 public class Swordman extends Creature{
-    private final int N = 3;
 
     public Swordman(String name){
         super(name);
@@ -12,6 +11,12 @@ public class Swordman extends Creature{
 
     @Override
     public int getDamage() {
-        return attack + speed * N;
+        int n = 3;
+        return attack + speed * n;
+    }
+
+    @Override
+    public String toString() {
+        return "Swordman (health=" + getHealth() + ")";
     }
 }

@@ -1,7 +1,6 @@
 package faang.school.godbless.battle;
 
 public class Griffin extends Creature{
-    private final int N = 2;
 
     public Griffin(String name) {
         super(name);
@@ -12,6 +11,12 @@ public class Griffin extends Creature{
 
     @Override
     public int getDamage() {
-        return attack + speed * N;
+        int n = 2;
+        return attack + speed * n;
+    }
+
+    @Override
+    public String toString() {
+        return "Griffin (health=" + getHealth() + ")";
     }
 }

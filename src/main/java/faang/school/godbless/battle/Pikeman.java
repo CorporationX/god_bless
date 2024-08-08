@@ -1,7 +1,6 @@
 package faang.school.godbless.battle;
 
 public class Pikeman extends Creature{
-    private final int N = 1;
 
     public Pikeman(String name) {
         super(name);
@@ -12,6 +11,12 @@ public class Pikeman extends Creature{
 
     @Override
     public int getDamage() {
-        return attack + speed * N;
+        int n = 1;
+        return attack + speed * n;
+    }
+
+    @Override
+    public String toString() {
+        return "Pikeman (health=" + getHealth() + ")";
     }
 }

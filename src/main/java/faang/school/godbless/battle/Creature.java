@@ -1,5 +1,12 @@
 package faang.school.godbless.battle;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
+@Getter
+@ToString
+@EqualsAndHashCode
 public abstract class Creature {
     protected String name;
     protected int attack;
