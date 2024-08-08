@@ -8,13 +8,12 @@ public class Main {
     public static final Map<Book, String> BOOK_MAP = new HashMap<>();
 
     public static void main(String[] args) {
-        BOOK_MAP.put(new Book("A Game of Thrones", "George R. R. Martin", 1996), "1");
-        BOOK_MAP.put(new Book("A Clash of Kings", "George R. R. Martin", 1998), "4");
-        BOOK_MAP.put(new Book("A Fist for Crows", "George R. R. Martin", 2005), "8");
-
+        addBook("A Game of Thrones", "George R. R. Martin", 1996, "1");
+        addBook("A Clash of Kings", "George R. R. Martin", 1998, "4");
+        addBook("A Fist for Crows", "George R. R. Martin", 2005, "8");
         addBook("A Dance with Dragons", "George R. R. Martin", 2011, "3");
-        findBook("A Dance with Dragons", "George R. R. Martin", 2011);
         removeBook("A Dance with Dragons", "George R. R. Martin", 2011);
+        findBook("A Dance with Dragons", "George R. R. Martin", 2011);
         showAllBooks();
     }
 
@@ -28,8 +27,12 @@ public class Main {
     }
 
     public static void findBook(String title, String author, int year) {
-        String shelf = BOOK_MAP.get(new Book(title, author, year));
-        System.out.printf("The book '%s' is on a shelf %s\n\n", title, shelf);
+        Book book = new Book(title, author, year);
+        if (BOOK_MAP.containsKey(book)) {
+            System.out.printf("The book '%s' is on a shelf %s\n\n", title, BOOK_MAP.get(book));
+        } else {
+            System.out.println("There is no such book in the library");
+        }
     }
 
     public static void showAllBooks() {
