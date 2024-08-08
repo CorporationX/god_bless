@@ -39,4 +39,8 @@ public class DataCenterService {
         server.releaseLoad(request.getLoad());
         dataCenter.getResourceRequests().remove(request);
     }
+
+    public void optimize(){
+
+    }
 }

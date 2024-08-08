@@ -9,6 +9,7 @@ public class DataCenter {
     private List<Server> servers = new ArrayList<>();
     private HashMap<ResourceRequest, Server> resourceRequests = new HashMap<>();
 
+
     public void addServer(Server server) {
         servers.add(server);
     }
