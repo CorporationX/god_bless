@@ -6,29 +6,29 @@ import java.util.Map;
 public class Main {
     private Map<String, WeatherData> cacheData = new HashMap<>();
 
-    public WeatherData getWeatherData(String city){
-        if(cacheData.containsKey(city)){
+    public WeatherData getWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
             return cacheData.get(city);
-        }else{
+        } else {
             WeatherData weatherData = new WeatherData(city);
             cacheData.put(city, weatherData);
             return weatherData;
         }
     }
 
-    public void updateWeatherData(String city){
-        if(cacheData.containsKey(city)){
+    public void updateWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
             cacheData.put(city, new WeatherData(city));
         }
     }
 
-    public void removeWeatherData(String city){
-        if(cacheData.containsKey(city)){
+    public void removeWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
             cacheData.remove(city);
         }
     }
 
-    public void getAllWeatherData(){
+    public void getAllWeatherData() {
         cacheData.forEach((key, value) -> System.out.println(key + ":" + value.toString()));
     }
 
