@@ -1,26 +1,30 @@
 package faang.school.godbless.beksultan2005;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.ToString;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
+@Getter
 @ToString
 @AllArgsConstructor
 public class User {
+    private long id;
     private String name;
     private int age;
-    private String placeWork;
-    private String address;
+    private Set<String> activities;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> result = new HashMap<>();
-
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> targetActivities) {
+        Map<User, String> result = new HashMap<>();
         for (User user : users) {
-            if (result.containsKey(user.age)) {
-                result.get(user.age).add(user);
-            } else {
-                result.put(user.age, new ArrayList<>(Arrays.asList(user)));
+            for (String activity : user.getActivities()) {
+                if (targetActivities.contains(activity)) {
+                    result.put(user, activity);
+                }
             }
         }
         return result;
