@@ -16,26 +16,34 @@ public class Main {
         System.out.println("Request new resources");
         dataCenterService.allocateResources(new ResourceRequest(1475));
         dataCenterService.printDataCenterConfiguration();
-
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
         System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
+
         System.out.println("=========================");
         System.out.println("Request release resources");
         dataCenterService.releaseResources(new ResourceRequest(654));
         dataCenterService.printDataCenterConfiguration();
-
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
         System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
 
-        dataCenterService.optimize();
         System.out.println("---------------------------");
         System.out.println("After optimization by percentage load");
+        dataCenterService.optimize();
         dataCenterService.printDataCenterConfiguration();
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
         System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
+
         System.out.println("---------------------------");
         System.out.println("After optimization by energy consumption");
         dataCenterService.setOptimizationStrategy(new EnergyEfficencyOptimizationStrategy());
+        dataCenterService.optimize();
+        dataCenterService.printDataCenterConfiguration();
+        System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());
+        System.out.println("All servers energy consumption: " + dataCenterService.getTotalEnergyConsumption());
+
+        System.out.println("----------------------------");
+        System.out.println("After another one optimization by percentage load");
+        dataCenterService.setOptimizationStrategy(new LoadBalancingOptimizationStrategy());
         dataCenterService.optimize();
         dataCenterService.printDataCenterConfiguration();
         System.out.println("All servers load: " + dataCenterService.getCurrentServersLoad());

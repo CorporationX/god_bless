@@ -7,7 +7,7 @@ public class Server {
 
     private final double SMALL_SERVER = 100;
     private final double MEDIUM_SERVER = 150;
-    private final double BIG_SERVER = 200;
+    private final double LARGE_SERVER = 200;
     private final int ENERGY_COEFFICIENT = 50;
     private double load = 0;
     private double percentLoad;
@@ -22,12 +22,12 @@ public class Server {
 
     public void setLoad(double load) {
         this.load = load;
-        energyEfficiency = check(maxLoad);
+        energyEfficiency = getEnergyEffinecyCoefficient(maxLoad);
         energyConsumption = ENERGY_COEFFICIENT * energyEfficiency * load;
-        percentLoad = Math.floor((load * 100 / maxLoad)*100)/100;
+        percentLoad = Math.floor((load * 100 / maxLoad) * 100) / 100;
     }
 
-    private double check(Double maxLoad) {
+    private double getEnergyEffinecyCoefficient(Double maxLoad) {
         if (maxLoad == SMALL_SERVER) {
             return 0.2;
         } else if (maxLoad == MEDIUM_SERVER) {
@@ -35,5 +35,4 @@ public class Server {
         }
         return 0.12;
     }
-
 }

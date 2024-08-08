@@ -25,7 +25,6 @@ public class DataCenterService {
     @Setter
     OptimizationStrategy optimizationStrategy;
 
-
     public void optimize() {
         optimizationStrategy.optimize(dataCenter);
     }
@@ -35,7 +34,6 @@ public class DataCenterService {
                 .flatMapToDouble(server -> DoubleStream.of(server.getEnergyConsumption()))
                 .sum();
     }
-
 
     public void allocateResources(ResourceRequest request) {
         double requestedLoad = request.getLoad();
@@ -53,13 +51,19 @@ public class DataCenterService {
         distributeLoadByServers(requestedLoad);
     }
 
+    private double getServersFreeLoad() {
+        double maxServersLoad = dataCenter.getServersList().stream()
+                .flatMapToDouble(server -> DoubleStream.of(server.getMaxLoad()))
+                .sum();
+        return maxServersLoad - getCurrentServersLoad();
+    }
+
     private Map<Double, Integer> chooseNewSrvSize(Double requestedLoad, Double availableLoad) {
         double[] srvSizes = new double[]{SMALL_SERVER_LOAD, MEDIUM_SERVER_LOAD, LARGE_SERVER_LOAD};
         Map<Double, Integer> newServers = new HashMap<>();
         for (double size : srvSizes) {
             newServers.put(size, 0);
         }
-
         while (requestedLoad > 0) {
             for (int i = 0; i < srvSizes.length; i++) {
                 if (requestedLoad <= srvSizes[i] + availableLoad) {
@@ -73,19 +77,6 @@ public class DataCenterService {
             }
         }
         return newServers;
-    }
-
-    private void distributeLoadByServers(double requestedLoad) {
-        for (Server server : dataCenter.getServersList()) {
-            double srvFreeLoad = server.getMaxLoad() - server.getLoad();
-            if (srvFreeLoad >= requestedLoad) {
-                server.setLoad(server.getLoad() + requestedLoad);
-                break;
-            } else {
-                server.setLoad(server.getMaxLoad());
-                requestedLoad -= srvFreeLoad;
-            }
-        }
     }
 
     public void releaseResources(ResourceRequest request) {
@@ -103,17 +94,23 @@ public class DataCenterService {
         }
     }
 
+    private void distributeLoadByServers(double requestedLoad) {
+        for (Server server : dataCenter.getServersList()) {
+            double srvFreeLoad = server.getMaxLoad() - server.getLoad();
+            if (srvFreeLoad >= requestedLoad) {
+                server.setLoad(server.getLoad() + requestedLoad);
+                break;
+            } else {
+                server.setLoad(server.getMaxLoad());
+                requestedLoad -= srvFreeLoad;
+            }
+        }
+    }
+
     public double getCurrentServersLoad() {
         return dataCenter.getServersList().stream()
                 .flatMapToDouble(server -> DoubleStream.of(server.getLoad()))
                 .sum();
-    }
-
-    private double getServersFreeLoad() {
-        double maxServersLoad = dataCenter.getServersList().stream()
-                .flatMapToDouble(server -> DoubleStream.of(server.getMaxLoad()))
-                .sum();
-        return maxServersLoad - getCurrentServersLoad();
     }
 
     public void printDataCenterConfiguration() {
@@ -123,7 +120,6 @@ public class DataCenterService {
                     + " Energy consumption - " + dataCenter.getServersList().get(i).getEnergyConsumption());
         }
     }
-
 }
 
 
