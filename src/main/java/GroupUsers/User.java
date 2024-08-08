@@ -52,7 +52,6 @@ public class User {
             else{
                 ageUserList.get(key).add(u);
             }
-
         }
 
         return ageUserList;
