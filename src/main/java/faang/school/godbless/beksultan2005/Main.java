@@ -1,45 +1,52 @@
 package faang.school.godbless.beksultan2005;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Main {
-    private static Map<Book, String> cacheBook = new HashMap<>();
-
-    public static void addBook(Book book, String location) {
-        cacheBook.put(book, location);
-    }
-
-    public static void removeBook(String title, String author, int year) {
-        cacheBook.remove(new Book(title, author, year));
-    }
-
-    public static String getLocation(String title, String author, int year) {
-        return cacheBook.get(new Book(title, author, year));
-    }
-
-    public static void getAllCacheBook() {
-        cacheBook.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
-    }
-
+    private static DataCenter dataCenter = new DataCenter();
+    private static final DataCenterService dataCenterService = new DataCenterService(dataCenter);
 
     public static void main(String[] args) {
-        Book book1 = new Book("Title1", "Author1", 2001);
-        Book book2 = new Book("Title2", "Author2", 2002);
-        Book book3 = new Book("Title3", "Author3", 2003);
 
-        addBook(book1, "Shelf1");
-        addBook(book2, "Shelf2");
-        addBook(book3, "Shelf3");
+        Server server1 = new Server(0.40);
+        Server server2 = new Server(0.40);
+        Server server3 = new Server(0.30);
+        Server server4 = new Server(0.40);
+        Server server5 = new Server(0.30);
 
-        System.out.println("All books in cache:");
-        getAllCacheBook();
+        dataCenterService.addServer(server1);
+        dataCenterService.addServer(server2);
+        dataCenterService.addServer(server3);
+        dataCenterService.addServer(server4);
+        dataCenterService.addServer(server5);
 
-        System.out.println("\nLocation of Title2 by Author2, 2002: " + getLocation("Title2", "Author2", 2002));
+        ResourceRequest resourceRequest1 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest2 = new ResourceRequest(0.08);
+        ResourceRequest resourceRequest3 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest4 = new ResourceRequest(0.22);
+        ResourceRequest resourceRequest5 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest6 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest7 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest8 = new ResourceRequest(0.32);
+        ResourceRequest resourceRequest9 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest10 = new ResourceRequest(0.08);
 
-        removeBook("Title1", "Author1", 2001);
+        dataCenterService.allocateResources(resourceRequest1);
+        dataCenterService.allocateResources(resourceRequest2);
+        dataCenterService.allocateResources(resourceRequest3);
+        dataCenterService.allocateResources(resourceRequest4);
+        dataCenterService.allocateResources(resourceRequest5);
+        dataCenterService.allocateResources(resourceRequest6);
+        dataCenterService.allocateResources(resourceRequest7);
+        dataCenterService.allocateResources(resourceRequest8);
+        dataCenterService.allocateResources(resourceRequest9);
+        dataCenterService.allocateResources(resourceRequest10);
 
-        System.out.println("\nAll books in cache after removing Title1:");
-        getAllCacheBook();
+        dataCenter.getServers().forEach(server -> System.out.println(server));
+
+        System.out.println();
+
+        dataCenterService.optimize(dataCenter);
+
+        dataCenter.getServers().forEach(server -> System.out.println(server));
+
     }
 }
