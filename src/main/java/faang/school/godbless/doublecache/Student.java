@@ -9,10 +9,6 @@ public class Student {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -22,12 +18,14 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return id == student.id;
+        return id == student.id && name.equals(student.name);
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(id);
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 
     @Override

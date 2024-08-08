@@ -9,10 +9,6 @@ public class Subject {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
-
     public String getName() {
         return name;
     }
@@ -22,12 +18,14 @@ public class Subject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Subject subject = (Subject) o;
-        return id == subject.id;
+        return id == subject.id && name.equals(subject.name);
     }
 
     @Override
     public int hashCode() {
-        return Integer.hashCode(id);
+        int result = id;
+        result = 31 * result + name.hashCode();
+        return result;
     }
 
     @Override
