@@ -1,21 +1,25 @@
 package faang.school.godbless.BJS2_19329;
 
-import java.util.stream.DoubleStream;
-
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
 
     @Override
     public void optimize(DataCenter dataCenter) {
-       double allServersLoad = dataCenter.getServersList().stream()
-                .flatMapToDouble(server -> DoubleStream.of(server.getLoad()))
-                .sum();
-       double newServerLoad = allServersLoad / dataCenter.getServersList().size();
-       for (Server server : dataCenter.getServersList()) {
-           if(server.getLoad() <= newServerLoad) {
-               server.setLoad(server.getLoad() + newServerLoad);
-           }
-           else {
-           }
-       }
+        double allSrvMaxLoad = dataCenter.getServersList().stream().mapToDouble(Server::getMaxLoad).sum();
+        double allSrvLoad = dataCenter.getServersList().stream().mapToDouble(Server::getLoad).sum();
+        double percentLoad = (double) Math.round(((allSrvLoad * 100 / allSrvMaxLoad) * 100)) / 100;
+        for (Server server : dataCenter.getServersList()) {
+            server.setLoad(server.getMaxLoad() * percentLoad / 100);
+        }
+        double currentSrvLoad = dataCenter.getServersList().stream().mapToDouble(Server::getLoad).sum();
+        if (currentSrvLoad < allSrvLoad) {
+            for (Server server : dataCenter.getServersList()) {
+                double srvFreeLoad = server.getMaxLoad() - server.getLoad();
+                double residualLoad = allSrvLoad - currentSrvLoad;
+                if (srvFreeLoad > residualLoad) {
+                    server.setLoad(server.getLoad() + residualLoad);
+                    break;
+                }
+            }
+        }
     }
 }

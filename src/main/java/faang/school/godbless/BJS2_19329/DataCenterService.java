@@ -1,22 +1,30 @@
 package faang.school.godbless.BJS2_19329;
 
-import lombok.AllArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.DoubleStream;
 
-@AllArgsConstructor
+
 public class DataCenterService {
-    private final double SMALL_SERVER_LOAD = 100;
-    private final double MEDIUM_SERVER_LOAD = 150;
-    private final double LARGE_SERVER_LOAD = 200;
-    private final double ZERO_LOAD = 0.0;
     DataCenter dataCenter;
+    private final double SMALL_SERVER_LOAD;
+    private final double MEDIUM_SERVER_LOAD;
+    private final double LARGE_SERVER_LOAD;
+    private final double ZERO_LOAD = 0.0;
+
+    public DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy) {
+        this.dataCenter = dataCenter;
+        this.SMALL_SERVER_LOAD = dataCenter.getSMALL_SERVER();
+        this.MEDIUM_SERVER_LOAD = dataCenter.getMEDIUM_SERVER();
+        this.LARGE_SERVER_LOAD = dataCenter.getLARGE_SERVER();
+        this.optimizationStrategy = optimizationStrategy;
+    }
 
     @Setter
     OptimizationStrategy optimizationStrategy;
+
 
     public void optimize() {
         optimizationStrategy.optimize(dataCenter);
@@ -111,7 +119,7 @@ public class DataCenterService {
     public void printDataCenterConfiguration() {
         for (int i = 0; i < dataCenter.getServersList().size(); i++) {
             System.out.println("Current load  srv#" + i + " Current load : " + dataCenter.getServersList().get(i).getLoad()
-                    + ", Max load - " + dataCenter.getServersList().get(i).getMaxLoad()
+                    + ", Max load - " + dataCenter.getServersList().get(i).getMaxLoad() + ", Percent load: " + dataCenter.getServersList().get(i).getPercentLoad()
                     + " Energy consumption - " + dataCenter.getServersList().get(i).getEnergyConsumption());
         }
     }
