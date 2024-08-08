@@ -6,7 +6,6 @@ public class WeatherDate {
     private String city;
     private int temperature, humidity;
 
-
     public WeatherDate(String city, int temperature, int humidity) {
         this.city = city;
         this.temperature = temperature;

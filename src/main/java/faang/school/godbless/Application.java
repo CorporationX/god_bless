@@ -20,7 +20,6 @@ public class Application {
         System.out.println(infoWeather("Moscow"));
 
         allMapWeatherDate();
-
     }
 
     public static WeatherDate infoWeather(String city) {
@@ -31,8 +30,6 @@ public class Application {
             return WEATHER_DATE_HASH_MAP.get(city);
         }
     }
-
-
 
     public static void setMapWeatherDate(String city, WeatherDate weatherDate) {
         WEATHER_DATE_HASH_MAP.put(city, weatherDate);
