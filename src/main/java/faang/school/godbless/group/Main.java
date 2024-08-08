@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>(Arrays.asList(
+        List<User> users = (Arrays.asList(
                 new User("1", 18, "Google", "Amsterdam"),
                 new User("2", 18, "Google", "Amsterdam"),
                 new User("3", 19, "Google", "Amsterdam"),

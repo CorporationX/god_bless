@@ -12,13 +12,29 @@ import java.util.Map;
 import java.util.Set;
 
 public class User {
-    @NonNull private String name;
-    @NonNull private Integer age;
-    @NonNull private String workAddress;
-    @NonNull private String homeAddress;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    @NonNull
+    private String name;
+    @NonNull
+    private Integer age;
+    @NonNull
+    private String workAddress;
+    @NonNull
+    private String homeAddress;
+
+    public User(String name, Integer age,  String workAddress, String homeAddress) {
+        if (age >= 18 && VALID_ADDRESSES.contains(homeAddress)
+                && VALID_JOBS.contains(workAddress)){
+            this.name = name;
+            this.age = age;
+            this.homeAddress = homeAddress;
+            this.workAddress = workAddress;
+        }else {
+            throw new IllegalArgumentException();
+        }
+    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList){
         var userMap = new HashMap<Integer, List<User>>();
@@ -31,17 +47,5 @@ public class User {
     private static void addUser(Map<Integer, List<User>> userMap, User user){
         userMap.computeIfAbsent(user.age, k -> new ArrayList<>());
         userMap.get(user.age).add(user);
-    }
-
-    public User(@NonNull String name, @NonNull Integer age, @NonNull String workAddress, @NonNull String homeAddress) {
-        if (age >= 18 && VALID_ADDRESSES.contains(homeAddress)
-            && VALID_JOBS.contains(workAddress)){
-            this.name = name;
-            this.age = age;
-            this.homeAddress = homeAddress;
-            this.workAddress = workAddress;
-        }else {
-            throw new IllegalArgumentException();
-        }
     }
 }
