@@ -20,9 +20,29 @@ public class Battlefield {
         fiend.addCreature(pikeman, 2);
         fiend.addCreature(swordman, 2);
         fiend.addCreature(griffin, 3);
+
+        battle(knight, fiend);
+
     }
 
-    public Hero battle(Hero heroOne, Hero heroTwo) {
-        
+    public static void battle(Hero heroOne, Hero heroTwo) {
+        while(true) {
+            heroOne.attack(heroTwo);
+            if (checkwin(heroOne, heroTwo)) {
+                break;
+            }
+            heroTwo.attack(heroOne);
+            if (checkwin(heroTwo, heroOne)) {
+                break;
+            }
+        }
+    }
+
+    public static boolean checkwin(Hero attacker, Hero defender) {
+        if (defender.getArmyHp() <= 0) {
+            System.out.println(attacker.getName() + " одержал победу!");
+            return true;
+        }
+        return false;
     }
 }

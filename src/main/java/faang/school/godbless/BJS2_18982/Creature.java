@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_18982;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Setter;
 
 @Data
 @AllArgsConstructor
