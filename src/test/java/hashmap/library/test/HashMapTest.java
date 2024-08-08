@@ -1,3 +1,5 @@
+package hashmap.library.test;
+
 import hasmap.library.Book;
 import hasmap.library.Main;
 import org.junit.jupiter.api.BeforeEach;
