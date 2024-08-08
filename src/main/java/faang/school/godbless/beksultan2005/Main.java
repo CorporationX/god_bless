@@ -10,21 +10,21 @@ public class Main {
     private static List<Data> dataList = new ArrayList<>(); //структуру данных
     private static final int CACHE_SIZE = 12;
 
-    private static void addData(Data data){
+    private static void addData(Data data) {
         dataList.add(data);
     }
 
-    private static Data getDataById(int id){
-        if(cacheData.containsKey(id)){
+    private static Data getDataById(int id) {
+        if (cacheData.containsKey(id)) {
             cacheData.get(id).setCurrentDate(Instant.now());
             return cacheData.get(id);
-        }else{
+        } else {
             Data data = dataList.get(id);
             data.setCurrentDate(Instant.now());
-            if(listID.size() >= CACHE_SIZE){
+            if (listID.size() >= CACHE_SIZE) {
                 cacheData.remove(listID.getFirst());
                 listID.removeFirst();
-            }else{
+            } else {
                 listID.addLast(id);
             }
             cacheData.put(id, data);
@@ -32,11 +32,11 @@ public class Main {
         }
     }
 
-    public static void getAllCacheData(){
+    public static void getAllCacheData() {
         cacheData.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
-    public static void getAllData(){
+    public static void getAllData() {
         dataList.forEach((value) -> System.out.println(value));
     }
 
