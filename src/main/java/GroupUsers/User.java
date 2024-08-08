@@ -37,28 +37,6 @@ public class User {
             throw new IllegalArgumentException();
         }
     }
-
-
-    public static Map<Integer, List<User>> groupUsers(List<User> userList){
-        Map<Integer, List<User>> ageUserList = new HashMap<>();
-
-        for (User u : userList){
-            int key = u.getAge();
-            if(!ageUserList.containsKey(key)) {
-                List<User> testList = new ArrayList<>();
-                testList.add(u);
-                ageUserList.put(key,testList);
-            }
-            else{
-                ageUserList.get(key).add(u);
-            }
-        }
-
-        return ageUserList;
-    }
-
-
-
     public int getAge() {
         return age;
     }
