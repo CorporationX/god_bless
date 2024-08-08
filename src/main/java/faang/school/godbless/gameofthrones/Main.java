@@ -8,18 +8,22 @@ public class Main {
     public static final Map<String, House> HOUSE_MAP = new HashMap<>();
 
     public static void main(String[] args) {
-        HOUSE_MAP.put("Stark", new House("Stark", "Wolf"));
-        HOUSE_MAP.put("Baratheon", new House("Baratheon", "Deer"));
-        HOUSE_MAP.put("Lannister", new House("Lannister", "Lion"));
-        addHouse("Targaryen", "Dragon");
+        House stark = new House("Stark", "Wolf");
+        House baratheon = new House("Baratheon", "Deer");
+        House lannister = new House("Lannister", "Lion");
+        House targaryen = new House("Targaryen", "Dragon");
+        addHouse(stark);
+        addHouse(baratheon);
+        addHouse(lannister);
+        addHouse(targaryen);
         findHouseByName("Targaryen");
+        findHouseByName("Tyrell");
         removeHouseByName("Targaryen");
         showAllHouses();
     }
 
-    public static void addHouse(String name, String sigil) {
-        House house = new House(name, sigil);
-        HOUSE_MAP.put(name, house);
+    public static void addHouse(House house) {
+        HOUSE_MAP.put(house.getName(), house);
     }
 
     public static void removeHouseByName(String name) {
@@ -27,8 +31,11 @@ public class Main {
     }
 
     public static void findHouseByName(String name) {
-        String sigil = HOUSE_MAP.get(name).getSigil();
-        System.out.printf("Sigil of house %s is %s\n", name, sigil);
+        if (HOUSE_MAP.get(name) != null) {
+            System.out.printf("Sigil of house %s is %s\n", name, HOUSE_MAP.get(name).getSigil());
+        } else {
+            System.out.printf("No house with name %s is found\n", name);
+        }
     }
 
     public static void showAllHouses() {

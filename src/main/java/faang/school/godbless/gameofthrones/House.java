@@ -1,12 +1,13 @@
 package faang.school.godbless.gameofthrones;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
 @AllArgsConstructor
+@ToString
 public class House {
-
     private String name;
     private String sigil;
 }
