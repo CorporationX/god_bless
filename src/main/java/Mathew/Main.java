@@ -17,7 +17,7 @@ public class Main {
         students.add(student3);
         System.out.println(facultyYearOfStudents(students).toString());
         System.out.println(listOfAllStudentsFacultyAndYear().toString());
-        addStudent("Mitio Kanai","Japanese History",1);
+        addStudent("Mitio Kanai", "Japanese History", 1);
         removeStudent("Дмитрий Сергеев");
         System.out.println(facultyYearOfStudents(students).toString());
 
@@ -50,16 +50,17 @@ public class Main {
         }
         return foundStudents;
     }
+
     //вывод списка всех студентов сгруппированных по факультетам и курсам
-    public static Map<Pair,List<Student>> listOfAllStudentsFacultyAndYear() {
-        Map<Pair,List<Student>> hashMap_StudentsFacultyAndYear = new HashMap<>();
+    public static Map<Pair, List<Student>> listOfAllStudentsFacultyAndYear() {
+        Map<Pair, List<Student>> hashMap_StudentsFacultyAndYear = new HashMap<>();
         for (Student student : students) {
             Pair pair = new Pair(student.getFaculty(), student.getYear());
             hashMap_StudentsFacultyAndYear.computeIfAbsent(pair, k -> new ArrayList<>()).add(student);
-            }
-return hashMap_StudentsFacultyAndYear;
         }
+        return hashMap_StudentsFacultyAndYear;
     }
+}
 
 
 
