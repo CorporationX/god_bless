@@ -1,7 +1,5 @@
 package faang.school.godbless.beksultan2005;
 
-import lombok.ToString;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,19 +7,19 @@ import java.util.Map;
 public class Main {
     private static Map<String, House> houses = new HashMap<>();
 
-    public static void addHouse(House house){
+    public static void addHouse(House house) {
         houses.put(house.getName(), house);
     }
 
-    public static void deleteHouse(String name){
+    public static void deleteHouse(String name) {
         houses.remove(name);
     }
 
-    public static String getSigil(String name){
+    public static String getSigil(String name) {
         return houses.get(name).getSigil();
     }
 
-    public static void getAllHouse(){
+    public static void getAllHouse() {
         houses.forEach((key, value) -> System.out.println(key + ": " + value.getSigil()));
     }
 
