@@ -7,29 +7,29 @@ import java.util.Map;
 
 @ToString
 public class Main {
-    static Map<String, WeatherData> mappa = new HashMap<>();
+    static Map<String, WeatherData> cityWeather = new HashMap<>();
 
     public static WeatherData getWeatherOfCity(String city) {
-        if (mappa.containsKey(city)) {
-            return mappa.get(city);
+        if (cityWeather.containsKey(city)) {
+            return cityWeather.get(city);
         } else {
             WeatherData weatherData = new WeatherData(city);
-            mappa.put(city, weatherData);
+            cityWeather.put(city, weatherData);
             return weatherData;
         }
     }
 
     public static void updateWeather(String city) {
         WeatherData weatherData = new WeatherData(city);
-        mappa.put(city, weatherData);
+        cityWeather.put(city, weatherData);
     }
 
     public static void removeWeatherData(String city) {
-        mappa.remove(city);
+        cityWeather.remove(city);
     }
 
     public static void getAllWeatherData() {
-        mappa.forEach((key, value) -> System.out.println(key + ":" + value));
+        cityWeather.forEach((key, value) -> System.out.println(key + ":" + value));
     }
 
     public static void main(String[] args) {
@@ -38,11 +38,11 @@ public class Main {
         WeatherData petrozavodsk = new WeatherData("Petrozavodsk");
         WeatherData spb = new WeatherData("Saints-Peterburg");
         WeatherData kazan = new WeatherData("Kazan");
-        mappa.put("Мск",moscow);
-        mappa.put("Спб",spb);
-        mappa.put("Сегежа",segezha);
-        mappa.put("Петрозаводск",petrozavodsk);
-        mappa.put("Казань",kazan);
+        cityWeather.put("Мск",moscow);
+        cityWeather.put("Спб",spb);
+        cityWeather.put("Сегежа",segezha);
+        cityWeather.put("Петрозаводск",petrozavodsk);
+        cityWeather.put("Казань",kazan);
         getAllWeatherData();
         removeWeatherData("Moscow");
         getAllWeatherData();
