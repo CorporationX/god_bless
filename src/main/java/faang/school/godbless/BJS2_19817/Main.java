@@ -2,7 +2,7 @@ package faang.school.godbless.BJS2_19817;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Optional;
 
 public class Main {
     private static Map<String, House> houses = new HashMap<>();
@@ -12,14 +12,14 @@ public class Main {
         houses.put("Lanister", new House("Lanister", "lanister sigil"));
         houses.put("Baratheon", new House("Baratheon", "baratheon sigil"));
 
-        addHouse();
+        addHouse("Targaryen", new House("Targaryen", "targaryen sigil"));
         deleteHouseByName("Stark");
         System.out.println(findSigilByHouse("Baratheon"));
         printHouses();
     }
 
-    public static void addHouse(){
-        houses.put("Targaryen", new House("Targaryen", "targaryen sigil"));
+    public static void addHouse(String houseName, House house){
+        houses.put(houseName, house);
     }
 
     public static void deleteHouseByName(String name){
@@ -27,7 +27,8 @@ public class Main {
     }
 
     public static String findSigilByHouse(String name){
-        return houses.get(name).getSigil();
+        return Optional.ofNullable(houses.get(name)).
+                orElseThrow(() -> new IllegalArgumentException("Incorrect house name")).getSigil();
     }
 
     public static void printHouses(){
