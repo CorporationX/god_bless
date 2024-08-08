@@ -1,7 +1,6 @@
 package faang.school.godbless.BJS218880;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 

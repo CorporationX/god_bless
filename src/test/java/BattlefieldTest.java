@@ -1,6 +1,7 @@
 import faang.school.godbless.BJS218880.Angel;
 import faang.school.godbless.BJS218880.Battlefield;
 import faang.school.godbless.BJS218880.Creature;
+import faang.school.godbless.BJS218880.Griffin;
 import faang.school.godbless.BJS218880.Hero;
 import faang.school.godbless.BJS218880.Pikeman;
 import faang.school.godbless.BJS218880.Swordman;
@@ -23,12 +24,12 @@ public class BattlefieldTest {
         Map<String, Creature> protagonistCreatures = new HashMap<>();
         protagonistCreatures.put("Pikeman", new Pikeman(3));
         protagonistCreatures.put("Angel", new Angel(5));
-        protagonistCreatures.put("Griffin", new Swordman(2));
+        protagonistCreatures.put("Griffin", new Griffin(2));
 
         Map<String, Creature> antagonistCreatures = new HashMap<>();
         antagonistCreatures.put("Pikeman", new Pikeman(3));
         antagonistCreatures.put("Angel", new Angel(5));
-        antagonistCreatures.put("Griffin", new Swordman(2));
+        antagonistCreatures.put("Griffin", new Griffin(2));
         this.protagonist = new Hero("Kyle", "White", 500, 10, protagonistCreatures);
         this.antagonist = new Hero("Rammon", "Dark", 600, 11, antagonistCreatures);
         this.battlefield = new Battlefield(protagonist, antagonist);
