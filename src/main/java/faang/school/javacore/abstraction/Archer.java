@@ -1,14 +1,17 @@
 package faang.school.javacore.abstraction;
 
-public class Archer extends Character{
+public class Archer extends Character {
 
-    public Archer (){
+    public Archer() {
         super(3, 10, 5);
     }
 
+    public Archer(String name) {
+        super(name);
+    }
+
     @Override
-    int attack(Character character) {
-        System.out.println(this.agility);
-        return health -= agility;
+    public void attack(Character character) {
+        health -= agility;
     }
 }

@@ -1,13 +1,17 @@
 package faang.school.javacore.abstraction;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
-    public Warrior (){
+    public Warrior() {
         super(10, 5, 3);
     }
 
+    public Warrior(String name) {
+        super(name);
+    }
+
     @Override
-    int attack(Character character) {
-        return health -= strength;
+    public void attack(Character character) {
+        health -= strength;
     }
 }
