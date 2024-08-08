@@ -4,10 +4,12 @@ package faang.school.godbless.collectUsers;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<User> users = new ArrayList<>(Arrays.asList(
+        List<User> users = new ArrayList<>(Arrays.asList(
                 new User(1L, "1", 1, new String[]{"1"}),
                 new User(2L, "2", 2, new String[]{"2"}),
                 new User(3L, "3", 3, new String[]{"3"}),
@@ -18,6 +20,6 @@ public class Main {
                 new User(8L, "8", 8, new String[]{"2"})
         ));
         var map = User.findHobbyLovers(users,
-                new HashSet<>(Arrays.asList("1", "3")));
+                Set.of("1", "3"));
     }
 }
