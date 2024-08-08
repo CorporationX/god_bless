@@ -61,6 +61,10 @@ public class Main {
         }
     }
 
+    public static void addQueryToUser(User user, Query query) {
+        USER_QUERIES.get(user).add(query);
+    }
+
     public static void addUserWithQuery(User user, List<Query> queries) {
         USER_QUERIES.put(user, queries);
     }

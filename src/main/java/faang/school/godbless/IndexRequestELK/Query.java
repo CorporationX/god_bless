@@ -1,6 +1,5 @@
 package faang.school.godbless.IndexRequestELK;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Calendar;
