@@ -31,20 +31,20 @@ public class StreamEvent {
 
     }
 
-    public static void eventIdSearch(int id, Map<Integer, StreamEvent> idEvent){
+    public static void eventIdSearch(int id, Map<Integer, StreamEvent> idEvent) {
         if (idEvent.containsKey(id)) {
             System.out.println(idEvent.get(id));
         }
 
     }
-    public static void eventTypeSearch(String type, Map<String, List<StreamEvent>> typeEventSearch){
+    public static void eventTypeSearch(String type, Map<String, List<StreamEvent>> typeEventSearch) {
         if (typeEventSearch.containsKey(type)) {
             System.out.println(typeEventSearch.get(type));
         }
 
     }
 
-    public static void deleteEventID(int id, Map<Integer, StreamEvent> idEvent,  Map<String, List<StreamEvent>> typeEventSearch){
+    public static void deleteEventID(int id, Map<Integer, StreamEvent> idEvent,  Map<String, List<StreamEvent>> typeEventSearch) {
         String type = idEvent.get(id).eventType;
 
         if (typeEventSearch.containsKey(type)) {
@@ -60,7 +60,7 @@ public class StreamEvent {
 
     }
 
-    public static void allEvents(Map<Integer, StreamEvent> idEvent,  Map<String, List<StreamEvent>> typeEventSearch){
+    public static void allEvents(Map<Integer, StreamEvent> idEvent,  Map<String, List<StreamEvent>> typeEventSearch) {
         for (Map.Entry<Integer, StreamEvent> pair : idEvent.entrySet()) {
             System.out.println(pair.getKey() + " : " + pair.getValue().getEventType() + " - " + pair.getValue().getData());
         }
