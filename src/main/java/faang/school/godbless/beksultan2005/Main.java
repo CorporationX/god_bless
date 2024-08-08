@@ -1,45 +1,61 @@
 package faang.school.godbless.beksultan2005;
 
-import java.util.HashMap;
-import java.util.Map;
+import lombok.Getter;
 
+import java.util.*;
+
+@Getter
 public class Main {
-    private static Map<Book, String> cacheBook = new HashMap<>();
+    private static Map<String, List<WebPage>> webPages = new HashMap<>();
+    private static Map<String, HashSet<String>> urlIndex = new HashMap<>();
 
-    public static void addBook(Book book, String location) {
-        cacheBook.put(book, location);
+    public static void addWord(WebPage webPage) {
+        String[] words = webPage.getContent().split("\\W+");
+        for (String word : words) {
+            webPages.computeIfAbsent(word.toLowerCase(), w -> new ArrayList<>()).add(webPage);
+            urlIndex.computeIfAbsent(webPage.getUrl(), w -> new HashSet<>()).add(word.toLowerCase());
+        }
     }
 
-    public static void removeBook(String title, String author, int year) {
-        cacheBook.remove(new Book(title, author, year));
+    public static List<WebPage> getWebPageByWord(String string) {
+        String[] words = string.split("\\W+");
+        List<WebPage> webPages = new ArrayList<>();
+        for (String word : words) {
+            List<WebPage> pages = Main.webPages.get(word.toLowerCase());
+            if (pages != null) {
+                webPages.addAll(pages);
+            }
+        }
+        return webPages;
     }
 
-    public static String getLocation(String title, String author, int year) {
-        return cacheBook.get(new Book(title, author, year));
-    }
-
-    public static void getAllCacheBook() {
-        cacheBook.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+    public static void removeWebPage(String url) {
+        Set<String> words = urlIndex.remove(url);
+        if (words != null) {
+            for (String word : words) {
+                List<WebPage> pages = webPages.get(word);
+                if (pages != null) {
+                    pages.removeIf(webPage -> Objects.equals(webPage.getUrl(), url));
+                    if (pages.isEmpty()) {
+                        webPages.remove(word);
+                    }
+                }
+            }
+        }
     }
 
 
     public static void main(String[] args) {
-        Book book1 = new Book("Title1", "Author1", 2001);
-        Book book2 = new Book("Title2", "Author2", 2002);
-        Book book3 = new Book("Title3", "Author3", 2003);
+        WebPage page1 = new WebPage("http://example.com", "Example Page 1", "This is the content of the first example page.");
+        WebPage page2 = new WebPage("http://example.org", "Example Page 2", "This is another example page with different content.");
 
-        addBook(book1, "Shelf1");
-        addBook(book2, "Shelf2");
-        addBook(book3, "Shelf3");
+        addWord(page1);
+        addWord(page2);
 
-        System.out.println("All books in cache:");
-        getAllCacheBook();
+        getWebPageByWord("example").forEach(key -> System.out.println(key.toString()));
 
-        System.out.println("\nLocation of Title2 by Author2, 2002: " + getLocation("Title2", "Author2", 2002));
+        removeWebPage("http://example.org");
 
-        removeBook("Title1", "Author1", 2001);
-
-        System.out.println("\nAll books in cache after removing Title1:");
-        getAllCacheBook();
+        getWebPageByWord("example").forEach(key -> System.out.println(key.toString()));
     }
 }
