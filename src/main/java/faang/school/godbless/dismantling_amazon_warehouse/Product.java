@@ -17,6 +17,12 @@ public class Product {
     private String category;
 
     public Product(String name, String category) {
+        if (name == null || category == null) {
+            throw new IllegalArgumentException("name and category cannot be null");
+        }
+        if (name.isEmpty() || category.isEmpty()) {
+            throw new IllegalArgumentException("name and category cannot be empty");
+        }
         this.id = UUID.randomUUID();
         this.name = name;
         this.category = category;

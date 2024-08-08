@@ -38,7 +38,6 @@ public class Main {
             System.out.println(entry.getKey());
             for (Product product : entry.getValue()) {
                 System.out.println("\t" + product);
-
             }
         }
     }
