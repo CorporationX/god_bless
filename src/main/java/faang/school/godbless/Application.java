@@ -1,11 +1,8 @@
 package faang.school.godbless;
 
 import faang.school.godbless.HeroesOfMightAndMagic.battlefield.*;
-import faang.school.godbless.HeroesOfMightAndMagic.creatures.Angel;
-import faang.school.godbless.HeroesOfMightAndMagic.creatures.Griffin;
-import faang.school.godbless.HeroesOfMightAndMagic.creatures.Pikeman;
-import faang.school.godbless.HeroesOfMightAndMagic.creatures.Swordman;
-import faang.school.godbless.HeroesOfMightAndMagic.heroes.Hero;
+import faang.school.godbless.HeroesOfMightAndMagic.creatures.*;
+import faang.school.godbless.HeroesOfMightAndMagic.heroes.*;
 
 public class Application {
     public static void main(String[] args) {
