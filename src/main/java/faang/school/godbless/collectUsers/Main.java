@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>(Arrays.asList(
+        List<User> users = (Arrays.asList(
                 new User(1L, "1", 1, new String[]{"1"}),
                 new User(2L, "2", 2, new String[]{"2"}),
                 new User(3L, "3", 3, new String[]{"3"}),
