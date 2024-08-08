@@ -1,32 +1,31 @@
 package faang.school.godbless.beksultan2005;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.ToString;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
-@Getter
-@ToString
-@AllArgsConstructor
 public class User {
-    private long id;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private String name;
     private int age;
-    private Set<String> activities;
+    private String placeWork;
+    private String address;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> targetActivities) {
-        Map<User, String> result = new HashMap<>();
-        for (User user : users) {
-            for (String activity : user.getActivities()) {
-                if (targetActivities.contains(activity)) {
-                    result.put(user, activity);
-                }
-            }
+    public User(String name, int age, String placeWork, String address) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("name is empty");
         }
-        return result;
+        if (age < 18) {
+            throw new IllegalArgumentException("age small 18");
+        }
+        if (!VALID_JOBS.contains(placeWork)) {
+            throw new IllegalArgumentException("Error");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Error");
+        }
+        this.name = name;
+        this.age = age;
+        this.placeWork = placeWork;
+        this.address = address;
     }
 }
