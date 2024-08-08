@@ -1,19 +1,32 @@
 package faang.school.godbless.beksultan2005;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
-
 public class Main {
     public static void main(String[] args) {
-        Set<String> activity1 = Set.of("football", "voleyball");
-        Set<String> activity2 = Set.of("voleyball", "basketball");
+        Hero hero1 = new Hero("Arthur", 3, 1);
+        Hero hero2 = new Hero("Morgana", 4, 2);
 
-        User user1 = new User(1, "Beks", 19, activity1);
-        User user2 = new User(2, "Sula", 28, activity2);
+        Creature pikeman = new Pikeman();
+        Creature griffin = new Griffin();
+        Creature swordman = new Swordman();
+        Creature angel = new Angel();
 
-        Map<User, String> result = User.findHobbyLovers(Arrays.asList(user1, user2), Set.of("voleyball", "swimming"));
+        hero1.addCreature(pikeman, 10);
+        hero1.addCreature(griffin, 5);
+        hero1.addCreature(swordman, 7);
+        hero1.addCreature(angel, 12);
 
-        System.out.println(result.toString());
+        hero2.addCreature(pikeman, 15);
+        hero2.addCreature(griffin, 4);
+        hero2.addCreature(swordman, 6);
+        hero2.addCreature(angel, 3);
+
+        hero1.removeCreature(angel, 1);
+
+        hero1.getArmy();
+        hero2.getArmy();
+
+        Battlefield battlefield = new Battlefield(hero1, hero2);
+        battlefield.battle();
     }
 }
+
