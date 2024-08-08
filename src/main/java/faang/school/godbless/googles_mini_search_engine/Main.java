@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static faang.school.godbless.googles_mini_search_engine.constants.Constants.SPACE;
+
 public class Main {
     static Map<String, List<WebPage>> dictionaryOfWebPages = new HashMap<>();
 
@@ -37,7 +39,7 @@ public class Main {
         indexPage(yahooWebPage);
         indexPage(loremIpsumWebPage);
 
-        System.out.println(search("Google"));;
+        System.out.println(search("is"));;
 
         removePage("https://www.yahoo.com");
         System.out.println(search("Yahoo"));;
@@ -45,7 +47,7 @@ public class Main {
 
     public static void indexPage(WebPage webPage) {
         String content = webPage.getContent();
-        List<String> words = List.of(content.split(" "));
+        List<String> words = List.of(content.split(SPACE));
 
         for (String word : words) {
             dictionaryOfWebPages.computeIfAbsent(word.toLowerCase(), k -> new ArrayList<>()).add(webPage);
