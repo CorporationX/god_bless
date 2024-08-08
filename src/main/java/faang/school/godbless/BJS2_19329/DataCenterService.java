@@ -118,7 +118,7 @@ public class DataCenterService {
             System.out.println("Current load  srv#" + i + " Current load : " + dataCenter.getServersList().get(i).getLoad()
                     + ", Max load - " + dataCenter.getServersList().get(i).getMaxLoad() + ", Percent load: " + dataCenter.getServersList().get(i).getPercentLoad()
                     + " Energy consumption - " + dataCenter.getServersList().get(i).getEnergyConsumption());
-        }
+         }
     }
 }
 
