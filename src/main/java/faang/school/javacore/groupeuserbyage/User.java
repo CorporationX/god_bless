@@ -11,25 +11,28 @@ import java.util.Map;
 @ToString
 @AllArgsConstructor
 public class User {
-    final String name;
-    final int age;
-    final String placeOfWork;
-    final String address;
+    private final String name;
+    private final int age;
+    private final String placeOfWork;
+    private final String address;
 
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        users.add(new User("Alex", 22, "Wb", "RB, g.Grodno, ul.Limoja"));
-        users.add(new User("Oleg", 28, "Wb", "RB, g.Gomel, ul.Soveckay"));
-        users.add(new User("Max", 22, "Avito", "RB, g.Minsk, ul.Derjinskogo"));
+        User alex = new User("Alex", 22, "Wb", "RB, g.Grodno, ul.Limoja");
+        User oleg = new User("Oleg", 28, "Wb", "RB, g.Gomel, ul.Soveckay");
+        User max = new User("Max", 22, "Avito", "RB, g.Minsk, ul.Derjinskogo");
+        users.add(alex);
+        users.add(oleg);
+        users.add(max);
 
         HashMap<Integer, List> mapUsers = groupUsersOrAge(users);
-        for (Map.Entry user : mapUsers.entrySet()) {
+        for (Map.Entry<Integer, List> user : mapUsers.entrySet()) {
             System.out.println(user);
         }
 
     }
 
-    private static HashMap groupUsersOrAge(List<User> listUsers) {
+    private static HashMap<Integer, List> groupUsersOrAge(List<User> listUsers) {
         HashMap<Integer, List> mapUsers = new HashMap<>();
         for (User user : listUsers) {
             mapUsers.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
