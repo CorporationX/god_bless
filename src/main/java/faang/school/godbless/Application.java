@@ -1,5 +1,8 @@
 package faang.school.godbless;
 
+import faang.school.godbless.david.User;
+import java.util.*;
+
 public class Application {
     public static void main(String[] args) {
         Hero hero1 = new Hero("Sir Christian", "Castle");
