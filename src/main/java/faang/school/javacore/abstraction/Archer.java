@@ -9,6 +9,6 @@ public class Archer extends Character{
     @Override
     int attack(Character character) {
         System.out.println(this.agility);
-        return character.health - this.agility;
+        return health -= agility;
     }
 }

@@ -8,6 +8,6 @@ public class Warrior extends Character{
 
     @Override
     int attack(Character character) {
-        return health - strength;
+        return health -= strength;
     }
 }
