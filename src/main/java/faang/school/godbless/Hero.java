@@ -17,6 +17,13 @@ public class Hero {
     private int level;
     private Map<Creature, Integer> armyHero = new HashMap<>();
 
+    public Hero(String name, String fraction, int experience, int level) {
+        this.name = name;
+        this.fraction = fraction;
+        this.experience = experience;
+        this.level = level;
+    }
+
     public String getName() {
         return name;
     }
@@ -33,11 +40,8 @@ public class Hero {
         return level;
     }
 
-    public Hero(String name, String fraction, int experience, int level) {
-        this.name = name;
-        this.fraction = fraction;
-        this.experience = experience;
-        this.level = level;
+    public Map<Creature, Integer> getArmyHero() {
+        return armyHero;
     }
 
     public void addCreature(Creature creature) {

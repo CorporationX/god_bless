@@ -1,33 +1,53 @@
 package faang.school.godbless;
 
-public class Battlefield {
-    private Hero firstHero;
-    private Hero secondHero;
+import lombok.Getter;
 
-    public void initArmy(Hero hero) {
-        hero.addCreature(new Pikeman());
-        hero.addCreature(new Griffin());
-        hero.addCreature(new Swordman());
-        hero.addCreature(new Angel());
+import java.util.Random;
+
+import static faang.school.godbless.Event.*;
+
+public class Battlefield {
+
+
+    public static void round(Hero hero, int digitalRandom) {
+        switch (digitalRandom)
+        {
+            case 0:
+                raiseTheTroops(hero);
+                break;
+            case 1:
+                attackOfTheNatives(hero);
+                break;
+            case 2:
+                goodSupply(hero);
+                break;
+            case 3:
+                poorSupply(hero);
+                break;
+            case 4:
+                visitTheForge(hero);
+                break;
+            case 5:
+                inspiration(hero);
+                break;
+            case 6:
+                lossOfMorale(hero);
+                break;
+        }
     }
 
-    public void battle() {
-        firstHero = new Hero("Axe", "Dire", 0, 1);
-        initArmy(firstHero);
-        secondHero = new Hero("Urse", "Radiant", 0, 1);
-        initArmy(secondHero);
-
-        int damageFirstArmy = firstHero.totalDamageArmy(firstHero.getArmy());
-        int damageSecondArmy = secondHero.totalDamageArmy(secondHero.getArmy());
+    public static void battle() {
+        int damageFirstArmy = getFirstHero().totalDamageArmy(getFirstHero().getArmy());
+        int damageSecondArmy = getSecondHero().totalDamageArmy(getSecondHero().getArmy());
 
         System.out.println("Сражение началось!");
-        System.out.println("Сила армии " + firstHero.getName() + " = " + damageFirstArmy);
-        System.out.println("Сила армии " + secondHero.getName() + " = " + damageSecondArmy);
+        System.out.println("Сила армии " + getFirstHero().getName() + " = " + damageFirstArmy);
+        System.out.println("Сила армии " + getSecondHero().getName() + " = " + damageSecondArmy);
 
         if (damageFirstArmy > damageSecondArmy) {
-            System.out.println("Победитель: " + firstHero.getName());
+            System.out.println("Победитель: " + getFirstHero().getName());
         } else if (damageFirstArmy < damageSecondArmy){
-            System.out.println("Победитель: " + secondHero.getName());
+            System.out.println("Победитель: " + getSecondHero().getName());
         } else {
             System.out.println("Ничья!");
         }

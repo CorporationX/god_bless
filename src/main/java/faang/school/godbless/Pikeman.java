@@ -6,11 +6,13 @@ import lombok.Getter;
 public class Pikeman extends Creature {
 
     public Pikeman() {
-        super("Pikeman", 1, 3, 10, 3, 10);
+        super("Pikeman", 1, 3, 10, 3, 10, 10);
     }
 
     @Override
     public int getDamage() {
         return getAttack() * getSpeed();
     }
+
+
 }

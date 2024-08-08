@@ -9,14 +9,16 @@ public abstract class Creature {
     private int armor;
     private int speed;
     private int quality;
+    private int health;
 
-    public Creature(String name, int level, int attack, int armor, int speed, int quality) {
+    public Creature(String name, int level, int attack, int armor, int speed, int quality, int health) {
         this.name = name;
         this.level = level;
         this.attack = attack;
         this.armor = armor;
         this.speed = speed;
         this.quality = quality;
+        this.health = health;
     }
 
     public String getName() {
@@ -41,6 +43,22 @@ public abstract class Creature {
 
     public int getQuality() {
         return quality;
+    }
+
+    public void setQuality(int quality) {
+        this.quality = quality;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public void setArmor(int armor) {
+        this.armor = armor;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
     }
 
     public abstract int getDamage();
