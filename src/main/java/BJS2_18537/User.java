@@ -9,7 +9,6 @@ import java.util.Map;
 
 @ToString
 public class User {
-    //Поправил модификаторы на private
     private String name;
     private int age;
     private String job;
@@ -22,21 +21,17 @@ public class User {
         this.address = address;
     }
 
-    //Переписал с computeIfAbsent сложнее для понимания пока . но вроде все корректно
-    //работает и кода в разы меньше! Спасибо
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
         Map<Integer, List<User>> resultMap = new HashMap<>();
 
         for (User user : users) {
-            resultMap.computeIfAbsent(user.getAge(), x -> new ArrayList<>());
-            resultMap.get(user.getAge()).add(user);
+            resultMap.computeIfAbsent(user.getAge(), x -> new ArrayList<>()).add(user);
         }
 
         return resultMap;
     }
 
-    //добавил геттер по полю age
     public int getAge() {
         return age;
     }
