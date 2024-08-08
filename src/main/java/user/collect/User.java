@@ -26,8 +26,8 @@ public class User {
         }
 
         Map<User, String> userHobbyMap = new HashMap<>();
-        for(User user : users) {
-            for(String activity : user.getActivities()) {
+        for (User user : users) {
+            for (String activity : user.getActivities()) {
                 if (activities.contains(activity)) {
                     userHobbyMap.put(user, activity);
                     break;
