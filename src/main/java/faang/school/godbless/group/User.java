@@ -10,12 +10,16 @@ import java.util.Map;
 
 @AllArgsConstructor
 public class User {
-    @NonNull private String name;
-    @NonNull private Integer age;
-    @NonNull private String workAddress;
-    @NonNull private String homeAddress;
+    @NonNull
+    private String name;
+    @NonNull
+    private Integer age;
+    @NonNull
+    private String workAddress;
+    @NonNull
+    private String homeAddress;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> userList){
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         var userMap = new HashMap<Integer, List<User>>();
         for (User user : userList){
             addUser(userMap, user);
@@ -23,10 +27,8 @@ public class User {
         return userMap;
     }
 
-    private static void addUser(Map<Integer, List<User>> userMap, User user){
-        if(userMap.get(user.age) == null){
-            userMap.put(user.age, new ArrayList<>());
-        }
+    private static void addUser(Map<Integer, List<User>> userMap, User user) {
+        userMap.computeIfAbsent(user.age, k -> new ArrayList<>());
         userMap.get(user.age).add(user);
     }
 }
