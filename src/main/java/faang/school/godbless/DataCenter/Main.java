@@ -17,9 +17,9 @@ public class Main {
         System.out.println(DATA_CENTER_SERVICE.getTotalLoad());
 
 
-        DATA_CENTER_SERVICE.getDataCenter().getSERVERS().forEach(server -> System.out.println(server.getLoad()));
+        DATA_CENTER_SERVICE.getDataCenter().getServers().forEach(server -> System.out.println(server.getLoad()));
         DATA_CENTER_SERVICE.optimize();
-        DATA_CENTER_SERVICE.getDataCenter().getSERVERS().forEach(server -> System.out.println(server.getLoad()));
+        DATA_CENTER_SERVICE.getDataCenter().getServers().forEach(server -> System.out.println(server.getLoad()));
 
         System.out.println(DATA_CENTER_SERVICE.getTotalEnergyConsumption());
     }

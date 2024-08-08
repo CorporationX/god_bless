@@ -9,18 +9,18 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class DataCenter {
-    private final List<Server> SERVERS = new ArrayList<>();
+    private final List<Server> servers = new ArrayList<>();
 
     public void addServer(Server server) {
-        SERVERS.add(server);
+        servers.add(server);
     }
 
     public void deleteServer(Server server) {
-        SERVERS.remove(server);
+        servers.remove(server);
     }
 
     public Server getServerById(int id) {
-        for (Server server : SERVERS) {
+        for (Server server : servers) {
             if (server.getId() == id) {
                 return server;
             }

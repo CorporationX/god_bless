@@ -1,19 +1,12 @@
 package faang.school.godbless.DataCenter;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 public class ResourceRequest {
-
     private double load;
-
-    public ResourceRequest(double load) {
-        this.load = load;
-    }
-
-    public boolean isRequestAllocated() {
-        return load == 0;
-    }
 }

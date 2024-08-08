@@ -8,10 +8,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 public class Server {
+
     private final static double LOAD_TO_ENERGY_COF = 0.5;
 
     @EqualsAndHashCode.Exclude
-    private final double MAX_LOAD;
+    private final double maxLoad;
 
     @EqualsAndHashCode.Include
     private final int id;

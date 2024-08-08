@@ -32,8 +32,8 @@ class DataCenterServiceTest {
 
         assertEquals(70, dataCenterService.getTotalLoad());
 
-        assertEquals(60, dataCenterService.getDataCenter().getSERVERS().get(0).getLoad());
-        assertEquals(10, dataCenterService.getDataCenter().getSERVERS().get(1).getLoad());
+        assertEquals(60, dataCenterService.getDataCenter().getServers().get(0).getLoad());
+        assertEquals(10, dataCenterService.getDataCenter().getServers().get(1).getLoad());
     }
 
     @Test
@@ -52,13 +52,13 @@ class DataCenterServiceTest {
         dataCenterService.allocateResources(new ResourceRequest(70));
         dataCenterService.releaseResources(new ResourceRequest(15));
 
-        assertEquals(45, dataCenterService.getDataCenter().getSERVERS().get(0).getLoad());
-        assertEquals(10, dataCenterService.getDataCenter().getSERVERS().get(1).getLoad());
+        assertEquals(45, dataCenterService.getDataCenter().getServers().get(0).getLoad());
+        assertEquals(10, dataCenterService.getDataCenter().getServers().get(1).getLoad());
 
         dataCenterService.releaseResources(new ResourceRequest(50));
 
-        assertEquals(0, dataCenterService.getDataCenter().getSERVERS().get(0).getLoad());
-        assertEquals(5, dataCenterService.getDataCenter().getSERVERS().get(1).getLoad());
+        assertEquals(0, dataCenterService.getDataCenter().getServers().get(0).getLoad());
+        assertEquals(5, dataCenterService.getDataCenter().getServers().get(1).getLoad());
     }
 
     @Test
@@ -85,12 +85,12 @@ class DataCenterServiceTest {
 
         dataCenterService.optimize();
 
-        assertEquals(50, dataCenterService.getDataCenter().getSERVERS().get(0).getLoad());
-        assertEquals(50, dataCenterService.getDataCenter().getSERVERS().get(1).getLoad());
+        assertEquals(50, dataCenterService.getDataCenter().getServers().get(0).getLoad());
+        assertEquals(50, dataCenterService.getDataCenter().getServers().get(1).getLoad());
 
         dataCenterService.allocateResources(new ResourceRequest(30));
 
-        assertEquals(60, dataCenterService.getDataCenter().getSERVERS().get(0).getLoad());
-        assertEquals(70, dataCenterService.getDataCenter().getSERVERS().get(1).getLoad());
+        assertEquals(60, dataCenterService.getDataCenter().getServers().get(0).getLoad());
+        assertEquals(70, dataCenterService.getDataCenter().getServers().get(1).getLoad());
     }
 }
