@@ -17,7 +17,7 @@ public class HousesKeeper {
     public void findAndPrintHouse(String houseName) {
         House house = houses.get(houseName);
         if (house != null) {
-            System.out.println("House: " + house.getName() + ", Sigil: " + house.getSigil());
+            System.out.println(house);
         } else {
             System.out.println("House not found");
         }
@@ -26,7 +26,7 @@ public class HousesKeeper {
     public void printAllHousesInfo() {
         for (String houseName : houses.keySet()) {
             House house = houses.get(houseName);
-            System.out.println("House: " + house.getName() + ", Sigil: " + house.getSigil());
+            System.out.println(house);
         }
     }
 

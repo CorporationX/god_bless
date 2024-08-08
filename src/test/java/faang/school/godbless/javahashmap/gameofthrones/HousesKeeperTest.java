@@ -18,11 +18,11 @@ class HousesKeeperTest {
     private static final House LANNISTER_HOUSE = new House(LANNISTER_HOUSENAME, "Lion");
     private static final House BARATHEON_HOUSE = new House(BARATHEON_HOUSENAME, "Deer");
 
-    private static final String LANNISTER_INFO = "House: Lannister, Sigil: Lion\r\n";
+    private static final String LANNISTER_INFO = "House(name=Lannister, sigil=Lion)\r\n";
     private static final String ALL_HOUSES_INFO = """
-            House: Lannister, Sigil: Lion\r
-            House: Baratheon, Sigil: Deer\r
-            House: Stark, Sigil: Direwolf\r
+            House(name=Lannister, sigil=Lion)\r
+            House(name=Baratheon, sigil=Deer)\r
+            House(name=Stark, sigil=Direwolf)\r
             """;
     private static final String HOUSE_NOT_FOUND_INFO = "House not found\r\n";
 
