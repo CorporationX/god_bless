@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_19289;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     private static Map<Book, String> booksShelf = new HashMap<>();
@@ -27,7 +28,8 @@ public class Main {
     }
 
     public static void findShelf(String title, String author, int year) {
-        System.out.println(booksShelf.get(new Book(title, author, year)));
+        Optional.ofNullable(booksShelf.get(new Book(title, author, year)))
+                .ifPresentOrElse(System.out::println, () -> { throw new IllegalArgumentException("Book was not found");});
     }
 
     public static void findAllBooks() {
