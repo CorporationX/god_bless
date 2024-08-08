@@ -12,9 +12,12 @@ public class Battlefield {
     }
 
     private void attackInBattle(Hero hero1, Hero hero2, int hero1ArmySize, int hero2ArmySize) {
-        Random random = new Random();
-        hero1.getArmy().get(random.nextInt(hero1ArmySize)).attack(hero2.getArmy().get(random.nextInt(hero2ArmySize)));
+        Creature attacker = hero1.getRandomCreatureFromArmy(hero1ArmySize);
+        Creature target = hero2.getRandomCreatureFromArmy(hero2ArmySize);
+
+        attacker.attack(target);
         hero2.checkArmy();
+
         System.out.println(hero1.getName() + " attacks " + hero2.getName() + ":");
         hero2.printArmy();
     }
