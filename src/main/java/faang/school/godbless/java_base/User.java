@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -16,22 +16,22 @@ import java.util.Set;
 @ToString
 public class User {
 
-    private int id;
     private String name;
     private int age;
-    private Set<String> activities;
+    private String workplace;
+    private String address;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> result = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupedUsers = new HashMap<>();
+
         for (User user : users) {
-            for (String hobby : activities) {
-                if (user.getActivities().contains(hobby)) {
-                    result.put(user, hobby);
-                    break;
-                }
-            }
+            int age = user.getAge();
+            List<User> userList = groupedUsers.getOrDefault(age, new ArrayList<>());
+            userList.add(user);
+            groupedUsers.put(age, userList);
         }
-        return result;
+
+        return groupedUsers;
     }
 
 }

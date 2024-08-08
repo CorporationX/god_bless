@@ -2,39 +2,37 @@ package faang.school.godbless.java_base;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
 
     @Test
-    public void testFindHobbyLovers() {
+    public void testGroupUsers() {
 
-        User user1 = new User(1, "Alice", 25, new HashSet<>(Set.of("Reading", "Swimming")));
-        User user2 = new User(2, "Bob", 30, new HashSet<>(Set.of("Running", "Cooking")));
-        User user3 = new User(3, "Charlie", 22, new HashSet<>(Set.of("Reading", "Gaming")));
+        List<User> users = new ArrayList<>();
+        users.add(new User("Petr", 30, "Google", "Moscow st 84"));
+        users.add(new User("Anna", 25, "Amazon", "Piter st 15"));
+        users.add(new User("Elena", 30, "Microsoft", "Penza st 45"));
+        users.add(new User("Vadim", 25, "Apple", "Ekb st 22"));
+        users.add(new User("Nikita", 40, "Facebook", "Tomsk st 59"));
 
-        List<User> users = List.of(user1, user2, user3);
-        Set<String> activities = Set.of("Reading", "Cooking");
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
-        Map<User, String> expectedResult = Map.of(
-                user1, "Reading",
-                user2, "Cooking",
-                user3, "Reading"
-        );
+        assertEquals(3, groupedUsers.size());
 
-        Map<User, String> actualResult = User.findHobbyLovers(users, activities);
+        assertEquals(2, groupedUsers.get(30).size());
+        assertEquals(2, groupedUsers.get(25).size());
+        assertEquals(1, groupedUsers.get(40).size());
 
-        assertEquals(expectedResult.size(), actualResult.size());
-        for (Map.Entry<User, String> entry : expectedResult.entrySet()) {
-            assertTrue(actualResult.containsKey(entry.getKey()));
-            assertEquals(entry.getValue(), actualResult.get(entry.getKey()));
-        }
-
+        assertEquals("Petr", groupedUsers.get(30).get(0).getName());
+        assertEquals("Elena", groupedUsers.get(30).get(1).getName());
+        assertEquals("Anna", groupedUsers.get(25).get(0).getName());
+        assertEquals("Vadim", groupedUsers.get(25).get(1).getName());
+        assertEquals("Nikita", groupedUsers.get(40).get(0).getName());
     }
+
 }
