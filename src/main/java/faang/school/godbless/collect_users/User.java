@@ -21,21 +21,16 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
 
-        // Guard
         if (users == null || hobbies == null || users.isEmpty() || hobbies.isEmpty()) {
             throw new IllegalArgumentException("Either users or hobbies was empty/null.");
         }
 
-        /*
-            For each user, check filter if an action is present in a provided hobby list - optional is used when returning
-            the first matching hobby (for case of no matches)
-         */
-        Map<User, String> userHobbyMap = new HashMap<>();
+        Map<User, String> userHobbyMatch = new HashMap<>();
         for (User user : users) {
             Optional<String> hobbyOptional = user.getActions().stream().filter(hobbies::contains).findFirst();
-            hobbyOptional.ifPresent(s -> userHobbyMap.put(user, s));
+            hobbyOptional.ifPresent(hobby -> userHobbyMatch.put(user, hobby));
         }
 
-        return userHobbyMap;
+        return userHobbyMatch;
     }
 }
