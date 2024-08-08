@@ -1,9 +1,6 @@
 package faang.school.godbless.group_user_by_age;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -15,10 +12,10 @@ import java.util.Map;
 @ToString
 public class User {
 
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         this.name = name;
@@ -32,7 +29,7 @@ public class User {
 
         for (User user : userList) {
             if (!userMap.containsKey(user.age)) {
-                userMap.put(user.age, List.of(user));
+                userMap.computeIfAbsent(user.age, b -> List.of(user));
             } else {
                 List<User> existedUserList = userMap.get(user.age);
 
@@ -41,9 +38,6 @@ public class User {
 
                 userMap.put(user.age, updateUserList);
             }
-        }
-        for (Map.Entry<Integer, List<User>> entry : userMap.entrySet()) {
-            System.out.println("key > " + entry.getKey() + " - value > " + entry.getValue());
         }
 
         return userMap;
