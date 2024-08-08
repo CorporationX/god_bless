@@ -38,8 +38,10 @@ public class Student {
     public static void getStudentsByFacultyAndYear(String name, String faculty, int year) {
         for (Student student : studentsStorage) {
             if (student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getYear() == year) {
-                System.out.printf("Студент %s успешно удален: ", student.getName());
+                System.out.printf("%s: %s, %d%n", student.getName(), student.getFaculty(), student.getYear());
                 break;
+            } else {
+                System.out.println("Студент не найден.");
             }
         }
     }
@@ -47,7 +49,9 @@ public class Student {
     public static void removeStudent(String name, String faculty, int year) {
         for (Student student : studentsStorage) {
             if (student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getYear() == year) {
+                String studentName = student.getName();
                 studentsStorage.remove(student);
+                System.out.printf("Студент успешно удален: %s", studentName);
                 break;
             }
         }
