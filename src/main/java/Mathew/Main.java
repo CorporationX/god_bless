@@ -15,11 +15,12 @@ public class Main {
         students.add(student1);
         students.add(student2);
         students.add(student3);
-        System.out.println(facultyYearOfStudents(students).toString());
-        System.out.println(listOfAllStudentsFacultyAndYear().toString());
+        System.out.println(facultyYearOfStudents(students));
+        System.out.println(listOfAllStudentsFacultyAndYear());
         addStudent("Mitio Kanai", "Japanese History", 1);
         removeStudent("Дмитрий Сергеев");
-        System.out.println(facultyYearOfStudents(students).toString());
+        searchStudents("Факультет экономики",3);
+        System.out.println(facultyYearOfStudents(students));
 
     }
 
