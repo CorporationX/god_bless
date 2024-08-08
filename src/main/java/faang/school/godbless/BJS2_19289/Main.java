@@ -33,6 +33,6 @@ public class Main {
     }
 
     public static void findAllBooks() {
-        booksShelf.forEach((book, shelf) -> System.out.println(String.format("Book: %s, shelf: %s", book, shelf)));
+        booksShelf.forEach((book, shelf) -> System.out.printf("Book: %s, shelf: %s%n", book, shelf));
     }
 }
