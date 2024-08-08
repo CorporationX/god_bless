@@ -23,13 +23,12 @@ public class User {
             throw new IllegalArgumentException("User list is null/empty!");
         }
 
-        Map<Integer, List<User>> ageUsersMap = new HashMap<>();
-        users.forEach(user -> {
-            ageUsersMap.computeIfAbsent(user.getAge(), age -> new ArrayList<>());
-            ageUsersMap.get(user.getAge()).add(user);
-        });
+        Map<Integer, List<User>> usersByAge = new HashMap<>();
+        users.forEach(
+                user -> usersByAge.computeIfAbsent(user.getAge(), age -> new ArrayList<>()).add(user)
+        );
 
-        return ageUsersMap;
+        return usersByAge;
     }
 
     @Override
