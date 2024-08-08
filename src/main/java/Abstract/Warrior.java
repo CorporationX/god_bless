@@ -1,47 +1,22 @@
 package Abstract;
 
-    public class Warrior extends Character {
-        protected static String name;
-        protected static int power;
+public class Warrior extends Character {
 
-        public Warrior(String name) {
-            super(name);
-            this.name = name;
-            super.setPower(10);
-            this.power = super.getPower();
-            super.setAgility(5);
-            super.setIntelligent(3);
-        }
-
-        public static int getPower() {
-            return power;
-        }
-
-        public static String getName() {
-            return name;
-        }
-
-        @Override
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public Warrior(String name, int power, int agility, int intelligent) {
-            super(name, power, agility, intelligent);
-        }
-
-
-        @Override
-        public void atack(Character character) {
-            System.out.println(Warrior.getName() + " наносит урон " +
-                    Character.getName() + " в размере " +
-                    Warrior.getPower() + " очков урона");
-            Character.setHealth(health - Warrior.getPower());
-            System.out.println("игроку " + Character.getName() + " нанесено "
-                    + Warrior.getPower() + " урона. Здоровья осталось: "
-                    + Character.getHealth());
-
-        }
-
+    public Warrior(String name) {
+        super(name);
+        this.power = 10;
+        this.agility = 5;
+        this.intelligent = 3;
     }
 
+    @Override
+    public void attack(Character character) {
+        System.out.println(this.name + " наносит урон " +
+                character.name + " в размере " +
+                this.power + " очков урона");
+        character.setHealth(health - this.power);
+        System.out.println("игроку " + character.getName() + " нанесено "
+                + this.power + " урона. Здоровья осталось: "
+                + character.getHealth());
+    }
+}

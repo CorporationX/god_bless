@@ -5,13 +5,7 @@ public class Main {
         Warrior berserk = new Warrior("Odin");
         Archer john = new Archer("John");
 
-
-        berserk.atack(new Archer("Anton"));
-        john.atack(new Warrior("Berserk"));
-
-
-
-
-
+        berserk.attack(john);
+        john.attack(berserk);
     }
 }
