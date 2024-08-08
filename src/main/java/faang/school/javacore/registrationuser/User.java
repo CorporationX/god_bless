@@ -2,10 +2,7 @@ package faang.school.javacore.registrationuser;
 
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @ToString
 public class User {
@@ -47,9 +44,9 @@ public class User {
         userList.add(new User("Alex", 22, "Google", "Amsterdam"));
         userList.add(new User("Oleg", 11, "Google", "Amsterdam"));
         userList.add(new User("Max", 22, "Google", "Amsterdam"));
-        HashMap<Integer, List<User>> hashMap = groupUsers(userList);
-        for (Object entry : hashMap.entrySet()) {
-            System.out.println(entry);
+        HashMap<Integer, List<User>> mapUser = groupUsers(userList);
+        for (Map.Entry user : mapUser.entrySet()) {
+            System.out.println(user);
         }
     }
 }
