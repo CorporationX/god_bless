@@ -1,45 +1,68 @@
 package faang.school.godbless.beksultan2005;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<Book, String> cacheBook = new HashMap<>();
+    private static Map<Integer, StreamEvent> cacheById = new HashMap<>();
+    private static Map<String, List<StreamEvent>> cacheByEvent = new HashMap<>();
 
-    public static void addBook(Book book, String location) {
-        cacheBook.put(book, location);
+    public static void addStreamEvent(StreamEvent streamEvent) {
+        cacheById.put((int) streamEvent.getId(), streamEvent);
+        cacheByEvent.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
-    public static void removeBook(String title, String author, int year) {
-        cacheBook.remove(new Book(title, author, year));
+    public static StreamEvent getStreamEvent(int id) {
+        return cacheById.get(id);
     }
 
-    public static String getLocation(String title, String author, int year) {
-        return cacheBook.get(new Book(title, author, year));
+    public static List<StreamEvent> getStreamEvent(String eventType) {
+        return cacheByEvent.get(eventType);
     }
 
-    public static void getAllCacheBook() {
-        cacheBook.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+    public static void deleteStreamEvent(int id) {
+        StreamEvent streamEvent = cacheById.get(id);
+        if (streamEvent != null) {
+            cacheByEvent.get(streamEvent.getEventType()).remove(streamEvent);
+            cacheById.remove(id);
+        }
     }
 
+    public static void getAllStreamEvent() {
+        cacheById.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
+    }
+
+    public static void getAllStreamEventByEvent() {
+        cacheByEvent.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
+    }
 
     public static void main(String[] args) {
-        Book book1 = new Book("Title1", "Author1", 2001);
-        Book book2 = new Book("Title2", "Author2", 2002);
-        Book book3 = new Book("Title3", "Author3", 2003);
+        StreamEvent event1 = new StreamEvent(1, "Login", "User1 logged in");
+        StreamEvent event2 = new StreamEvent(2, "Logout", "User1 logged out");
+        StreamEvent event3 = new StreamEvent(3, "Login", "User2 logged in");
 
-        addBook(book1, "Shelf1");
-        addBook(book2, "Shelf2");
-        addBook(book3, "Shelf3");
+        addStreamEvent(event1);
+        addStreamEvent(event2);
+        addStreamEvent(event3);
 
-        System.out.println("All books in cache:");
-        getAllCacheBook();
+        System.out.println("All stream events by ID:");
+        getAllStreamEvent();
 
-        System.out.println("\nLocation of Title2 by Author2, 2002: " + getLocation("Title2", "Author2", 2002));
+        System.out.println("\nAll stream events by event type:");
+        getAllStreamEventByEvent();
 
-        removeBook("Title1", "Author1", 2001);
+        System.out.println("\nGet stream event by ID 2: " + getStreamEvent(2));
 
-        System.out.println("\nAll books in cache after removing Title1:");
-        getAllCacheBook();
+        System.out.println("\nGet stream events by event type 'Login': " + getStreamEvent("Login"));
+
+        deleteStreamEvent(1);
+
+        System.out.println("\nAll stream events by ID after deleting ID 1:");
+        getAllStreamEvent();
+
+        System.out.println("\nAll stream events by event type after deleting ID 1:");
+        getAllStreamEventByEvent();
     }
 }
