@@ -21,7 +21,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        // Добавляем товары в коллекцию
         products.add(new Product(1, "Laptop", "Electronics"));
         products.add(new Product(2, "Smartphone", "Electronics"));
         products.add(new Product(3, "Shirt", "Clothing"));
