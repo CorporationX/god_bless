@@ -1,7 +1,6 @@
 package faang.school.godbless.beksultan2005;
 
 import java.util.Map;
-import java.util.Set;
 
 public class Battlefield {
     private Hero hero1;

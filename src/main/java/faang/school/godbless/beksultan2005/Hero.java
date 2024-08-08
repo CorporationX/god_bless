@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.SocketHandler;
 
 @Getter
 public class Hero {
@@ -20,26 +19,26 @@ public class Hero {
         this.level = level;
     }
 
-    public void addCreature(Creature creature, int quantity){
-        if(faction.containsKey(creature)){
+    public void addCreature(Creature creature, int quantity) {
+        if (faction.containsKey(creature)) {
             faction.put(creature, faction.get(creature) + quantity);
-        }else{
+        } else {
             faction.put(creature, quantity);
         }
     }
 
-    public void removeCreature(Creature creature, int quantity){
-        if(faction.containsKey(creature)){
-            if(faction.get(creature) >= quantity){
+    public void removeCreature(Creature creature, int quantity) {
+        if (faction.containsKey(creature)) {
+            if (faction.get(creature) >= quantity) {
                 faction.put(creature, faction.get(creature) - quantity);
-                if(faction.get(creature) == 0){
+                if (faction.get(creature) == 0) {
                     faction.remove(creature);
                 }
             }
         }
     }
 
-    public void getArmy(){
+    public void getArmy() {
         System.out.println("Army " + getName() + ":");
         faction.forEach((key, value) -> System.out.println(key.getName() + ":" + value));
     }
