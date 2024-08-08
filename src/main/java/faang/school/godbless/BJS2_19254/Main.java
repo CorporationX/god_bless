@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_19254;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     static Map<Book, String> booksCatalog = new HashMap<>();
@@ -19,6 +20,7 @@ public class Main {
         findAll();
         System.out.println("----------");
         findBook("Древний", "Сергей Тармашев", 2019);
+        findBook("Древний1", "Сергей Тармашев", 2019);
     }
 
     public static void addBook(Book book, int shelfBookNumber) {
@@ -31,8 +33,14 @@ public class Main {
     }
 
     public static void findBook(String title, String author, int year) {
-        System.out.println("Книга " + title
-                + " находится на " + booksCatalog.get(new Book(title, author, year)));
+        Book book = new Book(title, author, year);
+        Optional<String> shelf = Optional.ofNullable(booksCatalog.get(book));
+        if (shelf.isPresent()) {
+            System.out.println("Книга " + title
+                    + " находится на " + shelf.get());
+        } else {
+            System.out.println("Книга не найдена ни на одной полке");
+        }
     }
 
     public static void findAll() {
