@@ -1,9 +1,11 @@
 package faang.school.godbless.beksultan2005;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Book {
     private String title;
