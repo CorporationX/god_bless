@@ -19,6 +19,18 @@ public class User {
     @NonNull
     private String homeAddress;
 
+    public User(String name, Integer age,  String workAddress, String homeAddress) {
+        if (age >= 18 && VALID_ADDRESSES.contains(homeAddress)
+                && VALID_JOBS.contains(workAddress)){
+            this.name = name;
+            this.age = age;
+            this.homeAddress = homeAddress;
+            this.workAddress = workAddress;
+        }else {
+            throw new IllegalArgumentException();
+        }
+    }
+
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         var userMap = new HashMap<Integer, List<User>>();
         for (User user : userList){
