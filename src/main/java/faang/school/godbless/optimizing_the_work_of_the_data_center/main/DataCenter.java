@@ -1,6 +1,5 @@
 package faang.school.godbless.optimizing_the_work_of_the_data_center.main;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +7,16 @@ import java.util.List;
 
 @Setter
 @Getter
-@AllArgsConstructor
 public class DataCenter {
     private List<Server> servers;
+
+    public DataCenter(List<Server> servers) {
+        if (servers == null) {
+            throw new IllegalArgumentException("Servers cannot be null");
+        }
+        if (servers.isEmpty()) {
+            throw new IllegalArgumentException("Servers cannot be empty");
+        }
+        this.servers = servers;
+    }
 }
