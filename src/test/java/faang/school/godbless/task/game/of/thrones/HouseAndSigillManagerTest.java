@@ -3,21 +3,17 @@ package faang.school.godbless.task.game.of.thrones;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HouseAndSigillManagerTest {
-    private HouseAndSigillManager houseAndSigillManager;
-    private Object expected;
-    private Object actual;
-
     private final House house1 = new House("Lannister", "Yellow Lion");
     private final House house2 = new House("Baratheon", "Reindeer");
     private final House house3 = new House("Stark", "Wolf");
     private final House house4 = new House("Targaryen", "Dragon");
+
+    private HouseAndSigillManager houseAndSigillManager;
 
     @BeforeEach
     void setUp() {
@@ -30,42 +26,30 @@ public class HouseAndSigillManagerTest {
 
     @Test
     void testAddNewHouse() {
-        expected = "Catfish";
         houseAndSigillManager.addNewHouse(new House("Tully", "Catfish"));
-        actual = houseAndSigillManager.findSigillByHouseName("Tully");
+        houseAndSigillManager.findSigillByHouseName("Tully");
+    }
 
-        assertEquals(expected, actual);
+    @Test
+    void testAddNewHouseNullValue() {
+        assertThrows(NoSuchElementException.class, () -> houseAndSigillManager.addNewHouse(null));
     }
 
     @Test
     void testDeleteHouseByName() {
-        expected = null;
-        houseAndSigillManager.deleteHouseByName(house1.name());
-        actual = houseAndSigillManager.findSigillByHouseName(house1.name());
-
-        assertEquals(expected, actual);
+        String name = house1.name();
+        houseAndSigillManager.deleteHouseByName(name);
+        assertThrows(NoSuchElementException.class,
+                () -> houseAndSigillManager.findSigillByHouseName(name));
     }
 
     @Test
     void testFindSigillByHouseName() {
-        expected = house3.sigill();
-        actual = houseAndSigillManager.findSigillByHouseName(house3.name());
-
-        assertEquals(expected, actual);
+        houseAndSigillManager.findSigillByHouseName(house3.name());
     }
 
     @Test
     void testGetAllHouseAndSigill() {
-        ArrayList<String> expectedList = new ArrayList<>(List.of(
-                "Name: " + house1.name() + "; Sigill: " + house1.sigill(),
-                "Name: " + house2.name() + "; Sigill: " + house2.sigill(),
-                "Name: " + house3.name() + "; Sigill: " + house3.sigill(),
-                "Name: " + house4.name() + "; Sigill: " + house4.sigill()
-        ));
-        List<String> actualList = houseAndSigillManager.getAllHouseAndSigill();
-        Collections.sort(expectedList);
-        Collections.sort(actualList);
-
-        assertEquals(expectedList, actualList);
+        houseAndSigillManager.printAllHouseAndSigill();
     }
 }

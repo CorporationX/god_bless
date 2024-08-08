@@ -1,31 +1,40 @@
 package faang.school.godbless.task.game.of.thrones;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class HouseAndSigillManager {
-    private Map<String, House> stringHouseMap = new HashMap<>();
+    private Map<String, House> nameHouseMap = new HashMap<>();
 
-    public void addNewHouse(House house) {
-        stringHouseMap.putIfAbsent(house.name(), house);
-    }
-
-    public void deleteHouseByName(String name) {
-        stringHouseMap.remove(name);
-    }
-
-    public String findSigillByHouseName(String name) {
-        House house = stringHouseMap.get(name);
-        return house != null ? house.sigill() : null;
-    }
-
-    public List<String> getAllHouseAndSigill() {
-        List<String> houseAndSigillList = new ArrayList<>();
-        stringHouseMap.forEach((name, house) -> {
-            houseAndSigillList.add("Name: " + name + "; Sigill: " + house.sigill());
+    public void addNewHouse(House house) throws NoSuchElementException {
+        Optional.ofNullable(house).ifPresentOrElse(hs -> {
+            nameHouseMap.putIfAbsent(house.name(), house);
+        }, () -> {
+            throw new NoSuchElementException("Дом не может быть %s".formatted(house));
         });
-        return houseAndSigillList;
+    }
+
+    public void deleteHouseByName(String name) throws NoSuchElementException {
+        if (nameHouseMap.remove(name) == null) {
+            houseNotFoundExceptionThrow(name);
+        }
+    }
+
+    public void findSigillByHouseName(String name) throws NoSuchElementException {
+        House house = nameHouseMap.get(name);
+        if (house == null) {
+            houseNotFoundExceptionThrow(name);
+        }
+        System.out.println(house.sigill());
+    }
+
+    private void houseNotFoundExceptionThrow(String name) throws NoSuchElementException {
+        throw new NoSuchElementException("Дом с именем %s не найден".formatted(name));
+    }
+
+    public void printAllHouseAndSigill() {
+        nameHouseMap.values().forEach(house -> System.out.println(house));
     }
 }
