@@ -9,32 +9,32 @@ public class Main {
     private static Map<Integer, StreamEvent> cacheById = new HashMap<>();
     private static Map<String, List<StreamEvent>> cacheByEvent = new HashMap<>();
 
-    public static void addStreamEvent(StreamEvent streamEvent){
+    public static void addStreamEvent(StreamEvent streamEvent) {
         cacheById.put((int) streamEvent.getId(), streamEvent);
         cacheByEvent.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
-    public static StreamEvent getStreamEvent(int id){
+    public static StreamEvent getStreamEvent(int id) {
         return cacheById.get(id);
     }
 
-    public static List<StreamEvent> getStreamEvent(String eventType){
+    public static List<StreamEvent> getStreamEvent(String eventType) {
         return cacheByEvent.get(eventType);
     }
 
-    public static void deleteStreamEvent(int id){
+    public static void deleteStreamEvent(int id) {
         StreamEvent streamEvent = cacheById.get(id);
-        if(streamEvent != null){
+        if (streamEvent != null) {
             cacheByEvent.get(streamEvent.getEventType()).remove(streamEvent);
             cacheById.remove(id);
         }
     }
 
-    public static void getAllStreamEvent(){
+    public static void getAllStreamEvent() {
         cacheById.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
     }
 
-    public static void getAllStreamEventByEvent(){
+    public static void getAllStreamEventByEvent() {
         cacheByEvent.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
     }
 
