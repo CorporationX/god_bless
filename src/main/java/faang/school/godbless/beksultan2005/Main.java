@@ -4,42 +4,43 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static Map<Book, String> cacheBook = new HashMap<>();
+    private Map<String, WeatherData> cacheData = new HashMap<>();
 
-    public static void addBook(Book book, String location) {
-        cacheBook.put(book, location);
+    public WeatherData getWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
+            return cacheData.get(city);
+        } else {
+            WeatherData weatherData = new WeatherData(city);
+            cacheData.put(city, weatherData);
+            return weatherData;
+        }
     }
 
-    public static void removeBook(String title, String author, int year) {
-        cacheBook.remove(new Book(title, author, year));
+    public void updateWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
+            cacheData.put(city, new WeatherData(city));
+        }
     }
 
-    public static String getLocation(String title, String author, int year) {
-        return cacheBook.get(new Book(title, author, year));
+    public void removeWeatherData(String city) {
+        if (cacheData.containsKey(city)) {
+            cacheData.remove(city);
+        }
     }
 
-    public static void getAllCacheBook() {
-        cacheBook.forEach((key, value) -> System.out.println(key.toString() + ": " + value));
+    public void getAllWeatherData() {
+        cacheData.forEach((key, value) -> System.out.println(key + ":" + value.toString()));
     }
-
 
     public static void main(String[] args) {
-        Book book1 = new Book("Title1", "Author1", 2001);
-        Book book2 = new Book("Title2", "Author2", 2002);
-        Book book3 = new Book("Title3", "Author3", 2003);
+        Main weatherApp = new Main();
 
-        addBook(book1, "Shelf1");
-        addBook(book2, "Shelf2");
-        addBook(book3, "Shelf3");
-
-        System.out.println("All books in cache:");
-        getAllCacheBook();
-
-        System.out.println("\nLocation of Title2 by Author2, 2002: " + getLocation("Title2", "Author2", 2002));
-
-        removeBook("Title1", "Author1", 2001);
-
-        System.out.println("\nAll books in cache after removing Title1:");
-        getAllCacheBook();
+        System.out.println(weatherApp.getWeatherData("Almaty"));
+        weatherApp.getAllWeatherData();
+        weatherApp.updateWeatherData("Almaty");
+        System.out.println(weatherApp.getWeatherData("Almaty"));
+        weatherApp.getAllWeatherData();
+        weatherApp.removeWeatherData("Almaty");
+        weatherApp.getAllWeatherData();
     }
 }
