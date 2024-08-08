@@ -6,6 +6,7 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @ToString
 @AllArgsConstructor
@@ -21,8 +22,8 @@ public class User {
         users.add(new User("Oleg", 28, "Wb", "RB, g.Gomel, ul.Soveckay"));
         users.add(new User("Max", 22, "Avito", "RB, g.Minsk, ul.Derjinskogo"));
 
-        HashMap mapUsers = groupUsersOrAge(users);
-        for (Object user : mapUsers.entrySet()) {
+        HashMap<Integer, List> mapUsers = groupUsersOrAge(users);
+        for (Map.Entry user : mapUsers.entrySet()) {
             System.out.println(user);
         }
 
