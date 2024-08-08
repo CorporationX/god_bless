@@ -20,6 +20,7 @@ public class Main {
     }
 
     public static void addBook(Book book, String number) {
+
         library.put(book, number);
     }
 
@@ -28,6 +29,7 @@ public class Main {
     }
 
     public static void getAllBooks() {
+
         library.forEach(((key, value) -> System.out.println(key + value)));
     }
 }
