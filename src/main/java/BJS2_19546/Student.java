@@ -17,7 +17,6 @@ public class Student {
     private static Map<String, Map<Integer, List<Student>>> groupedStudents = new HashMap<>();
     public static List<Student> studentsStorage = new ArrayList<>();
 
-
     public static void groupStudentsByFacultyAndYear() {
         for (Student student : studentsStorage) {
             String faculty = student.getFaculty();
