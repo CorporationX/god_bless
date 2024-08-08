@@ -15,7 +15,7 @@ public class DataCenterService {
     final OptimizationStrategy optimizationStrategy;
     final Timer optimizationTimer;
 
-    public DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy, Timer optimizationTimer) {
+    public DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy) {
         this.dataCenter = dataCenter;
         this.optimizationStrategy = optimizationStrategy;
         this.optimizationTimer = new Timer(true);

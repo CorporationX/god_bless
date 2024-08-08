@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -22,7 +21,8 @@ public class DataCenterServiceTest {
         servers.add(new Server(200, 300, 200));
         servers.add(new Server(100, 120, 100));
         dataCenterService = new DataCenterService(new DataCenter(servers),
-                new LoadBalancingOptimizationStrategy(), new Timer(true));
+                new LoadBalancingOptimizationStrategy());
+        dataCenterService.startOptimization();
     }
 
     @Test
