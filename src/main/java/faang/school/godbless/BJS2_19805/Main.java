@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_19805;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
     private static Map<String, House> houses = new HashMap<>();
@@ -28,6 +29,7 @@ public class Main {
         addHouse(tallis);
 
         printHouseInfo("Таргариены");
+        printHouseInfo("Таргариены1");
         printAllHousesInfo();
         removeHouse(starks.getName());
         removeHouse(martels.getName());
@@ -42,7 +44,12 @@ public class Main {
     }
 
     public static void printHouseInfo(String houseName) {
-        System.out.println(houses.get(houseName).getSigil());
+        Optional<House> house = Optional.ofNullable(houses.get(houseName));
+        if (house.isPresent()) {
+            System.out.println(houses.get(houseName).getSigil());
+        } else {
+            System.out.println("Can't find house: " + houseName);
+        }
     }
 
     public static void printAllHousesInfo() {
