@@ -8,17 +8,17 @@ import java.util.Map;
 public class Main {
     private static Map<String, List<WebPage>> cacheWebPage = new HashMap<>();
 
-    public static void addWord(WebPage webPage){
+    public static void addWord(WebPage webPage) {
         String[] words = webPage.getContent().split("\\W+");
-        for(String word : words){
+        for (String word : words) {
             cacheWebPage.computeIfAbsent(word.toLowerCase(), w -> new ArrayList<>()).add(webPage);
         }
     }
 
-    public static List<WebPage> getWebPageByWord(String string){
+    public static List<WebPage> getWebPageByWord(String string) {
         String[] words = string.split("\\W+");
         List<WebPage> webPages = new ArrayList<>();
-        for(String word : words){
+        for (String word : words) {
             List<WebPage> pages = cacheWebPage.get(word.toLowerCase());
             if (pages != null) {
                 webPages.addAll(pages);
