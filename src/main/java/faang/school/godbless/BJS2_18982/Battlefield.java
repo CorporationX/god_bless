@@ -1,0 +1,48 @@
+package faang.school.godbless.BJS2_18982;
+
+public class Battlefield {
+    public static void main(String[] args) {
+        // Герои
+        Hero knight = new Hero("Arthur", "People", 100, 30);
+        Hero fiend = new Hero("Nightmare", "Demon", 100, 30);
+
+        // Существа
+        Pikeman pikeman = new Pikeman();
+        Griffin griffin = new Griffin();
+        Swordman swordman = new Swordman();
+        Angel angel = new Angel();
+
+        //Добавление существ в армию героев
+        knight.addCreature(pikeman, 3);
+        knight.addCreature(swordman, 3);
+        knight.addCreature(angel, 2);
+
+        fiend.addCreature(pikeman, 2);
+        fiend.addCreature(swordman, 2);
+        fiend.addCreature(griffin, 3);
+
+        battle(knight, fiend);
+
+    }
+
+    public static void battle(Hero heroOne, Hero heroTwo) {
+        while(true) {
+            heroOne.attack(heroTwo);
+            if (checkwin(heroOne, heroTwo)) {
+                break;
+            }
+            heroTwo.attack(heroOne);
+            if (checkwin(heroTwo, heroOne)) {
+                break;
+            }
+        }
+    }
+
+    public static boolean checkwin(Hero attacker, Hero defender) {
+        if (defender.getArmyHp() <= 0) {
+            System.out.println(attacker.getName() + " одержал победу!");
+            return true;
+        }
+        return false;
+    }
+}
