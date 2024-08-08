@@ -16,6 +16,24 @@ public class Hero {
     private Map<Creature, Integer> army;
 
     public Hero(String name, String fraction, int experience, int level) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
+        if (fraction == null) {
+            throw new IllegalArgumentException("Fraction cannot be null");
+        }
+        if (experience < 0) {
+            throw new IllegalArgumentException("Experience cannot be negative");
+        }
+        if (level < 0) {
+            throw new IllegalArgumentException("Level cannot be negative");
+        }
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (fraction.isEmpty()) {
+            throw new IllegalArgumentException("Fraction cannot be empty");
+        }
         this.name = name;
         this.fraction = fraction;
         this.experience = experience;
