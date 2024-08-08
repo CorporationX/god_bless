@@ -2,8 +2,8 @@ package faang.school.godbless.beksultan2005;
 
 public class Main {
     public static void main(String[] args) {
-        Hero hero1 = new Hero("Arthur", 3,1);
-        Hero hero2 = new Hero("Morgana", 4,2);
+        Hero hero1 = new Hero("Arthur", 3, 1);
+        Hero hero2 = new Hero("Morgana", 4, 2);
 
         Creature pikeman = new Pikeman();
         Creature griffin = new Griffin();
@@ -13,7 +13,7 @@ public class Main {
         hero1.addCreature(pikeman, 10);
         hero1.addCreature(griffin, 5);
         hero1.addCreature(swordman, 7);
-        hero1.addCreature(angel, 8);
+        hero1.addCreature(angel, 12);
 
         hero2.addCreature(pikeman, 15);
         hero2.addCreature(griffin, 4);
