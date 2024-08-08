@@ -65,14 +65,14 @@ public class DataCenterService {
             newServers.put(size, 0);
         }
         while (requestedLoad > 0) {
-            for (int i = 0; i < srvSizes.length; i++) {
-                if (requestedLoad <= srvSizes[i] + availableLoad) {
-                    newServers.put(srvSizes[i], newServers.get(srvSizes[i]) + 1);
+            for (double srvSize : srvSizes) {
+                if (requestedLoad <= srvSize + availableLoad) {
+                    newServers.put(srvSize, newServers.get(srvSize) + 1);
                     requestedLoad = 0.0;
                     break;
-                } else if (srvSizes[i] == LARGE_SERVER_LOAD) {
-                    newServers.put(srvSizes[i], newServers.get(srvSizes[i]) + 1);
-                    requestedLoad -= srvSizes[i];
+                } else if (srvSize == LARGE_SERVER_LOAD) {
+                    newServers.put(srvSize, newServers.get(srvSize) + 1);
+                    requestedLoad -= srvSize;
                 }
             }
         }
@@ -118,7 +118,7 @@ public class DataCenterService {
             System.out.println("Current load  srv#" + i + " Current load : " + dataCenter.getServersList().get(i).getLoad()
                     + ", Max load - " + dataCenter.getServersList().get(i).getMaxLoad() + ", Percent load: " + dataCenter.getServersList().get(i).getPercentLoad()
                     + " Energy consumption - " + dataCenter.getServersList().get(i).getEnergyConsumption());
-         }
+        }
     }
 }
 
