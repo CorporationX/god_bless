@@ -1,26 +1,47 @@
 package faang.school.godbless;
 
-import faang.school.godbless.david.User;
+import faang.school.godbless.Book.Book;
 import java.util.*;
 
 public class Application {
-    public static void main(String[] args) {
-        try{
-            List<User> users = new ArrayList<>();
-            users.add(new User("Ura", 30, "Google", "London"));
-            users.add(new User("David", 25, "Uber", "Amsterdam"));
-            users.add(new User("Konstantin", 30, "Amazon", "New York"));
+    private Map<Book, String> books = new HashMap<>();
 
-            Map<Integer, List<User>> group = User.groupUsers(users);
+    public void addBook(Book book, String location) {
+        books.put(book, location);
+    }
 
-            for (Map.Entry<Integer, List<User>> entry : group.entrySet()) {
-                System.out.println("Age" + entry.getKey());
-                for (User user : entry.getValue()) {
-                    System.out.println(user);
-                }
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+    public boolean removeBook(String title, String author, int year) {
+        Book bookToRemove = new Book(title, author, year);
+        return books.remove(bookToRemove) != null;
+    }
+
+    public String findBook(String title, String author, int year) {
+        Book bookToFind = new Book(title, author, year);
+        return books.get(bookToFind);
+    }
+
+    public void printAllBooks() {
+        for (Map.Entry<Book, String> entry : books.entrySet()) {
+            System.out.println(entry.getKey() + " - Location: " + entry.getValue());
         }
+    }
+    public static void main(String[] args) {
+        Application app = new Application();
+
+        app.addBook(new Book("1984", "George Orwell", 1949), "Shelf A1");
+        app.addBook(new Book("To Kill a Mockingbird", "Harper Lee", 1960), "Shelf B2");
+        app.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925), "Shelf C3");
+
+        String location = app.findBook("1984", "George Orwell", 1949);
+        System.out.println("Location of '1984': " + location);
+
+        System.out.println("All books in the library:");
+        app.printAllBooks();
+
+        boolean removed = app.removeBook("To Kill a Mockingbird", "Harper Lee", 1960);
+        System.out.println("Book removed: " + removed);
+
+        System.out.println("Updated list of books:");
+        app.printAllBooks();
     }
 }
