@@ -35,8 +35,6 @@ public class Application {
 
         GetLibrary();
     }
-
-
     public static void addBook(Book book, String number) {
         library.put(book, number);
     }
