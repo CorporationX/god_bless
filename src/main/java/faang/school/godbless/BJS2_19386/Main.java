@@ -5,52 +5,42 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
+
 
 public class Main {
     private static List<Student> students = new ArrayList<>();
-    private static Map<Student, Integer> studentsIndexes = new HashMap<>();
-    private static int index = 0;
-    private static Map<FacultyAndAdmissionYearPair, List<Student>> studentGroups = new HashMap<>();
 
     private static void addStudent(String name, String faculty, int admissionYear) {
         Student student = new Student(name, faculty, admissionYear);
         students.add(student);
-        studentsIndexes.put(student, index++);
     }
 
     private static void removeStudent(String name, String faculty, int admissionYear) {
         Student student = new Student(name, faculty, admissionYear);
-        Integer studentIndex = studentsIndexes.get(student);
-        if (Objects.nonNull(studentIndex)) {
-            students.remove(studentIndex.intValue());
-        }
+        students.remove(student);
     }
 
-    private static void viewAllStudent() {
-        students.forEach(System.out::println);
-    }
-
-    private static void groupByFacultyAndAdmissionYear() {
-        for (Student student: students) {
+    private static Map<FacultyAndAdmissionYearPair, List<Student>> groupByFacultyAndAdmissionYear() {
+        Map<FacultyAndAdmissionYearPair, List<Student>> studentGroups = new HashMap<>();
+        for (Student student : students) {
             FacultyAndAdmissionYearPair pair = new FacultyAndAdmissionYearPair(student.getFaculty(), student.getAdmissionYear());
-            List<Student> studentGroup = studentGroups.getOrDefault(pair, new ArrayList<>());
-            studentGroup.add(student);
-            studentGroups.put(pair, studentGroup);
+            studentGroups.computeIfAbsent(pair, key -> new ArrayList<>()).add(student);
         }
+        return studentGroups;
     }
 
     private static void viewAllStudentsByGroup() {
+        Map<FacultyAndAdmissionYearPair, List<Student>> studentGroups = groupByFacultyAndAdmissionYear();
         studentGroups.forEach((pair, studentGroup) -> {
             System.out.println(pair.getFaculty() + " " + pair.getAdmissionYear() + ":");
             studentGroup.forEach(student -> System.out.println("\t" + student));
         });
     }
 
-    private static void searchStudentsByFacultyAndAdmissionYear(String faculty, int admissionYear) {
-        FacultyAndAdmissionYearPair pair = new FacultyAndAdmissionYearPair(faculty, admissionYear);
-        List<Student> studentGroup = studentGroups.get(pair);
-        if (Objects.nonNull(studentGroup)) {
+    private static void searchStudentsByFacultyAndAdmissionYear(FacultyAndAdmissionYearPair pair) {
+        Map<FacultyAndAdmissionYearPair, List<Student>> studentGroups = groupByFacultyAndAdmissionYear();
+        if (studentGroups.containsKey(pair)) {
+            List<Student> studentGroup = studentGroups.get(pair);
             System.out.println(pair.getFaculty() + " " + pair.getAdmissionYear() + ":");
             studentGroup.forEach(student -> System.out.println("\t" + student));
         } else {
@@ -79,18 +69,14 @@ public class Main {
         addStudent("Rachel Turner", "Mathematics", 2021);
         addStudent("Sam Lee", "Physics", 2022);
         addStudent("Tina Young", "Engineering", 2023);
-        viewAllStudent();
-        System.out.println();
 
         removeStudent("Tina Young", "Engineering", 2023);
-        viewAllStudent();
         System.out.println();
 
-        groupByFacultyAndAdmissionYear();
         viewAllStudentsByGroup();
         System.out.println();
 
-        searchStudentsByFacultyAndAdmissionYear("Mathematic", 2021);
+        searchStudentsByFacultyAndAdmissionYear(new FacultyAndAdmissionYearPair("Mathematics", 2021));
     }
 }
 
