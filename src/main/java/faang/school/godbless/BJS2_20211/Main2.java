@@ -1,17 +1,17 @@
 package faang.school.godbless.BJS2_20211;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 
-public class Main {
-    private static Map<String, List<WebPage>> mapIndex = new HashMap<>();
+public class Main2 {
+    private static Map<String, List<NodeWebPage>> mapIndex = new HashMap<>();
     private static Set<WebPage> setIndex = new HashSet<>();
-    private static Map<String, NodeWebPage> nodeIndex = new HashMap<>();
+    private static Map<String, List<NodeWebPage>> listNodesQuickRemove = new HashMap<>();
 
     public static void main(String[] args) {
         List<WebPage> pages = List.of(new WebPage("https://ya.ru", "Yandex", "yandex java hello"),
@@ -23,44 +23,30 @@ public class Main {
         for (WebPage page : pages) {
             indexWebPage(page);
         }
+
         for (var entry : mapIndex.entrySet()) {
-            System.out.println(entry.getKey() + ": ");
+            System.out.println("key: " + entry.getKey());
             for (var webPage : entry.getValue()) {
-                System.out.println(webPage.getUrl());
+                System.out.println(webPage.getWebPage().getUrl());
             }
-            System.out.println("-------------------------");
-        }
-        System.out.println("+++++++++++++++++");
-        Optional<List<WebPage>> webPages = Optional.ofNullable(searchByWord("hello"));
-        if (webPages.isPresent()) {
-            for (var webPage : webPages.get()) {
-                System.out.println(webPage.getUrl());
-            }
-        } else {
-            System.out.println("Can't find web pages with this word");
+            System.out.println("=======================");
         }
     }
 
-
-
-
-
     public static void indexWebPage(WebPage webPage) {
+        NodeWebPage nodeToIndex = new NodeWebPage(webPage);
         if (!setIndex.contains(webPage)) {
             String[] contentByWords = webPage.getContent().split(" ");
             for (String word : contentByWords) {
                 if (!mapIndex.containsKey(word)) {
-                    mapIndex.put(word, new ArrayList<>() {{
-                        add(webPage);
-                    }});
+                    mapIndex.put(word, new LinkedList<>(Arrays.asList(nodeToIndex)));
                 } else {
-                    mapIndex.get(word).add(webPage);
+                    mapIndex.get(word).add(nodeToIndex);
                 }
             }
         }
-    }
-
-    private static List<WebPage> searchByWord(String word) {
-        return mapIndex.get(word);
+        if (!listNodesQuickRemove.containsKey(webPage.getUrl())) {
+            listNodesQuickRemove.put(webPage.getUrl(), new LinkedList<>());
+        }
     }
 }
