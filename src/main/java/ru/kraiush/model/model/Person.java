@@ -23,11 +23,7 @@ public class Person {
 
     public static Map<Integer, List<Person>> groupPersonByAge(List<Person> persons) {
 
-        if(persons ==  null) {
-            return null;
-        }
-
-        if(persons.isEmpty()) {
+        if(persons ==  null || persons.isEmpty()) {
             return null;
         }
 

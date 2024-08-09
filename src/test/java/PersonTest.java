@@ -7,7 +7,6 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PersonTest extends Person {
-
     @Test
     void testGroupPersonByAge() {
         List<Person> persons = Person.getPersons();
