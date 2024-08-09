@@ -2,12 +2,13 @@ package faang.school.godbless.BJS2_19415;
 
 import lombok.Getter;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class DataCenter {
     @Getter
-    private Set<Server> cluster = new HashSet<>();
+    private List<Server> cluster = new ArrayList<>();
 
     public int getServersQuantity() {
         return cluster.size();

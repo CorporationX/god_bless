@@ -4,6 +4,8 @@ import faang.school.godbless.BJS2_19415.OptimizationStrategy.OptimizationStrateg
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @AllArgsConstructor
 public class DataCenterService {
     @Getter
@@ -14,7 +16,13 @@ public class DataCenterService {
     }
 
     public void removeServer(Server server) {
-        dataCenter.getCluster().remove(server);
+        List<Server> cluster = dataCenter.getCluster();
+        if(cluster.contains(server)) {
+            cluster.remove(server);
+        } else {
+            throw new IllegalArgumentException("The server is absent in cluster");
+        }
+
     }
 
     public double getTotalEnergyConsumption() {
@@ -53,7 +61,6 @@ public class DataCenterService {
         }
     }
 
-    //добавляет значение нагрузки на серверах
     public void allocateResources(ResourceRequest request) {
         double requestLoadValue = request.getLoad();
         checkAllocateResourcesLoad(requestLoadValue);
@@ -68,7 +75,6 @@ public class DataCenterService {
         }
     }
 
-    //убавляет значение нагрузки на серверах
     public void releaseResources(ResourceRequest request) {
         double requestsLoadValue = request.getLoad();
         checkReleaseResourcesLoad(requestsLoadValue);

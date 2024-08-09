@@ -3,8 +3,8 @@ package faang.school.godbless.BJS2_19415;
 import lombok.Getter;
 
 
+@Getter
 public class ResourceRequest {
-    @Getter
     private double load;
 
     public ResourceRequest(double load) {
