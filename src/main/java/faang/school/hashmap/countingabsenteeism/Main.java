@@ -3,6 +3,7 @@ package faang.school.hashmap.countingabsenteeism;
 import java.util.*;
 
 public class Main {
+
     static private final Set<Student> setStudent = new HashSet<>();
     static private final HashMap<List, List> mapStudent = new HashMap<>();
 
@@ -47,7 +48,9 @@ public class Main {
     }
 
     private static void addNewStudent(Student student) {
-        setStudent.add(student);
+        if (student != null) {
+            setStudent.add(student);
+        }
     }
 
     private static void deleteStudent(Student student) {
