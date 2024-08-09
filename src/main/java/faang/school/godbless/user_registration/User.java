@@ -15,8 +15,7 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (name == null || name.trim().isEmpty() || age <= MIN_AGE ||
-                isValidData(job, address)) {
+        if (isValidData(name, age, job, address)) {
             System.out.println("Поля User заполнены некорректно! " + name);
         } else {
             this.name = name;
@@ -26,10 +25,8 @@ public class User {
         }
     }
 
-    private boolean isValidData(String job, String address) {
-        if (!VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address)) {
-            return true;
-        }
-        return false;
+    private boolean isValidData(String name, int age, String job, String address) {
+        return name == null || name.trim().isEmpty() || name.isBlank() ||
+                age < MIN_AGE || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address);
     }
 }
