@@ -1,18 +1,19 @@
 package faang.school.godbless.aisOS18917;
 
 public class Example {
-    public void reverse(int[] nums) {
+    public int[] reverse(int[] nums) {
+        int[] reversed = new int[nums.length];
         int start = 0;
         int last = nums.length - 1;
 
-        while (start < last) {
-            int temp = nums[start];
-            nums[start] = nums[last];
-            nums[last] = temp;
-
+        while (start <= last) {
+            reversed[start] = nums[last];
+            reversed[last] = nums[start];
             start++;
             last--;
         }
+
+        return reversed;
     }
 
     public static void main(String[] args) {
@@ -24,11 +25,12 @@ public class Example {
             System.out.print(num + " ");
         }
 
-        example.reverse(nums);
+        int[] reversed = example.reverse(nums);
 
         System.out.println("Reversed array: ");
-        for (int num : nums) {
+        for (int num : reversed) {
             System.out.print(num + " ");
         }
+
     }
 }
