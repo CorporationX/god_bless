@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -42,20 +43,20 @@ public class UserTest {
     @DisplayName("Проверка для случая с пересекающимися активностями")
     public void testFindHobbyLoversWithMatchingActivities() {
         activities = Set.of("Cooking", "Running");
-
-        expected = new HashMap<>();
-        expected.put(alice, "Cooking");
-        expected.put(bob, "Running");
-
+        expected = Map.of(alice, "Cooking", bob, "Running");
         result = User.findHobbyLovers(users, activities);
 
-        assertEquals(expected.size(), result.size(),
-                "Размер результирующей мапы должен соответствовать размеру ожидаемой мапы.");
-        for (Map.Entry<User, String> entry : expected.entrySet()) {
-            assertTrue(result.containsKey(entry.getKey()), "Пользователь должен быть включён в мапу.");
-            assertEquals(entry.getValue(), result.get(entry.getKey()),
-                    "Активность должна соответствовать ожидаемому значению.");
-        }
+        assertAll(
+                () -> assertEquals(expected.size(), result.size(),
+                        "Размер результирующей мапы должен соответствовать размеру ожидаемой мапы."),
+                () -> expected.forEach((user, activity) -> {
+                    assertTrue(result.containsKey(user), "Пользователь " + user.getName() +
+                            " должен быть включён в мапу.");
+                    assertEquals(activity, result.get(user),
+                            "Активность для пользователя " + user.getName() +
+                                    " должна соответствовать ожидаемому значению " + activity + ".");
+                })
+        );
     }
 
     @Test
@@ -70,7 +71,7 @@ public class UserTest {
     }
 
     @Test
-    @DisplayName("Проверка для случая с пустым списком пользователей и множеством активностей")
+    @DisplayName("Проверка для случая с пустым списком пользователей и пустым множеством активностей")
     public void testFindHobbyLoversWithEmptyUserListAndActivities() {
         users = new ArrayList<>();
         activities = new HashSet<>();
