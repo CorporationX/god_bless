@@ -18,9 +18,11 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        addStudentInList("new Test", "new Test", 1);
+        Student student = new Student("new Test", "new Test", 1);
+        addStudentInList(student);
 
-        removeStudentFromList("Test", "Test", 2);
+        Student anotherStudent = new Student("Test", "Test", 2);
+        removeStudentFromList(anotherStudent);
 
         Map<Map.Entry<String, Integer>, List<Student>> students = groupStudentsByFacultyAndYear(studentList);
 

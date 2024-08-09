@@ -1,6 +1,8 @@
 package faang.school.godbless.uni;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
 
 import static faang.school.godbless.uni.Main.studentList;
 import static java.util.stream.Collectors.groupingBy;
@@ -8,15 +10,16 @@ import static java.util.stream.Collectors.groupingBy;
 public class StudentService {
 
     public static Map<Map.Entry<String, Integer>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
-        return students.stream().collect(groupingBy(student -> new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear())));
+        return students.stream()
+                .collect(groupingBy(student -> new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear())));
     }
 
-    public static void addStudentInList(String name, String faculty, int year) {
-        studentList.add(new Student(name, faculty, year));
+    public static void addStudentInList(Student student) {
+        studentList.add(student);
     }
 
-    public static void removeStudentFromList(String name, String faculty, int year) {
-        studentList.remove(new Student(name, faculty, year));
+    public static void removeStudentFromList(Student student) {
+        studentList.remove(student);
     }
 
     public static void printGroupStudentsByFacultyAndYear(Map<Map.Entry<String, Integer>, List<Student>> students) {

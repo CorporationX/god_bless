@@ -9,7 +9,7 @@ import java.util.Objects;
 @Getter
 public class Student {
 
-    private String name;
+    private final String name;
     private String faculty;
     private int year;
 
@@ -23,7 +23,9 @@ public class Student {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return year == student.year && Objects.equals(name, student.name) && Objects.equals(faculty, student.faculty);
+        return year == student.year
+                && Objects.equals(name, student.name)
+                && Objects.equals(faculty, student.faculty);
     }
 
     @Override
