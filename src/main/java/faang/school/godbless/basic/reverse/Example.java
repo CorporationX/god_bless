@@ -4,13 +4,15 @@ import java.util.Arrays;
 
 public class Example {
     public static void reverse(int[] nums) {
-        int[] reverseNums = new int[nums.length];
-        int cnt = 0;
-        for (int i = nums.length - 1 ;  i >= 0; i--) {
-            reverseNums[cnt] = nums[i];
-            cnt++;
-        }
         System.out.println("Initial nums: " + Arrays.toString(nums));
-        System.out.println("Reversed nums: " + Arrays.toString(reverseNums));
+        int count = nums.length - 1;
+        for (int i = 0 ;  i < nums.length; i++) {
+            int tmp = nums[count];
+            if (count == i) break;
+            nums[count] = nums[i];
+            nums[i] = tmp;
+            count--;
+        }
+        System.out.println("Reversed nums: " + Arrays.toString(nums));
     }
 }
