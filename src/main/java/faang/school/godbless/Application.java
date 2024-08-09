@@ -61,8 +61,7 @@ public class Application {
 
     public static void allStudents(Map<String, List<Student>> map) {
         for (Map.Entry<String, List<Student>> pair : map.entrySet()) {
-            System.out.println(pair.getKey() + " " + pair.getValue());
-        }
+
     }
 
     public static void addStudent(Student student) {
@@ -76,5 +75,4 @@ public class Application {
     public static void researchStudent(String faculty, int year) {
         System.out.println(groupStudents(students).get(faculty + " " + year));
     }
-
 }
