@@ -15,6 +15,7 @@ import java.util.Set;
 public class User {
     static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    static final int AGE_VALUE = 18;
 
     String name;
     int age;
@@ -22,8 +23,17 @@ public class User {
     String address;
 
     public User(String name, int age, String workPlace, String address) {
-        if (name.isEmpty() || name.isBlank() || age < 18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Bad parameters");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+        if (age < AGE_VALUE) {
+            throw new IllegalArgumentException("Age cannot be less than 18");
+        }
+        if (!VALID_JOBS.contains(workPlace)) {
+            throw new IllegalArgumentException("Bad work place");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Bad address");
         }
         this.name = name;
         this.age = age;
