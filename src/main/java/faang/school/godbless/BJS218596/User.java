@@ -20,14 +20,19 @@ public class User {
         return age;
     }
 
+    public String toString() {
+        return String.format("[Name: %s, Age: %d, place work: %s, address: %s]", name, age, placeWork, address);
+    }
+
     public static HashMap<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
         HashMap<Integer, ArrayList<User>> groupUsers = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-            if (groupUsers.containsKey(age)) {
+            if (!groupUsers.containsKey(age)) {
+                groupUsers.put(age, new ArrayList<>());
                 groupUsers.get(age).add(user);
             } else {
-                groupUsers.put(age, new ArrayList<>());
+                groupUsers.get(age).add(user);
             }
         }
         return groupUsers;
