@@ -40,12 +40,16 @@ public class House {
     }
 
     static House getHouse(String name) {
-        return storage.get(name);
+        if (storage.containsKey(name)) {
+            return storage.get(name);
+        }
+
+        throw new NullPointerException();
     }
 
     static void printHouses() {
         storage.forEach((name, house) -> {
-            System.out.printf("Дом: %s, Герб: %s", name, house.sigil).println();
+            System.out.printf("Дом: %s, Герб: %s", name, house.getSigil()).println();
         });
     }
 }
