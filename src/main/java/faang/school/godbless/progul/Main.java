@@ -10,7 +10,7 @@ public class Main {
                 new Student("Harry", "Gryffindor", 1),
                 new Student("Malfoy", "Slytherin", 1),
                 new Student("Hannah", "Gryffindor", 3),
-                new Student("Michael", "Gryffindor", 4),
+                new Student("Michael", "Gryffindor", 3),
                 new Student("Ron", "Gryffindor", 1)
         ));
 
@@ -24,9 +24,16 @@ public class Main {
         System.out.println();
 
         studentService.removeStudent(students, "Hannah", "Gryffindor", 3);
-        studentService.removeStudent(students, "Michael", "Gryffindor", 4);
+        studentService.removeStudent(students, "Michael", "Gryffindor", 3);
         studentService.removeStudent(students, "Gregory", "Slytherin", 2);
-        studentService.removeStudent(students, "Gregory", "Slytherin", 2);
+
+        try {
+            studentService.removeStudent(students, "Gregory", "Slytherin", 2);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println();
+        }
 
         studentService.showGroupedStudents(students);
         System.out.println();

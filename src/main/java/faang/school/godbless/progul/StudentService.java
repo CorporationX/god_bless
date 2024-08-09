@@ -1,5 +1,7 @@
 package faang.school.godbless.progul;
 
+import faang.school.godbless.progul.exceptions.StudentNotFoundException;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,15 +16,15 @@ public class StudentService {
     public void removeStudent(List<Student> students, String name, String faculty, int year) {
         var student = getStudentByNameFacultyYear(students, name, faculty, year);
 
-        students.remove(student);
-
         if (student == null) {
-            System.out.println("Student not found" + "\n");
+            throw new StudentNotFoundException("Student not found");
         }
+
+        students.remove(student);
     }
 
     public void showGroupedStudents(List<Student> students) {
-        var studentGroup = groupByFacultyAndYear(students);
+        Map<String, List<Student>> studentGroup = groupByFacultyAndYear(students);
 
         studentGroup.forEach((key, value) -> {
             System.out.println(key);
