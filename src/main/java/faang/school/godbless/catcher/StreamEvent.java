@@ -11,9 +11,9 @@ import java.util.Objects;
 @ToString
 public class StreamEvent {
 
-    private int id;
-    private String eventType;
-    private String data;
+    private final int id;
+    private final String eventType;
+    private final String data;
 
     @Override
     public boolean equals(Object o) {

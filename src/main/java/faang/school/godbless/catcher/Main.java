@@ -12,9 +12,12 @@ public class Main {
     public static Map<String, List<StreamEvent>> streamEventTypeMap = new HashMap<>();
 
     public static void main(String[] args) {
-        addStreamEventAndUpdateMaps(1, "Test", "test");
-        addStreamEventAndUpdateMaps(1, "Test1", "test1");
-        addStreamEventAndUpdateMaps(2, "Test", "test");
+        StreamEvent streamEvent = new StreamEvent(1, "Test", "test");
+        addStreamEventAndUpdateMaps(streamEvent);
+        streamEvent = new StreamEvent(1, "Test1", "test1");
+        addStreamEventAndUpdateMaps(streamEvent);
+        streamEvent = new StreamEvent(2, "Test", "test");
+        addStreamEventAndUpdateMaps(streamEvent);
 
         printStreamEventById();
         System.out.println();

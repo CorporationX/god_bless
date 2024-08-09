@@ -2,15 +2,14 @@ package faang.school.godbless.catcher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static faang.school.godbless.catcher.Main.streamEventIdMap;
 import static faang.school.godbless.catcher.Main.streamEventTypeMap;
 
 public class StreamEventService {
 
-    public static void addStreamEventAndUpdateMaps(int id, String eventType, String data) {
-        StreamEvent streamEvent = new StreamEvent(id, eventType, data);
-
+    public static void addStreamEventAndUpdateMaps(StreamEvent streamEvent) {
         streamEventIdMap.put(streamEvent.getId(), streamEvent);
 
         List<StreamEvent> streamEventList = streamEventTypeMap.get(streamEvent.getEventType());
@@ -36,7 +35,7 @@ public class StreamEventService {
 
         String streamEventForDelete = streamEventTypeMap.entrySet().stream()
                 .filter(e -> e.getValue().stream().anyMatch(s -> s.getId() == id))
-                .findFirst().map(e -> e.getKey()).orElse(null);
+                .findFirst().map(Map.Entry::getKey).orElse(null);
 
         streamEventTypeMap.remove(streamEventForDelete);
     }
