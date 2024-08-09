@@ -1,4 +1,6 @@
-package faang.school.godbless.BJS2_20211;
+package faang.school.godbless.BJS2_20211.temp;
+
+import faang.school.godbless.BJS2_20211.WebPage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import java.util.Set;
 public class Main {
     private static Map<String, List<WebPage>> mapIndex = new HashMap<>();
     private static Set<WebPage> setIndex = new HashSet<>();
-    private static Map<String, NodeWebPage> nodeIndex = new HashMap<>();
+    private static Map<String, NodeWebPageMain2> nodeIndex = new HashMap<>();
 
     public static void main(String[] args) {
         List<WebPage> pages = List.of(new WebPage("https://ya.ru", "Yandex", "yandex java hello"),
@@ -40,10 +42,6 @@ public class Main {
             System.out.println("Can't find web pages with this word");
         }
     }
-
-
-
-
 
     public static void indexWebPage(WebPage webPage) {
         if (!setIndex.contains(webPage)) {

@@ -1,15 +1,13 @@
 package faang.school.godbless.BJS2_20211;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class WebPage {
-
-    @Getter
     private String url;
     private String title;
-
-    @Getter
     private String content;
 }
