@@ -4,6 +4,7 @@ import lombok.ToString;
 
 @ToString
 public abstract class Character {
+
     protected String name;
     protected int strength;
     protected int agility;
