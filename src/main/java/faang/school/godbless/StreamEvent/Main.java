@@ -1,4 +1,4 @@
-package faang.school.godbless.Mathew;
+package faang.school.godbless.StreamEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,31 +6,31 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static final Map<Integer, StreamEvent> MAPPA = new HashMap<>();
-    public static final Map<String, List<StreamEvent>> SECOND_MAPPA = new HashMap<>();
+    public static final Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
+    public static final Map<String, List<StreamEvent>> secondStreamEventMap = new HashMap<>();
 
     public static void addNewEvent(int id, String eventType, String data) {
         StreamEvent streamEvent = new StreamEvent(id, eventType, data);
-        MAPPA.put(id, streamEvent);
-        SECOND_MAPPA.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
+        streamEventMap.put(id, streamEvent);
+        secondStreamEventMap.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     public static void searchEvent(int id) {
-        MAPPA.get(id);
+        streamEventMap.get(id);
     }
 
     public static void removeEvent(int id) {
-        StreamEvent streamEvent = MAPPA.get(id);
+        StreamEvent streamEvent = streamEventMap.get(id);
         String event = streamEvent.getEventType();
-        SECOND_MAPPA.remove(event);
-        MAPPA.remove(id);
+        secondStreamEventMap.remove(event);
+        streamEventMap.remove(id);
     }
 
     public static void printAllEvents() {
-        for (Map.Entry<Integer, StreamEvent> entry : MAPPA.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : streamEventMap.entrySet()) {
             System.out.println("ID: " + entry.getKey() + ", Event: " + entry.getValue());
         }
-        for (Map.Entry<String, List<StreamEvent>> entry : SECOND_MAPPA.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : secondStreamEventMap.entrySet()) {
             System.out.println("Event Type: " + entry.getKey());
             for (StreamEvent event : entry.getValue()) {
                 System.out.println("    Event: " + event);

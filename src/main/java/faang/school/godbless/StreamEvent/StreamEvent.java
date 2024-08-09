@@ -1,4 +1,4 @@
-package faang.school.godbless.Mathew;
+package faang.school.godbless.StreamEvent;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
