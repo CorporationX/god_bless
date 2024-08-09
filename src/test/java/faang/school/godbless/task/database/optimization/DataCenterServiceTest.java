@@ -3,7 +3,11 @@ package faang.school.godbless.task.database.optimization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DataCenterServiceTest {
     private static final double ONE_ENERGY_POINT_IN_LOAD = 2; // ENERGY == LOAD x 2
@@ -18,7 +22,7 @@ public class DataCenterServiceTest {
 
     @BeforeEach
     void setUp() {
-        dataCenterService = new DataCenterService(new DataCenter(),
+        dataCenterService = new DataCenterService(new DataCenter(new LinkedList<>()),
                 new LoadBalancingOptimizationStrategy());
     }
 
@@ -32,7 +36,7 @@ public class DataCenterServiceTest {
     void testRemoveServer() {
         dataCenterService.addNewServer(server1);
         dataCenterService.removeServer(server1);
-        assertEquals(0.0, dataCenterService.getTotalEnergyConsumption());
+        assertThrows(NoSuchElementException.class, () -> dataCenterService.getTotalEnergyConsumption());
     }
 
     @Test
@@ -68,6 +72,6 @@ public class DataCenterServiceTest {
     @Test
     void testAllocateResourceWhenHaveNoServices() {
         var resourceRequest = new ResourceRequest(40.0);
-        dataCenterService.allocateResources(resourceRequest);
+        assertThrows(NoSuchElementException.class, () -> dataCenterService.allocateResources(resourceRequest));
     }
 }

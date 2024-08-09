@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,7 +23,7 @@ public class LoadBalancingOptimizationStrategyTest {
         servers = new ArrayList<>(List.of(server1, server2, server3));
 
         loadBalancing = new LoadBalancingOptimizationStrategy();
-        dataCenterService = new DataCenterService(new DataCenter(), loadBalancing);
+        dataCenterService = new DataCenterService(new DataCenter(new LinkedList<>()), loadBalancing);
         servers.forEach(srvr -> dataCenterService.addNewServer(srvr));
     }
 

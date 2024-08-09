@@ -3,6 +3,7 @@ package faang.school.godbless.task.database.optimization;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,7 +18,7 @@ public class DataCenterTest {
 
     @BeforeEach
     void setUp() {
-        dataCenter = new DataCenter();
+        dataCenter = new DataCenter(new LinkedList<>());
     }
 
     @Test

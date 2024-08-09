@@ -29,18 +29,17 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
         for (Server server : servers) {
             totalLoad += server.getLoad();
         }
-        System.out.println(totalLoad);
         return totalLoad;
     }
 
     public void optimizeInAverageLoad(double totalLoad, List<Server> servers) {
         double middleLoad = totalLoad / servers.size();
-        servers.forEach(srvr -> {
-            double load = srvr.getLoad();
+        servers.forEach(server -> {
+            double load = server.getLoad();
             if (load > middleLoad) {
-                srvr.releaseLoad(load - middleLoad);
+                server.releaseLoad(load - middleLoad);
             } else if (load < middleLoad) {
-                srvr.allocateLoad(middleLoad - load);
+                server.allocateLoad(middleLoad - load);
             }
         });
     }
