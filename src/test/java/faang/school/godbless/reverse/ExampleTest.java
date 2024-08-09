@@ -1,5 +1,6 @@
 package faang.school.godbless.reverse;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,29 +8,34 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ExampleTest {
 
     @Test
-    public void testReverseInvalidArgument() {
+    @DisplayName("Null input")
+    public void testReverseNullInput() {
         assertThrows(IllegalArgumentException.class, () -> Example.reverseArray(null));
     }
 
     @Test
+    @DisplayName("Empty Input")
     public void testReverseEmptyInput() {
-        Double[] doubles = {};
-        Double[] reversed = {};
-        assertArrayEquals(reversed, Example.reverseArray(doubles));
+        int[] arr = {};
+        int[] reversedArr = {};
+        assertArrayEquals(reversedArr, Example.reverseArray(arr));
     }
 
+
     @Test
+    @DisplayName("Odd length input")
     public void testReverseLengthOdd() {
-        Integer[] ints = {1, 2, 3, 4, 5};
-        Integer[] reversedInts = {5, 4, 3, 2, 1};
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] reversedArr = {5, 4, 3, 2, 1};
 
-        assertArrayEquals(reversedInts, Example.reverseArray(ints));
+        assertArrayEquals(reversedArr, Example.reverseArray(arr));
     }
 
     @Test
+    @DisplayName("Even length input")
     public void testReverseLengthEven() {
-        Float[] floats = {1f, 2f, 3f, 4f, 5f, 6f};
-        Float[] reversedFloats = {6f, 5f, 4f, 3f, 2f, 1f};
-        assertArrayEquals(reversedFloats, Example.reverseArray(floats));
+        int[] arr = {1, 2, 3, 4, 5, 6};
+        int[] reversedArr = {6, 5, 4, 3, 2, 1};
+        assertArrayEquals(reversedArr, Example.reverseArray(arr));
     }
 }
