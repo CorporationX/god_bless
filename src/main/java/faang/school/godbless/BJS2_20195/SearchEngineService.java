@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,10 +15,6 @@ import java.util.stream.Stream;
 public class SearchEngineService {
 
     private Map<String, Set<WebPage>> index;
-
-    public SearchEngineService() {
-        this.index = new HashMap<>();
-    }
 
     public void indexWebPage(WebPage page) {
         String[] content = concatTwoArray(page.getTitle().split(" "), page.getContent().split(" "));
