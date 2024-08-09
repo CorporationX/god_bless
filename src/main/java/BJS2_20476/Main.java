@@ -30,6 +30,4 @@ public class Main {
 
         StreamEvent.printEvents(eventsById);
     }
-
-
 }
