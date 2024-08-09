@@ -62,7 +62,6 @@ public class BattleField {
                     System.out.println("Win: " + entry.getKey().name + " of second Hero!");
                     break;
                 }
-
             }
 
         }
