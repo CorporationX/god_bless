@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest extends Main {
+class MainTest {
     private Main main;
     private DaTa daTa;
 
@@ -27,35 +27,35 @@ class MainTest extends Main {
 
     @Test
     void testGetDaTaByIdWhenOutCache() {
-        DaTa daTa2 = new DaTa(2, "Значение данных 2", LocalDateTime.now());
-        main.addDaTa(daTa2);
+        DaTa daTaTwo = new DaTa(2, "Значение данных 2", LocalDateTime.now());
+        main.addDaTa(daTaTwo);
         DaTa cacheDaTa = main.getDaTaById(2);
-        assertEquals(daTa2, cacheDaTa);
+        assertEquals(daTaTwo, cacheDaTa);
         assertTrue(main.getCache().containsKey(2));
 
     }
 
     @Test
     public void testGetDaTaByIdWhenInCache() {
-        DaTa daTa3 = new DaTa(3, "Значение данных 3", LocalDateTime.now());
-        main.addDaTa(daTa3);
-        DaTa cacheDaTa1 = main.getDaTaById(3);
-        assertNotNull(cacheDaTa1);
+        DaTa daTaThree = new DaTa(3, "Значение данных 3", LocalDateTime.now());
+        main.addDaTa(daTaThree);
+        DaTa cacheDaTaOne = main.getDaTaById(3);
+        assertNotNull(cacheDaTaOne);
         DaTa updatedDaTa = main.getDaTaById(3);
         assertNotNull(updatedDaTa);
-        assertNotEquals(cacheDaTa1.getTimestamp(), updatedDaTa.getTimestamp());
+        assertNotEquals(cacheDaTaOne.getTimestamp(), updatedDaTa.getTimestamp());
     }
 
     @Test
     public void testLRU() {
-        DaTa daTa1 = new DaTa(1, "Значение данных 1", LocalDateTime.now());
-        DaTa daTa2 = new DaTa(2, "Значение данных 2", LocalDateTime.now());
-        DaTa daTa3 = new DaTa(3, "Значение данных 3", LocalDateTime.now());
-        DaTa daTa4 = new DaTa(4, "Значение данных 4", LocalDateTime.now());
+        DaTa daTaOne = new DaTa(1, "Значение данных 1", LocalDateTime.now());
+        DaTa daTaTwo = new DaTa(2, "Значение данных 2", LocalDateTime.now());
+        DaTa daTaThree = new DaTa(3, "Значение данных 3", LocalDateTime.now());
+        DaTa daTaFour = new DaTa(4, "Значение данных 4", LocalDateTime.now());
 
-        main.addDaTa(daTa1);
-        main.addDaTa(daTa2);
-        main.addDaTa(daTa3);
+        main.addDaTa(daTaOne);
+        main.addDaTa(daTaTwo);
+        main.addDaTa(daTaThree);
 
         main.getDaTaById(1);
         main.getDaTaById(2);
@@ -65,9 +65,9 @@ class MainTest extends Main {
         assertTrue(main.getCache().containsKey(2));
         assertTrue(main.getCache().containsKey(3));
 
-        main.addDaTa(daTa4);
-        DaTa fetchedDaTa4 = main.getDaTaById(4);
-        assertNotNull(fetchedDaTa4);
+        main.addDaTa(daTaFour);
+        DaTa cachedDaTa = main.getDaTaById(4);
+        assertNotNull(cachedDaTa);
 
         assertTrue(main.getCache().containsKey(4));
         assertFalse(main.getCache().containsKey(1));
