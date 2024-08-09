@@ -2,10 +2,7 @@ package ru.kraiush.BJS2_19934;
 
 import ru.kraiush.model.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class App_Counting_absenteeism {
 
@@ -25,6 +22,19 @@ public class App_Counting_absenteeism {
                 map.put(key, st);
             }
         }
+        System.out.println("\n\nstudents <faculty> and <course>");
         map.forEach((K,V) -> System.out.println("key: "+ K + " student: " + V));
+
+        Set<Student> res = Student.findStudentsByFacultyAndCourse(students, "automatic & electronic", 2017);
+        System.out.println("\n students found by <faculty> and <course>:\n " + res);
+
+        System.out.println("\n add a new student");
+        students.add(new Student("Karrambe", "author", 79));
+        System.out.println("\n size before remove a student: " + students.size());
+
+        Student.removeStudent(students, "Lulu", "automatic & electronic", 2017);
+        System.out.println(" Size after remove a student: " + students.size());
+
+
     }
 }
