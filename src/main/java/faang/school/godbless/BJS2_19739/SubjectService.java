@@ -41,9 +41,7 @@ public class SubjectService {
     }
 
     public void printSubjects() {
-        subjects.forEach((subject, students) -> {
-            System.out.println(subject + ": " + students);
-        });
+        subjects.forEach((subject, students) -> System.out.println(subject + ": " + students));
     }
 
 

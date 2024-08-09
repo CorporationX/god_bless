@@ -35,9 +35,7 @@ public class StudentService {
     public void printStudents() {
         students.forEach((student, subjects) -> {
             System.out.println(student + ": ");
-            subjects.forEach((subject, grade) -> {
-                System.out.println(subject + ": " + grade);
-            });
+            subjects.forEach((subject, grade) -> System.out.println(subject + ": " + grade));
         });
     }
 
