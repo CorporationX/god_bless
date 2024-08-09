@@ -4,8 +4,11 @@ import lombok.Getter;
 
 @Getter
 public abstract class Character {
+
+    private static final int BASE_HP = 100;
+
     protected String name;
-    protected int hp = 100;
+    protected int hp = BASE_HP;
     protected int power;
     protected int agility;
     protected int intellect;
