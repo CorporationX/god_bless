@@ -1,12 +1,11 @@
 package faang.school.godbless.BJS2_19999;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
 @EqualsAndHashCode
-@Builder
+@AllArgsConstructor
 public class House {
     private String name;
     private String sigil;

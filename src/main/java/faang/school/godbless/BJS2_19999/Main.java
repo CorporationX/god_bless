@@ -1,20 +1,25 @@
 package faang.school.godbless.BJS2_19999;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
+@Setter
+@Getter
 public class Main {
     private Map<String, House> houseMap = new HashMap<>();
 
     public void addHouse(House house) {
         houseMap.put(house.getName(), house);
     }
+
     public void removeHouse(String name) {
         houseMap.remove(name);
     }
+
     public void findHouse(String name) {
         House house = houseMap.get(name);
         if (house != null) {
@@ -23,12 +28,13 @@ public class Main {
             System.out.println("Такого дома нет");
         }
     }
+
     public void printAllHouses() {
         for (Map.Entry<String, House> entry : houseMap.entrySet()) {
-            House house = entry.getValue();
-            System.out.println("Дом: " + house.getName() + ", Герб: " + house.getSigil());
+            System.out.println("Дом: " + entry.getValue().getName() + ", Герб: " + entry.getValue().getSigil());
         }
     }
+
     public static void main(String[] args) {
         Main main = new Main();
 
