@@ -10,104 +10,104 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest extends faang.school.godbless.BJS2_20000.Main {
+class MainTest {
     private Main main;
-    private Student student1;
-    private Student student2;
-    private Student student3;
-    private Subject subject1;
-    private Subject subject2;
-    private Subject subject3;
+    private Student studentOne;
+    private Student studentTwo;
+    private Student studentThree;
+    private Subject subjectOne;
+    private Subject subjectTwo;
+    private Subject subjectThree;
 
     @BeforeEach
     void setUp() {
         main = new Main();
 
-        student1 = new Student(1, "Маша");
-        student2 = new Student(2, "Сережа");
-        student3 = new Student(3, "Ваня");
+        studentOne = new Student(1, "Маша");
+        studentTwo = new Student(2, "Сережа");
+        studentThree = new Student(3, "Ваня");
 
-        subject1 = new Subject(101, "Математика");
-        subject2 = new Subject(102, "Физика");
-        subject3 = new Subject(103, "Химия");
+        subjectOne = new Subject(101, "Математика");
+        subjectTwo = new Subject(102, "Физика");
+        subjectThree = new Subject(103, "Химия");
 
-        Map<Subject, Integer> subjects1 = new HashMap<>();
-        subjects1.put(subject1, 85);
-        subjects1.put(subject2, 90);
-        main.addStudent(student1, subjects1);
+        Map<Subject, Integer> subjectsOne = new HashMap<>();
+        subjectsOne.put(subjectOne, 85);
+        subjectsOne.put(subjectTwo, 90);
+        main.addStudent(studentOne, subjectsOne);
 
-        Map<Subject, Integer> subjects2 = new HashMap<>();
-        subjects2.put(subject1, 78);
-        main.addStudent(student2, subjects2);
+        Map<Subject, Integer> subjectsTwo = new HashMap<>();
+        subjectsTwo.put(subjectOne, 78);
+        main.addStudent(studentTwo, subjectsTwo);
 
-        Map<Subject, Integer> subjects3 = new HashMap<>();
-        subjects3.put(subject3, 92);
-        main.addStudent(student3, subjects3);
+        Map<Subject, Integer> subjectsThree = new HashMap<>();
+        subjectsThree.put(subjectThree, 92);
+        main.addStudent(studentThree, subjectsThree);
     }
 
     @Test
     void addStudent() {
-        Student student4 = new Student(4, "Саша");
-        Subject subject4 = new Subject(104, "Биология");
-        Map<Subject, Integer> subjects4 = new HashMap<>();
-        subjects4.put(subject4, 88);
+        Student studentFour = new Student(4, "Саша");
+        Subject subjectFour = new Subject(104, "Биология");
+        Map<Subject, Integer> subjectsFour = new HashMap<>();
+        subjectsFour.put(subjectFour, 88);
 
-        main.addStudent(student4, subjects4);
+        main.addStudent(studentFour, subjectsFour);
 
-        assertTrue(main.getStudentWithSubjects().containsKey(student4));
-        assertEquals(88, main.getStudentWithSubjects().get(student4).get(subject4).intValue());
-        assertTrue(main.getAllSubjectStudents().get(subject4).contains(student4));
+        assertTrue(main.getStudentWithSubjects().containsKey(studentFour));
+        assertEquals(88, main.getStudentWithSubjects().get(studentFour).get(subjectFour).intValue());
+        assertTrue(main.getAllSubjectStudents().get(subjectFour).contains(studentFour));
     }
 
     @Test
     void addSubjectToStudent() {
-        main.addSubjectToStudent(student2, subject3, 88);
+        main.addSubjectToStudent(studentTwo, subjectThree, 88);
 
-        assertTrue(main.getStudentWithSubjects().get(student2).containsKey(subject3));
-        assertEquals(88, main.getStudentWithSubjects().get(student2).get(subject3).intValue());
-        assertTrue(main.getAllSubjectStudents().get(subject3).contains(student2));
+        assertTrue(main.getStudentWithSubjects().get(studentTwo).containsKey(subjectThree));
+        assertEquals(88, main.getStudentWithSubjects().get(studentTwo).get(subjectThree).intValue());
+        assertTrue(main.getAllSubjectStudents().get(subjectThree).contains(studentTwo));
     }
 
     @Test
     void removeStudent() {
-        main.removeStudent(student1);
+        main.removeStudent(studentOne);
 
-        assertFalse(main.getStudentWithSubjects().containsKey(student1));
-        assertFalse(main.getAllSubjectStudents().get(subject1).contains(student1));
+        assertFalse(main.getStudentWithSubjects().containsKey(studentOne));
+        assertFalse(main.getAllSubjectStudents().get(subjectOne).contains(studentOne));
     }
 
     @Test
     void addSubject() {
-        Subject subject4 = new Subject(104, "Биология");
-        List<Student> studentsForSubject4 = new ArrayList<>();
-        studentsForSubject4.add(student1);
-        studentsForSubject4.add(student3);
+        Subject subjectFour = new Subject(104, "Биология");
+        List<Student> studentsForSubjectFour = new ArrayList<>();
+        studentsForSubjectFour.add(studentOne);
+        studentsForSubjectFour.add(studentThree);
 
-        main.addSubject(subject4, studentsForSubject4);
+        main.addSubject(subjectFour, studentsForSubjectFour);
 
-        assertTrue(main.getAllSubjectStudents().containsKey(subject4));
-        assertTrue(main.getAllSubjectStudents().get(subject4).contains(student1));
-        assertTrue(main.getAllSubjectStudents().get(subject4).contains(student3));
-        assertTrue(main.getStudentWithSubjects().get(student1).containsKey(subject4));
-        assertTrue(main.getStudentWithSubjects().get(student3).containsKey(subject4));
+        assertTrue(main.getAllSubjectStudents().containsKey(subjectFour));
+        assertTrue(main.getAllSubjectStudents().get(subjectFour).contains(studentOne));
+        assertTrue(main.getAllSubjectStudents().get(subjectFour).contains(studentThree));
+        assertTrue(main.getStudentWithSubjects().get(studentOne).containsKey(subjectFour));
+        assertTrue(main.getStudentWithSubjects().get(studentThree).containsKey(subjectFour));
     }
 
     @Test
     void addStudentAtSubject() {
-        Subject subject4 = new Subject(104, "Биология");
+        Subject subjectFour = new Subject(104, "Биология");
 
-        main.addStudentAtSubject(student2, subject4);
+        main.addStudentAtSubject(studentTwo, subjectFour);
 
-        assertTrue(main.getAllSubjectStudents().get(subject4).contains(student2));
-        assertTrue(main.getStudentWithSubjects().get(student2).containsKey(subject4));
+        assertTrue(main.getAllSubjectStudents().get(subjectFour).contains(studentTwo));
+        assertTrue(main.getStudentWithSubjects().get(studentTwo).containsKey(subjectFour));
     }
 
     @Test
     void removeStudentFromSubject() {
-        main.addSubjectToStudent(student2, subject3, 88);
-        main.removeStudentFromSubject(subject3, student2);
+        main.addSubjectToStudent(studentTwo, subjectThree, 88);
+        main.removeStudentFromSubject(subjectThree, studentTwo);
 
-        assertFalse(main.getStudentWithSubjects().get(student2).containsKey(subject3));
-        assertFalse(main.getAllSubjectStudents().get(subject3).contains(student2));
+        assertFalse(main.getStudentWithSubjects().get(studentTwo).containsKey(subjectThree));
+        assertFalse(main.getAllSubjectStudents().get(subjectThree).contains(studentTwo));
     }
 }
