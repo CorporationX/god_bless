@@ -1,10 +1,13 @@
 package faang.school.godbless;
 
-import lombok.Getter;
 
+import lombok.Getter;
 import java.util.*;
 
 @Getter
+import faang.school.godbless.david.User;
+import java.util.*;
+
 public class Application {
     private List<Student> students;
 
@@ -86,5 +89,4 @@ public class Application {
         app.addStudent(new Student("David", "Mathematics", 2));
         System.out.println("The list after adding a new student:");
         app.printGroupStudents();
-    }
 }
