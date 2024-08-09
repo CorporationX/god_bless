@@ -8,6 +8,7 @@ public class User {
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Apple");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE_LIMIT = 18;
 
     private String name;
     private int age;
@@ -15,8 +16,8 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        validate(name, p -> !p.isEmpty() || !p.isBlank(), "Name cannot be empty.");
-        validate(age, a -> a >= 18, "Age cannot be less than 18.");
+        validate(name, n -> !(n.isBlank() || n.isEmpty()), "Name cannot be empty.");
+        validate(age, a -> a >= AGE_LIMIT, "Age cannot be less than 18.");
         validate(job, VALID_JOBS::contains,
                 "Job can only be a member of the set: " + Arrays.toString(VALID_JOBS.toArray()));
         validate(address, VALID_ADDRESSES::contains,
