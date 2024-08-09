@@ -10,17 +10,17 @@ public class Application {
 
     }
 
-    public static void putHouse(Map map, String key, House house){
+    public static void putHouse(Map<String, House> map, String key, House house){
         map.put(key, house);
         System.out.println("House " + house.getName() + " has been putted in the list");
     }
 
-    public static void deleteHouse(Map map, String name){
+    public static void deleteHouse(Map<String, House> map, String name){
         map.remove(name);
         System.out.println("House " + name + " removed");
     }
 
-    public static void getHouse(Map map, String name){
+    public static void getHouse(Map<String, House> map, String name){
         House house = (House) map.get(name);
         System.out.println("House: " + house.getName() + "; Sigil: " + house.getSigil());
     }
