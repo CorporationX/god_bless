@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
 @ToString
 public class Person {
 
-    String name;
-    int age;
-    String profession;
-    String address;
+    private String name;
+    private int age;
+    private String profession;
+    private String address;
 
     public static Map<Integer, List<Person>> groupPersonByAge(List<Person> persons) {
 
