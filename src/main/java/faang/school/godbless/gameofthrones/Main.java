@@ -12,7 +12,7 @@ public class Main {
         houses.put("Baratheon", new House("Baratheon", "Stag"));
 
         System.out.println("Adding House 'Targaryen'...");
-        addHouse("Targaryen", "Dragon");
+        addHouse(new House("Targaryen", "Dragon"));
 
         System.out.println("\nAll Houses and their sigils:");
         printAllHouses();
@@ -24,11 +24,13 @@ public class Main {
         printAllHouses();
 
         System.out.println("\nFinding House by name 'Stark' and outputting its sigil...");
-        System.out.println("\nThe House 'Stark' sigil is: " + findSigilByName("Stark"));
+        System.out.println("The House 'Stark' sigil is: " + findSigilByName("Stark"));
+        System.out.println("\nFinding House by name 'Hodor' and outputting its sigil...");
+        System.out.println("The House 'Hodor' sigil is: " + findSigilByName("Hodor"));
     }
 
-    public static void addHouse(String name, String sigil) {
-        houses.put(name, new House(name, sigil));
+    public static void addHouse(House house) {
+        houses.put(house.getName(), house);
     }
 
     public static void removeHouse(String name) {
@@ -36,7 +38,12 @@ public class Main {
     }
 
     public static String findSigilByName(String name) {
-        return houses.get(name).getSigil();
+        House house = houses.get(name);
+        if (house != null) {
+            return house.getSigil();
+        } else {
+            return "House '" + name + "' not found.";
+        }
     }
 
     public static void printAllHouses() {
