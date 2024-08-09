@@ -7,7 +7,7 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         User user1 = new User(1, "Vitya", 24, Set.of("Fitness", "Reading"));
-        User user2 = new User(2, "Vika", 21,Set.of("Kayaking", "Drawing"));
+        User user2 = new User(2, "Vika", 21, Set.of("Kayaking", "Drawing"));
         User user3 = new User(3, "Dimas", 30, Set.of("Writing", "Gardening"));
         List<User> users = List.of(user1, user2, user3);
         System.out.println("Users:");
