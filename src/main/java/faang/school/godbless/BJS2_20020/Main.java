@@ -11,34 +11,34 @@ public class Main {
     public Main() {
         this.userQueries = new HashMap<>();
     }
+
     public void addUser(User user) {
         userQueries.putIfAbsent(user, new ArrayList<>());
     }
+
     public void addQuery(User user, Query query) {
-        userQueries.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
+        userQueries.computeIfAbsent(user, queries -> new ArrayList<>()).add(query);
     }
+
     public void removeUserWithQuery(User user) {
         userQueries.remove(user);
     }
+
     public void getAllUsersWithQuery() {
-        for(Map.Entry<User, List<Query>> userListEntry : userQueries.entrySet()) {
+        for (Map.Entry<User, List<Query>> userListEntry : userQueries.entrySet()) {
             System.out.println("Пользователь: " + userListEntry.getKey());
-            for(Query query : userListEntry.getValue()) {
+            for (Query query : userListEntry.getValue()) {
                 System.out.println("Запрос(ы): " + query);
             }
         }
     }
+
     public void historyQuerySortedByTimeStamp(User user) {
-        for(Map.Entry<User, List<Query>> userListEntry : userQueries.entrySet()) {
-            if(userListEntry.getKey().equals(user)) {
-                List<Query> queries = userListEntry.getValue();
-                queries.sort(Comparator.comparing(Query::getTimestamp));
-                System.out.println("Юзер с id = " + user.getId() + " и именем - " + user.getName());
-                for (Query query : queries) {
-                    System.out.println("Запрос(ы): " + query);
-                }
-                return;
-            }
+        List<Query> queries = userQueries.get(user);
+        queries.sort(Comparator.comparing(Query::getTimestamp));
+        System.out.println("Юзер с id = " + user.getId() + " и именем - " + user.getName());
+        for (Query query : queries) {
+            System.out.println("Запрос(ы): " + query);
         }
     }
 }

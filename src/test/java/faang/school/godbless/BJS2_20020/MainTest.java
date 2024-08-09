@@ -10,47 +10,47 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest extends Main {
+class MainTest {
     private Main main;
-    private User user1;
-    private User user2;
-    private Query query2;
+    private User userOne;
+    private User userTwo;
+    private Query queryTwo;
     private Map<User, List<Query>> userQueries;
 
     @BeforeEach
     public void setUp() {
         main = new Main();
-        user1 = new User(1, "Петя");
-        user2 = new User(2, "Саша");
-        Query query1 = new Query(1, "Привет", Timestamp.valueOf("2023-08-03 14:30:12"));
-        query2 = new Query(2, "Здарово", Timestamp.valueOf("2023-08-03 14:31:45"));
+        userOne = new User(1, "Петя");
+        userTwo = new User(2, "Саша");
+        Query queryOne = new Query(1, "Привет", Timestamp.valueOf("2023-08-03 14:30:12"));
+        queryTwo = new Query(2, "Здарово", Timestamp.valueOf("2023-08-03 14:31:45"));
         userQueries = main.getUserQueries();
         List<Query> queries = new ArrayList<>();
-        queries.add(query1);
-        userQueries.put(user1, queries);
+        queries.add(queryOne);
+        userQueries.put(userOne, queries);
     }
 
     @Test
     void testAddUser() {
-        main.addUser(user2);
+        main.addUser(userTwo);
         Map<User, List<Query>> userQueries = main.getUserQueries();
-        assertTrue(userQueries.containsKey(user2));
-        assertEquals(0, userQueries.get(user2).size());
+        assertTrue(userQueries.containsKey(userTwo));
+        assertEquals(0, userQueries.get(userTwo).size());
     }
 
     @Test
     void testAddQuery() {
-        main.addUser(user2);
-        main.addQuery(user2, query2);
+        main.addUser(userTwo);
+        main.addQuery(userTwo, queryTwo);
         Map<User, List<Query>> userQueries = main.getUserQueries();
-        assertTrue(userQueries.containsKey(user2));
-        assertEquals(1, userQueries.get(user2).size());
-        assertEquals(query2, userQueries.get(user2).get(0));
+        assertTrue(userQueries.containsKey(userTwo));
+        assertEquals(1, userQueries.get(userTwo).size());
+        assertEquals(queryTwo, userQueries.get(userTwo).get(0));
     }
 
     @Test
     void testRemoveUserWithQuery() {
-        main.removeUserWithQuery(user1);
-        assertNull(userQueries.get(user1));
+        main.removeUserWithQuery(userOne);
+        assertNull(userQueries.get(userOne));
     }
 }
