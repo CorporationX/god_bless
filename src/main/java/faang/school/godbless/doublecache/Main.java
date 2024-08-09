@@ -6,84 +6,82 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<Student, Map<Subject, Integer>> studentsAndGrades = new HashMap<>();
-    private static final Map<Subject, List<Student>> subjectsAndStudents = new HashMap<>();
+    private static final Subject[] INITIAL_SUBJECTS = {
+            new Subject(101, "Maths"),
+            new Subject(102, "Physics"),
+            new Subject(103, "Biology")
+    };
+
+    private static Map<Student, Map<Subject, Integer>> studentsAndGrades = new HashMap<>();
+    private static Map<Subject, List<Student>> subjectsAndStudents = new HashMap<>();
 
     public static void main(String[] args) {
-        Student Alice = new Student(1, "Alice");
-        Student Bob = new Student(2, "Bob");
-        Student Charlie = new Student(3, "Charlie");
+        Student alice = new Student(1, "Alice");
+        Student bob = new Student(2, "Bob");
+        Student charlie = new Student(3, "Charlie");
 
-        Subject maths = new Subject(101, "Mathematics");
-        Subject physics = new Subject(102, "Physics");
-        Subject biology = new Subject(103, "Biology");
-        Subject science = new Subject(104, "Science");
+        Map<Subject, Integer> aliceGrades = assignGradesToSubjects(alice, INITIAL_SUBJECTS, new int[]{4, 5, 5});
+        Map<Subject, Integer> bobGrades = assignGradesToSubjects(bob, INITIAL_SUBJECTS, new int[]{3, 5, 3});
+        Map<Subject, Integer> charlieGrades = assignGradesToSubjects(charlie, INITIAL_SUBJECTS, new int[]{5, 4, 3});
 
-        addStudentAndSubject(Alice, maths, 5);
-        addStudentAndSubject(Bob, maths, 4);
-        addStudentAndSubject(Charlie, physics, 3);
-        addStudentAndSubject(Alice, biology, 2);
-        addStudentAndSubject(Bob, physics, 4);
-        addStudentAndSubject(Charlie, biology, 3);
+        addNewStudentAndSubjects(alice, aliceGrades);
+        addNewStudentAndSubjects(bob, bobGrades);
+        addNewStudentAndSubjects(charlie, charlieGrades);
 
-        printStudentsAndGrades();
-        printSubjectsAndStudents();
+        Subject sports = new Subject(4, "Sports");
 
-        addSubjectToStudent(Bob, science, 4);
-        addSubjectToStudent(Alice, science, 5);
-        addSubjectToStudent(Charlie, science, 3);
+        System.out.println("\nPrinting all data after Sports has been added.");
+        addSubjectToStudent(bob, sports, 4);
+        addSubjectToStudent(charlie, sports, 3);
 
         printStudentsAndGrades();
         printSubjectsAndStudents();
 
-        removeStudent(Bob);
+        Student david = new Student(5, "David");
+        removeStudent(david);
+        removeStudent(bob);
 
+        System.out.println("\nPrinting all data after deleting students.");
         printStudentsAndGrades();
         printSubjectsAndStudents();
 
-        List<Student> newStudents = new ArrayList<>(List.of(
-                new Student(5, "David"),
-                new Student(6, "Eve"),
-                Alice)
-        );
+        List<Student> newStudents = new ArrayList<>(List.of(david, bob));
+        Subject arts = new Subject(105, "Arts");
+        addSubjectAndStudents(arts, newStudents);
 
-        Subject sports = new Subject(105, "Sports");
-
-        addSubjectAndStudents(sports, newStudents);
-
-        System.out.println("All students have been added.\n");
+        System.out.println("\nPrinting all data after adding a new subject with students.");
         printStudentsAndGrades();
         printSubjectsAndStudents();
 
-        addStudentToExistingSubject(Alice, physics, 4);
+        addStudentToExistingSubject(alice, arts, 4);
+        removeStudentFromSubject(bob, arts);
 
-        System.out.println("All students have been added.\n");
-        printStudentsAndGrades();
-        printSubjectsAndStudents();
-
-        removeStudentFromSubject(Alice, maths);
-
-        System.out.println("After Alice has been removed.\n");
+        System.out.println("\nPrinting out resulting data.");
         printStudentsAndGrades();
         printSubjectsAndStudents();
     }
 
-    public static void addStudentAndSubject(Student student, Subject subject, int grade) {
+    public static void addNewStudentAndSubjects(Student student, Map<Subject, Integer> subjectsAndGrades) {
+        studentsAndGrades.computeIfAbsent(student, k -> subjectsAndGrades);
+        for (Subject subject : subjectsAndGrades.keySet()) {
+            subjectsAndStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        }
+    }
+
+    public static void addSubjectToStudent(Student student, Subject subject, int grade) {
         studentsAndGrades.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
         subjectsAndStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public static void addSubjectToStudent(Student student, Subject subject, int grade) {
-        studentsAndGrades.get(student).put(subject, grade);
-        subjectsAndStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-    }
-
     public static void removeStudent(Student student) {
-        Map<Subject, Integer> subjects = studentsAndGrades.remove(student);
-        if (subjects != null) {
-            for (Subject subject : subjects.keySet()) {
-                subjectsAndStudents.get(subject).remove(student);
-            }
+        Map<Subject, Integer> subjects = studentsAndGrades.get(student);
+        if (subjects == null) {
+            System.out.println("\nStudent " + student.getName() + " not found");
+            return;
+        }
+        studentsAndGrades.remove(student);
+        for (Subject subject : subjects.keySet()) {
+            subjectsAndStudents.get(subject).remove(student);
         }
     }
 
@@ -91,7 +89,7 @@ public class Main {
         subjectsAndStudents.putIfAbsent(subject, new ArrayList<>(students));
         for (Student student : students) {
             studentsAndGrades.putIfAbsent(student, new HashMap<>());
-            studentsAndGrades.get(student).put(subject, 0); // Отметка 0 по умолчанию
+            studentsAndGrades.get(student).put(subject, 0);
         }
     }
 
@@ -119,6 +117,7 @@ public class Main {
     }
 
     public static void printStudentsAndGrades() {
+        System.out.println("\nStudents and Grades:");
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentsAndGrades.entrySet()) {
             System.out.println(entry.getKey());
             for (Map.Entry<Subject, Integer> grades : entry.getValue().entrySet()) {
@@ -128,11 +127,24 @@ public class Main {
     }
 
     public static void printSubjectsAndStudents() {
+        System.out.println("\nSubjects and Students:");
         for (Map.Entry<Subject, List<Student>> entry : subjectsAndStudents.entrySet()) {
             System.out.println(entry.getKey());
             for (Student student : entry.getValue()) {
                 System.out.println("  " + student);
             }
         }
+    }
+
+    public static Map<Subject, Integer> assignGradesToSubjects(Student student, Subject[] subjects, int[] grades) {
+        if (subjects.length != grades.length) {
+            throw new IllegalArgumentException("The number of subjects does not match the number of grades.");
+        }
+
+        Map<Subject, Integer> subjectGrades = new HashMap<>();
+        for (int i = 0; i < subjects.length; i++) {
+            subjectGrades.put(subjects[i], grades[i]);
+        }
+        return subjectGrades;
     }
 }
