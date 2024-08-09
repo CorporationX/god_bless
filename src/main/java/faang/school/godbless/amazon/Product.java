@@ -11,9 +11,9 @@ import java.util.Objects;
 @ToString
 public class Product {
 
-    private int id;
-    private String name;
-    private String category;
+    private final int id;
+    private final String name;
+    private final String category;
 
     @Override
     public boolean equals(Object o) {
