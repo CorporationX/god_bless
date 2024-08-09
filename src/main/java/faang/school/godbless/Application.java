@@ -7,9 +7,9 @@ import java.util.Map;
 
 public class Application {
 
+
     private static final Map<Integer, StreamEvent> ID_STREAM = new HashMap<>();
     private static final Map<String, List<StreamEvent>> TYPE_EVENT = new HashMap<>();
-
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
@@ -35,6 +35,7 @@ public class Application {
         allMap();
 
     }
+   
 
     public static void addEvent(StreamEvent streamEvent) {
         ID_STREAM.put(streamEvent.getId(), streamEvent);
