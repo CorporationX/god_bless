@@ -4,28 +4,17 @@ import faang.school.godbless.google.models.WebPage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-
-import static faang.school.godbless.google.Main.webPagesMap;
 
 public class WebPageService {
 
-    public static void addWebPageInMap(WebPage webPage) {
-        Arrays.stream(webPage.getContent().split("[\\s,.]+")).forEach(word -> {
-            List<WebPage> webPagesInMap = new ArrayList<>();
-            if (webPagesMap.containsKey(word)) {
-                webPagesInMap = webPagesMap.get(word);
-                if (!webPagesInMap.contains(webPage)) {
-                    webPagesInMap.add(webPage);
-                }
-            } else {
-                webPagesInMap.add(webPage);
-                webPagesMap.put(word, webPagesInMap);
-            }
-        });
+    public static void addWebPageInMap(WebPage webPage, HashMap<String, List<WebPage>> webPagesMap) {
+        Arrays.stream(webPage.getContent().split("[\\s,.]+"))
+                .forEach(word -> webPagesMap.computeIfAbsent(word, v -> new ArrayList<>()).add(webPage));
     }
 
-    public static void getWebPagesByKeyWord(String keyWord) {
+    public static void getWebPagesByKeyWord(String keyWord, HashMap<String, List<WebPage>> webPagesMap) {
         if (webPagesMap.containsKey(keyWord)) {
             System.out.println("For key word " + keyWord + " founded next pages:");
             webPagesMap.get(keyWord).forEach(System.out::println);
@@ -34,7 +23,7 @@ public class WebPageService {
         }
     }
 
-    public static void deleteWebPageFromMap(String url) {
+    public static void deleteWebPageFromMap(String url, HashMap<String, List<WebPage>> webPagesMap) {
         for (List<WebPage> webPagesList : webPagesMap.values()) {
             webPagesList.removeIf(webPage -> webPage.getUrl().equalsIgnoreCase(url));
         }
