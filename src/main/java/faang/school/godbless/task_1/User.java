@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,12 +20,12 @@ public class User {
 
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        var ages = users.stream().map(it -> it.age).toList();
         var groupedUsers = new HashMap<Integer, List<User>>();
 
-        for (var age : ages) {
-            groupedUsers.put(age, users.stream().filter(user -> user.age == age).toList());
+        for (var user : users) {
+            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
+
         return groupedUsers;
     }
 }
