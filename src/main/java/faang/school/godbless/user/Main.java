@@ -1,5 +1,6 @@
 package faang.school.godbless.user;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -10,6 +11,11 @@ import java.util.UUID;
 
 public class Main {
     public static void main(String[] args) {
+        checkFindHobbyLovers();
+        checkGroupUsers();
+    }
+
+    public static void checkFindHobbyLovers() {
         Set<String> aliceActivities = new HashSet<>(Arrays.asList("Football", "Reading", "Coding"));
         Set<String> bobActivities = new HashSet<>(Arrays.asList("Basketball", "Cooking", "Coding"));
         Set<String> charlieActivities = new HashSet<>(Arrays.asList("Swimming", "Reading", "Gaming"));
@@ -26,6 +32,19 @@ public class Main {
 
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.println(entry.getKey().getName() + " loves " + entry.getValue());
+        }
+    }
+
+    public static void checkGroupUsers() {
+        Set<String> activities = new HashSet<>(Arrays.asList("Football", "Reading", "Coding"));
+        User alice = new User("Alice", 25, activities);
+        User bob = new User("Bob", 25, activities);
+        User charlie = new User("Charlie", 22, activities);
+        User max = new User("Max", 22, activities);
+
+        Map<Integer, List<User>> groupedUsersByAge = User.groupUsers(Arrays.asList(alice, bob, charlie, max));
+        for (Map.Entry<Integer, List<User>> entry : groupedUsersByAge.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
         }
     }
 
@@ -62,6 +81,19 @@ public class Main {
                 }
             }
             return map;
+        }
+
+        public static Map<Integer, List<User>> groupUsers(List<User> users) {
+            Map<Integer, List<User>> map = new HashMap<>();
+            for (User user : users) {
+                map.computeIfAbsent(user.age, (k) -> new ArrayList<>()).add(user);
+            }
+            return map;
+        }
+
+        @Override
+        public String toString() {
+            return this.name + "(" + this.age + ")";
         }
     }
 }
