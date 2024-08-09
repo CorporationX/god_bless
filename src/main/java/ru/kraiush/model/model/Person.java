@@ -3,6 +3,7 @@ package ru.kraiush.model.model;
 import lombok.*;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,8 +31,13 @@ public class Person {
             return null;
         }
 
-        return persons.stream()
+        Map<Integer, List<Person>> map = persons.stream()
                 .collect(Collectors.groupingBy(Person::getAge));
+
+        return map.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue,
+                        (oldValue, newValue) -> oldValue, LinkedHashMap::new));
     }
 
     public static List<Person> getPersons() {
