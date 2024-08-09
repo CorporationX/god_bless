@@ -12,12 +12,12 @@ public class Main {
         weatherCache.put("Tmn", new WeatherData("Tmn", 13, 20));
         weatherCache.put("Ekb", new WeatherData("Ekb", 15, 27));
 
-        ListAllCity();
+        listAllCity();
         System.out.println(getCityWeather("Ekb"));
         System.out.println();
 
         deleteWeatherCache("Ekb");
-        ListAllCity();
+        listAllCity();
         System.out.println();
 
         System.out.println(getCityWeather("San Francisco"));
@@ -31,7 +31,7 @@ public class Main {
         weatherCache.remove(city);
     }
 
-    public static void ListAllCity() {
+    public static void listAllCity() {
         System.out.println(weatherCache.keySet());
     }
 }
