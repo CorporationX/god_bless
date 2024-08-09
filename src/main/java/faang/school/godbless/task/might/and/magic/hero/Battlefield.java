@@ -5,8 +5,6 @@ import faang.school.godbless.task.might.and.magic.creature.Creature;
 import java.util.List;
 
 public class Battlefield {
-    private Hero heroA;
-    private Hero heroB;
 
     public Hero battle(Hero heroA, Hero heroB) {
         List<Creature> armyOfHeroA = heroA.getArmy();
