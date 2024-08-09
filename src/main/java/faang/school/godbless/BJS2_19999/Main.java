@@ -1,6 +1,5 @@
 package faang.school.godbless.BJS2_19999;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
