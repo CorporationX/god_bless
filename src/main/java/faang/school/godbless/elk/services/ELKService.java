@@ -38,9 +38,9 @@ public class ELKService {
     }
 
     public static void printAllInfoFromELK() {
-        userQueriesELK.entrySet().forEach(userListEntry -> {
-            System.out.println(userListEntry.getKey() + " has next queries: ");
-            userListEntry.getValue().forEach(System.out::println);
+        userQueriesELK.forEach((key, value) -> {
+            System.out.println(key + " has next queries: ");
+            value.forEach(System.out::println);
         });
     }
 
@@ -48,8 +48,6 @@ public class ELKService {
         for (Map.Entry<User, List<Query>> user : userQueriesELK.entrySet()) {
             System.out.println("User " + user.getKey().getId() + " - " + user.getKey().getName() + " has next queries");
             user.getValue().stream().sorted(Query::compareTo).forEach(System.out::println);
-
         }
     }
-
 }

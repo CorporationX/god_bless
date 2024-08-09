@@ -10,9 +10,9 @@ public class Query implements Comparable<Query> {
 
     private static int counter = 0;
 
-    private int id;
-    private String content;
-    private LocalDateTime date;
+    private final int id;
+    private final String content;
+    private final LocalDateTime date;
 
     public Query(String content) {
         this.id = counter;
@@ -35,6 +35,5 @@ public class Query implements Comparable<Query> {
     @Override
     public int compareTo(Query o) {
         return o.date.compareTo(this.date);
-        //return this.date.compareTo(o.date);
     }
 }

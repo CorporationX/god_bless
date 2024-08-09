@@ -60,6 +60,5 @@ public class Main {
 
         deleteUserFromELK(user);
         printAllInfoFromELK();
-
     }
 }
