@@ -6,10 +6,12 @@ import java.util.*;
 
 @ToString
 public class User {
+
     private final String name;
     private final int age;
     private final String placeOfWork;
     private final String address;
+
     static private final Set<String> valid_jobs = Set.of("Google", "Uber", "Amazon");
     static private final Set<String> valid_address = Set.of("London", "New York", "Amsterdam");
 
