@@ -8,12 +8,12 @@ public class Warrior extends Character {
     private static final int DAMAGE = STRENGTH;
 
     public Warrior(String name) {
-        super(name, STRENGTH, AGILITY, INTELLIGENCE, DAMAGE);
+        super(name, STRENGTH, AGILITY, INTELLIGENCE);
     }
 
     @Override
     public void attack(Character opponent) {
-        opponent.health -= damage;
+        opponent.health -= DAMAGE;
         checkHealth();
     }
 }
