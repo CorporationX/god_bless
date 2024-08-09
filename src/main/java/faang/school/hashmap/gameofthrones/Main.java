@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+
     static private final HashMap<String, House> mapHouse = new HashMap<>();
+
     public static void main(String[] args) {
         House stark = new House("Stark", "Direwolf");
         House lannister = new House("Lannister", "Leon");
@@ -27,7 +29,9 @@ public class Main {
     }
 
     private static void addNewHouse(House house) {
-        mapHouse.put(house.getNameHouse(), house);
+        if (house != null) {
+            mapHouse.put(house.getNameHouse(), house);
+        }
     }
 
     private static void deleteHouse(String nameHouse) {
