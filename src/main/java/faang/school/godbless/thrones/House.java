@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class House {
 
-    private String name;
-    private String sigill;
+    private final String name;
+    private final String sigill;
 
 }

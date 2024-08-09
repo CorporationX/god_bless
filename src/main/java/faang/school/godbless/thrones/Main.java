@@ -16,9 +16,9 @@ public class Main {
     }
 
     public static void main(String[] args) {
-
         printHouses();
-        addHouse("Test", "Test");
+        House house = new House("Test", "Test");
+        addHouse(house);
         System.out.println("\n");
         printHouses();
         removeHouse("Stark");
@@ -26,6 +26,5 @@ public class Main {
         printHouses();
         System.out.println("\n");
         findHouseAndPrintSigillInfo("Test");
-
     }
 }

@@ -4,8 +4,8 @@ import static faang.school.godbless.thrones.Main.houses;
 
 public class HouseService {
 
-    public static void addHouse(String name, String sigill) {
-        houses.put(name, new House(name, sigill));
+    public static void addHouse(House house) {
+        houses.put(house.getName(), house);
     }
 
     public static void removeHouse(String name) {
