@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +46,6 @@ public class Application {
         getAllUsers();
 
         getStoryUserQuery(firstUser);
-
     }
 
     public static void addUserListQuery(User user, List<Query> listQuery) {
@@ -60,7 +60,6 @@ public class Application {
                 USER_LIST_MAP.get(user).add(query);
             }
         QUERY_LIST_MAP.put(query, query.getTimestamp());
-
     }
 
     public static void removeUserListQuery(User user) {
@@ -77,26 +76,17 @@ public class Application {
         }
     }
 
-    public static Double findMinValue(Map<Query, Double> map) {
-        if (map.isEmpty()) {
-            return null;
-        }
-
-        Double minValue = Double.MAX_VALUE;
-
-        for (Double value : map.values()) {
-            if (value < minValue) {
-                minValue = value;
-            }
-        }
-        return minValue;
-    }
-
     public static void getStoryUserQuery(User user) {
+        List<Double> sortQuery = new ArrayList<>();
         for (Query query : USER_LIST_MAP.get(user)) {
-            System.out.println(findMinValue(QUERY_LIST_MAP));
+            sortQuery.add(query.getTimestamp());
         }
+        Collections.sort(sortQuery);
 
+        for (double i : sortQuery) {
+            System.out.println(i);
+        }
     }
-
 }
+
+
