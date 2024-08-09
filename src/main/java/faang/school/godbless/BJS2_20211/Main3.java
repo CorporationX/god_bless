@@ -15,59 +15,70 @@ public class Main3 {
     public static void main(String[] args) {
         indexWebPage(new WebPage("https://ya.ru", "Yandex", "java hello"));
         indexWebPage(new WebPage("https://google.com", "Google", "java google"));
-        indexWebPage(new WebPage("https://netflix.com", "Netflix", "netflix hello"));
-//        indexWebPage(new WebPage("https://amazon.com", "Amazon", "else amazing hello something"));
+        indexWebPage(new WebPage("https://netflix.com", "Netflix", "hello"));
+        indexWebPage(new WebPage("https://uber.com", "Uber", "java yrdy"));
+        indexWebPage(new WebPage("https://amazon.com", "Amazon", "else amazing hello something"));
         System.out.println("+_+_+_+_+_+_+_+_+");
         for (var entry : mapIndex.entrySet()) {
             System.out.println("Index: " + entry.getKey());
-            entry.getValue().printList(entry.getKey());
+            entry.getValue().printList();
         }
-//        System.out.println("===================");
-//        System.out.println("REMOVE");
-////        removeByUrl("https://google.com");
-//        System.out.println("AFTER REMOVE");
-//        for (var entry : mapIndex.entrySet()) {
-//            System.out.println("Index: " + entry.getKey());
-//            entry.getValue().printList();
-//        }
-
+        System.out.println("===================");
+        removeByUrl("https://ya.ru");
+        System.out.println("AFTER REMOVE");
+        for (var entry : mapIndex.entrySet()) {
+            System.out.println("Index: " + entry.getKey());
+            entry.getValue().printList();
+        }
     }
 
     private static void indexWebPage(WebPage webPage) {
-        NodeWebPageLinkedList.NodeWebPage nodeToIndex = new NodeWebPageLinkedList.NodeWebPage(webPage);
-//        NodeWebPageLinkedList nodeWebPageLinkedList = new NodeWebPageLinkedList();
         String[] contentByWords = webPage.getContent().split(" ");
         if (!setIndex.contains(webPage)) {
             setIndex.add(webPage);
             for (String word : contentByWords) {
+                NodeWebPageLinkedList.NodeWebPage nodeToIndex = new NodeWebPageLinkedList.NodeWebPage(webPage);
                 if (!mapIndex.containsKey(word)) {
                     NodeWebPageLinkedList nodeWebPageLinkedList = new NodeWebPageLinkedList() {{
                         add(nodeToIndex);
                     }};
-//                    NodeWebPageLinkedList nodeWebPageLinkedList2 = new NodeWebPageLinkedList();
-//                    nodeWebPageLinkedList2.add(nodeToIndex);
                     mapIndex.put(word, nodeWebPageLinkedList);
                 } else {
                     mapIndex.get(word).add(nodeToIndex);
                 }
+                if (!listNodesQuickRemove.containsKey(webPage.getUrl())) {
+                    listNodesQuickRemove.put(webPage.getUrl(), new ArrayList<>() {{
+                        add(nodeToIndex);
+                    }});
+                } else {
+                    listNodesQuickRemove.get(webPage.getUrl()).add(nodeToIndex);
+                }
             }
-        }
-        if (!listNodesQuickRemove.containsKey(webPage.getUrl())) {
-            listNodesQuickRemove.put(webPage.getUrl(), new ArrayList<>() {{
-                add(nodeToIndex);
-            }});
-        } else {
-            listNodesQuickRemove.get(webPage.getUrl()).add(nodeToIndex);
         }
     }
 
     public static void removeByUrl(String url) {
         List<NodeWebPageLinkedList.NodeWebPage> list = listNodesQuickRemove.get(url);
+//        for (NodeWebPageLinkedList.NodeWebPage node : list) {
+//            System.out.println("sdfg"+node);
+//        }
         for (NodeWebPageLinkedList.NodeWebPage nodeWebPage : list) {
             if (nodeWebPage.getRightNode() != null && nodeWebPage.getLeftNode() != null) {
                 nodeWebPage.getRightNode().setLeftNode(nodeWebPage.getLeftNode());
                 nodeWebPage.getLeftNode().setRightNode(nodeWebPage.getRightNode());
                 nodeWebPage.setLeftNode(null);
+                nodeWebPage.setRightNode(null);
+            } else if (nodeWebPage.getRightNode() == null) {
+                nodeWebPage.getLeftNode().setRightNode(null);
+                nodeWebPage.setLeftNode(null);
+            } else if (nodeWebPage.getLeftNode() == null) {
+                System.out.println("sad" +nodeWebPage.getWebPage().getTitle());
+                System.out.println(nodeWebPage.getRightNode().getWebPage().getTitle());
+                System.out.println(nodeWebPage.getLeftNode());
+
+                System.out.println("l node" +nodeWebPage.getRightNode().getLeftNode());
+                nodeWebPage.getRightNode().setLeftNode(null);
+                System.out.println("l node" +nodeWebPage.getRightNode().getLeftNode());
                 nodeWebPage.setRightNode(null);
             }
         }

@@ -6,7 +6,11 @@ import lombok.Setter;
 public class NodeWebPageLinkedList {
     private NodeWebPage head;
     private NodeWebPage tail;
+    private int size;
 
+    public int size() {
+        return size;
+    }
 
     @Setter
     @Getter
@@ -29,14 +33,15 @@ public class NodeWebPageLinkedList {
             tail.rightNode = nodeWebPage;
             tail = nodeWebPage;
         }
+        size++;
     }
 
-    public void printList(String word) {
+    public void printList() {
         NodeWebPage current = head;
         while (current != null) {
-            if (current.getWebPage().getContent().contains(word)) {
+//            if (current.getWebPage().getContent().contains(word)) {
                 System.out.println(current.getWebPage().getTitle());
-            }
+//            }
             current = current.getRightNode();
         }
         System.out.println();
