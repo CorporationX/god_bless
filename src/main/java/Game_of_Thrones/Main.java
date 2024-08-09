@@ -1,7 +1,6 @@
-package Mathew;
+package Game_of_Thrones;
 
 import java.util.HashMap;
-import java.util.List;
 
 public class Main {
     private static HashMap<String, House> houses = new HashMap<>();
