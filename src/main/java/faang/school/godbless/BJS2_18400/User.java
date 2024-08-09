@@ -1,10 +1,12 @@
 package faang.school.godbless.BJS2_18400;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
-
-@Data
+@Setter
+@Getter
 public class User {
     private String name;
     private int age;
@@ -35,7 +37,7 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+            groupedUsers.computeIfAbsent(user.getAge(), userUnit -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
     }
