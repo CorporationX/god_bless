@@ -9,6 +9,7 @@ import faang.school.godbless.datacenter.optimization.OptimizationStrategy;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Comparator;
+import java.util.NoSuchElementException;
 
 import static java.util.Comparator.comparing;
 
@@ -21,7 +22,9 @@ public class DataCenterService {
     }
 
     public void removeServer(Server server) {
-        dataCenter.getServers().remove(server);
+        if (!dataCenter.getServers().remove(server)) {
+            throw new NoSuchElementException("Server not found in data center");
+        }
     }
 
     public double getTotalEnergyConsumption() {
