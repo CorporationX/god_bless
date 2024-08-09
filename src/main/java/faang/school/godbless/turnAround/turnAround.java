@@ -1,5 +1,8 @@
 package faang.school.godbless.turnAround;
 
+
+import java.util.Arrays;
+
 public class turnAround {
     public void reverse(int[] nums) {
         if (nums.length > 1) {
@@ -15,5 +18,10 @@ public class turnAround {
                 right--;
             }
         }
+    }
+    public int [] getReverse(int[] nums){
+        int[] resultNums = Arrays.copyOf(nums, nums.length);
+        reverse(resultNums);
+        return resultNums;
     }
 }
