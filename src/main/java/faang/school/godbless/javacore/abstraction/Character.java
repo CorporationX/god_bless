@@ -11,27 +11,28 @@ public abstract class Character {
     private String name;
     private int intelligence;
     @Getter
-    private int health;
+    protected int health;
+    protected int damage;
 
     protected Character(String name) {
         this.name = name;
         this.health = DEFAULT_HEALTH_VALUE;
     }
 
-    protected Character(String name, int strength, int agility, int intelligence) {
+    protected Character(String name, int strength, int agility, int intelligence, int damage) {
         this.name = name;
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
         this.health = DEFAULT_HEALTH_VALUE;
+        this.damage = damage;
     }
 
-    public abstract void attack(Character opponent);
-
-    public void takeDamage(int value) {
-        health -= value;
+    public void checkHealth() {
         if (health <= 0) {
             System.out.println(name + " has died.");
         }
     }
+
+    public abstract void attack(Character opponent);
 }
