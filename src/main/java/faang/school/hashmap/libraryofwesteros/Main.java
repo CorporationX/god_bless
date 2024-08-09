@@ -38,11 +38,15 @@ public class Main {
     }
 
     private static void deleteBook(Book book) {
-        mapBooks.remove(book);
+        if (book != null) {
+            mapBooks.remove(book);
+        }
     }
 
     private static void infoShelfNumb(Book book) {
-        System.out.println(mapBooks.get(book));
+        if (book != null) {
+            System.out.println(mapBooks.get(book));
+        }
     }
 
     private static void printListBook() {
