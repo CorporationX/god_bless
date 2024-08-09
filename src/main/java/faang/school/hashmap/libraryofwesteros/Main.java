@@ -4,13 +4,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+
     static private final HashMap<Book, String> mapBooks = new HashMap<>();
+
     public static void main(String[] args) {
         Book cherryOrchard = new Book("Вишневый сад", "Антон Чехов", 1904);
         Book houseWithMezzanine = new Book("Дом с мезонином", "Антон Чехов", 1896);
         Book seagull = new Book("Чайка", "Антон Чехов", 1896);
         Book theManInTheCase = new Book("Человек в футляре", "Антон Чехов", 1898);
-        Book confession = new Book("Исповедь", "Лев Толстой", 1882);
+        Book confession = new Book("", "", 0);
         Book sunday = new Book("Воскресение", "Лев Толстой", 1889);
 
         addBook(cherryOrchard, "");
@@ -28,7 +30,7 @@ public class Main {
     }
 
     private static void addBook(Book book, String shelfNumb) {
-        if (!(shelfNumb.isBlank())) {
+        if (!(shelfNumb.isBlank()) || book == null) {
             mapBooks.put(book, shelfNumb);
         } else {
             System.out.println("Введите название полки");
