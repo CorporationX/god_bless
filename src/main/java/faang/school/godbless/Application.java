@@ -7,72 +7,68 @@ import java.util.Map;
 
 public class Application {
 
-    static List<Student> students = new ArrayList<>();
+
+    private static final Map<Integer, StreamEvent> ID_STREAM = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> TYPE_EVENT = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
+        StreamEvent firstStream = new StreamEvent(1, "type 1", "info");
+        StreamEvent secondStream = new StreamEvent(2, "type 1", "info");
+        StreamEvent thirdStream = new StreamEvent(3, "type 2", "info");
+        StreamEvent fourthStream = new StreamEvent(4, "type 2", "info");
 
-        Student st1 = new Student("name1", "fac1", 1);
-        Student st2 = new Student("name2", "fac1", 1);
-        Student st3 = new Student("name3", "fac1", 1);
-        Student st4 = new Student("name4", "fac2", 2);
-        Student st5 = new Student("name5", "fac2", 2);
-        Student st6 = new Student("name6", "fac2", 2);
-        Student st7 = new Student("name7", "fac3", 2);
-        Student st8 = new Student("name8", "fac3", 2);
+        addEvent(firstStream);
+        addEvent(secondStream);
+        addEvent(thirdStream);
+        addEvent(fourthStream);
 
-        students.add(st1);
-        students.add(st2);
-        students.add(st3);
-        students.add(st4);
-        students.add(st5);
-        students.add(st6);
-
-        allStudents(groupStudents(students));
-        addStudent(st7);
-        addStudent(st8);
-        System.out.println();
-        allStudents(groupStudents(students));
-
-        delStudents("name2", "fac1", 1);
+        allMap();
 
         System.out.println();
 
-        allStudents(groupStudents(students));
-
+        researchEvent(2);
         System.out.println();
 
-        researchStudent("fac2", 2);
+        delEvent(2);
+
+        allMap();
+
     }
+   
 
-    public static Map<String, List<Student>> groupStudents(List<Student> students) {
-        Map<String, List<Student>> studentsMap = new HashMap<>();
-        for (Student student : students) {
-            String key = student.getFaculty() + " " + student.getYear();
-            if (studentsMap.containsKey(key)) {
-                studentsMap.get(key).add(student);
-            } else {
-                studentsMap.put(key, new ArrayList<>());
-                studentsMap.get(key).add(student);
-            }
+    public static void addEvent(StreamEvent streamEvent) {
+        ID_STREAM.put(streamEvent.getId(), streamEvent);
+        if (TYPE_EVENT.containsKey(streamEvent.getEventType())) {
+            TYPE_EVENT.get(streamEvent.getEventType()).add(streamEvent);
+        } else {
+            TYPE_EVENT.put(streamEvent.getEventType(), new ArrayList<>());
+            TYPE_EVENT.get(streamEvent.getEventType()).add(streamEvent);
         }
-        return studentsMap;
     }
 
-    public static void allStudents(Map<String, List<Student>> map) {
-        for (Map.Entry<String, List<Student>> pair : map.entrySet()) {
-
+    public static void researchEvent(int id) {
+        System.out.println(ID_STREAM.get(id));
     }
 
-    public static void addStudent(Student student) {
-        students.add(student);
+    public static void researchList(String typeEvent) {
+        System.out.println(TYPE_EVENT.get(typeEvent));
     }
 
-    public static void delStudents(String name, String faculty, int year) {
-        students.remove(new Student(name, faculty, year));
+    public static void delEvent(int id) {
+        TYPE_EVENT.get(ID_STREAM.get(id).getEventType()).remove(ID_STREAM.get(id));
+        ID_STREAM.remove(id);
     }
 
-    public static void researchStudent(String faculty, int year) {
-        System.out.println(groupStudents(students).get(faculty + " " + year));
+    public static void allMap() {
+        for (Map.Entry<Integer, StreamEvent> pair : ID_STREAM.entrySet()) {
+            System.out.println(pair.getKey() + pair.getValue().toString());
+        }
+        System.out.println();
+
+        for (Map.Entry<String, List<StreamEvent>> pair : TYPE_EVENT.entrySet()) {
+            System.out.println(pair.getKey() + pair.getValue());
+        }
     }
+
 }
