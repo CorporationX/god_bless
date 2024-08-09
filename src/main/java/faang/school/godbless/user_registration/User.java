@@ -15,25 +15,12 @@ public class User {
     private String address;
 
     public User(String name, int age, String company, String address) {
-        if (!name.isBlank())
-            this.name = name;
-        else throw new IllegalArgumentException("Name cannot be empty");
+        if (name.isBlank() || age < 18 || !VALID_JOBS.contains(company) || !VALID_ADDRESSES.contains(address))
+            throw new IllegalArgumentException();
 
-        if (age >= 18)
-            this.age = age;
-        else throw new IllegalArgumentException("Age can't be less than 18");
-
-        if (VALID_JOBS.contains(company))
-            this.company = company;
-        else
-            throw new IllegalArgumentException("""
-                    Company name should be equals to Google, Uber, Amazon!
-                    """);
-
-        if (VALID_ADDRESSES.contains(address))
-            this.address = address;
-        else throw new IllegalArgumentException("""
-                Address cannot be blank or null. Address isn't equal to London, New York, or Amsterdam
-                """);
+        this.name = name;
+        this.age = age;
+        this.company = company;
+        this.address = address;
     }
 }
