@@ -3,6 +3,7 @@ package user.group;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -20,22 +21,12 @@ public class User {
     private String workPlace;
     private String address;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        if (users == null) {
-            return null;
-        }
-        Map<Integer, List<User>> ageMap = new HashMap<>();
-        for(User user : users) {
-            if (!ageMap.containsKey(user.getAge())) {
-                List<User> userList = new ArrayList<>();
-                userList.add(user);
-                ageMap.put(user.getAge(), userList);
-            }
-            else {
-                ageMap.get(user.getAge()).add(user);
-            }
+    public static Map<Integer, List<User>> groupUsers(@NonNull List<User> users) {
+        Map<Integer, List<User>> userAges = new HashMap<>();
+        for (User user : users) {
+            userAges.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
 
-        return ageMap;
+        return userAges;
     }
 }

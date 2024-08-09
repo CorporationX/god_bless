@@ -8,18 +8,14 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UserTest {
     @Test
     @DisplayName("Testing group method with null list of users")
     void userTest_groupUsersIfListOfUsersIsNull() {
-        List<User> users = null;
-
-        var result = User.groupUsers(users);
-
-        assertNull(result);
+        assertThrows(NullPointerException.class, () -> User.groupUsers(null));
     }
 
     @Test

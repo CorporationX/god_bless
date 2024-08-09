@@ -21,7 +21,7 @@ public class Main {
         System.out.println("Age map:");
         for (Map.Entry<Integer, List<User>> entry : ageMap.entrySet()) {
             System.out.println("Age " + entry.getKey() + ":");
-            for(User user : entry.getValue()) {
+            for (User user : entry.getValue()) {
                 System.out.println("    " + user);
             }
         }
