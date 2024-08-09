@@ -7,34 +7,34 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MainTest extends Main {
+class MainTest {
     private Main main;
-    private WebPage webPage1;
+    private WebPage webPageOne;
 
     @BeforeEach
     void setUp() {
         main = new Main();
-        webPage1 = new WebPage("http://www.webPage1.com", "MyWebPage1", "This is New page");
-        main.indexationNewWebPage(webPage1);
+        webPageOne = new WebPage("http://www.webPage1.com", "MyWebPage1", "This is New page");
+        main.indexationNewWebPage(webPageOne);
     }
 
     @Test
     void testIndexationNewWebPage() {
-        WebPage webPage2 = new WebPage("http://www.webPage2.com", "MyWebPage2", "Again page");
-        main.indexationNewWebPage(webPage2);
+        WebPage webPageTwo = new WebPage("http://www.webPage2.com", "MyWebPage2", "Again page");
+        main.indexationNewWebPage(webPageTwo);
         List<WebPage> searchResults = main.findWebPage("again");
-        assertTrue(searchResults.contains(webPage2));
+        assertTrue(searchResults.contains(webPageTwo));
     }
 
     @Test
     void testFindWebPage() {
         List<WebPage> searchResults = main.findWebPage("new");
-        assertTrue(searchResults.contains(webPage1));
+        assertTrue(searchResults.contains(webPageOne));
     }
 
     @Test
     void testRemoveWebPage() {
-        main.removeWebPage(webPage1.getUrl());
-        assertFalse(main.getWordsPages().containsKey(webPage1));
+        main.removeWebPage(webPageOne.getUrl());
+        assertFalse(main.getWordsPages().containsKey(webPageOne));
     }
 }

@@ -1,10 +1,9 @@
 package faang.school.godbless.BJS2_20300;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
-@Data
+@Setter
+@Getter
 @EqualsAndHashCode
 @AllArgsConstructor
 public class WebPage {

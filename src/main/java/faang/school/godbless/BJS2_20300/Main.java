@@ -1,17 +1,19 @@
 package faang.school.godbless.BJS2_20300;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.*;
 
-@Data
+@Getter
+@Setter
 public class Main {
     private Map<String, List<WebPage>> wordsPages = new HashMap<>();
 
     public void indexationNewWebPage(WebPage webPage) {
         List<String> wordsWebPage = Arrays.stream(webPage.getContent().toLowerCase().split(" ")).toList();
         for (String word : wordsWebPage) {
-            wordsPages.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
+            wordsPages.computeIfAbsent(word, webPages -> new ArrayList<>()).add(webPage);
         }
     }
 
