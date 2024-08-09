@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -27,5 +28,24 @@ public class UserTest {
     })
     void userTest_userCreationWithIncorrectParameters(String name, int age, String workPlace, String address) {
         assertThrows(IllegalArgumentException.class, () -> new User(name, age, workPlace, address));
+    }
+
+    @Test
+    @DisplayName("Testing user creation with null arguments")
+    void userTest_userCreateWithNullArguments() {
+        String name = "aboba";
+        int age = 19;
+        String workPlace = "Amazon";
+        String address = "London";
+        assertAll(
+                () -> assertThrows(
+                        NullPointerException.class,
+                        () -> new User(null, age, workPlace, address)),
+                () -> assertThrows(
+                        NullPointerException.class,
+                        () -> new User(name, age, null, address)),
+                () -> assertThrows(
+                        NullPointerException.class,
+                        () -> new User(name, age, workPlace, null)));
     }
 }
