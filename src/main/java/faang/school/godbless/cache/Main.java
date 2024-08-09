@@ -17,6 +17,11 @@ public class Main {
     public static HashMap<Subject, List<Student>> subjectsWithStudents = new HashMap<>();
 
     public static void main(String[] args) {
+        checkStudentService();
+        checkSubjectService();
+    }
+
+    public static void checkStudentService() {
         Subject math = new Subject(1, "Math");
         Subject inf = new Subject(2, "Inf");
 
@@ -48,7 +53,8 @@ public class Main {
         printSubjectAndStudents();
         System.out.println();
     }
-/*    public static void main(String[] args) {
+
+    public static void checkSubjectService() {
         Student bob = new Student("Bob");
 
         Subject math = new Subject(1, "Math");
@@ -75,11 +81,10 @@ public class Main {
         printStudentsAndRatesBySubject();
 
         System.out.println();
-        //removeStudentFromStudentsRates(test);
+        removeStudentFromStudentsRates(test);
         printStudentsAndRatesBySubject();
 
         addNewStudentInStudentRatesWithAllSubjects(test, subjects);
         printStudentsAndRatesBySubject();
-
-    }*/
+    }
 }
