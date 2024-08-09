@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_19361;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 @ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Product {
     private int id;
