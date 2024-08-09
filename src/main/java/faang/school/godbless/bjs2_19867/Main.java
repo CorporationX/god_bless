@@ -4,37 +4,64 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        var houses = new HashMap<String, House>();
+    private static final Map<String, House> houses = new HashMap<>();
 
+    public static void main(String[] args) {
         var stark = House.builder().name("Stark").sigil("Stark sigil").build();
         var lannister = House.builder().name("Lannister").sigil("Lannister sigil").build();
         var barateon = House.builder().name("Barateon").sigil("Barateon sigil").build();
-        var null1 = House.builder().name(null).sigil(null).build();
-        var null2 = House.builder().name(null).sigil("not null").build();
-        var null3 = House.builder().name("not null").sigil(null).build();
+        var allNulls = House.builder().name(null).sigil(null).build();
+        var nameNull = House.builder().name(null).sigil("not null").build();
+        var sigilNull = House.builder().name("not null").sigil(null).build();
         var duplicate1 = House.builder().name("duplicate").sigil("duplicate").build();
         var duplicate2 = House.builder().name("duplicate").sigil("duplicate").build();
 
-        houses.put(stark.getName(), stark);
-        houses.put(lannister.getName(), lannister);
-        houses.put(barateon.getName(), barateon);
-        houses.put(null1.getName(), null1);
-        houses.put(null2.getName(), null2);
-        houses.put(null3.getName(), null3);
-        houses.put(duplicate1.getName(), duplicate1);
-        houses.put(duplicate2.getName(), duplicate2);
+        put(stark);
+        put(lannister);
+        put(barateon);
+        put(allNulls);
+        put(nameNull);
+        put(sigilNull);
+        put(duplicate1);
+        put(duplicate2);
         System.out.println("Size of houses: " + houses.size());
 
-        houses.remove(barateon.getName());
+        remove("barateon.getName()");
         System.out.println("Size of map: " + houses.size());
 
-        var foundLannister = houses.get(lannister.getName());
-        System.out.println("Lannister's sigil: " + foundLannister.getSigil());
+        get(lannister.getName());
 
         System.out.println();
-        for (Map.Entry<String, House> house : houses.entrySet()) {
-            System.out.println("Key: " + house.getKey() + "; House: " + house.getValue().toString());
+        print();
+    }
+
+    private static void put(House house) {
+        if (house != null) {
+            houses.put(house.getName(), house);
         }
+    }
+
+    private static void remove(String name) {
+        if (name != null) {
+            houses.remove(name);
+        }
+    }
+
+    private static void get(String name) {
+        if (name != null) {
+            var foundHouse = houses.get(name);
+            if (foundHouse != null) {
+                System.out.println("Sigil: " + foundHouse.getSigil());
+            } else {
+                System.out.println("House not found by name: " + name);
+            }
+
+        }
+    }
+
+    private static void print() {
+        houses.values().forEach(
+                house -> System.out.println(house.toString()
+        ));
     }
 }
