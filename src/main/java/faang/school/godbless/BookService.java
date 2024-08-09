@@ -1,17 +1,20 @@
 package faang.school.godbless;
 
+import java.util.HashMap;
 import java.util.Map;
-
-import static faang.school.godbless.Main.bookShelfMap;
+import java.util.Optional;
 
 public class BookService {
 
-    public static void addBook(Book book, String genre) {
-        bookShelfMap.put(book, genre);
+    public static void addBook(Book book, String genre, HashMap<Book, String> bookShelfMap) {
+        if (book != null) {
+            bookShelfMap.putIfAbsent(book, genre);
+        } else {
+            throw new IllegalArgumentException("Book can't be null");
+        }
     }
 
-    public static void deleteBook(String title, String author, int year) {
-        Book bookForDelete = new Book(title, author, year);
+    public static void deleteBook(Book bookForDelete, HashMap<Book, String> bookShelfMap) {
 
         if (bookShelfMap.containsKey(bookForDelete)) {
             bookShelfMap.remove(bookForDelete);
@@ -21,22 +24,19 @@ public class BookService {
         }
     }
 
-    public static Book findBookAndPrintGenreByInfoBook(String title, String author, int year) {
-        Book bookForSearching = new Book(title, author, year);
+    public static Book findBookAndPrintGenreByInfoBook(Book bookForSearching, HashMap<Book, String> bookShelfMap) {
 
-        if (bookShelfMap.containsKey(bookForSearching)) {
-            System.out.println("Book is in " + bookShelfMap.get(bookForSearching) + " genre");
-        } else {
-            System.out.println("Book not found");
-        }
-
-        return bookShelfMap.keySet().stream()
+        Optional<Book> book = bookShelfMap.keySet().stream()
                 .filter(e -> e.equals(bookForSearching))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
+
+        book.ifPresentOrElse(b -> System.out.println("Book is in " + bookShelfMap.get(b) + " genre"),
+                () -> System.out.println("Book not found"));
+
+        return book.orElse(null);
     }
 
-    public static void printBooksWithGenre() {
+    public static void printBooksWithGenre(HashMap<Book, String> bookShelfMap) {
         for (Map.Entry<Book, String> book : bookShelfMap.entrySet()) {
             System.out.println(book.getKey() + " is in " + book.getValue() + " genre");
         }
