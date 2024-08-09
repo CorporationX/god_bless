@@ -1,33 +1,51 @@
 package faang.school.godbless.Services;
 
+import faang.school.godbless.models.WeatherData;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static faang.school.godbless.Main.weatherForecastMap;
+import java.util.HashMap;
+
 import static faang.school.godbless.Services.WeatherService.*;
-import static faang.school.godbless.Services.WeatherService.printAvailableCitiesInWeatherCache;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WeatherServiceTest {
 
+    public static final int ONE = 1;
+    public static final int TWO = 2;
+
+    public static HashMap<String, WeatherData> weatherForecastMap = new HashMap<>();
+
+    @BeforeEach
+    void init() {
+        infoWeatherByCity("Moscow", weatherForecastMap);
+        infoWeatherByCity("SPB", weatherForecastMap);
+        infoWeatherByCity("Moscow", weatherForecastMap);
+    }
+
     @Test
     void infoWeatherByCityTest() {
-        infoWeatherByCity("Moscow");
-        infoWeatherByCity("SPB");
-        infoWeatherByCity("Moscow");
-
-        assertEquals(weatherForecastMap.keySet().size(), 2);
+        assertEquals(weatherForecastMap.keySet().size(), TWO);
     }
 
     @Test
     void deleteWeatherCacheByCityTest() {
-        infoWeatherByCity("Moscow");
-        infoWeatherByCity("SPB");
-        infoWeatherByCity("Moscow");
+        assertEquals(weatherForecastMap.keySet().size(), TWO);
 
-        assertEquals(weatherForecastMap.keySet().size(), 2);
+        deleteWeatherCacheByCity("Moscow", weatherForecastMap);
 
-        deleteWeatherCacheByCity("Moscow");
+        assertEquals(weatherForecastMap.keySet().size(), ONE);
+    }
 
-        assertEquals(weatherForecastMap.keySet().size(), 1);
+    @Test
+    void updateWeatherCacheByCityTest() {
+        printAvailableCitiesInWeatherCache(weatherForecastMap);
+
+        System.out.println(weatherForecastMap);
+        updateWeatherCacheByCity("Moscow", weatherForecastMap);
+        assertEquals(weatherForecastMap.keySet().size(), TWO);
+
+        printAvailableCitiesInWeatherCache(weatherForecastMap);
+        System.out.println(weatherForecastMap);
     }
 }
