@@ -1,6 +1,7 @@
 package faang.school.godbless.task.game.of.thrones;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.NoSuchElementException;
@@ -25,30 +26,35 @@ public class HouseAndSigillManagerTest {
     }
 
     @Test
+    @DisplayName("Add new house")
     void testAddNewHouse() {
         houseAndSigillManager.addNewHouse(new House("Tully", "Catfish"));
-        houseAndSigillManager.findSigillByHouseName("Tully");
+        houseAndSigillManager.printSigillByHouseName("Tully");
     }
 
     @Test
+    @DisplayName("Add new house as null")
     void testAddNewHouseNullValue() {
-        assertThrows(NoSuchElementException.class, () -> houseAndSigillManager.addNewHouse(null));
+        assertThrows(NullPointerException.class, () -> houseAndSigillManager.addNewHouse(null));
     }
 
     @Test
+    @DisplayName("Delete house by name")
     void testDeleteHouseByName() {
         String name = house1.name();
         houseAndSigillManager.deleteHouseByName(name);
         assertThrows(NoSuchElementException.class,
-                () -> houseAndSigillManager.findSigillByHouseName(name));
+                () -> houseAndSigillManager.printSigillByHouseName(name));
     }
 
     @Test
-    void testFindSigillByHouseName() {
-        houseAndSigillManager.findSigillByHouseName(house3.name());
+    @DisplayName("Print sigill by house name")
+    void testPrintSigillByHouseName() {
+        houseAndSigillManager.printSigillByHouseName(house3.name());
     }
 
     @Test
+    @DisplayName("Get all house and sigill")
     void testGetAllHouseAndSigill() {
         houseAndSigillManager.printAllHouseAndSigill();
     }

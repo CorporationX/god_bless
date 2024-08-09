@@ -3,38 +3,40 @@ package faang.school.godbless.task.game.of.thrones;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 public class HouseAndSigillManager {
-    private Map<String, House> nameHouseMap = new HashMap<>();
+    private Map<String, House> houseMap = new HashMap<>();
 
-    public void addNewHouse(House house) throws NoSuchElementException {
-        Optional.ofNullable(house).ifPresentOrElse(hs -> {
-            nameHouseMap.putIfAbsent(house.name(), house);
-        }, () -> {
-            throw new NoSuchElementException("Дом не может быть %s".formatted(house));
-        });
+    public void addNewHouse(House house) {
+        validHouseOrThrowNullPointerException(house);
+        houseMap.put(house.name(), house);
     }
 
-    public void deleteHouseByName(String name) throws NoSuchElementException {
-        if (nameHouseMap.remove(name) == null) {
+    public void deleteHouseByName(String name) {
+        if (!houseMap.containsKey(name)) {
             houseNotFoundExceptionThrow(name);
         }
+        houseMap.remove(name);
     }
 
-    public void findSigillByHouseName(String name) throws NoSuchElementException {
-        House house = nameHouseMap.get(name);
-        if (house == null) {
+    public void printSigillByHouseName(String name) {
+        if (!houseMap.containsKey(name)) {
             houseNotFoundExceptionThrow(name);
         }
-        System.out.println(house.sigill());
-    }
-
-    private void houseNotFoundExceptionThrow(String name) throws NoSuchElementException {
-        throw new NoSuchElementException("Дом с именем %s не найден".formatted(name));
+        System.out.println(houseMap.get(name).sigill());
     }
 
     public void printAllHouseAndSigill() {
-        nameHouseMap.values().forEach(house -> System.out.println(house));
+        houseMap.values().forEach(house -> System.out.println(house));
+    }
+
+    private void houseNotFoundExceptionThrow(String name) {
+        throw new NoSuchElementException("Дом с именем %s не найден".formatted(name));
+    }
+
+    private void validHouseOrThrowNullPointerException(House house) {
+        if (house == null) {
+            throw new NullPointerException("Дом не может быть null");
+        }
     }
 }
