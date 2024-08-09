@@ -4,5 +4,5 @@ public final class Constants {
     private Constants() {
     }
 
-    public static final Integer AGE_OF_MAJORITY = 18;
+    public static final int AGE_OF_MAJORITY = 18;
 }
