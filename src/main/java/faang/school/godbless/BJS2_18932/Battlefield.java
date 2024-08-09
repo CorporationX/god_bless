@@ -1,18 +1,9 @@
 package faang.school.godbless.BJS2_18932;
 
 import java.util.Map;
+import java.util.Random;
 
 public class Battlefield {
-    private static final String PROTAGONIST_NAME = "John";
-    private static final String PROTAGONIST_FRACTION = "Light";
-    private static final int PROTAGONIST_EXP = 30;
-    private static final int PROTAGONIST_LVL = 2;
-
-    private static final String ANTAGONIST_NAME = "Frank";
-    private static final String ANTAGONIST_FRACTION = "Dark";
-    private static final int ANTAGONIST_EXP = 10;
-    private static final int ANTAGONIST_LVL = 5;
-
     private Hero protagonist;
     private Hero antagonist;
 
@@ -23,17 +14,69 @@ public class Battlefield {
 
     private int calculateArmyDamage(Hero hero) {
         int totalDamage = 0;
-        for (Map.Entry<Creature, Integer> creature : hero.getArmy().entrySet()) {
-            totalDamage += creature.getKey().getDamage() * creature.getValue();
+        Map<Creature, Integer> army = hero.getArmy();
+        for (Map.Entry<Creature, Integer> entry : army.entrySet()) {
+            Creature creature = entry.getKey();
+            int creatureDamage = creature.getDamage();
+            totalDamage += creatureDamage;
         }
         return totalDamage;
     }
 
+    private int calculateArmyDefence(Hero hero) {
+        int totalDefence = 0;
+        Map<Creature, Integer> army = hero.getArmy();
+        for (Map.Entry<Creature, Integer> entry : army.entrySet()) {
+            Creature creature = entry.getKey();
+            int creatureDefence = creature.getDamage();
+            totalDefence += creatureDefence;
+        }
+        return totalDefence;
+    }
+
+    private int calculateArmyLvl(Hero hero) {
+        int totalLvl = hero.getLvl();
+        Map<Creature, Integer> army = hero.getArmy();
+        for (Map.Entry<Creature, Integer> entry : army.entrySet()) {
+            Creature creature = entry.getKey();
+            int creatureLvl = creature.getDamage();
+            totalLvl += creatureLvl;
+        }
+        return totalLvl;
+    }
+
+    private int compareByBattle(Hero heroOne, Hero heroTwo) {
+        return (calculateArmyDefence(heroOne) - calculateArmyDamage(heroTwo) - (calculateArmyDefence(heroTwo) - calculateArmyDamage(heroOne)));
+    }
+
+    private int compareByArmyLvl(Hero heroOne, Hero heroTwo) {
+        return calculateArmyLvl(heroOne) - calculateArmyLvl(heroTwo);
+    }
+
+    private int compareByHeroExp(Hero heroOne, Hero heroTwo) {
+        return heroOne.getExp() - heroTwo.getExp();
+    }
+
     public Hero battle() {
-        if (calculateArmyDamage(protagonist) > calculateArmyDamage(antagonist))
+        if (compareByBattle(protagonist, antagonist) > 0) {
             return protagonist;
-        else {
+        } else if (compareByBattle(protagonist, antagonist) < 0) {
             return antagonist;
+        } else {
+            if (compareByArmyLvl(protagonist, antagonist) > 0) {
+                return protagonist;
+            } else if (compareByArmyLvl(protagonist, antagonist) < 0) {
+                return antagonist;
+            } else {
+                if (compareByHeroExp(protagonist, antagonist) > 0) {
+                    return protagonist;
+                } else if (compareByHeroExp(protagonist, antagonist) < 0) {
+                    return antagonist;
+                } else {
+                    Random random = new Random();
+                    return (random.nextInt() % 2 == 0) ? protagonist : antagonist;
+                }
+            }
         }
     }
 }
