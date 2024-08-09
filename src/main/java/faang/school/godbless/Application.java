@@ -31,10 +31,20 @@ public class Application {
         Query ninthQuery = new Query(9, "con9", 6.0);
         Query tenthQuery = new Query(10, "con10", 6.0);
 
-        addNewUserQuery(firstUser, fifthQuery);
-        addNewUserQuery(fifthUser, secondQuery);
+        addNewUserQuery(firstUser, firstQuery);
+        addNewUserQuery(firstUser, secondQuery);
+        addNewUserQuery(secondUser, thirdQuery);
+        addNewUserQuery(secondUser, fourthQuery);
+        addNewUserQuery(thirdUser, fifthQuery);
+        addNewUserQuery(thirdUser, sixthQuery);
+        addNewUserQuery(fourthUser, seventhQuery);
+        addNewUserQuery(fourthUser, eigthQuery);
+        addNewUserQuery(fifthUser, ninthQuery);
+        addNewUserQuery(fifthUser, tenthQuery);
 
         getAllUsers();
+
+        getStoryUserQuery(firstUser);
 
     }
 
@@ -43,16 +53,13 @@ public class Application {
     }
 
     public static void addNewUserQuery(User user, Query query) {
-        if (USER_LIST_MAP.get(user).contains(query)) {
-            USER_LIST_MAP.get(user).add(query);
-            QUERY_LIST_MAP.put(query, query.getTimestamp());
-        } else {
-            USER_LIST_MAP.put(user, new ArrayList<>());
-            USER_LIST_MAP.get(user).add(query);
-            QUERY_LIST_MAP.put(query, query.getTimestamp());
-        }
-
-
+            if (USER_LIST_MAP.containsKey(user)) {
+                USER_LIST_MAP.get(user).add(query);
+            } else {
+                USER_LIST_MAP.put(user, new ArrayList<>());
+                USER_LIST_MAP.get(user).add(query);
+            }
+        QUERY_LIST_MAP.put(query, query.getTimestamp());
 
     }
 
@@ -66,6 +73,7 @@ public class Application {
             for (Query query : pair.getValue()) {
                 System.out.println(query);
             }
+            System.out.println();
         }
     }
 
@@ -85,11 +93,10 @@ public class Application {
     }
 
     public static void getStoryUserQuery(User user) {
-        for (Map.Entry<User, List<Query>> pair : USER_LIST_MAP.entrySet()) {
-            for (Query query : USER_LIST_MAP.get(user)) {
-                System.out.println(findMinValue(QUERY_LIST_MAP));
-            }
+        for (Query query : USER_LIST_MAP.get(user)) {
+            System.out.println(findMinValue(QUERY_LIST_MAP));
         }
+
     }
 
 }
