@@ -11,5 +11,5 @@ import lombok.ToString;
 @ToString
 public class Pair {
     private String faculty;
-    private int course;
+    private int year;
 }

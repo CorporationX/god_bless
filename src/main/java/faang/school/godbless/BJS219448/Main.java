@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static List<Student> listStudent = new ArrayList<>();
+    private static List<Student> studentList = new ArrayList<>();
 
-    public static Map<Pair, List<Student>> groupStudent(List<Student> students) {
+    public static Map<Pair, List<Student>> groupStudents(List<Student> students) {
         Map<Pair, List<Student>> studentMap = new HashMap<>();
         for (Student student : students) {
             Pair pair = new Pair(student.getFaculty(), student.getYear());
@@ -23,26 +23,24 @@ public class Main {
     }
 
     public static void addStudent(Student student) {
-        listStudent.add(student);
+        studentList.add(student);
     }
 
     public static void deleteStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
-        listStudent.remove(student);
+        if (studentList.contains(student)) {
+            studentList.remove(student);
+        } else {
+            System.out.println("The student is not on the list.");
+        }
     }
 
-    public static List<Student> searchByFacultyAndYear(String faculty, int year) {
-        List<Student> findStudent = new ArrayList<>();
-        for (Student student : listStudent) {
-            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                findStudent.add(student);
-            }
-        }
-        return findStudent;
+    public static void getStudentByFacultyAndYear(String faculty, int year) {
+        System.out.println(groupStudents(studentList).get(new Pair(faculty, year)));
     }
 
     public static void printAllGroupStudents(List<Student> students) {
-        Map<Pair, List<Student>> map = groupStudent(students);
+        Map<Pair, List<Student>> map = groupStudents(students);
         for (Map.Entry<Pair, List<Student>> entry : map.entrySet()) {
             System.out.println(entry.getKey() + "-->" + entry.getValue());
         }
@@ -63,14 +61,14 @@ public class Main {
         addStudent(st5);
         addStudent(st6);
 
-        printAllGroupStudents(listStudent);
+        printAllGroupStudents(studentList);
         System.out.println();
 
         deleteStudent("Valera", "C++", 2);
-        printAllGroupStudents(listStudent);
+        printAllGroupStudents(studentList);
         System.out.println();
 
-        System.out.println(searchByFacultyAndYear("Java", 3));
+        getStudentByFacultyAndYear("Java", 3);
     }
 }
 
