@@ -7,19 +7,21 @@ import java.util.Set;
 @Data
 public class User {
 
+    private static final Set<String> VALID_JOBS = Set.of("Google", "User", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE = 18;
     private String name;
     private int age;
     private String workOfPlace;
     private String address;
-    private static final Set<String> VALID_JOBS = Set.of("Google", "User", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
 
     public User(String name, int age, String workOfPlace, String address) {
-        if(name.isEmpty()){
-            throw new IllegalArgumentException("Name cannot be empty");
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
         }
 
-        if(age < 18){
+        if(age < AGE){
             throw new IllegalArgumentException("Age cannot be less than 18");
         }
 
