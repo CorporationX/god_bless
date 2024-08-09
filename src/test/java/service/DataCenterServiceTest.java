@@ -43,7 +43,7 @@ public class DataCenterServiceTest {
     @Test
     public void testAllocateResources() {
         ResourceRequest resourceRequest = new ResourceRequest(50);
-        assertTrue(dataCenterService.allocateResources(resourceRequest));
+        dataCenterService.allocateResources(resourceRequest);
         assertEquals(50, server1.getLoad());
     }
 
@@ -51,7 +51,7 @@ public class DataCenterServiceTest {
     public void testReleaseResources() {
         server1.setLoad(50);
         ResourceRequest resourceRequest = new ResourceRequest(30);
-        assertTrue(dataCenterService.releaseResources(resourceRequest));
+        dataCenterService.releaseResources(resourceRequest);
         assertEquals(20, server1.getLoad());
     }
 }

@@ -4,13 +4,15 @@ import faang.school.godbless.BJS2_19800.model.DataCenter;
 import faang.school.godbless.BJS2_19800.model.ResourceRequest;
 import faang.school.godbless.BJS2_19800.model.Server;
 import faang.school.godbless.BJS2_19800.operationsOptimization.LoadBalancingOptimizationStrategy;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-@Data
+@Getter
+@Setter
 public class DataCenterService {
 
     private DataCenter dataCenter;
@@ -37,24 +39,22 @@ public class DataCenterService {
         return totalEnergyConsumption;
     }
 
-    public boolean allocateResources(ResourceRequest request) {
+    public void allocateResources(ResourceRequest request) {
         for (Server server : dataCenter.getServerList()) {
             if (server.getMaxLoad() - server.getLoad() >= request.getLoad()) {
                 server.setLoad(server.getLoad() + request.getLoad());
+                break;  // Ресурсы распределены, можно выйти из цикла
             }
-            return true;
         }
-        return false;
     }
 
-    public boolean releaseResources(ResourceRequest request) {
+    public void releaseResources(ResourceRequest request) {
         for (Server server : dataCenter.getServerList()) {
             if (server.getLoad() >= request.getLoad()) {
                 server.setLoad(server.getLoad() - request.getLoad());
+                break;
             }
-            return true;
         }
-        return false;
     }
 
     public void scheduledOptimizationSevers() {

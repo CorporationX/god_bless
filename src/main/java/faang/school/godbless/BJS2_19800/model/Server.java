@@ -1,8 +1,11 @@
 package faang.school.godbless.BJS2_19800.model;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
 public class Server {
     private double load;
     private double maxLoad;
