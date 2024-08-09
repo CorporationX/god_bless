@@ -12,12 +12,15 @@ public class QueryService {
     }
 
     public void addQuery(Map<User, List<Query>> queryUserMap, User user, Query query) {
-        queryUserMap.computeIfAbsent(user, key -> new ArrayList<>()).add(query);
+        queryUserMap.computeIfAbsent(user, queries -> new ArrayList<>()).add(query);
     }
 
     public void removeUser(Map<User, List<Query>> queryUserMap, User user) {
-        var queries = queryUserMap.remove(user);
-        queriesNullCheck(queries);
+        if (queryUserMap.containsKey(user)) {
+            queryUserMap.remove(user);
+        } else {
+            throw new IllegalArgumentException("User don't exist");
+        }
     }
 
     public void showUsersQueriesInfo(Map<User, List<Query>> queryUserMap) {
@@ -27,18 +30,15 @@ public class QueryService {
         });
     }
 
-    public void showUsersQueriesHistory(Map<User, List<Query>> queryUserMap) {
-        queryUserMap.forEach((user, queries) -> {
+    public void showUserQueriesHistory(Map<User, List<Query>> queryUserMap, User user) {
+        List<Query> queries = queryUserMap.get(user);
+        if (queries != null) {
             System.out.println("Name: " + user.getName());
             queries.stream()
                     .sorted(comparing(Query::getTimestamp))
                     .forEach(this::printQuery);
-        });
-    }
-
-    private void queriesNullCheck(List<Query> queries) {
-        if (queries == null) {
-            System.out.println("Queries don't exist");
+        } else {
+            throw new IllegalArgumentException("No queries found for user: " + user.getName());
         }
     }
 

@@ -1,9 +1,11 @@
 package faang.school.godbless.indexelk;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class User {
     private int id;

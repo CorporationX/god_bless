@@ -25,7 +25,10 @@ public class Main {
         queryService.showUsersQueriesInfo(queryUserMap);
         System.out.println();
 
-        queryService.showUsersQueriesHistory(queryUserMap);
+        queryService.showUserQueriesHistory(queryUserMap, ivan);
+        System.out.println();
+
+        queryService.showUserQueriesHistory(queryUserMap, petr);
         System.out.println();
 
         queryService.removeUser(queryUserMap, ivan);
@@ -33,6 +36,20 @@ public class Main {
         queryService.showUsersQueriesInfo(queryUserMap);
         System.out.println();
 
-        queryService.removeUser(queryUserMap, ivan);
+        try {
+            queryService.removeUser(queryUserMap, ivan);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println();
+        }
+
+        try {
+            queryService.showUserQueriesHistory(queryUserMap, ivan);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            System.out.println();
+        }
     }
 }
