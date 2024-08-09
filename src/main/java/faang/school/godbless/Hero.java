@@ -22,38 +22,44 @@ public class Hero {
         this.level = level;
     }
 
-    public void addCreature(Creature creature, int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity couldn't be less than 1");
+    public void addCreature(Creature newRequestedCreatureForAdding, int quantityForAddingInArmy) {
+        if (quantityForAddingInArmy <= 0) {
+            throw new IllegalArgumentException("Quantity argument couldn't be less than 1");
         }
 
-        if (this.creatures.contains(creature)) {
-            this.creatures.stream().filter(c -> c.getName().equalsIgnoreCase(creature.getName())).map(c -> {
-                c.setQuantity(c.getQuantity() + quantity);
-                return null;
-            }).count();
+        if (this.creatures.contains(newRequestedCreatureForAdding)) {
+            this.creatures.stream()
+                    .filter(c -> c.getName().equalsIgnoreCase(newRequestedCreatureForAdding.getName()))
+                    .map(c -> {
+                        c.setQuantity(c.getQuantity() + quantityForAddingInArmy);
+                        return null;
+                    })
+                    .count();
         } else {
-            creature.setQuantity(quantity);
-            this.creatures.add(creature);
+            newRequestedCreatureForAdding.setQuantity(quantityForAddingInArmy);
+            this.creatures.add(newRequestedCreatureForAdding);
         }
     }
 
-    public void removeCreature(Creature creature, int quantity) {
-        if (quantity <= 0) {
-            throw new IllegalArgumentException("Quantity couldn't be less than 1");
+    public void removeCreature(Creature newRequestedCreatureForRemoving, int quantityForRemovingInArmy) {
+        if (quantityForRemovingInArmy <= 0) {
+            throw new IllegalArgumentException("Quantity argument couldn't be less than 1");
         }
 
-        if (this.creatures.contains(creature)) {
-            this.creatures.stream().filter(c -> c.getName().equalsIgnoreCase(creature.getName())).map(c -> {
-                if (c.getQuantity() - quantity <= 0) {
-                    removeCreature(creature);
-                } else {
-                    c.setQuantity(c.getQuantity() - quantity);
-                }
-                return null;
-            }).count();
+        if (this.creatures.contains(newRequestedCreatureForRemoving)) {
+            this.creatures.stream()
+                    .filter(c -> c.getName().equalsIgnoreCase(newRequestedCreatureForRemoving.getName()))
+                    .map(c -> {
+                        if (c.getQuantity() - quantityForRemovingInArmy <= 0) {
+                            removeCreature(newRequestedCreatureForRemoving);
+                        } else {
+                            c.setQuantity(c.getQuantity() - quantityForRemovingInArmy);
+                        }
+                        return null;
+                    })
+                    .count();
         } else {
-            throw new IllegalArgumentException("This hero " + this + " doesn't contain creature " + creature + " for delete");
+            throw new IllegalArgumentException("This hero " + this + " doesn't contain creature " + newRequestedCreatureForRemoving + " for delete");
         }
     }
 
@@ -63,21 +69,5 @@ public class Hero {
         } else {
             throw new IllegalArgumentException("This hero " + this + " doesn't contain creature " + creature + " for delete");
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<Creature> getCreatures() {
-        return creatures;
-    }
-
-    public void setCreatures(List<Creature> creatures) {
-        this.creatures = creatures;
     }
 }

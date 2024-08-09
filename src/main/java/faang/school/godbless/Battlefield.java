@@ -1,6 +1,8 @@
 package faang.school.godbless;
 
-import faang.school.godbless.units.*;
+import faang.school.godbless.units.Angel;
+import faang.school.godbless.units.Creature;
+import faang.school.godbless.units.Griffin;
 
 public class Battlefield {
 
@@ -16,8 +18,8 @@ public class Battlefield {
             return;
         }
 
-        int attackerDamage = attacker.getCreatures().stream().mapToInt(c -> c.getDamage()).sum();
-        int defenderDamage = defender.getCreatures().stream().mapToInt(c -> c.getDamage()).sum();
+        int attackerDamage = attacker.getCreatures().stream().mapToInt(Creature::getDamage).sum();
+        int defenderDamage = defender.getCreatures().stream().mapToInt(Creature::getDamage).sum();
 
         if (attackerDamage - defenderDamage <= 0) {
             System.out.println("The defender has a " + (Math.abs(attackerDamage - defenderDamage)) + " damage advantage");
@@ -34,9 +36,7 @@ public class Battlefield {
         Hero heroFirst = new Hero("Orrin", "Knight", 100, 1);
         Hero heroSecond = new Hero("Kyrre", "Ranger", 100, 1);
 
-        Pikeman pikeman = new Pikeman();
         Griffin griffin = new Griffin();
-        Swordsman swordsman = new Swordsman();
         Angel angel = new Angel();
 
         heroFirst.addCreature(griffin, 100);

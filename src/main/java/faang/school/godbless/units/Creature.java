@@ -5,20 +5,22 @@ import lombok.Data;
 @Data
 public abstract class Creature {
 
+    private final int MIN_PARAM = 0;
+
     private String name;
     private int level;
     private int attack;
     private int defense;
     private int speed;
-    private int quantity = 0;
+    private int quantity;
 
     public Creature(String name, int level, int attack, int defense, int speed) {
 
-        if (level <= 0 || attack <= 0 || defense <= 0 || speed <= 0) {
-            throw new IllegalArgumentException("You can't input value lover than 1");
+        if (level <= MIN_PARAM || attack <= MIN_PARAM || defense <= MIN_PARAM || speed <= MIN_PARAM) {
+            throw new IllegalArgumentException("You can't input value lower than 1");
         }
 
-        if (name == null || name.isEmpty()) {
+        if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Incorrect name");
         }
         this.name = name;
