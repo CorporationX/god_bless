@@ -17,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class User {
     private String name;
-    private int age;
+    private Integer age;
     private String address;
     private String placeOfWork;
 
@@ -25,11 +25,7 @@ public class User {
         Map<Integer, List<User>> resultingUserGroupByAge = new HashMap<>();
         for (User user : users) {
             Integer userAge = user.getAge();
-            if (!resultingUserGroupByAge.containsKey(userAge)){
-                List<User> userGroup = new ArrayList<>();
-                resultingUserGroupByAge.put(userAge,userGroup);
-            }
-            resultingUserGroupByAge.get(userAge).add(user);
+            resultingUserGroupByAge.computeIfAbsent(userAge, k -> new ArrayList<>()).add(user);
         }
         return resultingUserGroupByAge;
     }
