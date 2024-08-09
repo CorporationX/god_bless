@@ -39,9 +39,9 @@ public class Person {
         Person mask = new Person("Ilon Mask", 53, "engineer", "California");
         Person charlie = new Person("Charlie Chaplin",  124, "actor", "London");
         Person potter = new Person("Harry Potter",  17, "fairy hero", "Hogwarts");
-        Person lulu = new Person("Lulu Kringe", 17, "Addis Abeba", "Africa");
+        Person lulu = new Person("Lulu Kringe", 17, "harlot", "Africa");
         Person napoleon = new Person("Napoleon", 124, "warrier", "Paris");
-        Person burbon = new Person("Buba Ankor", 17, "Kalimantan", "Indonesia");
+        Person burbon = new Person("Buba Ankor", 17, "dreamer", "Kalimantan");
 
       return Arrays.asList(john, mask, charlie, potter, lulu, napoleon, burbon);
     }
