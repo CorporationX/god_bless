@@ -1,9 +1,12 @@
 package faang.school.godbless;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Data
@@ -15,7 +18,10 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-
-        return users.stream().collect(Collectors.groupingBy(u -> u.getAge()));
+        HashMap<Integer, List<User>> grouped = new HashMap<>();
+        for (User user : users) {
+            grouped.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+        }
+        return grouped;
     }
 }
