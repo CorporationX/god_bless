@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class ResourceRequest {
 
-    private double load;
+    private final double load;
 }

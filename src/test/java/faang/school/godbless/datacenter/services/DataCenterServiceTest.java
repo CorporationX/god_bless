@@ -10,49 +10,61 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DataCenterServiceTest {
 
+    private static final int ZERO = 0;
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final int THREE = 3;
+    private static final int FOUR = 4;
+    private static final int SEVEN = 7;
+    private static final int TEN = 10;
+    private static final int TWENTY = 20;
+    private static final int THIRTY = 30;
+    private static final int FORTY = 40;
+    private static final int MAGIC_NUMBER = 330;
+
     @Test
     void addNewServerTest() {
         DataCenter dataCenter = new DataCenter();
 
-        assertEquals(dataCenter.getServers().size(), 0);
+        assertEquals(dataCenter.getServers().size(), ZERO);
         addNewServer(dataCenter);
-        assertEquals(dataCenter.getServers().size(), 1);
+        assertEquals(dataCenter.getServers().size(), ONE);
         addNewServer(dataCenter);
-        assertEquals(dataCenter.getServers().size(), 2);
+        assertEquals(dataCenter.getServers().size(), TWO);
     }
 
     @Test
     void addServerTest() {
         DataCenter dataCenter = new DataCenter();
-        Server server = new Server(10);
+        Server server = new Server(TEN);
 
-        assertEquals(dataCenter.getServers().size(), 0);
+        assertEquals(dataCenter.getServers().size(), ZERO);
         addServer(dataCenter, server);
-        assertEquals(dataCenter.getServers().size(), 1);
+        assertEquals(dataCenter.getServers().size(), ONE);
         addServer(dataCenter, server);
-        assertEquals(dataCenter.getServers().size(), 2);
+        assertEquals(dataCenter.getServers().size(), TWO);
     }
 
     @Test
     void deleteServerTest() {
         DataCenter dataCenter = new DataCenter();
-        Server server = new Server(10);
+        Server server = new Server(TEN);
 
-        assertEquals(dataCenter.getServers().size(), 0);
+        assertEquals(dataCenter.getServers().size(), ZERO);
 
         addServer(dataCenter, server);
-        server = new Server(20);
+        server = new Server(TWENTY);
         addServer(dataCenter, server);
-        server = new Server(30);
+        server = new Server(THIRTY);
         addServer(dataCenter, server);
 
-        assertEquals(dataCenter.getServers().size(), 3);
+        assertEquals(dataCenter.getServers().size(), THREE);
 
         DataCenterService.deleteServer(dataCenter, server);
-        server = new Server(10);
+        server = new Server(TEN);
         DataCenterService.deleteServer(dataCenter, server);
 
-        assertEquals(dataCenter.getServers().size(), 1);
+        assertEquals(dataCenter.getServers().size(), ONE);
     }
 
     @Test
@@ -62,62 +74,39 @@ public class DataCenterServiceTest {
         addNewServer(dataCenter);
         addNewServer(dataCenter);
 
-        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), 20);
+        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), TWENTY);
 
-        Server server = new Server(10);
+        Server server = new Server(TEN);
 
         addServer(dataCenter, server);
 
-        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), 40);
+        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), FORTY);
     }
 
     @Test
     void allocateResourcesTest() {
-        /*DataCenter dc = new DataCenter();
-        ResourceRequest request = new ResourceRequest(99);
-
-        assertEquals(dc.getServers().size(), 0);
-        allocateResources(request, dc);
-        assertEquals(dc.getServers().size(), 1);*/
-
         DataCenter dataCenter = new DataCenter();
-        ResourceRequest request = new ResourceRequest(330);
+        ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
 
-        assertEquals(dataCenter.getServers().size(), 0);
+        assertEquals(dataCenter.getServers().size(), ZERO);
         allocateResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 4);
+        assertEquals(dataCenter.getServers().size(), FOUR);
         allocateResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 7);
+        assertEquals(dataCenter.getServers().size(), SEVEN);
     }
 
     @Test
     void releaseResourcesTest() {
         DataCenter dataCenter = new DataCenter();
-        ResourceRequest request = new ResourceRequest(330);
+        ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
 
-        assertEquals(dataCenter.getServers().size(), 0);
+        assertEquals(dataCenter.getServers().size(), ZERO);
         allocateResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 4);
+        assertEquals(dataCenter.getServers().size(), FOUR);
         releaseResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 4);
+        assertEquals(dataCenter.getServers().size(), FOUR);
         assertEquals(dataCenter.getServers().stream()
-                .mapToDouble(Server::getLoad).sum(), 0);
-
-        /*DataCenter dataCenter = new DataCenter();
-        ResourceRequest request = new ResourceRequest(330);
-
-        assertEquals(dataCenter.getServers().size(), 0);
-        allocateResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 4);
-        request = new ResourceRequest(300);
-        releaseResources(request, dataCenter);
-        assertEquals(dataCenter.getServers().size(), 4);
-        assertEquals(dataCenter.getServers().stream()
-                .mapToDouble(Server::getLoad).sum(), 30);*/
-
-        /*DataCenter dataCenter = new DataCenter();
-        ResourceRequest request = new ResourceRequest(30);
-        releaseResources(request, dataCenter);*/
+                .mapToDouble(Server::getLoad).sum(), ZERO);
     }
 
     @Test
@@ -125,7 +114,7 @@ public class DataCenterServiceTest {
         DataCenterService dataCenterService = new DataCenterService();
 
         DataCenter dataCenter = new DataCenter();
-        ResourceRequest request = new ResourceRequest(330);
+        ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
         allocateResources(request, dataCenter);
         System.out.println(dataCenter);
         dataCenterService.optimize(dataCenter);

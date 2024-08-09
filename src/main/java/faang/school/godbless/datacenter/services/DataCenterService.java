@@ -8,10 +8,11 @@ import java.util.ArrayList;
 
 public class DataCenterService implements OptimizationStrategy {
 
+    private static final int ZERO = 0;
+    private static final int HUNDRED = 100;
+
     public static void addNewServer(DataCenter dataCenter) {
-
-        Server server = new Server(0);
-
+        Server server = new Server(ZERO);
         dataCenter.getServers().add(server);
     }
 
@@ -24,11 +25,15 @@ public class DataCenterService implements OptimizationStrategy {
     }
 
     public static double getTotalEnergyConsumption(DataCenter dataCenter) {
-        return dataCenter.getServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
+        return dataCenter.getServers().stream()
+                .mapToDouble(Server::getEnergyConsumption)
+                .sum();
     }
 
     public static double getTotalLoadOnAllServers(DataCenter dataCenter) {
-        return dataCenter.getServers().stream().mapToDouble(Server::getLoad).sum();
+        return dataCenter.getServers().stream()
+                .mapToDouble(Server::getLoad)
+                .sum();
     }
 
     public static void allocateResources(ResourceRequest request, DataCenter dataCenter) {
@@ -46,18 +51,18 @@ public class DataCenterService implements OptimizationStrategy {
                             double needToCreate = request.getLoad();
 
                             for (Server server : dataCenterServers) {
-                                if (server.getLoad() < 100) {
-                                    double emptyLoadOnServer = 100 - server.getLoad();
+                                if (server.getLoad() < HUNDRED) {
+                                    double emptyLoadOnServer = HUNDRED - server.getLoad();
                                     server.setLoad(server.getLoad() + emptyLoadOnServer);
                                     needToCreate -= emptyLoadOnServer;
                                 }
                             }
 
-                            while (needToCreate > 0) {
+                            while (needToCreate > ZERO) {
 
-                                if (needToCreate > 100) {
-                                    addServer(dataCenter, new Server(100));
-                                    needToCreate -= 100;
+                                if (needToCreate > HUNDRED) {
+                                    addServer(dataCenter, new Server(HUNDRED));
+                                    needToCreate -= HUNDRED;
                                 } else {
                                     addServer(dataCenter, new Server(needToCreate));
                                     needToCreate -= needToCreate;
@@ -71,7 +76,7 @@ public class DataCenterService implements OptimizationStrategy {
         ArrayList<Server> dataCenterServers = getServersInDataCenter(dataCenter);
 
         dataCenterServers.stream()
-                .filter(server -> (server.getLoad() - request.getLoad() >= 0))
+                .filter(server -> (server.getLoad() - request.getLoad() >= ZERO))
                 .findFirst()
                 .ifPresentOrElse((server -> {
                             server.setLoad(server.getLoad() - request.getLoad());
@@ -93,7 +98,7 @@ public class DataCenterService implements OptimizationStrategy {
                                         server.setEnergyConsumption(server.getEnergyConsumption() - needToRelease);
                                         needToRelease -= needToRelease;
                                     }
-                                    if (needToRelease <= 0) {
+                                    if (needToRelease <= ZERO) {
                                         return;
                                     }
                                 }

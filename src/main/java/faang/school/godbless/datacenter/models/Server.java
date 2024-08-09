@@ -1,15 +1,13 @@
 package faang.school.godbless.datacenter.models;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Data;
 
 import java.util.Objects;
 
-@Getter
-@Setter
-@ToString
+@Data
 public class Server {
+
+    private final int ZERO = 0;
 
     private double load;
     private double maxLoad = 100;
@@ -19,12 +17,11 @@ public class Server {
 
         if (load > this.maxLoad) {
             throw new IllegalArgumentException("load is more than max load");
-        } else if (load < 0) {
+        } else if (load < ZERO) {
             throw new IllegalArgumentException("load can't be 0");
         }
-
         this.load = load;
-        this.energyConsumption = this.getEnergyConsumption() + load;
+        this.energyConsumption += load;
     }
 
     @Override
@@ -32,7 +29,9 @@ public class Server {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Server server = (Server) o;
-        return Double.compare(load, server.load) == 0 && Double.compare(maxLoad, server.maxLoad) == 0 && Double.compare(energyConsumption, server.energyConsumption) == 0;
+        return Double.compare(load, server.load) == ZERO
+                && Double.compare(maxLoad, server.maxLoad) == ZERO
+                && Double.compare(energyConsumption, server.energyConsumption) == ZERO;
     }
 
     @Override
