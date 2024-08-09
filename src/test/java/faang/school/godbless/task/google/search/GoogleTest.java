@@ -1,6 +1,7 @@
 package faang.school.godbless.task.google.search;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
@@ -21,14 +22,16 @@ public class GoogleTest {
     }
 
     @Test
+    @DisplayName("Scan web page")
     void testScanWebPage() {
         google.scanWebPage(webPage1);
-        google.getWordWebPagesListMap().entrySet().forEach(entry ->
+        google.getWordAndWebPagesListMap().entrySet().forEach(entry ->
                 System.out.println(entry.getKey() + " " + entry.getValue()));
-        System.out.println(google.getUrlWordsMap());
+        System.out.println(google.getUrlAndWordsMap());
     }
 
     @Test
+    @DisplayName("Find web pages by word")
     void testFindWebPagesByWord() {
         List<WebPage> expectedWebPages = List.of(webPage1, webPage2);
         google.scanWebPage(webPage1);
@@ -37,6 +40,7 @@ public class GoogleTest {
     }
 
     @Test
+    @DisplayName("Delete web page by url")
     void testDeleteWebPageByUrl() {
         google.scanWebPage(webPage1);
         google.scanWebPage(webPage2);
