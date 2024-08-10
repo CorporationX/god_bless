@@ -1,8 +1,7 @@
-package faang.school.godbless.BJS2_18915;
+package faang.school.godbless;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
 import java.util.Map;
 
 public class Application {
