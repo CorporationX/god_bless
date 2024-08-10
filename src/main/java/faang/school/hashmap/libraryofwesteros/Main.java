@@ -19,21 +19,26 @@ public class Main {
         addBook(houseWithMezzanine, "A1-2");
         addBook(seagull, "A1-2");
         addBook(theManInTheCase, "A2-4");
-        addBook(confession, "А1-2");
-        addBook(sunday, "А2-4");
+        addBook(null, "А1-2");
+        addBook(sunday, null);
 
         printListBook();
         infoShelfNumb(sunday);
+        deleteBook(null);
         deleteBook(sunday);
         printListBook();
 
     }
 
     private static void addBook(Book book, String shelfNumb) {
-        if (!(shelfNumb.isBlank()) || book == null) {
-            mapBooks.put(book, shelfNumb);
+        if (book == null) {
+            System.out.println("Введите название кники");
         } else {
-            System.out.println("Введите название полки");
+            if (shelfNumb != null && !(shelfNumb.isBlank())) {
+                mapBooks.put(book, shelfNumb);
+            } else {
+                System.out.println("Введите название полки");
+            }
         }
     }
 
