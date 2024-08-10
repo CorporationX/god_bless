@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Main {
 
-    static private final Set<Student> setStudent = new HashSet<>();
-    static private final HashMap<List, List> mapStudent = new HashMap<>();
+    private static final Set<Student> studentsList = new HashSet<>();
+    private static final Map<List<String>, List<String>> students = new HashMap<>();
 
     public static void main(String[] args) {
         Student alex = new Student("Alex", "Biographical", 2);
@@ -20,56 +20,60 @@ public class Main {
         addNewStudent(max);
         addNewStudent(anna);
 
-        HashMap<List, List> mapStudent = addStudentsMap(setStudent);
-
-        for (Map.Entry<List, List> student : mapStudent.entrySet()) {
+        for (Map.Entry<List<String>, List<String>> student : groupStudentsByYearAndFaculty(studentsList).entrySet()) {
             System.out.println(student);
         }
 
-        deleteStudent(ivan);
+        deleteStudent(null);
 
         printAllStudentFacultyEndYear("Сhemical", 1);
         printAllStudentFacultyEndYear("Сhemical", 0);
-        printAllStudentFacultyEndYear("", 1);
+        printAllStudentFacultyEndYear(null, 1);
 
-        for (Student studentSet : setStudent) {
+        for (Student studentSet : studentsList) {
             System.out.println(studentSet);
         }
     }
 
-    private static HashMap<List, List> addStudentsMap(Set<Student> studentSet) {
+    private static Map<List<String>, List<String>> groupStudentsByYearAndFaculty(Set<Student> studentSet) {
         if (studentSet != null) {
             for (Student student : studentSet) {
-                ArrayList<String> kay = new ArrayList<>();
-                kay.add(student.getFaculty());
-                kay.add(String.valueOf(student.getYear()));
-                mapStudent.computeIfAbsent(kay, k -> new LinkedList()).add(student.getName());
+                List<String> key = new ArrayList<>();
+                key.add(student.getFaculty());
+                key.add(String.valueOf(student.getYear()));
+                students.computeIfAbsent(key, k -> new LinkedList<>()).add(student.getName());
             }
         }
-        return mapStudent;
+        return students;
     }
 
     private static void addNewStudent(Student student) {
         if (student != null) {
-            setStudent.add(student);
+            studentsList.add(student);
         }
     }
 
     private static void deleteStudent(Student student) {
-        if (student != null) {
-            setStudent.remove(student);
-        }
+        studentsList.remove(student);
     }
 
     private static void printAllStudentFacultyEndYear(String faculty, int year) {
-        if (!(faculty.isBlank() || year != 0)) {
-            for (Student student : setStudent) {
-                if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                    System.out.println(student);
+        if (faculty != null) {
+            if (!(faculty.isBlank())) {
+                if (year != 0) {
+                    for (Student student : studentsList) {
+                        if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                            System.out.println(student);
+                        }
+                    }
+                } else {
+                    throw new IllegalArgumentException("Курс студента не может быть 0");
                 }
+            } else {
+                throw new IllegalArgumentException("Введите факультет студента");
             }
         } else {
-            System.out.println("Введите факультет и курс студента");
+            throw new IllegalArgumentException("Введите факультет студента");
         }
     }
 }
