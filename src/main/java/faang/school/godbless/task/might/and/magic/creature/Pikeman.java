@@ -12,4 +12,13 @@ public class Pikeman extends Creature {
                 PIKEMAN_MOVEMENT, PIKEMAN_QUANTITY);
     }
 
+    @Override
+    public void reloadHealth() {
+        this.health = PIKEMAN_HEALTH;
+    }
+
+    @Override
+    public void reloadDamage() {
+        this.damage = PIKEMAN_DAMAGE;
+    }
 }

@@ -11,4 +11,14 @@ public class Angel extends Creature {
         super(name, level, ANGEL_HEALTH, ANGEL_DAMAGE, ANGEL_DEFENCE,
                 ANGEL_MOVEMENT, ANGEL_QUANTITY);
     }
+
+    @Override
+    public void reloadHealth() {
+        this.health = ANGEL_HEALTH;
+    }
+
+    @Override
+    public void reloadDamage() {
+        this.damage = ANGEL_DAMAGE;
+    }
 }

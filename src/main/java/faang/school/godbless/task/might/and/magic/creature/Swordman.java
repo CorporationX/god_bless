@@ -12,4 +12,13 @@ public class Swordman extends Creature {
                 SWORDMAN_MOVEMENT, SWORDMAN_QUANTITY);
     }
 
+    @Override
+    public void reloadHealth() {
+        this.health = SWORDMAN_HEALTH;
+    }
+
+    @Override
+    public void reloadDamage() {
+        this.damage = SWORDMAN_DAMAGE;
+    }
 }

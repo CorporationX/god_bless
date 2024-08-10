@@ -2,10 +2,15 @@ package faang.school.godbless.task.might.and.magic.hero;
 
 import faang.school.godbless.task.might.and.magic.creature.Creature;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+@Getter
+@ToString
 @AllArgsConstructor
 public class Hero {
     private String name;
@@ -30,6 +35,6 @@ public class Hero {
     }
 
     public List<Creature> getArmy() {
-        return army.values().stream().toList();
+        return army.values().stream().collect(Collectors.toList());
     }
 }
