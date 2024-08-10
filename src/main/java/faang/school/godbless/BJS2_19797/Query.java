@@ -6,16 +6,20 @@ import lombok.ToString;
 import java.util.Date;
 
 @ToString
-public class Query {
+@Getter
+public class Query implements Comparable<Query> {
     private int id;
     private String content;
-
-    @Getter
     private Date date;
 
     public Query(int id, String content) {
         this.id = id;
         this.content = content;
         this.date = new Date();
+    }
+
+    @Override
+    public int compareTo(Query o) {
+        return date.compareTo(o.date);
     }
 }

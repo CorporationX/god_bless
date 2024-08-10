@@ -1,28 +1,23 @@
 package faang.school.godbless.BJS2_19797;
 
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ElkQueryIndexService {
 
-    private Map<User, List<Query>> userQueries;
-    private Map<User, List<Query>> userQueriesHistory;
+    private Map<User, List<Query>> userQueries = new HashMap<>();
+    private Map<User, List<Query>> userQueriesHistory = new HashMap<>();
 
-    public ElkQueryIndexService() {
-        this.userQueries = new HashMap<>();
-        this.userQueriesHistory = new HashMap<>();
-    }
-
-    public void put(User user, List<Query> queries) {
+    public void putUserWithQueries(User user, List<Query> queries) {
         if (!userQueries.containsKey(user)) {
             userQueriesHistory.put(user, queries);
         }
         userQueries.put(user, queries);
     }
 
-    public boolean put(User user, Query query) {
+    public boolean putUserForQuery(User user, Query query) {
         if (userQueries.containsKey(user)) {
             userQueries.get(user).add(query);
             if (!userQueriesHistory.containsKey(user)) {
@@ -34,7 +29,7 @@ public class ElkQueryIndexService {
         }
     }
 
-    public void remove(User user) {
+    public void removeUser(User user) {
         userQueries.remove(user);
     }
 
@@ -56,6 +51,6 @@ public class ElkQueryIndexService {
     }
 
     private void sortByTimestamp(List<Query> queries) {
-        queries.sort(Comparator.comparing(Query::getDate, Comparator.naturalOrder()));
+        Collections.sort(queries);
     }
 }
