@@ -1,11 +1,17 @@
 package faang.school.godbless.task18990;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
+@Getter
+@Setter
+@ToString
 public class Hero {
     private String name;
     private String fraction;
@@ -17,6 +23,8 @@ public class Hero {
         this.name = name;
         this.fraction = fraction;
         listOfArmy = new ArrayList<>();
+        level = 1;
+        experience = 0;
     }
 
     public void addCreature (Creature creature, int quantity){
@@ -24,7 +32,7 @@ public class Hero {
             listOfArmy.add(creature);
         }
     }
-    public void removeCreature (Creature creature, int quantity){
+    public void removeCreature (Creature creature, String name,  int quantity){
         for (int i = 1; i <= quantity; i++) {
             listOfArmy.remove(creature);
         }
@@ -32,4 +40,5 @@ public class Hero {
     public List<Creature> getArmy(){
         return listOfArmy;
     }
+
 }

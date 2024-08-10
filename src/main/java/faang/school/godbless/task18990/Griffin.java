@@ -1,6 +1,7 @@
 package faang.school.godbless.task18990;
 
 public class Griffin extends Creature{
+
     public Griffin(String name, int quantity) {
         this.name = name;
         this.quantity = quantity;

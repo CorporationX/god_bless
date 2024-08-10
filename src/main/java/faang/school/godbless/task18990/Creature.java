@@ -19,7 +19,6 @@ public abstract class Creature {
 
 
 
-
     public  int getDamage(){
         return attack * quantity;
     };
