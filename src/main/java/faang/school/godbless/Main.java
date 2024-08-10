@@ -9,7 +9,7 @@ public class Main {
 
         dataCenterService.addServer(new Server(100, 200));
         dataCenterService.addServer(new Server(100, 150));
-        dataCenterService.addServer(new Server(100, 180));
+        dataCenterService.addServer(new Server(199, 180));
 
         Server server = new Server(100, 120);
 
@@ -26,11 +26,13 @@ public class Main {
 
         System.out.println("Current load distribution");
         dataCenterService.getServers().forEach(s -> System.out.println(s.getLoad()));
+        System.out.println("Current total load: " + dataCenterService.getTotalLoad());
 
         dataCenterService.optimize();
 
         System.out.println("Current load distribution");
         dataCenterService.getServers().forEach(s -> System.out.println(s.getLoad()));
+        System.out.println("Current total load: " + dataCenterService.getTotalLoad());
 
         System.out.println("Total energy consumption: " + dataCenterService.getTotalEnergyConsumption());
     }

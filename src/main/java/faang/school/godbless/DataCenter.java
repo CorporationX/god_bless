@@ -19,4 +19,8 @@ public class DataCenter {
     public double getTotalEnergyConsumption() {
         return servers.stream().mapToDouble(Server::getEnergyConsumption).sum();
     }
+
+    public double getTotalLoad() {
+        return servers.stream().mapToDouble(Server::getLoad).sum();
+    }
 }

@@ -18,6 +18,10 @@ public class DataCenterService {
         dataCenter.removeServer(server);
     }
 
+    public double getTotalLoad() {
+        return dataCenter.getTotalLoad();
+    }
+
     public double getTotalEnergyConsumption() {
         return dataCenter.getTotalEnergyConsumption();
     }

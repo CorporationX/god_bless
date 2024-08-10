@@ -9,29 +9,25 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     public void optimize(DataCenter dataCenter) {
         List<Server> servers = dataCenter.getServers();
 
-        double averageLoad = calculateAverageLoad(servers);
-
-        redistributeExcessLoad(servers, averageLoad);
-    }
-
-    private double calculateAverageLoad(List<Server> servers) {
         double totalLoad = servers.stream().mapToDouble(Server::getLoad).sum();
-        return totalLoad / servers.size();
+        double totalMaxLoad = servers.stream().mapToDouble(Server::getMaxLoad).sum();
+        double optimumLoadPercent = totalLoad / totalMaxLoad;
+
+        redistributeLoad(servers, optimumLoadPercent);
     }
 
-    private void redistributeExcessLoad(List<Server> servers, double averageLoad) {
+    private void redistributeLoad(List<Server> servers, double optimumLoadPercent) {
         for (int i = 0; i < servers.size() - 1; i++) {
             Server fromServer = servers.get(i);
-            double load = fromServer.getLoad();
-            if (load > averageLoad) {
-                double excessLoad = load - averageLoad;
-                for (int j = i + 1; j < servers.size(); j++) {
-                    Server targetServer = servers.get(j);
-                    if (targetServer.canHandleLoad(excessLoad)) {
-                        fromServer.releaseLoad(excessLoad);
-                        targetServer.allocateLoad(excessLoad);
-                        break;
-                    }
+            double optimumLoad = fromServer.getMaxLoad() * optimumLoadPercent;
+            double excessLoad = fromServer.getLoad() - optimumLoad;
+
+            for (int j = i + 1; j < servers.size(); j++) {
+                Server targetServer = servers.get(j);
+                if (targetServer.canHandleLoad(excessLoad)) {
+                    fromServer.releaseLoad(excessLoad);
+                    targetServer.allocateLoad(excessLoad);
+                    break;
                 }
             }
         }
