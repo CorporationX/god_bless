@@ -5,21 +5,22 @@ import static faang.school.godbless.thrones.Main.houses;
 public class HouseService {
 
     public static void addHouse(House house) {
-        houses.put(house.getName(), house);
+        if (house != null) {
+            houses.put(house.getName(), house);
+        }
     }
 
     public static void removeHouse(String name) {
         houses.remove(name);
     }
 
-    public static House findHouseAndPrintSigillInfo(String name) {
+    public static void findHouseAndPrintSigillInfo(String name) {
         House house = houses.get(name);
 
         if (house != null) {
-            System.out.println(house.getSigill());
+            System.out.println("Sigill " + house.getSigill());
         }
-
-        return house;
+        System.out.println(house);
     }
 
     public static void printHouses() {

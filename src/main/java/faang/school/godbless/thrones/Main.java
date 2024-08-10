@@ -9,7 +9,7 @@ public class Main {
 
     public static Map<String, House> houses = new HashMap<>();
 
-    static{
+    static {
         houses.put("Stark", new House("Stark", "Stark"));
         houses.put("Lannister", new House("Lannister", "Lannister"));
         houses.put("Barateon", new House("Barateon", "Barateon"));
