@@ -32,6 +32,13 @@ class UserTest {
         }
 
         @Test
+        public void testCreateUserWithNullName() {
+            Exception exception = assertThrows(IllegalArgumentException.class, TestData::getUserWithNullName);
+
+            assertEquals("Name can't be empty", exception.getMessage());
+        }
+
+        @Test
         public void testCreateUserWithInvalidAge() {
             Exception exception = assertThrows(IllegalArgumentException.class, TestData::getUserWithInvalidAge);
 
@@ -68,6 +75,15 @@ class UserTest {
         private static void getUserWithInvalidName() {
             User.builder()
                     .name(" ")
+                    .age(27)
+                    .job("Google")
+                    .address("London")
+                    .build();
+        }
+
+        private static void getUserWithNullName() {
+            User.builder()
+                    .name(null)
                     .age(27)
                     .job("Google")
                     .address("London")
