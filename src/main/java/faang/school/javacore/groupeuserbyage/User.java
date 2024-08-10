@@ -3,10 +3,7 @@ package faang.school.javacore.groupeuserbyage;
 import lombok.AllArgsConstructor;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @ToString
 @AllArgsConstructor
@@ -18,19 +15,19 @@ public class User {
     private final String address;
 
     public static void main(String[] args) {
-        List<User> users = new ArrayList<>();
         User alex = new User("Alex", 22, "Wb", "RB, g.Grodno, ul.Limoja");
         User oleg = new User("Oleg", 28, "Wb", "RB, g.Gomel, ul.Soveckay");
         User max = new User("Max", 22, "Avito", "RB, g.Minsk, ul.Derjinskogo");
-        users.add(alex);
-        users.add(oleg);
-        users.add(max);
+        List<User> users = new ArrayList<>(Arrays.asList(alex, oleg, max));
 
-        HashMap<Integer, List> mapUsers = groupUsersOrAge(users);
+        printMapUser(groupUsersOrAge(users));
+
+    }
+
+    private static void printMapUser(HashMap<Integer, List> mapUsers) {
         for (Map.Entry<Integer, List> user : mapUsers.entrySet()) {
             System.out.println(user);
         }
-
     }
 
     private static HashMap<Integer, List> groupUsersOrAge(List<User> listUsers) {
