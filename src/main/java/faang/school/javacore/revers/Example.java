@@ -1,6 +1,7 @@
 package faang.school.javacore.revers;
 
 public class Example {
+
     private static void reverseArray(int[] nums) {
         for (int start = 0, end = nums.length - 1; start < end; start++, end--) {
             int temp = nums[start];
