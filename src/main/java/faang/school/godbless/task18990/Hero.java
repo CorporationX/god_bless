@@ -13,11 +13,9 @@ public class Hero {
     private int level;
     private List<Creature> listOfArmy;
 
-    public Hero(String name, String fraction, int experience, int level) {
+    public Hero(String name, String fraction) {
         this.name = name;
         this.fraction = fraction;
-        this.experience = experience;
-        this.level = level;
         listOfArmy = new ArrayList<>();
     }
 

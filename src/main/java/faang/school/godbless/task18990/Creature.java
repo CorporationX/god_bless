@@ -1,11 +1,11 @@
 package faang.school.godbless.task18990;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 @ToString
@@ -17,8 +17,11 @@ public abstract class Creature {
     public int speed;
     public int quantity;
 
+
+
+
     public  int getDamage(){
-        return attack;
+        return attack * quantity;
     };
 
 }
