@@ -44,7 +44,7 @@ public class House {
             return storage.get(name);
         }
 
-        throw new NullPointerException();
+        throw new IllegalArgumentException(String.format("Дом с названием %s не был найден.", name));
     }
 
     static void printHouses() {
