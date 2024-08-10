@@ -10,12 +10,11 @@ public class Main {
     public static void main(String[] args) {
     }
 
-    public static WeatherData getWeatherData(String city){
+    public static WeatherData getWeatherData(String city) {
         String normalizedCity = city.trim().toLowerCase();
 
-        if (weatherDataMap.containsKey(normalizedCity)){
-            WeatherData cityWeatherData = weatherDataMap.get(normalizedCity);
-            return cityWeatherData;
+        if (weatherDataMap.containsKey(normalizedCity)) {
+            return weatherDataMap.get(normalizedCity);
         }
         else{
             weatherDataMap.put(city, callWeatherAPI(normalizedCity));
@@ -23,37 +22,27 @@ public class Main {
         }
     }
 
-    public static WeatherData callWeatherAPI(String city){
+    public static WeatherData callWeatherAPI(String city) {
         Random theMostPreciseWeatherData = new Random();
         int temperatureData = theMostPreciseWeatherData.nextInt(-70, 50);
         int humidityData = theMostPreciseWeatherData.nextInt(0, 100);
 
-        WeatherData cityWeatherData= new WeatherData(city, temperatureData, humidityData);
-
-        return cityWeatherData;
+        return new WeatherData(city, temperatureData, humidityData);
     }
 
-    public static void updateCache(String city){
+    public static void updateCache(String city) {
         String normalizedCity = city.trim().toLowerCase();
         weatherDataMap.put(normalizedCity, callWeatherAPI(normalizedCity));
     }
 
-    public static void deleteWeatherData(String city){
+    public static void deleteWeatherData(String city) {
         String normalizedCity = city.trim().toLowerCase();
-
-        if (weatherDataMap.containsKey(normalizedCity)){
-            weatherDataMap.remove(normalizedCity);
-        }
-        else {
-            throw new IllegalArgumentException("There is no any information about " + city + " in cache");
-        }
+        weatherDataMap.remove(normalizedCity);
     }
 
-    public static void getCacheInfo(){
-        for (Map.Entry<String, WeatherData> city : weatherDataMap.entrySet()){
+    public static void getCacheInfo() {
+        for (Map.Entry<String, WeatherData> city : weatherDataMap.entrySet()) {
             System.out.println(city.getValue().getCity());
         }
     }
-
-
 }
