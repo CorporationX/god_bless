@@ -5,7 +5,7 @@ import java.util.*;
 public class Main {
 
     static private final Set<Student> setStudent = new HashSet<>();
-    static private final HashMap<List, List> mapStudent = new HashMap<>();
+    static private final HashMap<List<String>, List<String>> mapStudent = new HashMap<>();
 
     public static void main(String[] args) {
         Student alex = new Student("Alex", "Biographical", 2);
@@ -20,9 +20,7 @@ public class Main {
         addNewStudent(max);
         addNewStudent(anna);
 
-        HashMap<List, List> mapStudent = addStudentsMap(setStudent);
-
-        for (Map.Entry<List, List> student : mapStudent.entrySet()) {
+        for (Map.Entry<List<String>, List<String>> student : addStudentsMap(setStudent).entrySet()) {
             System.out.println(student);
         }
 
@@ -30,20 +28,20 @@ public class Main {
 
         printAllStudentFacultyEndYear("Сhemical", 1);
         printAllStudentFacultyEndYear("Сhemical", 0);
-        printAllStudentFacultyEndYear("", 1);
+        printAllStudentFacultyEndYear(null, 1);
 
         for (Student studentSet : setStudent) {
             System.out.println(studentSet);
         }
     }
 
-    private static HashMap<List, List> addStudentsMap(Set<Student> studentSet) {
+    private static HashMap<List<String>, List<String>> addStudentsMap(Set<Student> studentSet) {
         if (studentSet != null) {
             for (Student student : studentSet) {
                 ArrayList<String> kay = new ArrayList<>();
                 kay.add(student.getFaculty());
                 kay.add(String.valueOf(student.getYear()));
-                mapStudent.computeIfAbsent(kay, k -> new LinkedList()).add(student.getName());
+                mapStudent.computeIfAbsent(kay, k -> new LinkedList<>()).add(student.getName());
             }
         }
         return mapStudent;
@@ -62,14 +60,15 @@ public class Main {
     }
 
     private static void printAllStudentFacultyEndYear(String faculty, int year) {
-        if (!(faculty.isBlank() || year != 0)) {
-            for (Student student : setStudent) {
-                if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                    System.out.println(student);
+        if (faculty != null && !(faculty.isBlank())) {
+            if (year != 0) {
+                for (Student student : setStudent) {
+                    if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                        System.out.println(student);
+                    }
                 }
-            }
-        } else {
-            System.out.println("Введите факультет и курс студента");
-        }
+            } else System.out.println("Курс студента не может быть 0");
+
+        } else System.out.println("Введите факультет студента");
     }
 }
