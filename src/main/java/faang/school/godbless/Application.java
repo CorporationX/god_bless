@@ -1,5 +1,8 @@
 package faang.school.godbless;
 
+import faang.school.godbless.david.User;
+import java.util.*;
+
 public class Application {
     public static void main(String[] args) {
         DataCenterService dataCenterService = new DataCenterService();
@@ -16,6 +19,5 @@ public class Application {
         dataCenterService.allocateResources(request);
 
         System.out.println("Total Energy Consumption: " + dataCenterService.getTotalEnergyConsumption());
-
     }
 }
