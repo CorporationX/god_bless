@@ -11,8 +11,9 @@ public class Main {
         library.put(book,place);
     }
 
-    public static String  removeBook(Book book){
-        if(library.containsKey(book)) {
+    public static String  removeBook(String title, String author, int year){
+        Book book = new Book(title, author,year);
+        if(library.containsKey(book)){
             library.remove(book);
             return "Книга удалена";
         } else return "Книга не найдена";
@@ -33,7 +34,7 @@ public class Main {
 
         putNewBook(new Book("Три товарища", "Эрих Мария Ремарк", 1939), "ряд 3, полка 6");
         System.out.println(findPlaceOfBook(new Book("Цветы для Элджернона", "Дениел Киз", 1959)));
-        System.out.println(removeBook(new Book("Цветы для Элджернона", "Дениел Киз", 1959)));
+        System.out.println(removeBook("Цветы для Элджернона", "Дениел Киз", 1959));
         System.out.println(getAllBooks());
 
     }
