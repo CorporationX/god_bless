@@ -15,15 +15,15 @@ class DataCenterServiceTest {
 
     @Test
     public void testServerAdd() {
-        dataCenterService.addServerToDataCenter(new Server(60));
+        dataCenterService.addServerToDataCenter(new Server(60, 1));
 
         assertEquals(60, dataCenterService.getMaximumLoad());
     }
 
     @Test
     public void testAllocateResources() {
-        dataCenterService.addServerToDataCenter(new Server(60));
-        dataCenterService.addServerToDataCenter(new Server(60));
+        dataCenterService.addServerToDataCenter(new Server(60, 1));
+        dataCenterService.addServerToDataCenter(new Server(60, 2));
         dataCenterService.allocateResources(new ResourceRequest(30));
 
         assertEquals(30, dataCenterService.getTotalLoad());
