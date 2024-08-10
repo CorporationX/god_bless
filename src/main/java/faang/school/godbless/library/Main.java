@@ -2,6 +2,7 @@ package faang.school.godbless.library;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
 
@@ -11,9 +12,12 @@ public class Main {
         bookMap.put(new Book("title", "author", 2024), "1");
         bookMap.put(new Book("title1", "author1", 2024), "2");
         bookMap.put(new Book("title2", "author2", 2024), "3");
+        Book book = null;
 
         bookMap.put(new Book("title", "author", 2024), "1");
         System.out.println(bookMap.size());
+
+        addBook(book, "3");
 
         addBook(new Book("title3", "author3", 2024), "3");
 
@@ -25,11 +29,8 @@ public class Main {
     }
 
     public static void addBook(Book book, String shelf) {
-        if (isValidData(book, shelf)) {
-            bookMap.put(book, shelf);
-        } else {
-            System.out.println("Данные введены некорректно!");
-        }
+        Objects.requireNonNull(book, "Объект книга не может быть null");
+        bookMap.put(book, shelf);
     }
 
     public static void removeBook(Book book) {
@@ -48,10 +49,5 @@ public class Main {
         for (Map.Entry<Book, String> entry : bookMap.entrySet()) {
             System.out.println(entry.getKey() + " - " + entry.getValue());
         }
-    }
-
-    private static boolean isValidData(Book book, String shelf) {
-        return !book.getAuthor().isBlank() || !book.getTitle().isBlank() ||
-                !shelf.isBlank();
     }
 }
