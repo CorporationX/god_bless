@@ -12,12 +12,7 @@ public class Main {
         Map<Pair, List<Student>> studentMap = new HashMap<>();
         for (Student student : students) {
             Pair pair = new Pair(student.getFaculty(), student.getYear());
-            if (!studentMap.containsKey(pair)) {
-                studentMap.put(pair, new ArrayList<>());
-                studentMap.get(pair).add(student);
-            } else {
-                studentMap.get(pair).add(student);
-            }
+            studentMap.computeIfAbsent(pair, key -> new ArrayList<>()).add(student);
         }
         return studentMap;
     }
@@ -65,6 +60,7 @@ public class Main {
         System.out.println();
 
         deleteStudent("Valera", "C++", 2);
+        deleteStudent("Lana", "Rust", 0);
         printAllGroupStudents(studentList);
         System.out.println();
 
