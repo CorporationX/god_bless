@@ -19,10 +19,10 @@ public class Main {
         addEvent(new StreamEvent(10, "db", "addToDb"));
         addEvent(new StreamEvent(11, "updates", "rollback"));
 
-        Optional<StreamEvent> optionalEvent = Optional.ofNullable(findEventById(10));
-        if (optionalEvent.isPresent()) {
-            System.out.println(optionalEvent.get().getId() + " " + optionalEvent.get().getEventType()
-                    + " " + optionalEvent.get().getData());
+        StreamEvent event = findEventById(10);
+        if (event != null) {
+            System.out.println(event.getId() + " " + event.getEventType()
+                    + " " + event.getData());
         } else {
             System.out.println("No event found");
         }
@@ -30,15 +30,14 @@ public class Main {
         printAllEvents();
         System.out.println("-------------");
 
-        Optional<List<StreamEvent>> optionalListEvent = Optional.ofNullable(findEventsByType("db"));
-        if (optionalListEvent.isPresent()) {
-            List<StreamEvent> eventList = optionalListEvent.get();
-            eventList.forEach(eventType -> System.out.println(eventType.getId() + " " + eventType.getData()));
+        List<StreamEvent>listEventType = findEventsByType("db");
+        if (listEventType!=null) {
+            listEventType.forEach(eventType-> System.out.println(eventType.getId() + " " + eventType.getData()));
         } else {
             System.out.println("No such even type found");
         }
         System.out.println("-------------");
-        removeEvent(66);
+        removeEvent(2);
         printAllEvents();
     }
 
@@ -64,8 +63,8 @@ public class Main {
 
     public static void removeEvent(int id) {
         Optional<StreamEvent> optionalEvent = Optional.ofNullable(events.get(id));
-        if (optionalEvent.isPresent()) {
-            StreamEvent event = optionalEvent.get();
+        StreamEvent event = events.get(id);
+        if (event != null) {
             events.remove(id);
             List<StreamEvent> list = typesEvents.get(event.getEventType());
             list.remove(event);
