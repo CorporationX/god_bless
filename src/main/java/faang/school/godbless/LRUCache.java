@@ -1,14 +1,10 @@
 package faang.school.godbless;
 
-import lombok.AllArgsConstructor;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LRUCache {
-    private int size;
+    private final int size;
     private final HashMap<String, Data> cache = new HashMap<>();
 
     public LRUCache(int size) {

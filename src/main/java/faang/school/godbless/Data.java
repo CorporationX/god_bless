@@ -1,15 +1,11 @@
 package faang.school.godbless;
 
-import lombok.Getter;
-
 import java.util.UUID;
 
+@lombok.Data
 public class Data {
-    @Getter
-    private String id;
-    @Getter
-    private String value;
-    @Getter
+    final private String id;
+    final private String value;
     private long timestamp;
 
     public Data(String value) {
