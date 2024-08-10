@@ -5,7 +5,6 @@ import java.util.*;
 public class MainSimple {
     private static Map<String, List<WebPage>> mapIndex = new HashMap<>();
     private static Set<WebPage> setIndex = new HashSet<>();
-//    private static Map<String, NodeWebPageMain2> nodeIndex = new HashMap<>();
 
     public static void main(String[] args) {
         List<WebPage> pages = List.of(new WebPage("https://ya.ru", "Yandex", "yandex java hello"),
@@ -24,7 +23,7 @@ public class MainSimple {
             }
             System.out.println("-------------------------");
         }
-        System.out.println("+++++++++++++++++");
+        System.out.println("Search by word");
         Optional<List<WebPage>> webPages = Optional.ofNullable(searchByWord("hello"));
         if (webPages.isPresent()) {
             for (var webPage : webPages.get()) {
@@ -46,6 +45,7 @@ public class MainSimple {
 
     private static void indexWebPage(WebPage webPage) {
         if (!setIndex.contains(webPage)) {
+            setIndex.add(webPage);
             String[] contentByWords = webPage.getContent().split(" ");
             for (String word : contentByWords) {
                 if (!mapIndex.containsKey(word)) {
@@ -63,15 +63,9 @@ public class MainSimple {
         return mapIndex.get(word);
     }
 
-    private static void removeByUrl (String url) {
+    private static void removeByUrl(String url) {
         for (var entry : mapIndex.entrySet()) {
-            Iterator<WebPage> iterator = entry.getValue().iterator();
-            while (iterator.hasNext()) {
-                WebPage webPage = iterator.next();
-                if (webPage.getUrl().equals(url)) {
-                    iterator.remove();
-                }
-            }
+            entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
         }
     }
 }

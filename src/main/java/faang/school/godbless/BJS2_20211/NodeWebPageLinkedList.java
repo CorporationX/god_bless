@@ -42,7 +42,7 @@ public class NodeWebPageLinkedList {
     public void printList() {
         NodeWebPage current = head;
         while (current != null) {
-            System.out.println(current.getWebPage().getTitle());
+            System.out.println(current.getWebPage().getUrl());
             current = current.getRightNode();
         }
         System.out.println();

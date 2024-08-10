@@ -19,9 +19,14 @@ public class Main {
         }
         System.out.println("===================");
         System.out.println("Search by word");
-        List<WebPage>listPages = searchPageByWord("hello");
-        for (WebPage page : listPages) {
-            System.out.println(page.getTitle());
+
+        Optional<List<WebPage>> listSearchByWord = Optional.ofNullable(searchPageByWord("hello"));
+        if (listSearchByWord.isPresent()) {
+            for (WebPage page : listSearchByWord.get()) {
+                System.out.println(page.getTitle());
+            }
+        } else {
+            System.out.println("Can't find any web page");
         }
         removeByUrl("https://ya.ru");
         removeByUrl("https://amazon.com");
@@ -76,7 +81,7 @@ public class Main {
                 nodeWebPage.getLeftNode().setRightNode(null);
                 nodeWebPage.setLeftNode(null);
                 myList.setSize(myList.getSize() - 1);
-            } else if (nodeWebPage.getLeftNode() == null) {
+            } else {
                 nodeWebPage.getMyList().setHead(nodeWebPage.getRightNode());
                 nodeWebPage.getRightNode().setLeftNode(null);
                 nodeWebPage.setRightNode(null);
@@ -84,15 +89,7 @@ public class Main {
             }
         }
         listNodesQuickRemove.remove(url);
-        List<String> wordRemove = new ArrayList<>();
-        for (var entry : mapIndex.entrySet()) {
-            if (entry.getValue().getSize() == 0) {
-                wordRemove.add(entry.getKey());
-            }
-        }
-        for (String word : wordRemove) {
-            mapIndex.remove(word);
-        }
+        mapIndex.entrySet().removeIf(value->value.getValue().getSize()==0);
     }
 
     private static List<WebPage> searchPageByWord(String word) {
