@@ -18,9 +18,7 @@ public class DataCenterService implements OptimizationStrategy {
         if (server == null)
         {
             System.out.println("Server with id " + id + " not found");
-        }
-        else
-        {
+        } else {
             if (forceDelete) {
                 dataCenter.deleteServer(server);
             }
@@ -67,9 +65,7 @@ public class DataCenterService implements OptimizationStrategy {
         double freeResources = getMaximumLoad() - getTotalLoad();
         if (freeResources < loadToAllocate) {
             System.out.println("Серверам не хватит мощности что бы обработать такой запрос!");
-        }
-        else
-        {
+        } else {
             for (Server server : dataCenter.getServers()) {
                 double currentServerLoad = server.getLoad();
                 if ((currentServerLoad + loadToAllocate) > server.getMaxLoad()) {
