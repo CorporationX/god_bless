@@ -13,6 +13,10 @@ public class Student {
     private String faculty;
     private Integer year;
 
+    public String getYearFaculty(){
+        return faculty + year;
+    }
+
 
 
 
