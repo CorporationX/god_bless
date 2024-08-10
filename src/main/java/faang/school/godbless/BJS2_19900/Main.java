@@ -5,35 +5,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-//////// добавление нового студента и его предметов с оценками;
-//////// добавление нового предмета для существующего студента с оценкой;
-// удаление студента и его предметов с оценками;
-//////// вывод списка всех студентов и их оценок по предметам.
-// -----------------------------------
-//////// добавление нового предмета и списка студентов, изучающих его;
-// добавление студента к существующему предмету;
-// удаление студента из предмета;
-//////// вывод списка всех предметов и студентов, изучающих их.
-
-
 public class Main {
     private final static Map<Student, Map<Subject, Integer>> studentMap = new HashMap<>();
     private final static Map<Subject, List<Student>> subjectMap = new HashMap<>();
     private final static int DEFAULT_RATE = 4;
 
     public static void main(String[] args) {
-        addStudent(new Student(0, "Ivan"), new HashMap<Subject, Integer>() {{
+        addStudent(new Student(0, "Ivan"), new HashMap<>() {{
             put(new Subject(0, "Math"), 5);
             put(new Subject(1, "Literature"), 4);
             put(new Subject(2, "Sport"), 4);
         }});
-        addStudent(new Student(1, "Petr"), new HashMap<Subject, Integer>() {{
+        addStudent(new Student(1, "Petr"), new HashMap<>() {{
             put(new Subject(0, "Math"), 4);
             put(new Subject(2, "Sport"), 5);
             put(new Subject(1, "Literature"), 4);
             put(new Subject(3, "Biology"), 5);
         }});
-
 
         printAllStudentRates();
         System.out.println("======");
@@ -49,6 +37,49 @@ public class Main {
         printAllStudentRates();
         System.out.println("===========");
         printAllSubjects();
+        System.out.println("=========Add Student to existing subject");
+        addStudentToExistingSubject(new Subject(2, "Sport"), new Student(3, "Dmitry"));
+        printAllStudentRates();
+        System.out.println("===========");
+        printAllSubjects();
+        System.out.println("===========Remove student");
+        removeStudent(new Student(2, "Petr"));
+        printAllStudentRates();
+        System.out.println("===========");
+        printAllSubjects();
+        System.out.println("============Remove student from subject");
+        removeStudentFromSubject(new Subject(2, "Sport"), new Student(3, "Dmitry"));
+        printAllStudentRates();
+        System.out.println("===========");
+        printAllSubjects();
+    }
+
+    private static void removeStudentFromSubject(Subject subject, Student student) {
+        if (subjectMap.containsKey(subject)) {
+            subjectMap.get(subject).remove(student);
+        }
+        if (studentMap.containsKey(student)) {
+            studentMap.get(student).remove(subject);
+        }
+    }
+
+    private static void removeStudent(Student student) {
+        for (var subject : subjectMap.entrySet()) {
+            subject.getValue().remove(student);
+        }
+        studentMap.remove(student);
+    }
+
+    private static void addStudentToExistingSubject(Subject subject, Student student) {
+        subjectMap.computeIfPresent(subject, (key, value) -> {
+            value.add(student);
+            return value;
+        });
+        studentMap.computeIfPresent(student, (key, value) -> {
+            value.put(subject, DEFAULT_RATE);
+            return value;
+        });
+        studentMap.computeIfAbsent(student, key -> new HashMap<>()).put(subject, DEFAULT_RATE);
     }
 
     private static void addSubjectForExistingStudent(Student student, Subject subject) {
@@ -80,7 +111,6 @@ public class Main {
             System.out.println(entry.getKey().getName() + ": ");
             for (var subject : entry.getValue().entrySet()) {
                 System.out.println(subject.getKey().getName() + " - " + subject.getValue());
-
             }
             System.out.println("-------------");
         }
