@@ -1,41 +1,38 @@
 package faang.school.godbless.BJS2_19819;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-//добавление нового пользователя и его списка запросов;
-//добавление нового запроса для существующего пользователя;
-
-//удаление пользователя и его списка запросов;
-//вывод списка всех пользователей и их запросов.
-//Реализуйте метод для вывода истории запросов пользователя, используя обход массива Entry внутри HashMap.
-//Выведите имя пользователя и его запросы, отсортированные по времени создания запроса.
-
+import java.util.*;
 
 public class Main {
     private static final Map<User, List<Query>> userQueries = new HashMap<>();
 
     public static void main(String[] args) {
         addUserQueries(new User(0, "Viktor"), new ArrayList<>() {{
-            new Query(0, "ViktorQuery1", LocalDateTime.now());
-            new Query(1, "ViktorQuery2", LocalDateTime.now());
-            new Query(2, "ViktorQuery3", LocalDateTime.now());
+            add(new Query(0, "ViktorQuery1", LocalDateTime.now()));
+            add(new Query(1, "ViktorQuery2", LocalDateTime.now()));
+            add(new Query(2, "ViktorQuery3", LocalDateTime.now()));
         }});
         addUserQueries(new User(1, "Petr"), new ArrayList<>() {{
-            new Query(0, "PetrQuery1", LocalDateTime.now());
-            new Query(1, "PetrQuery2", LocalDateTime.now());
-            new Query(2, "PetrQuery3", LocalDateTime.now());
+            add(new Query(0, "PetrQuery1", LocalDateTime.now()));
+            add(new Query(1, "PetrQuery2", LocalDateTime.now()));
+            add(new Query(2, "PetrQuery3", LocalDateTime.now()));
         }});
         addUserQueries(new User(2, "Ivan"), new ArrayList<>() {{
-            new Query(0, "IvanQuery1", LocalDateTime.now());
-            new Query(1, "IvanQuery2", LocalDateTime.now());
-            new Query(2, "IvanQuery3", LocalDateTime.now());
+            add(new Query(0, "IvanQuery1", LocalDateTime.now()));
+            add(new Query(1, "IvanQuery2", LocalDateTime.now()));
+            add(new Query(2, "IvanQuery3", LocalDateTime.now()));
         }});
 
-
+        printAllUsers();
+        System.out.println("Add query to existing user");
+        addQueryCurrUser(new User(1, "Petr"), new Query(3, "PetrQuery4", LocalDateTime.now()));
+        printAllUsers();
+        System.out.println("Remove user");
+        removeUser(new User(0, "Viktor"));
+        printAllUsers();
+        System.out.println("Print user's query");
+        System.out.println("------------");
+        printUserQuery(new User(1, "Petr"));
     }
 
     public static void addUserQueries(User user, List<Query> queries) {
@@ -50,11 +47,22 @@ public class Main {
     }
 
     public static void removeUser(User user) {
-
+        userQueries.remove(user);
     }
 
     public static void printAllUsers() {
-
+        for (var entry : userQueries.entrySet()) {
+            System.out.println(entry.getKey().getName() + ": ");
+            entry.getValue().forEach(query -> System.out.println(query.getContent()));
+        }
     }
 
+    public static void printUserQuery(User user) {
+        if (userQueries.containsKey(user)) {
+            System.out.println(user.getName() + ": ");
+            userQueries.get(user).stream()
+                    .sorted(Comparator.comparing(Query::getTimestamp))
+                    .forEach(t -> System.out.println(t.getContent() + " - " + t.getTimestamp()));
+        }
+    }
 }
