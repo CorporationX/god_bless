@@ -13,8 +13,12 @@ public class Main {
         House baratheon = new House("Баратеон", "Герб Баратеонов");
         House talli = new House("Талли", "Герб Талли");
         House martell = new House("Мартелл", "Герб Мартелл");
-        houses = new HashMap<>(Map.of(stark.getName(), stark, lanister.getName(), lanister,
-                baratheon.getName(), baratheon, talli.getName(), talli, martell.getName(), martell));
+        houses.put(stark.getName(), stark);
+        houses.put(lanister.getName(), lanister);
+        houses.put(baratheon.getName(), baratheon);
+        houses.put(talli.getName(), talli);
+        houses.put(martell.getName(), martell);
+
         printAllHouses();
         System.out.println("------------------------------------------");
         House greyjoy = new House("Грейджой", "Герб Грейджой");
@@ -36,7 +40,7 @@ public class Main {
     }
 
     public static String getSigil(String name) {
-        return houses.get(name).getSigil();
+        return houses.containsKey(name) ? houses.get(name).getSigil() : null;
     }
 
     public static void printAllHouses() {
