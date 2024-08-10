@@ -10,11 +10,6 @@ public class EnergyEfficencyOptimizationStrategy implements OptimizationStrategy
 
         servers.sort(Comparator.comparingDouble(Server::getEnergyConsumption));
 
-        for (Server server : servers) {
-            if (server.getLoad() < 0) {
-                continue;
-            }
-            servers.remove(server);
-        }
+        servers.removeIf(server -> server.getLoad() < 0);
     }
 }

@@ -18,11 +18,19 @@ public class Server {
         this.load += load;
     }
 
-    public void releaseLoad(double load) {
-        this.load -= load;
+    public boolean releaseLoad(double load) {
+        if (this.load >= load) {
+            this.load -= load;
+            return true;
+        }
+        return false;
     }
 
-    public boolean canHandleLoad(double additionalLoad) {
-        return (this.load + additionalLoad) <= maxLoad;
+    public boolean handleLoad(double additionalLoad) {
+        if ((this.load + additionalLoad) <= maxLoad) {
+            this.allocateLoad(additionalLoad);
+            return true;
+        }
+        return false;
     }
 }

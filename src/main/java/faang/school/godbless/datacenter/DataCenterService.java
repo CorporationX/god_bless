@@ -25,24 +25,22 @@ public class DataCenterService {
                 .sum();
     }
 
-    public void allocateResources(ResourceRequest request) {
+    public boolean allocateResources(ResourceRequest request) {
         for (Server server : dataCenter.getServers()) {
-            if (server.canHandleLoad(request.getLoad())) {
-                server.allocateLoad(request.getLoad());
-                return;
+            if (server.handleLoad(request.getLoad())) {
+                return true;
             }
         }
-        throw new RuntimeException("Not enough resources available to handle the request.");
+        return false;
     }
 
-    public void releaseResources(ResourceRequest request) {
+    public boolean releaseResources(ResourceRequest request) {
         for (Server server : dataCenter.getServers()) {
-            if (server.getLoad() >= request.getLoad()) {
-                server.releaseLoad(request.getLoad());
-                return;
+            if (server.releaseLoad(request.getLoad())) {
+                return true;
             }
         }
-        throw new RuntimeException("No server found with enough load to release.");
+        return false;
     }
 
     public void optimizeLoad() {
