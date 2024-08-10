@@ -6,10 +6,10 @@ import java.util.HashMap;
 public class Solution {
     public static void main(String[] args) {
         ArrayList<User> users = new ArrayList<>();
-        users.add(new User("Dmitriy", 26, "Aston", "street 1"));
-        users.add(new User("Ivan", 26, "Sber", "street 2"));
-        users.add(new User("Oleg", 18, "Tinkoff", "street 3"));
-        users.add(new User("Pavel", 19, "Yandex", "street 4"));
+        users.add(new User("Dmitriy", 26, "Google", "London"));
+        users.add(new User("Ivan", 26, "Amazon", "Amsterdam"));
+        users.add(new User("Oleg", 18, "Google", "New York"));
+        users.add(new User("Pavel", 19, "Uber", "New York"));
 
         HashMap<Integer, ArrayList<User>> groupUsersAge = User.groupUsers(users);
         for (Integer key : groupUsersAge.keySet()) {
