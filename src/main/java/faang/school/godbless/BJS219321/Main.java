@@ -6,7 +6,7 @@ public class Main {
     private static Set<Student> students = new HashSet<>();
     private static Map<String, List<Student>> sortStudentsByFacultyAndYear = new HashMap<>();
 
-    public static Map<String, List<Student>> sortStudentsByFacultyAndYear(Set<Student> students){
+    public static Map<String, List<Student>> sortStudentsByFacultyAndYear(Set<Student> students) {
         Map<String, List<Student>> result = new HashMap<>();
         for (Student student : students) {
             String key = student.getFaculty() + "-" + student.getYear();
@@ -25,7 +25,7 @@ public class Main {
         students.remove(student);
     }
 
-    public static List<Student> searchStudentsByFacultyAndYear(String faculty, int year){
+    public static List<Student> searchStudentsByFacultyAndYear(String faculty, int year) {
         String key = faculty + "-" + year;
         return sortStudentsByFacultyAndYear.get(key);
     }
