@@ -38,14 +38,22 @@ public class Application {
 
 
     public static void main(String[] args) {
-        System.out.println(getWeatherData("Moscow"));
-        System.out.println(getWeatherData("Vladikavkaz"));
-        System.out.println(getWeatherData("Moscow")); // Должно быть получено из кэша
+        Hero hero1 = new Hero("Sir Christian", "Castle", 500, 10);
+        Hero hero2 = new Hero("Vey", "Necropolis", 300, 8);
 
-        updateWeatherData("Moscow", 20.5, 75.0);
-        System.out.println(getWeatherData("Moscow"));
+        hero1.addCreature(new Pikeman(), 10);
+        hero1.addCreature(new Swordman(), 5);
 
-        removeWeatherData("Vladikavkaz");
-        System.out.println(getAllCities());
+        hero2.addCreature(new Griffin(), 6);
+        hero2.addCreature(new Angel(), 2);
+
+        Battlefield battlefield = new Battlefield(hero1, hero2);
+        Hero winner = battlefield.battle();
+
+        if (winner != null) {
+            System.out.println("Winner: " + winner.getArmy());
+        } else {
+            System.out.println("It's a draw!");
+        }
     }
 }
