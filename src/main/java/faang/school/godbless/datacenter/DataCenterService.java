@@ -7,18 +7,18 @@ public class DataCenterService {
     private DataCenter dataCenter;
     private OptimizationStrategy optimizationStrategy;
 
-    public static void addServer(Server server){
-        DataCenter.getServersList().add(server);
+    public void addServer(Server server){
+        dataCenter.getServersList().add(server);
     }
 
-    public static void removeServer(Server server){
-        DataCenter.getServersList().remove(server);
+    public void removeServer(Server server){
+        dataCenter.getServersList().remove(server);
     }
 
     public int getTotalEnergyConsumption(){
         int totalConsumption = 0;
 
-        for (Server server : DataCenter.getServersList()){
+        for (Server server : dataCenter.getServersList()){
             totalConsumption += server.getEnergyConsumption();
         }
         return totalConsumption;
