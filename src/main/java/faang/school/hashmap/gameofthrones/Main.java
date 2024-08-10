@@ -18,11 +18,11 @@ public class Main {
         addNewHouse(lannister);
         addNewHouse(baratheons);
         addNewHouse(martell);
-        addNewHouse(arenas);
+        addNewHouse(null);
 
         printAllHouseAndSigil();
-        printInfoSigil("Stark");
-        deleteHouse(" ");
+        printInfoSigil(null);
+        deleteHouse(null);
         deleteHouse("Stark");
         printAllHouseAndSigil();
 
@@ -35,7 +35,7 @@ public class Main {
     }
 
     private static void deleteHouse(String nameHouse) {
-        if (!(nameHouse.isBlank())) {
+        if (nameHouse != null && !(nameHouse.isBlank())) {
             mapHouse.remove(nameHouse);
         } else {
             System.out.println("Введите название дома");
@@ -43,8 +43,11 @@ public class Main {
     }
 
     private static void printInfoSigil(String nameHouse) {
-        if (mapHouse.containsKey(nameHouse)) {
-            System.out.println(mapHouse.get(nameHouse).getSigilHouse());
+        if (nameHouse != null && !(nameHouse.isBlank())) {
+            if (mapHouse.containsKey(nameHouse)) {
+                System.out.println(mapHouse.get(nameHouse).getSigilHouse());
+                System.out.println(1);
+            }
         }
     }
 
