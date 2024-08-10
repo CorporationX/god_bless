@@ -23,29 +23,25 @@ public class Hero {
         this.army = new HashMap<>();
     }
 
-    public void addCreature(Creature creature, int quantity){
+    public void addCreature(Creature creature, int quantity) {
         army.put(creature, army.getOrDefault(creature, 0) + quantity);
     }
 
-    public void removeCreature(Creature creature, int quantity){
+    public void removeCreature(Creature creature, int quantity) {
         if (army.containsKey(creature)){
             int currentQuantity = army.get(creature);
             if (currentQuantity <= quantity){
                 army.remove(creature);
             }
             else {
-                army.put(creature, currentQuantity - quantity);
+                 army.put(creature, currentQuantity - quantity);
             }
         }
     }
 
-    public Map<Creature, Integer> getArmy(){
-        return army;
-    }
-
-    public int getTotalArmyDamage(){
+    public int getTotalArmyDamage() {
         int totalDamage = 0;
-        for (Map.Entry<Creature, Integer> pair : army.entrySet()){
+        for (Map.Entry<Creature, Integer> pair : army.entrySet()) {
             totalDamage += pair.getKey().getDamage() * pair.getValue();
         }
         return totalDamage;
