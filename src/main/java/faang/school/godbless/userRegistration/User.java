@@ -27,7 +27,7 @@ public class User {
     }
 
     private void validation(String name, int age, String job, String address) {
-        if (name.isBlank() || name.isEmpty()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name can't be empty");
         } else if (age < MIN_AGE) {
             throw new IllegalArgumentException("Age can't be lower 18");
