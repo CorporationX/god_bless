@@ -3,14 +3,18 @@ package faang.school.godbless.basic.reverse;
 import java.util.Arrays;
 
 public class Example {
+
     public static void reverse(int[] nums) {
-        int[] reverseNums = new int[nums.length];
-        int cnt = 0;
-        for (int i = nums.length - 1 ;  i >= 0; i--) {
-            reverseNums[cnt] = nums[i];
-            cnt++;
+        int[] newNums = Arrays.copyOf(nums, nums.length);;
+        System.out.println("Original nums: " + Arrays.toString(nums));
+        int count = newNums.length - 1;
+        for (int i = 0 ;  i < newNums.length; i++) {
+            int tmp = newNums[count];
+            if (count == i) break;
+            newNums[count] = newNums[i];
+            newNums[i] = tmp;
+            count--;
         }
-        System.out.println("Initial nums: " + Arrays.toString(nums));
-        System.out.println("Reversed nums: " + Arrays.toString(reverseNums));
+        System.out.println("Reversed nums: " + Arrays.toString(newNums));
     }
 }
