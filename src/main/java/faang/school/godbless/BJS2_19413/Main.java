@@ -63,12 +63,7 @@ public class Main {
         for (Student student : students) {
             YearAndFacultyMapKey yearAndFacultyMapKey = new YearAndFacultyMapKey(student.getFaculty(), student.getYear());
 
-            if (studentsToFacultyMap.containsKey(yearAndFacultyMapKey)) {
-                studentsToFacultyMap.get(yearAndFacultyMapKey).add(student);
-            } else {
-                studentsToFacultyMap.put(yearAndFacultyMapKey, new ArrayList<>());
-                studentsToFacultyMap.get(yearAndFacultyMapKey).add(student);
-            }
+            studentsToFacultyMap.computeIfAbsent(yearAndFacultyMapKey, k -> new ArrayList<>()).add(student);
 
         }
         return studentsToFacultyMap;
