@@ -3,7 +3,7 @@ package faang.school.godbless.javahashmap.task7;
 public class Swordman extends Creature {
 
     public Swordman() {
-        super("Creature", 1, 6 , 3 , 10, 10, 10, 0);
+        super("Swordman", 1, 6 , 3 , 10, 10, 10, 0);
     }
 
     @Override
