@@ -10,6 +10,7 @@ import java.util.Objects;
 @Getter
 @ToString
 public class Student {
+
     private String name;
     private String faculty;
     private int year;

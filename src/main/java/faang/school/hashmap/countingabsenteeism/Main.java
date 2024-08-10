@@ -38,11 +38,13 @@ public class Main {
     }
 
     private static HashMap<List, List> addStudentsMap(Set<Student> studentSet) {
-        for (Student student : studentSet) {
-            ArrayList<String> kay = new ArrayList<>();
-            kay.add(student.getFaculty());
-            kay.add(String.valueOf(student.getYear()));
-            mapStudent.computeIfAbsent(kay, k -> new LinkedList()).add(student.getName());
+        if (studentSet != null) {
+            for (Student student : studentSet) {
+                ArrayList<String> kay = new ArrayList<>();
+                kay.add(student.getFaculty());
+                kay.add(String.valueOf(student.getYear()));
+                mapStudent.computeIfAbsent(kay, k -> new LinkedList()).add(student.getName());
+            }
         }
         return mapStudent;
     }
@@ -54,7 +56,9 @@ public class Main {
     }
 
     private static void deleteStudent(Student student) {
-        setStudent.remove(student);
+        if (student != null) {
+            setStudent.remove(student);
+        }
     }
 
     private static void printAllStudentFacultyEndYear(String faculty, int year) {
