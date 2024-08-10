@@ -1,13 +1,8 @@
 package faang.school.godbless.BJS2_20211;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
-public class Main3 {
+public class Main {
     private static Map<String, NodeWebPageLinkedList> mapIndex = new HashMap<>();
     private static Set<WebPage> setIndex = new HashSet<>();
     private static Map<String, List<NodeWebPageLinkedList.NodeWebPage>> listNodesQuickRemove = new HashMap<>();
@@ -18,14 +13,19 @@ public class Main3 {
         indexWebPage(new WebPage("https://netflix.com", "Netflix", "hello"));
         indexWebPage(new WebPage("https://uber.com", "Uber", "java yrdy"));
         indexWebPage(new WebPage("https://amazon.com", "Amazon", "else amazing hello something"));
-        System.out.println("+_+_+_+_+_+_+_+_+");
         for (var entry : mapIndex.entrySet()) {
             System.out.println("Index: " + entry.getKey());
             entry.getValue().printList();
         }
         System.out.println("===================");
+        System.out.println("Search by word");
+        List<WebPage>listPages = searchPageByWord("hello");
+        for (WebPage page : listPages) {
+            System.out.println(page.getTitle());
+        }
         removeByUrl("https://ya.ru");
-        System.out.println("AFTER REMOVE");
+        removeByUrl("https://amazon.com");
+        System.out.println("After remove");
         for (var entry : mapIndex.entrySet()) {
             System.out.println("Index: " + entry.getKey());
             entry.getValue().printList();
@@ -59,29 +59,48 @@ public class Main3 {
 
     public static void removeByUrl(String url) {
         List<NodeWebPageLinkedList.NodeWebPage> list = listNodesQuickRemove.get(url);
-//        for (NodeWebPageLinkedList.NodeWebPage node : list) {
-//            System.out.println("sdfg"+node);
-//        }
         for (NodeWebPageLinkedList.NodeWebPage nodeWebPage : list) {
-            if (nodeWebPage.getRightNode() != null && nodeWebPage.getLeftNode() != null) {
+            NodeWebPageLinkedList myList = nodeWebPage.getMyList();
+            if (nodeWebPage.getRightNode() == null && nodeWebPage.getLeftNode() == null) {
+                nodeWebPage.getMyList().setTail(null);
+                nodeWebPage.getMyList().setHead(null);
+                myList.setSize(myList.getSize() - 1);
+            } else if (nodeWebPage.getRightNode() != null && nodeWebPage.getLeftNode() != null) {
                 nodeWebPage.getRightNode().setLeftNode(nodeWebPage.getLeftNode());
                 nodeWebPage.getLeftNode().setRightNode(nodeWebPage.getRightNode());
                 nodeWebPage.setLeftNode(null);
                 nodeWebPage.setRightNode(null);
+                myList.setSize(myList.getSize() - 1);
             } else if (nodeWebPage.getRightNode() == null) {
+                nodeWebPage.getMyList().setTail(nodeWebPage.getLeftNode());
                 nodeWebPage.getLeftNode().setRightNode(null);
                 nodeWebPage.setLeftNode(null);
+                myList.setSize(myList.getSize() - 1);
             } else if (nodeWebPage.getLeftNode() == null) {
-                System.out.println("sad" +nodeWebPage.getWebPage().getTitle());
-                System.out.println(nodeWebPage.getRightNode().getWebPage().getTitle());
-                System.out.println(nodeWebPage.getLeftNode());
-
-                System.out.println("l node" +nodeWebPage.getRightNode().getLeftNode());
+                nodeWebPage.getMyList().setHead(nodeWebPage.getRightNode());
                 nodeWebPage.getRightNode().setLeftNode(null);
-                System.out.println("l node" +nodeWebPage.getRightNode().getLeftNode());
                 nodeWebPage.setRightNode(null);
+                myList.setSize(myList.getSize() - 1);
             }
         }
         listNodesQuickRemove.remove(url);
+        List<String> wordRemove = new ArrayList<>();
+        for (var entry : mapIndex.entrySet()) {
+            if (entry.getValue().getSize() == 0) {
+                wordRemove.add(entry.getKey());
+            }
+        }
+        for (String word : wordRemove) {
+            mapIndex.remove(word);
+        }
+    }
+
+    private static List<WebPage> searchPageByWord(String word) {
+        for (var entry : mapIndex.entrySet()) {
+            if (entry.getKey().equals(word)) {
+                return entry.getValue().getListPages();
+            }
+        }
+        return null;
     }
 }

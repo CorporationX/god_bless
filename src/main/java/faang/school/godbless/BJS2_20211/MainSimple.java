@@ -1,19 +1,11 @@
-package faang.school.godbless.BJS2_20211.temp;
+package faang.school.godbless.BJS2_20211;
 
-import faang.school.godbless.BJS2_20211.WebPage;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.Set;
-
-public class Main {
+public class MainSimple {
     private static Map<String, List<WebPage>> mapIndex = new HashMap<>();
     private static Set<WebPage> setIndex = new HashSet<>();
-    private static Map<String, NodeWebPageMain2> nodeIndex = new HashMap<>();
+//    private static Map<String, NodeWebPageMain2> nodeIndex = new HashMap<>();
 
     public static void main(String[] args) {
         List<WebPage> pages = List.of(new WebPage("https://ya.ru", "Yandex", "yandex java hello"),
@@ -41,9 +33,18 @@ public class Main {
         } else {
             System.out.println("Can't find web pages with this word");
         }
+        removeByUrl("https://ya.ru");
+        System.out.println("After remove");
+        for (var entry : mapIndex.entrySet()) {
+            System.out.println(entry.getKey() + ": ");
+            for (var webPage : entry.getValue()) {
+                System.out.println(webPage.getUrl());
+            }
+            System.out.println("-------------------------");
+        }
     }
 
-    public static void indexWebPage(WebPage webPage) {
+    private static void indexWebPage(WebPage webPage) {
         if (!setIndex.contains(webPage)) {
             String[] contentByWords = webPage.getContent().split(" ");
             for (String word : contentByWords) {
@@ -60,5 +61,17 @@ public class Main {
 
     private static List<WebPage> searchByWord(String word) {
         return mapIndex.get(word);
+    }
+
+    private static void removeByUrl (String url) {
+        for (var entry : mapIndex.entrySet()) {
+            Iterator<WebPage> iterator = entry.getValue().iterator();
+            while (iterator.hasNext()) {
+                WebPage webPage = iterator.next();
+                if (webPage.getUrl().equals(url)) {
+                    iterator.remove();
+                }
+            }
+        }
     }
 }
