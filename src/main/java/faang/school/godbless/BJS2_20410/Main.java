@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<Integer, StreamEvent> eventsAndIdMap = new HashMap<>();
-    private static Map<String, List<StreamEvent>> eventAndTypeMap = new HashMap<>();
+    private static Map<Integer, StreamEvent> idVsEvent = new HashMap<>();
+    private static Map<String, List<StreamEvent>> typeVsEvents = new HashMap<>();
 
     public static void main(String[] args) {
         StreamEvent event1 = new StreamEvent(1, "TypeA", "DataA");
@@ -28,11 +28,10 @@ public class Main {
             throw new NullPointerException("Event cant be null");
         }
 
-        eventsAndIdMap.put(event.getId(), event);
+        idVsEvent.put(event.getId(), event);
 
-        List<StreamEvent> streamEvents = eventAndTypeMap.getOrDefault(event.getEventType(), new ArrayList<>());
+        List<StreamEvent> streamEvents = typeVsEvents.computeIfAbsent(event.getEventType(), k -> new ArrayList<>());
         streamEvents.add(event);
-        eventAndTypeMap.put(event.getEventType(), streamEvents);
     }
 
     private static StreamEvent getEvent(int id) {
@@ -40,8 +39,8 @@ public class Main {
             throw new IllegalArgumentException("Event id cant be negative");
         }
 
-        if (eventsAndIdMap.containsKey(id)) {
-            return eventsAndIdMap.get(id);
+        if (idVsEvent.containsKey(id)) {
+            return idVsEvent.get(id);
         } else {
             System.out.println("Event with id " + id + " not found");
             return null;
@@ -53,8 +52,8 @@ public class Main {
             throw new IllegalArgumentException("Event type cant be empty");
         }
 
-        if (eventAndTypeMap.containsKey(eventType)) {
-            return eventAndTypeMap.get(eventType);
+        if (typeVsEvents.containsKey(eventType)) {
+            return typeVsEvents.get(eventType);
         } else {
             System.out.println("Event with type " + eventType + " not found");
             return null;
@@ -63,17 +62,17 @@ public class Main {
 
     private static void deleteEvent(int id) {
 
-        StreamEvent removedEvent = eventsAndIdMap.remove(id);
+        StreamEvent removedEvent = idVsEvent.remove(id);
 
         if (removedEvent != null) {
 
-            List<StreamEvent> eventsList = eventAndTypeMap.get(removedEvent.getEventType());
+            List<StreamEvent> eventsList = typeVsEvents.get(removedEvent.getEventType());
 
             if (eventsList != null) {
                 eventsList.remove(removedEvent);
 
                 if (eventsList.isEmpty()) {
-                    eventAndTypeMap.remove(removedEvent.getEventType());
+                    typeVsEvents.remove(removedEvent.getEventType());
                 }
             }
 
@@ -83,8 +82,8 @@ public class Main {
     }
 
     private static void printAllEvents() {
-        if (!eventsAndIdMap.isEmpty()) {
-            for (Map.Entry<Integer, StreamEvent> entry : eventsAndIdMap.entrySet()) {
+        if (!idVsEvent.isEmpty()) {
+            for (Map.Entry<Integer, StreamEvent> entry : idVsEvent.entrySet()) {
                 System.out.println("Id: " + entry.getKey() + ", Type: " + entry.getValue().getEventType() + ", data: " + entry.getValue().getData());
             }
         } else {
