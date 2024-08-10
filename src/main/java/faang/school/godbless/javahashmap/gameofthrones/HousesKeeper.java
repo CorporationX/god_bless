@@ -1,10 +1,11 @@
 package faang.school.godbless.javahashmap.gameofthrones;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HousesKeeper {
 
-    private final HashMap<String, House> houses = new HashMap<>();
+    private final Map<String, House> houses = new HashMap<>();
 
     public void addHouse(House house) {
         houses.put(house.getName(), house);
