@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_19805;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class Main {
     private static Map<String, House> houses = new HashMap<>();
@@ -44,8 +43,8 @@ public class Main {
     }
 
     public static void printHouseInfo(String houseName) {
-        Optional<House> house = Optional.ofNullable(houses.get(houseName));
-        if (house.isPresent()) {
+        House house = houses.get(houseName);
+        if (house!=null) {
             System.out.println(houses.get(houseName).getSigil());
         } else {
             System.out.println("Can't find house: " + houseName);
