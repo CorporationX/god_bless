@@ -24,9 +24,9 @@ public class MainSimple {
             System.out.println("-------------------------");
         }
         System.out.println("Search by word");
-        Optional<List<WebPage>> webPages = Optional.ofNullable(searchByWord("hello"));
-        if (webPages.isPresent()) {
-            for (var webPage : webPages.get()) {
+        List<WebPage> webPages = searchByWord("hello");
+        if (webPages != null) {
+            for (var webPage : webPages) {
                 System.out.println(webPage.getUrl());
             }
         } else {
@@ -48,13 +48,8 @@ public class MainSimple {
             setIndex.add(webPage);
             String[] contentByWords = webPage.getContent().split(" ");
             for (String word : contentByWords) {
-                if (!mapIndex.containsKey(word)) {
-                    mapIndex.put(word, new ArrayList<>() {{
-                        add(webPage);
-                    }});
-                } else {
-                    mapIndex.get(word).add(webPage);
-                }
+                mapIndex.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
+                mapIndex.get(word).add(webPage);
             }
         }
     }

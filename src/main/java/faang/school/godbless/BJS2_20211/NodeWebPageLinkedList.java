@@ -9,7 +9,6 @@ import java.util.List;
 @Getter
 @Setter
 public class NodeWebPageLinkedList {
-
     private NodeWebPage head;
     private NodeWebPage tail;
     private int size;

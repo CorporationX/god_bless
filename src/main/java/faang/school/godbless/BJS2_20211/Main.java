@@ -3,9 +3,9 @@ package faang.school.godbless.BJS2_20211;
 import java.util.*;
 
 public class Main {
-    private static Map<String, NodeWebPageLinkedList> mapIndex = new HashMap<>();
-    private static Set<WebPage> setIndex = new HashSet<>();
-    private static Map<String, List<NodeWebPageLinkedList.NodeWebPage>> listNodesQuickRemove = new HashMap<>();
+    private static final Map<String, NodeWebPageLinkedList> mapIndex = new HashMap<>();
+    private static final Set<WebPage> setIndex = new HashSet<>();
+    private static final Map<String, List<NodeWebPageLinkedList.NodeWebPage>> listNodesQuickRemove = new HashMap<>();
 
     public static void main(String[] args) {
         indexWebPage(new WebPage("https://ya.ru", "Yandex", "java hello"));
@@ -20,9 +20,9 @@ public class Main {
         System.out.println("===================");
         System.out.println("Search by word");
 
-        Optional<List<WebPage>> listSearchByWord = Optional.ofNullable(searchPageByWord("hello"));
-        if (listSearchByWord.isPresent()) {
-            for (WebPage page : listSearchByWord.get()) {
+        List<WebPage> listSearchByWord = searchPageByWord("hello");
+        if (listSearchByWord != null) {
+            for (WebPage page : listSearchByWord) {
                 System.out.println(page.getTitle());
             }
         } else {
@@ -89,7 +89,7 @@ public class Main {
             }
         }
         listNodesQuickRemove.remove(url);
-        mapIndex.entrySet().removeIf(value->value.getValue().getSize()==0);
+        mapIndex.entrySet().removeIf(value -> value.getValue().getSize() == 0);
     }
 
     private static List<WebPage> searchPageByWord(String word) {
