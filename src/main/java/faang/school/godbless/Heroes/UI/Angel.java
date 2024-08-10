@@ -5,18 +5,12 @@ public class Angel extends Creature {
     private static final int  PROTECTION_CONST = 6;
     private static final int  SPEED_CONST = 19;
 
-
-
     public Angel(int level, int count) {
-        super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Angel";
+        super("Angel lvl" + level, level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
     }
 
-    public Angel(Angel angel) {
-        super(angel.level, angel.damage, angel.protection,
-                angel.speed, angel.count);
-        name = "Angel";
+    @Override
+    public int summaryPower() {
+        return level * (damage / 2 + protection / 3 + speed * 2);
     }
-
-
 }

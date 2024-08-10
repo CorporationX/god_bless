@@ -8,14 +8,12 @@ public class Pikeman extends Creature {
 
 
     public Pikeman(int level, int count) {
-        super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Pikeman";
+        super("Pikeman lvl" + level, level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
     }
 
-    public Pikeman(Pikeman pikeman) {
-        super(pikeman.level, pikeman.damage, pikeman.protection,
-                pikeman.speed, pikeman.count);
-        name = "Pikeman";
+    @Override
+    public int summaryPower() {
+        return level * (damage * 2 + protection / 3 + speed);
     }
 
 

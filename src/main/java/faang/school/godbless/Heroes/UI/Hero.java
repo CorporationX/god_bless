@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @AllArgsConstructor
-public class Hero{
+public class Hero {
     @Getter
     private String name;
     private String fraction;
@@ -25,8 +25,8 @@ public class Hero{
         army = new HashMap<>();
     }
 
-    public void addCreature(Creature creature, int quantity){
-        if ( army.containsKey(creature.getName()) ){
+    public void addCreature(Creature creature, int quantity) {
+        if ( army.containsKey(creature.getName()) ) {
             army.get(creature.getName()).
                     setCount(army.get(creature.getName()).getCount() + quantity);
         }else {
@@ -35,21 +35,21 @@ public class Hero{
         }
     }
 
-    public void removeCreature(Creature creature, int quantity){
-        if (army.get(creature.getName())!=null){
+    public void removeCreature(Creature creature, int quantity) {
+        if (army.get(creature.getName())!=null) {
             army.get(creature.getName()).setCount(
                     army.get(creature.getName()).getCount()-quantity
             );
         }
-        if (army.get(creature.getName()).getCount()<=0){
+        if (army.get(creature.getName()).getCount()<=0) {
             army.remove(creature.getName());
         }
     }
 
-    public int summaryPower(){//метод для подсчета силы армии
+    public int summaryPower() {//метод для подсчета силы армии
         int sum = 0;
-        for (Map.Entry<String, Creature> pair:army.entrySet()){
-            sum+=(pair.getValue()).summaryPower()*(pair.getValue()).getCount();
+        for (Map.Entry<String, Creature> pair : army.entrySet()) {
+            sum+=(pair.getValue()).summaryPower() * (pair.getValue()).getCount();
         }
         return sum;
     }

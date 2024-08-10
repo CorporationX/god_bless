@@ -9,14 +9,11 @@ public class Swordman extends Creature {
 
 
     public Swordman(int level, int count) {
-        super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Swordman";
+        super("Swordman lvl" + level, level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
     }
 
-    public Swordman(Swordman swordman) {
-        super(swordman.level, swordman.damage, swordman.protection,
-                swordman.speed, swordman.count);
-        name = "Swordman";
+    @Override
+    public int summaryPower() {
+        return level * ( damage + protection / 3 + speed * 2);
     }
-
 }

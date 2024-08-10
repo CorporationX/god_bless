@@ -6,15 +6,13 @@ public class Griffin extends Creature {
     private static final int PROTECTION_CONST = 6;
     private static final int SPEED_CONST = 15;
 
-
     public Griffin(int level, int count) {
-        super(level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
-        name = "Griffin";
+        super("Griffin lvl" + level, level, ATTACK_CONST, PROTECTION_CONST, SPEED_CONST, count);
     }
 
-    public Griffin(Griffin griffin) {
-        super(griffin.level, griffin.damage, griffin.protection,
-                griffin.speed, griffin.count);
-        name = "Griffin";
+
+    @Override
+    public int summaryPower() {
+        return level*(damage+protection+speed);
     }
 }

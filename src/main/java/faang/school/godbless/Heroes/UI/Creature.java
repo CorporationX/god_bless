@@ -6,32 +6,28 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+import javax.annotation.processing.SupportedAnnotationTypes;
+
 @EqualsAndHashCode
+@Getter
+@Setter
+@NonNull
 public abstract class Creature {
-    @Getter
     protected String name;
-    @NonNull
     protected int level;
-    @NonNull
     protected int damage;
-    @NonNull
     protected int protection;
-    @NonNull
     protected int speed;
-    @Getter
-    @Setter
     protected int count = 0;
 
-    Creature(int level, int damage, int protection, int speed, int count) {
+    Creature(String name, int level, int damage, int protection, int speed, int count) {
+        this.name = name;
         this.level = level;
-        this.damage = damage*(level);
-        this.protection = protection*(level);
-        this.speed = speed*(level);
+        this.damage = damage;
+        this.protection = protection;
+        this.speed = speed;
         this.count += count;
     }
 
-
-    public int summaryPower(){//сила юнита
-        return speed+protection+damage+level;
-    }
+    public abstract int summaryPower();
 }
