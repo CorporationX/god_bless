@@ -15,7 +15,7 @@ public class Hero {
     private String fraction;
     private int experience;
     private int level;
-    private Map<Creature, Integer> armyHero = new HashMap<>();
+    private List<Creature> armyHero = new ArrayList<>();
 
     public Hero(String name, String fraction, int experience, int level) {
         this.name = name;
@@ -40,12 +40,12 @@ public class Hero {
         return level;
     }
 
-    public Map<Creature, Integer> getArmyHero() {
+    public List<Creature> getArmyHero() {
         return armyHero;
     }
 
     public void addCreature(Creature creature) {
-        armyHero.put(creature, creature.getQuality());
+        armyHero.add(creature);
     }
 
     public void removeCreatur(Creature creature) {
@@ -53,7 +53,7 @@ public class Hero {
     }
 
     public List<Creature> getArmy() {
-        List<Creature> outArmy = new ArrayList<>(armyHero.keySet());
+        List<Creature> outArmy = new ArrayList<>(armyHero);
         return outArmy;
     }
 
