@@ -16,7 +16,7 @@ public class User {
 
     public User(String firstName, int age, String companyName, String address) throws IllegalArgumentException{
 
-        if(firstName.length()==0) {
+        if(firstName.isEmpty()) {
             throw new IllegalArgumentException("имя не может быть пустым");
         }
         else if(age<18) {
