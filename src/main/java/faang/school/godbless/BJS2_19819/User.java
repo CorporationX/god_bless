@@ -1,10 +1,12 @@
 package faang.school.godbless.BJS2_19819;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import java.util.Objects;
 
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User {
     private int id;
     private String name;
@@ -17,8 +19,4 @@ public class User {
         return id == user.id && Objects.equals(name, user.name);
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 }
