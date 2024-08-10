@@ -28,9 +28,9 @@ public class Hero {
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (army.containsKey(creature)){
+        if (army.containsKey(creature)) {
             int currentQuantity = army.get(creature);
-            if (currentQuantity <= quantity){
+            if (currentQuantity <= quantity) {
                 army.remove(creature);
             }
             else {

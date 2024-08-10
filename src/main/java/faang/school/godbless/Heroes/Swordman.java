@@ -1,6 +1,6 @@
 package faang.school.godbless.Heroes;
 
-public class Swordman extends Creature{
+public class Swordman extends Creature {
     public Swordman() {
         super("Swordman", 2, 6, 7, 5);
     }
