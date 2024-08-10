@@ -75,5 +75,6 @@ public class Application {
         app.removeUser(user1);
 
         app.printAllUsersAndQueries();
+
     }
 }
