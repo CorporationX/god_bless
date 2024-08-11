@@ -14,7 +14,7 @@ public class Main {
 
         Student.removeStudent("Xenia A.", "Programming", 1);
 
-        Student.getStudentsByFacultyAndYear("Xenia A.", "Programming", 1);
+        Student.getStudentsByFacultyAndYear("Programming", 1);
 
         Student.printStudents();
     }
