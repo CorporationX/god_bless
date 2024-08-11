@@ -16,6 +16,19 @@ public class Hero {
     private Map<Creature, Integer> army;
 
     public Hero(String name, String faction, int experience, int level) {
+        if (name == null) {
+            throw new IllegalArgumentException("name cannot be null");
+        }
+        if (faction == null) {
+            throw new IllegalArgumentException("faction cannot be null");
+        }
+        if (experience < 0) {
+            throw new IllegalArgumentException("experience cannot be less than 0");
+        }
+        if (level < 0) {
+            throw new IllegalArgumentException("level cannot be less than 0");
+        }
+
         this.name = name;
         this.faction = faction;
         this.experience = experience;
@@ -24,22 +37,30 @@ public class Hero {
     }
 
     public void addCreature(Creature creature, int quantity) {
-        if (quantity > 0) {
-            army.merge(creature, quantity, Integer::sum);
-        } else {
-            System.out.print("Invalid adding creature: quantity must be greater than 0");
+        if (creature == null) {
+            throw new IllegalArgumentException("Creature cannot be null");
         }
+
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("quantity cannot be less or equal to zero");
+        }
+
+        army.merge(creature, quantity, Integer::sum);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (quantity > 0) {
-            army.computeIfPresent(creature, (key, currentQuantity) -> {
-                int newQuantity = currentQuantity - quantity;
-                return newQuantity > 0 ? newQuantity : null;
-            });
-        } else {
-            System.out.print("Invalid adding creature: quantity must be greater than 0");
+        if (creature == null) {
+            throw new IllegalArgumentException("Creature cannot be null");
         }
+
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("quantity cannot be less or equal to zero");
+        }
+
+        army.computeIfPresent(creature, (key, currentQuantity) -> {
+            int newQuantity = currentQuantity - quantity;
+            return newQuantity > 0 ? newQuantity : null;
+        });
     }
 
     public boolean isAlive()  {

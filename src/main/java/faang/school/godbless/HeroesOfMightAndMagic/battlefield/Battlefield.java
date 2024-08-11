@@ -2,16 +2,22 @@ package faang.school.godbless.HeroesOfMightAndMagic.battlefield;
 
 import faang.school.godbless.HeroesOfMightAndMagic.creatures.Creature;
 import faang.school.godbless.HeroesOfMightAndMagic.heroes.Hero;
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
 public class Battlefield {
-    private Hero hero1;
-    private Hero hero2;
+    private final Hero hero1;
+    private final Hero hero2;
+
+    public Battlefield(Hero hero1, Hero hero2) {
+        if (hero1 == null || hero2 == null) {
+            throw new IllegalArgumentException("Hero cannot be null");
+        }
+        this.hero1 = hero1;
+        this.hero2 = hero2;
+    }
 
     public void battle() {
         System.out.println("Battle between " + hero1.getName() + " and " + hero2.getName() + " started");
