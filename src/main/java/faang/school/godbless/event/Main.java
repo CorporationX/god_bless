@@ -34,7 +34,7 @@ public class Main {
 
     public static void deleteEvent(int eventId) {
         Optional.ofNullable(idEventMap.remove(eventId))
-                .ifPresent(event -> typeEventsMap.remove(event.getEventType()));
+                .ifPresent(event -> typeEventsMap.get(event.getEventType()).remove(event));
     }
 
     private static void printAll() {
