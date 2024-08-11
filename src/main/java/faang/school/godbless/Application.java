@@ -32,12 +32,7 @@ public class Application {
     public static Map<String, List<Product>> groupProduct(Set<Product> setProduct) {
         Map<String, List<Product>> groupCategoryProduct = new HashMap<>();
         for (Product product : setProduct) {
-            if (groupCategoryProduct.containsKey(product.getCategory())) {
-                groupCategoryProduct.get(product.getCategory()).add(product);
-            } else {
-                groupCategoryProduct.put(product.getCategory(), new ArrayList<>());
-                groupCategoryProduct.get(product.getCategory()).add(product);
-            }
+            groupCategoryProduct.computeIfAbsent(product.getCategory(), k-> new ArrayList<>()).add(product);
         }
         return groupCategoryProduct;
     }
