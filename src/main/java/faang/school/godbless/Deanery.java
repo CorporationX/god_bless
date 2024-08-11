@@ -10,22 +10,35 @@ public class Deanery {
     Map<FacultyYearInfo, List<Student>> cachedGroupStudentsByFacultyAndYear;
 
     Deanery(List<Student> students) {
+        if (students == null) {
+            throw new IllegalArgumentException("students cannot be null");
+        }
         students.forEach(this::addStudent);
     }
 
     public void addStudent(Student newStudent) {
+        if (newStudent == null) {
+            return;
+        }
         students.add(newStudent);
 
         invalidateCache();
     }
 
     public void removeStudent(String name, String faculty, int year) {
+        if (name == null || faculty == null) {
+            return;
+        }
+
         students.removeIf(student -> student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getYear() == year);
 
         invalidateCache();
     }
 
     public List<Student> getStudentsByFacultyAndYear(FacultyYearInfo info) {
+        if (info == null) {
+            return new ArrayList<>();
+        }
         return groupStudentsByFacultyAndYear().get(info);
     }
 
