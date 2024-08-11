@@ -19,8 +19,8 @@ public class Main {
         printByCategory(productSet);
     }
 
-    public static HashMap<String, List<Product>> groupByCategory(Set<Product> products) {
-        HashMap<String, List<Product>> result = new HashMap<>();
+    public static Map<String, List<Product>> groupByCategory(Set<Product> products) {
+        Map<String, List<Product>> result = new HashMap<>();
 
         for(var product : products) {
             result.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
@@ -30,7 +30,7 @@ public class Main {
     }
 
     public static void printByCategory(Set<Product> products) {
-        HashMap<String, List<Product>> grouped = groupByCategory(products);
+        Map<String, List<Product>> grouped = groupByCategory(products);
         for(var entry : grouped.entrySet()) {
             System.out.println(entry.getKey());
             for(var product : entry.getValue()) {
