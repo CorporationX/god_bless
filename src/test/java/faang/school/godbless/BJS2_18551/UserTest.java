@@ -13,12 +13,12 @@ class UserTest {
     private static final Map<User, String> FIND_HOBBY_LOVERS_RESULT = User.findHobbyLovers(USERS, Set.of("Swimming", "Yoga"));
 
     @Test
-    void findHobbyLoversCorrect() {
+    void testFindHobbyLoversCorrect() {
         assertEquals(CORRECT_USER_MAP, FIND_HOBBY_LOVERS_RESULT);
     }
 
     @Test
-    void findHobbyLoversIncorrect() {
+    void testFindHobbyLoversIncorrect() {
         assertNotEquals(INCORRECT_USER_MAP, FIND_HOBBY_LOVERS_RESULT);
     }
 }
