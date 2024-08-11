@@ -2,6 +2,11 @@ package faang.school.godbless.cache.cache;
 
 public class Gismeteo {
 
+    private static final int MIN_TEMPERATURE = 20;
+    private static final int MAX_TEMPERATURE = 35;
+    private static final int MIN_HUMIDITY = 35;
+    private static final int MAX_HUMIDITY = 70;
+
     public static WeatherData getWeather(String city) {
 
         WeatherData weatherData = new WeatherData();
