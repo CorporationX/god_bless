@@ -42,7 +42,6 @@ public class Student {
         students.add(new Student("Kraiu",  "automatic & electronic", 1986));
         students.add(new Student("Kutuzov",  "warrier", 1812));
         students.add(new Student("Gorge",  "automatic & electronic", 2017));
-
         return students;
     }
 }

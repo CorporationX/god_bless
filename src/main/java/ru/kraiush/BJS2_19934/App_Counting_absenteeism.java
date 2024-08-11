@@ -5,7 +5,6 @@ import ru.kraiush.model.Student;
 import java.util.*;
 
 public class App_Counting_absenteeism {
-
     public static void main(String[] args) {
 
         List<Student> students = Student.getStudens();
