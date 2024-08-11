@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Main {
 
-    private static final Map<Integer, StreamEvent> intEventMap = new HashMap<>();
-    private static final Map<String, List<StreamEvent>> strEventsMap = new HashMap<>();
+    private static final Map<Integer, StreamEvent> INT_EVENT_MAP = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> STR_EVENTS_MAP = new HashMap<>();
 
     public static void main(String[] args) {
         addStreamEvent(new StreamEvent(1, "Review", "vJxOtzUiiAI"));
@@ -41,53 +41,44 @@ public class Main {
     }
 
     public static StreamEvent addStreamEvent(StreamEvent streamEvent) {
-        if (strEventsMap.containsKey(streamEvent.getEventType())) {
-            strEventsMap.get(streamEvent.getEventType()).add(streamEvent);
+        if (STR_EVENTS_MAP.containsKey(streamEvent.getEventType())) {
+            STR_EVENTS_MAP.get(streamEvent.getEventType()).add(streamEvent);
         } else {
-            strEventsMap.put(streamEvent.getEventType(), new ArrayList<>(Arrays.asList(streamEvent)));
+            STR_EVENTS_MAP.put(streamEvent.getEventType(), new ArrayList<>(Arrays.asList(streamEvent)));
         }
-        return intEventMap.put(streamEvent.getId(), streamEvent);
+        return INT_EVENT_MAP.put(streamEvent.getId(), streamEvent);
     }
 
     public static StreamEvent findStreamEventById(Integer id) {
-        if (intEventMap.containsKey(id)) {
-            return intEventMap.get(id);
-        }
-        return null;
+        return INT_EVENT_MAP.get(id);
     }
 
     public static List<StreamEvent> findStreamEventsByType(String eventType) {
-        if (strEventsMap.containsKey(eventType)) {
-            return strEventsMap.get(eventType);
-        }
-        return null;
+        return STR_EVENTS_MAP.get(eventType);
     }
 
     public static StreamEvent removeStreamEventById(Integer id) {
-        if (intEventMap.containsKey(id)) {
-            StreamEvent streamEvent = intEventMap.get(id);
-            List<StreamEvent> streamEvents = strEventsMap.get(streamEvent.getEventType());
-            Iterator<StreamEvent> iterator = streamEvents.iterator();
-            while (iterator.hasNext()) {
-                StreamEvent currentEvent = iterator.next();
-                if (currentEvent.equals(streamEvent)) {
-                    iterator.remove();
-                    break;
-                }
+        StreamEvent streamEvent = INT_EVENT_MAP.get(id);
+        List<StreamEvent> streamEvents = STR_EVENTS_MAP.get(streamEvent.getEventType());
+        Iterator<StreamEvent> iterator = streamEvents.iterator();
+        while (iterator.hasNext()) {
+            StreamEvent currentEvent = iterator.next();
+            if (currentEvent.equals(streamEvent)) {
+                iterator.remove();
+                break;
             }
-            return intEventMap.remove(id);
         }
-        return null;
+        return INT_EVENT_MAP.remove(id);
     }
 
     public static void printAllStreamEvents() {
-        for (Map.Entry<Integer, StreamEvent> entry : intEventMap.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : INT_EVENT_MAP.entrySet()) {
             System.out.println("ID: " + entry.getKey() + " " + entry.getValue());
         }
     }
 
     public static void printAllStreamEventByType() {
-        for (Map.Entry<String, List<StreamEvent>> entry : strEventsMap.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : STR_EVENTS_MAP.entrySet()) {
             System.out.println("Type " + entry.getKey());
             entry.getValue().forEach(System.out::println);
         }
