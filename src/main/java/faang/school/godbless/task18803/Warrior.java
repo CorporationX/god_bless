@@ -1,16 +1,21 @@
 package faang.school.godbless.task18803;
 
 public class Warrior extends Character {
-    public Warrior(String name, Integer power, Integer dexterity, Integer intelligence) {
+
+    public static final int POWER = 10;
+    public static final int DEXTERITY = 5;
+    public static final int INTELLIGENCE = 3;
+
+    public Warrior(String name) {
         super(name);
-        this.power = 10;
-        this.dexterity = 5;
-        this.intelligence = 3;
+        this.power = POWER;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
     }
 
     @Override
-    public void attack(Character character) {
-        this.power -= 10;
-        character.health -= 10;
+    public void attack(Character attacking, Character defending) {
+        defending.power -= POWER;
+        defending.health -= POWER;
     }
 }

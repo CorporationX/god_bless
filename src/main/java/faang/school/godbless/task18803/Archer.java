@@ -1,20 +1,20 @@
 package faang.school.godbless.task18803;
 
 public class Archer extends Character{
+    public static final int POWER = 3;
+    public static final int DEXTERITY = 10;
+    public static final int INTELLIGENCE = 5;
+
     public Archer(String name) {
         super(name);
-    }
-
-    public Archer(String name, Integer power, Integer dexterity, Integer intelligence) {
-        super(name);
-        this.power = 3;
-        this.dexterity = 10;
-        this.intelligence = 5;
+        this.power = POWER;
+        this.dexterity = DEXTERITY;
+        this.intelligence = INTELLIGENCE;
     }
 
     @Override
-    public void attack(Character character) {
-        this.dexterity -= 10;
-        character.health -= 10;
+    public void attack(Character attacking, Character defending) {
+        attacking.power -= POWER;
+        defending.health -= POWER;
     }
 }

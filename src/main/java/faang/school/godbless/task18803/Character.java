@@ -14,13 +14,7 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(String name, Integer power, Integer dexterity, Integer intelligence) {
-        this.name = name;
-        this.power = power;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-    }
 
-    public abstract void attack(Character character);
+    public abstract void attack(Character attacking, Character defending);
 
 }
