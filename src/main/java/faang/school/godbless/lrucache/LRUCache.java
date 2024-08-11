@@ -14,12 +14,14 @@ public class LRUCache {
         this.map = new HashMap<>();
     }
 
-    public void get(int key) {
+    public Data get(int key) {
         if (map.containsKey(key)) {
             Node node = map.get(key);
             moveToTail(node);
             node.value.updateTimestamp();
+            return node.value;
         }
+        return null;
     }
 
     public void put(int key, Data value) {

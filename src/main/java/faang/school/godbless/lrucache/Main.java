@@ -7,7 +7,14 @@ public class Main {
         cache.put(2, new Data(2, 200));
         cache.put(3, new Data(3, 300));
 
-        cache.get(1);
+        // Получение данных по ключу
+        Data data = cache.get(1);
+        if (data != null) {
+            System.out.println("Fetched from cache: ID: " + data.getId() +
+                    ", Value: " + data.getValue() +
+                    ", Timestamp: " + data.getTimestamp());
+        }
+
         cache.put(4, new Data(4, 400));
 
         cache.printCache();
