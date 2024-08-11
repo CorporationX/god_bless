@@ -7,10 +7,6 @@ public class Main {
 
     public static Map<String, House> houseLibrary = new HashMap<>();
 
-//    static {
-//        HOUSE_LIBRARY.put("Старк", new House("Старк", "Волк"));
-//    }
-
     public static void main(String[] args) {
         houseLibrary.put("Старк", new House("Старк", "Волк"));
         houseLibrary.put("Ланнистер", new House("Ланнистер", "Лев"));
@@ -28,7 +24,11 @@ public class Main {
     }
 
     public static void addHouse(House house) {
-        houseLibrary.put(house.getName(), house);
+        if (house == null) {
+            System.out.println("Входящие данные не могут быть null");
+        } else {
+            houseLibrary.put(house.getName(), house);
+        }
     }
 
     public static void removeHouse(String houseName) {
