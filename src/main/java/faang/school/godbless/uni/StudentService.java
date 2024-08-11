@@ -15,7 +15,9 @@ public class StudentService {
     }
 
     public static void addStudentInList(Student student) {
-        studentList.add(student);
+        if (student != null) {
+            studentList.add(student);
+        }
     }
 
     public static void removeStudentFromList(Student student) {
@@ -25,7 +27,9 @@ public class StudentService {
     public static void printGroupStudentsByFacultyAndYear(Map<Map.Entry<String, Integer>, List<Student>> students) {
         students.forEach((k, v) -> {
             System.out.println("Faculty " + k.getKey() + ", year " + k.getValue());
-            System.out.println(v);
+            if (v != null) {
+                System.out.println(v);
+            }
         });
     }
 }
