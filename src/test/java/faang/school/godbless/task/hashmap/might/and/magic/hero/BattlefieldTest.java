@@ -1,4 +1,4 @@
-package faang.school.godbless.task.might.and.magic.hero;
+package faang.school.godbless.task.hashmap.might.and.magic.hero;
 
 import faang.school.godbless.task.hashmap.might.and.magic.creature.Angel;
 import faang.school.godbless.task.hashmap.might.and.magic.creature.Creature;
