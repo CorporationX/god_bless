@@ -13,4 +13,9 @@ public class Griffin extends Creature {
         super(GRIFFIN_NAME, GRIFFIN_LEVEL, GRIFFIN_HEALTH, GRIFFIN_DAMAGE, GRIFFIN_DEFENSE, GRIFFIN_SPEED,
                 GRIFFIN_QUANTITY);
     }
+
+    @Override
+    public int getDamage() {
+        return GRIFFIN_QUANTITY;
+    }
 }

@@ -13,4 +13,9 @@ public class Swordman extends Creature {
         super(SWORDMAN_NAME, SWORDMAN_LEVEL, SWORDMAN_HEALTH, SWORDMAN_DAMAGE, SWORDMAN_DEFENSE, SWORDMAN_SPEED,
                 SWORDMAN_QUANTITY);
     }
+
+    @Override
+    public int getDamage() {
+        return SWORDMAN_QUANTITY;
+    }
 }

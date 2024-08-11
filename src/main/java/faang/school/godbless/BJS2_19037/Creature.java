@@ -34,4 +34,6 @@ public abstract class Creature {
     public void decreaseQuantity() {
         this.quantity--;
     }
+
+    public abstract int getDamage();
 }

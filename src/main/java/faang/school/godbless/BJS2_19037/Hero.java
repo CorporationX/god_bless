@@ -6,6 +6,7 @@ import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @ToString
 public class Hero {
     private static final int MAX_ARMY_SIZE = 7;
@@ -14,7 +15,6 @@ public class Hero {
     private String fraction;
     private int experience;
     private int level;
-    @Getter
     private List<Creature> army = new ArrayList<>(MAX_ARMY_SIZE);
 
     public Hero(String name, String fraction, int experience, int level) {

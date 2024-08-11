@@ -12,4 +12,9 @@ public class Angel extends Creature {
     public Angel() {
         super(ANGEL_NAME, ANGEL_LEVEL, ANGEL_HEALTH, ANGEL_DAMAGE, ANGEL_DEFENSE, ANGEL_SPEED, ANGEL_QUANTITY);
     }
+
+    @Override
+    public int getDamage() {
+        return ANGEL_QUANTITY;
+    }
 }

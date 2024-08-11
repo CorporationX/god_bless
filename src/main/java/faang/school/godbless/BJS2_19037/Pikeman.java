@@ -13,4 +13,9 @@ public class Pikeman extends Creature {
         super(PIKEMAN_NAME, PIKEMAN_LEVEL, PIKEMAN_HEALTH, PIKEMAN_DAMAGE, PIKEMAN_DEFENSE, PIKEMAN_SPEED,
                 PIKEMAN_QUANTITY);
     }
+
+    @Override
+    public int getDamage() {
+        return PIKEMAN_QUANTITY;
+    }
 }
