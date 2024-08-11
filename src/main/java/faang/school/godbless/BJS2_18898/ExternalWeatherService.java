@@ -6,12 +6,9 @@ public class ExternalWeatherService {
 
     public static WeatherData getWeatherData(String city) {
         Random rand = new Random();
+        double temp = (double) Math.round((rand.nextDouble(20, 35) * 100)) /100;
+        double humidity = (double) Math.round((rand.nextDouble(70, 99) * 100)) /100;
 
-        String temp = String.format("%.2f", rand.nextDouble(20, 35))
-                .replace(",", ".");
-        String humidity = String.format("%.2f", rand.nextDouble(70, 99))
-                .replace(",", ".");
-
-        return new WeatherData(city, Double.parseDouble(temp), Double.parseDouble(humidity));
+        return new WeatherData(city, temp, humidity);
     }
 }

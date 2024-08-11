@@ -8,12 +8,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class WeatherData {
     private String city;
-
-    public WeatherData(String city) {
-        this.city = city;
-    }
-
-
     @Setter
     private double temperature;
     @Setter

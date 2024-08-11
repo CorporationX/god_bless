@@ -12,14 +12,12 @@ public class Main {
         WeatherData samara = new WeatherData("Samara", 27.3, 81.8);
         WeatherData nignekamsk = new WeatherData("Nignekamsk", 25.1, 73.3);
         WeatherData novgorod = new WeatherData("Novgorod", 24.9, 83.5);
-        WeatherData orel = new WeatherData("Orel");
 
         weatherCities.put(kazan.getCity(), kazan);
         weatherCities.put(moscow.getCity(), moscow);
         weatherCities.put(samara.getCity(), samara);
         weatherCities.put(nignekamsk.getCity(), nignekamsk);
         weatherCities.put(novgorod.getCity(), novgorod);
-        weatherCities.put(orel.getCity(), orel);
 
         printWeatherByCity("Moscow");
         printWeatherAllCitites();
@@ -39,9 +37,7 @@ public class Main {
     }
 
     public static WeatherData getWeatherData(String city) {
-        if (weatherCities.containsKey(city) &&
-                weatherCities.get(city).getTemperature() != 0.0 &&
-                weatherCities.get(city).getHumidity() != 0.0) {
+        if (weatherCities.containsKey(city)) {
             return weatherCities.get(city);
         } else {
             weatherCities.put(city, ExternalWeatherService.getWeatherData(city));
@@ -53,9 +49,7 @@ public class Main {
         for (var entry : weatherCities.entrySet()) {
             double temperature = entry.getValue().getTemperature();
             double humidity = entry.getValue().getHumidity();
-            if (temperature != 0.0 && humidity != 0.0) {
-                System.out.println(entry.getKey() + " : temperature - " + temperature + " humidity - " + humidity);
-            }
+            System.out.println(entry.getKey() + " : temperature - " + temperature + " humidity - " + humidity);
         }
     }
 
