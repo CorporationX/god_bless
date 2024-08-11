@@ -14,12 +14,12 @@ class UserTest {
     private static final Map<Integer, List<User>> GROUP_USERS_RESULT = User.groupUsers(USER_LIST);
 
     @Test
-    public void groupUsersCorrect() {
+    public void testGroupUsersCorrect() {
         assertEquals(CORRECT_USER_MAP, GROUP_USERS_RESULT);
     }
 
     @Test
-    public void groupUsersIncorrect() {
+    public void testGroupUsersIncorrect() {
         assertNotEquals(INCORRECT_USER_MAP, GROUP_USERS_RESULT);
     }
 }
