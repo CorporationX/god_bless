@@ -13,6 +13,9 @@ public class Query {
     private LocalDateTime timestamp;
 
     Query(String content) {
+        if (content == null) {
+            throw new IllegalArgumentException("Content cannot be null");
+        }
         this.id = UUID.randomUUID();
         this.content = content;
         this.timestamp = LocalDateTime.now();

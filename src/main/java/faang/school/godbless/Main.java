@@ -23,14 +23,23 @@ public class Main {
     }
 
     public static void addQueryForUser(HashMap<User, List<Query>> map, User user, Query query) {
+        if (map == null || user == null || query == null) {
+            return;
+        }
         map.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
     }
 
     public static void deleteUser(HashMap<User, List<Query>> map, User user) {
+        if (map == null || user == null) {
+            return;
+        }
         map.remove(user);
     }
 
     public static void printAllUsersAndQueries(HashMap<User, List<Query>> map) {
+        if (map == null) {
+            return;
+        }
         map.forEach((user, queries) -> {
             System.out.println("User: " + user.getName());
             queries.forEach(query -> System.out.println("   Query: " + query));
@@ -38,6 +47,10 @@ public class Main {
     }
 
     public static void printUserQueryHistory(HashMap<User, List<Query>> map, User user) {
+        if (map == null || user == null) {
+            return;
+        }
+
         List<Query> queries = map.get(user);
         if (queries != null) {
             System.out.println("Query history for " + user.getName() + ":");

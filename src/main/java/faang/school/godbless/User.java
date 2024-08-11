@@ -11,6 +11,9 @@ public class User {
     private String name;
 
     User(String name) {
+        if (name == null) {
+            throw new IllegalArgumentException("Name cannot be null");
+        }
         this.id = UUID.randomUUID();
         this.name = name;
     }
