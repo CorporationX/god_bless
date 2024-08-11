@@ -1,6 +1,7 @@
 package faang.school.godbless;
 
 import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,44 +9,52 @@ import java.util.Map;
 
 public class Application {
 
-    private static final Map<String, WeatherDate> WEATHER_DATE_HASH_MAP = new HashMap<>();
+    private static final Map<String, List<WebPage>> WEB_LIST_KEY_WORD = new HashMap<>();
+    private static final Map<String, WebPage> WEB_LIST_KEY_URL = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
-        WeatherDate wd1 = new WeatherDate("Moscow", 15, 30);
-        WeatherDate wd2 = new WeatherDate("Mahachkala", 24, 35);
-        WeatherDate wd3 = new WeatherDate("St.Petersburg", 20, 32);
 
-        WEATHER_DATE_HASH_MAP.put(wd1.getCity(), wd1);
-        WEATHER_DATE_HASH_MAP.put(wd2.getCity(), wd2);
-        WEATHER_DATE_HASH_MAP.put(wd3.getCity(), wd3);
+        WebPage firstWebPage = new WebPage("http.first", "wiki", "day of puple postrg");
+        WebPage secondWebPage = new WebPage("https.second", "chatgpt", "Hello world, me name is Vasia");
+        WebPage thirdWebPage = new WebPage("www.cite", "barashki", "me mee Me Mee");
+        WebPage fourthWebPage = new WebPage("org.basik", "basik", "Puple of name");
 
-        System.out.println(getInfoWeather("Moscow"));
+        addWebPage(firstWebPage);
+        addWebPage(secondWebPage);
+        addWebPage(thirdWebPage);
+        addWebPage(fourthWebPage);
 
-        allMapWeatherDate();
+        removeWebPage("www.cite");
+
+        System.out.println(getListWebPage("me"));
     }
 
-    public static WeatherDate getInfoWeather(String city) {
-        if (WEATHER_DATE_HASH_MAP.containsKey(city)) {
-            return WEATHER_DATE_HASH_MAP.get(city);
-        } else {
-            WEATHER_DATE_HASH_MAP.put(city, MokClass.mokMethod(city));
-            return WEATHER_DATE_HASH_MAP.get(city);
+    public static void addWebPage(WebPage webPage) {
+        String[] words = webPage.getContent().split("\\s+");
+
+        for (String word : words) {
+            if (WEB_LIST_KEY_WORD.containsKey(word)) {
+                WEB_LIST_KEY_WORD.get(word).add(webPage);
+            } else {
+                WEB_LIST_KEY_WORD.put(word, new ArrayList<>());
+                WEB_LIST_KEY_WORD.get(word).add(webPage);
+            }
         }
-    }
 
-    public static void addMapWeatherDate(String city, WeatherDate weatherDate) {
-        WEATHER_DATE_HASH_MAP.put(city, weatherDate);
+        WEB_LIST_KEY_URL.put(webPage.getUrl(), webPage);
     }
-
-    public static void removeMapWeatherDate(String city) {
-        WEATHER_DATE_HASH_MAP.remove(city);
+  
+    public static List<WebPage> getListWebPage(String keyWord) {
+        return WEB_LIST_KEY_WORD.get(keyWord);
     }
-
-    public static void allMapWeatherDate() {
-        for (Map.Entry<String, WeatherDate> pair : WEATHER_DATE_HASH_MAP.entrySet()) {
-            System.out.println(pair.getKey() + pair.getValue());
+  
+    public static void removeWebPage(String url) {
+        for (Map.Entry<String, List<WebPage>> pair : WEB_LIST_KEY_WORD.entrySet()) {
+            if (pair.getValue().contains(WEB_LIST_KEY_URL.get(url))) {
+                WEB_LIST_KEY_WORD.get(pair.getValue().remove(WEB_LIST_KEY_URL.get(url)));
+            }
         }
+        WEB_LIST_KEY_URL.remove(url);
     }
-
 }
