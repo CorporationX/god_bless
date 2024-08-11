@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static Map<String, WeatherData> weatherDataCash = new HashMap<String, WeatherData>();
+    private static Map<String, WeatherData> weatherDataCaсhe = new HashMap<String, WeatherData>();
 
     public static void main(String[] args) {
 
@@ -12,26 +12,26 @@ public class Main {
     }
 
     public static WeatherData getWeatherData(String city){
-        WeatherData data = weatherDataCash.get(city);
+        WeatherData data = weatherDataCaсhe.get(city);
         if(data == null){
             WeatherData mockWeatherData =  MockService.getDefaultData(city);
-            weatherDataCash.put(city, mockWeatherData);
+            weatherDataCaсhe.put(city, mockWeatherData);
 
             return mockWeatherData;
         }
         return data;
     }
 
-    public static void updateWeatherDataCash(String city, int temperature, int humidity){
-        weatherDataCash.put(city,new WeatherData(city, temperature, humidity));
+    public static void updateWeatherDataCache(String city, int temperature, int humidity){
+        weatherDataCaсhe.put(city,new WeatherData(city, temperature, humidity));
     }
 
     public static void removeData(String city){
-        weatherDataCash.remove(city);
+        weatherDataCaсhe.remove(city);
     }
 
     public static void printCities(){
-        for(Map.Entry<String, WeatherData> entry : weatherDataCash.entrySet()){
+        for(Map.Entry<String, WeatherData> entry : weatherDataCaсhe.entrySet()){
             System.out.println(entry.getKey());
         }
     }
