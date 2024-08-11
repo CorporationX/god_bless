@@ -1,4 +1,4 @@
-import BJS2_18525.User;
+import faang.school.godbless.BJS2_18525.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
