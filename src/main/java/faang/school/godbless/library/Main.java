@@ -2,7 +2,6 @@ package faang.school.godbless.library;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class Main {
 
@@ -29,8 +28,11 @@ public class Main {
     }
 
     public static void addBook(Book book, String shelf) {
-        Objects.requireNonNull(book, "Объект книга не может быть null");
-        bookMap.put(book, shelf);
+        if (shelf == null) {
+            System.out.println("Значение не может быть null");
+        } else {
+            bookMap.put(book, shelf);
+        }
     }
 
     public static void removeBook(Book book) {
@@ -38,10 +40,14 @@ public class Main {
     }
 
     public static void printBook(Book book) {
-        for (Map.Entry<Book, String> entry : bookMap.entrySet()) {
-            if (entry.getKey().equals(book)) {
-                System.out.println(entry.getKey() + " - " + entry.getValue());
+        try {
+            for (Map.Entry<Book, String> entry : bookMap.entrySet()) {
+                if (entry.getKey().equals(book)) {
+                    System.out.println(entry.getKey() + " - " + entry.getValue());
+                }
             }
+        } catch (NullPointerException ex) {
+            System.out.println("Ключ равен null! " + ex.getMessage());
         }
     }
 
