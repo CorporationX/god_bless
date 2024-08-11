@@ -1,8 +1,6 @@
 package faang.school.godbless.data.center;
 
-import faang.school.godbless.data.center.optimization.strategy.EnergyEfficiencyOptimizationStrategy;
 import faang.school.godbless.data.center.optimization.strategy.LoadBalancingOptimizationStrategy;
-import faang.school.godbless.data.center.optimization.strategy.OptimizationStrategy;
 import faang.school.godbless.data.center.service.DataCenterService;
 
 public class Main {
@@ -15,10 +13,7 @@ public class Main {
 
         DataCenterService dataCenterService = new DataCenterService(dataCenter, new LoadBalancingOptimizationStrategy());
 
-        OptimizationStrategy loadBalancing = new LoadBalancingOptimizationStrategy();
-        OptimizationStrategy energyEfficiency = new EnergyEfficiencyOptimizationStrategy();
-
-        OptimizationScheduler scheduler = new OptimizationScheduler(dataCenterService, loadBalancing, energyEfficiency);
+        OptimizationScheduler scheduler = new OptimizationScheduler(dataCenterService);
         scheduler.startOptimizationRoutine();
 
     }

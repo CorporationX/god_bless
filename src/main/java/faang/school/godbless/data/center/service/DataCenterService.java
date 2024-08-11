@@ -35,16 +35,24 @@ public class DataCenterService {
     }
 
     public boolean allocateResources(ResourceRequest request) {
-        double remainingLoad = request.getLoad();
+        double requestedLoad = request.getLoad();
+        double totalAvailableResources = dataCenter.getServers().stream()
+                .mapToDouble(server -> server.getMaxLoad() - server.getLoad())
+                .sum();
+
+        if (totalAvailableResources < requestedLoad) {
+            return false;
+        }
+
         for (Server server : dataCenter.getServers()) {
             if (server.getMaxLoad() - server.getLoad() > 0) {
                 double availableLoad = server.getMaxLoad() - server.getLoad();
-                if (availableLoad >= remainingLoad) {
-                    server.setLoad(server.getLoad() + remainingLoad);
+                if (availableLoad >= requestedLoad) {
+                    server.setLoad(server.getLoad() + requestedLoad);
                     return true;
                 } else {
                     server.setLoad(server.getMaxLoad());
-                    remainingLoad -= availableLoad;
+                    requestedLoad -= availableLoad;
                 }
             }
         }
@@ -52,17 +60,24 @@ public class DataCenterService {
     }
 
     public boolean releaseResources(ResourceRequest request) {
-        double remainingLoad = request.getLoad();
+        double requestedForRelease = request.getLoad();
+        double totalCurrentLoad = dataCenter.getServers().stream()
+                .mapToDouble(Server::getLoad)
+                .sum();
+
+        if (totalCurrentLoad < requestedForRelease) {
+            return false;
+        }
 
         for (Server server : dataCenter.getServers()) {
             if (server.getLoad() > 0) {
-                double availableLoad = server.getLoad();
-                if (availableLoad >= remainingLoad) {
-                    server.setLoad(server.getLoad() - remainingLoad);
+                double currentLoad = server.getLoad();
+                if (currentLoad >= requestedForRelease) {
+                    server.setLoad(server.getLoad() - requestedForRelease);
                     return true;
                 } else {
                     server.setLoad(0);
-                    remainingLoad -= availableLoad;
+                    requestedForRelease -= currentLoad;
                 }
             }
         }
