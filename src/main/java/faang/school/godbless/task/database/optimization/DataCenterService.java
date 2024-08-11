@@ -3,9 +3,6 @@ package faang.school.godbless.task.database.optimization;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-
 @RequiredArgsConstructor
 public class DataCenterService {
     private static final int LIMIT_OF_OPTIMIZATION_ATTEMPT = 3;
