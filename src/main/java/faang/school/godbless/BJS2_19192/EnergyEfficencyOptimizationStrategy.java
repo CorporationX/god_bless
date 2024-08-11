@@ -5,9 +5,9 @@ public class EnergyEfficencyOptimizationStrategy implements OptimizationStrategy
     public void optimize(DataCenter dataCenter) {
         double totalEnergy = dataCenter.getTotalEnergy();
         dataCenter.clearEnergy();
-        double avg = totalEnergy / dataCenter.serverList.size();
+        double avg = totalEnergy / dataCenter.getServerList().size();
 
-        for (var server : dataCenter.serverList) {
+        for (var server : dataCenter.getServerList()) {
             server.setEnergyConsumption(avg);
         }
     }

@@ -5,9 +5,9 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     public void optimize(DataCenter dataCenter) {
         double totalLoad = dataCenter.getTotalLoad();
         dataCenter.clearLoad();
-        double avg = totalLoad / dataCenter.serverList.size();
+        double avg = totalLoad / dataCenter.getServerList().size();
 
-        for (var server : dataCenter.serverList) {
+        for (var server : dataCenter.getServerList()) {
             server.setLoad(avg);
         }
     }

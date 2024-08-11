@@ -4,18 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
-@Data
 public class DataCenterService {
     private DataCenter dataCenter;
-    LoadBalancingOptimizationStrategy loadBalancingOptimizationStrategy;
-    EnergyEfficencyOptimizationStrategy energyEfficencyOptimizationStrategy;
+    private LoadBalancingOptimizationStrategy loadBalancingOptimizationStrategy;
+    private EnergyEfficencyOptimizationStrategy energyEfficencyOptimizationStrategy;
 
     public void addServer(Server server) {
-        dataCenter.serverList.add(server);
+        dataCenter.getServerList().add(server);
     }
 
     public void removeServerByParam(Server server) {
-        dataCenter.serverList.remove(server);
+        dataCenter.getServerList().remove(server);
     }
 
     public int getTotalEnergyConsumption() {
@@ -27,26 +26,41 @@ public class DataCenterService {
     }
 
     public void allocateResources(ResourceRequest request) {
-        while (request.getLoad() > 0) {
-            for(var server : dataCenter.serverList) {
-                if(server.getLoad() < server.getMaxLoad() && request.getLoad() > 0) {
-                    server.setLoad(server.getLoad() + 1);
-                    request.setLoad(request.getLoad() - 1);
-                }
+        double requiredLoad = request.getLoad();
+
+        for (var server : dataCenter.getServerList()) {
+            double availableCapacity = server.getMaxLoad() - server.getLoad();
+            double loadToAllocate = Math.min(availableCapacity, requiredLoad);
+
+            server.setLoad(server.getLoad() + loadToAllocate);
+            requiredLoad -= loadToAllocate;
+
+            if (requiredLoad == 0) {
+                break;
             }
         }
+
+        request.setLoad(requiredLoad);
     }
 
     public void releaseResources(ResourceRequest request) {
-        while (request.getLoad() > 0) {
-            for(var server : dataCenter.serverList) {
-                if(server.getLoad() > 0 && request.getLoad() > 0) {
-                    server.setLoad(server.getLoad() - 1);
-                    request.setLoad(request.getLoad() - 1);
-                }
+        double loadToRelease = request.getLoad();
+
+        for (var server : dataCenter.getServerList()) {
+            double loadOnServer = server.getLoad();
+            double loadToRemove = Math.min(loadOnServer, loadToRelease);
+
+            server.setLoad(server.getLoad() - loadToRemove);
+            loadToRelease -= loadToRemove;
+
+            if (loadToRelease == 0) {
+                break;
             }
         }
+
+        request.setLoad(loadToRelease);
     }
+
 
     public void optimize() {
         if(dataCenter.coefficientOfLoadDistribution() < 0.5) {

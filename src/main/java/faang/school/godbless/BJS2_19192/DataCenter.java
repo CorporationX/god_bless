@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 public class DataCenter {
-    List<Server> serverList = new ArrayList<>();
+    private List<Server> serverList = new ArrayList<>();
 
     public double getTotalLoad() {
         double total = 0;
