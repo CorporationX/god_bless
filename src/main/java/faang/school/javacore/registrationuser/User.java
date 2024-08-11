@@ -14,10 +14,10 @@ public class User {
     private final String placeOfWork;
     private final String address;
 
-    private static int minAge = 18;
+    static private final int MIN_AGE = 18;
 
-    private static Set<String> valid_jobs = Set.of("Google", "Uber", "Amazon");
-    private static Set<String> valid_address = Set.of("London", "New York", "Amsterdam");
+    static private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    static private final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
         if (validUser(name, age, placeOfWork, address)) {
@@ -32,10 +32,15 @@ public class User {
     }
 
     private boolean validUser(String name, int age, String placeOfWork, String address) {
-        if (name.isBlank()
-                || age < this.minAge
-                || !(valid_jobs.contains(placeOfWork))
-                || !(valid_address.contains(address))) {
+        if (name == null
+                || placeOfWork == null
+                || address == null
+                || name.isBlank()
+                || placeOfWork.isBlank()
+                || address.isBlank()
+                || age < MIN_AGE
+                || !(VALID_JOBS.contains(placeOfWork))
+                || !(VALID_ADDRESS.contains(address))) {
             return true;
         }
         return false;
