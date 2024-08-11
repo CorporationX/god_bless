@@ -45,6 +45,8 @@ public class LRUCache {
             return data;
         }
 
+        node.data.setTimestamp(LocalDateTime.now());
+
         if (node == first) {
             node.next.previous = null;
             first = node.next;
@@ -52,10 +54,8 @@ public class LRUCache {
             node.next = null;
             node.previous = last;
             last = node;
-            node.data.setTimestamp(LocalDateTime.now());
             return node.data;
         } else if (node == last) {
-            node.data.setTimestamp(LocalDateTime.now());
             return node.data;
         }
 
@@ -64,7 +64,6 @@ public class LRUCache {
         last.previous.next = node;
         node.next = null;
         last = node;
-        node.data.setTimestamp(LocalDateTime.now());
 
         return node.data;
     }
@@ -83,7 +82,7 @@ public class LRUCache {
         } else if (dataMap.size() < CACHE_SIZE) {
             putAndChangeLinks(id, data);
         } else {
-            var node = dataMap.remove(first.data.getId());
+            Node node = dataMap.remove(first.data.getId());
             first = node.next;
             first.previous = null;
             putAndChangeLinks(id, data);
