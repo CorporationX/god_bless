@@ -4,10 +4,7 @@ package faang.school.godbless.abstraction;
 public class Warrior extends Character {
 
     public Warrior(String name) {
-        super(name);
-        this.power = 10;
-        this.dexterity = 5;
-        this.intelligence = 3;
+        super(name, 10, 5, 3);
     }
 
     @Override
