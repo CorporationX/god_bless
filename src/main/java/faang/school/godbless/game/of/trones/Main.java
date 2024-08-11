@@ -23,10 +23,16 @@ public class Main {
     }
 
     public static void add(House house) {
+        if (house == null) {
+            throw new IllegalArgumentException("House can't be null");
+        }
         houseMap.put(house.getName(), house);
     }
 
     public static void remove(String houseName) {
+        if (houseName == null || houseName.isBlank()) {
+            throw new IllegalArgumentException("House name can't be null or empty");
+        }
         houseMap.remove(houseName);
     }
 
