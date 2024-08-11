@@ -5,7 +5,8 @@ import java.util.Map;
 
 public class Main {
 
-    static private final HashMap<String, WeatherData> mapWeatherData = new HashMap<>();
+    private static final Map<String, WeatherData> groupWeatherDataByCity = new HashMap<>();
+    private static final InfoWeatherData infoWeatherData = new InfoWeatherData();
 
     public static void main(String[] args) {
 
@@ -13,55 +14,53 @@ public class Main {
         addWeatherInformationCity("Gomel");
         addWeatherInformationCity("Vitebsk");
 
-        System.out.println(printWeatherCity("Grodno"));
+        System.out.println(printWeatherCityByCity("Grodno"));
 
         deleteWeatherInformationCity("Grodno");
+        deleteWeatherInformationCity(null);
 
-        System.out.println(printWeatherCity(null));
-        System.out.println(printWeatherCity("Grodno"));
+        System.out.println(printWeatherCityByCity(null));
+        System.out.println(printWeatherCityByCity("Grodno"));
 
         printInfoWeatherCityCache();
     }
 
-    private static String printWeatherCity(String city) {
-        if (city != null && !(city.isBlank())) {
-            if (mapWeatherData.containsKey(city)) {
+    private static String printWeatherCityByCity(String city) {
+        if (city != null && !city.isBlank()) {
+            if (groupWeatherDataByCity.containsKey(city)) {
                 System.out.println("Такой город есть в кэше");
-                return mapWeatherData.get(city).toString();
+                return groupWeatherDataByCity.get(city).toString();
             } else {
-                System.out.println("Такого города нет в кэше");
-                InfoWeatherData infoWeatherData = new InfoWeatherData();
-                WeatherData dataCity = infoWeatherData.weatherData(city);
-                if (dataCity != null) {
-                    mapWeatherData.put(city, dataCity);
-                    return mapWeatherData.get(city).toString();
-                }
+                accessingCacheWeatherData(city);
             }
         }
         return null;
     }
 
+    private static void accessingCacheWeatherData(String city) {
+        System.out.println("Обращаемся за данными в кэш");
+        WeatherData dataCity = infoWeatherData.checkingWeatherDataCache(city);
+        groupWeatherDataByCity.put(city, dataCity);
+        groupWeatherDataByCity.get(city).toString();
+    }
+
     private static void addWeatherInformationCity(String city) {
-        if (city != null && !(city.isBlank())) {
-            InfoWeatherData infoWeatherData = new InfoWeatherData();
-            WeatherData dataCity = infoWeatherData.weatherData(city);
-            if (dataCity != null) {
-                mapWeatherData.put(city, dataCity);
-            }
+        if (city != null && !city.isBlank()) {
+            WeatherData dataCity = infoWeatherData.checkingWeatherDataCache(city);
+            groupWeatherDataByCity.put(city, dataCity);
         }
     }
 
     private static void deleteWeatherInformationCity(String city) {
-        if (city != null && !(city.isBlank())) {
-            if (mapWeatherData.containsKey(city)) {
-                mapWeatherData.remove(city);
-            } else
-                System.out.println("В кэше нет данных по этому городу " + city);
-        }
+        if (groupWeatherDataByCity.containsKey(city)) {
+            groupWeatherDataByCity.remove(city);
+        } else
+            System.out.println("В кэше нет данных по этому городу " + city);
+
     }
 
     private static void printInfoWeatherCityCache() {
-        for (Map.Entry<String, WeatherData> city : mapWeatherData.entrySet()) {
+        for (Map.Entry<String, WeatherData> city : groupWeatherDataByCity.entrySet()) {
             System.out.println(city);
         }
     }

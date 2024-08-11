@@ -1,10 +1,11 @@
 package faang.school.hashmap.cachingcaching;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class InfoWeatherData {
 
-    private final HashMap<String, WeatherData> mapWeatherData = new HashMap<>();
+    private final Map<String, WeatherData> weatherData = new HashMap<>();
 
     private void completionMapData() {
         WeatherData grodno = new WeatherData("Grodno", 22, 80);
@@ -14,19 +15,19 @@ public class InfoWeatherData {
         WeatherData gomel = new WeatherData("Gomel", 19, 80);
         WeatherData mogilev = new WeatherData("Mogilev", 20, 86);
 
-        mapWeatherData.put("Grodno", grodno);
-        mapWeatherData.put("Minsk", minst);
-        mapWeatherData.put("Brest", brest);
-        mapWeatherData.put("Vitebsk", vitebsk);
-        mapWeatherData.put("Gomel", gomel);
-        mapWeatherData.put("Mogilev", mogilev);
+        weatherData.put("Grodno", grodno);
+        weatherData.put("Minsk", minst);
+        weatherData.put("Brest", brest);
+        weatherData.put("Vitebsk", vitebsk);
+        weatherData.put("Gomel", gomel);
+        weatherData.put("Mogilev", mogilev);
     }
 
-    public WeatherData weatherData(String city) {
-        if (city != null && !(city.isBlank())) {
+    public WeatherData checkingWeatherDataCache(String city) {
+        if (city != null && !city.isBlank()) {
             completionMapData();
-            if (mapWeatherData.containsKey(city)) {
-                return mapWeatherData.get(city);
+            if (weatherData.containsKey(city)) {
+                return weatherData.get(city);
             } else {
                 System.out.println("Не существует такого города " + city);
             }
