@@ -4,7 +4,6 @@ import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,23 +21,13 @@ public class Student {
 
     public static Set<Student> findStudentsByFacultyAndCourse(List<Student> students, String faculty, Integer course) {
           return students.stream()
-                .filter(p -> p.getFaculty().equals(faculty))
-                .filter(p -> p.getCourse().equals(course))
+                .filter(s -> s.getFaculty().equals(faculty))
+                .filter(s -> s.getCourse().equals(course))
                 .collect(Collectors.toSet());
     }
 
     public static void removeStudent(List<Student> students, String name, String faculty, Integer course)  {
-
-        ListIterator<Student> iter = students.listIterator();
-        while(iter.hasNext()){
-            Student student = iter.next();
-            if(student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getCourse().equals(course)){
-                System.out.println(" remove student. name: \"" + name + "\" faculty: \"" + faculty + "\" course: " + course);
-                 iter.remove();
-            }
-        }
-        students.removeIf(n -> n.getName().equals(name));
-
+        students.removeIf(s -> s.getName().equals(name) && s.getFaculty().equals(faculty) && s.getCourse().equals(course));
     }
 
     public static List<Student> getStudens() {
