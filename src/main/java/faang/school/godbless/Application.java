@@ -1,5 +1,7 @@
 package faang.school.godbless;
 
+import java.util.HashMap;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,11 +44,11 @@ public class Application {
 
         WEB_LIST_KEY_URL.put(webPage.getUrl(), webPage);
     }
-
+  
     public static List<WebPage> getListWebPage(String keyWord) {
         return WEB_LIST_KEY_WORD.get(keyWord);
     }
-
+  
     public static void removeWebPage(String url) {
         for (Map.Entry<String, List<WebPage>> pair : WEB_LIST_KEY_WORD.entrySet()) {
             if (pair.getValue().contains(WEB_LIST_KEY_URL.get(url))) {
