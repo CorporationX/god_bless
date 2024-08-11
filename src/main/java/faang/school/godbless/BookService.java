@@ -15,7 +15,6 @@ public class BookService {
     }
 
     public static void deleteBook(Book bookForDelete, HashMap<Book, String> bookShelfMap) {
-
         if (bookShelfMap.containsKey(bookForDelete)) {
             bookShelfMap.remove(bookForDelete);
             System.out.println("Book " + bookForDelete.getTitle() + " was deleted");
@@ -25,7 +24,6 @@ public class BookService {
     }
 
     public static Book findBookAndPrintGenreByInfoBook(Book bookForSearching, HashMap<Book, String> bookShelfMap) {
-
         Optional<Book> book = bookShelfMap.keySet().stream()
                 .filter(e -> e.equals(bookForSearching))
                 .findFirst();
