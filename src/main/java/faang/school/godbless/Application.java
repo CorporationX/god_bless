@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,66 +8,42 @@ import java.util.Map;
 
 public class Application {
 
-
-    private static final Map<Integer, StreamEvent> ID_STREAM = new HashMap<>();
-    private static final Map<String, List<StreamEvent>> TYPE_EVENT = new HashMap<>();
+    private static final Map<String, WeatherDate> WEATHER_DATE_HASH_MAP = new HashMap<>();
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
-        StreamEvent firstStream = new StreamEvent(1, "type 1", "info");
-        StreamEvent secondStream = new StreamEvent(2, "type 1", "info");
-        StreamEvent thirdStream = new StreamEvent(3, "type 2", "info");
-        StreamEvent fourthStream = new StreamEvent(4, "type 2", "info");
+        WeatherDate wd1 = new WeatherDate("Moscow", 15, 30);
+        WeatherDate wd2 = new WeatherDate("Mahachkala", 24, 35);
+        WeatherDate wd3 = new WeatherDate("St.Petersburg", 20, 32);
 
-        addEvent(firstStream);
-        addEvent(secondStream);
-        addEvent(thirdStream);
-        addEvent(fourthStream);
+        WEATHER_DATE_HASH_MAP.put(wd1.getCity(), wd1);
+        WEATHER_DATE_HASH_MAP.put(wd2.getCity(), wd2);
+        WEATHER_DATE_HASH_MAP.put(wd3.getCity(), wd3);
 
-        allMap();
+        System.out.println(getInfoWeather("Moscow"));
 
-        System.out.println();
-
-        researchEvent(2);
-        System.out.println();
-
-        delEvent(2);
-
-        allMap();
-
+        allMapWeatherDate();
     }
-   
 
-    public static void addEvent(StreamEvent streamEvent) {
-        ID_STREAM.put(streamEvent.getId(), streamEvent);
-        if (TYPE_EVENT.containsKey(streamEvent.getEventType())) {
-            TYPE_EVENT.get(streamEvent.getEventType()).add(streamEvent);
+    public static WeatherDate getInfoWeather(String city) {
+        if (WEATHER_DATE_HASH_MAP.containsKey(city)) {
+            return WEATHER_DATE_HASH_MAP.get(city);
         } else {
-            TYPE_EVENT.put(streamEvent.getEventType(), new ArrayList<>());
-            TYPE_EVENT.get(streamEvent.getEventType()).add(streamEvent);
+            WEATHER_DATE_HASH_MAP.put(city, MokClass.mokMethod(city));
+            return WEATHER_DATE_HASH_MAP.get(city);
         }
     }
 
-    public static void researchEvent(int id) {
-        System.out.println(ID_STREAM.get(id));
+    public static void addMapWeatherDate(String city, WeatherDate weatherDate) {
+        WEATHER_DATE_HASH_MAP.put(city, weatherDate);
     }
 
-    public static void researchList(String typeEvent) {
-        System.out.println(TYPE_EVENT.get(typeEvent));
+    public static void removeMapWeatherDate(String city) {
+        WEATHER_DATE_HASH_MAP.remove(city);
     }
 
-    public static void delEvent(int id) {
-        TYPE_EVENT.get(ID_STREAM.get(id).getEventType()).remove(ID_STREAM.get(id));
-        ID_STREAM.remove(id);
-    }
-
-    public static void allMap() {
-        for (Map.Entry<Integer, StreamEvent> pair : ID_STREAM.entrySet()) {
-            System.out.println(pair.getKey() + pair.getValue().toString());
-        }
-        System.out.println();
-
-        for (Map.Entry<String, List<StreamEvent>> pair : TYPE_EVENT.entrySet()) {
+    public static void allMapWeatherDate() {
+        for (Map.Entry<String, WeatherDate> pair : WEATHER_DATE_HASH_MAP.entrySet()) {
             System.out.println(pair.getKey() + pair.getValue());
         }
     }
