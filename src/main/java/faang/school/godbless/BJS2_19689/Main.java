@@ -39,6 +39,9 @@ public class Main {
     }
 
     public static void printInfo() {
-        queriesByUser.forEach((k, v) -> System.out.println(k + ": " + v));
+        queriesByUser.forEach((user, queries) -> {
+            queries.sort(Comparator.comparing(Query::timestamp));
+            System.out.println(user.name() + ": " + queries);
+        });
     }
 }
