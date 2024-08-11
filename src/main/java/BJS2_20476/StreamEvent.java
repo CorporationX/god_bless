@@ -19,8 +19,7 @@ public class StreamEvent {
         this.data = data;
     }
 
-    public static void addEvent(List<StreamEvent> eventsList, Map<Integer, StreamEvent> eventsById, Map<String, List<StreamEvent>> eventsByType, StreamEvent event) {
-        eventsList.add(event);
+    public static void addEvent(Map<Integer, StreamEvent> eventsById, Map<String, List<StreamEvent>> eventsByType, StreamEvent event) {
         eventsById.put(event.getId(), event);
         eventsByType.putIfAbsent(event.getEventType(), new ArrayList<>());
         eventsByType.get(event.getEventType()).add(event);
