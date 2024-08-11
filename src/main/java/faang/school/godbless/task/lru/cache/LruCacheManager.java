@@ -4,13 +4,19 @@ import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RequiredArgsConstructor
 public class LruCacheManager {
     private final static int CACHE_SIZE = 5;
 
     private final DataStructure dataStructure;
-    private final LinkedHashMap<Integer, Data> cache;
+    private final LinkedHashMap<Integer, Data> cache = new LinkedHashMap<>(CACHE_SIZE) {
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Integer, Data> eldest) {
+            return cache.size() > CACHE_SIZE;
+        }
+    };
 
     public void addNewDataIntoDataStructure(Data data) {
         dataValidOrNullPointerExceptionThrow(data);
@@ -25,10 +31,6 @@ public class LruCacheManager {
         } else {
             data = dataStructure.findDataById(id);
             data.setTimeStamp(LocalDateTime.now());
-            if (cache.size() >= CACHE_SIZE) {
-                Data oldData = cache.entrySet().iterator().next().getValue();
-                cache.remove(oldData.getId());
-            }
         }
         cache.put(data.getId(), data);
         return data;

@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,7 +28,7 @@ public class LruCacheManagerTest {
 
     @BeforeEach
     void setUp() {
-        lruCacheManager = new LruCacheManager(new DataStructure(new HashMap<>()), new LinkedHashMap<>());
+        lruCacheManager = new LruCacheManager(new DataStructure(new HashMap<>()));
         dataList = List.of(data1, data2, data3, data4, data5, data6,
                 data7, data8, data9, data10, data11, data12);
         // add default data:
