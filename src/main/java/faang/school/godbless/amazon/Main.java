@@ -24,11 +24,9 @@ public class Main {
 
     private static Map<String, List<Product>> getCategoryProductsMap() {
         Map<String, List<Product>> categoryProductMap = new HashMap<>();
-
         for (Product product : products) {
             categoryProductMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
-
         return categoryProductMap;
     }
 
