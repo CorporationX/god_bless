@@ -2,6 +2,7 @@ package faang.school.godbless.cachex2;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,11 +45,13 @@ public class Main {
     }
 
     public void addStudentToSubject(Student student, Subject subject) {
-        studentsSubjects.get(subject).add(student);
+        studentsSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public void deleteStudentFromSubject(Student student, Subject subject) {
-        studentsSubjects.get(subject).remove(student);
+        if (studentsSubjects.get(subject) != null) {
+            studentsSubjects.get(subject).remove(student);
+        }
     }
 
     public void printStudentsOnSubjects(){
