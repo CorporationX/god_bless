@@ -17,13 +17,13 @@ public class Main {
             put(new Subject(UUID.randomUUID(), "Maths"), 90);
             put(new Subject(UUID.randomUUID(), "Science"), 80);
         }};
-        System.out.println(addStudent(student, subject));;
+        addStudent(student, subject);
         System.out.println();
 
-        System.out.println(addSubject(List.of(student), new Subject(UUID.randomUUID(), "English")));;
+        addSubject(List.of(student), new Subject(UUID.randomUUID(), "English"));
         System.out.println();
 
-        System.out.println(addSubjectForStudent(student, new Subject(UUID.randomUUID(), "English"), 80));;
+        addSubjectForStudent(student, new Subject(UUID.randomUUID(), "English"), 80);
         System.out.println();
 
         printStudents();
@@ -43,14 +43,12 @@ public class Main {
         printSubject();
     }
 
-    public static Map<Student, Map<Subject, Integer>> addStudent(Student student, Map<Subject, Integer> subject) {
+    public static void addStudent(Student student, Map<Subject, Integer> subject) {
         students.put(student, subject);
-        return Map.of(student, students.get(student));
     }
 
-    public static Map<Student, Map<Subject, Integer>> addSubjectForStudent(Student student, Subject subject, Integer marks) {
+    public static void addSubjectForStudent(Student student, Subject subject, Integer marks) {
         students.computeIfAbsent(student, k -> new HashMap<>()).put(subject, marks);
-        return Map.of(student, students.get(student));
     }
 
     public static boolean removeStudent(Student student) {
@@ -65,16 +63,14 @@ public class Main {
         System.out.println();
     }
 
-    public static Map<Subject, List<Student>> addSubject(List<Student> students, Subject subject) {
+    public static void addSubject(List<Student> students, Subject subject) {
         for (Student student : students) {
             subjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         }
-        return Map.of(subject, subjects.get(subject));
     }
 
-    public static Map<Subject, List<Student>> addStudentForSubject(Subject subject, Student student) {
+    public static void addStudentForSubject(Subject subject, Student student) {
         subjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-        return Map.of(subject, subjects.get(subject));
     }
 
     public static boolean removeStudentForSubject(Subject subject, Student student) {
