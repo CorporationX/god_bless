@@ -13,14 +13,16 @@ class WeatherServiceTest {
 
     public static final int ONE = 1;
     public static final int TWO = 2;
+    public static final String MOSCOW = "Moscow";
+    public static final String SPB = "SPB";
 
     public static HashMap<String, WeatherData> weatherForecastMap = new HashMap<>();
 
     @BeforeEach
     void init() {
-        infoWeatherByCity("Moscow", weatherForecastMap);
-        infoWeatherByCity("SPB", weatherForecastMap);
-        infoWeatherByCity("Moscow", weatherForecastMap);
+        printInfoFromCacheByCityAndPutInCacheIfNotExist(MOSCOW, weatherForecastMap);
+        printInfoFromCacheByCityAndPutInCacheIfNotExist(SPB, weatherForecastMap);
+        printInfoFromCacheByCityAndPutInCacheIfNotExist(MOSCOW, weatherForecastMap);
     }
 
     @Test
@@ -32,7 +34,7 @@ class WeatherServiceTest {
     void deleteWeatherCacheByCityTest() {
         assertEquals(weatherForecastMap.keySet().size(), TWO);
 
-        deleteWeatherCacheByCity("Moscow", weatherForecastMap);
+        deleteWeatherCacheByCity(MOSCOW, weatherForecastMap);
 
         assertEquals(weatherForecastMap.keySet().size(), ONE);
     }
@@ -42,7 +44,7 @@ class WeatherServiceTest {
         printAvailableCitiesInWeatherCache(weatherForecastMap);
 
         System.out.println(weatherForecastMap);
-        updateWeatherCacheByCity("Moscow", weatherForecastMap);
+        updateWeatherCacheByCity(MOSCOW, weatherForecastMap);
         assertEquals(weatherForecastMap.keySet().size(), TWO);
 
         printAvailableCitiesInWeatherCache(weatherForecastMap);

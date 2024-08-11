@@ -2,7 +2,7 @@ package faang.school.godbless.Services;
 
 import faang.school.godbless.models.WeatherData;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class WeatherService {
@@ -12,17 +12,19 @@ public class WeatherService {
     private static final float THIRTY = 30f;
     private static final float THIRTY_ONE = 31f;
 
-    public static WeatherData getWeatherForecastByCity(String city, HashMap<String, WeatherData> weatherForecastMap) {
+    private static final Random RANDOM = new Random();
+
+    public static WeatherData getWeatherForecastByCity(String city, Map<String, WeatherData> weatherForecastMap) {
 
         WeatherData weatherData = new WeatherData(city,
-                new Random().nextFloat(-THIRTY, THIRTY_ONE),
-                new Random().nextInt(ZERO, HUNDRED_ONE));
+                RANDOM.nextFloat(-THIRTY, THIRTY_ONE),
+                RANDOM.nextInt(ZERO, HUNDRED_ONE));
 
         weatherForecastMap.put(weatherData.getCity(), weatherData);
         return weatherData;
     }
 
-    public static void infoWeatherByCity(String city, HashMap<String, WeatherData> weatherForecastMap) {
+    public static void printInfoFromCacheByCityAndPutInCacheIfNotExist(String city, Map<String, WeatherData> weatherForecastMap) {
         weatherForecastMap.entrySet().stream()
                 .filter(e -> e.getValue().getCity().equalsIgnoreCase(city))
                 .findFirst()
@@ -30,19 +32,19 @@ public class WeatherService {
                         () -> System.out.println(getWeatherForecastByCity(city, weatherForecastMap)));
     }
 
-    public static void updateWeatherCacheByCity(String city, HashMap<String, WeatherData> weatherForecastMap) {
+    public static void updateWeatherCacheByCity(String city, Map<String, WeatherData> weatherForecastMap) {
         weatherForecastMap.computeIfPresent(city, (k, v) -> {
-            v.setTemperature(new Random().nextFloat(-THIRTY, THIRTY_ONE));
-            v.setHumidity(new Random().nextInt(ZERO, HUNDRED_ONE));
+            v.setTemperature(RANDOM.nextFloat(-THIRTY, THIRTY_ONE));
+            v.setHumidity(RANDOM.nextInt(ZERO, HUNDRED_ONE));
             return v;
         });
     }
 
-    public static void deleteWeatherCacheByCity(String city, HashMap<String, WeatherData> weatherForecastMap) {
+    public static void deleteWeatherCacheByCity(String city, Map<String, WeatherData> weatherForecastMap) {
         weatherForecastMap.remove(city);
     }
 
-    public static void printAvailableCitiesInWeatherCache(HashMap<String, WeatherData> weatherForecastMap) {
+    public static void printAvailableCitiesInWeatherCache(Map<String, WeatherData> weatherForecastMap) {
         System.out.println(String.join(", ", weatherForecastMap.keySet()));
     }
 }
