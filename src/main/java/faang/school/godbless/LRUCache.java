@@ -3,51 +3,113 @@ package faang.school.godbless;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LRUCache {
-    private final int size;
-    private final HashMap<String, Data> cache = new HashMap<>();
+public class LRUCache<ValueType> {
+    private final int capacity;
+    private final Map<String, Node<ValueType>> map = new HashMap<>();
+    private Node<ValueType> head;
+    private Node<ValueType> tail;
 
-    public LRUCache(int size) {
-        if (size <= 0) {
-            throw new IllegalArgumentException("Cache size must be greater than 0");
+    public LRUCache(int capacity) {
+        if (capacity <= 0) {
+            throw new IllegalArgumentException("Capacity size must be greater than 0");
         }
-        this.size = size;
+        this.capacity = capacity;
     }
 
-    public Data getData(String id) {
-        if (id == null || !cache.containsKey(id)) {
+    public ValueType getData(String key) {
+        if (key == null || !map.containsKey(key)) {
             return null;
         }
 
-        Data data = cache.get(id);
-        data.updateTimestamp();
-
-        return data;
+        Node<ValueType> node = map.get(key);
+        moveToTail(node);
+        return node.value;
     }
 
-    public void addData(Data data) {
-        if (data == null) {
-            throw new IllegalArgumentException("Data cannot be null");
+    public void addData(String key, ValueType value) {
+        if (key == null || value == null) {
+            return;
         }
 
-        if (cache.size() >= this.size) {
-            removeOldestData();
+        if (map.containsKey(key)) {
+            Node<ValueType> node = map.get(key);
+            node.value = value;
+            moveToTail(node);
+        } else {
+            Node<ValueType> node = new Node<>(key, value);
+            if (map.size() >= capacity) {
+                map.remove(head.key);
+                removeHead();
+            }
+            addToTail(node);
+            map.put(key, node);
         }
-
-        cache.put(data.getId(), data);
-    }
-
-    private void removeOldestData() {
-        cache.entrySet().stream()
-                .min(Map.Entry.comparingByValue((data1, data2) -> Long.compare(data1.getTimestamp(), data2.getTimestamp())))
-                .ifPresent(oldestData -> {
-                    cache.remove(oldestData.getKey());
-                    System.out.println("Data removed from cache: \n    " + oldestData);
-                });
     }
 
     public void print() {
         System.out.println("Current Cache:");
-        cache.forEach((id, data) -> System.out.println("    " + data));
+        Node<ValueType> current = head;
+        while (current != null) {
+            System.out.println("    " + current.value);
+            current = current.right;
+        }
+    }
+
+    private void moveToTail(Node<ValueType> node) {
+        if (node == null) {
+            return;
+        }
+
+        if (node == tail) {
+            return;
+        }
+        if (node == head) {
+            head = head.right;
+            if (head != null) {
+                head.left = null;
+            }
+        } else {
+            node.left.right = node.right;
+            node.right.left = node.left;
+        }
+        addToTail(node);
+    }
+
+    private void removeHead() {
+        if (head == tail) {
+            head = null;
+            tail = null;
+        } else {
+            head = head.right;
+            head.left = null;
+        }
+    }
+
+    private void addToTail(Node<ValueType> node) {
+        if (node == null) {
+            return;
+        }
+
+        node.right = null;
+        node.left = tail;
+        if (tail != null) {
+            tail.right = node;
+        }
+        tail = node;
+        if (head == null) {
+            head = node;
+        }
+    }
+
+    private static class Node<ValueType> {
+        String key;
+        ValueType value;
+        Node<ValueType> left;
+        Node<ValueType> right;
+
+        public Node(String key, ValueType value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 }
