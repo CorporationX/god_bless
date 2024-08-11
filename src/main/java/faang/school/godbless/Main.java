@@ -18,6 +18,10 @@ public class Main {
     }
 
     public static HashMap<String, List<Product>> groupProductsByCategory(HashSet<Product> products) {
+        if (products == null) {
+            return null;
+        }
+
         HashMap<String, List<Product>> groupedProducts = new HashMap<>();
 
         for (Product product : products) {
@@ -30,6 +34,10 @@ public class Main {
     }
 
     public static void printGroupedProducts(HashMap<String, List<Product>> groupedProducts) {
+        if (groupedProducts == null) {
+            return;
+        }
+
         groupedProducts.forEach((category, productList) -> {
             System.out.println("Category: " + category);
             productList.forEach(product -> System.out.println("    " + product));
