@@ -1,68 +1,52 @@
 package faang.school.godbless.beksultan2005;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class Main {
-    private static Map<Integer, StreamEvent> cacheById = new HashMap<>();
-    private static Map<String, List<StreamEvent>> cacheByEvent = new HashMap<>();
-
-    public static void addStreamEvent(StreamEvent streamEvent) {
-        cacheById.put((int) streamEvent.getId(), streamEvent);
-        cacheByEvent.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
-    }
-
-    public static StreamEvent getStreamEvent(int id) {
-        return cacheById.get(id);
-    }
-
-    public static List<StreamEvent> getStreamEvent(String eventType) {
-        return cacheByEvent.get(eventType);
-    }
-
-    public static void deleteStreamEvent(int id) {
-        StreamEvent streamEvent = cacheById.get(id);
-        if (streamEvent != null) {
-            cacheByEvent.get(streamEvent.getEventType()).remove(streamEvent);
-            cacheById.remove(id);
-        }
-    }
-
-    public static void getAllStreamEvent() {
-        cacheById.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
-    }
-
-    public static void getAllStreamEventByEvent() {
-        cacheByEvent.forEach((key, value) -> System.out.println(key + ": " + value.toString()));
-    }
+    private static DataCenter dataCenter = new DataCenter();
+    private static final DataCenterService dataCenterService = new DataCenterService(dataCenter);
 
     public static void main(String[] args) {
-        StreamEvent event1 = new StreamEvent(1, "Login", "User1 logged in");
-        StreamEvent event2 = new StreamEvent(2, "Logout", "User1 logged out");
-        StreamEvent event3 = new StreamEvent(3, "Login", "User2 logged in");
 
-        addStreamEvent(event1);
-        addStreamEvent(event2);
-        addStreamEvent(event3);
+        Server server1 = new Server(0.40);
+        Server server2 = new Server(0.40);
+        Server server3 = new Server(0.30);
+        Server server4 = new Server(0.40);
+        Server server5 = new Server(0.30);
 
-        System.out.println("All stream events by ID:");
-        getAllStreamEvent();
+        dataCenterService.addServer(server1);
+        dataCenterService.addServer(server2);
+        dataCenterService.addServer(server3);
+        dataCenterService.addServer(server4);
+        dataCenterService.addServer(server5);
 
-        System.out.println("\nAll stream events by event type:");
-        getAllStreamEventByEvent();
+        ResourceRequest resourceRequest1 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest2 = new ResourceRequest(0.08);
+        ResourceRequest resourceRequest3 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest4 = new ResourceRequest(0.22);
+        ResourceRequest resourceRequest5 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest6 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest7 = new ResourceRequest(0.12);
+        ResourceRequest resourceRequest8 = new ResourceRequest(0.32);
+        ResourceRequest resourceRequest9 = new ResourceRequest(0.04);
+        ResourceRequest resourceRequest10 = new ResourceRequest(0.08);
 
-        System.out.println("\nGet stream event by ID 2: " + getStreamEvent(2));
+        dataCenterService.allocateResources(resourceRequest1);
+        dataCenterService.allocateResources(resourceRequest2);
+        dataCenterService.allocateResources(resourceRequest3);
+        dataCenterService.allocateResources(resourceRequest4);
+        dataCenterService.allocateResources(resourceRequest5);
+        dataCenterService.allocateResources(resourceRequest6);
+        dataCenterService.allocateResources(resourceRequest7);
+        dataCenterService.allocateResources(resourceRequest8);
+        dataCenterService.allocateResources(resourceRequest9);
+        dataCenterService.allocateResources(resourceRequest10);
 
-        System.out.println("\nGet stream events by event type 'Login': " + getStreamEvent("Login"));
+        dataCenter.getServers().forEach(server -> System.out.println(server));
 
-        deleteStreamEvent(1);
+        System.out.println();
 
-        System.out.println("\nAll stream events by ID after deleting ID 1:");
-        getAllStreamEvent();
+        dataCenterService.optimize(dataCenter);
 
-        System.out.println("\nAll stream events by event type after deleting ID 1:");
-        getAllStreamEventByEvent();
+        dataCenter.getServers().forEach(server -> System.out.println(server));
+
     }
 }
