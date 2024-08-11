@@ -26,16 +26,21 @@ public class User {
     }
 
     private static void printMapUser(HashMap<Integer, List> mapUsers) {
-        for (Map.Entry<Integer, List> user : mapUsers.entrySet()) {
-            System.out.println(user);
+        if (mapUsers != null) {
+            for (Map.Entry<Integer, List> user : mapUsers.entrySet()) {
+                System.out.println(user);
+            }
         }
     }
 
     private static HashMap<Integer, List> groupUsersOrAge(List<User> listUsers) {
-        HashMap<Integer, List> mapUsers = new HashMap<>();
-        for (User user : listUsers) {
-            mapUsers.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
+        if (listUsers != null) {
+            HashMap<Integer, List> mapUsers = new HashMap<>();
+            for (User user : listUsers) {
+                mapUsers.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
+            }
+            return mapUsers;
         }
-        return mapUsers;
+        return null;
     }
 }
