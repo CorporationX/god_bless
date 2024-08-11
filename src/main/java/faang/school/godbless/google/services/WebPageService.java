@@ -10,8 +10,10 @@ import java.util.List;
 public class WebPageService {
 
     public static void addWebPageInMap(WebPage webPage, HashMap<String, List<WebPage>> webPagesMap) {
-        Arrays.stream(webPage.getContent().split("[\\s,.]+"))
-                .forEach(word -> webPagesMap.computeIfAbsent(word, v -> new ArrayList<>()).add(webPage));
+        if (webPage != null) {
+            Arrays.stream(webPage.getContent().split("[\\s,.]+"))
+                    .forEach(word -> webPagesMap.computeIfAbsent(word, v -> new ArrayList<>()).add(webPage));
+        }
     }
 
     public static void getWebPagesByKeyWord(String keyWord, HashMap<String, List<WebPage>> webPagesMap) {

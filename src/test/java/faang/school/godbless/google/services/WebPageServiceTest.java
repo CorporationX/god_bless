@@ -39,8 +39,13 @@ class WebPageServiceTest {
     @Test
     void addWebPageInMapTest() {
         long countOfWordContent = Arrays.stream(CONTENT.split("[\\s,.]+")).distinct().count();
-
         assertEquals(webPagesMap.keySet().size(), countOfWordContent);
+
+        WebPage webPage = null;
+        addWebPageInMap(webPage, webPagesMap);
+        System.out.println(webPagesMap);
+
+        getWebPagesByKeyWord(null, webPagesMap);
     }
 
     @Test
