@@ -2,14 +2,13 @@ package faang.school.godbless.BJS2_18901;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.ToString;
 
-import java.util.HashMap;
 import java.util.Map;
 
-@Getter
-@Setter
 @AllArgsConstructor
+@Getter
+@ToString
 public class Hero {
     private String name;
     private String fraction;
@@ -18,17 +17,12 @@ public class Hero {
     private Map<Creature, Integer> army;
 
     public void addCreature(Creature creature, int quantity) {
-        if (army.isEmpty()) {
-            army = new HashMap<>();
-            army.put(creature, quantity);
-        } else {
-            throw new IllegalArgumentException("All good");
-        }
+        army.put(creature, army.getOrDefault(creature, 0) + quantity);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (quantity > 0) {
-            army.remove(creature, quantity);
+        if (army.containsKey(creature)) {
+            army.remove(creature);
         }
     }
 
@@ -40,3 +34,4 @@ public class Hero {
         return totalDamage;
     }
 }
+
