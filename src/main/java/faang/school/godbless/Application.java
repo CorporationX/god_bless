@@ -10,6 +10,9 @@ public class Application {
                     .thenAccept(weatherData -> System.out.println("Weather data for New York: " + weatherData))
                     .thenCompose(v -> weatherMain.getWeatherData("New York"))
                     .thenAccept(weatherData -> System.out.println("Weather data for New York: " + weatherData))
+                    .thenCompose(v -> weatherMain.updateWeatherData("New York"))
+                    .thenCompose(v -> weatherMain.getWeatherData("New York"))
+                    .thenAccept(weatherData -> System.out.println("Weather data for New York: " + weatherData))
                     .thenRun(() -> {
                         System.out.println("Listing all cities in the cache:");
                         for (String city : weatherMain.allCities()) {
@@ -29,7 +32,7 @@ public class Application {
                         }
                     });
         } catch (IllegalArgumentException error) {
-            System.out.println(error);
+            System.out.println(error.getMessage());
         }
     }
 }

@@ -1,9 +1,9 @@
 package faang.school.godbless;
 
 public class WeatherData {
-    private String city;
-    private double temperature;
-    private double humidity;
+    private final String city;
+    private final double temperature;
+    private final double humidity;
 
     public WeatherData(String city, double temperature, double humidity) {
         if (city == null || city.isEmpty()) {
