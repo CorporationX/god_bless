@@ -15,7 +15,7 @@ public class Battlefield {
         printStats();
         int roundCounter = 0;
 
-        while (!hero1.isArmyEmpty() && !hero2.isArmyEmpty()) {
+        while (hero1.hasArmy() && hero2.hasArmy()) {
             System.out.println("\n=== Round " + ++roundCounter + " ===");
 
             Map.Entry<Creature, Integer> troopOfHero1 = hero1.getRandomCreature();
@@ -23,14 +23,14 @@ public class Battlefield {
 
             fight(hero1, troopOfHero1, hero2, troopOfHero2);
 
-            if (hero2.isArmyEmpty()) {
+            if (!hero2.hasArmy()) {
                 break;
             }
 
             fight(hero2, troopOfHero2, hero1, troopOfHero1);
         }
 
-        if (hero1.isArmyEmpty()) {
+        if (!hero1.hasArmy()) {
             System.out.println("\nHero " + hero2.getName() + " wins!");
         } else {
             System.out.println("\nHero " + hero1.getName() + " wins!");

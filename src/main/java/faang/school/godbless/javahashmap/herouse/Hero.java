@@ -54,7 +54,7 @@ public class Hero {
         return (Map.Entry<Creature, Integer>) keys[generator.nextInt(keys.length)];
     }
 
-    public boolean isArmyEmpty() {
-        return army.isEmpty();
+    public boolean hasArmy() {
+        return !army.isEmpty();
     }
 }
