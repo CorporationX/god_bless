@@ -1,6 +1,7 @@
 package faang.school.javacore.collectingusers;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -9,6 +10,7 @@ import java.util.*;
 @Getter
 @AllArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class User {
     private final long id;
     private final String name;
