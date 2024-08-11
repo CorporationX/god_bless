@@ -20,9 +20,7 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption() {
-        return dataCenter.getServers().stream()
-                .mapToDouble(Server::getEnergyConsumption)
-                .sum();
+        return dataCenter.getTotalEnergyConsumption();
     }
 
     public boolean allocateResources(ResourceRequest request) {

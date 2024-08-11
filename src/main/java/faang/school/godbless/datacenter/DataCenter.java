@@ -21,4 +21,10 @@ public class DataCenter {
     public void removeServer(Server server) {
         this.servers.remove(server);
     }
+
+    public double getTotalEnergyConsumption() {
+        return this.servers.stream()
+                .mapToDouble(Server::getEnergyConsumption)
+                .sum();
+    }
 }
