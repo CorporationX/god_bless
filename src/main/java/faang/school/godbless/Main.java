@@ -20,6 +20,10 @@ public class Main {
         librarian.addBook(new Book("The Hobbit", "J.R.R. Tolkien", 1937), "F8");
         librarian.addBook(new Book("Crime and Punishment", "Fyodor Dostoevsky", 1866), "F13");
 
+        // Print
+        System.out.println("\n");
+        librarian.printAllBooks();
+
         // Search
         String bookTitle = "1984";
         Map<Book, String> searchResult = librarian.findBooksLocationByTitle(bookTitle);
@@ -32,18 +36,27 @@ public class Main {
         printSearchResult(bookTitle, searchResult);
 
         librarian.removeBooksByTitle(bookTitle);
+        librarian.removeBooksByAuthor("J.R.R. Tolkien");
+        librarian.removeBooksByYear(1866);
 
+        // Search
         searchResult = librarian.findBooksLocationByTitle(bookTitle);
         printSearchResult(bookTitle, searchResult);
+
+        searchResult = librarian.findBooksLocationByAuthor("George Orwell");
+        printSearchResult("George Orwell", searchResult);
+
+        searchResult = librarian.findBooksLocationByYear(1866);
+        printSearchResult("1866", searchResult);
 
         // Print
         System.out.println("\n");
         librarian.printAllBooks();
     }
 
-    public static void printSearchResult(String bookTitle, Map<Book, String> searchResult) {
+    public static void printSearchResult(String searchQuery, Map<Book, String> searchResult) {
         if (searchResult.isEmpty()) {
-            System.out.println("Book: " + bookTitle + " | Location: Not found in the library");
+            System.out.println("Result with query: " + searchQuery + " not found in the library");
         } else {
             searchResult.forEach((book, location) ->
                     System.out.println("Book: " + book.getTitle() + " | Location: " + location));

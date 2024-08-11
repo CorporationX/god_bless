@@ -11,14 +11,23 @@ public class Librarian {
     private HashMap<Book, String> library;
 
     public void addBook(Book book, String location) {
+        if (book == null || location == null) {
+            return;
+        }
         library.put(book, location);
     }
 
     public void removeBooksByTitle(String title) {
+        if (title == null) {
+            return;
+        }
         library.entrySet().removeIf(entry -> entry.getKey().getTitle().equals(title));
     }
 
     public void removeBooksByAuthor(String author) {
+        if (author == null) {
+            return;
+        }
         library.entrySet().removeIf(entry -> entry.getKey().getAuthor().equals(author));
     }
 
@@ -27,6 +36,9 @@ public class Librarian {
     }
 
     public Map<Book, String> findBooksLocationByTitle(String title) {
+        if (title == null) {
+            return new HashMap<>();
+        }
         return library.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().getTitle().equals(title))
@@ -34,6 +46,9 @@ public class Librarian {
     }
 
     public Map<Book, String> findBooksLocationByAuthor(String author) {
+        if (author == null) {
+            return new HashMap<>();
+        }
         return library.entrySet()
                 .stream()
                 .filter(entry -> entry.getKey().getAuthor().equals(author))
