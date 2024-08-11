@@ -1,4 +1,4 @@
-package faang.school.godbless.task.might.and.magic.creature;
+package faang.school.godbless.task.hashmap.might.and.magic.creature;
 
 public class Pikeman extends Creature {
     private static final int PIKEMAN_HEALTH = 43;

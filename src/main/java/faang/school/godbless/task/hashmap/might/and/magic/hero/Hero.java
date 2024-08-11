@@ -1,6 +1,6 @@
-package faang.school.godbless.task.might.and.magic.hero;
+package faang.school.godbless.task.hashmap.might.and.magic.hero;
 
-import faang.school.godbless.task.might.and.magic.creature.Creature;
+import faang.school.godbless.task.hashmap.might.and.magic.creature.Creature;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;

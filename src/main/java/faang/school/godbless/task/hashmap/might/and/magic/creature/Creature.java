@@ -1,4 +1,4 @@
-package faang.school.godbless.task.might.and.magic.creature;
+package faang.school.godbless.task.hashmap.might.and.magic.creature;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
