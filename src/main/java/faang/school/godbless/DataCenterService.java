@@ -11,10 +11,16 @@ public class DataCenterService {
     private OptimizationStrategy optimizationStrategy;
 
     public void addServer(Server server) {
+        if (server == null) {
+            return;
+        }
         dataCenter.addServer(server);
     }
 
     public void removeServer(Server server) {
+        if (server == null) {
+            return;
+        }
         dataCenter.removeServer(server);
     }
 
@@ -31,6 +37,10 @@ public class DataCenterService {
     }
 
     public boolean allocateResources(ResourceRequest request) {
+        if (request == null) {
+            return false;
+        }
+
         Optional<Server> availableServer = dataCenter.getServers().stream()
                 .filter(server -> server.canHandleLoad(request.getLoad()))
                 .findFirst();
@@ -45,6 +55,10 @@ public class DataCenterService {
     }
 
     public boolean releaseResources(ResourceRequest request) {
+        if (request == null) {
+            return false;
+        }
+
         Optional<Server> availableServer = dataCenter.getServers().stream()
                 .filter(server -> server.canReleaseLoad(request.getLoad()))
                 .findFirst();

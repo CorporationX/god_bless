@@ -7,6 +7,10 @@ import java.util.List;
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
+        if (dataCenter == null) {
+            return;
+        }
+
         List<Server> servers = dataCenter.getServers();
 
         double totalLoad = servers.stream().mapToDouble(Server::getLoad).sum();

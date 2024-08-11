@@ -19,16 +19,12 @@ public class Server {
     public void allocateLoad(double load) {
         if (this.canHandleLoad(load)) {
             this.load += load;
-        } else {
-            throw new IllegalArgumentException("Exceeding server capacity");
         }
     }
 
     public void releaseLoad(double load) {
         if (this.canReleaseLoad(load)) {
             this.load -= load;
-        } else {
-            throw new IllegalArgumentException("Releasing more load than allocated");
         }
     }
 

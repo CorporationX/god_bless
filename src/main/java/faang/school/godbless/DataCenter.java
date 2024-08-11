@@ -9,10 +9,16 @@ public class DataCenter {
     private List<Server> servers = new ArrayList<>();
 
     public void addServer(Server server) {
+        if (server == null) {
+            return;
+        }
         servers.add(server);
     }
 
     public void removeServer(Server server) {
+        if (server == null) {
+            return;
+        }
         servers.remove(server);
     }
 
