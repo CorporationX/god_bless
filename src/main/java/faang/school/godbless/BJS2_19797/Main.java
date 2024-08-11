@@ -30,6 +30,6 @@ public class Main {
         service.printUserQueries();
         System.out.println();
 
-        service.printUserQueriesHistoryWithSorting();
+        service.printUserQueriesWithSorting();
     }
 }

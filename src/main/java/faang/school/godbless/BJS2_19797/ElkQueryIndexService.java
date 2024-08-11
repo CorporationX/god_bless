@@ -8,21 +8,14 @@ import java.util.Map;
 public class ElkQueryIndexService {
 
     private Map<User, List<Query>> userQueries = new HashMap<>();
-    private Map<User, List<Query>> userQueriesHistory = new HashMap<>();
 
     public void putUserWithQueries(User user, List<Query> queries) {
-        if (!userQueries.containsKey(user)) {
-            userQueriesHistory.put(user, queries);
-        }
         userQueries.put(user, queries);
     }
 
     public boolean putUserForQuery(User user, Query query) {
         if (userQueries.containsKey(user)) {
             userQueries.get(user).add(query);
-            if (!userQueriesHistory.containsKey(user)) {
-                userQueriesHistory.get(user).add(query);
-            }
             return true;
         } else {
             return false;
@@ -41,8 +34,8 @@ public class ElkQueryIndexService {
         }
     }
 
-    public void printUserQueriesHistoryWithSorting() {
-        for (Map.Entry<User, List<Query>> entry : userQueriesHistory.entrySet()) {
+    public void printUserQueriesWithSorting() {
+        for (Map.Entry<User, List<Query>> entry : userQueries.entrySet()) {
             User user = entry.getKey();
             List<Query> queries = entry.getValue();
             sortByTimestamp(queries);
