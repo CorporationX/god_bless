@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    static private final HashMap<String, House> mapHouse = new HashMap<>();
+    private static final HashMap<String, House> mapHouse = new HashMap<>();
 
     public static void main(String[] args) {
         House stark = new House("Stark", "Direwolf");

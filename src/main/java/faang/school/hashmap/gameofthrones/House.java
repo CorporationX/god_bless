@@ -8,6 +8,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class House {
+
     private final String nameHouse;
     private final String sigilHouse;
 
