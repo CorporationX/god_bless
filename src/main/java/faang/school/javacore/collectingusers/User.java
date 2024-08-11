@@ -17,7 +17,6 @@ public class User {
     private final int age;
     private final Set<String> activities;
 
-
     private static HashMap<User, String> findHobbyLovers(List<User> userList, Set<String> setActivities) {
         if (userList != null && setActivities != null) {
             HashMap<User, String> mapMatchingHobbies = new HashMap<>();
