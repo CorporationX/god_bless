@@ -13,7 +13,6 @@ public class Application {
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
-
         Product firstProduct = new Product(1, "Kolbasa", "eat");
         Product secondProduct = new Product(2, "Eggs", "eat");
         Product thirdProduct = new Product(3, "Shirt", "clothes");
@@ -42,7 +41,4 @@ public class Application {
             System.out.println(pair.getKey() + pair.getValue());
         }
     }
-
-
-
 }
