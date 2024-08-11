@@ -1,6 +1,6 @@
 package faang.school.godbless.task18990;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
