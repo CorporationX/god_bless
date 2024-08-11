@@ -15,10 +15,6 @@ public class DB {
         memory.put("Berlin", new WeatherData("Berlin", "18°C", "25%"));
     }
 
-    private DB() {
-
-    }
-
     public static WeatherData getFromDB(String city) {
         return memory.get(city);
     }
