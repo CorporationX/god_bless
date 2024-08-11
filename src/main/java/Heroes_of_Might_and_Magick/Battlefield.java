@@ -1,4 +1,4 @@
-package Mathew;
+package Heroes_of_Might_and_Magick;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

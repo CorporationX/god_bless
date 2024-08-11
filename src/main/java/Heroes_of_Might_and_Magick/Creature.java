@@ -1,4 +1,4 @@
-package Mathew;
+package Heroes_of_Might_and_Magick;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Creature {
+public abstract class Creature {
     private String name;
     private int level;
     private int attack;
@@ -17,7 +17,5 @@ public class Creature {
     private int speed;
     private int amount;
 
-    public static int getDamage(Creature creature) {
-       return creature.getAttack();
-    }
+    public abstract int getDamage(Creature creature);
 }
