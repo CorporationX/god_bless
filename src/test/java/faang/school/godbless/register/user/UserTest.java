@@ -28,26 +28,30 @@ public class UserTest {
 
     @Test
     void testNameNotValid() {
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new User("", 18, "Amazon", "London"));
+        IllegalArgumentException nameException = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new User("", 22, "Amazon", "London"));
+        Assertions.assertEquals(nameException.getMessage(), "Name can't be null or empty");
     }
 
     @Test
     void testAgeNotValid() {
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> new User("Tim", 17, "Amazon", "London"));
+        IllegalArgumentException addressException = Assertions.assertThrows(IllegalArgumentException.class,
+                () -> new User("Tim", 18, "Amazon", "Paris"));
+        Assertions.assertEquals(addressException.getMessage(), "Address is not valid");
     }
 
     @Test
     void testWorkPlaceNotValid() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        IllegalArgumentException placeException = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new User("Tim", 18, "Sber", "London"));
+        Assertions.assertEquals(placeException.getMessage(), "Work place is not valid");
     }
 
     @Test
     void testAddressNotValid() {
-        Assertions.assertThrows(IllegalArgumentException.class,
+        IllegalArgumentException addressException = Assertions.assertThrows(IllegalArgumentException.class,
                 () -> new User("Tim", 18, "Amazon", "Paris"));
+        Assertions.assertEquals(addressException.getMessage(), "Address is not valid");
     }
 }
 
