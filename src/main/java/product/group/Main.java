@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package product.group;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,12 +31,11 @@ public class Main {
     }
 
     private static Map<String, List<Product>> groupProductByCategory(Set<Product> productSet) {
-        Map<String, List<Product>> result = new HashMap<>();
+        Map<String, List<Product>> groupPruductMap = new HashMap<>();
         for (Product product : productSet) {
-            result.putIfAbsent(product.getCategory(), new ArrayList<>());
-            result.get(product.getCategory()).add(product);
+            groupPruductMap.computeIfAbsent(product.getCategory(), k ->  new ArrayList<>()).add(product);
         }
-        return result;
+        return groupPruductMap;
     }
 
     private static void printProductsInfo(Map<String, List<Product>> productMap) {

@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package product.group;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
