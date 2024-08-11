@@ -18,6 +18,7 @@ public class User {
         User alex = new User("Alex", 22, "Wb", "RB, g.Grodno, ul.Limoja");
         User oleg = new User("Oleg", 28, "Wb", "RB, g.Gomel, ul.Soveckay");
         User max = new User("Max", 22, "Avito", "RB, g.Minsk, ul.Derjinskogo");
+
         List<User> users = new ArrayList<>(Arrays.asList(alex, oleg, max));
 
         printMapUser(groupUsersOrAge(users));
