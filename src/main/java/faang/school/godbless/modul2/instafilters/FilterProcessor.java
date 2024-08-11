@@ -15,10 +15,11 @@ public class FilterProcessor {
             throw new NullPointerException("Filter can't be null");
         }
         return (image) -> {
-            var filteredImage = filter2.apply(filter1.apply(image));
-            var combinedDescription = filteredImage.getDescription().trim() + " + " +
-                    filteredImage.getDescription().substring(filteredImage.getDescription().indexOf(" ") + 1);
-            return new Image(filteredImage.getName(), combinedDescription);
+            Image filteredImage1 = filter1.apply(image);
+            Image filteredImage2 = filter2.apply(filteredImage1);
+            String combinedDescription = filteredImage1.getDescription().trim() + " + " +
+                    filteredImage2.getDescription().substring(filteredImage2.getDescription().indexOf(" ") + 1);
+            return new Image(filteredImage2.getName(), combinedDescription);
         };
     }
 }
