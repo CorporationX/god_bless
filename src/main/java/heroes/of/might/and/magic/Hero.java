@@ -17,19 +17,17 @@ public class Hero {
     private final Map<Creature, Integer> army = new HashMap<>();
 
     public void addCreature(Creature creature, int quantity) {
-        Integer creatureQuantity = this.army.get(creature);
-
-        if (creatureQuantity != null) {
+        if (this.army.containsKey(creature)) {
+            Integer creatureQuantity = this.army.get(creature);
             this.army.put(creature, quantity + creatureQuantity);
-        } else {
-            this.army.put(creature, quantity);
         }
+
+        this.army.put(creature, quantity);
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        Integer creatureQuantity = this.army.get(creature);
-
-        if (creatureQuantity != null) {
+        if (this.army.containsKey(creature)) {
+            Integer creatureQuantity = this.army.get(creature);
             if (creatureQuantity - quantity <= 0) {
                 this.army.remove(creature);
             } else {
