@@ -18,8 +18,12 @@ public class BattleField {
     }
 
     public Hero battle() {
-        firstHero.setDefeated(false);
-        secondHero.setDefeated(false);
+        if (firstHero.isDefeated()) {
+            firstHero.setDefeated(false);
+        }
+        if (secondHero.isDefeated()) {
+            secondHero.setDefeated(false);
+        }
         System.out.println("Начало боя");
         System.out.println();
         while (!firstHero.isDefeated() && !secondHero.isDefeated()) {
@@ -44,15 +48,17 @@ public class BattleField {
         int currentHp;
         int currentQuantity;
 
-        indexCurrent = random.nextInt(firstHero.getAliveCreature());
+        indexCurrent = random.nextInt(firstHero.getAliveCreatures());
         Creature creatureFirstHero = firstHero.getCreatures().get(indexCurrent);
-        indexCurrent = random.nextInt(secondHero.getAliveCreature());
+        indexCurrent = random.nextInt(secondHero.getAliveCreatures());
         Creature creatureSecondHero = secondHero.getCreatures().get(indexCurrent);
         damage = (creatureFirstHero.getDamage() * (10 - creatureSecondHero.getDefence()) / 10);
         fullHp = (creatureSecondHero.getQuantity() - 1) * creatureSecondHero.getDefaultHp() +
                 creatureSecondHero.getCurrentHp();
         if (damage >= fullHp) {
             secondHero.removeCreature(creatureSecondHero, creatureSecondHero.getQuantity());
+            System.out.println(creatureFirstHero.getName() + " атаковало " + creatureSecondHero.getName() +
+                    ". Нанесено " + damage + " урона, погибло " + creatureSecondHero.getQuantity());
         } else {
             currentHp = (fullHp - damage) % creatureSecondHero.getDefaultHp();
             currentQuantity = (fullHp - damage - currentHp) / creatureSecondHero.getDefaultHp();

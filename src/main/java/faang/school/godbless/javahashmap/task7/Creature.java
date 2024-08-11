@@ -8,6 +8,7 @@ import lombok.*;
 @EqualsAndHashCode(of = {"name"})
 @AllArgsConstructor
 public abstract class Creature {
+
     protected String name;
     protected Integer level;
     protected Integer attack;
