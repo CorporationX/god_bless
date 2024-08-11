@@ -19,6 +19,7 @@ public class User {
     private String address;
     private static final Set<String> VALID_JOBS = new HashSet<>();
     private static final Set<String> VALID_ADDRESSES = new HashSet<>();
+    private static final int VALIDAGE = 18;
 
     static {
        VALID_JOBS.add("Google");
@@ -33,24 +34,32 @@ public class User {
     }
 
     public User(String name, Integer age, String firm, String address) {
-        if(name != null || name.matches("[a-zA-Z]+"))
+        if (name != null || name.matches("[a-zA-Z]+")) {
             this.name = name;
-        else
+        }
+        else {
             throw new IllegalArgumentException("Отсутствует имя");
+        }
 
-        if(age >= 18)
+        if (age >= VALIDAGE) {
             this.age = age;
-        else
-            throw new IllegalArgumentException("Не верно указан возраст");
+        }
+        else {
+            throw new IllegalArgumentException("Возраст меньше 18");
+        }
 
-        if(VALID_JOBS.contains(firm))
+        if (VALID_JOBS.contains(firm)) {
             this.firm = firm;
-        else
+        }
+        else {
             throw new IllegalArgumentException("Данная фирма не найдена");
+        }
 
-        if(VALID_ADDRESSES.contains(address))
+        if (VALID_ADDRESSES.contains(address)) {
             this.address = address;
-        else
+        }
+        else {
             throw new IllegalArgumentException("Данный адрес не найден");
+        }
     }
 }
