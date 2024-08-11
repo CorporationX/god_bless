@@ -26,7 +26,7 @@ public class User {
     }
 
     private boolean isValidData(String name, int age, String job, String address) {
-        return name.isBlank() || age < MIN_AGE
+        return name == null || name.isBlank() || age < MIN_AGE
                 || !VALID_JOBS.contains(job) || !VALID_ADDRESSES.contains(address);
     }
 }
