@@ -1,12 +1,14 @@
 package faang.school.godbless.datacenter;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class Server {
-    double load;
-    double maxLoad;
-    double energyConsumption;
+    private double load;
+    private double maxLoad;
+    private double energyConsumption;
 
     public void increaseLoad(double amount) {
         if (load + amount <= maxLoad) {
