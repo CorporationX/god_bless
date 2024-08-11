@@ -1,6 +1,5 @@
 package faang.school.godbless.java.sql.cache;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
