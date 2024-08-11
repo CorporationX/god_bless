@@ -1,5 +1,7 @@
 package faang.school.godbless.LRU;
 
+import lombok.Getter;
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,10 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
-//@todo
 public class Main {
+    @Getter
     private static final String FILE_PATH = "src/main/java/faang/school/godbless/LRU/dataFile.ser";
     private static final Integer CACHE_SIZE = 10;
+    @Getter
     private Map<Long, Data> cache;//поменял на лонг для правдоподобности
 
     public Main() {
@@ -53,25 +56,33 @@ public class Main {
     public Data getData(Long id) {
         if (cache.containsKey(id)) {
             cache.get(id).setTimestamp(new Date());
-            addData(cache.get(id));
             return cache.get(id);
         }else {
-            return getDataFromFile(id);
+            Data data = getDataFromFile(id);
+            addData(data);
+            data.setTimestamp(new Date());
+            return data;
         }
     }
 
-    private Data getDataFromFile(Long id) {
+    public Data getDataFromFile(Long id) {
         try (FileInputStream inputStream = new FileInputStream(FILE_PATH);
         ObjectInputStream objectInputStream = new ObjectInputStream(inputStream)){
-            while (true) {
-                Data data = (Data) objectInputStream.readObject();
-                if (data.getId().equals(id)) {
-                    data.setTimestamp(new Date());
-                    addData(data);
-                    return data;
+            while (true) {//почему то objectInputStream.available() всегда
+                // возвращает 0 (хотя данные читаются нормально)
+                try {
+                    Data data = (Data) objectInputStream.readObject();
+                    if (data.getId().equals(id)) {
+                        data.setTimestamp(new Date());
+                        addData(data);
+                        return data;
+                    }
+                } catch (Exception e) {
+                    break;
                 }
             }
-        } catch (IOException | ClassNotFoundException e) {
+            return null;
+        } catch (IOException e) {
             System.err.println("Error :" + Arrays.toString(e.getStackTrace()));
             return null;
         }

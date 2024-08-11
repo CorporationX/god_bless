@@ -1,6 +1,5 @@
 package faang.school.godbless.group;
 
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
 public class User {
     @NonNull
     private String name;
@@ -20,8 +18,7 @@ public class User {
     private String homeAddress;
 
     public User(String name, Integer age,  String workAddress, String homeAddress) {
-        if (age >= 18 && VALID_ADDRESSES.contains(homeAddress)
-                && VALID_JOBS.contains(workAddress)){
+        if (age >= 18){
             this.name = name;
             this.age = age;
             this.homeAddress = homeAddress;
