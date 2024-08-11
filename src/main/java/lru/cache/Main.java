@@ -77,8 +77,7 @@ public class Main {
     }
 
     private Data getDataFromCache(int id) {
-        var data = cache.get(id);
-        cache.remove(id);
+        var data = cache.remove(id);
         putDataInCache(data);
 
         return data;
