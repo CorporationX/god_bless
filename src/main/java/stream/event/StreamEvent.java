@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package stream.event;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

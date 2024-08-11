@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package stream.event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,14 +46,14 @@ public class Main {
         if (STREAM_ID_EVENT_MAP.containsKey(id)) {
             return STREAM_ID_EVENT_MAP.get(id);
         }
-        return null;
+        throw new IllegalArgumentException("Нет события с ID: " + id);
     }
 
     public static List<StreamEvent> getStreamEventsByType(String eventType) {
         if (STREAM_TYPE_LIST_MAP.containsKey(eventType)) {
             return STREAM_TYPE_LIST_MAP.get(eventType);
         }
-        return null;
+        throw new IllegalArgumentException("Нет события с типом: " + eventType);
     }
 
     public static void deleteStreamEventById(int id) {
