@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Data
 @AllArgsConstructor
@@ -13,7 +14,10 @@ public class Query {
     private LocalDateTime timestamp;
 
     public static void addQueryForUser(User user, Query query) {
-        User.userQueryMap.get(user).add(query);
+        if (!Main.queriesByUser.containsKey(user)) {
+            Main.queriesByUser.put(user, new ArrayList<>());
+        }
+        Main.queriesByUser.get(user).add(query);
     }
 }
 
