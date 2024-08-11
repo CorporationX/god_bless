@@ -1,4 +1,4 @@
-package BJS2_18472;
+package faang.school.godbless.BJS2_18472;
 
 import lombok.Data;
 
