@@ -1,8 +1,8 @@
 package faang.school.godbless;
 
-import lombok.*;
+import lombok.Data;
 
-import java.util.*;
+import java.util.Set;
 
 @Data
 public class User {
@@ -24,14 +24,14 @@ public class User {
         checkValidJobs(workPlace);
         checkValidAddresses(address);
 
-        this.name = name;
+        this.name = name.trim();
         this.age = age;
         this.workPlace = workPlace;
         this.address = address;
     }
 
     private void checkValidName(String name) {
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name couldn't be empty");
         }
     }
