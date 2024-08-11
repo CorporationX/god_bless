@@ -17,12 +17,12 @@ public class Application {
         WEATHER_DATE_HASH_MAP.put(wd2.getCity(), wd2);
         WEATHER_DATE_HASH_MAP.put(wd3.getCity(), wd3);
 
-        System.out.println(infoWeather("Moscow"));
+        System.out.println(getInfoWeather("Moscow"));
 
         allMapWeatherDate();
     }
 
-    public static WeatherDate infoWeather(String city) {
+    public static WeatherDate getInfoWeather(String city) {
         if (WEATHER_DATE_HASH_MAP.containsKey(city)) {
             return WEATHER_DATE_HASH_MAP.get(city);
         } else {
@@ -31,11 +31,11 @@ public class Application {
         }
     }
 
-    public static void setMapWeatherDate(String city, WeatherDate weatherDate) {
+    public static void addMapWeatherDate(String city, WeatherDate weatherDate) {
         WEATHER_DATE_HASH_MAP.put(city, weatherDate);
     }
 
-    public static void delMapWeatherDate(String city) {
+    public static void removeMapWeatherDate(String city) {
         WEATHER_DATE_HASH_MAP.remove(city);
     }
 
