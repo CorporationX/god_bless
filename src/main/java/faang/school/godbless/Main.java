@@ -8,6 +8,10 @@ public class Main {
     private final WeatherService weatherService = new WeatherService();
 
     public CompletableFuture<WeatherData> getWeatherData(String city) {
+        if (city == null || city.isEmpty()) {
+            throw new IllegalArgumentException("city cannot be null or empty");
+        }
+
         if (this.weatherCache.containsKey(city)) {
             return CompletableFuture.completedFuture(weatherCache.get(city));
         } else {
@@ -20,11 +24,18 @@ public class Main {
     }
 
     public CompletableFuture<Void> updateWeatherData(String city) {
+        if (city == null || city.isEmpty()) {
+            throw new IllegalArgumentException("city cannot be null or empty");
+        }
+
         return this.weatherService.fetchWeatherData(city)
                 .thenAccept(weatherData -> this.weatherCache.put(city, weatherData));
     }
 
     public void removeWeatherData(String city) {
+        if (city == null || city.isEmpty()) {
+            throw new IllegalArgumentException("city cannot be null or empty");
+        }
         this.weatherCache.remove(city);
     }
 
