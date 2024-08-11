@@ -4,13 +4,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
+    private static final double SMALL_SERVER = 100;
+    private static final double MEDIUM_SERVER = 150;
+    private static final double LARGE_SERVER = 200;
+
     public static void main(String[] args) {
         DataCenter dataCenter = new DataCenter(new ArrayList<>(Arrays.asList(new Server(100),
                 new Server(100),
                 new Server(150),
                 new Server(200)
-        )));
-        DataCenterService dataCenterService = new DataCenterService(dataCenter, new LoadBalancingOptimizationStrategy());
+        )), SMALL_SERVER, MEDIUM_SERVER, LARGE_SERVER);
+        DataCenterService dataCenterService = new DataCenterService(dataCenter, new LoadBalancingOptimizationStrategy(), SMALL_SERVER, MEDIUM_SERVER, LARGE_SERVER);
         dataCenterService.printDataCenterConfiguration();
         System.out.println("------------");
         System.out.println("Request new resources");

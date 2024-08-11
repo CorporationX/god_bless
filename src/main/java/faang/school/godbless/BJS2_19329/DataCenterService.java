@@ -14,11 +14,11 @@ public class DataCenterService {
     private final double LARGE_SERVER_LOAD;
     private final double ZERO_LOAD = 0.0;
 
-    public DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy) {
+    public DataCenterService(DataCenter dataCenter, OptimizationStrategy optimizationStrategy, double SMALL_SERVER_LOAD, double MEDIUM_SERVER_LOAD, double LARGE_SERVER_LOAD) {
         this.dataCenter = dataCenter;
-        this.SMALL_SERVER_LOAD = dataCenter.getSMALL_SERVER();
-        this.MEDIUM_SERVER_LOAD = dataCenter.getMEDIUM_SERVER();
-        this.LARGE_SERVER_LOAD = dataCenter.getLARGE_SERVER();
+        this.SMALL_SERVER_LOAD = SMALL_SERVER_LOAD;
+        this.MEDIUM_SERVER_LOAD = MEDIUM_SERVER_LOAD;
+        this.LARGE_SERVER_LOAD = LARGE_SERVER_LOAD;
         this.optimizationStrategy = optimizationStrategy;
     }
 
@@ -30,9 +30,7 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption() {
-        return dataCenter.getServersList().stream()
-                .flatMapToDouble(server -> DoubleStream.of(server.getEnergyConsumption()))
-                .sum();
+        return dataCenter.getServersList().stream().mapToDouble(Server::getEnergyConsumption).sum();
     }
 
     public void allocateResources(ResourceRequest request) {
