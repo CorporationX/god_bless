@@ -4,66 +4,71 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Main {
-
-    public static final List<Student> STUDENTS = new ArrayList<>();
-
     public static void main(String[] args) {
-        addStudent("Павел", "Математика", 1);
-        addStudent("Владимир", "Математика", 1);
-        addStudent("Даниил", "Математика", 1);
-        addStudent("Виктор", "Физика", 3);
-        addStudent("Петр", "Физика", 3);
-        addStudent("Максим", "Химия", 2);
-        removeStudent("Максим", "Химия", 2);
+        List<Student> students = new ArrayList<>();
 
-        findStudentsByFacultyAndYear("Физика", 3);
-        System.out.println();
-        showGroupedStudentsByFacultyAndYear(groupStudentsByFacultyAndYear(STUDENTS));
+        // Добавление нового студента
+        addStudent(students, new Student("Павел", "Математика", 1));
+        addStudent(students, new Student("Владимир", "Математика", 1));
+        addStudent(students, new Student("Даниил", "Математика", 1));
+        addStudent(students, new Student("Виктор", "Физика", 3));
+        addStudent(students, new Student("Петр", "Физика", 3));
+        addStudent(students, new Student("Максим", "Химия", 2));
+
+        // Удаление студента
+        removeStudent(students, "Максим", "Химия", 2);
+
+        // Группировка студентов по факультетам и курсам
+        Map<String, Map<Integer, List<Student>>> groupedStudents = groupStudentsByFacultyAndYear(students);
+
+        // Вывод всех студентов, сгруппированных по факультетам и курсам
+        printGroupedStudents(groupedStudents);
+
+        // Поиск студентов по факультету и курсу
+        List<Student> physicsStudents = findStudentsByFacultyAndYear(students, "Физика", 3);
+        System.out.println("Физика, Year 3: " + physicsStudents);
     }
 
-    public static void addStudent(String name, String faculty, int year) {
-        STUDENTS.add(new Student(name, faculty, year));
+    public static void addStudent(List<Student> students, Student student) {
+        students.add(student);
     }
 
-    public static void removeStudent(String name, String faculty, int year) {
-        STUDENTS.remove(new Student(name, faculty, year));
+    public static void removeStudent(List<Student> students, String name, String faculty, int year) {
+        students.removeIf(student -> student.getName().equals(name)
+                && student.getFaculty().equals(faculty)
+                && student.getYear() == year);
     }
 
-    public static void findStudentsByFacultyAndYear(String faculty, int year) {
-        STUDENTS.stream()
-                .filter(student -> Objects.equals(student.faculty(), faculty)
-                        && student.year() == year)
-                .forEach(System.out::println);
-    }
-
-    public static Map<Map.Entry<String, Integer>, List<Student>>
-    groupStudentsByFacultyAndYear(List<Student> students) {
-        Map<Map.Entry<String, Integer>, List<Student>> groupedStudentsMap = new HashMap<>();
+    public static List<Student> findStudentsByFacultyAndYear(List<Student> students, String faculty, int year) {
+        List<Student> result = new ArrayList<>();
         for (Student student : students) {
-            Map.Entry<String, Integer> key = Map.entry(student.faculty(), student.year());
-            if (!groupedStudentsMap.containsKey(key)) {
-                groupedStudentsMap.put(key, new ArrayList<>());
+            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                result.add(student);
             }
-            groupedStudentsMap.get(key).add(student);
         }
-        return groupedStudentsMap;
+        return result;
     }
 
-    public static void showGroupedStudentsByFacultyAndYear(Map<Map.Entry<String, Integer>, List<Student>> groupedStudentsMap) {
-        StringBuilder sb = new StringBuilder();
-        for (Map.Entry<String, Integer> key : groupedStudentsMap.keySet()) {
-            sb.append("(Факультет: ")
-                    .append(key.getKey())
-                    .append(", ")
-                    .append("Курс: ")
-                    .append(key.getValue())
-                    .append("): ")
-                    .append(groupedStudentsMap.get(key))
-                    .append("\n");
+    public static Map<String, Map<Integer, List<Student>>> groupStudentsByFacultyAndYear(List<Student> students) {
+        Map<String, Map<Integer, List<Student>>> groupedStudents = new HashMap<>();
+        for (Student student : students) {
+            groupedStudents
+                    .computeIfAbsent(student.getFaculty(), k -> new HashMap<>())
+                    .computeIfAbsent(student.getYear(), k -> new ArrayList<>())
+                    .add(student);
         }
-        System.out.println(sb);
+        return groupedStudents;
+    }
+
+    public static void printGroupedStudents(Map<String, Map<Integer, List<Student>>> groupedStudents) {
+        for (String faculty : groupedStudents.keySet()) {
+            System.out.println("Faculty: " + faculty);
+            Map<Integer, List<Student>> yearGroups = groupedStudents.get(faculty);
+            for (Integer year : yearGroups.keySet()) {
+                System.out.println("  Year " + year + ": " + yearGroups.get(year));
+            }
+        }
     }
 }
