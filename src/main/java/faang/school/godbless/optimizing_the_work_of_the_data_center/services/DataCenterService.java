@@ -8,16 +8,13 @@ import faang.school.godbless.optimizing_the_work_of_the_data_center.main.Server;
 import java.util.List;
 
 public class DataCenterService {
+
     public void addServer(DataCenter dataCenter, Server server) {
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void removeServer(DataCenter dataCenter, Server server) {
-        if (dataCenter.getServers().contains(server)) {
-            List<Server> servers = dataCenter.getServers();
-            servers.remove(server);
-            dataCenter.setServers(servers);
-        }
+        dataCenter.removeServer(server);
     }
 
     public void getTotalEnergyConsumption(DataCenter dataCenter) {

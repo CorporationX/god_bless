@@ -19,4 +19,12 @@ public class DataCenter {
         }
         this.servers = servers;
     }
+
+    public void addServer(Server server) {
+        servers.add(server);
+    }
+
+    public void removeServer(Server server) {
+        servers.remove(server);
+    }
 }
