@@ -1,20 +1,26 @@
 package faang.school.godbless;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.ToString;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Getter
+@ToString
 @AllArgsConstructor
-@Data
 public class User {
 
     private final int id;
-    private String name;
-    private int age;
-    private HashSet<String> activities;
+    private final String name;
+    private final int age;
+    private Set<String> activities;
 
-    public static Map<User, String> findHobbyLovers(List<User> users, HashSet<String> activities) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
 
         return users.stream()
                 .filter(u -> {
