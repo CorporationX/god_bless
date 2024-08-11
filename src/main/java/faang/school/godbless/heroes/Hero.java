@@ -46,4 +46,8 @@ public class Hero {
         return nameCreatureMap;
     }
 
+    public boolean hasArmy() {
+        return !getCreatures().isEmpty();
+    }
+
 }

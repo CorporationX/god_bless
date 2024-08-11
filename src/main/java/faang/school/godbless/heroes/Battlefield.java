@@ -28,9 +28,9 @@ public class Battlefield {
         System.out.printf("%s has an army: %s\n", attackingHero.getName(), attackingHero.getArmy());
         System.out.printf("%s has an army: %s\n\n", attackedHero.getName(), attackedHero.getArmy());
 
-        while (!attackingHero.getCreatures().isEmpty() || !attackedHero.getCreatures().isEmpty()) {
+        while (attackingHero.hasArmy() && attackedHero.hasArmy()) {
             attack(attackingHero, attackedHero);
-            if (attackedHero.getCreatures().isEmpty()) {
+            if (!attackedHero.hasArmy()) {
                 System.out.printf("%s won the battle!\n", attackingHero.getName());
                 break;
             }
@@ -49,12 +49,7 @@ public class Battlefield {
 
         for (String creatureName : attackingCreatures.keySet()) {
             Creature attackingCreature = attackingCreatures.get(creatureName);
-
-            int randomIndex = getRandomIndex(attackedCreatures.size() - 1);
-            Creature attackedCreature = attackedCreatures
-                    .get(List.copyOf(attackedCreatures.keySet())
-                            .get(randomIndex));
-
+            Creature attackedCreature = getRandomCreature(attackedCreatures);
             System.out.printf("%s's %ss attacks %s's %ss\n",
                     attackingHero.getName(), attackingCreature.getName(),
                     attackedHero.getName(), attackedCreature.getName());
@@ -76,6 +71,13 @@ public class Battlefield {
                         attackedCreature.getName(), attackedHero.getName());
             }
         }
+    }
+
+    private static Creature getRandomCreature(Map<String, Creature> attackedCreatures) {
+        int randomIndex = getRandomIndex(attackedCreatures.size() - 1);
+        return attackedCreatures
+                .get(List.copyOf(attackedCreatures.keySet())
+                        .get(randomIndex));
     }
 
     private static int getRandomIndex(int size) {
