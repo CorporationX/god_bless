@@ -44,11 +44,9 @@ public class Hero {
 
     public int totalArmyDamage() {
         int totalArmyDamage = 0;
-        Iterator<Creature> iterator = ownArmy.iterator();
-        while (iterator.hasNext()) {
-             Creature creature = iterator.next();
-             totalArmyDamage+=creature.getDamage();
 
+        for (Creature creature : ownArmy) {
+            totalArmyDamage += creature.getDamage();
         }
         return totalArmyDamage;
     }

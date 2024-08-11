@@ -2,8 +2,11 @@ package faang.school.godbless.gameHeroesOfMight;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class Creature {
     private String name;
     private int level = 1;

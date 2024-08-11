@@ -1,7 +1,11 @@
 package faang.school.godbless.gameHeroesOfMight;
 
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class Pikeman extends Creature {
     private static final int DEFAULT_ATTACK = 20;
     private static final int DEFAULT_PROTECTION = 7;

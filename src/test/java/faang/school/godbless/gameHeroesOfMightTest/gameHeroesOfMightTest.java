@@ -7,6 +7,7 @@ import faang.school.godbless.gameHeroesOfMight.Hero;
 import faang.school.godbless.gameHeroesOfMight.Pikeman;
 import faang.school.godbless.gameHeroesOfMight.Swordman;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -36,7 +37,7 @@ public class gameHeroesOfMightTest {
         hero2.addCreature(new Angel("Angel1"), 3);
         hero2.addCreature(new Griffin("Griffin1"), 2);
     }
-
+    @DisplayName("Добавление войска герою")
     @Test
     public void testAddCreature() {
         Pikeman pikeman2 = new Pikeman("Pikeman2");
@@ -45,30 +46,29 @@ public class gameHeroesOfMightTest {
         assertTrue(hero1.getOwnArmy().contains(pikeman2));
         assertEquals(7, pikeman2.getAmount());
     }
-
+    @DisplayName("Удаление определенного кол-ва войск у героя")
     @Test
     public void testRemoveCreature() {
         Swordman swordman = new Swordman("Swordman1");
         hero1.addCreature(swordman, 7);
         hero1.removeCreature(swordman, 3);
         assertEquals(4, swordman.getAmount());
-        hero1.removeCreature(swordman, 4); // This should remove the Swordman from the army
+        hero1.removeCreature(swordman, 4);
         assertFalse(hero1.getOwnArmy().contains(swordman));
     }
 
-
+    @DisplayName("Имитация сражения героев")
     @Test
     public void testBattle() {
         Battlefield battlefield = new Battlefield();
-        Hero winner = battlefield.battle(hero1, hero2);
+        Battlefield.BattleResult winner = battlefield.battle(hero1, hero2);
 
         if (hero1.totalArmyDamage() > hero2.totalArmyDamage()) {
-            assertEquals(hero1, winner);
+            assertEquals(Battlefield.BattleResult.HERO1_WINS, winner);
         } else if (hero2.totalArmyDamage() > hero1.totalArmyDamage()) {
-            assertEquals(hero2, winner);
+            assertEquals(Battlefield.BattleResult.HERO2_WINS, winner);
         } else {
-            assertNull(winner); // It's a tie
-        }
+            assertEquals(Battlefield.BattleResult.TIE, winner);}
     }
 }
 
