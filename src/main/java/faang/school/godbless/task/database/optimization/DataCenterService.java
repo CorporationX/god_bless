@@ -26,17 +26,15 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption() {
-        List<Server> servers = dataCenter.getServers();
         double energyConsumption = 0;
-        for (Server server : servers) {
+        for (Server server : dataCenter.getServers()) {
             energyConsumption += server.getEnergyConsumption();
         }
         return energyConsumption;
     }
 
     public void allocateResources(ResourceRequest resourceRequest) {
-        int numberOfServers = dataCenter.getServers().size();
-        for (int i = 0; i < numberOfServers; i++) {
+        for (Server server : dataCenter.getServers()) {
             if (dataCenter.getNextServer().allocateLoad(resourceRequest.load())) {
                 return;
             }
@@ -52,8 +50,7 @@ public class DataCenterService {
     }
 
     public void releaseResources(ResourceRequest resourceRequest) {
-        int numberOfServers = dataCenter.getServers().size();
-        for (int i = 0; i < numberOfServers; i++) {
+        for (Server server : dataCenter.getServers()) {
             if (dataCenter.getNextServer().releaseLoad(resourceRequest.load())) {
                 return;
             }
