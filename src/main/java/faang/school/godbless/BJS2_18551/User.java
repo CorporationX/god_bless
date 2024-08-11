@@ -1,15 +1,15 @@
 package faang.school.godbless.BJS2_18551;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Data
 @AllArgsConstructor
+@EqualsAndHashCode
 public class User {
     private int id;
     private String name;
