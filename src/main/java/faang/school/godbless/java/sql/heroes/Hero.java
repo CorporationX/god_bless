@@ -23,9 +23,18 @@ public class Hero {
         this.level = level;
     }
 
+    private int calculateCommonHealthBasedOnQuantity(Creature creature, int quantity) {
+        int baseCommonHealth = creature.health * quantity;
+        double protectModifier = creature.protect / Creature.PROTECT_SCALING_FACTOR;
+        double additionalProtectDHealth = baseCommonHealth * protectModifier;
+        double finalCommonHealth = baseCommonHealth + additionalProtectDHealth;
+        return (int) finalCommonHealth;
+    }
+
     public void addCreature(Creature creature, int quantity) {
+        int commonHealth = this.calculateCommonHealthBasedOnQuantity(creature, quantity);
         creature.setQuantity(quantity);
-        creature.setHealth();
+        creature.setHealth(commonHealth);
         this.creatureMap.put(creature.name, creature);
     }
 
@@ -33,15 +42,8 @@ public class Hero {
         this.creatureMap.put(creature.name, creature);
     }
 
-    public void removeCreature(Creature creature, int quantity) {
-        Creature modifiedCreature = this.creatureMap.get(creature.name);
-        modifiedCreature.setQuantity(quantity);
-
-        if (modifiedCreature.quantity == 0) {
-            this.creatureMap.remove(creature.name);
-        } else {
-            this.creatureMap.put(creature.name, modifiedCreature);
-        }
+    public void removeCreature(Creature creature) {
+        this.creatureMap.remove(creature.name);
     }
 
     public void getArmy() {
