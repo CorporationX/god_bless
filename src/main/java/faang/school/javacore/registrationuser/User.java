@@ -14,10 +14,10 @@ public class User {
     private final String placeOfWork;
     private final String address;
 
-    private static final int minAge = 18;
+    private static int minAge = 18;
 
-    private static final Set<String> valid_jobs = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> valid_address = Set.of("London", "New York", "Amsterdam");
+    private static Set<String> valid_jobs = Set.of("Google", "Uber", "Amazon");
+    private static Set<String> valid_address = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
         if (validUser(name, age, placeOfWork, address)) {
