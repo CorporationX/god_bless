@@ -1,13 +1,11 @@
 package faang.school.godbless.lrucache;
 
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
     private static final int CACHE_SIZE = 4;
 
-    private static Map<Integer, Data> dataStructure = new HashMap<>();
     private static Map<Integer, Data> cache = new LinkedHashMap<>(CACHE_SIZE, 0.75f, true) {
         @Override
         protected boolean removeEldestEntry(Map.Entry<Integer, Data> eldest) {
@@ -16,6 +14,7 @@ public class Main {
     };
 
     public static void main(String[] args) {
+
         addData(new Data(1, "Value1"));
         addData(new Data(2, "Value2"));
         addData(new Data(3, "Value3"));
@@ -51,14 +50,14 @@ public class Main {
     }
 
     public static void addData(Data data) {
-        dataStructure.put(data.getId(), data);
+        DataService.addData(data);
         cache.put(data.getId(), data);
     }
 
     public static void getDataById(int id) {
         Data data = cache.get(id);
         if (data == null) {
-            data = dataStructure.get(id);
+            data = DataService.getDataById(id);
             if (data != null) {
                 data.updateTimestamp();
                 cache.put(id, data);
