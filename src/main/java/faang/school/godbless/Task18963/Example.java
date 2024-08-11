@@ -1,6 +1,6 @@
 package faang.school.godbless.Task18963;
 
-import java.util.Arrays;
+
 
 public class Example {
 
@@ -16,6 +16,5 @@ public class Example {
                 i -= 1;
             }
         }
-        System.out.println(Arrays.toString(massiv));
     }
 }
