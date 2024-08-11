@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.Abstract;
 import lombok.Setter;
 
 abstract class Character {
