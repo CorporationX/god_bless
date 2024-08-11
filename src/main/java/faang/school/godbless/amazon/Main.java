@@ -28,13 +28,7 @@ public class Main {
         for (Product product : productList) {
             String category = product.getCategory();
 
-//           Противоречит ли принципу KISS?
-//           groupedProducts.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
-
-            if (!groupedProducts.containsKey(category)) {
-                groupedProducts.put(category, new ArrayList<>());
-            }
-            groupedProducts.get(category).add(product);
+           groupedProducts.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
         }
         return groupedProducts;
     }
