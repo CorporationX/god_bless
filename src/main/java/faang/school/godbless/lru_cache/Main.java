@@ -1,59 +1,60 @@
 package faang.school.godbless.lru_cache;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
+import java.util.Optional;
 
 public class Main {
-    static Map<Integer, Data> cache = new HashMap<>();
-    static LinkedList<Data> lru = new LinkedList<>();
-    private static final int CACHE_SIZE = 10;
+    private static final int CACHE_SIZE = 3;
+    private final HashMap<Integer, Data> cache = new HashMap<>();
 
     public static void main(String[] args) {
-        Data firstData = new Data(1, "Hello");
-        Data secondData = new Data(2, "Hello");
-        lru.add(firstData);
-        System.out.println(lru);
+        Main cacheManager = new Main();
 
-        System.out.println(addData(secondData));
-        System.out.println(lru);
+        cacheManager.addData(1, "1");
+        cacheManager.addData(2, "2");
+        cacheManager.addData(3, "3");
 
-        System.out.println(getData(1));
-        System.out.println(lru);
+        cacheManager.printAllCache();
 
-        printAllCache();
+        cacheManager.getData(1);
+
+        cacheManager.printAllCache();
+
+        cacheManager.addData(4, "4");
+
+        cacheManager.printAllCache();
     }
 
-    public static Data addData(Data data) {
-        if (lru.size() == CACHE_SIZE) {
-            lru.removeFirst();
+    public void addData(int id, String value) {
+        if (cache.size() >= CACHE_SIZE) {
+            removeOldData();
         }
-        if (lru.contains(data)) {
-            return lru.get(lru.indexOf(data));
+        Data data = new Data(id, value);
+        cache.put(id, data);
+    }
+
+    public Data getData(int id) {
+        Data data = cache.get(id);
+        if (data != null) {
+            data.setTimestamp(LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond());
+            return data;
         }
-        lru.add(data);
         return data;
     }
 
-    public static Data getData(int id) {
-        if (cache.containsKey(id)) {
-            cache.get(id).setTimestamp(new java.util.Date().getTime() / 1000);
-            return cache.get(id);
-        } else {
-            for (Data data : lru) {
-                if (data.getId() == id) {
-                    data.setTimestamp(new java.util.Date().getTime() / 1000);
-                    cache.put(id, data);
-                    return data;
-                }
-            }
-        }
-        return null;
+    private void removeOldData() {
+        Optional<Map.Entry<Integer, Data>> oldestEntry = cache.entrySet().stream()
+                .min(Map.Entry.comparingByValue((date_first, date_second) ->
+                        Math.toIntExact(date_first.getTimestamp() - date_second.getTimestamp())));
+        oldestEntry.ifPresent(entry -> cache.remove(entry.getKey()));
     }
 
-    public static void printAllCache() {
+    public void printAllCache() {
         for (Map.Entry<Integer, Data> entry : cache.entrySet()) {
-            System.out.println(entry.getValue());
+            System.out.println(entry);
         }
     }
 }

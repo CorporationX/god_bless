@@ -3,11 +3,14 @@ package faang.school.godbless.lru_cache;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 @Getter
 @ToString
 public class Data {
     private final int id;
-    private final String value;
+    private String value;
     private long timestamp;
 
     public Data(int id, String value) {
@@ -19,7 +22,7 @@ public class Data {
         }
         this.id = id;
         this.value = value;
-        this.timestamp = new java.util.Date().getTime() / 1000;
+        this.timestamp = LocalDateTime.now().atZone(ZoneId.of("UTC")).toInstant().getEpochSecond();
     }
 
     public void setTimestamp(long timestamp) {
@@ -27,5 +30,12 @@ public class Data {
             throw new IllegalArgumentException("Timestamp cannot be negative");
         }
         this.timestamp = timestamp;
+    }
+
+    public void setValue(String value) {
+        if (value == null || value.isEmpty()) {
+            throw new IllegalArgumentException("Value cannot be null or empty");
+        }
+        this.value = value;
     }
 }
