@@ -15,12 +15,12 @@ class MainTest {
     private final static Map<String, List<Product>> GROUP_PRODUCTS_BY_CATEGORY_RESULT = Main.groupProductsByCategory(products);
 
     @Test
-    void groupProductsByCategoryCorrect() {
+    void testGroupProductsByCategoryCorrect() {
         assertEquals(CORRECT_PRODUCT_CATEGORY_MAP, GROUP_PRODUCTS_BY_CATEGORY_RESULT);
     }
 
     @Test
-    void groupProductsByCategoryIncorrect() {
+    void testGroupProductsByCategoryIncorrect() {
         assertNotEquals(INCORRECT_PRODUCT_CATEGORY_MAP, GROUP_PRODUCTS_BY_CATEGORY_RESULT);
     }
 }
