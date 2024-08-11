@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
     static List<Student> students = Arrays.asList(
@@ -20,10 +21,10 @@ public class Main {
         printAllGrouped();
     }
 
-    public static HashMap<Pair, List<Student>> groupByFacultyAndYear(List<Student> list) {
-        HashMap<Pair, List<Student>> result = new HashMap<>();
+    public static Map<Pair, List<Student>> groupByFacultyAndYear(List<Student> students) {
+        Map<Pair, List<Student>> result = new HashMap<>();
 
-        for(var student : list) {
+        for(var student : students) {
             result.computeIfAbsent(new Pair(student.getFaculty(), student.getYearOfStudy()),
                     k -> new ArrayList<>()).add(student);
         }
@@ -43,14 +44,14 @@ public class Main {
 
     public static void searchByFacultyAndYear(String faculty, int year) {
         Pair pair = new Pair(faculty, year);
-        HashMap<Pair, List<Student>> grouped = groupByFacultyAndYear(students);
+        Map<Pair, List<Student>> grouped = groupByFacultyAndYear(students);
         for(var student : grouped.get(pair)) {
             System.out.println(student);
         }
     }
 
     public static void printAllGrouped() {
-        HashMap<Pair, List<Student>> grouped = groupByFacultyAndYear(students);
+        Map<Pair, List<Student>> grouped = groupByFacultyAndYear(students);
         for(var pair : grouped.entrySet()) {
             System.out.println(pair.getKey() + ":");
             for(var student : pair.getValue()) {
