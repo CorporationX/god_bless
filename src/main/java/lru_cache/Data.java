@@ -1,13 +1,21 @@
 package lru_cache;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalTime;
 
 @lombok.Data
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Getter
 public class Data {
-    private int id;
-    private int value;
+    private final int id;
+    private final int value;
+    @Setter
     private LocalTime timestamp;
+
+
+
 }
