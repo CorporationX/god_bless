@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy{
-    //Это, конечно, сложно назвать балансировщиком нагрузки, но хоть что-то)
     @Override
     public void optimize(DataCenter dataCenter) {
         double totalMaxLoad = dataCenter.getServers().stream().mapToDouble(Server::getMaxLoad).sum();

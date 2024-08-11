@@ -14,4 +14,12 @@ import java.util.List;
 @ToString
 public class DataCenter{
     private final List<Server> servers = new ArrayList<>();
+
+    public void addServer(Server server){
+        servers.add(server);
+    }
+
+    public double getTotalEnergyConsumption(){
+        return servers.stream().mapToDouble(Server::getEnergyConsumption).sum();
+    }
 }

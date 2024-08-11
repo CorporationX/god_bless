@@ -11,7 +11,7 @@ public class DataCenterService {
     }
 
     public void addServer(Server server){
-        dataCenter.getServers().add(server);
+        this.dataCenter.addServer(server);
     }
 
     public List<Server> getServers(){
@@ -23,7 +23,7 @@ public class DataCenterService {
     }
 
     public double getTotalEnergyConsumption(){
-        return this.dataCenter.getServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
+        return this.dataCenter.getTotalEnergyConsumption();
     }
 
     public void allocateResources(ResourceRequest request){
