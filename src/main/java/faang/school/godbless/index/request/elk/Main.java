@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class Main {
 
-    private static Map<User, List<Query>> userRequestMap = new HashMap<>();
+    public static final Map<User, List<Query>> userRequestMap = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -68,15 +68,15 @@ public class Main {
         printAll();
     }
 
-    private static void addUser(User user, List<Query> queries) {
+    public static void addUser(User user, List<Query> queries) {
         userRequestMap.put(user, queries);
     }
 
-    private static void addRequest(User user, Query query) {
+    public static void addRequest(User user, Query query) {
         userRequestMap.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
     }
 
-    private static void deleteUser(User user) {
+    public static void deleteUser(User user) {
         userRequestMap.remove(user);
     }
 
