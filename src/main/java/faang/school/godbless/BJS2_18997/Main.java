@@ -1,4 +1,4 @@
-package BJS2_18997;
+package faang.school.godbless.BJS2_18997;
 
 public class Main {
     public static void main(String[] args) {

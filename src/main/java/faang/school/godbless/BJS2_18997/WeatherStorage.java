@@ -1,4 +1,4 @@
-package BJS2_18997;
+package faang.school.godbless.BJS2_18997;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
