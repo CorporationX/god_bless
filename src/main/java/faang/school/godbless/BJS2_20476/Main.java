@@ -1,4 +1,4 @@
-package BJS2_20476;
+package faang.school.godbless.BJS2_20476;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
