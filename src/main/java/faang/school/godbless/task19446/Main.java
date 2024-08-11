@@ -3,6 +3,7 @@ package faang.school.godbless.task19446;
 import java.util.*;
 import java.util.stream.Collectors;
 
+
 public class Main {
     public static void main(String[] args) {
         Set<Product> products = new HashSet<>();
@@ -10,9 +11,10 @@ public class Main {
         products.add(new Product(24, "Юбка", "Одежда"));
         products.add(new Product(26, "Туфли", "Обувь"));
         products.add(new Product(28, "Сапоги", "Обувь"));
+
         System.out.println(groupProductByCategory(products));
-        getAllProducts(products);
-        System.out.println(findProductByCategory(products, "Одежда"));
+        getAllProductsByCategory(products);
+
     }
 
     public static Map<String, List<Product>> groupProductByCategory(Set<Product> set){
@@ -22,17 +24,13 @@ public class Main {
         return map;
     }
 
-    public static void getAllProducts(Set<Product> set){
+    public static void getAllProductsByCategory(Set<Product> set) {
         Map<String, List<Product>> map = groupProductByCategory(set);
-        map.entrySet().stream()
-                .flatMap(entry -> entry.getValue().stream())
-                .forEach(product -> System.out.println(product.getCategory() + product.getName()));
-    }
 
-    public static List<Product> findProductByCategory(Set<Product> set, String category){
-        List<Product> result = set.stream().filter(product -> product.getCategory().equals(category))
-                .collect(Collectors.toList());
-        return  result;
+        for (Map.Entry<String, List<Product>> entry : map.entrySet()) {
+            String result = entry.getKey() + " - " + entry.getValue().stream()
+                    .map(Product::getName).collect(Collectors.joining(", "));
+            System.out.println(result);
+        }
     }
-
 }
