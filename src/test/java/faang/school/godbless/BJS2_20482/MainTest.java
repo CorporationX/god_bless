@@ -41,10 +41,10 @@ class MainTest {
     }
 
     @Test
-    void addStreamEventAndRenewMaps() {
+    void addEvents() {
         var event = new StreamEvent(11, "delete", "User 1 deleted account");
 
-        Main.addStreamEventAndRenewMaps(event, streamEventMap, eventsListMap);
+        Main.addEvent(event, streamEventMap, eventsListMap);
 
         assertThat(streamEventMap).containsKey(11).containsKey(2).containsKey(3)
                 .hasSize(11);
@@ -55,7 +55,7 @@ class MainTest {
 
 
     @Test
-    void getStreamEventById() {
+    void getEventById() {
         var givenEvent = new StreamEvent(6, "password_change", "User 2 changed password");
         streamEventMap.put(6, givenEvent);
         var result = Main.getStreamEventById(6, streamEventMap);
@@ -64,19 +64,25 @@ class MainTest {
     }
 
     @Test
-    void getStreamEventsByEventType() {
+    void getEventByType() {
         var givenEvent1 = new StreamEvent(1, "login", "User 1 logged in");
         var givenEvent2 = new StreamEvent(3, "login", "User 3 logged in");
         var givenEvent3 = new StreamEvent(7, "login", "User 4 logged in");
-        var result = Main.getStreamEventsByEventType("login", eventsListMap);
+        var result = Main.getEventByType("login", eventsListMap);
 
         assertThat(result).containsExactly(givenEvent1, givenEvent2, givenEvent3);
         assertThat(result).hasSize(3);
     }
 
     @Test
-    void deleteStreamEventById() {
-        Main.deleteStreamEventById(3, streamEventMap, eventsListMap);
+    void getEventsByTypeShouldReturnEmptyList() {
+        var result = Main.getEventByType("cancel", eventsListMap);
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void deleteEventById() {
+        Main.deleteEventById(3, streamEventMap, eventsListMap);
         assertThat(streamEventMap).doesNotContainKey(3).hasSize(9);
         assertThat(eventsListMap).doesNotContainKey("login").containsKey("purchase").containsKey("logout")
                 .hasSize(4);

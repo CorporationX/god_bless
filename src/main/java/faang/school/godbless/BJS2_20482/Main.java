@@ -2,10 +2,7 @@ package faang.school.godbless.BJS2_20482;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
     @Getter
@@ -16,8 +13,8 @@ public class Main {
     public static void main(String[] args) {
     }
 
-    public static void addStreamEventAndRenewMaps(StreamEvent streamEvent, Map<Integer, StreamEvent> streamEventMap,
-                                                  Map<String, List<StreamEvent>> stringListMap) {
+    public static void addEvent(StreamEvent streamEvent, Map<Integer, StreamEvent> streamEventMap,
+                                Map<String, List<StreamEvent>> stringListMap) {
         streamEventMap.put(streamEvent.getId(), streamEvent);
         stringListMap.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
@@ -26,17 +23,19 @@ public class Main {
         return streamEventMap.get(id);
     }
 
-    public static List<StreamEvent> getStreamEventsByEventType(String eventType,
-                                                               Map<String, List<StreamEvent>> eventListMap) {
-        return eventListMap.get(eventType);
+    public static List<StreamEvent> getEventByType(String eventType,
+                                                   Map<String, List<StreamEvent>> eventListMap) {
+        if (eventListMap.containsKey(eventType))
+            return eventListMap.get(eventType);
+
+        return Collections.emptyList();
     }
 
-    public static void deleteStreamEventById(int id, Map<Integer, StreamEvent> streamEventMap,
-                                             Map<String, List<StreamEvent>> eventListMap) {
+    public static void deleteEventById(int id, Map<Integer, StreamEvent> streamEventMap,
+                                       Map<String, List<StreamEvent>> eventListMap) {
         var keyForEventsList = streamEventMap.get(id).getEventType();
         streamEventMap.remove(id);
         eventListMap.remove(keyForEventsList);
-
     }
 
     public static void printAllInfo(Map<Integer, StreamEvent> streamEventMap) {
