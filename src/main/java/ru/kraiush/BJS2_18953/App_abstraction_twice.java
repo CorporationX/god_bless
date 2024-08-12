@@ -45,6 +45,7 @@ abstract class Character {
     abstract void attack(Character character);
 }
 
+@Getter
 class Warrior extends Character {
 
     String name;
@@ -72,6 +73,7 @@ class Warrior extends Character {
     }
 }
 
+@Getter
 class Archer extends Character{
 
     String name;
