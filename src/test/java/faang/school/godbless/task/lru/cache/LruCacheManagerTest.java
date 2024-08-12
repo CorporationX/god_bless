@@ -10,18 +10,18 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LruCacheManagerTest {
-    private final Data data1 = new Data(1, "A");
-    private final Data data2 = new Data(2, "B");
-    private final Data data3 = new Data(3, "C");
-    private final Data data4 = new Data(4, "D");
-    private final Data data5 = new Data(5, "E");
-    private final Data data6 = new Data(6, "F");
-    private final Data data7 = new Data(7, "G");
-    private final Data data8 = new Data(8, "H");
-    private final Data data9 = new Data(9, "I");
-    private final Data data10 = new Data(10, "J");
-    private final Data data11 = new Data(11, "K");
-    private final Data data12 = new Data(12, "L");
+    private final Data data1 = new Data(1L, "A");
+    private final Data data2 = new Data(2L, "B");
+    private final Data data3 = new Data(3L, "C");
+    private final Data data4 = new Data(4L, "D");
+    private final Data data5 = new Data(5L, "E");
+    private final Data data6 = new Data(6L, "F");
+    private final Data data7 = new Data(7L, "G");
+    private final Data data8 = new Data(8L, "H");
+    private final Data data9 = new Data(9L, "I");
+    private final Data data10 = new Data(10L, "J");
+    private final Data data11 = new Data(11L, "K");
+    private final Data data12 = new Data(12L, "L");
 
     private List<Data> dataList;
     private LruCacheManager lruCacheManager;
@@ -41,7 +41,7 @@ public class LruCacheManagerTest {
     @Test
     @DisplayName("Add new data into data structure")
     void testAddNewDataIntoDataStructure() {
-        Data dataExpected = new Data(13, "X");
+        Data dataExpected = new Data(13L, "X");
         lruCacheManager.addNewDataIntoDataStructure(dataExpected);
         Data dataActual = lruCacheManager.findDataById(dataExpected.getId());
         assertEquals(dataExpected, dataActual);
@@ -53,6 +53,7 @@ public class LruCacheManagerTest {
         assertEquals(data1, lruCacheManager.findDataById(data1.getId()));
     }
 
+    // Тесты просто визуализируют движение данных внутри кеша
     @Test
     @DisplayName("Print all data in cache")
     void testPrintAllDataInCache() {
@@ -67,19 +68,19 @@ public class LruCacheManagerTest {
         try {
             lruCacheManager.printAllDataInCache();
             System.out.println("\nFind: " + data8);
-            lruCacheManager.findDataById(8);
+            lruCacheManager.findDataById(8L);
             Thread.sleep(1000);
             lruCacheManager.printAllDataInCache();
             System.out.println("\nFind: " + data2);
-            lruCacheManager.findDataById(2);
+            lruCacheManager.findDataById(2L);
             Thread.sleep(1000);
             lruCacheManager.printAllDataInCache();
             System.out.println("\nFind: " + data2);
-            lruCacheManager.findDataById(2);
+            lruCacheManager.findDataById(2L);
             Thread.sleep(1000);
             lruCacheManager.printAllDataInCache();
             System.out.println("\nFind: " + data9);
-            lruCacheManager.findDataById(9);
+            lruCacheManager.findDataById(9L);
             Thread.sleep(1000);
             lruCacheManager.printAllDataInCache();
 
@@ -90,15 +91,15 @@ public class LruCacheManagerTest {
 
     void addDataToCache() {
         try {
-            lruCacheManager.findDataById(8);
+            lruCacheManager.findDataById(8L);
             Thread.sleep(1000);
-            lruCacheManager.findDataById(9);
+            lruCacheManager.findDataById(9L);
             Thread.sleep(1000);
-            lruCacheManager.findDataById(10);
+            lruCacheManager.findDataById(10L);
             Thread.sleep(1000);
-            lruCacheManager.findDataById(11);
+            lruCacheManager.findDataById(11L);
             Thread.sleep(1000);
-            lruCacheManager.findDataById(12);
+            lruCacheManager.findDataById(12L);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

@@ -8,7 +8,7 @@ import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 public class DataStructure {
-    private final Map<Integer, Data> dataBase;
+    private final Map<Long, Data> dataBase;
 
     public void addData(@NonNull Data data) {
         if (dataBase.containsKey(data.getId())) {
@@ -17,7 +17,7 @@ public class DataStructure {
         dataBase.put(data.getId(), data);
     }
 
-    public Data findDataById(int id) {
+    public Data findDataById(Long id) {
         if (!dataBase.containsKey(id)) {
             throw new NoSuchElementException("Данные с id: %s не найдены".formatted(id));
         }

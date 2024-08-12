@@ -1,5 +1,6 @@
 package faang.school.godbless.task.lru.cache;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,19 +12,18 @@ public class LruCacheManager {
     private final static int CACHE_SIZE = 5;
 
     private final DataStructure dataStructure;
-    private final LinkedHashMap<Integer, Data> cache = new LinkedHashMap<>(CACHE_SIZE) {
+    private final LinkedHashMap<Long, Data> cache = new LinkedHashMap<>(CACHE_SIZE) {
         @Override
-        protected boolean removeEldestEntry(Map.Entry<Integer, Data> eldest) {
+        protected boolean removeEldestEntry(Map.Entry<Long, Data> eldest) {
             return cache.size() > CACHE_SIZE;
         }
     };
 
-    public void addNewDataIntoDataStructure(Data data) {
-        dataValidOrNullPointerExceptionThrow(data);
+    public void addNewDataIntoDataStructure(@NonNull Data data) {
         dataStructure.addData(data);
     }
 
-    public Data findDataById(int id) {
+    public Data findDataById(Long id) {
         Data data;
         if (cache.containsKey(id)) {
             data = cache.remove(id);
@@ -40,15 +40,9 @@ public class LruCacheManager {
         if (cache.isEmpty()) {
             System.out.println("Кэш пуст");
         }
-        System.out.println("All data in cache:");
+        System.out.println("Все данные в кеш:");
         cache.values().forEach(data -> {
             System.out.println(data);
         });
-    }
-
-    private void dataValidOrNullPointerExceptionThrow(Data data) {
-        if (data == null) {
-            throw new NullPointerException("Данные не могут быть null");
-        }
     }
 }
