@@ -1,21 +1,17 @@
 package CashCash;
 
+import lombok.AllArgsConstructor;
+
 import java.util.Map;
+import java.util.Random;
 
-
-
+@AllArgsConstructor
 public class WheatherDate {
     private String city;
-    private String temperature;
-    private String humidity;
+    private int temperature;
+    private int  humidity;
 
     public WheatherDate() {
-    }
-
-    public WheatherDate(String city, String temperature, String humidity) {
-        this.city = city;
-        this.temperature = temperature;
-        this.humidity = humidity;
     }
 
     public static void searchWeather(String city, Map<String, WheatherDate> weatherBase) {
@@ -24,11 +20,16 @@ public class WheatherDate {
         }
         else {
             WheatherDate.searchInfoOfWeather();
-            System.out.println("Don't have information!");
+            Random rand = new Random();
+            int temp = rand.nextInt(0,20);
+
+            int hum = rand.nextInt(50,90);
+            weatherBase.put(city, new WheatherDate(city, temp, hum));
+            System.out.println(weatherBase.get(city));
         }
     }
 
-    public static void updateWheather(String city, String temperature, String humidity, Map<String, WheatherDate> weatherBase) {
+    public static void updateWheather(String city, int temperature, int humidity, Map<String, WheatherDate> weatherBase) {
         if (!weatherBase.containsKey(city)) {
             weatherBase.put(city, new WheatherDate(city,temperature,humidity));
         }
