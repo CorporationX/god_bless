@@ -1,5 +1,6 @@
 package faang.school.godbless.task.hashmap.user.grouping;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -24,5 +25,3 @@ public class User {
         users.forEach(user -> ageUserMap.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user));
 
         return ageUserMap;
-    }
-}

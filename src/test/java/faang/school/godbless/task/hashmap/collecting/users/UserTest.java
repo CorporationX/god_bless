@@ -1,6 +1,8 @@
 package faang.school.godbless.task.hashmap.collecting.users;
 
+
 import faang.school.godbless.task.hashmap.collecting.users.User;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
