@@ -15,7 +15,7 @@ public class Main {
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
         // Обработка сообщений
-        String[] messages = {"Hello!", "This is spam!", "How are you? :)", "Long message that should pass", null};
+        String[] messages = {"Hello!", "This is spam!", "How are you? :)", "Long message that should pass"};
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
             System.out.println("Message: " + message + " | Passed: " + isFiltered);
