@@ -8,18 +8,16 @@ import java.util.Set;
 
 public class AcademicRecordService {
 
-    private Map<Student, Map<Subject, Integer>> studentGrades;
+    private Map<Student, Map<Subject, Integer>> gradesByStudents;
     private Map<Subject, List<Student>> studentsSubjects;
 
     public AcademicRecordService() {
-        this.studentGrades = new HashMap<>();
+        this.gradesByStudents = new HashMap<>();
         this.studentsSubjects = new HashMap<>();
     }
 
-    public void put(Student student, Map<Subject, Integer> grades) {
-        Map<Subject, Integer> subjectGrades = studentGrades.getOrDefault(student, new HashMap<>());
-        subjectGrades.putAll(grades);
-        studentGrades.put(student, subjectGrades);
+    public void putStudentWithGrades(Student student, Map<Subject, Integer> grades) {
+        gradesByStudents.put(student, grades);
 
         for (Subject subject : grades.keySet()) {
             List<Student> students = studentsSubjects.getOrDefault(subject, new ArrayList<>());
@@ -28,18 +26,18 @@ public class AcademicRecordService {
         }
     }
 
-    public boolean put(Subject subject, Student student, int grade) {
-        if (studentGrades.containsKey(student)) {
-            studentGrades.get(student).put(subject, grade);
+    public boolean putSubjectWithStudentAndGrade(Subject subject, Student student, int grade) {
+        if (gradesByStudents.containsKey(student)) {
+            gradesByStudents.get(student).put(subject, grade);
             studentsSubjects.get(subject).add(student);
             return true;
         }
         return false;
     }
 
-    public void remove(Student student) {
-        if (studentGrades.containsKey(student)) {
-            Set<Subject> subjects = studentGrades.remove(student).keySet();
+    public void removeStudent(Student student) {
+        if (gradesByStudents.containsKey(student)) {
+            Set<Subject> subjects = gradesByStudents.remove(student).keySet();
             for (Subject subject : subjects) {
                 studentsSubjects.get(subject).remove(student);
             }
@@ -47,17 +45,15 @@ public class AcademicRecordService {
     }
 
     public void printStudentGrades() {
-        studentGrades.forEach((student, grades) ->
+        gradesByStudents.forEach((student, grades) ->
                 System.out.printf("%s = %s%n", student, grades));
     }
 
-    public void put(Subject subject, List<Student> students) {
-        List<Student> subjectStudents = studentsSubjects.getOrDefault(subject, new ArrayList<>());
-        subjectStudents.addAll(students);
-        studentsSubjects.put(subject, subjectStudents);
+    public void putSubjectWithStudents(Subject subject, List<Student> students) {
+        studentsSubjects.put(subject, students);
     }
 
-    public boolean put(Student student, Subject subject) {
+    public boolean putStudentWithSubject(Student student, Subject subject) {
         if (studentsSubjects.containsKey(subject)) {
             studentsSubjects.get(subject).add(student);
             return true;
@@ -65,7 +61,7 @@ public class AcademicRecordService {
         return false;
     }
 
-    public void remove(Student student, Subject subject) {
+    public void removeStudentWithSubject(Student student, Subject subject) {
         if (studentsSubjects.containsKey(subject)) {
             List<Student> students = studentsSubjects.get(subject);
             students.remove(student);
