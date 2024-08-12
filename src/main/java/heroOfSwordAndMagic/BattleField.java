@@ -42,6 +42,19 @@ public class BattleField {
             System.out.println("Win: " + hero2.getName());
         }
 
+        BattleField.battleCount(win1, win2, heroArmy1, heroArmy2);
+
+        if (win1 > win2) {
+            System.out.println("In this battle win - " + hero1.getName());
+        }
+        else {
+            System.out.println("In this battle win - " + hero2.getName());
+        }
+
+
+    }
+
+    public static void battleCount(int win1, int win2, Map<Creature, Integer> heroArmy1, Map<Creature, Integer> heroArmy2) {
         for (Map.Entry<Creature, Integer> pair : heroArmy1.entrySet()) {
             System.out.println("Battle " + pair.getKey().name);
             int countCreature = pair.getValue();
@@ -55,7 +68,7 @@ public class BattleField {
                 }
                 else if (countCreature == countCreature2) {
                     System.out.println("Draw");
-                   break;
+                    break;
                 }
                 else {
                     win2++;
@@ -65,14 +78,5 @@ public class BattleField {
             }
 
         }
-
-        if (win1 > win2) {
-            System.out.println("In this battle win - " + hero1.getName());
-        }
-        else {
-            System.out.println("In this battle win - " + hero2.getName());
-        }
-
-
     }
 }
