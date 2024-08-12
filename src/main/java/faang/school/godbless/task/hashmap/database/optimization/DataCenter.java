@@ -1,10 +1,10 @@
 package faang.school.godbless.task.hashmap.database.optimization;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 @RequiredArgsConstructor
 public class DataCenter {
@@ -12,45 +12,29 @@ public class DataCenter {
 
     public List<Server> getServers() {
         if (servers.isEmpty()) {
-            serversListIsEmptyExceptionThrow();
+            System.out.println("Список серверов пуст");
         }
         return servers;
     }
 
-    public void addServer(Server server) {
-        serverValidOrNullPointerExceptionThrow(server);
+    public void addServer(@NonNull Server server) {
         servers.add(server);
     }
 
-    public void removeServer(Server server) {
-        serverValidOrNullPointerExceptionThrow(server);
+    public void removeServer(@NonNull Server server) {
         if (!servers.contains(server)) {
-            serverNotFoundExceptionThrow(server);
+            System.out.println("Сервер %s не найден".formatted(server));
         }
         servers.remove(server);
     }
 
     public Server getNextServer() {
         if (servers.isEmpty()) {
-            serversListIsEmptyExceptionThrow();
+            System.out.println("Список серверов пуст");
         }
         Server server = servers.getFirst();
         servers.removeFirst();
         servers.add(server);
         return servers.getLast();
-    }
-
-    public void serverValidOrNullPointerExceptionThrow(Server server) {
-        if (server == null) {
-            throw new NullPointerException("Сервер не может быть null");
-        }
-    }
-
-    private void serverNotFoundExceptionThrow(Server server) {
-        throw new NoSuchElementException("Сервер %s не найден".formatted(server));
-    }
-
-    private void serversListIsEmptyExceptionThrow() {
-        throw new NoSuchElementException("Список серверов пуст");
     }
 }

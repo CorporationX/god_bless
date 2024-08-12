@@ -1,5 +1,7 @@
 package faang.school.godbless.task.hashmap.database.optimization;
 
+import lombok.NonNull;
+
 import java.util.List;
 
 public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
@@ -7,7 +9,7 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     private static final double ACCEPTABLE_AVERAGE_LOAD_LOW = 30;
 
     @Override
-    public void optimize(DataCenter dataCenter) {
+    public void optimize(@NonNull DataCenter dataCenter) {
         List<Server> servers = dataCenter.getServers();
         double totalLoad = getTotalLoad(servers);
         double middleLoad = totalLoad / servers.size();

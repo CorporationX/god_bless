@@ -1,6 +1,7 @@
 package faang.school.godbless.task.hashmap.database.optimization;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -12,13 +13,11 @@ public class DataCenterService {
     private final LoadBalancingOptimizationStrategy loadBalance;
     private static int cycleCount = 0;
 
-    public void addNewServer(Server server) {
-        dataCenter.serverValidOrNullPointerExceptionThrow(server);
+    public void addNewServer(@NonNull Server server) {
         dataCenter.addServer(server);
     }
 
-    public void removeServer(Server server) {
-        dataCenter.serverValidOrNullPointerExceptionThrow(server);
+    public void removeServer(@NonNull Server server) {
         dataCenter.removeServer(server);
     }
 
@@ -30,7 +29,7 @@ public class DataCenterService {
         return energyConsumption;
     }
 
-    public void allocateResources(ResourceRequest resourceRequest) {
+    public void allocateResources(@NonNull ResourceRequest resourceRequest) {
         for (Server server : dataCenter.getServers()) {
             if (dataCenter.getNextServer().allocateLoad(resourceRequest.load())) {
                 return;
@@ -42,11 +41,12 @@ public class DataCenterService {
             allocateResources(resourceRequest);
         } else {
             cycleCount = 0;
-            optimizationAttemptsLimitExceededExceptionThrow(LIMIT_OF_OPTIMIZATION_ATTEMPT);
+            System.out.println("Превышен лимит в %d попыток оптимизации"
+                    .formatted(LIMIT_OF_OPTIMIZATION_ATTEMPT));
         }
     }
 
-    public void releaseResources(ResourceRequest resourceRequest) {
+    public void releaseResources(@NonNull ResourceRequest resourceRequest) {
         for (Server server : dataCenter.getServers()) {
             if (dataCenter.getNextServer().releaseLoad(resourceRequest.load())) {
                 return;
@@ -58,11 +58,8 @@ public class DataCenterService {
             releaseResources(resourceRequest);
         } else {
             cycleCount = 0;
-            optimizationAttemptsLimitExceededExceptionThrow(LIMIT_OF_OPTIMIZATION_ATTEMPT);
+            System.out.println("Превышен лимит в %d попыток оптимизации"
+                    .formatted(LIMIT_OF_OPTIMIZATION_ATTEMPT));
         }
-    }
-
-    private void optimizationAttemptsLimitExceededExceptionThrow(int limit) {
-        throw new RuntimeException("Превышен лимит в %d попыток оптимизации".formatted(limit));
     }
 }
