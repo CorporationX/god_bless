@@ -1,28 +1,28 @@
 package library;
 
+import lombok.AllArgsConstructor;
+
 import java.util.Map;
 import java.util.Objects;
 
+@AllArgsConstructor
 public class Book {
     private String title;
     private String author;
     private int year;
 
-    public Book(String title, String author, int year) {
-        this.title = title;
-        this.author = author;
-        this.year = year;
-    }
-
     public static void addBook(Map<Book,String> test, String s, String author, String title, int year) {
         test.put(new Book(title,author,year), s);
     }
+
     public static void removeBook(Map<Book,String> test, String title, String author, int year) {
         test.remove(new Book(title,author,year));
     }
+
     public static void searchBook(Map<Book,String> test, String title, String author, int year) {
         System.out.println(test.get(new Book(title,author,year)));
     }
+
     public static void outputBook(Map<Book,String> test) {
         for (Map.Entry<Book, String> pair : test.entrySet()) {
             System.out.println(pair.getValue() + " : " + pair.getKey().title + " - " + pair.getKey().author + " - " + pair.getKey().year);

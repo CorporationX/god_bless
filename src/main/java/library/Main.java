@@ -5,16 +5,16 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Book, String> test = new HashMap<>();
-        test.put(new Book("Гарри Потер", "Джоан Роулинг", 2007), "First");
-        test.put(new Book("Война и мир", "Толстой", 1888), "Second");
-        test.put(new Book("Доктор Айболит", "Чуковский", 1930), "Third");
-        test.put(new Book("Незнайка", "Носов", 1960), "Fourth");
+        Map<Book, String> shelfnumberByBook= new HashMap<>();
+        shelfnumberByBook.put(new Book("Гарри Потер", "Джоан Роулинг", 2007), "First");
+        shelfnumberByBook.put(new Book("Война и мир", "Толстой", 1888), "Second");
+        shelfnumberByBook.put(new Book("Доктор Айболит", "Чуковский", 1930), "Third");
+        shelfnumberByBook.put(new Book("Незнайка", "Носов", 1960), "Fourth");
 
-        Book.outputBook(test);
-        Book.searchBook(test, "Гарри Потер", "Джоан Роулинг", 2007);
-        Book.addBook(test, "five", "Аяз", "Успешный успех", 1231);
-        Book.removeBook(test, "Война и мир", "Толстой", 1888);
-        Book.outputBook(test);
+        Book.outputBook(shelfnumberByBook);
+        Book.searchBook(shelfnumberByBook, "Гарри Потер", "Джоан Роулинг", 2007);
+        Book.addBook(shelfnumberByBook, "five", "Аяз", "Успешный успех", 1231);
+        Book.removeBook(shelfnumberByBook, "Война и мир", "Толстой", 1888);
+        Book.outputBook(shelfnumberByBook);
     }
 }
