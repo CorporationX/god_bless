@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @ToString
 @RequiredArgsConstructor
 public class Query {
-    private final int id;
+    private final Long id;
     private final String content;
     private final LocalDateTime timeStamp;
 }

@@ -1,8 +1,8 @@
 package faang.school.godbless.task.elk.query.index;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -12,27 +12,20 @@ import java.util.NoSuchElementException;
 public class QueryManager {
     private final Map<User, List<Query>> userAndQueryListMap;
 
-    public void addNewUserWithQueryList(User user, List<Query> queries) {
-        userValidOrNullPointerExceptionThrow(user);
-        queriesListValidOrNullPointerExceptionThrow(queries);
+    public void addNewUserWithQueryList(@NonNull User user, List<Query> queries) {
         userAndQueryListMap.put(user, queries);
     }
 
-    public void addNewQueryToExistingUser(User user, Query query) {
-        userValidOrNullPointerExceptionThrow(user);
-        queryValidOrNullPointerExceptionThrow(query);
+    public void addNewQueryToExistingUser(@NonNull User user, Query query) {
         if (!userAndQueryListMap.containsKey(user)) {
-            userNotFoundExceptionThrow(user);
+            throw new NoSuchElementException("Пользователь %s не найден".formatted(user));
         }
-        userAndQueryListMap.computeIfAbsent(user, k ->
-                new ArrayList<>()).add(query);
+        List<Query> queries = userAndQueryListMap.get(user);
+        queries.add(query);
+        queries.sort(Comparator.comparing(Query::getTimeStamp));
     }
 
-    public void deleteUser(User user) {
-        userValidOrNullPointerExceptionThrow(user);
-        if (!userAndQueryListMap.containsKey(user)) {
-            userNotFoundExceptionThrow(user);
-        }
+    public void deleteUser(@NonNull User user) {
         userAndQueryListMap.remove(user);
     }
 
@@ -45,43 +38,20 @@ public class QueryManager {
         });
     }
 
-    public void printAllQueriesByUser(User user) {
-        userValidOrNullPointerExceptionThrow(user);
+    public void printAllQueriesByUser(@NonNull User user) {
         if (!userAndQueryListMap.containsKey(user)) {
-            userNotFoundExceptionThrow(user);
+            throw new NoSuchElementException("Пользователь %s не найден".formatted(user));
         }
-        List<Query> queries = userAndQueryListMap.get(user);
-        queries.sort(Comparator.comparing(Query::getTimeStamp));
-        printUserAndQueries(user, queries);
+        userAndQueryListMap.entrySet().forEach(entry -> {
+            printUserAndQueries(entry.getKey(), entry.getValue());
+        });
     }
 
-    private void printUserAndQueries(User user, List<Query> queries) {
-        System.out.println("Пользователь: " + user +
+    private void printUserAndQueries(@NonNull User user, List<Query> queries) {
+        System.out.println("Пользователь: " + user.getName() +
                 "\nСписок запросов: ");
         queries.forEach(query -> {
             System.out.println(query);
         });
-    }
-
-    private void userValidOrNullPointerExceptionThrow(User user) {
-        if (user == null) {
-            throw new NullPointerException("Пользователь не может быть null");
-        }
-    }
-
-    private void queryValidOrNullPointerExceptionThrow(Query query) {
-        if (query == null) {
-            throw new NullPointerException("Запрос не может быть null");
-        }
-    }
-
-    private void queriesListValidOrNullPointerExceptionThrow(List<Query> queries) {
-        if (queries == null) {
-            throw new NullPointerException("Список запросов не может быть null");
-        }
-    }
-
-    private void userNotFoundExceptionThrow(User user) throws NoSuchElementException {
-        throw new NoSuchElementException("Пользователь %s не найден".formatted(user));
     }
 }
