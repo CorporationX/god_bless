@@ -1,12 +1,17 @@
 package faang.school.godbless.datacenter.models;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
+@ToString
 public class Server {
 
+    @ToString.Exclude
     private final int ZERO = 0;
 
     private double load;
@@ -14,7 +19,6 @@ public class Server {
     private double energyConsumption = 10;
 
     public Server(double load) {
-
         if (load > this.maxLoad) {
             throw new IllegalArgumentException("load is more than max load");
         } else if (load < ZERO) {

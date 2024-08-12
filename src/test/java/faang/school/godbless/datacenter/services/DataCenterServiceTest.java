@@ -1,6 +1,7 @@
 package faang.school.godbless.datacenter.services;
 
 import faang.school.godbless.datacenter.models.DataCenter;
+import faang.school.godbless.datacenter.models.DataCenterMiddleOptimization;
 import faang.school.godbless.datacenter.models.ResourceRequest;
 import faang.school.godbless.datacenter.models.Server;
 import org.junit.jupiter.api.Test;
@@ -68,42 +69,42 @@ public class DataCenterServiceTest {
     }
 
     @Test
-    void getTotalEnergyConsumptionTest() {
+    void getTotalEnergyConsumptionInDataCenterTest() {
         DataCenter dataCenter = new DataCenter();
 
         addNewServer(dataCenter);
         addNewServer(dataCenter);
 
-        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), TWENTY);
+        assertEquals(DataCenterService.getTotalEnergyConsumptionInDataCenter(dataCenter), TWENTY);
 
         Server server = new Server(TEN);
 
         addServer(dataCenter, server);
 
-        assertEquals(DataCenterService.getTotalEnergyConsumption(dataCenter), FORTY);
+        assertEquals(DataCenterService.getTotalEnergyConsumptionInDataCenter(dataCenter), FORTY);
     }
 
     @Test
-    void allocateResourcesTest() {
+    void allocateResourcesInDataCenterTest() {
         DataCenter dataCenter = new DataCenter();
         ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
 
         assertEquals(dataCenter.getServers().size(), ZERO);
-        allocateResources(request, dataCenter);
+        allocateResourcesInDataCenter(request, dataCenter);
         assertEquals(dataCenter.getServers().size(), FOUR);
-        allocateResources(request, dataCenter);
+        allocateResourcesInDataCenter(request, dataCenter);
         assertEquals(dataCenter.getServers().size(), SEVEN);
     }
 
     @Test
-    void releaseResourcesTest() {
+    void releaseResourcesInDataCenterTest() {
         DataCenter dataCenter = new DataCenter();
         ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
 
         assertEquals(dataCenter.getServers().size(), ZERO);
-        allocateResources(request, dataCenter);
+        allocateResourcesInDataCenter(request, dataCenter);
         assertEquals(dataCenter.getServers().size(), FOUR);
-        releaseResources(request, dataCenter);
+        releaseResourcesInDataCenter(request, dataCenter);
         assertEquals(dataCenter.getServers().size(), FOUR);
         assertEquals(dataCenter.getServers().stream()
                 .mapToDouble(Server::getLoad).sum(), ZERO);
@@ -112,12 +113,13 @@ public class DataCenterServiceTest {
     @Test
     void optimizeTestNotTest() {
         DataCenterService dataCenterService = new DataCenterService();
+        DataCenterMiddleOptimization dataCenterMiddleOptimization = new DataCenterMiddleOptimization();
 
         DataCenter dataCenter = new DataCenter();
         ResourceRequest request = new ResourceRequest(MAGIC_NUMBER);
-        allocateResources(request, dataCenter);
+        allocateResourcesInDataCenter(request, dataCenter);
         System.out.println(dataCenter);
-        dataCenterService.optimize(dataCenter);
+        dataCenterService.optimize(dataCenterMiddleOptimization, dataCenter);
         System.out.println(dataCenter);
     }
 }
