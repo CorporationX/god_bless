@@ -14,7 +14,7 @@ public class Main {
         weatherCache.put("London", new WeatherData("London", 29.3, 55.9));
         WeatherData weatherDataTest = new WeatherData("Berlin", 15.1, 10.5);
         //Get weather by city
-        getWeather("Saint-Petersburg", weatherCache);
+        printWeather("Saint-Petersburg", weatherCache);
 
         //Update weather in chosen city
         updateWeather(weatherDataTest.getCity(), weatherCache, weatherDataTest);
@@ -22,19 +22,14 @@ public class Main {
         //Remove weatherData ignoring removing the city
         removeWeatherData(weatherDataTest.getCity(), weatherCache);
 
-        //Get all weatherData
-        getAllCitiesWeather(weatherCache);
+        //Print all weatherData
+        printAllCitiesWeather(weatherCache);
     }
 
-    public static void getWeather(String city, Map<String, WeatherData> weather) {
-        if (weather.containsKey(city)) {
-            System.out.println("The temperature in " + city + " " + weather.get(city).getTemperature()
-                    + " and humidity is " + weather.get(city).getHumidity());
-        } else {
-            weather.put(city, WeatherTestAPI.getWeather(city));
-            System.out.println("The temperature in " + city + " " + weather.get(city).getTemperature()
-                    + " and humidity is " + weather.get(city).getHumidity());
-        }
+    public static void printWeather(String city, Map<String, WeatherData> weather) {
+        weather.computeIfAbsent(city, key -> WeatherTestAPI.getWeather(city));
+        System.out.println("The temperature in " + city + " " + weather.get(city).getTemperature()
+                + " and humidity is " + weather.get(city).getHumidity());
     }
 
     public static void updateWeather(String city, Map<String, WeatherData> weather, WeatherData weatherData) {
@@ -43,11 +38,11 @@ public class Main {
     }
 
     public static void removeWeatherData(String city, Map<String, WeatherData> weather) {
-        weather.put(city, null);
-        System.out.println(city + " " + weather.get(city));
+        weather.remove(city);
+        System.out.println(city + " removed");
     }
 
-    public static void getAllCitiesWeather(Map<String, WeatherData> weather) {
+    public static void printAllCitiesWeather(Map<String, WeatherData> weather) {
         for (Map.Entry<String, WeatherData> entry : weather.entrySet()) {
             if (entry.getValue() != null) {
                 System.out.println(entry.getKey() + " " + entry.getValue().getTemperature() + " " + entry.getValue().getHumidity());
