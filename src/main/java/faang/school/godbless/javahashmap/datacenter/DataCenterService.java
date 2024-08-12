@@ -25,8 +25,7 @@ public class DataCenterService {
     public boolean allocateResources(ResourceRequest request) {
         double additionalLoad = request.getLoad();
         for (Server server : dataCenter.getServers()) {
-            if (server.canHandleLoad(additionalLoad)) {
-                server.setLoad(server.getLoad() + additionalLoad);
+            if (server.handleLoad(additionalLoad)) {
                 return true;
             }
         }
@@ -36,8 +35,7 @@ public class DataCenterService {
     public boolean releaseResources(ResourceRequest request) {
         double loadToRelease = request.getLoad();
         for (Server server : dataCenter.getServers()) {
-            if (server.getLoad() >= loadToRelease) {
-                server.setLoad(server.getLoad() - loadToRelease);
+            if (server.releaseLoad(loadToRelease)) {
                 return true;
             }
         }

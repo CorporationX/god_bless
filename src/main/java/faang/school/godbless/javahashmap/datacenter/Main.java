@@ -7,7 +7,6 @@ public class Main {
         DataCenter dataCenter = new DataCenter();
 
         OptimizationStrategy optimizationStrategy = new LoadBalancingOptimizationStrategy();
-//        OptimizationStrategy optimizationStrategy = new EnergyEfficiencyOptimizationStrategy();
 
         DataCenterService dataCenterService = new DataCenterService(dataCenter, optimizationStrategy);
 

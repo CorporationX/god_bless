@@ -21,19 +21,31 @@ public class Server {
         this.energyConsumption = 0;
     }
 
-    public boolean canHandleLoad(double additionalLoad) {
-        return (load + additionalLoad) <= maxLoad;
+    public boolean handleLoad(double additionalLoad) {
+        if (load + additionalLoad > maxLoad) {
+            return false;
+        }
+
+        load += additionalLoad;
+
+        if (energyConsumption == 0) {
+            energyConsumption = ENERGY_CONSUMPTION;
+        }
+
+        return true;
     }
 
-    public void setLoad(double newValue) {
-        if (newValue <= 0) {
-            load = 0;
-            energyConsumption = 0;
-        } else {
-            load = newValue;
-            if (energyConsumption == 0) {
-                energyConsumption = ENERGY_CONSUMPTION;
-            }
+    public boolean releaseLoad(double loadToRelease) {
+        if (load - loadToRelease < 0) {
+            return false;
         }
+
+        load -= loadToRelease;
+
+        if (load == 0) {
+            energyConsumption = 0;
+        }
+
+        return true;
     }
 }

@@ -11,12 +11,17 @@ public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrateg
 
         for (Server server : servers) {
             if (totalLoad <= maxLoad) {
-                server.setLoad(totalLoad);
+                setLoad(server, totalLoad);
                 totalLoad = 0;
             } else {
-                server.setLoad(maxLoad);
+                setLoad(server, maxLoad);
                 totalLoad -= maxLoad;
             }
         }
+    }
+
+    private void setLoad(Server server, double load) {
+        server.releaseLoad(server.getLoad());
+        server.handleLoad(load);
     }
 }
