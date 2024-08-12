@@ -8,8 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-    private static Map<String, List<WebPage>> index = new HashMap<>();
-    private static Set<WebPage> pageSet = new HashSet<>();
+    private static final Map<String, List<WebPage>> INDEXED_PAGES = new HashMap<>();
+    private static final Set<WebPage> PAGES = new HashSet<>();
 
     public static void main(String[] args) {
 
@@ -18,6 +18,9 @@ public class Main {
         addIndexes(new WebPage("google.com", "Google", "bigTech account search"));
         addIndexes(new WebPage("youtube.ru", "Youtube", "music stream videos"));
         addIndexes(new WebPage("spotify.com", "Spotify", "fun music chill"));
+
+        //Null passed as parameter
+        addIndexes(null);
 
         //Search by keyWord
         System.out.println(findWebPages("chill"));
@@ -28,28 +31,25 @@ public class Main {
     }
 
     public static void addIndexes(WebPage webPage) {
-        if (!pageSet.contains(webPage)) {
-            pageSet.add(webPage);
-            String[] words = webPage.getContent().split(" ");
-            for (String word : words) {
-                index.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
+        try {
+            if (!PAGES.contains(webPage)) {
+                PAGES.add(webPage);
+                String[] words = webPage.getContent().split(" ");
+                for (String word : words) {
+                    INDEXED_PAGES.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
+                }
             }
+        } catch (NullPointerException e) {
+            System.out.println("Web page can't be null!");
         }
     }
 
     public static List<WebPage> findWebPages(String keyWord) {
-        List<WebPage> resultList = new ArrayList<>();
-
-        for (Map.Entry<String, List<WebPage>> entry : index.entrySet()) {
-            if (entry.getKey().equals(keyWord)) {
-                resultList.addAll(entry.getValue());
-            }
-        }
-        return resultList;
+        return new ArrayList<>(INDEXED_PAGES.getOrDefault(keyWord, INDEXED_PAGES.get(keyWord)));
     }
 
     public static void removeWebPageByUrl(String url) {
-        for (Map.Entry<String, List<WebPage>> entry : index.entrySet()) {
+        for (Map.Entry<String, List<WebPage>> entry : INDEXED_PAGES.entrySet()) {
             entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
         }
     }

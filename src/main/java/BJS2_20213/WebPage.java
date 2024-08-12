@@ -1,31 +1,21 @@
 package BJS2_20213;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @ToString
+@Getter
 public class WebPage {
-    private String url;
-    private String title;
-    private String content;
+    private final String url;
+    private final String title;
+    private final String content;
 
     public WebPage(String url, String title, String content) {
         this.url = url;
         this.title = title;
         this.content = content;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
     }
 
     @Override
