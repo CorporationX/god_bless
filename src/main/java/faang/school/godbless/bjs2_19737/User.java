@@ -4,10 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 @EqualsAndHashCode
 public class User {
-    private Integer id;
-    @Getter
+    private int id;
     private String name;
 }
