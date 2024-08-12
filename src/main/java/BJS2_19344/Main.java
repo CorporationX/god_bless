@@ -22,8 +22,8 @@ public class Main {
         //Get book from the library
         System.out.println(getBookPlacement(library, new Book("Houses", "Unknown", 12)));
 
-        //Get all books
-        getAllBooks(library);
+        //Print all books
+        printAllBooks(library);
     }
 
     public static void addBook(Book book, Map<Book, String> library, String placement) {
@@ -53,7 +53,7 @@ public class Main {
         }
     }
 
-    public static void getAllBooks(Map<Book, String> library) {
+    public static void printAllBooks(Map<Book, String> library) {
         if (!library.isEmpty()) {
             for (Map.Entry<Book, String> entry : library.entrySet()) {
                 System.out.println(entry.getKey() + " stored in : " + entry.getValue());

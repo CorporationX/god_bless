@@ -1,14 +1,16 @@
 package BJS2_19344;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Objects;
 
 @ToString
+@Getter
 public class Book {
-    private String title;
-    private String author;
-    private int yearOfPublish;
+    private final String title;
+    private final String author;
+    private final int yearOfPublish;
 
     public Book(String title, String author, int yearOfPublish) {
         this.title = title;
@@ -27,17 +29,5 @@ public class Book {
     @Override
     public int hashCode() {
         return Objects.hash(title, author, yearOfPublish);
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public int getYearOfPublish() {
-        return yearOfPublish;
     }
 }
