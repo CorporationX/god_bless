@@ -1,13 +1,15 @@
 package BJS2_19866;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.Map;
 
+@Getter
 @ToString
 public class House {
-    private String name;
-    private String sigil;
+    private final String name;
+    private final String sigil;
 
     public House(String name, String sigil) {
         this.name = name;
@@ -15,12 +17,11 @@ public class House {
     }
 
     public static void addHouse(House house, Map<String, House> houseMap) {
-        if (!houseMap.containsKey(house.getName())) {
-            houseMap.put(house.getName(), house);
+        try {
+            houseMap.putIfAbsent(house.getName(), house);
             System.out.println("Added House - " + house.getName());
-        } else {
-            System.out.println("The House is already added");
-            throw new IllegalArgumentException();
+        } catch (NullPointerException e) {
+            System.out.println("Error house can't be null!");
         }
     }
 
@@ -47,13 +48,5 @@ public class House {
         for (Map.Entry<String, House> house : houseMap.entrySet()) {
             System.out.println("Name of the House : " + house.getKey() + " and sigil is " + house.getValue().getSigil());
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSigil() {
-        return sigil;
     }
 }

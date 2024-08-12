@@ -20,6 +20,9 @@ public class Main {
         //Add a House to HashMap
         House.addHouse(new House("Tyrrol", "Rose"), houseMap);
 
+        //Trying to pass null as argument
+        House.addHouse(null, houseMap);
+
         //Remove a House from HashMap
         House.removeHouseByName("Lannister", houseMap);
 
