@@ -2,11 +2,8 @@ package Abstract;
 
 public class Archer extends Character {
 
-    public Archer(String name) {
-        super(name);
-        power = 3;
-        agility = 10;
-        intelligent= 5;
+    public Archer(String name, int power, int  agility, int intelligent) {
+        super(name, power = 3, agility = 10, intelligent = 5);
     }
 
     @Override

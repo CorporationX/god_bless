@@ -2,11 +2,11 @@ package Abstract;
 
 public class Warrior extends Character {
 
-    public Warrior(String name) {
-        super(name);
-        this.power = 10;
-        this.agility = 5;
-        this.intelligent = 3;
+
+    //если передаю все поля в super, то они не инициализируются и запрашиваются при создании объекта,
+    //разве не проще запрашивать только имя, а остальное инициализировать как у меня?
+    public Warrior(String name, int power, int  agility, int intelligent) {
+        super(name, power = 10, agility = 5, intelligent = 3);
     }
 
     @Override
