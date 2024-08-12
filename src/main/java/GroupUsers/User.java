@@ -1,5 +1,9 @@
 package GroupUsers;
 
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,83 +11,45 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+@Getter
+@EqualsAndHashCode
+@ToString
 public class User {
+    final List<String> VALID_JOBS = List.of("Google", "Amazon", "Uber");
+    final List<String>VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
     private String name;
     private int age;
     private String workPlace;
     private String address;
 
-    List<String> VALID_JOBS = new ArrayList<>(Arrays.asList("Google", "Amazon", "Uber"));
-    List<String>VALID_ADDRESSES = new ArrayList<>(Arrays.asList("London", "New York", "Amsterdam"));
-
-
-    public User(String name, int age, String workPlace, String address) throws Exception{
+    public User(String name, int age, String workPlace, String address) throws Exception {
         this.name = name;
-        if(name == "" || name == " " || name == "  "){
+        if(name.isEmpty() || age <18 || !VALID_JOBS.contains(workPlace) || !VALID_ADDRESSES.contains(address)){
             throw new IllegalArgumentException();
         }
-
-        this.age = age;
-        if(age <18){
-            throw new IllegalArgumentException();
-        }
-
-        this.workPlace = workPlace;
-        if(!VALID_JOBS.contains(workPlace)){
-            throw new IllegalArgumentException();
-        }
-        this.address = address;
-        if(!VALID_ADDRESSES.contains(address)){
-            throw new IllegalArgumentException();
+        else {
+            this.name = name;
+            this.age = age;
+            this.workPlace = workPlace;
+            this.address = address;
         }
     }
 
-
-    public static Map<Integer, List<User>> groupUsers(List<User> userList){
+    public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         Map<Integer, List<User>> ageUserList = new HashMap<>();
 
-        for (User u : userList){
+        for (User u : userList) {
             int key = u.getAge();
             if(!ageUserList.containsKey(key)) {
                 List<User> testList = new ArrayList<>();
                 testList.add(u);
                 ageUserList.put(key,testList);
             }
-            else{
+            else {
                 ageUserList.get(key).add(u);
             }
         }
 
         return ageUserList;
-    }
-
-
-
-    public int getAge() {
-        return age;
-    }
-
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return age == user.age && Objects.equals(name, user.name) && Objects.equals(workPlace, user.workPlace) && Objects.equals(address, user.address);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, age, workPlace, address);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", workPlace='" + workPlace + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
