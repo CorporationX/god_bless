@@ -12,7 +12,6 @@ public class DataCenter {
                                              new Server(3,26.5,100,7.77));
 
     public void addServerAtList(List<Server> serverList, Server server) {
-        this.serverList = serverList;
         serverList.add(server);
     }
 

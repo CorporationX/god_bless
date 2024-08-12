@@ -20,12 +20,12 @@ public class DataCenterService implements OptimizationStrategy{
     }
 
     public static void getTotalEnergyConsumption(DataCenter dataCenter) {
-        double f = 0;
+        double totalConsumption = 0;
 
         for (int i = 0; i < dataCenter.getServerList().size(); i++) {
-            f += dataCenter.getServerList().get(i).getEnergyConsumption();
+            totalConsumption += dataCenter.getServerList().get(i).getEnergyConsumption();
         }
-        System.out.println(f);
+        System.out.println(totalConsumption);
     }
 
     public static void allSersers(DataCenter dataCenter) {
@@ -74,7 +74,6 @@ public class DataCenterService implements OptimizationStrategy{
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        //каждые 30 минут (не знаю как реализовать это)
         DataCenterService.releaseResources(new ResourceRequest(50),dataCenter);
 
     }
