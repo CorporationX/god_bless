@@ -8,13 +8,18 @@ public class App {
 
         List<User> userList = new ArrayList<>();
 
-        userList.add(new User("Sergey", 22, "Google", "London"));
-        userList.add(new User("Andrew", 25, "Uber", "New York"));
-        userList.add(new User("Misha", 25, "Google", "London"));
-        userList.add(new User("Vera", 22, "Uber", "New York"));
-        userList.add(new User("Masha", 30, "Amazon", "Amsterdam"));
-        userList.add(new User("Vlad", 30, "Amazon", "Amsterdam"));
+        try {
+            userList.add(new User("Sergey", 22, "Google", "London"));
+            userList.add(new User("Andrew", 25, "Uber", "New York"));
+            userList.add(new User("Misha", 25, "Google", "London"));
+            userList.add(new User("Vera", 22, "Uber", "New York"));
+            userList.add(new User("Masha", 30, "Amazon", "Amsterdam"));
+            userList.add(new User("Vlad", 30, "Amazon", "Amsterdam"));
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error!");
+        }
 
         System.out.println(User.groupUsers(userList));
     }
+
 }

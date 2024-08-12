@@ -3,9 +3,7 @@ package BJS2_18476;
 import lombok.ToString;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,40 +11,49 @@ import java.util.Set;
 @ToString
 public class User {
 
-    final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google","Uber","Amazon"));
-    final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London","New York","Amsterdam"));
+    private final int MINIMUM_AGE = 18;
+    final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    String name;
-    int age;
-    String job;
-    String address;
+    private String name;
+    private int age;
+    private String job;
+    private String address;
 
     public User(String name, int age, String job, String address) {
-        if(name.isEmpty() || age < 18 ||
-                !VALID_ADDRESSES.contains(address) || !VALID_JOBS.contains(job)){
-            throw new IllegalArgumentException();
-        }
-        else{
+        if (validateUser(name, age, job, address)) {
             this.name = name;
             this.age = age;
             this.address = address;
             this.job = job;
+        } else {
+            throw new IllegalArgumentException();
         }
-
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
+    private boolean validateUser(String name, int age, String job, String address) {
+        if (name.isEmpty() || name.isBlank()) {
+            System.out.println("User name should not be empty!");
+            return false;
+        } else if (age < MINIMUM_AGE) {
+            System.out.println(name + "'s age should be more than 18!");
+            return false;
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            System.out.println(name + "'s address " + address + " not valid!");
+            return false;
+        } else if (!VALID_JOBS.contains(job)) {
+            System.out.println(name + "'s job " + job + " not valid!");
+            return false;
+        }
+        return true;
+    }
 
-        Map<Integer,List<User>> resultMap = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
 
-        for(User user : users){
-            if(!resultMap.containsKey(user.age)){
-                resultMap.put(user.age, new ArrayList<>());
-                resultMap.get(user.age).add(user);
-            }
-            else{
-                resultMap.get(user.age).add(user);
-            }
+        Map<Integer, List<User>> resultMap = new HashMap<>();
+
+        for (User user : users) {
+            resultMap.computeIfAbsent(user.age, key -> new ArrayList<>()).add(user);
         }
 
         return resultMap;
