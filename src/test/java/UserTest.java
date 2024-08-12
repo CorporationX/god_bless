@@ -1,4 +1,4 @@
-import faang.school.godbless.User;
+import faang.school.godbless.user.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
