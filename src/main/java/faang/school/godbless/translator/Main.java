@@ -10,10 +10,16 @@ public class Main {
 
         Map<String, String> dictionaryMap = new HashMap<>();
 
-        BiConsumer<String, String> addWordInDictionary = (word, translation) -> dictionaryMap.putIfAbsent(word, translation);
+        BiConsumer<String, String> addWordInDictionary = (word, translation) -> {
+            if (word != null && translation != null) {
+                dictionaryMap.putIfAbsent(word, translation);
+            }
+        };
 
         dictionaryProcessor.processWord("hello", "привет", addWordInDictionary);
         dictionaryProcessor.processWord("goodbye", "пока", addWordInDictionary);
+        dictionaryProcessor.processWord(null, "пока", addWordInDictionary);
+        dictionaryProcessor.processWord("goodbye", null, addWordInDictionary);
 
         System.out.println(dictionaryMap);
     }
