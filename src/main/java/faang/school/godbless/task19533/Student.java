@@ -16,8 +16,4 @@ public class Student {
     public String getYearFaculty(){
         return faculty + year;
     }
-
-
-
-
 }
