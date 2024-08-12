@@ -14,17 +14,19 @@ public class User {
 
     private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final static int MIN_AGE_FOR_REGISTER = 18;
     private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
+
     public User(String name, int age, String placeOfWork, String address) {
         if ((name == null || name.isBlank()) ||
-            (age < 18) ||
+            (age < MIN_AGE_FOR_REGISTER) ||
             (!VALID_ADDRESSES.contains(address)) ||
             (!VALID_JOBS.contains(placeOfWork))) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Invalid user data");
         }
 
         this.name = name;
