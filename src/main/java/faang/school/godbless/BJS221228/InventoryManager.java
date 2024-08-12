@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS221228;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,9 +16,11 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        for (Item item : character.getInventory()) {
+        List<Item> items = character.getInventory();
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
             if (predicate.test(item)) {
-                function.apply(item);
+                items.set(i, function.apply(item));
             }
         }
     }
@@ -28,6 +31,7 @@ public class InventoryManager {
         InventoryManager manager = new InventoryManager();
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory AGAIN."));
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
     }
 }
