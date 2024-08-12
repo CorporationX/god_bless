@@ -22,7 +22,7 @@ public class Main {
         Student student2 = new Student(2L, "Bob");
         Student student3 = new Student(3L, "Nolan");
 
-        StudentSubjectManager studentSubjectManager = new StudentSubjectManager(new HashMap<>(), new HashMap<>());
+        StudentSubjectManager studentSubjectManager = new StudentSubjectManager();
         Map<Subject, Integer> subjectIntegerMap1 = new HashMap<>(Map.of(
                 subject1, 5,
                 subject2, 3,
@@ -38,41 +38,38 @@ public class Main {
         List<Student> studentsList = new ArrayList<>(List.of(student1, student2));
 
         System.out.println("\nAdd new student and courses grades");
-        studentSubjectManager.addNewStudentAndCoursesGrades(student1, subjectIntegerMap1);
-        studentSubjectManager.printAllStudentsAndGraduateOfSubjects();
+        studentSubjectManager.addOrUpdateStudentGrades(student1, subjectIntegerMap1);
+        studentSubjectManager.printAllSubjectsAndStudents();
 
         System.out.println("\nAdd subject and grade into existing student");
-        studentSubjectManager.addNewStudentAndCoursesGrades(student1, subjectIntegerMap1);
-        studentSubjectManager.addSubjectAndGradeIntoExistingStudent(student1, subject10, 5);
-        studentSubjectManager.printAllStudentsAndGraduateOfSubjects();
+        studentSubjectManager.addOrUpdateStudentGrades(student1, subjectIntegerMap1);
+        studentSubjectManager.addStudentToSubject(subject10, student1);
+        studentSubjectManager.printAllStudentGrades();
 
         System.out.println("\nDelete student and subjects with graduate");
-        studentSubjectManager.addNewStudentAndCoursesGrades(student1, subjectIntegerMap1);
-        studentSubjectManager.deleteStudentAndSubjectsWithGraduate(student1);
-        studentSubjectManager.printAllStudentsAndGraduateOfSubjects();
+        studentSubjectManager.addOrUpdateStudentGrades(student1, subjectIntegerMap1);
+        studentSubjectManager.removeStudentFromSubject(subject2, student1);
+        studentSubjectManager.printAllStudentGrades();
 
         System.out.println("\nPrint all students and graduate of subjects");
-        studentSubjectManager.addNewStudentAndCoursesGrades(student1, subjectIntegerMap1);
-        studentSubjectManager.addNewStudentAndCoursesGrades(student2, subjectIntegerMap2);
-        studentSubjectManager.printAllStudentsAndGraduateOfSubjects();
+        studentSubjectManager.addOrUpdateStudentGrades(student1, subjectIntegerMap1);
+        studentSubjectManager.addOrUpdateStudentGrades(student2, subjectIntegerMap2);
+        studentSubjectManager.printAllStudentGrades();
 
         System.out.println("\nAdd new subject and students list");
-        studentSubjectManager.addNewSubjectAndStudentsList(subject1, studentsList);
+        studentSubjectManager.addStudentToSubject(subject1, student3);
         studentSubjectManager.printAllSubjectsAndStudents();
 
         System.out.println("\nAdd student into existing subject");
-        studentSubjectManager.addNewSubjectAndStudentsList(subject1, studentsList);
-        studentSubjectManager.addStudentIntoExistingSubject(subject1, student3);
+        studentSubjectManager.addStudentToSubject(subject1, student1);
+        studentSubjectManager.addStudentToSubject(subject1, student1);
         studentSubjectManager.printAllSubjectsAndStudents();
 
         System.out.println("\nDelete student in subject and students list");
-        studentSubjectManager.addNewSubjectAndStudentsList(subject1, studentsList);
-        studentSubjectManager.deleteStudentInSubjectAndStudentsList(subject1, student1);
+        studentSubjectManager.removeStudentFromSubject(subject1, student1);
         studentSubjectManager.printAllSubjectsAndStudents();
 
         System.out.println("\nPrint all subjects and students");
-        studentSubjectManager.addNewSubjectAndStudentsList(subject1, studentsList);
-        studentSubjectManager.addNewSubjectAndStudentsList(subject6, List.of(student1, student2, student3));
         studentSubjectManager.printAllSubjectsAndStudents();
     }
 }
