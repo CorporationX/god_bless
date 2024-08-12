@@ -5,12 +5,10 @@ public class Main {
         Character warrior = new Warrior("Warrior");
         Character archer = new Archer("Archer");
 
-        warrior.attack(archer, warrior);
-        System.out.println(warrior);
+        warrior.attack(archer);
         System.out.println(archer);
 
-        archer.attack(warrior, archer);
+        archer.attack(warrior);
         System.out.println(warrior);
-        System.out.println(archer);
     }
 }

@@ -14,8 +14,7 @@ public class Warrior extends Character {
     }
 
     @Override
-    public void attack(Character attacking, Character defending) {
-        defending.power -= POWER;
+    public void attack(Character defending) {
         defending.health -= POWER;
     }
 }
