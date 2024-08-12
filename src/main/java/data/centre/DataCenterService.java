@@ -116,28 +116,6 @@ public class DataCenterService implements OptimizationStrategy {
             addService(newServer);
         } else {
             methodForReloadingServers(loadRequest, dataCenter.serverIdMap);
-//            for (Map.Entry<Integer, Server> entry : dataCenter.serverIdMap.entrySet()) {
-//                int serverId = entry.getKey();
-//                Server server = entry.getValue();
-//                double availableCapacity = server.getMaxLoad() - server.getLoad();
-//                if (availableCapacity > 0) {
-//                    if (deleteServerIdSet.contains(serverId)) {
-//                        deleteServerIdSet.remove(serverId);
-//                    }
-//                    double allocatedCapacity = Math.min(loadRequest, availableCapacity);
-//                    server.setLoad(server.getLoad() + allocatedCapacity);
-//                    loadRequest -= allocatedCapacity;
-//                    if (server.getLoad() == server.getMaxLoad()) {
-//                        System.out.println("Сервер [" + serverId + "] теперь нагружен на максимум.");
-//                    } else {
-//                        System.out.println("Сервер [" + serverId + "] теперь нагружен на " +
-//                                server.getLoad() + " из " + server.getMaxLoad() + ".");
-//                    }
-//                    if (loadRequest == 0) {
-//                        break;
-//                    }
-//                }
-//            }
         }
     }
 
