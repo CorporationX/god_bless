@@ -4,17 +4,14 @@ package faang.school.godbless.Task18963;
 
 public class Example {
 
-    public void reverse (int[] array){
-        int length = array.length - 1;
+    public int[] reverse (int[] array){
+        int length = array.length;
+        int[] result = new int[length];
 
-        int[] massiv = new int[array.length];
-        int result = massiv.length;
-
-        for (int i = length; i >= 0; i--) {
-            for (int j = 0; j < result; j++) {
-                massiv[j] = array[i];
-                i -= 1;
+            for (int i = 0; i < length; i++) {
+                int index = length - 1 - i;
+                result[i] = array[index];
             }
-        }
+        return result;
     }
 }
