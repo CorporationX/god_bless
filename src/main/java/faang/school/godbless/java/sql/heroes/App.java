@@ -11,7 +11,7 @@ public class App {
         Hero heroOne = new Hero("Vasia", "BLACK", 10, 20);
         heroOne.addCreature(pikeman, 11);
         heroOne.addCreature(swordman, 4);
-        heroOne.addCreature(griffin, 3);
+        heroOne.addCreature(griffin, 7);
         heroOne.addCreature(angel, 1);
 
         Creature pikeman2 = new Pikeman();
@@ -29,7 +29,7 @@ public class App {
         Hero winner = battlefield.battle();
         System.out.println("______________________________________");
         System.out.printf("%s from fraction %s wins the battle!%n", winner.getName(), winner.getFraction());
-        winner.getArmy();
+        winner.printArmy();
         System.out.println("--------------------------------------");
     }
 }

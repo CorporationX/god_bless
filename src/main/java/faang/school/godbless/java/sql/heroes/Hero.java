@@ -25,10 +25,18 @@ public class Hero {
 
     private int calculateCommonHealthBasedOnQuantity(Creature creature, int quantity) {
         int baseCommonHealth = creature.health * quantity;
-        double protectModifier = creature.protect / Creature.PROTECT_SCALING_FACTOR;
+        double protectModifier = creature.protect / Constants.PROTECT_SCALING_FACTOR;
         double additionalProtectDHealth = baseCommonHealth * protectModifier;
         double finalCommonHealth = baseCommonHealth + additionalProtectDHealth;
         return (int) finalCommonHealth;
+    }
+
+    public int getCommonDamage(Creature creature) {
+        return creature.getDamage() * creature.getQuantity();
+    }
+
+    public void recalculateQuantityFromHealth(Creature creature) {
+        creature.quantity = (int) Math.ceil((double) creature.health / Constants.HEALTH_PER_UNIT);
     }
 
     public void addCreature(Creature creature, int quantity) {
@@ -46,7 +54,7 @@ public class Hero {
         this.creatureMap.remove(creature.name);
     }
 
-    public void getArmy() {
+    public void printArmy() {
         System.out.print("Army: ");
         for (Map.Entry<String, Creature> entry : creatureMap.entrySet()) {
             System.out.print("<" + entry.getValue() + ">, ");

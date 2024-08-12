@@ -1,32 +1,30 @@
 package faang.school.godbless.java.sql.heroes;
 
 
+import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
 
+
+@Setter
+@Getter
 public abstract class Creature {
-    // Constants
-    public static final double SPEED_SCALING_FACTOR = 100.0;
-    public static final double LEVEL_SCALING_FACTOR = 100.0;
-    public static final double PROTECT_SCALING_FACTOR = 100.0;
-    public static final int HEALTH_PER_UNIT = 100;
-    public static final int DEFAULT_QUANTITY = 1;
+
 
     protected String name;
-    @Setter
-    protected int health = HEALTH_PER_UNIT;
+    protected int health = Constants.HEALTH_PER_UNIT;
     protected int level;
     protected int attack;
     protected int protect;
     protected int speed;
-    protected int quantity = DEFAULT_QUANTITY;
+    protected int quantity = Constants.DEFAULT_QUANTITY;
 
     protected int getDamage() {
-        int baseDamage = this.attack * this.quantity;
+        int baseDamage = this.attack;
 
-        double speedModifier = this.speed / Creature.SPEED_SCALING_FACTOR;
-        double levelModifier = this.level / Creature.LEVEL_SCALING_FACTOR;
+        double speedModifier = this.speed / Constants.SPEED_SCALING_FACTOR;
+        double levelModifier = this.level / Constants.LEVEL_SCALING_FACTOR;
 
         double additionalSpeedDamage = baseDamage * speedModifier;
         double additionalLevelDamage = baseDamage * levelModifier;
@@ -40,9 +38,6 @@ public abstract class Creature {
         this.quantity = Math.max(quantity, 0);
     }
 
-    public void recalculateQuantityFromHealth() {
-        this.quantity = (int) Math.ceil((double) this.health / Creature.HEALTH_PER_UNIT);
-    }
 
     @Override
     public String toString() {
