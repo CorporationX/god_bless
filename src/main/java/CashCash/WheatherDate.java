@@ -1,11 +1,13 @@
 package CashCash;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
 import java.util.Map;
 import java.util.Random;
 
 @AllArgsConstructor
+@ToString
 public class WheatherDate {
     private String city;
     private int temperature;
@@ -48,14 +50,5 @@ public class WheatherDate {
     public static WheatherDate searchInfoOfWeather(){
         WheatherDate test = new WheatherDate();
         return test;
-    }
-
-    @Override
-    public String toString() {
-        return "WheatherDate{" +
-                "city='" + city + '\'' +
-                ", temperature='" + temperature + '\'' +
-                ", humidity='" + humidity + '\'' +
-                '}';
     }
 }
