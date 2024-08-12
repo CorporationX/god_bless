@@ -12,11 +12,11 @@ import java.util.NoSuchElementException;
 public class QueryManager {
     private final Map<User, List<Query>> userAndQueryListMap;
 
-    public void addNewUserWithQueryList(@NonNull User user, List<Query> queries) {
+    public void addNewUserWithQueryList(@NonNull User user, @NonNull List<Query> queries) {
         userAndQueryListMap.put(user, queries);
     }
 
-    public void addNewQueryToExistingUser(@NonNull User user, Query query) {
+    public void addNewQueryToExistingUser(@NonNull User user, @NonNull Query query) {
         if (!userAndQueryListMap.containsKey(user)) {
             throw new NoSuchElementException("Пользователь %s не найден".formatted(user));
         }
@@ -47,7 +47,7 @@ public class QueryManager {
         });
     }
 
-    private void printUserAndQueries(@NonNull User user, List<Query> queries) {
+    private void printUserAndQueries(@NonNull User user, @NonNull List<Query> queries) {
         System.out.println("Пользователь: " + user.getName() +
                 "\nСписок запросов: ");
         queries.forEach(query -> {
