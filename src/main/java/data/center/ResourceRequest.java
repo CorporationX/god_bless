@@ -8,6 +8,5 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode
 public class ResourceRequest {
-    private final long id = System.nanoTime();;
     private final double load;
 }

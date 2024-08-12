@@ -10,28 +10,30 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
 
     @Override
     public void optimize(DataCenter dataCenter) {
-        this.requests = new ArrayList<>(dataCenter.getRequestsLoaded().keySet());
-        this.resourceRelease(dataCenter);
+        List<Server> servers = new ArrayList<>(dataCenter.getServerLoads().keySet());
+        this.resourceRelease(servers);
 
         for (ResourceRequest request: this.requests) {
-            List<Server> servers = dataCenter.getServers();
-            servers.sort(Comparator.comparingDouble(Server::getLoad).thenComparing(Server::getCostPerLoad));
+            servers.sort(Comparator.comparingDouble(Server::getLoad));
 
-            for (Server server: dataCenter.getServers()) {
+            for (Server server: servers) {
                 if (server.loadPercent() < OPTIMAL_PERCENT_LOAD_SERVER) {
-                    if (!server.allocatedLoad(request.getLoad())) {
-                        continue;
-                    }
-                    dataCenter.getRequestsLoaded().put(request, server);
-                    break;
+                    try {
+                        server.addRequest(request);
+                        break;
+                    } catch (RuntimeException ignored) {}
                 }
             }
         }
     }
 
-    private void resourceRelease(DataCenter dataCenter) {
-        for (ResourceRequest request: this.requests) {
-            dataCenter.releaseResources(request);
+    private void resourceRelease(List<Server> servers) {
+        for (Server server : servers) {
+            var serverRequests = new ArrayList<>(server.getRequestsLoad().keySet());
+            for (ResourceRequest request : serverRequests) {
+                server.removeRequest(request);
+                this.requests.add(request);
+            }
         }
     }
 }

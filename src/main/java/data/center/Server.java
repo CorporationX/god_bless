@@ -2,50 +2,43 @@ package data.center;
 
 import lombok.Getter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 public class Server {
     private double load = 0;
     private final double maxLoad;
     private final double energyConsumption;
-    private final double wattPerLoad;
-    private final double costPerLoad;
-    private final double costPerWatt = 2;
+    private final Map<ResourceRequest, Double> requestsLoad = new HashMap<>();
 
-    public Server(double maxLoad, double energyConsumption, double wattPerLoad, double costPerLoad) {
+    public Server(double maxLoad, double energyConsumption) {
         this.maxLoad = maxLoad;
         this.energyConsumption = energyConsumption;
-        this.wattPerLoad = wattPerLoad;
-        this.costPerLoad = costPerLoad;
     }
+    public void addRequest(ResourceRequest request) {
+        if (this.getAvailableLoad() >= request.getLoad()) {
+            this.load += request.getLoad();
+            this.requestsLoad.put(request, request.getLoad());
 
-    public boolean allocatedLoad(double load) {
-        double allocatedLoad = this.getLoad() + load;
-
-        if (allocatedLoad > this.maxLoad || this.energyConsumption < this.calculateEnergyByLoad(allocatedLoad)) {
-            return false;
+            return;
         }
 
-        this.load = allocatedLoad;
-        return true;
+        throw new RuntimeException();
+    }
+
+    public void removeRequest(ResourceRequest request) {
+        if (this.requestsLoad.containsKey(request)) {
+            this.load -= request.getLoad();
+            this.requestsLoad.remove(request);
+        }
+    }
+
+    public double getAvailableLoad() {
+        return this.maxLoad - this.load;
     }
 
     public double loadPercent() {
         return this.getLoad() / this.getMaxLoad() * 100;
-    }
-
-    public void removeLoad(double load) {
-        this.load -= load;
-    }
-
-    public double getCurrentEnergyConsumption() {
-        return this.getLoad() * this.getWattPerLoad();
-    }
-
-    public double getCost() {
-        return this.getLoad() * this.getCostPerLoad() + this.getCurrentEnergyConsumption() * this.getCostPerWatt();
-    }
-
-    private double calculateEnergyByLoad(double load) {
-        return load * this.getWattPerLoad();
     }
 }

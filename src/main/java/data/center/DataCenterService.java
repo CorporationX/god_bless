@@ -15,40 +15,60 @@ public class DataCenterService {
     }
 
     public void addServer(Server server) {
-        this.dataCenter.getServers().add(server);
+        if (this.dataCenter.getServerLoads().containsKey(server)) {
+            throw new RuntimeException();
+        }
+
+        this.dataCenter.getServerLoads().put(server, server.getMaxLoad());
+    }
+
+    public void removeServer(Server server) {
+        if (!this.dataCenter.getServerLoads().containsKey(server)) {
+            throw new RuntimeException();
+        }
+
+        this.dataCenter.getServerLoads().remove(server);
     }
 
     public void getInfo() {
         System.out.println("Текущая загрузка датацентра: ");
-        this.dataCenter.getServers().forEach(server -> System.out.printf("Загрузка: %s / %s\n", server.getLoad(), server.getMaxLoad()));
+        this.dataCenter.getServerLoads()
+                .keySet()
+                .forEach(server -> System.out.printf("Загрузка: %s / %s\n", server.getLoad(), server.getMaxLoad()));
 
-        System.out.printf("Стоимость размещения ресурсов: %s\n", this.dataCenter.calculateCost());
         System.out.printf("Потребление: %s\n", this.getTotalEnergyConsumption());
     }
 
     public double getTotalEnergyConsumption() {
         double totalEnergy = 0;
 
-        for (Server server : this.dataCenter.getServers()) {
-            totalEnergy += server.getCurrentEnergyConsumption();
+        for (Server server : this.dataCenter.getServerLoads().keySet()) {
+            if (server.getLoad() > 0) {
+                totalEnergy += server.getEnergyConsumption();
+            }
         }
 
         return totalEnergy;
     }
 
-    public void allocateResources(ResourceRequest request) throws Exception {
-        if (!this.dataCenter.allocateResources(request)) {
-            throw new Exception("Невозможно разместить: " + request.getLoad());
+    public void allocateResources(ResourceRequest request) {
+        for (Server server : this.dataCenter.getServerLoads().keySet()) {
+            try {
+                server.addRequest(request);
+                return;
+            } catch (RuntimeException ignored) {}
         }
+
+        throw new RuntimeException("Невозможно разместить: " + request.getLoad());
     }
 
     public void releaseResources(ResourceRequest request) throws Exception {
-        if (!this.dataCenter.releaseResources(request)) {
-            throw new Exception(String.format("Ранее ресурс: %s не размещался. ", request.getLoad()));
+        for (Server server : this.dataCenter.getServerLoads().keySet()) {
+            server.removeRequest(request);
         }
     }
 
-    public void optimize() throws Exception {
+    public void optimize() {
         this.strategy.optimize(this.dataCenter);
     }
 }
