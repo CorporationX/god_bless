@@ -2,8 +2,8 @@ package faang.school.godbless;
 
 import org.junit.jupiter.api.Test;
 
-import static faang.school.godbless.Example.reverse;
-import static org.junit.jupiter.api.Assertions.*;
+import static faang.school.godbless.reverse.Example.reverse;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ExampleTest {
 

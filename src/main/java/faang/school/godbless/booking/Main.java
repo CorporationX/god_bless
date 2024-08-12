@@ -1,8 +1,8 @@
-package faang.school.godbless;
+package faang.school.godbless.booking;
 
 import java.util.HashMap;
 
-import static faang.school.godbless.BookService.printBooksWithGenre;
+import static faang.school.godbless.booking.BookService.printBooksWithGenre;
 
 public class Main {
 

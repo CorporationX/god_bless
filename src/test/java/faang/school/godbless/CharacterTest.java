@@ -1,8 +1,10 @@
 package faang.school.godbless;
 
+import faang.school.godbless.fight.Archer;
+import faang.school.godbless.fight.Warrior;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CharacterTest {
 

@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.fight;
 
 import lombok.Getter;
 import lombok.Setter;

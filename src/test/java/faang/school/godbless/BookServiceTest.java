@@ -1,11 +1,12 @@
 package faang.school.godbless;
 
+import faang.school.godbless.booking.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 
-import static faang.school.godbless.BookService.*;
+import static faang.school.godbless.booking.BookService.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookServiceTest {

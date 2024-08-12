@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.booking;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

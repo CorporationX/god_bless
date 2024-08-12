@@ -1,4 +1,4 @@
-package faang.school.godbless;
+package faang.school.godbless.userGrouping;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
