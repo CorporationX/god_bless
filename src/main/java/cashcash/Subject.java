@@ -15,11 +15,21 @@ public class Subject {
     private String name;
 
     public static void addSubject(Map<Subject, List<Student>> subjectListMap, Subject subject, List<Student> studentList) {
-        subjectListMap.put(subject,studentList);
+        if(!subjectListMap.containsKey(subject)) {
+            subjectListMap.put(subject,studentList);
+        }
+        else {
+            System.out.println("Предмет уже зарегестрирован в базе!");
+        }
     }
 
     public static void addStudentToSubjectList(Map<Subject, List<Student>> subjectListMap, Student student, Subject subject) {
-       subjectListMap.get(subject).add(student);
+        if(subjectListMap.containsKey(subject)) {
+            subjectListMap.get(subject).add(student);
+        }
+       else {
+            System.out.println("Предмет не найде!");
+        }
     }
 
     public static void removeStudentFromSubjectList(Map<Subject, List<Student>> subjectListMap, Student student, Subject subject) {
