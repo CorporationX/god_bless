@@ -36,10 +36,10 @@ public class Main {
         String[] content = webPage.getContent().split(" ");
         Arrays.stream(content)
                 .forEach(word -> {
-                    if (!INDEXER.containsKey(word)) {
+                    if (!INDEXER.containsKey(word) || !INDEXER.get(word).contains(webPage)) {
                         INDEXER.put(word, new ArrayList<>(List.of(webPage)));
                     } else {
-                        if (!INDEXER.get(word).contains(webPage))
+                     //   if (!INDEXER.get(word).contains(webPage))
                             INDEXER.get(word).add(webPage);
                     }
                 });
