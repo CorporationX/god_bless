@@ -7,9 +7,9 @@ import java.util.function.BiConsumer;
 public class DictionaryProcessor {
 
     public static void processWord(String word, String translation, BiConsumer<String, String> addToDictionary){
-        if (word.isBlank())
+        if (word == null)
             throw new IllegalArgumentException("Word must be filled");
-        if (translation.isBlank())
+        if (translation == null)
             throw new IllegalArgumentException("Translation must be filled");
 
         addToDictionary.accept(word, translation);
