@@ -15,10 +15,10 @@ public class User {
     private String workPlace;
     private String address;
 
-    private final int MINIMUM_AGE = 18;
+    private static final int MINIMUM_AGE = 18;
 
-    private final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
 
     public User(String name, int age, String workPlace, String address) {
         if (name == null){
