@@ -19,6 +19,7 @@ public class Main {
         GOT_HOUSES.put(targarien.getName(), targarien);
         GOT_HOUSES.put(barateon.getName(), barateon);
         GOT_HOUSES.put(tirell.getName(), tirell);
+        
     }
 
     private static void addNewHouse(String name, House house) {
