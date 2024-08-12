@@ -1,5 +1,6 @@
 package BJS2_18537;
 
+import lombok.Getter;
 import lombok.ToString;
 
 import java.util.ArrayList;
@@ -9,10 +10,11 @@ import java.util.Map;
 
 @ToString
 public class User {
-    private String name;
-    private int age;
-    private String job;
-    private String address;
+    private final String name;
+    @Getter
+    private final int age;
+    private final String job;
+    private final String address;
 
     public User(String name, int age, String job, String address) {
         this.name = name;
@@ -32,7 +34,4 @@ public class User {
         return resultMap;
     }
 
-    public int getAge() {
-        return age;
-    }
 }
