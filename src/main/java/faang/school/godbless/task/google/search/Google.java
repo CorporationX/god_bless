@@ -17,7 +17,7 @@ public class Google {
     private final Map<String, Set<String>> urlAndWordsMap;
 
     public void scanWebPage(WebPage webPage) {
-        webPageValidOrThrowNullPointerException(webPage);
+        validateWebPage(webPage);
         String[] words = webPage.content().concat(webPage.title()).split("\\W+");
         Set<String> wordsSet = new HashSet<>();
         for (String word : words) {
@@ -32,14 +32,14 @@ public class Google {
 
     public List<WebPage> findWebPagesByWord(String word) {
         if (!wordAndWebPagesListMap.containsKey(word.toLowerCase())) {
-            webPagesNotFoundExceptionThrow(word);
+            webPagesNotFound(word);
         }
         return wordAndWebPagesListMap.get(word.toLowerCase());
     }
 
     public void deleteWebPageByUrl(String url) {
         if (!urlAndWordsMap.containsKey(url)) {
-            webPagesByUrlNotFoundExceptionThrow(url);
+            webPagesNotFoundByUrl(url);
         }
         for (String word : urlAndWordsMap.get(url)) {
             var webPages = wordAndWebPagesListMap.get(word);
@@ -54,17 +54,17 @@ public class Google {
         }
     }
 
-    private void webPageValidOrThrowNullPointerException(WebPage webPage) {
+    private void validateWebPage(WebPage webPage) {
         if (webPage == null) {
-            throw new NullPointerException("Веб страница не может быть null");
+            throw new IllegalArgumentException("Веб страница не может быть null");
         }
     }
 
-    private void webPagesNotFoundExceptionThrow(String word) {
+    private void webPagesNotFound(String word) {
         throw new NoSuchElementException("Веб страницы с словом %s не найдены".formatted(word));
     }
 
-    private void webPagesByUrlNotFoundExceptionThrow(String url) {
+    private void webPagesNotFoundByUrl(String url) {
         throw new NoSuchElementException("Веб страница с адресом %s не найдена".formatted(url));
     }
 }
