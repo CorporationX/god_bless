@@ -8,9 +8,11 @@ public class Main {
 
     public static WeatherData getWeather(String city){
         WeatherData weatherData = WeatherService.getWeather(city);
-        if (cache.containsKey(city))
-                return cache.get(city);
-        else {cache.put(city,weatherData);
+        if (cache.containsKey(city)) {
+            return cache.get(city);
+        }
+        else {
+            cache.put(city,weatherData);
                 return cache.get(city);
         }
     }
@@ -30,6 +32,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println(getWeather("Moscow"));
         updateWeather("Moscow");
+        System.out.println(getWeatherAllCities());
         deleteWeather("Moscow");
         System.out.println(getWeatherAllCities());
     }
