@@ -12,14 +12,14 @@ public class NotificationManager {
     private static Map<Predicate<Notification>, Function<Notification, Notification>> notificationFilters = new HashMap<>();
 
     public static void registerHandler(String notificationType, Consumer<Notification> notifier) {
-        if(notificationType.isEmpty())
+        if(notificationType == null)
             throw new IllegalArgumentException("Notification type must be filled");
 
         notifications.put(notificationType, notifier);
     }
 
     public static void sendNotification(Notification notification) {
-        if(notification.getType().isBlank())
+        if(notification.getType() == null)
             throw new IllegalArgumentException("Notification type must be filled");
 
         filterNotification(notification);
