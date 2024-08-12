@@ -9,7 +9,6 @@ public class OptimizationStrategyImpl implements OptimizationStrategy {
     public void optimize(DataCenter dataCenter) {
         List<Server> servers = dataCenter.getServers();
 
-        // Calculate the total load and number of servers
         double totalLoad = 0;
         int serverCount = servers.size();
 
@@ -19,12 +18,10 @@ public class OptimizationStrategyImpl implements OptimizationStrategy {
 
         double averageLoad = totalLoad / serverCount;
 
-        // Redistribute load to achieve a more balanced load across servers
         for (Server server : servers) {
             double excessLoad = server.getLoad() - averageLoad;
 
             if (excessLoad > 0) {
-                // Move excess load to other servers
                 for (Server targetServer : servers) {
                     if (targetServer != server && targetServer.canAllocate(excessLoad)) {
                         server.release(excessLoad);
@@ -34,7 +31,7 @@ public class OptimizationStrategyImpl implements OptimizationStrategy {
                 }
             }
         }
-        // Output the result
+
         System.out.println("Optimization complete. Servers are now more balanced.");
         printServerStatus(servers);
     }

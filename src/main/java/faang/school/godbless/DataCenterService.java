@@ -19,11 +19,11 @@ public class DataCenterService {
     }
 
     public void addServer(Server server) {
-        dataCenter.getServers().add(server);
+        dataCenter.addServer(server);
     }
 
     public void removeServer(Server server) {
-        dataCenter.getServers().remove(server);
+       dataCenter.removeServer(server);
     }
 
     public double getTotalEnergyConsumption(){

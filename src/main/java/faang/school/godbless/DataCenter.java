@@ -17,4 +17,12 @@ public class DataCenter {
     public DataCenter() {
         this.servers = new ArrayList<>();
     }
+
+    public void addServer(Server server) {
+        servers.add(server);
+    }
+
+    public void removeServer(Server server) {
+        servers.remove(server);
+    }
 }
