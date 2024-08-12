@@ -8,20 +8,10 @@ import java.util.Set;
 
 public class Store {
     public Map<String, List<Product>> groupProductsByCategory(Set<Product> products) {
-        Map<String, List<Product>> groupedProducts = new HashMap<>();
-
-        for (Product product : products) {
-            String category = product.getCategory();
-            if (groupedProducts.containsKey(category)) {
-                groupedProducts.get(category).add(product);
-            } else {
-                List<Product> productsInCategory = new ArrayList<>();
-                productsInCategory.add(product);
-                groupedProducts.put(category, productsInCategory);
-            }
-        }
-
-        return groupedProducts;
+        Map<String, List<Product>> productsByCategory = new HashMap<>();
+        products.forEach(product -> productsByCategory.computeIfAbsent(
+                product.getCategory(), x -> new ArrayList<>()).add(product));
+        return productsByCategory;
     }
 
     public void printGroupedByCategoryProducts(Map<String, List<Product>> groupedProducts) {
