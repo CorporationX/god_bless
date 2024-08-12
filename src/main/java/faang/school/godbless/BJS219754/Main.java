@@ -13,11 +13,20 @@ public class Main {
     }
 
     public static void addMarkForStudent(Student student, Subject subject, int mark) {
-        studentAndMarks.get(student).put(subject, mark);
+        Map<Subject, Integer> marks = studentAndMarks.get(student);
+        if (marks != null) {
+            marks.put(subject, mark);
+        } else {
+            System.out.println("Student not found: " + student.getName());
+        }
     }
 
     public static void removeStudentAndMarks(Student student) {
-        studentAndMarks.remove(student);
+        if (studentAndMarks.containsKey(student)) {
+            studentAndMarks.remove(student);
+        } else {
+            System.out.println("Student not found: " + student.getName());
+        }
     }
 
     public static void printStudentsAndMarks() {
@@ -34,16 +43,26 @@ public class Main {
     }
 
     public static void addStudentForSubject(Student student, Subject subject) {
-        studentsBySubject.get(subject).add(student);
+        List<Student> students = studentsBySubject.get(subject);
+        if (students != null) {
+            students.add(student);
+        } else {
+            System.out.println("Subject not found: " + subject.getName());
+        }
     }
 
-    public static void removeStudentIsSubject(Student student, Subject subject) {
-        studentsBySubject.remove(subject).remove(student);
+    public static void removeStudentFromSubject(Student student, Subject subject) {
+        List<Student> students = studentsBySubject.get(subject);
+        if (students != null) {
+            students.remove(student);
+        } else {
+            System.out.println("Subject not found: " + subject.getName());
+        }
     }
 
     public static void printSubjectAndStudents() {
         for (Map.Entry<Subject, List<Student>> entry : studentsBySubject.entrySet()) {
-            System.out.println(entry.getKey() + ":");
+            System.out.println(entry.getKey().getName() + ":");
             for (Student student : entry.getValue()) {
                 System.out.println("-" + student.getName());
             }
