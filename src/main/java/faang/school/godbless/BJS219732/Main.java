@@ -10,15 +10,29 @@ public class Main {
     }
 
     public static void addQuery(User user, Query query) {
-        userQueries.get(user).add(query);
+        List<Query> queries = userQueries.get(user);
+        if (queries != null) {
+            queries.add(query);
+        } else {
+            System.out.println("User not found: " + user.getName());
+        }
     }
 
     public static void removeUserAndQueries(User user) {
-        userQueries.remove(user);
+        if (userQueries.containsKey(user)) {
+            userQueries.remove(user);
+        } else {
+            System.out.println("User not found: " + user.getName());
+        }
     }
 
     public static void clearQueriesByUser(User user) {
-        userQueries.get(user).clear();
+        List<Query> queries = userQueries.get(user);
+        if (queries != null) {
+            queries.clear();
+        } else {
+            System.out.println("User not found: " + user.getName());
+        }
     }
 
     public static void printUserAndQueries() {
@@ -37,6 +51,8 @@ public class Main {
             for (Query query : queries) {
                 System.out.println(query.toString());
             }
+        } else {
+            System.out.println("User not found: " + user.getName());
         }
     }
 
