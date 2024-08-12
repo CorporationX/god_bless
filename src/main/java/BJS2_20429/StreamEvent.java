@@ -1,25 +1,19 @@
 package BJS2_20429;
 
+import lombok.Getter;
 import lombok.ToString;
 
 @ToString
+@Getter
 public class StreamEvent {
-    private int id;
-    private String eventType;
-    private String data;
+    private final int id;
+    private final String eventType;
+    private final String data;
 
 
     public StreamEvent(int id, String eventType, String data) {
         this.id = id;
         this.eventType = eventType;
         this.data = data;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getEventType() {
-        return eventType;
     }
 }
