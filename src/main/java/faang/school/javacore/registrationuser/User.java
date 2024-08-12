@@ -2,22 +2,19 @@ package faang.school.javacore.registrationuser;
 
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
 @ToString
 public class User {
+    private static final int MIN_AGE = 18;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+
     private final String name;
     private final int age;
     private final String placeOfWork;
     private final String address;
-
-    static private final int MIN_AGE = 18;
-
-    static private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    static private final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
         if (validUser(name, age, placeOfWork, address)) {
@@ -32,7 +29,7 @@ public class User {
     }
 
     private boolean validUser(String name, int age, String placeOfWork, String address) {
-        if (name == null
+        return name == null
                 || placeOfWork == null
                 || address == null
                 || name.isBlank()
@@ -40,10 +37,7 @@ public class User {
                 || address.isBlank()
                 || age < MIN_AGE
                 || !(VALID_JOBS.contains(placeOfWork))
-                || !(VALID_ADDRESS.contains(address))) {
-            return true;
-        }
-        return false;
+                || !(VALID_ADDRESS.contains(address));
     }
 
 
@@ -52,7 +46,7 @@ public class User {
         User oleg = new User("Oleg", 18, "Google", "Amsterdam");
         User max = new User("Max", 22, "Google", "Amsterdam");
 
-        List<User> userList = new ArrayList<>(Arrays.asList(alex, oleg, max));
+        List<User> userList = List.of(alex, oleg, max);
 
         for (User user : userList) {
             System.out.println(user);
