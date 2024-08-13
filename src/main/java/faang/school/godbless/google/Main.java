@@ -7,22 +7,15 @@ public class Main {
 
     public static void indexWebPage(WebPage page) {
         String[] keyWords = page.getContent().toLowerCase().split("[(),.;:!? ]+");
-        HashSet<String> wordsSet = new HashSet<>(Arrays.asList(keyWords));
-        String[] uniqueKeyWords = wordsSet.toArray(new String[0]);
+        HashSet<String> uniqueKeyWords = new HashSet<>(Arrays.asList(keyWords));
         for (String keyWord : uniqueKeyWords) {
-            if (!index.containsKey(keyWord)) {
-                index.put(keyWord, new LinkedList<>(List.of(page)));
-            } else {
-                index.get(keyWord).add(page);
-            }
+            index.computeIfAbsent(keyWord, k -> new ArrayList<>()).add(page);
         }
     }
 
     public static List<WebPage> findPages(String keyWord) {
-        if (!index.containsKey(keyWord.toLowerCase())) {
-            return Collections.emptyList();
-        }
-        return index.get(keyWord.toLowerCase());
+        keyWord = keyWord.toLowerCase();
+        return index.getOrDefault(keyWord, Collections.emptyList());
     }
 
     public static void deletePage(String url) {
