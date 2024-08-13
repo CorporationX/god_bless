@@ -6,11 +6,11 @@ import lombok.EqualsAndHashCode;
 @AllArgsConstructor
 @EqualsAndHashCode
 public class User {
-    private int id;
-    private String name;
+    private final long ID;
+    private final String NAME;
 
     @Override
     public String toString() {
-        return name;
+        return NAME;
     }
 }
