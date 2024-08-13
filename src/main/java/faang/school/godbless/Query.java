@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class Query {
-    protected static final Map<Query, Double> QUERY_LIST_MAP = new HashMap<>();
     private int id;
     private String content;
     private double timestamp;

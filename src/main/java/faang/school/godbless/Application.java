@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static faang.school.godbless.Query.QUERY_LIST_MAP;
 
 public class Application {
 
@@ -43,9 +42,9 @@ public class Application {
         addNewUserQuery(fifthUser, ninthQuery);
         addNewUserQuery(fifthUser, tenthQuery);
 
-        getAllUsers();
+//        getAllUsers();
 
-        getStoryUserQuery(firstUser);
+        getStoryUserQuery(secondUser);
     }
 
     public static void addUserListQuery(User user, List<Query> listQuery) {
@@ -59,7 +58,6 @@ public class Application {
                 USER_LIST_MAP.put(user, new ArrayList<>());
                 USER_LIST_MAP.get(user).add(query);
             }
-        QUERY_LIST_MAP.put(query, query.getTimestamp());
     }
 
     public static void removeUserListQuery(User user) {
@@ -77,13 +75,18 @@ public class Application {
     }
 
     public static void getStoryUserQuery(User user) {
-        List<Double> sortQuery = new ArrayList<>();
-        for (Query query : USER_LIST_MAP.get(user)) {
-            sortQuery.add(query.getTimestamp());
+        List<Query> sortQuery = USER_LIST_MAP.get(user);
+        for (int i = 0; i < sortQuery.size() - 1; i++) {
+            for (int j = 0; j < sortQuery.size() - 1; j++) {
+                if (sortQuery.get(j).getTimestamp() < sortQuery.get(j + 1).getTimestamp()) {
+                    Query temp = sortQuery.get(j);
+                    sortQuery.set(j, sortQuery.get(j + 1));
+                    sortQuery.set(j + 1, temp);
+                }
+            }
         }
-        Collections.sort(sortQuery);
 
-        for (double i : sortQuery) {
+        for (Query i : sortQuery) {
             System.out.println(i);
         }
     }
