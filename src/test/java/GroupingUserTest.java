@@ -8,7 +8,7 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UserTest {
+public class GroupingUserTest {
     @Test
     public void testUser1() {
         List<User> users = Arrays.asList(
