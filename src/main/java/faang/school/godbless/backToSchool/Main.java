@@ -8,25 +8,27 @@ public class Main {
     }
 
     public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+
+        if (a <= 0 || b <= 0 || c <= 0) {
+            throw new IllegalArgumentException("wrong input mate");
+        }
+
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
-        if (a > 0 && b > 0 && c > 0)
-        {
-            double temp = sum.apply(a).apply(b);
-            double P = sum.apply(temp).apply(c);
-            double semiP = div.apply(P).apply(2.0);
 
-            double sMinusA = sub.apply(semiP).apply(a);
-            double sMinusB = sub.apply(semiP).apply(b);
-            double sMinusC = sub.apply(semiP).apply(c);
+        double temp = sum.apply(a).apply(b);
+        double p = sum.apply(temp).apply(c);
+        double semiP = div.apply(p).apply(2.0);
 
-            double multi = mul.apply(semiP).apply(mul.apply(sMinusA).apply(mul.apply(sMinusB).apply(sMinusC)));
+        double sMinusA = sub.apply(semiP).apply(a);
+        double sMinusB = sub.apply(semiP).apply(b);
+        double sMinusC = sub.apply(semiP).apply(c);
+        double multi = mul.apply(semiP).apply(mul.apply(sMinusA).apply(mul.apply(sMinusB).apply(sMinusC)));
 
-            return sqrt.apply(multi);
+        return sqrt.apply(multi);
         }
-        throw new IllegalArgumentException("wrong input mate");
     }
-}
+
