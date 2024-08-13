@@ -5,6 +5,7 @@ import java.util.function.Function;
 public class Main {
     public static void main(String[] args) {
         System.out.println(triangleArea(8, 4, 5));
+        System.out.println(triangleArea(5, 5, 5));
     }
 
     public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
