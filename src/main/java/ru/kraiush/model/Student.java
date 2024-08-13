@@ -18,18 +18,15 @@ public class Student {
     private String name;
     private String faculty;
     private Integer course;
-
     public static Set<Student> findStudentsByFacultyAndCourse(List<Student> students, String faculty, Integer course) {
           return students.stream()
                 .filter(s -> s.getFaculty().equals(faculty))
                 .filter(s -> s.getCourse().equals(course))
                 .collect(Collectors.toSet());
     }
-
     public static void removeStudent(List<Student> students, String name, String faculty, Integer course)  {
         students.removeIf(s -> s.getName().equals(name) && s.getFaculty().equals(faculty) && s.getCourse().equals(course));
     }
-
     public static List<Student> getStudens() {
 
         List<Student> students = new ArrayList<>();

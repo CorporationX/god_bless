@@ -1,9 +1,8 @@
-package ru.kraiush.BJS2_19934;
+package ru.kraiush.BJS2_19557;
 
 import ru.kraiush.model.Student;
 
 import java.util.*;
-
 public class App_Counting_absenteeism {
 
     public static void main(String[] args) {
@@ -22,7 +21,7 @@ public class App_Counting_absenteeism {
                 map.put(key, st);
             }
         }
-        System.out.println("\n\nstudents <faculty> and <course>");
+        System.out.println("\n\nstudents grouping by <faculty> and <course>");
         map.forEach((K,V) -> System.out.println("key: "+ K + " student: " + V));
 
         Set<Student> res = Student.findStudentsByFacultyAndCourse(students, "automatic & electronic", 2017);
