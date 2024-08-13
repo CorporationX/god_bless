@@ -13,11 +13,11 @@ public class Main {
         service.printCache();
         System.out.println();
 
-        System.out.println(service.get(5).get());
+        System.out.println(service.get(5).orElse(null));
         service.printCache();
         System.out.println();
 
-        System.out.println(service.get(1).get());
+        System.out.println(service.get(1).orElse(null));
         service.printCache();
         System.out.println();
     }

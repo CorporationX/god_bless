@@ -10,7 +10,7 @@ import java.util.Optional;
 @Getter
 public class LruCacheService {
 
-    private static final long CACHE_SIZE = 3;
+    private static final int CACHE_SIZE = 3;
 
     private Map<Integer, Data> dataMap = new HashMap<>();
     private LinkedHashMap<Integer, Data> cache = new LinkedHashMap<>();
