@@ -18,15 +18,6 @@ public class Main {
         }
     }
 
-    public static void deleteStudent(String name, String faculty, int year){
-        Student studentToDelete = new Student(name, faculty, year);
-        if (university.contains(studentToDelete)) {
-            university.remove(studentToDelete);
-        } else {
-            System.out.println("Student not in university");
-        }
-    }
-
     public static HashMap<String, List<Student>> groupStudents(List<Student> students) {
         HashMap<String, List<Student>> group = new HashMap<>();
         for (Student student : students) {
@@ -103,7 +94,6 @@ public class Main {
         addStudent(new Student("Jane", "Faculty of Social Science", 3));
 
         deleteStudent(new Student("Max", "Faculty of Economics", 3));
-        deleteStudent("Jack", "Faculty of Physics", 4);
 
         printSortedStudents();
 
