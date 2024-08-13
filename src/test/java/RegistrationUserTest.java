@@ -3,7 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class UserTest {
+public class RegistrationUserTest {
     @Test
     public void testInvalidUserName() {
         assertThrows(IllegalArgumentException.class, () -> new User("", 19, "Google", "London"));
