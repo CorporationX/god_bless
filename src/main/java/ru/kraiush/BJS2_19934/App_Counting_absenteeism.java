@@ -3,7 +3,6 @@ package ru.kraiush.BJS2_19934;
 import ru.kraiush.model.Student;
 
 import java.util.*;
-
 public class App_Counting_absenteeism {
     public static void main(String[] args) {
 
