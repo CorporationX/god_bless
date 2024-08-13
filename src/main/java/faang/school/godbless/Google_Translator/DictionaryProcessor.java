@@ -1,4 +1,4 @@
-package faang.school.godbless.Google;
+package faang.school.godbless.Google_Translator;
 
 import java.util.HashMap;
 import java.util.Map;
