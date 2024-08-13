@@ -2,12 +2,14 @@ package faang.school.godbless.BJS218596;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class User {
-    private String name;
-    private Integer age;
-    private String placeWork;
-    private String address;
+    private final String name;
+    private final int age;
+    private final String placeWork;
+    private final String address;
 
     public User(String name, Integer age, String placeWork, String address) {
         this.name = name;
@@ -24,15 +26,12 @@ public class User {
         return String.format("[Name: %s, Age: %d, place work: %s, address: %s]", name, age, placeWork, address);
     }
 
-    public static HashMap<Integer, ArrayList<User>> groupUsers(ArrayList<User> users) {
-        HashMap<Integer, ArrayList<User>> groupUsers = new HashMap<>();
+    public static Map<Integer, ArrayList<User>> groupUsers(List<User> users) {
+        Map<Integer, ArrayList<User>> groupUsers = new HashMap<>();
         for (User user : users) {
-            int age = user.getAge();
-            if (!groupUsers.containsKey(age)) {
-                groupUsers.put(age, new ArrayList<>());
-                groupUsers.get(age).add(user);
-            } else {
-                groupUsers.get(age).add(user);
+            if (user != null){
+                int age = user.getAge();
+                groupUsers.computeIfAbsent(age, k -> new ArrayList<>()).add(user);
             }
         }
         return groupUsers;
