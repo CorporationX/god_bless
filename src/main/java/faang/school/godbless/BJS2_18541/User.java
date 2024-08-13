@@ -1,13 +1,12 @@
 package faang.school.godbless.BJS2_18541;
 
-import lombok.Getter;
+
 import lombok.Setter;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
 @Setter
-@Getter
 public class User {
 
     private String name;
@@ -40,5 +39,21 @@ public class User {
         this.age = age;
         this.workPlace = workPlace;
         this.address = address;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getWorkPlace() {
+        return workPlace;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }
