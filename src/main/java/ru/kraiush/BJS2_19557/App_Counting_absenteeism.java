@@ -33,7 +33,5 @@ public class App_Counting_absenteeism {
 
         Student.removeStudent(students, "Lulu", "automatic & electronic", 2017);
         System.out.println(" Size after remove a student: " + students.size());
-
-
     }
 }
