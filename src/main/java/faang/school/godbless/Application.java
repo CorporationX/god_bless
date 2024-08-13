@@ -15,7 +15,6 @@ public class Application {
                     return "DEFAULT";
                 }
         );
-
         System.out.println(result);
     }
 
