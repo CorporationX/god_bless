@@ -6,7 +6,6 @@ public class Main {
         Item ring = new Item("The One Ring", 1000);
         Item stick = new Item("The One Stick", 100);
         Item hat = new Item("The One Hat", 300);
-
         InventoryManager manager = new InventoryManager();
 
 // Добавляем предмет в инвентарь
