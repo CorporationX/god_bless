@@ -9,10 +9,10 @@ import java.util.function.Predicate;
 
 @NoArgsConstructor
 public class EmailProcessor {
-    public void processEmails(List<Email> emails, Predicate<Email> predicate,  Function<Email, String> function, Consumer<Email> consumer) {
+    public void processEmails(List<Email> emails, Predicate<Email> predicate, Function<Email, String> function, Consumer<Email> consumer) {
         emails.removeIf(predicate);
         emails.forEach(consumer);
-        for(Email email : emails) {
+        for (Email email : emails) {
             System.out.println(function.apply(email));
         }
     }
