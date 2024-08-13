@@ -46,34 +46,4 @@ public class App {
         elkService.showUserQueryHistory(userMax);
 
     }
-
-//    public static void addNewUserWithQueries(Map<User, List<Query>> userQueriesMap, User user, List<Query> queries) {
-//        userQueriesMap.put(user, queries);
-//    }
-//
-//    public static void addNewQueryToExistingUser(Map<User, List<Query>> userQueriesMap, User user, Query query) {
-//        userQueriesMap.computeIfAbsent(user, k -> new ArrayList<>()).add(query);
-//    }
-
-//    public static void deleteUser(Map<User, List<Query>> userQueriesMap, User user) {
-//        userQueriesMap.remove(user);
-//    }
-
-//    public static void showUsersQueries(Map<User, List<Query>> userQueriesMap) {
-//        for (Map.Entry<User, List<Query>> entry: userQueriesMap.entrySet()) {
-//            System.out.printf("%nUser %s made the following queries:%n", entry.getKey().getName());
-//            for (Query query: entry.getValue()) {
-//                System.out.printf("%s, ", query.getContent());
-//            }
-//            System.out.println();
-//        }
-//    }
-//
-//    public static void showUserQueryHistory(Map<User, List<Query>> userQueriesMap, User user) {
-//        userQueriesMap.get(user).sort(Comparator.comparing(Query::getTimestamp));
-//        System.out.printf("%nUser %s made the following queries:%n", user.getName());
-//        for (Query query: userQueriesMap.get(user)) {
-//            System.out.printf("%s, %s %n", query.getContent(), query.getTimestamp());
-//        }
-//    }
 }

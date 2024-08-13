@@ -41,13 +41,13 @@ public class ElkService {
             return;
         }
 
-        for (Map.Entry<User, List<Query>> entry: this.userQueriesMap.entrySet()) {
-            System.out.printf("%nUser %s made the following queries:%n", entry.getKey().getName());
-            for (Query query: entry.getValue()) {
-                System.out.printf("%s, ", query.getContent());
-            }
-            System.out.println();
-        }
+        this.userQueriesMap.forEach((key, value) -> {
+            System.out.printf("%nUser %s made the following queries:%n", key.getName());
+            value.forEach(query -> {
+                System.out.printf("%s, %n", query.getContent());
+            });
+        });
+
     }
 
     public void showUserQueryHistory(User user) {
