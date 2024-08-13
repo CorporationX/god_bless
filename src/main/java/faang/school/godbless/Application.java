@@ -1,24 +1,25 @@
 package faang.school.godbless;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.BiConsumer;
 
 public class Application {
-    public void processWord(String word, String translation, BiConsumer<String, String> dictionaryProcessor) {
-        dictionaryProcessor.accept(word, translation);
-    }
     public static void main(String[] args) {
-        Application dictionaryProcessor = new Application();
+        String result = RemoteServiceHandler.withErrorHandling(
+                () -> {
+                    try {
+                        return remoteServiceCall();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                },
+                e -> {
+                    System.out.println("The Remote Service could not be accessed. Let's return the default value.");
+                    return "DEFAULT";
+                }
+        );
+        System.out.println(result);
+    }
 
-        Map<String, String> dictionary = new HashMap<>();
-
-        BiConsumer<String, String> addWordToDictionary = (word, translation) -> dictionary.put(word, translation);
-
-        dictionaryProcessor.processWord("привет", "hello", addWordToDictionary);
-        dictionaryProcessor.processWord("мир", "world", addWordToDictionary);
-        dictionaryProcessor.processWord("программирование", "programming", addWordToDictionary);
-
-        System.out.println("Словарь: " + dictionary);
+    public static String remoteServiceCall() throws Exception {
+        throw new Exception("Error");
     }
 }
