@@ -6,10 +6,10 @@ import java.util.Objects;
 
 @Getter
 public class User {
-    private int id;
-    private String name;
+    private final long id;
+    private final String name;
 
-    public User(int id, String name) {
+    public User(long id, String name) {
         this.id = id;
         this.name = name;
     }

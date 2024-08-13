@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 @Getter
 public class Query {
-    private int id;
-    private String content;
+    private final int id;
+    private final String content;
     private LocalDateTime timestamp;
 
     public Query(int id, String content) {
