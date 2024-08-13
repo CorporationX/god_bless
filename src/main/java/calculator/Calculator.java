@@ -1,6 +1,6 @@
 package calculator;
 
 @FunctionalInterface
-public interface Calculator {
-    int performOperation(int a, int b);
+public interface Calculator<T extends Number> {
+    T performOperation(T a, T b);
 }
