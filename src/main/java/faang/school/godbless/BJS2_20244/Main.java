@@ -58,9 +58,6 @@ public class Main {
     }
 
     private static void deleteWebPage(String url) {
-        if (!webPageNodes.containsKey(url)) {
-            return;
-        }
         List<Node<WebPage>> nodes = webPageNodes.get(url);
         if (nodes == null || nodes.isEmpty()) {
             return;
@@ -71,6 +68,9 @@ public class Main {
         int ind = 0;
         for (String word : words) {
             webPages.get(word).remove(webPageNodes.get(url).get(ind));
+            if (webPages.get(word).isEmpty()) {
+                webPages.remove(word);
+            }
             ind++;
         }
         uniqueWebPages.remove(webPage);
