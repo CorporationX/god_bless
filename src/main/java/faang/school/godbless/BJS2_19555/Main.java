@@ -14,10 +14,10 @@ public class Main {
         Server server2 = new Server(24, 26, 8);
         dataCenterService.addServer(dataCenter, server1);
         dataCenterService.addServer(dataCenter, server2);
-//        dataCenterService.removeServer(dataCenter, server2);
+        dataCenterService.removeServer(dataCenter, server2);
         System.out.println("Total energy consumption is " + dataCenterService.getTotalEnergyConsumption(dataCenter));
-//        dataCenterService.allocateResources(dataCenter, new ResourceRequest(7));
-//        dataCenterService.releaseResources(dataCenter, new ResourceRequest(8));
+        dataCenterService.allocateResources(dataCenter, new ResourceRequest(7));
+        dataCenterService.releaseResources(dataCenter, new ResourceRequest(8));
         dataCenterService.optimize(dataCenter, new LoadBalancingOptimizationStrategy());
     }
 }

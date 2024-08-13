@@ -9,10 +9,10 @@ public class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
         List<Server> servers = dataCenter.getServers();
-        double avgLoad = countAvgLoad(servers); //23
+        double avgLoad = countAvgLoad(servers);
         for (Server server : servers) {
             if (server.getLoad() > avgLoad) {
-                double overload = server.getLoad() - avgLoad; //1
+                double overload = server.getLoad() - avgLoad;
                 servers.stream()
                         .filter(unloadedServer -> unloadedServer.getLoad() + overload <= avgLoad
                                 && unloadedServer.getAvailableLoad() >= overload)
