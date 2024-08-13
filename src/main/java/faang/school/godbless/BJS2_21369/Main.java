@@ -10,19 +10,19 @@ public class Main {
     public static void main(String[] args) {
         EmailProcessor emailProcessor = new EmailProcessor();
 
-// Создание списка входящих писем
+        // Создание списка входящих писем
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Text one", false),
                 new Email("Письмо 2", "Text two", true),
                 new Email("Спам", "Text spam", false)
         );
 
-// Создание фильтров, обработчиков и преобразователей
+        // Создание фильтров, обработчиков и преобразователей
         Predicate<Email> importantFilter = email -> !email.isImportant();
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-// Обработка писем
+        // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 }
