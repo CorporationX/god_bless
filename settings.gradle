@@ -1,4 +1,3 @@
 rootProject.name = "god_bless"
-include 'src:test:test'
-findProject(':src:test:test')?.name = 'test'
+
 
