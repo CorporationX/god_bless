@@ -6,17 +6,20 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @ToString
 @EqualsAndHashCode
 @Setter
 @Getter
 @AllArgsConstructor
-public class User {
+public class User implements Comparator<Query> {
     private int id;
     private String name;
 
@@ -38,9 +41,19 @@ public class User {
         }
     }
 
-    public static void sortHistoryQuery(Map<User, List<Query>> testMap) {
-        for (Map.Entry<User,List<Query>> pair : testMap.entrySet()) {
+    public static void sortHistoryQuery(Map<User, List<Query>> queryByUser)  {
+
+        for (Map.Entry<User, List<Query>> pair : queryByUser.entrySet()) {
+            List sortedQueries = pair.getValue().stream()
+                    .sorted(Comparator.comparingInt(Query::getTimestamp)) // скажу честно, взял у VladAI потому что сам не мог долгое время решить
+                    .collect(Collectors.toList());
+
+            System.out.println("Пользователь: " + pair.getKey() + ", Запросы: " + sortedQueries);
         }
     }
 
+    @Override
+    public int compare(Query o1, Query o2) {
+        return Integer.compare(o1.getTimestamp(), o2.getTimestamp());
+        }
 }
