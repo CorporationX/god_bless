@@ -28,11 +28,13 @@ public class Main {
     }
 
     public static void removeEvent(int id) {
-        getEventsStream(eventsMap.get(id).getEventType()).remove(eventsMap.get(id));
-        if (getEventsStream(eventsMap.get(id).getEventType()).isEmpty()) {
-            eventsStream.remove(eventsMap.get(id).getEventType());
+        if (eventsMap.containsKey(id)) {
+            getEventsStream(eventsMap.get(id).getEventType()).remove(eventsMap.get(id));
+            if (getEventsStream(eventsMap.get(id).getEventType()).isEmpty()) {
+                eventsStream.remove(eventsMap.get(id).getEventType());
+            }
+            eventsMap.remove(id);
         }
-        eventsMap.remove(id);
     }
 
     public static void printAllEvents() {
