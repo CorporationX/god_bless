@@ -1,7 +1,5 @@
 package index;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,20 +21,11 @@ public class Main {
 
 
 
-        Map<User, List<Query>> testMap = new HashMap<>();
+        Map<User, List<Query>> queryByUser = new HashMap<>();
 
-        User.addUSer(testMap, user1, listUser1);
-        User.addUSer(testMap, user2, listUser2);
-       User.sortHistoryQuery(testMap);
+        User.addUSer(queryByUser, user1, listUser1);
+        User.addUSer(queryByUser, user2, listUser2);
+       User.sortHistoryQuery(queryByUser);
 
-//        Collections.sort(listUser1, new ComparatorByTimestamp());
-//        for (int i = 0; i < listUser1.size(); i++) {
-//            System.out.println(listUser1.get(i));
-//        }
-
-//        listUser1.sort(Comparator.comparing(Query::getTimestamp));
-//        for (int i = 0; i < listUser1.size(); i++) {
-//            System.out.println(listUser1.get(i));
-//        }
     }
 }
