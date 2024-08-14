@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.CollectionUtils;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -72,7 +71,7 @@ public class LruTest {
                 // 0 (хотя данные читаются нормально)
                 try{
                     expectedSet.add((Data) objectInputStream.readObject());
-                }catch (Exception e) {
+                } catch (Exception e) {
                     break;
                 }
             }

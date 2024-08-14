@@ -26,26 +26,23 @@ public class Main {
 
     public void save() {//сохранение данных из кэша в файл
         try(FileOutputStream outputStream = new FileOutputStream(FILE_PATH);
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)){
-            for (Map.Entry<Long, Data> pair : cache.entrySet()){
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+            for (Map.Entry<Long, Data> pair : cache.entrySet()) {
                 objectOutputStream.writeObject(pair.getValue());
             }
-        }catch (IOException e){
+        } catch (IOException e) {
             System.err.println("Error!" + Arrays.toString(e.getStackTrace()));
             throw new RuntimeException();
         }
     }
 
     public void addData(Data data) {
-        if (cache.size() == CACHE_SIZE){
-            try{
-                cache.remove(cache.
-                        values().
-                        stream().
-                        min((k1, k2) -> Math.toIntExact((k1.getTimestamp().getTime() - k2.getTimestamp().getTime()))).
-                        get().getId()
-                );
-            }catch (NoSuchElementException e){
+        if (cache.size() == CACHE_SIZE) {
+            try {
+                var min = cache.values().stream()
+                                .min((k1, k2) -> Math.toIntExact((k1.getTimestamp().getTime() - k2.getTimestamp().getTime())));
+                min.ifPresent(value -> cache.remove(value.getId()));
+            } catch (NoSuchElementException e) {
                 System.err.println("Error" + Arrays.toString(e.getStackTrace()));
                 throw new RuntimeException();
             }
@@ -57,7 +54,7 @@ public class Main {
         if (cache.containsKey(id)) {
             cache.get(id).setTimestamp(new Date());
             return cache.get(id);
-        }else {
+        } else {
             Data data = getDataFromFile(id);
             addData(data);
             data.setTimestamp(new Date());
