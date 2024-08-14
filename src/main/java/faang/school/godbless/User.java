@@ -4,30 +4,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
-    private int id;
     private String name;
     private int age;
-    private Set<String> activities;
+    private String placeOfWork;
+    private String address;
 
-    public static Map<User,String> findHobbyLovers(List<User> users, Set<String> hobbyLovers) {
-        Map<User, String> hobbyLoversMap = new HashMap<>();
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> userGroups = new HashMap<>();
+
         for (User user : users) {
-            for (String hobbyLover : hobbyLovers) {
-                if (user.getActivities().contains(hobbyLover)) {
-                    hobbyLoversMap.put(user, hobbyLover);
-                    break;
-                }
+            int age = user.getAge();
+            if (!userGroups.containsKey(age)) {
+                userGroups.put(age, new ArrayList<>());
             }
+            userGroups.get(age).add(user);
         }
-        return hobbyLoversMap;
+        return userGroups;
     }
 }
