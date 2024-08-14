@@ -12,6 +12,6 @@ public class WeatherData {
 
     @Override
     public String toString() {
-        return "Weather in " + city + ": " + temperature + "°C, " + humidity + "% humidity";
+        return "Weather in " + city + ": " + temperature + "Â°C, " + humidity + "% humidity";
     }
 }
