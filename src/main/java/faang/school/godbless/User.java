@@ -1,43 +1,34 @@
 package faang.school.godbless;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Objects;
 
 public class User {
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private String name, placeOfWork, address;
-    private int age;
+    private int id;
+    private String name;
 
+    public User(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-
-    public Set<String> getActivities() {
-        return activities;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+
 
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", age=" + age +
                 ", name='" + name + '\'' +
-                ", activities=" + activities +
                 '}';
     }
 
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
-        Map<User, String> collectionUsers = new HashMap<>();
-        for (User user : users) {
-            for (String activity : user.getActivities()) {
-                if (activities.contains(activity)) {
-                    collectionUsers.put(user, activity);
-                }
-                break;
-            }
-        }
-        return collectionUsers;
-    }
-}
