@@ -27,7 +27,6 @@ class HouseTest {
         House.addHouse("Stark", "wolf");
         House.addHouse("Lannister", "lion");
         House.addHouse("Baratheon", "deer");
-
         House.printAllHouses();
         String expected = "House(name=Lannister, sigil=lion)\n" +
                 "House(name=Baratheon, sigil=deer)\n" +

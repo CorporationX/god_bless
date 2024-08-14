@@ -28,6 +28,10 @@ public class House {
         return houses.get(name);
     }
 
+    public static void printSigil(String name) {
+        System.out.println(houses.get(name).getSigil());
+    }
+
     public static void printAllHouses() {
         houses.forEach((key, house) -> System.out.println(house));
     }
