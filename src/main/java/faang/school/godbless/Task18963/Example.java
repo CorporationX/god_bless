@@ -6,12 +6,13 @@ public class Example {
 
     public int[] reverse (int[] array){
         int length = array.length;
-        int[] result = new int[length];
+        int temp;
 
             for (int i = 0; i < length; i++) {
                 int index = length - 1 - i;
-                result[i] = array[index];
+                temp = array[index];
+                
             }
-        return result;
+        return array;
     }
 }
