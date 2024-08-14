@@ -24,6 +24,8 @@ public class Main {
         enemy.addCreature(swordsman, 8);
         enemy.addCreature(angel, 5);
 
+        System.out.println("Fight!");
+
         Battlefield battlefield = new Battlefield(hero, enemy);
 
         System.out.println(battlefield.battle());
