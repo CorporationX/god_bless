@@ -236,7 +236,6 @@ class Optimize {
 
     DataCenter dataCenter;
     List<Integer> listOverload;
-
     public Optimize(DataCenter dataCenter, List<Integer> listOverload) {
         this.dataCenter = dataCenter;
         this.listOverload = listOverload;
