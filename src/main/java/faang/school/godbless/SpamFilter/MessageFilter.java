@@ -1,5 +1,5 @@
 package faang.school.godbless.SpamFilter;
 
-public interface MessageFilter {
-   public boolean filter(String message);
+public interface MessageFilter <T>{
+   public boolean filter(T message);
 }
