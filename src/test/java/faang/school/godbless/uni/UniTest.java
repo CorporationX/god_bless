@@ -26,7 +26,6 @@ class UniTest {
                         "cs-2020",
                         List.of(new Student("d", "cs", 2020)));
         assertEquals(expected, uni.groupedStudents());
-        ;
     }
 
     @Test

@@ -7,35 +7,40 @@ import java.util.Map;
 
 public class Uni {
     private List<Student> students = new ArrayList<>();
-    Map<String, List<Student>> grouped = new HashMap<>();
+    private Map<String, List<Student>> grouped = new HashMap<>();
 
-    public boolean addStudent(String name, String faculty, int year) {
+    public void addStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
         String key = faculty + "-" + year;
 
         if (students.contains(student)) {
-            return false;
+            throw new IllegalArgumentException("such student already exists");
         } else {
             students.add(student);
             grouped.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
-            return true;
         }
     }
 
-    public boolean removeStudent(String name, String faculty, int year) {
+    public void removeStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
         String key = faculty + "-" + year;
         if (students.contains(student)) {
             students.remove(student);
             grouped.get(key).remove(student);
-            return true;
         } else {
-            return false;
+            throw new IllegalArgumentException("no such student");
         }
     }
 
     public Map<String, List<Student>> groupedStudents() {
         return grouped;
+    }
+
+    public void printGrouped() {
+        grouped.forEach((classId, students) -> {
+            System.out.println(classId + ":");
+            students.forEach(student -> System.out.println("student " + student.getName()));
+        });
     }
 
     public List<Student> search(String faculty, int year) {
