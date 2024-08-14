@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-    private Map<String, Set<Product>> uniqueProduct = new HashMap();
+    private final Map<String, Set<Product>> uniqueProduct = new HashMap<>();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -27,20 +27,29 @@ public class Main {
         cat2.add(pr3);
         cat2.add(pr4);
         cat2.add(pr5);
-        main.putProductToMap("Food",cat1);
-        main.putProductToMap("boots",cat2);
+        main.sortingProductsByCategories("Food",cat1);
+        main.sortingProductsByCategories("boots",cat2);
+        System.out.println(main.sortingProductsByCategoriesAndGettingTemporaryMap("Food",cat1));
+
         main.AllCategoryWithProducts();
 
     }
 
 
-    public void putProductToMap(@NonNull String category, List<Product> products) {
+    public void sortingProductsByCategories(@NonNull String category, List<Product> products) {
         for (Product pr: products) {
             uniqueProduct.computeIfAbsent(category, key -> new HashSet<>()).add(pr);
         }
     }
 
-    ;
+    public Map<String, Set<Product>> sortingProductsByCategoriesAndGettingTemporaryMap(@NonNull String category, List<Product> products) {
+        Map<String, Set<Product>> Products = new HashMap<>();
+        for (Product pr: products) {
+            Products.computeIfAbsent(category, key -> new HashSet<>()).add(pr);
+        }
+        return Products;
+    }
+
 
     public void AllCategoryWithProducts() {
         for (Map.Entry<String, Set<Product>> entry : uniqueProduct.entrySet()) {
