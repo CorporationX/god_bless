@@ -11,31 +11,31 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         Map<Student, Map<Subject, Integer>> studentsBySubjects = new HashMap<>();
-        Student Max = new Student(0, "Max");
+        Student max = new Student(0, "max");
         Map<Subject, Integer> maxMark = new HashMap<>();
-        maxMark.put(new Subject(0, "English"), 4);
+        maxMark.put(new Subject(0, "english"), 4);
         maxMark.put(new Subject(1, "Math"), 5);
         maxMark.put(new Subject(2, "History"), 2);
         maxMark.put(new Subject(3, "Minecraft"), 10);
 
-        Student.addStudent(studentsBySubjects, Max, maxMark);
-        Student.addSubject(studentsBySubjects, Max, new Subject(4, "Chemical"), 4);
+        Student.addStudent(studentsBySubjects, max, maxMark);
+        Student.addSubject(studentsBySubjects, max, new Subject(4, "Chemical"), 4);
         Student.outputStudent(studentsBySubjects);
-        Student.removeStudent(studentsBySubjects, Max);
+        Student.removeStudent(studentsBySubjects, max);
         Student.outputStudent(studentsBySubjects);
 
         Map<Subject, List<Student>> subjectsByStudents = new HashMap<>();
-        Student Mark = new Student(2, "Mark");
-        Subject English =  new Subject(0, "English");
+        Student mark = new Student(2, "mark");
+        Subject english =  new Subject(0, "english");
         List<Student> studentList = new ArrayList<>();
-        studentList.add(Max);
+        studentList.add(max);
         studentList.add(new Student(1, "John"));
-        studentList.add(Mark);
+        studentList.add(mark);
         studentList.add(new Student(3, "Georg"));
 
-        Subject.addSubject(subjectsByStudents, English, studentList);
-        Subject.addStudentToSubjectList(subjectsByStudents, new Student(4, "Anna"), English);
-        Subject.removeStudentFromSubjectList(subjectsByStudents, Mark, English);
+        Subject.addSubject(subjectsByStudents, english, studentList);
+        Subject.addStudentToSubjectList(subjectsByStudents, new Student(4, "Anna"), english);
+        Subject.removeStudentFromSubjectList(subjectsByStudents, mark, english);
         Subject.outputAllSubjects(subjectsByStudents);
 
     }

@@ -1,6 +1,7 @@
 package cashcash;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 @ToString
 @Getter
+@EqualsAndHashCode
 public class Student {
     private int id;
     private String name;
@@ -18,8 +20,7 @@ public class Student {
     public static void addStudent(Map<Student, Map<Subject, Integer>> studentMark, Student student, Map<Subject, Integer> markMark) {
         if(!studentMark.containsKey(student)) {
             studentMark.put(student, markMark);
-        }
-        else {
+        } else {
             System.out.println("Пользователь уже зарегестрирован в базе!");
         }
     }
@@ -27,8 +28,7 @@ public class Student {
     public static void addSubject(Map<Student, Map<Subject, Integer>> studentMark, Student student, Subject subject, int mark) {
         if(studentMark.containsKey(student)) {
             studentMark.get(student).put(subject, mark);
-        }
-        else {
+        } else {
             System.out.println("Пользователь не найден!");
         }
     }

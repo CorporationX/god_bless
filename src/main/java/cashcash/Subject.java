@@ -17,8 +17,7 @@ public class Subject {
     public static void addSubject(Map<Subject, List<Student>> subjectListMap, Subject subject, List<Student> studentList) {
         if(!subjectListMap.containsKey(subject)) {
             subjectListMap.put(subject,studentList);
-        }
-        else {
+        } else {
             System.out.println("Предмет уже зарегестрирован в базе!");
         }
     }
@@ -26,8 +25,7 @@ public class Subject {
     public static void addStudentToSubjectList(Map<Subject, List<Student>> subjectListMap, Student student, Subject subject) {
         if(subjectListMap.containsKey(subject)) {
             subjectListMap.get(subject).add(student);
-        }
-       else {
+        } else {
             System.out.println("Предмет не найде!");
         }
     }
