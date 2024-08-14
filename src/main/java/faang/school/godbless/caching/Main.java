@@ -5,13 +5,13 @@ import java.util.Map;
 
 public class Main {
 
-    public static Map<String, WeatherData> weatherMap = new HashMap<>();
+    public static Map<String, WeatherData> weatherCacheMap = new HashMap<>();
 
     public static void main(String[] args) {
-        weatherMap.put("City", new WeatherData("City", 25, 50));
-        weatherMap.put("City1", new WeatherData("City1", 35, 30));
-        weatherMap.put("City2", new WeatherData("City2", 30, 60));
-        weatherMap.put("City3", new WeatherData("City3", 40, 55));
+        weatherCacheMap.put("City", new WeatherData("City", 25, 50));
+        weatherCacheMap.put("City1", new WeatherData("City1", 35, 30));
+        weatherCacheMap.put("City2", new WeatherData("City2", 30, 60));
+        weatherCacheMap.put("City3", new WeatherData("City3", 40, 55));
 
         System.out.println(getWeatherInfo("City"));
 
@@ -25,26 +25,25 @@ public class Main {
     }
 
     public static WeatherData getWeatherInfo(String city) {
-        if (!weatherMap.containsKey(city)) {
-            weatherMap.put(city, null);
+        if (!weatherCacheMap.containsKey(city)) {
+            weatherCacheMap.put(city, new WeatherData(city, Mock.doWork(city), Mock.doWork(city)));
             Mock.doWork(city);
         }
 
-        return weatherMap.get(city);
+        return weatherCacheMap.get(city);
     }
 
     public static void updateWeatherInfo(String city, int temperature, int humidity) {
-        System.out.println(weatherMap.get(city)
-                .setTemperature(temperature)
-                .setHumidity(humidity));
+        System.out.println(weatherCacheMap.put(
+                city, new WeatherData(city, temperature, humidity)));
     }
 
     public static void removeWeatherInfo(String city) {
-        weatherMap.remove(city);
+        weatherCacheMap.remove(city);
     }
 
     public static void printAllWeatherInfo() {
-        for (Map.Entry<String, WeatherData> entry : weatherMap.entrySet()) {
+        for (Map.Entry<String, WeatherData> entry : weatherCacheMap.entrySet()) {
             if (entry.getValue() != null) {
                 System.out.println("Key > " + entry.getKey() + " - value > " + entry.getValue());
             }
