@@ -7,22 +7,21 @@ import lombok.Getter;
 
 @Getter
 public class WeatherForecast {
-    private final Map<String, WeatherData> forecasts = new HashMap<>();
+    private final Map<String, WeatherData> forecastMap = new HashMap<>();
 
     public void updateCache(String city) {
         WeatherData data = WeatherService.getForecast(city);
-        forecasts.put(city, data);
+        forecastMap.put(city, data);
     }
 
-    public void clearCache(String city) {
-        forecasts.remove(city);
+    public void removeFromCache(String city) {
+        forecastMap.remove(city);
     }
 
     public WeatherData getForecast(String city) {
-        if (!forecasts.containsKey(city)) {
-            //presuming that weather service is reliable and always returns data
+        if (!forecastMap.containsKey(city)) {
             updateCache(city);
         }
-        return forecasts.get(city);
+        return forecastMap.get(city);
     }
 }
