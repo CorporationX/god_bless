@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         List<Student> studentList = new ArrayList<>();
 
         studentList.add(new Student("Misha", "Physics", 4));
@@ -18,67 +17,68 @@ public class Main {
         studentList.add(new Student("Egor", "English", 4));
 
         Student testStudent = new Student("Georgiy", "Physics", 4);
-        Pair testPair = new Pair("English", 4);
+        FacultyYearPair testFacultyYearPair = new FacultyYearPair("English", 4);
 
-
-        //Students Map
-        System.out.println(getStudentsMap(studentList));
+        //Students Map by faculty and year
+        System.out.println(getStudentsSortedByFacultyYear(studentList));
 
         //Add Student to List
         addStudent(testStudent, studentList);
 
         //Remove Student from list
-        removeStudent(testStudent, studentList);
+        removeStudent(null, studentList);
 
         //Get student list using faculty + year pair
-        System.out.println(getSpecificStudents(testPair, studentList));
+        System.out.println(getStudentListBySpecificFacultyAndYear(testFacultyYearPair, studentList));
 
-        //Get all students grouped by faculty and year
-        getAllStudentsByFacultyAndYear(studentList);
+        //Print all students grouped by faculty and year
+        printAllStudentsByFacultyAndYear(studentList);
     }
 
-    public static Map<Pair, List<Student>> getStudentsMap(List<Student> students) {
-        Map<Pair, List<Student>> studentMap = new HashMap<>();
+    public static Map<FacultyYearPair, List<Student>> getStudentsSortedByFacultyYear(List<Student> students) {
+        Map<FacultyYearPair, List<Student>> studentMap = new HashMap<>();
 
         for (Student student : students) {
-            Pair pair = new Pair(student.getFaculty(), student.getYear());
-            if (!studentMap.containsKey(pair)) {
-                studentMap.put(pair, new ArrayList<>());
-                studentMap.get(pair).add(student);
-            } else {
-                studentMap.get(pair).add(student);
-            }
+            FacultyYearPair facultyYearPair = new FacultyYearPair(student.getFaculty(), student.getYear());
+            studentMap.computeIfAbsent(facultyYearPair, key -> new ArrayList<>()).add(student);
         }
         return studentMap;
     }
 
     public static void addStudent(Student student, List<Student> students) {
-        students.add(student);
-        System.out.println("Student " + student.getName() + " was successfully added!");
+        try {
+            students.add(student);
+            System.out.println("Student " + student.getName() + " was successfully added!");
+        } catch (NullPointerException e) {
+            System.out.println("Student or studentsList can't be null!");
+        }
     }
 
     public static void removeStudent(Student student, List<Student> students) {
-        students.remove(student);
-        System.out.println("Student " + student.getName() + " was successfully removed!");
+        try {
+            students.remove(student);
+            System.out.println("Student " + student.getName() + " was successfully added!");
+        } catch (NullPointerException e) {
+            System.out.println("Student or studentsList can't be null!");
+        }
     }
 
-    public static List<Student> getSpecificStudents(Pair pair, List<Student> students) {
+    public static List<Student> getStudentListBySpecificFacultyAndYear(FacultyYearPair facultyYearPair, List<Student> students) {
 
-        Map<Pair, List<Student>> studentsMap = getStudentsMap(students);
+        Map<FacultyYearPair, List<Student>> studentsMap = getStudentsSortedByFacultyYear(students);
         List<Student> studentList = new ArrayList<>();
 
-        if (studentsMap.containsKey(pair)) {
-            studentList.addAll(studentsMap.get(pair));
+        if (studentsMap.containsKey(facultyYearPair)) {
+            studentList.addAll(studentsMap.get(facultyYearPair));
         }
-
         return studentList;
     }
 
-    public static void getAllStudentsByFacultyAndYear(List<Student> students) {
-        Map<Pair, List<Student>> map = getStudentsMap(students);
+    public static void printAllStudentsByFacultyAndYear(List<Student> students) {
+        Map<FacultyYearPair, List<Student>> map = getStudentsSortedByFacultyYear(students);
 
-        for (Map.Entry<Pair, List<Student>> entry : map.entrySet()) {
-            System.out.println(entry.getKey().getFirst() + " " + entry.getKey().getSecond() + " " + entry.getValue());
+        for (Map.Entry<FacultyYearPair, List<Student>> entry : map.entrySet()) {
+            System.out.println(entry.getKey().getFaculty() + " " + entry.getKey().getYear() + " " + entry.getValue());
         }
     }
 
