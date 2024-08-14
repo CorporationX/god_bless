@@ -50,9 +50,10 @@ public class SubjectMapTest {
                 new Student("Katya"));
         cache.addSubjectStudents(subject1, students1);
 
-        cache.addSubjectStudents(subject1, students1);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addSubjectStudents(subject1, students1));
 
-        assertEquals(1, cache.getSubjectStudents().size());
+        assertEquals(Main.ALREADY_ADDED_SUBJECT, e.getMessage());
     }
 
     @Test
@@ -97,14 +98,14 @@ public class SubjectMapTest {
                 new Student("Petya"),
                 new Student("Vasya"),
                 new Student("Katya")));
-        int expected = students1.size() + 1;
         Student student = new Student("Kolya");
         cache.addSubjectStudents(subject1, students1);
         cache.addStudentToSubject(subject1, student);
 
-        cache.addStudentToSubject(subject1, student);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addStudentToSubject(subject1, student));
 
-        assertEquals(expected, cache.getSubjectStudents().get(subject1).size());
+        assertEquals(Main.ALREADY_ADDED_STUDENT, e.getMessage());
     }
 
     @Test
@@ -149,9 +150,10 @@ public class SubjectMapTest {
         Student student = new Student("Kolya");
         cache.addSubjectStudents(subject1, students1);
 
-        cache.removeStudentFromSubject(new Subject("Biology"), student);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.removeStudentFromSubject(new Subject("Biology"), student));
 
-        assertEquals(1, cache.getSubjectStudents().size());
+        assertEquals(Main.NO_SUBJECT, e.getMessage());
     }
 
     @Test
@@ -165,9 +167,10 @@ public class SubjectMapTest {
         Student student = new Student("Kolya");
         cache.addSubjectStudents(subject1, students1);
 
-        cache.removeStudentFromSubject(subject1, student);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.removeStudentFromSubject(subject1, student));
 
-        assertEquals(students1, cache.getSubjectStudents().get(subject1));
+        assertEquals(Main.NOT_IN_SUBJECT_LIST, e.getMessage());
     }
 
     @Test

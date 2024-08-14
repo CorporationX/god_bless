@@ -71,9 +71,10 @@ public class GradeMapTest {
     void gradeTest_addStudentGradesNotInSubject() {
         Student student1 = new Student("Aboba");
 
-        cache.addStudentGrades(student1, grades);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addStudentGrades(student1, grades));
 
-        assertFalse(cache.getStudentGrades().containsKey(student1));
+        assertEquals(Main.NOT_IN_SUBJECT_LIST, e.getMessage());
     }
 
     @Test
@@ -83,19 +84,21 @@ public class GradeMapTest {
         grades.put(new Subject("Biology"), 4);
         Student student1 = new Student("Aboba");
 
-        cache.addStudentGrades(student1, grades);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addStudentGrades(student1, grades));
 
-        assertFalse(cache.getStudentGrades().containsKey(student1));
+        assertEquals(Main.NO_SUBJECT, e.getMessage());
     }
 
     @Test
-    @DisplayName("Testing addStudentGrades method with student not in subject list")
+    @DisplayName("Testing addStudentGrades method for student with added grades")
     void gradeTest_addStudentAddedGrades() {
         cache.addStudentGrades(student, grades);
 
-        cache.addStudentGrades(student, new HashMap<>());
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addStudentGrades(student, new HashMap<>()));
 
-        assertEquals(cache.getStudentGrades().get(student), grades);
+        assertEquals(Main.HAS_GRADES_ALREADY, e.getMessage());
     }
 
     @Test
@@ -127,9 +130,10 @@ public class GradeMapTest {
         cache.addStudentGrades(student, grades);
         Student student = new Student("Aboba");
 
-        cache.addGradeForStudent(student, subject3, 4);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addGradeForStudent(student, subject3, 4));
 
-        assertFalse(cache.getStudentGrades().containsKey(student));
+        assertEquals(Main.NO_GRADES, e.getMessage());
     }
 
     @Test
@@ -137,9 +141,10 @@ public class GradeMapTest {
     void gradeTest_addGradeWithStudentNotInSubjectList() {
         cache.addStudentGrades(student, grades);
 
-        cache.addGradeForStudent(student, subject3, 4);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addGradeForStudent(student, subject3, 4));
 
-        assertFalse(cache.getStudentGrades().get(student).containsKey(subject3));
+        assertEquals(Main.NOT_IN_SUBJECT_LIST, e.getMessage());
     }
 
     @Test
@@ -148,9 +153,10 @@ public class GradeMapTest {
         cache.addStudentGrades(student, grades);
         Subject subject = new Subject("Biology");
 
-        cache.addGradeForStudent(student, subject, 5);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addGradeForStudent(student, subject, 5));
 
-        assertFalse(cache.getStudentGrades().get(student).containsKey(subject));
+        assertEquals(Main.NO_SUBJECT, e.getMessage());
     }
 
     @Test
@@ -158,9 +164,10 @@ public class GradeMapTest {
     void gradeTest_addAddedGrade() {
         cache.addStudentGrades(student, grades);
 
-        cache.addGradeForStudent(student, subject1, 5);
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.addGradeForStudent(student, subject1, 5));
 
-        assertEquals(grades.get(subject1), cache.getStudentGrades().get(student).get(subject1));
+        assertEquals(Main.HAS_SUBJECT_GRADE_ALREADY, e.getMessage());
     }
 
     @Test
@@ -191,9 +198,10 @@ public class GradeMapTest {
     void gradeTest_removeGradesForStudentWithoutGrades() {
         cache.addStudentGrades(student, grades);
 
-        cache.removeStudentGrades(new Student("Aboba"));
+        IllegalArgumentException e = assertThrows(IllegalArgumentException.class,
+                () -> cache.removeStudentGrades(new Student("Aboba")));
 
-        assertEquals(1, cache.getStudentGrades().size());
+        assertEquals(Main.NO_GRADES, e.getMessage());
     }
 
     @Test

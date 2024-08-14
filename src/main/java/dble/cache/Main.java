@@ -1,6 +1,5 @@
 package dble.cache;
 
-import lombok.Getter;
 import lombok.NonNull;
 
 import java.util.ArrayList;
@@ -8,8 +7,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
 public class Main {
+    public static final String NO_GRADES = "Don't have grades for this student";
+    public static final String HAS_GRADES_ALREADY = "Student grades already added";
+    public static final String NOT_IN_SUBJECT_LIST = "Student not in this subject list";
+    public static final String NO_SUBJECT = "Don't have this subject in the list";
+    public static final String HAS_SUBJECT_GRADE_ALREADY = "Student already has this subject grade";
+    public static final String ALREADY_ADDED_SUBJECT = "This subject already added";
+    public static final String ALREADY_ADDED_STUDENT = "This student already in this subject list";
+
     private final Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
@@ -37,79 +43,63 @@ public class Main {
         cache.addSubjectStudents(subject2, students2);
         cache.addSubjectStudents(subject3, students3);
         cache.printAllSubjectsStudents();
-        cache.addSubjectStudents(subject1, students1);
-        cache.addStudentToSubject(subject2, student3);
-        cache.addStudentToSubject(subject1, student1);
-        cache.addStudentToSubject(new Subject("English"), student1);
+        handleException(() -> cache.addSubjectStudents(subject1, students1));
+        handleException(() -> cache.addSubjectStudents(subject2, students3));
+        handleException(() -> cache.addSubjectStudents(subject1, students1));
+        handleException(() -> cache.addStudentToSubject(new Subject("English"), student1));
         cache.printAllSubjectsStudents();
-        cache.removeStudentFromSubject(subject2, student3);
-        cache.removeStudentFromSubject(subject1, new Student("Aboba"));
-        cache.removeStudentFromSubject(new Subject("Programming"), student1);
+        handleException(() -> cache.removeStudentFromSubject(subject2, student3));
+        handleException(() -> cache.removeStudentFromSubject(subject1, new Student("Aboba")));
+        handleException(() -> cache.removeStudentFromSubject(new Subject("Programming"), student1));
         cache.printAllSubjectsStudents();
         cache.addStudentGrades(student1, grades1);
-        cache.addStudentGrades(student2, grades2);
-        cache.addStudentGrades(student3, grades3);
-        cache.addStudentGrades(student1, grades1);
+        handleException(() ->  cache.addStudentGrades(student2, grades2));
+        handleException(() -> cache.addStudentGrades(student3, grades3));
+        handleException(() -> cache.addStudentGrades(student1, grades1));
         cache.printAllStudentsGrades();
         cache.addStudentToSubject(subject2, student1);
-        cache.addGradeForStudent(student1, subject1, 5);
-        cache.addGradeForStudent(new Student("Aboba"), subject1, 5);
+        handleException(() -> cache.addGradeForStudent(student1, subject1, 5));
+        handleException(() -> cache.addGradeForStudent(new Student("Aboba"), subject1, 5));
         cache.addGradeForStudent(student1, subject2, 5);
-        cache.addGradeForStudent(student1, new Subject("PE"), 5);
+        handleException(() -> cache.addGradeForStudent(student1, new Subject("PE"), 5));
         cache.printAllStudentsGrades();
         cache.removeStudentGrades(student1);
-        cache.removeStudentGrades(student3);
+        handleException(() -> cache.removeStudentGrades(student3));
         cache.printAllStudentsGrades();
+    }
+
+    private static void handleException(Runnable runnable) {
+        try {
+            runnable.run();
+        } catch (IllegalArgumentException e) {
+            System.out.printf("%n%s%n", e.getMessage());
+        }
     }
 
     public void addStudentGrades(@NonNull Student student, @NonNull Map<Subject, Integer> grades) {
-        if (studentGrades.containsKey(student)) {
-            System.out.println("\nStudent grades already added");
-        } else {
-            for (Subject subject : grades.keySet()) {
-                if (subjectStudents.containsKey(subject)) {
-                    if (!subjectStudents.get(subject).contains(student)) {
-                        System.out.println("\nStudent not in this subject list");
-                        return;
-                    }
-                } else {
-                    System.out.println("\nStudent has grade for subject not in the subject list");
-                    return;
-                }
-            }
-            studentGrades.put(student, grades);
-            System.out.println("\nStudent grades added");
+        if (checkIfStudentHasGrades(student)) {
+            throw new IllegalArgumentException(HAS_GRADES_ALREADY);
         }
+        validateAddingGrades(student, grades);
+        studentGrades.put(student, grades);
+        System.out.println("\nStudent grades added");
     }
 
     public void addGradeForStudent(@NonNull Student student, @NonNull Subject subject, int grade) {
-        if (studentGrades.containsKey(student)) {
-            if (!studentGrades.get(student).containsKey(subject)) {
-                if (subjectStudents.containsKey(subject)) {
-                    if (subjectStudents.get(subject).contains(student)) {
-                        studentGrades.get(student).put(subject, grade);
-                        System.out.println("\nGrade added");
-                    } else {
-                        System.out.println("\nStudent not in this subject list");
-                    }
-                } else {
-                    System.out.println("\nDon't have this subject in the list");
-                }
-            } else {
-                System.out.println("\nStudent already has this subject grade");
-            }
-        } else {
-            System.out.println("\nDon't have grades for this student");
+        validateStudentAndGrades(student, subject);
+        if (studentGrades.get(student).containsKey(subject)) {
+            throw new IllegalArgumentException(HAS_SUBJECT_GRADE_ALREADY);
         }
+        studentGrades.get(student).put(subject, grade);
+        System.out.println("\nGrade added");
     }
 
     public void removeStudentGrades(@NonNull Student student) {
-        if (studentGrades.containsKey(student)) {
-            studentGrades.remove(student);
-            System.out.println("\nGrades for this student removed");
-        } else {
-            System.out.println("\nDon't have grades for this student");
+        if (!checkIfStudentHasGrades(student)) {
+            throw new IllegalArgumentException(NO_GRADES);
         }
+        studentGrades.remove(student);
+        System.out.println("\nGrades for this student removed");
     }
 
     public void printAllStudentsGrades() {
@@ -121,38 +111,28 @@ public class Main {
     }
 
     public void addSubjectStudents(@NonNull Subject subject, @NonNull List<Student> students) {
-        if (subjectStudents.containsKey(subject)) {
-            System.out.println("\nThis subject already added");
-        } else {
-            subjectStudents.put(subject, students);
-            System.out.println("\nSubject added");
+        if (checkIfSubjectInList(subject)) {
+            throw new IllegalArgumentException(ALREADY_ADDED_SUBJECT);
         }
+        subjectStudents.put(subject, students);
+        System.out.println("\nSubject added");
     }
 
     public void addStudentToSubject(@NonNull Subject subject, @NonNull Student student) {
-        if (subjectStudents.containsKey(subject)) {
-            if (subjectStudents.get(subject).contains(student)) {
-                System.out.println("\nThis student already in this subject list");
-            } else {
-                subjectStudents.get(subject).add(student);
-                System.out.println("\nStudent added to subject");
-            }
-        } else {
-            System.out.println("\nNo such subject!");
+        if (!checkIfSubjectInList(subject)) {
+            throw new IllegalArgumentException(NO_SUBJECT);
         }
+        if (subjectStudents.get(subject).contains(student)) {
+            throw new IllegalArgumentException(ALREADY_ADDED_STUDENT);
+        }
+        subjectStudents.get(subject).add(student);
+        System.out.println("\nStudent added to subject");
     }
 
     public void removeStudentFromSubject(@NonNull Subject subject, @NonNull Student student) {
-        if (subjectStudents.containsKey(subject)) {
-            if (subjectStudents.get(subject).contains(student)) {
-                subjectStudents.get(subject).remove(student);
-                System.out.println("\nStudent remove from subject");
-            } else {
-                System.out.println("\nNo such student in the subject list");
-            }
-        } else {
-            System.out.println("\nNo such subject!");
-        }
+        validateSubjectAndStudent(subject, student);
+        subjectStudents.get(subject).remove(student);
+        System.out.println("\nStudent remove from subject");
     }
 
     public void printAllSubjectsStudents() {
@@ -161,5 +141,53 @@ public class Main {
             System.out.println(entry.getKey());
             entry.getValue().forEach(student -> System.out.println("    " + student));
         }
+    }
+
+    private void validateAddingGrades(@NonNull Student student, @NonNull Map<Subject, Integer> grades) {
+        for (Subject subject : grades.keySet()) {
+            if (!checkIfSubjectInList(subject)) {
+                throw new IllegalArgumentException(NO_SUBJECT);
+            }
+            if (!subjectStudents.get(subject).contains(student)) {
+                throw new IllegalArgumentException(NOT_IN_SUBJECT_LIST);
+            }
+        }
+    }
+
+    private boolean checkIfStudentHasGrades(@NonNull Student student) {
+        return studentGrades.containsKey(student);
+    }
+
+    private void validateStudentAndGrades(@NonNull Student student, @NonNull Subject subject) {
+        if (!checkIfStudentHasGrades(student)) {
+            throw new IllegalArgumentException(NO_GRADES);
+        }
+        if (!checkIfSubjectInList(subject)) {
+            throw new IllegalArgumentException(NO_SUBJECT);
+        }
+        if (!subjectStudents.get(subject).contains(student)) {
+            throw new IllegalArgumentException(NOT_IN_SUBJECT_LIST);
+        }
+    }
+
+    private void validateSubjectAndStudent(@NonNull Subject subject, @NonNull Student student) {
+        if (!checkIfSubjectInList(subject)) {
+            throw new IllegalArgumentException(NO_SUBJECT);
+        }
+        if (!subjectStudents.get(subject).contains(student)) {
+            throw new IllegalArgumentException(NOT_IN_SUBJECT_LIST);
+        }
+    }
+
+    private boolean checkIfSubjectInList(@NonNull Subject subject) {
+        return subjectStudents.containsKey(subject);
+    }
+
+    public Map<Student, Map<Subject, Integer>> getStudentGrades() {
+        return studentGrades;
+    }
+
+    public Map<Subject, List<Student>> getSubjectStudents() {
+        return subjectStudents;
     }
 }
