@@ -1,18 +1,21 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 
 public class Application {
 
     private static final Map<User, List<Query>> USER_LIST_MAP = new HashMap<>();
 
+
+
     public static void main(String[] args) {
         System.out.println("God Bless!");
+
 
         User firstUser = new User(1, "first");
         User secondUser = new User(2, "second");
@@ -42,13 +45,9 @@ public class Application {
         addNewUserQuery(fifthUser, ninthQuery);
         addNewUserQuery(fifthUser, tenthQuery);
 
-//        getAllUsers();
+        getAllUsers();
 
         getStoryUserQuery(secondUser);
-    }
-
-    public static void addUserListQuery(User user, List<Query> listQuery) {
-        USER_LIST_MAP.put(user, listQuery);
     }
 
     public static void addNewUserQuery(User user, Query query) {
