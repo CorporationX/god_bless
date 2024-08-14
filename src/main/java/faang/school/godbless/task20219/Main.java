@@ -1,0 +1,40 @@
+package faang.school.godbless.task20219;
+
+import java.util.*;
+
+public class Main {
+    private static Map<String, List<WebPage>> listOfWebPages = new HashMap<>();
+    private static final String FILTER = "[^a-zA-Zа-яА-ЯёЁ ]";
+
+    public static void main(String[] args) {
+        Map<String, List<WebPage>> listOfWebPages = new IdentityHashMap<>();
+        WebPage webPage1 = new WebPage("https://habr.com/ru/articles/671344/",
+                "Как попробовать ELK-стек за один вечер",
+                    " Elasticsearch - хранение и поиск данных); Logstash - конвеер для обработки, фильтрации и нормализации логов; Kibana - интерфейс для удобного поиска и администрирования" );
+        WebPage webPage2 = new WebPage("https://habr.com/ru/articles/421179/", "Внутренняя работа HashMap в Java",
+                "Хэширование -это процесс преобразования объекта в целочисленную форму, выполняется с помощью метода hashCode().");
+
+        System.out.println(createIndex(webPage2));
+        removeWebPageByURL("https://habr.com/ru/articles/671344/");
+        System.out.println(findPageByWord("преобразования"));
+    }
+
+    public static Map<String, List<WebPage>> createIndex(WebPage webPage){
+        List<String> words = List.of(webPage.getContent().replaceAll(FILTER, "").split("\\\s+"));
+            for (String word : words) {
+                listOfWebPages.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
+            }
+            return listOfWebPages;
+    }
+
+    public static List<WebPage> findPageByWord(String string){
+        List<WebPage> webPageList = listOfWebPages.get(string);
+        return webPageList;
+    }
+    
+    public static void removeWebPageByURL(String url){
+        for (Map.Entry<String, List<WebPage>> entry : listOfWebPages.entrySet()) {
+            entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
+        }
+    }
+}
