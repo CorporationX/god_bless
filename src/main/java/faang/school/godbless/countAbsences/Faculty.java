@@ -2,24 +2,23 @@ package faang.school.godbless.countAbsences;
 
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class Faculty {
     private String name;
 
-    public static Map<PairKey<Faculty,Integer>, List<Student>> MapOfStudentsByFacultiesAndYears(List<Student> students) {
-        Map<PairKey<Faculty,Integer>, List<Student>> resultMap = new HashMap<>();
+    public static Map<PairFacultyYearKey, List<Student>> MapOfStudentsByFacultiesAndYears(List<Student> students) {
+        Map<PairFacultyYearKey, List<Student>> resultMap = new HashMap<>();
 
         for (Student student : students) {
-            PairKey<Faculty,Integer> facultyAndYearKey = new PairKey<>(student.getFaculty(), student.getYear());
+            PairFacultyYearKey facultyAndYearKey = new PairFacultyYearKey(student.getFaculty().getName(), student.getYear());
             resultMap.computeIfAbsent(facultyAndYearKey, k -> new ArrayList<>()).add(student);
         }
 
