@@ -37,7 +37,7 @@ public class FilterProcessorTest {
 
     @Test
     @DisplayName("Should combine two filters and apply them sequentially")
-    void testCombineFilters() {
+    public void testCombineFilters() {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(nameFilter, descriptionFilter);
         filteredImage = filterProcessor.applyFilter(originalImage, combinedFilter);
 
@@ -49,7 +49,7 @@ public class FilterProcessorTest {
 
     @Test
     @DisplayName("Should handle combining identical filters")
-    void testCombineIdenticalFilters() {
+    public void testCombineIdenticalFilters() {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(nameFilter, nameFilter);
         Image filteredImage = filterProcessor.applyFilter(originalImage, combinedFilter);
 

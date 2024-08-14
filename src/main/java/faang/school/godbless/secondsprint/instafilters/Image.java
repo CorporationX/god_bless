@@ -8,6 +8,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class Image {
-        private String name;
-        private String description;
+    private String name;
+    private String description;
 }
