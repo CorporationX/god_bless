@@ -116,7 +116,9 @@ class DataCenter  {
 
     List<Server> servers =  Server.getServers();
 }
-@Getter @Setter @ToString
+@Getter
+@Setter
+@ToString
 class ResourceRequest  {
     public double[] getLoad(int servers) {
 
