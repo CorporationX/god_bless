@@ -7,14 +7,14 @@ public class Main {
     public static void main(String[] args) {
         MessageProcessor messageProcessor = new MessageProcessor();
 
-// Создание фильтров
+        // Создание фильтров
         MessageFilter spamFilter = message -> message.toLowerCase().contains("spam");
         MessageFilter lengthFilter = message -> message.length() > 50;
-//        MessageFilter emojiFilter = message -> !message.contains(""); На данный фильтр идеа ругается, если даже он закомментирован(ругается конкретно на символ смайла)
+        // MessageFilter emojiFilter = message -> !message.contains(""); На данный фильтр идеа ругается, если даже он закомментирован(ругается конкретно на символ смайла)
 
         List<MessageFilter> filters = Arrays.asList(spamFilter, lengthFilter);
 
-// Обработка сообщений
+        // Обработка сообщений
         String[] messages = {"hi", "Это spam!", "Как дела?", "Длинное сообщение без спама и эмодзи"};
 
         for (String message : messages) {
