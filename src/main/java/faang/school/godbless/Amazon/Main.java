@@ -31,7 +31,7 @@ public class Main {
         main.sortingProductsByCategories("boots",cat2);
         System.out.println(main.sortingProductsByCategoriesAndGettingTemporaryMap("Food",cat1));
 
-        main.AllCategoryWithProducts();
+        main.allCategoryWithProducts();
 
     }
 
@@ -51,7 +51,7 @@ public class Main {
     }
 
 
-    public void AllCategoryWithProducts() {
+    public void allCategoryWithProducts() {
         for (Map.Entry<String, Set<Product>> entry : uniqueProduct.entrySet()) {
             System.out.println(entry.getKey() + '\n');
             for (Product pr : entry.getValue()) {
