@@ -4,20 +4,23 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static int calculate(List<Integer> nums, int initValue, Calculator calculator) {
-        int totalValue = initValue;
-        for (int num : nums) {
+    public static int calculate(List<Integer> nums, Calculator calculator) {
+        if (nums.isEmpty()) {
+            throw new IllegalArgumentException("List of num is empty");
+        }
+        int totalValue = nums.get(0);
+        for (int num : nums.subList(1, nums.size())) {
             totalValue = calculator.compute(totalValue, num);
         }
         return totalValue;
     }
 
     public static int product(List<Integer> nums) {
-        return calculate(nums, 1, (a, b) -> a * b);
+        return calculate(nums, (a, b) -> a * b);
     }
 
     public static int sum(List<Integer> nums) {
-        return calculate(nums, 0, (a, b) -> a + b);
+        return calculate(nums, (a, b) -> a + b);
     }
 
     public static void main(String[] args) {
