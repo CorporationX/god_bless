@@ -27,9 +27,9 @@ public class Main {
     }
 
     public static void printWeather(String city, Map<String, WeatherData> weather) {
-        weather.computeIfAbsent(city, key -> WeatherTestAPI.getWeather(city));
-        System.out.println("The temperature in " + city + " " + weather.get(city).getTemperature()
-                + " and humidity is " + weather.get(city).getHumidity());
+        WeatherData data = weather.computeIfAbsent(city, key -> WeatherTestAPI.getWeather(city));
+        System.out.println("The temperature in " + city + " " + data.getTemperature()
+                + " and humidity is " + data.getHumidity());
     }
 
     public static void updateWeather(String city, Map<String, WeatherData> weather, WeatherData weatherData) {
