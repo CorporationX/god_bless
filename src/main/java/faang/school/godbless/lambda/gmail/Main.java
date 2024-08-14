@@ -17,10 +17,13 @@ public class Main {
                 new Email("Спам", "Текст спама", false)
         );
 
+        System.out.println("emails: " + emails);
+
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email);
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        List<Email> processedEmails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        System.out.println("processedEmails: " + processedEmails);
     }
 }
