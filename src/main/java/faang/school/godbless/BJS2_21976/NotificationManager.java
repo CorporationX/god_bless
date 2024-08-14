@@ -13,6 +13,8 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         Consumer<Notification> handler = notificationsIdx.get(notification.getType());
-        handler.accept(notification);
+        if (handler != null) {
+            handler.accept(notification);
+        }
     }
 }
