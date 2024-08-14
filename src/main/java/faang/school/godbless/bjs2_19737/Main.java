@@ -17,20 +17,7 @@ public class Main {
         var existedQueries = userQueries.get(user);
         if (existedQueries != null) {
             existedQueries.add(query);
-            int last = existedQueries.size() - 1;
-            for (int i = 0; i < last; i++) {
-                var right = existedQueries.get(last - i);
-                var left = existedQueries.get(last - i - 1);
-                var rightTimestamp = right.getTimestamp();
-                var leftTimestamp = left.getTimestamp();
-                if (rightTimestamp.isAfter(leftTimestamp)) {
-                    var temp = right;
-                    existedQueries.set(last - i, left);
-                    existedQueries.set(last - i - 1, temp);
-                } else {
-                    break;
-                }
-            }
+            existedQueries.sort(Comparator.comparing(Query::getTimestamp).reversed());
         }
     }
 
