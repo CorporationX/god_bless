@@ -8,8 +8,11 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> emails,
                               Predicate<Email> predicate, Consumer<Email> consumer, Function<Email, Email> function) {
-        emails.removeIf(email -> !email.isImportant());
-        emails.forEach(consumer);
-        emails.forEach(function::apply);
+        for (int i = 0; i < emails.size(); i++) {
+            if (predicate.test(emails.get(i))) {
+                emails.set(i, function.apply(emails.get(i)));
+                consumer.accept(emails.get(i));
+            }
+        }
     }
 }
