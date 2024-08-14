@@ -13,8 +13,9 @@ public class EmailProcessor {
         emails.stream()
                 .filter(filter)
                 .forEach(mail -> {
-                    processor.accept(mail);
                     System.out.println(convertor.apply(mail));
+                    processor.accept(mail);
                 });
+        emails.forEach(mail -> System.out.println(mail.getBody()));
     }
 }
