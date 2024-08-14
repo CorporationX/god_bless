@@ -14,23 +14,17 @@ public class User {
     private String companyName;
     private String address;
 
-    public User(String firstName, int age, String companyName, String address){
+    public User(String firstName, int age, String companyName, String address) {
         this.firstName = firstName;
         this.age = age;
         this.companyName = companyName;
         this.address = address;
     }
+
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer,List<User>> group = new HashMap<>();
-        for(User user: users){
-            if(group.get(user.getAge())==null) {
-                List<User> usersByAge = new ArrayList<>();
-                usersByAge.add(user);
-                group.put(user.getAge(),usersByAge);
-            }
-            else{
-                group.get(user.getAge()).add(user);
-            }
+        Map<Integer, List<User>> group = new HashMap<>();
+        for (User user : users) {
+            group.computeIfAbsent(user.getAge(), usersByAge -> new ArrayList<>()).add(user);
         }
         return group;
     }
