@@ -4,46 +4,46 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LRUCache {
-    private int capacity;
-    private Map<Integer, Node> map;
+    private final int capacity;
+    private final Map<Integer, Node> cacheMap;
     private Node head;
     private Node tail;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
-        this.map = new HashMap<>();
+        this.cacheMap = new HashMap<>();
     }
 
     public Data get(int key) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
+        if (cacheMap.containsKey(key)) {
+            Node node = cacheMap.get(key);
             moveToTail(node);
-            node.value.updateTimestamp();
-            return node.value;
+            node.getValue().updateTimestamp();
+            return node.getValue();
         }
         return null;
     }
 
     public void put(int key, Data value) {
-        if (map.containsKey(key)) {
-            Node node = map.get(key);
-            node.value = value;
+        if (cacheMap.containsKey(key)) {
+            Node node = cacheMap.get(key);
+            node.setValue(value);
             moveToTail(node);
         } else {
             Node node = new Node(key, value);
-            if (map.size() == capacity) {
-                map.remove(head.key);
+            if (cacheMap.size() == capacity) {
+                cacheMap.remove(head.getKey());
                 removeHead();
             }
             addToTail(node);
-            map.put(key, node);
+            cacheMap.put(key, node);
         }
     }
 
     private void addToTail(Node node) {
         if (tail != null) {
-            tail.right = node;
-            node.left = tail;
+            tail.setRight(node);
+            node.setLeft(tail);
         } else {
             head = node;
         }
@@ -51,53 +51,45 @@ public class LRUCache {
     }
 
     private void moveToTail(Node node) {
-        if (node == tail) return;
+        if (node == tail) {
+            return;
+        }
         if (node == head) {
-            head = head.right;
+            head = head.getRight();
             if (head != null) {
-                head.left = null;
+                head.setLeft(null);
             }
         } else {
-            node.left.right = node.right;
-            if (node.right != null) {
-                node.right.left = node.left;
+            node.getLeft().setRight(node.getRight());
+            if (node.getRight() != null) {
+                node.getRight().setLeft(node.getLeft());
             }
         }
-        node.left = tail;
-        node.right = null;
-        tail.right = node;
+        node.setLeft(tail);
+        node.setRight(null);
+        tail.setRight(node);
         tail = node;
     }
 
     private void removeHead() {
-        if (head == null) return;
+        if (head == null) {
+            return;
+        }
         if (head == tail) {
             head = tail = null;
         } else {
-            head = head.right;
-            head.left = null;
+            head = head.getRight();
+            head.setLeft(null);
         }
     }
 
     public void printCache() {
         Node current = head;
         while (current != null) {
-            System.out.println("ID: " + current.value.getId() +
-                    ", Value: " + current.value.getValue() +
-                    ", Timestamp: " + current.value.getTimestamp());
-            current = current.right;
-        }
-    }
-
-    private static class Node {
-        int key;
-        Data value;
-        Node left;
-        Node right;
-
-        public Node(int key, Data value) {
-            this.key = key;
-            this.value = value;
+            System.out.println("ID: " + current.getValue().getId() +
+                    ", Value: " + current.getValue().getValue() +
+                    ", Timestamp: " + current.getValue().getTimestamp());
+            current = current.getRight();
         }
     }
 }
