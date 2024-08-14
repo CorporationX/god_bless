@@ -3,11 +3,11 @@ package ru.kraiush.BJS2_19602;
 import lombok.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
 public class App_Data_center {
-
     public static void main(String[] args) {
 
         DataCenter dataCenter = new DataCenter();
@@ -22,21 +22,59 @@ public class App_Data_center {
 
         System.out.println("Common consuming energy: " + dataService.getTotalEnergyConsumption(servers));
 
-        double[] loads;
         final int iter =5;
+        double[] loads;
+        List<Integer> listOverload;
+        List<Integer> sumOverload=new ArrayList<>(Collections.nCopies(servers.size(), 0));
 
         for (int i = 0; i < iter; i++) {
             loads= request.getLoad(servers.size());
-            dataService.optimize(dataCenter, loads);
-            System.out.println("     <--- servers loading optimized --->");
+            listOverload = dataService.load(dataCenter, loads);
+            for (int j = 0; j < listOverload.size(); j++) {
+                if(listOverload.get(j) != 0) {
+                    sumOverload.set(j, sumOverload.get(j) + 1);
+                }
+            }
+            System.out.println("     <--- servers loading: --->");
             System.out.println(servers);
         }
+        System.out.println("Overloading list: ");
+        System.out.println(Arrays.toString(sumOverload.toArray()));
+
+
+        System.out.println("\nOptimize resources");
+        LoadBalancingOptimizationStrategy loadOptimize = new LoadBalancingOptimizationStrategy();
+        loadOptimize.optimize(dataCenter, sumOverload);
+
+        EnergyEfficencyOptimizationStrategy energyOptimize = new EnergyEfficencyOptimizationStrategy();
+        energyOptimize.optimize(dataCenter, sumOverload);
+
+        sumOverload.replaceAll(ignored -> 0);
+
+        for (int i = 0; i < iter; i++) {
+            loads= request.getLoad(servers.size());
+            listOverload = dataService.load(dataCenter, loads);
+            for (int j = 0; j < listOverload.size(); j++) {
+                if(listOverload.get(j) != 0) {
+                    sumOverload.set(j, sumOverload.get(j) + 1);
+                }
+            }
+            System.out.println("     <--- servers loading: --->");
+            System.out.println(servers);
+        }
+        System.out.println("Overloading list: ");
+        System.out.println(Arrays.toString(sumOverload.toArray()));
+
     }
 }
 interface OptimizationStrategy {
-    void optimize(DataCenter dataCenter, double[] loads);
-}
+    void optimize(DataCenter dataCenter, List<Integer> listOverload);
 
+}
+interface LoadStrategy {
+    List<Integer> load(DataCenter dataCenter, double[] loads);
+
+}
 @Getter
 @Setter
 class Server {
@@ -76,10 +114,8 @@ class DataCenter  {
 
     List<Server> servers =  Server.getServers();
 }
-
 @Getter @Setter @ToString
 class ResourceRequest  {
-
     public double[] getLoad(int servers) {
 
         double[] loads  = new double[servers];
@@ -91,11 +127,9 @@ class ResourceRequest  {
         }
         return loads;
     }
-
 }
 
-class DataCenterService implements OptimizationStrategy {
-
+class DataCenterService implements LoadStrategy {
     public double getTotalEnergyConsumption(List<Server> servers) {
         return servers.stream()
                 .mapToDouble(Server::getEnergyConsumption)
@@ -128,13 +162,14 @@ class DataCenterService implements OptimizationStrategy {
     }
 
     @Override
-    public void optimize(DataCenter dataCenter, double[] loads) {
+    public List<Integer> load(DataCenter dataCenter, double[] loads) {
 
         List<Server> servers = dataCenter.getServers();
+        List<Integer> listOverload=new ArrayList<>(Collections.nCopies(servers.size(), 0));
 
         System.out.println();
         double diffGlobal=0;
-        double diffCurrent=0;
+        double diffCurrent;
         for (int j = 0; j < loads.length; j++) {
             diffCurrent = (loads[j] + diffGlobal) - servers.get(j).getMaxLoad() ;
             System.out.println("j: " + j + " loads[j]: " + loads[j] + " diffCurrent: " + diffCurrent + " diffGlobal: " + diffGlobal );
@@ -142,13 +177,42 @@ class DataCenterService implements OptimizationStrategy {
             if(diffCurrent > 0) {
                 servers.get(j).setLoad(servers.get(j).getMaxLoad());
                 diffGlobal = diffCurrent;
+                listOverload.set(j, 1);
+//                System.out.println("list: " + listOverload.get(j));
             } else {
                 diffGlobal = diffGlobal + loads[j];
                 servers.get(j).setLoad(diffGlobal);
                 diffGlobal = 0;
             }
         }
+        return listOverload;
+    }
+}
+class LoadBalancingOptimizationStrategy implements OptimizationStrategy {
+    @Override
+    public void optimize(DataCenter dataCenter, List<Integer> listOverload) {
+
+        List<Server> servers = dataCenter.getServers();
+
+        for (int i = 0; i < servers.size(); i++) {
+            if (listOverload.get(i) != 0) {
+                servers.get(i).setMaxLoad(servers.get(i).getMaxLoad() * 2);
+            }
+        }
     }
 }
 
+class EnergyEfficencyOptimizationStrategy implements OptimizationStrategy {
+    @Override
+    public void optimize(DataCenter dataCenter, List<Integer> listOverload) {
+
+        List<Server> servers = dataCenter.getServers();
+
+        for (int i = 0; i < servers.size(); i++) {
+            if (listOverload.get(i) != 0) {
+                servers.get(i).setEnergyConsumption(servers.get(i).getEnergyConsumption() * 2);
+            }
+        }
+    }
+}
 

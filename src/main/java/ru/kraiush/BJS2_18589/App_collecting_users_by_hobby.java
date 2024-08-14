@@ -18,5 +18,4 @@ public class App_collecting_users_by_hobby {
 
         res.forEach((K,V) -> System.out.println("user: "+ K + " activity: " + V));
     }
-
 }
