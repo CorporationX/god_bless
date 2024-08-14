@@ -14,12 +14,19 @@ public class FilterProcessor {
         if (filter1 == null || filter2 == null) {
             throw new NullPointerException("Filter can't be null");
         }
-        return (image) -> {
-            Image filteredImage1 = filter1.apply(image);
+        return filter1.andThen(filter2);
+    }
+
+    public Function<Image, Image> combineFiltersWithDesc(Function<Image, Image> filter1, Function<Image, Image> filter2) {
+        if (filter1 == null || filter2 == null) {
+            throw new NullPointerException("Filter can't be null");
+        }
+
+        return filter1.andThen(filteredImage1 -> {
             Image filteredImage2 = filter2.apply(filteredImage1);
             String combinedDescription = filteredImage1.getDescription().trim() + " + " +
                     filteredImage2.getDescription().substring(filteredImage2.getDescription().indexOf(" ") + 1);
             return new Image(filteredImage2.getName(), combinedDescription);
-        };
+        });
     }
 }

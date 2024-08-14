@@ -24,9 +24,13 @@ public class Main {
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
 
+        Function<Image, Image> combineFilterWithDesc = filterProcessor.combineFiltersWithDesc(grayscaleFilter, sepiaFilter);
+        Image combinedImageWithDesc = filterProcessor.applyFilter(originalImage, combineFilterWithDesc);
+
         System.out.println(grayscaleImage);
         System.out.println(sepiaImage);
         System.out.println(vignetteImage);
         System.out.println(combinedImage);
+        System.out.println(combinedImageWithDesc);
     }
 }
