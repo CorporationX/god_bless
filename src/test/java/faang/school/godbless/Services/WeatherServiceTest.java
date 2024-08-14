@@ -11,12 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class WeatherServiceTest {
 
-    public static final int ONE = 1;
-    public static final int TWO = 2;
-    public static final String MOSCOW = "Moscow";
-    public static final String SPB = "SPB";
+    private static final int ONE = 1;
+    private static final int TWO = 2;
+    private static final String MOSCOW = "Moscow";
+    private static final String SPB = "SPB";
 
-    public static HashMap<String, WeatherData> weatherForecastMap = new HashMap<>();
+    private static HashMap<String, WeatherData> weatherForecastMap = new HashMap<>();
 
     @BeforeEach
     void init() {
