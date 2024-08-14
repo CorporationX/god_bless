@@ -13,13 +13,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class NotificationManagerTest {
     private NotificationManager notificationManager;
-    private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    private PrintStream originalOut;
+    private ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    private PrintStream originalOut = System.out;
 
     @BeforeEach
     public void setUp() {
         notificationManager = new NotificationManager();
-        originalOut = System.out;
         System.setOut(new PrintStream(outputStreamCaptor));
     }
 
