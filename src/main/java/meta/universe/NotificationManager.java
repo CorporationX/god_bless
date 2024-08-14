@@ -12,7 +12,11 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> consumer = notificationsMap.get(notification.getType());
-        consumer.accept(notification);
+        if (notificationsMap.containsKey(notification.getType())) {
+            Consumer<Notification> consumer = notificationsMap.get(notification.getType());
+            consumer.accept(notification);
+        } else {
+            System.err.println("Уведомления типа " + notification.getType() + " не поддерживаются");
+        }
     }
 }

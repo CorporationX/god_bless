@@ -1,5 +1,6 @@
 package meta.universe;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,12 +8,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Notification {
-    String type;
-    String message;
 
-    public Notification(String type, String message) {
-        this.type = type;
-        this.message = message;
-    }
+    private String type;
+    private String message;
+
 }
