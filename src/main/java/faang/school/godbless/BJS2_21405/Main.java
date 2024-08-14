@@ -47,7 +47,7 @@ public class Main {
 
         System.out.println(emails);
         System.out.println();
-        EmailProcessor.processEmails(emails, isImportant, processBody, validateSubject);
+        emails = EmailProcessor.processEmails(emails, isImportant, processBody, validateSubject);
         System.out.println(emails);
     }
 }
