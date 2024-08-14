@@ -9,7 +9,6 @@ public class Main {
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
 
-        // Добавление нового студента
         addStudent(students, new Student("Павел", "Математика", 1));
         addStudent(students, new Student("Владимир", "Математика", 1));
         addStudent(students, new Student("Даниил", "Математика", 1));
@@ -17,16 +16,12 @@ public class Main {
         addStudent(students, new Student("Петр", "Физика", 3));
         addStudent(students, new Student("Максим", "Химия", 2));
 
-        // Удаление студента
         removeStudent(students, "Максим", "Химия", 2);
 
-        // Группировка студентов по факультетам и курсам
-        Map<String, Map<Integer, List<Student>>> groupedStudents = groupStudentsByFacultyAndYear(students);
+        Map<FacultyYearKey, List<Student>> groupedStudents = groupStudentsByFacultyAndYear(students);
 
-        // Вывод всех студентов, сгруппированных по факультетам и курсам
         printGroupedStudents(groupedStudents);
 
-        // Поиск студентов по факультету и курсу
         List<Student> physicsStudents = findStudentsByFacultyAndYear(students, "Физика", 3);
         System.out.println("Физика, Year 3: " + physicsStudents);
     }
@@ -51,24 +46,19 @@ public class Main {
         return result;
     }
 
-    public static Map<String, Map<Integer, List<Student>>> groupStudentsByFacultyAndYear(List<Student> students) {
-        Map<String, Map<Integer, List<Student>>> groupedStudents = new HashMap<>();
+    public static Map<FacultyYearKey, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
+        Map<FacultyYearKey, List<Student>> groupedStudents = new HashMap<>();
         for (Student student : students) {
-            groupedStudents
-                    .computeIfAbsent(student.getFaculty(), k -> new HashMap<>())
-                    .computeIfAbsent(student.getYear(), k -> new ArrayList<>())
-                    .add(student);
+            FacultyYearKey key = new FacultyYearKey(student.getFaculty(), student.getYear());
+            groupedStudents.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
         return groupedStudents;
     }
 
-    public static void printGroupedStudents(Map<String, Map<Integer, List<Student>>> groupedStudents) {
-        for (String faculty : groupedStudents.keySet()) {
-            System.out.println("Faculty: " + faculty);
-            Map<Integer, List<Student>> yearGroups = groupedStudents.get(faculty);
-            for (Integer year : yearGroups.keySet()) {
-                System.out.println("  Year " + year + ": " + yearGroups.get(year));
-            }
+    public static void printGroupedStudents(Map<FacultyYearKey, List<Student>> groupedStudents) {
+        for (Map.Entry<FacultyYearKey, List<Student>> entry : groupedStudents.entrySet()) {
+            System.out.println("Key: " + entry.getKey());
+            System.out.println("  Students: " + entry.getValue());
         }
     }
 }
