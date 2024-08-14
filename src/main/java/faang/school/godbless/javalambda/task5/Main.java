@@ -23,7 +23,7 @@ public class Main {
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
         // Обработка писем
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase)
-                .forEach(System.out::println);
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        System.out.println(emails);
     }
 }

@@ -33,11 +33,10 @@ class EmailProcessorTest {
         Predicate<Email> importantFilter = Email::isImportant;
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
-        List<Email> emailList = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-
-        assertEquals(1, emailList.size());
-        Email email = emailList.get(0);
+        assertEquals(3, emails.size());
+        Email email = emails.get(1);
         assertEquals("Письмо 2" , email.getSubject());
         assertEquals("ТЕКСТ ПИСЬМА 2" , email.getBody());
         assertTrue(email.isImportant());
