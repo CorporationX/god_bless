@@ -9,7 +9,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @ToString
 @Getter
-public class DataFilter {
+public class FacultyYearKey {
     private String faculty;
     private int year;
 
@@ -17,8 +17,8 @@ public class DataFilter {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DataFilter dataFilter = (DataFilter) o;
-        return year == dataFilter.year && Objects.equals(faculty, dataFilter.faculty);
+        FacultyYearKey facultyYearKey = (FacultyYearKey) o;
+        return year == facultyYearKey.year && Objects.equals(faculty, facultyYearKey.faculty);
     }
 
     @Override
