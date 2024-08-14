@@ -1,11 +1,17 @@
 package faang.school.hashmap.countingabsenteeism;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class Main {
 
-    private static final Set<Student> studentsList = new HashSet<>();
-    private static final Map<List<String>, List<String>> students = new HashMap<>();
+    private static final Set<Student> students = new HashSet<>();
+    private static final Map<List<String>, List<String>> studentsByFacultyAndYear = new HashMap<>();
 
     public static void main(String[] args) {
         Student alex = new Student("Alex", "Biographical", 2);
@@ -20,17 +26,21 @@ public class Main {
         addNewStudent(max);
         addNewStudent(anna);
 
-        for (Map.Entry<List<String>, List<String>> student : groupStudentsByYearAndFaculty(studentsList).entrySet()) {
+        for (Map.Entry<List<String>, List<String>> student : groupStudentsByYearAndFaculty(students).entrySet()) {
             System.out.println(student);
         }
 
         deleteStudent(null);
 
-        printAllStudentFacultyEndYear("Сhemical", 1);
-        printAllStudentFacultyEndYear("Сhemical", 0);
-        printAllStudentFacultyEndYear(null, 1);
+        try {
+            printAllStudentFacultyEndYear("Сhemical", 1);
+            printAllStudentFacultyEndYear("Сhemical", 0);
+            printAllStudentFacultyEndYear(null, 1);
+        } catch (IllegalArgumentException e) {
+            System.err.println(e);
+        }
 
-        for (Student studentSet : studentsList) {
+        for (Student studentSet : students) {
             System.out.println(studentSet);
         }
     }
@@ -41,39 +51,33 @@ public class Main {
                 List<String> key = new ArrayList<>();
                 key.add(student.getFaculty());
                 key.add(String.valueOf(student.getYear()));
-                students.computeIfAbsent(key, k -> new LinkedList<>()).add(student.getName());
+                studentsByFacultyAndYear.computeIfAbsent(key, k -> new LinkedList<>()).add(student.getName());
             }
         }
-        return students;
+        return studentsByFacultyAndYear;
     }
 
     private static void addNewStudent(Student student) {
         if (student != null) {
-            studentsList.add(student);
+            students.add(student);
         }
     }
 
     private static void deleteStudent(Student student) {
-        studentsList.remove(student);
+        students.remove(student);
     }
 
     private static void printAllStudentFacultyEndYear(String faculty, int year) {
-        if (faculty != null) {
-            if (!(faculty.isBlank())) {
-                if (year != 0) {
-                    for (Student student : studentsList) {
-                        if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                            System.out.println(student);
-                        }
-                    }
-                } else {
-                    throw new IllegalArgumentException("Курс студента не может быть 0");
-                }
-            } else {
-                throw new IllegalArgumentException("Введите факультет студента");
-            }
+        if (faculty == null
+                || faculty.isBlank()
+                || year == 0) {
+            throw new IllegalArgumentException("Неверные данные");
         } else {
-            throw new IllegalArgumentException("Введите факультет студента");
+            for (Student student : students) {
+                if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                    System.out.println(student);
+                }
+            }
         }
     }
 }
