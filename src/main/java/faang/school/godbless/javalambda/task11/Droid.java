@@ -15,9 +15,7 @@ public class Droid {
             }
             return symbol;
         };
-        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> encryptionMessage(str,
-                key, shiftChar);
-
+        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> encryptionMessage(str, key, shiftChar);
         return droidMessageEncryptor.encryption(message, encryptionKey);
     }
 
@@ -30,11 +28,8 @@ public class Droid {
             }
             return symbol;
         };
-        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> encryptionMessage(str,
-                key, shiftChar);
-        String result = droidMessageEncryptor.encryption(message, encryptionKey);
-        System.out.println(result);
-        return result;
+        DroidMessageEncryptor droidMessageEncryptor = (str, key) -> encryptionMessage(str, key, shiftChar);
+        return droidMessageEncryptor.encryption(message, encryptionKey);
     }
 
     private String encryptionMessage(String message, Integer encryptionKey, ShiftChar shiftChar) {
@@ -42,9 +37,9 @@ public class Droid {
         for (int i = 0; i < arrayChars.length; i++) {
             char symbol = arrayChars[i];
             if (symbol >= UPPERCASE_A && symbol <= UPPERCASE_Z) {
-                arrayChars[i] = shiftChar.shift(symbol, encryptionKey, UPPERCASE_A, UPPERCASE_Z);
+                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % 25, UPPERCASE_A, UPPERCASE_Z);
             } else if (symbol >= LOWERCASE_A && symbol <= LOWERCASE_Z) {
-                arrayChars[i] = shiftChar.shift(symbol, encryptionKey, LOWERCASE_A, LOWERCASE_Z);
+                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % 25, LOWERCASE_A, LOWERCASE_Z);
             }
         }
         return new String(arrayChars);
