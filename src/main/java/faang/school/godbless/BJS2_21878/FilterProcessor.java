@@ -8,7 +8,7 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilter(Function<Image, Image> filterOne, Function<Image, Image> filterTwo) {
-        return (image) -> filterTwo.apply(filterOne.apply(image));
+        return filterOne.andThen(filterTwo);
     }
 
     public String editImageName(String imageName, String filterName) {
