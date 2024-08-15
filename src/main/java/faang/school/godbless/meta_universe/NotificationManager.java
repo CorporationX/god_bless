@@ -6,17 +6,17 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    public static Map<String, Consumer<Notification>> notificationTypeMap = new HashMap<>();
+    public static Map<String, Consumer<Notification>> handlersByTypeMap = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> consumer) {
-        notificationTypeMap.put(type, consumer);
+    public void registerHandler(String notificationType, Consumer<Notification> handler) {
+        handlersByTypeMap.put(notificationType, handler);
     }
 
     public void sendNotification(Notification notification) {
-        if (!notificationTypeMap.containsKey(notification.getType())) {
+        if (!handlersByTypeMap.containsKey(notification.getType())) {
             System.out.println("В хранилище нет типа нотификаций " + notification.getType());
         } else {
-            notificationTypeMap.get(notification.getType()).accept(notification);
+            handlersByTypeMap.get(notification.getType()).accept(notification);
         }
     }
 }
