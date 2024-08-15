@@ -1,5 +1,6 @@
 package faang.school.godbless.java_base;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,15 +11,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
-    @Test
-    public void testGroupUsers() {
+    private static List<User> users;
 
-        List<User> users = new ArrayList<>();
+    @BeforeEach
+    public void init() {
+
+        users = new ArrayList<>();
         users.add(new User("Petr", 30, "Google", "Moscow st 84"));
         users.add(new User("Anna", 25, "Amazon", "Piter st 15"));
         users.add(new User("Elena", 30, "Microsoft", "Penza st 45"));
         users.add(new User("Vadim", 25, "Apple", "Ekb st 22"));
         users.add(new User("Nikita", 40, "Facebook", "Tomsk st 59"));
+    }
+
+
+
+    @Test
+    public void testGroupUsers() {
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
