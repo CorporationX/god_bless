@@ -19,6 +19,15 @@ public class Warrior extends Character {
         this.name = name;
     }
 
+    public Warrior(String name, int might, int agility, int intelligence, int health) {
+        super(name, might, agility, intelligence, health);
+        this.name = name;
+        this.might = 20;
+        this.agility = 5;
+        this.intelligence = 3;
+        this.health = super.health;
+    }
+
     @Override
     void attack(Character character) {
         character.setHealth(character.getHealth() - this.might);
