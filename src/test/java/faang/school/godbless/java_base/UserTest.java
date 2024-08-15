@@ -1,6 +1,7 @@
 package faang.school.godbless.java_base;
 
 import faang.school.godbless.java_base.exception.ErrorParameterException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,15 +13,22 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserTest {
 
-    @Test
-    public void testGroupUsers() {
+    private List<User> users;
 
-        List<User> users = new ArrayList<>();
+    @BeforeEach
+    public void setUp() {
+
+        users = new ArrayList<>();
         users.add(new User("Petr", 30, "Google", "New York"));
         users.add(new User("Anna", 25, "Uber", "London"));
         users.add(new User("Elena", 30, "Amazon", "Amsterdam"));
         users.add(new User("Vadim", 25, "Uber", "London"));
         users.add(new User("Nikita", 40, "Amazon", "New York"));
+
+    }
+
+    @Test
+    public void testGroupUsers() {
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(users);
 
