@@ -28,6 +28,5 @@ public class Main {
         System.out.println("оптимизация");
         dataCenterService.optimize(dataCenter);
         serverList.stream().map(Server::getLoad).forEach(System.out::println);
-
     }
 }

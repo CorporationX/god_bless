@@ -17,7 +17,7 @@ public class Server {
     }
 
     public boolean addLoad(double load){
-        if(load < maxLoad){
+        if(this.load + load < maxLoad){
             this.load += load;
             return true;
         } else {
