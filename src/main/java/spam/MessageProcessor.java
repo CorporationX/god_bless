@@ -6,11 +6,13 @@ import java.util.List;
 
 public class MessageProcessor {
     public boolean processMessage(@NonNull String message, @NonNull List<MessageFilter<String>> filters) {
+        boolean result = true;
         for(MessageFilter<String> filter : filters) {
-            if (filter.filter(message)) {
-                return true;
+            result = result && filter.filter(message);
+            if (!result) {
+                break;
             }
         }
-        return false;
+        return result;
     }
 }

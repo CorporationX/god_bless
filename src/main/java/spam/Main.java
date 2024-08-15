@@ -8,14 +8,14 @@ public class Main {
         MessageProcessor messageProcessor = new MessageProcessor();
 
 // Создание фильтров
-        MessageFilter<String> spamFilter = message -> message.toLowerCase().contains("spam");
+        MessageFilter<String> spamFilter = message -> !message.toLowerCase().contains("spam");
         MessageFilter<String> lengthFilter = message -> message.length() > 10;
-        MessageFilter<String> emojiFilter = message -> message.contains(":)");
+        MessageFilter<String> emojiFilter = message -> !message.contains(":)");
 
         List<MessageFilter<String>> filters = Arrays.asList(spamFilter, lengthFilter, emojiFilter);
 
 // Обработка сообщений
-        String[] messages = {"Hello!", "It's spam", "How are you? :)", "Very long message without spam and emoji"};
+        String[] messages = {"Hello world!", "It's spam", "How are you? :)", "Very long message without spam and emoji"};
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
