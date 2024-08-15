@@ -29,8 +29,8 @@ public class Utils {
                 .collect(Collectors.toSet());
     }
 
-    public static List<String> getCapitalsSortedByCountry(Map<String, String> countryCapitalMap) {
-        return countryCapitalMap.entrySet().stream()
+    public static List<String> getCapitalsSortedByCountry(Map<String, String> countriesAndCapitals) {
+        return countriesAndCapitals.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
@@ -43,13 +43,13 @@ public class Utils {
                 .collect(Collectors.toList());
     }
 
-    public static Set<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> friendsMap) {
-        return friendsMap.entrySet().stream()
+    public static Set<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> usersFriends) {
+        return usersFriends.entrySet().stream()
                 .flatMap(entry -> {
                     String person = entry.getKey();
                     Set<String> friends = new HashSet<>(entry.getValue());
 
-                    return friendsMap.entrySet().stream()
+                    return usersFriends.entrySet().stream()
                             .filter(e -> !e.getKey().equals(person))
                             .filter(e -> !Collections.disjoint(friends, e.getValue()))
                             .filter(e -> !e.getValue().contains(person))
@@ -86,7 +86,7 @@ public class Utils {
     }
 
     public static List<Integer> findPalindromes(int start, int end) {
-        return IntStream.rangeClosed(start, end)
+        return IntStream.range(start, end)
                 .filter(Utils::isIntPalindrome)
                 .boxed()
                 .collect(Collectors.toList());
@@ -113,7 +113,7 @@ public class Utils {
     }
 
     public static List<Integer> findPerfectNumbers(int start, int end) {
-        return IntStream.rangeClosed(start, end)
+        return IntStream.range(start, end)
                 .filter(Utils::isPerfectNumber)
                 .boxed()
                 .collect(Collectors.toList());
