@@ -27,4 +27,5 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    defaultCharacterEncoding "UTF-8"
 }
