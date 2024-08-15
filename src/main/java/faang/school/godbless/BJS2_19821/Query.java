@@ -1,19 +1,20 @@
 package faang.school.godbless.BJS2_19821;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.Random;
 
+
+@EqualsAndHashCode
 @ToString
-public class Query {
-    private static int queryIndex = 0;
-    private int id;
+public class Query implements Comparable<Query> {
+    private final Long id;
+    private final String content;
     @Getter
-    private String content;
-    @Getter
-    private LocalDateTime timestamp;
+    private final LocalDateTime timestamp;
 
     private LocalDateTime generateTimestamp() {
         Random random = new Random();
@@ -23,9 +24,14 @@ public class Query {
         return LocalDateTime.now().plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
     }
 
-    public Query(String content) {
-        this.id = ++queryIndex;
+    public Query(Long id, String content) {
+        this.id = id;
         this.content = content;
         this.timestamp = generateTimestamp();
+    }
+
+    @Override
+    public int compareTo(Query query) {
+        return -this.timestamp.compareTo(query.getTimestamp());
     }
 }

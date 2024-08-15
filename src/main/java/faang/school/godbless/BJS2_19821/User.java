@@ -1,19 +1,15 @@
 package faang.school.godbless.BJS2_19821;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @EqualsAndHashCode
+@AllArgsConstructor
 @ToString
 public class User {
-    private static int userIndex = 0;
-    private int id;
+    private final Long id;
     @Getter
     private String name;
-
-    public User(String name) {
-        this.id = ++userIndex;
-        this.name = name;
-    }
 }
