@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -55,9 +56,9 @@ public class Main {
         System.out.println(avgSalaryByDepartment(employees));
 
         System.out.println("String only in alphaber: ");
-        List<String> stringsList = List.of("apple", "banana", "123", "dog", "cat");
-        char[] alphabet = {'a', 'b', 'd'};
-
+        List<String> stringsList = List.of("apple", "banana", "123", "dog", "cat", "!some", "wor#d");
+        char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+        System.out.println(stringAlphabetSort(stringsList, alphabet));
     }
 
     public static Map<String, Integer> uniquePairs(List<Integer> inputList, int targetSum) {
@@ -101,8 +102,15 @@ public class Main {
     }
 
     public static List<String> stringAlphabetSort(List<String> strings, char[] alphabet) {
+        List<Character> alphabetChars = IntStream.range(0, alphabet.length)
+                .mapToObj(ch -> alphabet[ch])
+                .toList();
 
-
-        return null;
+        return strings.stream()
+                .filter(string -> string.chars()
+                        .allMatch(ch -> alphabetChars.contains((char) ch))
+                )
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 }
