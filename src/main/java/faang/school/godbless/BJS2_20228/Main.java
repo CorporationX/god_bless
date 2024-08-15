@@ -1,82 +1,64 @@
 package faang.school.godbless.BJS2_20228;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 
 public class Main {
     private static final int CACHE_SIZE = 3;
-    private static int currentCacheSize = 0;
-    private static Map<Integer, Data> storage = new HashMap<>();
-    private static Map<Integer, Data> cache = new HashMap<>();
-    private static SortedMap<Data, Integer> idIndexesByTimestamp = new TreeMap<>();
+    public Map<Long, Data> cache = new LinkedHashMap<>(16, 0.75f, true) {
 
-    private static void addDataToStorage(Data data) {
-        storage.put(data.getId(), data);
+        @Override
+        protected boolean removeEldestEntry(Map.Entry<Long, Data> eldest) {
+            return cache.size() > CACHE_SIZE;
+        }
+    };
+
+    public void addData(Data data) {
+        data.updateTimestamp();
+        cache.put(data.getId(), data);
     }
 
-    private static Data requestData(int id) {
+    public Data getData(Long id) {
         if (cache.containsKey(id)) {
-            Data dataFromCache = cache.get(id);
-            idIndexesByTimestamp.remove(dataFromCache);
-            dataFromCache.updateTimestamp();
-            idIndexesByTimestamp.put(dataFromCache, dataFromCache.getId());
-            return dataFromCache;
-        } else if (storage.containsKey(id)) {
-            Data dataFromStorage = storage.get(id);
-            dataFromStorage.updateTimestamp();
-            if (currentCacheSize < CACHE_SIZE) {
-                cache.put(dataFromStorage.getId(), dataFromStorage);
-                idIndexesByTimestamp.put(dataFromStorage, dataFromStorage.getId());
-                currentCacheSize++;
-            } else if (currentCacheSize == CACHE_SIZE) {
-                Data oldestDataFromCache = idIndexesByTimestamp.firstKey();
-                int oldestIdFromCache = idIndexesByTimestamp.remove(oldestDataFromCache);
-                cache.remove(oldestIdFromCache);
-                cache.put(dataFromStorage.getId(), dataFromStorage);
-                idIndexesByTimestamp.put(dataFromStorage, dataFromStorage.getId());
-            }
-            return dataFromStorage;
+            Data data = cache.get(id);
+            data.updateTimestamp();
+            return data;
         } else {
-            throw new IllegalArgumentException("This id does not exist");
+            throw new IllegalArgumentException("This ID does not exist");
         }
     }
 
-    private static void viewCache() {
-        System.out.println("id\t\t" + "value\t\t" + "timestamp");
-        for (Map.Entry<Integer, Data> entry : cache.entrySet()) {
-            int id = entry.getKey();
-            String value = entry.getValue().getValue();
-            String timestamp = entry.getValue().getTimestamp().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
-            System.out.println(id + "\t\t" + value + "\t\t" + timestamp);
+    public void viewCache() {
+        for (Map.Entry<Long, Data> entry : cache.entrySet()) {
+            Long id = entry.getKey();
+            Data data = entry.getValue();
+            System.out.println(id + ": " + data);
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        SortedMap<Data, Integer> ddd = new TreeMap<>();
-        Data one = new Data("lolo");
-        Thread.sleep(1000);
-        Data two = new Data("keks");
-        Data three = new Data("ohio");
-        Data four = new Data("salam");
-        addDataToStorage(one);
-        addDataToStorage(two);
-        addDataToStorage(three);
-        addDataToStorage(four);
-        requestData(1);
-        Thread.sleep(1000);
-        requestData(2);
-        Thread.sleep(1000);
-        viewCache();
+        Main application = new Main();
+        Data one = new Data(1L, "one");
+        Data two = new Data(2L, "two");
+        Data three = new Data(3L, "three");
+        Data four = new Data(4L, "four");
+        application.addData(one);
+        Thread.sleep(100);
+        application.addData(two);
+        Thread.sleep(100);
+        application.addData(three);
+        application.viewCache();
         System.out.println();
-        requestData(3);
+
+        Thread.sleep(100);
+        application.addData(four);
+        application.viewCache();
+        System.out.println();
+
         Thread.sleep(1000);
-        requestData(4);
-        viewCache();
+        System.out.println(application.getData(3L));
+        application.viewCache();
     }
 }
 
