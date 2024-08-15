@@ -9,9 +9,10 @@ public class EmailProcessor {
     public void processEmails(List<Email> emailList, Predicate<Email> predicate, Consumer<Email> consumer,
                               Function<Email, String> function) {
         for (Email email : emailList) {
-            predicate.test(email);
-            function.apply(email);
-            consumer.accept(email);
+            if (predicate.test(email)) {
+                function.apply(email);
+                consumer.accept(email);
+            }
         }
     }
 }
