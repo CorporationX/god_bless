@@ -4,6 +4,7 @@ import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 public class NotificationManager {
@@ -11,7 +12,7 @@ public class NotificationManager {
 
     public void registerHandler(@NonNull String type, @NonNull Consumer<Notification> handler) {
         if (notificationHandlers.containsKey(type)) {
-            System.out.println("\nAlready have handler for this type of notification");
+            throw new IllegalArgumentException("Already has handler for this type of message");
         } else {
             notificationHandlers.put(type, handler);
         }
@@ -21,7 +22,7 @@ public class NotificationManager {
         if (notificationHandlers.containsKey(notification.getType())) {
             notificationHandlers.get(notification.getType()).accept(notification);
         } else {
-            System.out.println("Can't handle this notification. No handler");
+            throw new NoSuchElementException("No handler for this type of message");
         }
     }
 }
