@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -31,7 +32,6 @@ public class LruCacheManagerTest {
         lruCacheManager = new LruCacheManager(new DataStructure(new HashMap<>()));
         dataList = List.of(data1, data2, data3, data4, data5, data6,
                 data7, data8, data9, data10, data11, data12);
-        // add default data:
         dataList.forEach(data -> {
             lruCacheManager.addNewDataIntoDataStructure(data);
         });
@@ -53,7 +53,6 @@ public class LruCacheManagerTest {
         assertEquals(data1, lruCacheManager.findDataById(data1.getId()));
     }
 
-    // Тесты просто визуализируют движение данных внутри кеша
     @Test
     @DisplayName("Print all data in cache")
     void testPrintAllDataInCache() {
@@ -88,7 +87,7 @@ public class LruCacheManagerTest {
             throw new RuntimeException(e);
         }
     }
-
+    @DisplayName("Add data to cache with delay")
     void addDataToCache() {
         try {
             lruCacheManager.findDataById(8L);

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LruCacheManager {
@@ -29,7 +31,11 @@ public class LruCacheManager {
             data = cache.remove(id);
             data.setTimeStamp(LocalDateTime.now());
         } else {
-            data = dataStructure.findDataById(id);
+            try {
+                data = dataStructure.findDataById(id);
+            } catch (NoSuchElementException exception) {
+                throw new NoSuchElementException(exception.getMessage());
+            }
             data.setTimeStamp(LocalDateTime.now());
         }
         cache.put(data.getId(), data);
