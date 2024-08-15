@@ -1,12 +1,12 @@
 package faang.school.godbless.javalambda.task11;
 
 public class Droid {
+    private static final int NUMBER_OF_LETTERS = 25;
     public String sendEncryptedMessage(String message, Integer encryptionKey) {
-        ShiftChar shiftChar = (symbol, key, minChar, maxChar) -> {
-            if (symbol + key >= maxChar) {
-                symbol = (char) (minChar - maxChar + symbol + key);
-            } else {
-                symbol = (char) (symbol + key);
+        ShiftChar shiftChar = (symbol, key, startChar) -> {
+            symbol += key;
+            if (symbol >= startChar + NUMBER_OF_LETTERS) {
+                symbol -= NUMBER_OF_LETTERS;
             }
             return symbol;
         };
@@ -15,11 +15,10 @@ public class Droid {
     }
 
     public String receiveEncryptedMessage(String message, Integer encryptionKey) {
-        ShiftChar shiftChar = (symbol, key, minChar, maxChar) -> {
-            if (symbol - key < minChar) {
-                symbol = (char) (maxChar - minChar + symbol - key);
-            } else {
-                symbol = (char) (symbol - key);
+        ShiftChar shiftChar = (symbol, key, startChar) -> {
+            symbol -= key;
+            if (symbol < startChar) {
+                symbol += NUMBER_OF_LETTERS;
             }
             return symbol;
         };
@@ -32,9 +31,9 @@ public class Droid {
         for (int i = 0; i < arrayChars.length; i++) {
             char symbol = arrayChars[i];
             if (symbol >= 'A' && symbol <= 'Z') {
-                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % 25, 'A', 'Z');
+                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % NUMBER_OF_LETTERS, 'A');
             } else if (symbol >= 'a' && symbol <= 'z') {
-                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % 25, 'a', 'z');
+                arrayChars[i] = shiftChar.shift(symbol, encryptionKey % NUMBER_OF_LETTERS, 'a');
             }
         }
         return new String(arrayChars);
