@@ -38,7 +38,6 @@ public class Main {
         if (!queriesByUsers.containsKey(user)) {
             throw new IllegalArgumentException("This user does not exist");
         }
-        queriesByUsers.remove(user);
         for (Map.Entry<User, Set<Query>> entry : queriesByUsers.entrySet()) {
             User targetUser = entry.getKey();
             if (Objects.equals(user, targetUser)) {
