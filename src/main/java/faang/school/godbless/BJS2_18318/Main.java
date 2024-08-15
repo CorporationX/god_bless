@@ -3,6 +3,7 @@ package faang.school.godbless.BJS2_18318;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,6 +19,21 @@ public class Main {
                 new Employee("Park", 1300, "ITSec"),
                 new Employee("Alex", 800, "IT"),
                 new Employee("Mark", 850, "HR"));
+
+        Map<String, List<String>> people = Map.of(
+                "Robert", List.of("Denis", "Sultan", "Evgenii"),
+                "Max", List.of("Kent", "Klark", "Denis"),
+                "Sasha", List.of("Pupa", "Lupa", "Chmonya"),
+                "Gosha", List.of("Lupa","Gennadiy", "Piotr"),
+                "Alex", List.of("Denis", "Asad", "asdas")
+        );
+        Map<String, Set<String>> people2 = Map.of(
+                "Robert", Set.of("Denis", "Sultan", "Evgenii"),
+                "Max", Set.of("Kent", "Klark", "Denis"),
+                "Sasha", Set.of("Pupa", "Lupa", "Chmonya"),
+                "Gosha", Set.of("Lupa","Gennadiy", "Piotr")//,
+                //"Alex", Set.of("Denis", "Asad", "asdas")
+        );
         Exercises.getSumOfNumbersThatEqualsToSpecific(numbers, 9);
         System.out.println(Exercises.getSortedCapitals(capitals));
         System.out.println(Exercises.getSortedStringStartedWithSpecificSymbol(Arrays.asList("park", "paska", "damn", "pap", "p"), 'p'));
@@ -26,5 +42,7 @@ public class Main {
         System.out.println(Exercises.convertNumbersToCode(List.of(1, 23, 4, 22)));
         System.out.println(Exercises.findPalindromes(1, 50));
         System.out.println(Exercises.findPalindromesFromString("totat"));
+        System.out.println(Exercises.getPeopleWhoDontKnowEachOther(people));
+        System.out.println(Exercises.avc(people2));
     }
 }

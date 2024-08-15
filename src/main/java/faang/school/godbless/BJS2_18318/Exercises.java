@@ -3,16 +3,15 @@ package faang.school.godbless.BJS2_18318;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Exercises {
-    public static void getSumOfNumbersThatEqualsToSpecific(List<Integer> numbers, int num){
+    public static void getSumOfNumbersThatEqualsToSpecific(List<Integer> numbers, int num) {
         numbers.stream()
                 .flatMap(number -> numbers.stream().filter(innerNumb -> number + innerNumb == num && number < innerNumb))
                 .forEach(x -> System.out.println(x + " " + (num - x)));
     }
 
-    public static List getSortedCapitals(Map<String, String> capitals){
+    public static List getSortedCapitals(Map<String, String> capitals) {
         return capitals
                 .entrySet()
                 .stream()
@@ -20,42 +19,50 @@ public class Exercises {
                 .map(Map.Entry::getValue).toList();
     }
 
-    public static List getSortedStringStartedWithSpecificSymbol(List<String> strings, char symbol){
-        return strings
+    public static List getSortedStringStartedWithSpecificSymbol(List<String> strings, char symbol) {
+        return Optional.of(strings
                 .stream()
                 .filter(str -> str.charAt(0) == symbol)
                 .sorted(Comparator.comparingInt(String::length))
+                .toList()).orElseThrow(IllegalArgumentException::new);
+
+    }
+
+    public static List getPeopleWhoDontKnowEachOther(Map<String, List<String>> friendsByPerson) {
+        return friendsByPerson
+                .entrySet()
+                .stream()
+                .flatMap(pair -> friendsByPerson.entrySet().stream()
+                        .filter(pair2 -> !pair2.getKey().equals(pair.getKey()))
+                        .filter(pair2 -> !pair2.getValue().contains(pair.getKey()))
+                        .filter(pair2 -> pair2.getValue().stream().anyMatch(par2 -> pair.getValue().contains(par2))))
+                .distinct()
                 .toList();
     }
 
-//    public static void getPeopleWhoDontKnowEachOther(Map<String, List<String>> friendsByPerson){
-//        friendsByPerson
-//                .entrySet()
-//                .stream()
-//                .flatMap(x -> x.getValue().stream().filter(friendsByPerson.values().stream().flatMap(list -> ))))
-//                .filter(friendName -> friendsByPerson.values().))
-//    }
-
-    public static Map findAvgSalaryByDepartment(List<Employee> employees){
+    public static Map findAvgSalaryByDepartment(List<Employee> employees) {
         return employees
                 .stream()
                 .collect(Collectors
                         .groupingBy(Employee::department,
-                                    Collectors.averagingDouble(Employee::salary)));
+                                Collectors.averagingDouble(Employee::salary)));
     }
 
-    public static List sortBySpecifiedChars(List<String> strings, String alphabet){
+    public static List sortBySpecifiedChars(List<String> strings, String alphabet) {
         return strings
                 .stream()
                 .filter(str -> Arrays.stream(str.split("")).allMatch(alphabet::contains))
                 .toList();
     }
 
-    public static List convertNumbersToCode(List<Integer> numbers){
-        return numbers.stream().map(Integer::toBinaryString).toList();
+    public static List convertNumbersToCode(List<Integer> numbers) {
+        return numbers
+                .stream()
+                .map(Integer::toBinaryString)
+                .toList();
     }
 
-    public static List findPalindromes(int startNumber, int finalNumber){
+    public static List findPalindromes(int startNumber, int finalNumber) {
         return IntStream.rangeClosed(startNumber, finalNumber).filter(num -> num == getReversedNumber(num)).boxed().toList();
     }
 
@@ -68,7 +75,7 @@ public class Exercises {
         return rev_num;
     }
 
-    public static List findPalindromesFromString(String word){
+    public static List findPalindromesFromString(String word) {
         return IntStream
                 .range(0, word.length())
                 .boxed()
@@ -82,10 +89,4 @@ public class Exercises {
         String currentWord = word.substring(start, end);
         return currentWord.contentEquals(new StringBuffer(currentWord).reverse());
     }
-
-//           /* return IntStream.rangeClosed(0, list.size())
-//                    .boxed()
-//                .flatMap(i -> IntStream.range(i + 1, list.size() - 1)
-//            .filter(j -> list.get(i) + list.get(j) == target)
-//            .mapToObj(j -> i + " " + j)).toList();*/
 }
