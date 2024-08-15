@@ -17,6 +17,10 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character enemy) {
+        int health = enemy.getHealth() - this.getPower();
+
+        enemy.setHealth(Math.max(health, 0));
+
         enemy.setHealth(enemy.getHealth() - this.getPower());
         System.out.println(this.getName() + " attacks " + enemy.getName() + " and deals " + this.getPower() + " damage.");
     }

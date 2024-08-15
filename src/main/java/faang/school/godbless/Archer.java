@@ -17,6 +17,10 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character enemy) {
+        int health = enemy.getHealth()- this.getAgility();
+
+        enemy.setHealth(Math.max(health, 0));
+
         enemy.setHealth(enemy.getHealth() - this.getAgility());
         System.out.println(this.getName() + " attacks " + enemy.getName() + " and deals " + this.getAgility() + " damage.");
     }
