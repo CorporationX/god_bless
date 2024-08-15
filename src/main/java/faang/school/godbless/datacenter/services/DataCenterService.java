@@ -36,25 +36,25 @@ public class DataCenterService {
 
     public void allocateResources(ResourceRequest request) {
         var requestLoad = request.getLoad();
-        var maxAvailableServerLoad = findMaxServer(comparing(DataCenterService::getAvailableLoad));
+        var servers = dataCenter.getServers();
+        servers.stream().findFirst().ifPresent(server -> server.allocateLoad(requestLoad));
 
+        var maxAvailableServerLoad = findMaxServer(comparing(DataCenterService::getAvailableLoad));
         if (maxAvailableServerLoad == null || getAvailableLoad(maxAvailableServerLoad) < requestLoad) {
             throw new ResourceAllocateException("There is no available servers to allocate these resources");
-        } else {
-            maxAvailableServerLoad.setLoad(maxAvailableServerLoad.getLoad() + requestLoad);
         }
     }
 
     public void releaseResources(ResourceRequest request) {
         var requestLoad = request.getLoad();
-        var maxServerLoad = findMaxServer(comparing(Server::getLoad));
+        var servers = dataCenter.getServers();
+        servers.stream().findFirst().ifPresent(server -> server.releaseLoad(requestLoad));
 
+        var maxServerLoad = findMaxServer(comparing(Server::getLoad));
         if (maxServerLoad == null || maxServerLoad.getMaxLoad() < requestLoad) {
             throw new ResourceReleaseExceptions("There is no available servers to release these resources");
         } else if (maxServerLoad.getLoad() < requestLoad) {
             maxServerLoad.setLoad(0);
-        } else {
-            maxServerLoad.setLoad(maxServerLoad.getLoad() - requestLoad);
         }
     }
 

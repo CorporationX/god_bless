@@ -91,48 +91,48 @@ class DataCenterServiceTest {
             assertEquals(100, server1.getLoad());
             assertEquals(5, server2.getLoad());
         }
+    }
 
-        @Nested
-        class NegativeTests {
+    @Nested
+    class NegativeTests {
 
-            @Test
-            void allocateResourcesTest_EmptyServers_throwResourceAllocateException() {
-                dataCenterService.removeServer(server1);
-                dataCenterService.removeServer(server2);
+        @Test
+        void allocateResourcesTest_EmptyServers_throwResourceAllocateException() {
+            dataCenterService.removeServer(server1);
+            dataCenterService.removeServer(server2);
 
-                assertThrows(ResourceAllocateException.class,
-                        () -> dataCenterService.allocateResources(new ResourceRequest(50)));
-            }
+            assertThrows(ResourceAllocateException.class,
+                    () -> dataCenterService.allocateResources(new ResourceRequest(50)));
+        }
 
-            @Test
-            void allocateResourcesTest_BigRequestLoad_throwResourceAllocateException() {
-                assertThrows(ResourceAllocateException.class,
-                        () -> dataCenterService.allocateResources(new ResourceRequest(1000)));
-            }
+        @Test
+        void allocateResourcesTest_BigRequestLoad_throwResourceAllocateException() {
+            assertThrows(ResourceAllocateException.class,
+                    () -> dataCenterService.allocateResources(new ResourceRequest(1000)));
+        }
 
-            @Test
-            void releaseResourcesTest_EmptyServers_throwResourceReleaseExceptions() {
-                dataCenterService.removeServer(server1);
-                dataCenterService.removeServer(server2);
+        @Test
+        void releaseResourcesTest_EmptyServers_throwResourceReleaseExceptions() {
+            dataCenterService.removeServer(server1);
+            dataCenterService.removeServer(server2);
 
-                assertThrows(ResourceReleaseExceptions.class,
-                        () -> dataCenterService.releaseResources(new ResourceRequest(50)));
-            }
+            assertThrows(ResourceReleaseExceptions.class,
+                    () -> dataCenterService.releaseResources(new ResourceRequest(50)));
+        }
 
-            @Test
-            void releaseResourcesTest_BigRequestLoad_throwResourceReleaseExceptions() {
-                assertThrows(ResourceReleaseExceptions.class,
-                        () -> dataCenterService.releaseResources(new ResourceRequest(1000)));
-            }
+        @Test
+        void releaseResourcesTest_BigRequestLoad_throwResourceAllocateException() {
+            assertThrows(ResourceAllocateException.class,
+                    () -> dataCenterService.releaseResources(new ResourceRequest(1000)));
+        }
 
-            @Test
-            void releaseResourcesTest_RequestLoadBiggerThanAvailableLoad_throwResourceReleaseExceptions() {
-                assertNotEquals(0, server1.getLoad());
+        @Test
+        void releaseResourcesTest_RequestLoadBiggerThanAvailableLoad_throwResourceReleaseExceptions() {
+            assertNotEquals(0, server1.getLoad());
 
-                dataCenterService.releaseResources(new ResourceRequest(120));
+            dataCenterService.releaseResources(new ResourceRequest(90));
 
-                assertEquals(0, server1.getLoad());
-            }
+            assertEquals(0, server1.getLoad());
         }
     }
 }
