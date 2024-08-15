@@ -12,8 +12,6 @@ public class Main {
     private static Map<Integer, Integer> indexById = new HashMap<>();
 
     public static void main(String[] args) {
-
-
         List<StreamEvent> streamEventList = new ArrayList<>();
         StreamEvent streamEventGet = new StreamEvent("get");
         StreamEvent streamEventPut = new StreamEvent("put");
@@ -23,7 +21,6 @@ public class Main {
         streamEventList.add(streamEventPut);
         streamEventList.add(streamEventSecondGet);
         streamEventList.add(streamEventSecondPut);
-
 
         for (StreamEvent se : streamEventList) {
             addStreamEvent(se);
@@ -35,7 +32,6 @@ public class Main {
 
         System.out.println(eventGroupByTipe);
         printAllStreamEvents();
-
     }
 
     public static void addStreamEvent(StreamEvent event) {
@@ -44,7 +40,6 @@ public class Main {
         eventGroupByTipe.computeIfAbsent(event.getEventType(), k -> new ArrayList<>());
         eventGroupByTipe.get(event.getEventType()).add(event);
         indexById.put(event.getId(), eventGroupByTipe.get(event.getEventType()).indexOf(event));
-
     }
 
     public static void removeStreamEvent(int id) {
