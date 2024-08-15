@@ -1,6 +1,7 @@
 package faang.school.godbless.meta;
 
 import lombok.Getter;
+import lombok.NonNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,13 +15,8 @@ public class NotificationManager {
         notificationMap.put(type, handler);
     }
 
-    void sendNotification(Notification notification) {
+    void sendNotification(@NonNull Notification notification) {
         Consumer<Notification> handler = notificationMap.get(notification.getType());
-
-        if (handler != null) {
             handler.accept(notification);
-        } else {
-            System.out.println("No handler registered for notification type");
-        }
     }
 }
