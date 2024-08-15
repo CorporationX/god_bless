@@ -1,3 +1,4 @@
+
 package ru.kraiush.BJS2_19557;
 
 public record CompositeKey(String key1, Integer key2) {

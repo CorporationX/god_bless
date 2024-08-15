@@ -35,12 +35,11 @@ public class User {
     }
 
     public static List<User> getUsers() {
-        User john = new User(1l, "John Lennon", 41, Set.of("music", "photo"));
-        User starr = new User(2l, "Ringo Starr", 65, Set.of("creeds", "journeys"));
-        User charly = new User(3l, "Charly Chaplin", 150, Set.of("rock climbing", "tennis"));
-        User mary = new User(4l, "Mary Blad", 17, Set.of("sailing"));
+        User john = new User(1L, "John Lennon", 41, Set.of("music", "photo", "dreaming"));
+        User starr = new User(2L, "Ringo Starr", 65, Set.of("creeds", "journeys"));
+        User charlie = new User(3L, "Charlie Chaplin", 150, Set.of("rock climbing", "tennis"));
+        User mary = new User(4L, "Mary Blad", 17, Set.of("sailing", "rock climbing"));
 
-        return Arrays.asList(john, starr, charly, mary);
+        return Arrays.asList(john, starr, charlie, mary);
     }
-
 }

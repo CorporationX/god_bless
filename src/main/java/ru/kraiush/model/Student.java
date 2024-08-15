@@ -1,3 +1,4 @@
+
 package ru.kraiush.model;
 
 import lombok.*;
@@ -18,6 +19,7 @@ public class Student {
     private String name;
     private String faculty;
     private Integer course;
+
     public static Set<Student> findStudentsByFacultyAndCourse(List<Student> students, String faculty, Integer course) {
           return students.stream()
                 .filter(s -> s.getFaculty().equals(faculty))
