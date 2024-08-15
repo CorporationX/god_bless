@@ -29,8 +29,6 @@ public class InventoryManager {
         for (Item item : character.getInventory()) {
             if (predicate.test(item)) {
                 updateItems.add(function.apply(item));
-            } else {
-                updateItems.add(item);
             }
         }
     }
