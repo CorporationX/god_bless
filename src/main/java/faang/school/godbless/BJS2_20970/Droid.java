@@ -39,7 +39,7 @@ public class Droid {
 
     private static int decrypt(char c, int key, int minBorder, int maxBorder) {
         int code = c;
-        code -= key % 26;
+        code -= key;
         if (code < minBorder) {
             code = maxBorder - (minBorder - code) + 1;
         }
