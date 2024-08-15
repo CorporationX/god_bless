@@ -4,7 +4,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +30,8 @@ public class Hero {
                 army.put(creature, currentQuantity - quantity);
             }
         }
+    }
+    public  Map<Creature, Integer>  getArmy() {
+        return army;
     }
 }

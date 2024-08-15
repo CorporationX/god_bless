@@ -20,7 +20,7 @@ public class Battlefield {
         } else if (hero2Damage > hero1Damage) {
             return hero2;
         } else {
-            return null; // Draw
+            return null;
         }
     }
 
@@ -28,8 +28,7 @@ public class Battlefield {
         int totalDamage = 0;
         for (Map.Entry<Creature, Integer> entry : hero.getArmy().entrySet()) {
             Creature creature = entry.getKey();
-            int quantity = entry.getValue();
-            totalDamage += creature.getDemage();
+            totalDamage += (creature.getDemage() * entry.getValue());
         }
         return totalDamage;
     }
