@@ -1,5 +1,6 @@
 package faang.school.godbless;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -7,9 +8,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+
 public class Application {
 
     private static final Set<Product> ID_PRODUCT = new HashSet<>();
+
 
     public static void main(String[] args) {
         System.out.println("God Bless!");
@@ -40,5 +44,5 @@ public class Application {
         for (Map.Entry<String, List<Product>> pair : groupProduct.entrySet()) {
             System.out.println(pair.getKey() + pair.getValue());
         }
-    }
-}
+
+
