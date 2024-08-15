@@ -3,14 +3,15 @@ package faang.school.godbless;
 
 public class Application {
     public static void main(String[] args) {
-        SpellCaster spellCaster = new SpellCaster();
+        Character frodo = new Character("Frodo");
+        Item ring = new Item("The One Ring", 1000);
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+        InventoryManager manager = new InventoryManager();
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
+
+        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
+
+        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
     }
 }
