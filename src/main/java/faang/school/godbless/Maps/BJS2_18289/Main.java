@@ -8,17 +8,20 @@ public class Main {
 
     public static void main(String[] args) {
 
+        weatherDataCaсhe.put("London", new WeatherData("London", 20, 80));
+        weatherDataCaсhe.put("London", new WeatherData("Bagdad", 40, 10));
+        weatherDataCaсhe.put("London", new WeatherData("Moscow", 25, 40));
+
+        System.out.println(getWeatherData("London"));
+        System.out.println(getWeatherData("Monako"));
+
 
     }
 
     public static WeatherData getWeatherData(String city){
+        weatherDataCaсhe.computeIfAbsent(city, k->MockService.getDefaultData(k));
         WeatherData data = weatherDataCaсhe.get(city);
-        if(data == null){
-            WeatherData mockWeatherData =  MockService.getDefaultData(city);
-            weatherDataCaсhe.put(city, mockWeatherData);
 
-            return mockWeatherData;
-        }
         return data;
     }
 
