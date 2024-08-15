@@ -1,7 +1,24 @@
 package faang.school.godbless;
 
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+
 public class Application {
     public static void main(String[] args) {
-        System.out.println("God Bless!");
+        EmailProcessor emailProcessor = new EmailProcessor();
+
+        List<Email> emails = Arrays.asList(
+                new Email("Письмо 1", "Текст письма 1", false),
+                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Спам", "Текст спама", false)
+        );
+
+        Predicate<Email> importantFilter = email -> email.isImportant();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 }
