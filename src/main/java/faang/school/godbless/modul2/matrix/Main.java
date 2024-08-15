@@ -1,6 +1,7 @@
 package faang.school.godbless.modul2.matrix;
 
 import java.util.Arrays;
+import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,41 +10,36 @@ public class Main {
                 {4, 5, 6},
                 {7, 8, 9}
         };
-        printMatrix(matrix);
+
+        var horizontalMatrix = flipMatrix(matrix, FlipDirection.HORIZONTAL);
+        Arrays.stream(horizontalMatrix).forEach(row -> System.out.println(Arrays.toString(row)));
+
         System.out.println();
+
+        var verticalMatrix = flipMatrix(matrix, FlipDirection.VERTICAL);
+        Arrays.stream(verticalMatrix).forEach(o -> System.out.println(Arrays.toString(o)));
     }
 
-    public static void printMatrix(int[][] matrix) {
-        Arrays.stream(matrix).forEach(row ->
-                System.out.println(String.join(" ", Arrays.stream(row).mapToObj(String::valueOf).toArray(String[]::new))));
-    }
-
-    public static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer, FlipDirection flipDirection) {
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
-        if (flipDirection == FlipDirection.VERTICAL) {
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols / 2; j++) {
-                    swapElements(matrix, transformer, i, j);
-                }
+    public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+        MatrixTransformer transformer = (row, col) -> {
+            if (flipDirection == FlipDirection.VERTICAL) {
+                return new Coordinates(matrix.length - row - 1, col);
+            } else {
+                return new Coordinates(row, matrix[0].length - col - 1);
             }
-        } else if (flipDirection == FlipDirection.HORIZONTAL) {
-            for (int j = 0; j < cols; j++) {
-                for (int i = 0; i < rows / 2; i++) {
-                    swapElements(matrix, transformer, i, j);
-                }
-            }
-        } else {
-            throw new IllegalStateException("Unexpected value: " + flipDirection);
-        }
-        return matrix;
+        };
+        return transformMatrix(matrix, transformer);
     }
 
-    public static void swapElements(int[][] matrix, MatrixTransformer transformer, int i, int j) {
-        var coordinates = transformer.transform(i, j);
-        var tmp = matrix[i][j];
-        matrix[i][j] = matrix[coordinates.getX()][coordinates.getY()];
-        matrix[coordinates.getX()][coordinates.getY()] = tmp;
+    private static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
+        var transformedMatrix = new int[matrix.length][matrix[0].length];
+
+        IntStream.range(0, matrix.length).forEach(row ->
+                IntStream.range(0, matrix[0].length).forEach(col -> {
+                    Coordinates newCoordinates = transformer.transform(row, col);
+                    transformedMatrix[newCoordinates.getY()][newCoordinates.getX()] = matrix[row][col];
+                })
+        );
+        return transformedMatrix;
     }
 }

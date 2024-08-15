@@ -1,9 +1,11 @@
 package faang.school.godbless.modul2.matrix;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
-@Data
+@Getter
+@EqualsAndHashCode
 @AllArgsConstructor
 public class Coordinates {
     private int x;
