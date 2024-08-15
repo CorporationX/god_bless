@@ -22,24 +22,32 @@ public class User {
             this.address = address;
             this.job = job;
         } else {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Arguments are invalid!");
         }
     }
 
     private boolean validateUser(String name, int age, String job, String address) {
-        if (name.isBlank()) {
-            System.out.println("User name should not be empty!");
-            return false;
-        } else if (age < MINIMUM_AGE) {
-            System.out.println(name + "'s age should be more than 18!");
-            return false;
-        } else if (address == null || !VALID_ADDRESSES.contains(address)) {
-            System.out.println(name + "'s address " + address + " not valid!");
-            return false;
-        } else if (job == null || !VALID_JOBS.contains(job)) {
-            System.out.println(name + "'s job " + job + " not valid!");
+        if (validateName(name) && validateAge(age) && validateJob(job) && validateAddress(address)) {
+            return true;
+        } else {
+            System.out.println("Some of the parameters invalid or null!");
             return false;
         }
-        return true;
+    }
+
+    private boolean validateName(String name) {
+        return name != null && !name.isBlank();
+    }
+
+    private boolean validateAge(int age) {
+        return age > MINIMUM_AGE;
+    }
+
+    private boolean validateAddress(String address) {
+        return address != null && VALID_ADDRESSES.contains(address);
+    }
+
+    private boolean validateJob(String job) {
+        return job != null && VALID_JOBS.contains(job);
     }
 }
