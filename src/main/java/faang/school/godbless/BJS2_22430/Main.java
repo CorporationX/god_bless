@@ -53,6 +53,11 @@ public class Main {
                 new Employee("Jessica", 270, "IT")
         );
         System.out.println(avgSalaryByDepartment(employees));
+
+        System.out.println("String only in alphaber: ");
+        List<String> stringsList = List.of("apple", "banana", "123", "dog", "cat");
+        char[] alphabet = {'a', 'b', 'd'};
+
     }
 
     public static Map<String, Integer> uniquePairs(List<Integer> inputList, int targetSum) {
@@ -93,5 +98,11 @@ public class Main {
     public static Map<String, Double> avgSalaryByDepartment(List<Employee> employees) {
         return employees.stream()
                 .collect(Collectors.groupingBy((Employee::getDepartment), Collectors.averagingDouble(Employee::getSalary)));
+    }
+
+    public static List<String> stringAlphabetSort(List<String> strings, char[] alphabet) {
+
+
+        return null;
     }
 }
