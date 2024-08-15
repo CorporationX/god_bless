@@ -1,16 +1,24 @@
 package faang.school.godbless;
 
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Application {
     public static void main(String[] args) {
-        SpellCaster spellCaster = new SpellCaster();
+        EmailProcessor emailProcessor = new EmailProcessor();
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+        List<Email> emails = Arrays.asList(
+                new Email("Письмо 1", "Текст письма 1", false),
+                new Email("Письмо 2", "Текст письма 2", true),
+                new Email("Спам", "Текст спама", false)
+        );
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+        Predicate<Email> importantFilter = email -> email.isImportant();
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
     }
 }
