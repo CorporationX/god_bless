@@ -6,6 +6,7 @@ public class Droid {
     private final static int MIN_UPPER_CODE = 65;
     private final static int MAX_LOWER_CODE = 122;
     private final static int MIN_LOWER_CODE = 97;
+    private final static int ALPHABET_SIZE = 26;
 
     public String sendEncryptedMessage(String message, int key) {
         StringBuilder result = new StringBuilder();
@@ -30,7 +31,7 @@ public class Droid {
 
     private static int encrypt(char c, int key, int minBorder, int maxBorder) {
         int code = c;
-        code += key;
+        code += key % ALPHABET_SIZE;
         if (code > maxBorder) {
             code = code % maxBorder + minBorder - 1;
         }
@@ -39,7 +40,7 @@ public class Droid {
 
     private static int decrypt(char c, int key, int minBorder, int maxBorder) {
         int code = c;
-        code -= key;
+        code -= key % ALPHABET_SIZE;
         if (code < minBorder) {
             code = maxBorder - (minBorder - code) + 1;
         }
