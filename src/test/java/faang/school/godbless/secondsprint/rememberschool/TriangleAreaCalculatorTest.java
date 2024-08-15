@@ -39,7 +39,8 @@ public class TriangleAreaCalculatorTest {
                 () -> {
                     Exception invalidTriangleException = assertThrows(IllegalArgumentException.class,
                             () -> TriangleAreaCalculator.triangleArea(1, 2, 3));
-                    assertEquals("The provided sides do not form a valid triangle", invalidTriangleException.getMessage());
+                    assertEquals("The provided sides do not form a valid triangle",
+                            invalidTriangleException.getMessage());
                 }
         );
     }
