@@ -18,5 +18,6 @@ public class Product {
         this.id = ThreadLocalRandom.current().nextInt(1,10000);
         this.name = name;
         this.category = category;
+
     }
 }

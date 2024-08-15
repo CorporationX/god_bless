@@ -18,7 +18,7 @@ public class Main {
         products.add(new Product("Breguet", "Exclusive"));
         products.add(new Product("Casio", "Mass market"));
         products.add(new Product("PatekPH", "Luxury"));
-        products.add(new Product("Zenit", "Exclusive"));
+        products.add(new Product("Zenit",  "Exclusive"));
 
         printAllProds(gruopProdsMap());
 
