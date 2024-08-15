@@ -7,36 +7,36 @@ public class App_Example {
 
     public static void main(String[] args) {
 
-        int[] aint = {1,2,3,4,5,6,7,8,9,10};
+        int[] array_int = {1,2,3,4,5,6,7,8,9,10};
+        System.out.print(String.join("", Collections.nCopies(60, "-")));
+        System.out.println("\nInitial array");
+        System.out.println(Arrays.toString(array_int));
 
-        System.out.println(Arrays.toString(aint));
+        Integer[] array_Integer = new Integer[array_int.length];
+        Arrays.setAll(array_Integer, i -> array_int[i]);
 
-        Integer[] aInt = new Integer[aint.length];
-        Arrays.setAll(aInt, i -> aint[i]);
-
-        reverseUseTempArr(aint);
-
-        reverseUseFunction(aInt);
+        reverseUseFunction(array_Integer);
+        reverseUseTempArr(array_int);
+        System.out.println();
+        System.out.print(String.join("", Collections.nCopies(60, "-")));
     }
 
-    static void reverseUseFunction(Integer a[])
-    {
-        Collections.reverse(Arrays.asList(a));
-        System.out.println("\nReversed array is:");
-        System.out.println(Arrays.asList(a));
+    static void reverseUseFunction(Integer array[]) {
+        Collections.reverse(Arrays.asList(array));
+        System.out.println("\nReversed arrayay by use Collection's reverse:");
+        System.out.println(Arrays.asList(array));
     }
 
-    static void reverseUseTempArr(int a[])
-    {
-        int[] b = new int[a.length];
-        int j = a.length;
-        for (int i = 0; i < a.length; i++) {
-            b[j - 1] = a[i];
+    static void reverseUseTempArr(int array[]) {
+        int[] reversedArray = new int[array.length];
+        int j = array.length -1;
+        for (int i = 0; i < array.length; i++) {
+            reversedArray[j] = array[i];
             j = j - 1;
         }
-        System.out.println("Reversed array is:");
-        for (int k = 0; k < a.length; k++) {
-            System.out.print(b[k] + " ");
+        System.out.println("\nReversed arrayay by use temp array:");
+        for (int k = 0; k < array.length; k++) {
+            System.out.print(reversedArray[k] + " ");
         }
     }
 }
