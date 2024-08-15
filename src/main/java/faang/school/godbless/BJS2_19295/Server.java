@@ -13,12 +13,17 @@ public class Server {
     private double energyConsumption;
 
     public void addLoad(double load) {
-        this.load += load;
+        if (this.load + load <= maxLoad) {
+            this.load += load;
+        } else {
+            throw new IllegalArgumentException("The load exceeds the maximum permissible load");
+        }
     }
     public void releaseLoad(double load) {
-        this.load -= load;
-    }
-    public void deleteLoad() {
-        this.load = 0;
+        if (this.load - load >= 0) {
+            this.load -= load;;
+        } else {
+            throw new IllegalArgumentException("The load exceeds the maximum releasable load");
+        }
     }
 }

@@ -1,21 +1,20 @@
 package faang.school.godbless.BJS2_19295;
 
-import lombok.Getter;
-
+import java.sql.Time;
+import java.time.LocalTime;
 import java.util.List;
+import java.util.TimerTask;
 
-@Getter
 public class DataCenterService {
 
     private final OptimizationStrategy loadBalancingOptimization = new LoadBalancingOptimizationStrategy(this);
-    private final OptimizationScheduler optimizationScheduler = new OptimizationScheduler();
+    private final OptimizationTimer optimizationTimer = new OptimizationTimer();
 
     private DataCenter dataCenter;
 
-    public DataCenterService() {
-        dataCenter = DataCenter.getInstance();
+    public DataCenterService(DataCenter dataCenter) {
+        this.dataCenter = dataCenter;
     }
-
 
     protected void addServer(Server server) {
         dataCenter.addServer(server);
@@ -57,8 +56,20 @@ public class DataCenterService {
         return maxCapacity;
     }
 
-    protected void scheduledOptimize(int timeDelayInSeconds) {
-        optimizationScheduler.start(timeDelayInSeconds, this, loadBalancingOptimization);
+    // По моему тут что то страшное но оно работает)
+    protected void startOptimizationTImer(int timeDelayInSeconds) {
+        optimizationTimer.startOptimizationTimer(timeDelayInSeconds, new TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    loadBalancingOptimization.optimize(dataCenter);
+                    System.out.println("Optimized successfully at " + Time.valueOf(LocalTime.now()));
+                } catch (Exception e) {
+                    System.out.println("Optimizing failed");
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     protected void allocateResources(ResourceRequest request) {
@@ -71,7 +82,9 @@ public class DataCenterService {
         double remainingLoad = request.getLoad();
 
         for (Server server : dataCenter.getServers()) {
-            if (remainingLoad <= 0) break;
+            if (remainingLoad <= 0) {
+                break;
+            };
 
             double availableCapacity = server.getMaxLoad() - server.getLoad();
             double loadToAdd = Math.min(remainingLoad, availableCapacity);

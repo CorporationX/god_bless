@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class DataCenter {
@@ -13,49 +14,37 @@ public class DataCenter {
     @Setter
     private List<Server> servers;
 
-    private static DataCenter INSTANCE;
-
-    private DataCenter() {
+    public DataCenter() {
         servers = new ArrayList<>();
     }
 
-    public static DataCenter getInstance() {
-        if (INSTANCE == null) {
-            INSTANCE = new DataCenter();
-        }
-
-        return INSTANCE;
-    }
-
     public void addServer(Server server) {
-        if (server != null) {
-            servers.add(server);
-        } else {
-            System.out.println("Server is null");
-        }
+        Objects.requireNonNull(server, "Server can not be null");
+        servers.add(server);
     }
 
     public void deleteServer(Server server) {
-        if (server != null) {
-            servers.remove(server);
-        } else {
-            System.out.println("Server is null");
-        }
+        Objects.requireNonNull(server, "Server can not be null");
+        servers.remove(server);
     }
 
     public void addLoad(Server server, double load) {
-        if (server != null) {
+        Objects.requireNonNull(server, "Server can not be null");
+
+        if (server.getLoad() + load <= server.getMaxLoad()) {
             server.addLoad(load);
         } else {
-            System.out.println("Server is null");
+            throw new IllegalArgumentException("The load exceeds the maximum permissible load");
         }
     }
 
     public void releaseLoad(Server server, double load) {
-        if (server != null) {
+        Objects.requireNonNull(server, "Server can not be null");
+
+        if (server.getLoad() - load >= 0) {
             server.releaseLoad(load);
         } else {
-            System.out.println("Server is null");
+            throw new IllegalArgumentException("The load exceeds the maximum releasable load");
         }
     }
 
