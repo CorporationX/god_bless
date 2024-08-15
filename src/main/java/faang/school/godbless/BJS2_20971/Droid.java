@@ -20,7 +20,6 @@ public class Droid {
 
     public void sendEncryptedMessage(Droid droid, String message, int encryptionKey) {
         String encryptedMessage = this.encryptor.encrypt(message, encryptionKey);
-        System.out.println(encryptedMessage);
         droid.getReceiver().receiveEncryptedMessage(encryptedMessage, encryptionKey);
     }
 }
