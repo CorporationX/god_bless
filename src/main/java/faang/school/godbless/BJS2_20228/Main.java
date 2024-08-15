@@ -6,7 +6,11 @@ import java.util.Map;
 
 public class Main {
     private static final int CACHE_SIZE = 3;
-    public Map<Long, Data> cache = new LinkedHashMap<>(16, 0.75f, true) {
+    private static final int HASHMAP_INIT_CAPACITY = 16;
+    private static final float HASHMAP_LOAD_FACTOR = 0.75f;
+    private static final boolean CACHE_ACCESS_ORDER = true;
+
+    public Map<Long, Data> cache = new LinkedHashMap<>(HASHMAP_INIT_CAPACITY, HASHMAP_LOAD_FACTOR, CACHE_ACCESS_ORDER) {
 
         @Override
         protected boolean removeEldestEntry(Map.Entry<Long, Data> eldest) {
