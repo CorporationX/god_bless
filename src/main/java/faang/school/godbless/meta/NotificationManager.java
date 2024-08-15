@@ -6,15 +6,15 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    public Map<String, Consumer<Notification>> notificationTypeMap = new HashMap<>();
+    public Map<String, Consumer<Notification>> handlersByType = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> notificationConsumer) {
-        if (type != null) {
-            notificationTypeMap.putIfAbsent(type, notificationConsumer);
+    public void registerHandler(String notificationType, Consumer<Notification> handler) {
+        if (notificationType != null) {
+            handlersByType.putIfAbsent(notificationType, handler);
         }
     }
 
     public void sendNotification(Notification notification) {
-        notificationTypeMap.get(notification.getType()).accept(notification);
+        handlersByType.get(notification.getType()).accept(notification);
     }
 }
