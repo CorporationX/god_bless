@@ -8,11 +8,11 @@ public class Main {
     public static void main(String[] args) {
         DictionaryProcessor dictionaryProcessor = new DictionaryProcessor();
 
-        Map<String, String> dictionaryMap = new HashMap<>();
+        Map<String, String> dictionary = new HashMap<>();
 
-        BiConsumer<String, String> addWordInDictionary = (word, translation) -> {
-            if (word != null && translation != null) {
-                dictionaryMap.putIfAbsent(word, translation);
+        BiConsumer<String, String> addWordInDictionary = (word, wordTranslation) -> {
+            if (word != null && wordTranslation != null) {
+                dictionary.putIfAbsent(word, wordTranslation);
             }
         };
 
@@ -21,6 +21,6 @@ public class Main {
         dictionaryProcessor.processWord(null, "пока", addWordInDictionary);
         dictionaryProcessor.processWord("goodbye", null, addWordInDictionary);
 
-        System.out.println(dictionaryMap);
+        System.out.println(dictionary);
     }
 }
