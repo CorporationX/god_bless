@@ -1,11 +1,16 @@
 package faang.school.godbless.LordOfTheRings;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 public class Character {
-    String name;
-    List<Item> inventory = new ArrayList<>();
+
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
+
     public Character(String name) {
         this.name = name;
     }

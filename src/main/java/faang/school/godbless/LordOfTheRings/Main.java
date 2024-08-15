@@ -2,6 +2,7 @@ package faang.school.godbless.LordOfTheRings;
 
 public class Main {
     public static void main(String[] args) {
+
         Character frodo = new Character("Frodo");
         Item ring = new Item("The One Ring", 1000);
         Item skibidi = new Item("dop-dop", 2300);
@@ -16,6 +17,6 @@ public class Main {
 
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
 
-        frodo.inventory.forEach(System.out::println);
+        frodo.getInventory().forEach(System.out::println);
     }
 }
