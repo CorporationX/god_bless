@@ -10,6 +10,9 @@ public class Main {
     private final Map<User, Set<Query>> queriesByUsers = new HashMap<>();
 
     private void addNewUser(User user, Set<Query> queries) {
+        if (queriesByUsers.containsKey(user)) {
+            throw new IllegalArgumentException("This user already exist");
+        }
         queriesByUsers.put(user, queries);
     }
 
@@ -18,6 +21,9 @@ public class Main {
     }
 
     private void removeUser(User user) {
+        if (!queriesByUsers.containsKey(user)) {
+            throw new IllegalArgumentException("This user does not exist");
+        }
         queriesByUsers.remove(user);
     }
 
@@ -29,6 +35,10 @@ public class Main {
     }
 
     private void viewUserHistory(User user) {
+        if (!queriesByUsers.containsKey(user)) {
+            throw new IllegalArgumentException("This user does not exist");
+        }
+        queriesByUsers.remove(user);
         for (Map.Entry<User, Set<Query>> entry : queriesByUsers.entrySet()) {
             User targetUser = entry.getKey();
             if (Objects.equals(user, targetUser)) {
