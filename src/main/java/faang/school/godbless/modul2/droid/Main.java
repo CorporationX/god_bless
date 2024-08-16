@@ -7,18 +7,16 @@ public class Main {
         String message = "May the Force be with you!";
         int encryptionKey = 3;
 
-        String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
-        String msg = c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
-
-        System.out.println(encryptedMsg);
-        System.out.println(msg);
-
-        int encryptionKeyTest = 0;
-        String encryptedMsgTest = r2d2.sendEncryptedMessage(message, encryptionKeyTest);
-        String msgTest = c3po.receiveEncryptedMessage(encryptedMsgTest, encryptionKeyTest);
+        r2d2.sendEncryptedMessage(c3po, message, encryptionKey);
 
         System.out.println();
-        System.out.println(encryptedMsgTest);
-        System.out.println(msgTest);
+
+        int encryptionKeyTest1 = 0;
+        r2d2.sendEncryptedMessage(c3po, message, encryptionKeyTest1);
+
+        System.out.println();
+
+        int encryptionKeyTest2 = 26;
+        r2d2.sendEncryptedMessage(c3po, message, encryptionKeyTest2);
     }
 }
