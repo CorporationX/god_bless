@@ -5,18 +5,19 @@ import lombok.Data;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Data
 @AllArgsConstructor
 public class User {
-    private long id;
-    private String name;
-    private int age;
-    private Set<String> activity;
+    private final long id;
+    private final String name;
+    private final int age;
+    private final Set<String> activity;
 
-    public static HashMap<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
-        HashMap<User, String> result = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
+        Map<User, String> result = new HashMap<>();
         for (User user : users) {
             for (String element : user.activity) {
                 if (activity.contains(element)) {
