@@ -2,15 +2,17 @@ package faang.school.godbless.DoubleCache;
 
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class Main {
     private Map<Student, Map<Subject, Integer>> studentsAchievementsInSubjects = new HashMap<>();
     private Map<Subject, Set<Student>> subjectsWithStudents = new HashMap<>();
-    
+
     public static void main(String[] args) {
         Main main = new Main();
 
@@ -28,7 +30,7 @@ public class Main {
         Map<Subject, Integer> bobAchievements = new HashMap<>();
         bobAchievements.put(math, 75);
         bobAchievements.put(history, 80);
-
+        main.addNewSubjectWithItsStudents(science);
         main.addStudentWithHisAchievementsInSubjects(alice, aliceAchievements);
         main.addStudentWithHisAchievementsInSubjects(bob, bobAchievements);
 
@@ -46,21 +48,36 @@ public class Main {
         System.out.println("List of all subjects and students studying them after removing Alice:");
         main.listAllSubjectsAndStudents();
     }
+
     public void addStudentWithHisAchievementsInSubjects(@NonNull Student student, @NonNull Map<Subject, Integer> achievementsInSubjects) {
         studentsAchievementsInSubjects.computeIfAbsent(student, key -> new HashMap<>()).putAll(achievementsInSubjects);
         for (Map.Entry<Subject, Integer> entry : achievementsInSubjects.entrySet()) {
             Subject subject = entry.getKey();
-            subjectsWithStudents.computeIfAbsent(subject, key -> new HashSet<>()).add(student);
+            addNewStudentWithoutHisAchievementsInSubjects(student, subject);
         }
+    }
+
+    public void addNewStudentWithoutHisAchievementsInSubjects(@NonNull Student student, Subject subject) {
+        subjectsWithStudents.computeIfAbsent(subject, key -> new HashSet<>()).add(student);
+    }
+
+    public void addNewSubjectWithItsStudents(@NonNull Subject subject) {
+        addNewSubjectWithItsStudents(subject, new ArrayList<>());
+    }
+
+    public void addNewSubjectWithItsStudents(@NonNull Subject subject, @NonNull List<Student> students) {
+        subjectsWithStudents.computeIfAbsent(subject, key -> new HashSet<>()).addAll(students);
     }
 
 
     public void deleteStudentWithHisAchievementsInSubjects(@NonNull Student student) {
         Map<Subject, Integer> achievementsInSubjects = studentsAchievementsInSubjects.get(student);
         studentsAchievementsInSubjects.remove(student);
-        for (Map.Entry<Subject, Integer> entry : achievementsInSubjects.entrySet()) {
-            Subject subject = entry.getKey();
-            subjectsWithStudents.get(subject).remove(student);
+        if (achievementsInSubjects != null) {
+            for (Map.Entry<Subject, Integer> entry : achievementsInSubjects.entrySet()) {
+                Subject subject = entry.getKey();
+                subjectsWithStudents.get(subject).remove(student);
+            }
         }
     }
 
