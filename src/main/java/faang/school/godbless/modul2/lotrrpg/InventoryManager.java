@@ -1,9 +1,11 @@
 package faang.school.godbless.modul2.lotrrpg;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
@@ -18,12 +20,18 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> itemFilter, Function<Item, Item> updateFunction) {
         emptyInventoryCheck(character);
-        character.getInventory().replaceAll(item -> itemFilter.test(item) ? updateFunction.apply(item) : item);
+
+        List<Item> updatedItems = character.getInventory().stream()
+                .filter(itemFilter)
+                .map(updateFunction)
+                .collect(Collectors.toList());
+
+        character.setInventory(updatedItems);
     }
 
 
     public void showInventory(Character character) {
-        System.out.println(character.getName() + " inventory:");
+        System.out.println("\n" + character.getName() + " inventory:");
         System.out.print("  ");
         character.getInventory().forEach(System.out::println);
     }
