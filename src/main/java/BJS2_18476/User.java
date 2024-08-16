@@ -7,8 +7,8 @@ import java.util.Set;
 @ToString
 public class User {
     private final static int MINIMUM_AGE = 18;
-    final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     private final String name;
     private final int age;
@@ -22,17 +22,12 @@ public class User {
             this.address = address;
             this.job = job;
         } else {
-            throw new IllegalArgumentException("Arguments are invalid!");
+            throw new IllegalArgumentException();
         }
     }
 
     private boolean validateUser(String name, int age, String job, String address) {
-        if (validateName(name) && validateAge(age) && validateJob(job) && validateAddress(address)) {
-            return true;
-        } else {
-            System.out.println("Some of the parameters invalid or null!");
-            return false;
-        }
+        return validateName(name) && validateAge(age) && validateJob(job) && validateAddress(address);
     }
 
     private boolean validateName(String name) {
