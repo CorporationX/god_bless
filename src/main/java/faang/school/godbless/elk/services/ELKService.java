@@ -7,11 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static faang.school.godbless.elk.Main.userQueriesELK;
-
 public class ELKService {
 
-    public static void addUserQueries(User user, List<Query> queries) {
+    public static void addUserQueries(User user, List<Query> queries, Map<User, List<Query>> userQueriesELK) {
         if (userQueriesELK.containsKey(user)) {
             userQueriesELK.get(user).addAll(queries);
         } else {
@@ -19,7 +17,7 @@ public class ELKService {
         }
     }
 
-    public static void addQueryForUser(User user, Query query) {
+    public static void addQueryForUser(User user, Query query, Map<User, List<Query>> userQueriesELK) {
         List<Query> queries = new ArrayList<>();
 
         if (userQueriesELK.containsKey(user)) {
@@ -33,18 +31,18 @@ public class ELKService {
         }
     }
 
-    public static void deleteUserFromELK(User user) {
+    public static void deleteUserFromELK(User user, Map<User, List<Query>> userQueriesELK) {
         userQueriesELK.remove(user);
     }
 
-    public static void printAllInfoFromELK() {
+    public static void printAllInfoFromELK(Map<User, List<Query>> userQueriesELK) {
         userQueriesELK.forEach((key, value) -> {
             System.out.println(key + " has next queries: ");
             value.forEach(System.out::println);
         });
     }
 
-    public static void printAllInfoFromELKOrderedByDateCreated() {
+    public static void printAllInfoFromELKOrderedByDateCreated(Map<User, List<Query>> userQueriesELK) {
         for (Map.Entry<User, List<Query>> user : userQueriesELK.entrySet()) {
             System.out.println("User " + user.getKey().getId() + " - " + user.getKey().getName() + " has next queries");
             user.getValue().stream().sorted(Query::compareTo).forEach(System.out::println);

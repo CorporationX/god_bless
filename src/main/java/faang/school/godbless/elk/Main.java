@@ -6,32 +6,33 @@ import faang.school.godbless.elk.models.User;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static faang.school.godbless.elk.services.ELKService.*;
 import static java.lang.Thread.sleep;
 
 public class Main {
 
-    public static HashMap<User, List<Query>> userQueriesELK = new HashMap<>();
+    private static Map<User, List<Query>> userQueriesELK = new HashMap<>();
 
     public static void main(String[] args) throws InterruptedException {
 
         User user = new User("test");
         Query query = new Query("test");
-        addQueryForUser(user, query);
+        addQueryForUser(user, query, userQueriesELK);
 
         sleep(1000);
         query = new Query("test1");
-        addQueryForUser(user, query);
+        addQueryForUser(user, query, userQueriesELK);
 
         sleep(1000);
         query = new Query("test2");
-        addQueryForUser(user, query);
-        addQueryForUser(user, query);
-        printAllInfoFromELK();
+        addQueryForUser(user, query, userQueriesELK);
+        addQueryForUser(user, query, userQueriesELK);
+        printAllInfoFromELK(userQueriesELK);
         System.out.println();
 
-        printAllInfoFromELKOrderedByDateCreated();
+        printAllInfoFromELKOrderedByDateCreated(userQueriesELK);
         System.out.println();
 
         User anotherUser = new User("test");
@@ -45,20 +46,20 @@ public class Main {
         queryList.add(query2);
         queryList.add(query3);
 
-        addUserQueries(anotherUser, queryList);
-        printAllInfoFromELK();
+        addUserQueries(anotherUser, queryList, userQueriesELK);
+        printAllInfoFromELK(userQueriesELK);
         System.out.println();
 
         sleep(1000);
         Query query4 = new Query("mail");
-        addQueryForUser(anotherUser, query4);
-        printAllInfoFromELK();
+        addQueryForUser(anotherUser, query4, userQueriesELK);
+        printAllInfoFromELK(userQueriesELK);
         System.out.println();
 
-        printAllInfoFromELKOrderedByDateCreated();
+        printAllInfoFromELKOrderedByDateCreated(userQueriesELK);
         System.out.println();
 
-        deleteUserFromELK(user);
-        printAllInfoFromELK();
+        deleteUserFromELK(user, userQueriesELK);
+        printAllInfoFromELK(userQueriesELK);
     }
 }
