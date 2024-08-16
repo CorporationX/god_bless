@@ -11,7 +11,6 @@ public class Main {
 
         System.out.println("Инвентарь %s: ".formatted(frodo.getName()) + frodo.getInventory());
 
-        // Добавляем предметы в инвентарь
         System.out.println("\nДобавление %s в инвентарь".formatted(ring.getName()));
         manager.addItem(frodo, ring,
                 (item) -> System.out.println(item.getName() + " добавлен в инвентарь."));
@@ -23,12 +22,10 @@ public class Main {
                 (item) -> System.out.println(item.getName() + " добавлен в инвентарь."));
         System.out.println("Инвентарь %s: ".formatted(frodo.getName()) + frodo.getInventory());
 
-        // Удаляем предмет из инвентаря
         System.out.println("\nУдаление %s из инвентаря".formatted(apple.getName()));
         manager.removeItem(frodo, (item) -> item.getName().equals(apple.getName()));
         System.out.println("Инвентарь %s: ".formatted(frodo.getName()) + frodo.getInventory());
 
-        // Обновляем предмет в инвентаре
         System.out.println("\nОбновление %s в инвентаре".formatted(ring.getName()));
         manager.updateItem(frodo, (item) -> item.getName().equals(ring.getName()),
                 (item) -> new Item(item.getName(), item.getValue() * 2));
