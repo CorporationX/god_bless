@@ -3,7 +3,6 @@ package faang.school.godbless.BJS2_21107;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExceptionHandlerServiceTest {
 
@@ -17,12 +16,13 @@ public class ExceptionHandlerServiceTest {
 
     @Test
     public void testWithErrorHandling_Error() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> ExceptionHandlerService.withErrorHandling(() -> {
+        String exceptionMessage = ExceptionHandlerService.withErrorHandling(() -> {
             throw new RuntimeException("Test");
         }, e -> {
-            throw new IllegalArgumentException("Error to get item");
-        }));
+            System.out.println("Не удалось получить доступ к Remote Service. Вернем default значение");
+            return "DEFAULT";
+        });
 
-        assertEquals("Error to get item", exception.getMessage());
+        assertEquals("DEFAULT", exceptionMessage);
     }
 }
