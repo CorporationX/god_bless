@@ -17,20 +17,19 @@ public class InventoryManager {
     public void removeItem(Character character, Predicate<Item> predicate) {
         if (!character.getInventory().removeIf(predicate)) {
             throw new NoSuchElementException("В инвентаре нет предмета, удовлетворяющего условию");
-        };
+        }
     }
 
     public void updateItem(Character character,
                            Predicate<Item> predicate,
                            Function<Item, Item> updateFunction) {
         List<Item> inventory = character.getInventory();
-        int index = IntStream.range(0, inventory.size())
-                .filter(itemInd -> predicate.test(inventory.get(itemInd)))
-                .findFirst()
-                .orElseThrow(
-                        () -> new NoSuchElementException("В инвентаре нет предмета, удовлетворяющего условию")
-                );
-        inventory.set(index, updateFunction.apply(inventory.get(index)));
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
+            if (predicate.test(item)) {
+                inventory.set(i, updateFunction.apply(item));
+            }
+        }
     }
 
 
