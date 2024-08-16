@@ -3,20 +3,16 @@ package faang.school.functionalinterfaces;
 public class SpellCaster {
 
     public void cast(String spellName, SpellAction spellAction) {
-        if (spellName != null) {
-            if (spellName.isBlank()) {
+        if (spellName == null || spellName.isBlank()) {
+            System.out.println("Введите название заклинания!");
+        } else {
+            if (spellAction == null) {
                 System.out.println("Произнесите заклинание!");
             } else {
-                try {
-                    String spell = spellAction.cast(spellName);
-                    System.out.println(spell);
-                } catch (NullPointerException e) {
-                    System.out.println("Произнесите заклинание!");
-                }
+                String spell = spellAction.cast(spellName);
+                System.out.println(spell);
             }
-        } else {
-            System.out.println("Произнесите заклинание!");
         }
     }
-
 }
+
