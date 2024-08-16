@@ -18,6 +18,4 @@ public class Main {
         notificationManager.sendNotification(pushNotification);
         notificationManager.sendNotification(googleNotification);
     }
-
-
 }
