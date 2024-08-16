@@ -16,7 +16,9 @@ public class EmailProcessor {
                 letterProcessing.accept(email);
                 String transformedEmail = letterTransformation.apply(email);
                 System.out.println("Transformed email: " + transformedEmail);
-            } else {System.out.println("Not transformed email: " + email);}
+            } else {
+                System.out.println("Not transformed email: " + email);
+            }
         }
     }
 }

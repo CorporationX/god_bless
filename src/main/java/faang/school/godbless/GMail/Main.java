@@ -14,16 +14,12 @@ public class Main {
         Consumer<Email> printEmail = System.out::println;
         Function<Email, String> setLowerCase = email -> email.getBody().toLowerCase();
 
-
         List<Email> emails = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "Текст письма 2", true),
                 new Email("Спам", "Текст спама", false)
         );
 
-
         emailProcessor.processEmails(emails, isImportant, printEmail, setLowerCase);
-
-
     }
 }
