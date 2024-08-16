@@ -28,13 +28,8 @@ public class Hero {
         }
 
         if (this.creatures.contains(newRequestedCreatureForAdding)) {
-            this.creatures.stream()
-                    .filter(c -> c.getName().equalsIgnoreCase(newRequestedCreatureForAdding.getName()))
-                    .map(c -> {
-                        c.setQuantity(c.getQuantity() + quantityForAddingInArmy);
-                        return null;
-                    })
-                    .count();
+            Creature creatureInArmy = getCreatureInArmy(newRequestedCreatureForAdding);
+            creatureInArmy.setQuantity(creatureInArmy.getQuantity() + quantityForAddingInArmy);
         } else {
             newRequestedCreatureForAdding.setQuantity(quantityForAddingInArmy);
             this.creatures.add(newRequestedCreatureForAdding);
@@ -47,27 +42,18 @@ public class Hero {
         }
 
         if (this.creatures.contains(newRequestedCreatureForRemoving)) {
-            this.creatures.stream()
-                    .filter(c -> c.getName().equalsIgnoreCase(newRequestedCreatureForRemoving.getName()))
-                    .map(c -> {
-                        if (c.getQuantity() - quantityForRemovingInArmy <= 0) {
-                            removeCreature(newRequestedCreatureForRemoving);
-                        } else {
-                            c.setQuantity(c.getQuantity() - quantityForRemovingInArmy);
-                        }
-                        return null;
-                    })
-                    .count();
+            Creature creatureInArmy = getCreatureInArmy(newRequestedCreatureForRemoving);
+            if (creatureInArmy.getQuantity() - quantityForRemovingInArmy <= 0) {
+                this.creatures.remove(newRequestedCreatureForRemoving);
+            } else {
+                creatureInArmy.setQuantity(creatureInArmy.getQuantity() - quantityForRemovingInArmy);
+            }
         } else {
             throw new IllegalArgumentException("This hero " + this + " doesn't contain creature " + newRequestedCreatureForRemoving + " for delete");
         }
     }
 
-    public void removeCreature(Creature creature) {
-        if (this.creatures.contains(creature)) {
-            this.creatures.remove(creature);
-        } else {
-            throw new IllegalArgumentException("This hero " + this + " doesn't contain creature " + creature + " for delete");
-        }
+    private Creature getCreatureInArmy(Creature creatureForFound) {
+        return this.creatures.get(this.creatures.indexOf(creatureForFound));
     }
 }

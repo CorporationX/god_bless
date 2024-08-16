@@ -20,7 +20,7 @@ public abstract class Creature {
             throw new IllegalArgumentException("You can't input value lower than 1");
         }
 
-        if (name == null || name.isEmpty() || name.isBlank()) {
+        if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Incorrect name");
         }
         this.name = name;

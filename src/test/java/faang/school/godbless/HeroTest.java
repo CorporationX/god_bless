@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HeroTest {
 
-    private static final int ZERO = 0;
     private static final int ONE = 1;
     private static final int TWO = 2;
     private static final int THREE = 3;
@@ -79,8 +78,5 @@ class HeroTest {
 
         Pikeman pikeman = new Pikeman();
         heroFirst.addCreature(pikeman, TEN);
-
-        heroFirst.removeCreature(pikeman);
-        assertEquals(heroFirst.getCreatures().size(), ZERO);
     }
 }
