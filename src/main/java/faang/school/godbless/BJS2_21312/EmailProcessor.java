@@ -16,7 +16,6 @@ public class EmailProcessor {
             if(filtration.test(email)){
                 printerEmail.accept(email);
                 email.setBody(emailConvertion.apply(email));
-                System.out.println(email);
             }
         });
     }
