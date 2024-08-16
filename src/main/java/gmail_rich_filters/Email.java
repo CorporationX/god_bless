@@ -2,10 +2,10 @@ package gmail_rich_filters;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class Email {
     private String subject;

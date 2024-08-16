@@ -18,9 +18,15 @@ public class Main {
         );
 
 // Создание фильтров, обработчиков и преобразователей
-        Predicate<Email> importantFilter = email -> email.isImportant();
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Predicate<Email> importantFilter = Email::isImportant;
+        Consumer<Email> printEmail = email -> {
+            System.out.println("Обработано письмо: " + email.getSubject());
+            System.out.println("Текст письма: " + email.getBody());
+        };
+        Function<Email, Email> toUpperCase = email -> {
+            email.setBody(email.getBody().toUpperCase());
+            return email;
+        };
 
 // Обработка писем
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);

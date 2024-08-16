@@ -9,13 +9,12 @@ public class EmailProcessor {
     public void processEmails(List<Email> emails,
                                      Predicate<Email> filter,
                                      Consumer<Email> processor,
-                                     Function<Email, ?> convertor) {
+                                     Function<Email, Email> convertor) {
         emails.stream()
                 .filter(filter)
                 .forEach(mail -> {
-                    System.out.println(convertor.apply(mail));
-                    processor.accept(mail);
+                    Email convertedEmail = convertor.apply(mail);
+                    processor.accept(convertedEmail);
                 });
-        emails.forEach(mail -> System.out.println(mail.getBody()));
     }
 }
