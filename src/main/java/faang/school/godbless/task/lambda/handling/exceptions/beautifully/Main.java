@@ -6,12 +6,9 @@ public class Main {
     private static SomeData someData = new SomeData();
 
     public static void main(String... args) {
-        // Получить существующие данные
         String data = getData(2);
         System.out.println("Данные: " + data);
 
-        // Попытаться получить не существующие данныые,
-        // вызвать исключение и вернуть сообщение ошибки
         data = getData(4);
         System.out.println("Данные: " + data);
     }
