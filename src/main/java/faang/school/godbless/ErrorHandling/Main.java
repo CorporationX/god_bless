@@ -1,31 +1,32 @@
 package faang.school.godbless.ErrorHandling;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class Main {
     @SuppressWarnings("unchecked")
-    public static <T extends Exception, U, V> V withErrorHandling(Function<U, V> function, U param, ExceptionHandler<T> errorHandling) throws T {
+    public static <U, V, E extends Exception> V withErrorHandling(Function<U, V> function, U param, ExceptionHandler<E, V> errorHandling, V defaultValue) {
         try {
             return function.apply(param);
         } catch (Exception e) {
-            throw errorHandling.handle((T) e);
+            return errorHandling.handle((E) e, defaultValue);
 
         }
     }
+
 
     public static void main(String[] args) {
         Function<String, Integer> parseIntFunction = Integer::parseInt;
-        ExceptionHandler<NumberFormatException> handler = ex -> {
-            System.err.println("Ошибка преобразования строки в число: " + ex.getMessage());
-            return new NumberFormatException("Не удалось преобразовать строку в число: " + ex.getMessage());
+        ExceptionHandler<Exception, Integer> handler = (ex, dfValue) -> {
+            System.out.println(ex.getMessage());
+            System.out.println("errorCode");
+            return dfValue;
         };
-        try {
-            Integer result = withErrorHandling(parseIntFunction, "123", handler);
-            System.out.println("Результат: " + result);
-        } catch (NumberFormatException e) {
-            System.out.println("Исключение обработано: " + e.getMessage());
-        }
+
+        Integer result = withErrorHandling(parseIntFunction, "123", handler, -1);
+        System.out.println("Result:  " + result);
+        Integer BADresult = withErrorHandling(parseIntFunction, "123a", handler, -1);
+        System.out.println("Result:  " + BADresult);
     }
+
 }
 
