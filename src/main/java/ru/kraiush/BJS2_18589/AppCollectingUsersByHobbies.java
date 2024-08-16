@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class AppCollectingUsersByHobby {
+public class AppCollectingUsersByHobbies {
 
     public static void main(String[] args) {
 
@@ -27,7 +27,7 @@ public class AppCollectingUsersByHobby {
 
 
         Map<User, String> res= User.findHobbyLovers(users, checkActivities);
-        System.out.println("\nMap with User as a key and common users hobbies and activities");
+        System.out.println("\nMap with User as a key and common hobbies and activities of users");
         System.out.print(String.join("", Collections.nCopies(80, "-")));
         System.out.println();
         res.forEach((K,V) -> System.out.println("user: "+ K + "\nfound common activity: " + V ));
