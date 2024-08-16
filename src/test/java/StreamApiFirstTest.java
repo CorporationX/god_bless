@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 
 class StreamApiFirstTest {
 
@@ -46,5 +47,79 @@ class StreamApiFirstTest {
         Assertions.assertEquals(3L, count);
     }
 
+    @Test
+    void filterCompareTest() {
+        List<String> strings = FirstTrain.filterCompare(Arrays.asList(
+                "give me a money",
+                "gave me a money",
+                "take my money",
+                "suck my money",
+                "gg"
+        ), "my");
 
+        Assertions.assertEquals(Arrays.asList(
+                "take my money",
+                "suck my money"
+        ), strings);
+    }
+
+    @Test
+    void sortStringsTest() {
+        List<String> strings = FirstTrain.sortStrings(Arrays.asList(
+                "333",
+                "22",
+                "4444",
+                "1",
+                "55555"
+        ));
+
+        Assertions.assertEquals(Arrays.asList(
+                "1",
+                "22",
+                "333",
+                "4444",
+                "55555"
+        ), strings);
+    }
+
+    @Test
+    void isFulfillTest() {
+        List<Integer> list = Arrays.asList(
+                3, 4, 5, 123, 145, 111, 234
+        );
+
+        boolean b1 = FirstTrain.isFulfill(list, x -> x > 2);
+        boolean b2 = FirstTrain.isFulfill(list, x -> x > 10000);
+
+        Assertions.assertTrue(b1);
+        Assertions.assertFalse(b2);
+    }
+
+    @Test
+    void maxIntBiggerThanFloorTest() {
+        List<Integer> list = Arrays.asList(
+                3, 4, 5, 123, 145, 111, 234
+        );
+
+        int max = FirstTrain.minIntBiggerThanFloor(list, 100);
+
+        Assertions.assertEquals(111, max);
+
+        Assertions.assertThrows(IllegalArgumentException.class,
+                () -> FirstTrain.minIntBiggerThanFloor(list, 11111111));
+    }
+
+
+    @Test
+    void mapStringsToLengthsTest() {
+        List<Integer> integers = FirstTrain.mapStringsToLengths(Arrays.asList(
+                "333",
+                "22",
+                "4444",
+                "1",
+                "55555"
+        ));
+
+        Assertions.assertEquals(Arrays.asList(3, 2, 4, 1, 5), integers);
+    }
 }
