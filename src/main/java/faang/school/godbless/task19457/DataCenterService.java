@@ -17,12 +17,13 @@ public class DataCenterService implements OptimizationStrategy{
     public double getTotalEnergyConsumption(){
         return dataCenter.getListOfServers().stream().mapToDouble(Server::getEnergyConsumption).sum();
     }
-    public void allocateResources(ResourceRequest request){
+    public boolean allocateResources(ResourceRequest request){
         for (Server server : dataCenter.getListOfServers()) {
-            if(server.addLoad(request.getLoadForRequest())) {
-                return;
+            if(server.getLoad() + request.getLoadForRequest() < server.getMaxLoad()){
+                return server.addLoad(request.getLoadForRequest());
             }
         }
+        return false;
     }
     public void releaseResources(ResourceRequest request){
         for (Server server : dataCenter.getListOfServers()) {
