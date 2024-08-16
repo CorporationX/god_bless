@@ -7,12 +7,7 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        try {
-            character.addItem(item);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
+        character.addItem(item);
 
         consumer.accept(item);
     }

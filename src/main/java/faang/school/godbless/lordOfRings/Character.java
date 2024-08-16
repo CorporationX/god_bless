@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 public class Character {
-    public String name;
+    private final String name;
     private List<Item> inventory;
 
     public Character(String name) {
