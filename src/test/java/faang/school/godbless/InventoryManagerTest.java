@@ -70,17 +70,17 @@ public class InventoryManagerTest {
     @Test
     public void testUpdateItems() {
         Predicate<Item> predicate = item -> item.getName().equals("Shield") && item.getValue() <= 100;
-        Function<Item,Item> function = item -> new Item(item.getName().toUpperCase() + " *MegaItem",item.getValue()*5);
-        manager.updateItem(character1, predicate,function);
-        assertNotEquals(shield1,character1.getInventory().get(0));
-        assertEquals(250,character1.getInventory().get(0).getValue());
-        assertEquals("SHIELD *MegaItem",character1.getInventory().get(0).getName());
+        Function<Item, Item> function = item -> new Item(item.getName().toUpperCase() + " *MegaItem", item.getValue() * 5);
+        manager.updateItem(character1, predicate, function);
+        assertNotEquals(shield1, character1.getInventory().get(0));
+        assertEquals(250, character1.getInventory().get(0).getValue());
+        assertEquals("SHIELD *MegaItem", character1.getInventory().get(0).getName());
 
 
-        manager.updateItem(character2, predicate,function);
-        assertNotEquals(shield2,character2.getInventory().get(0));
-        assertEquals(350,character2.getInventory().get(0).getValue());
-        assertEquals("SHIELD *MegaItem",character2.getInventory().get(0).getName());
+        manager.updateItem(character2, predicate, function);
+        assertNotEquals(shield2, character2.getInventory().get(0));
+        assertEquals(350, character2.getInventory().get(0).getValue());
+        assertEquals("SHIELD *MegaItem", character2.getInventory().get(0).getName());
     }
 
 }

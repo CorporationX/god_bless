@@ -11,7 +11,7 @@ import java.util.List;
 public class Character {
     private List<Item> inventory = new ArrayList<>();
 
-    public void addItemToInventory(Item item){
+    public void addItemToInventory(Item item) {
         inventory.add(item);
     }
 }
