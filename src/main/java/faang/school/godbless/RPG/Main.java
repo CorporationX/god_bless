@@ -13,11 +13,11 @@ public class Main {
         manager.addItem(frodo, cloak, item -> System.out.println(item.getName() + "was successfully added to the inventory"));
         manager.addItem(frodo, lembasBread, item -> System.out.println(item.getName() + "was successfully added to the inventory"));
 
-        manager.removeItem(frodo, cloak, item -> item.isRemovable());
+        manager.removeItem(frodo, (item) -> item.getName().equals("Shabby cloak") && item.isRemovable());
 
-        manager.updateItem(frodo, lembasBread, (item) -> item.isPerishable(), (item) -> {
+        manager.updateItem(frodo, (item) -> item.isPerishable(), (item) -> {
             System.out.println(item.getName() + " spoiled");
-            return new Item(item.getName(), item.getValue() / 10, item.isRemovable(), true);
+            return new Item("Spoiled " + item.getName(), item.getValue() / 10, item.isRemovable(), false);
         });
 
         for (Item item : frodo.getInventory()) {

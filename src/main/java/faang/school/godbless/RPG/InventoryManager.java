@@ -10,19 +10,18 @@ public class InventoryManager {
         consumer.accept(item);
     }
 
-    public void removeItem(Character character, Item item, Predicate<Item> predicate) {
-        if (predicate.test(item)) {
-            character.getInventory().remove(item);
-            System.out.println(item.getName() + " was thrown away");
-        } else {
-            throw new IllegalArgumentException("Can not throw this item");
-        }
+    public void removeItem(Character character, Predicate<Item> condition) {
+        character.getInventory().removeIf(condition);
     }
 
-    public void updateItem(Character character, Item item, Predicate<Item> predicate, Function<Item, Item> function) {
-        if (predicate.test(item)) {
-            character.getInventory().add(function.apply(item));
-            character.getInventory().remove(item);
+    public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> function) {
+        for (int itemIndex = 0; itemIndex < character.getInventory().size(); itemIndex++) {
+            Item currentItem = character.getInventory().get(itemIndex);
+            if (condition.test(currentItem)) {
+                character.getInventory().remove(currentItem);
+                character.getInventory().add(function.apply(currentItem));
+            }
+
         }
     }
 }
