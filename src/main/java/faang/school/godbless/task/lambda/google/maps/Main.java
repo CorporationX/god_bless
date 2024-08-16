@@ -14,13 +14,10 @@ public class Main {
 
         LocationSearchEngine searchEngine = new LocationSearchEngine();
 
-        // Фильтруем местоположения по долготе
         List<Location> filteredLocations = searchEngine.filterLocations(locations, (location) -> location.getLongitude() > 0);
 
-        // Выводим названия отфильтрованных местоположений
         searchEngine.processLocations(filteredLocations, (location) -> System.out.println(location.getName()));
 
-        // Вычисляем расстояния от заданной точки до каждого местоположения
         double baseLatitude = 37.4220;
         double baseLongitude = -122.0841;
         List<Double> distances = searchEngine.calculateDistances(locations, (location) -> {
