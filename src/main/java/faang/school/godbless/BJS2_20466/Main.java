@@ -21,7 +21,7 @@ public class Main {
             throw new IllegalArgumentException("The sides of the triangle must be greater than 0");
         }
 
-        if (!(a + b > c) || !(a + c > b) || !(b + c > a)) {
+        if ((a + b <= c) || (a + c <= b) || (b + c <= a)) {
             throw new IllegalArgumentException("The wrong sides of the triangle");
         }
 
@@ -32,6 +32,13 @@ public class Main {
         Function<Double, Double> sqrt = Math::sqrt;
 
         Double p = div.apply(sum.apply(sum.apply(a).apply(b)).apply(c)).apply(2.00);
-        return sqrt.apply(mul.apply(mul.apply(mul.apply(p).apply(sub.apply(p).apply(a))).apply(sub.apply(p).apply(b))).apply(sub.apply(p).apply(c)));
+        Double pa = sub.apply(p).apply(a);
+        Double pb = sub.apply(p).apply(b);
+        Double pc = sub.apply(p).apply(c);
+        Double multiplyA = mul.apply(p).apply(pa);
+        Double multiplyB = mul.apply(multiplyA).apply(pb);
+        Double multiplyC = mul.apply(multiplyB).apply(pc);
+
+        return sqrt.apply(multiplyC);
     }
 }
