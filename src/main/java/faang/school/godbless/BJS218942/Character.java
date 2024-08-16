@@ -5,11 +5,10 @@ public abstract class Character {
     protected int power;
     protected int dexterity;
     protected int intelligence;
-    protected int health;
+    protected int health = 100;
 
     Character(String name) {
         this.name = name;
-        this.health = 100;
     }
 
     Character(String name, int power, int dexterity, int intelligence) {
@@ -17,7 +16,6 @@ public abstract class Character {
         this.power = power;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
-        this.health = 100;
     }
 
     public abstract void attack(Character obj);
