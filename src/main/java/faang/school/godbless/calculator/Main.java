@@ -2,13 +2,13 @@ package faang.school.godbless.calculator;
 
 import java.util.List;
 
-import static faang.school.godbless.calculator.CalculatorImplementation.*;
-
 public class Main {
     public static void main(String[] args) {
+        CalculatorImplementation calculator = new CalculatorImplementation();
+
         List<Integer> numbers = List.of(1, 2, 3, 4, 5);
-        System.out.println(product(numbers));
-        System.out.println(sum(numbers));
+        System.out.println(calculator.productIntegers(numbers));
+        System.out.println(calculator.sumIntegers(numbers));
 
         Number number = 1;
         Number number2 = 2;
@@ -17,7 +17,7 @@ public class Main {
         Number number5 = 5;
         List<Number> intNumbers = List.of(number, number2, number3, number4, number5);
 
-        Calculator<Number> sum = (a, b) -> {
+        Calculator<Number> summarize = (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return (Integer) a + (Integer) b;
             } else if (a instanceof Double && b instanceof Double) {
@@ -31,7 +31,7 @@ public class Main {
             }
         };
 
-        Calculator<Number> sub = (a, b) -> {
+        Calculator<Number> subtraction = (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return (Integer) a - (Integer) b;
             } else if (a instanceof Double && b instanceof Double) {
@@ -45,7 +45,7 @@ public class Main {
             }
         };
 
-        Calculator<Number> mul = (a, b) -> {
+        Calculator<Number> multiply = (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return (Integer) a * (Integer) b;
             } else if (a instanceof Double && b instanceof Double) {
@@ -59,7 +59,7 @@ public class Main {
             }
         };
 
-        Calculator<Number> div = (a, b) -> {
+        Calculator<Number> divide = (a, b) -> {
             if (a instanceof Integer && b instanceof Integer) {
                 return (Integer) a / (Integer) b;
             } else if (a instanceof Double && b instanceof Double) {
@@ -73,18 +73,18 @@ public class Main {
             }
         };
 
-        System.out.println(calculate(intNumbers, sum));
-        System.out.println(calculate(intNumbers, sub));
-        System.out.println(calculate(intNumbers, mul));
-        System.out.println(calculate(intNumbers, div));
+        System.out.println(calculator.calculate(intNumbers, summarize));
+        System.out.println(calculator.calculate(intNumbers, subtraction));
+        System.out.println(calculator.calculate(intNumbers, multiply));
+        System.out.println(calculator.calculate(intNumbers, divide));
 
         number = 1f;
         number2 = 2f;
         number3 = 3f;
         List<Number> floatNumbers = List.of(number, number2, number3);
-        System.out.println(calculate(floatNumbers, sum));
-        System.out.println(calculate(floatNumbers, sub));
-        System.out.println(calculate(floatNumbers, mul));
-        System.out.println(calculate(floatNumbers, div));
+        System.out.println(calculator.calculate(floatNumbers, summarize));
+        System.out.println(calculator.calculate(floatNumbers, subtraction));
+        System.out.println(calculator.calculate(floatNumbers, multiply));
+        System.out.println(calculator.calculate(floatNumbers, divide));
     }
 }

@@ -4,10 +4,10 @@ import lombok.NonNull;
 
 import java.util.List;
 
-public class CalculatorImplementation {
+public class CalculatorImplementation<T extends Number> {
 
-    public static Number calculate(@NonNull List<? extends Number> numbers,
-                                   @NonNull Calculator<Number> calculator) {
+    public T calculate(@NonNull List<T> numbers,
+                       @NonNull Calculator<T> calculator) {
         if (numbers.isEmpty()) {
             throw new IllegalArgumentException("List of numbers is empty");
         }
@@ -15,45 +15,47 @@ public class CalculatorImplementation {
             throw new IllegalArgumentException("List of numbers have different class");
         }
 
-        if (numbers.get(0) instanceof Integer) {
-            List<Integer> integers = numbers.stream().map(number -> (Integer) number).toList();
+        checkIfAllElementsIsNumber(numbers);
 
-            return integers.stream()
-                    .skip(1)
-                    .reduce(integers.get(0), (acc, number) -> calculator.calculate(acc, number).intValue());
-        } else if (numbers.get(0) instanceof Double) {
-            List<Double> integers = numbers.stream().map(number -> (Double) number).toList();
+        return numbers.stream()
+                .skip(1)
+                .reduce(numbers.get(0), calculator::calculate);
+    }
 
-            return integers.stream()
-                    .skip(1)
-                    .reduce(integers.get(0), (acc, number) -> calculator.calculate(acc, number).doubleValue());
+    public Number productIntegers(List<T> nums) {
+        Calculator<Number> mul = (a, b) -> {
+            if (a instanceof Integer && b instanceof Integer) {
+                return (Integer) a * (Integer) b;
+            } else {
+                throw new IllegalArgumentException("Unsupported number type");
+            }
+        };
 
-        } else if (numbers.get(0) instanceof Float) {
-            List<Float> integers = numbers.stream().map(number -> (Float) number).toList();
+        return calculate(nums, (Calculator<T>) mul);
+    }
 
-            return integers.stream()
-                    .skip(1)
-                    .reduce(integers.get(0), (acc, number) -> calculator.calculate(acc, number).floatValue());
-        } else if (numbers.get(0) instanceof Long) {
-            List<Long> integers = numbers.stream().map(number -> (Long) number).toList();
+    public Number sumIntegers(List<T> nums) {
+        Calculator<Number> sum = (a, b) -> {
+            if (a instanceof Integer && b instanceof Integer) {
+                return (Integer) a + (Integer) b;
+            } else {
+                throw new IllegalArgumentException("Unsupported number type");
+            }
+        };
 
-            return integers.stream()
-                    .skip(1)
-                    .reduce(integers.get(0), (acc, number) -> calculator.calculate(acc, number).longValue());
-        } else {
+        return calculate(nums, (Calculator<T>) sum);
+    }
+
+    private boolean checkIfAllNumbersIsInstanceOfOneClass(List<T> numbers) {
+        return numbers.size() == numbers.stream().filter(num -> num.getClass().equals(numbers.get(0).getClass())).count();
+    }
+
+    private void checkIfAllElementsIsNumber(List<T> numbers) {
+        if (!((numbers.get(0) instanceof Integer) ||
+                (numbers.get(0) instanceof Double) ||
+                (numbers.get(0) instanceof Float) ||
+                (numbers.get(0) instanceof Long))) {
             throw new IllegalArgumentException("Unsupported number type");
         }
-    }
-
-    public static Number product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> (Integer) a * (Integer) b);
-    }
-
-    public static Number sum(List<Integer> nums) {
-        return calculate(nums, (a, b) -> (Integer) a + (Integer) b);
-    }
-
-    private static boolean checkIfAllNumbersIsInstanceOfOneClass(List<?> numbers) {
-        return numbers.size() == numbers.stream().filter(num -> num.getClass().equals(numbers.get(0).getClass())).count();
     }
 }
