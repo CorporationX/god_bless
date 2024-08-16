@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS2_20534;
 
+import java.util.Arrays;
 import java.util.function.Function;
 
 public class Main {
@@ -37,10 +38,6 @@ public class Main {
     }
 
     private double multiplyNumbers(double... nums) {
-        double result = 1.0;
-        for (double num : nums) {
-            result = mul.apply(result).apply(num);
-        }
-        return result;
+        return Arrays.stream(nums).reduce(1.0, (result, num) -> mul.apply(result).apply(num));
     }
 }
