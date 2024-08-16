@@ -14,14 +14,4 @@ public class Character {
     public void addItemToInventory(Item item){
         inventory.add(item);
     }
-
-    public void removeItemFromInventoryByIndex(int index){
-        inventory.remove(index);
-    }
-
-    public void updateItemInInventoryByIndex(int index,Item item){
-        inventory.set(index,item);
-    }
-
-
 }

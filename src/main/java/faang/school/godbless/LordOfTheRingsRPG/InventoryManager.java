@@ -13,18 +13,18 @@ public class InventoryManager {
 
     public void removeItem(Character character, Predicate<Item> isItRemove) {
         List<Item> characterInventory = character.getInventory();
-        int lenght = characterInventory.size();
-        for (int i = lenght - 1; i >= 0; --i) {
-            if (isItRemove.test(characterInventory.get(i))) character.removeItemFromInventoryByIndex(i);
-        }
+        characterInventory.removeIf(isItRemove);
+
+
     }
 
-    public void updateItem(Character character, Predicate<Item> isItUpdate, Function<Item,Item> createUpdatedItem) {
+    public void updateItem(Character character, Predicate<Item> isItUpdate, Function<Item, Item> createUpdatedItem) {
         List<Item> characterInventory = character.getInventory();
         int lenght = characterInventory.size();
         for (int i = 0; i < lenght; i++) {
             Item temporaryItem = characterInventory.get(i);
-            if (isItUpdate.test(temporaryItem)) character.updateItemInInventoryByIndex(i,createUpdatedItem.apply(temporaryItem));
+            if (isItUpdate.test(temporaryItem))
+                characterInventory.set(i, createUpdatedItem.apply(temporaryItem));
         }
 
     }
