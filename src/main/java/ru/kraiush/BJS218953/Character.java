@@ -19,12 +19,11 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(String name, int might, int agility, int intelligence, int health) {
+    public Character(String name, int might, int agility, int intelligence) {
         this.name = name;
         this.might = might;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health = health;
     }
 
     abstract void attack(Character character);

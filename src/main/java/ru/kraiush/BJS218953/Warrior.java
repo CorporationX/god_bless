@@ -5,27 +5,28 @@ import lombok.*;
 @Getter
 @Setter
 @ToString
-//@NoArgsConstructor
 public class Warrior extends Character {
 
     private String name;
-    private int might = 20;
-    private int agility = 5;
-    private int intelligence = 3;
+    private int might;
+    private int agility;
+    private int intelligence;
     private int health = super.health;
 
     public Warrior(String name) {
         super(name);
         this.name = name;
+        might = 20;
+        agility = 5;
+        intelligence = 3;
     }
 
-    public Warrior(String name, int might, int agility, int intelligence, int health) {
-        super(name, might, agility, intelligence, health);
+    public Warrior(String name, int might, int agility, int intelligence) {
+        super(name, might, agility, intelligence);
         this.name = name;
         this.might = 20;
         this.agility = 5;
         this.intelligence = 3;
-        this.health = super.health;
     }
 
     @Override
