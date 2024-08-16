@@ -19,9 +19,11 @@ public class Main {
         double pSubA = sub.apply(p).apply(a);
         double pSubB = sub.apply(p).apply(b);
         double pSubC = sub.apply(p).apply(c);
-        double underSqrt = mul.apply(mul.apply(mul.apply(pSubA)
-                .apply(pSubB))
-                .apply(pSubC)).apply(p);
+        double underSqrt = mul.apply(
+                mul.apply(
+                        mul.apply(pSubA).apply(pSubB))
+                .apply(pSubC))
+                .apply(p);
 
         return sqrt.apply(underSqrt);
     }
@@ -30,7 +32,7 @@ public class Main {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Сторона треугольника не может быть меньше 0");
         }
-        if(!(a + b > c && b + c > a && a + c > b)) {
+        if(a + b <= c || b + c <= a || a + c <= b) {
             throw new IllegalArgumentException("Такого треугольника не существует");
         }
     }
