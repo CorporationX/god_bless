@@ -8,7 +8,7 @@ public class Main {
         notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
         notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
-        notificationManager.filterHandler("push", notification -> {
+        notificationManager.registerFilter("push", notification -> {
             if (notification.getMessage().contains("JohnDoe")) {
                 return new Notification(notification.getType(), "JohnDoe is incorrect name");
             }

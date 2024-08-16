@@ -8,38 +8,35 @@ import java.util.function.Function;
 
 public class NotificationManager {
 
-    private final Map<String, Consumer<Notification>> notifications;
-    private final Map<String, Function<Notification, Notification>> filters;
+    private final Map<String, Consumer<Notification>> notifications = new HashMap<>();
 
-    public NotificationManager() {
-        this.notifications = new HashMap<>();
-        this.filters = new HashMap<>();
-    }
+    private final Map<String, Function<Notification, Notification>> filters = new HashMap<>();
 
-    public void registerHandler(String type, Consumer<Notification> notification){
-        if (notifications.containsKey(type)){
+
+    public void registerHandler(String type, Consumer<Notification> notification) {
+        if (notifications.containsKey(type)) {
             throw new IllegalArgumentException("Notification is already added");
         }
         notifications.put(type, notification);
     }
 
-    public void filterHandler(String type, Function<Notification, Notification> filter){
-        if (filters.containsKey(type)){
+    public void registerFilter(String type, Function<Notification, Notification> filter) {
+        if (filters.containsKey(type)) {
             throw new IllegalArgumentException("Filter is already added");
         }
         filters.put(type, filter);
     }
 
-    public void sendNotification(Notification notificationToSend){
+    public void sendNotification(Notification notificationToSend) {
         Function<Notification, Notification> filter = filters.get(notificationToSend.getType());
-        if (filter != null){
+        if (filter != null) {
             notificationToSend = filter.apply(notificationToSend);
         }
 
         Consumer<Notification> notification = notifications.get(notificationToSend.getType());
-        if (notification != null){
+        if (notification != null) {
             notification.accept(notificationToSend);
-        }else{
+        } else {
             throw new NoSuchElementException("This notification not found!");
         }
     }
