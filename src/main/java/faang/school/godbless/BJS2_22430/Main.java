@@ -8,6 +8,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -59,16 +60,33 @@ public class Main {
         List<String> stringsList = List.of("apple", "banana", "123", "dog", "cat", "!some", "wor#d");
         char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
         System.out.println(stringAlphabetSort(stringsList, alphabet));
+        System.out.println("Convert list int to list strings:");
+        List<Integer> nums = List.of(4, 45, 2455, 2, 34, 25, 6, 3, 8, 43, 14);
+        System.out.println(decimalIntToBinaryString(nums));
+        System.out.println("Find palindrome");
+        System.out.println(findPalindrome(0, 200));
+    }
+
+    public static List<Integer> findPalindrome(int startBorder, int endBorder) {
+        List<Integer> nums = Stream.iterate(startBorder, num -> num + 1).limit(endBorder - startBorder).toList();
+        return nums.stream()
+                .filter(n -> String.valueOf(n).contentEquals(new StringBuilder(Integer.toString(n)).reverse()) &&
+                        n.toString().length() > 1)
+                .toList();
+    }
+
+    public static List<String> decimalIntToBinaryString(List<Integer> nums) {
+        return nums.stream()
+                .map(num -> Integer.toBinaryString(num))
+                .toList();
     }
 
     public static Map<String, Integer> uniquePairs(List<Integer> inputList, int targetSum) {
-        Map<String, Integer> resultMap = inputList.stream()
+        return inputList.stream()
                 .flatMap(outerNum -> inputList.stream()
                         .filter(innerNum -> innerNum + outerNum == targetSum && (outerNum > innerNum || outerNum.equals(innerNum)))
                         .map(innerNum -> outerNum + "," + innerNum))
                 .collect(Collectors.toMap(value -> value, value -> targetSum, (target1, target2) -> targetSum));
-
-        return resultMap;
     }
 
     public static void countrySort(Map<String, String> countries) {
@@ -79,9 +97,8 @@ public class Main {
     }
 
     public static List<String> stringsSort(List<String> strings, char symbol) {
-        List<String> resultList = strings.stream().filter(string -> string.startsWith(String.valueOf(symbol)))
+        return strings.stream().filter(string -> string.startsWith(String.valueOf(symbol)))
                 .sorted(Comparator.comparingInt(String::length)).toList();
-        return resultList;
     }
 
     public static Set<TreeSet> findFriends(Map<String, List<String>> friends) {
