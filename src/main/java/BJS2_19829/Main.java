@@ -7,17 +7,17 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
-        Map<Student, Map<Subject, Integer>> studentSubjectMap = new HashMap<>();
-
         Subject physics = new Subject(2, "Physics");
 
-        Map<Subject, Integer> mishaSubjectMarkMap = new HashMap<>();
-        Map<Subject, Integer> georgiySubjectMarkMap = new HashMap<>();
-        mishaSubjectMarkMap.put(physics, 4);
-        georgiySubjectMarkMap.put(physics, 5);
-        studentSubjectMap.put(new Student(6, "Misha"), mishaSubjectMarkMap);
-        studentSubjectMap.put(new Student(7, "Georgiy"), georgiySubjectMarkMap);
+        Map<Subject, Integer> mishaSubjectMark = new HashMap<>();
+        Map<Subject, Integer> georgiySubjectMark = new HashMap<>();
+
+        mishaSubjectMark.put(physics, 4);
+        georgiySubjectMark.put(physics, 5);
+
+        Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+        studentSubjects.put(new Student(6, "Misha"), mishaSubjectMark);
+        studentSubjects.put(new Student(7, "Georgiy"), georgiySubjectMark);
 
         List<Student> biologyStudents = new ArrayList<>();
         biologyStudents.add(new Student(1, "Andrew"));
@@ -36,16 +36,16 @@ public class Main {
         Subject subjectTest = new Subject(25, "English");
 
         //Add new student with Subject and mark
-        addNewStudentWithSubjectMarks(studentSubjectMap, studentTest, subjectTest, 4);
+        addNewStudentWithSubjectMarks(studentSubjects, studentTest, subjectTest, 4);
 
         //Add new Subject for existing student
-        addSubjectForExistingStudent(studentSubjectMap, studentTest, subjectTest, 3);
+        addSubjectForExistingStudent(studentSubjects, studentTest, subjectTest, 3);
 
         //Remove student
-        removeStudent(studentSubjectMap, studentTest);
+        removeStudent(studentSubjects, studentTest);
 
         //Get all students with their Subject & mark hash Maps
-        getAllStudentsWithSubjectsAndMarks(studentSubjectMap);
+        getAllStudentsWithSubjectsAndMarks(studentSubjects);
 
         //Add new subject and student list
         addNewSubjectAndStudentList(subjects, biologyStudents, subjectTest);
@@ -61,7 +61,8 @@ public class Main {
     }
 
     public static void addNewStudentWithSubjectMarks(Map<Student, Map<Subject, Integer>> studentSubjectMap,
-                                                     Student student, Subject subject, int mark) {
+                                                     Student student,
+                                                     Subject subject, int mark) {
         studentSubjectMap.computeIfAbsent(student, key -> new HashMap<>()).put(subject, mark);
         System.out.println("New student " + student.getStudentName() + " was added successfully!");
         System.out.println("Has following subject - " + subject.getSubjectName() + " and mark - " + mark);
@@ -72,7 +73,9 @@ public class Main {
                                                     Student student,
                                                     Subject subject, int mark) {
         studentSubjectMap.get(student).put(subject, mark);
-        System.out.println(subject.getSubjectName() + " subject has been successfully added for student - " + student.getStudentName());
+        System.out.println(subject.getSubjectName() +
+                " subject has been successfully added for student - " +
+                student.getStudentName());
         System.out.println();
     }
 
@@ -93,23 +96,30 @@ public class Main {
         System.out.println();
     }
 
-    public static void addNewSubjectAndStudentList(Map<Subject, List<Student>> subjectsMap, List<Student> students
-            , Subject subject) {
+    public static void addNewSubjectAndStudentList(Map<Subject, List<Student>> subjectsMap,
+                                                   List<Student> students,
+                                                   Subject subject) {
         subjectsMap.computeIfAbsent(subject, key -> students);
         System.out.println("New subject " + subject.getSubjectName() + " with students it's following was added!");
         System.out.println();
     }
 
-    public static void addNewStudentToExistingSubject(Map<Subject, List<Student>> subjectsMap, Student student
-            , Subject subject) {
+    public static void addNewStudentToExistingSubject(Map<Subject, List<Student>> subjectsMap,
+                                                      Student student,
+                                                      Subject subject) {
         subjectsMap.get(subject).add(student);
-        System.out.println(student.getStudentName() + " was added to the list of students following subject - " + subject.getSubjectName());
+        System.out.println(student.getStudentName() +
+                " was added to the list of students following subject - " + subject.getSubjectName());
         System.out.println();
     }
 
-    public static void removeStudentFromSubject(Map<Subject, List<Student>> subjectsMap, Student student, Subject subject) {
+    public static void removeStudentFromSubject(Map<Subject, List<Student>> subjectsMap,
+                                                Student student,
+                                                Subject subject) {
         subjectsMap.get(subject).remove(student);
-        System.out.println(student.getStudentName() + " has been removed from the list of subject - " + subject.getSubjectName());
+        System.out.println(student.getStudentName() +
+                " has been removed from the list of subject - " +
+                subject.getSubjectName());
         System.out.println();
     }
 
