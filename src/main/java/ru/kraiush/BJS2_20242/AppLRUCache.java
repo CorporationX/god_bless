@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-public class App_LRUCache {
+public class AppLRUCache {
 
     private static final int CACHE_SIZE = 5;
 
@@ -17,7 +17,7 @@ public class App_LRUCache {
 
     int capacity;
 
-    App_LRUCache(int capacity) {
+    AppLRUCache(int capacity) {
         this.capacity = capacity;
     }
 
@@ -56,7 +56,7 @@ public class App_LRUCache {
 
     public static void main(String[] args) {
 
-        App_LRUCache cache = new App_LRUCache(CACHE_SIZE );
+        AppLRUCache cache = new AppLRUCache(CACHE_SIZE );
 
         for(int i=0; i <= 20; i++) {
             int key = figureOut();

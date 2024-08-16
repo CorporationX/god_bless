@@ -4,7 +4,7 @@ public record CompositeKey(String key1, Integer key2) {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj == null) {
+        if (obj == null) {
             return false;
         }
 
@@ -13,6 +13,7 @@ public record CompositeKey(String key1, Integer key2) {
         }
         return false;
     }
+
     @Override
     public int hashCode() {
         return (key1 + key2).hashCode();

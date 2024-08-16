@@ -5,7 +5,7 @@ import ru.kraiush.model.Person;
 import java.util.List;
 import java.util.Map;
 
-public class Application {
+public class AppGroupPersonByAge {
     public static void main(String[] args) {
 
         List<Person> persons = Person.getPersons();

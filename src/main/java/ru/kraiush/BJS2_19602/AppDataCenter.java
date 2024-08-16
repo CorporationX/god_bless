@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-public class App_Data_center {
+public class AppDataCenter {
     public static void main(String[] args) {
 
         DataCenter dataCenter = new DataCenter();

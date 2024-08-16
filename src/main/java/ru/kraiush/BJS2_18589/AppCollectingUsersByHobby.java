@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-public class App_collecting_users_by_hobby {
+public class AppCollectingUsersByHobby {
 
     public static void main(String[] args) {
 
