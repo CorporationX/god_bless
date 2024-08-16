@@ -19,8 +19,8 @@ public class Main {
         Product pr3 = new Product(3, "Jordans", "boots");
         Product pr4 = new Product(5, "J-Z", "boots");
         Product pr5 = new Product(4, "Wow", "wow");
-        List<Product> cat1 = new ArrayList<>();
-        List<Product> cat2 = new ArrayList<>();
+        Set<Product> cat1 = new HashSet<>();
+        Set<Product> cat2 = new HashSet<>();
         cat1.add(pr1);
         cat1.add(pr5);
         cat1.add(pr2);
@@ -36,18 +36,18 @@ public class Main {
     }
 
 
-    public void sortingProductsByCategories(@NonNull String category, List<Product> products) {
+    public void sortingProductsByCategories(@NonNull String category, Set<Product> products) {
         for (Product pr: products) {
             uniqueProduct.computeIfAbsent(category, key -> new HashSet<>()).add(pr);
         }
     }
 
-    public Map<String, Set<Product>> sortingProductsByCategoriesAndGettingTemporaryMap(@NonNull String category, List<Product> products) {
-        Map<String, Set<Product>> Products = new HashMap<>();
+    public Map<String, List<Product>> sortingProductsByCategoriesAndGettingTemporaryMap(@NonNull String category, Set<Product> products) {
+        Map<String, List<Product>> productsSorted = new HashMap<>();
         for (Product pr: products) {
-            Products.computeIfAbsent(category, key -> new HashSet<>()).add(pr);
+            productsSorted.computeIfAbsent(category, key -> new ArrayList<>()).add(pr);
         }
-        return Products;
+        return productsSorted;
     }
 
 
