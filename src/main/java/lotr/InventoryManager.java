@@ -17,7 +17,7 @@ public class InventoryManager {
     }
 
     public void removeItem(@NonNull Character character, @NonNull Predicate<Item> predicate) {
-        if(!character.getInventory().removeIf(predicate)) {
+        if (!character.getInventory().removeIf(predicate)) {
             System.out.println("\nThere is no such items in inventory");
         }
     }
