@@ -8,7 +8,7 @@ public class Droid {
         int encryptionKey = 3;
 
         String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey, "cipher");
-        String msg = c3po.sendEncryptedMessage(encryptedMsg, encryptionKey, "");
+        String msg = c3po.sendEncryptedMessage(encryptedMsg, encryptionKey, "decipher");
 
         System.out.println(encryptedMsg);
         System.out.println(msg);
