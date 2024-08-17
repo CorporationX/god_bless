@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class DataTest {
@@ -19,6 +20,8 @@ public class DataTest {
                         () -> new Data(null, LocalDateTime.now())),
                 () -> assertThrows(
                         NullPointerException.class,
-                        () -> new Data("aboba", null)));
+                        () -> new Data("aboba", null)),
+                () -> assertDoesNotThrow(
+                        () -> new Data("aboba", LocalDateTime.now())));
     }
 }

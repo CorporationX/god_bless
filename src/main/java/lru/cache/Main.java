@@ -63,6 +63,14 @@ public class Main {
         }
     }
 
+    public void updateDataInBase(@NonNull Data data) {
+        if (dataBase.containsKey(data.getId())) {
+            dataBase.put(data.getId(), data);
+        } else {
+            System.out.println("\nThere is no data with this id in database, need to add it first");
+        }
+    }
+
     public Data getData(int id) {
         if (cache.containsKey(id)) {
             return getDataFromCache(id);
