@@ -1,4 +1,4 @@
-package faang.school.godbless.task.lru.cache;
+package faang.school.godbless.task.hashmap.lru.cache;
 
 import faang.school.godbless.task.hashmap.lru.cache.Data;
 import faang.school.godbless.task.hashmap.lru.cache.DataStructure;

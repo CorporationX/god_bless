@@ -1,4 +1,4 @@
-package faang.school.godbless.task.google.search;
+package faang.school.godbless.task.hashmap.google.search;
 
 import faang.school.godbless.task.hashmap.google.search.Google;
 import faang.school.godbless.task.hashmap.google.search.WebPage;
