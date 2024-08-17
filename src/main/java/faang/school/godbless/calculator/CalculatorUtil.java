@@ -14,11 +14,11 @@ public class CalculatorUtil {
         return result;
     }
 
-    public static int product(List<Integer> nums) {
+    public static long product(List<Long> nums) {
         return calculate(nums, (x, y) -> x * y);
     }
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, (x, y) -> x + y);
+    public static long sum(List<Long> nums) {
+        return calculate(nums, Long::sum);
     }
 }
