@@ -54,7 +54,7 @@ public class Main {
                 " \\\"location\\\": \\\"Moscow\\\",\\n  " +
                 "  \\\"date\\\": \\\"2023-08-17 17-02-25\\\",\\n  " +
                 "  \\\"requirements\\\": [\\n  " +
-                "    \\\"sociable\\\",\\n  " +
+                "    \\\"hibernate\\\",\\n  " +
                 "    \\\"responsible\\\",\\n   " +
                 "   \\\"learnable\\\",\\n    " +
                 "  \\\"java core\\\",\\n    " +
@@ -77,6 +77,7 @@ public class Main {
         List<Job> allJobs = jobStreamProcessor.process(streamOfString);
         allJobs.forEach(System.out::println);
         DataAnalyzer analyzer = new DataAnalyzer();
-        analyzer.mostPopularSkills(allJobs);
+        System.out.println("Most popular skills: ");
+        System.out.println(analyzer.mostPopularSkills(allJobs));
     }
 }
