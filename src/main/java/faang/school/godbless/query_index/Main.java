@@ -9,17 +9,18 @@ import java.util.Map;
 
 public class Main {
 
-    public static Map<User, List<Query>> userMap = new HashMap<>();
+    public static Map<User, List<Query>> userQueryMap = new HashMap<>();
 
     public static void main(String[] args) {
         User varya = new User(1, "Varya");
         User anna = new User(2, "Anna");
 
-        List<Query> queryList = new ArrayList<>(List.of(
-                new Query(1, "content", Instant.now()),
-                new Query(2, "content2", Instant.now()),
-                new Query(3, "content3", Instant.now()))
-        );
+        List<Query> queryList = new ArrayList<>(List.of(new Query(1, "content", Instant.now())));
+        detainTime();
+        queryList.add(new Query(2, "content2", Instant.now()));
+        detainTime();
+        queryList.add(new Query(3, "content3", Instant.now()));
+
 
         addUserWithQueryList(varya, queryList);
 
@@ -36,24 +37,32 @@ public class Main {
 
 
     public static void addUserWithQueryList(User user, List<Query> queryList) {
-        userMap.put(user, queryList);
+        userQueryMap.put(user, queryList);
     }
 
     public static void addQueryToUser(User user, Query query) {
-        userMap.get(user).add(query);
+        userQueryMap.get(user).add(query);
     }
 
     public static void removeUserWithQueryList(User user) {
-        userMap.remove(user);
+        userQueryMap.remove(user);
     }
 
     public static void printAllUsersWithQueryLists() {
-        userMap.entrySet().forEach(System.out::println);
+        userQueryMap.entrySet().forEach(System.out::println);
     }
 
     public static void printUserQueryHistory(User user) {
-        List<Query> queryList = userMap.get(user);
+        List<Query> queryList = userQueryMap.get(user);
         Collections.sort(queryList);
         System.out.println(user + " - " + queryList);
+    }
+
+    private static void detainTime() {
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
