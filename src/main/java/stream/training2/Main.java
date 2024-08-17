@@ -2,6 +2,7 @@ package stream.training2;
 
 import lombok.NonNull;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ public class Main {
                 "Vanya", List.of("Petya"),
                 "Kolya", List.of("Vasya"))));
         System.out.println(getSortedStringWithLetterInAlphabet(List.of(
-                "abc", "abccba", "ab", "c", "defaef", "asasfe"), new Character[]{'a', 'b', 'c'}));
+                "abc", "abccba", "ab", "c", "defaef", "asasfe"), new char[]{'a', 'b', 'c'}));
         System.out.println(getAverageSalaryForDepartment(List.of(
                 new Employee("Vanya", "IT", 2300),
                 new Employee("Vasya", "HR", 1700),
@@ -46,11 +47,11 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static String getSortedCapitals(@NonNull Map<String, String> countriesCapitals) {
+    public static List<String> getSortedCapitals(@NonNull Map<String, String> countriesCapitals) {
         return countriesCapitals.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
-                .collect(Collectors.joining(", "));
+                .toList();
     }
 
     public static List<String> getSortedStringsStartedWithLetter(@NonNull List<String> lines, char letter) {
@@ -67,36 +68,22 @@ public class Main {
                 .flatMap(i -> IntStream.range(i + 1, peoples.size())
                         .mapToObj(j -> List.of(peoples.get(i), peoples.get(j))))
                 .filter(pair -> !peopleFriends.get(pair.get(0)).contains(pair.get(1)))
-                .filter(pair -> {
-                    for (String friend : peopleFriends.get(pair.get(0))) {
-                        if (peopleFriends.get(pair.get(1)).contains(friend)) {
-                            return true;
-                        }
-                    }
-                    return false;
-                })
+                .filter(pair -> new ArrayList<>(
+                        peopleFriends.get(pair.get(0))).removeAll(peopleFriends.get(pair.get(1))))
                 .toList();
     }
 
-    public static List<String> getSortedStringWithLetterInAlphabet(@NonNull List<String> lines, @NonNull Character[] alphabet) {
+    public static List<String> getSortedStringWithLetterInAlphabet(@NonNull List<String> lines, @NonNull char[] alphabet) {
         return lines.stream()
-                .filter(line -> new HashSet<>(Arrays.stream(alphabet)
-                        .map(c -> Character.toString(c))
-                        .toList()).containsAll(Arrays.asList(line.split(""))))
+                .filter(line -> line.matches(String.format("[%s]+", new String(alphabet))))
                 .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
     public static Map<String, Double> getAverageSalaryForDepartment(@NonNull List<Employee> employees) {
-        var departments = employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment));
-        return departments.entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        e -> e.getValue().stream()
-                                .map(Employee::getSalary)
-                                .mapToDouble(Double::doubleValue)
-                                .average().orElseThrow()));
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingDouble(Employee::getSalary)));
     }
 
     public static List<String> getBinaryStringOfNumber(@NonNull List<Integer> numbers) {
@@ -113,7 +100,7 @@ public class Main {
     }
 
     public static List<String> getAllPalindromicSubstrings(@NonNull String line) {
-        return IntStream.range(0, line.length() + 1)
+        return IntStream.range(0, line.length())
                 .boxed()
                 .flatMap(i -> IntStream.range(i + 1, line.length() + 1)
                         .mapToObj(j -> line.substring(i, j)))
@@ -130,21 +117,13 @@ public class Main {
     }
 
     private static boolean isPalindrome(@NonNull String line) {
-        for (int i = 0; i < line.length() / 2; i++) {
-            if (line.charAt(i) != line.charAt(line.length() - i - 1)) {
-                return false;
-            }
-        }
-        return true;
+        return line.substring(0, line.length() / 2).contentEquals(new StringBuilder(
+                line.substring(line.length() - line.length() / 2)).reverse());
     }
 
     private static boolean isPerfectNumber(int number) {
-        int sum = 0;
-        for (int i = 1; i <= number / 2; i++) {
-            if (number % i == 0) {
-                sum += i;
-            }
-        }
-        return sum == number;
+        return number == IntStream.rangeClosed(1, number / 2)
+                .filter(i -> number % i == 0)
+                .sum();
     }
 }
