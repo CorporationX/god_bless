@@ -33,11 +33,6 @@ public class User {
         return queries;
     }
 
-//    public void printQueries() {
-//        for (Query query : queries) {
-//            System.out.println(query.getId() + ":" + query.getContent());
-//        }
-//    }
     public List<Query> getSortedQuryList(){
         Collections.sort(queries, (a, b) -> a.getTimestamp().compareTo(b.getTimestamp()));
         return queries;
