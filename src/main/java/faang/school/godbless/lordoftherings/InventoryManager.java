@@ -1,12 +1,13 @@
 package faang.school.godbless.lordoftherings;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> onAdd) {
-        character.addItem(item);
+        character.addItemToInventory(item);
         onAdd.accept(item);
     }
 
@@ -15,10 +16,11 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> condition, Function<Item, Item> updater) {
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            Item item = character.getInventory().get(i);
+        List<Item> inventory = character.getInventory();
+        for (int i = 0; i < inventory.size(); i++) {
+            Item item = inventory.get(i);
             if (condition.test(item)) {
-                character.getInventory().set(i, updater.apply(item));
+                inventory.set(i, updater.apply(item));
             }
         }
     }
