@@ -3,7 +3,7 @@ package faang.school.godbless.BJS2_20424;
 import java.util.function.Function;
 
 public class Main {
-    Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public double triangleArea(double a, double b, double c) {
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
