@@ -23,14 +23,16 @@ public class User {
      * @return мапа, где ключ — пользователь, значение — первая совпавшая активность
      */
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> targetHobbies) {
-        return users.stream()
-                .map(user -> {
-                    Optional<String> matchedHobby = user.getActivities().stream()
-                            .filter(targetHobbies::contains)
-                            .findFirst();
-                    return matchedHobby.map(hobby -> Map.entry(user, hobby)).orElse(null);
-                })
-                .filter(Objects::nonNull)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<User, String> hobbyLovers = new HashMap<>();
+        for (User user : users) {
+            for (String activity : user.getActivities()) {
+                if (targetHobbies.contains(activity)) {
+                    hobbyLovers.put(user, activity);
+                    break;
+                }
+            }
+        }
+        return hobbyLovers;
+    }
     }
 }
