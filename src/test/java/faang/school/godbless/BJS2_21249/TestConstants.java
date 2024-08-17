@@ -2,7 +2,7 @@ package faang.school.godbless.BJS2_21249;
 
 import java.util.List;
 
-public class Constants {
+public class TestConstants {
     public static final InventoryManager INVENTORY_MANAGER = new InventoryManager();
 
     public static final Item RING = new Item("The One Ring", 1000);

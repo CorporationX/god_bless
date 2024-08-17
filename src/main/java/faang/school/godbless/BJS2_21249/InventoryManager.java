@@ -10,29 +10,19 @@ public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         if (!item.getName().isBlank() && item.getValue() > 0) {
-            int itemCount = character.getItemCounter();
-            character.getInventory().add(itemCount, item);
-
-            character.getInventoryMap().put(item, itemCount++);
-            character.setItemCounter(itemCount);
-
-            consumer.accept(item);
+            character.getInventory().add(item);
         }
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        List<Item> characterInventory = new ArrayList<>(character.getInventory());
-        for (Item item : characterInventory) {
-            if (predicate.test(item)) {
-                character.getInventory().remove(character.getInventoryMap().get(item).intValue());
-            }
-        }
+        character.getInventory().removeIf((item) -> predicate.test(item));
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        for (Item item : character.getInventory()) {
-            if (predicate.test(item)) {
-                character.getInventory().set(character.getInventoryMap().get(item), function.apply(item));
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            Item characterItem = character.getInventory().get(i);
+            if (predicate.test(characterItem)) {
+                character.getInventory().set(i, function.apply(characterItem));
             }
         }
     }

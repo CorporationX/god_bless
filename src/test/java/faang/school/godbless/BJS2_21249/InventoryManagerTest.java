@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static faang.school.godbless.BJS2_21249.Constants.*;
+import static faang.school.godbless.BJS2_21249.TestConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -55,29 +55,29 @@ class InventoryManagerTest {
 
     @Test
     void testRemoveItemCorrect() {
-        frodo.setInventory(FRODO_INVENTORY_CORRECT);
+        frodo.getInventory().clear();
+        frodo.getInventory().addAll(FRODO_INVENTORY_CORRECT);
 
         assertEquals(FRODO_INVENTORY_CORRECT, frodo.getInventory());
         INVENTORY_MANAGER.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
         assertEquals(new ArrayList<>(), frodo.getInventory());
 
-        sam.setInventory(SAM_INVENTORY_CORRECT);
+        sam.getInventory().clear();
+        sam.getInventory().addAll(SAM_INVENTORY_CORRECT);
 
         assertEquals(SAM_INVENTORY_CORRECT, sam.getInventory());
         INVENTORY_MANAGER.removeItem(sam, (item) -> item.getName().equals("Food"));
         INVENTORY_MANAGER.removeItem(sam, (item) -> item.getName().equals("Water"));
-        assertEquals(List.of(WATER), sam.getInventory());
+        assertEquals(List.of(CLOTHES), sam.getInventory());
     }
 
     @Test
     void testRemoveItemIncorrect() {
-        frodo.setInventory(FRODO_INVENTORY_CORRECT);
+        fillHobbitsInventoryWithCorrectItems();
 
         assertEquals(FRODO_INVENTORY_CORRECT, frodo.getInventory());
         INVENTORY_MANAGER.removeItem(frodo, (item) -> item.getName().equals("One Ring"));
         assertNotEquals(new ArrayList<>(), frodo.getInventory());
-
-        sam.setInventory(SAM_INVENTORY_CORRECT);
 
         assertEquals(SAM_INVENTORY_CORRECT, sam.getInventory());
         INVENTORY_MANAGER.removeItem(frodo, (item) -> item.getName().equals("Mantle"));
@@ -87,13 +87,11 @@ class InventoryManagerTest {
 
     @Test
     void testUpdateItemCorrect() {
-        frodo.setInventory(FRODO_INVENTORY_CORRECT);
+        fillHobbitsInventoryWithCorrectItems();
 
         assertEquals(FRODO_INVENTORY_CORRECT, frodo.getInventory());
         INVENTORY_MANAGER.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> MANTLE);
         assertEquals(FRODO_INVENTORY_AFTER_UPDATE, frodo.getInventory());
-
-        sam.setInventory(SAM_INVENTORY_CORRECT);
 
         assertEquals(SAM_INVENTORY_CORRECT, sam.getInventory());
         INVENTORY_MANAGER.updateItem(sam, (item) -> item.getName().equals("Food"), (item) -> BREAD);
@@ -103,13 +101,11 @@ class InventoryManagerTest {
 
     @Test
     void testUpdateItemIncorrect() {
-        frodo.setInventory(FRODO_INVENTORY_CORRECT);
+        fillHobbitsInventoryWithCorrectItems();
 
         assertEquals(FRODO_INVENTORY_CORRECT, frodo.getInventory());
         INVENTORY_MANAGER.updateItem(frodo, (item) -> item.getName().equals("Trousers"), (item) -> MANTLE);
         assertNotEquals(FRODO_INVENTORY_AFTER_UPDATE, frodo.getInventory());
-
-        sam.setInventory(SAM_INVENTORY_CORRECT);
 
         assertEquals(SAM_INVENTORY_CORRECT, sam.getInventory());
         INVENTORY_MANAGER.updateItem(sam, (item) -> item.getName().equals("The One Ring"), (item) -> BREAD);
@@ -123,5 +119,13 @@ class InventoryManagerTest {
         INVENTORY_MANAGER.addItem(sam, FOOD, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         INVENTORY_MANAGER.addItem(sam, WATER, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         INVENTORY_MANAGER.addItem(sam, CLOTHES, (item) -> System.out.println(item.getName() + " was added to the inventory."));
+    }
+
+    private void fillHobbitsInventoryWithCorrectItems() {
+        frodo.getInventory().clear();
+        frodo.getInventory().addAll(FRODO_INVENTORY_CORRECT);
+
+        sam.getInventory().clear();
+        sam.getInventory().addAll(SAM_INVENTORY_CORRECT);
     }
 }
