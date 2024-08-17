@@ -1,8 +1,11 @@
 package faang.school.godbless.Maps.BJS2_20011;
 
+import lombok.Getter;
+
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 public class Query {
 
     private final int id;
