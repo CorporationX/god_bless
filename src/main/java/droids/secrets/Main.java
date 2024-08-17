@@ -5,7 +5,7 @@ public class Main {
         Droid r2d2 = new Droid();
         Droid c3po = new Droid();
         String message = "May be force with you!";
-        int encryptionKey = 25;
+        int encryptionKey = 3;
 
         String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
         System.out.println(encryptedMsg);
