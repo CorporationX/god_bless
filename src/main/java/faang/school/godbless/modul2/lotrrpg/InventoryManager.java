@@ -5,6 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
@@ -20,13 +21,10 @@ public class InventoryManager {
     public void updateItem(Character character, Predicate<Item> itemFilter, Function<Item, Item> updateFunction) {
         emptyInventoryCheck(character);
 
-        List<Item> updatedItems = character.getInventory().stream()
-                .filter(itemFilter)
-                .map(updateFunction)
-                .toList();
-
-        character.getInventory().retainAll(updatedItems);
-        character.getInventory().addAll(updatedItems);
+        List<Item> inventory = character.getInventory();
+        IntStream.range(0, inventory.size())
+                .filter(i -> itemFilter.test(inventory.get(i)))
+                .forEach(i -> inventory.set(i, updateFunction.apply(inventory.get(i))));
     }
 
 
