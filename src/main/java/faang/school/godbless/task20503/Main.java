@@ -1,4 +1,4 @@
-package faang.school.godbless.tast20503;
+package faang.school.godbless.task20503;
 
 public class Main {
     public static void main(String[] args) {

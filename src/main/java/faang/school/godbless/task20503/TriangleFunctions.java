@@ -1,4 +1,4 @@
-package faang.school.godbless.tast20503;
+package faang.school.godbless.task20503;
 
 public class TriangleFunctions {
 
@@ -12,6 +12,7 @@ public class TriangleFunctions {
         Function<Double, Function<Double, Double>> sub = (x) -> (y) -> x - y;
         Function<Double, Function<Double, Double>> div = (x) -> (y) -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
+
         if(sum.apply(a).apply(b) > c && sum.apply(b).apply(c) > a && sum.apply(a).apply(c) > b) {
             throw new IllegalArgumentException("Данная фигура не является треугольником.");
         }
