@@ -20,9 +20,9 @@ public class LocationSearchEngine {
     }
 
     public List<Double> calculateDistances(List<Location> locations,
-                                             Function<Location, Double> distanceFunction) {
-        return locations.
-                stream()
+                                           Function<Location, Double> distanceFunction) {
+        return locations
+                .stream()
                 .map(distanceFunction)
                 .toList();
     }
