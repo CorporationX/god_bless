@@ -4,7 +4,6 @@ import java.util.concurrent.Callable;
 
 public class Main {
     public static void main(String[] args) {
-
         int result = withErrorHandling(() -> {
             return 4/0;
         }, (e) -> {
@@ -14,13 +13,11 @@ public class Main {
     }
 
     public static<T> T withErrorHandling(Callable<T> callable, ExceptionHandler exceptionHandler) {
-
-        T result = null;
         try {
-            result = callable.call();
+            return callable.call();
         } catch (Exception e) {
             exceptionHandler.handle(e);
+            return null;
         }
-        return result;
     }
 }
