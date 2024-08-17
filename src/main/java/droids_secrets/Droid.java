@@ -9,7 +9,13 @@ public class Droid {
 
     public String sendEncryptedMessage(String message, int encryptionKey) {
         return IntStream.range(0, message.length())
-                .mapToObj(i -> (char)(message.charAt(i) + encryptionKey))
+                .mapToObj(i -> {
+                    char ch = message.charAt(i);
+                    if (Character.isLetter(ch)) {
+                        return (char)(ch + encryptionKey);
+                    }
+                    return ch;
+                })
                 .map(String::valueOf)
                 .collect(Collectors.joining());
     }
