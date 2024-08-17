@@ -32,15 +32,15 @@ public class Main {
 
     private static void validateMatrix(@NonNull List<List<String>> table) {
         if (table.isEmpty()) {
-            throw new IllegalArgumentException("Matrix is empty");
+            throw new IllegalArgumentException("Table is empty");
         }
         if (table.stream()
                 .anyMatch(Objects::isNull)) {
-            throw new NullPointerException("Row of the matrix is null");
+            throw new NullPointerException("Line of the table is null");
         }
         if (table.stream()
                 .anyMatch(List::isEmpty)) {
-            throw new IllegalArgumentException("Row of the matrix is empty");
+            throw new IllegalArgumentException("Line of the table is empty");
         }
     }
 }
