@@ -1,8 +1,6 @@
 package faang.school.godbless.train_streams2;
 
-import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -26,13 +24,12 @@ public class StreamsComputer {
                 .toList();
     }
 
-    // 2
-    public static void sortedCountriesCapitals(Map<String, String> countriesCapitals) {
-        List<String> capitals = countriesCapitals.keySet().stream()
+    // 2 - Returns the list for the testing class to check
+    public static List<String> sortedCountriesCapitals(Map<String, String> countriesCapitals) {
+        return countriesCapitals.keySet().stream()
                 .sorted()
                 .map(countriesCapitals::get)
                 .toList();
-        capitals.forEach(System.out::println);
     }
 
     // 3
