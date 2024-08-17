@@ -11,11 +11,10 @@ public class EmailProcessor {
     public void processEmails(@NonNull List<Email> emails,
                               @NonNull Predicate<Email> predicateFilter,
                               @NonNull Consumer<Email> consumerFilter,
-                              @NonNull Function<Email, String> functionFilter) {
+                              @NonNull Function<Email, Email> functionFilter) {
         emails.forEach(email -> {
             if (predicateFilter.test(email)) {
-                consumerFilter.accept(email);
-                functionFilter.apply(email);
+                consumerFilter.accept(functionFilter.apply(email));
             }
         });
     }
