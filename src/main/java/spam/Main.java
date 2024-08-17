@@ -19,7 +19,7 @@ public class Main {
 
         for (String message : messages) {
             boolean isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Message: " + message + " | Skipped: " + isFiltered);
+            System.out.println("Message: " + message + " | Passed: " + isFiltered);
         }
     }
 }
