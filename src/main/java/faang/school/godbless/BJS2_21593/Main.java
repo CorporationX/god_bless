@@ -20,17 +20,10 @@ public class Main {
         }
 
         VectorJoiner<String> vectorJoiner = vector -> {
-            if (vector.isEmpty()) {
+            if (vector == null || vector.isEmpty()) {
                 throw new IllegalArgumentException("vector is empty");
             }
-            StringBuilder line = new StringBuilder();
-            for (int i = 0; i < vector.size(); i++) {
-                line.append(vector.get(i));
-                if (i < vector.size() - 1) {
-                    line.append(",");
-                }
-            }
-            return line.toString();
+            return String.join(",", vector);
         };
 
         MatrixJoiner<String> matrixJoiner = matrix -> {
