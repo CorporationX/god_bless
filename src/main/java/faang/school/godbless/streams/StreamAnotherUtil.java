@@ -10,21 +10,15 @@ public class StreamAnotherUtil {
     public static List<List<Integer>> findTargetNumberInListNumbersBySumElements(@NonNull List<Integer> numbers, int target) {
         checkIsListNotEmptyOrElseThrowError(numbers);
 
-        List<List<Integer>> result = new ArrayList<>(new ArrayList<>());
-
-        numbers.stream()
-                .filter(n -> n < target)
+        return numbers.stream()
                 .distinct()
-                .mapToInt(n -> n)
-                .filter(n -> {
-                    if (numbers.contains(target - n)) {
-                        result.add(List.of(n, numbers.get(numbers.indexOf(target - n))));
-                    }
-                    return false;
-                })
-                .count();
-
-        return result;
+                .filter(number -> number < target)
+                .flatMap(number -> numbers.stream()
+                        .distinct()
+                        .filter(num -> num < target)
+                        .filter(num -> num + number == target)
+                        .map(num -> new ArrayList<>(List.of(number, num))))
+                .collect(Collectors.toUnmodifiableList());
     }
 
     public static List<String> getCapitalsAfterOrderTheirCountries(Map<String, String> countriesWithCapitals) {
@@ -50,13 +44,11 @@ public class StreamAnotherUtil {
                         .filter(entry -> !entry.getKey().equalsIgnoreCase(person))
                         .filter(entry -> entry.getValue().contains(person))
                         .filter(entry -> entry.getValue().size() > 1)
-                        .peek(entry -> {
-                            entry.getValue().forEach(f -> {
-                                if (!f.equalsIgnoreCase(person)) {
-                                    res.add(List.of(person, f));
-                                }
-                            });
-                        })
+                        .peek(entry -> entry.getValue().forEach(f -> {
+                            if (!f.equalsIgnoreCase(person)) {
+                                res.add(List.of(person, f));
+                            }
+                        }))
                 )
                 .count();
 
