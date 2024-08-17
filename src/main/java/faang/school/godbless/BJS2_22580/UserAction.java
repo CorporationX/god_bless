@@ -50,8 +50,10 @@ public class UserAction {
     }
 
     public static List<User> findTop3UsersWithMostCommentsLastMonth(List<UserAction> userActions) {
+        LocalDateTime oneMinuteAgo = LocalDateTime.now().minusMonths(1);
         return userActions.stream()
                 .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
+                .filter(userAction -> userAction.getActionDate().isAfter(oneMinuteAgo))
                 .collect(Collectors.groupingBy(UserAction::getUser, Collectors.counting()))
                 .entrySet()
                 .stream()
