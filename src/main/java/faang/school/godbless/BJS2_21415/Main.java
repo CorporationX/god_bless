@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> list = List.of(4, 5, 3);
+        List<Integer> list = List.of(Integer.MAX_VALUE, Integer.MAX_VALUE, Integer.MAX_VALUE);
         System.out.println(CalcProcessor.sum(list));
         System.out.println(CalcProcessor.product(list));
     }
