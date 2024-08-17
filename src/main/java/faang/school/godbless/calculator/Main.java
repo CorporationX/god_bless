@@ -17,12 +17,16 @@ public class Main {
     }
 
     static int calculate(@NonNull List<Integer> nums, Calculator<Integer> calculator) {
-        int result = nums.get(0);
+        if (!nums.isEmpty()) {
+            int result = nums.get(0);
 
-        for (int index = 1; index < nums.size(); index++) {
-            result = calculator.solve(result, nums.get(index));
+            for (int index = 1; index < nums.size(); index++) {
+                result = calculator.solve(result, nums.get(index));
+            }
+            return result;
         }
-        return result;
+        System.out.println("No numbers to calculate");
+        return 0;
     }
 
     public static int add(List<Integer> nums) {
