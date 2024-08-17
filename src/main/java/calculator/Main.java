@@ -8,4 +8,5 @@ public class Main {
         System.out.println(Calculate.product(testList));
         System.out.println(Calculate.sum(testList));
     }
+
 }
