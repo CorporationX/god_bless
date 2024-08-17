@@ -1,4 +1,4 @@
-package faang.school.godbless.task.doubl.cache.cache;
+package faang.school.godbless.task.hashmap.doubl.cache.cache;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @ToString
 @RequiredArgsConstructor
-public class Student {
+public class Subject {
     private final Long id;
     private final String name;
 }

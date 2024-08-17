@@ -1,15 +1,13 @@
-package faang.school.godbless.task.elk.query.index;
+package faang.school.godbless.task.hashmap.doubl.cache.cache;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor
-public class User {
+public class Student {
     private final Long id;
     private final String name;
 }

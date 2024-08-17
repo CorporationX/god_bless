@@ -1,4 +1,4 @@
-package faang.school.godbless.task.google.search;
+package faang.school.godbless.task.hashmap.google.search;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

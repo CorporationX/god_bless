@@ -1,12 +1,14 @@
 package faang.school.godbless.task.lru.cache;
 
+import faang.school.godbless.task.hashmap.lru.cache.Data;
+import faang.school.godbless.task.hashmap.lru.cache.DataStructure;
+import faang.school.godbless.task.hashmap.lru.cache.LruCacheManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

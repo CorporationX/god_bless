@@ -1,4 +1,4 @@
-package faang.school.godbless.task.lru.cache;
+package faang.school.godbless.task.hashmap.lru.cache;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 public class LruCacheManager {

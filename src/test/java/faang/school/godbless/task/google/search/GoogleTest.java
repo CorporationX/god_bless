@@ -1,5 +1,7 @@
 package faang.school.godbless.task.google.search;
 
+import faang.school.godbless.task.hashmap.google.search.Google;
+import faang.school.godbless.task.hashmap.google.search.WebPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

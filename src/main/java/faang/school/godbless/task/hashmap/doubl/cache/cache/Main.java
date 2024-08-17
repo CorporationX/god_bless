@@ -1,4 +1,4 @@
-package faang.school.godbless.task.doubl.cache.cache;
+package faang.school.godbless.task.hashmap.doubl.cache.cache;
 
 import java.util.ArrayList;
 import java.util.HashMap;

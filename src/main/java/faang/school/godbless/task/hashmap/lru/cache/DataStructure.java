@@ -1,4 +1,4 @@
-package faang.school.godbless.task.lru.cache;
+package faang.school.godbless.task.hashmap.lru.cache;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

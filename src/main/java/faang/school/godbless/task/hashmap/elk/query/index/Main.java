@@ -1,4 +1,4 @@
-package faang.school.godbless.task.elk.query.index;
+package faang.school.godbless.task.hashmap.elk.query.index;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
