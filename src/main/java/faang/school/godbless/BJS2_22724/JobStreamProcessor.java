@@ -7,7 +7,7 @@ public class JobStreamProcessor {
     public List<Job> process(Stream<String> streamStrings) {
         JobScraper jobScraper = new JobScraper();
         return streamStrings
-                .map(string -> jobScraper.parseJsonToJob(string))
+                .map(jobScraper::parseJsonToJob)
                 .toList();
     }
 }
