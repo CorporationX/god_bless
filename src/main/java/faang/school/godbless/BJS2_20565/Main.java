@@ -34,16 +34,11 @@ public class Main {
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection direction) {
 
-        MatrixTransformer transformer;
-
-        if (direction == FlipDirection.HORIZONTAL) {
-            transformer = (x, y) -> new Coordinates(x, matrix.length - 1 - y);
-        } else {
-            transformer = (x, y) -> new Coordinates(matrix.length - 1 - x, y);
-        }
-
+        MatrixTransformer transformer =
+                switch (direction) {
+                    case HORIZONTAL -> (x, y) -> new Coordinates(x, matrix.length - 1 - y);
+                    case VERTICAL -> (x, y) -> new Coordinates(matrix[0].length - 1 - x, y);
+        };
         return transformMatrix(matrix, transformer);
-
     }
-
 }
