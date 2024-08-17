@@ -1,33 +1,24 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.function.BiFunction;
 
 public class Application {
     public static void main(String[] args) {
-        List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        FareCalculator fareCalculator = new FareCalculator();
 
-        int sumResult = sum(nums);
-        int productResult = product(nums);
+        BiFunction<Double, Double, Double> economyFare = (distance, time) -> 1.0 * distance + 0.5 * time;
+        BiFunction<Double, Double, Double> comfortFare = (distance, time) -> 1.5 * distance + 0.8 * time;
+        BiFunction<Double, Double, Double> premiumFare = (distance, time) -> 2.0 * distance + 1.5 * time;
 
-        System.out.println(sumResult);
-        System.out.println(productResult);
-    }
+        double distance = 10.0;
+        double time = 15.0;
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator){
+        double economyTripCost = fareCalculator.calculateFare(distance, time, economyFare);
+        double comfortTripCost = fareCalculator.calculateFare(distance, time, comfortFare);
+        double premiumTripCost = fareCalculator.calculateFare(distance, time, premiumFare);
 
-        int result = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            result = calculator.apply(result, nums.get(i));
-        }
-        return result;
-    }
-
-    public static int product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
-    }
-
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, Integer::sum);
+        System.out.println(economyTripCost);
+        System.out.println(comfortTripCost);
+        System.out.println(premiumTripCost);
     }
 }
