@@ -4,19 +4,13 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        // Создаем объект класса Example
-        Example example = new Example();
+                Example example = new Example();
 
-        // Инициализируем массив целых чисел
-        int[] nums = {1, 2, 3, 4, 5};
+                int[] nums = {1, 2, 3, 4, 5};
+                System.out.println("Before reverse: " + Arrays.toString(nums));
 
-        // Выводим массив до разворота
-        System.out.println("Before reverse: " + Arrays.toString(nums));
+                int[] reversedNums = example.reverse(nums);
 
-        // Разворачиваем массив
-        example.reverse(nums);
-
-        // Выводим массив после разворота
-        System.out.println("After reverse: " + Arrays.toString(nums));
-    }
+                System.out.println("After reverse: " + Arrays.toString(reversedNums));
+            }
 }
