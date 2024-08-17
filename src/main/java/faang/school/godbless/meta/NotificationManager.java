@@ -17,6 +17,10 @@ public class NotificationManager {
 
     void sendNotification(@NonNull Notification notification) {
         Consumer<Notification> handler = notificationMap.get(notification.getType());
+        if (handler != null) {
             handler.accept(notification);
+        } else {
+            System.out.println("No such notification type");
+        }
     }
 }

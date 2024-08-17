@@ -11,9 +11,11 @@ public class Main {
         Notification emailNotification = new Notification("email", "Your account has been successfully activated");
         Notification smsNotification = new Notification("sms", "Your password has been successfully changed");
         Notification pushNotification = new Notification("push", "New post by JohnDoe");
+        Notification phoneCallNotification = new Notification("call", "You have 3 new voicemail messages");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(phoneCallNotification);
     }
 }
