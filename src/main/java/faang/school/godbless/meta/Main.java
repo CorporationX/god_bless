@@ -24,13 +24,22 @@ public class Main {
         });
 
         Notification unacceptableNotification = new Notification("push", "Some banword");
+        String message = "banword";
 
-        if (notificationManager.checkNotification("banword", unacceptableNotification)) {
-            System.out.println(unacceptableNotification + " is accepted");
+        if (notificationManager.checkNotification(message, unacceptableNotification).isPresent()) {
+            if (notificationManager.checkNotification(message, unacceptableNotification).get()) {
+                System.out.println(unacceptableNotification + " is accepted");
+            } else {
+                System.out.println(unacceptableNotification + " is rejected");
+                if (notificationManager.correctRejectedNotification(message, unacceptableNotification).isPresent()) {
+                    unacceptableNotification = notificationManager.correctRejectedNotification(message, unacceptableNotification).get();
+                    System.out.println(unacceptableNotification);
+                } else {
+                    System.out.println("Not registered corrector for that message : " + message);
+                }
+            }
         } else {
-            System.out.println(unacceptableNotification + " is rejected");
-            unacceptableNotification = notificationManager.correctRejectedNotification("banword", unacceptableNotification);
-            System.out.println(unacceptableNotification);
+            System.out.println("Not registered filter for that message : " + message);
         }
     }
 }
