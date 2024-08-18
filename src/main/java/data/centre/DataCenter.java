@@ -1,42 +1,64 @@
 package data.centre;
 
-import lombok.Setter;
+import lombok.Getter;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Getter
 public class DataCenter {
 
-    @Setter
-    protected DataCenterService dataCenterService;
-    protected Map<Integer, Server> serverIdMap = new HashMap<>();
+    private final Map<Integer, Server> serverIdMap = new HashMap<>();
 
-    public void addServer(Server server) {
-        dataCenterService.addService(server);
+    public void addServer(int id, Server server) {
+        serverIdMap.put(id, server);
     }
 
-    public void deleteServer(int id) {
-        dataCenterService.deleteServer(id);
-    }
-
-    public void hardDeleteServer(int id) {
-        dataCenterService.hardDeleteServer(id);
-    }
-
-    public double getTotalServerMaxLoad() {
-        return dataCenterService.getTotalServerMaxLoad();
+    public double getTotalEnergyConsumption() {
+        double result = 0;
+        for (Server server : serverIdMap.values()) {
+            result += server.getEnergyConsumption();
+        }
+        return result;
     }
 
     public double getTotalServerLoad() {
-        return dataCenterService.getTotalServerLoad();
+        double totalLoad = 0;
+        for (Server server : serverIdMap.values()) {
+            totalLoad += server.getLoad();
+        }
+        return totalLoad;
     }
 
-    public double getTotalServerEnergyConsumption() {
-        return dataCenterService.getTotalEnergyConsumption();
+    public double getTotalServerMaxLoad() {
+        double totalMaxLoad = 0;
+        for (Server server : serverIdMap.values()) {
+            totalMaxLoad += server.getMaxLoad();
+        }
+        return totalMaxLoad;
     }
 
     public void printServers() {
-        dataCenterService.printServers();
+        for (Map.Entry<Integer, Server> entry : serverIdMap.entrySet()) {
+            Server server = entry.getValue();
+            System.out.println("Сервер ID: " + entry.getKey() + " и данные: " + server);
+        }
+    }
+
+    public void deleteServer(int id) {
+
+        if (serverIdMap.containsKey(id)) {
+
+            if (serverIdMap.get(id).getLoad() > 0) {
+                System.out.println("Нельзя отключить сервер под нагрузкой.");
+            } else {
+                serverIdMap.remove(id);
+
+                System.out.println("Сервер с ID [" + id + "] отключен.");
+            }
+        } else {
+            throw new IllegalArgumentException("Сервера с ID [" + id + "] нет.");
+        }
     }
 
 }

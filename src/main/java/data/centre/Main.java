@@ -5,71 +5,77 @@ import java.util.Scanner;
 public class Main {
 
     public static DataCenter dataCenter = new DataCenter();
-    public static DataCenterService dataCenterService = new DataCenterService(dataCenter);
+    public static DataCenterService dataCenterService = new DataCenterService();
     public static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
 
-        initDataCenter();
+        dataCenter = initDataCenter();
+        dataCenterService.setOptimizationStrategy(new SimpleOptimizationStrategy());
 
         ResourceRequest request = new ResourceRequest(500);
         ResourceRequest request1 = new ResourceRequest(1000);
         ResourceRequest request2 = new ResourceRequest(1500);
         ResourceRequest request3 = new ResourceRequest(300);
 
-        dataCenterService.allocateResources(request);
-        System.out.println("Общая нагрузка серверов " + dataCenter.getTotalServerLoad());
+        dataCenterService.allocateResources(dataCenter, request);
+        System.out.println("Общая нагрузка серверов " + dataCenterService.getTotalServerLoad(dataCenter));
         System.out.println("Потребление после первого выделения мощностей " +
-                dataCenter.getTotalServerEnergyConsumption());
+                dataCenterService.getTotalEnergyConsumption(dataCenter));
         System.out.println("---");
 
-        dataCenterService.allocateResources(request1);
-        System.out.println("Общая нагрузка серверов " + dataCenter.getTotalServerLoad());
+        dataCenterService.allocateResources(dataCenter, request1);
+        System.out.println("Общая нагрузка серверов " + dataCenterService.getTotalServerLoad(dataCenter));
         System.out.println("Потребление после второго выделения " +
-                "мощностей и добавления нового сервера " + dataCenter.getTotalServerEnergyConsumption());
+                "мощностей и добавления нового сервера " + dataCenterService.getTotalEnergyConsumption(dataCenter));
         System.out.println("---");
 
-        dataCenterService.releaseResources(request2);
+        dataCenterService.releaseResources(dataCenter, request2);
         System.out.println("Общая нагрузка серверов после высвобождения ресурсов "
-                + dataCenter.getTotalServerLoad());
+                + dataCenterService.getTotalServerLoad(dataCenter));
         System.out.println("Потребление энергии после высвобождения ресурсов " +
-                dataCenter.getTotalServerEnergyConsumption());
+                dataCenterService.getTotalEnergyConsumption(dataCenter));
         System.out.println("---");
 
-        dataCenter.printServers();
+        dataCenterService.printServers(dataCenter);
         System.out.println("---");
 
-        dataCenterService.allocateResources(request3);
-        System.out.println("Общая нагрузка серверов " + dataCenter.getTotalServerLoad());
+        dataCenterService.allocateResources(dataCenter, request3);
+        System.out.println("Общая нагрузка серверов " + dataCenterService.getTotalServerLoad(dataCenter));
         System.out.println("Потребление после третьего выделения мощностей " +
-                dataCenter.getTotalServerEnergyConsumption());
+                dataCenterService.getTotalEnergyConsumption(dataCenter));
         System.out.println("---");
 
-        selectingServerDeleteMethod();
+        try {
+            selectingServerDeleteMethod();
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
+        }
 
         dataCenterService.optimize(dataCenter);
         System.out.println("---");
 
-        dataCenter.printServers();
+        dataCenterService.printServers(dataCenter);
     }
 
-    public static void initDataCenter() {
-        dataCenter.setDataCenterService(dataCenterService);
+    public static DataCenter initDataCenter() {
+        DataCenter dataCenter = new DataCenter();
         Server server1 = new Server(150, 1.5, 300);
-        Server server2 = new Server(100, 1, 300);
+        Server server2 = new Server(100, 1, 350);
         Server server3 = new Server(50, 0.5, 300);
 
-        dataCenter.addServer(server1);
-        dataCenter.addServer(server2);
-        dataCenter.addServer(server3);
-        System.out.println("Общая нагрузка серверов " + dataCenter.getTotalServerLoad());
-        System.out.println("Потребление в начале " + dataCenter.getTotalServerEnergyConsumption());
+        dataCenterService.addServer(dataCenter, server1);
+        dataCenterService.addServer(dataCenter, server2);
+        dataCenterService.addServer(dataCenter, server3);
+        System.out.println("Общая нагрузка серверов " + dataCenterService.getTotalServerLoad(dataCenter));
+        System.out.println("Потребление в начале " + dataCenterService.getTotalEnergyConsumption(dataCenter));
         System.out.println("---");
+        return dataCenter;
     }
 
     public static void selectingServerDeleteMethod() {
         System.out.println("Введите команду: 'delete' или 'hard delete': ");
-        String command = scanner.nextLine();
+        String command = scanner.nextLine().trim();
 
         if (command.equalsIgnoreCase("delete")) {
             System.out.println("Введите ID сервера для удаления:");
@@ -86,7 +92,7 @@ public class Main {
             if (scanner.hasNextInt()) {
                 int serverId = scanner.nextInt();
                 scanner.nextLine();
-                dataCenter.hardDeleteServer(serverId);
+                dataCenterService.hardDeleteServer(dataCenter, serverId);
             } else {
                 System.out.println("Неверный ввод. Ожидалось число.");
                 scanner.nextLine();

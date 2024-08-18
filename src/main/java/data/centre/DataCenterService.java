@@ -3,51 +3,25 @@ package data.centre;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
 @Getter
 @Setter
-public class DataCenterService implements OptimizationStrategy {
+public class DataCenterService {
 
-    protected final static Random RANDOM = new Random();
-    private final static int MAX_SERVER_COUNT = 50;
-    private Set<Integer> deleteServerIdSet = new HashSet<>();
-    protected DataCenter dataCenter;
+    private OptimizationStrategy optimizationStrategy;
+    private static int ID = 1;
 
-    public DataCenterService(DataCenter dataCenter) {
-        this.dataCenter = dataCenter;
-    }
-
-    public void addService(Server server) {
-        int finalId = RANDOM.nextInt(MAX_SERVER_COUNT) + 1;
-        while (dataCenter.serverIdMap.containsKey(finalId)) {
-            finalId++;
-        }
-        dataCenter.serverIdMap.put(finalId, server);
-        System.out.println("Новый сервер с ID [" + finalId + "] запущен: " + server);
+    public void addServer(DataCenter dataCenter, Server server) {
+        dataCenter.addServer(ID, server);
+        System.out.println("Новый сервер с ID [" + ID++ + "] запущен: " + server);
     }
 
     /*
     Останавливает сервер, если он не под нагрузкой.
      */
-    public void deleteServer(int id) {
-
-        if (dataCenter.serverIdMap.containsKey(id)) {
-
-            if (dataCenter.serverIdMap.get(id).getLoad() > 0) {
-                System.out.println("Нельзя отключить сервер под нагрузкой.");
-            } else {
-                dataCenter.serverIdMap.remove(id);
-                deleteServerIdSet.remove(id);
-
-                System.out.println("Сервер с ID [" + id + "] отключен.");
-            }
-        } else {
-            System.out.println("Сервера с ID [" + id + "] нет.");
-        }
+    public void deleteServer(DataCenter dataCenter, int id) {
+        dataCenter.deleteServer(id);
     }
 
     /*
@@ -55,52 +29,38 @@ public class DataCenterService implements OptimizationStrategy {
     при условии, что его нагрузку можно распределить
     по другим серверам.
      */
-    public void hardDeleteServer(int id) {
+    public void hardDeleteServer(DataCenter dataCenter, int id) {
 
-        if (!dataCenter.serverIdMap.containsKey(id)) {
+        if (!dataCenter.getServerIdMap().containsKey(id)) {
             System.out.println("Сервера с ID [" + id + "] нет.");
             return;
         }
 
-        double loadServerToDelete = dataCenter.serverIdMap.get(id).getLoad();
-        double remainingFreeLoadServer = dataCenter.getTotalServerMaxLoad() - dataCenter.getTotalServerLoad();
+        double loadServerToDelete = dataCenter.getServerIdMap().get(id).getLoad();
+        double remainingFreeLoadServer = getTotalServerMaxLoad(dataCenter) - getTotalServerLoad(dataCenter);
 
         if (remainingFreeLoadServer >= loadServerToDelete) {
 
-            if (dataCenter.serverIdMap.containsKey(id)) {
-                double remainingLoadToDistribute = loadServerToDelete;
-                methodForReloadingServers(remainingLoadToDistribute, dataCenter.serverIdMap);
-                dataCenter.serverIdMap.remove(id);
-                deleteServerIdSet.remove(id);
-                System.out.println("Сервер с ID [" + id + "] отключен.");
+            if (dataCenter.getServerIdMap().containsKey(id)) {
+                methodForReloadingServers(loadServerToDelete, dataCenter.getServerIdMap());
+                dataCenter.getServerIdMap().get(id).setLoad(0);
+                dataCenter.deleteServer(id);
             }
         } else {
             System.out.println("Этот сервер важен, сейчас отключить его невозможно.");
         }
     }
 
-    public double getTotalEnergyConsumption() {
-        double result = 0;
-        for (Server server : dataCenter.serverIdMap.values()) {
-            result += server.getEnergyConsumption();
-        }
-        return result;
+    public double getTotalEnergyConsumption(DataCenter dataCenter) {
+        return dataCenter.getTotalEnergyConsumption();
     }
 
-    public double getTotalServerLoad() {
-        double totalLoad = 0;
-        for (Server server : dataCenter.serverIdMap.values()) {
-            totalLoad += server.getLoad();
-        }
-        return totalLoad;
+    public double getTotalServerLoad(DataCenter dataCenter) {
+        return dataCenter.getTotalServerLoad();
     }
 
-    public double getTotalServerMaxLoad() {
-        double totalMaxLoad = 0;
-        for (Server server : dataCenter.serverIdMap.values()) {
-            totalMaxLoad += server.getMaxLoad();
-        }
-        return totalMaxLoad;
+    public double getTotalServerMaxLoad(DataCenter dataCenter) {
+        return dataCenter.getTotalServerMaxLoad();
     }
 
     /*
@@ -108,14 +68,14 @@ public class DataCenterService implements OptimizationStrategy {
     новую нагрузку по существующим серверам. Если мощностей не хватает
     запускает новый сервер.
      */
-    public void allocateResources(ResourceRequest request) {
+    public void allocateResources(DataCenter dataCenter, ResourceRequest request) {
         double loadRequest = request.getLoad();
         double freeServerCapacity = dataCenter.getTotalServerMaxLoad() - dataCenter.getTotalServerLoad();
         if (loadRequest > freeServerCapacity) {
             Server newServer = new Server(loadRequest, reloadServerEnergyConsumption(loadRequest), loadRequest + loadRequest / 2);
-            addService(newServer);
+            addServer(dataCenter, newServer);
         } else {
-            methodForReloadingServers(loadRequest, dataCenter.serverIdMap);
+            methodForReloadingServers(loadRequest, dataCenter.getServerIdMap());
         }
     }
 
@@ -123,13 +83,13 @@ public class DataCenterService implements OptimizationStrategy {
     Освобождает ресурсы. Если после этого сервера не используются,
     добавляет их в список на отключение.
      */
-    public void releaseResources(ResourceRequest request) {
+    public void releaseResources(DataCenter dataCenter, ResourceRequest request) {
         double loadRequest = request.getLoad();
         double totalLoad = dataCenter.getTotalServerLoad();
         if (totalLoad >= loadRequest && loadRequest > 0) {
             double remainingLoadToRelease = loadRequest;
 
-            for (Map.Entry<Integer, Server> entry : dataCenter.serverIdMap.entrySet()) {
+            for (Map.Entry<Integer, Server> entry : dataCenter.getServerIdMap().entrySet()) {
 
                 int serverId = entry.getKey();
                 Server server = entry.getValue();
@@ -141,7 +101,6 @@ public class DataCenterService implements OptimizationStrategy {
 
                 if (server.getLoad() == 0) {
                     System.out.println("Сервер [" + serverId + "] больше не используется.");
-                    deleteServerIdSet.add(serverId);
                 } else {
                     System.out.println("Сервер [" + serverId + "] теперь нагружен на " +
                             server.getLoad() + " из " + server.getMaxLoad() + ".");
@@ -153,11 +112,8 @@ public class DataCenterService implements OptimizationStrategy {
         }
     }
 
-    public void printServers() {
-        for (Map.Entry<Integer, Server> entry : dataCenter.serverIdMap.entrySet()) {
-            Server server = entry.getValue();
-            System.out.println("Сервер ID: " + entry.getKey() + " и данные: " + server);
-        }
+    public void printServers(DataCenter dataCenter) {
+        dataCenter.printServers();
     }
 
     /*
@@ -172,11 +128,6 @@ public class DataCenterService implements OptimizationStrategy {
 
             if (availableCapacity > 0) {
 
-
-                if (deleteServerIdSet.contains(serverId)) {
-                    deleteServerIdSet.remove(serverId);
-                }
-
                 double allocatedCapacity = Math.min(loadToReloading, availableCapacity);
                 double newLoadServer = server.getLoad() + allocatedCapacity;
 
@@ -187,9 +138,9 @@ public class DataCenterService implements OptimizationStrategy {
                     loadToReloading -= allocatedCapacity;
 
                     if (server.getLoad() == server.getMaxLoad()) {
-                        System.out.println("Сервер [" + serverId + "] теперь нагружен на максимум.");
+                        System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на максимум.");
                     } else {
-                        System.out.println("Сервер [" + serverId + "] теперь нагружен на " +
+                        System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на " +
                                 server.getLoad() + " из " + server.getMaxLoad() + ".");
                     }
                 }
@@ -206,43 +157,15 @@ public class DataCenterService implements OptimizationStrategy {
     в зависимости от его нагрузки.
      */
     public double reloadServerEnergyConsumption(double load) {
-        double result = load * 0.01;
-        return result;
+        return load * 0.01;
     }
 
-    /*
-    Останавливает сервера, если они не используются.
-    Добавил паузу в 5 секунд для имитации сканирования системы.
-     */
-    @Override
     public void optimize(DataCenter dataCenter) {
-        StringBuilder result = new StringBuilder();
-        System.out.println("Началась оптимизация серверного центра...");
-
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        if (!deleteServerIdSet.isEmpty()) {
-
-            result.append("Сервер(а) с ID: ");
-            int size = deleteServerIdSet.size();
-            int index = 0;
-            for (Integer serverId : deleteServerIdSet) {
-                dataCenter.serverIdMap.remove(serverId);
-                result.append(serverId);
-                if (index < size - 1) {
-                    result.append(", ");
-                }
-                index++;
-            }
-            result.append(" был(и) остановлен(ы).");
-            System.out.println("Оптимизация завершена. " + result);
-            deleteServerIdSet.clear();
+        if (optimizationStrategy != null) {
+            optimizationStrategy.optimize(dataCenter);
         } else {
-            System.out.println("Оптимизация завершена. Серверов для отключения нет.");
+            throw new NullPointerException("Стратегии оптимизации не выбрана");
         }
     }
+
 }
