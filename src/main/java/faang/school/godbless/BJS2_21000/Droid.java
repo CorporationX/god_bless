@@ -10,15 +10,19 @@ public class Droid {
 
     public void sendEncryptedMessage(Droid droid, String message, int key) {
         DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
-            StringBuilder encrypted = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isLowerCase(c) ? 'a' : 'A';
-                    c = (char) ((c - base + encryptionKey) % 26 + base);
-                }
-                encrypted.append(c);
-            }
-            return encrypted.toString();
+            String encrypted = msg.chars()
+                    .mapToObj(c -> {
+                        if (Character.isLetter(c)) {
+                            char base = Character.isLowerCase(c) ? 'a' : 'A';
+                            return (char) ((c - base + encryptionKey) % 26 + base);
+                        } else {
+                            return (char) c;
+                        }
+                    })
+                    .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
+                    .toString();
+
+            return encrypted;
         };
         String encryptedMessage = encryptor.encrypt(message, key);
         System.out.println("Шифр: " + encryptedMessage);
