@@ -4,8 +4,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MessageProcessor {
-    public boolean processMessage(String message, MessageFilter filter) {
-        return filter.filter(message);
+    public boolean processMessage(String message, List<MessageFilter> filters) {
+        for (MessageFilter filter : filters) {
+            if (!filter.filter(message)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static void main(String[] args) {
@@ -20,8 +25,8 @@ public class MessageProcessor {
         String[] messages = {"Привет!", "Это спам!", "Как дела? 😀", "Длинное сообщение без спама и эмодзи"};
 
         for (String message : messages) {
-            boolean isFiltered = messageProcessor.processMessage(message, spamFilter);
-            System.out.println("Сообщение: " + message + " | Пропущено: " + isFiltered);
+            boolean isFiltered = messageProcessor.processMessage(message, filters);
+            System.out.println("Сообщение: \"" + message + "\" | Пропущено: " + isFiltered);
         }
     }
 }
