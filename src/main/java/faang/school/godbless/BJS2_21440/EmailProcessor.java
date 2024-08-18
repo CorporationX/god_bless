@@ -9,9 +9,10 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public void processEmails(List<Email> listEmail, Predicate<Email> emailPredicate, Consumer<Email> emailConsumer, Function<Email, String> emailStringFunction) {
         for (Email email : listEmail) {
-            emailPredicate.test(email);
-            emailConsumer.accept(email);
-            emailStringFunction.apply(email);
+            if (emailPredicate.test(email)) {
+                emailConsumer.accept(email);
+                emailStringFunction.apply(email);
+            }
         }
     }
 
