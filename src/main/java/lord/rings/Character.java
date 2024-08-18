@@ -14,7 +14,6 @@ public class Character {
     @Setter
     private String name;
 
-    @Getter
     private final List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
