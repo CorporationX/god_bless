@@ -21,11 +21,11 @@ public class Data {
         this.timestamp = LocalDateTime.now();
     }
 
-
     @Override
     public String toString() {
-        return "data = '" + data + '\'' +
-                ", timestamp = " + timestamp.format(DATE_TIME_FORMATTER);
+        return "id = " + id +
+                ", data = '" + data + '\'' +
+                ", timestamp = " + timestamp;
     }
 }
 
