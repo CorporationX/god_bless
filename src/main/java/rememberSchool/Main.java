@@ -14,8 +14,7 @@ public class Main{
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-        double result = 0;
-        result =  mul.apply(a).apply(mul.apply(b).apply(c));
+        double result =  mul.apply(a).apply(mul.apply(b).apply(c));
         return result;
     }
 
