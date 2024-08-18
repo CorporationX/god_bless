@@ -10,7 +10,7 @@ public class Test {
         List<UserAction> actions = new ArrayList<>();
         actions.add(new UserAction("1", "Ivan", ActionType.POST, LocalDate.now(), "The first post #test"));
         actions.add(new UserAction("2", "Eva", ActionType.COMMENT, LocalDate.now().minusDays(1), "The first comment #test"));
-        actions.add(new UserAction("1", "Ivan", ActionType.LIKE, LocalDate.now()));
+        actions.add(new UserAction("1", "Ivan", ActionType.LIKE, LocalDate.now(), ""));
         actions.add(new UserAction("3", "Maria", ActionType.SHARE, LocalDate.now(), "The first  share! #likecatshare"));
         actions.add(new UserAction("1", "Ivan", ActionType.COMMENT, LocalDate.now().minusDays(15), "Thanks for sharing! #likecatshare"));
         actions.add(new UserAction("2", "Eva", ActionType.POST, LocalDate.now().minusDays(2), "Another post about #test"));

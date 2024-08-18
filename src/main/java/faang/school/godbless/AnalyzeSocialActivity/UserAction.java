@@ -21,8 +21,4 @@ public class UserAction {
         this.actionDate = actionDate;
         this.content = content;
     }
-
-    public UserAction(String userId, String userName, ActionType actionType, LocalDate actionDate) {
-        this(userId, userName, actionType, actionDate, "");
-    }
 }
