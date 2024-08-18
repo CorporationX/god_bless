@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
-    private static final double RANGE_SIZE = 50000.0;
-
     public static List<String> getMostValuableSkills(@NonNull List<Job> jobs, int topSize) {
         var skills = jobs.stream()
                 .flatMap(j -> j.getRequirements().stream())
@@ -64,9 +62,9 @@ public class DataAnalyzer {
         }
         ranges.add(new Range(downBorder, upBorder));
         while (upBorder <= end) {
-            ranges.add(new Range(downBorder, upBorder));
             downBorder += rangeSize;
             upBorder += rangeSize;
+            ranges.add(new Range(downBorder, upBorder));
         }
 
         return ranges;

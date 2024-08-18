@@ -1,20 +1,26 @@
 package vacancy.analizator;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class Job {
     @NonNull
-    private final String vacancyName;
+    private String vacancyName;
     @NonNull
-    private final List<String> requirements;
-    private final double salary;
+    private List<String> requirements;
+    private double salary;
     @NonNull
-    private final String workPlace;
+    private String workPlace;
     @NonNull
-    private final LocalDateTime addingDate;
+    private LocalDate addingDate;
 }
