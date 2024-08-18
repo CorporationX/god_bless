@@ -8,7 +8,7 @@ public class Main {
 
         try {
             System.out.println(sum(null));
-            System.out.println(plenty(nums));
+            System.out.println(product(nums));
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
@@ -25,7 +25,7 @@ public class Main {
         return result;
     }
 
-    public static int plenty(List<Integer> nums) {
+    public static int product(List<Integer> nums) {
         return calculate(nums, (numb1, numb2) -> numb1 * numb2);
     }
 
