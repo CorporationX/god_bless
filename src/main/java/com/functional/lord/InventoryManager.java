@@ -18,11 +18,9 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        ListIterator<Item> iterator = character.getInventory().listIterator();
-        while (iterator.hasNext()) {
-            Item item = iterator.next();
-            if (predicate.test(item)) {
-                iterator.set(function.apply(item));
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            if(predicate.test(character.getInventory().get(i))){
+                character.getInventory().set(i, function.apply(character.getInventory().get(i)));
             }
         }
     }
