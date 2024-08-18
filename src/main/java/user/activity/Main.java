@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -15,15 +14,9 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         var users = getUsers();
-        Map<Integer, User> usersId = new HashMap<>();
-        users.forEach(user -> usersId.put(user.getUserId(), user));
         var actions = getActions(users);
-        //actions.forEach(System.out::println);
-        System.out.println();
         var topActivityUsers = getTopActiveUsers(actions, 10);
-        topActivityUsers.stream()
-                .map(usersId::get)
-                .forEach(System.out::println);
+        topActivityUsers.forEach(System.out::println);
         System.out.println();
         var userActions = actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserId));
@@ -33,14 +26,12 @@ public class Main {
         topThemes.forEach(System.out::println);
         System.out.println();
         var topCommentators = getTopCommentatorsOfMonth(actions, 3);
-        topCommentators.stream()
-                .map(usersId::get)
-                .forEach(System.out::println);
+        topCommentators.forEach(System.out::println);
         LocalDateTime now = LocalDateTime.now();
         System.out.println();
         actions.stream()
                 .filter(a -> a.getActionType() == ActionType.COMMENT)
-                .filter(a -> a.getActionDate().getMonthValue() == now.getMonthValue() &&
+                .filter(a -> now.getDayOfYear() - a.getActionDate().getDayOfYear() <= 30 &&
                         a.getActionDate().getYear() == now.getYear())
                 .forEach(System.out::println);
         var typePercentage = getPercentageForActionType(actions);
@@ -49,10 +40,10 @@ public class Main {
     }
 
     public static List<Integer> getTopActiveUsers(@NonNull List<UserAction> actions, int topSize) {
-        var userActions = getUserActions(actions);
+        var userActions = getActionsCountByUserId(actions);
         return userActions.entrySet().stream()
                 .sorted(Comparator.comparing(
-                        (Map.Entry<Integer, List<UserAction>> e) -> e.getValue().size()).reversed())
+                        (Map.Entry<Integer, Long> e) -> e.getValue()).reversed())
                 .map(Map.Entry::getKey)
                 .limit(topSize)
                 .toList();
@@ -62,7 +53,7 @@ public class Main {
         var themesActions = getThemesActions(actions);
         return themesActions.entrySet().stream()
                 .sorted(Comparator.comparing(
-                        (Map.Entry<String, List<UserAction>> e) -> e.getValue().size()).reversed())
+                        (Map.Entry<String, Long> e) -> e.getValue()).reversed())
                 .limit(topSize)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -72,7 +63,7 @@ public class Main {
         var userComments = getUserComments(actions);
         return userComments.entrySet().stream()
                 .sorted(Comparator.comparing(
-                        (Map.Entry<Integer, List<UserAction>> e) -> e.getValue().size()).reversed())
+                        (Map.Entry<Integer, Long> e) -> e.getValue()).reversed())
                 .limit(topSize)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -81,50 +72,46 @@ public class Main {
     public static Map<ActionType, Double> getPercentageForActionType(@NonNull List<UserAction> actions) {
         var actionsByType = getActionsByType(actions);
         return actionsByType.entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue().size() * 1.0 / actions.size() * 100));
+                .collect(Collectors.toMap(Map.Entry::getKey, e -> e.getValue() * 100.0 / actions.size()));
     }
 
-    private static Map<Integer, List<UserAction>> getUserActions(@NonNull List<UserAction> actions) {
+    private static Map<Integer, Long> getActionsCountByUserId(@NonNull List<UserAction> actions) {
         return actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getUserId));
+                .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
     }
 
-    private static Map<String, List<UserAction>> getThemesActions(@NonNull List<UserAction> actions) {
-        Map<String, List<UserAction>> themesActions = new HashMap<>();
-        actions.stream().
+    private static Map<String, Long> getThemesActions(@NonNull List<UserAction> actions) {
+        return actions.stream().
                 filter(a -> a.getActionType() == ActionType.COMMENT || a.getActionType() == ActionType.POST)
-                .forEach(a -> Arrays.stream(a.getContent().split("[\\W&&[^#]]+"))
-                        .filter(word -> word.startsWith("#"))
-                        .forEach(ht -> themesActions.computeIfAbsent(ht, k -> new ArrayList<>()).add(a)));
-        return themesActions;
+                .flatMap(a -> Arrays.stream(a.getContent().split("[\\W&&[^#]]+")))
+                .filter(word -> word.startsWith("#"))
+                .collect(Collectors.groupingBy(String::valueOf, Collectors.counting()));
     }
 
-    private static Map<Integer, List<UserAction>> getUserComments(@NonNull List<UserAction> actions) {
+    private static Map<Integer, Long> getUserComments(@NonNull List<UserAction> actions) {
         LocalDateTime now = LocalDateTime.now();
         return actions.stream()
                 .filter(a -> a.getActionType() == ActionType.COMMENT)
-                .filter(a -> a.getActionDate().getMonthValue() == now.getMonthValue() &&
+                .filter(a -> now.getDayOfYear() - a.getActionDate().getDayOfYear() <= 30 &&
                         a.getActionDate().getYear() == now.getYear())
-                .collect(Collectors.groupingBy(UserAction::getUserId));
+                .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
     }
 
-    private static Map<ActionType, List<UserAction>> getActionsByType(@NonNull List<UserAction> actions) {
+    private static Map<ActionType, Long> getActionsByType(@NonNull List<UserAction> actions) {
         return actions.stream()
-                .collect(Collectors.groupingBy(UserAction::getActionType));
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()));
     }
 
-    private static List<User> getUsers() {
-        var names = List.of("Petya", "Sasha", "Katya", "Vitya", "Klara",
+    private static List<String> getUsers() {
+
+        return List.of("Petya", "Sasha", "Katya", "Vitya", "Klara",
                 "Anya", "Vlad", "Mark", "Ron", "Yulia",
                 "Vika", "Pasha", "Lesha", "Serega", "Maks",
                 "Sonya", "Roma", "Sveta", "Ilya", "Vanya",
                 "Oleg", "Vera", "Dima", "Lyuda", "Filipp");
-        List<User> users = new ArrayList<>();
-        names.forEach(name -> users.add(new User(name)));
-        return users;
     }
 
-    private static List<UserAction> getActions(@NonNull List<User> users) {
+    private static List<UserAction> getActions(@NonNull List<String> users) {
         var rand = new Random();
         var actionTypes = ActionType.values();
         var hashtags = List.of("#freedom", "#love", "#instagood", "#instagram", "#fashion",
@@ -149,7 +136,7 @@ public class Main {
             }
             var user = users.get(rand.nextInt(users.size()));
             var actionTime = getActionTime(rand);
-            actions.add(new UserAction(user.getUserId(), user.getUserName(),
+            actions.add(new UserAction(users.indexOf(user), user,
                     actionType, actionTime, context));
         }
 
