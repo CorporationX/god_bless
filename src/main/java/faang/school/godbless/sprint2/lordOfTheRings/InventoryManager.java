@@ -1,6 +1,5 @@
 package faang.school.godbless.sprint2.lordOfTheRings;
 
-import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,15 +14,10 @@ public class InventoryManager {
         return character.getInventory().removeIf(predicate);
     }
 
-    public boolean updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        boolean rsl = false;
-        List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            if (predicate.test(inventory.get(i))) {
-                inventory.set(i, function.apply(inventory.get(i)));
-                rsl = true;
-            }
-        }
-        return rsl;
+    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+        character.setInventory(character.getInventory()
+                .stream()
+                .map(item -> predicate.test(item) ? function.apply(item) : item)
+                .toList());
     }
 }

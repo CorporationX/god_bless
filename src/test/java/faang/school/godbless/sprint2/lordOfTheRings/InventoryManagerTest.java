@@ -9,6 +9,7 @@ class InventoryManagerTest {
     private InventoryManager manager;
     private Character frodo;
     private Item ring;
+    private String result = "";
 
     @BeforeEach
     void setUp() {
@@ -20,9 +21,8 @@ class InventoryManagerTest {
     @Test
     void addItem() {
         String expected = "The One Ring was added to the inventory.";
-        String[] result = {""};
-        manager.addItem(frodo, ring, (item) -> result[0] = item.getNAME() + " was added to the inventory.");
-        assertEquals(expected, result[0]);
+        manager.addItem(frodo, ring, (item) -> result = item.getName() + " was added to the inventory.");
+        assertEquals(expected, result);
         assertTrue(frodo.getInventory().contains(ring));
     }
 
@@ -30,26 +30,20 @@ class InventoryManagerTest {
     void removeItem() {
         frodo.getInventory().add(ring);
         frodo.getInventory().add(new Item("Bread", 5));
-        assertTrue(manager.removeItem(frodo, (item) -> item.getNAME().equals("The One Ring")));
+        assertTrue(manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring")));
         assertFalse(frodo.getInventory().contains(ring));
-        assertFalse(manager.removeItem(frodo, (item) -> item.getNAME().equals("The Ring")));
+        assertFalse(manager.removeItem(frodo, (item) -> item.getName().equals("The Ring")));
     }
 
     @Test
     void isRemoved() {
-        assertFalse(manager.removeItem(frodo, (item) -> item.getNAME().equals("The One Ring")));
+        assertFalse(manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring")));
     }
 
     @Test
     void updateItem() {
         frodo.getInventory().add(ring);
-        assertFalse(manager.updateItem(frodo, (item) -> item.getNAME().equals("One Ring"), (item) -> new Item(item.getNAME(), item.getVALUE() * 2)));
-        assertTrue(manager.updateItem(frodo, (item) -> item.getNAME().equals("The One Ring"), (item) -> new Item(item.getNAME(), item.getVALUE() * 2)));
-        assertEquals(2000, frodo.getInventory().get(0).getVALUE());
-    }
-
-    @Test
-    void isUpdated() {
-        assertFalse(manager.updateItem(frodo, (item) -> item.getNAME().equals("The One Ring"), (item) -> new Item(item.getNAME(), item.getVALUE() * 2)));
+        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        assertEquals(2000, frodo.getInventory().get(0).getValue());
     }
 }
