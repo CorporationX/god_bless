@@ -3,9 +3,7 @@ package stream.training2;
 import lombok.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -39,12 +37,15 @@ public class Main {
     }
 
     public static List<List<Integer>> getNumberPairs(@NonNull List<Integer> numbers, int targetSum) {
-        return IntStream.range(0, numbers.size())
+        var numberHash = IntStream.range(0, numbers.size())
                 .boxed()
-                .flatMap(i -> IntStream.range(i + 1, numbers.size())
-                        .mapToObj(j -> List.of(numbers.get(i), numbers.get(j))))
-                .filter(pair -> pair.get(0) + pair.get(1) == targetSum)
-                .collect(Collectors.toList());
+                .collect(Collectors.toMap(numbers::get,
+                        id -> id));
+        return numbers.stream()
+                .filter(n -> numberHash.containsKey(targetSum - n))
+                .filter(n -> numberHash.get(targetSum - n) > numberHash.get(n))
+                .map(n -> List.of(n, targetSum - n))
+                .toList();
     }
 
     public static List<String> getSortedCapitals(@NonNull Map<String, String> countriesCapitals) {
