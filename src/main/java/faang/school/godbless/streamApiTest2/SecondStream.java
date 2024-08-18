@@ -2,13 +2,13 @@ package faang.school.godbless.streamApiTest2;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class SecondStream {
@@ -38,15 +38,47 @@ public class SecondStream {
                 .toList();
     }
 
-    public static void searchFamiliar(Map<String, List<String>> friends) {
-        friends.keySet()
+    public static List<Map.Entry<String, String>> searchFamiliar(Map<String, List<String>> friends) {
+        return friends.keySet()
                 .stream()
                 .flatMap(string -> friends.keySet().stream().skip(1L).flatMap(
                         string1 -> Stream.of(Map.entry(string, string1))))
                 .filter(strings -> friends.get(strings.getKey()).stream()
                         .anyMatch(string -> friends.get(strings.getValue()).contains(string)
                                 && !strings.getValue().equals(string)
-                        && !strings.getValue().equals(strings.getKey())))
-                .forEach(System.out::println);
+                                && !strings.getValue().equals(strings.getKey())))
+                .map(p -> new HashSet<>(Set.of(p.getValue(), p.getKey())))
+                .distinct()
+                .map(s -> Map.entry((String) s.toArray()[0], (String) s.toArray()[1]))
+                .toList();
+    }
+
+    public static Map<String, Double> averageSalary(List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingInt(Employee::getSalary)));
+    }
+
+    public static List<String> filterAndSortStrings(List<String> strings, String alphabet) {
+        return strings.stream()
+                .filter(string -> string.codePoints()
+                        .mapToObj(x -> (char) x)
+                        .allMatch(c -> alphabet.contains(c.toString())))
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static List<String> convertToBinary(List<Integer> integers) {
+       return integers.stream()
+                .map(Integer::toBinaryString)
+                .toList();
+    }
+
+    public static int[] findThePalindromes(Integer start, Integer end) {
+        return IntStream.range(start, end)
+                .filter(i -> {
+                    String s = Integer.toString(i);
+                    return s.contentEquals(new StringBuilder(s).reverse());
+                }).toArray();
     }
 }
