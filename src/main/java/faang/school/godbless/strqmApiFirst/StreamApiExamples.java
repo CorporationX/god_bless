@@ -8,45 +8,70 @@ import java.util.function.Predicate;
 
 public class StreamApiExamples {
     public static int sum(List<Integer> nums) {
-        return nums.stream().reduce(0, Integer::sum);
+        return nums
+                .stream()
+                .filter(n -> n % 2 == 0)
+                .reduce(0, Integer::sum);
     }
 
     public static Optional<Integer> max(List<Integer> nums) {
-        return nums.stream().max(Integer::compare);
+        return nums
+                .stream()
+                .max(Integer::compare);
     }
 
     public static OptionalDouble average(List<Integer> nums) {
-        return nums.stream().mapToInt(i -> i).average();
+        return nums
+                .stream()
+                .mapToInt(i -> i)
+                .average();
     }
 
     public static long countStringsStartingWith(List<String> strings, String prefix) {
-        return strings.stream().filter(i -> i.startsWith(prefix)).count();
+        return strings
+                .stream()
+                .filter(i -> i.startsWith(prefix))
+                .count();
     }
 
     public static List<String> containSubstr(List<String> strings, String substr) {
-        return strings.stream().filter(i -> i.contains(substr)).toList();
+        return strings
+                .stream()
+                .filter(i -> i.contains(substr))
+                .toList();
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
+        return strings
+                .stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .toList();
     }
 
     public static <T> boolean checkAllElements(List<T> list, Predicate<T> predicate) {
-        return list.stream().allMatch(predicate);
+        return list
+                .stream()
+                .allMatch(predicate);
     }
 
     public static Optional<Integer> findMinGreaterThan(List<Integer> nums, int number) {
-        return nums.stream().filter(i -> i > number).min(Integer::compare);
+        return nums
+                .stream()
+                .filter(i -> i > number)
+                .min(Integer::compare);
     }
 
     public static List<Integer> stringListToLengthList(List<String> strings) {
-        return strings.stream().map(String::length).toList();
+        return strings
+                .stream()
+                .map(String::length)
+                .toList();
     }
 
     public static void main(String[] args) {
         List<Integer> nums = List.of(-3, -2, -1, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
-        //49
+        //28
         System.out.println("Sum: " + sum(nums));
         //10
         System.out.println("Max: " + max(nums));
