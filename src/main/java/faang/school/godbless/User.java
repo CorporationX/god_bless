@@ -11,6 +11,7 @@ import java.util.Set;
 
 @Data
 public class User {
+
     int id;
     String name;
     int age;
