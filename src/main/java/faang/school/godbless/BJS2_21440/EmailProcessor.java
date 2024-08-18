@@ -11,7 +11,8 @@ public class EmailProcessor {
         for (Email email : listEmail) {
             if (emailPredicate.test(email)) {
                 emailConsumer.accept(email);
-                emailStringFunction.apply(email);
+                String transformedEmail = emailStringFunction.apply(email);
+                System.out.println("Изменено: " + transformedEmail);
             }
         }
     }
