@@ -34,5 +34,4 @@ public class User {
         }
         return hobbyLovers;
     }
-    }
 }
