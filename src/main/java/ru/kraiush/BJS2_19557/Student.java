@@ -1,4 +1,4 @@
-package ru.kraiush.model;
+package ru.kraiush.BJS2_19557;
 
 import lombok.*;
 

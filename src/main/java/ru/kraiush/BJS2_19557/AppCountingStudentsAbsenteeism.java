@@ -1,7 +1,5 @@
 package ru.kraiush.BJS2_19557;
 
-import ru.kraiush.model.Student;
-
 import java.util.*;
 
 public class AppCountingStudentsAbsenteeism {
