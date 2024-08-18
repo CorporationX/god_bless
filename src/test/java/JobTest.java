@@ -75,4 +75,5 @@ public class JobTest {
                 List.of("5", "4", "3", "2", "1")
                 , DataAnalyzer.top5Locations(jobs));
     }
+
 }
