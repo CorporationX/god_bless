@@ -21,6 +21,7 @@ public class Droid {
             return encrypted.toString();
         };
         String encryptedMessage = encryptor.encrypt(message, key);
+        System.out.println("Шифр: " + encryptedMessage);
         droid.getReceiver().receiveEncryptedMessage(encryptedMessage, key);
     }
 
