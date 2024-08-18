@@ -1,6 +1,5 @@
 package faang.school.godbless.metaworld;
 
-import lombok.Setter;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -10,9 +9,9 @@ import java.util.function.Function;
 
 public class NotificationManager {
     private final String inappropriateWords = "[pP][oO][pP][aA]|[jJ][oO][pP][aA]";//нецензурная лексика
-    private Map<NotificationType, Consumer<Notification>> senders;
-    @Setter
-    private Function<Notification, Notification> filter;
+    private final Map<NotificationType, Consumer<Notification>> senders;
+
+    private final Function<Notification, Notification> filter;
 
     public NotificationManager() {
         senders = new EnumMap<>(NotificationType.class);
@@ -31,18 +30,14 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        try {
-            if (filter != null) {
+        if (filter != null) {
+            if (senders.get(notification.getType()) != null) {
                 senders.get(notification.getType()).accept(
                         filter.apply(notification)
                 );
-            } else {
-                senders.get(notification.getType()).accept(notification);
             }
-        } catch (NullPointerException e) {
-            System.err.println("have not " + notification.getType().toString() + " handler");
-            throw new RuntimeException();
+        } else {
+            senders.get(notification.getType()).accept(notification);
         }
-
     }
 }
