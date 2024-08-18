@@ -8,13 +8,11 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> listEmail, Predicate<Email> emailPredicate, Consumer<Email> emailConsumer, Function<Email, String> emailStringFunction) {
-        for (Email email : listEmail) {
-            if (emailPredicate.test(email)) {
-                emailConsumer.accept(email);
-                String transformedEmail = emailStringFunction.apply(email);
-                System.out.println("Изменено: " + transformedEmail);
-            }
-        }
+        listEmail.stream()
+                .filter(emailPredicate)
+                .peek(emailConsumer)
+                .map(emailStringFunction)
+                .forEach(transformedEmail -> System.out.println("Изменено: " + transformedEmail));
     }
 
     public static void main(String[] args) {
