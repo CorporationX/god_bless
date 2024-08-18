@@ -2,7 +2,6 @@ package stream.training2;
 
 import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -69,8 +68,8 @@ public class Main {
                 .flatMap(i -> IntStream.range(i + 1, peoples.size())
                         .mapToObj(j -> List.of(peoples.get(i), peoples.get(j))))
                 .filter(pair -> !peopleFriends.get(pair.get(0)).contains(pair.get(1)))
-                .filter(pair -> new ArrayList<>(
-                        peopleFriends.get(pair.get(0))).removeAll(peopleFriends.get(pair.get(1))))
+                .filter(pair -> peopleFriends.get(pair.get(1)).stream()
+                        .anyMatch(friend -> peopleFriends.get(pair.get(0)).contains(friend)))
                 .toList();
     }
 
