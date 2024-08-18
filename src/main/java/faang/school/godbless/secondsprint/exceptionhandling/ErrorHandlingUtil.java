@@ -11,7 +11,7 @@ public class ErrorHandlingUtil {
         try {
             return action.get();
         } catch (Exception e) {
-            log.warn("Exception occurred during remote service call", e);
+            log.warn("При вызове удалённого сервиса произошла ошибка", e);
             return errorHandler.handle(e);
         }
     }
@@ -25,13 +25,13 @@ public class ErrorHandlingUtil {
                 }
         );
 
-        System.out.println("Result: " + result);
+        System.out.println("Результат: " + result);
     }
 
     private static String mockRemoteServiceCall(String param) {
         if ("param".equals(param)) {
-            throw new RuntimeException("Remote service error");
+            throw new RuntimeException("Ошибка удалённого сервиса");
         }
-        return "SUCCESS";
+        return "УСПЕШНО";
     }
 }
