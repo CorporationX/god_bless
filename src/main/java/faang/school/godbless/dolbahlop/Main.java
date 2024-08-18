@@ -1,15 +1,54 @@
 package faang.school.godbless.dolbahlop;
 
+import java.util.Arrays;
+import java.util.Set;
+import java.util.function.Function;
+
 public class Main {
     public static void main(String[] args) {
-        var SpellCaster  = new SpellCaster();
+        Function<String, String> censorship = (word) -> {
+            int length = word.length();
+            if (length <= 5) {
+                return "*".repeat(length);
+            }
+
+            return word.substring(0, 3) + "*".repeat(length - 3);
+        };
+        CensorshipManager censorshipManager = new CensorshipManager(censorship, Set.of("fff", "1C", "aaa"));
+
+        NotificationManager notificationManager = new NotificationManager();
+        notificationManager.registerHandler("email", (notification) ->
+                System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+        notificationManager.sendNotificationIfValid(
+                new Notification("email", "Ваша учетная запись успешно активирована", censorshipManager)
+        );
+
+        notificationManager.registerValidator((words) -> Arrays.stream(words).allMatch(word -> word.length() <= 25));
+        notificationManager.registerHandler(
+                "sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
+        );
+        notificationManager.sendNotificationIfValid(
+                new Notification("sms", "Вы успешно изменили свой пароль!", censorshipManager)
+        );
+
+        notificationManager.registerHandler("push", (notification) ->
+                System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.sendNotificationIfValid(
+                new Notification("push", "Новый пост от пользователя: fff", censorshipManager)
+        );
+        notificationManager.sendNotificationIfValid(
+                new Notification("push", "Новый пост от пользователя: aaa", censorshipManager)
+        );
+
+        // Code from the second branch
+        var spellCaster = new SpellCaster();
 
         String alohomora = "Alohomora";
         String lumus = "Lumus";
         String expelliarmus = "expelliarmus";
 
-        SpellCaster.cast(alohomora, (spell -> "The door is unlocked by" + spell));
-        SpellCaster.cast(lumus, spell -> "A beam of light is created by" + spell);
-        SpellCaster.cast(expelliarmus, spell -> "The opponent is disarmed by" + spell);
+        spellCaster.cast(alohomora, (spell -> "The door is unlocked by " + spell));
+        spellCaster.cast(lumus, spell -> "A beam of light is created by " + spell);
+        spellCaster.cast(expelliarmus, spell -> "The opponent is disarmed by " + spell);
     }
 }
