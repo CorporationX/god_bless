@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MessageProcessor {
-    public void processMessage(String message, MessageFilter messageFilter) {
+    public void processMessage(String message, List<MessageFilter> messageFilter) {
 
     }
 
@@ -21,8 +21,8 @@ public class MessageProcessor {
         String message1 = "This is a spam message";
         String message2 = "This message contains badword";
         String message3 = "https://yandex/ru";
-        messageProcessor.processMessage(message1,spamFilter);
-        messageProcessor.processMessage(message2,badWordFilter);
-        messageProcessor.processMessage(message3,linkFilter);
+        messageProcessor.processMessage(message1,messageFilterList);
+        messageProcessor.processMessage(message2,messageFilterList);
+        messageProcessor.processMessage(message3,messageFilterList);
     }
 }
