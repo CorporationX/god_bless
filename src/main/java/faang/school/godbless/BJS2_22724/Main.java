@@ -97,29 +97,28 @@ public class Main {
                 "  \\\"communicative\\\"\\n " +
                 "   ]\\n}\"";
 
-        Stream<String> streamOfString = Stream.of(inputString1, inputString2, inputString3, inputString4, inputString5, inputString6, inputString7, inputString8);
+        String nullString = null;
+
+        Stream<String> streamOfString = Stream.of(inputString1, inputString2, nullString, inputString3, inputString4, inputString5, inputString6, inputString7, inputString8);
         JobStreamProcessor jobStreamProcessor = new JobStreamProcessor();
         List<Job> allJobs = jobStreamProcessor.process(streamOfString);
-        allJobs.forEach(System.out::println);
         DataAnalyzer analyzer = new DataAnalyzer();
-        System.out.println("Most popular skills: ");
 
+        System.out.println("Most popular skills: ");
         Function<List<Job>, Map<String, Long>> func = (x) -> x.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .limit(5)
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
-
         System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func));
 
         System.out.println("Most popular positions: ");
         func = (x) -> x.stream()
                 .map(Job::getPosition)
-                .limit(5)
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
         System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func));
 
         System.out.println("Most popular offices:");
         System.out.println(analyzer.mostPopularOffices(allJobs));
+
         System.out.println("Salary distribution:");
         System.out.println(analyzer.salaryDistribution(allJobs));
     }
