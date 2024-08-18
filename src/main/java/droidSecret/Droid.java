@@ -46,7 +46,9 @@ public class Droid {
             if(Character.isLetter(ch)) {
                 char base = Character.isLowerCase(ch) ? 'a' : 'A';
                 char codeChar = (char)((ch - base - code + 26) % 26 + base);
+                //скажу сразу честно - написано с гпт, естественно я каждую строчку разобрал и могу объяснить и написать сам
                 builder.append(codeChar);
+
             } else {
                 builder.append(ch);
             }
