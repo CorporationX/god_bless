@@ -1,33 +1,31 @@
 package faang.school.godbless;
 
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
-        List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<List<String>> table = List.of(
+                List.of("1", "2", "3", "4", "5"),
+                List.of("6", "7", "8", "9", "10"),
+                List.of("11", "12", "13", "14", "15"),
+                List.of("16", "17", "18", "19", "20"),
+                List.of("21", "22", "23", "24", "25")
+        );
 
-        int sumResult = sum(nums);
-        int productResult = product(nums);
+        String csv = toCsv(table);
 
-        System.out.println(sumResult);
-        System.out.println(productResult);
+        System.out.println(csv);
     }
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator){
+    public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
+        VectorJoiner<String> vectorJoiner = vector -> String.join(", ", vector);
 
-        int result = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            result = calculator.apply(result, nums.get(i));
-        }
-        return result;
-    }
+        MatrixJoiner <String> matrixJoiner = matrix -> matrix.stream()
+                .map(vectorJoiner::join)
+                .collect(Collectors.joining("\n"));
 
-    public static int product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
-    }
-
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, Integer::sum);
+        return matrixJoiner.join(table);
     }
 }
