@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
-    public static List<String> getTopTenActiveUsers(List<UserAction> actions) {
+    public static List<String> getTopActiveUsers(List<UserAction> actions) {
         return actions.stream()
                 .collect(Collectors.groupingBy(
                         action -> action.getId() + "-" + action.getName(),
@@ -25,7 +25,6 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    // 2. Определить Топ-5 наиболее популярных тем обсуждения
     public static List<String> getTopHashtags(List<UserAction> actions) {
         return actions.stream()
                 .flatMap(action -> Arrays.stream(action.getContent().split("\\s+")))
@@ -39,7 +38,6 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    // 3. Найти Топ-3 пользователей, которые оставили наибольшее количество комментариев в последний месяц
     public static List<String> getTopCommentersLastMonth(List<UserAction> actions) {
         LocalDateTime overLastMonth = LocalDateTime.now().minusMonths(1);
 
@@ -60,7 +58,6 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    // 4. Вычислить процент действий для каждого типа действий
     public static Map<String, Double> getActionTypePercentages(List<UserAction> actions) {
         long totalActions = actions.size();
 
