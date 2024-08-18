@@ -2,15 +2,15 @@ package faang.school.godbless.BJS2_20956;
 
 public class Droid {
 
-    public String encryptedMessage(String message, int encryptKey) {
+    public String sendEncryptedMessage(String message, int encryptKey) {
         return cryptMessage(message, encryptKey);
     }
 
-    public String decryptedMessage(String message, int encryptKey) {
+    public String receiveEncryptedMessage(String message, int encryptKey) {
         return cryptMessage(message, -encryptKey);
     }
 
-    public String cryptMessage(String message, int encryptKey) {
+    private String cryptMessage(String message, int encryptKey) {
         DroidMessageEncryptor encryptor = (text, key) -> {
             StringBuilder encryptMessage = new StringBuilder();
 

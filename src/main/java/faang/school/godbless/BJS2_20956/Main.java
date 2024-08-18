@@ -7,9 +7,9 @@ public class Main {
         String message = "May the Force be with you!";
         int encryptionKey = 3;
 
-        String encryptedMsg = r2d2.encryptedMessage(message, encryptionKey);
+        String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey);
         System.out.println("Encrypted message: " + encryptedMsg);
-        String msg = c3po.decryptedMessage(encryptedMsg, encryptionKey);
+        String msg = c3po.receiveEncryptedMessage(encryptedMsg, encryptionKey);
         System.out.println("Decrypted message: " + msg);
     }
 }
