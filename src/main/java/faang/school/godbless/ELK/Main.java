@@ -6,6 +6,9 @@ import java.util.*;
 
 @Getter
 public class Main {
+    public Main() {
+        this.queriesByUser = new HashMap<>();
+    }
     private Map<User, List<Query>> queriesByUser;
 
     public void addUser(User user) {
@@ -38,5 +41,9 @@ public class Main {
         });
         System.out.println("User: " + user);
         System.out.println(queriesByUser.get(user));
+    }
+
+    public List<User> getAllUsers() {
+        return new ArrayList<>(queriesByUser.keySet());
     }
 }
