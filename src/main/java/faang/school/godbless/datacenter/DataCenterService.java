@@ -7,6 +7,10 @@ public class DataCenterService implements OptimizationStrategy{
     private DataCenter dataCenter;
     private OptimizationStrategy optimizationStrategy;
 
+    public DataCenterService(DataCenter dataCenter) {
+        this.dataCenter = dataCenter;
+    }
+
     public void addServer(Server server){
         dataCenter.getServersList().add(server);
     }
@@ -33,10 +37,10 @@ public class DataCenterService implements OptimizationStrategy{
         return totalConsumption;
     }
 
-    public int getTotalLoad(){
+    public int getTotalLoad() {
         int totalLoad = 0;
 
-        for (Server server : dataCenter.getServersList()){
+        for (Server server : dataCenter.getServersList()) {
             totalLoad += server.getLoad();
         }
         return totalLoad;
@@ -45,7 +49,7 @@ public class DataCenterService implements OptimizationStrategy{
     public int getMaxServersLoad() {
         int maxLoad = 0;
 
-        for (Server server : dataCenter.getServersList()){
+        for (Server server : dataCenter.getServersList()) {
             maxLoad += server.getMaxLoad();
         }
         return maxLoad;
@@ -54,7 +58,7 @@ public class DataCenterService implements OptimizationStrategy{
     public void allocateResources(ResourceRequest request) {
         double loadRequired = request.getLoad();
 
-        if (getMaxServersLoad() - getTotalLoad() > loadRequired) {
+        if (getMaxServersLoad() - getTotalLoad() >= loadRequired) {
             for (Server server : dataCenter.getServersList()) {
                 double availableLoad = server.getMaxLoad() - server.getLoad();
                 if (availableLoad >= loadRequired) {
@@ -72,6 +76,7 @@ public class DataCenterService implements OptimizationStrategy{
 
     public void releaseResources(ResourceRequest request) {
         double loadToRelease = request.getLoad();
+
         for (Server server : dataCenter.getServersList()) {
             double loadOnServer = server.getLoad();
             if (loadOnServer > 0) {
@@ -93,14 +98,16 @@ public class DataCenterService implements OptimizationStrategy{
         double average = loadToBalance / serversAmount;
 
         for (Server server : dataCenter.getServersList()) {
-            server.setLoad(average);
-            serversAmount--;
-            loadToBalance -= average;
-            if (server.getLoad() > server.getMaxLoad()) {
-                double overLoad = server.getLoad() - server.getMaxLoad();
+            if (server.getMaxLoad() >= average) {
+                server.setLoad(average);
+            } else {
+                double overLoad = average - server.getMaxLoad();
                 server.setLoad(server.getMaxLoad());
-                average = loadToBalance + overLoad / serversAmount;
+                loadToBalance -= server.getMaxLoad();
+                serversAmount--;
+                average = loadToBalance / serversAmount;
             }
         }
     }
+
 }
