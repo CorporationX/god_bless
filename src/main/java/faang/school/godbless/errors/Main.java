@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicReference;
 public class Main {
     public static void main(String[] args) {
         Handling<String> handling = new Handling();
-        AtomicReference<Integer> integer = new AtomicReference<>(1234);
+        AtomicReference<Integer> integer = new AtomicReference<>(Integer.valueOf(1234));
 
 
         //работа не аварийная
