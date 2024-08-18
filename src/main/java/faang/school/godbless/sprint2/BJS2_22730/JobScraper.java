@@ -1,11 +1,21 @@
 package faang.school.godbless.sprint2.BJS2_22730;
 
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-@NoArgsConstructor
 public class JobScraper {
 
-    public Job jsonToJobConverter(String json) {
-        
+    public static Job jsonToJobConverter(String jsonString) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.registerModule(new JavaTimeModule());
+            mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+            return mapper.readValue(jsonString, Job.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
