@@ -8,15 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
 @NoArgsConstructor
 public class Character {
 
+    @Setter
     private String name;
+
+    @Getter
+    private final List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         this.name = name;
     }
 
-    List<Item> inventory = new ArrayList<>();
 }

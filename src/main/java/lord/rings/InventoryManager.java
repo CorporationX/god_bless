@@ -7,19 +7,19 @@ import java.util.function.Predicate;
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         if (!character.getInventory().contains(item)) {
-            character.inventory.add(item);
+            character.getInventory().add(item);
             consumer.accept(item);
         } else {
-            System.out.println("Нельзя добавить дубль предмета");
+            throw new IllegalArgumentException("Нельзя добавить дубль предмета");
         }
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
 
-        if (character.getInventory().removeIf(predicate)) {
-            System.out.println("Удаляем");
+        if (!character.getInventory().removeIf(predicate)) {
+            throw new IllegalArgumentException("Такого предмета нет в инвентаре.");
         } else {
-            throw new IllegalArgumentException("Не удаляем");
+            System.out.println("Предмет был удален");
         }
     }
 
