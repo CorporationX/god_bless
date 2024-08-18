@@ -54,7 +54,7 @@ public class Main {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
         return numbers.stream()
                 .map(number -> List.of(number, goal - number))
-                .filter(pair -> uniqueNumbers.contains(pair.get(0)) && uniqueNumbers.contains(pair.get(1)))
+                .filter(pair -> uniqueNumbers.contains(pair.get(1)))
                 .filter(pair -> pair.get(0) < pair.get(1))
                 .collect(Collectors.toList());
     }
@@ -126,7 +126,7 @@ public class Main {
                 .toList();
     }
 
-    public static <T> void checkEmpty(List<T> list) {
+    private static <T> void checkEmpty(List<T> list) {
         if (list == null || list.isEmpty()) {
             throw new IllegalArgumentException("Empty list");
         }
