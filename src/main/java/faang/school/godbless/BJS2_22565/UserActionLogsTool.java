@@ -20,11 +20,11 @@ public class UserActionLogsTool {
         viewMostRepeated(topicStream, topic -> topic, 5);
     }
 
-    public void viewTopThreeCommentatorsForLastMonth(List<UserAction> userActionLogData) {
-        Stream<UserAction> userActionWithCommentsLastMonth = userActionLogData.stream()
+    public void viewTopThreeCommentatorsLastMonth(List<UserAction> userActionLogData) {
+        Stream<UserAction> commentators = userActionLogData.stream()
                 .filter(action -> action.getActionType().equals("comment"))
                 .filter(action -> action.getActionDate().isAfter(LocalDateTime.now().minusMonths(1)));
-        viewMostRepeated(userActionWithCommentsLastMonth, UserAction::getUserId, 3);
+        viewMostRepeated(commentators, UserAction::getUserId, 3);
     }
 
     public void viewPercentByActionType(List<UserAction> userActionLogData) {
