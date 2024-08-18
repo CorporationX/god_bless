@@ -10,8 +10,10 @@ public class Main {
         triangleArea(2, 3, 4);
     }
 
-    public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
-        Function<String, String> s;
+    public static double triangleArea(double a, double b, double c){
+        if(a +b <= c && b+c <= a && a+c <= b){
+            throw new IllegalArgumentException("Такого треугольника не существует");
+        }
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
