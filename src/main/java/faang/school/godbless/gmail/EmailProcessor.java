@@ -13,7 +13,7 @@ public class EmailProcessor {
         if (emails != null) {
             emails.stream()
                     .filter(filter)
-                    .peek(e -> e.setBody(handler.apply(e)))
+                    .map(e -> new Email(e.getSubject(), handler.apply(e), e.isImportant()))
                     .forEach(consumer);
         }
     }
