@@ -20,7 +20,7 @@ public class UserActionLogsTool {
         viewMostRepeated(topicStream, topic -> topic, 5);
     }
 
-    public void viewTopCommentatorsForLastMonth(List<UserAction> userActionLogData) {
+    public void viewTopThreeCommentatorsForLastMonth(List<UserAction> userActionLogData) {
         Stream<UserAction> userActionWithCommentsLastMonth = userActionLogData.stream()
                 .filter(action -> action.getActionType().equals("comment"))
                 .filter(action -> action.getActionDate().isAfter(LocalDateTime.now().minusMonths(1)));
