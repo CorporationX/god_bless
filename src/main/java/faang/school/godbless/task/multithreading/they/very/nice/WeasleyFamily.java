@@ -10,7 +10,7 @@ public class WeasleyFamily {
         ExecutorService executorService = Executors.newCachedThreadPool();
         IntStream.range(0, chores.length)
                 .forEach(i -> {
-                    executorService.submit(() -> new Chore(chores[i]).run());
+                    executorService.submit(new Chore(chores[i]));
                 });
         executorService.shutdown();
     }
