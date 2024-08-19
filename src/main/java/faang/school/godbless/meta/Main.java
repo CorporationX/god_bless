@@ -1,19 +1,17 @@
 package faang.school.godbless.meta;
 
 public class Main {
-
     private static final String REPLACER = "*";
 
     public static void main(String[] args) {
-
         NotificationManager nm = new NotificationManager();
-
         nm.registerHandler("push", (notification, detectedSet) -> {
             if (!detectedSet.isEmpty()) {
-                detectedSet.forEach(trg -> notification.setMessage(notification.getMessage().replaceAll(trg, REPLACER.repeat(trg.length()))));
-                notification.setMessage(notification.getMessage().concat(" (moderated)"));
+                detectedSet.forEach(trg -> {
+                    String updatedMsg = notification.getMessage().replaceAll(trg, REPLACER.repeat(trg.length()));
+                    notification.setMessage(updatedMsg);
+                });
             }
-
             return notification.getMessage();
         });
 
@@ -22,7 +20,6 @@ public class Main {
             if (!detectedSet.isEmpty()) {
                 moderatedMsg = "Moderated notification - detected " + detectedSet.size() + " banned words: " + detectedSet;
             }
-
             return moderatedMsg;
         });
 
@@ -37,7 +34,7 @@ public class Main {
             return sb.toString();
         });
 
-        Notification sms = new Notification("sms", "Why do you have to be such a bitch all the time?");
+        Notification sms = new Notification("sms", "Why do you have to be such a witch all the time?");
         Notification push = new Notification("push", "Only this week, purchase 2 consoles for the price of 1! Don't be late and buy today!");
         Notification email = new Notification("email", "Our team would appreciate it if you could donate or make a purchase to support our efforts, but please ignore anyone who might bitch about your choice.\nSincerely yours, Donations Team");
 
