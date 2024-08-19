@@ -21,6 +21,8 @@ public class LocationSearchEngine {
 
     public List<Double> calculateDistances(List<Location> locations,
                                            Function<Location, Double> function) {
-        return locations.stream().map(location -> function.apply(location)).collect(Collectors.toList());
+        return locations.stream()
+                .map(location -> function.apply(location))
+                .collect(Collectors.toList());
     }
 }
