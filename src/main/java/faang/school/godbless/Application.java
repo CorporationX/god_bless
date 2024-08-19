@@ -10,6 +10,12 @@ public class Application {
     }
 
     private static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+        if (a <= 0 || b <= 0 || c <= 0 || a + b <= c || a + c <= b || b + c <= a)
+        {
+            throw new IllegalArgumentException("Неправильные стороны треугольника");
+        }
+
+
         Function<Double, Function<Double, Double>> sum = (x) -> y -> x + y;
         Function<Double, Function<Double, Double>> mul = (x) -> y -> x * y;
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
