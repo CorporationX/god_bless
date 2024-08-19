@@ -1,12 +1,11 @@
 package faang.school.godbless.task.multithreading.the.big.bang.theory;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RequiredArgsConstructor
 public class Task implements Runnable {
-    private final Logger logger = LoggerFactory.getLogger(Task.class);
     private final String name;
     private final String task;
 
@@ -17,7 +16,7 @@ public class Task implements Runnable {
             Thread.sleep(3000);
             System.out.println("%s выполнил задание".formatted(name));
         } catch (InterruptedException exception) {
-            logger.error("Interrupted exception: {}", exception.getMessage());
+            log.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 }
