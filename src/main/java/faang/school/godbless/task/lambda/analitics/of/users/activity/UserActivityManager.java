@@ -23,8 +23,7 @@ public class UserActivityManager {
                 .limit(MOST_ACTIVE_USERS_LIMIT)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
-                        entry -> idAndUsername.get(entry.getKey())
-                ));
+                        entry -> idAndUsername.get(entry.getKey())));
     }
 
     public List<String> topFiveDiscussionTopics(List<UserAction> userActions) {
