@@ -1,5 +1,8 @@
 package faang.school.godbless.task.multithreading.the.big.bang.theory;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -8,6 +11,9 @@ import java.util.stream.IntStream;
 
 public class BigBangTheory {
     private final static int TOTAL_PULL_SIZE = 4;
+    private final static int TIME_LIMIT = 2;
+
+    private final static Logger logger = LoggerFactory.getLogger(BigBangTheory.class);
 
     public static void main(String[] args) {
         List<List<String>> tasks = List.of(
@@ -22,11 +28,13 @@ public class BigBangTheory {
         });
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(2, TimeUnit.MINUTES)) {
-                System.out.println("Проект завершен!");
+            if (executorService.awaitTermination(TIME_LIMIT, TimeUnit.MINUTES)) {
+                logger.info("\nПроект завершен!");
+            } else {
+                logger.warn("Парни не успели завершить проект в срок за %s минуты".formatted(TIME_LIMIT));
             }
         } catch (InterruptedException exception) {
-            System.out.println("Парни не смоги завершить проект в срок(");
+            logger.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 }
