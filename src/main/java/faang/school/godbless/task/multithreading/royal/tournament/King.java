@@ -15,7 +15,6 @@ public class King {
         var knight2 = new Knight("Пёс");
         knight2.addTrial(new Trial(knight2.getName(), "Поймать 5 стрекоз"));
         knight2.addTrial(new Trial(knight2.getName(), "Испечь 3 блина в форме радуги"));
-
         List<Knight> knights = List.of(knight1, knight2);
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_POOL_LIMIT);
