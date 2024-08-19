@@ -1,11 +1,10 @@
 package faang.school.godbless.task.multithreading.google.photo.sync;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        var googlePhotosAutoUploader = new GooglePhotosAutoUploader(new Lock(), new ArrayList<>());
+        var googlePhotosAutoUploader = new GooglePhotosAutoUploader();
         var pathToPhotos = List.of(
                 "/disc/images/Photo_1",
                 "/disc/images/Photo_2",
