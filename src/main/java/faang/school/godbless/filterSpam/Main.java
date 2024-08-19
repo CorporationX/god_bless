@@ -1,4 +1,4 @@
-package faang.school.godbless.FilterSpam;
+package faang.school.godbless.filterSpam;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Main {
 
         for (String message : messages) {
             SpamCheckStatus isFiltered = messageProcessor.processMessage(message, filters);
-            System.out.println("Message: " + message + " | Skiped: " + isFiltered);
+            System.out.println("Message: " + message + " | Filter Status : " + isFiltered);
         }
     }
 }

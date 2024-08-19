@@ -1,4 +1,4 @@
-package faang.school.godbless.FilterSpam;
+package faang.school.godbless.filterSpam;
 
 public enum SpamCheckStatus {
     PASSED,

@@ -1,4 +1,4 @@
-package faang.school.godbless.FilterSpam;
+package faang.school.godbless.filterSpam;
 
 
 import java.util.HashMap;
@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class MessageProcessor {
     public SpamCheckStatus processMessage(String message, List<MessageFilter> messageFilters) {
-        Map<SpamCheckStatus,Integer> counter = getCounterSpamCheckStatus();
+        Map<SpamCheckStatus, Integer> counter = getCounterSpamCheckStatus();
         updateCounterBasedOnFilters(message, messageFilters, counter);
         return determineFinalStatus(counter);
     }
@@ -34,10 +34,10 @@ public class MessageProcessor {
         }
     }
 
-    private static Map<SpamCheckStatus,Integer> getCounterSpamCheckStatus() {
-        Map<SpamCheckStatus,Integer> counter = new HashMap<>();
-        counter.put(SpamCheckStatus.NOT_PASSED,0);
-        counter.put(SpamCheckStatus.PASSED,0);
+    private static Map<SpamCheckStatus, Integer> getCounterSpamCheckStatus() {
+        Map<SpamCheckStatus, Integer> counter = new HashMap<>();
+        counter.put(SpamCheckStatus.NOT_PASSED, 0);
+        counter.put(SpamCheckStatus.PASSED, 0);
         return counter;
     }
 }
