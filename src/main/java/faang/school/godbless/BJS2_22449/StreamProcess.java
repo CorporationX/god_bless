@@ -16,7 +16,6 @@ import static java.util.stream.Collectors.groupingBy;
 
 public class StreamProcess {
     public static Set<Pair<Integer, Integer>> findUniquePairsWithSum(int sum, List<Integer> nums) {
-        validateNotNull(nums);
         return nums.stream()
                 .flatMap(number -> {
                     int difference = sum - number;
@@ -31,14 +30,12 @@ public class StreamProcess {
     }
 
     public static void printSortedCapitalsByCountry(Map<String, String> capitalsByCountries) {
-        validateNotNull(capitalsByCountries);
         capitalsByCountries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .forEach(capitalByCountry -> System.out.println(capitalByCountry.getValue()));
     }
 
     public static List<String> filterStringsStartWithCharAndSortByLength(char letter, List<String> strings) {
-        validateNotNull(strings);
         return strings.stream()
                 .filter(string -> string != null && !string.isEmpty() && string.charAt(0) == letter)
                 .sorted(Comparator.comparing(String::length))
@@ -46,7 +43,6 @@ public class StreamProcess {
     }
 
     public static Map<String, String> findPairsOfNonFriendsWithCommonFriends(Map<String, List<String>> friendsByNames) {
-        validateNotNull(friendsByNames);
         Map<String, String> nonFriends = new HashMap<>();
         friendsByNames.forEach((person, friends) -> friendsByNames.forEach((anotherPerson, anotherFriends) -> {
             if (!person.equals(anotherPerson) && !friends.contains(anotherPerson)) {
@@ -66,14 +62,11 @@ public class StreamProcess {
     }
 
     public static Map<String, Double> countAvgSalaryForEachDepartment(List<Employee> employees) {
-        validateNotNull(employees);
         return employees.stream()
                 .collect(groupingBy(Employee::getDepartment, averagingDouble(Employee::getSalary)));
     }
 
     public static List<String> filterByAlphabetAndSortByLength(List<String> strings, Set<Character> letters) {
-        validateNotNull(strings);
-        validateNotNull(letters);
         return strings.stream()
                 .filter(string -> string.chars().allMatch(letter -> letters.contains((char) letter)))
                 .sorted(Comparator.comparing(String::length))
@@ -81,7 +74,6 @@ public class StreamProcess {
     }
 
     public static List<String> convertIntegersToBinaryStrings(List<Integer> nums) {
-        validateNotNull(nums);
         return nums.stream()
                 .mapToInt(Integer::intValue)
                 .mapToObj(Integer::toBinaryString)
@@ -103,11 +95,5 @@ public class StreamProcess {
             num /= 10;
         }
         return reverse == original;
-    }
-
-    private static <T> void validateNotNull(T obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("Object cannot be null");
-        }
     }
 }
