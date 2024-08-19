@@ -7,13 +7,11 @@ public class MessageProcessor {
         if (message == null) {
             throw new IllegalArgumentException("Message can't be null!");
         }
-        boolean isPassedFlag = true;
         for (MessageFilter messageFilter : filterList) {
             if (!messageFilter.filter(message)) {
-                isPassedFlag = false;
-                return isPassedFlag;
+                return false;
             }
         }
-        return isPassedFlag;
+        return true;
     }
 }
