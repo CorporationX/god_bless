@@ -22,7 +22,7 @@ public class CalculatorUntil {
         return calculate(numbers, Integer::sum);
     }
 
-    public static int product(List<Integer> numbers) {
+    public static long product(List<Integer> numbers) {
         return calculate(numbers, (total, numberTwo) -> total *= numberTwo);
     }
 }
