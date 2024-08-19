@@ -27,5 +27,7 @@ public class Main {
 
         EnvironmentalImpactAnalyzer.analyseTop3CompaniesMaximumConsumption(file, 2024);
         System.out.println();
+
+        EnvironmentalImpactAnalyzer.analyseConsumptionPerEmployee(file, 2024);
     }
 }

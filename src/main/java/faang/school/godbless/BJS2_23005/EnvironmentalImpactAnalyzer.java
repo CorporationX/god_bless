@@ -33,6 +33,21 @@ public class EnvironmentalImpactAnalyzer {
                 .forEach(entry -> System.out.printf("%s %.2f%n", entry.getKey(), entry.getValue()));
     }
 
+    public static void analyseConsumptionPerEmployee(File file, int year) {
+        List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getDate().getYear() == year);
+        Map<Company, Double> companyBySumConsumption = mapCompanyBySumConsumption(impacts, year);
+
+        System.out.println("Company         TotalEnergyConsumption Employees ConsumptionPerEmployee");
+        companyBySumConsumption.forEach((company, consumption) ->
+            System.out.printf("%-12s %10.2f %18d %11.2f%n",
+                    company.getName(),
+                    consumption,
+                    company.getTotalEmployees(),
+                    consumption / company.getTotalEmployees()
+            )
+        );
+    }
+
     public static void analyseTop3CompaniesMaximumConsumption(File file, int year) {
         List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getDate().getYear() == year);
         Map<Company, Double> companyBySumConsumption = mapCompanyBySumConsumption(impacts, year);
