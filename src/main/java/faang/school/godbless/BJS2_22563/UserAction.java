@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 public class UserAction {
-    private User user;
+    private int id;
+    private String name;
     private ActionType actionType;
     private LocalDateTime actionDate;
     private String content;
