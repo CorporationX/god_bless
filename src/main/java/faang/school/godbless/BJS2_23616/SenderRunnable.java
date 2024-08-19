@@ -7,7 +7,6 @@ import java.util.stream.IntStream;
 
 
 @AllArgsConstructor
-@ToString
 public class SenderRunnable implements Runnable {
 
     private int startIndex;
