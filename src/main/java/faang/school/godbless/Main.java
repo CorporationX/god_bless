@@ -11,7 +11,7 @@ public class Main {
 
         FilterProcessor processor = new FilterProcessor();
 
-        Function<Image, Image> filterUpperCase = img ->  new Image(img.getName(), img.getDescription().toUpperCase());
+        Function<Image, Image> filterUpperCase = img -> new Image(img.getName(), img.getDescription().toUpperCase());
 
         Function<Image, Image> filterAddActiveTag = img -> new Image(img.getName(), img.getDescription() + " - Active");
 
