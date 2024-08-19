@@ -34,26 +34,20 @@ public class Main {
     }
 
     public static void addData(Data data) {
-        try {
-            dataStructure.putIfAbsent(data.getId(), data);
-            cache.computeIfAbsent(data.getId(), key -> data).setTimestamp(LocalDateTime.now());
-        } catch (NullPointerException e) {
-            System.out.println("Data can't be null!");
-        }
+            if(data != null){
+                dataStructure.putIfAbsent(data.getId(), data);
+                cache.computeIfAbsent(data.getId(), key -> data).setTimestamp(LocalDateTime.now());
+            }
     }
 
     public static Optional<Data> getDataById(int id) {
-        if (isNullData(id)) {
+        if (dataStructure.get(id) == null) {
             System.out.println("There is no data with such id!");
             return Optional.empty();
         } else {
             cache.computeIfAbsent(id, key -> dataStructure.get(id)).setTimestamp(LocalDateTime.now());
             return Optional.ofNullable(cache.get(id));
         }
-    }
-
-    public static boolean isNullData(int id) {
-        return dataStructure.get(id) == null;
     }
 
     public static void printAllData() {
