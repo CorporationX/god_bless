@@ -16,19 +16,23 @@ public class Main {
         List<Job> jobs = jobStreamProcessor.jsonToJob(GetJsons.get());
 
         System.out.println("\nТоп 5 популярных навыков:");
-        dataAnalyzer.mostPopularSkills(jobs).forEach(System.out::println);
+        dataAnalyzer.mostPopularSkills(jobs)
+                .forEach(System.out::println);
 
         System.out.println("\nТоп 5 популярных позиций:");
-        dataAnalyzer.mostPopularPositions(jobs).forEach(System.out::println);
+        dataAnalyzer.mostPopularPositions(jobs)
+                .forEach(System.out::println);
 
         double salaryDiapason = 10000.0;
         System.out.println("\nСписок зарплат с шагом в '%s' и количество вакансий:".formatted(salaryDiapason));
         dataAnalyzer.analysisSalaryDistribution(jobs, salaryDiapason)
-                .entrySet().forEach(e -> System.out.println("От " + (e.getKey() - salaryDiapason) +
+                .entrySet()
+                .forEach(e -> System.out.println("От " + (e.getKey() - salaryDiapason) +
                         " до " + e.getKey() + " - " + e.getValue() + " вакансий"));
 
         System.out.println("\nТоп 5 популярных местоположений вакансий:");
-        dataAnalyzer.mostPopularLocation(jobs).forEach(System.out::println);
+        dataAnalyzer.mostPopularLocation(jobs)
+                .forEach(System.out::println);
 
         LocalDate startDate = LocalDate.of(2024, 8, 1);
         LocalDate endDate = LocalDate.of(2024, 9, 17);
@@ -36,6 +40,7 @@ public class Main {
         System.out.println("\nНовые вакансии с %s по %s с детализацией по %s:"
                 .formatted(startDate, endDate, trendGranularity));
         dataAnalyzer.analyzeTrends(jobs, startDate, endDate, trendGranularity)
-                .entrySet().forEach(e -> System.out.println(e.getKey() + " - " + e.getValue() + " вакансий"));
+                .entrySet()
+                .forEach(e -> System.out.println(e.getKey() + " - " + e.getValue() + " вакансий"));
     }
 }

@@ -1,6 +1,7 @@
 package faang.school.godbless.task.stream.api.job.analizer;
 
 import java.time.LocalDate;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -15,8 +16,9 @@ public class DataAnalyzer {
         return jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(MOST_POPULAR_SKILLS_LIMIT)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -26,8 +28,9 @@ public class DataAnalyzer {
         return jobs.stream()
                 .map(Job::getPosition)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(MOST_POPULAR_POSITION_LIMIT)
                 .map(Map.Entry::getKey)
                 .toList();
@@ -43,8 +46,9 @@ public class DataAnalyzer {
     public List<String> mostPopularLocation(List<Job> jobs) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
-                .entrySet().stream()
-                .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(MOST_POPULAR_LOCATION_LIMIT)
                 .map(Map.Entry::getKey)
                 .toList();
