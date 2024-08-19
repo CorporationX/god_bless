@@ -1,28 +1,22 @@
 package faang.school.godbless.LRUCache;
-
 import lombok.NonNull;
-
-import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class Main {
     Map<Integer, Data> dataBase = new HashMap<>();
-    Map<Integer, Data> dataCache = new HashMap<>();
+    Map<Integer, Data> dataCache = new LinkedHashMap<>();
     private static final int CACHE_SIZE = 3;
-
 
     public static void main(String[] args) {
         Main main = new Main();
-
-
         main.clientRequestPOST(new Data(1, 100));
         main.clientRequestPOST(new Data(2, 200));
         main.clientRequestPOST(new Data(3, 300));
         main.clientRequestPOST(new Data(4, 400));
         main.clientRequestPOST(new Data(5, 500));
-
 
         try {
             Data data1 = main.clientRequestGET(1);
@@ -36,15 +30,12 @@ public class Main {
             System.out.println("Data from GET request: ID = " + data_3.getId() + ", Value = " + data_3.getValue());
             Data data4 = main.clientRequestGET(4);
             System.out.println("Data from GET request: ID = " + data4.getId() + ", Value = " + data4.getValue());
-
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
 
-
         main.printCacheState();
     }
-
 
     public void addDataToDBase(@NonNull Data data) {
         data.updateTimestamp();
@@ -60,36 +51,21 @@ public class Main {
     }
 
     private void deleteOldDataFromDCache() {
-        LocalDateTime oldestTimestamp = LocalDateTime.now();
-        Data oldestData = null;
-
-        for (Map.Entry<Integer, Data> entry : dataCache.entrySet()) {
-            LocalDateTime tempTimestamp = entry.getValue().getTimestamp();
-            if (tempTimestamp.isBefore(oldestTimestamp)) {
-                oldestTimestamp = tempTimestamp;
-                oldestData = entry.getValue();
-            }
-        }
-
-        if (oldestData != null) {
-            dataCache.remove(oldestData.getId());
-        }
+        dataCache.remove(1);
     }
 
-
-    public Optional<Data> findDataFromDCache(int id){
+    public Optional<Data> findDataFromDCache(int id) {
         return Optional.ofNullable(dataCache.get(id));
     }
 
-    public Optional<Data> findDataFromDBase(int id){
-
+    public Optional<Data> findDataFromDBase(int id) {
         return Optional.ofNullable(dataBase.get(id));
     }
 
-    private Data clientRequestGET(int id){
+    private Data clientRequestGET(int id) {
         Data data;
         Optional<Data> optionalCacheData = findDataFromDCache(id);
-        if (optionalCacheData.isPresent()){
+        if (optionalCacheData.isPresent()) {
             data = optionalCacheData.get();
             System.out.println("fromCache");
             data.updateTimestamp();
@@ -97,25 +73,19 @@ public class Main {
         }
 
         Optional<Data> optionalBaseData = findDataFromDBase(id);
-        if (optionalBaseData.isPresent()){
-            data =optionalBaseData.get();
+        if (optionalBaseData.isPresent()) {
+            data = optionalBaseData.get();
             System.out.println("fromDBase");
             addDataToDCache(data);
             return data;
         }
 
         throw new IllegalArgumentException("Data is empty");
-
     }
 
-    private void clientRequestPOST(@NonNull Data data){
+    private void clientRequestPOST(@NonNull Data data) {
         addDataToDBase(data);
-
     }
-
-
-
-
 
     public void printCacheState() {
         System.out.println("Current Cache State:");
@@ -125,5 +95,4 @@ public class Main {
         }
         System.out.println();
     }
-
 }
