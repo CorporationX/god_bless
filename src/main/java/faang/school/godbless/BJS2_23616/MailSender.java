@@ -13,18 +13,19 @@ public class MailSender {
                 new SenderRunnable(800, 1000)
         );
 
-        List<Thread> treads = tasks.stream()
+        List<Thread> threads = tasks.stream()
                 .map(Thread::new)
                 .peek(Thread::start)
                 .toList();
 
-        treads.forEach(thread -> {
+        threads.forEach(thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException("Thread error");
             }
         });
+
         System.out.println("All emails have been sent");
     }
 }
