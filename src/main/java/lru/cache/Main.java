@@ -32,34 +32,36 @@ public class Main {
         dataBase.put(data3.getId(), data3);
         dataBase.put(data4.getId(), data4);
 
-        getData(1);
+        System.out.println(getData(1));
         System.out.println("---");
-        getData(2);
+        System.out.println(getData(2));
         System.out.println("---");
-        getData(3);
+        System.out.println(getData(3));
         System.out.println("---");
-        getData(1);
+        System.out.println(getData(1));
         System.out.println("---");
-        getData(4);
+        System.out.println(getData(4));
         System.out.println("---");
         printCache(cache);
 
 
     }
 
-    public static void getData(int id) {
+    public static Data getData(int id) {
         if (cache.containsKey(id)) {
-            cache.get(id).setTimestamp(LocalDateTime.now());
-            cache.put(id, cache.remove(id));
-            System.out.println(cache.get(id));
+            Data data = cache.remove(id);
+            data.setTimestamp(LocalDateTime.now());
+            cache.put(id, data);
             System.out.println("Данные полученны кэша.");
+            return data;
         } else {
             if (dataBase.containsKey(id)) {
-                dataBase.get(id).setTimestamp(LocalDateTime.now());
+                Data data = dataBase.get(id);
+                data.setTimestamp(LocalDateTime.now());
                 System.out.println("Данные полученны из базы и добавлены в кэш.");
-                cache.put(id, dataBase.get(id));
-                System.out.println(cache.get(id));
+                cache.put(id, data);
                 System.out.println("Данные полученны из кэша.");
+                return data;
             } else {
                 throw new IllegalArgumentException("Данных нет");
             }
