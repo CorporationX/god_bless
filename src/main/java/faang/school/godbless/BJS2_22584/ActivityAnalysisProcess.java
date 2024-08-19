@@ -12,7 +12,6 @@ import static java.util.stream.Collectors.groupingBy;
 
 public class ActivityAnalysisProcess {
     public static List<String> findTop10ActiveUsers(List<UserAction> userActions) {
-        validateNotNull(userActions);
         Map<Integer, String> usersById = userActions.stream()
                 .collect(Collectors.toMap(UserAction::getId, UserAction::getName, (existing, replacement) -> existing));
         return userActions.stream()
@@ -25,7 +24,6 @@ public class ActivityAnalysisProcess {
     }
 
     public static List<String> findTop5PopularThemes(List<UserAction> userActions) {
-        validateNotNull(userActions);
         return userActions.stream()
                 .filter(userAction -> userAction.getActionType().equals("post") ||
                         userAction.getActionType().equals("comment"))
@@ -42,7 +40,6 @@ public class ActivityAnalysisProcess {
     }
 
     public static List<String> findTop3CommentersLastMonth(List<UserAction> userActions) {
-        validateNotNull(userActions);
         Map<Integer, String> usersById = userActions.stream()
                 .collect(Collectors.toMap(UserAction::getId, UserAction::getName, (existing, replacement) -> existing));
         return userActions.stream()
@@ -57,17 +54,10 @@ public class ActivityAnalysisProcess {
     }
 
     public static Map<String, Double> countPercentOfActionTypes(List<UserAction> userActions) {
-        validateNotNull(userActions);
         return userActions.stream()
                 .collect(groupingBy(UserAction::getActionType, counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(Map.Entry::getKey, amountOfActionType ->
                         (amountOfActionType.getValue() * 100.0) / userActions.size()));
-    }
-
-    private static <T> void validateNotNull(T obj) {
-        if (obj == null) {
-            throw new IllegalArgumentException("Object cannot be null");
-        }
     }
 }
