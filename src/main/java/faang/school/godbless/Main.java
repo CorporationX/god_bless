@@ -1,31 +1,29 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Calculator.Calculator;
+import faang.school.godbless.InstagramFilters.FilterProcessor;
+import faang.school.godbless.Media.Image;
 
-import java.util.List;
+import java.util.function.Function;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(product(List.of(5,4,2)));
-        System.out.println(sum(List.of(5,4,2)));
-    }
+        Image image = new Image("photo.jpg", "A beautiful sunset.");
 
-    public static int calculate(List<Integer> nums, Calculator<Integer> calculator) {
-        if (nums == null || nums.isEmpty()) {
-            throw new IllegalArgumentException("The list cannot be null or empty");
-        }
-        int result = nums.get(0);
-        for (int i = 1; i < nums.size(); i++) {
-            result = calculator.apply(result, nums.get(i));
-        }
-        return result;
-    }
+        FilterProcessor processor = new FilterProcessor();
 
-    public static int product(List<Integer> nums) {
-        return calculate(nums, (a, b) -> a * b);
-    }
+        Function<Image, Image> filterUpperCase = img -> new Image(img.getName(), img.getDescription().toUpperCase());
 
-    public static int sum(List<Integer> nums) {
-        return calculate(nums, Integer::sum);
+        Function<Image, Image> filterAddActiveTag = img -> new Image(img.getName(), img.getDescription() + " - Active");
+
+        Image processedImage1 = processor.applyFilter(image, filterAddActiveTag);
+        System.out.println(processedImage1);
+
+        Image processedImage2 = processor.applyFilter(image, filterUpperCase);
+        System.out.println(processedImage2);
+
+        Function<Image, Image> combinedFilter = processor.combineFilters(filterAddActiveTag, filterUpperCase);
+        Image combinedImage = processor.applyFilter(image, combinedFilter);
+        System.out.println(combinedImage);
+
     }
 }
