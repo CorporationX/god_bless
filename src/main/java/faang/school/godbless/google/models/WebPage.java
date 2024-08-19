@@ -5,8 +5,8 @@ import lombok.Getter;
 
 import java.util.Objects;
 
-@AllArgsConstructor
 @Getter
+@AllArgsConstructor
 public class WebPage {
 
     private String url;
