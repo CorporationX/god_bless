@@ -37,11 +37,19 @@ public class Main {
     }
 
     public static void addQuery(User user, Query query) {
-        queryMap.put(user, user.addQuery(query));
+        if (queryMap.containsKey(user)){
+            queryMap.get(user).add(query);
+        } else {
+            queryMap.computeIfAbsent(user, k -> new ArrayList<Query>()).add(query);
+        }
     }
 
     public static void addQuery(User user, List<Query> list) {
-        queryMap.put(user, user.addQuery(list));
+        if (queryMap.containsKey(user)){
+            queryMap.get(user).addAll(list);
+        } else {
+            queryMap.computeIfAbsent(user, k ->list);
+        }
     }
 
     public static void removeSubject(User user) {
@@ -50,7 +58,9 @@ public class Main {
 
     public static void printUserQueries(User user) {
         System.out.println("#" + user.getId() + ":" + user.getName());
-        for (Query query : user.getSortedQuryList()) {
+        List<Query> list = queryMap.get(user);
+        list.sort((a,b) -> a.getTimestamp().compareTo(b.getTimestamp()));
+        for (Query query : list) {
             System.out.println(query.getId() + ":" + query.getContent() + "::" + query.getTimestamp());
         }
     }
