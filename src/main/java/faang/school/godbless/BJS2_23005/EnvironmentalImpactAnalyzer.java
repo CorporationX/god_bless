@@ -63,21 +63,19 @@ public class EnvironmentalImpactAnalyzer {
     }
 
     private static List<EnvironmentalImpact> getImpactsFromCsvByFilter(File file, Predicate<EnvironmentalImpact> filter) {
-        return CompanyDataLoader.parseCsvToEnvironmentalImpact(file)
-                .orElse(new ArrayList<>())
+        return CompanyDataLoader.parseCsvToEnvironmentalImpact(file).orElse(new ArrayList<>())
                 .stream()
                 .filter(filter)
                 .toList();
     }
 
     private static Map<Company, Double> mapCompanyBySumConsumption(List<EnvironmentalImpact> impacts, int year) {
-        return StatisticsAggregator.mapCompanyBySumImpact(
-                        LocalDate.of(year, 1, 1),
-                        LocalDate.of(year, 12, 31),
-                        impacts,
-                        TypeEnvironmentalImpact.ENERGY_CONSUMPTION
-                )
-                .entrySet().stream()
+        Map<Company, Double> companyBySumImpact = StatisticsAggregator.mapCompanyBySumImpact(
+                LocalDate.of(year, 1, 1),
+                LocalDate.of(year, 12, 31),
+                impacts,
+                TypeEnvironmentalImpact.ENERGY_CONSUMPTION);
+        return companyBySumImpact.entrySet().stream()
                 .collect(Collectors.groupingBy(
                         Map.Entry::getKey,
                         Collectors.summingDouble(Map.Entry::getValue))
