@@ -1,34 +1,21 @@
-package faang.school.godbless;
+﻿package faang.school.godbless;
 
-import faang.school.godbless.image.Image;
-import java.util.function.Function;
+import faang.school.godbless.Notification.Notification;
 
 public class Application {
     public static void main(String[] args) {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        NotificationManager notificationManager = new NotificationManager();
 
-        FilterProcessor filterProcessor = new FilterProcessor();
+        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
+        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
+        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
-        Function<Image, Image> grayscaleFilter = (image) ->
-                new Image(image.getName() + "_grayscale", "Фильтр: черно-белый");
+        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
+        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
+        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
 
-        Function<Image, Image> sepiaFilter = (image) ->
-                new Image(image.getName() + "_sepia", "Фильтр: сепия");
-
-        Function<Image, Image> vignetteFilter = (image) ->
-                new Image(image.getName() + "_vignette", "Фильтр: виньетка");
-
-        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
-        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
-        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
-
-        System.out.println(grayscaleImage);
-        System.out.println(sepiaImage);
-        System.out.println(vignetteImage);
-
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
-        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-
-        System.out.println(combinedImage);
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
     }
 }
