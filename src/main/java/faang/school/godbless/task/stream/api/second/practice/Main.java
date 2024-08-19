@@ -109,7 +109,8 @@ public class Main {
     public static List<String> sortWordsByLengthAndLetter(List<String> words, char letter) {
         return words.stream()
                 .filter(word -> word.toLowerCase().startsWith(Character.toString(letter)))
-                .sorted(Comparator.comparing(String::length)).toList();
+                .sorted(Comparator.comparing(String::length))
+                .toList();
     }
 
     // 4
