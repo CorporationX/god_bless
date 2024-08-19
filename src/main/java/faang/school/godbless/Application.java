@@ -1,31 +1,34 @@
 package faang.school.godbless;
 
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.stream.Collectors;
+import faang.school.godbless.image.Image;
+import java.util.function.Function;
 
 public class Application {
     public static void main(String[] args) {
-        List<List<String>> table = List.of(
-                List.of("1", "2", "3", "4", "5"),
-                List.of("6", "7", "8", "9", "10"),
-                List.of("11", "12", "13", "14", "15"),
-                List.of("16", "17", "18", "19", "20"),
-                List.of("21", "22", "23", "24", "25")
-        );
+        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
-        String csv = toCsv(table);
+        FilterProcessor filterProcessor = new FilterProcessor();
 
-        System.out.println(csv);
-    }
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getName() + "_grayscale", "Фильтр: черно-белый");
 
-    public static String toCsv(List<List<String>> table) throws IllegalArgumentException {
-        VectorJoiner<String> vectorJoiner = vector -> String.join(", ", vector);
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getName() + "_sepia", "Фильтр: сепия");
 
-        MatrixJoiner <String> matrixJoiner = matrix -> matrix.stream()
-                .map(vectorJoiner::join)
-                .collect(Collectors.joining("\n"));
+        Function<Image, Image> vignetteFilter = (image) ->
+                new Image(image.getName() + "_vignette", "Фильтр: виньетка");
 
-        return matrixJoiner.join(table);
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
+        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
+
+        System.out.println(grayscaleImage);
+        System.out.println(sepiaImage);
+        System.out.println(vignetteImage);
+
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+
+        System.out.println(combinedImage);
     }
 }
