@@ -1,6 +1,5 @@
 package faang.school.godbless.lord.of.rings.rpg;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -10,13 +9,7 @@ public class InventoryManager {
 
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
         List<Item> inventory = character.getInventory();
-        if (inventory != null) {
-            inventory.add(item);
-        } else {
-            List<Item> items = new ArrayList<>();
-            items.add(item);
-            character.setInventory(items);
-        }
+        inventory.add(item);
         consumer.accept(item);
     }
 
