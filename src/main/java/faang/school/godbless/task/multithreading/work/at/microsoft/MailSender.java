@@ -1,5 +1,8 @@
 package faang.school.godbless.task.multithreading.work.at.microsoft;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -7,6 +10,8 @@ import java.util.stream.IntStream;
 public class MailSender {
     public static final int THREAD_POOL_LIMIT = 5;
     public static final int MAIL_LIMIT_BY_THREAD = 200;
+
+    private static final Logger logger = LoggerFactory.getLogger(MailSender.class);
 
     public static void main(String[] args) {
         List<Thread> threads = new ArrayList<>();
@@ -25,10 +30,10 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException exception) {
-                exception.printStackTrace();
+                logger.error("Interrupted exception: {}", exception.getMessage());
             }
         });
 
-        System.out.println("All message was sends");
+        logger.info("All message was sends");
     }
 }
