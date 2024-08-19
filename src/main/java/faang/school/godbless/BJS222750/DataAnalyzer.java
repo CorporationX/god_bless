@@ -21,7 +21,7 @@ public class DataAnalyzer {
     }
 
 
-    public List<String> getTopJobTitles(List<Job> jobs, int limit){
+    public List<String> getTopJobTitles(List<Job> jobs, int limit) {
         return jobs.stream()
                 .map(Job::getJobTitle)
                 .collect(Collectors.groupingBy(title -> title, Collectors.counting()))
@@ -32,7 +32,7 @@ public class DataAnalyzer {
                 .toList();
     }
 
-    public Map<Integer, Long> analyzeSalaryDistribution(List<Job> jobs, Integer round){
+    public Map<Integer, Long> analyzeSalaryDistribution(List<Job> jobs, Integer round) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(
                         job -> (int) (Math.floor(job.getSalary() / round) * round),
@@ -40,7 +40,7 @@ public class DataAnalyzer {
                 ));
     }
 
-    public List<String> getTopLocations(List<Job> jobs, int limit){
+    public List<String> getTopLocations(List<Job> jobs, int limit) {
         return jobs.stream()
                 .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
                 .entrySet().stream()
