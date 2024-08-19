@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 
 public class DictionaryProcessor {
 
-    public void processWord(String originalWord, String translatedWord, BiConsumer<String,String> fncTranslate){
-        fncTranslate.accept(originalWord,translatedWord);
+    public void processWord(String originalWord, String translatedWord, BiConsumer<String, String> dictionaryConsumer) {
+        dictionaryConsumer.accept(originalWord, translatedWord);
     }
 }
