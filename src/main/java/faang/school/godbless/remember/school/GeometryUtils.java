@@ -10,7 +10,7 @@ public class GeometryUtils {
     private static Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
     private static Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-    public static Double triangleArea(double a, double b, double c) throws IllegalArgumentException {
+    public static double triangleArea(double a, double b, double c) throws IllegalArgumentException {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("A side should be more than zero");
         }

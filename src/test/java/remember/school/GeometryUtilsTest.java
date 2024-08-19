@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 public class GeometryUtilsTest {
 
-    private static final Double SIDE_A = 1d;
-    private static final Double SIDE_B = 1d;
-    private static final Double SIDE_C = 1.8d;
-    private static final Double CALCULATED_AREA = 0.392d;
-    private static final Double EPSILON = 0.001d;
+    private static final double SIDE_A = 1d;
+    private static final double SIDE_B = 1d;
+    private static final double SIDE_C = 1.8d;
+    private static final double CALCULATED_AREA = 0.392d;
+    private static final double EPSILON = 0.001d;
 
     @Test
     void testTriangleAreaWithExceptions() {
