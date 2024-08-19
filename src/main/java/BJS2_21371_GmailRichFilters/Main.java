@@ -16,8 +16,8 @@ public class Main {
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
-        Consumer<Email> printEmail = email -> System.out.println("Email processed " + email.getSubject());
         Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
+        Consumer<Email> printEmail = email -> System.out.println("Email processed " + email.getSubject());
 
         EmailProcessor.processEmails(stanEmails, importantFilter, printEmail, toLowerCase);
     }

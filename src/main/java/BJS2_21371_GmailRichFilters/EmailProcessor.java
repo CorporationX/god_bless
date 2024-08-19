@@ -8,15 +8,16 @@ import java.util.function.Predicate;
 public class EmailProcessor {
     public static void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> process,
                                      Function<Email, String> transform) {
-        try {
+        if (emails != null) {
             for (Email email : emails) {
-                System.out.println(filter.test(email));
-                process.accept(email);
-                System.out.println(transform.apply(email));
+                if (filter.test(email)) {
+                    transform.apply(email);
+                    System.out.println(email.getBody());
+                    process.accept(email);
+                }
             }
-        } catch (NullPointerException e) {
+        } else {
             System.out.println("Error! Null can't be of any parameter!");
         }
-
     }
 }
