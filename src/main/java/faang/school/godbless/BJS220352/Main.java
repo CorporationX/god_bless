@@ -10,13 +10,23 @@ public class Main {
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = (x) -> Math.sqrt(x);
 
-        if (sum.apply(a).apply(b) <= c || sum.apply(a).apply(c) <= b || sum.apply(b).apply(c) <= a) {
+        if (a + b <= c || a + c <= b || b + c <= a) { //сумма двух сторон должна быть больше третьей
             throw new IllegalArgumentException("Invalid triangle sides");
         }
 
-        Double p = div.apply(sum.apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);
+        double perimeter = sum.apply(c).apply(sum.apply(a).apply(b));
 
-        Double area = sqrt.apply(mul.apply(mul.apply(mul.apply(sub.apply(p).apply(a)).apply(sub.apply(p).apply(b))).apply(sub.apply(p).apply(c))).apply(p));
+        double halfPerimeter = div.apply(perimeter).apply(2.0);
+
+        double subHalfPerimeterWithSideA = sub.apply(halfPerimeter).apply(a);
+        double subHalfPerimeterWithSideB = sub.apply(halfPerimeter).apply(b);
+        double subHalfPerimeterWithSideC = sub.apply(halfPerimeter).apply(c);
+
+        double underSqrt = mul.apply(halfPerimeter).apply(subHalfPerimeterWithSideA);
+        underSqrt = mul.apply(underSqrt).apply(subHalfPerimeterWithSideB);
+        underSqrt = mul.apply(underSqrt).apply(subHalfPerimeterWithSideC);
+
+        double area = sqrt.apply(underSqrt);
 
         return area;
     }
@@ -33,5 +43,4 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-
 }
