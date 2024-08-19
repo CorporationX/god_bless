@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_23126;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,21 +11,21 @@ public class Main {
 
         System.out.println("Even numbers sum: " + getEvenNumberSum(numbers));
 
-        System.out.println("Max number: " + maxNumber(numbers));
+        System.out.println("Max number: " + getMaxNumber(numbers));
 
-        System.out.println("Average number: " + averageNumber(numbers));
+        System.out.println("Average number: " + getAverageNumber(numbers));
 
         System.out.println("Count of words started with a: " + countStartedWith(words, 'a'));
 
-        System.out.println("List of words: " + filterWords(words, "main"));
+        System.out.println("List of words: " + filterWordsBySubstring(words, "main"));
 
-        System.out.println("List of sorted words: " + sortWords(words));
+        System.out.println("List of sorted words: " + sortWordsByLength(words));
 
-        System.out.println("Is all words contains a?: " + matchWords(words, "a"));
+        System.out.println("Is all words contains a?: " + checkListWithCondition(words, word -> word.contains("a")));
 
-        System.out.println("Min number bigger than 4: " + minNumber(numbers, 4));
+        System.out.println("Min number bigger than 4: " + getMinNumber(numbers, 4));
 
-        System.out.println("Length of words: " + lengthOfWords(words));
+        System.out.println("Length of words: " + getLengthOfWords(words));
     }
 
     public static int getEvenNumberSum(List<Integer> numbers) {
@@ -34,14 +35,13 @@ public class Main {
                 .sum();
     }
 
-    public static int maxNumber(List<Integer> numbers) {
+    public static int getMaxNumber(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
                 .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
-    public static double averageNumber(List<Integer> numbers) {
-        checkList(numbers);
+    public static double getAverageNumber(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::intValue)
                 .average()
@@ -55,34 +55,34 @@ public class Main {
                 .count();
     }
 
-    public static List<String> filterWords(List<String> words, String prefix) {
+    public static List<String> filterWordsBySubstring(List<String> words, String substring) {
         checkList(words);
         return words.stream()
-                .filter(word -> word.contains(prefix))
+                .filter(word -> word.contains(substring))
                 .toList();
     }
 
-    public static List<String> sortWords(List<String> words) {
+    public static List<String> sortWordsByLength(List<String> words) {
         checkList(words);
         return words.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
-    public static boolean matchWords(List<String> words, String prefix) {
+    public static boolean checkListWithCondition(List<String> words, Predicate<String> predicate) {
         checkList(words);
         return words.stream()
-                .allMatch(word -> word.contains(prefix));
+                .allMatch(predicate);
     }
 
-    public static int minNumber(List<Integer> numbers, int value) {
+    public static int getMinNumber(List<Integer> numbers, int value) {
         return numbers.stream()
                 .filter(number -> number > value)
                 .min(Integer::compareTo)
                 .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
-    public static List<Integer> lengthOfWords(List<String> words) {
+    public static List<Integer> getLengthOfWords(List<String> words) {
         checkList(words);
         return words.stream()
                 .map(String::length)
