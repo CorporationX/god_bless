@@ -11,8 +11,7 @@ public class Application {
                 { 9,10,11,12}
         };
 
-        val mat = new MatrixUtils();
-        mat.transformMatrix(matrix,(x,y)->{
+        MatrixUtils.transformMatrixHorizontaly(matrix,(x, y)->{
             return new Coordinates(y,x);
         });
         for (int i = 0; i < matrix.length; i++) {
