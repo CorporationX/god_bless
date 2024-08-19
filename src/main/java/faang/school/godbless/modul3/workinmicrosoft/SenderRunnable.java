@@ -11,6 +11,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        IntStream.range(startIndex, endIndex).mapToObj(i -> "Email " + i + " sent").forEach(System.out::println);
+        IntStream.range(startIndex, endIndex)
+                .mapToObj(i -> "Email " + i + " sent")
+                .forEach(System.out::println);
     }
 }
