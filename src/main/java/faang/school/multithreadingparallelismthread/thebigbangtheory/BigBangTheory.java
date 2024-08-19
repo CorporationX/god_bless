@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class BigBangTheory {
 
     private static final int FIXED_THREAD_POOL = 4;
+    private static final int AWAIT_TERMINATION_THREADS = 1;
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(FIXED_THREAD_POOL);
@@ -20,10 +21,11 @@ public class BigBangTheory {
         for (Task task : tasks) {
             executorService.execute(task);
         }
+
         executorService.shutdown();
 
         try {
-            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (executorService.awaitTermination(AWAIT_TERMINATION_THREADS, TimeUnit.MINUTES)) {
                 System.out.println(Thread.currentThread().getName() + " Задание завершено!");
             }
         } catch (InterruptedException e) {
