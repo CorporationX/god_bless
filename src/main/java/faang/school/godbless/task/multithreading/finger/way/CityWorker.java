@@ -45,9 +45,11 @@ public class CityWorker implements Runnable {
                         mons -> distance.get(city.getLocation(), mons.getLocation())))
                 .entrySet().stream()
                 .max((e1, e2) -> Double.compare(e2.getValue(), e1.getValue()))
-                .stream().peek(e -> distanceToMonster = e.getValue())
+                .stream()
+                .peek(e -> distanceToMonster = e.getValue())
                 .map(Map.Entry::getKey)
-                .findAny().get();
+                .findAny()
+                .get();
     }
 
     private long getKillTime() {
