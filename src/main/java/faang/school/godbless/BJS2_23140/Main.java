@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        List<Integer> nums = List.of(1, 2, 3, 4, 5, 10, 9, 8, 7, 6);
         List<String> strings = new ArrayList<>(List.of("aa", "abaa", "cba"));
 
         System.out.println(Streams.sumEvenNumbers(nums));

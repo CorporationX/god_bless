@@ -27,8 +27,7 @@ public class Streams {
 
     public static long findNumberStartingWithCertainCharacter(List<String> strings, char target) {
         return strings.stream()
-                .mapToInt(string -> string.charAt(0))
-                .filter(ch -> ch == target)
+                .filter(string -> string.startsWith(String.valueOf(target)))
                 .count();
     }
 
@@ -50,6 +49,7 @@ public class Streams {
     public static int findMinNumberThanTarget(List<Integer> nums, int target) {
         return nums.stream()
                 .filter(num -> num > target)
+                .sorted()
                 .findFirst()
                 .orElseThrow();
     }
