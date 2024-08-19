@@ -1,5 +1,8 @@
 package faang.school.godbless.task.multithreading.feed.peter.griffin;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -9,6 +12,7 @@ import java.util.stream.IntStream;
 public class GriffinsFoodDelivery {
     private static final int THREAD_POOL_LIMIT = 3;
 
+    private static final Logger logger = LoggerFactory.getLogger(GriffinsFoodDelivery.class);
     private static final String[] characterNames;
     private static final Random random;
     private static final ExecutorService executorService;
@@ -28,12 +32,12 @@ public class GriffinsFoodDelivery {
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(2, TimeUnit.MINUTES)) {
-                System.out.println("All characters have eaten");
+                logger.info("\nAll characters have eaten");
             } else {
-                System.out.println("Timeout! Not all tasks were finished in time.");
+                logger.warn("\nTimeout! Not all tasks were finished in time.");
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        } catch (InterruptedException exception) {
+            logger.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 
