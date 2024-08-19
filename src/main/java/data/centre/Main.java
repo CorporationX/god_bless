@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) {
 
         dataCenter = initDataCenter();
-        dataCenterService.setOptimizationStrategy(new SimpleOptimizationStrategy());
+        dataCenterService.setOptimizationStrategy(new StoppingUnusedServersStrategy());
 
         ResourceRequest request = new ResourceRequest(500);
         ResourceRequest request1 = new ResourceRequest(1000);
@@ -60,9 +60,9 @@ public class Main {
 
     public static DataCenter initDataCenter() {
         DataCenter dataCenter = new DataCenter();
-        Server server1 = new Server(150, 1.5, 300);
-        Server server2 = new Server(100, 1, 350);
-        Server server3 = new Server(50, 0.5, 300);
+        Server server1 = new Server(150, 300, 1.5);
+        Server server2 = new Server(100, 350, 1);
+        Server server3 = new Server(50, 300, 0.5);
 
         dataCenterService.addServer(dataCenter, server1);
         dataCenterService.addServer(dataCenter, server2);

@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class SimpleOptimizationStrategy implements OptimizationStrategy {
+public class StoppingUnusedServersStrategy implements OptimizationStrategy {
 
     /*
     Останавливает сервера, если они не используются.
@@ -34,15 +34,14 @@ public class SimpleOptimizationStrategy implements OptimizationStrategy {
         if (!deleteServerIdSet.isEmpty()) {
 
             result.append("Сервер(а) с ID: ");
-            int size = deleteServerIdSet.size();
-            int index = 0;
-            for (Integer serverId : deleteServerIdSet) {
-                dataCenter.getServerIdMap().remove(serverId);
-                result.append(serverId);
-                if (index < size - 1) {
+            Integer[] serverId = deleteServerIdSet.toArray(new Integer[0]);
+            int size = serverId.length;
+            for (int i = 0; i < size; i++) {
+                dataCenter.getServerIdMap().remove(serverId[i]);
+                result.append(serverId[i]);
+                if (i < size - 1) {
                     result.append(", ");
                 }
-                index++;
             }
             result.append(" был(и) остановлен(ы).");
             System.out.println("Оптимизация завершена. " + result);

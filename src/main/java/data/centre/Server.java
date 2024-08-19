@@ -1,5 +1,6 @@
 package data.centre;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,16 +8,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Server {
     private double load;
     public double maxLoad;
     double energyConsumption;
 
-    public Server(double load, double energyConsumption, double maxLoad) {
-        this.load = load;
-        this.energyConsumption = energyConsumption;
-        this.maxLoad = maxLoad;
-    }
 
     @Override
     public String toString() {

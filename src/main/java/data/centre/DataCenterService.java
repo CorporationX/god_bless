@@ -72,7 +72,7 @@ public class DataCenterService {
         double loadRequest = request.getLoad();
         double freeServerCapacity = dataCenter.getTotalServerMaxLoad() - dataCenter.getTotalServerLoad();
         if (loadRequest > freeServerCapacity) {
-            Server newServer = new Server(loadRequest, reloadServerEnergyConsumption(loadRequest), loadRequest + loadRequest / 2);
+            Server newServer = new Server(loadRequest, loadRequest + loadRequest / 2, reloadServerEnergyConsumption(loadRequest));
             addServer(dataCenter, newServer);
         } else {
             methodForReloadingServers(loadRequest, dataCenter.getServerIdMap());
@@ -131,18 +131,15 @@ public class DataCenterService {
                 double allocatedCapacity = Math.min(loadToReloading, availableCapacity);
                 double newLoadServer = server.getLoad() + allocatedCapacity;
 
-                if (newLoadServer != server.getLoad()) {
+                server.setLoad(newLoadServer);
+                server.setEnergyConsumption(reloadServerEnergyConsumption(newLoadServer));
+                loadToReloading -= allocatedCapacity;
 
-                    server.setLoad(newLoadServer);
-                    server.setEnergyConsumption(reloadServerEnergyConsumption(newLoadServer));
-                    loadToReloading -= allocatedCapacity;
-
-                    if (server.getLoad() == server.getMaxLoad()) {
-                        System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на максимум.");
-                    } else {
-                        System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на " +
-                                server.getLoad() + " из " + server.getMaxLoad() + ".");
-                    }
+                if (server.getLoad() == server.getMaxLoad()) {
+                    System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на максимум.");
+                } else {
+                    System.out.println("Сервер с ID [" + serverId + "] теперь нагружен на " +
+                            server.getLoad() + " из " + server.getMaxLoad() + ".");
                 }
 
                 if (loadToReloading == 0) {
