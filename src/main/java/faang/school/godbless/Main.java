@@ -25,6 +25,5 @@ public class Main {
         Image combinedImage = processor.applyFilter(image, combinedFilter);
         System.out.println(combinedImage);
 
-
     }
 }
