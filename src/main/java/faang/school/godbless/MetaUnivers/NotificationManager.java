@@ -1,6 +1,5 @@
 package faang.school.godbless.MetaUnivers;
 
-import lombok.AllArgsConstructor;
 import lombok.ToString;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,13 +8,17 @@ import java.util.function.Consumer;
 @ToString
 public class NotificationManager {
 
-    private final Map<String, Consumer<Notification>> ID_NOTIFICATION_MAP = new HashMap<>();
+    private final Map<String, Consumer<Notification>> consumerHashMap = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> notificationConsumer) {
-        ID_NOTIFICATION_MAP.put(type, notificationConsumer);
+        consumerHashMap.put(type, notificationConsumer);
     }
 
     public void sendNotification(Notification notification) {
-        ID_NOTIFICATION_MAP.get(notification.getType()).accept(notification);
+        if (consumerHashMap.containsKey(notification.getType())) {
+            consumerHashMap.get(notification.getType()).accept(notification);
+        } else {
+            System.out.println("Такого объекта нет в коллекции");
+        }
     }
 }
