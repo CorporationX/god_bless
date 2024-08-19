@@ -1,7 +1,6 @@
 package faang.school.godbless.task.multithreading.feed.peter.griffin;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -9,34 +8,28 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+@Slf4j
 public class GriffinsFoodDelivery {
     private static final int THREAD_POOL_LIMIT = 3;
 
-    private static final Logger logger = LoggerFactory.getLogger(GriffinsFoodDelivery.class);
-    private static final String[] characterNames;
-    private static final Random random;
-    private static final ExecutorService executorService;
-
-    static {
-        characterNames = new String[]{"Peter", "Lois", "Meg", "Chris", "Stewie"};
-        random = new Random();
-        executorService = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
-    }
+    private static final String[] characterNames = new String[]{"Peter", "Lois", "Meg", "Chris", "Stewie"};
+    private static final Random random = new Random();
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
 
     public static void main(String[] args) {
         IntStream.range(0, characterNames.length)
                 .forEach(i -> {
-                    executorService.submit(() -> new FoodDeliveryTask(characterNames[i], getFoodAmount(), random).run());
+                    executorService.submit(new FoodDeliveryTask(characterNames[i], getFoodAmount()));
                 });
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(2, TimeUnit.MINUTES)) {
-                logger.info("\nAll characters have eaten");
+                log.info("\nAll characters have eaten");
             } else {
-                logger.warn("\nTimeout! Not all tasks were finished in time.");
+                log.warn("\nTimeout! Not all tasks were finished in time.");
             }
         } catch (InterruptedException exception) {
-            logger.error("Interrupted exception: {}", exception.getMessage());
+            log.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 

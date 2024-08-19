@@ -1,20 +1,19 @@
 package faang.school.godbless.task.multithreading.feed.peter.griffin;
 
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
+@Slf4j
 @RequiredArgsConstructor
 public class FoodDeliveryTask implements Runnable {
     private static final int SECOND_LIMIT_HIGH = 5;
     private static final int SECOND_LIMIT_LOW = 1;
 
-    private final Logger logger = LoggerFactory.getLogger(FoodDeliveryTask.class);
+    private final Random random = new Random();
     private final String character;
     private final int foodAmount;
-    private final Random random;
 
     @Override
     public void run() {
@@ -28,7 +27,7 @@ public class FoodDeliveryTask implements Runnable {
             Thread.sleep(getRandomMillisecond());
             System.out.printf("\n%s ate.", character);
         } catch (InterruptedException exception) {
-            logger.error("Interrupted exception: {}", exception.getMessage());
+            log.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 
