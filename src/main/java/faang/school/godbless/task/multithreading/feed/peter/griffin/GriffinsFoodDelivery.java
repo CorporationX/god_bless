@@ -24,11 +24,10 @@ public class GriffinsFoodDelivery {
     }
 
     public static void main(String[] args) {
-        IntStream.range(0, characterNames.length).forEach(i -> {
-            executorService.submit(() -> {
-                new FoodDeliveryTask(characterNames[i], getFoodAmount(), random).run();
-            });
-        });
+        IntStream.range(0, characterNames.length)
+                .forEach(i -> {
+                    executorService.submit(() -> new FoodDeliveryTask(characterNames[i], getFoodAmount(), random).run());
+                });
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(2, TimeUnit.MINUTES)) {
