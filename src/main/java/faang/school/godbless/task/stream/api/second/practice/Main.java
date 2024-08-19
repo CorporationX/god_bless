@@ -30,7 +30,7 @@ public class Main {
         // 3
         words = List.of("apple", "Pepper", "mango", "pipe", "pineapple", "mandarin");
         letter = 'p';
-        System.out.println("\nСписок слов на букву '%s' отсортированный по длинне (без учета регистра):"
+        System.out.println("\nСписок слов на букву '%s' отсортированный по длине (без учета регистра):"
                 .formatted(letter));
         sortWordsByLengthAndLetter(words, letter).forEach(word -> System.out.println(word));
 
@@ -93,7 +93,9 @@ public class Main {
                 .flatMap(n1 -> numbers.stream()
                         .filter(n2 -> (n2 + n1) == targetSum)
                         .filter(n2 -> n2 < n1)
-                        .map(n2 -> List.of(n2, n1))).distinct().toList();
+                        .map(n2 -> List.of(n2, n1)))
+                .distinct()
+                .toList();
     }
 
     // 2
@@ -142,7 +144,9 @@ public class Main {
 
     // 7
     public static List<String> convertNumbToBinary(List<Integer> numbers) {
-        return numbers.stream().map(number -> Integer.toBinaryString(number)).toList();
+        return numbers.stream()
+                .map(number -> Integer.toBinaryString(number))
+                .toList();
     }
 
     // 8
