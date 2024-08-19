@@ -7,28 +7,28 @@ public class Droid {
         String message = "May the Force be with you!";
         int encryptionKey = 3;
 
-        String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey, "cipher");
-        String msg = c3po.sendEncryptedMessage(encryptedMsg, encryptionKey, "decipher");
+        String encryptedMsg = r2d2.sendEncryptedMessage(message, encryptionKey,EncryptorMethodName.ENCRYPT);
+        String msg = c3po.sendEncryptedMessage(encryptedMsg, encryptionKey,EncryptorMethodName.DECRYPT);
 
         System.out.println(encryptedMsg);
         System.out.println(msg);
     }
 
-    private final DroidMessageEncryptor encryptor = (message, key, methodName) -> {
-        key = methodName.equals("cipher") ? key : -key;
-        StringBuilder encrypted = new StringBuilder();
-        for (char ch : message.toCharArray()) {
-            if (Character.isLetter(ch)) {
-                char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                encrypted.append((char) ((ch - base + key + 26) % 26 + base));
-            } else {
-                encrypted.append(ch);
-            }
+    private final DroidMessageEncryptorOrDecrypt encryptionManager = (message, key, encryptorMethodName) -> {
+    key = encryptorMethodName == EncryptorMethodName.ENCRYPT ? key : -key;
+    StringBuilder encrypted = new StringBuilder();
+    for (char ch : message.toCharArray()) {
+        if (Character.isLetter(ch)) {
+            char base = Character.isLowerCase(ch) ? 'a' : 'A';
+            encrypted.append((char) ((ch - base + key + 26) % 26 + base));
+        } else {
+            encrypted.append(ch);
         }
-        return encrypted.toString();
-    };
+    }
+    return encrypted.toString();
+};
 
-    public String sendEncryptedMessage(String text, int cipherKey, String methodName) {
-        return encryptor.cipher(text, cipherKey, methodName);
+    public String sendEncryptedMessage(String text, int cipherKey, EncryptorMethodName encryptorMethodName) {
+        return encryptionManager.transform(text, cipherKey, encryptorMethodName);
     }
 }
