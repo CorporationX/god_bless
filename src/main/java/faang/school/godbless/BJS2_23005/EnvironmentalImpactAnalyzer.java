@@ -18,32 +18,32 @@ public class EnvironmentalImpactAnalyzer {
         LocalDate lastYear = LocalDate.now().minusYears(1L);
         List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getCompany().getId() == id);
 
-        String companyName = impacts.get(0).getCompany().getName();
-        System.out.printf("Company name: %s\nToday's date: %s\nMonth      EnergyConsumption\n", companyName, LocalDate.now());
+        Company company = impacts.get(0).getCompany();
+        System.out.printf("Company name: %s\nToday's date: %s\nMonth      EnergyConsumption\n", company.getName(), LocalDate.now());
 
         Stream.iterate(lastYear, date -> !date.isAfter(LocalDate.now()), date -> date.plusMonths(1L))
                 .flatMap(date -> {
-                    Map<Integer, Double> map = StatisticsAggregator.mapCompanyIdBySumImpact(
+                    Map<Company, Double> map = StatisticsAggregator.mapCompanyBySumImpact(
                                     date,
                                     date.plusMonths(1L),
                                     impacts,
                                     TypeEnvironmentalImpact.ENERGY_CONSUMPTION);
-                    return Stream.of(new AbstractMap.SimpleEntry<>(date, map.getOrDefault(id, 0D)));
+                    return Stream.of(new AbstractMap.SimpleEntry<>(date, map.getOrDefault(company, 0D)));
                 })
                 .forEach(entry -> System.out.printf("%s %.2f%n", entry.getKey(), entry.getValue()));
     }
 
     public static void analyseTop3CompaniesMaximumConsumption(File file, int year) {
         List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getDate().getYear() == year);
-        Map<Integer, Double> companyIdBySumConsumption = mapCompanyIdBySumConsumption(impacts, year);
-        Map<Integer, Double> top3Companies = findTop3Companies(companyIdBySumConsumption);
+        Map<Company, Double> companyBySumConsumption = mapCompanyBySumConsumption(impacts, year);
+        Map<Company, Double> top3Companies = findTop3Companies(companyBySumConsumption);
 
         System.out.println("Сompany         totalConsumption  avgConsumption/month  minConsumption/month");
         top3Companies.forEach((key, value) -> System.out.printf("%-12s %10.2f %17.2f %21.2f%n",
-                key,
+                key.getName(),
                 value,
-                avgConsumptionCompany(companyIdBySumConsumption, key),
-                minConsumptionCompany(companyIdBySumConsumption, key)
+                avgConsumptionCompany(impacts, key.getId()),
+                minConsumptionCompany(impacts, key.getId())
         ));
     }
 
@@ -55,8 +55,8 @@ public class EnvironmentalImpactAnalyzer {
                 .toList();
     }
 
-    private static Map<Integer, Double> mapCompanyIdBySumConsumption(List<EnvironmentalImpact> impacts, int year) {
-        return StatisticsAggregator.mapCompanyIdBySumImpact(
+    private static Map<Company, Double> mapCompanyBySumConsumption(List<EnvironmentalImpact> impacts, int year) {
+        return StatisticsAggregator.mapCompanyBySumImpact(
                         LocalDate.of(year, 1, 1),
                         LocalDate.of(year, 12, 31),
                         impacts,
@@ -69,8 +69,8 @@ public class EnvironmentalImpactAnalyzer {
                 );
     }
 
-    private static Map<Integer, Double> findTop3Companies(Map<Integer, Double> companyIdBySumConsumption) {
-        return companyIdBySumConsumption.entrySet().stream()
+    private static Map<Company, Double> findTop3Companies(Map<Company, Double> companyBySumConsumption) {
+        return companyBySumConsumption.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
                 .limit(3)
                 .collect(Collectors.toMap(
@@ -81,17 +81,17 @@ public class EnvironmentalImpactAnalyzer {
                 ));
     }
 
-    private static double avgConsumptionCompany(Map<Integer, Double> companyIdBySumConsumption, int id) {
-        return companyIdBySumConsumption.entrySet().stream()
-                .filter(entry -> entry.getKey() == id)
-                .mapToDouble(Map.Entry::getValue)
+    private static double avgConsumptionCompany(List<EnvironmentalImpact> impacts, int id) {
+        return impacts.stream()
+                .filter(impact -> impact.getCompany().getId() == id)
+                .mapToDouble(EnvironmentalImpact::getVolume)
                 .average().orElse(Double.NaN);
     }
 
-    private static double minConsumptionCompany(Map<Integer, Double> companyIdBySumConsumption, int id) {
-        return companyIdBySumConsumption.entrySet().stream()
-                .filter(entry -> entry.getKey() == id)
-                .mapToDouble(Map.Entry::getValue)
+    private static double minConsumptionCompany(List<EnvironmentalImpact> impacts, int id) {
+        return impacts.stream()
+                .filter(impact -> impact.getCompany().getId() == id)
+                .mapToDouble(EnvironmentalImpact::getVolume)
                 .min().orElse(Double.NaN);
     }
 }

@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 
 public class StatisticsAggregator {
 
-    public static Map<Integer, Double> mapCompanyIdBySumImpact(
+    public static Map<Company, Double> mapCompanyBySumImpact(
             LocalDate startDate, LocalDate endDate,
             List<EnvironmentalImpact> environmentalImpacts,
             TypeEnvironmentalImpact typeEnvironmentalImpact) {
-        return mapCompanyIdBySumImpact(startDate, endDate, environmentalImpacts, typeEnvironmentalImpact, i -> true);
+        return mapCompanyBySumImpact(startDate, endDate, environmentalImpacts, typeEnvironmentalImpact, i -> true);
     }
 
-    public static Map<Integer, Double> mapCompanyIdBySumImpact(
+    public static Map<Company, Double> mapCompanyBySumImpact(
             LocalDate startDate, LocalDate endDate,
             List<EnvironmentalImpact> environmentalImpacts,
             TypeEnvironmentalImpact typeEnvironmentalImpact,
@@ -26,7 +26,7 @@ public class StatisticsAggregator {
                 .filter(impact -> impact.getFactor().equals(typeEnvironmentalImpact))
                 .filter(impact -> impact.getDate().isAfter(startDate) && impact.getDate().isBefore(endDate))
                 .collect(Collectors.groupingBy(
-                        impact -> impact.getCompany().getId(),
+                        EnvironmentalImpact::getCompany,
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
     }
