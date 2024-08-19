@@ -1,20 +1,16 @@
 package faang.school.godbless.task.multithreading.supercow;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
+import java.util.HashSet;
 import java.util.Set;
 
-@Getter
+@Slf4j
 @RequiredArgsConstructor
 public class Boss {
-    private final static int DEFAULT_CURRENT_PLAYERS = 0;
-
-    private final Logger logger = LoggerFactory.getLogger(Boss.class);
+    private final Set<Player> currentPlayers = new HashSet<>();
     private final int maxPlayer;
-    private final Set<Player> currentPlayers;
 
     public void joinBattle(Player player) {
         try {
@@ -24,15 +20,15 @@ public class Boss {
                 }
                 currentPlayers.add(player);
             }
-            logger.info("Игрок {} начал сражается с боссом", player.getName());
+            log.info("Игрок {} начал сражается с боссом", player.getName());
             Thread.sleep(5000);
-            logger.info("Игрок {} закончил сражение с боссом", player.getName());
+            log.info("Игрок {} закончил сражение с боссом", player.getName());
             synchronized (this) {
                 currentPlayers.remove(player);
                 this.notifyAll();
             }
         } catch (InterruptedException exception) {
-            logger.error("Interrupted exception: {}", exception.getMessage());
+            log.error("Interrupted exception: {}", exception.getMessage());
         }
     }
 }
