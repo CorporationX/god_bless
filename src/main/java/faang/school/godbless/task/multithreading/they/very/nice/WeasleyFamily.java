@@ -8,7 +8,8 @@ public class WeasleyFamily {
     public static void main(String[] args) {
         String[] chores = {"помыть посуду", "стирка", "глажка", "помыть пол"};
         ExecutorService executorService = Executors.newCachedThreadPool();
-        IntStream.range(0, chores.length).forEach(i -> {
+        IntStream.range(0, chores.length)
+                .forEach(i -> {
             executorService.submit(() -> new Chore(chores[i]).run());
         });
         executorService.shutdown();
