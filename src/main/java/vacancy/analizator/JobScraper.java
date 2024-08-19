@@ -7,16 +7,14 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.util.Optional;
 
 public class JobScraper {
-    public static Optional<Job> parseJson(String jsonString) {
-        ObjectMapper mapper = new ObjectMapper()
-                .registerModule(new JavaTimeModule());
-        Optional<Job> job = Optional.empty();
-        try {
-            job = Optional.of(mapper.readValue(jsonString, Job.class));
-        } catch (JsonProcessingException e) {
-            System.out.println(e.getMessage());
-        }
+    private static final ObjectMapper mapper = new ObjectMapper()
+            .registerModule(new JavaTimeModule());
 
-        return job;
+    public static Optional<Job> parseJson(String jsonString) {
+        try {
+            return Optional.of(mapper.readValue(jsonString, Job.class));
+        } catch (JsonProcessingException e) {
+            return Optional.empty();
+        }
     }
 }

@@ -6,11 +6,11 @@ import java.util.stream.Stream;
 
 public class JobStreamProcessor {
     public static List<Job> getJobsFromJson(Stream<String> jsonStream) {
-        return jsonStream.
-                map(JobScraper::parseJson)
-                .peek(jo -> System.out.printf("Job parsed : %s%n", jo.isPresent()))
+        return jsonStream
+                .map(JobScraper::parseJson)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
+                .peek(j -> System.out.printf("Job parsed:%n%s%n", j))
                 .toList();
     }
 }
