@@ -58,7 +58,7 @@ public class EnvironmentalImpactAnalyzer {
     private static Map<Integer, Double> mapCompanyIdBySumConsumption(List<EnvironmentalImpact> impacts, int year) {
         return StatisticsAggregator.mapCompanyIdBySumImpact(
                         LocalDate.of(year, 1, 1),
-                        LocalDate.of(year + 1, 1, 1),
+                        LocalDate.of(year, 12, 31),
                         impacts,
                         TypeEnvironmentalImpact.ENERGY_CONSUMPTION
                 )
