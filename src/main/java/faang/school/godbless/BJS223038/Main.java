@@ -3,32 +3,35 @@ package faang.school.godbless.BJS223038;
 import java.util.List;
 
 public class Main {
+
     public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers
                 .stream()
                 .filter(number -> number % 2 == 0)
-                .reduce(0, (sum, number) -> sum + number);
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMaxElement(List<Integer> numbers) {
-        List<Integer> order = numbers
+        return numbers
                 .stream()
-                .sorted((n1, n2) -> n2 - n1)
-                .toList();
-        return order.get(0);
+                .mapToInt(Integer::intValue)
+                .max()
+                .getAsInt();
     }
 
     public static double calculateAverage(List<Integer> numbers) {
-        double sum = numbers
+        return numbers
                 .stream()
-                .reduce(0, (sumNumbers, number) -> sumNumbers + number);
-        return sum / numbers.size();
+                .mapToInt(Integer::intValue)
+                .average()
+                .getAsDouble();
     }
 
     public static int countStringsStartingWith(List<String> strings, char c) {
         return (int) strings
                 .stream()
-                .filter(string -> string.startsWith(c + ""))
+                .filter(string -> string.startsWith(String.valueOf(c)))
                 .count();
     }
 
@@ -39,10 +42,10 @@ public class Main {
                 .toList();
     }
 
-    public static List<String> sortStringsByLength(List<String> strings, int size) {
+    public static List<String> sortStringsByLength(List<String> strings) {
         return strings
                 .stream()
-                .filter(string -> string.length() >= size)
+                .sorted((s1, s2) -> Integer.compare(s1.length(), s2.length()))
                 .toList();
     }
 
