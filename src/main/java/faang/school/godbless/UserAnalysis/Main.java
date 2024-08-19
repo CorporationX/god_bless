@@ -6,33 +6,45 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
 
     }
 
-    public static List<Integer> findTopTenUsersIdByActivities(List<UserAction> userActions) { // возвращает отсортированный список id юзеров
-        List<Map.Entry<Integer, Integer>> idActionCount = userActions.stream()
-                .collect(Collectors.groupingBy(UserAction::getId, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)))
-                .entrySet().stream().toList();
-        return idActionCount.stream()
+    public static List<Integer> findTopTenUsersIdByActivities(List<UserAction> userActions) { // РІС‹РІРѕРґРёС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ id
+        Map<Integer, Integer> idActionCount = userActions.stream()
+                .collect(Collectors.groupingBy(UserAction::getId, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
+
+        List<Map.Entry<Integer, Integer>> entryIdActionCount = idActionCount
+                .entrySet()
+                .stream()
+                .toList();
+
+        return entryIdActionCount.stream()
                 .sorted((v1, v2) -> v2.getValue() - v1.getValue())
-                .map(Map.Entry::getKey).limit(10).toList();
+                .map(Map.Entry::getKey)
+                .limit(10)
+                .toList();
     }
 
-    public static List<String> topFiveHashTags(List<UserAction> userActions) { // // возвращает отсортированный список хештегов по кол-ву упоминаний
+    public static List<String> topFiveHashTags(List<UserAction> userActions) { // // РІС‹РІРѕРґРёС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ С…РµС€ С‚РµРіРё
         List<UserAction> postsAndComments = userActions.stream()
                 .filter(userAction -> userAction.getActionType().equals("comment") || userAction.getActionType().equals("post"))
                 .toList();
 
         List<String> hashTags = findHashTags(postsAndComments);
 
-        List<Map.Entry<String, Integer>> hashTagsCount = hashTags.stream()
-                .collect(Collectors.groupingBy(string -> string, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)))
-                .entrySet().stream().toList();
+        Map<String, Integer> hashTagsCount = hashTags.stream()
+                .collect(Collectors.groupingBy(string -> string, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
 
-        return hashTagsCount.stream()
+        List<Map.Entry<String, Integer>> entriesHashTagsCount = hashTagsCount
+                .entrySet()
+                .stream()
+                .toList();
+
+        return entriesHashTagsCount.stream()
                 .sorted((v1, v2) -> v2.getValue() - v1.getValue())
                 .map(Map.Entry::getKey).limit(5).toList();
 
@@ -52,24 +64,33 @@ public class Main {
         return result;
     }
 
-    public static List<Integer> lastMonthTopThreeCommentators(List<UserAction> userActions) {
-        List<UserAction> commentators = userActions.stream()
-                .filter(userAction -> userAction.getActionDate().getMonth() == LocalDateTime.now().getMonth())
-                .filter(userAction -> userAction.getActionType().equals("comment")).toList();
+    public static List<Integer> lastMonthTopThreeCommentators(List<UserAction> userActions) { // РІС‹РІРѕРґРёС‚ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅС‹Рµ РёРґС€РЅРёРєРё РєРѕРјРјРµРЅС‚Р°С‚РѕСЂРѕРІ
+        List<UserAction> commentators = filterLastMonthComments(userActions);
 
-        List<Map.Entry<Integer, Integer>> countedCommentators = commentators.stream()
-                .collect(Collectors.groupingBy(UserAction::getId, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)))
-                .entrySet().stream().toList();
+        Map<Integer, Integer> countedCommentators = commentators.stream()
+                .collect(Collectors.groupingBy(UserAction::getId, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
 
-        return countedCommentators.stream()
+        List<Map.Entry<Integer, Integer>> entriesCountedCommentators = countedCommentators
+                .entrySet()
+                .stream()
+                .toList();
+
+        return entriesCountedCommentators.stream()
                 .sorted((v1, v2) -> v2.getValue() - v1.getValue()).map(Map.Entry::getKey).
                 limit(3).toList();
+    }
+
+    public static List<UserAction> filterLastMonthComments(List<UserAction> userActions) {
+        return userActions.stream()
+                .filter(userAction -> userAction.getActionDate().getMonth().minus(1) == LocalDateTime.now().getMonth().minus(1))
+                .filter(userAction -> userAction.getActionType().equals("comment")).toList();
     }
 
     public static Map<String, Double> actionsPercentRatio(List<UserAction> userActions) {
         double totalUsersActionsCount = userActions.size();
 
-        return userActions.stream().collect(Collectors
+        return userActions.stream()
+                .collect(Collectors
                 .groupingBy(UserAction::getActionType,
                         Collectors.collectingAndThen(Collectors.counting(), count -> Math.round(count / totalUsersActionsCount * 100.0) / 100.0)));
     }
