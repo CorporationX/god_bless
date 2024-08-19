@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class CityWorker implements Runnable {
     private static final int TIME_DISTANCE_COEFFICIENT = 200;
 
+    private final Distance distance = new Distance();
     private final City city;
     private final List<Monster> monsters;
     private final Location geraldLocation;
-    private final Distance distance;
     private double distanceToCity;
     private double distanceToMonster;
     private double journeyDistance;
