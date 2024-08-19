@@ -8,7 +8,6 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
-@ToString
 public abstract class Character {
     private int power;
 }
