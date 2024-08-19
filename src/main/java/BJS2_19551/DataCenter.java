@@ -12,7 +12,7 @@ public class DataCenter {
         this.servers = servers;
     }
 
-    public static void addServer(Server server, DataCenter dataCenter) {
+    public void addServer(Server server, DataCenter dataCenter) {
         dataCenter.getServers().add(server);
         System.out.println("Server was added to server list with parameters : ");
         System.out.println(server.getLoad() + " current load");
@@ -20,12 +20,12 @@ public class DataCenter {
         System.out.println(server.getEnergyConsumption() + " energy consumption");
     }
 
-    public static void removeServer(Server server, DataCenter dataCenter) {
+    public void removeServer(Server server, DataCenter dataCenter) {
         dataCenter.getServers().remove(server);
         System.out.println("Server was successfully removed!");
     }
 
-    public static double getServersLoad(DataCenter dataCenter) {
+    public double getServersLoad(DataCenter dataCenter) {
         double fullLoad = 0;
         for (Server server : dataCenter.getServers()) {
             fullLoad += server.getLoad();
@@ -33,7 +33,7 @@ public class DataCenter {
         return fullLoad;
     }
 
-    public static void getTotalEnergyConsumption(DataCenter dataCenter) {
+    public void getTotalEnergyConsumption(DataCenter dataCenter) {
         double totalEnergyConsumption = 0;
 
         for (Server server : dataCenter.getServers()) {
