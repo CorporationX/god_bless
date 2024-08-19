@@ -8,50 +8,54 @@ import java.util.stream.Collectors;
 
 public class DataAnalyzer {
 
-    public List<String> topSkills(List<Job> jobs, int limit) {
+    public List<String> getTopSkills(List<Job> jobs, int limit) {
         if (jobs == null || jobs.isEmpty() || limit <= 0) {
             throw new IllegalArgumentException("Bad parameters");
         }
-        return jobs.stream()
+        Map<String, Long> groupedSkills = jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
+
+        return groupedSkills.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public List<String> topVacancies(List<Job> jobs, int limit) {
+    public List<String> getTopVacancies(List<Job> jobs, int limit) {
         if (jobs == null || jobs.isEmpty() || limit <= 0) {
             throw new IllegalArgumentException("Bad parameters");
         }
 
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getTitle, Collectors.counting()))
-                .entrySet().stream()
+        Map<String, Long> groupedJobs = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getTitle, Collectors.counting()));
+
+        return groupedJobs.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public Map<String, Long> salaryCategory(List<Job> jobs, List<SalaryCategory> categories) {
+    public Map<String, Long> analyzeSalaryCategory(List<Job> jobs, List<SalaryCategory> categories) {
         if (jobs == null || jobs.isEmpty() || categories == null || categories.isEmpty()) {
             throw new IllegalArgumentException("Bad parameters");
         }
 
         return jobs.stream()
                 .flatMap(job -> categories.stream()
-                        .filter(salaryCategory -> job.getSalary() >= salaryCategory.getRangeMin() && job.getSalary() < salaryCategory.getRangeMax())
+                        .filter(salaryCategory -> findJobCategory(job, salaryCategory))
                         .map(SalaryCategory::getCategoryName))
                 .collect(Collectors.groupingBy(category -> category, Collectors.counting()));
     }
 
-    public List<String> mostPopularLocations(List<Job> jobs, int limit) {
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
-                .entrySet().stream()
+    public List<String> findMostPopularLocations(List<Job> jobs, int limit) {
+
+        Map<String, Long> groupedLocations = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
+
+        return groupedLocations.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
@@ -70,6 +74,10 @@ public class DataAnalyzer {
                         case YEARLY -> currentDate.withDayOfYear(1);
                     };
                 }, Collectors.counting()));
+    }
+
+    private boolean findJobCategory(Job job, SalaryCategory salaryCategory) {
+        return job.getSalary() >= salaryCategory.getRangeMin() && job.getSalary() < salaryCategory.getRangeMax();
     }
 
 

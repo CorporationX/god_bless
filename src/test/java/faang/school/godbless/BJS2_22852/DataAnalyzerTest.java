@@ -41,8 +41,8 @@ public class DataAnalyzerTest {
 
     @Test
     @DisplayName("Тест метода, который возвращает самые популярные скиллы")
-    public void testTopSkills() {
-        List<String> topSkills = dataAnalyzer.topSkills(jobs, 3);
+    public void testGetTopSkills() {
+        List<String> topSkills = dataAnalyzer.getTopSkills(jobs, 3);
         assertEquals(3, topSkills.size());
 
         assertEquals(List.of("Java", "AWS", "Spring"), topSkills);
@@ -50,8 +50,8 @@ public class DataAnalyzerTest {
 
     @Test
     @DisplayName("Тест метода, который возвращает самые популярные вакансии")
-    public void testTopVacancies() {
-        List<String> topVacancies = dataAnalyzer.topVacancies(jobs, 5);
+    public void testGetTopVacancies() {
+        List<String> topVacancies = dataAnalyzer.getTopVacancies(jobs, 5);
         assertEquals(5, topVacancies.size());
 
         System.out.println(topVacancies);
@@ -60,13 +60,13 @@ public class DataAnalyzerTest {
 
     @Test
     @DisplayName("Тест метода, который возвращает данные по категориям зарплат")
-    public void testSalaryCategory() {
+    public void testAnalyzeSalaryCategory() {
         List<SalaryCategory> categories = List.of(new SalaryCategory("0-50k", 0, 50000),
                 new SalaryCategory("50k-100k", 50000, 100000),
                 new SalaryCategory("100k-150k", 100000, 150000),
                 new SalaryCategory("150k-200k", 150000, 200000));
 
-        Map<String, Long> salaryCategories = dataAnalyzer.salaryCategory(jobs, categories);
+        Map<String, Long> salaryCategories = dataAnalyzer.analyzeSalaryCategory(jobs, categories);
 
         assertNotNull(salaryCategories);
 
@@ -75,8 +75,8 @@ public class DataAnalyzerTest {
 
     @Test
     @DisplayName("Тест метода, который возвращает самые популярные локации")
-    public void testMostPopularLocations() {
-        List<String> locations = dataAnalyzer.mostPopularLocations(jobs, 5);
+    public void testFindMostPopularLocations() {
+        List<String> locations = dataAnalyzer.findMostPopularLocations(jobs, 5);
 
         assertEquals(5, locations.size());
 

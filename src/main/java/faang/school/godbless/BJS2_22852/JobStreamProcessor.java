@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.stream.Stream;
 
 public class JobStreamProcessor {
+
+    private final JobScraper jobScraper = new JobScraper();
+
     public List<Job> getJobs(Stream<String> json) {
-        JobScraper jobScraper = new JobScraper();
         return json.map(jobScraper::convertToJob)
                 .peek(System.out::println)
                 .toList();

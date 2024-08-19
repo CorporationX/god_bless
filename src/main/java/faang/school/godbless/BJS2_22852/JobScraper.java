@@ -6,10 +6,10 @@ import com.google.gson.GsonBuilder;
 import java.time.LocalDate;
 
 public class JobScraper {
+
+    private final Gson gson = new GsonBuilder().registerTypeAdapter(LocalDate.class, new LocalDateAdapter()).create();
+
     public Job convertToJob(String json) {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
-                .create();
         return gson.fromJson(json, Job.class);
     }
 }
