@@ -21,9 +21,16 @@ public class CompanyDataLoader {
         csvMapper = new CsvMapper();
         csvMapper.registerModule(new JavaTimeModule());
 
-        csvSchema = csvMapper.schemaFor(EnvironmentalImpact.class)
-                .withHeader()
-                .withColumnReordering(true);
+        csvSchema = CsvSchema.builder()
+                .addColumn("id")
+                .addColumn("company.id")
+                .addColumn("company.name")
+                .addColumn("company.totalEmployees")
+                .addColumn("volume")
+                .addColumn("date")
+                .addColumn("factor")
+                .build()
+                .withHeader();
     }
 
     public static Optional<List<EnvironmentalImpact>> parseCsvToEnvironmentalImpact(File file) {

@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class StatisticsAggregator {
 
-    public static Map<Integer, Double> sumImpactByCompanyAndType(
+    public static Map<Integer, Double> mapCompanyBySumImpact(
             LocalDate startDate, LocalDate endDate,
             List<EnvironmentalImpact> environmentalImpacts,
             TypeEnvironmentalImpact typeEnvironmentalImpact) {
@@ -16,7 +16,7 @@ public class StatisticsAggregator {
                 .filter(impact -> impact.getFactor().equals(typeEnvironmentalImpact))
                 .filter(impact -> impact.getDate().isAfter(startDate) && impact.getDate().isBefore(endDate))
                 .collect(Collectors.groupingBy(
-                        EnvironmentalImpact::getCompanyId,
+                        impact -> impact.getCompany().getId(),
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
     }

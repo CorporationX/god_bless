@@ -14,7 +14,7 @@ public class Main {
         System.out.println(impactList);
         System.out.println();
 
-        System.out.println(StatisticsAggregator.sumImpactByCompanyAndType(
+        System.out.println(StatisticsAggregator.mapCompanyBySumImpact(
                 LocalDate.of(2023, 8, 3),
                 LocalDate.now(),
                 impactList,
@@ -22,6 +22,6 @@ public class Main {
         ));
         System.out.println();
 
-        EnvironmentalImpactAnalyzer.analyseLastYearForIdCompany(file, 104);
+        EnvironmentalImpactAnalyzer.analyseLastYearForIdCompany(file, 101);
     }
 }
