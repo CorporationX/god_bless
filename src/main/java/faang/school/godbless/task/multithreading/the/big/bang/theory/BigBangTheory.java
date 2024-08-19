@@ -23,7 +23,8 @@ public class BigBangTheory {
                 List.of("Раджеш", "анализ данных")
         );
         ExecutorService executorService = Executors.newFixedThreadPool(TOTAL_PULL_SIZE);
-        IntStream.range(0, tasks.size()).forEach(i -> {
+        IntStream.range(0, tasks.size())
+                .forEach(i -> {
             executorService.submit(() -> new Task(tasks.get(i).get(0), tasks.get(i).get(1)).run());
         });
         executorService.shutdown();
