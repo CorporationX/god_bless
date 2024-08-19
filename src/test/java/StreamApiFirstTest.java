@@ -36,7 +36,7 @@ class StreamApiFirstTest {
 
     @Test
     void getCountTest() {
-        long count = FirstTrain.getCount(Arrays.asList(
+        long count = FirstTrain.getCountOfStringsStartsWithC(Arrays.asList(
                 "give me a money",
                 "gave me a money",
                 "take my money",
@@ -49,7 +49,7 @@ class StreamApiFirstTest {
 
     @Test
     void filterCompareTest() {
-        List<String> strings = FirstTrain.filterCompare(Arrays.asList(
+        List<String> strings = FirstTrain.getStringsContainsString(Arrays.asList(
                 "give me a money",
                 "gave me a money",
                 "take my money",
@@ -88,8 +88,8 @@ class StreamApiFirstTest {
                 3, 4, 5, 123, 145, 111, 234
         );
 
-        boolean b1 = FirstTrain.isFulfill(list, x -> x > 2);
-        boolean b2 = FirstTrain.isFulfill(list, x -> x > 10000);
+        boolean b1 = FirstTrain.isEveryoneIsSatisfied(list, x -> x > 2);
+        boolean b2 = FirstTrain.isEveryoneIsSatisfied(list, x -> x > 10000);
 
         Assertions.assertTrue(b1);
         Assertions.assertFalse(b2);
@@ -105,8 +105,7 @@ class StreamApiFirstTest {
 
         Assertions.assertEquals(111, max);
 
-        Assertions.assertThrows(IllegalArgumentException.class,
-                () -> FirstTrain.minIntBiggerThanFloor(list, 11111111));
+        Assertions.assertEquals(0, FirstTrain.minIntBiggerThanFloor(list, 1111111));
     }
 
 
