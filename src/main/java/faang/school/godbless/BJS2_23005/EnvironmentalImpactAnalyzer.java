@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,11 +16,7 @@ public class EnvironmentalImpactAnalyzer {
 
     public static void analyseLastYearForIdCompany(File file, int id) {
         LocalDate lastYear = LocalDate.now().minusYears(1L);
-        List<EnvironmentalImpact> impacts = CompanyDataLoader.parseCsvToEnvironmentalImpact(file)
-                .orElse(new ArrayList<>())
-                .stream()
-                .filter(impact -> impact.getCompany().getId() == id)
-                .toList();
+        List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getCompany().getId() == id);
 
         String companyName = impacts.get(0).getCompany().getName();
         System.out.printf("Company name: %s\nToday's date: %s\nMonth      EnergyConsumption\n", companyName, LocalDate.now());
@@ -37,12 +34,7 @@ public class EnvironmentalImpactAnalyzer {
     }
 
     public static void analyseTop3CompaniesMaximumConsumption(File file, int year) {
-        List<EnvironmentalImpact> impacts = CompanyDataLoader.parseCsvToEnvironmentalImpact(file)
-                .orElse(new ArrayList<>())
-                .stream()
-                .filter(impact -> impact.getDate().getYear() == year)
-                .toList();
-
+        List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getDate().getYear() == year);
         Map<Integer, Double> companyIdBySumConsumption = mapCompanyIdBySumConsumption(impacts, year);
         Map<Integer, Double> top3Companies = findTop3Companies(companyIdBySumConsumption);
 
@@ -53,6 +45,14 @@ public class EnvironmentalImpactAnalyzer {
                 avgConsumptionCompany(companyIdBySumConsumption, key),
                 minConsumptionCompany(companyIdBySumConsumption, key)
         ));
+    }
+
+    private static List<EnvironmentalImpact> getImpactsFromCsvByFilter(File file, Predicate<EnvironmentalImpact> filter) {
+        return CompanyDataLoader.parseCsvToEnvironmentalImpact(file)
+                .orElse(new ArrayList<>())
+                .stream()
+                .filter(filter)
+                .toList();
     }
 
     private static Map<Integer, Double> mapCompanyIdBySumConsumption(List<EnvironmentalImpact> impacts, int year) {
