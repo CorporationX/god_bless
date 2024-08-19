@@ -2,6 +2,7 @@ package faang.school.godbless.task.multithreading.finger.way;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -43,8 +44,9 @@ public class CityWorker implements Runnable {
                 .collect(Collectors.toMap(
                         Function.identity(),
                         mons -> distance.get(city.getLocation(), mons.getLocation())))
-                .entrySet().stream()
-                .max((e1, e2) -> Double.compare(e2.getValue(), e1.getValue()))
+                .entrySet()
+                .stream()
+                .max(Comparator.comparingDouble(Map.Entry<Monster, Double>::getValue))
                 .stream()
                 .peek(e -> distanceToMonster = e.getValue())
                 .map(Map.Entry::getKey)
