@@ -20,5 +20,7 @@ public class Main {
         word.add("мост");
         System.out.println(Transformation.filterWordsByChar(word, 'А'));
 
+        
+
     }
 }
