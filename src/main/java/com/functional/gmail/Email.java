@@ -12,9 +12,9 @@ import lombok.ToString;
 public class Email {
     private String subject;
     private String body;
-    private Boolean isImportant;
+    private boolean isImportant;
 
-    public Boolean isImportant() {
+    public boolean isImportant() {
         return isImportant;
     }
 }

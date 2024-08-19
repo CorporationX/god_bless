@@ -15,8 +15,8 @@ public class EmailProcessor {
         }
         for (Email email : emails) {
             if (filter.test(email)) {
-                processing.accept(email);
                 email.setBody(transformations.apply(email));
+                processing.accept(email);
                 System.out.println(email.getBody());
             }
         }
