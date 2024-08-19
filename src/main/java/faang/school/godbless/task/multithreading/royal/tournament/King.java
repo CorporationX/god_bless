@@ -19,9 +19,10 @@ public class King {
         List<Knight> knights = List.of(knight1, knight2);
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_POOL_LIMIT);
-        IntStream.range(0, knights.size()).forEach(i -> {
-            executorService.submit(() -> knights.get(i).startTrials());
-        });
+        IntStream.range(0, knights.size())
+                .forEach(i -> {
+                    executorService.submit(() -> knights.get(i).startTrials());
+                });
         executorService.shutdown();
     }
 }

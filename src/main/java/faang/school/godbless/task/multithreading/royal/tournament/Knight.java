@@ -24,7 +24,8 @@ public class Knight {
 
     public void startTrials() {
         ExecutorService executorService = Executors.newCachedThreadPool();
-        IntStream.range(0, trials.size()).forEach(i -> executorService.submit(() -> trials.get(i).run()));
+        IntStream.range(0, trials.size())
+                .forEach(i -> executorService.submit(() -> trials.get(i).run()));
         executorService.shutdown();
     }
 }
