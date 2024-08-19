@@ -31,7 +31,7 @@ public class Main {
     }
 
     public static void addIndexes(WebPage webPage) {
-        try {
+        if (webPage != null) {
             if (!PAGES.contains(webPage)) {
                 PAGES.add(webPage);
                 String[] words = webPage.getContent().split(" ");
@@ -39,7 +39,8 @@ public class Main {
                     INDEXED_PAGES.computeIfAbsent(word, key -> new ArrayList<>()).add(webPage);
                 }
             }
-        } catch (NullPointerException e) {
+        }
+        else {
             System.out.println("Web page can't be null!");
         }
     }
