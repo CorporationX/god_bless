@@ -9,19 +9,17 @@ public class MailSender {
 
     public static void main(String[] args) {
         int amountEmailsInThread = LETTER_AMOUNT / THREAD_AMOUNT;
-        List<Thread> threads = IntStream.range(0, THREAD_AMOUNT)
+        IntStream.range(0, THREAD_AMOUNT)
                 .mapToObj(num -> new SenderRunnable(num * amountEmailsInThread, (num + 1) * amountEmailsInThread))
                 .map(Thread::new)
                 .peek(Thread::start)
-                .toList();
-
-        threads.forEach(thread -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Thread Error");
-            }
-        });
+                .forEach(thread -> {
+                    try {
+                        thread.join();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException("Thread Error");
+                    }
+                });
         System.out.println("All emails have been sent");
     }
 }
