@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import faang.school.godbless.image.Image;
-
 import java.util.function.Function;
 
 public class Application {
