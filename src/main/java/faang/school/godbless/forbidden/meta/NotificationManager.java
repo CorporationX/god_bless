@@ -14,6 +14,13 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         Consumer<Notification> notificationConsumer = typeHandlerMap.get(notification.getType());
-        notificationConsumer.accept(notification);
+        if (notificationConsumer == null) {
+            Consumer<Notification> defaultNotificationConsumer =
+                    acceptedNotification -> System.out.printf("Type of notification: %s, message: %s",
+                            acceptedNotification.getType(), acceptedNotification.getMessage());
+            defaultNotificationConsumer.accept(notification);
+        } else {
+            notificationConsumer.accept(notification);
+        }
     }
 }
