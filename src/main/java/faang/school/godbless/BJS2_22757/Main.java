@@ -23,7 +23,5 @@ public class Main {
         analyzer.viewMostPopularJobNames(jobs);
         analyzer.viewMostPopularLocation(jobs);
         analyzer.viewJobDistributionBySalary(jobs);
-
-
     }
 }
