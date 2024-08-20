@@ -8,32 +8,82 @@ public class Main {
         List<Integer> nums = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
         List<String> words = List.of("Hello", "Bonjour", "Hi", "Cat", "Bingo", "Hurricane", "HelloWorld");
         System.out.println("sum of even numbers:");
-        int sum = nums.stream().filter(num -> num % 2 == 0).reduce(0, Integer::sum);
-        System.out.println(sum);
+        System.out.println(sumEvenNumbers(nums));
+
         System.out.println("Max element:");
-        int max = nums.stream().max(Integer::compare).orElse(0);
-        System.out.println(max);
+        System.out.println(maxNumber(nums));
+
         System.out.println("Avg value: ");
-        double avgValue = (double) nums.stream().reduce(0, Integer::sum) / nums.size();
-        System.out.println(avgValue);
+        System.out.println(avgValue(nums));
+
         System.out.println("Count words starts with 'H':");
-        long countWord = words.stream().filter(word -> word.startsWith("H")).count();
-        System.out.println(countWord);
+        System.out.println(countWordLetterH(words));
+
         System.out.println("Words contain 'ello':");
-        List<String> filterList = words.stream().filter(word -> word.contains("ello")).toList();
-        System.out.println(filterList);
+        System.out.println(wordContain(words, "ello"));
+
         System.out.println("Sorted words:");
-        List<String> sortedList = words.stream().sorted(Comparator.comparing(String::length)).toList();
-        System.out.println(sortedList);
+        System.out.println(sortedWordsByLength(words));
+
         System.out.println("Words length condition:");
-        boolean lengthCondition = words.stream().allMatch(word -> word.length() > 1);
-        System.out.println(lengthCondition);
+        System.out.println(wordsLengthConditon(words, 1));
+
         System.out.println("Min element that is greater than condition:");
-        int condition = 4;
-        int resultNem = nums.stream().filter(num -> num > condition).min(Integer::compare).orElse(Integer.MAX_VALUE);
-        System.out.println(resultNem);
+        System.out.println(minElementGreaterCondition(nums, 4));
+
         System.out.println("List of strings to list of string lengths:");
-        List<Integer> wordsLength = words.stream().map(String::length).toList();
-        System.out.println(wordsLength);
+        System.out.println(stringsToStringLength(words));
+    }
+
+    private static int sumEvenNumbers(List<Integer> nums) {
+        return nums.stream().filter(num -> num % 2 == 0)
+                .reduce(0, Integer::sum);
+    }
+
+    private static int maxNumber(List<Integer> nums) {
+        return nums.stream()
+                .max(Integer::compare)
+                .orElse(0);
+    }
+
+    private static double avgValue(List<Integer> nums) {
+        return (double) nums.stream()
+                .reduce(0, Integer::sum) / nums.size();
+    }
+
+    private static long countWordLetterH(List<String> words) {
+        return words.stream()
+                .filter(word -> word.startsWith("H"))
+                .count();
+    }
+
+    private static List<String> wordContain(List<String> words, String word) {
+        return words.stream()
+                .filter(wordElement -> wordElement.contains(word))
+                .toList();
+    }
+
+    private static List<String> sortedWordsByLength(List<String> words) {
+        return words.stream()
+                .sorted(Comparator.comparing(String::length))
+                .toList();
+    }
+
+    private static boolean wordsLengthConditon(List<String> words, int length) {
+        return words.stream()
+                .allMatch(word -> word.length() > length);
+    }
+
+    private static int minElementGreaterCondition(List<Integer> nums, int condition) {
+        return nums.stream()
+                .filter(num -> num > condition)
+                .min(Integer::compare)
+                .orElse(Integer.MAX_VALUE);
+    }
+
+    private static List<Integer> stringsToStringLength(List<String> words) {
+        return words.stream()
+                .map(String::length)
+                .toList();
     }
 }
