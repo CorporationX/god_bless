@@ -10,5 +10,5 @@ import java.util.List;
 @Getter
 @Setter
 public class Room {
-   private List<Food> foodList;
+    private List<Food> foodList;
 }

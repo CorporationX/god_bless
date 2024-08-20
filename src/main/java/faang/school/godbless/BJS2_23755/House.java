@@ -8,8 +8,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 public class House {
-    static List<String> allFood = new ArrayList<>();
     private final static int NUMS_THREADS = 5;
+    private final static int ROOMS_LIMIT = 2;
+    static List<Food> allFood = new ArrayList<>();
     List<Room> rooms = List.of(
             new Room(List.of(new Food("Apple"), new Food("Milk"))),
             new Room(List.of(new Food("Bread"), new Food("Cheese"), new Food("Juice"))),
@@ -29,7 +30,7 @@ public class House {
         for (int i = 0; i < NUMS_THREADS; i++) {
             executor.schedule(house::collectFood, 1, TimeUnit.NANOSECONDS);
             try {
-                Thread.sleep(10000);
+                Thread.sleep(30000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -45,28 +46,27 @@ public class House {
         while (!executor.isTerminated()) {
 
         }
-        System.out.println(allFood);
+        allFood.forEach(food -> System.out.println(food.getName()));
     }
 
-    public List<String> collectFood() {
-        List<String> listNames;
-        listNames = rooms.stream()
+    public List<Food> collectFood() {
+        List<Food> foodList;
+        foodList = rooms.stream()
                 .filter(room -> !room.getFoodList().isEmpty())
-                .limit(2)
+                .limit(ROOMS_LIMIT)
                 .flatMap(room -> room.getFoodList().stream()
-                        .map(Food::getName)
                 )
                 .collect(Collectors.toList());
 
-        allFood.addAll(listNames);
+        allFood.addAll(foodList);
         removeFood();
-        return listNames;
+        return foodList;
     }
 
     public void removeFood() {
         rooms.stream()
                 .filter(room -> !room.getFoodList().isEmpty())
-                .limit(2)
+                .limit(ROOMS_LIMIT)
                 .forEach(room -> room.setFoodList(new ArrayList<>()));
     }
 }
