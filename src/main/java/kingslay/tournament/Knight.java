@@ -7,6 +7,7 @@ import lombok.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @AllArgsConstructor
 public class Knight {
@@ -19,7 +20,10 @@ public class Knight {
         trials.add(trial);
     }
 
-    public void startTrails(@NonNull ExecutorService executor) {
-        trials.forEach(executor::submit);
+    public void startTrails() {
+        try(ExecutorService executor = Executors.newFixedThreadPool(3)) {
+            trials.forEach(executor::execute);
+            executor.shutdown();
+        }
     }
 }

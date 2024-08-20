@@ -12,8 +12,8 @@ public class King {
         mount.addTrial(new Trial(mount.getName(), "fight the bear"));
         mount.addTrial(new Trial(mount.getName(), "cut the tree with a sword"));
         try (ExecutorService executor = Executors.newFixedThreadPool(2)) {
-            baristan.startTrails(executor);
-            mount.startTrails(executor);
+            executor.execute(baristan::startTrails);
+            executor.execute(mount::startTrails);
             executor.shutdown();
         }
     }
