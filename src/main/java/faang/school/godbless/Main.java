@@ -1,22 +1,25 @@
 package faang.school.godbless;
 
-interface SpellAction{
-    String spellOutput(String spell);
+interface SpellAction {
+    String conclusionSpells(String spell);
 }
+
 class SpellCaster {
-    void cast(String spell,SpellAction spellAction){
-        System.out.println(spellAction.spellOutput(spell));
+
+    void cast(String spell, SpellAction spellAction) {
+        System.out.println(spellAction.conclusionSpells(spell));
     }
 
     public static void main(String[] args) {
+
         SpellCaster spellCaster = new SpellCaster();
 
         String alohomora = "Alohomora";
         String lumos = "Lumos";
         String expelliarmus = "Expelliarmus";
 
-        spellCaster.cast(alohomora,(s)->"The door is unlocked by "+s);
-        spellCaster.cast(lumos,(s)->"A beam of light is created by "+s);
-        spellCaster.cast(expelliarmus,(s)->"The opponent is disarmed by "+s);
+        spellCaster.cast(alohomora, (s) -> "The door is unlocked by " + s);
+        spellCaster.cast(lumos, (s) -> "A beam of light is created by " + s);
+        spellCaster.cast(expelliarmus, (s) -> "The opponent is disarmed by " + s);
     }
 }
