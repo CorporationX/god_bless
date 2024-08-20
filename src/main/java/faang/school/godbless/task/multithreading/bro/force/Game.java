@@ -19,26 +19,30 @@ public class Game {
     }
 
     private void handleSuccessfulBattle(Player player) {
-        player.incrementScore();
-        log.info("Игрок {} победил в схватке и получает одно очко", player.getName());
         synchronized (scoreLock) {
+            player.incrementScore();
             score++;
         }
+        log.info("Игрок {} победил в схватке и получает одно очко", player.getName());
     }
 
     private void handleUnsuccessfulBattle(Player player) {
-        player.decrementLive();
-        log.info("Игрок {} проиграл в схватке и потерял одну жизнь", player.getName());
-        if (!player.isAlive()) {
+        if (player.getLives() > 1) {
+            player.decrementLive();
+            log.info("Игрок {} проиграл в схватке и потерял одну жизнь", player.getName());
+        } else {
             gameOver(player);
         }
     }
 
     private void gameOver(Player player) {
-        log.info("У игрока {} не осталось жизней для продолжения игры", player.getName());
-        log.info("Игрок {} умер =(", player.getName());
         synchronized (livesLock) {
+            player.decrementLive();
             lives++;
+        }
+        if (!player.isAlive()) {
+            log.info("Игрок {} проиграл в битве и потратил последнюю жизнь", player.getName());
+            log.info("Игрок {} умер =(", player.getName());
         }
     }
 }
