@@ -12,7 +12,7 @@ public class AppDoubleCache {
 
         Map<Student, Map<Subject, Integer>> mapStudents;
 
-        Map<Subject, List<Student>> mapSubjects= new HashMap<>();
+        Map<Subject, List<Student>> mapSubjects = new HashMap<>();
 
         AppDoubleCache app = new AppDoubleCache();
 
@@ -86,7 +86,7 @@ public class AppDoubleCache {
         System.out.println("\nafter remove()");
         mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
 
-        for(Subject subj: subjects) {
+        for (Subject subj : subjects) {
             mapSubjects.put(subj, studentService.listStidentsWithSubject(students, mapStudents, subj.getName()));
         }
         System.out.println("\nSubjects with their students");
@@ -113,3 +113,4 @@ public class AppDoubleCache {
         return subjects;
     }
 }
+
