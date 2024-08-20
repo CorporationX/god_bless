@@ -14,7 +14,7 @@ public class Main {
         System.out.println("Максимум: " + StreamApiTrainer.getMax(numbers));
         System.out.println("Среднее: " + StreamApiTrainer.getAverage(numbers));
         System.out.println("Начинается с 'ss': " +
-                StreamApiTrainer.getStringsStartsWith(strings, "ss"));
+                StreamApiTrainer.getCountStringsStartsWith(strings, "ss"));
 
         System.out.println("Содержит 'eye'" +
                 StreamApiTrainer.filterBySubstring(strings, "eye"));

@@ -12,29 +12,27 @@ public class StreamApiTrainer {
     public static int getSumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream()
                 .filter(x -> x % 2 == 0)
-                .mapToInt(x -> x)
+                .mapToInt(Integer::intValue)
                 .sum();
     }
 
     public static int getMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
-                .orElseThrow(() ->
-                        new NoSuchElementException("В списке нет элемента, удовлетворяющего условию")
-                );
+                .orElse(0);
     }
 
-    public static double getAverage (List<Integer> numbers) {
+    public static double getAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(x -> x)
                 .average()
                 .orElse(0);
     }
 
-    public static List<String> getStringsStartsWith(List<String> strings, String prefix) {
-        return strings.stream()
+    public static int getCountStringsStartsWith(List<String> strings, String prefix) {
+        return (int) strings.stream()
                 .filter(x -> x.startsWith(prefix))
-                .toList();
+                .count();
     }
 
     public static List<String> filterBySubstring(List<String> strings, String substring) {
@@ -44,8 +42,7 @@ public class StreamApiTrainer {
     }
 
     public static List<String> sortByLength(List<String> strings) {
-        return strings
-                .stream()
+        return strings.stream()
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
@@ -67,8 +64,7 @@ public class StreamApiTrainer {
     }
 
     public static List<Integer> mapToLengths(List<String> strings) {
-        return strings
-                .stream()
+        return strings.stream()
                 .map(String::length)
                 .toList();
     }
