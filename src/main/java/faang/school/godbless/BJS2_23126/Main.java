@@ -11,11 +11,11 @@ public class Main {
 
         System.out.println("Even numbers sum: " + getEvenNumberSum(numbers));
 
-        System.out.println("Max number: " + getMaxNumber(numbers));
+        System.out.println("Max number: " + getMaxNumberFromList(numbers));
 
-        System.out.println("Average number: " + getAverageNumber(numbers));
+        System.out.println("Average number: " + getAverageNumberOfList(numbers));
 
-        System.out.println("Count of words started with a: " + countStartedWith(words, 'a'));
+        System.out.println("Count of words started with a: " + countWordsStartedWith(words, 'a'));
 
         System.out.println("List of words: " + filterWordsBySubstring(words, "main"));
 
@@ -23,7 +23,7 @@ public class Main {
 
         System.out.println("Is all words contains a?: " + checkListWithCondition(words, word -> word.contains("a")));
 
-        System.out.println("Min number bigger than 4: " + getMinNumber(numbers, 4));
+        System.out.println("Min number bigger than 4: " + getMinNumberGreaterThanValue(numbers, 4));
 
         System.out.println("Length of words: " + getLengthOfWords(words));
     }
@@ -35,20 +35,20 @@ public class Main {
                 .sum();
     }
 
-    public static int getMaxNumber(List<Integer> numbers) {
+    public static int getMaxNumberFromList(List<Integer> numbers) {
         return numbers.stream()
                 .max(Integer::compareTo)
                 .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
-    public static double getAverageNumber(List<Integer> numbers) {
+    public static double getAverageNumberOfList(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::intValue)
                 .average()
                 .orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
-    public static int countStartedWith(List<String> words, char prefix) {
+    public static int countWordsStartedWith(List<String> words, char prefix) {
         checkList(words);
         return (int) words.stream()
                 .filter(word -> word.charAt(0) == prefix)
@@ -75,11 +75,11 @@ public class Main {
                 .allMatch(predicate);
     }
 
-    public static int getMinNumber(List<Integer> numbers, int value) {
+    public static int getMinNumberGreaterThanValue(List<Integer> numbers, int value) {
         return numbers.stream()
                 .filter(number -> number > value)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new IllegalArgumentException("List is empty"));
+                .orElseThrow(() -> new IllegalArgumentException("No number found"));
     }
 
     public static List<Integer> getLengthOfWords(List<String> words) {
