@@ -1,14 +1,12 @@
 package faang.school.godbless.BJS2_24156;
 
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 public class Task implements Runnable {
 
     private final String name;
     private final String task;
-
-    public Task(String name, String task) {
-        this.name = name;
-        this.task = task;
-    }
 
     @Override
     public void run() {
