@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_23405;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -16,11 +17,12 @@ public class Army {
 
     public int calculateTotalPower() {
         totalPower = 0;
-        army.entrySet().stream()
+        List<Thread> threads = army.entrySet().stream()
                 .map(this::createTask)
                 .map(Thread::new)
                 .peek(Thread::start)
-                .forEach(this::joinThread);
+                .toList();
+        threads.forEach(this::joinThread);
         return totalPower;
     }
 
