@@ -3,7 +3,7 @@ package faang.school.godbless.nicePoor;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Chore implements Runnable{
+public class Chore implements Runnable {
     private String title;
 
     @Override
