@@ -29,6 +29,5 @@ public class InventoryManager {
                            @NonNull Function<Item, Item> handler) {
         Optional<Item> itemInInventory = character.getInventory().stream().filter(filter).findFirst();
         itemInInventory.ifPresent(handler::apply);
-        //character.getInventory().stream().filter(filter)..map(handler).count();
     }
 }
