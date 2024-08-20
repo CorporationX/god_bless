@@ -22,7 +22,14 @@ public class Army {
                 .map(Thread::new)
                 .peek(Thread::start)
                 .toList();
-        threads.forEach(this::joinThread);
+
+        threads.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Thread error");
+            }
+        });
         return totalPower;
     }
 
@@ -32,13 +39,5 @@ public class Army {
                 totalPower += entry.getKey().getPower() * entry.getValue();
             }
         };
-    }
-
-    private void joinThread(Thread thread) {
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread error");
-        }
     }
 }
