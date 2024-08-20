@@ -15,7 +15,11 @@ public class JsonJobScraper extends JobScraper{
     }
 
     @Override
-    public Job parse(String data) throws JsonProcessingException {
-        return objectMapper.readValue(data, Job.class);
+    public Job parse(String data) {
+        try {
+            return objectMapper.readValue(data, Job.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
