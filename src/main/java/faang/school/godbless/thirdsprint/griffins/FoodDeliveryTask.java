@@ -12,14 +12,14 @@ public class FoodDeliveryTask implements Runnable {
     }
 
     private String getFoodType() {
-        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
+        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wing", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
     }
 
     @Override
     public void run() {
         String foodType = getFoodType();
-        System.out.println(character + " is receiving " + foodAmount + " " + foodType);
+        System.out.println(character + " is receiving " + foodAmount + " " + foodType + "s");
 
         try {
             int waitTime = new Random().nextInt(5) + 1;
@@ -28,6 +28,6 @@ public class FoodDeliveryTask implements Runnable {
             e.printStackTrace();
         }
 
-        System.out.println(character + " is now eating " + foodAmount + " " + foodType);
+        System.out.println(character + " is now eating " + foodAmount + " " + foodType + "s");
     }
 }
