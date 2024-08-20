@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 public class MailSender {
     private static final Logger LOGGER = Logger.getLogger(MailSender.class.getName());
+    private static final int AWAIT_TERMINATION_SECONDS = 60;
     private static final int THREAD_LIMIT = 5;
     private static final int TOTAL_MAIL_MESSAGES = 1000;
     private static final int MAIL_LIMIT_BY_THREAD = TOTAL_MAIL_MESSAGES / THREAD_LIMIT;
@@ -24,7 +25,7 @@ public class MailSender {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(AWAIT_TERMINATION_SECONDS, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
