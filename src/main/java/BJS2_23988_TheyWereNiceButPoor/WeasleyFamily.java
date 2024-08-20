@@ -9,7 +9,7 @@ public class WeasleyFamily {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
         for (String chore : CHORES) {
-            executor.submit(new Chore(chore));
+            executor.execute(() -> new Chore(chore).run());
         }
         executor.shutdown();
     }
