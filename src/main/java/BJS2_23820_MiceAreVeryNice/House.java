@@ -32,10 +32,10 @@ public class House {
         ));
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL);
-        int delay = 1;
+        int delay = 0;
         for (int i = 0; i < THREAD_POOL; i++) {
             executor.schedule(House::collectFood, delay, TimeUnit.SECONDS);
-            delay += 2;
+            delay += 30;
         }
         executor.shutdown();
         try {
