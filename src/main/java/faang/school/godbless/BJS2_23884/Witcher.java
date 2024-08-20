@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
-    private static final int NUM_THREADS = 4;
+    private static final int NUM_THREADS = 1;
 
     public static void main(String[] args) {
         List<Monster> monsters = new ArrayList<>();
@@ -22,13 +23,20 @@ public class Witcher {
         cities.add(new City("Kaer Morhen", new Location(180, 70), 0));
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+
         long startTime = System.currentTimeMillis();
 
-        for (City city : cities) {
-            executor.execute(new CityWorker(city, monsters));
+        cities.forEach(city -> executor.execute(new CityWorker(city, monsters)));
+
+        try {
+            executor.shutdown();
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
 
-        executor.shutdown();
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
