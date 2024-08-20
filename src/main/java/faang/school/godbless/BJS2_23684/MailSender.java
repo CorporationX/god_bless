@@ -14,7 +14,7 @@ public class MailSender {
             int startIndex = i * MESSAGE_TO_SEND_COUNT + 1;
             int endIndex = startIndex + MESSAGE_TO_SEND_COUNT - 1;
 
-            threads[i] = new Thread(() -> new SenderRunnable(startIndex, endIndex).run());
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             threads[i].start();
             System.out.println("Thread " + i + " started");
         }
