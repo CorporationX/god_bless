@@ -8,31 +8,32 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserActionManager {
-    //возвращает id самых активных
+    //РІРѕР·РІСЂР°С‰Р°РµС‚ id РЅСѓР¶РЅС‹С… РїРѕР»СЊР·РѕРІР°С‚РµР»РµР№
     public static List<Integer> top10ActiveUsers(List<UserAction> actions) {
-        return actions.stream()
+        var grouped = actions.stream()
                 .collect(Collectors.groupingBy(
                         a -> a.getId(),
-                        Collectors.counting()))
-                .entrySet()
+                        Collectors.counting()));
+
+        return grouped.entrySet()
                 .stream()
-                .sorted(Comparator.comparingLong(value -> -value.getValue()))//минус, чтобы сортировало по убыванию
+                .sorted(Comparator.comparingLong(value -> -value.getValue()))//РјРёРЅСѓСЃ РЅСѓР¶РµРЅ, С‡С‚РѕР±С‹ СЃРѕСЂРёСЂРѕРІР°С‚СЊ РїРѕ СѓР±С‹РІР°РЅРёСЋ
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
     public static List<String> top5PopularThemes(List<UserAction> actions) {
-        return actions.stream()
+        var grouped = actions.stream()
                 .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT)
                         || userAction.getActionType().equals(ActionType.POST))
-                .map(UserAction::getContent)
-                .flatMap(texts -> Arrays.stream(texts.split("\s+"))
+                .flatMap(userAction -> Arrays.stream(userAction.getContent().split(" +"))
                         .filter(string -> string.startsWith("#")))
                 .collect(Collectors.groupingBy(
                         string -> string,
-                        Collectors.counting()))
-                .entrySet().stream()
+                        Collectors.counting()));
+
+        return grouped.entrySet().stream()
                 .sorted(Comparator.comparingLong(value -> -value.getValue()))
                 .limit(5)
                 .map(Map.Entry::getKey)
@@ -40,13 +41,14 @@ public class UserActionManager {
     }
 
     public static List<Integer> top3MonthActiveUsers(List<UserAction> actions) {
-        return actions.stream()
+        var grouped =  actions.stream()
                 .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT)
                         && (new Date().getTime() < userAction.getActionDate().getTime() + 1000 * 60 * 60 * 24 * 30L))
                 .collect(Collectors.groupingBy(
                         UserAction::getId,
-                        Collectors.counting()))
-                .entrySet().stream()
+                        Collectors.counting()));
+
+        return grouped.entrySet().stream()
                 .sorted(Comparator.comparingLong(value -> -value.getValue()))
                 .limit(3L)
                 .map(Map.Entry::getKey)
@@ -54,10 +56,11 @@ public class UserActionManager {
     }
 
     public static Map<ActionType, Double> percentsOfActions(List<UserAction> actions) {
-        return actions.stream()
+        var grouped =  actions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getActionType,
-                        Collectors.counting())).entrySet().stream()
+                        Collectors.counting()));
+        return grouped.entrySet().stream()
                 .map(pair -> Map.entry(pair.getKey(), ((double) pair.getValue() / (double) actions.size())))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
