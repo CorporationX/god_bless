@@ -18,6 +18,13 @@ public class FoodDeliveryTask implements Runnable {
     @Override
     public void run() {
         System.out.println(character + " получает " + foodAmount + " " + getFoodType());
+        System.out.println("Ждем " + foodAmount + " сек пока " + character + " получит доставку");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println(character + " получил доставку");
         System.out.println(character + " ест " + foodAmount + " " + getFoodType());
     }

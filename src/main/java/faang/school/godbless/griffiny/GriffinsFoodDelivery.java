@@ -14,9 +14,12 @@ public class GriffinsFoodDelivery {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
-        for (int i = 0; i < characterNames.length; i++) {
-            executor.execute(new FoodDeliveryTask(characterNames[i], new Random().nextInt(MAX_PRODUCT_VALUE)));
+        int foodCount = new Random().nextInt(MAX_PRODUCT_VALUE);
+
+        for (String characterName : characterNames) {
+            executor.execute(new FoodDeliveryTask(characterName, foodCount));
         }
+
         executor.shutdown();
     }
 }
