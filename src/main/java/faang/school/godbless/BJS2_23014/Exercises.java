@@ -1,5 +1,6 @@
 package faang.school.godbless.BJS2_23014;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class Exercises {
@@ -19,23 +20,23 @@ public class Exercises {
         return strings.stream().filter(string -> string.startsWith(startingSymbol)).count();
     }
 
-    public static List findBySpecificString(List<String> strings, String startingSymbol){
-        return strings.stream().filter(string -> string.startsWith(startingSymbol)).toList();
+    public static List<String> findBySpecificSubstring(List<String> strings, String targetString){
+        return strings.stream().filter(string -> string.contains(targetString)).toList();
     }
 
-    public static List sortStrings(List<String> strings){
-        return strings.stream().sorted().toList();
+    public static List<String> sortStringsByLength(List<String> strings){
+        return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static boolean checkIfAllHaveSameSize(List<String> strings, int size){
         return strings.stream().allMatch((str) -> str.length() == size);
     }
 
-    public static int findLowestNumb(List<Integer> numbers, int min){
+    public static int findLowestNumber(List<Integer> numbers, int min){
         return numbers.stream().sorted().filter(numb -> numb > min).findFirst().orElse(0);
     }
 
-    public static List convertStringsToLength(List<String> strings){
+    public static List<Integer> convertStringsToLength(List<String> strings){
         return strings.stream().map(String::length).toList();
     }
 }

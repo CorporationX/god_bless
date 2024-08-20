@@ -11,10 +11,10 @@ public class Main {
         System.out.println(Exercises.findMaxNumb(numbers));
         System.out.println(Exercises.findAverageNumber(numbers));
         System.out.println(Exercises.findWordsStartingWithSpecificChar(strings, "a"));
-        System.out.println(Exercises.findBySpecificString(strings, "asd"));
-        System.out.println(Exercises.sortStrings(strings));
+        System.out.println(Exercises.findBySpecificSubstring(strings, "wq"));
+        System.out.println(Exercises.sortStringsByLength(strings));
         System.out.println(Exercises.checkIfAllHaveSameSize(strings, 3));
-        System.out.println(Exercises.findLowestNumb(numbers, 14));
+        System.out.println(Exercises.findLowestNumber(numbers, 14));
         System.out.println(Exercises.convertStringsToLength(strings));
     }
 }
