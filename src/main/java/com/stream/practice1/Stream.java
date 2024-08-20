@@ -2,6 +2,7 @@ package com.stream.practice1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Stream {
@@ -26,15 +27,15 @@ public class Stream {
                 .getAsDouble();
     }
 
-    public static long countLines(List<String> list) {
+    public static long countLines(List<String> list, char ch) {
         return list.stream()
-                .filter(s -> s.startsWith("I"))
+                .filter(s -> s.startsWith(String.valueOf(ch)))
                 .count();
     }
 
-    public static List<String> searchLines(List<String> list) {
+    public static List<String> searchLines(List<String> list, String str) {
         return list.stream()
-                .filter(s -> s.contains("handle"))
+                .filter(s -> s.contains(str))
                 .collect(Collectors.toList());
     }
 
@@ -44,15 +45,15 @@ public class Stream {
                 .toList();
     }
 
-    public static boolean isBoolean(List<String> list) {
+    public static boolean isBoolean(List<String> list, char ch) {
         return list.stream()
-                .allMatch(s -> s.contains("I"));
+                .allMatch(Predicate.isEqual(String.valueOf(ch)));
     }
 
-    public static int minNumber(List<Integer> list) {
+    public static int minNumber(List<Integer> list, int number) {
         return list.stream()
                 .mapToInt(Integer::intValue)
-                .filter(num -> num < 10)
+                .filter(num -> num < number)
                 .min()
                 .getAsInt();
     }

@@ -15,11 +15,11 @@ public class Main {
         System.out.println(Stream.sumEvenNumbers(listNumbers));
         System.out.println(Stream.maxNumber(listNumbers));
         System.out.println(Stream.avgNumbers(listNumbers));
-        System.out.println(Stream.countLines(stringList));
-        System.out.println(Stream.searchLines(stringList));
+        System.out.println(Stream.countLines(stringList, 'I'));
+        System.out.println(Stream.searchLines(stringList, "handle"));
         System.out.println(Stream.sortedByLength(stringList));
-        System.out.println(Stream.isBoolean(stringList));
-        System.out.println(Stream.minNumber(listNumbers));
+        System.out.println(Stream.isBoolean(stringList, 'I'));
+        System.out.println(Stream.minNumber(listNumbers, 10));
         System.out.println(Stream.lengthLines(stringList));
 
     }
