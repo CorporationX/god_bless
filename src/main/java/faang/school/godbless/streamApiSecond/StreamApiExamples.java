@@ -3,35 +3,27 @@ package faang.school.godbless.streamApiSecond;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamApiExamples {
-    private static <T> List<List<T>> deleteDuplicatePairs(List<List<T>> list) {
-        List<List<T>> result = new ArrayList<>();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                Set<T> pair1 = new HashSet<>(list.get(i));
-                Set<T> pair2 = new HashSet<>(list.get(j));
-                if (pair1.equals(pair2)) {
-                    result.add(list.get(i));
-                }
-            }
-        }
-        return result;
-    }
-
     public static List<List<Integer>> uniquePairsWithGivenSum(List<Integer> numbers, int sum) {
-        return deleteDuplicatePairs(numbers
-                .stream()
-                .flatMap(n -> numbers.stream()
-                                .filter(n1 -> n1 + n == sum)
-                                .map(n2 -> List.of(n2, n)))
+        Set<Integer> setForAvoidingDuplicates = new HashSet<>();
+        return numbers.stream()
+                .flatMap(n -> {
+                    int check = sum - n;
+                    if (setForAvoidingDuplicates.contains(check)) {
+                        return Stream.of(List.of(n, check));
+                    } else {
+                        setForAvoidingDuplicates.add(n);
+                        return Stream.empty();
+                    }
+                })
                 .distinct()
-                .toList());
+                .toList();
     }
 
     public static List<String> getCapitalsOfSortedCountries(Map<String, String> countries) {
-        return countries
-                .entrySet()
+        return countries.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
@@ -39,8 +31,7 @@ public class StreamApiExamples {
     }
 
     public static List<String> sortByLengthStringsStartingWith(List<String> strings, char ch) {
-        return strings
-                .stream()
+        return strings.stream()
                 .filter(string -> string.startsWith(ch + ""))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
@@ -51,14 +42,13 @@ public class StreamApiExamples {
     }
 
     public static List<List<String>> possibleFriends(Map<String, List<String>> people) {
-        return deleteDuplicatePairs(people
-                .keySet()
+        return people.keySet()
                 .stream()
                 .flatMap(person -> people.keySet().stream()
-                .filter(friend -> !person.equals(friend) && !people.get(person).contains(friend))
-                .filter(friend -> haveCommonFriends(people.get(friend), people.get(person)))
-                .map(friend -> List.of(person, friend)))
-                .toList());
+                    .filter(friend -> !person.equals(friend) && !people.get(person).contains(friend))
+                    .filter(friend -> haveCommonFriends(people.get(friend), people.get(person)))
+                    .map(friend -> List.of(person, friend)))
+                .toList();
     }
 
     public static Map<String, Double> getAverageSalaryForDepartments(List<Employee> employees) {
