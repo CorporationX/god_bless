@@ -24,7 +24,7 @@ public class MailSender {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(60, TimeUnit.NANOSECONDS)) {
+            if (!executorService.awaitTermination(60, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -32,6 +32,7 @@ public class MailSender {
             LOGGER.info(e.getMessage());
         }
 
-        System.out.println("Все письма успешно отправлены.");
+        System.out.println("Все письма успешно отправлены. Всего отправлено писем: "
+                + SenderRunnable.getLoopCounter());
     }
 }
