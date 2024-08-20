@@ -90,10 +90,9 @@ public class AppDoubleCache {
                 newSubject,
                 mapStudents);
 
-//        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        System.out.println("\nstudents after removing a subject from the student");
+        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
     }
-
-
     public List<Student> getStudents() {
 
         List<Student> students = new ArrayList<>();

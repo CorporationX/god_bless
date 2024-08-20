@@ -93,8 +93,6 @@ public class StudentService {
                 mapStudents.get(student).keySet().remove(subj.getId());
             }
         }
-        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
-
         return mapStudents;
     }
 
