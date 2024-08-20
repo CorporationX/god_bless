@@ -16,10 +16,8 @@ public class Main {
         int sumEvenNums = numsEven.stream().reduce(0, Integer::sum);
         System.out.println("Sum " + sumEvenNums);
 
-
         OptionalInt maxEvenNums = numsEven.stream().mapToInt(Integer::intValue).max();
         maxEvenNums.ifPresent((key) -> System.out.println("Max " + maxEvenNums.getAsInt()));
-
 
         OptionalDouble avgEvenNums = numsEven.stream().mapToInt(Integer::intValue).average();
         avgEvenNums.ifPresent((key) -> System.out.println("Avg " + avgEvenNums.getAsDouble()));
