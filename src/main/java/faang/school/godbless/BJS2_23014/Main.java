@@ -13,7 +13,7 @@ public class Main {
         System.out.println(Exercises.findWordsStartingWithSpecificChar(strings, "a"));
         System.out.println(Exercises.findBySpecificSubstring(strings, "wq"));
         System.out.println(Exercises.sortStringsByLength(strings));
-        System.out.println(Exercises.checkIfAllHaveSameSize(strings, 3));
+        System.out.println(Exercises.checkIfAllStringsLengthMoreThan3(strings, x -> x.length() > 3));
         System.out.println(Exercises.findLowestNumber(numbers, 14));
         System.out.println(Exercises.convertStringsToLength(strings));
     }

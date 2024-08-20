@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_23014;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Exercises {
     public static int getEvenSum(List<Integer> numbers){
@@ -28,8 +29,8 @@ public class Exercises {
         return strings.stream().sorted(Comparator.comparingInt(String::length)).toList();
     }
 
-    public static boolean checkIfAllHaveSameSize(List<String> strings, int size){
-        return strings.stream().allMatch((str) -> str.length() == size);
+    public static boolean checkIfAllStringsLengthMoreThan3(List<String> strings, Predicate<String> stringChecker){
+        return strings.stream().allMatch(stringChecker::test);
     }
 
     public static int findLowestNumber(List<Integer> numbers, int min){
