@@ -2,6 +2,8 @@ package faang.school.godbless.BJS2_23690;
 
 import lombok.AllArgsConstructor;
 
+import java.util.stream.IntStream;
+
 @AllArgsConstructor
 public class SenderRunnable implements Runnable {
     private final int startIndex;
@@ -9,8 +11,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i <= endIndex; i++) {
-            System.out.println("Оправка письма №" + i);
-        }
+        IntStream.range(startIndex, endIndex)
+                .forEach(index -> System.out.println("Оправка письма №" + index));
     }
 }
