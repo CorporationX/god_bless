@@ -24,7 +24,6 @@ public class Main {
             queue.remove(data);
             data.updateTimestamp();
             queue.add(data);
-            idDataCache.put(id, data);
         } else {
             data = Optional.ofNullable(idDataDB.get(id))
                     .orElseThrow(() -> new IllegalArgumentException(String.format("Record not found for provided id: %s", id)));
