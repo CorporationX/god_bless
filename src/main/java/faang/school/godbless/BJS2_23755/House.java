@@ -27,7 +27,7 @@ public class House {
         House house = new House();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < NUMS_THREADS; i++) {
-            executor.schedule(() -> house.collectFood(), 1, TimeUnit.NANOSECONDS);
+            executor.schedule(house::collectFood, 1, TimeUnit.NANOSECONDS);
             try {
                 Thread.sleep(10000);
             } catch (InterruptedException e) {
@@ -49,12 +49,12 @@ public class House {
     }
 
     public List<String> collectFood() {
-        List<String> listNames = new ArrayList<>();
+        List<String> listNames;
         listNames = rooms.stream()
                 .filter(room -> !room.getFoodList().isEmpty())
                 .limit(2)
                 .flatMap(room -> room.getFoodList().stream()
-                        .map(food -> food.getName())
+                        .map(Food::getName)
                 )
                 .collect(Collectors.toList());
 
