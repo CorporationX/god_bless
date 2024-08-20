@@ -1,11 +1,11 @@
 package faang.school.godbless.BJS2_23412;
 
-public class Archer implements Unit {
-    private final int power;
+import lombok.RequiredArgsConstructor;
 
-    public Archer(int power) {
-        this.power = power;
-    }
+@RequiredArgsConstructor
+public class Archer implements Unit {
+
+    private final int power;
 
     @Override
     public int getPower() {
