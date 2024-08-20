@@ -1,10 +1,21 @@
 package faang.school.godbless;
 
 import java.util.function.Function;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class Application {
+
+    private static final Map<Student, Map<Subject, Integer>> STUDENT_MAP_MAP = new HashMap<>();
+    private static final Map<Subject, List<Student>> SUBJECT_LIST_MAP = new HashMap<>();
+    private static final List<Student> STUDENTS = new ArrayList<>();
+
     public static void main(String[] args) {
         System.out.println("God Bless!");
+
 
         System.out.println(triangleArea(10.0, 6.0, 6.0));
     }
@@ -28,5 +39,3 @@ public class Application {
         double outC = sub.apply(perimeter).apply(c);
 
         return sqrt.apply(mul.apply(perimeter).apply(mul.apply(mul.apply(outA).apply(outB)).apply(outC)));
-    }
-}
