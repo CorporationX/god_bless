@@ -10,89 +10,89 @@ public class AppDoubleCache {
 
     public static void main(String[] args) {
 
-        Map<Student, Map<Subject, Integer>> mapStudents = new HashMap<>();
+        Map<Student, Map<Subject, Integer>> mapStudents;
 
-        Map<Subject, List<Student>> mapSubject = new HashMap<>();
+        Map<Subject, List<Student>> mapSubjects= new HashMap<>();
 
         AppDoubleCache app = new AppDoubleCache();
 
-        List<Subject> subjects=  app.getSubjects();
+        List<Subject> subjects = app.getSubjects();
 
-        List<Student>  students= app.getStudents();
+        List<Student> students = app.getStudents();
 
         StudentService studentService = new StudentService();
 
-        mapStudents= studentService.initializeStudentsWithSubjects( students, subjects);
+        mapStudents = studentService.initializeStudentsWithSubjects(students, subjects);
 
-        System.out.println("map of <Students> init");
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        System.out.println("init map of <Students>");
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
 
-        mapStudents= studentService.addStudentWithSubjects(students, subjects, mapStudents, "Afrodita");
+        mapStudents = studentService.addStudentWithSubjects(students, subjects, mapStudents, "Afrodita");
 
-        System.out.println("map of <Students> with new user");
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        System.out.println("\nmap of <Students> with new user");
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
 
         Student student = students.get(ThreadLocalRandom.current().nextInt(0, students.size()));
 
-        String newSubject= "history";
+        String newSubject = "history";
 
-        System.out.println("\nadd a new subject: <" + newSubject +"> for the student: " + student);
+        System.out.println("\nadd a new subject: <" + newSubject + "> to the student: " + student);
 
-        mapStudents=
-                  studentService.addSubjectToStudent(
-                          student,
-                          mapStudents,
-                          newSubject,
-                          subjects);
+        mapStudents =
+                studentService.addSubjectToStudent(
+                        student,
+                        mapStudents,
+                        newSubject,
+                        subjects);
 
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
 
-        studentService.dleteStudent(student, students, mapStudents);
+        studentService.deleteStudent(student, students, mapStudents);
 
-        System.out.println("\nafter deleting of the student: " + student);
+        System.out.println("\nafter deleting the student: " + student);
         System.out.println("students: " + students);
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
 
-        Subject subject= subjects.stream()
+        Subject subject = subjects.stream()
                 .filter(s -> newSubject.equals(s.getName()))
                 .findAny()
                 .orElse(null);
 
         List<Student> someStudents = new ArrayList<>();
         someStudents.add(students.get(0));
-        someStudents.add(students.get(students.size() -1));
-        
-        mapStudents= studentService.addSubjectToSomeStudents(
+        someStudents.add(students.get(students.size() - 1));
+
+        mapStudents = studentService.addSubjectToSomeStudents(
                 someStudents,
                 subject,
                 mapStudents);
 
         System.out.println("\n add new Subject to some students");
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
 
-        System.out.println("\n\n");
-        List<Student> listStidentsWithSubject= new ArrayList<>();
-        for(Student st: students) {
-            for(Subject subj: mapStudents.get(st).keySet()) {
-                if(subj.getName().equals(newSubject)) {
-                    listStidentsWithSubject.add(st);
-                }
-            }
-        }
-        System.out.println("students with newSubject"); //.entrySet());
+        List<Student> listStidentsWithSubject = studentService.
+                listStidentsWithSubject(students, mapStudents, newSubject);
+
+        System.out.println("\nstudents with newSubject: <" + newSubject + ">"); //.entrySet());
         System.out.println(listStidentsWithSubject);
-        student = listStidentsWithSubject.get(ThreadLocalRandom.current().nextInt(0, students.size()-1));
+        student = listStidentsWithSubject.get(ThreadLocalRandom.current().nextInt(0, students.size() - 1));
 
-        System.out.println("student to remove subject: " + student);
+        System.out.println("\nstudent to remove the subject: " + student + " - <" + newSubject + ">");
 
         studentService.deleteSubjectFromStudent(
                 student,
                 newSubject,
                 mapStudents);
 
-        System.out.println("\nstudents after removing a subject from the student");
-        mapStudents.forEach((K,V) -> System.out.println("key: "+ K + " value: " + V));
+        System.out.println("\nafter remove()");
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
+
+        for(Subject subj: subjects) {
+            mapSubjects.put(subj, studentService.listStidentsWithSubject(students, mapStudents, subj.getName()));
+        }
+        System.out.println("\nSubjects with their students");
+        mapSubjects.forEach((K, V) -> System.out.println("key: " + K + " value: " + V));
     }
+
     public List<Student> getStudents() {
 
         List<Student> students = new ArrayList<>();

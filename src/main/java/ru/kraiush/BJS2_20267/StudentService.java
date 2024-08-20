@@ -1,5 +1,6 @@
 package ru.kraiush.BJS2_20267;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,20 +84,32 @@ public class StudentService {
             String newSubject,
             Map<Student, Map<Subject, Integer>> mapStudents) {
 
-        System.out.println("st: " + student);
-
-        System.out.println("\nEntrySet() fro user with newSubject: " + mapStudents.get(student).keySet());
-
-        for (Subject subj : mapStudents.get(student).keySet()) {
-            if (subj.getName().equals(newSubject)) {
-                System.out.println("subj.getId(): " + subj.getId());
-                mapStudents.get(student).keySet().remove(subj.getId());
+        for (Map.Entry<Subject, Integer> item : mapStudents.get(student).entrySet()) {
+            if (item.getKey() != null && item.getKey().getName().equals(newSubject)) {
+//                System.out.println("|item.getKey().getId(): " + item.getKey().getId());
+//                System.out.println("item.getKey().getName(): " + item.getKey().getName());
+                mapStudents.get(student).remove(item.getKey());
+                break;
             }
         }
         return mapStudents;
     }
 
-    public void dleteStudent(Student student, List<Student> students, Map<Student, Map<Subject, Integer>> mapStudents) {
+    public List<Student> listStidentsWithSubject(List<Student> students, Map<Student, Map<Subject, Integer>> mapStudents, String subject) {
+
+        List<Student> listStidentsWithSubject= new ArrayList<>();
+
+        for (Student st : students) {
+            for (Subject subj : mapStudents.get(st).keySet()) {
+                if (subj.getName().equals(subject)) {
+                    listStidentsWithSubject.add(st);
+                }
+            }
+        }
+        return listStidentsWithSubject;
+    }
+
+    public void deleteStudent(Student student, List<Student> students, Map<Student, Map<Subject, Integer>> mapStudents) {
 
         students.removeIf(s -> s.equals(student));
         mapStudents.remove(student);
