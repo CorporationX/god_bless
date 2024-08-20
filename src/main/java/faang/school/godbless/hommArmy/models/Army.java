@@ -17,9 +17,6 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        /*return army.parallelStream()
-                .mapToInt(Character::getPower)
-                .sum();*/
         List<PowerUnit> powerUnits = new ArrayList<>();
         for (Unit unit : army) {
             powerUnits.add(new PowerUnit(unit));
