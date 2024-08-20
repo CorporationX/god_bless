@@ -9,6 +9,6 @@ public class MailSender {
             thread.join();
         }
 
-        System.out.println("All letter have been sent");
+        System.out.println("All letters have been sent");
     }
 }
