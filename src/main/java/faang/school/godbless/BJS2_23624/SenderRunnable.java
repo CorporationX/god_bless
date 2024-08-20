@@ -8,8 +8,10 @@ public class SenderRunnable implements Runnable{
     private int endIndex;
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             System.out.println("Письмо " + i + " успешно отправлено");
         }
+        System.out.println("Все письма отправлены из потока с диапазоном: " + startIndex + " до " + endIndex);
+
     }
 }
