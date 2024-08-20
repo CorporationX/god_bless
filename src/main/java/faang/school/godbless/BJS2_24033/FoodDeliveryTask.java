@@ -9,10 +9,11 @@ public class FoodDeliveryTask implements Runnable {
 
     private final String character;
     private final int foodAmount;
+    private final String foodType = getFoodType();
 
     @Override
     public void run() {
-        System.out.println(character + " ordered " + foodAmount + " " + getFoodType());
+        System.out.println(character + " ordered " + foodAmount + " " + foodType);
 
         try {
             Thread.sleep(foodAmount * 1000L);
@@ -20,7 +21,7 @@ public class FoodDeliveryTask implements Runnable {
             throw new RuntimeException(e);
         }
 
-        System.out.println(character + " eating " + foodAmount + " " + getFoodType());
+        System.out.println(character + " eating " + foodAmount + " " + foodType);
     }
 
     private String getFoodType() {
