@@ -1,4 +1,4 @@
-package atream.api2;
+package stream.api2;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

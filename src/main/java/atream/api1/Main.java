@@ -1,4 +1,4 @@
-package stream.api1;
+package atream.api1;
 
 import java.util.Arrays;
 import java.util.Comparator;
