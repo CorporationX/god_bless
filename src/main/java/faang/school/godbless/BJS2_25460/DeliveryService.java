@@ -6,11 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 @Getter
 public class DeliveryService {
     private Map<String, PromoCode> promoCodes = new ConcurrentHashMap<>();
-    private Set<Order> orders = ConcurrentHashMap.newKeySet();
+    private ConcurrentLinkedQueue<Order> orders = new ConcurrentLinkedQueue<>();
 
     public void putPromoCode(PromoCode promoCode) {
         promoCodes.put(promoCode.getCode(), promoCode);
