@@ -19,8 +19,9 @@ public class Main {
         monsters.add(new Monster("Chort", cities.get(3), 34));
 
         CityWorker cityWorker = CityWorker.create(cities, monsters);
-        cityWorker.start();
-        cityWorker.start(1);
-        cityWorker.start(3);
+        cityWorker.start(); // 36сек.
+        cityWorker.start(1); // +1мин.
+        cityWorker.start(2); // 36сек.
+        cityWorker.start(3); // 36сек.
     }
 }
