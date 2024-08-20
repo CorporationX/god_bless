@@ -16,6 +16,6 @@ public class GriffinsFoodDelivery {
             executor.submit(new FoodDeliveryTask(characterNames[i], new Random().nextInt(MAX_RANDOM)));
         }
 
-        executor.close();
+        executor.shutdown();
     }
 }
