@@ -33,9 +33,9 @@ public class Application {
         char character = 'G';
         int start = 100;
         int end = 1000;
-        int target = 4;
+        int target = 10;
+
         //1
-        //todo
         System.out.println(findPairsBySum(nums, target));
         //2
         System.out.println(countries(countriesMap));
@@ -55,11 +55,15 @@ public class Application {
 
     }
 
-    //todo
     public static List<List<Integer>> findPairsBySum(List<Integer> nums, int target) {
-        return new ArrayList<>();
+        return IntStream.range(0, nums.size())
+                .boxed()
+                .flatMap(i -> IntStream.range(i + 1, nums.size())
+                        .filter(j -> nums.get(i) + nums.get(j) == target)
+                        .mapToObj(j -> Arrays.asList(nums.get(i), nums.get(j)))
+                )
+                .collect(Collectors.toList());
     }
-
 
     // 2
     public static List<String> countries(Map<String, String> countriesCapitals) {
@@ -80,7 +84,6 @@ public class Application {
     }
 
     // 4
-    //todo
     public static Map<String, String> findPairsByMutualFriends(Map<String, List<String>> friends) {
         return new HashMap<>();
     }
@@ -115,6 +118,4 @@ public class Application {
                 .boxed()
                 .toList();
     }
-
-
 }
