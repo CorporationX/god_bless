@@ -7,7 +7,7 @@ import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private final Lock lock = new Lock();
+    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
