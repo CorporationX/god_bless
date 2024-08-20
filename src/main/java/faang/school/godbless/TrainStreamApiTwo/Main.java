@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
     static List<Integer> integers = List.of(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
@@ -33,10 +34,10 @@ public class Main {
     );
 
     static List<String> testAlphabet = Arrays.asList(
-            "Привет мир",
+            "РєСѓ",
             "Hello world",
-            "Привет, Hello",
-            "Здравствуйте!",
+            "РїСЂРёРІРµС‚, Hello",
+            "С„С‹Р°!..СЌ.СЌ",
             "Hello, world!",
             "12345",
             "!@#$%^&*()"
@@ -64,24 +65,20 @@ public class Main {
     }
 
     public static Set<Pair> findSumPair(List<Integer> integers, int targetSum) {
-        Set<Pair> resultPairs = new HashSet<>();
-        Set<Integer> passedNums = new HashSet<>();
-        integers.forEach(integer -> {
-            int numToFind = targetSum - integer;
-            if (passedNums.contains(numToFind)) {
-                resultPairs.add(new Pair(integer, numToFind));
-            }
-            passedNums.add(integer);
-        });
-        return resultPairs;
+        return integers.stream()
+                .flatMap(integer -> integers.stream()
+                        .filter(integer1 -> integer + integer1 == targetSum && !integer.equals(integer1))
+                        .map(integer1 -> new Pair(integer, integer1)))
+                .collect(Collectors.toSet());
     }
 
     public static void sortCountries(Map<String, String> map)
     {
-        Set<Map.Entry<String,String >> countries = map.entrySet();
-        List<Map.Entry<String, String>> sorted = countries.stream().sorted(Comparator.comparingInt(entry -> entry.getKey().charAt(0))).toList();
+        List<Map.Entry<String, String>> sorted = map.entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(entry -> entry.getKey().charAt(0))).toList();
 
-        sorted.forEach(System.out::println); // вывел не только города, что бы было легче тестить
+        sorted.forEach(System.out::println);
     }
 
     public static List<String> sortStrings(List<String> strings, char starter) {
@@ -89,38 +86,45 @@ public class Main {
     }
 
     public static Set notFriendsHasCommonFriends(Map<String, List<String>> friendListsByPeople) {
-
         Set<Pair> filtered = friendsByPeople.keySet().stream()
                 .flatMap(person1 -> friendsByPeople.keySet().stream()
-                        .filter(person2 -> !person1.equals(person2))
-                        .filter(person2 -> !friendsByPeople.get(person1).contains(person2))
-                        .filter(person2 -> hasCommonFriends(friendsByPeople.get(person1), friendsByPeople.get(person2)))
+                        .filter(person2 -> filterFriends(person1, person2))
                         .map(person2 -> new Pair(person1, person2)))
                 .collect(Collectors.toSet());
         return filtered;
     }
 
+    public static Boolean filterFriends(String person1, String person2) {
+        return !person1.equals(person2) &&
+                !friendsByPeople.get(person1).contains(person2) &&
+                hasCommonFriends(friendsByPeople.get(person1), friendsByPeople.get(person2));
+    }
+
     public static boolean hasCommonFriends(List<String> friends1, List<String> friends2) {
         Set<String> set = new HashSet<>(friends1);
         set.retainAll(friends2);
+
         return !set.isEmpty();
     }
 
-    public static Map<String, Integer> averageSalary(List<Employee> employees)
-    {
-        return employees.stream().collect(Collectors.groupingBy(Employee::getDepartment, Collectors.collectingAndThen(Collectors.averagingInt(Employee::getSalary), avg -> (int) Math.round(avg))));
+    public static Map<String, Integer> averageSalary(List<Employee> employees) {
+        return employees.stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.collectingAndThen(Collectors.averagingInt(Employee::getSalary), avg -> (int) Math.round(avg))));
     }
 
-    public static List<String> containsWordsWithAlphabet(List<String> strings, AlphabetLanguage alphabet)
-    {
-        String restrictedSymbolsRegex = alphabet == AlphabetLanguage.RUS ? "[a-zA-Z]" : "[а-яА-ЯёЁ]";
+    public static List<String> containsWordsWithAlphabet(List<String> strings, AlphabetLanguage alphabet) {
+        String restrictedSymbolsRegex = alphabet == AlphabetLanguage.RUS ? "[a-zA-Z]" : "[Р°-СЏРђ-РЇ]";
         Pattern pattern = Pattern.compile(restrictedSymbolsRegex);
 
-        return strings.stream().filter(string -> !pattern.matcher(string).find()).sorted(Comparator.comparingInt(String::length)).toList();
+        return strings.stream()
+                .filter(string -> !pattern.matcher(string).find())
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static List<String> integersToBinary(List<Integer> integers) {
-        return integers.stream().map(Integer::toBinaryString).toList();
+        return integers.stream()
+                .map(Integer::toBinaryString).toList();
     }
 
     public static List<Integer> findPolyndroms(int bottom, int top) {
