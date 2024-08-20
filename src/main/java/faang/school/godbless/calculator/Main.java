@@ -18,56 +18,56 @@ public class Main {
         List<Number> intNumbers = List.of(number, number2, number3, number4, number5);
 
         Calculator<Number> summarize = (a, b) -> {
-            if (a instanceof Integer && b instanceof Integer) {
-                return (Integer) a + (Integer) b;
-            } else if (a instanceof Double && b instanceof Double) {
-                return (Double) a + (Double) b;
-            } else if (a instanceof Float && b instanceof Float) {
-                return (Float) a + (Float) b;
-            } else if (a instanceof Long && b instanceof Long) {
-                return (Long) a + (Long) b;
+            if (a instanceof Integer first && b instanceof Integer second) {
+                return first + second;
+            } else if (a instanceof Double first && b instanceof Double second) {
+                return first + second;
+            } else if (a instanceof Float first && b instanceof Float second) {
+                return first + second;
+            } else if (a instanceof Long first && b instanceof Long second) {
+                return first + second;
             } else {
                 throw new IllegalArgumentException("Unsupported number type");
             }
         };
 
         Calculator<Number> subtraction = (a, b) -> {
-            if (a instanceof Integer && b instanceof Integer) {
-                return (Integer) a - (Integer) b;
-            } else if (a instanceof Double && b instanceof Double) {
-                return (Double) a - (Double) b;
-            } else if (a instanceof Float && b instanceof Float) {
-                return (Float) a - (Float) b;
-            } else if (a instanceof Long && b instanceof Long) {
-                return (Long) a - (Long) b;
+            if (a instanceof Integer first && b instanceof Integer second) {
+                return first - second;
+            } else if (a instanceof Double first && b instanceof Double second) {
+                return first - second;
+            } else if (a instanceof Float first && b instanceof Float second) {
+                return first - second;
+            } else if (a instanceof Long first && b instanceof Long second) {
+                return first - second;
             } else {
                 throw new IllegalArgumentException("Unsupported number type");
             }
         };
 
         Calculator<Number> multiply = (a, b) -> {
-            if (a instanceof Integer && b instanceof Integer) {
-                return (Integer) a * (Integer) b;
-            } else if (a instanceof Double && b instanceof Double) {
-                return (Double) a * (Double) b;
-            } else if (a instanceof Float && b instanceof Float) {
-                return (Float) a * (Float) b;
-            } else if (a instanceof Long && b instanceof Long) {
-                return (Long) a * (Long) b;
+            if (a instanceof Integer first && b instanceof Integer second) {
+                return first * second;
+            } else if (a instanceof Double first && b instanceof Double second) {
+                return first * second;
+            } else if (a instanceof Float first && b instanceof Float second) {
+                return first * second;
+            } else if (a instanceof Long first && b instanceof Long second) {
+                return first * second;
             } else {
                 throw new IllegalArgumentException("Unsupported number type");
             }
         };
 
         Calculator<Number> divide = (a, b) -> {
-            if (a instanceof Integer && b instanceof Integer) {
-                return (Integer) a / (Integer) b;
-            } else if (a instanceof Double && b instanceof Double) {
-                return (Double) a / (Double) b;
-            } else if (a instanceof Float && b instanceof Float) {
-                return (Float) a / (Float) b;
-            } else if (a instanceof Long && b instanceof Long) {
-                return (Long) a / (Long) b;
+            if (a instanceof Integer first && b instanceof Integer second) {
+                return first / second;
+            } else if (a instanceof Double first && b instanceof Double second) {
+                return first / second;
+            } else if (a instanceof Float first && b instanceof Float second) {
+                return first / second;
+            } else if (a instanceof Long first && b instanceof Long second) {
+                return first / second;
             } else {
                 throw new IllegalArgumentException("Unsupported number type");
             }
