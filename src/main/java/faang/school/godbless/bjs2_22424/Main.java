@@ -2,24 +2,35 @@ package faang.school.godbless.bjs2_22424;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
+import static java.util.stream.Collectors.averagingDouble;
+import static java.util.stream.Collectors.groupingBy;
+
 public class Main {
     // 1
     public static List<Pair<Integer, Integer>> getPairs(List<Integer> numbers, Integer sum) {
-        return numbers.stream()
-                .flatMap(i -> numbers.stream()
-                        .filter(j -> i + j == sum && numbers.indexOf(i) < numbers.indexOf(j))
-                        .map(j -> Pair.of(i, j)))
+        List<Integer> uniqueNumbers = numbers.stream().distinct().toList();
+        var size = uniqueNumbers.size();
+
+        List<Pair<Integer, Integer>> allPairsFromNumbers = IntStream.range(0, size)
+                .boxed()
+                .flatMap(i -> IntStream.range(i + 1, size)
+                        .mapToObj(j -> Pair.of(uniqueNumbers.get(i), uniqueNumbers.get(j))))
+                .distinct()
+                .toList();
+
+        return allPairsFromNumbers.stream()
+                .filter(pair -> pair.getLeft() + pair.getRight() == sum)
                 .toList();
     }
 
@@ -63,17 +74,27 @@ public class Main {
 
     // 5
     public static Map<String, Double> getAverageSalary(List<Employee> employees) {
-        return employees.stream()
+        Map<String, IntStream> departmentsWithSalaries = employees.stream()
                 .collect(Collectors.toMap(
                         Employee::getDepartment,
                         e -> IntStream.of(e.getSalary()),
                         IntStream::concat
-                ))
+                ));
+
+        return departmentsWithSalaries
                 .entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> entry.getValue().average().orElse(0.0)
                 ));
+    }
+
+    public static Map<String, Double> getAverageSalarySecondApproach(List<Employee> employees) {
+        return employees.stream()
+                .collect(groupingBy(
+                        Employee::getDepartment,
+                        averagingDouble(Employee::getSalary))
+                );
     }
 
     // 6
@@ -87,8 +108,8 @@ public class Main {
 
     private static Predicate<String> checkString(char[] alphabet) {
         var alphabetString = new String(alphabet);
-        return (string) -> Arrays.stream(string.split(""))
-                .allMatch(alphabetString::contains);
+        return string -> string.chars()
+                .allMatch(chars -> alphabetString.indexOf(chars) >= 0);
     }
 
     // 7
@@ -100,51 +121,52 @@ public class Main {
 
     // 8
     public static List<Integer> getPalindromes(Integer left, Integer right) {
-        var numbers = Stream
-                .iterate(left, n -> n + 1)
-                .limit(right - left + 1);
-        return numbers
-                .filter(i -> {
-                    var n = String.valueOf(i);
-                    return n.equals(new StringBuilder(n).reverse().toString());
-                })
+        return IntStream
+                .rangeClosed(left, right)
+                .filter(isNumberPalindrome())
+                .boxed()
                 .toList();
+    }
+
+    public static IntPredicate isNumberPalindrome() {
+        return i -> {
+            String n = String.valueOf(i);
+            return n.equals(new StringBuilder(n).reverse().toString());
+        };
     }
 
     // 9
     public static List<String> getPalindromesFromString(String string) {
-        var numbers = Stream
-                .iterate(0, n -> n + 1)
-                .limit(string.length())
-                .toList();
+        var length = string.length();
+        Stream<String> allSubstringsStream = IntStream
+                .range(0, length)
+                .boxed()
+                .flatMap(start -> IntStream.range(start + 2, length + 1)
+                        .mapToObj(end -> string.substring(start, end)));
 
-        return numbers.stream()
-                .flatMap(i -> numbers.stream()
-                        .filter(j -> numbers.indexOf(i) < numbers.indexOf(j))
-                        .map(j -> string.substring(i, j + 1)))
-                .filter(s -> s.equals(new StringBuilder(s).reverse().toString()))
+        return allSubstringsStream
+                .filter(isStringPalindrome())
                 .distinct()
                 .toList();
     }
 
+    private static Predicate<String> isStringPalindrome() {
+        return s -> s.equals(new StringBuilder(s).reverse().toString());
+    }
+
     // 10
     public static List<Integer> getPerfectNumbers(Integer left, Integer right) {
-        var numbers = Stream
-                .iterate(left, n -> n + 1)
-                .limit(right - left + 1);
-        return numbers
-                .filter(isPerfect())
+        return IntStream.rangeClosed(left, right)
+                .filter(isPerfect()::test)
+                .boxed()
                 .toList();
     }
 
     private static Predicate<Integer> isPerfect() {
-        return (number) -> {
-            int sum = 0;
-            for (int i = 1; i <= number / 2; i++) {
-                if (number % i == 0) {
-                    sum += i;
-                }
-            }
+        return number -> {
+            int sum = IntStream.rangeClosed(1, number / 2)
+                    .filter(i -> number % i == 0)
+                    .sum();
             return sum == number;
         };
     }

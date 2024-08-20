@@ -12,7 +12,7 @@ class MainTest {
     // 1
     @Test
     void testGetPairs() {
-        var result = Main.getPairs(List.of(1, 9, 3, 6, 4, 5), 10);
+        var result = Main.getPairs(List.of(1, 9, 9, 3, 6, 4, 5, 1), 10);
         assertEquals(1, result.get(0).getLeft());
         assertEquals(9, result.get(0).getRight());
 
@@ -80,6 +80,21 @@ class MainTest {
         assertEquals(25D, result.get("go"));
     }
 
+    @Test
+    void testGetAverageSalarySecondApproach() {
+        var employees = List.of(
+                new Employee("1", 10, "java"),
+                new Employee("2", 20, "java"),
+                new Employee("2", 10, "python"),
+                new Employee("2", 0, "python"),
+                new Employee("2", 25, "go")
+        );
+        var result = Main.getAverageSalarySecondApproach(employees);
+        assertEquals(15D, result.get("java"));
+        assertEquals(5D, result.get("python"));
+        assertEquals(25D, result.get("go"));
+    }
+
     // 6
     @Test
     void testGetStringsAlphabet() {
@@ -106,6 +121,7 @@ class MainTest {
     @Test
     void testGetPalindromes() {
         var result = Main.getPalindromes(99, 121);
+        assertEquals(4, result.size());
         assertEquals(99, result.get(0));
         assertEquals(101, result.get(1));
         assertEquals(111, result.get(2));
