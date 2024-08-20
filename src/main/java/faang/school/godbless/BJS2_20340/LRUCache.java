@@ -65,6 +65,7 @@ public class LRUCache {
             head = node;
         }
         tail = node;
+        tail.rightNode = null;
     }
 
     private void moveToTail(Node node) {
@@ -89,18 +90,6 @@ public class LRUCache {
         for (var entry : cache.entrySet()) {
             Data data = entry.getValue().data;
             System.out.println(data.getId() + " - " + data.getValue() + " - " + data.getTimestamp());
-        }
-    }
-
-    public static class Node {
-        Node leftNode;
-        Node rightNode;
-        int key;
-        Data data;
-
-        public Node(int key, Data data) {
-            this.key = key;
-            this.data = data;
         }
     }
 }
