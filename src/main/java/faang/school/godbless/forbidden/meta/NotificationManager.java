@@ -1,6 +1,6 @@
 package faang.school.godbless.forbidden.meta;
 
-import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@Log4j
+@Slf4j
 public class NotificationManager {
     private static final Logger logger = LoggerFactory.getLogger(NotificationManager.class);
     private final Map<String, Consumer<Notification>> typeHandlerMap = new HashMap<>();
