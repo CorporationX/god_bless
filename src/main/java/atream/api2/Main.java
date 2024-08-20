@@ -1,4 +1,4 @@
-package stream.api2;
+package atream.api2;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -37,7 +37,7 @@ public class Main {
         System.out.println(capitals);
 
         List<String> countries = countryCapital.values().stream().toList();
-        char targetChar = 'A';
+        char targetChar = 'А';
 
         List<String> result = countries.stream()
             .filter(c -> c.startsWith(String.valueOf(targetChar)))
