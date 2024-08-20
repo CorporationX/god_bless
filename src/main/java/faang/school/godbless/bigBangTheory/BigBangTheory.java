@@ -11,10 +11,10 @@ public class BigBangTheory {
             Task taskThree = new Task("Goward", "task three");
             Task taskFour = new Task("Radj", "task four");
 
-            executorService.submit(taskOne);
-            executorService.submit(taskTwo);
-            executorService.submit(taskThree);
-            executorService.submit(taskFour);
+            executorService.execute(taskOne);
+            executorService.execute(taskTwo);
+            executorService.execute(taskThree);
+            executorService.execute(taskFour);
 
             executorService.shutdownNow();
         }
