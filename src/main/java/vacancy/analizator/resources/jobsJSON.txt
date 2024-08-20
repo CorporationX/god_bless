@@ -1,0 +1,10 @@
+{"vacancyName": "Data Scientist", "requirements": ["Java", "Spring Framework", "REST APIs", "SQL"], "salary": 95000, "workPlace": "Moscow", "addingDate": "2024-08-01"}
+{"vacancyName": "Data Scientist", "requirements": ["Python", "PostgreSQL", "Data Analysis", "SQL"], "salary": 110000, "workPlace": "Warsaw", "addingDate": "2024-07-15"}
+{"vacancyName": "Frontend Developer", "requirements": ["JavaScript", "React", "PostgreSQL", "HTML"], "salary": 85000, "workPlace": "Warsaw", "addingDate": "2024-08-05"}
+{"vacancyName": "Project Manager", "requirements": ["Android", "Scrum", "Team Management", "Communication"], "salary": 90000, "workPlace": "Chicago", "addingDate": "2024-08-10"}
+{"vacancyName": "UX/UI Designer", "requirements": ["Spring Framework", "Sketch", "Wireframing", "Prototyping"], "salary": 78000, "workPlace": "Orksk", "addingDate": "2024-07-20"}
+{"vacancyName": "Data Scientist", "requirements": ["AWS", "Docker", "PostgreSQL", "Android"], "salary": 105000, "workPlace": "Seattle", "addingDate": "2024-08-03"}
+{"vacancyName": "UX/UI Designer", "requirements": ["Android", "Express", "MongoDB", "REST APIs"], "salary": 92000, "workPlace": "Moscow", "addingDate": "2024-07-28"}
+{"vacancyName": "Data Scientist", "requirements": ["Network Security", "Penetration Spring Framework", "SIEM", "Firewalls"], "salary": 99000, "workPlace": "Orksk", "addingDate": "2024-08-12"}
+{"vacancyName": "Frontend Developer", "requirements": ["Swift", "Kotlin", "Spring Framework", "Android"], "salary": 88000, "workPlace": "Warsaw", "addingDate": "2024-07-30"}
+{"position": "Frontend Developer", "requirements": ["MySQL", "PostgreSQL", "Backup and Recovery", "Performance Tuning"], "salary": 86000, "workPlace": "Warsaw", "addingDate": "2024-08-07"}
