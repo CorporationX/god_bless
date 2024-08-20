@@ -1,10 +1,10 @@
-package faang.school.godbless.heroes;
+package faang.school.godbless.heroes.sprint1;
 
-import faang.school.godbless.heroes.creature.Angel;
-import faang.school.godbless.heroes.creature.Creature;
-import faang.school.godbless.heroes.creature.Griffin;
-import faang.school.godbless.heroes.creature.Pikeman;
-import faang.school.godbless.heroes.creature.Swordman;
+import faang.school.godbless.heroes.sprint1.creature.Angel;
+import faang.school.godbless.heroes.sprint1.creature.Creature;
+import faang.school.godbless.heroes.sprint1.creature.Griffin;
+import faang.school.godbless.heroes.sprint1.creature.Pikeman;
+import faang.school.godbless.heroes.sprint1.creature.Swordman;
 
 import java.util.List;
 import java.util.Map;

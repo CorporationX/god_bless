@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes.creature;
+package faang.school.godbless.heroes.sprint1.creature;
 
 import lombok.Getter;
 import lombok.Setter;

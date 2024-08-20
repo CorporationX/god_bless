@@ -1,12 +1,10 @@
-package faang.school.godbless.heroes;
+package faang.school.godbless.heroes.sprint1;
 
-import faang.school.godbless.heroes.creature.Creature;
+import faang.school.godbless.heroes.sprint1.creature.Creature;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
