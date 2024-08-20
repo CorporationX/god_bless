@@ -9,7 +9,7 @@ import java.util.Random;
 
 @AllArgsConstructor
 public class CityWorker implements Runnable {
-    private static final Random rand = new Random();
+    private static final Random RANDOM = new Random();
     @NonNull
     private final City city;
     @NonNull
@@ -31,7 +31,7 @@ public class CityWorker implements Runnable {
     }
 
     private int getKillTime() {
-        return rand.nextInt(7) + 1;
+        return RANDOM.nextInt(7) + 1;
     }
 
     private int getJourneyDistance() {
