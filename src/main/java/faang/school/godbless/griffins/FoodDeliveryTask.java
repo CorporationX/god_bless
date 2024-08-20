@@ -10,12 +10,16 @@ public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
 
+    private final long SLEEP_TIMER = 5000L;
+
+    private final Random GREAT_RANDOM = new Random();
+
     @Override
     public void run() {
         String food = getFoodType();
         System.out.println("Start feeding " + character + " with " + foodAmount + " " + food);
         try {
-            Thread.sleep(5000);
+            Thread.sleep(SLEEP_TIMER);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -24,6 +28,6 @@ public class FoodDeliveryTask implements Runnable {
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        return foodTypes[GREAT_RANDOM.nextInt(foodTypes.length)];
     }
 }
