@@ -8,7 +8,7 @@ public class Main {
         System.out.println(calculate(numbers, Integer::sum));
     }
 
-    public static int calculate(List<Integer> numbers, Calculator calculator) throws IllegalArgumentException {
+    public static int calculate(List<Integer> numbers, Calculator calculator){
         return numbers.stream().reduce(0, calculator::calculate);
     }
 }
