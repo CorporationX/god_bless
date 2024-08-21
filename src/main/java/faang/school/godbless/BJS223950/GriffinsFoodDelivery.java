@@ -15,13 +15,12 @@ public class GriffinsFoodDelivery {
             executor.execute(new FoodDeliveryTask(characterName, foodAmount));
         }
 
-        // Инициация безопасного завершения работы
         executor.shutdown();
+
         try {
-            // Ожидание завершения всех задач в течение 5 секунд
             if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
-                System.out.println("Принудительное завершение...");
-                executor.shutdownNow(); // Принудительное завершение, если задачи не завершены
+                System.out.println("Принудительное завершение");
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
             System.err.println("Завершение прервано");
