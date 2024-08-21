@@ -8,31 +8,22 @@ public class Main {
         List<Integer> numbers = List.of(10, 15, 22, 33, 46, 55, 62);
         List<String> strings = List.of("apple", "banana", "cherry", "date", "apricot", "blueberry");
 
-        int sumOfEvens = Tasks.findSumOfEvenFrom(numbers);
-        System.out.println("Sum of even numbers: " + sumOfEvens);
+        System.out.println("Sum of even numbers: " + Tasks.findSumOfEvenFrom(numbers));
 
-        int maxInt = Tasks.findMaxIntFrom(numbers);
-        System.out.println("Maximum integer: " + maxInt);
+        System.out.println("Maximum integer: " + Tasks.findMaxIntFrom(numbers));
 
-        double averageInt = Tasks.findAverageIntFrom(numbers);
-        System.out.println("Average integer: " + averageInt);
+        System.out.println("Average integer: " + Tasks.findAverageIntFrom(numbers));
 
-        int countStartingWithA = Tasks.findLinesCountStartsWith('a', strings);
-        System.out.println("Count of strings starting with 'a': " + countStartingWithA);
+        System.out.println("Count of strings starting with 'a': " + Tasks.findLinesCountStartsWith('a', strings));
 
-        List<String> linesContainingAp = Tasks.findLinesThatContains("ap", strings);
-        System.out.println("Lines containing 'ap': " + linesContainingAp);
+        System.out.println("Lines containing 'ap': " + Tasks.findLinesThatContains("ap", strings));
 
-        List<String> sortedByLength = Tasks.getLinesSortedByLength(strings);
-        System.out.println("Lines sorted by length: " + sortedByLength);
+        System.out.println("Lines sorted by length: " + Tasks.getLinesSortedByLength(strings));
 
-        boolean allStartWithB = Tasks.checkListForStatement(strings, s -> s.startsWith("b"));
-        System.out.println("All strings start with 'b': " + allStartWithB);
+        System.out.println("All strings start with 'b': " + Tasks.checkListForStatement(strings, s -> s.startsWith("b")));
 
-        int minElementGreaterThan20 = Tasks.findMinElementGreaterThan(20, numbers);
-        System.out.println("Minimum element greater than 20: " + minElementGreaterThan20);
+        System.out.println("Minimum element greater than 20: " + Tasks.findMinElementGreaterThan(20, numbers));
 
-        List<Integer> lengths = Tasks.castStringToLenghtList(strings);
-        System.out.println("Lengths of strings: " + lengths);
+        System.out.println("Lengths of strings: " + Tasks.castStringToLenghtList(strings));
     }
 }
