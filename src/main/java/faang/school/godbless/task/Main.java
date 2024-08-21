@@ -7,31 +7,31 @@ import java.util.Map;
 
 public class Main {
 
-    public static List<Student> studentList = new ArrayList<>();
+    public final static List<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
 
-        studentList.add(new Student("name", "faculty", 1));
-        studentList.add(new Student("name1", "faculty", 1));
-        studentList.add(new Student("name2", "faculty2", 2));
-        studentList.add(new Student("name3", "faculty2", 2));
-        studentList.add(new Student("name4", "faculty3", 3));
+        students.add(new Student("name", "faculty", 1));
+        students.add(new Student("name1", "faculty", 1));
+        students.add(new Student("name2", "faculty2", 2));
+        students.add(new Student("name3", "faculty2", 2));
+        students.add(new Student("name4", "faculty3", 3));
 
-        Map<FacultyYearKey, List<Student>> map = filterStudents(studentList);
+        Map<FacultyYearKey, List<Student>> map = groupStudentsByFacultyAndYear(students);
         printAllStudents(map);
 
         addStudent(new Student("Name", "Faculty", 1));
-        System.out.println(studentList.size());
+        System.out.println(students.size());
 
         removeStudent(new Student("Name", "Faculty", 1));
-        System.out.println(studentList.size());
+        System.out.println(students.size());
 
-        System.out.println(findAllByFilter(new FacultyYearKey("faculty", 1)));
+        System.out.println(findAllByFacultyAndYear(new FacultyYearKey("faculty", 1)));
 
         printAllStudents(map);
     }
 
-    public static Map<FacultyYearKey, List<Student>> filterStudents(List<Student> studentList) {
+    public static Map<FacultyYearKey, List<Student>> groupStudentsByFacultyAndYear(List<Student> studentList) {
         Map<FacultyYearKey, List<Student>> FacultyYearKeyStudentMap = new HashMap<>();
 
         for (Student student : studentList) {
@@ -51,22 +51,18 @@ public class Main {
         if (!isValidData(student)) {
             System.out.println("Студент не может быть null!");
         } else {
-            studentList.add(student);
+            students.add(student);
         }
     }
 
     public static void removeStudent(Student student) {
-        if (!isValidData(student)) {
-            System.out.println("Студент не может быть null!");
-        } else {
-            studentList.remove(student);
-        }
+            students.remove(student);
     }
 
-    public static List<Student> findAllByFilter(FacultyYearKey facultyYearKey) {
+    public static List<Student> findAllByFacultyAndYear(FacultyYearKey facultyYearKey) {
         List<Student> students = new ArrayList<>();
 
-        for (Student student : studentList) {
+        for (Student student : Main.students) {
             if (student.getFaculty().equals(facultyYearKey.getFaculty()) && student.getYear() == facultyYearKey.getYear()) {
                 students.add(student);
             }
