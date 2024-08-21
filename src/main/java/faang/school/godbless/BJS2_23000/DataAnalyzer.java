@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
 public class DataAnalyzer {
 
     public static List<String> findTopNMostPopularSkills(List<Job> jobs, int topN) {
-        return jobs.stream()
+        Map<String, Long> skillByCountSkill = jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
-                .entrySet()
-                .stream()
+                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
+
+        return skillByCountSkill.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topN)
                 .map(Map.Entry::getKey)
@@ -20,10 +20,10 @@ public class DataAnalyzer {
     }
 
     public static List<String> findTopNMostPopularPositions(List<Job> jobs, int topN) {
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getName, Collectors.counting()))
-                .entrySet()
-                .stream()
+        Map<String, Long> jobNameByCountJob = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getName, Collectors.counting()));
+
+        return jobNameByCountJob.entrySet().stream()
                 .peek(System.out::println)
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(topN)
@@ -45,10 +45,10 @@ public class DataAnalyzer {
     }
 
     public static List<String> findTop5MostPopularLocations(List<Job> jobs) {
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
-                .entrySet()
-                .stream()
+        Map<String, Long> locationByCountLocation = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
+
+        return locationByCountLocation.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(5)
                 .map(Map.Entry::getKey)
@@ -68,10 +68,10 @@ public class DataAnalyzer {
     }
 
     private static Map<LocalDate, Difference> calculateDifferencePerDay(List<Job> jobs) {
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getDateAddition))
-                .entrySet()
-                .stream()
+        Map<LocalDate, List<Job>> dateByJobs = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getDateAddition));
+
+        return dateByJobs.entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> new Difference(

@@ -70,7 +70,7 @@ public class Main {
                 }""";
 
         Stream<String> jobsStream = Stream.of(json1, json2, json3, json4, json5, json6, json7, json8, json9, json10);
-        List<Job> parseJobs = JobStreamProcessor.parseJsonToJobs(jobsStream);
+        List<Job> parseJobs = JobScraper.parseJsonToJobs(jobsStream);
 
         System.out.println(DataAnalyzer.findTopNMostPopularSkills(parseJobs, 2));
         System.out.println();
