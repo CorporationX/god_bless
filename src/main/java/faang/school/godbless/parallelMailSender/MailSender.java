@@ -1,7 +1,7 @@
 package faang.school.godbless.parallelMailSender;
 
 public class MailSender {
-    public static final int MESSAGES_PER_THREAD = 20;
+    public static final int MESSAGES_PER_THREAD = 200;
 
     public static void main(String[] args) throws InterruptedException {
 
