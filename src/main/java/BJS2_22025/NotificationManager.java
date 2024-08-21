@@ -17,10 +17,9 @@ public class NotificationManager {
     }
 
     public static void sendNotification(Notification notification) {
-        if(notification.getMessage() != null && notification.getType() != null){
+        if (notification.getMessage() != null && notification.getType() != null) {
             notifications.get(notification.getType()).accept(notification);
-        }
-        else{
+        } else {
             System.out.println(ERROR_MESSAGE);
         }
     }
