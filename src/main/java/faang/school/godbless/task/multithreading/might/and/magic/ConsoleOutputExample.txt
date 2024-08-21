@@ -1,0 +1,15 @@
+23:50:55: Executing ':Main.main()'...
+
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :Main.main()
+23:50:56.388 [pool-1-thread-2] INFO  - Power sum of Mage, even: 175
+23:50:56.388 [pool-1-thread-1] INFO  - Power sum of Archer, even: 150
+23:50:56.388 [pool-1-thread-3] INFO  - Power sum of Swordsman, even: 240
+Total army power: 565
+
+BUILD SUCCESSFUL in 514ms
+3 actionable tasks: 2 executed, 1 up-to-date
+23:50:56: Execution finished ':Main.main()'.

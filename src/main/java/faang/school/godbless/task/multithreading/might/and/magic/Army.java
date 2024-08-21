@@ -13,44 +13,56 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class Army {
+    private static final int THREAD_POOL_LIMIT = 3;
+
     private final List<CompletableFuture<Integer>> futures = new ArrayList<>();
-    private final Map<Character, List<Character>> army = new HashMap<>();
-    private final ExecutorService executor = Executors.newFixedThreadPool(5);
+    private final Map<String, List<Character>> army = new HashMap<>();
+    private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
 
     public void addUnits(Character unit) {
-        List<Character> units = army.computeIfAbsent(unit, k -> new ArrayList<>());
+        List<Character> units = army.computeIfAbsent(unit.getType(), k -> new ArrayList<>());
         units.add(unit);
     }
 
     public int calculateTotalPower() {
-        futures.addAll(
-                army.values()
-                        .stream()
-                        .map(this::startThread)
-                        .toList());
+        futures.addAll(getFutures());
         executor.shutdown();
         return calculate();
     }
 
-    private CompletableFuture<Integer> startThread(List<Character> units) {
-        return CompletableFuture.supplyAsync(() -> units
+    private List<CompletableFuture<Integer>> getFutures() {
+        return army.values()
                 .stream()
-                .map(Character::getPower)
-                .mapToInt(Integer::intValue)
-                .sum(), executor);
+                .map(this::startThread)
+                .toList();
+    }
+
+    private CompletableFuture<Integer> startThread(List<Character> units) {
+        return CompletableFuture.supplyAsync(() -> {
+            int sum = units.stream()
+                    .map(Character::getPower)
+                    .mapToInt(Integer::intValue)
+                    .sum();
+            log.info("Power sum of {}, even: {} ", units.get(0).getType(), sum);
+            return sum;
+        }, executor);
     }
 
     private int calculate() {
         try {
-            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[futures.size()]))
-                    .thenApply(v -> futures.stream()
-                            .map(CompletableFuture::join)
-                            .mapToInt(Integer::intValue)
-                            .sum())
+            return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                    .thenApply(v -> sumIntInFuture())
                     .get();
         } catch (InterruptedException | ExecutionException e) {
             log.error("Error: {}", e.getMessage());
             return 0;
         }
+    }
+
+    private int sumIntInFuture() {
+        return futures.stream()
+                .map(CompletableFuture::join)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 }

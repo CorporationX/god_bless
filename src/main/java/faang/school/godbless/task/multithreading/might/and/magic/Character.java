@@ -6,5 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public abstract class Character {
+    private final String type;
+    private final String name;
     private final int power;
 }
