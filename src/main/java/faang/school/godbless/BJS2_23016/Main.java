@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_23016;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +18,7 @@ public class Main {
         System.out.println(avgValue(nums));
 
         System.out.println("Count words starts with 'H':");
-        System.out.println(countWordLetterH(words));
+        System.out.println(countWordLetterH(words, "H"));
 
         System.out.println("Words contain 'ello':");
         System.out.println(wordContain(words, "ello"));
@@ -25,8 +26,9 @@ public class Main {
         System.out.println("Sorted words:");
         System.out.println(sortedWordsByLength(words));
 
-        System.out.println("Words length condition:");
-        System.out.println(wordsLengthConditon(words, 1));
+        System.out.println("Elements condtion:");
+        Predicate<String> predicate = (word) -> word.length() > 1;
+        System.out.println(elementsCondition(words, predicate));
 
         System.out.println("Min element that is greater than condition:");
         System.out.println(minElementGreaterCondition(nums, 4));
@@ -51,9 +53,9 @@ public class Main {
                 .reduce(0, Integer::sum) / nums.size();
     }
 
-    private static long countWordLetterH(List<String> words) {
+    private static long countWordLetterH(List<String> words, String letter) {
         return words.stream()
-                .filter(word -> word.startsWith("H"))
+                .filter(word -> word.startsWith(letter))
                 .count();
     }
 
@@ -69,9 +71,9 @@ public class Main {
                 .toList();
     }
 
-    private static boolean wordsLengthConditon(List<String> words, int length) {
+    private static <T> boolean elementsCondition(List<T> words, Predicate<T> predicate) {
         return words.stream()
-                .allMatch(word -> word.length() > length);
+                .allMatch(predicate);
     }
 
     private static int minElementGreaterCondition(List<Integer> nums, int condition) {
