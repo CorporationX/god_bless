@@ -15,8 +15,14 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        return units.parallelStream()
-                .mapToInt(Unit::getPower)
+        List<MyThread> threads = new ArrayList<>();
+        for (Unit unit : units) {
+            MyThread thread = new MyThread(unit);
+            thread.start();
+            threads.add(thread);
+        }
+        return threads.stream()
+                .mapToInt(MyThread::getPower)
                 .sum();
     }
 }
