@@ -4,32 +4,48 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 public class Army {
     private static final List<Unit> units = new ArrayList<>();
+    private static final Map<String, Integer> squadsPower = new HashMap<>();
 
     public static void main(String[] args) {
-        Army army = new Army();
-        addUnit(new Archer(20));
-        addUnit(new Swordsman(30));
-        addUnit(new Mage(60));
-        addUnit(new Mage(70));
-
-        System.out.println(army.calculateTotalPower(units));
+        addUnit(new Archer("Archer", 20));
+        addUnit(new Swordsman("Swordsman", 30));
+        addUnit(new Mage("Mage", 60));
+        addUnit(new Mage("Mage", 70));
     }
 
-    public int calculateTotalPower(List<Unit> units) {
-        AtomicInteger totalPower = new AtomicInteger();
-        Thread thread = new Thread(() -> totalPower.addAndGet(units.get(0).getPower()));
-        thread.start();
-        return totalPower.get();
+    public static int calculateTotalPower(List<Unit> units) {
+        int sumPower = 0;
+        for (Unit unit : units) {
+            sumPower += unit.getPower();
+        }
+        return sumPower;
     }
 
-    public static void addUnit(Unit unit){
-        units.add(unit);
+    public static void addUnit(Unit unit) {
+        try {
+            Thread thread = new Thread(() -> {
+                System.out.println(Thread.currentThread().getName());
+                System.out.println("Added new unit type: " + unit.getUnitSquadName() +
+                        " has " + unit.getPower() + " power");
+                squadsPower.compute(unit.getUnitSquadName(), (k, v) ->
+                        (v == null) ? unit.getPower() : v + unit.getPower());
+                System.out.println(unit.getUnitSquadName() + " has now " +
+                        squadsPower.get(unit.getUnitSquadName()) + " power");
+                units.add(unit);
+                System.out.println("And total power for Army is: " + calculateTotalPower(units));
+            });
+            thread.start();
+            thread.join();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }

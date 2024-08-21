@@ -6,5 +6,6 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public abstract class Unit {
+    private final String unitSquadName;
     private final int power;
 }

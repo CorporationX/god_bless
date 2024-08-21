@@ -1,7 +1,7 @@
 package BJS2_23424_HoMM_Multithreading;
 
-public class Mage extends Unit{
-    public Mage(int power) {
-        super(power);
+public class Mage extends Unit {
+    public Mage(String name, int power) {
+        super(name, power);
     }
 }
