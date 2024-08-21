@@ -9,18 +9,17 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static final int LIST_SIZE = 10001;
-    public static final int BATCH_SIZE = 10;
     public static final int POOL_SIZE = 10;
 
     public static void main(String[] args) throws InterruptedException {
         var persons = initPersonList();
-        int batchCount = LIST_SIZE / BATCH_SIZE;
+        int batchSize =  LIST_SIZE / POOL_SIZE;
         try (ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE)) {
-            for (int i = 0; i < batchCount; i++) {
-                executor.submit(new PersonNamePrinter(persons.subList(i * BATCH_SIZE, (i + 1) * BATCH_SIZE)));
+            for (int i = 0; i < POOL_SIZE; i++) {
+                executor.submit(new PersonNamePrinter(persons.subList(i * batchSize, (i + 1) * batchSize)));
             }
-            if (LIST_SIZE % BATCH_SIZE != 0) {
-                executor.submit(new PersonNamePrinter(persons.subList(batchCount * BATCH_SIZE, persons.size())));
+            if (LIST_SIZE % batchSize != 0) {
+                executor.submit(new PersonNamePrinter(persons.subList(POOL_SIZE * batchSize, persons.size())));
             }
             executor.shutdown();
             if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
