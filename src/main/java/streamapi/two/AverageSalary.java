@@ -8,8 +8,8 @@ public class AverageSalary {
 
     public static Map<String, Double> calculatedAverageSalaryByDepartment(List<Employee> employeeList) {
         return employeeList.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment
-                        , Collectors.averagingDouble(Employee::getSalary)));
+                .collect(Collectors.groupingBy(Employee::getDepartment,
+                        Collectors.averagingDouble(Employee::getSalary)));
     }
 
 }

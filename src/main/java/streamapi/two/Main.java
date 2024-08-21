@@ -1,20 +1,25 @@
 package streamapi.two;
 
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
-    public static Set<List<Integer>> findPairNumb(List<Integer> integerList, int targetSum) {
+    public static List<List<Integer>> findPairNumb(List<Integer> integerList, int targetSum) {
+
+        Map<Integer, Integer> numberIndexMap = IntStream.range(0, integerList.size()).boxed()
+                .collect(Collectors.toMap(integerList::get,
+                        s -> s));
+
         return integerList.stream()
-                .flatMap(i -> integerList.stream()
-                        .filter(j -> i < j && i + j == targetSum)
-                        .map(j -> Arrays.asList(i, j)))
-                .collect(Collectors.toSet());
+                .filter(s -> numberIndexMap.containsKey(targetSum - s))
+                .filter(num -> integerList.indexOf(num) < numberIndexMap.get(targetSum - num))
+                .map(j -> List.of(j, targetSum - j))
+                .collect(Collectors.toList());
     }
 
     public static List<String> getSortedListOfCapitals(Map<String, String> capitalsMap) {
@@ -33,12 +38,14 @@ public class Main {
     }
 
     public static List<String> filterAndSortStrings(List<String> stringList, char[] alphabet) {
-        Set<Character> alphabetSet = new String(alphabet).chars()
-                .mapToObj(c -> (char) c)
-                .collect(Collectors.toSet());
+
+        String alphabetSet = new String(alphabet);
+
+        String regex = "^[" + Pattern.quote(alphabetSet) + "]+$";
+        Pattern pattern = Pattern.compile(regex);
 
         return stringList.stream()
-                .filter(str -> str.chars().allMatch(c -> alphabetSet.contains((char) c)))
+                .filter(str -> pattern.matcher(str).matches())
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
