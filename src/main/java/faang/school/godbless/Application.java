@@ -1,4 +1,6 @@
-package faang.school.godbless;
+﻿package faang.school.godbless;
+
+import faang.school.godbless.Notification.Notification;
 
 import java.util.*;
 
