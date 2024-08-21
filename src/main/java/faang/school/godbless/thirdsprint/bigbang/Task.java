@@ -3,7 +3,7 @@ package faang.school.godbless.thirdsprint.bigbang;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class Task implements Runnable{
+public class Task implements Runnable {
     private final String name;
     private final String task;
 
@@ -15,7 +15,6 @@ public class Task implements Runnable{
             System.out.println(name + " завершил выполнение задания: " + task);
         } catch (InterruptedException e) {
             System.out.println(name + " прерван во время выполнения задания: " + task);
-            Thread.currentThread().interrupt();
         }
     }
 }
