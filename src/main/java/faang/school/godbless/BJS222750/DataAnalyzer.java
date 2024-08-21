@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
-
     public List<String> getTopSkills(List<Job> jobs, int limit) {
         Map<String, Long> skillCountMap = jobs.stream()
                 .map(Job::getRequirements)
