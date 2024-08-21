@@ -2,20 +2,37 @@
 
 import faang.school.godbless.Notification.Notification;
 
+import java.util.*;
+
 public class Application {
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        int sumEven = ListUtils.sumEvenNumbers(numbers);
+        System.out.println("Sum of even numbers: " + sumEven);
 
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
-        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
-        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        int max = ListUtils.findMax(numbers);
+        System.out.println("Max number: " + max);
 
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        double average = ListUtils.findAverage(numbers);
+        System.out.println("Average: " + average);
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        List<String> strings = Arrays.asList("apple", "banana", "avocado", "cherry", "apricot");
+        long countA = ListUtils.countStringsStartingWith(strings, 'a');
+        System.out.println("Count of strings starting with 'a': " + countA);
+
+        List<String> filteredStrings = ListUtils.filterStringsContaining(strings, "an");
+        System.out.println("Strings containing 'an': " + filteredStrings);
+
+        List<String> sortedStrings = ListUtils.sortStringsByLength(strings);
+        System.out.println("Strings sorted by length: " + sortedStrings);
+
+        boolean allPositive = ListUtils.allMatch(numbers, n -> n > 0);
+        System.out.println("All numbers are positive: " + allPositive);
+
+        int minGreaterThan3 = ListUtils.findMinGreaterThan(numbers, 3);
+        System.out.println("Min number greater than 3: " + minGreaterThan3);
+
+        List<Integer> lengths = ListUtils.convertStringsToLengths(strings);
+        System.out.println("Lengths of strings: " + lengths);
     }
 }
