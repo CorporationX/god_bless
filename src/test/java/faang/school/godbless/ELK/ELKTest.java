@@ -64,7 +64,7 @@ class ELKTest {
         assertEquals(1, main.getQueriesByUser().get(user2).size());
         assertEquals(1, main.getQueriesByUser().get(user3).size());
         assertEquals(1, main.getQueriesByUser().get(user4).size());
-        assertEquals(0, main.getQueriesByUser().get(user5).size()); // No queries added for user5
+        assertEquals(0, main.getQueriesByUser().get(user5).size());
 
         assertTrue(main.getQueriesByUser().get(user1).contains(query1));
         assertTrue(main.getQueriesByUser().get(user1).contains(query2));
@@ -80,7 +80,7 @@ class ELKTest {
         assertEquals(4, main.getQueriesByUser().size());
 
         main.deleteUser(user5);
-        assertFalse(main.getQueriesByUser().containsKey(user5)); // user5 had no queries
+        assertFalse(main.getQueriesByUser().containsKey(user5));
         assertEquals(3, main.getQueriesByUser().size());
     }
 

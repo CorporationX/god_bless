@@ -2,7 +2,12 @@ package faang.school.godbless.ELK;
 
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 public class Main {
@@ -12,7 +17,7 @@ public class Main {
     private Map<User, List<Query>> queriesByUser;
 
     public void addUser(User user) {
-        queriesByUser.put(user, new ArrayList<Query>());
+        queriesByUser.put(user, new ArrayList<>());
     }
 
     public void addUserQuery(User user, Query query) {
