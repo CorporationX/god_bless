@@ -29,7 +29,18 @@ class StreamPracticeIITest {
 
     @Test
     void sortCapitals() {
-        var given = Map.of("Russia", "Moscow", "Netherlands", "Amsterdam", "Germany", "Berlin", "Spain", "Madrid", "Italy", "Rome", "France", "Paris", "Belarus", "Minsk", "Czechia", "Prague", "Poland", "Warsaw", "Bulgaria", "Sofia");
+        var given = Map.of(
+                "Russia", "Moscow",
+                "Netherlands", "Amsterdam",
+                "Germany", "Berlin",
+                "Spain", "Madrid",
+                "Italy", "Rome",
+                "France", "Paris",
+                "Belarus", "Minsk",
+                "Czechia", "Prague",
+                "Poland", "Warsaw",
+                "Bulgaria", "Sofia"
+        );
         var expectedOutput = """
                 Minsk
                 Sofia
@@ -56,7 +67,8 @@ class StreamPracticeIITest {
 
     @Test
     void filterAndSortStrings() {
-        var given = List.of("Moscow", "Amsterdam", "Berlin", "Madrid", "Rome", "Paris", "Minsk", "Prague", "Warsaw", "Sofia");
+        var given = List.of("Moscow", "Amsterdam", "Berlin", "Madrid", "Rome", "Paris", "Minsk",
+                "Prague", "Warsaw", "Sofia");
         var result = StreamPracticeII.filterAndSortStrings(given, 'M');
 
         assertThat(result.get(0)).isEqualTo("Minsk");
@@ -66,8 +78,24 @@ class StreamPracticeIITest {
 
     @Test
     void findUniqueFriendPairs() {
-        var given = Map.of("Alice", List.of("Bob", "Charlie", "David"), "Bob", List.of("Alice", "Charlie", "Eve"), "Charlie", List.of("Alice", "Bob", "Frank"), "David", List.of("Alice", "Eve"), "Eve", List.of("Bob", "David", "Frank"), "Frank", List.of("Charlie", "Eve"));
-        var expectedList = new ArrayList<>(List.of(List.of("Eve", "Charlie"), List.of("Eve", "Alice"), List.of("David", "Bob"), List.of("Frank", "Alice"), List.of("David", "Charlie"), List.of("Frank", "Bob"), List.of("David", "Frank")));
+        var given = Map.of(
+                "Alice", List.of("Bob", "Charlie", "David"),
+                "Bob", List.of("Alice", "Charlie", "Eve"),
+                "Charlie", List.of("Alice", "Bob", "Frank"),
+                "David", List.of("Alice", "Eve"),
+                "Eve", List.of("Bob", "David", "Frank"),
+                "Frank", List.of("Charlie", "Eve"));
+        var expectedList = new ArrayList<>(
+                List.of(
+                        List.of("Eve", "Charlie"),
+                        List.of("Eve", "Alice"),
+                        List.of("David", "Bob"),
+                        List.of("Frank", "Alice"),
+                        List.of("David", "Charlie"),
+                        List.of("Frank", "Bob"),
+                        List.of("David", "Frank")
+                )
+        );
         var result = StreamPracticeII.findUniqueFriendPairs(given);
 
         assertThat(result).hasSize(7).allMatch(pair -> expectedList.stream().anyMatch(pair::containsAll));
@@ -75,7 +103,18 @@ class StreamPracticeIITest {
 
     @Test
     void findAverageSalaryByDepartment() {
-        var employees = List.of(new Employee("Alice", 75000, "Engineering"), new Employee("Bob", 85000, "Engineering"), new Employee("Charlie", 70000, "Design"), new Employee("David", 95000, "Engineering"), new Employee("Eve", 105000, "Management"), new Employee("Frank", 68000, "Support"), new Employee("Grace", 80000, "Design"), new Employee("Hank", 120000, "Management"), new Employee("Ivy", 66000, "Support"), new Employee("Jack", 94000, "Engineering"));
+        var employees = List.of(
+                new Employee("Alice", 75000, "Engineering"),
+                new Employee("Bob", 85000, "Engineering"),
+                new Employee("Charlie", 70000, "Design"),
+                new Employee("David", 95000, "Engineering"),
+                new Employee("Eve", 105000, "Management"),
+                new Employee("Frank", 68000, "Support"),
+                new Employee("Grace", 80000, "Design"),
+                new Employee("Hank", 120000, "Management"),
+                new Employee("Ivy", 66000, "Support"),
+                new Employee("Jack", 94000, "Engineering")
+        );
         var result = StreamPracticeII.findAverageSalaryByDepartment(employees);
 
         assertThat(result).containsKeys("Engineering", "Design", "Management", "Support");
@@ -98,7 +137,8 @@ class StreamPracticeIITest {
 
     @Test
     void convertToBinary() {
-        var givenIntegers = List.of(23, 87, 12, 34, 56, 45, 78, 90, 11, 67, 88, 43, 19, 54, 72);
+        var givenIntegers = List.of(23, 87, 12, 34, 56, 45, 78, 90, 11, 67, 88, 43, 19,
+                54, 72);
         var expectedList = List.of(
                 "10111", "1010111", "1100", "100010", "111000", "101101", "1001110", "1011010", "1011",
                 "1000011", "1011000", "101011", "10011", "110110", "1001000"
