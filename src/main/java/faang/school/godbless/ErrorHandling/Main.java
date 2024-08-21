@@ -7,8 +7,7 @@ public class Main {
         try {
             return function.apply(param);
         } catch (Exception e) {
-            errorHandling.handle(defaultValue, e);
-            return defaultValue;
+            return errorHandling.handle(defaultValue, e);
         }
     }
 
