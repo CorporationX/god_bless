@@ -3,6 +3,7 @@ package faang.school.godbless.BJS2_24450;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -19,5 +20,12 @@ public class Main {
                 executor.execute(() -> player.startBattle(boss))
         );
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(50, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 }
