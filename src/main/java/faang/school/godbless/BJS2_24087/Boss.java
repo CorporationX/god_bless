@@ -30,7 +30,7 @@ public class Boss {
             log.info("{} is starting fight!", player.name());
             currentPlayers++;
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Thread is interrupted");
         }
     }
 
