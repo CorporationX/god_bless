@@ -33,7 +33,7 @@ public class MailSender {
             LOGGER.info(e.getMessage());
         }
 
-        System.out.println("Все письма успешно отправлены. Всего отправлено писем: "
-                + SenderRunnable.getLoopCounter());
+        System.out.println("Все письма успешно отправлены. Всего отправлено писем: " +
+                SenderRunnable.getLoopCounter());
     }
 }
