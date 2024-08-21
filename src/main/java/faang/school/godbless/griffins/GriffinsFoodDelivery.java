@@ -3,6 +3,7 @@ package faang.school.godbless.griffins;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
     public static void main(String[] args) {
@@ -15,5 +16,12 @@ public class GriffinsFoodDelivery {
         }
 
         executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+        }
     }
 }
