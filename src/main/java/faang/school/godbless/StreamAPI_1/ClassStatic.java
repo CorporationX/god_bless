@@ -43,6 +43,4 @@ public class ClassStatic {
     public static List<Integer> mapStringToListLength(List<String> strings) {
         return strings.stream().map(String::length).toList();
     }
-
-
 }
