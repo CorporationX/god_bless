@@ -11,17 +11,14 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 public class House {
-    private static final int POOL_SIZE = 1;
-    private static final int DELAY_SECONDS = 30;
+    private static final int POOL_SIZE = 5;
+    private static final long PERIOD = 5;
+    private static final long INIT_DELAY = 0;
 
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
 
     public void collectFood() {
-        if (!rooms.isEmpty()) {
-            collectFoodFromOneRoom();
-        }
-        System.out.println("Lol");
     }
 
     public static void main(String[] args) {
@@ -39,13 +36,17 @@ public class House {
         house.rooms.addAll(Arrays.asList(roomOne, roomTwo, roomThree, roomFour, roomFive));
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_SIZE);
-        executor.schedule(house::collectFood, DELAY_SECONDS, TimeUnit.SECONDS);
-        executor.shutdown();
-        System.out.println("End");
+        executor.scheduleAtFixedRate(() -> {
+            if (!house.isAllRoomsEmpty()) {
+                house.collectFood();
+            } else {
+                executor.shutdown();
+            }
+        }, INIT_DELAY, PERIOD, TimeUnit.SECONDS);
     }
 
-    private void collectFoodFromOneRoom() {
-        Room roomOne = rooms.remove(0);
-        collectedFood.addAll(roomOne.collectAllFoodsFromRoom());
+    private boolean isAllRoomsEmpty() {
+        return rooms.stream()
+                .allMatch(Room::isEmpty);
     }
 }

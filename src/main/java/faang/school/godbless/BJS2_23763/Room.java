@@ -4,7 +4,6 @@ package faang.school.godbless.BJS2_23763;
 import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Room {
@@ -18,5 +17,9 @@ public class Room {
         List<Food> collectedFood = List.copyOf(foods);
         foods.removeAll(collectedFood);
         return collectedFood;
+    }
+
+    public boolean isEmpty() {
+        return foods.isEmpty();
     }
 }
