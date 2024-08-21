@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 
 public class DataAnalyzer {
     public List<String> topFiveSkills(List<Job> jobList) {
-        Map<String, Integer> m = jobList.stream()
+        Map<String, Integer> skillsByRatio = jobList.stream()
                 .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
 
-        return m.entrySet().stream()
+        return skillsByRatio.entrySet().stream()
                 .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
                 .map(Map.Entry::getKey).limit(5).toList();
     }
@@ -32,10 +32,10 @@ public class DataAnalyzer {
     }
 
     public List<String> simpleTopFive(List<Job> jobList, Function<Job, String> function) {
-        Map<String, Integer> m = jobList.stream().
+        Map<String, Integer> stringsByRatio = jobList.stream().
                 collect(Collectors.groupingBy(function, Collectors.collectingAndThen(Collectors.counting(), Long::intValue)));
 
-        return m.entrySet()
+        return stringsByRatio.entrySet()
                 .stream()
                 .sorted((entry1, entry2) -> entry2.getValue() - entry1.getValue())
                 .map(Map.Entry::getKey)

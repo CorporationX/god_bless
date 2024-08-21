@@ -1,7 +1,6 @@
 package faang.school.godbless.AnalysisVacantion;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,7 +8,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
-@NoArgsConstructor
 @Setter
 @ToString
 public class Job {
@@ -18,14 +16,6 @@ public class Job {
     private List<String> requirements;
     private int salary;
     private LocalDateTime addDate;
-
-    public Job(String name, String location, List<String> requirements, int salary) {
-        this.name = name;
-        this.location = location;
-        this.requirements = requirements;
-        this.salary = salary;
-        addDate = LocalDateTime.now();
-    }
 
     public String getSalaryRange() {
         int salary = getSalary();

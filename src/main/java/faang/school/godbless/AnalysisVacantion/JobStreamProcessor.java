@@ -9,20 +9,10 @@ import java.util.stream.Stream;
 
 public class JobStreamProcessor {
     public List<Job> process(Stream<String> strings) {
-
         JobScraper jobScraper = new JobScraper();
-        List<Job> results = strings.map(string -> {
-            try {
-                return jobScraper.parseJson(string);
-            }
-            catch (JsonProcessingException e)
-            {
-                e.printStackTrace();
-                return null;
-            }
-        }).peek(System.out::println).toList();
-        return results;
-
+        return strings.map(jobScraper::parseJson)
+                .peek(System.out::println)
+                .toList();
     }
 }
 
