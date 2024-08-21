@@ -5,7 +5,7 @@ public class MailSender {
         Config config = new Config();
         int totalEmails = config.get("totalEmails");
         int threadsCount = config.get("threadsCount");
-        int emailsPerThread = totalEmails / threadsCount;
+        int emailsPerThread = threadsCount > 0 ? totalEmails / threadsCount : 0;
 
         Thread[] threads = new Thread[threadsCount];
 
@@ -14,6 +14,14 @@ public class MailSender {
             int endIndex = (i + 1) * emailsPerThread;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex), "Thread-" + (i + 1));
             threads[i].start();
+        }
+
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
        System.out.println("All emails have been sent successfully.");
