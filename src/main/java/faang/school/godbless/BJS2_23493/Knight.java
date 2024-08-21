@@ -14,13 +14,14 @@ public class Knight {
 
     private final String name;
     private final List<Trial> trials = new ArrayList<>();
+    private final int THREAD_COUNT = 2;
 
     public void addTrial(Trial trial) {
         trials.add(trial);
     }
 
     public void startTrials() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_COUNT);
         for (Trial trial : trials) {
             executorService.submit(trial);
         }
