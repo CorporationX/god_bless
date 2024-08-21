@@ -57,16 +57,17 @@ public class DataAnalyzer {
     public static Map<LocalDate, Long> analyzeTrends(LocalDate startDate, LocalDate endDate, TrendGranularity granularity, List<Job> jobs) {
         Map<LocalDate, Long> trendMap = jobs.stream()
                 .filter(job -> job.getPostingDate().isAfter(startDate) && job.getPostingDate().isBefore(endDate))
-                .collect(Collectors.groupingBy(job -> {
-                    LocalDate currDate = job.getPostingDate();
-                    return switch (granularity) {
-                        case DAY -> currDate;
-                        case WEEK -> currDate.with(DayOfWeek.MONDAY);
-                        case MONTH -> currDate.withDayOfMonth(1);
-                        case YEAR -> currDate.withDayOfYear(1);
-                    };
-                }, Collectors.counting()));
+                .collect(Collectors.groupingBy(job -> getGroupedDate(job.getPostingDate(), granularity), Collectors.counting()));
 
         return trendMap;
+    }
+
+    private static LocalDate getGroupedDate(LocalDate date, TrendGranularity granularity) {
+        return switch (granularity) {
+            case DAY -> date;
+            case WEEK -> date.with(DayOfWeek.MONDAY);
+            case MONTH -> date.withDayOfMonth(1);
+            case YEAR -> date.withDayOfYear(1);
+        };
     }
 }
