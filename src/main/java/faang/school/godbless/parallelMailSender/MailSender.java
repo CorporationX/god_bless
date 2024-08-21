@@ -6,7 +6,6 @@ public class MailSender {
             SenderRunnable sender = new SenderRunnable(i, i + 199);
             Thread thread = new Thread(sender);
             thread.start();
-            thread.join();
         }
 
         System.out.println("All letters have been sent");
