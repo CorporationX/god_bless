@@ -14,17 +14,20 @@ public class MailSender {
             LETTERS_IDS.add(i);
         }
 
-        SenderRunnable senderRunnableFirst = new SenderRunnable(0, 200);
-        SenderRunnable senderRunnableSecond = new SenderRunnable(200, 400);
-        SenderRunnable senderRunnableThird = new SenderRunnable(400, 600);
-        SenderRunnable senderRunnableFourth = new SenderRunnable(600, 800);
-        SenderRunnable senderRunnableFifth = new SenderRunnable(800, 1000);
+        List<SenderRunnable> senderRunnables = new ArrayList<>();
 
-        senderRunnableFirst.start();
-        senderRunnableSecond.start();
-        senderRunnableThird.start();
-        senderRunnableFourth.start();
-        senderRunnableFifth.start();
+        SenderRunnable senderRunnableFirst = new SenderRunnable(0, 200);
+        senderRunnables.add(senderRunnableFirst);
+        SenderRunnable senderRunnableSecond = new SenderRunnable(200, 400);
+        senderRunnables.add(senderRunnableSecond);
+        SenderRunnable senderRunnableThird = new SenderRunnable(400, 600);
+        senderRunnables.add(senderRunnableThird);
+        SenderRunnable senderRunnableFourth = new SenderRunnable(600, 800);
+        senderRunnables.add(senderRunnableFourth);
+        SenderRunnable senderRunnableFifth = new SenderRunnable(800, 1000);
+        senderRunnables.add(senderRunnableFifth);
+
+        senderRunnables.forEach(SenderRunnable::run);
 
         try {
             senderRunnableFirst.join();
