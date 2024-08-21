@@ -1,7 +1,8 @@
 package faang.school.godbless.BJS2_23870;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -20,14 +21,14 @@ public class Main {
                 new Food("Milk"),
                 new Food("Eggs")
         );
-        List<Food> kitchen = new ArrayList<>(List.of(
+        Set<Food> kitchen = new HashSet<>(Set.of(
                 new Food("Apple"),
                 new Food("Bread"),
                 new Food("Milk"),
                 new Food("Cheese"),
                 new Food("Banana")
         ));
-        List<Food> livingRoom = new ArrayList<>(List.of(
+        Set<Food> livingRoom = new HashSet<>(Set.of(
                 new Food("Fish"),
                 new Food("Soda"),
                 new Food("Cookies"),
@@ -56,9 +57,11 @@ public class Main {
         executor.scheduleWithFixedDelay(deleteFood, 10L, 5L, TimeUnit.SECONDS);
 
         try {
-            executor.awaitTermination(10, TimeUnit.MINUTES);
+            if (!executor.awaitTermination(10, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
 
         System.out.println();
