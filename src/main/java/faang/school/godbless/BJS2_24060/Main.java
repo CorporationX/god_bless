@@ -7,17 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
-        Player player1 = new Player("Robert", 3);
-        Player player2 = new Player("John", 4);
-        Player player3 = new Player("Mary", 5);
-        Player player4 = new Player("Sultan", 4);
-        Player player5 = new Player("Michael", 5);
-        Player player6 = new Player("John", 6);
-        Player player7 = new Player("John", 7);
-        Player player8 = new Player("John", 8);
-        Player player9 = new Player("John", 9);
-        Player player10 = new Player("John", 10);
-        List<Player> players = List.of(player1, player2, player3, player4, player5, player6, player7, player8, player9, player10);
+        List<Player> players = getPlayers();
 
         ExecutorService executor = Executors.newCachedThreadPool();
         Game game = new Game(executor);
@@ -50,6 +40,20 @@ public class Main {
             executor.shutdownNow();
         }
 
-        System.out.println(GeneralStatistics.getScore() + " " + GeneralStatistics.getLostLives());
+        System.out.println(GeneralStatistics.getScore());
+    }
+
+    private static List<Player> getPlayers() {
+        Player player1 = new Player("Robert", 3);
+        Player player2 = new Player("John", 4);
+        Player player3 = new Player("Mary", 5);
+        Player player4 = new Player("Sultan", 4);
+        Player player5 = new Player("Michael", 5);
+        Player player6 = new Player("John", 6);
+        Player player7 = new Player("John", 7);
+        Player player8 = new Player("John", 8);
+        Player player9 = new Player("John", 9);
+        Player player10 = new Player("John", 10);
+        return List.of(player1, player2, player3, player4, player5, player6, player7, player8, player9, player10);
     }
 }

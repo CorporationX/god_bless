@@ -17,9 +17,8 @@ public class Player {
         return rand.nextInt(1, 20);
     }
 
-    public int die() {
+    public void die() {
         System.out.println(name + " lost one life");
-        System.out.println("The number of lives remaining: " + lives);
-        return --lives;
+        System.out.println("The number of lives remaining: " + --lives);
     }
 }

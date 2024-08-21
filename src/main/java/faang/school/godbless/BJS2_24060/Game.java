@@ -41,7 +41,6 @@ public class Game {
             System.out.println();
 
             GeneralStatistics.addNewScore(score);
-            GeneralStatistics.addNewLostLives(lostLives);
         }
     }
 }
