@@ -3,6 +3,7 @@ package faang.school.godbless.sprint.three.griffins;
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class GriffinsFoodDelivery {
     public static void main(String... args) {
@@ -20,6 +21,6 @@ public class GriffinsFoodDelivery {
     public static int getRandomFoodAmount() {
         final int maxFoodAmount = 7;
         final int minFoodAmount = 1;
-        return (int) ((Math.random() * (maxFoodAmount - minFoodAmount)) + minFoodAmount);
+        return ThreadLocalRandom.current().nextInt(minFoodAmount, maxFoodAmount + 1);
     }
 }
