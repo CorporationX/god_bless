@@ -2,26 +2,27 @@ package streamapi.one;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
 
-
-    public static int sumNumber(List<Integer> integerList) {
+    public static int getSumNumber(List<Integer> integerList) {
         checkList(integerList);
 
         return integerList.stream()
+                .filter(num -> num % 2 == 0)
                 .reduce(0, Integer::sum);
     }
 
-    public static int maxNumber(List<Integer> integerList) {
+    public static int getMaxNumber(List<Integer> integerList) {
         checkList(integerList);
 
         return integerList.stream()
                 .max(Comparator.naturalOrder()).orElse(0);
     }
 
-    public static int averageNumber(List<Integer> integerList) {
+    public static int getAverageNumber(List<Integer> integerList) {
         checkList(integerList);
 
         return (int) integerList.stream()
@@ -29,36 +30,36 @@ public class Main {
                 .average().orElse(0);
     }
 
-    public static long linesStartWithChar(List<String> stringList, char startChar) {
+    public static long getLinesStartWithChar(List<String> stringList, char startChar) {
         checkList(stringList);
 
         return stringList.stream()
                 .filter(str -> str.startsWith(String.valueOf(startChar))).count();
     }
 
-    public static long stringsWithSubstring(List<String> stringList, String substring) {
+    public static long getStringsWithSubstring(List<String> stringList, String substring) {
         checkList(stringList);
 
         return stringList.stream()
                 .filter(str -> str.contains(substring)).count();
     }
 
-    public static List<String> filterStringByLength(List<String> stringList, int length) {
+    public static List<String> getFilterStringByLength(List<String> stringList, int length) {
         checkList(stringList);
 
         return stringList.stream()
-                .filter(str -> str.length() > length)
+                .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
 
-    public static boolean checkAllNumbersAreEven(List<Integer> integerList) {
-        checkList(integerList);
+    public static <T> boolean isAllElementBeingChecked(List<T> list, Predicate<T> predicate) {
+        checkList(list);
 
-        return integerList.stream()
-                .allMatch(num -> num % 2 == 0);
+        return list.stream()
+                .allMatch(predicate);
     }
 
-    public static int minNumberAfterDefaultNumber(List<Integer> integerList, int defaultNumb) {
+    public static int getMinNumberAfterDefaultNumber(List<Integer> integerList, int defaultNumb) {
         checkList(integerList);
 
         return integerList.stream()
@@ -66,7 +67,7 @@ public class Main {
                 .min(Comparator.naturalOrder()).orElse(defaultNumb);
     }
 
-    public static List<Integer> stringLength(List<String> stringList) {
+    public static List<Integer> getStringLength(List<String> stringList) {
         checkList(stringList);
 
         return stringList.stream()
@@ -79,5 +80,4 @@ public class Main {
             throw new IllegalArgumentException("Список пуст");
         }
     }
-
 }
