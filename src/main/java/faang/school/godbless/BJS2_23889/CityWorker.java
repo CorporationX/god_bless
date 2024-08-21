@@ -6,7 +6,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 @AllArgsConstructor
 public class CityWorker implements Runnable {
@@ -45,6 +44,6 @@ public class CityWorker implements Runnable {
         int monsterY = monster.getLocation().getY();
         int cityX = city.getLocation().getX();
         int cityY = city.getLocation().getY();
-        return sqrt(pow(monsterX - cityX, 2) + pow(monsterY - cityY, 2));
+        return pow(monsterX - cityX, 2) + pow(monsterY - cityY, 2);
     }
 }
