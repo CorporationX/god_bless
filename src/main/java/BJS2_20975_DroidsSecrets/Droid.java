@@ -14,23 +14,20 @@ public class Droid {
     }
 
     public String sendEncryptedMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor droidMessageEncryptor = (msg, key) -> {
-            StringBuilder sb = new StringBuilder();
-            for (char character : message.toCharArray()) {
-                if (Character.isLetter(character)) {
-                    char upOrLow = Character.isUpperCase(character) ? 'A' : 'a';
-                    int originalPosition = character - upOrLow;
-                    int newPosition = (originalPosition + encryptionKey) % 26;
-                    char newCharacter = (char) (upOrLow + newPosition);
-                    System.out.println(newCharacter);
-                    sb.append(newCharacter);
+        DroidMessageEncryptor encryptor = (msg, k) -> {
+            StringBuilder encryptedMessage = new StringBuilder();
+            for (char c : msg.toCharArray()) {
+                if (Character.isLetter(c)) {
+                    char base = Character.isUpperCase(c) ? 'A' : 'a';
+                    char encryptedChar = (char) (base + (c - base + k) % 26);
+                    encryptedMessage.append(encryptedChar);
                 } else {
-                    sb.append(character);
+                    encryptedMessage.append(c);
                 }
             }
-            return sb.toString();
+            return encryptedMessage.toString();
         };
-        return droidMessageEncryptor.encrypt(message, encryptionKey);
+        return encryptor.encrypt(message, encryptionKey);
     }
 
     public String receiveEncryptedMessage(String encryptedMessage, int cypherKey) {
