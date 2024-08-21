@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 public class Main {
     private static final int NUMBER_OF_USERS = 25;
     private static final int THREAD_POOL_LIMIT = NUMBER_OF_USERS;
+    private static final int USER_IN_ROLE_TIME = 3000;
 
     private static final Random random = new Random();
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
@@ -24,14 +25,20 @@ public class Main {
     }
 
     private static void userJoinHouse(User user, List<House> houses) {
-        user.joinHouse(houses.get(random.nextInt(houses.size())));
+        var house = houses.get(random.nextInt(houses.size()));
+        log.info("Пользователь {} наугад выбирает дом {}", user.getName(), house.getName());
+        user.joinHouse(house);
+        waitUserInRole();
+        user.leaveHouse();
+    }
+
+    private static void waitUserInRole() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(USER_IN_ROLE_TIME);
         } catch (InterruptedException exception) {
             log.error("Interrupted exception {}", exception.getMessage());
             Thread.currentThread().interrupt();
         }
-        user.leaveHouse();
     }
 
     private static List<House> getHouses() {
