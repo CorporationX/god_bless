@@ -13,9 +13,11 @@ public class MailSender {
 
         executor.shutdown();
         try {
-            executor.awaitTermination(1, TimeUnit.SECONDS);
+            if (!executor.awaitTermination(1, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
 
         System.out.println("Успешно отправлены все письма!");
