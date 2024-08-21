@@ -1,4 +1,4 @@
-package Metaverse;
+package faang.school.godbless.Metaverse;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
