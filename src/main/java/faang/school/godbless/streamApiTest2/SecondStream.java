@@ -1,6 +1,5 @@
 package faang.school.godbless.streamApiTest2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -15,10 +14,10 @@ public class SecondStream {
     private SecondStream() {
     }
 
-    public static List<ArrayList<Integer>> doThePairsThatSummaryA(List<Integer> list, int a) {
+    public static List<List<Integer>> doThePairsThatSummaryA(List<Integer> list, int a) {
         return list.stream()
                 .flatMap(x -> list.stream().skip(list.indexOf(x) + 1)
-                        .flatMap(y -> Stream.of(new ArrayList<>(Arrays.asList(x, y)))))
+                        .flatMap(y -> Stream.of(Arrays.asList(x, y))))
                 .distinct()
                 .filter(x -> x.get(0) + x.get(1) == a)
                 .toList();
@@ -41,13 +40,13 @@ public class SecondStream {
     public static List<Map.Entry<String, String>> searchFamiliar(Map<String, List<String>> friends) {
         return friends.keySet()
                 .stream()
-                .flatMap(string -> friends.keySet().stream().skip(1L).flatMap(
-                        string1 -> Stream.of(Map.entry(string, string1))))
-                .filter(strings -> friends.get(strings.getKey()).stream()
-                        .anyMatch(string -> friends.get(strings.getValue()).contains(string)
-                                && !strings.getValue().equals(string)
-                                && !strings.getValue().equals(strings.getKey())))
-                .map(p -> new HashSet<>(Set.of(p.getValue(), p.getKey())))
+                .flatMap(people -> friends.keySet().stream().skip(1L).flatMap(
+                        friend -> Stream.of(Map.entry(people, friend))))//делается поток из пар человек - человек
+                .filter(pair -> friends.get(pair.getKey()).stream()
+                        .anyMatch(friend -> friends.get(pair.getValue()).contains(friend)//есть хотя бы один общий друг
+                                && !pair.getValue().equals(friend)//сами они не друзья
+                                && !pair.getValue().equals(pair.getKey())))//это не один человек
+                .map(p -> new HashSet<>(Set.of(p.getValue(), p.getKey())))//неиммутабельный объект, чтобы не было пар вида 1,2 - 2,1
                 .distinct()
                 .map(s -> Map.entry((String) s.toArray()[0], (String) s.toArray()[1]))
                 .toList();
@@ -69,7 +68,7 @@ public class SecondStream {
     }
 
     public static List<String> convertToBinary(List<Integer> integers) {
-       return integers.stream()
+        return integers.stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }

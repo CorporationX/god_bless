@@ -87,8 +87,8 @@ public class SecondStreamTest {
         Map<String, Double> map = SecondStream.averageSalary(employees);
 
         Assertions.assertEquals(Map.of(
-                "1", 150d,
-                "IT", 5500d
+                        "1", 150d,
+                        "IT", 5500d
                 )
                 , map);
     }
