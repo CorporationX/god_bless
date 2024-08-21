@@ -3,22 +3,19 @@ package faang.school.godbless.bjs2_23696;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class SenderRunnable implements Runnable {
     @Getter
     private String name;
     private int startIndex;
     private int endIndex;
-    List<String> emails;
+    private List<String> emails;
 
     public SenderRunnable(int startIndex, int endIndex, List<String> emails, int i) {
         this.name = "Thread #" + i;
         this.startIndex = startIndex;
         this.endIndex = endIndex;
-        this.emails = IntStream.rangeClosed(startIndex, endIndex)
-                .mapToObj(emails::get)
-                .toList();
+        this.emails = emails;
     }
 
     @Override
