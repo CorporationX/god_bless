@@ -8,40 +8,37 @@ import java.util.List;
 import java.util.Map;
 
 public class Army {
-    private final Map<Unit, List<UnitThread>> unitThreadsMap = new HashMap<>();
+    private final Map<String, List<Unit>> units = new HashMap<>();
+    private final Map<String, UnitThread> unitThreads = new HashMap<>();
     @Getter
     private final Map<String, Integer> unitPowers = new HashMap<>();
 
     public void addUnit(Unit unit) {
-        startThread(unit);
+        units.computeIfAbsent(unit.getName(), k -> new ArrayList<>()).add(unit);
     }
 
-    private void startThread(Unit unit) {
-        UnitThread unitThread = new UnitThread(unit);
-        unitThreadsMap.computeIfAbsent(unit, k -> new ArrayList<>()).add(unitThread);
-        unitThread.start();
+    private void startThreads() {
+        units.forEach((key, value) -> {
+            UnitThread unitThread = new UnitThread(value);
+            unitThreads.put(key, unitThread);
+            unitThread.start();
+        });
     }
 
-    public void calculateUnitsPower() throws InterruptedException {
-        for (Unit unit : unitThreadsMap.keySet()) {
-            calculateUnitPower(unit);
-        }
-    }
-
-    public int calculateTotalPower() throws InterruptedException {
-        calculateUnitsPower();
+    public int calculateTotalPower() {
+        startThreads();
+        unitThreads.values()
+                .forEach(unitThread -> {
+            try {
+                unitThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        unitThreads.forEach((key, value) -> unitPowers.put(key, value.getPower()));
         return unitPowers.values()
                 .stream()
                 .mapToInt(value -> value)
                 .sum();
-    }
-
-    public void calculateUnitPower(Unit unit) throws InterruptedException {
-        int totalUnitPower = 0;
-        for (UnitThread unitThread : unitThreadsMap.get(unit)) {
-            unitThread.join();
-            totalUnitPower += unitThread.getPower();
-        }
-        unitPowers.put(unit.getName(), totalUnitPower);
     }
 }

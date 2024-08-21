@@ -1,11 +1,11 @@
 package faang.school.godbless.sprint3.armyHeroes;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @Getter
+@EqualsAndHashCode(exclude = "power")
 public abstract class Unit {
     @Setter
     private String name;
@@ -13,18 +13,5 @@ public abstract class Unit {
 
     public Unit(int power) {
         this.power = power;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Unit unit = (Unit) o;
-        return Objects.equals(name, unit.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(name);
     }
 }
