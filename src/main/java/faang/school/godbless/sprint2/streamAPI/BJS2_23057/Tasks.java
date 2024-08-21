@@ -1,12 +1,8 @@
 package faang.school.godbless.sprint2.streamAPI.BJS2_23057;
 
-import faang.school.godbless.BJS2_18601.Character;
-
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class Tasks {
     protected static int findSumOfEvenFrom(List<Integer> list) {
@@ -43,7 +39,7 @@ public class Tasks {
 
     protected static List<String> getLinesSortedByLength(List<String> list) {
         return list.stream()
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
