@@ -19,7 +19,7 @@ public class MailSender {
             int startIndex = i * MAIL_LIMIT_BY_THREAD + 1;
             int endIndex = startIndex + MAIL_LIMIT_BY_THREAD - 1;
 
-            executorService.submit(new SenderRunnable(startIndex, endIndex));
+            executorService.execute(new SenderRunnable(startIndex, endIndex));
         }
 
         executorService.shutdown();
@@ -29,7 +29,7 @@ public class MailSender {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            executorService.shutdown();
+            executorService.shutdownNow();
             LOGGER.info(e.getMessage());
         }
 
