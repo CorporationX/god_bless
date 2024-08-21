@@ -1,16 +1,20 @@
 package army.of.heroes.of.might.and.magic;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
-@RequiredArgsConstructor
 public class CustomThread extends Thread {
-    private int totalPower;
+    private AtomicInteger totalPower;
     private final Creature creature;
+
+    CustomThread(Creature creature) {
+        this.creature = creature;
+    }
 
     @Override
     public void run() {
-        this.totalPower = this.creature.getPower();
+        this.totalPower = new AtomicInteger(this.creature.getPower());
     }
 }

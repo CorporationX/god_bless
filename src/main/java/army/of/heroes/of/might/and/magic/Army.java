@@ -18,7 +18,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        this.threads.forEach(CustomThread::run);
+        this.threads.forEach(CustomThread::start);
 
         this.threads.forEach(t -> {
             try {
@@ -30,7 +30,7 @@ public class Army {
 
         return this.threads
             .stream()
-            .mapToInt(CustomThread::getTotalPower)
+            .mapToInt((thread) -> thread.getTotalPower().get())
             .sum();
     }
 }
