@@ -8,24 +8,26 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
+
     public List<String> getTopSkills(List<Job> jobs, int limit) {
-        return jobs.stream()
+        Map<String, Long> skillCountMap = jobs.stream()
                 .map(Job::getRequirements)
                 .flatMap(List::stream)
-                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
+
+        return skillCountMap.entrySet().stream()
                 .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-
     public List<String> getTopJobTitles(List<Job> jobs, int limit) {
-        return jobs.stream()
+        Map<String, Long> jobTitleCountMap = jobs.stream()
                 .map(Job::getJobTitle)
-                .collect(Collectors.groupingBy(title -> title, Collectors.counting()))
-                .entrySet().stream()
+                .collect(Collectors.groupingBy(title -> title, Collectors.counting()));
+
+        return jobTitleCountMap.entrySet().stream()
                 .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
@@ -33,25 +35,28 @@ public class DataAnalyzer {
     }
 
     public Map<Integer, Long> analyzeSalaryDistribution(List<Job> jobs, Integer round) {
-        return jobs.stream()
+        Map<Integer, Long> salaryDistributionMap = jobs.stream()
                 .collect(Collectors.groupingBy(
                         job -> (int) (Math.floor(job.getSalary() / round) * round),
                         Collectors.counting()
                 ));
+
+        return salaryDistributionMap;
     }
 
     public List<String> getTopLocations(List<Job> jobs, int limit) {
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()))
-                .entrySet().stream()
+        Map<String, Long> locationCountMap = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
+
+        return locationCountMap.entrySet().stream()
                 .sorted(Comparator.comparingLong(Map.Entry<String, Long>::getValue).reversed())
                 .limit(limit)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static Map<LocalDate, Long> analizeTrends(LocalDate startDate, LocalDate endDate, TrendGranularity granularity, List<Job> jobs) {
-        return jobs.stream()
+    public static Map<LocalDate, Long> analyzeTrends(LocalDate startDate, LocalDate endDate, TrendGranularity granularity, List<Job> jobs) {
+        Map<LocalDate, Long> trendMap = jobs.stream()
                 .filter(job -> job.getPostingDate().isAfter(startDate) && job.getPostingDate().isBefore(endDate))
                 .collect(Collectors.groupingBy(job -> {
                     LocalDate currDate = job.getPostingDate();
@@ -62,6 +67,7 @@ public class DataAnalyzer {
                         case YEAR -> currDate.withDayOfYear(1);
                     };
                 }, Collectors.counting()));
-    }
 
+        return trendMap;
+    }
 }
