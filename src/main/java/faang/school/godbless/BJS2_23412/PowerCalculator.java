@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class UnitThread extends Thread {
+public class PowerCalculator extends Thread {
 
     private final Unit unit;
     @Getter
@@ -12,7 +12,7 @@ public class UnitThread extends Thread {
 
     @Override
     public void run() {
+        System.out.println(Thread.currentThread().getName() + " started");
         power = unit.getPower();
-        System.out.println("Thread started");
     }
 }
