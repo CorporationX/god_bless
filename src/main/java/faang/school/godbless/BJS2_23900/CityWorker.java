@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -36,7 +37,15 @@ public class CityWorker {
     public void start(int countThreads) {
         ExecutorService executor = Executors.newFixedThreadPool(countThreads);
         cityByMonsters.forEach((city, monsters) -> executor.execute(cleanCity(city, monsters)));
+
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 
     private Runnable cleanCity(City city, List<Monster> monsters) {
@@ -50,7 +59,7 @@ public class CityWorker {
 
     private void goCity(City city) {
         System.out.println("Nдем к городу: " + city.getName());
-        waitProcess(city.getDistance());
+        waitProcess(city.getDistance() * 10L);
     }
 
     private void killMonsters(List<Monster> monsters) {
