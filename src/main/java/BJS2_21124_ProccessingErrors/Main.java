@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         ErrorHandler.withErrorHandling(() -> {
             try {
-                return returnSomething("parameter");
+                return validateString("parameter");
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
@@ -14,11 +14,11 @@ public class Main {
         });
     }
 
-    //Mock class for test errorHandler
-    public static String returnSomething(String s) throws Exception {
-        if (s.equals("parameter")) {
-            return s;
+    public static String validateString(String parameter) {
+        if (parameter.equals("parameter")) {
+            System.out.println(parameter);
+            return parameter;
         }
-        throw new Exception("Error!");
+        throw new RuntimeException("Error!");
     }
 }
