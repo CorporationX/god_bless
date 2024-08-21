@@ -37,7 +37,7 @@ public class Main {
         System.out.println(capitals);
 
         List<String> countries = countryCapital.values().stream().toList();
-        char targetChar = 'А';
+        char targetChar = 'A';
 
         List<String> result = countries.stream()
             .filter(c -> c.startsWith(String.valueOf(targetChar)))
