@@ -1,20 +1,29 @@
 package faang.school.godbless.TheBigBangTheory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
     public static void main(String[] args) {
+        List<Task> tasks = new ArrayList<>();
         ExecutorService executorService = Executors.newFixedThreadPool(4);
+
         Task sheldonTask = new Task("Sheldon", "prepare theory");
+        tasks.add(sheldonTask);
+
         Task LeonardTask = new Task("Leonard", "model theory");
+        tasks.add(LeonardTask);
+
         Task HowardTask = new Task("Howard", "instrument development");
+        tasks.add(HowardTask);
+
         Task RadjeshTask = new Task("Radjesh", "data analysis");
-        executorService.submit(sheldonTask);
-        executorService.submit(LeonardTask);
-        executorService.submit(HowardTask);
-        executorService.submit(RadjeshTask);
+        tasks.add(RadjeshTask);
+
+        tasks.forEach(executorService::execute);
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(5, TimeUnit.HOURS)) {
