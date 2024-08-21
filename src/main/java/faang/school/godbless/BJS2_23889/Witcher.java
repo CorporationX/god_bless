@@ -7,11 +7,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;;
 
 public class Witcher {
-    private static final int NUM_THREAD = 1;
+    private static final int NUM_THREAD = 2;
 
     public static void main(String[] args) {
-        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREAD);
-
         List<Monster> monsters = new ArrayList<>();
         monsters.add(new Monster("Griffin", new Location(10, 80), 10));
         monsters.add(new Monster("Cockatrice", new Location(120, 70), 6));
@@ -24,14 +22,13 @@ public class Witcher {
         cities.add(new City("Vizima", new Location(120, 50), 30));
         cities.add(new City("Kaer Morhen", new Location(180, 70), 0));
 
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREAD);
         long startTime = System.currentTimeMillis();
         cities.stream()
                 .map(city -> new CityWorker(city, monsters))
                 .forEach(executor::submit);
-
         executor.shutdown();
         awaitCompletion(executor);
-
         long endTime = System.currentTimeMillis();
         System.out.println("Working time: " + (endTime - startTime) + " ms");
     }
