@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_23755;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -12,28 +13,23 @@ public class House {
     private final static int ROOMS_LIMIT = 2;
     static List<Food> allFood = new ArrayList<>();
     List<Room> rooms = List.of(
-            new Room(List.of(new Food("Apple"), new Food("Milk"))),
-            new Room(List.of(new Food("Bread"), new Food("Cheese"), new Food("Juice"))),
-            new Room(List.of(new Food("Tomato"), new Food("Meat"), new Food("Cola"))),
-            new Room(List.of(new Food("Milk"), new Food("Beer"), new Food("Cola"))),
-            new Room(List.of(new Food("Cheese"), new Food("Apple"), new Food("Juice"))),
-            new Room(List.of(new Food("Burrito"), new Food("Hamburger"), new Food("Coffee"))),
-            new Room(List.of(new Food("Tea"), new Food("Banana"))),
-            new Room(List.of(new Food("Chocolate"), new Food("Cola"))),
-            new Room(List.of(new Food("Watermelon"), new Food("Pancake"))),
-            new Room(List.of(new Food("Chicken"), new Food("Melon"), new Food("Tea")))
+            new Room(new ArrayList<>(Arrays.asList(new Food("Apple"), new Food("Milk")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Bread"), new Food("Cheese"), new Food("Juice")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Tomato"), new Food("Meat"), new Food("Cola")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Milk"), new Food("Beer"), new Food("Cola")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Cheese"), new Food("Apple"), new Food("Juice")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Burrito"), new Food("Hamburger"), new Food("Coffee")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Tea"), new Food("Banana")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Chocolate"), new Food("Cola")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Watermelon"), new Food("Pancake")))),
+            new Room(new ArrayList<>(Arrays.asList(new Food("Chicken"), new Food("Melon"), new Food("Tea"))))
     );
 
     public static void main(String[] args) {
         House house = new House();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < NUMS_THREADS; i++) {
-            executor.schedule(house::collectFood, 1, TimeUnit.NANOSECONDS);
-            try {
-                Thread.sleep(30000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            executor.schedule(house::collectFood, 30 * (i + 1), TimeUnit.SECONDS);
         }
         try {
             executor.shutdown();
@@ -67,6 +63,6 @@ public class House {
         rooms.stream()
                 .filter(room -> !room.getFoodList().isEmpty())
                 .limit(ROOMS_LIMIT)
-                .forEach(room -> room.setFoodList(new ArrayList<>()));
+                .forEach(room -> room.getFoodList().clear());
     }
 }
