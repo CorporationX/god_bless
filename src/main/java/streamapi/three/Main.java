@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class Main {
 
-    public static List<Integer> findMostActiveUsers(List<UserAction> userActions) {
+    public static List<Integer> findMostActiveUsers(List<UserAction> userActions, int top) {
         Map<Integer, Long> userActionsCount = userActions.stream()
                 .collect(Collectors.groupingBy(
                         UserAction::getUserId,
@@ -18,51 +18,51 @@ public class Main {
 
         return userActionsCount.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(top)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
-    public static List<String> findMostPopularHashtags(List<UserAction> userActions) {
-        return userActions.stream()
-                .filter(action -> "post".equals(action.getActionType()) || "comment".equals(action.getActionType()))
-                .flatMap(action -> extractHashtags(action.getContent()).stream())
-                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
+    public static List<String> findMostPopularHashtags(List<UserAction> userActions, int top) {
+
+        Map<String, Long> popularHashtagMap = userActions.stream()
+                .filter(action -> ActionType.POST == action.getActionType() || ActionType.COMMENT == action.getActionType())
+                .flatMap(action -> Arrays.stream(action.getContent().split("\\s+"))
+                        .filter(word -> word.startsWith("#")))
+                .collect(Collectors.groupingBy(Function.identity(),
+                        Collectors.counting()));
+
+        return popularHashtagMap
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(top)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
-    private static List<String> extractHashtags(String content) {
-        if (content == null || content.isEmpty()) {
-            return null;
-        }
-        return Arrays.stream(content.split("\\s+"))
-                .filter(word -> word.startsWith("#"))
-                .collect(Collectors.toList());
-    }
-
-    public static List<Integer> findMostActiveUsersForThreeMonths(List<UserAction> userActions) {
+    public static List<Integer> findMostActiveUsersForThreeMonths(List<UserAction> userActions, int top) {
         LocalDateTime oneMonthsAgo = LocalDateTime.now().minusMonths(1);
 
-        return userActions.stream()
-                .filter(action -> "comment".equals(action.getActionType()))
+        Map<Integer, Long> userActionsMap = userActions.stream()
+                .filter(action -> action.getActionType() == ActionType.COMMENT)
                 .filter(action -> oneMonthsAgo.isAfter(action.getActionDate()))
                 .collect(Collectors.groupingBy(UserAction::getUserId,
-                        Collectors.counting()))
+                        Collectors.counting()));
+
+        return userActionsMap
                 .entrySet().stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(top)
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
-    public static Map<String, Double> getPercentageOfActionTypes(List<UserAction> userActions) {
-        return userActions.stream()
+    public static Map<ActionType, Double> getPercentageOfActionTypes(List<UserAction> userActions) {
+        Map<ActionType, Long> actionTypeLongMap = userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType,
-                        Collectors.counting()))
+                        Collectors.counting()));
+
+        return actionTypeLongMap
                 .entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
