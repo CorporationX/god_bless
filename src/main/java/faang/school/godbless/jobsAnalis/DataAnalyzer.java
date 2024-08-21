@@ -10,11 +10,13 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class DataAnalyzer {
     public static List<String> top5DemandSkills(List<Job> jobs) {
-        return jobs.stream()
+        var map =  jobs.stream()
                 .flatMap(job -> job.getSkills().stream())
                 .collect(Collectors.groupingBy(
                         skill -> skill,
-                        Collectors.counting())).entrySet().stream()
+                        Collectors.counting()));
+
+        return map.entrySet().stream()
                 .sorted(Comparator.comparingLong(value -> -value.getValue()))
                 .limit(5)
                 .map(Map.Entry::getKey)
@@ -22,17 +24,19 @@ public class DataAnalyzer {
     }
 
     public static List<String> top5Titles(List<Job> jobs) {
-        return jobs.stream()
+        var map =  jobs.stream()
                 .collect(Collectors.groupingBy(
                         Job::getTitle,
-                        Collectors.counting())).entrySet().stream()
+                        Collectors.counting()));
+
+        return map.entrySet().stream()
                 .sorted(Comparator.comparingLong(value -> -value.getValue()))
                 .limit(5)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    //беру промежутки, как в примере
+    //РєР°Рє РІ РїСЂРёРјРµСЂРµ
     //0-50k, 50k-100k, 100k-150k
     public static Map<String, Long> salaryRanges(List<Job> jobs) {
         return jobs.stream()
@@ -55,10 +59,11 @@ public class DataAnalyzer {
     }
 
     public static List<String> top5Locations(List<Job> jobs) {
-        return jobs.stream()
+        var map =  jobs.stream()
                 .collect(Collectors.groupingBy(
                         Job::getLocation,
-                        Collectors.counting())).entrySet().stream()
+                        Collectors.counting()));
+        return map.entrySet().stream()
                 .sorted(Comparator.comparingLong(value -> -value.getValue()))
                 .limit(5)
                 .map(Map.Entry::getKey)

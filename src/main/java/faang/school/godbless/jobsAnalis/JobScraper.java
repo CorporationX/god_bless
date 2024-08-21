@@ -5,14 +5,18 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JobScraper {
+    private static ObjectMapper objectMapper;
     public static Job parceJob(String json) {
-        ObjectMapper objectMapper = new ObjectMapper();
+        if (objectMapper == null) {
+            objectMapper = new ObjectMapper();
+        }
+
         Job job;
 
         try {
             job = objectMapper.readValue(json, Job.class);
 
-            System.out.println("Вакансия " + job.getTitle() + " получена из JSON");
+            System.out.println("РѕР±СЉРµРєС‚ " + job.getTitle() + " РїРµСЂРµРІРµРґРµРЅ РёР· JSON");
         } catch (JsonMappingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
