@@ -28,7 +28,12 @@ public class CityWorker implements Runnable {
     }
 
     private int getKillTime(Monster monster) {
-        return simulateKill(monster);
+        try {
+            Thread.sleep(monster.getLvl() * 100L);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Thread Error");
+        }
+        return monster.getLvl();
     }
 
     private int getJourneyDistance() {
@@ -41,14 +46,5 @@ public class CityWorker implements Runnable {
         int cityX = city.getLocation().getX();
         int cityY = city.getLocation().getY();
         return sqrt(pow(monsterX - cityX, 2) + pow(monsterY - cityY, 2));
-    }
-
-    private int simulateKill(Monster monster) {
-        try {
-            Thread.sleep(monster.getLvl() * 100L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread Error");
-        }
-        return monster.getLvl();
     }
 }
