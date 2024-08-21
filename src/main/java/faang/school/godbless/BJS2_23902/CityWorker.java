@@ -2,10 +2,9 @@ package faang.school.godbless.BJS2_23902;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class CityWorker implements Runnable {
@@ -35,16 +34,9 @@ public class CityWorker implements Runnable {
     }
 
     public Monster findNearestMonster() {
-        Map<Monster, Double> monstersDistanceToCity = monsters.stream()
-                .collect(Collectors.toMap(
-                        monster -> monster,
-                        monster -> Location.getLocationCoordinates(monster.getLocation())
-                                .calculateDistance(city.getLocation())
-                ));
-
-        return monstersDistanceToCity.entrySet().stream()
-                .min(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
+        Location cityLocation = city.getLocation();
+        return monsters.stream()
+                .min(Comparator.comparingDouble(m -> cityLocation.calculateDistance(Location.getLocationCoordinates(m.getLocation()))))
                 .orElseThrow();
     }
 
