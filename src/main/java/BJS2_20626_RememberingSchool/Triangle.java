@@ -17,14 +17,18 @@ public class Triangle {
         Function<Double, Function<Double, Double>> sub = (x) -> y -> x - y;
         Function<Double, Function<Double, Double>> div = (x) -> y -> x / y;
         Function<Double, Double> sqrt = Math::sqrt;
-        // S = sqrt -> (p * (p - a) * (p - b) * (p - c))
-        // p = (a + b + c) / 2
         double halfPerimeter = div.apply(sum.apply(sum.apply(a).apply(b)).apply(c)).apply(2.0);
 
         double subA = sub.apply(halfPerimeter).apply(a);
         double subB = sub.apply(halfPerimeter).apply(b);
         double subC = sub.apply(halfPerimeter).apply(c);
 
-        return sqrt.apply(mul.apply(mul.apply(mul.apply(halfPerimeter).apply(subA)).apply(subB)).apply(subC));
+        double underSqrt = mul.apply(mul.apply(mul
+                .apply(halfPerimeter)
+                .apply(subA))
+                .apply(subB))
+                .apply(subC);
+
+        return sqrt.apply(underSqrt);
     }
 }
