@@ -22,7 +22,7 @@ public class House {
                 executor.schedule(() -> house.collectFood(batch), DELAY * i, TimeUnit.SECONDS);
             }
             if (house.rooms.size() / 2 != 0) {
-                executor.schedule(() -> house.collectFood(List.of(house.rooms.get(batchCount * 2))),
+                executor.schedule(() -> house.collectFood(List.of(house.rooms.get(house.rooms.size() - 1))),
                         DELAY * batchCount, TimeUnit.SECONDS);
             }
             executor.shutdown();

@@ -22,6 +22,8 @@ public class Room {
 
     public List<Food> collectFoodFromRoom() {
         System.out.printf("All food from %s collected!%n", roomName);
-        return foods;
+        var collectedFood = new ArrayList<>(foods);
+        foods.clear();
+        return collectedFood;
     }
 }
