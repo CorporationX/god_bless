@@ -19,32 +19,52 @@ public class Boss {
     public void joinBattle(@NonNull Player player) {
         synchronized (lock) {
             if (currentPlayers.size() < maxPlayers) {
-                synchronized (lock) {
-                    currentPlayers.put(player.getId(), player);
-                    System.out.printf("%s join the battle!%n", player.getName());
-                    System.out.println("Players : " + currentPlayers.size());
-                }
+                addPlayer(player);
             } else {
-                synchronized (lock) {
-                    try {
-                        System.out.println("No available slot in battle, please wait...");
-                        lock.wait();
-                    } catch (InterruptedException e) {
-                        System.out.println("Server error: " + e.getMessage());
-                    }
-                }
+                waitForBattleSlot(player);
             }
         }
+        processPlayerBattle(player);
+    }
+
+    private void addPlayer(@NonNull Player player) {
+        currentPlayers.put(player.getId(), player);
+        System.out.printf("%s join the battle!%n", player.getName());
+        printCountOfCurrentPlayers();
+    }
+
+    private void removePlayer(@NonNull Player player) {
+        currentPlayers.remove(player.getId());
+        System.out.printf("%s leave the battle%n", player.getName());
+        printCountOfCurrentPlayers();
+    }
+
+    private void waitForBattleSlot(@NonNull Player player) {
+        synchronized (lock) {
+            try {
+                System.out.println("No available slot in battle, please wait...");
+                lock.wait();
+                addPlayer(player);
+            } catch (InterruptedException e) {
+                System.out.println("Server error: " + e.getMessage());
+            }
+        }
+    }
+
+    private void processPlayerBattle(@NonNull Player player) {
         try {
             Thread.sleep(1000L * (RANDOM.nextInt(4) + 1));
             synchronized (lock) {
-                currentPlayers.remove(player.getId());
-                lock.notifyAll();
-                System.out.printf("%s leave the battle%n", player.getName());
+                removePlayer(player);
+                lock.notify();
             }
         } catch (InterruptedException e) {
             System.out.println("Connection lost");
             throw new RuntimeException(e);
         }
+    }
+
+    private void printCountOfCurrentPlayers() {
+        System.out.println("Players : " + currentPlayers.size());
     }
 }
