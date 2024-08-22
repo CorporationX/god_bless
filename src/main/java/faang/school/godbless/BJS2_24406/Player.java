@@ -1,10 +1,6 @@
 package faang.school.godbless.BJS2_24406;
 
-import lombok.Getter;
-import lombok.Setter;
 
-@Getter
-@Setter
 public class Player {
     private final Object lock = new Object();
     private boolean isPlaying;
