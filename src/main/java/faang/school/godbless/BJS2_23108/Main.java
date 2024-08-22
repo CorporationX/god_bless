@@ -12,11 +12,11 @@ public class Main {
         System.out.println("Sum of even numbers: " + StreamApiFirst.sum(numbers));
         System.out.println("Max element: " + StreamApiFirst.findMax(numbers));
         System.out.println("Average: " + StreamApiFirst.findAverage(numbers));
-        System.out.println("Count of strings starting with 'a': " + StreamApiFirst.findString(strings, "a"));
-        System.out.println("Filtered strings: " + StreamApiFirst.filterString(strings, "ap"));
-        System.out.println("Sorted strings by length: " + StreamApiFirst.filterStringByLength(strings));
+        System.out.println("Count of strings starting with 'a': " + StreamApiFirst.findStringThatStartWith(strings, "a"));
+        System.out.println("Filtered strings: " + StreamApiFirst.filterStringThatContain(strings, "ap"));
+        System.out.println("Sorted strings by length: " + StreamApiFirst.sortStringByLength(strings));
         System.out.println("All strings are having s: " + StreamApiFirst.checkingString(strings, "s"));
-        System.out.println("Min greater than 2: " + StreamApiFirst.findElement(numbers, 2));
-        System.out.println("Length of strings: " + StreamApiFirst.transformStringByLength(strings));
+        System.out.println("Min greater than 2: " + StreamApiFirst.findMinElementThatBiggerThan(numbers, 2));
+        System.out.println("Length of strings: " + StreamApiFirst.transformStringToLength(strings));
     }
 }
