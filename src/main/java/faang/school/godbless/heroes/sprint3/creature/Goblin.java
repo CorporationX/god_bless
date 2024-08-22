@@ -7,11 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public abstract class Creature {
-    protected int power;
-    protected String name;
+public class Goblin extends Creature {
+    private String name = "goblin";
 
-    public Creature(int power) {
-        this.power = power;
+    public Goblin(int power) {
+        super(power);
     }
 }

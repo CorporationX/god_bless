@@ -1,13 +1,16 @@
 package faang.school.godbless.heroes.sprint3.creature;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
+@Setter
 public class Archer extends Creature {
-    private final String name = "archer";
-    private final int power = 10;
+    private String name = "archer";
 
-    public Archer(int quantity) {
-        super(quantity);
+    public Archer(int power) {
+        super(power);
     }
 }

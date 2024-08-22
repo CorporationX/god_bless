@@ -1,13 +1,16 @@
 package faang.school.godbless.heroes.sprint3.creature;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@NoArgsConstructor
 @Getter
+@Setter
 public class Swordsman extends Creature {
-    private final String name = "swordsman";
-    private final int power = 30;
+    private String name = "swordsman";
 
-    public Swordsman(int quantity) {
-        super(quantity);
+    public Swordsman(int power) {
+        super(power);
     }
 }
