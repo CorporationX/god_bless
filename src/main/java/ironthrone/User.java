@@ -3,9 +3,11 @@ package ironthrone;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class User {
@@ -16,18 +18,18 @@ public class User {
 
     public void joinHouse(@NonNull House house) {
         this.house = house;
-        synchronized (house) {
+        synchronized (house.getLock()) {
             if (house.isAnyRoleAvailable()) {
                 setRole(house);
             } else {
                 try {
-                    System.out.printf("Waiting for available role in house of %s...%n", house.getName());
+                    log.info(String.format("Waiting for available role in house of %s...", house.getName()));
                     while (!house.isAnyRoleAvailable()) {
-                        house.wait();
+                        house.getLock().wait();
                     }
                     setRole(house);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -37,13 +39,13 @@ public class User {
         var roles = house.getAvailableRoles();
         role = roles.get(ThreadLocalRandom.current().nextInt(roles.size()));
         house.addRole(role);
-        System.out.printf("%s joined house of %s as %s%n", name, house.getName(), role);
+        log.info(String.format("%s joined house of %s as %s", name, house.getName(), role));
     }
 
     public void leaveHouse() {
-        synchronized (house) {
+        synchronized (house.getLock()) {
             house.removeRole(role);
-            System.out.printf("%s leave house of %s%n", name, house.getName());
+            log.info(String.format("%s leave house of %s", name, house.getName()));
         }
         role = null;
         house = null;

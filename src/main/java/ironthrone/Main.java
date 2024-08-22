@@ -1,6 +1,7 @@
 package ironthrone;
 
 import lombok.NonNull;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+@Slf4j
 public class Main {
     private static final int BATCH_SIZE = 50;
     private static final int BATCH_COUNT = 30;
@@ -27,17 +29,22 @@ public class Main {
                         Thread.sleep(300);
                         user.leaveHouse();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        log.info("Thread interrupted");
+                        Thread.currentThread().interrupt();
                     }
                 }));
             }
             executor.shutdown();
-            executor.awaitTermination(5, TimeUnit.MINUTES);
+            if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                log.info("Finish");
+            } else {
+                log.info("Time out");
+            }
         }
         houses.forEach(house -> {
-            System.out.println(house.getName());
+            log.info(house.getName());
             house.printRolesSlot();
-            System.out.println();
+            log.info("");
         });
     }
 
@@ -55,7 +62,7 @@ public class Main {
 
     private static House getHouse(@NonNull String name, @NonNull List<Integer> rolesCount) {
         var roles = HouseRole.values();
-        return new House(name,
+        return new House(new Object(), name,
                 IntStream.range(0, roles.length).boxed()
                         .collect(Collectors.toMap(
                                 i -> roles[i],
