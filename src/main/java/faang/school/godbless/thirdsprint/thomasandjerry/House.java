@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class House {
+    private static final int NUM_THREADS = 5;
+    private static final int THREAD_DELAY_TIME = 30;
+    private static final int TIMEOUT = 3;
+
     private final List<Room> rooms = new ArrayList<>();
 
     public void addRoom(Room room) {
@@ -38,7 +42,31 @@ public class House {
 
     public static void main(String[] args) {
         House house = new House();
+        getRoomsAndFood().forEach(house::addRoom);
 
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUM_THREADS);
+        AtomicBoolean isShutdownInitiated = new AtomicBoolean(false);
+
+        for (int i = 0; i < NUM_THREADS; i++) {
+            executor.schedule(() -> {
+                house.collectFoodFromTwoRooms();
+                if (house.isFoodCollected() && isShutdownInitiated.compareAndSet(false, true)) {
+                    executor.shutdown();
+                    System.out.println("Еда в доме собрана!");
+                }
+            }, i * THREAD_DELAY_TIME, TimeUnit.SECONDS);
+        }
+
+        try {
+            if (!executor.awaitTermination(TIMEOUT, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
+    }
+
+    public static List<Room> getRoomsAndFood() {
         Room kitchen = new Room("Кухня");
         kitchen.addFood(new Food("Яблоко"));
         kitchen.addFood(new Food("Хлеб"));
@@ -57,31 +85,6 @@ public class House {
         Room attic = new Room("Чердак");
         attic.addFood(new Food("Орешки"));
 
-        house.addRoom(kitchen);
-        house.addRoom(livingRoom);
-        house.addRoom(bedroom);
-        house.addRoom(bathroom);
-        house.addRoom(attic);
-
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
-        AtomicBoolean isShutdownInitiated = new AtomicBoolean(false);
-
-        for (int i = 0; i < 5; i++) {
-            executor.schedule(() -> {
-                house.collectFoodFromTwoRooms();
-                if (house.isFoodCollected() && isShutdownInitiated.compareAndSet(false, true)) {
-                    executor.shutdown();
-                    System.out.println("Еда в доме собрана!");
-                }
-            }, i * 30, TimeUnit.SECONDS);
-        }
-
-        try {
-            if (!executor.awaitTermination(3, TimeUnit.MINUTES)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            executor.shutdownNow();
-        }
+        return List.of(kitchen, livingRoom, bedroom, bathroom, attic);
     }
 }
