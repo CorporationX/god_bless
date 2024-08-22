@@ -36,13 +36,13 @@ public class Main {
                 new UserAction(0, "John", LocalDateTime.now(), "Some content8", ActionType.SHARE),
                 new UserAction(5, "John", LocalDateTime.now(), "Some content8", ActionType.LIKE)
         );
-        for (String s : findTop10ActivityUsers(userActions)) {
+        for (String s : findTop10ActivityUsers(userActions,10)) {
             System.out.println(s);
         }
         System.out.println("Find top topics");
-        System.out.println(findTopTopics(userActions));
+        System.out.println(findTopTopics(userActions,5));
         System.out.println("Top users by comments: ");
-        System.out.println(findTop3UsersByComments(userActions));
+        System.out.println(findTop3UsersByComments(userActions,3));
         System.out.println("Percents:");
         System.out.println(typesByPercents(userActions));
     }
@@ -60,13 +60,14 @@ public class Main {
         return (double) Math.round(((double) count * 100 / allActionsCount) * 100.0) / 100;
     }
 
-    public static List<String> findTop3UsersByComments(List<UserAction> userActions) {
+    public static List<String> findTop3UsersByComments(List<UserAction> userActions, int topSize) {
         Map<Long, Long> userIdCommentsCount = userActions.stream()
+                .filter(userAction -> userAction.getActionType() == ActionType.COMMENT)
                 .filter(userAction -> userAction.getActionDate().isAfter(LocalDateTime.now().minusMonths(1)))
                 .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
 
         Stream<Map.Entry<Long, Long>> sortedStream = userIdCommentsCount.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(10);
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(topSize);
 
         return sortedStream
                 .flatMap(entry -> userActions.stream()
@@ -78,12 +79,12 @@ public class Main {
                 .toList();
     }
 
-    public static List<String> findTop10ActivityUsers(List<UserAction> userActions) {
+    public static List<String> findTop10ActivityUsers(List<UserAction> userActions, int topSize) {
         Map<Long, Long> userIdCountMap = userActions.stream()
                 .collect(Collectors.groupingBy(UserAction::getUserId, Collectors.counting()));
 
         Stream<Map.Entry<Long, Long>> sortedStream = userIdCountMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(10);
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(topSize);
 
         return sortedStream
                 .flatMap(entry -> userActions.stream()
@@ -94,7 +95,7 @@ public class Main {
                 .toList();
     }
 
-    public static Map<String, Long> findTopTopics(List<UserAction> userActions) {
+    public static Map<String, Long> findTopTopics(List<UserAction> userActions, int topSize) {
         Map<String, Long> resMap = userActions.stream()
                 .map(UserAction::getContent)
                 .filter(str -> str.contains("#"))
@@ -109,7 +110,7 @@ public class Main {
                 .collect(Collectors.groupingBy(hashStr -> hashStr, Collectors.counting()));
 
         Stream<Map.Entry<String, Long>> sortedStream = resMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(3);
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(topSize);
         return sortedStream.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
