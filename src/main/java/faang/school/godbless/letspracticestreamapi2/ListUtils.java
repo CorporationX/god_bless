@@ -1,8 +1,8 @@
 package faang.school.godbless.letspracticestreamapi2;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,20 +11,12 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class ListUtils {
-    public static List<List<Integer>> findPairsWithSum(List<Integer> numbers, int targetSum) {
-        Set<Integer> seen = new HashSet<>();
+    public static Set<List<Integer>> findPairsWithSum(List<Integer> numbers, int targetSum) {
         return numbers.stream()
-                .flatMap(num -> {
-                    int complement = targetSum - num;
-                    if (seen.contains(complement)) {
-                        seen.remove(complement);
-                        return Stream.of(Arrays.asList(complement, num));
-                    } else {
-                        seen.add(num);
-                        return Stream.empty();
-                    }
-                })
-                .toList();
+                .filter(i -> numbers.contains(targetSum - i) && (targetSum - i != i))
+                .map(i -> Arrays.asList(i, targetSum - i))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countryCapitalMap) {
@@ -42,14 +34,14 @@ public class ListUtils {
     }
 
     public static Set<List<String>> findNonFriendsWithCommonFriends(Map<String, List<String>> friendsMap) {
-
         return friendsMap.keySet().stream()
                 .flatMap(person1 -> friendsMap.keySet().stream()
-                        .filter(person2 -> !person1.equals(person2) && friendsMap.get(person1).contains(person2))
-                        .filter(person2 -> friendsMap.get(person1).stream().anyMatch(friendsMap.get(person2)::contains))
-                        .map(person2 -> Arrays.asList(person1, person2))
+                        .filter(person2 -> !person1.equals(person2))
+                        .filter(person2 -> !friendsMap.get(person1).contains(person2))
+                        .filter(person2 -> friendsMap.get(person1).stream()
+                                .anyMatch(friend -> friendsMap.get(person2).contains(friend)))
+                        .map(person2 -> Stream.of(person1, person2).sorted().toList())
                 )
-                .map(pair -> pair.stream().sorted().collect(Collectors.toList()))
                 .collect(Collectors.toSet());
     }
 

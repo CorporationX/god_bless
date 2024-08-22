@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Main {
     public static void main(String[] args) {
         List<Integer> numbers = Arrays.asList(1, 9, 3, 6, 4, 5);
-        List<List<Integer>> pairs = ListUtils.findPairsWithSum(numbers, 10);
+        Set<List<Integer>> pairs = ListUtils.findPairsWithSum(numbers, 10);
         System.out.println("Pairs with sum 10: " + pairs);
 
         Map<String, String> countryCapitalMap = new HashMap<>();
