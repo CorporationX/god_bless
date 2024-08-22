@@ -1,7 +1,9 @@
 package faang.school.godbless.modul3.tournament;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+@ToString
 @AllArgsConstructor
 public class Trial implements Runnable {
     private String knightName;
@@ -9,12 +11,12 @@ public class Trial implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(knightName + " do " + trialName);
+        System.out.println(knightName + " do " + trialName + " with " + Thread.currentThread());
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(knightName + " finished " + trialName);
+        System.out.println(knightName + " finished " + trialName + " with " + Thread.currentThread());
     }
 }
