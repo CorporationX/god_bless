@@ -1,14 +1,13 @@
 package faang.school.godbless.big.bang.theory;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Task implements Runnable {
-    Logger logger = LoggerFactory.getLogger(Task.class);
+    public static final int TIME_FOR_THINKING = 2;
+    public static final int TIME_FOR_WORKING = 3;
 
     private final String name;
     private final String task;
@@ -23,12 +22,12 @@ public class Task implements Runnable {
         System.out.printf("%s has started his task \"%s\"\n", name, task);
         System.out.printf("%s is thinking\n", name);
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(TIME_FOR_THINKING);
             System.out.printf("%s is doing his task \"%s\"\n", name, task);
-            TimeUnit.SECONDS.sleep(3);
+            TimeUnit.SECONDS.sleep(TIME_FOR_WORKING);
             System.out.printf("%s did his task \"%s\"\n", name, task);
         } catch (InterruptedException exception) {
-            logger.error(String.format("Thread was interrupted while %s did his task \"%s\"", name, task), exception);
+            log.error(String.format("Thread was interrupted while %s did his task \"%s\"", name, task), exception);
             Thread.currentThread().interrupt();
         }
     }
