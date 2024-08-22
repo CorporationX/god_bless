@@ -5,13 +5,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Exercises {
-    public static void getSumOfNumbersThatEqualsToSpecific(List<Integer> numbers, int num) {
-        numbers.stream()
+    public static List<String> getSumOfNumbersThatEqualsToSpecific(List<Integer> numbers, int num) {
+        return numbers.stream()
                 .flatMap(number -> numbers.stream().filter(innerNumb -> number + innerNumb == num && number < innerNumb))
-                .forEach(x -> System.out.println(x + " " + (num - x)));
+                .map(number -> number + " " + (num - number))
+                .toList();
     }
 
-    public static List getSortedCapitals(Map<String, String> capitals) {
+    public static List<String> getSortedCapitals(Map<String, String> capitals) {
         return capitals
                 .entrySet()
                 .stream()
@@ -20,11 +21,11 @@ public class Exercises {
     }
 
     public static List getSortedStringStartedWithSpecificSymbol(List<String> strings, char symbol) {
-        return Optional.of(strings
+        return strings
                 .stream()
                 .filter(str -> str.charAt(0) == symbol)
                 .sorted(Comparator.comparingInt(String::length))
-                .toList()).orElseThrow(IllegalArgumentException::new);
+                .toList();
 
     }
 
@@ -32,15 +33,22 @@ public class Exercises {
         return friendsByPerson
                 .entrySet()
                 .stream()
-                .flatMap(pair -> friendsByPerson.entrySet().stream()
+                .flatMap(pair -> friendsByPerson
+                        .entrySet()
+                        .stream()
                         .filter(pair2 -> !pair2.getKey().equals(pair.getKey()))
                         .filter(pair2 -> !pair2.getValue().contains(pair.getKey()))
-                        .filter(pair2 -> pair2.getValue().stream().anyMatch(par2 -> pair.getValue().contains(par2))))
+                        .filter(pair2 -> pair2.getValue().stream().anyMatch(par2 -> pair.getValue().contains(par2)))
+                        .map(resultPairs -> createOrderedPerson(pair.getKey(), resultPairs.getKey())))
                 .distinct()
                 .toList();
     }
 
-    public static Map findAvgSalaryByDepartment(List<Employee> employees) {
+    private static String createOrderedPerson(String person1, String person2) {
+        return person1.compareTo(person2) < 0 ? person1 + " " + person2 : person2 + " " + person1;
+    }
+
+    public static Map<String, Double> findAvgSalaryByDepartment(List<Employee> employees) {
         return employees
                 .stream()
                 .collect(Collectors

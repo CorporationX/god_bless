@@ -27,14 +27,8 @@ public class Main {
                 "Gosha", List.of("Lupa","Gennadiy", "Piotr"),
                 "Alex", List.of("Denis", "Asad", "asdas")
         );
-        Map<String, Set<String>> people2 = Map.of(
-                "Robert", Set.of("Denis", "Sultan", "Evgenii"),
-                "Max", Set.of("Kent", "Klark", "Denis"),
-                "Sasha", Set.of("Pupa", "Lupa", "Chmonya"),
-                "Gosha", Set.of("Lupa","Gennadiy", "Piotr")//,
-                //"Alex", Set.of("Denis", "Asad", "asdas")
-        );
-        Exercises.getSumOfNumbersThatEqualsToSpecific(numbers, 9);
+
+        System.out.println(Exercises.getSumOfNumbersThatEqualsToSpecific(numbers, 9));
         System.out.println(Exercises.getSortedCapitals(capitals));
         System.out.println(Exercises.getSortedStringStartedWithSpecificSymbol(Arrays.asList("park", "paska", "damn", "pap", "p"), 'p'));
         System.out.println(Exercises.findAvgSalaryByDepartment(employees));
@@ -43,6 +37,5 @@ public class Main {
         System.out.println(Exercises.findPalindromes(1, 50));
         System.out.println(Exercises.findPalindromesFromString("totat"));
         System.out.println(Exercises.getPeopleWhoDontKnowEachOther(people));
-        System.out.println(Exercises.avc(people2));
     }
 }
