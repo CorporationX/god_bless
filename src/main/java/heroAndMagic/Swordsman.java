@@ -11,6 +11,5 @@ public class Swordsman extends Character implements Runnable {
     @Override
     public void run() {
         total = quantity * POWER;
-        System.out.println(total);
     }
 }
