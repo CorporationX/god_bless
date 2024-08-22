@@ -7,7 +7,6 @@ public class Music {
         Thread pauseThread = new Thread(player::pause);
         Thread skipThread = new Thread(player::skip);
         Thread previousTrack = new Thread(player::previous);
-
         playThread.start();
         skipThread.start();
         previousTrack.start();
