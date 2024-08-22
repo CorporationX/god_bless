@@ -3,6 +3,7 @@ package BJS2_23892_PathByFinger;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private static final int NUMBER_OF_THREADS = 4;
@@ -17,6 +18,13 @@ public class Witcher {
             executor.submit(new CityWorker(city, monsters));
         }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
     }
 
     public static List<Monster> getMonsters() {
