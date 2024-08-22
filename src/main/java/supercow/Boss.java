@@ -25,13 +25,14 @@ public class Boss {
                 addPlayer(player);
             } else {
                 try {
-                    System.out.println("No available slot in battle, please wait...");
+                    log.info("No available slot in battle, please wait...");
                     while (maxPlayers <= currentPlayers.size()) {
                         lock.wait();
                     }
                     addPlayer(player);
                 } catch (InterruptedException e) {
-                    System.out.println("Server error: " + e.getMessage());
+                    log.info("Server error: " + e.getMessage());
+                    Thread.currentThread().interrupt();
                 }
             }
         }
@@ -40,13 +41,13 @@ public class Boss {
 
     private void addPlayer(@NonNull Player player) {
         currentPlayers.put(player.getId(), player);
-        System.out.printf("%s join the battle!%n", player.getName());
+        log.info(String.format("%s join the battle!%n", player.getName()));
         printCountOfCurrentPlayers();
     }
 
     private void removePlayer(@NonNull Player player) {
         currentPlayers.remove(player.getId());
-        System.out.printf("%s leave the battle%n", player.getName());
+        log.info(String.format("%s leave the battle%n", player.getName()));
         printCountOfCurrentPlayers();
     }
 
@@ -58,12 +59,12 @@ public class Boss {
                 lock.notifyAll();
             }
         } catch (InterruptedException e) {
-            System.out.println("Connection lost");
+            log.info("Connection lost");
             Thread.currentThread().interrupt();
         }
     }
 
     private void printCountOfCurrentPlayers() {
-        System.out.println("Players : " + currentPlayers.size());
+        log.info("Players : " + currentPlayers.size());
     }
 }

@@ -4,11 +4,10 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
+@Getter
 public class Player {
     private static int idCount = 1;
-    @Getter
     private final int id;
-    @Getter
     @Setter
     private String name;
 

@@ -1,7 +1,7 @@
 package supercow;
 
 public class Main {
-    public static int MAX_PLAYERS = 10;
+    public static final int MAX_PLAYERS = 10;
 
     public static void main(String[] args) {
         Boss boss = new Boss(new Object(), MAX_PLAYERS);
