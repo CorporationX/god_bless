@@ -9,7 +9,10 @@ public class Player {
     private String name;
 
     public void startBattle(Boss boss) {
-        boss.joinBattle(this);
+        if (!boss.getCurPlayers().contains(this)){//если вдруг игрок уже в лобби,
+            // то ему остается только начать бойню
+            boss.joinBattle(this);
+        }
         System.out.println(name + " start battle with boss");
         try {
             Thread.sleep(1500);
