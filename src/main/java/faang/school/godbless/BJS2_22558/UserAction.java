@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collector;
@@ -19,6 +20,7 @@ public class UserAction {
     private String name;
     private ActionTypes actionType;
     private String content;
+    private LocalDate actionDate;
 
     private static final int MATH_HUNDRED = 100;
 
@@ -50,6 +52,7 @@ public class UserAction {
     public static List findTop3UserByComments(List<UserAction> actions){
         return actions
                 .stream()
+                .filter(action -> action.getActionDate().isAfter(LocalDate.now().withDayOfMonth(1)))
                 .filter(action -> action.getActionType().equals(ActionTypes.COMMENT))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet()
