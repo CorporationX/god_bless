@@ -21,13 +21,14 @@ public class BigBangTheory {
         for (Task task : tasks) {
             service.execute(task);
         }
+        service.shutdown();
 
         try {
-            if (service.awaitTermination(15, TimeUnit.SECONDS)) {
-                service.shutdown();
-                System.out.println("Everyone has finished their tasks");
-            }else {
+            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
                 service.shutdownNow();
+                System.out.println("Something went wrong");
+            }else {
+                System.out.println("Everyone has finished their tasks");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
