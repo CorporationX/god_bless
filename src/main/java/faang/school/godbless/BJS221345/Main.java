@@ -16,14 +16,7 @@ public class Main {
                 new Email("Spam", "Text spam", false)
         );
 
-        Predicate<Email> importantFilter = email -> {
-            if (email.isImportant()) {
-                System.out.print("This email not spam: ");
-            } else {
-                System.out.print("This email SPAM: ");
-            }
-            return email.isImportant();
-        };
+        Predicate<Email> importantFilter = email -> email.isImportant();
 
         Consumer<Email> printEmail = email -> System.out.println("letter processed --> " + email.getSubject());
 
@@ -33,5 +26,6 @@ public class Main {
         };
 
         emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+
     }
 }

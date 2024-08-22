@@ -7,10 +7,11 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emailList, Predicate<Email> importantFilter, Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
-        emailList.forEach(email -> {
-            importantFilter.test(email);
-            printEmail.accept(email);
-            toUpperCase.apply(email);
-        });
+        List<String> wordList = emailList.stream()
+                .filter(importantFilter)
+                .peek(printEmail)
+                .map(toUpperCase)
+                .toList();
+        System.out.println(wordList);
     }
 }
