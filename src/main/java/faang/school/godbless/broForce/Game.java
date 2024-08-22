@@ -1,8 +1,11 @@
 package faang.school.godbless.broForce;
 
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Random;
 
+@Getter
 public class Game {
 
     private int commonScore;
@@ -51,7 +54,6 @@ public class Game {
     private void gameOver() {
         System.out.println("Game Over. Somebody died");
         System.out.println("Total score : " + commonScore + " lives left " + commonLives);
-        System.exit(0);
     }
 
     public void increaseScore(Person person) {
