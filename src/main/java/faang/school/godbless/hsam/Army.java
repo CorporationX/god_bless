@@ -38,5 +38,6 @@ public class Army {
             totalPower += future.get();
         }
         return totalPower;
+
     }
 }
