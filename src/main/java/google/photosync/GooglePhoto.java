@@ -5,7 +5,7 @@ import java.util.List;
 
 public class GooglePhoto {
     public static void main(String[] args) {
-        GooglePhotoAutoUploader photoAutoUploader = new GooglePhotoAutoUploader(
+        GooglePhotoAutoUploader photoAutoUploader = new GooglePhotoAutoUploader(new Object(),
                 new ArrayList<>(List.of("1.jpg", "1321.jpg", "aboba.jpg", "boba.jpg",
                         "biba.jpg", "afasf.jpg", "DCIM10034,jpg", "test.jpg")));
         Thread autoUploadThread = new Thread(photoAutoUploader::startAutoUpload);

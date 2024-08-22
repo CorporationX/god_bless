@@ -8,16 +8,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GooglePhotoAutoUploader {
     @NonNull
+    private final Object lock;
+    @NonNull
     private final List<String> photosToUpload;
-    private boolean serviceWorking = true;
+    private volatile boolean serviceWorking = true;
 
     public void startAutoUpload() {
         try {
-            synchronized (photosToUpload) {
+            synchronized (lock) {
                 while (serviceWorking) {
                     if (photosToUpload.isEmpty()) {
                         System.out.println("Waiting for new photos to upload...");
-                        photosToUpload.wait();
+                        lock.wait();
                     }
                     uploadPhoto(photosToUpload.remove(photosToUpload.size() - 1));
                 }
@@ -28,9 +30,9 @@ public class GooglePhotoAutoUploader {
     }
 
     public void onNewPhotoAdded(@NonNull String photoPath) {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 
