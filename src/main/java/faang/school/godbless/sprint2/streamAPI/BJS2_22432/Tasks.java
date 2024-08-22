@@ -3,19 +3,16 @@ package faang.school.godbless.sprint2.streamAPI.BJS2_22432;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Tasks {
 
-    protected static void printPairsWithSum(List<Integer> numbers, int targetSum) {
-        Set<List<Integer>> uniquePairs = numbers.stream().
-                flatMap(n -> {
-                    int complement = targetSum - n;
-                    return IntStream.of(complement)
-                            .filter(seen -> numbers.contains(seen) && seen != n)
-                            .mapToObj(seen -> Arrays.asList(n, seen))
-                            .filter(pair -> pair.get(0) < pair.get(1));
-                })
+    public static void printPairsWithSum(List<Integer> numbers, int targetSum) {
+        Set<List<Integer>> uniquePairs = numbers.stream()
+                .flatMap(n -> numbers.stream()
+                        .filter(seen -> seen != n && n + seen == targetSum)
+                        .map(seen -> Arrays.asList(n, seen))
+                        .filter(pair -> pair.get(0) < pair.get(1))
+                )
                 .collect(Collectors.toSet());
 
         System.out.println("Input list: " + numbers);
@@ -62,6 +59,7 @@ public class Tasks {
         return employees.stream()
                 .collect(Collectors.groupingBy(Employee::getDept, Collectors.averagingDouble(Employee::getSalary)));
     }
+
     public static List<String> filterAndSortByAlphabet(List<String> strings, char[] alphabet) {
         Set<Character> charSet = IntStream.range(0, alphabet.length)
                 .mapToObj(i -> alphabet[i])
@@ -92,14 +90,10 @@ public class Tasks {
     public static List<String> findAllPalindromicSubstrings(String input) {
         return IntStream.range(0, input.length())
                 .boxed()
-                .flatMap(start -> IntStream.range(start + 1, input.length())
-                        .mapToObj(end -> input.substring(start, end)))
-                .filter(string -> string.length() != 1)
-                .filter(string -> new StringBuilder(string).reverse().toString().equals(string))
-                .distinct()
-                .toList();
+                .flatMap(start -> IntStream.range(start + 1, input.length() + 1)
+                        .mapToObj(end -> input.substring(start, end))
+                )
+                .filter(s -> s.contentEquals(new StringBuilder(s).reverse()))
+                .collect(Collectors.toList());
     }
-
-
-
 }
