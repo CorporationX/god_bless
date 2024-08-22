@@ -56,21 +56,21 @@ public class Exercises {
                                 Collectors.averagingDouble(Employee::salary)));
     }
 
-    public static List sortBySpecifiedChars(List<String> strings, String alphabet) {
+    public static List<String> sortBySpecifiedChars(List<String> strings, String alphabet) {
         return strings
                 .stream()
                 .filter(str -> Arrays.stream(str.split("")).allMatch(alphabet::contains))
                 .toList();
     }
 
-    public static List convertNumbersToCode(List<Integer> numbers) {
+    public static List<String> convertNumbersToCode(List<Integer> numbers) {
         return numbers
                 .stream()
                 .map(Integer::toBinaryString)
                 .toList();
     }
 
-    public static List findPalindromes(int startNumber, int finalNumber) {
+    public static List<Integer> findPalindromes(int startNumber, int finalNumber) {
         return IntStream.rangeClosed(startNumber, finalNumber).filter(num -> num == getReversedNumber(num)).boxed().toList();
     }
 
@@ -83,7 +83,7 @@ public class Exercises {
         return rev_num;
     }
 
-    public static List findPalindromesFromString(String word) {
+    public static List<String> findPalindromesFromString(String word) {
         return IntStream
                 .range(0, word.length())
                 .boxed()
