@@ -41,13 +41,13 @@ public class Boss {
 
     private void addPlayer(@NonNull Player player) {
         currentPlayers.put(player.getId(), player);
-        log.info(String.format("%s join the battle!%n", player.getName()));
+        log.info(String.format("%s join the battle!", player.getName()));
         printCountOfCurrentPlayers();
     }
 
     private void removePlayer(@NonNull Player player) {
         currentPlayers.remove(player.getId());
-        log.info(String.format("%s leave the battle%n", player.getName()));
+        log.info(String.format("%s leave the battle", player.getName()));
         printCountOfCurrentPlayers();
     }
 
