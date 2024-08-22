@@ -26,7 +26,7 @@ public class Main {
         }};
 
         System.out.println("Countries sort:");
-        countrySort(countries);
+        System.out.println(countrySort(countries));
 
         System.out.println("Strings sort:");
         List<String> strings = List.of("Word", "Hello", "World", "Another word", "Hello world", "Hi world", "Hi world!", "Some word");
@@ -68,10 +68,13 @@ public class Main {
     }
 
     public static List<Integer> findPalindrome(int startBorder, int endBorder) {
-        List<Integer> nums = Stream.iterate(startBorder, num -> num + 1).limit(endBorder - startBorder).toList();
+        List<Integer> nums = Stream.iterate(startBorder, num -> num + 1)
+                .limit(++endBorder - startBorder)
+                .toList();
+
         return nums.stream()
                 .filter(n -> String.valueOf(n).contentEquals(new StringBuilder(Integer.toString(n)).reverse()) &&
-                        n.toString().length() > 1)
+                        String.valueOf(n).length() > 1)
                 .toList();
     }
 
@@ -81,19 +84,18 @@ public class Main {
                 .toList();
     }
 
-    public static Map<String, Integer> uniquePairs(List<Integer> inputList, int targetSum) {
+    public static Set<String> uniquePairs(List<Integer> inputList, int targetSum) {
         return inputList.stream()
                 .flatMap(outerNum -> inputList.stream()
                         .filter(innerNum -> innerNum + outerNum == targetSum && (outerNum > innerNum || outerNum.equals(innerNum)))
-                        .map(innerNum -> outerNum + "," + innerNum))
-                .collect(Collectors.toMap(value -> value, value -> targetSum, (target1, target2) -> targetSum));
+                        .map(innerNum -> outerNum + "+" + innerNum + " = " + targetSum))
+                .collect(Collectors.toSet());
     }
 
-    public static void countrySort(Map<String, String> countries) {
-        List<String> capitalsList = countries.entrySet().stream()
+    public static List<String> countrySort(Map<String, String> countries) {
+        return countries.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue).toList();
-        System.out.println(capitalsList);
     }
 
     public static List<String> stringsSort(List<String> strings, char symbol) {
@@ -101,7 +103,7 @@ public class Main {
                 .sorted(Comparator.comparingInt(String::length)).toList();
     }
 
-    public static Set<TreeSet> findFriends(Map<String, List<String>> friends) {
+    public static Set<Set> findFriends(Map<String, List<String>> friends) {
         return friends.keySet().stream()
                 .flatMap(person1 -> friends.keySet().stream()
                         .filter(person2 -> friends.get(person1).stream().anyMatch((friends.get(person2)::contains)) && !person2.equals(person1))
@@ -119,9 +121,9 @@ public class Main {
     }
 
     public static List<String> stringAlphabetSort(List<String> strings, char[] alphabet) {
-        List<Character> alphabetChars = IntStream.range(0, alphabet.length)
+        Set<Character> alphabetChars = IntStream.range(0, alphabet.length)
                 .mapToObj(ch -> alphabet[ch])
-                .toList();
+                .collect(Collectors.toSet());
 
         return strings.stream()
                 .filter(string -> string.chars()
