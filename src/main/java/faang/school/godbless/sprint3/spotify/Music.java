@@ -8,7 +8,7 @@ import java.util.stream.IntStream;
 public class Music {
     private static Player player;
 
-    private static void sleepThread(Consumer<Player> consumer) {
+    private static void sleepThreadAndDoActions(Consumer<Player> consumer) {
         IntStream.rangeClosed(1, 5).forEach(cur -> {
             try {
                 Thread.sleep(new Random().nextInt(1, 10) * 100L);
@@ -23,10 +23,10 @@ public class Music {
         List<String> songs = List.of("Song 1", "Song 2", "Song 3", "Song 4", "Song 5",
                 "Song 6", "Song 7", "Song 8", "Song 9", "Song 10");
         player = new Player(songs, new Object());
-        Thread playThread = new Thread(() -> sleepThread(Player::play));
-        Thread pauseThread = new Thread(() -> sleepThread(Player::pause));
-        Thread skipThread = new Thread(() -> sleepThread(Player::skip));
-        Thread previousThread = new Thread(() -> sleepThread(Player::previous));
+        Thread playThread = new Thread(() -> sleepThreadAndDoActions(Player::play));
+        Thread pauseThread = new Thread(() -> sleepThreadAndDoActions(Player::pause));
+        Thread skipThread = new Thread(() -> sleepThreadAndDoActions(Player::skip));
+        Thread previousThread = new Thread(() -> sleepThreadAndDoActions(Player::previous));
 
         playThread.start();
         pauseThread.start();
