@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 public class UserAction {
-    private Integer id;
-    private String name;
+    private Integer userId;
+    private String userName;
     private ActionType actionType;
     private LocalDateTime actionDate;
     private String content;
