@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import java.util.Random;
 
 @AllArgsConstructor
-public class FoodDeliveryTask implements Runnable{
+public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
 
