@@ -1,20 +1,24 @@
 package faang.school.godbless.hsam;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PowerThread extends Thread {
 
-    private Unit unit;
+    private List<Unit> units;
     private int power;
 
-    public PowerThread(Unit unit) {
-        this.unit = unit;
+    public PowerThread(List<Unit> units) {
+        this.units = new ArrayList<>(units);
     }
 
     @Override
     public void run() {
-        power = unit.getPower();
+        power = units.stream()
+                .mapToInt(Unit::getPower).sum();
     }
 
-    public int getPower(Unit unit) {
+    public int getPower() {
         return power;
     }
 }
