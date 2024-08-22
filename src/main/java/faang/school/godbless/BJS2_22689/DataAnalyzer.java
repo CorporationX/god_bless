@@ -9,6 +9,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
+    private static final int POSITIONS_AMOUNT = 3;
+    private static final int TOP_SKILLS_AMOUNT = 5;
+    private static final int OFFICES_AMOUNT = 5;
+
 
     public static List<String> getTop5SkillsForCandidates(List<Job> jobs) {
         return jobs
@@ -19,7 +23,7 @@ public class DataAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(TOP_SKILLS_AMOUNT)
                 .map(x -> x.getKey() + "= " + x.getValue())
                 .toList();
     }
@@ -33,27 +37,13 @@ public class DataAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(POSITIONS_AMOUNT)
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         Map.Entry::getValue,
                         (e1, e2) -> e1,
                         LinkedHashMap::new
                 ));
-    }
-
-    public static List top3Positions(List<Job> jobs) {
-        return jobs
-                .stream()
-                .map(Job::position)
-                .collect(Collectors
-                        .groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(3)
-                .map(x -> x.getKey() + "= " + x.getValue())
-                .toList();
     }
 
     public static Map<String, Long> getVacanciesBySalaries(List<Job> jobs, Function<Job, String> doSalaryRange) {
@@ -70,7 +60,7 @@ public class DataAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(OFFICES_AMOUNT)
                 .map(Map.Entry::getKey)
                 .toList();
     }
