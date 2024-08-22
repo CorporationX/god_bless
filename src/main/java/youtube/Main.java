@@ -1,19 +1,20 @@
 package youtube;
 
-import java.util.ArrayList;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
+@Slf4j
 public class Main {
     public static final int NUM_THREADS = 100;
     public static final int NUM_VIDEOS = 20;
 
     public static void main(String[] args) throws InterruptedException {
-        VideoManager videoManager = new VideoManager(new Object());
+        VideoManager videoManager = new VideoManager();
         var videos = initVideos();
         try (ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS)) {
             IntStream.rangeClosed(0, videos.size())
@@ -21,29 +22,26 @@ public class Main {
                     .flatMap(i -> IntStream.range(0, NUM_THREADS / NUM_VIDEOS).boxed()
                             .map(j -> i))
                     .forEach(idx -> executor.submit(() -> {
-                        var videoId = videos.get(idx);
-                        videoManager.addView(videoId);
-                        System.out.printf("Video with id=%s is %d%n",
-                                videoId, videoManager.getViewCount(videoId));
+                        var video = videos.get(idx);
+                        videoManager.addView(video);
+                        log.info(String.format("Video with id=%s is %d",
+                                video.getId(), videoManager.getViewCount(video)));
                     }));
             executor.shutdown();
-            executor.awaitTermination(30, TimeUnit.SECONDS);
+            if (executor.awaitTermination(30, TimeUnit.SECONDS)) {
+                log.info("Finished\n");
+            } else {
+                log.info("Time out");
+            }
         }
-        System.out.println();
-        videos.forEach(v -> System.out.printf("Video with id=%s is %d%n", v, videoManager.getViewCount(v)));
+        log.info("");
+        videos.forEach(v -> log.info(String.format("Video with id=%s is %d",
+                v.getId(), videoManager.getViewCount(v))));
     }
 
-    private static List<String> initVideos() {
-        Random rand = new Random();
-        List<String> videoIds = new ArrayList<>();
-        for (int i = 0; i < NUM_VIDEOS; i++) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 0; j < 10; j++) {
-                sb.append(Character.toString(rand.nextInt(94) + 33));
-            }
-            videoIds.add(sb.toString());
-        }
-
-        return videoIds;
+    private static List<Video> initVideos() {
+        return IntStream.range(0, NUM_VIDEOS).boxed()
+                .map(i -> new Video())
+                .toList();
     }
 }

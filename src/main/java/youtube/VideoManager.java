@@ -8,19 +8,18 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 public class VideoManager {
-    private final Object lock;
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<Video, Integer> viewsMap = new HashMap<>();
 
-    public void addView(@NonNull String videoId) {
-        synchronized (lock) {
-            viewsMap.merge(videoId, 1, Integer::sum);
+    public void addView(@NonNull Video video) {
+        synchronized (video.getId()) {
+            viewsMap.merge(video, 1, Integer::sum);
         }
     }
 
-    public int getViewCount(@NonNull String videoId) {
-        synchronized (lock) {
-            if (viewsMap.containsKey(videoId)) {
-                return viewsMap.get(videoId);
+    public int getViewCount(@NonNull Video video) {
+        synchronized (video.getId()) {
+            if (viewsMap.containsKey(video)) {
+                return viewsMap.get(video);
             } else {
                 throw new IllegalArgumentException("Don't have video with this id");
             }
