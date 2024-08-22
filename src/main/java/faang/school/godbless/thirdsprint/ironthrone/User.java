@@ -10,26 +10,25 @@ public class User {
     }
 
     public void joinHouse(House house, Role role) {
-        synchronized (house) {
+        synchronized (house.getLock()) {
             while (!house.isRoleAvailable(role)) {
                 System.out.println(name + " is waiting for an available " + role + "'s slot in house " + house.getName());
                 try {
-                    house.wait();
+                    house.getLock().wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
+            house.addRole(role);
             this.house = house;
             this.role = role;
-            house.addRole(role);
             System.out.println(name + " joined house " + house.getName() + " as " + role +
-                    ". Available slots left: " + house.getRolesMap().get(role));;
-
+                    ". Available slots left: " + house.getRolesMap().get(role));
         }
     }
 
     public void leaveHouse() {
-        synchronized (house) {
+        synchronized (house.getLock()) {
             if (house != null && role != null) {
                 house.removeRole(role);
                 System.out.println(name + " left house " + house.getName() +

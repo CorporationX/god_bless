@@ -8,14 +8,14 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class Westeros {
-    private static final int NUMBER_OF_USERS = 50;
+    private static final int NUMBER_OF_USERS = 25;
     private static final int THREAD_POOL_LIMIT = NUMBER_OF_USERS;
     private static final Random random = new Random();
 
     public static void main(String[] args) {
         List<User> users = getUsers();
         List<House> houses = getHouses();
-        addHousesAndAddAvailableSlots(houses);
+        addHousesAndAvailableSlots(houses);
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
 
@@ -51,8 +51,7 @@ public class Westeros {
         );
     }
 
-    private static void addHousesAndAddAvailableSlots(List<House> houses) {
-
+    private static void addHousesAndAvailableSlots(List<House> houses) {
         for (House house : houses) {
             house.addAvailableRoles(Role.LORD, 3);
             house.addAvailableRoles(Role.KNIGHT, 4);
@@ -63,7 +62,7 @@ public class Westeros {
     }
 
     private static List<User> getUsers() {
-        return IntStream.rangeClosed(1, NUMBER_OF_USERS)
+        return IntStream.range(1, NUMBER_OF_USERS)
                 .mapToObj(i -> new User("User " + i))
                 .toList();
     }
