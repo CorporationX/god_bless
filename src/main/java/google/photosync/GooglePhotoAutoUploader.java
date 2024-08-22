@@ -32,7 +32,7 @@ public class GooglePhotoAutoUploader {
     public void onNewPhotoAdded(@NonNull String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            lock.notifyAll();
         }
     }
 
