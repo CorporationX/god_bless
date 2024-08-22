@@ -11,7 +11,7 @@ public class WeasleyFamily {
 
         for (String s : chores) {
             Chore chore = new Chore(s);
-            service.submit(chore);
+            service.execute(chore);
         }
 
         service.shutdown();
