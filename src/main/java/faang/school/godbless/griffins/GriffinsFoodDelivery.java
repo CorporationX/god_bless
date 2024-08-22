@@ -4,6 +4,7 @@ import java.util.Random;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
 
@@ -17,9 +18,15 @@ public class GriffinsFoodDelivery {
 
         for (int i = 0; i < 3; i++) {
             Thread thread = new Thread(new FoodDeliveryTask(getCharacter(), new Random().nextInt(12)));
-            poolThreads.submit(thread);
+            poolThreads.execute(thread);
         }
-
         poolThreads.shutdown();
+        try {
+            if (!poolThreads.awaitTermination(1300, TimeUnit.MILLISECONDS)) {
+                poolThreads.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            poolThreads.shutdownNow();
+        }
     }
 }
