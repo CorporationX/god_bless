@@ -20,10 +20,10 @@ public class Witcher {
 
         List<City> cities = new ArrayList<>();
 
-        cities.add(new City("Novigrad", 0, 60, 120, 180));
-        cities.add(new City("Oxenfurt", 60, 0, 50, 70));
-        cities.add(new City("Vizima", 120, 50, 0, 30));
-        cities.add(new City("Kaer Morhen", 180, 70, 30, 0));
+        cities.add(new City("Novigrad", 0,  List.of(60, 120, 180)));
+        cities.add(new City("Oxenfurt", 60, List.of(60, 120, 180)));
+        cities.add(new City("Vizima", 120, List.of(60, 120, 180)));
+        cities.add(new City("Kaer Morhen", 180, List.of(60, 120, 180)));
 
         List<CityWorker> citiesWorkers = new ArrayList<>();
 
@@ -31,13 +31,16 @@ public class Witcher {
 
         ExecutorService executorService = Executors.newFixedThreadPool(1);
         for (CityWorker cityWorker : citiesWorkers) {
-            executorService.submit(cityWorker);
+            executorService.execute(cityWorker);
         }
-        executorService.shutdown();
 
+        executorService.shutdown();
         try {
-            executorService.awaitTermination(1, TimeUnit.HOURS);
+            if (executorService.awaitTermination(1, TimeUnit.HOURS)) {
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
+            System.out.println("NOOOOOOOO INTERRUPTED");
             throw new RuntimeException(e);
         }
         System.out.println("отработано");

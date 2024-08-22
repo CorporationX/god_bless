@@ -11,11 +11,8 @@ public class City {
     private int location;
     private List<Integer> distanceToOtherCities = new ArrayList<>();
 
-    public City(String name, int location, int ... otherCities) {
+    public City(String name, int location, List<Integer> distanceToOtherCities) {
         this.name = name;
         this.location = location;
-        for (int otherCity : otherCities) {
-            distanceToOtherCities.add(otherCity);
-        }
     }
 }
