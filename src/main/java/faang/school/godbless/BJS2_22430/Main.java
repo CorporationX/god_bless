@@ -84,11 +84,11 @@ public class Main {
                 .toList();
     }
 
-    public static Set<String> uniquePairs(List<Integer> inputList, int targetSum) {
+    public static Set<Pair<Integer, Integer>> uniquePairs(List<Integer> inputList, int targetSum) {
         return inputList.stream()
                 .flatMap(outerNum -> inputList.stream()
                         .filter(innerNum -> innerNum + outerNum == targetSum && (outerNum > innerNum || outerNum.equals(innerNum)))
-                        .map(innerNum -> outerNum + "+" + innerNum + " = " + targetSum))
+                        .map(innerNum -> new Pair<>(outerNum, innerNum)))
                 .collect(Collectors.toSet());
     }
 
