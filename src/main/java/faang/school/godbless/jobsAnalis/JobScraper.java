@@ -17,9 +17,6 @@ public class JobScraper {
             job = objectMapper.readValue(json, Job.class);
 
             System.out.println("объект " + job.getTitle() + " переведен из JSON");
-        } catch (JsonMappingException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
