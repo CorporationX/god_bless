@@ -8,9 +8,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActivityService {
-    public static final int NUMBER_OF_TOP_ACTIVE_USERS = 10;
-    public static final int NUMBER_OF_TOP_POPULAR_HASHTAG = 5;
-    public static final int NUMBER_OF_TOP_ACTIVE_COMMENTATORS = 3;
+    private static final int NUMBER_OF_TOP_ACTIVE_USERS = 10;
+    private static final int NUMBER_OF_TOP_POPULAR_HASHTAG = 5;
+    private static final int NUMBER_OF_TOP_ACTIVE_COMMENTATORS = 3;
 
     public static List<Integer> findTopTenActiveUsers(List<UserAction> userActions) {
 
