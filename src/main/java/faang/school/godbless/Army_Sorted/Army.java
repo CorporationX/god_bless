@@ -18,12 +18,12 @@ import java.util.concurrent.Future;
 public class Army {
     private List<Warrior> divisions;
 
-    public void calculateTotalPower(Army army) throws ExecutionException {
+    public void calculateTotalPower() throws  ExecutionException, InterruptedException {
         try {
             ExecutorService executor = Executors.newFixedThreadPool(divisions.size());
             List<Future<Integer>> futures = new ArrayList<>();
 
-            for (Warrior warrior : army.getDivisions()) {
+            for (Warrior warrior : divisions) {
                 Callable<Integer> task = () -> warrior.getPower();
                 Future<Integer> future = executor.submit(task);
                 futures.add(future);
@@ -34,7 +34,24 @@ public class Army {
             }
             System.out.println("Сила армии: " + totalPower);
             executor.shutdown();
+            executor.awaitTermination(1, java.util.concurrent.TimeUnit.MINUTES);
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        List<Warrior> warriors = new ArrayList<>();
+        Mage mage = new Mage(20);
+        Swordsman swordsman = new Swordsman(10);
+        Archer archer = new Archer(5);
+        warriors.add(mage);
+        warriors.add(swordsman);
+        warriors.add(archer);
+        Army army = new Army(warriors);
+        try {
+            army.calculateTotalPower();
+        } catch (ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
     }
