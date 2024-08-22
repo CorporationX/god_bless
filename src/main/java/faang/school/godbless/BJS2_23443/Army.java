@@ -5,9 +5,9 @@ import java.util.List;
 
 public class Army {
 
-    List<PowerThread> mageThreads = new ArrayList<>();
-    List<PowerThread> archerThreads = new ArrayList<>();
-    List<PowerThread> swordsmanThreads = new ArrayList<>();
+    private final List<PowerThread> mageThreads = new ArrayList<>();
+    private final List<PowerThread> archerThreads = new ArrayList<>();
+    private final List<PowerThread> swordsmanThreads = new ArrayList<>();
     private final List<Unit> units;
 
     public Army(List<Unit> units) {
@@ -21,7 +21,7 @@ public class Army {
                 startThread(unit);
             } else if (unit.isArcher()) {
                 startThread(unit);
-            } else if (unit.isSwordsman()) {
+            } else {
                 startThread(unit);
             }
         }
