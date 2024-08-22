@@ -21,7 +21,8 @@ public class FoodDeliveryTask implements Runnable{
         try {
             Thread.sleep(1000 * new Random().nextInt(1,5) + 1);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Exception InterruptedException");
+            return;
         }
         System.out.println(character + " ест " + foodAmount + " " + food);
     }
