@@ -21,7 +21,6 @@ public class Player {
             isPlaying = false;
             System.out.println("Pause -> isPlaying: " + isPlaying);
         }
-
     }
 
     public void skip() {
