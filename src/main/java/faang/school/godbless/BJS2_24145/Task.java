@@ -11,11 +11,7 @@ public class Task implements Runnable{
 
     @Override
     public void run() {
-//        if (Thread.currentThread().isInterrupted()) {
-//            System.out.println("Задача была прервана");
-//            return;
-//        }
-        System.out.println(name + " начал выполненять задание " + task);
+        System.out.println(name + " начал выполнять задание " + task);
 
         try {
             Thread.sleep(new Random().nextInt(1000, 5000));
@@ -23,7 +19,7 @@ public class Task implements Runnable{
             System.out.println(name + " было прервано.");
             return;
         }
-        System.out.println(name + " завершил задание " + task);
 
+        System.out.println(name + " завершил задание " + task);
     }
 }
