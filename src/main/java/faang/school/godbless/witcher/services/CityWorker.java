@@ -29,9 +29,7 @@ public class CityWorker implements Runnable {
 
     public Monster findNearestMonster(City city, List<Monster> monsters) {
         return monsters.parallelStream()
-                .min(Comparator.comparingDouble(monster ->
-                        Math.abs(city.getLocation().getX() - monster.getLocation().getX()
-                                - city.getLocation().getY() - monster.getLocation().getY())))
+                .min(Comparator.comparingDouble(this::getAbsDistance))
                 .orElseThrow(() -> new IllegalArgumentException("Not founded nearest monster"));
     }
 
@@ -40,7 +38,11 @@ public class CityWorker implements Runnable {
     }
 
     public long getJourneyDistance(Monster monster) {
-        return city.getDistanceToHero() + Math.abs(city.getLocation().getX() - monster.getLocation().getX()
+        return (long) (city.getDistanceToHero() + getAbsDistance(monster));
+    }
+
+    private double getAbsDistance(Monster monster) {
+        return Math.abs(city.getLocation().getX() - monster.getLocation().getX()
                 + city.getLocation().getY() - monster.getLocation().getY());
     }
 }
