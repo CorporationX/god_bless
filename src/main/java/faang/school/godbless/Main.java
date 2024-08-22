@@ -1,13 +1,13 @@
 package faang.school.godbless;
 
 interface SpellAction {
-    String conclusionSpells(String spell);
+    String convertToAction(String spell);
 }
 
 class SpellCaster {
 
     void cast(String spell, SpellAction spellAction) {
-        System.out.println(spellAction.conclusionSpells(spell));
+        System.out.println(spellAction.convertToAction(spell));
     }
 
     public static void main(String[] args) {
