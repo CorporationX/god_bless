@@ -1,14 +1,15 @@
 package faang.school.godbless.griffin.food;
 
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class FoodDeliveryTask implements Runnable {
-    private final Logger logger = LoggerFactory.getLogger(FoodDeliveryTask.class);
+    public static final int EXCLUSIVE_UPPER_BOUND_FOR_WAITING_FOOD = 5;
+    public static final int INCLUSIVE_LOWER_BOUND_FOR_WAITING_FOOD = 1;
+
     private final String character;
     private final int foodAmount;
 
@@ -22,10 +23,10 @@ public class FoodDeliveryTask implements Runnable {
         System.out.printf("%s is waiting for food %s in amount: %d\n", character, getFoodType(), foodAmount);
 
         try {
-            int waitTime = new Random().nextInt(5) + 1;
-            Thread.sleep(waitTime * 1000);
+            int waitTime = new Random().nextInt(EXCLUSIVE_UPPER_BOUND_FOR_WAITING_FOOD) + INCLUSIVE_LOWER_BOUND_FOR_WAITING_FOOD;
+            TimeUnit.SECONDS.sleep(waitTime);
         } catch (InterruptedException exception) {
-            logger.error(String.format("While %s was waiting for %s an error occurred", character, getFoodType()), exception);
+            log.error(String.format("While %s was waiting for %s an error occurred", character, getFoodType()), exception);
         }
 
         System.out.printf("%s is eating food %s in amount: %d\n", character, getFoodType(), foodAmount);
