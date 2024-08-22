@@ -1,7 +1,6 @@
 package faang.school.godbless;
 
 import lombok.Getter;
-
 import java.util.List;
 
 @Getter
