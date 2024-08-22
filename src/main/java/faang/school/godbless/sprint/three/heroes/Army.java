@@ -10,26 +10,29 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class Army {
-    private final Map<String, List<PowerThread>> unitsMap = new HashMap<>();
-    private final Map<String, Integer> heroesPower = new HashMap<>();
-    private final AtomicInteger totalHeroPower = new AtomicInteger(0);
+    private final Map<Unit, List<PowerThread>> unitsMap = new HashMap<>();
+    private final Map<Unit, AtomicInteger> heroesPower = new HashMap<>();
 
     public int calculateTotalPower() throws InterruptedException {
-        for (Map.Entry<String, List<PowerThread>> entry: unitsMap.entrySet()) {
-            totalHeroPower.set(0);
+        for (Map.Entry<Unit, List<PowerThread>> entry: unitsMap.entrySet()) {
+            for (PowerThread thread : entry.getValue()) {
+                thread.start();
+            }
+        }
+
+        for (Map.Entry<Unit, List<PowerThread>> entry: unitsMap.entrySet()) {
             for (PowerThread thread : entry.getValue()) {
                 thread.join();
-                totalHeroPower.set(totalHeroPower.get() + thread.getPower());
+                heroesPower.computeIfAbsent(entry.getKey(),
+                        k -> new AtomicInteger(0)).addAndGet(thread.getPower());
             }
-            heroesPower.put(entry.getKey(), totalHeroPower.get());
         }
-        return heroesPower.values().stream().mapToInt(Integer::intValue).sum();
+
+        return heroesPower.values().stream().mapToInt(AtomicInteger::intValue).sum();
     }
 
     public void addUnit(Unit unit) {
-        String unitType = unit.getClass().getSimpleName();
         PowerThread powerThread = new PowerThread(unit);
-        powerThread.start();
-        unitsMap.computeIfAbsent(unitType, k -> new ArrayList<>()).add(powerThread);
+        unitsMap.computeIfAbsent(unit, k -> new ArrayList<>()).add(powerThread);
     }
 }

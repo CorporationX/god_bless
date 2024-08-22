@@ -13,6 +13,11 @@ public class PowerThread extends Thread {
 
     @Override
     public void run() {
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         this.power = this.unit.getPower();
     }
 }
