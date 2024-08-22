@@ -15,8 +15,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification){
-        if (!filterNotification(notification) && !handlers.isEmpty()) {
-            handlers.get(notification.getType()).accept(notification);
+        if (!handlers.values().isEmpty()){
+            if (!filterNotification(notification)) {
+                handlers.get(notification.getType()).accept(notification);
+            }
         }
     }
 
