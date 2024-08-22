@@ -22,11 +22,11 @@ public class StreamApiTrainingSecondTest {
     @Test
     void testGetCapitals() {
         Map<String, String> capitalCountryMap = Map.of(
-                "Brussels", "Belgium",
-                "Zagreb", "Croatia",
-                "Sofia", "Bulgaria",
-                "Paris", "France",
-                "Moscow", "Russia");
+                "Belgium", "Brussels",
+                "Croatia", "Zagreb",
+                "Bulgaria", "Sofia",
+                "France", "Paris",
+                "Russia", "Moscow");
 
         List<String> capitals = StreamApiTrainingSecond.getCapitals(capitalCountryMap);
         Assertions.assertEquals(5, capitals.size());

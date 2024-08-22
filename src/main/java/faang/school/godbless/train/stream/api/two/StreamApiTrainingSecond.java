@@ -23,10 +23,10 @@ public class StreamApiTrainingSecond {
                 .toList();
     }
 
-    public static List<String> getCapitals(Map<String, String> capitalCountryMap) {
-        return capitalCountryMap.entrySet().stream()
-                .sorted(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
+    public static List<String> getCapitals(Map<String, String> countryCapitalMap) {
+        return countryCapitalMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
