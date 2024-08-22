@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class FoodDeliveryTask implements Runnable {
-    public static final int EXCLUSIVE_UPPER_BOUND_FOR_WAITING_FOOD = 5;
-    public static final int INCLUSIVE_LOWER_BOUND_FOR_WAITING_FOOD = 1;
+    public static final int UPPER_BOUND_FOR_WAITING_FOOD = 5;
+    public static final int LOWER_BOUND_FOR_WAITING_FOOD = 1;
 
     private final String character;
     private final int foodAmount;
@@ -23,7 +23,7 @@ public class FoodDeliveryTask implements Runnable {
         System.out.printf("%s is waiting for food %s in amount: %d\n", character, getFoodType(), foodAmount);
 
         try {
-            int waitTime = new Random().nextInt(EXCLUSIVE_UPPER_BOUND_FOR_WAITING_FOOD) + INCLUSIVE_LOWER_BOUND_FOR_WAITING_FOOD;
+            int waitTime = new Random().nextInt(UPPER_BOUND_FOR_WAITING_FOOD) + LOWER_BOUND_FOR_WAITING_FOOD;
             TimeUnit.SECONDS.sleep(waitTime);
         } catch (InterruptedException exception) {
             log.error(String.format("While %s was waiting for %s an error occurred", character, getFoodType()), exception);
