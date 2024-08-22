@@ -21,6 +21,7 @@ public class WeaslyFamily {
             if (!execute.awaitTermination(800, TimeUnit.MILLISECONDS)) {
                 System.out.println("Программа завершена");
                 execute.shutdownNow();
+
             }
         } catch (InterruptedException e) {
             execute.shutdownNow();
