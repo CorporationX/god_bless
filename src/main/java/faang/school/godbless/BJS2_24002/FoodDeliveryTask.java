@@ -22,7 +22,7 @@ public class FoodDeliveryTask implements Runnable{
             Thread.sleep(1000 * new Random().nextInt(1,5) + 1);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
-        } // idea ругалась и предложила добавить исключение, по другому не работает
+        }
         System.out.println(character + " ест " + foodAmount + " " + food);
     }
 }
