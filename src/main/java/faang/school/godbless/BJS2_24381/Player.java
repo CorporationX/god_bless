@@ -1,7 +1,7 @@
 package faang.school.godbless.BJS2_24381;
 
 public class Player {
-    private Object lock = new Object();
+    private final Object lock = new Object();
     private boolean isPlaying = false;
 
     public void play() {
@@ -20,15 +20,21 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Music skip");
+            if (isPlaying) {
+                System.out.println("Music skip");
+            } else {
+                System.out.println("Can't skip, music is not playing");
+            }
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            isPlaying = false;
-            System.out.println("Music previous");
+            if (isPlaying) {
+                System.out.println("Music previous track");
+            } else {
+                System.out.println("Can't previous track, music is not playing");
+            }
         }
     }
 }
