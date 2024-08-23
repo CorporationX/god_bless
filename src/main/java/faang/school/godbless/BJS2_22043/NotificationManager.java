@@ -15,10 +15,12 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification){
-        if (!handlers.values().isEmpty()){
+        if (contentFilters.containsKey(notification.getType())){
             if (!filterNotification(notification)) {
                 handlers.get(notification.getType()).accept(notification);
             }
+        } else {
+            System.out.println("Нет обработчика для уведомления типа: " + notification.getType());
         }
     }
 
