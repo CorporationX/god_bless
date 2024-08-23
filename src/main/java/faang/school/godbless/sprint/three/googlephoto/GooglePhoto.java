@@ -7,7 +7,7 @@ public class GooglePhoto {
     public static void main(String... args) {
         List<String> newPhotos = new ArrayList<>(List.of("photo_5", "photo_6", "photo_7", "photo_8", "photo_9"));
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
-        Thread producer = new Thread(() -> newPhotos.forEach(photo -> {
+        Thread photoProducer = new Thread(() -> newPhotos.forEach(photo -> {
                         try {
                             Thread.sleep(Constants.PRODUCE_NEW_PHOTO_INTERVAL);
                         } catch (InterruptedException e) {
@@ -18,12 +18,17 @@ public class GooglePhoto {
                     }
             )
         );
-        producer.start();
 
-        try {
-            googlePhotosAutoUploader.startAutoUpload();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Thread uploaderConsumer = new Thread(() -> {
+            try {
+                googlePhotosAutoUploader.startAutoUpload();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        photoProducer.start();
+        uploaderConsumer.start();
+
     }
 }
