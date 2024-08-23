@@ -47,7 +47,7 @@ public class House {
                 .filter(counter -> counter % 2 == 0)
                 .forEach(oddRoomNumber -> executor.schedule(() -> {
                     house.collectFood(house.getRooms().get(oddRoomNumber));
-                    if(house.getRooms().size() > oddRoomNumber + 1){
+                    if (house.getRooms().size() > oddRoomNumber + 1) {
                         house.collectFood(house.getRooms().get(oddRoomNumber + 1));
                     }
                 }, 30, TimeUnit.SECONDS));
@@ -68,9 +68,9 @@ public class House {
     }
 
     public void collectFood(Room room) {
-            foods.addAll(room.getFoods());
-            room.getFoods().clear();
-            System.out.println(Thread.currentThread().getName() + ": Food collected from room " + room.getName());
+        foods.addAll(room.getFoods());
+        room.getFoods().clear();
+        System.out.println(Thread.currentThread().getName() + ": Food collected from room " + room.getName());
 
     }
 }
