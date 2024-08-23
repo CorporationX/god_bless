@@ -15,7 +15,9 @@ public class TriangleCalculation {
         double pDiv2MinusA = sub.apply(pDiv2).apply(a);
         double pDiv2MinusB = sub.apply(pDiv2).apply(b);
         double pDiv2MinusC = sub.apply(pDiv2).apply(c);
-        double result = sqrt.apply(mul.apply(mul.apply(mul.apply(pDiv2MinusA).apply(pDiv2MinusB)).apply(pDiv2MinusC)).apply(pDiv2));
+        double mulABC = mul.apply(mul.apply(pDiv2MinusA).apply(pDiv2MinusB)).apply(pDiv2MinusC);
+        double pDiv2MulABC = mul.apply(mulABC).apply(pDiv2);
+        double result = sqrt.apply(pDiv2MulABC);
         return result;
     }
 }
