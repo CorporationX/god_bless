@@ -2,7 +2,7 @@ package ru.kraiush.lambda.BJS2_21037;
 
 public class DruidReceiver {
 
-    String alphabet = Common.alphabet;
+    private final String alphabet = Common.alphabet;
 
     public String constructMessage(String message, int key, DruidMessageEncryptor encryptor) {
         return encryptor.getMessage(message, key);

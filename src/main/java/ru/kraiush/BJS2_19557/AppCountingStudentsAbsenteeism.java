@@ -8,20 +8,14 @@ public class AppCountingStudentsAbsenteeism {
 
         List<Student> students = Student.getStudens();
 
-        Map<CompositeKey, List<Student>> map = new HashMap<>();
+        Map<CompositeKey, List<Student>> mapStudents = new HashMap<>();
 
         for (Student student : students) {
             CompositeKey key = new CompositeKey(student.getFaculty(), student.getCourse());
-            List<Student> st = map.get(key);
-            if (map.get(key) == null) {
-                map.computeIfAbsent(key, v -> new ArrayList<>()).add(student);
-            } else {
-                st.add(student);
-                map.put(key, st);
-            }
+            mapStudents.computeIfAbsent(key, v -> new ArrayList<>()).add(student);
         }
         System.out.println("\n\nstudents grouping by <faculty> and <course>");
-        map.forEach((K, V) -> System.out.println("key: " + K + " student: " + V));
+        mapStudents.forEach((K, V) -> System.out.println("key: " + K + " student: " + V));
 
         Set<Student> res = Student.findStudentsByFacultyAndCourse(students, "automatic & electronic", 2017);
         System.out.println("\n students found by <faculty> and <course>:\n " + res);
