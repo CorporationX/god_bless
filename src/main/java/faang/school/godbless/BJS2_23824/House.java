@@ -9,23 +9,27 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final List<Room> rooms = new ArrayList<>();
     private static final List<Food> foods = new ArrayList<>();
-    private static final int ROOM_COUNT = 20;
+    private static final int ROOM_COUNT = 10;
     private static final int THREAD_COUNT = 5;
     private static final int THREAD_DELAY_SECONDS = 30;
+    private static final int ROOM_COUNT_TO_PROCESS = 2;
 
     public static void main(String[] args) {
         initialize();
 
         ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(THREAD_COUNT);
 
-        for (int i = 0; i < ROOM_COUNT; i += 2) {
-            int roomIndex = i;
-            scheduledExecutorService.schedule(() -> collectFood(roomIndex), THREAD_DELAY_SECONDS, TimeUnit.SECONDS);
+        int delay = THREAD_DELAY_SECONDS;
+
+        for (int i = 0; i < ROOM_COUNT; i += ROOM_COUNT_TO_PROCESS) {
+            scheduledExecutorService.schedule(() -> collectFood(getRoomsWithFood()), delay, TimeUnit.SECONDS);
+            delay += THREAD_DELAY_SECONDS;
         }
+
         scheduledExecutorService.shutdown();
 
         try {
-            if (scheduledExecutorService.awaitTermination(10, TimeUnit.MINUTES)) {
+            if (scheduledExecutorService.awaitTermination(5, TimeUnit.MINUTES)) {
                 System.out.println("All foods collected: " + foods);
             } else {
                 scheduledExecutorService.shutdownNow();
@@ -36,26 +40,36 @@ public class House {
 
     }
 
-    private static void collectFood(int roomIndex) {
-        Room room = rooms.get(roomIndex);
-        Room room2 = rooms.get(roomIndex + 1);
+    private static void collectFood(List<Room> roomsToCollect) {
 
-        System.out.println("Collecting food of " + room.getName());
-        System.out.println("Collecting food of " + room2.getName());
+        roomsToCollect.forEach(room -> {
+            System.out.println("Collecting food of " + room.getName());
+            foods.addAll(room.getFoods());
+            room.getFoods().clear();
+        });
 
-        foods.addAll(room.getFoods());
-        foods.addAll(room2.getFoods());
-
-        room.getFoods().clear();
-        room2.getFoods().clear();
     }
 
+    private static List<Room> getRoomsWithFood() {
+        return rooms.stream()
+                .filter(room -> !room.getFoods().isEmpty())
+                .limit(ROOM_COUNT_TO_PROCESS)
+                .toList();
+    }
 
     private static void initialize() {
-        List<Food> foodList = List.of(new Food("cheese"), new Food("milk"), new Food("meat"), new Food("bread"), new Food("cereal"));
+
+        List<Food> foodList = new ArrayList<>();
+
+        foodList.add(new Food("cheese"));
+        foodList.add(new Food("milk"));
+        foodList.add(new Food("meat"));
+        foodList.add(new Food("bread"));
+        foodList.add(new Food("cereal"));
+
         for (int i = 0; i < ROOM_COUNT; i++) {
             Room room = new Room("room " + i);
-            room.setFoods(foodList);
+            room.setFoods(new ArrayList<>(foodList));
             rooms.add(room);
         }
     }
