@@ -46,6 +46,7 @@ public class Witcher {
         System.out.println("All food has been collected.");
 
         long endTime = System.currentTimeMillis();
+
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }
 }
