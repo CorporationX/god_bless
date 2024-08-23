@@ -9,7 +9,10 @@ public class WeasleyFamily {
         ExecutorService service = Executors.newCachedThreadPool();
         String[] chores = {"Dishwashing", "Vacuuming", "Washing", "Nothing"};
 
-        Arrays.stream(chores).map(Chore::new).forEach(service::execute);
+        Arrays.stream(chores)
+                .map(Chore::new)
+                .forEach(service::execute);
+
         service.shutdown();
     }
 }
