@@ -24,7 +24,6 @@ public class Army {
 
         for (PowerUnit powerUnit : powerUnits) {
             powerUnit.start();
-            powerUnit.join();
         }
 
         return powerUnits.stream().mapToInt(PowerUnit::getPower).sum();
