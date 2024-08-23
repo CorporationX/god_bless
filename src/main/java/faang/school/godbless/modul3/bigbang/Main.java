@@ -3,6 +3,7 @@ package faang.school.godbless.modul3.bigbang;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,5 +17,15 @@ public class Main {
 
         tasks.forEach(executorService::execute);
         executorService.shutdown();
+
+        try {
+            if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                System.out.println("All task complete!");
+            } else {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
