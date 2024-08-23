@@ -3,6 +3,7 @@ package faang.school.godbless.BJS2_24350;
 import java.util.Deque;
 
 public class Player {
+    private final Object lock = new Object();
     private boolean isPlaying;
     private Deque<String> musics;
 
@@ -11,25 +12,33 @@ public class Player {
         this.musics = musics;
     }
 
-    public synchronized void skip() {
-        String skip = musics.removeLast();
-        musics.addFirst(skip);
-        play();
+    public void skip() {
+        synchronized (lock) {
+            String skip = musics.removeLast();
+            musics.addFirst(skip);
+            play();
+        }
     }
 
-    public synchronized void previous() {
-        String prev = musics.removeFirst();
-        musics.addLast(prev);
-        play();
+    public void previous() {
+        synchronized (lock) {
+            String prev = musics.removeFirst();
+            musics.addLast(prev);
+            play();
+        }
     }
 
-    public synchronized void play() {
-        isPlaying = true;
-        System.out.println("Play: " + musics.peekLast());
+    public void play() {
+        synchronized (lock) {
+            isPlaying = true;
+            System.out.println("Play: " + musics.peekLast());
+        }
     }
 
-    public synchronized void pause() {
-        isPlaying = false;
-        System.out.println("Pause: " + musics.peekLast());
+    public void pause() {
+        synchronized (lock) {
+            isPlaying = false;
+            System.out.println("Pause: " + musics.peekLast());
+        }
     }
 }
