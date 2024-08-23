@@ -17,9 +17,9 @@ public class User {
         }
     }
 
-        public void leaveHouse() {
-            synchronized (house) {
-                house.removeRole(this);
-            }
+    public void leaveHouse() {
+        synchronized (house) {
+            house.removeRole(this);
         }
     }
+}
