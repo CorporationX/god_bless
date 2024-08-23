@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private final static Integer NUM_THREADS = 1;
@@ -33,9 +34,12 @@ public class Witcher {
         }
 
         service.shutdown();
-
-        while (!service.isTerminated()) {//чтобы главгый поток подождал выполнения всех задач
-
+        try {
+            if (!service.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                service.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            service.shutdownNow();
         }
 
 
