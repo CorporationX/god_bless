@@ -1,5 +1,8 @@
 package faang.school.godbless.Microsoft;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MailSender {
     public static void main(String[] args) {
         SenderRunnable secondSender = new SenderRunnable(0, 200);
@@ -12,19 +15,19 @@ public class MailSender {
         Thread thirdThread = new Thread(fourthSender);
         Thread fourthThread = new Thread(fifthSender);
         Thread fifthThread = new Thread(sixthSender);
-        firstThread.start();
-        secondThread.start();
-        thirdThread.start();
-        fourthThread.start();
-        fifthThread.start();
-        try {
-            fifthThread.join();
-            secondThread.join();
-            thirdThread.join();
-            fourthThread.join();
-            fifthThread.join();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+        List<Thread> threads = new ArrayList<>();
+        threads.add(fifthThread);
+        threads.add(firstThread);
+        threads.add(secondThread);
+        threads.add(thirdThread);
+        threads.add(fourthThread);
+        for (Thread thread : threads) {
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println("Письма отправлены");
     }
