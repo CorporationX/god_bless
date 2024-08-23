@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 import java.util.Random;
-
 @AllArgsConstructor
 public class CityWorker implements Runnable{
     private City city;
@@ -36,8 +35,7 @@ public class CityWorker implements Runnable{
     }
 
     public long getKillTime(){
-        long sleep = new Random().nextLong(1000, 5000);
-        return sleep;
+        return new Random().nextLong(1000, 5000);
     }
 
     public long getJourneyDistance() {

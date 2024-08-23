@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
 
@@ -15,8 +16,6 @@ public class Witcher {
         monsters.add(new Monster("Basilisk", "Toussaint"));
         monsters.add(new Monster("Cockatrice", "White Orchard"));
         monsters.add(new Monster("Chort", "Skellige"));
-
-
 
         List<City> cities = new ArrayList<>();
 
@@ -32,6 +31,13 @@ public class Witcher {
             executor.submit(new CityWorker(city, monsters));
         }
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+        }
         long endTime = System.currentTimeMillis();
         System.out.println(endTime - startTime);
     }
