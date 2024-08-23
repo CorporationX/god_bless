@@ -2,37 +2,29 @@ package faang.school.godbless.sprint.three.heroes;
 
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class Army {
-    private final Map<Unit, List<PowerThread>> unitsMap = new HashMap<>();
-    private final Map<Unit, AtomicInteger> heroesPower = new HashMap<>();
+    private final Map<Unit, PowerThread> unitsMap = new HashMap<>();
+    private final AtomicInteger allPower = new AtomicInteger(0);
 
     public int calculateTotalPower() throws InterruptedException {
-        for (Map.Entry<Unit, List<PowerThread>> entry: unitsMap.entrySet()) {
-            for (PowerThread thread : entry.getValue()) {
-                thread.start();
-            }
-        }
-
-        for (Map.Entry<Unit, List<PowerThread>> entry: unitsMap.entrySet()) {
-            for (PowerThread thread : entry.getValue()) {
+        unitsMap.forEach((key, thread) -> thread.start());
+        unitsMap.forEach((key, thread) -> {
+            try {
                 thread.join();
-                heroesPower.computeIfAbsent(entry.getKey(),
-                        k -> new AtomicInteger(0)).addAndGet(thread.getPower());
+                allPower.addAndGet(thread.getPower());
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
-        }
-
-        return heroesPower.values().stream().mapToInt(AtomicInteger::intValue).sum();
+        });
+        return allPower.get();
     }
 
     public void addUnit(Unit unit) {
-        PowerThread powerThread = new PowerThread(unit);
-        unitsMap.computeIfAbsent(unit, k -> new ArrayList<>()).add(powerThread);
+        unitsMap.computeIfAbsent(unit, k -> new PowerThread()).addUnit(unit);
     }
 }

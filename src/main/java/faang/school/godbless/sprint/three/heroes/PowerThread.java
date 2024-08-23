@@ -2,13 +2,16 @@ package faang.school.godbless.sprint.three.heroes;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 public class PowerThread extends Thread {
-    private final Unit unit;
+    private final List<Unit> units = new ArrayList<>();
     private int power;
 
-    public PowerThread(Unit unit) {
-        this.unit = unit;
+    public void addUnit(Unit unit) {
+        this.units.add(unit);
     }
 
     @Override
@@ -18,6 +21,7 @@ public class PowerThread extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        this.power = this.unit.getPower();
+        this.power = this.units.stream()
+                .mapToInt(Unit::getPower).sum();
     }
 }
