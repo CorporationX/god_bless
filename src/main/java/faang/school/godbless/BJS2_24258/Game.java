@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 
 public class Game {
     public static final int PLAYER_IN_GAME = 2;
+    public static final int ALL_GAMERS = 4;
 
     public static void main(String[] args) {
         Boss boss = new Boss(PLAYER_IN_GAME);
@@ -35,7 +36,7 @@ public class Game {
             playerFour.startBattle();
         };
 
-        ExecutorService executor = Executors.newFixedThreadPool(PLAYER_IN_GAME);
+        ExecutorService executor = Executors.newFixedThreadPool(ALL_GAMERS);
         executor.execute(taskOne);
         executor.execute(taskTwo);
         executor.execute(taskThree);
