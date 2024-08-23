@@ -1,7 +1,5 @@
 package faang.school.godbless.BJS2_24445;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -9,11 +7,19 @@ import java.util.stream.IntStream;
 
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
-    @Getter
     private final List<String> photoPaths = new ArrayList<>();
 
     public void startAutoUpdate() {
-
+        synchronized (lock) {
+            while (photoPaths.isEmpty()) {
+                try {
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Wait error");
+                }
+            }
+            uploadPhotos();
+        }
     }
 
     public void onNewPhotoAdded(String photoPath) {
@@ -30,14 +36,6 @@ public class GooglePhotosAutoUploader {
                     String photoPath = photoPaths.remove(0);
                     System.out.println("Upload to server: " + photoPath);
                 });
-    }
-
-    private static void sleepWithCatchException(long millis) {
-        try {
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Thread error");
-        }
     }
 }
 

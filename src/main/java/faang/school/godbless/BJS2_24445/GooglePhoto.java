@@ -2,7 +2,7 @@ package faang.school.godbless.BJS2_24445;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.IntStream;
+import java.util.concurrent.TimeUnit;
 
 public class GooglePhoto {
     public static void main(String[] args) {
@@ -13,22 +13,40 @@ public class GooglePhoto {
         String photoPathFive = "/mnt/data/images/gallery/photo_of_the_day.jpg";
 
         GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader();
-        uploader.getPhotoPaths().add(photoPathOne);
-        uploader.getPhotoPaths().add(photoPathTwo);
 
         Runnable user = () -> {
+            sleepWithCatchException(1000);
+            uploader.onNewPhotoAdded(photoPathOne);
+            sleepWithCatchException(1000);
+            uploader.onNewPhotoAdded(photoPathTwo);
+            sleepWithCatchException(1000);
             uploader.onNewPhotoAdded(photoPathThree);
+            sleepWithCatchException(1000);
             uploader.onNewPhotoAdded(photoPathFour);
+            sleepWithCatchException(1000);
             uploader.onNewPhotoAdded(photoPathFive);
         };
 
-        Runnable cloud = uploader::startAutoUpdate;
+        Runnable cloud = () -> {
+            sleepWithCatchException(2000);
+            uploader.startAutoUpdate();
+            sleepWithCatchException(2000);
+            uploader.startAutoUpdate();
+            sleepWithCatchException(2000);
+            uploader.startAutoUpdate();
+        };
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-        executorService.execute(cloud);
-        executorService.execute(user);
-        executorService.shutdown();
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        executor.execute(cloud);
+        executor.execute(user);
+        executor.shutdown();
     }
 
-
+    private static void sleepWithCatchException(long millis) {
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Thread error");
+        }
+    }
 }
