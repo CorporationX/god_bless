@@ -8,6 +8,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class VideoManager {
+    private static final int NUM_THREADS = 100;
+    private static final int NUM_VIDEOS = 10;
+    private static final int SECONDS_AWAIT = 30;
+
     private final Map<String, Integer> viewsMap = new HashMap<>();
 
     public synchronized void addView(String videoId) {
@@ -19,9 +23,6 @@ public class VideoManager {
     }
 
     public static void main(String[] args) {
-        final int NUM_THREADS = 100;
-        final int NUM_VIDEOS = 10;
-
         VideoManager videoManager = new VideoManager();
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
@@ -40,7 +41,7 @@ public class VideoManager {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(15, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(SECONDS_AWAIT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
