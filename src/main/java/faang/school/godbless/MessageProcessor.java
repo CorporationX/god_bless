@@ -8,12 +8,12 @@ interface MessageFilter {
 }
 
 class MessageProcessor {
-    boolean processMessage(String messages, List<MessageFilter> filters) {
-        MessageFilter messageFilter;
-        for (int i = 0; i < filters.size(); i++) {
-            messageFilter = filters.get(i);
-            if (false == messageFilter.filter(messages))
+
+    boolean processMessage(String message, List<MessageFilter> filters) {
+        for (MessageFilter messageFilter : filters) {
+            if (!messageFilter.filter(message)) {
                 return true;
+            }
         }
         return false;
     }
