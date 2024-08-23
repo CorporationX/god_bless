@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class DruidProducer {
 
-    String alphabet = Common.alphabet;
+    private final String alphabet = Common.alphabet;
 
     public String constructMessage(String message, int key, DruidMessageEncryptor encryptor) {
         return encryptor.getMessage(message, key);
