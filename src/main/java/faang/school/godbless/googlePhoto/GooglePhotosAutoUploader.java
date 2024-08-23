@@ -6,11 +6,12 @@ import java.util.Random;
 
 public class GooglePhotosAutoUploader {
     private final List<String> photosToUpload = new ArrayList<>();
+    private final Object lock = new Object();
 
     public void startAutoUpload() throws InterruptedException {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             if (photosToUpload.isEmpty()) {
-                photosToUpload.wait();
+                lock.wait();
             }
             uploadPhoto(photosToUpload.get(new Random().nextInt(photosToUpload.size())));
         }
@@ -22,9 +23,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 }
