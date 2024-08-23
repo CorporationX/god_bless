@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 
 class DictionaryProcessor {
 
-    void processWord(String word, String translation, BiConsumer biConsumer) {
+    void processWord(String word, String translation, BiConsumer<String, String> biConsumer) {
         biConsumer.accept(word, translation);
     }
 
