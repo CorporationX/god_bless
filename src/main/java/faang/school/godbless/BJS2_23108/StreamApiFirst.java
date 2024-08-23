@@ -37,8 +37,8 @@ public class StreamApiFirst {
     }
 
     //Проверить, все ли элементы списка удовлетворяют определённому условию;
-    public static Boolean checkingString(List<String> list, String condition) {
-        return list.stream().allMatch(Predicate.isEqual(condition));
+    public static Boolean checkingString(List<String> list, Predicate<String> condition) {
+        return list.stream().allMatch(condition);
     }
 
     //Найти наименьший элемент в списке, который больше заданного числа;
