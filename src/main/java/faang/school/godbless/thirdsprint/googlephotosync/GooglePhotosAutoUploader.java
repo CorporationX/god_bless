@@ -4,26 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
+    public static final int WAIT_TIME = 10;
+    public static final int UPLOAD_TIME = 750;
+
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         while (true) {
             synchronized (lock) {
-                    try {
-                        while (photosToUpload.isEmpty()) {
-                            System.out.println("Нет новых фотографий, ожидание...");
-                            lock.wait(10000);
+                try {
+                    while (photosToUpload.isEmpty()) {
+                        System.out.println("Нет новых фотографий, ожидание...");
+                        lock.wait(WAIT_TIME * 1000);
 
-                            if (photosToUpload.isEmpty()) {
-                                System.out.println("Загрузка прервана из-за отсутствия" +
-                                        " новых фотографий в течение 10 секунд.");
-                                return;
-                            }
+                        if (photosToUpload.isEmpty()) {
+                            System.out.println("Загрузка прервана из-за отсутствия" +
+                                    " новых фотографий в течение 10 секунд.");
+                            return;
                         }
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
                     }
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 uploadPhotos();
             }
         }
@@ -41,11 +44,10 @@ public class GooglePhotosAutoUploader {
         String photo = photosToUpload.remove(0);
         System.out.println("Загрузка фотографии: " + photo);
         try {
-            Thread.sleep(250);
+            Thread.sleep(UPLOAD_TIME);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             System.out.println("Процесс загрузки прерван.");
-            return;
+            throw new RuntimeException(e);
         }
         System.out.println("Фотография загружена: " + photo);
     }
