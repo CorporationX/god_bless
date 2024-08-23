@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Witcher {
-    private final static Integer NUM_THREADS = 1;
+    private static final Integer NUM_THREADS = 1;
     public static void main(String[] args) throws InterruptedException {
         List<Monster> monsters = new ArrayList<>();
 
