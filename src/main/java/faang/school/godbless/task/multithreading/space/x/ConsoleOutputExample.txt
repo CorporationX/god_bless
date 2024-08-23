@@ -1,0 +1,9 @@
+> Task :Main.main()
+01:29:28.476 [pool-1-thread-1] INFO  - Rocket 1 start
+01:29:31.461 [pool-1-thread-1] INFO  - Rocket 2 start
+01:29:34.465 [pool-1-thread-1] INFO  - Rocket 3 start
+01:29:37.465 [pool-1-thread-1] INFO  - Rocket 4 start
+01:29:40.467 [pool-1-thread-1] INFO  - Rocket 5 start
+01:29:40.472 [pool-1-thread-1] INFO  - Time of execution: 16013 milliseconds
+
+BUILD SUCCESSFUL in 16s
