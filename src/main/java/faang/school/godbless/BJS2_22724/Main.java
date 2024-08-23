@@ -120,6 +120,8 @@ public class Main {
         System.out.println(analyzer.mostPopularOffices(allJobs));
 
         System.out.println("Salary distribution:");
-        System.out.println(analyzer.salaryDistribution(allJobs));
+        analyzer.salaryDistribution(allJobs,50000.0).entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
     }
 }

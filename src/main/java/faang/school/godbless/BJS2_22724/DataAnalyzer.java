@@ -26,13 +26,10 @@ public class DataAnalyzer {
                 .toList();
     }
 
-    public Map<String, Long> salaryDistribution(List<Job> jobList) {
+
+    public Map<Double, Long> salaryDistribution(List<Job> jobList, double stepSalaryRange) {
         return jobList.stream()
-                .collect(Collectors.groupingBy(job -> {
-                    int salary = job.getSalary();
-                    if (salary <= 50000) return "0-50k";
-                    else if (salary <= 100000) return "0-100k";
-                    else return "over100k";
-                }, Collectors.counting()));
+                .collect(Collectors.groupingBy(
+                        job -> Math.ceil(job.getSalary() / stepSalaryRange) * stepSalaryRange, Collectors.counting()));
     }
 }
