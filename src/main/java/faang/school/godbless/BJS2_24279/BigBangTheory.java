@@ -11,20 +11,13 @@ public class BigBangTheory {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
 
-        List<Task> taskList = new ArrayList<>(Arrays.asList(
-                new Task("Sheldon", "Math problem"),
-                new Task("Leonard", "Chemistry problem"),
-                new Task("Govard", "Physics problem"),
-                new Task("Radjesh", "Informatics problem")
-        ));
+        List<Task> taskList = new ArrayList<>(Arrays.asList(new Task("Sheldon", "Math problem"), new Task("Leonard", "Chemistry problem"), new Task("Govard", "Physics problem"), new Task("Radjesh", "Informatics problem")));
 
-        for(var task : taskList) {
-            executorService.submit(task);
-        }
+        taskList.forEach(executorService::submit);
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(60, TimeUnit.SECONDS);
+            executorService.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
