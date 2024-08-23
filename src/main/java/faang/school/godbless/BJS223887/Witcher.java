@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     private static final int NUM_THREADS = 4;
@@ -32,7 +33,17 @@ public class Witcher {
 
         executor.shutdown();
 
-        while (!executor.isTerminated()) ;
+        try {
+            if (!executor.awaitTermination(100, TimeUnit.SECONDS)) {
+                System.out.println("Forced shutdown");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Shutdown interrupted");
+            executor.shutdownNow();
+        }
+
+        System.out.println("All food has been collected.");
 
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
