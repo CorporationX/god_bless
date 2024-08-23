@@ -1,0 +1,10 @@
+{"position": "Data Scientist", "requirements": ["Java", "Spring Framework", "REST APIs", "SQL"], "salary": 95000, "location": "Moscow", "createdAt": "2024-08-01"}
+{"position": "Data Scientist", "requirements": ["Python", "PostgreSQL", "Data Analysis", "SQL"], "salary": 110000, "location": "Warsaw", "createdAt": "2024-07-15"}
+{"position": "Frontend Developer", "requirements": ["JavaScript", "React", "PostgreSQL", "HTML"], "salary": 85000, "location": "Warsaw", "createdAt": "2024-08-05"}
+{"position": "Project Manager", "requirements": ["Android", "Scrum", "Team Management", "Communication"], "salary": 90000, "location": "Chicago", "createdAt": "2024-08-10"}
+{"position": "UX/UI Designer", "requirements": ["Spring Framework", "Sketch", "Wireframing", "Prototyping"], "salary": 78000, "location": "Orksk", "createdAt": "2024-07-20"}
+{"position": "Data Scientist", "requirements": ["AWS", "Docker", "PostgreSQL", "Android"], "salary": 105000, "location": "Seattle", "createdAt": "2024-08-03"}
+{"position": "UX/UI Designer", "requirements": ["Android", "Express", "MongoDB", "REST APIs"], "salary": 92000, "location": "Moscow", "createdAt": "2024-07-28"}
+{"position": "Data Scientist", "requirements": ["Network Security", "Penetration Spring Framework", "SIEM", "Firewalls"], "salary": 99000, "location": "Orksk", "createdAt": "2024-08-12"}
+{"position": "Frontend Developer", "requirements": ["Swift", "Kotlin", "Spring Framework", "Android"], "salary": 880000, "location": "Warsaw", "createdAt": "2024-07-30"}
+{"position": "Frontend Developer", "requirements": ["MySQL", "PostgreSQL", "Backup and Recovery", "Performance Tuning"], "salary": 86000, "location": "Warsaw", "createdAt": "2024-08-07"}
