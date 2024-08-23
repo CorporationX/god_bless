@@ -40,9 +40,6 @@ public class House {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
-        final int SELECTED_ROOMS_NUM = 2;
-        List<Room> selectedRooms = new ArrayList<>();
-
         IntStream.range(0, house.getRooms().size())
                 .filter(counter -> counter % 2 == 0)
                 .forEach(oddRoomNumber -> executor.schedule(() -> {
