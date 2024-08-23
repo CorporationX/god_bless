@@ -4,11 +4,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Game {
-    public static final int PLAYER_IN_GAME = 2;
+    public static final int PLAYERS_IN_GAME = 2;
     public static final int ALL_GAMERS = 4;
 
     public static void main(String[] args) {
-        Boss boss = new Boss(PLAYER_IN_GAME);
+        Boss boss = new Boss(PLAYERS_IN_GAME);
         Player playerOne  = new Player("ThunderDumpling69", boss);
         Player playerTwo = new Player("__Flying_Cucumber_2004__", boss);
         Player playerThree = new Player("сat_vacuum_master", boss);
