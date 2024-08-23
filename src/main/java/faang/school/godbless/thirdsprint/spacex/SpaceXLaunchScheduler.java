@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 public class SpaceXLaunchScheduler {
-    private static final int COUNTDOWN_TIME = 10000;
+    private static final int COUNTDOWN_TIME = 10;
 
     private long executionTime;
 
@@ -24,12 +24,12 @@ public class SpaceXLaunchScheduler {
                 System.out.println("Rocket: " + launch.getName() + " | Time to launch: " + delay + " ms");
 
                 try {
-                    Thread.sleep(delay - COUNTDOWN_TIME);
+                    Thread.sleep(delay - COUNTDOWN_TIME * 1000);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
-                for (int i = 10; i > 0; i--) {
+                for (int i = COUNTDOWN_TIME; i > 0; i--) {
                     System.out.println("Rocket: " + launch.getName() + " | Countdown: " + i);
                     try {
                         Thread.sleep(1000);
