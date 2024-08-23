@@ -10,8 +10,8 @@ public class Main {
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
-        for (Item item : frodo.getInventory()){
-            System.out.println(item.getValue());
+        for (Item item : frodo.getInventory()) {
+            System.out.println(item);
         }
     }
 }

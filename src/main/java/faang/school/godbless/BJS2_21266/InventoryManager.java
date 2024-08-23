@@ -6,19 +6,19 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
 
-    public void addItem(Character character, Item item, Consumer<Item> consumer){
+    public void addItem(Character character, Item item, Consumer<Item> consumer) {
         character.getInventory().add(item);
         consumer.accept(item);
     }
 
-    public void removeItem(Character character, Predicate<Item> predicate){
+    public void removeItem(Character character, Predicate<Item> predicate) {
         character.getInventory().removeIf(predicate);
     }
 
-    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function){
-        for (Item item : character.getInventory()){
-            if (predicate.test(item)){
-                 item.setValue(function.apply(item).getValue());
+    public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            if (predicate.test(character.getInventory().get(i))) {
+                character.getInventory().set(i, function.apply(character.getInventory().get(i)));
             }
         }
     }
