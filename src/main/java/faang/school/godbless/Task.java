@@ -19,6 +19,6 @@ public class Task implements Runnable{
             log.info("interupted " + name + " " + task);
 //            throw new RuntimeException(e);
         }
-
+        log.info("finished " + name + " " + task);
     }
 }
