@@ -6,9 +6,9 @@ import lombok.NonNull;
 import java.util.Optional;
 
 public class JobScraper {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
     public static Optional<Job> parser(@NonNull String stringJson) {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
             Job job = objectMapper.readValue(stringJson, Job.class);
             return Optional.ofNullable(job);
         } catch (Exception e) {

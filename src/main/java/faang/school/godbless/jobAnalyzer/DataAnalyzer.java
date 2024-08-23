@@ -1,11 +1,9 @@
 package faang.school.godbless.jobAnalyzer;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -28,25 +26,26 @@ public class DataAnalyzer {
         );
 
         // Example usage of the methods
-        System.out.println("Top 5 Requirements: " + findTOPJobEntities(jobs,job->job.getRequirements().stream(),5));
-        System.out.println("Top 5 Vacancies: " + findTOPJobEntities(jobs,job-> Stream.of(job.getVacancy()),5));
-        System.out.println("Top 5 Locations: " + findTOPJobEntities(jobs,job-> Stream.of(job.getLocation()),5));
-        System.out.println("Salary Graph: " + getSalaryGraph(jobs, 50000));
+        System.out.println("Top 5 Requirements: " + findTOPJobEntities(jobs, job -> job.getRequirements().stream(), 5));
+        System.out.println("Top 5 Vacancies: " + findTOPJobEntities(jobs, job -> Stream.of(job.getVacancy()), 5));
+        System.out.println("Top 5 Locations: " + findTOPJobEntities(jobs, job -> Stream.of(job.getLocation()), 5));
+        System.out.println("Salary Graph: " + getSalaryDistribution(jobs, 50000));
     }
 
-    public static <T> List<T> findTOPJobEntities(List<Job> jobs, Function<Job, Stream<T>> entityExtractor, int topCount) {
-        return jobs.stream()
-                .flatMap(entityExtractor)
+    public static <T> List<T> findTOPJobEntities(List<Job> jobs, Function<Job, Stream<T>> streamEntityExtractor, int topCount) {
+        Set<Map.Entry<T, Long>> groupedJobsByEntity = jobs.stream()
+                .flatMap(streamEntityExtractor)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
-                .entrySet()
-                .stream()
+                .entrySet();
+
+        return groupedJobsByEntity.stream()
                 .sorted((Map.Entry.<T, Long>comparingByValue().reversed()))
-                .limit(5)
+                .limit(topCount)
                 .map(Map.Entry::getKey)
                 .toList();
     }
 
-    public static Map<String, Integer> getSalaryGraph(List<Job> jobs, int step) {
+    public static Map<String, Integer> getSalaryDistribution(List<Job> jobs, int step) {
         double maxSalary = jobs.stream()
                 .mapToDouble(Job::getSalary)
                 .max()
@@ -57,13 +56,17 @@ public class DataAnalyzer {
                 .mapToObj(i -> new Range(i * step, (i + 1) * step))
                 .collect(Collectors.toMap(
                                 Range::toString,
-                                range -> (int) jobs.stream()
-                                        .filter(job -> range.isInRange(job.getSalary()))
-                                        .count(),
+                                range -> countIntegerEntityFromJobIsInRange(range, jobs, Job::getSalary),
                                 (existing, replacement) -> existing,
                                 LinkedHashMap::new
                         )
                 );
+    }
+
+    private static int countIntegerEntityFromJobIsInRange(Range range, List<Job> jobs, Function<Job, Double> entityExtractor) {
+        return (int) jobs.stream()
+                .filter(job -> range.isInRange(entityExtractor.apply(job)))
+                .count();
     }
 
     record Range(double lowerBound, double upperBound) {
