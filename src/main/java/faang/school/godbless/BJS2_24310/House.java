@@ -13,6 +13,7 @@ public class House {
     private final Object lock = this;
     private int freeRoles;
     private List<Role> roles;
+    private final String name;
 
     public void addRole() {
         synchronized (lock) {

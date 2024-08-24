@@ -13,8 +13,8 @@ public class User {
     private Role role;
 
     public User(House house, String name) {
-        this.house = house;
         this.name = name;
+        this.house = house;
     }
 
     public void joinHouse() {
@@ -31,8 +31,10 @@ public class User {
             }
             role = house.getRoles().get(rand.nextInt(house.getRoles().size()));
             house.addRole();
-            System.out.println(name + " joined the house with role " + role.getName());
+            System.out.println(name + " joined the house: "+house.getName()+" with role: " + role.getName());
         }
+        userPlay();
+        leaveHouse();
     }
 
     public void leaveHouse() {
@@ -42,4 +44,13 @@ public class User {
             house = null;
         }
     }
+
+    public void userPlay() {
+        try {
+            Thread.sleep(new Random().nextInt(2000,5000));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
 }

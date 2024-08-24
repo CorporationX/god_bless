@@ -1,36 +1,28 @@
 package faang.school.godbless.BJS2_24310;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class Main {
-    public static void main(String[] args) {
-        final int NUM_THREADS = 4;
-        List<User> users = createUsers(20);
-        House house = new House(3, List.of(new Role("Mage"),
-                new Role("Lord"), new Role("Knight")));
+    static final List<Role> allRoles = List.of(new Role("Mage"), new Role("Lord"), new Role("Knight"), new Role("Warrior"), new Role("Healer"));
 
-        User user1 = new User(house, "Kolobok");
-        User user2 = new User(house, "Fox");
-        User user3 = new User(house, "Bear");
-        User user4 = new User(house, "Wolf");
+    public static void main(String[] args) {
+        final int NUM_THREADS = 100;
+        List<House> houses = List.of(new House(20, allRoles, "Barateons"),
+                new House(20, allRoles, "Starks"),
+                new House(20, allRoles, "Arrens")
+        );
+        List<User> users = createUsers(100, houses);
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
-        executor.submit(user1::joinHouse);
-        executor.submit(user2::joinHouse);
-        executor.submit(user3::joinHouse);
-        executor.submit(user4::joinHouse);
-
-        sleep(4000);
-        user1.leaveHouse();
-        sleep(2000);
+        users.forEach(user -> executor.submit(user::joinHouse));
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(100, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -38,11 +30,11 @@ public class Main {
         }
     }
 
-    private static List<User> createUsers(int countUsers) {
-return IntStream.range(0,countUsers)
-        .forEach(new User());
+    private static List<User> createUsers(int countUsers, List<House> houses) {
+        return IntStream.range(0, countUsers + 1)
+                .mapToObj(i -> new User(houses.get(new Random().nextInt(houses.size())), "User_" + i))
+                .toList();
     }
-
 
 
     private static void sleep(long millis) {
