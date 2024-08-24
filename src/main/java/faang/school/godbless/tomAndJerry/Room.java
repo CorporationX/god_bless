@@ -1,16 +1,17 @@
 package faang.school.godbless.tomAndJerry;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@ToString
 public class Room {
 
     private final String name;
     private List<Food> foods;
-    private int lock;
 
     public Room(String name) {
         this.name = name;

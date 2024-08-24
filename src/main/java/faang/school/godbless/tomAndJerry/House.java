@@ -41,13 +41,11 @@ public class House {
         if (roomsWithFoods != null) {
             int counterOfRooms = 0;
             for (Room room : roomsWithFoods) {
-                if (!room.getFoods().isEmpty() && counterOfRooms < LIMIT_FOR_ROOMS && room.getLock() == 0) {
-                    room.setLock(1);
+                if (!room.getFoods().isEmpty() && counterOfRooms < LIMIT_FOR_ROOMS) {
                     List<Food> foodInRoom = room.getFoods();
                     collectedFood.addAll(foodInRoom);
                     foodInRoom.clear();
                     counterOfRooms++;
-                    room.setLock(0);
                 }
             }
         }
