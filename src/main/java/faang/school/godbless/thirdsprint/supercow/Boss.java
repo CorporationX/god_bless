@@ -19,6 +19,7 @@ public class Boss {
                 wait();
             } catch (InterruptedException e) {
                 log.error("Interrupted exception: {}", e.getMessage());
+                return;
             }
         }
 
