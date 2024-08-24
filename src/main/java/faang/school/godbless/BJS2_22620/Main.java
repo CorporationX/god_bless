@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) {
         List<Student> students = getStudents();
 
-        System.out.println(Student.subjectByAvgAssessment(students));
+        System.out.println(Student.groupSubjectByAvgAssessment(students));
         System.out.println();
 
-        System.out.println(Student.mapStudentByFinalAssessments(students));
+        System.out.println(Student.groupStudentByFinalAssessments(students));
         System.out.println();
 
         System.out.println(Student.findMostDifficultSubject(students).orElse("No subjects available"));
