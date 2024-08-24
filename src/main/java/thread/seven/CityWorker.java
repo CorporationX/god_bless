@@ -19,8 +19,8 @@ public class CityWorker implements Runnable {
 
         Monster nearestMonster = findNearestMonster(city, monsters);
 
-        getJourneyDistance(city);
-        getKillTime(nearestMonster);
+        printJourneyDistance(city);
+        printBattleInfo(nearestMonster);
 
     }
 
@@ -42,7 +42,7 @@ public class CityWorker implements Runnable {
         return nearestMonster;
     }
 
-    public void getKillTime(Monster monster) {
+    public void printBattleInfo(Monster monster) {
         System.out.println("Битва началась!");
         try {
             Thread.sleep(1000);
@@ -52,7 +52,7 @@ public class CityWorker implements Runnable {
         }
     }
 
-    public void getJourneyDistance(City city) {
+    public void printJourneyDistance(City city) {
 
         if (city.getRangeToGerald() == 0) {
             System.out.println("Геральд в городе " + city.getName());
