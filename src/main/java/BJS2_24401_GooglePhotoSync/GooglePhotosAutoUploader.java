@@ -19,7 +19,7 @@ public class GooglePhotosAutoUploader {
                     uploadPhotos();
                 }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread().interrupt();
             }
         }
     }
