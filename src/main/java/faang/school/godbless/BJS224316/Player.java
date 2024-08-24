@@ -2,9 +2,7 @@ package faang.school.godbless.BJS224316;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Getter
 @AllArgsConstructor
 public class Player {
@@ -12,7 +10,7 @@ public class Player {
 
     public void startBattle(Boss boss) throws InterruptedException {
         Object lock = boss.getLock();
-        synchronized (lock){
+        synchronized (lock) {
             System.out.println(lock);
             boss.joinBattle(this);
             Thread.sleep((long) (Math.random() * 10));
