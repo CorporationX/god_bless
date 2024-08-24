@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 public class Army {
-    private final Map<Unit, PowerThread> unitsMap = new HashMap<>();
+    private final Map<String, PowerThread> unitsMap = new HashMap<>();
     private final AtomicInteger allPower = new AtomicInteger(0);
 
     public int calculateTotalPower() throws InterruptedException {
@@ -16,7 +16,6 @@ public class Army {
         unitsMap.forEach((key, thread) -> {
             try {
                 thread.join();
-                allPower.addAndGet(thread.getPower());
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -25,6 +24,6 @@ public class Army {
     }
 
     public void addUnit(Unit unit) {
-        unitsMap.computeIfAbsent(unit, k -> new PowerThread()).addUnit(unit);
+        unitsMap.computeIfAbsent(unit.getClass().getName(), k -> new PowerThread(allPower)).addUnit(unit);
     }
 }
