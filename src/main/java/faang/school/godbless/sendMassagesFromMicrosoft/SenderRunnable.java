@@ -6,9 +6,11 @@ import lombok.AllArgsConstructor;
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
-    private static int i = 0;
+
     @Override
     public void run() {
-        System.out.println(i++);
+        for (int i = startIndex; i < endIndex; i++) {
+            System.out.println("Successfully sent email with index: " + i);
+        }
     }
 }
