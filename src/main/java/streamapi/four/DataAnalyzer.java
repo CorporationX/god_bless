@@ -2,6 +2,7 @@ package streamapi.four;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
@@ -17,7 +18,7 @@ public class DataAnalyzer {
 
         Map<String, Long> skillCountMap = jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(skill -> skill,
+                .collect(Collectors.groupingBy(Function.identity(),
                         Collectors.counting()));
 
         return skillCountMap
@@ -32,8 +33,10 @@ public class DataAnalyzer {
 
         checkList(jobs);
 
-        return jobs.stream()
-                .collect(Collectors.groupingBy(Job::getJobTitle, Collectors.counting()))
+        Map<String, Long> mostPupularJobTitleMap = jobs.stream()
+                .collect(Collectors.groupingBy(Job::getJobTitle, Collectors.counting()));
+
+        return mostPupularJobTitleMap
                 .entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
                 .limit(top)
@@ -50,22 +53,17 @@ public class DataAnalyzer {
 
     }
 
-    private static String getSalaryRange(String salary) {
-        if (salary == null || salary.isEmpty()) {
-            throw new IllegalArgumentException("Передали пустую строку");
-        }
+    private static String getSalaryRange(Double salary) {
 
-        double salaryValue = Double.parseDouble(salary.replaceAll("[^0-9.]", ""));
-
-        if (salaryValue < 0) {
+        if (salary < 0) {
             throw new IllegalArgumentException("Передали отрицательное значение");
         }
 
-        if (salaryValue < 50000) {
+        if (salary < 50000) {
             return "0-50k";
-        } else if (salaryValue < 100000) {
+        } else if (salary < 100000) {
             return "50k-100k";
-        } else if (salaryValue < 150000) {
+        } else if (salary < 150000) {
             return "100k-150k";
         } else {
             return "150k+";

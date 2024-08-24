@@ -18,7 +18,7 @@ public class Job {
 
     private String jobTitle;
     private List<String> requirements;
-    private String salary;
+    private double salary;
     private String location;
     private final LocalDateTime postingDate = LocalDateTime.now();
 }
