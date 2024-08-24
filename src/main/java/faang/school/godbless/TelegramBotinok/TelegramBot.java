@@ -20,8 +20,8 @@ public class TelegramBot {
         LocalDateTime timeNow = LocalDateTime.now();
         Duration timeSinceLastRequest = Duration.between(lastRequestTime, timeNow);
 
-        if (timeSinceLastRequest.getSeconds() < 1) {
-            requestCounter++;
+        if (timeSinceLastRequest.getSeconds() < 1) { // Он ждёт секунду, а не до конца секунды, потому что иначе они никогда не войдёт в else
+            requestCounter++;                        // потому что программа не запускается ровно в 0 милисикунд, что бы время до конца секунды было равно секунде
             System.out.println(requestCounter);
             if (requestCounter > REQUEST_LIMIT) {
                 try {
