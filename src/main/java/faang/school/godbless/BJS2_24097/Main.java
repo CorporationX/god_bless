@@ -16,20 +16,20 @@ public class Main {
         User userTwo = new User("John", "Mage", house);
         User userThree = new User("Tirion", "Swordman", house);
 
-        Runnable taskOne = () -> {
+        Runnable joinAndLeaveHouseOne = () -> {
             userOne.joinHouse();
             sleepWithTryCatchBlock(3000);
             userOne.leaveHouse();
         };
 
-        Runnable taskTwo = () -> {
+        Runnable joinAndLeaveHouseTwo = () -> {
             sleepWithTryCatchBlock(2000);
             userTwo.joinHouse();
             sleepWithTryCatchBlock(2000);
             userTwo.leaveHouse();
         };
 
-        Runnable taskThree = () -> {
+        Runnable joinAndLeaveHouseThree = () -> {
             sleepWithTryCatchBlock(1000);
             userThree.joinHouse();
             sleepWithTryCatchBlock(5000);
@@ -37,9 +37,9 @@ public class Main {
         };
 
         ExecutorService executor = Executors.newFixedThreadPool(USER_AMOUNT);
-        executor.execute(taskOne);
-        executor.execute(taskTwo);
-        executor.execute(taskThree);
+        executor.execute(joinAndLeaveHouseOne);
+        executor.execute(joinAndLeaveHouseTwo);
+        executor.execute(joinAndLeaveHouseThree);
         executor.shutdown();
     }
 

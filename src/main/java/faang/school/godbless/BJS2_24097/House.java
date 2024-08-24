@@ -24,17 +24,13 @@ public class House {
             int oldValue = roles.get(userRole);
             roles.put(userRole, --oldValue);
             System.out.println(user.getName() + " takes the role");
-
-            if (--oldValue > 0) {
-                this.notifyAll();
-            }
+            this.notifyAll();
         }
     }
 
     public void removeRole(User user) {
         String userRole = user.getRole();
         if (roles.containsKey(userRole)) {
-            System.out.println();
             int oldValue = roles.get(userRole);
             roles.put(userRole, ++oldValue);
             System.out.println(user.getName() + " leaves the role:");
