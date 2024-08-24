@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         var executorService = Executors.newFixedThreadPool(4);
         var taskList = new ArrayList<>(
                 List.of(
@@ -16,15 +16,10 @@ public class BigBangTheory {
                         new Task("Rajesh", "data analysis.")
                 )
         );
-
         taskList.forEach(executorService::execute);
-        executorService.shutdown();
 
-        try {
-            if (executorService.awaitTermination(10, TimeUnit.SECONDS))
-                System.out.println("All tasks completed.");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        executorService.shutdown();
+        if (executorService.awaitTermination(1, TimeUnit.MINUTES))
+            System.out.println("All tasks completed.");
     }
 }
