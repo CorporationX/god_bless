@@ -18,14 +18,14 @@ public class User {
 
     public void joinHouse(@NonNull House house) {
         this.house = house;
-        synchronized (house.getLock()) {
+        synchronized (house) {
             if (house.isAnyRoleAvailable()) {
                 setRole(house);
             } else {
                 try {
                     log.info(String.format("Waiting for available role in house of %s...", house.getName()));
                     while (!house.isAnyRoleAvailable()) {
-                        house.getLock().wait();
+                        house.wait();
                     }
                     setRole(house);
                 } catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class User {
     }
 
     public void leaveHouse() {
-        synchronized (house.getLock()) {
+        synchronized (house) {
             house.removeRole(role);
             log.info(String.format("%s leave house of %s", name, house.getName()));
         }

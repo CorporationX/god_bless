@@ -29,16 +29,16 @@ public class Main {
                         Thread.sleep(300);
                         user.leaveHouse();
                     } catch (InterruptedException e) {
-                        log.info("Thread interrupted");
+                        log.error("Thread interrupted");
                         Thread.currentThread().interrupt();
                     }
                 }));
             }
             executor.shutdown();
             if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
-                log.info("Finish");
+                log.error("Finish");
             } else {
-                log.info("Time out");
+                log.error("Time out");
             }
         }
         houses.forEach(house -> {
@@ -62,7 +62,7 @@ public class Main {
 
     private static House getHouse(@NonNull String name, @NonNull List<Integer> rolesCount) {
         var roles = HouseRole.values();
-        return new House(new Object(), name,
+        return new House(name,
                 IntStream.range(0, roles.length).boxed()
                         .collect(Collectors.toMap(
                                 i -> roles[i],
