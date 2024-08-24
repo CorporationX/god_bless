@@ -1,0 +1,14 @@
+Ten person in five thread for example:
+
+> Task :Main.main()
+10:20:10.450 [pool-1-thread-4] INFO  - Name 7
+10:20:10.450 [pool-1-thread-3] INFO  - Name 5
+10:20:10.454 [pool-1-thread-4] INFO  - Name 8
+10:20:10.454 [pool-1-thread-3] INFO  - Name 6
+10:20:10.450 [pool-1-thread-1] INFO  - Name 1
+10:20:10.450 [pool-1-thread-5] INFO  - Name 9
+10:20:10.454 [pool-1-thread-1] INFO  - Name 2
+10:20:10.454 [pool-1-thread-5] INFO  - Name 10
+10:20:10.450 [pool-1-thread-2] INFO  - Name 3
+10:20:10.454 [pool-1-thread-2] INFO  - Name 4
+10:20:10.455 [main] INFO  - All done
