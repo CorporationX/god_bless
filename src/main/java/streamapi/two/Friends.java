@@ -18,15 +18,10 @@ public class Friends {
 
         return friendMap.keySet().stream()
                 .flatMap(person -> friendMap.keySet().stream()
-                        .filter(person2 -> !person.equals(person2) && !friendMap.get(person).contains(person2))
+                        .filter(person2 -> person.compareTo(person2) < 0)
+                        .filter(person2 -> !friendMap.get(person).contains(person2))
                         .filter(person2 -> hasMutualFriends(friendMap, person, person2))
-                        .map(person2 -> {
-                            if (person.compareTo(person2) < 0) {
-                                return Arrays.asList(person, person2);
-                            } else {
-                                return Arrays.asList(person2, person);
-                            }
-                        }))
+                        .map(person2 -> Arrays.asList(person, person2)))
                 .distinct()
                 .collect(Collectors.toList());
     }
