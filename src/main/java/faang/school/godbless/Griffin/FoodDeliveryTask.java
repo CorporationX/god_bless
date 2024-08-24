@@ -15,6 +15,11 @@ public class FoodDeliveryTask implements Runnable {
         System.out.println("Food for " + character + " has delivered\n                        " + foodType + " Amount: " + foodAmount);
         for (int i = 1; i < foodAmount + 1; i++) {
             System.out.println(character + " ate " + i + " ");
+            try {
+                Thread.sleep(new Random().nextInt(1000, 5000));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println(character + " all eaten");
     }
