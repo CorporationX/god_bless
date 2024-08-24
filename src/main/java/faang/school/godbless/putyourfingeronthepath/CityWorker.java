@@ -1,10 +1,12 @@
 package faang.school.godbless.putyourfingeronthepath;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
 @RequiredArgsConstructor
+@Slf4j
 public class CityWorker implements Runnable {
     private final City city;
     private final List<Monster> monsters;
@@ -20,6 +22,7 @@ public class CityWorker implements Runnable {
             System.out.printf("Distance to the city %s is %s\n", city.getName(), journeyDistance);
             System.out.printf("Geralt killed %s in %s hours\n", nearestMonster.getName(), getKillTime());
         } catch (InterruptedException e) {
+            log.error(e.getMessage());
             Thread.currentThread().interrupt();
         }
     }
