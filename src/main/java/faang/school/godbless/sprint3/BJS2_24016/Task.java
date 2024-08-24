@@ -13,7 +13,7 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
-        log.info("Task {} started", task);
+        System.out.printf("Task %s started %n", task);
 
         try {
             Thread.sleep(new Random().nextInt(1, 5) * 1000L);
@@ -23,7 +23,7 @@ public class Task implements Runnable {
         }
 
         if (!Thread.currentThread().isInterrupted()) {
-            log.info("Task {} is done!", task);
+            System.out.printf("Task %s is done!", task);
         }
     }
 }

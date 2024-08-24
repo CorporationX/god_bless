@@ -24,7 +24,7 @@ public class BigBangTheory {
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                log.info("All tasks are done!");
+                System.out.println("All tasks are done!");
             } else {
                 log.warn("Timeout: ExecutorService did not shut down in time.");
             }
