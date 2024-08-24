@@ -13,8 +13,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(5000);
         } catch(InterruptedException e) {
-            System.out.printf("%s with task %s interrupted!", currentThreadName, chore);
-            e.printStackTrace();
+            System.out.printf("%s with task %s interrupted!%n", currentThreadName, chore);
         }
     }
 }
