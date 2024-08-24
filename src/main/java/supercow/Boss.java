@@ -21,20 +21,17 @@ public class Boss {
 
     public void joinBattle(@NonNull Player player) {
         synchronized (lock) {
-            if (currentPlayers.size() < maxPlayers) {
-                addPlayer(player);
-            } else {
+            while (maxPlayers <= currentPlayers.size()) {
+                log.info("No available slot in battle, please wait...");
                 try {
-                    log.info("No available slot in battle, please wait...");
-                    while (maxPlayers <= currentPlayers.size()) {
-                        lock.wait();
-                    }
-                    addPlayer(player);
+                    lock.wait();
                 } catch (InterruptedException e) {
-                    log.info("Server error: " + e.getMessage());
+                    log.error("Server error: " + e.getMessage());
                     Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
                 }
             }
+            addPlayer(player);
         }
         processPlayerBattle(player);
     }
@@ -59,7 +56,7 @@ public class Boss {
                 lock.notifyAll();
             }
         } catch (InterruptedException e) {
-            log.info("Connection lost");
+            log.error("Connection lost");
             Thread.currentThread().interrupt();
         }
     }
