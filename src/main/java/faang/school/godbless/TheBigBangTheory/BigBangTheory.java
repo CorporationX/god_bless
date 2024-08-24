@@ -18,9 +18,12 @@ public class BigBangTheory {
         executor.shutdown();
 
         try {
-            executor.awaitTermination(4L, TimeUnit.SECONDS);
+            if (!executor.awaitTermination(4L, TimeUnit.SECONDS)) {
+                System.out.println("Timeout elapsed before termination.");
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            throw new RuntimeException("Main thread was interrupted" + e);
         }
         System.out.println("All tasks have been completed");
     }
