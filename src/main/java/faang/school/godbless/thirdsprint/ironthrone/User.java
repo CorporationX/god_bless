@@ -1,7 +1,7 @@
 package faang.school.godbless.thirdsprint.ironthrone;
 
 public class User {
-    private final String name;
+    private String name;
     private House house;
     private Role role;
 
@@ -16,7 +16,9 @@ public class User {
                 try {
                     house.getLock().wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
+                    System.out.println(name + " was interrupted while waiting for a slot.");
+                    return;
                 }
             }
             house.addRole(role);
@@ -29,14 +31,12 @@ public class User {
 
     public void leaveHouse() {
         synchronized (house.getLock()) {
-            if (house != null && role != null) {
-                house.removeRole(role);
-                System.out.println(name + " left house " + house.getName() +
-                        " and made available a " + role + "'s position." +
-                        " Available slots left: " + house.getRolesMap().get(role));
-                this.house = null;
-                this.role = null;
-            }
+            house.removeRole(role);
+            System.out.println(name + " left house " + house.getName() +
+                    " and made available a " + role + "'s position." +
+                    " Available slots left: " + house.getRolesMap().get(role));
+            this.house = null;
+            this.role = null;
         }
     }
 }

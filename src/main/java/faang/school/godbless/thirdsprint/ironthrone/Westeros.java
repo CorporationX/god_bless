@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 public class Westeros {
     private static final int NUMBER_OF_USERS = 25;
     private static final int THREAD_POOL_LIMIT = NUMBER_OF_USERS;
+    private static final int WAIT_TIME = 5;
+
     private static final Random random = new Random();
 
     public static void main(String[] args) {
@@ -19,11 +21,11 @@ public class Westeros {
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
 
-        users.forEach(user -> executor.submit(() -> userJoinHouse(user, houses)));
+        users.forEach(user -> executor.submit(() -> joinAndThenLeaveHouse(user, houses)));
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(WAIT_TIME, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -31,16 +33,18 @@ public class Westeros {
         }
     }
 
-    private static void userJoinHouse(User user, List<House> houses) {
+    private static void joinAndThenLeaveHouse(User user, List<House> houses) {
         House house = houses.get(random.nextInt(houses.size()));
         Role role = Role.values()[random.nextInt(Role.values().length)];
         user.joinHouse(house, role);
         try {
-            Thread.sleep(random.nextInt(5) * 1000);
+            Thread.sleep(random.nextInt(WAIT_TIME) * 1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            System.out.println("Thread was interrupted.");
+        } finally {
+            user.leaveHouse();
         }
-        user.leaveHouse();
     }
 
     private static List<House> getHouses() {
