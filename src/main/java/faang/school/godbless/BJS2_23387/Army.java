@@ -11,18 +11,18 @@ public class Army {
 
     public int calculateTotalPower() {
         List<PowerThread> powerThreads = new ArrayList<>();
-
         allUnits.forEach(unit -> powerThreads.add(new PowerThread(unit)));
         powerThreads.forEach(Thread::start);
 
-        return powerThreads.stream()
-                .mapToInt(powerThread -> {
-                    try {
-                        powerThread.join();
-                        return powerThread.getPower();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                }).sum();
+        int totalPower = 0;
+        for (PowerThread powerThread : powerThreads) {
+            try {
+                powerThread.join();
+                totalPower += powerThread.getPower();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return totalPower;
     }
 }
