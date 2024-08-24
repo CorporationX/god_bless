@@ -22,7 +22,10 @@ public class House {
         int delay = THREAD_DELAY_SECONDS;
 
         for (int i = 0; i < ROOM_COUNT; i += ROOM_COUNT_TO_PROCESS) {
-            scheduledExecutorService.schedule(() -> collectFood(getRoomsWithFood()), delay, TimeUnit.SECONDS);
+            int roomIndex1 = i;
+            int roomIndex2 = i + 1;
+
+            scheduledExecutorService.schedule(() -> collectFood(roomIndex1, roomIndex2), delay, TimeUnit.SECONDS);
             delay += THREAD_DELAY_SECONDS;
         }
 
@@ -40,21 +43,19 @@ public class House {
 
     }
 
-    private static void collectFood(List<Room> roomsToCollect) {
+    private static void collectFood(int roomIndex1, int roomIndex2) {
 
-        roomsToCollect.forEach(room -> {
-            System.out.println("Collecting food of " + room.getName());
-            foods.addAll(room.getFoods());
-            room.getFoods().clear();
-        });
+        Room room1 = rooms.get(roomIndex1);
+        Room room2 = rooms.get(roomIndex2);
 
-    }
+        System.out.println("Collecting food of " + room1.getName());
+        System.out.println("Collecting food of " + room2.getName());
 
-    private static List<Room> getRoomsWithFood() {
-        return rooms.stream()
-                .filter(room -> !room.getFoods().isEmpty())
-                .limit(ROOM_COUNT_TO_PROCESS)
-                .toList();
+        foods.addAll(room1.getFoods());
+        foods.addAll(room2.getFoods());
+
+        room1.getFoods().clear();
+        room2.getFoods().clear();
     }
 
     private static void initialize() {
