@@ -14,21 +14,30 @@ public class Boss {
 
     public void joinBattle(Player player) {
         try {
-            synchronized (this) {
-                while (currentPlayers.size() == maxPlayer) {
-                    this.wait();
-                }
-                currentPlayers.add(player);
-            }
+            addPlayer(player);
             log.info("Игрок {} начал сражается с боссом", player.getName());
             Thread.sleep(5000);
             log.info("Игрок {} закончил сражение с боссом", player.getName());
-            synchronized (this) {
-                currentPlayers.remove(player);
-                this.notifyAll();
-            }
+            notifyPlayer(player);
         } catch (InterruptedException exception) {
             log.error("Interrupted exception: {}", exception.getMessage());
         }
     }
+
+    private void addPlayer(Player player) throws InterruptedException {
+        synchronized (this) {
+            while (currentPlayers.size() == maxPlayer) {
+                this.wait();
+            }
+            currentPlayers.add(player);
+        }
+    }
+
+    private void notifyPlayer(Player player) {
+        synchronized (this) {
+            currentPlayers.remove(player);
+            this.notifyAll();
+        }
+    }
+
 }
