@@ -28,6 +28,6 @@ public class Boss {
     public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         log.info("Player {} left the fight", player.name());
-        notify();
+        notifyAll();
     }
 }

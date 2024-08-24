@@ -26,9 +26,11 @@ public class Game {
         players.forEach(player -> executorService.execute(() -> player.startBattle(boss)));
         executorService.shutdown();
         try {
-            executorService.awaitTermination(1, TimeUnit.MINUTES);
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            log.error(e.getMessage());
+            executorService.shutdownNow();
         }
     }
 }
