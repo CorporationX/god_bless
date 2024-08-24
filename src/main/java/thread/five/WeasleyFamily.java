@@ -20,13 +20,14 @@ public class WeasleyFamily {
         cacheExecutor.shutdown();
 
         try {
-            if (!cacheExecutor.awaitTermination(5, TimeUnit.MINUTES)) {
-                cacheExecutor.shutdownNow();
+            if (cacheExecutor.awaitTermination(5, TimeUnit.MINUTES)) {
+                System.out.println("Все задания выполнены.");
+            } else {
+                System.out.println("Не все задания выполнены в отведенное время.");
             }
         } catch (InterruptedException e) {
             cacheExecutor.shutdownNow();
+            System.out.println("Выполнение заданий было прервано.");
         }
-        System.out.println("Все задания выполнены.");
-
     }
 }
