@@ -8,7 +8,7 @@ import java.util.Random;
 @Getter
 @Setter
 public class FoodDeliveryTask implements Runnable {
-    Random rand = new Random();
+    private final Random rand = new Random();
     private String characters;
     private int foodAmount;
     private int sleepTime = (rand.nextInt(5) + 1);
