@@ -15,8 +15,6 @@ public class House {
         roomList.add(room2);
         foodList.addAll(room1.getFood());
         foodList.addAll(room2.getFood());
-        System.out.println(foodList);
-        System.out.println(roomList);
     }
 
     public static void main(String[] args) {
@@ -36,5 +34,6 @@ public class House {
             executorService.schedule(() -> house.collectFood(livingRoom, diningRoom), 30, TimeUnit.SECONDS);
         }
 
+        executorService.shutdown();
     }
 }
