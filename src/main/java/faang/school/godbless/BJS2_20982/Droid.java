@@ -15,7 +15,6 @@ public class Droid {
 
     public String receiveEncryptedMessage(String encryptedMsg, Integer key) {
         DroidMessageEncryptor decryptor = (msg, k) -> shiftMessage(msg, -k);
-        ;
         return decryptor.encrypt(encryptedMsg, key);
     }
 
