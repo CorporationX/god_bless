@@ -28,6 +28,8 @@ public class FoodDeliveryTask implements Runnable {
             log.error("Interrupted exception: {}", e.getMessage());
         }
 
-        System.out.printf("%s is eating %d x %s %n", character, foodAmount, foodType);
+        if (!Thread.currentThread().isInterrupted()) {
+            System.out.printf("%s is eating %d x %s %n", character, foodAmount, foodType);
+        }
     }
 }

@@ -21,9 +21,9 @@ public class GriffinsFoodDelivery {
 
         try {
             if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                log.info("All food have been delivered");
+                System.out.println("All food have been delivered");
             } else {
-                log.info("Timeout: ExecutorService did not shut down in time.");
+                log.warn("Timeout: ExecutorService did not shut down in time.");
             }
         } catch(InterruptedException e) {
             Thread.currentThread().interrupt();
