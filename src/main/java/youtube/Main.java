@@ -31,7 +31,7 @@ public class Main {
             if (executor.awaitTermination(30, TimeUnit.SECONDS)) {
                 log.info("Finished\n");
             } else {
-                log.info("Time out");
+                log.error("Time out");
             }
         }
         log.info("");
