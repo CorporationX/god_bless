@@ -11,6 +11,6 @@ public class City {
 
     private String name;
     private Location location;
-    int rangeToGerald;
+    private int rangeToGerald;
 
 }

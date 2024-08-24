@@ -18,8 +18,9 @@ public class CityWorker implements Runnable {
     public void run() {
 
         Monster nearestMonster = findNearestMonster(city, monsters);
-        long journeyDistance = getJourneyDistance(city);
-        long killTime = getKillTime(nearestMonster);
+
+        getJourneyDistance(city);
+        getKillTime(nearestMonster);
 
     }
 
@@ -41,7 +42,7 @@ public class CityWorker implements Runnable {
         return nearestMonster;
     }
 
-    public long getKillTime(Monster monster) {
+    public void getKillTime(Monster monster) {
         System.out.println("Битва началась!");
         try {
             Thread.sleep(1000);
@@ -49,13 +50,16 @@ public class CityWorker implements Runnable {
         } catch (InterruptedException e) {
             System.out.println("Геральда отвлекли от сражения, битва прекратилась.");
         }
-        return 1000;
     }
 
-    public long getJourneyDistance(City city) {
-        System.out.println("Путешествие длинной " + city.getRangeToGerald() +
-                " км до города " + city.getName());
-        return city.getRangeToGerald();
+    public void getJourneyDistance(City city) {
+
+        if (city.getRangeToGerald() == 0) {
+            System.out.println("Геральд в городе " + city.getName());
+        } else {
+            System.out.println("Путешествие длинной " + city.getRangeToGerald() +
+                    " км до города " + city.getName());
+        }
     }
 
     public Location getLocationCoordinates(String location) {
