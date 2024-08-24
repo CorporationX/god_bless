@@ -12,7 +12,7 @@ public class Boss {
 
     public void joinBattle(Player player) {
         synchronized (this) {
-            if (currentPlayers == maxPlayers) {
+            while (currentPlayers >= maxPlayers) {
                 try {
                     System.out.println("Player " + player.getName() + " is waiting");
                     wait();
@@ -20,18 +20,13 @@ public class Boss {
                     throw new RuntimeException(e);
                 }
             }
+            currentPlayers++;
+            player.setJoined(true);
+            System.out.println("Player " + player.getName() + " joined the battle!");
         }
-        currentPlayers++;
-        System.out.println("Player " + player.getName() + " joined the battle!");
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-        leaveBattle(player);
     }
 
-    private synchronized void leaveBattle(Player player) {
+    public synchronized void leaveBattle(Player player) {
         currentPlayers--;
         System.out.println("Player " + player.getName() + " left the battle!");
         notify();
