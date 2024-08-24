@@ -22,14 +22,14 @@ public class BigBangTheory {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(5, TimeUnit.MINUTES)) {
-                executor.shutdownNow();
+            if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                System.out.println("Все задания выполнены.");
+            } else {
+                System.out.println("Не все задания выполнены в отведенное время.");
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+            System.out.println("Выполнение заданий было прервано.");
         }
-
-        System.out.println("Все задания выполнены.");
-
     }
 }
