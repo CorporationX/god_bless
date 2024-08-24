@@ -16,7 +16,6 @@ public class User {
                 try {
                     house.getLock().wait();
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
                     System.out.println(name + " was interrupted while waiting for a slot.");
                     return;
                 }

@@ -40,11 +40,10 @@ public class Westeros {
         try {
             Thread.sleep(random.nextInt(WAIT_TIME) * 1000);
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.println("Thread was interrupted.");
-        } finally {
-            user.leaveHouse();
+            System.out.println("Thread " + Thread.currentThread().getName() + " was interrupted.");
+            return;
         }
+        user.leaveHouse();
     }
 
     private static List<House> getHouses() {
