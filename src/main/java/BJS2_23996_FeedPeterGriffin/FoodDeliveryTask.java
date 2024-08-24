@@ -23,7 +23,7 @@ public class FoodDeliveryTask implements Runnable {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         System.out.println(getCharacter() + " eats " + getFoodAmount() + " " + getFoodType());
     }
