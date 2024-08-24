@@ -27,7 +27,6 @@ public class Main {
         for (User user: usersList.getUsers()){
             if(user.isOnline() && user.isLookingForChat() && !user.isChatting()){
                 executorService.submit(() -> {
-                    synchronized (chatManager){
                         try {
                             chatManager.startChat(user);
                             Thread.sleep(1000);
@@ -35,7 +34,6 @@ public class Main {
                             Thread.currentThread().interrupt();
                         }
                         chatManager.endChat(user);
-                    }
                 });
             }
         }
