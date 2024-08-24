@@ -22,6 +22,10 @@ public class Main {
         videoId.forEach(id -> IntStream.range(0, NUM_THREADS / NUM_VIDEOS)
                 .forEach(i -> executor.submit(() -> watchVideo(id))));
         executor.shutdown();
+        printResult(executor, videoId);
+    }
+
+    private static void printResult(ExecutorService executor, List<String> videoId) {
         try {
             if (executor.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
                 printAllViews(videoId);
