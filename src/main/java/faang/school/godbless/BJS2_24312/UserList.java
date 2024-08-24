@@ -1,6 +1,5 @@
 package faang.school.godbless.BJS2_24312;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,13 +25,5 @@ public class UserList {
                 .filter(userFromList -> !userFromList.equals(user))
                 .filter(userFromList -> userFromList.isOnline() && userFromList.isLookingForChat() && !userFromList.isChatting())
                 .findAny().orElse(null);
-    }
-
-    public List<User> getOnlineAndLookingForChattingUsers1(User user) {
-        return users
-                .stream()
-                .filter(userFromList -> !userFromList.equals(user))
-                .filter(userFromList -> userFromList.isOnline() && userFromList.isLookingForChat() && !userFromList.isChatting())
-                .toList();
     }
 }
