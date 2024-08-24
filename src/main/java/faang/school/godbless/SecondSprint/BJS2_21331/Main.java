@@ -9,11 +9,10 @@ public class Main {
 
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " was added to the inventory."));
         System.out.println(frodo);
-
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
+        manager.updateItem(frodo,
+                (item) -> item.getName().equals("The One Ring"),
+                (item) -> new Item(item.getName(), item.getValue() * 2));
         System.out.println(frodo);
 
-        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
-        System.out.println(frodo);
     }
 }
