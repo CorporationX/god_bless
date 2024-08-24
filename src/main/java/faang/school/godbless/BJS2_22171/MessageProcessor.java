@@ -5,11 +5,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class MessageProcessor {
     public boolean processMessage(String message, List<MessageFilter> messageFilters) {
-        for(var filter : messageFilters) {
+        AtomicBoolean resultOfFilter = new AtomicBoolean(false);
+
+        messageFilters.forEach(filter -> {
             if(!filter.filter(message)) {
-                return true;
+                resultOfFilter.set(true);
             }
-        }
-        return false;
+        });
+
+        return resultOfFilter.get();
     }
 }
