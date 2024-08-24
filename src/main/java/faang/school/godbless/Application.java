@@ -4,35 +4,38 @@ import faang.school.godbless.Notification.Notification;
 
 import java.util.*;
 
+import java.time.LocalDateTime;
+import java.util.*;
+
 public class Application {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
-        int sumEven = ListUtils.sumEvenNumbers(numbers);
-        System.out.println("Sum of even numbers: " + sumEven);
+        List<UserProfile> users = Arrays.asList(
+                new UserProfile(1, "MALE", 20, "Москва", Arrays.asList("Сноубординг", "Фантастика", "Видеоигры")),
+                new UserProfile(2, "FEMALE", 25, "Москва", Arrays.asList("Кулинария", "Фантастика", "Туризм"))
+        );
 
-        int max = ListUtils.findMax(numbers);
-        System.out.println("Max number: " + max);
+        List<Product> products = Arrays.asList(
+                new Product(123, "Ботинки для сноуборда", "Спортивные товары", 5000, Arrays.asList("Спорт", "Сноубординг", "Зимний спорт")),
+                new Product(124, "Книга фантастики", "Книги", 700, Arrays.asList("Фантастика", "Литература"))
+        );
 
-        double average = ListUtils.findAverage(numbers);
-        System.out.println("Average: " + average);
+        List<ProductOrder> orders = Arrays.asList(
+                new ProductOrder(1, 123, LocalDateTime.of(2022, 11, 5, 18, 48, 24)),
+                new ProductOrder(2, 124, LocalDateTime.of(2022, 11, 6, 10, 15, 00))
+        );
 
-        List<String> strings = Arrays.asList("apple", "banana", "avocado", "cherry", "apricot");
-        long countA = ListUtils.countStringsStartingWith(strings, 'a');
-        System.out.println("Count of strings starting with 'a': " + countA);
+        RecommendationService recommendationService = new RecommendationService(users, products, orders);
 
-        List<String> filteredStrings = ListUtils.filterStringsContaining(strings, "an");
-        System.out.println("Strings containing 'an': " + filteredStrings);
+        System.out.println("Рекомендации по интересам:");
+        List<Product> recommendedProducts = recommendationService.recommendProductsByInterests(1);
+        recommendedProducts.forEach(product -> System.out.println(product.getName()));
 
-        List<String> sortedStrings = ListUtils.sortStringsByLength(strings);
-        System.out.println("Strings sorted by length: " + sortedStrings);
+        System.out.println("Популярные товары среди похожих пользователей:");
+        List<Product> topPurchasedProducts = recommendationService.recommendTopPurchasedProducts(1);
+        topPurchasedProducts.forEach(product -> System.out.println(product.getName()));
 
-        boolean allPositive = ListUtils.allMatch(numbers, n -> n > 0);
-        System.out.println("All numbers are positive: " + allPositive);
-
-        int minGreaterThan3 = ListUtils.findMinGreaterThan(numbers, 3);
-        System.out.println("Min number greater than 3: " + minGreaterThan3);
-
-        List<Integer> lengths = ListUtils.convertStringsToLengths(strings);
-        System.out.println("Lengths of strings: " + lengths);
+        System.out.println("Категория для скидки:");
+        String discountCategory = recommendationService.recommendCategoryForDiscount(1);
+        System.out.println(discountCategory);
     }
 }
