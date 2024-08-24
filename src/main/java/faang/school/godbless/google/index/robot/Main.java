@@ -1,4 +1,4 @@
-package faang.school.godbless.google;
+package faang.school.godbless.google.index.robot;
 
 import java.util.ArrayList;
 import java.util.Arrays;
