@@ -2,6 +2,7 @@ package faang.school.godbless.extremely_poor;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
 
@@ -18,5 +19,12 @@ public class WeasleyFamily {
         }
 
         executor.shutdown();
+
+        try {
+            executor.awaitTermination(3, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
     }
 }

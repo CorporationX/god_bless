@@ -14,7 +14,8 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("Поток " + Thread.currentThread().getName() + " выполнил задачу - " + chore);
