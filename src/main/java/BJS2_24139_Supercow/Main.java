@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int THREAD_LIMIT = 5;
+
     public static void main(String[] args) {
         List<Player> players = Arrays.asList(new Player("Max"), new Player("Dima"), new Player("Sergey"),
                 new Player("Varya"), new Player("Sabina"));
@@ -21,7 +22,7 @@ public class Main {
         }
         executor.shutdown();
         try {
-            if(!executor.awaitTermination(15, TimeUnit.SECONDS)){
+            if (!executor.awaitTermination(15, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
