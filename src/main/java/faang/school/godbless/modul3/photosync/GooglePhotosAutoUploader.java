@@ -1,14 +1,16 @@
 package faang.school.godbless.modul3.photosync;
 
-import java.util.ArrayList;
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
-    private final List<String> photosToUpload = new ArrayList<>();
+    private final Object lock;
+    private final List<String> photosToUpload;
 
     public void startAutoUpload() {
-        while (true) {
+        while (!Thread.currentThread().isInterrupted()) {
             synchronized (lock) {
                 if (photosToUpload.isEmpty()) {
                     try {
@@ -18,24 +20,22 @@ public class GooglePhotosAutoUploader {
                     }
                 }
                 uploadPhotos();
+                System.out.println("Auto uploading done." + "\n");
             }
         }
     }
 
     private void uploadPhotos() {
         photosToUpload.forEach(
-                photoPath -> System.out.println("Photo " + photoPath + " was uploaded.")
+                photoPath -> System.out.println("Photo " + photoPath + " was uploaded by " + Thread.currentThread())
         );
-
         photosToUpload.clear();
     }
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
-
-            System.out.println("Upload new photo " + photoPath);
-
+            System.out.println("Added new photo " + photoPath + " by " + Thread.currentThread());
             lock.notify();
         }
     }

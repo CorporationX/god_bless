@@ -1,15 +1,24 @@
 package faang.school.godbless.modul3.photosync;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static void main(String[] args) {
-        GooglePhotosAutoUploader autoUploader = new GooglePhotosAutoUploader();
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+    private static final int N_TREADS = 2;
 
+    public static void main(String[] args) {
+        ExecutorService executorService = Executors.newFixedThreadPool(N_TREADS);
+
+        List<String> photoPathsPack = new ArrayList<>(
+                List.of("/src/recourse/Photo 1.png",
+                        "/src/recourse/Photo 2.png",
+                        "/src/recourse/Photo 3.png")
+        );
+        GooglePhotosAutoUploader autoUploader = new GooglePhotosAutoUploader(new Object(), photoPathsPack);
         executorService.submit(autoUploader::startAutoUpload);
-        System.out.println("Starting auto uploading.");
 
         String newPhotoPath1 = "/src/recourse/forest.png";
         executorService.submit(() -> autoUploader.onNewPhotoAdded(newPhotoPath1));
@@ -18,14 +27,16 @@ public class Main {
         String newPhotoPath3 = "/src/recourse/village.png";
         executorService.submit(() -> autoUploader.onNewPhotoAdded(newPhotoPath3));
 
+        executorService.shutdown();
+
         try {
-            Thread.sleep(5000);
+            if (executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                System.out.println("All task complete!");
+            } else {
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        executorService.shutdownNow();
-
-        System.out.println("Auto uploading done.");
     }
-
 }
