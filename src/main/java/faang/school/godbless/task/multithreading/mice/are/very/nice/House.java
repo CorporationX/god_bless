@@ -23,7 +23,8 @@ public class House {
     public static void main(String[] args) {
         addRoomsToList();
         printFoodsInRooms();
-        IntStream.iterate(0, i -> i < rooms.size(), i -> i += NUMBER_OF_ROOMS_PER_TIME)
+        IntStream
+                .iterate(0, i -> i < rooms.size(), i -> i += NUMBER_OF_ROOMS_PER_TIME)
                 .forEach(i -> scheduler.schedule(() ->
                         gatherFood(getRoomsByRange(i)), i * THREAD_START_TIMER, TimeUnit.SECONDS));
         scheduler.shutdown();
@@ -31,19 +32,26 @@ public class House {
     }
 
     public static void gatherFood(List<Room> rooms) {
-        rooms.forEach(room -> {
-            log.info("\nСбор еды из комнаты: {}", room.getName());
-            var roomFoods = room.getFoods();
-            System.out.println("Собранная еда:");
-            roomFoods.forEach(food -> System.out.println(food.getName()));
-            collectingFoods.addAll(roomFoods);
-            roomFoods.clear();
-        });
+        rooms
+                .forEach(room -> {
+                    log.info("\nСбор еды из комнаты: {}", room.getName());
+                    var roomFoods = room.getFoods();
+                    System.out.println("Собранная еда:");
+                    printFoods(roomFoods);
+                    collectingFoods.addAll(roomFoods);
+                    roomFoods.clear();
+                });
+    }
+
+    private static void printFoods(List<Food> roomFoods) {
+        roomFoods
+                .forEach(food -> System.out.println(food.getName()));
     }
 
     private static List<Room> getRoomsByRange(int roomIndex) {
         int limit = roomIndex + NUMBER_OF_ROOMS_PER_TIME;
-        return IntStream.range(roomIndex, Math.min(limit, rooms.size()))
+        return IntStream
+                .range(roomIndex, Math.min(limit, rooms.size()))
                 .mapToObj(rooms::get)
                 .toList();
     }
@@ -62,9 +70,10 @@ public class House {
     }
 
     private static void printFoodsInRooms() {
-        rooms.forEach(room -> {
-            System.out.println("Список еды из комнаты %s: %s".formatted(room.getName(), room.getFoods()));
-        });
+        rooms
+                .forEach(room -> {
+                    System.out.println("Список еды из комнаты %s: %s".formatted(room.getName(), room.getFoods()));
+                });
     }
 
     private static void addRoomsToList() {
