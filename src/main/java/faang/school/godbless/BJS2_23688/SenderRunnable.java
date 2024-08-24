@@ -10,7 +10,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = START_INDEX; i <= END_INDEX; i++) {
-            System.out.println("Mail " + i + " sent by thread " + Thread.currentThread().getName());
+            System.out.printf("Mail %s sent by thread %s%n", i, Thread.currentThread().getName());
         }
     }
 }

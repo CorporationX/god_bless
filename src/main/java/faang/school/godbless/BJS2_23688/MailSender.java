@@ -1,7 +1,7 @@
 package faang.school.godbless.BJS2_23688;
 
 public class MailSender {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int totalEmails = 1000;
         int emailsPerThread = totalEmails / 5;
         var threads = new Thread[5];
@@ -16,11 +16,7 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            try {
                 thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
         }
 
         System.out.println("All emails have been successfully sent!");
