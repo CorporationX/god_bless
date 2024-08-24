@@ -1,0 +1,114 @@
+> Task :Main.main()
+18:47:32.375 [pool-1-thread-12] INFO  -
+cashierId: 3, serve the customer: Customer 12
+Item: Item 1, cost: 206$
+Item: Item 2, cost: 130$
+Item: Item 3, cost: 227$
+Item: Item 4, cost: 224$
+Sum: 787$
+
+18:47:32.375 [pool-1-thread-7] INFO  -
+cashierId: 1, serve the customer: Customer 7
+Item: Item 1, cost: 139$
+Item: Item 2, cost: 40$
+Item: Item 3, cost: 276$
+Item: Item 4, cost: 209$
+Sum: 664$
+
+18:47:32.375 [pool-1-thread-3] INFO  -
+cashierId: 1, serve the customer: Customer 3
+Item: Item 1, cost: 137$
+Item: Item 2, cost: 90$
+Item: Item 3, cost: 1$
+Item: Item 4, cost: 149$
+Sum: 377$
+
+18:47:32.375 [pool-1-thread-13] INFO  -
+cashierId: 1, serve the customer: Customer 13
+Item: Item 1, cost: 17$
+Item: Item 2, cost: 70$
+Sum: 87$
+
+18:47:32.375 [pool-1-thread-4] INFO  -
+cashierId: 1, serve the customer: Customer 4
+Item: Item 1, cost: 65$
+Item: Item 2, cost: 10$
+Sum: 75$
+
+18:47:32.375 [pool-1-thread-14] INFO  -
+cashierId: 3, serve the customer: Customer 14
+Item: Item 1, cost: 128$
+Item: Item 2, cost: 103$
+Item: Item 3, cost: 180$
+Sum: 411$
+
+18:47:32.375 [pool-1-thread-10] INFO  -
+cashierId: 2, serve the customer: Customer 10
+Item: Item 1, cost: 216$
+Item: Item 2, cost: 99$
+Item: Item 3, cost: 272$
+Item: Item 4, cost: 11$
+Sum: 598$
+
+18:47:32.375 [pool-1-thread-17] INFO  -
+cashierId: 1, serve the customer: Customer 17
+Item: Item 1, cost: 83$
+Sum: 83$
+
+18:47:32.375 [pool-1-thread-9] INFO  -
+cashierId: 3, serve the customer: Customer 9
+Item: Item 1, cost: 99$
+Item: Item 2, cost: 28$
+Sum: 127$
+
+18:47:32.375 [pool-1-thread-16] INFO  -
+cashierId: 2, serve the customer: Customer 16
+Item: Item 1, cost: 129$
+Sum: 129$
+
+18:47:32.375 [pool-1-thread-5] INFO  -
+cashierId: 1, serve the customer: Customer 5
+Item: Item 1, cost: 150$
+Sum: 150$
+
+18:47:32.375 [pool-1-thread-8] INFO  -
+cashierId: 2, serve the customer: Customer 8
+Item: Item 1, cost: 94$
+Item: Item 2, cost: 154$
+Item: Item 3, cost: 281$
+Sum: 529$
+
+18:47:32.375 [pool-1-thread-11] INFO  -
+cashierId: 1, serve the customer: Customer 11
+Item: Item 1, cost: 168$
+Item: Item 2, cost: 220$
+Sum: 388$
+
+18:47:32.375 [pool-1-thread-15] INFO  -
+cashierId: 1, serve the customer: Customer 15
+Item: Item 1, cost: 103$
+Item: Item 2, cost: 112$
+Item: Item 3, cost: 56$
+Sum: 271$
+
+18:47:32.375 [pool-1-thread-1] INFO  -
+cashierId: 2, serve the customer: Customer 1
+Item: Item 1, cost: 254$
+Sum: 254$
+
+18:47:32.375 [pool-1-thread-2] INFO  -
+cashierId: 3, serve the customer: Customer 2
+Item: Item 1, cost: 122$
+Item: Item 2, cost: 220$
+Sum: 342$
+
+18:47:32.375 [pool-1-thread-6] INFO  -
+cashierId: 2, serve the customer: Customer 6
+Item: Item 1, cost: 188$
+Item: Item 2, cost: 154$
+Sum: 342$
+
+18:47:32.378 [main] INFO  - 4 cashiers served 17 customers
+18:47:32.379 [main] INFO  - Total sum: 5614$
+
+BUILD SUCCESSFUL in 511ms
