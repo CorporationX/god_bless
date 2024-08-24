@@ -1,11 +1,14 @@
 package faang.school.godbless.sprint3.BJS2_24016;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class BigBangTheory {
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(4);
@@ -26,8 +29,7 @@ public class BigBangTheory {
                 System.out.println("Timeout: ExecutorService did not shut down in time.");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
+            log.error("Interrupted exception {}", e.getMessage());
         }
     }
 }

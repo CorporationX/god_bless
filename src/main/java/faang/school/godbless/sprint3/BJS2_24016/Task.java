@@ -1,9 +1,11 @@
 package faang.school.godbless.sprint3.BJS2_24016;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
+@Slf4j
 @AllArgsConstructor
 public class Task implements Runnable {
     private String name;
@@ -14,9 +16,12 @@ public class Task implements Runnable {
         try {
             System.out.printf("Task %s started%n", task);
             Thread.sleep(new Random().nextInt(1, 5) * 1000L);
-            System.out.printf("Task %s is done!%n", task);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Interrupted exception: {}", e.getMessage());
+        } finally {
+            if (!Thread.currentThread().isInterrupted()) {
+                System.out.printf("Task %s is done!%n", task);
+            }
         }
     }
 }
