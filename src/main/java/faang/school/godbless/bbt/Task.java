@@ -15,7 +15,7 @@ public class Task implements Runnable {
             Thread.sleep(10000);
             System.out.printf("%s finished task: %s%n", name, task);
         } catch (InterruptedException e) {
-            System.out.printf("'%s' task by %s was interrupted!", task, name);
+            System.out.printf("'%s' task by %s was interrupted!%n", task, name);
         }
     }
 }
