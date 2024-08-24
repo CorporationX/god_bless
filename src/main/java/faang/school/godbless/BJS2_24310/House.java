@@ -25,8 +25,8 @@ public class House {
     public void removeRole(User user) {
         synchronized (lock) {
             freeRoles++;
-            System.out.println(user.getName() + " leave house");
             lock.notifyAll();
+            System.out.println(user.getName() + " leave house");
         }
     }
 }

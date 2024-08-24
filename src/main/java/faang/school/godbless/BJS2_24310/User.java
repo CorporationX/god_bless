@@ -31,7 +31,7 @@ public class User {
             }
             role = house.getRoles().get(rand.nextInt(house.getRoles().size()));
             house.addRole();
-            System.out.println(name + " joined the house: "+house.getName()+" with role: " + role.getName());
+            System.out.println(name + " joined the house: " + house.getName() + " with role: " + role.getName());
         }
         userPlay();
         leaveHouse();
@@ -47,10 +47,9 @@ public class User {
 
     public void userPlay() {
         try {
-            Thread.sleep(new Random().nextInt(2000,5000));
+            Thread.sleep(new Random().nextInt(2000, 5000));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
     }
-
 }
