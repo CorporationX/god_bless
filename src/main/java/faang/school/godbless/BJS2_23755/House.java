@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class House {
     private final static int NUMS_THREADS = 5;
     private final static int ROOMS_LIMIT = 2;
+    private final static int DELAY_THREADS = 10;
     static List<Food> allFood = new ArrayList<>();
     List<Room> rooms = List.of(
             new Room(new ArrayList<>(Arrays.asList(new Food("Apple"), new Food("Milk")))),
@@ -25,20 +26,21 @@ public class House {
             new Room(new ArrayList<>(Arrays.asList(new Food("Chicken"), new Food("Melon"), new Food("Tea"))))
     );
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         House house = new House();
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(NUMS_THREADS);
         for (int i = 0; i < NUMS_THREADS; i++) {
-            executor.schedule(house::collectFood, 30 * (i + 1), TimeUnit.SECONDS);
+            executor.schedule(house::collectFood, DELAY_THREADS * (i + 1), TimeUnit.SECONDS);
         }
-        try {
-            executor.shutdown();
-            if (executor.awaitTermination(300, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
+
+        executor.shutdown();
+        if (!executor.awaitTermination(300, TimeUnit.SECONDS)) {
+            if (Thread.interrupted()) {
+                throw new InterruptedException();
             }
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
+
         while (!executor.isTerminated()) {
 
         }
@@ -46,8 +48,7 @@ public class House {
     }
 
     public List<Food> collectFood() {
-        List<Food> foodList;
-        foodList = rooms.stream()
+        List<Food> foodList = rooms.stream()
                 .filter(room -> !room.getFoodList().isEmpty())
                 .limit(ROOMS_LIMIT)
                 .flatMap(room -> room.getFoodList().stream()
