@@ -1,11 +1,13 @@
 package faang.school.godbless.army_of_heroes;
 
+import lombok.SneakyThrows;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
 
-    private static List<Character> characterList = new ArrayList<>();
+    private List<Character> characterList = new ArrayList<>();
 
     public void addCharacter(Character character) {
         if (character == null) {
@@ -15,6 +17,7 @@ public class Army {
         }
     }
 
+    @SneakyThrows
     public int calculateTotalPower() {
         List<MyThread> threadList = new ArrayList<>();
 
@@ -23,6 +26,7 @@ public class Army {
             myThread.start();
             System.out.println(myThread.getCharacter() + " запустился в потоке - " + myThread.getName());
             threadList.add(myThread);
+            myThread.join();
         }
 
         return threadList.stream().mapToInt(MyThread::getSumPower).sum();

@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class MyThread extends Thread {
 
-    private Character character;
+    private final Character character;
     private int sumPower;
 
     public MyThread(Character character) {
