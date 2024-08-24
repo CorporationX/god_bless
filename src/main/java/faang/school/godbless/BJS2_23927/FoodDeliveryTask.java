@@ -3,10 +3,12 @@ package faang.school.godbless.BJS2_23927;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
 
 @AllArgsConstructor
+@Slf4j
 public class FoodDeliveryTask implements Runnable{
     private String character;
     private int foodAmount;
@@ -15,11 +17,12 @@ public class FoodDeliveryTask implements Runnable{
     public void run() {
         try {
             String foodType = this.getFoodType();
-            System.out.printf("%s gets %s %s%n", this.character, this.foodAmount, foodType);
+           log.info("{} gets {} {}", this.character, this.foodAmount, foodType);
             Thread.sleep(foodAmount + 1000);
-            System.out.printf("%s is eating %s %s%n", this.character, this.foodAmount, foodType);
+            log.info("{} is eating {} {}", this.character, this.foodAmount, foodType);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
+            log.error("Thread wa interrupted: {}", e.getMessage());
         }
     }
 
