@@ -24,11 +24,12 @@ public class BigBangTheory {
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                System.out.println("All tasks are done!");
+                log.info("All tasks are done!");
             } else {
-                System.out.println("Timeout: ExecutorService did not shut down in time.");
+                log.warn("Timeout: ExecutorService did not shut down in time.");
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error("Interrupted exception {}", e.getMessage());
         }
     }

@@ -13,15 +13,17 @@ public class Task implements Runnable {
 
     @Override
     public void run() {
+        log.info("Task {} started", task);
+
         try {
-            System.out.printf("Task %s started%n", task);
             Thread.sleep(new Random().nextInt(1, 5) * 1000L);
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             log.error("Interrupted exception: {}", e.getMessage());
-        } finally {
-            if (!Thread.currentThread().isInterrupted()) {
-                System.out.printf("Task %s is done!%n", task);
-            }
+        }
+
+        if (!Thread.currentThread().isInterrupted()) {
+            log.info("Task {} is done!", task);
         }
     }
 }
