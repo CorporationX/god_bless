@@ -8,5 +8,5 @@ import lombok.Data;
 public class City {
     private String name;
     private Location location;
-    private int distanceToWitcher;
+    private int distanceFromWitcher;
 }
