@@ -2,6 +2,7 @@ package BJS2_23484_TournamentInRoyalsLanding;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class King {
     public static void main(String[] args) {
@@ -19,5 +20,12 @@ public class King {
         arthur.startTrials(executor);
         ivan.startTrials(executor);
         executor.shutdown();
+        try {
+            if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
     }
 }

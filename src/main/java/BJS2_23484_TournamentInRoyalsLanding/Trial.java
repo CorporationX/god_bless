@@ -16,7 +16,7 @@ public class Trial implements Runnable {
             System.out.println(Thread.currentThread() + " is in progress!...");
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         System.out.println(getTrialName() + " by " + getKnightName() + " has been completed!");
     }
