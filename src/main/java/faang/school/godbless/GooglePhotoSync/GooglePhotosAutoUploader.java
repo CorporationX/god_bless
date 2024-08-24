@@ -4,39 +4,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private List<String> photosToUpload = new ArrayList<>();
-    private List<String> uploadedPhotos = new ArrayList<>();
+    private final List<String> photosToUpload = new ArrayList<>();
+    private final List<String> uploadedPhotos = new ArrayList<>();
 
-    private synchronized void addPhotoToUpload(String photo) {
-        photosToUpload.add(photo);
-    }
+    private final Object lock = new Object();
 
-    public synchronized void watchUploadedPhotos() {
-        uploadedPhotos.forEach(System.out::println);
-    }
-
-    public synchronized void startAutoUpload() {
-        while (true) {
-            if (photosToUpload.isEmpty()) {
-                System.out.println("фоточек нема");
-                try {
-                    wait();
-                    System.out.println("ооо фоточки поступили");
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            uploadPhoto(photosToUpload.remove(0));
+    private void addPhotoToUpload(String photo) {
+        synchronized (lock) {
+            photosToUpload.add(photo);
         }
     }
 
-    private synchronized void uploadPhoto(String photoToUpload) {
-        System.out.println("выложил крутямбовую фоточку: " + photoToUpload);
-        uploadedPhotos.add(photoToUpload);
+    public void startAutoUpload() {
+        synchronized (lock) {
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    System.out.println("фоточек нема");
+                    try {
+                        lock.wait();
+                        System.out.println("ооо фоточки поступили");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                uploadPhoto(photosToUpload.remove(0));
+            }
+        }
     }
 
-    public synchronized void onNewPhotoAdded(String photoToUpload) {
-        addPhotoToUpload(photoToUpload);
-        notify();
+    private void uploadPhoto(String photoToUpload) {
+        synchronized (lock) {
+            System.out.println("выложил крутямбовую фоточку: " + photoToUpload);
+            uploadedPhotos.add(photoToUpload);
+        }
+    }
+
+    public void onNewPhotoAdded(String photoToUpload) {
+        synchronized (lock) {
+            addPhotoToUpload(photoToUpload);
+            lock.notify();
+        }
     }
 }
