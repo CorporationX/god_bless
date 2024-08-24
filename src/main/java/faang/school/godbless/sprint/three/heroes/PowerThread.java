@@ -10,7 +10,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class PowerThread extends Thread {
     private final List<Unit> units = new ArrayList<>();
     private final AtomicInteger allPowers;
-    private int power;
 
     public PowerThread(AtomicInteger allPowers) {
         this.allPowers = allPowers;
@@ -28,8 +27,9 @@ public class PowerThread extends Thread {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        this.power = this.units.stream()
-                .mapToInt(Unit::getPower).sum();
-        this.allPowers.addAndGet(this.power);
+        this.allPowers.addAndGet(
+                this.units.stream()
+                        .mapToInt(Unit::getPower).sum()
+        );
     }
 }
