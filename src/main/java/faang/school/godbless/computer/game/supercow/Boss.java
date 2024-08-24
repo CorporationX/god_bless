@@ -1,5 +1,8 @@
 package faang.school.godbless.computer.game.supercow;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
@@ -15,7 +18,8 @@ public class Boss {
                 System.out.printf("Player %s waiting for empty slot\n", player.getPlayerName());
                 this.wait();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                log.error(String.format("Interrupted while player %s was waiting for empty slot", player.getPlayerName()));
+                Thread.currentThread().interrupt();
             }
         }
         currentPlayers++;
