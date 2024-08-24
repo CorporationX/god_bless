@@ -26,16 +26,18 @@ public class CityWorker implements Runnable {
     public Monster findNearestMonster(City city, List<Monster> monsters) {
         return monsters
                 .stream()
-                .min(Comparator
-                        .comparingDouble(monster ->
-                                Math.pow(monster.location().x() - city.location().x(), 2) +
-                                        Math.pow(monster.location().y() - city.location().y(), 2)))
+                .min(Comparator.comparingDouble(monster -> getDistanceOfMonsterToTheCity(monster, city)))
                 .orElseThrow(() -> new IllegalArgumentException("No job for Geralt"));
+    }
+
+    private static double getDistanceOfMonsterToTheCity(Monster monster, City city){
+        return Math.pow(monster.location().x() - city.location().x(), 2) +
+                Math.pow(monster.location().y() - city.location().y(), 2);
     }
 
     public long getKillTime(long journeyDistance, Monster monster) {
         System.out.printf("Geralt has started killing %s%n", monster.name());
-        return journeyDistance * 50;
+        return journeyDistance;
     }
 
     public long getJourneyDistance(City dangerousCity) {
