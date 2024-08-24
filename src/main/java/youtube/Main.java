@@ -23,9 +23,9 @@ public class Main {
                             .map(j -> i))
                     .forEach(idx -> executor.submit(() -> {
                         var video = videos.get(idx);
-                        videoManager.addView(video);
+                        videoManager.addView(video.getId());
                         log.info(String.format("Video with id=%s is %d",
-                                video.getId(), videoManager.getViewCount(video)));
+                                video.getId(), videoManager.getViewCount(video.getId())));
                     }));
             executor.shutdown();
             if (executor.awaitTermination(30, TimeUnit.SECONDS)) {
@@ -36,7 +36,7 @@ public class Main {
         }
         log.info("");
         videos.forEach(v -> log.info(String.format("Video with id=%s is %d",
-                v.getId(), videoManager.getViewCount(v))));
+                v.getId(), videoManager.getViewCount(v.getId()))));
     }
 
     private static List<Video> initVideos() {
