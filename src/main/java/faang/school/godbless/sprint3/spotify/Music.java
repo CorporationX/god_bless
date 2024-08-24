@@ -9,7 +9,7 @@ public class Music {
     private static Player player;
 
     private static void sleepThreadAndDoActions(Consumer<Player> consumer) {
-        IntStream.rangeClosed(1, 5).forEach(cur -> {
+        IntStream.rangeClosed(1, 5).forEach(currentIndex -> {
             try {
                 Thread.sleep(new Random().nextInt(1, 10) * 100L);
             } catch (InterruptedException e) {

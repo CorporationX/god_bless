@@ -12,22 +12,22 @@ public class Player {
     private int indexOfCurrentSong = 0;
 
     public void play() {
-        if (!isPlaying) {
-            synchronized (lock) {
+        synchronized (lock) {
+            if (!isPlaying) {
                 System.out.print("Play. ");
                 printCurrentSong();
+                isPlaying = true;
             }
-            isPlaying = true;
         }
     }
 
     public void pause() {
-        if (isPlaying) {
-            synchronized (lock) {
+        synchronized (lock) {
+            if (isPlaying) {
                 System.out.print("Pause. ");
                 printCurrentSong();
+                isPlaying = false;
             }
-            isPlaying = false;
         }
     }
 
