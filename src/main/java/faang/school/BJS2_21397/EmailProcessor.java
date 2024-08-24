@@ -7,8 +7,10 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> filter, Consumer<Email> process, Function<Email, String> transformation) {
-        emails.forEach(filter::test);
-        emails.forEach(process::accept);
-        emails.forEach(transformation::apply);
+        emails.stream()
+                .filter(filter)
+                .peek(process)
+                .map(transformation)
+                .toList();
     }
 }
