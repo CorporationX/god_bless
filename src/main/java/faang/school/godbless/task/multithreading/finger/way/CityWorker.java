@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -40,18 +41,26 @@ public class CityWorker implements Runnable {
     }
 
     private Monster findNearestMonster() {
-        return monsters.stream()
-                .collect(Collectors.toMap(
-                        Function.identity(),
-                        mons -> distance.get(city.getLocation(), mons.getLocation())))
-                .entrySet()
-                .stream()
-                .max(Comparator.comparingDouble(Map.Entry<Monster, Double>::getValue))
+        return getNearestMonster()
                 .stream()
                 .peek(e -> distanceToMonster = e.getValue())
                 .map(Map.Entry::getKey)
                 .findAny()
                 .get();
+    }
+
+    private Optional<Map.Entry<Monster, Double>> getNearestMonster() {
+        return getMonsterMap()
+                .entrySet()
+                .stream()
+                .max(Comparator.comparingDouble(Map.Entry<Monster, Double>::getValue));
+    }
+
+    private Map<Monster, Double> getMonsterMap() {
+        return monsters.stream()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        mons -> distance.get(city.getLocation(), mons.getLocation())));
     }
 
     private long getKillTime() {
