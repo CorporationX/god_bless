@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,12 +13,12 @@ import java.util.stream.IntStream;
 @Slf4j
 public class House {
     private static final int THREAD_POOL_LIMIT = 5;
-    private static final int THREAD_START_TIMER = 15;
+    private static final int THREAD_START_TIMER = 1;
     private static final int GATHER_TIME_LIMIT = 6;
     private static final int NUMBER_OF_ROOMS_PER_TIME = 2;
 
     private static final List<Room> rooms = new ArrayList<>();
-    private static final List<Food> collectingFoods = new ArrayList<>();
+    private static final List<Food> collectingFoods = new CopyOnWriteArrayList<>();
     private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(THREAD_POOL_LIMIT);
 
     public static void main(String[] args) {
@@ -28,12 +29,11 @@ public class House {
                 .forEach(i -> scheduler.schedule(() ->
                         gatherFood(getRoomsByRange(i)), i * THREAD_START_TIMER, TimeUnit.SECONDS));
         scheduler.shutdown();
-        printResult(scheduler);
+        printResult();
     }
 
     public static void gatherFood(List<Room> rooms) {
-        rooms
-                .forEach(room -> {
+        rooms.forEach(room -> {
                     log.info("\nСбор еды из комнаты: {}", room.getName());
                     var roomFoods = room.getFoods();
                     System.out.println("Собранная еда:");
@@ -44,8 +44,7 @@ public class House {
     }
 
     private static void printFoods(List<Food> roomFoods) {
-        roomFoods
-                .forEach(food -> System.out.println(food.getName()));
+        roomFoods.forEach(food -> System.out.println(food.getName()));
     }
 
     private static List<Room> getRoomsByRange(int roomIndex) {
@@ -56,11 +55,11 @@ public class House {
                 .toList();
     }
 
-    private static void printResult(ScheduledExecutorService scheduler) {
+    private static void printResult() {
         try {
             if (scheduler.awaitTermination(GATHER_TIME_LIMIT, TimeUnit.MINUTES)) {
                 log.info("\nВся еда из дома собрана!");
-                printFoodsInRooms();
+                printFoodsInRooms(); // for check
             } else {
                 log.warn("Мыши не успели собрать всю едй за {} минут", GATHER_TIME_LIMIT);
             }
@@ -70,8 +69,7 @@ public class House {
     }
 
     private static void printFoodsInRooms() {
-        rooms
-                .forEach(room -> {
+        rooms.forEach(room -> {
                     System.out.println("Список еды из комнаты %s: %s".formatted(room.getName(), room.getFoods()));
                 });
     }
