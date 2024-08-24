@@ -41,7 +41,6 @@ public class TestDataCenter {
         System.out.println("Overloading list: ");
         System.out.println(Arrays.toString(sumOverload.toArray()));
 
-
         System.out.println("\nOptimize resources");
 
         Optimize optimize = new Optimize(dataCenter, sumOverload);

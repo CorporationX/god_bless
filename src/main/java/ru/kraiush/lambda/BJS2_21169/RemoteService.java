@@ -5,9 +5,9 @@ import java.util.stream.Collectors;
 
 public class RemoteService {
 
-    public static List<Object> withErrorHandling(List<SomeService> listServices, String param) {
+    public static List<Object> withErrorHandling(List<SomeService> listServices, Object param) {
 
-        Actionhandler<String, List<Object>> apply= (item) -> {
+        ActionHandler<Object, List<Object>> apply= (item) -> {
             return listServices.stream().map(ErrorHandler.rethrowFunction(s -> s.getName())).filter(s -> s.equals(item)).collect(Collectors.toList());
         };
 
