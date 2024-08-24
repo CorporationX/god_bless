@@ -19,12 +19,13 @@ public class Main {
         for (Player player : players) {
             executor.execute(() -> player.startBattle(grizzly));
         }
-
+        executor.shutdown();
         try {
-            executor.awaitTermination(10, TimeUnit.SECONDS);
-            executor.shutdown();
+            if(!executor.awaitTermination(15, TimeUnit.SECONDS)){
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            executor.shutdownNow();
         }
     }
 }

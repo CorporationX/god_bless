@@ -15,7 +15,7 @@ public class Boss {
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    Thread.currentThread().interrupt();
                 }
             }
             currentPlayers++;
@@ -25,7 +25,7 @@ public class Boss {
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         synchronized (this) {
             currentPlayers--;
