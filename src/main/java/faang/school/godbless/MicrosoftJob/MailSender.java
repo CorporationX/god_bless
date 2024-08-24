@@ -10,8 +10,8 @@ public class MailSender {
         Thread[] threads = new Thread[threadsCount];
 
         for (int i = 0; i < threadsCount; i++) {
-            int startIndex = i * emailsPerThread + 1;
-            int endIndex = (i + 1) * emailsPerThread;
+            int startIndex = i * emailsPerThread;
+            int endIndex = (i == threadsCount - 1) ? totalEmails - 1 : (i + 1) * emailsPerThread - 1;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex), "Thread-" + (i + 1));
             threads[i].start();
         }
@@ -20,7 +20,9 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Sending was interrupted while receiving ");
+                Thread.currentThread().interrupt();
+                return;
             }
         }
 
