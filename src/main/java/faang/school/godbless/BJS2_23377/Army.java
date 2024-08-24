@@ -7,8 +7,9 @@ public class Army {
     private static List<Unit> army = new ArrayList<>();
 
     public void addUnit(Unit unit){
-        if(unit == null)
+        if(unit == null) {
             throw new IllegalArgumentException("No unit added");
+        }
 
         army.add(unit);
     }
@@ -18,6 +19,7 @@ public class Army {
         for (Unit unit : army){
             MyThread thread = new MyThread(unit);
             thread.start();
+            thread.join();
             threads.add(thread);
         }
 

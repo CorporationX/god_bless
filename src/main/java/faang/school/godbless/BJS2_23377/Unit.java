@@ -9,8 +9,9 @@ public abstract class Unit {
     private static final int MINIMAL_POWER = 1;
 
     public Unit(int power) {
-        if(power < MINIMAL_POWER)
+        if(power < MINIMAL_POWER) {
             throw new IllegalArgumentException("Pathetic");
+        }
 
         this.power = power;
     }
