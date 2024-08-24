@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 public class BigBangTheory {
 
@@ -12,11 +11,10 @@ public class BigBangTheory {
 
         int threadCount = 4;
         ExecutorService executor = Executors.newFixedThreadPool(threadCount);
-        List<Task> tasks = Stream.of(new Task("Шелдон", "подготовка теории"),
-                        new Task("Леонард", "моделирование эксперимента"),
-                        new Task("Говард ", "разработка инструментов"),
-                        new Task("Раджеш ", "анализ данных"))
-                .toList();
+        List<Task> tasks = List.of(new Task("Шелдон", "подготовка теории"),
+                new Task("Леонард", "моделирование эксперимента"),
+                new Task("Говард ", "разработка инструментов"),
+                new Task("Раджеш ", "анализ данных"));
 
         tasks.forEach(executor::execute);
         executor.shutdown();
