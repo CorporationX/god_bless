@@ -108,16 +108,16 @@ public class Main {
         Function<List<Job>, Map<String, Long>> func = (x) -> x.stream()
                 .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
-        System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func));
+        System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func,5));
 
         System.out.println("Most popular positions: ");
         func = (x) -> x.stream()
                 .map(Job::getPosition)
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
-        System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func));
+        System.out.println(analyzer.mostPopularSkillsPositions(allJobs, func,5));
 
         System.out.println("Most popular offices:");
-        System.out.println(analyzer.mostPopularOffices(allJobs));
+        System.out.println(analyzer.mostPopularOffices(allJobs,5));
 
         System.out.println("Salary distribution:");
         analyzer.salaryDistribution(allJobs,50000.0).entrySet().stream()

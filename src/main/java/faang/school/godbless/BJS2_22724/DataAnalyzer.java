@@ -8,20 +8,20 @@ import java.util.stream.Collectors;
 
 public class DataAnalyzer {
 
-    public List<String> mostPopularOffices(List<Job> jobList) {
+    public List<String> mostPopularOffices(List<Job> jobList, int listSize) {
         return jobList.stream()
                 .map(Job::getLocation)
                 .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()))
                 .entrySet().stream()
                 .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
-                .limit(5)
+                .limit(listSize)
                 .map(entry -> entry.getKey() + " - " + entry.getValue())
                 .toList();
     }
 
-    public List<String> mostPopularSkillsPositions(List<Job> jobList, Function<List<Job>, Map<String, Long>> action) {
+    public List<String> mostPopularSkillsPositions(List<Job> jobList, Function<List<Job>, Map<String, Long>> action, int listSize) {
         return action.apply(jobList).entrySet().stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(5)
+                .sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).limit(listSize)
                 .map(entry -> entry.getKey() + " - " + entry.getValue())
                 .toList();
     }
