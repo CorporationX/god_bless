@@ -1,11 +1,11 @@
 package faang.school.godbless.BJS2_24323;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
 
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
     public void addView(String videoID) {
         synchronized (viewsMap) {

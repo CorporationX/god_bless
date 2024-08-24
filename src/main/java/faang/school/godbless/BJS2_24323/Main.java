@@ -10,7 +10,6 @@ public class Main {
     private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
-
         VideoManager videoManager = new VideoManager();
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
@@ -32,7 +31,5 @@ public class Main {
         } catch (InterruptedException e) {
             executorService.shutdownNow();
         }
-
-
     }
 }
