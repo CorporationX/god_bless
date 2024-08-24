@@ -1,0 +1,104 @@
+> Task :House.main()
+Список еды из комнаты Прихожая 1: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Спальня 1: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Кухня 1: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Ванная 1: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Прихожая 2: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Спальня 2: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Гостиная 1: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Гостиная 2: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Спальня 3: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Ванная 2: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+Список еды из комнаты Кухня 2: [Food(name=Пицца), Food(name=Сыр), Food(name=Колбаса), Food(name=Орехи)]
+15:03:33.889 [pool-1-thread-1] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Прихожая 1
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:03:33.891 [pool-1-thread-1] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Спальня 1
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:04:03.893 [pool-1-thread-2] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Кухня 1
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:04:03.896 [pool-1-thread-2] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Ванная 1
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:04:33.889 [pool-1-thread-4] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Прихожая 2
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:04:33.890 [pool-1-thread-4] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Спальня 2
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:05:03.889 [pool-1-thread-3] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Гостиная 1
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:05:03.890 [pool-1-thread-3] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Гостиная 2
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:05:33.890 [pool-1-thread-5] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Спальня 3
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:05:33.892 [pool-1-thread-5] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Ванная 2
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:06:03.885 [pool-1-thread-1] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Сбор еды из комнаты: Кухня 2
+Собранная еда:
+Пицца
+Сыр
+Колбаса
+Орехи
+15:06:03.888 [main] INFO faang.school.godbless.task.multithreading.mice.are.very.nice.House -- 
+Вся еда из дома собрана!
+Список еды из комнаты Прихожая 1: []
+Список еды из комнаты Спальня 1: []
+Список еды из комнаты Кухня 1: []
+Список еды из комнаты Ванная 1: []
+Список еды из комнаты Прихожая 2: []
+Список еды из комнаты Спальня 2: []
+Список еды из комнаты Гостиная 1: []
+Список еды из комнаты Гостиная 2: []
+Список еды из комнаты Спальня 3: []
+Список еды из комнаты Ванная 2: []
+Список еды из комнаты Кухня 2: []
+
+BUILD SUCCESSFUL in 2m 30s
