@@ -1,8 +1,10 @@
 package faang.school.godbless.BJS2_23433;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+@Slf4j
 public class Trial implements Runnable {
     private String knightName;
     private String trialName;
@@ -11,11 +13,11 @@ public class Trial implements Runnable {
     public void run() {
 
         try {
-            System.out.printf("Trial %s has started by %s%n", trialName, knightName);
+            log.info("Trial {} has started by {}", trialName, knightName);
             Thread.sleep(3000);
-            System.out.printf("Trial %s was ended by %s%n", trialName, knightName);
+            log.info("Trial {} was ended by {}", trialName, knightName);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Something gone wrong with thread: {}", e.getMessage());
         }
     }
 }

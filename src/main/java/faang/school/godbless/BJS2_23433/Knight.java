@@ -15,15 +15,16 @@ public class Knight {
         this.name = name;
     }
 
-    public void addTrial(Trial trial){
-        if(trial == null)
+    public void addTrial(Trial trial) {
+        if (trial == null) {
             throw new IllegalArgumentException("No trials were found");
+        }
 
         trials.add(trial);
     }
 
 
-    public void startTrials(ExecutorService service){
+    public void startTrials(ExecutorService service) {
         this.trials.forEach(trial -> service.submit(() -> trial.run()));
     }
 }
