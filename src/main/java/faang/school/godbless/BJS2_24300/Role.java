@@ -24,6 +24,6 @@ public enum Role {
 
     public synchronized void releaseRole() {
         countAvailable++;
-        notify();
+        notifyAll();
     }
 }
