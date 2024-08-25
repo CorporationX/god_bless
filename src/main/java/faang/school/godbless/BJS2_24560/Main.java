@@ -18,6 +18,7 @@ public class Main {
                 uploader.onNewPhotoAdded("photo4.jpg");
                 Thread.sleep(3000);
                 uploader.onNewPhotoAdded("photo5.jpg");
+                uploader.stopAutoUpload();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Процесс добавления фотографий был прерван.");
@@ -26,13 +27,5 @@ public class Main {
 
         uploadThread.start();
         addPhotoThread.start();
-
-        try {
-            uploadThread.join();
-            addPhotoThread.join();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            System.out.println("Основной поток был прерван.");
-        }
     }
 }
