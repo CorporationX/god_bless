@@ -21,7 +21,7 @@ public class User {
     public void leaveHouse() {
         synchronized (house) {
             house.removeRole();
-            house.notify();
+            house.notifyAll();
         }
     }
 }
