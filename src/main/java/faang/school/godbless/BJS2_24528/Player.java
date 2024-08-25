@@ -1,10 +1,7 @@
 package faang.school.godbless.BJS2_24528;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor
 public class Player {
-    private String lock;
+    private final Object lock = new Object();
     private boolean isPlaying;
 
     public void play() {
