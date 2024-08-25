@@ -20,7 +20,7 @@ public class FoodDeliveryTask implements Runnable {
         try {
             TimeUnit.SECONDS.sleep((int) (Math.random()*(5-1+1) + 1));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
         System.out.println(character + " ест " + foodAmount + " " + getFoodType());
     }
