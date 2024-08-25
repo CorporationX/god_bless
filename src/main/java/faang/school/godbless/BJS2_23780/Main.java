@@ -20,12 +20,9 @@ public class Main {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < rooms.size(); i += 2) {
-            final int index = i;
-            executor.schedule(() -> {
-                System.out.println("Поток " + Thread.currentThread().getName() + " начинает сборку еды из комнат: "
-                        + rooms.get(index).getName() + " и " + rooms.get(index + 1).getName());
-                house.collectFood(index);
-            }, 30L * (i / 2), TimeUnit.SECONDS);
+            List<Room> assignedRooms = rooms.subList(i, Math.min(i + 2, rooms.size()));
+            int delay = (i / 2) * 30;
+            executor.schedule(() -> house.collectFood(assignedRooms), delay, TimeUnit.SECONDS);
         }
         executor.schedule(() -> {
             if (house.allFoodCollected()) {
