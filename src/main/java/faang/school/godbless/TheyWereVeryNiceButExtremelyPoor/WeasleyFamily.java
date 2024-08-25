@@ -15,11 +15,13 @@ public class WeasleyFamily {
             executor.shutdown();
             if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
+            } else {
+                System.out.println("All tasks have been completed");
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
-        System.out.println("All tasks have been completed");
+
     }
 }
