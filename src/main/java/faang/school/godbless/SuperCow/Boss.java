@@ -6,36 +6,43 @@ import java.util.List;
 public class Boss {
     public static final int MAX_PLAYERS = 4;
     private List<Thread> currentPlayersSessions;
+    private Object lock = new Object();
 
     public Boss() {
         currentPlayersSessions = new ArrayList<>();
     }
 
-    public synchronized void joinBattle(Player player) {
-        Thread newPlayerSession = new Thread(() -> {
-            String playerName = player.getName();
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+    public void joinBattle(Player player) {
+        synchronized (lock) {
+            while (currentPlayersSessions.size() >= MAX_PLAYERS) {
+                try {
+                    System.out.println("Все слоты забиты");
+                    lock.wait();
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    throw new RuntimeException(e);
+                }
             }
-            synchronized (this) {
-                currentPlayersSessions.remove(Thread.currentThread());
-                System.out.println(playerName + " закончил битву");
-                notify();
-            }
-        });
+            Thread newPlayerSession = new Thread(() -> {
+                String playerName = player.getName();
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                synchronized (lock) {
+                    leaveBattle(playerName);
+                    lock.notifyAll();
+                }
+            });
 
-        while (currentPlayersSessions.size() >= MAX_PLAYERS) {
-            try {
-                System.out.println("все слоты забиты");
-                wait();
-                System.out.println("оп освободился");
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            currentPlayersSessions.add(newPlayerSession);
+            newPlayerSession.start();
         }
-        currentPlayersSessions.add(newPlayerSession);
-        newPlayerSession.start();
+    }
+
+    public void leaveBattle(String playerName) {
+        currentPlayersSessions.remove(Thread.currentThread());
+        System.out.println(playerName + " закончил битву");
     }
 }
