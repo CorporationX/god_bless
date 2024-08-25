@@ -34,7 +34,8 @@ public class ChatManager {
     }
 
     private Optional<User> findChatUser(User user) {
-        return userList.getOnlineUsers()
+        return userList
+                .getOnlineUsers()
                 .stream()
                 .filter(onlineUser -> !onlineUser.equals(user))
                 .filter(User::isWantChat)

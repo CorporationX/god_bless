@@ -21,32 +21,48 @@ public class Main {
     public static void main(String[] args) {
         log.info("Запущено {} потоков, для {} пользователей:", THREAD_POOL_LIMIT, NUMBER_OF_USERS);
         var users = getUsers();
+        runTask(users);
+        executor.shutdown();
+    }
+
+    private static void runTask(List<User> users) {
         users.forEach(user -> executor.execute(() -> {
             userRandomMove(user);
             notifyAndOffline(user);
         }));
-        executor.shutdown();
     }
 
     private static void userRandomMove(User user) {
         IntStream
                 .range(0, random.nextInt(3))
                 .forEach(i -> {
-                    if (random.nextBoolean()) {
-                        user.online();
-                        threadSleep(random.nextInt(5000));
-                    }
-                    if (random.nextBoolean()) {
-                        user.findChat();
-                        threadSleep(random.nextInt(15000));
-                        if (random.nextBoolean()) {
-                            user.closeChat();
-                        }
-                    }
-                    if (random.nextBoolean()) {
-                        notifyAndOffline(user);
-                    }
+                    randomOnline(user);
+                    randomFindChat(user);
+                    randomOffline(user);
                 });
+    }
+
+    private static void randomOnline(User user) {
+        if (random.nextBoolean()) {
+            user.online();
+            threadSleep(random.nextInt(5000));
+        }
+    }
+
+    private static void randomFindChat(User user) {
+        if (random.nextBoolean()) {
+            user.findChat();
+            threadSleep(random.nextInt(15000));
+            if (random.nextBoolean()) {
+                user.closeChat();
+            }
+        }
+    }
+
+    private static void randomOffline(User user) {
+        if (random.nextBoolean()) {
+            notifyAndOffline(user);
+        }
     }
 
     private static void notifyAndOffline(User user) {
@@ -59,7 +75,8 @@ public class Main {
     }
 
     private static List<User> getUsers() {
-        return IntStream.rangeClosed(1, NUMBER_OF_USERS)
+        return IntStream
+                .rangeClosed(1, NUMBER_OF_USERS)
                 .mapToObj(i -> new User(i, "User " + i, userList, chatManager))
                 .toList();
     }
