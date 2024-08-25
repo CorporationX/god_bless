@@ -15,7 +15,7 @@ public class Chore implements Runnable {
             System.out.println(getChore() + " in progress... please stand by");
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            Thread.currentThread().interrupt();
         }
         System.out.println(Thread.currentThread().getName() + " done!!!");
     }
