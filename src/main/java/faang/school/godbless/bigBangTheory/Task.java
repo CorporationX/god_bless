@@ -17,7 +17,8 @@ public class Task implements Runnable {
             Thread.sleep(THREAD_SLEEP);
             System.out.println("Task " + task + " finished");
         } catch (InterruptedException interruptedException) {
-            System.out.println("Error: " + task + " has been canceled");
+            Thread.currentThread().interrupt();
+            System.out.println("Error: " + task + " has been interrupted");
         }
     }
 }
