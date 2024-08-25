@@ -17,7 +17,9 @@ public class Main {
 
         System.out.println(Solution.filterStringWithValue(fruits, "apple"));
         System.out.println(Solution.sortLineLength(fruits));
-        System.out.println(Solution.checkingAllElementsForCondition(fruitsA));
+
+        char prefix2 = 'a';
+        System.out.println(Solution.checkingAllElementsForCondition(fruitsA, prefix2));
         System.out.println(Solution.findSmallNumberMoreN(numers, 10));
         System.out.println(Solution.stringToListLength(fruits));
     }

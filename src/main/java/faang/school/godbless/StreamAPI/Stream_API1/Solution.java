@@ -43,9 +43,9 @@ public class Solution {
                 .toList();
     }
 
-    public static boolean checkingAllElementsForCondition (List<String> elements){
+    public static boolean checkingAllElementsForCondition (List<String> elements, char prefix){
         return elements.stream()
-                .allMatch(element -> element.startsWith("a"));
+                .allMatch(element -> element.startsWith(String.valueOf(prefix)));
     }
 
     public static int findSmallNumberMoreN (List<Integer> listInt, Integer N){
