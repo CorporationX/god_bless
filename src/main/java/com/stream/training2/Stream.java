@@ -11,32 +11,32 @@ import java.util.stream.IntStream;
 public class Stream {
 
     public static List<String> searchUniquePairs(List<Integer> list, int target) {
-        return Optional.of(IntStream.rangeClosed(0, list.size())
+        return (IntStream.rangeClosed(0, list.size())
                         .boxed()
                         .flatMap(i -> IntStream.range(i + 1, list.size())
                                 .filter(j -> list.get(i) + list.get(j) == target)
-                                .mapToObj(j -> list.get(i) + ":" + list.get(j))).toList())
-                .orElseThrow(IllegalArgumentException::new);
+                                .mapToObj(j -> list.get(i) + ":" + list.get(j))).toList());
+
 
     }
 
     public static List<String> getСapital(Map<String, String> countriesWithCapital) {
-        return Optional.of(countriesWithCapital.entrySet()
+        return countriesWithCapital.entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
-                .toList()).orElseThrow(IllegalArgumentException::new);
+                .toList();
     }
 
     public static List<String> getLines(List<String> linesList, char word) {
-        return Optional.of(linesList.stream()
+        return linesList.stream()
                 .filter(line -> line.startsWith(String.valueOf(word)))
                 .sorted(Comparator.comparing(String::length))
-                .toList()).orElseThrow(IllegalArgumentException::new);
+                .toList();
     }
 
     public static List<List<String>> getPair(Map<String, List<String>> list) {
-        return Optional.of(list.entrySet()
+        return(list.entrySet()
                 .stream()
                 .flatMap(k -> list.entrySet()
                         .stream()
@@ -50,27 +50,27 @@ public class Stream {
                                 .toList()))
                 .distinct()
                 .toList()
-        ).orElseThrow(IllegalArgumentException::new);
+        );
     }
 
     public static Map<String, Double> getAvgSalaryByDepartment(List<Employee> employeeList) {
-        return Optional.of(employeeList.stream()
+        return employeeList.stream()
                 .collect(Collectors.groupingBy(Employee::getDepartmentName,
                         Collectors.averagingDouble(Employee::getSalary)
-                ))).orElseThrow(IllegalArgumentException::new);
+                ));
     }
 
     public static List<String> filterLinesByAlphabet(List<String> lines, String[] words) {
-        return Optional.of(Arrays.stream(words).flatMap(w -> lines.stream()
+        return Arrays.stream(words).flatMap(w -> lines.stream()
                         .filter(line -> line.startsWith(w)))
                 .sorted(Comparator.comparing(String::length))
-                .toList()).orElseThrow(IllegalAccessError::new);
+                .toList();
     }
 
     public static List<String> convert(String[] byteCode) {
-        return Optional.of(Arrays.stream(byteCode)
+        return Arrays.stream(byteCode)
                 .map(b -> Integer.parseInt(b, 2))
                 .map(Character::toString)
-                .collect(Collectors.toList())).orElseThrow(IllegalArgumentException::new);
+                .collect(Collectors.toList());
     }
 }
