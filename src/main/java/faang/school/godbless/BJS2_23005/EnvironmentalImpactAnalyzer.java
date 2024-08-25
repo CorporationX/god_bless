@@ -17,18 +17,21 @@ public class EnvironmentalImpactAnalyzer {
     public static void analyseLastYearForIdCompany(File file, int id) {
         LocalDate lastYear = LocalDate.now().minusYears(1L);
         List<EnvironmentalImpact> impacts = getImpactsFromCsvByFilter(file, impact -> impact.getCompany().getId() == id);
+        if (impacts.isEmpty()) {
+            return;
+        }
 
         Company company = impacts.get(0).getCompany();
         System.out.printf("Company name: %s\nToday's date: %s\nMonth      EnergyConsumption\n", company.getName(), LocalDate.now());
 
         Stream.iterate(lastYear, date -> !date.isAfter(LocalDate.now()), date -> date.plusMonths(1L))
-                .flatMap(date -> {
+                .map(date -> {
                     Map<Company, Double> map = StatisticsAggregator.mapCompanyBySumImpact(
                                     date,
                                     date.plusMonths(1L),
                                     impacts,
                                     TypeEnvironmentalImpact.ENERGY_CONSUMPTION);
-                    return Stream.of(new AbstractMap.SimpleEntry<>(date, map.getOrDefault(company, 0D)));
+                    return new AbstractMap.SimpleEntry<>(date, map.getOrDefault(company, 0D));
                 })
                 .forEach(entry -> System.out.printf("%s %.2f%n", entry.getKey(), entry.getValue()));
     }
