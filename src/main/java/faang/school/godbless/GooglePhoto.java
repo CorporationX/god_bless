@@ -28,6 +28,7 @@ public class GooglePhoto {
                 throw new RuntimeException(e);
             }
         });
+        executorService.execute(uploader::uploadPhotos);
         executorService.shutdown();
 
         try {

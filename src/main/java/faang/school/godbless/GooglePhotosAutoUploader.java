@@ -46,12 +46,13 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             log.info("onNewPhotoAdded " + photoPath);
             photosToUpload.add(photoPath);
-            lock.notify();
-            startAutoUpload();
+
         }
     }
 
-    private void uploadPhotos() {
-
+    public void uploadPhotos() {
+        synchronized (lock) {
+            lock.notify();
+        }
     }
 }
