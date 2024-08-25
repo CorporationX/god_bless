@@ -3,7 +3,6 @@ package faang.school.godbless.BJS2_24167;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -11,11 +10,7 @@ import java.util.Map;
 public class House {
 
     private final String name;
-    private final Map<String, Integer> roles = new HashMap<>();
-
-    public void addRoleAndAmount(String roleName, int amount) {
-        roles.putIfAbsent(roleName, amount);
-    }
+    private final Map<String, Integer> roles;
 
     public void addRole(String roleName) {
         synchronized (roles) {
