@@ -16,12 +16,13 @@ public class FoodDeliveryTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.character + " is waiting for food");
         try {
+            System.out.println(this.character + " is waiting for food");
             Thread.sleep(foodAmount * 1000L);
+            System.out.println(this.character + " gets " + foodAmount + " " + getFoodType());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.err.println(character + " did not receive the food: Delivery was interrupted.");
+            Thread.currentThread().interrupt();
         }
-        System.out.println(this.character + " gets " + foodAmount + " " + getFoodType());
     }
 }
