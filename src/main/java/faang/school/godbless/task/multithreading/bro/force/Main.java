@@ -10,9 +10,18 @@ import java.util.concurrent.Executors;
 public class Main {
     private static final int THREAD_POOL_LIMIT = 4;
 
+    private static final Game game = new Game();
+    private static List<Player> players;
+
     public static void main(String[] args) {
-        var game = new Game();
-        var players = List.of(
+        players = getPlayers();
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
+        players.forEach(executor::execute);
+        executor.shutdown();
+    }
+
+    private static List<Player> getPlayers() {
+        return List.of(
                 new Player("Player 1", game),
                 new Player("Player 2", game),
                 new Player("Player 3", game),
@@ -20,8 +29,5 @@ public class Main {
                 new Player("Player 5", game),
                 new Player("Player 6", game)
         );
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
-        players.forEach(player -> executor.submit(player));
-        executor.shutdown();
     }
 }
