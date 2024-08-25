@@ -11,34 +11,33 @@ import java.util.List;
 @Getter
 @RequiredArgsConstructor
 public class House {
-    private final Object lock = new Object();
     private final String name;
     private final List<Role> roles = new ArrayList<>(List.of(Role.values()));
     private int numberOfAvailableRoles = Role.values().length;
 
     public int getNumberOfAvailableRoles() {
-        synchronized (lock) {
+        synchronized (this) {
             return numberOfAvailableRoles;
         }
     }
 
     public List<Role> getRoles() {
-        synchronized (lock) {
+        synchronized (this) {
             return roles;
         }
     }
 
     public void addRole(Role role) {
-        synchronized (lock) {
+        synchronized (this) {
             roles.add(role);
             log.info("В доме {} освободилась роль {}", this.name, role);
             numberOfAvailableRoles++;
-            lock.notifyAll();
+            this.notifyAll();
         }
     }
 
     public void removeRole(Role role) {
-        synchronized (lock) {
+        synchronized (this) {
             roles.remove(role);
             numberOfAvailableRoles--;
         }

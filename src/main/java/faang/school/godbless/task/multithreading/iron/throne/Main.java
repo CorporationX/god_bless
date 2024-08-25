@@ -20,7 +20,7 @@ public class Main {
     public static void main(String[] args) {
         var users = getUsers();
         var houses = getHouses();
-        users.forEach(user -> executor.submit(() -> userJoinHouse(user, houses)));
+        users.forEach(user -> executor.execute(() -> userJoinHouse(user, houses)));
         executor.shutdown();
     }
 
@@ -35,9 +35,8 @@ public class Main {
     private static void waitUserInRole() {
         try {
             Thread.sleep(USER_IN_ROLE_TIME);
-        } catch (InterruptedException exception) {
-            log.error("Interrupted exception {}", exception.getMessage());
-            Thread.currentThread().interrupt();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
