@@ -15,6 +15,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(THREAD_SLEEP);
         } catch (InterruptedException interruptedException) {
+            Thread.currentThread().interrupt();
             System.out.println("Thread " + chore + " with name " + Thread.currentThread().getName() + " was interrupted");
         }
         System.out.println("Finishing chore " + chore);
