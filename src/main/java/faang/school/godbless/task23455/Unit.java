@@ -2,9 +2,11 @@ package faang.school.godbless.task23455;
 
 
 
-public class Mage extends Unit {
-    public Mage(int power) {
-        super(power);
+public abstract class Unit {
+    public int power;
+
+    public Unit(int power) {
+        this.power = power;
     }
 
     public int getPower() {

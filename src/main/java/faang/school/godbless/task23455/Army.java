@@ -1,5 +1,6 @@
 package faang.school.godbless.task23455;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,48 +8,26 @@ import java.util.stream.Collectors;
 
 
 public class Army {
-    private List<Archer> archerSubdivision;
-    private List<Swordsman> swordsmanSubdivision;
-    private List<Mage> mageSubdivision;
+    private List<Unit> subdivision = new ArrayList<>();
 
     public int calculateTotalPower() throws InterruptedException {
-        AtomicInteger power = new AtomicInteger();
+        AtomicInteger allPower = new AtomicInteger();
 
-        Thread archerThread = new Thread(() -> {power.addAndGet(archerSubdivision.stream()
-                .collect(Collectors.summingInt(Archer::getPower)));});
+        int power = subdivision.stream().collect(Collectors.summingInt(Unit::getPower));
+        Thread unitThread = new Thread(() -> allPower.addAndGet(power));
 
-        Thread swordsmanThread = new Thread(() -> {power.addAndGet(swordsmanSubdivision.stream()
-                .collect(Collectors.summingInt(Swordsman::getPower)));});
-
-        Thread mageThread = new Thread(() -> {power.addAndGet(mageSubdivision.stream()
-                .collect(Collectors.summingInt(Mage::getPower)));});
-
-
-        archerThread.start();
-        swordsmanThread.start();
-        mageThread.start();
-        archerThread.join();
-        swordsmanThread.join();
-        mageThread.join();
-
-        return power.get();
+        unitThread.start();
+        unitThread.join();
+        return allPower.get();
     }
 
-    public Army() {
-        archerSubdivision = new ArrayList<>();
-        swordsmanSubdivision = new ArrayList<>();
-        mageSubdivision = new ArrayList<>();
+    public void addArcher(Unit unit){
+        subdivision.add(unit);
+   }
+    public void addSwordsman(Unit unit){
+        subdivision.add(unit);
     }
-
-    public void addArcher(Archer archer){
-        archerSubdivision.add(archer);
-   }
-
-   public void addSwordsman(Swordsman swordsman){
-        swordsmanSubdivision.add(swordsman);
-   }
-
-   public void addMage(Mage mage){
-        mageSubdivision.add(mage);
+    public void addMage(Unit unit){
+        subdivision.add(unit);
    }
 }

@@ -1,10 +1,13 @@
 package faang.school.godbless.task23455;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@AllArgsConstructor
-@Getter
-public class Archer {
-    private int power;
+
+public class Archer extends Unit {
+    public Archer(int power) {
+        super(power);
+    }
+
+    public int getPower() {
+        return power;
+    }
 }
