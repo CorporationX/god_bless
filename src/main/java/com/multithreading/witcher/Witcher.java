@@ -29,27 +29,21 @@ public class Witcher {
         cities.add(new City("Oxenfurt", new Location(60, 0), 70));
         cities.add(new City("Vizima", new Location(120, 50), 30));
         cities.add(new City("Kaer Morhen", new Location(180, 70), 0));
-        cities.add(new City("Kaer 1", new Location(120, 70), 230));
-        cities.add(new City("Kaer 2", new Location(200, 50), 124));
-        cities.add(new City("Kaer 3", new Location(10, 20), 312));
-        cities.add(new City("Kaer 4", new Location(20, 80), 54));
-        cities.add(new City("Kaer 5", new Location(50, 30), 43));
-        cities.add(new City("Kaer 6", new Location(70, 60), 312));
-        cities.add(new City("Kaer 7", new Location(130, 70), 43));
 
 
         ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
         long startTime = System.currentTimeMillis();
 
-        for (City city : cities) {
-            service.execute(new CityWorker(city, monsters, locations));
-        }
-        service.shutdown();
         try {
+            for (City city : cities) {
+                service.execute(new CityWorker(city, monsters, locations));
+            }
+            service.shutdown();
             service.awaitTermination(100, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
+
         long endTime = System.currentTimeMillis();
         System.out.println("Elapsed time: " + (endTime - startTime) + "ms");
     }

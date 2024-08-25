@@ -1,8 +1,11 @@
 package com.multithreading.witcher;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -18,18 +21,18 @@ public class CityWorker implements Runnable {
     }
 
     public Map<Monster, Integer> findNearestMonster() {
-        return monsters.stream()
-                .collect(Collectors.toMap(monster -> monster,
-                        mon -> calculateDistance(city.getLocation(), locations.get(mon.getLocation()))))
-                .entrySet()
-                .stream()
-                .sorted(Map.Entry.comparingByValue(Comparator.naturalOrder()))
-                .limit(1)
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+        Map<Monster, Integer> nearestMonster = new HashMap<>();
+        Monster monster = monsters.stream().min(Comparator
+                .comparing(monster1 -> calculateDistance(city.getLocation(),
+                        locations.get(monster1.getLocation()))))
+                .get();
+        int distanceToMonster = calculateDistance(city.getLocation(), locations.get(monster.getLocation()));
+        nearestMonster.put(monster, distanceToMonster);
+        return nearestMonster;
     }
 
     public long getKillTime() {
-        return 5;
+        return (int) (Math.random() * ((5-1) + 1) + 1);
     }
 
     public int getJourneyDistance(City city) {
@@ -51,7 +54,7 @@ public class CityWorker implements Runnable {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+           Thread.currentThread().interrupt();
         }
     }
 }
