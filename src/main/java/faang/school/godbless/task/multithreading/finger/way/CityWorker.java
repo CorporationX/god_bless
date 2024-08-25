@@ -34,10 +34,10 @@ public class CityWorker implements Runnable {
     }
 
     private void collectInformation() {
-        monster = findNearestMonster();
-        distanceToCity = distance.get(geraldLocation, city.getLocation());
-        killingTime = getKillTime();
-        journeyDistance = getJourneyDistance();
+        this.monster = findNearestMonster();
+        this.distanceToCity = distance.get(geraldLocation, city.getLocation());
+        this.killingTime = getKillTime();
+        this.journeyDistance = getJourneyDistance();
     }
 
     private Monster findNearestMonster() {
@@ -46,7 +46,7 @@ public class CityWorker implements Runnable {
                 .peek(e -> distanceToMonster = e.getValue())
                 .map(Map.Entry::getKey)
                 .findAny()
-                .get();
+                .orElseThrow();
     }
 
     private Optional<Map.Entry<Monster, Double>> getNearestMonster() {
