@@ -1,16 +1,25 @@
 package faang.school.godbless;
 
+import java.util.function.Function;
+
 public class Application {
     public static void main(String[] args) {
-        System.out.println("God Bless!");
-        SpellCaster spellCaster = new SpellCaster();
+        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+        FilterProcessor filterProcessor = new FilterProcessor();
 
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
+// Создание фильтров
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName() + "_grayscale", "Фильтр: черно-белый");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName() + "_sepia", "Фильтр: сепия");
+        Function<Image, Image> vignetteFilter = (image) -> new Image(image.getName() + "_vignette", "Фильтр: виньетка");
+
+// Применение фильтров
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        Image sepiaImage = filterProcessor.applyFilter(originalImage, sepiaFilter);
+        Image vignetteImage = filterProcessor.applyFilter(originalImage, vignetteFilter);
+
+// Создание и применение комбинированного фильтра
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
     }
 }
