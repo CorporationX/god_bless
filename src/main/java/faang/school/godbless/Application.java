@@ -4,7 +4,6 @@ import java.util.function.Function;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("God Bless!");
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
         FilterProcessor filterProcessor = new FilterProcessor();
@@ -22,7 +21,5 @@ public class Application {
 // Создание и применение комбинированного фильтра
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-
-
     }
 }
