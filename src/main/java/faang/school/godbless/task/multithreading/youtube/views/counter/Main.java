@@ -15,17 +15,18 @@ public class Main {
     public static final int TIME_OUT = 5;
 
     private static final VideoManager videoManager = new VideoManager();
+    private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+    private static List<String> videoId;
 
     public static void main(String[] args) {
-        List<String> videoId = createVideoId();
-        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+        videoId = createVideoId();
         videoId.forEach(id -> IntStream.range(0, NUM_THREADS / NUM_VIDEOS)
                 .forEach(i -> executor.submit(() -> watchVideo(id))));
         executor.shutdown();
-        printResult(executor, videoId);
+        waitEnd(executor, videoId);
     }
 
-    private static void printResult(ExecutorService executor, List<String> videoId) {
+    private static void waitEnd(ExecutorService executor, List<String> videoId) {
         try {
             if (executor.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
                 printAllViews(videoId);
@@ -44,7 +45,8 @@ public class Main {
     }
 
     private static List<String> createVideoId() {
-        return IntStream.rangeClosed(1, NUM_VIDEOS)
+        return IntStream
+                .rangeClosed(1, NUM_VIDEOS)
                 .mapToObj(i -> "Video_" + i)
                 .toList();
     }
