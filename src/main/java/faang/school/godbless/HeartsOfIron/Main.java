@@ -12,8 +12,8 @@ public class Main {
         House house = new House();
         List<User> users = new ArrayList<>();
 
-        house.getAvailableRoles().add("CYBORG");
-        house.getAvailableRoles().add("OLEBORG");
+        house.addRole("CYBORG");
+        house.addRole("OLEBORG");
         User user1 = new User("valera");
         users.add(user1);
         User user2 = new User("auf");
@@ -23,19 +23,21 @@ public class Main {
         User user4 = new User("vava");
         users.add(user4);
 
+        Runnable session = () -> {
+            users.forEach(user -> {
+                user.joinHouse(house);
+                try {
+                    Thread.sleep(new Random().nextInt(6) * 1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                user.leaveHouse();
+            });
+        };
+
         ExecutorService executorService = Executors.newFixedThreadPool(2);
         for (int i = 0; i < 2; i++) {
-            executorService.execute(() -> {
-                users.forEach(user -> {
-                   user.joinHouse(house);
-                    try {
-                        Thread.sleep(new Random().nextInt(6) * 1000);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    user.leaveHouse();
-                });
-            });
+            executorService.execute(session);
         }
 
         executorService.shutdown();

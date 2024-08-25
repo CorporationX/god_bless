@@ -8,7 +8,7 @@ import java.util.Random;
 
 @Getter
 public class House {
-    List<String> availableRoles = new ArrayList<>();
+    private List<String> availableRoles = new ArrayList<>();
 
     public House() {
         availableRoles.add("kunkka");
