@@ -19,8 +19,8 @@ public class GooglePhotosAutoUploader {
                         LOCK.wait();
                     }
                 } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
                     Thread.currentThread().interrupt();
-                    return;
                 }
 
                 uploadPhotos();
