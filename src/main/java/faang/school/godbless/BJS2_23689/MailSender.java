@@ -1,77 +1,31 @@
 package faang.school.godbless.BJS2_23689;
 
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 public class MailSender {
     public static void main(String[] args) {
-        Thread firstThread = new Thread(
-                () -> {
-                    SenderRunnable secondPoolEmail = new SenderRunnable(0, 200);
-                    for (int i = secondPoolEmail.getStartIndex(); i < secondPoolEmail.getEndIndex(); i++) {
-                        secondPoolEmail.run();
+
+        Thread[] arrayThread = new Thread[4];
+
+        for (int i = 0; i < arrayThread.length; i++) {
+            int startIndex = i * 200;
+            int endIndex = startIndex + 200;
+            arrayThread[i] = new Thread(
+                    () -> {
+                        SenderRunnable secondPoolEmail = new SenderRunnable(startIndex, endIndex);
+                        for (int j = secondPoolEmail.getStartIndex(); j < secondPoolEmail.getEndIndex(); j++) {
+                            secondPoolEmail.run();
+                        }
                     }
-                }
-
-        );
-        firstThread.start();
-
-        Thread secondThread = new Thread(
-                () -> {
-                    SenderRunnable secondPoolEmail = new SenderRunnable(200, 400);
-                    for (int i = secondPoolEmail.getStartIndex(); i < secondPoolEmail.getEndIndex(); i++) {
-                        secondPoolEmail.run();
-                    }
-                }
-
-        );
-        secondThread.start();
-
-        Thread thirdThread = new Thread(
-                () -> {
-                    SenderRunnable secondPoolEmail = new SenderRunnable(400, 600);
-                    for (int i = secondPoolEmail.getStartIndex(); i < secondPoolEmail.getEndIndex(); i++) {
-                        secondPoolEmail.run();
-                    }
-                }
-
-        );
-        thirdThread.start();
-
-        Thread fourthThread = new Thread(
-                () -> {
-                    SenderRunnable secondPoolEmail = new SenderRunnable(600, 800);
-                    for (int i = secondPoolEmail.getStartIndex(); i < secondPoolEmail.getEndIndex(); i++) {
-                        secondPoolEmail.run();
-                    }
-                }
-
-        );
-        fourthThread.start();
-
-        Thread fifthThread = new Thread(
-                () -> {
-                    SenderRunnable secondPoolEmail = new SenderRunnable(800, 1000);
-                    for (int i = secondPoolEmail.getStartIndex(); i < secondPoolEmail.getEndIndex(); i++) {
-                        secondPoolEmail.run();
-                    }
-                }
-
-        );
-        fifthThread.start();
+            );
+            arrayThread[i].start();
+        }
 
         try {
-            firstThread.join();
-            secondThread.join();
-            thirdThread.join();
-            fourthThread.join();
-            fifthThread.join();
+            for (Thread element : arrayThread) {
+                element.join();
+            }
             System.out.println("Все сообщения отправлены");
-        }
-        catch (InterruptedException e){
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 }
