@@ -12,12 +12,11 @@ public class MailSender {
     public static void main(String[] args) throws InterruptedException {
         List<Thread> threads = new ArrayList<>();
 
-        for (int i = 0; i < THREAD_COUNT;) {
+        for (int i = 0; i < THREAD_COUNT; i++) {
             int startIndex = i * MESSAGES_PART;
-            int endIndex = startIndex + MESSAGES_PART;
+            int endIndex = startIndex + MESSAGES_PART - 1;
 
-            threads.add(new Thread(() -> new SenderRunnable(startIndex, endIndex)));
-            i++;
+            threads.add(new Thread(new SenderRunnable(startIndex, endIndex)));
         }
 
         threads.forEach((thread) -> {
@@ -26,7 +25,6 @@ public class MailSender {
         });
 
         for (Thread thread : threads) {
-            System.out.println(thread.getName() + " - щас джоинится");
             thread.join();
             System.out.println(thread.getName() + " - завершил работу");
         }
