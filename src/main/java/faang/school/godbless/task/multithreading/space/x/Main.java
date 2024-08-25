@@ -19,15 +19,13 @@ public class Main {
         CompletableFuture<Long> compFuture = CompletableFuture.supplyAsync(() ->
                 planRocketLauncher(getRockets()), executor);
         executor.shutdown();
-        compFuture
-                .thenAccept(time -> log.info("Time of execution: {} milliseconds", time))
+        compFuture.thenAccept(time -> log.info("Time of execution: {} milliseconds", time))
                 .join();
     }
 
     private static long planRocketLauncher(List<RocketLauncher> rocket) {
         long start = System.currentTimeMillis();
-        rocket
-                .forEach(Main::startRocket);
+        rocket.forEach(Main::startRocket);
         return System.currentTimeMillis() - start;
     }
 
