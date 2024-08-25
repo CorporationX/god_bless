@@ -20,12 +20,12 @@ public class King {
                 new Knight("Harald the Wise")
         ).forEach(EXECUTOR::submit);
 
+        EXECUTOR.shutdown();
         handleExecutorTermination();
     }
 
     private static void handleExecutorTermination(){
         long startTime = System.currentTimeMillis();
-        EXECUTOR.shutdown();
 
         try {
             while(!EXECUTOR.awaitTermination(3, TimeUnit.SECONDS)) {
