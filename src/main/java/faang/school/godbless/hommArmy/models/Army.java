@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private List<Unit> army;
+    private final List<Unit> army;
 
     public Army() {
         army = new ArrayList<>();
@@ -24,6 +24,10 @@ public class Army {
 
         for (PowerUnit powerUnit : powerUnits) {
             powerUnit.start();
+        }
+
+        for (PowerUnit powerUnit : powerUnits) {
+            powerUnit.join();
         }
 
         return powerUnits.stream().mapToInt(PowerUnit::getPower).sum();
