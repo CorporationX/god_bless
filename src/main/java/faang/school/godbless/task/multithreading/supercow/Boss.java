@@ -25,9 +25,12 @@ public class Boss {
     }
 
     private void addPlayer(Player player) throws InterruptedException {
+        log.info("Игрок {} пытается подключиться к битве с боссом", player.getName());
         synchronized (this) {
             while (currentPlayers.size() == maxPlayer) {
+                log.info("Нет свободных мест, игрок {} переходит в режим ожидания", player.getName());
                 this.wait();
+                log.info("Игрок {} выходит из режима ожидания и присоединятся к сражению", player.getName());
             }
             currentPlayers.add(player);
         }
