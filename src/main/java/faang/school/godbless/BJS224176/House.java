@@ -8,6 +8,7 @@ import java.util.List;
 public class House {
     private List<Role> roles;
     private int freeRoles;
+    private final Object lock = new Object();
 
     public House(List<Role> roles) {
         this.roles = roles;
@@ -15,13 +16,13 @@ public class House {
     }
 
     public void addRole() {
-        synchronized (this) {
+        synchronized (lock) {
             this.freeRoles--;
         }
     }
 
     public void removeRole() {
-        synchronized (this) {
+        synchronized (lock) {
             this.freeRoles++;
         }
     }
