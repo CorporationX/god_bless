@@ -11,7 +11,7 @@ public class Player {
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(Constants.BATTLE_DURATION);
             boss.finishBattle(this);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
