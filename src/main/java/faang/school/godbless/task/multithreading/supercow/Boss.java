@@ -19,8 +19,8 @@ public class Boss {
             Thread.sleep(5000);
             log.info("Игрок {} закончил сражение с боссом", player.getName());
             notifyPlayer(player);
-        } catch (InterruptedException exception) {
-            log.error("Interrupted exception: {}", exception.getMessage());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -39,5 +39,4 @@ public class Boss {
             this.notifyAll();
         }
     }
-
 }
