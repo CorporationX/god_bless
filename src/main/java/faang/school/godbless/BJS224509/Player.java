@@ -2,45 +2,33 @@ package faang.school.godbless.BJS224509;
 
 public class Player {
     private final Object lock = new Object();
-    private boolean isPlaying;
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
-            if (!isPlaying) {
-                System.out.println("Music is playing.");
-            } else {
-                System.out.println("Music is already playing");
-            }
+            isPlaying = true;
+            System.out.println("The music is playing " + isPlaying);
         }
     }
 
     public void pause() {
         synchronized (lock) {
-            if (isPlaying) {
-                System.out.println("Music is paused");
-            } else {
-                System.out.println("Music is already paused");
-            }
+            isPlaying = false;
+            System.out.println("The music is pause " + isPlaying);
         }
     }
 
     public void skip() {
         synchronized (lock) {
-            if (isPlaying) {
-                System.out.println("Skipping to the next track");
-            } else {
-                System.out.println("Can't skip. Music is not playing");
-            }
+            isPlaying = true;
+            System.out.println("Song was skipped " + isPlaying);
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            if (isPlaying) {
-                System.out.println("Going back to the previous track");
-            } else {
-                System.out.println("It's impossible to switch back, the music doesn't play");
-            }
+            isPlaying = true;
+            System.out.println("The previous song is playing " + isPlaying);
         }
     }
 
