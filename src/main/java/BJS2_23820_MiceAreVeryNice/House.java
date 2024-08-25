@@ -42,24 +42,24 @@ public class House {
             if (executor.awaitTermination(3, TimeUnit.MINUTES)) {
                 System.out.println("________________________________________");
                 System.out.println("______Food in house are collected!______");
+                executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            System.out.println("Error!");
+            executor.shutdownNow();
         }
     }
 
     public static void collectFood() {
-        System.out.println("________________");
         System.out.println(Thread.currentThread().getName() + " was initiated");
+
         for (Room room : rooms) {
             if (!room.getFoodList().isEmpty()) {
-                System.out.println("Collecting food from room: " + room.getRoomName());
+                System.out.println("Collecting food from " + room.getRoomName());
                 collectedFood.add(room.getFoodList().get(0));
-                System.out.println(room.getFoodList().get(0).getFood() + " was taken");
                 room.getFoodList().remove(room.getFoodList().get(0));
-                if (room.getFoodList().isEmpty()) {
-                    System.out.println("All food have been collected and room " + room.getRoomName() + " is clear!");
-                }
+            }
+            else {
+                System.out.println("All food have been collected and room " + room.getRoomName() + " is clear!");
             }
         }
     }
