@@ -2,22 +2,18 @@ package faang.school.godbless.stream2;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Stream2 {
     public static List<List<Integer>> getPairs(List<Integer> numbers, int sum) {
-        List<Integer> pairs = new ArrayList<>();
-        numbers.stream().forEach(number -> {
-            var pair = sum - number;
-            if (numbers.contains(pair) && !pairs.contains(pair)) {
-                pairs.add(number);
-            }
-        });
-        return pairs.stream().map(pair -> List.of(pair, sum - pair)).toList();
+        Set<Integer> set = new HashSet<>(numbers);
+        return numbers.stream().peek(set::remove).filter(x -> set.contains(sum - x)).map(x -> List.of(x, sum - x)).toList();
     }
 
     public static List<String> getSortedCapitals(Map<String, String> countries) {
@@ -42,27 +38,11 @@ public class Stream2 {
 
     public static List<String> filterByABC(List<String> strings, List<Character> letters) {
         Pattern pattern = Pattern.compile("^[" + letters + "]+$", Pattern.CASE_INSENSITIVE);
-        return strings.stream()
-                .filter(s -> pattern.matcher(s).matches())
-                .sorted(Comparator.comparingInt(String::length))
-                .toList();
+        return strings.stream().filter(s -> pattern.matcher(s).matches()).sorted(Comparator.comparingInt(String::length)).toList();
     }
 
     public static List<String> getBinary(List<Integer> numbers) {
-        return numbers.stream().map(Stream2::toBinaryString).toList();
-    }
-
-    private static String toBinaryString(int num) {
-        if (num == 0) {
-            return "0";
-        }
-        StringBuilder binary = new StringBuilder();
-        while (num > 0) {
-            int remainder = num % 2;
-            binary.append(remainder);
-            num = num / 2;
-        }
-        return binary.reverse().toString();
+        return numbers.stream().map(Integer::toBinaryString).toList();
     }
 
     public static List<Integer> getPalindroms(int from, int to) {
@@ -73,14 +53,12 @@ public class Stream2 {
         if (x < 0) {
             return false;
         }
-        int original = x;
-        int reversed = 0;
-        int remainder;
-        while (x != 0) {
-            remainder = x % 10;
-            reversed = reversed * 10 + remainder;
-            x = x / 10;
+        String value = String.valueOf(x);
+        for (int i = 0; i < value.length() / 2; i++) {
+            if (value.charAt(i) != value.charAt(value.length() - 1 - i)) {
+                return false;
+            }
         }
-        return original == reversed;
+        return true;
     }
 }
