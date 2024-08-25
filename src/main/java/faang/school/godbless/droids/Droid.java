@@ -22,12 +22,12 @@ public class Droid {
             StringBuilder shiftedString = new StringBuilder();
 
             for (char ch : incomingMessage.toCharArray()) {
-                if (ch >= CAPITAL_A && ch <= CAPITAL_Z && ch + shift > CAPITAL_Z) {
-                    shiftedString.append((char) (CAPITAL_A + (ch + shift - CAPITAL_Z - 1)));
-                } else if (ch >= LETTER_A && ch <= LETTER_Z && ch + shift > LETTER_Z) {
-                    shiftedString.append((char) (LETTER_A + (ch + shift - LETTER_Z - 1)));
+                if (Character.isUpperCase(ch)) {
+                    shiftedString.append((char) ('A' + (ch - 'A' + shift) % 26));
+                } else if (Character.isLowerCase(ch)) {
+                    shiftedString.append((char) ('a' + (ch - 'a' + shift) % 26));
                 } else {
-                    shiftedString.append((char) (ch + shift));
+                    shiftedString.append(ch);
                 }
             }
 
@@ -43,12 +43,12 @@ public class Droid {
             StringBuilder shiftedString = new StringBuilder();
 
             for (char ch : incomingMessage.toCharArray()) {
-                if (ch >= CAPITAL_A && ch <= CAPITAL_Z && ch - shift < CAPITAL_A) {
-                    shiftedString.append((char) (CAPITAL_Z + (CAPITAL_A - ch - shift + 1)));
-                } else if (ch >= LETTER_A && ch <= LETTER_Z && ch - shift < LETTER_A) {
-                    shiftedString.append((char) (LETTER_Z + (LETTER_A - ch - shift + 1)));
+                if (Character.isUpperCase(ch)) {
+                    shiftedString.append((char) ('Z' + (ch - 'Z' - shift) % 26));
+                } else if (Character.isLowerCase(ch)) {
+                    shiftedString.append((char) ('z' + (ch - 'z' - shift) % 26));
                 } else {
-                    shiftedString.append((char) (ch - shift));
+                    shiftedString.append(ch);
                 }
             }
 
