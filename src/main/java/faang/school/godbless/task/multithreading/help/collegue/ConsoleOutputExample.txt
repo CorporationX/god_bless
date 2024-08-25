@@ -1,14 +1,25 @@
-Ten person in five thread for example:
-
 > Task :Main.main()
-10:20:10.450 [pool-1-thread-4] INFO  - Name 7
-10:20:10.450 [pool-1-thread-3] INFO  - Name 5
-10:20:10.454 [pool-1-thread-4] INFO  - Name 8
-10:20:10.454 [pool-1-thread-3] INFO  - Name 6
-10:20:10.450 [pool-1-thread-1] INFO  - Name 1
-10:20:10.450 [pool-1-thread-5] INFO  - Name 9
-10:20:10.454 [pool-1-thread-1] INFO  - Name 2
-10:20:10.454 [pool-1-thread-5] INFO  - Name 10
-10:20:10.450 [pool-1-thread-2] INFO  - Name 3
-10:20:10.454 [pool-1-thread-2] INFO  - Name 4
-10:20:10.455 [main] INFO  - All done
+11:45:16.857 [pool-1-thread-30] INFO  - Name 5801
+11:45:16.860 [pool-1-thread-30] INFO  - Name 5802
+11:45:16.860 [pool-1-thread-38] INFO  - Name 7401
+11:45:16.860 [pool-1-thread-30] INFO  - Name 5803
+11:45:16.860 [pool-1-thread-43] INFO  - Name 8401
+11:45:16.859 [pool-1-thread-33] INFO  - Name 6401
+11:45:16.855 [pool-1-thread-13] INFO  - Name 2401
+11:45:16.860 [pool-1-thread-44] INFO  - Name 8601
+11:45:16.855 [pool-1-thread-3] INFO  - Name 401
+11:45:16.861 [pool-1-thread-33] INFO  - Name 6402
+11:45:16.856 [pool-1-thread-22] INFO  - Name 4201
+...
+11:45:16.928 [pool-1-thread-50] INFO  - Name 9999
+11:45:16.928 [pool-1-thread-50] INFO  - Name 10000
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7794
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7795
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7796
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7797
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7798
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7799
+11:45:16.928 [pool-1-thread-39] INFO  - Name 7800
+11:45:16.928 [main] INFO  - All done
+
+BUILD SUCCESSFUL in 513ms

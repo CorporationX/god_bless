@@ -7,12 +7,11 @@ import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
-public class PersonNamePrinter implements Runnable{
+public class PersonNamePrinter implements Runnable {
     private final List<Person> people;
 
     @Override
     public void run() {
-        people
-                .forEach(person -> log.info("{}",person.getName()));
+        people.forEach(person -> log.info("{}", person.name()));
     }
 }
