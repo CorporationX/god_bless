@@ -8,7 +8,7 @@ public class TelegramBot {
     private static final int REQUEST_LIMIT = 10;
     private static final long TIME_LIMIT = 1000;
     private volatile int requestCounter;
-    private volatile long lastRequestTime;
+    private long lastRequestTime;
 
     public TelegramBot() {
         requestCounter = 0;
