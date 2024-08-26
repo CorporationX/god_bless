@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Room {
 
-    private List<Food> foodList = new ArrayList<>();
+    private final List<Food> foodList = new ArrayList<>();
 
     public void addFood(@NonNull Food food) {
         foodList.add(food);

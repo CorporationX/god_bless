@@ -14,6 +14,7 @@ public class House {
     private static final int THREAD_COUNT = 5;
 
     public static void main(String[] args) {
+
         House house = new House();
         initialize();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_COUNT);
@@ -22,7 +23,7 @@ public class House {
             int index = i;
             executor.schedule(() -> {
                 house.collectFood(index * 2, index * 2 + 1);
-            }, 3, TimeUnit.SECONDS);
+            }, 30 * (i + 1), TimeUnit.SECONDS);
         }
 
         executor.shutdown();
@@ -41,18 +42,23 @@ public class House {
     }
 
     public void collectFood(int roomIndex1, int roomIndex2) {
-        if (roomIndex1 < rooms.size() && roomIndex2 < rooms.size()) {
-            Room room1 = rooms.get(roomIndex1);
-            Room room2 = rooms.get(roomIndex2);
+
+        if (roomIndex1 < rooms.size() || roomIndex2 < rooms.size()) {
+            Room room1 = roomIndex1 < rooms.size() ? rooms.get(roomIndex1) : null;
+            Room room2 = roomIndex2 < rooms.size() ? rooms.get(roomIndex2) : null;
             System.out.println("Поток " + Thread.currentThread().getId() + " начал работу.");
 
-            foods.addAll(room1.getFoodList());
-            foods.addAll(room2.getFoodList());
+            if (room1 != null) {
+                foods.addAll(room1.getFoodList());
+                room1.getFoodList().clear();
+                System.out.println("Еда в комнате " + (roomIndex1 + 1) + " собрана.");
+            }
 
-            room1.getFoodList().clear();
-            System.out.println("Еда в комнате " + (roomIndex1 + 1) + " собрана.");
-            room2.getFoodList().clear();
-            System.out.println("Еда в комнате " + (roomIndex2 + 1) + " собрана.");
+            if (room2 != null) {
+                foods.addAll(room2.getFoodList());
+                room2.getFoodList().clear();
+                System.out.println("Еда в комнате " + (roomIndex2 + 1) + " собрана.");
+            }
         }
     }
 
@@ -61,6 +67,7 @@ public class House {
     }
 
     public static void initialize() {
+
         Random random = new Random();
 
         for (int i = 0; i < 10; i++) {
