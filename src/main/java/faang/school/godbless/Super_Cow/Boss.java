@@ -30,18 +30,17 @@ public class Boss {
                 }
             }
             currentPlayers.add(player);
-            lock.notifyAll();
         }
     }
     public void leaveBattle(Player player) {
         synchronized (lock) {
             currentPlayers.remove(player);
-            lock.notifyAll();
         }
     }
     public void startBattle(Boss boss,Player player) {
         synchronized (lock) {
             boss.joinBattle(player);
+            boss.leaveBattle(player);
         }
     }
 }
