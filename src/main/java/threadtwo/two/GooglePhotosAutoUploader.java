@@ -8,24 +8,23 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
 
     private static Object lock = new Object();
-    List<String> photosToUpload = new ArrayList<>();
+    private List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         while (true) {
             synchronized (lock) {
-                try {
-                    if (photosToUpload.isEmpty()) {
-                        lock.wait();
+                while (photosToUpload.isEmpty()) {
+                    try {
                         System.out.println("Список фото на загрузку пуст.");
-                    } else {
-                        System.out.println("Обработка фото началась.");
-                        uploadPhotos();
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        System.out.println("Обработка фото прервана.");
+                        return;
                     }
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    System.out.println("Обработка фото прервана.");
-                    return;
                 }
+                System.out.println("Обработка фото началась.");
+                uploadPhotos();
             }
         }
     }
