@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes.sprint3.creature;
+package faang.school.godbless.heroes.multithreading.sprint.creature;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Mage extends Creature {
-    private String name = "mage";
+    private final String name = "mage";
 
     public Mage(int power) {
         super(power);

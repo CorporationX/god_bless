@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes.sprint1.creature;
+package faang.school.godbless.heroes.core.sprint.creature;
 
 public class Angel extends Creature {
 

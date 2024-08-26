@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes.sprint3.creature;
+package faang.school.godbless.heroes.multithreading.sprint.creature;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Swordsman extends Creature {
-    private String name = "swordsman";
+    private final String name = "swordsman";
 
     public Swordsman(int power) {
         super(power);

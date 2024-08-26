@@ -1,6 +1,6 @@
-package faang.school.godbless.heroes.sprint3;
+package faang.school.godbless.heroes.multithreading.sprint;
 
-import faang.school.godbless.heroes.sprint3.creature.Creature;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Creature;
 import lombok.Getter;
 
 import java.util.List;

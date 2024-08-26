@@ -1,6 +1,6 @@
-package faang.school.godbless.heroes.sprint1;
+package faang.school.godbless.heroes.core.sprint;
 
-import faang.school.godbless.heroes.sprint1.creature.Creature;
+import faang.school.godbless.heroes.core.sprint.creature.Creature;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

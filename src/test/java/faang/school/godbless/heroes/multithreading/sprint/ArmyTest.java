@@ -1,11 +1,11 @@
-package faang.school.godbless.heroes.sprint3;
+package faang.school.godbless.heroes.multithreading.sprint;
 
-import faang.school.godbless.heroes.sprint3.creature.Archer;
-import faang.school.godbless.heroes.sprint3.creature.Creature;
-import faang.school.godbless.heroes.sprint3.creature.Dwarf;
-import faang.school.godbless.heroes.sprint3.creature.Goblin;
-import faang.school.godbless.heroes.sprint3.creature.Mage;
-import faang.school.godbless.heroes.sprint3.creature.Swordsman;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Archer;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Creature;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Dwarf;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Goblin;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Mage;
+import faang.school.godbless.heroes.multithreading.sprint.creature.Swordsman;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
