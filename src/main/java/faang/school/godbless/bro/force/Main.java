@@ -1,13 +1,11 @@
 package faang.school.godbless.bro.force;
 
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-@Slf4j
 public class Main {
+    private static final int TIME_FOR_FIGHT_IN_SECONDS = 5;
     public static void main(String[] args) {
         Game game = new Game();
         Player neo = new Player("Neo", 3, true);
@@ -32,12 +30,12 @@ public class Main {
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIME_FOR_FIGHT_IN_SECONDS, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException exception) {
-            log.error("Exception was occurred while shutdownNow executorService processing", exception);
             executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
