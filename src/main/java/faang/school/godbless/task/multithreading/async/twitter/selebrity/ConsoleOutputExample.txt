@@ -1,0 +1,29 @@
+> Task :Main.main()
+19:33:07.694 [pool-1-thread-1] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-25] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-24] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-23] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-22] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-21] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-20] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-19] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-18] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-17] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-16] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-15] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-14] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-13] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-12] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-11] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-9] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-10] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-8] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-7] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-6] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-5] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-4] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-2] INFO  - Elon Musk have one new follower
+19:33:07.696 [pool-1-thread-3] INFO  - Elon Musk have one new follower
+19:33:07.697 [pool-1-thread-3] INFO  - Elon Musk have 25 new followers
+
+BUILD SUCCESSFUL in 420ms
