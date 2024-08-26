@@ -14,9 +14,8 @@ public class VideoManager {
     public void addView(@NonNull String videoId) {
         synchronized (viewsMap) {
             if (!videoId.isBlank()) {
-                System.out.println("Add new viewer to viewsMap");
-                viewsMap.computeIfPresent(videoId, (k, v) -> v + 1);
-                viewsMap.putIfAbsent(videoId, 1);
+                System.out.println("Add new viewer to viewsMap " + videoId);
+                viewsMap.merge(videoId, 1, Integer::sum);
             }
         }
     }
