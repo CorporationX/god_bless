@@ -16,7 +16,7 @@ public class Main {
                 new Room("Балкон", List.of(new Food("Мороженое"), new Food("Йогурт")))
         );
 
-        House house = new House(rooms);
+        House house = new House();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < rooms.size(); i += 2) {
@@ -24,20 +24,14 @@ public class Main {
             int delay = (i / 2) * 30;
             executor.schedule(() -> house.collectFood(assignedRooms), delay, TimeUnit.SECONDS);
         }
+
         executor.schedule(() -> {
-            if (house.allFoodCollected()) {
+            if (house.allFoodCollected(rooms)) {
                 System.out.println("Еда в доме собрана!");
             } else {
                 System.out.println("Не вся еда была собрана!");
             }
             executor.shutdown();
         }, 30L * (rooms.size() / 2 + 1) + 5, TimeUnit.SECONDS);
-
-        executor.schedule(() -> {
-            if (!executor.isShutdown()) {
-                System.out.println("Что-то пошло не так! Закрытие пула потоков.");
-                executor.shutdown();
-            }
-        }, 200, TimeUnit.SECONDS);
     }
 }
