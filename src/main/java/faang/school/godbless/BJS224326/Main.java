@@ -6,7 +6,6 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
-        Player player = new Player("player");
         Player player1 = new Player("player1");
         Player player2 = new Player("player2");
         Player player3 = new Player("player3");
@@ -15,7 +14,7 @@ public class Main {
         Player player6 = new Player("player6");
         Boss boss  = new Boss(3);
 
-        List<Player> list = List.of(player,
+        List<Player> list = List.of(
                 player1,
                 player2,
                 player3,
