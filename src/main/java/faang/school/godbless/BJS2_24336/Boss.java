@@ -22,6 +22,9 @@ public class Boss {
             currentPlayers++;
             System.out.println(player.getName() + " joined battle with boss");
         }
+    }
+
+    public void processPlayerBattle(Player player) {
         try {
             Thread.sleep(new Random().nextInt(7001) + 3000);
         } catch (InterruptedException e) {
