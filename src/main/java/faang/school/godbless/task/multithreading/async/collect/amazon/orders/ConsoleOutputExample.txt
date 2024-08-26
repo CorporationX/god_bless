@@ -1,0 +1,14 @@
+> Task :Main.main()
+18:43:41.435 [pool-1-thread-4] INFO  - Order id: 4, accepted for processing
+18:43:41.435 [pool-1-thread-8] INFO  - Order id: 8, accepted for processing
+18:43:41.435 [pool-1-thread-2] INFO  - Order id: 2, accepted for processing
+18:43:41.435 [pool-1-thread-9] INFO  - Order id: 9, accepted for processing
+18:43:41.435 [pool-1-thread-7] INFO  - Order id: 7, accepted for processing
+18:43:41.435 [pool-1-thread-5] INFO  - Order id: 5, accepted for processing
+18:43:41.435 [pool-1-thread-1] INFO  - Order id: 1, accepted for processing
+18:43:41.435 [pool-1-thread-10] INFO  - Order id: 10, accepted for processing
+18:43:41.435 [pool-1-thread-3] INFO  - Order id: 3, accepted for processing
+18:43:41.435 [pool-1-thread-6] INFO  - Order id: 6, accepted for processing
+18:43:46.270 [pool-1-thread-10] INFO  - Total processed orders: 10
+
+BUILD SUCCESSFUL in 5s
