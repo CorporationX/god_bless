@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Process {
 
     private static final int NUMBER_OF_THREADS = 4;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Game game = new Game(new ArrayList<>(List.of(
                 new Person("Biba"),
                 new Person("Boba"),
@@ -28,5 +29,6 @@ public class Process {
             }
         }));
         executorService.shutdown();
+        executorService.awaitTermination(10000L, TimeUnit.SECONDS);
     }
 }

@@ -4,6 +4,7 @@ import lombok.Getter;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 public class Game {
@@ -14,7 +15,7 @@ public class Game {
     private final Object livesLock = new Object();
 
     private final List<Person> gamers;
-    private final Random greatRandom = new Random();
+    private final Random greatRandom = ThreadLocalRandom.current();
 
     public Game(List<Person> gamers) {
         this.gamers = gamers;
