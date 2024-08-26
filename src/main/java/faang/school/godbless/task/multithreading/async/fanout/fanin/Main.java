@@ -40,7 +40,7 @@ public class Main {
     }
 
     private static void waitResults() {
-        futures.forEach(CompletableFuture::join);
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
     }
 
     private static List<SquareRequest> getRequests() {
