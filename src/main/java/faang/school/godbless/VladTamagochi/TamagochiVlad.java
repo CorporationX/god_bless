@@ -4,8 +4,9 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class TamagochiVlad {
-    public static final int MAX_STAT = 100;
+    private static final int MAX_STAT = 100;
     private static final int STAT_INCREASE = 10;
+
     private String name;
     private int hunger;
     private int cleanse;
@@ -47,7 +48,7 @@ public class TamagochiVlad {
         }
         printVladInfo();
     }
-    public void printVladInfo()
+    private void printVladInfo()
     {
         System.out.println(name + "\t" + hunger + "\t" + cleanse + "\t" + stamina + "\t" + happiness);
     }
