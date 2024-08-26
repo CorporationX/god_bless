@@ -1,5 +1,7 @@
 package faang.school.godbless.starWarsBattle;
 
+import lombok.NonNull;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -7,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Battle {
 
-    public Future<Robot> fight(Robot attacker, Robot defender) {
+    public Future<Robot> fight(@NonNull Robot attacker, @NonNull Robot defender) {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<Robot> winner = executorService.submit(() -> {
             if (attacker.attackPower() > defender.defensePower()) {
