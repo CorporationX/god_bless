@@ -10,14 +10,22 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private final static int THREAD_POOL_SIZE = 5;
     private static final int DELAY_INTERVAL = 30;
+    private final static int MAX_ROOMS_PER_TIME = 2;
+
 
     public static void main(String[] args) throws InterruptedException {
         House house = getHouse();
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
         int delay = 0;
-        for (int i = 0; i < house.getRooms().size(); i++) {
-            executorService.schedule(house::collectFood, delay, TimeUnit.SECONDS);
+
+        for (int i = 0; i < house.getRooms().size(); i += MAX_ROOMS_PER_TIME) {
+            List<Room> rooms = house.getRooms().stream()
+                    .skip(i)
+                    .limit(MAX_ROOMS_PER_TIME)
+                    .toList();
+
+            executorService.schedule(() -> house.collectFood(rooms), delay, TimeUnit.SECONDS);
             delay = DELAY_INTERVAL;
         }
 
