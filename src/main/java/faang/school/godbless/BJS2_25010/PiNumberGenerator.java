@@ -13,9 +13,10 @@ public class PiNumberGenerator {
     private AtomicInteger inside = new AtomicInteger(0);
 
     public double calculatePi(int n) {
-        ExecutorService executor = Executors.newFixedThreadPool(n);
+        ExecutorService executor = Executors.newFixedThreadPool(n / 10);
 
         var futures = IntStream.range(0, n)
+                .parallel()
                 .mapToObj(i -> CompletableFuture.runAsync(
                         () -> calculate(generatePoint()), executor))
                 .toList();
