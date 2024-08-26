@@ -13,9 +13,7 @@ public class Main {
         int NUM_THREADS = 100;
         int NUM_VIDEOS = 100;
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
-        for (int i = 0; i < NUM_VIDEOS; i++) {
-            videoManager.getViewsMap().put(i, 0);
-        }
+        videoManager.addView(NUM_VIDEOS);
         int threadsPerVideo = NUM_THREADS / NUM_VIDEOS;
         for (int i = 0; i < NUM_VIDEOS; i++) {
             for (int j = 0; j < threadsPerVideo; j++) {

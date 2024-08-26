@@ -13,16 +13,17 @@ import java.util.Map;
 @Setter
 public class VideoManager {
     private Map<Integer, Integer> viewsMap;
+    private final Object lock = new Object();
 
     public void addView(int videoId) {
-        if (viewsMap.containsKey(videoId)) {
-            int currentViews = viewsMap.get(videoId);
-            viewsMap.put(videoId, currentViews + 1);
-        } else {
-            viewsMap.put(videoId, 1);
+        synchronized (lock) {
+            viewsMap.put(videoId, viewsMap.getOrDefault(videoId, 0) + 1);
         }
     }
+
     public int getViewCount(int videoId) {
-        return viewsMap.get(videoId);
+        synchronized (lock) {
+            return viewsMap.get(videoId);
+        }
     }
 }
