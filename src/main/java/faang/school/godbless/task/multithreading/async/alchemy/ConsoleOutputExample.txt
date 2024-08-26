@@ -1,0 +1,11 @@
+> Task :Main.main()
+17:35:09.586 [pool-1-thread-1] INFO  - Find 10 ingredients for Potion 1
+17:35:09.586 [pool-1-thread-3] INFO  - Find 3 ingredients for Potion 3
+17:35:09.586 [pool-1-thread-2] INFO  - Find 7 ingredients for Potion 2
+17:35:09.586 [pool-1-thread-5] INFO  - Find 6 ingredients for Potion 5
+17:35:09.586 [pool-1-thread-4] INFO  - Find 6 ingredients for Potion 4
+17:35:09.586 [pool-1-thread-7] INFO  - Find 10 ingredients for Potion 7
+17:35:09.586 [pool-1-thread-6] INFO  - Find 5 ingredients for Potion 6
+17:35:14.597 [pool-1-thread-7] INFO  - Total number of ingredients collected: 47
+
+BUILD SUCCESSFUL in 5s
