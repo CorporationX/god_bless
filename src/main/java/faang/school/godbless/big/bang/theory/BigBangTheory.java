@@ -19,18 +19,16 @@ public class BigBangTheory {
         Task rajeshTask = new Task("Rajesh", "Data analyzing");
         List<Task> tasks = List.of(sheldonTask, leonardTask, howardTask, rajeshTask);
 
+        tasks.forEach(executorService::submit);
+
+        executorService.shutdown();
         try {
-            tasks.forEach(executorService::submit);
-        } finally {
-            executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(TIME_FOR_WHOLE_PROJECT, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
-            } catch (InterruptedException e) {
+            if (!executorService.awaitTermination(TIME_FOR_WHOLE_PROJECT, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException exception) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
 
         System.out.println("The team has just done its work");
