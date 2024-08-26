@@ -1,0 +1,13 @@
+> Task :Main.main()
+11:36:03.245 [pool-1-thread-1] INFO  - Robot L1 VS Robot W2
+11:36:03.245 [pool-1-thread-5] INFO  - Robot J1 VS Robot S2
+11:36:03.245 [pool-1-thread-4] INFO  - Robot X1 VS Robot L2
+11:36:03.245 [pool-1-thread-2] INFO  - Robot Y1 VS Robot X2
+11:36:03.245 [pool-1-thread-3] INFO  - Robot W1 VS Robot J2
+11:36:05.252 [main] INFO  - Победитель битвы: Robot L1
+11:36:05.253 [main] INFO  - Победитель битвы: Robot Y1
+11:36:05.253 [main] INFO  - Победитель битвы: Robot J2
+11:36:05.253 [main] INFO  - Победитель битвы: Robot X1
+11:36:05.253 [main] INFO  - Победитель битвы: Robot S2
+
+BUILD SUCCESSFUL in 2s
