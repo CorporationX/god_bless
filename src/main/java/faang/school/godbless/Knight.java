@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 @AllArgsConstructor
 public class Knight {
     private String name;
-    private List<Trial> trials = new ArrayList<>();
+    private List<Trial> trials;
 
     public void addtrial(Trial trial) {
         trials.add(trial);
