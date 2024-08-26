@@ -21,10 +21,10 @@ public class Boss {
 
     public synchronized void joinBattle(Player player) {
         try {
-            while (currentPlayer == maxPlayers) {
-                wait();
+            while (currentPlayer >= maxPlayers) {
                 System.out.println("Лобби полное. " +
                         "Вы в очереди на подключение.");
+                wait();
             }
             currentPlayer++;
             if (!isLobbyCreated && currentPlayer == 1) {
@@ -50,10 +50,4 @@ public class Boss {
             notify();
         }
     }
-
-    public synchronized boolean isLobbyCreated() {
-        return isLobbyCreated;
-    }
-
-
 }
