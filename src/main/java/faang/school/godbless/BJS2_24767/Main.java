@@ -18,12 +18,6 @@ public class Main {
         ));
         Task task2 = new Task("Cast Elepant", 4, 400);
 
-        System.out.println("Star");
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         // Запуск заданий
         CompletableFuture<School> hogwartsTask = tournament.startTask(hogwarts, task1);

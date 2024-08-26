@@ -5,21 +5,24 @@ import java.util.concurrent.CompletableFuture;
 
 public class Tournament {
     public CompletableFuture<School> startTask(School school, Task task) {
-        Random rand = new Random();
-        CompletableFuture<School> future = CompletableFuture.supplyAsync(() -> {
-            int coef = rand.nextInt(1, 5);
-            int totalReward = task.getReward() / coef + task.getDifficulty();
-            school.getTeam().stream()
+        return CompletableFuture.supplyAsync(() -> {
+            int coefficient = new Random().nextInt(1, 5);
+            int totalReward = task.getReward() / coefficient + task.getDifficulty();
+
+            school.getTeam()
                     .forEach(student -> student.setPoints(student.getPoints() + totalReward / school.getTeam().size()));
-        System.out.println("TH: "+Thread.currentThread().getName());
+
+            performTask();
             return school;
         });
+    }
+
+    private void performTask() {
         try {
-            Thread.sleep(new Random().nextInt(10000,30000));
+            Thread.sleep(new Random().nextInt(1000, 2000));
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
-        return future;
     }
 }
