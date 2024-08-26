@@ -2,26 +2,20 @@ package faang.school.godbless.microsoft.outlook;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
 public class MainSender {
-    private static final int[] RANGE_1 = {0, 200};
-    private static final int[] RANGE_2 = {200, 400};
-    private static final int[] RANGE_3 = {400, 600};
-    private static final int[] RANGE_4 = {600, 800};
-    private static final int[] RANGE_5 = {800, 1000};
+    private static final int TOTAL_NUMBER_OF_LETTERS = 1000;
+    private static final int NUMBER_IN_BUNCH_OF_LETTER = 200;
 
     public static void main(String[] args) {
 
-        List<Thread> threads = List.of(
-                new Thread(new SenderRunnable(RANGE_1[0], RANGE_1[1])),
-                new Thread(new SenderRunnable(RANGE_2[0], RANGE_2[1])),
-                new Thread(new SenderRunnable(RANGE_3[0], RANGE_3[1])),
-                new Thread(new SenderRunnable(RANGE_4[0], RANGE_4[1])),
-                new Thread(new SenderRunnable(RANGE_5[0], RANGE_5[1])));
-
-        threads.forEach(Thread::start);
+        List<Thread> threads = new ArrayList<>();
+        for (int i = 0; i < TOTAL_NUMBER_OF_LETTERS; i += NUMBER_IN_BUNCH_OF_LETTER) {
+            threads.add(new Thread(new SenderRunnable(i, i + NUMBER_IN_BUNCH_OF_LETTER)));
+        }
 
         try {
             for (Thread thread : threads) {
