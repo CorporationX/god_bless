@@ -28,7 +28,7 @@ public class Knight {
         int threadPool = 2;
         ExecutorService executorService = Executors.newFixedThreadPool(threadPool);
         for (Trial trial : trials) {
-            new Thread(trial).start();
+            executorService.submit(trial);
         }
         executorService.shutdown();
     }
