@@ -12,22 +12,19 @@ public class GriffinsFoodDelivery {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         ExecutorService executorService = Executors.newFixedThreadPool(3);
+        Arrays.stream(characterNames).forEach(name -> {
+            FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(name, new Random().nextInt(49) + 1);
+            executorService.submit(foodDeliveryTask);
+        });
 
+        executorService.shutdown();
         try {
-            Arrays.stream(characterNames).forEach(name -> {
-                FoodDeliveryTask foodDeliveryTask = new FoodDeliveryTask(name, new Random().nextInt(49) + 1);
-                executorService.submit(foodDeliveryTask);
-            });
-        } finally {
-            executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
-            } catch (InterruptedException e) {
+            if (!executorService.awaitTermination(5, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException exception) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
     }
 }
