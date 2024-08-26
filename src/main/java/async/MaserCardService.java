@@ -29,9 +29,9 @@ public class MaserCardService {
             CompletableFuture<Integer> resultOfSending = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
             try {
                 log.info("Sending result: " +
-                        Integer.toString(resultOfSending.get(30, TimeUnit.SECONDS)));
+                        resultOfSending.get(30, TimeUnit.SECONDS));
                 log.info("Collection result: " +
-                        Integer.toString(resultOfCollection.get(30, TimeUnit.SECONDS)));
+                        resultOfCollection.get(30, TimeUnit.SECONDS));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 throw new RuntimeException(e);
