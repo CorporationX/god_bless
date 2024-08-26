@@ -46,7 +46,7 @@ public class MasterCardService {
         } catch (InterruptedException e) {
             throw new RuntimeException("Async thread was interrupted");
         } catch (ExecutionException e) {
-            throw new RuntimeException("Future get result error");
+            throw new RuntimeException("Get result error");
         }
     }
 
