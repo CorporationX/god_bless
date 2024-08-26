@@ -2,7 +2,7 @@ package faang.school.godbless.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Boss {
     private final int maxPlayers;
@@ -29,7 +29,7 @@ public class Boss {
     public synchronized void killPlayer() {
         try {
             if (players.size() == maxPlayers) {
-                int leaver = new Random().nextInt(players.size());
+                int leaver = ThreadLocalRandom.current().nextInt(players.size());
                 System.out.println(players.get(leaver) + " decided to leave");
                 players.remove(leaver);
                 Thread.sleep(1000L);

@@ -28,7 +28,6 @@ public class Battle {
 
         executorService.shutdown();
         executorService.awaitTermination(5L, TimeUnit.SECONDS);
-        executorService.shutdownNow();
 
         System.out.println("FIN");
     }
