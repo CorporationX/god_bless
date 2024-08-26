@@ -9,16 +9,16 @@ import java.util.concurrent.TimeUnit;
 public class Witcher {
     public static void main(String[] args) {
         List<Monster> monsters = new ArrayList<>();
-        monsters.add(new Monster("Griffin", 0, 50));
-        monsters.add(new Monster("Basilisk", 60, 0));
-        monsters.add(new Monster("Cockatrice", 120, 100));
-        monsters.add(new Monster("Chort", 180, 70));
+        monsters.add(new Monster("Griffin", new Location(0, 50)));
+        monsters.add(new Monster("Basilisk", new Location(60, 0)));
+        monsters.add(new Monster("Cockatrice", new Location(120, 100)));
+        monsters.add(new Monster("Chort", new Location(180, 70)));
 
         List<City> cities = new ArrayList<>();
-        cities.add(new City("Novigrad", 0, 60, 120, 180));
-        cities.add(new City("Oxenfurt", 60, 0, 50, 70));
-        cities.add(new City("Vizima", 120, 50, 0, 30));
-        cities.add(new City("Kaer Morhen", 180, 70, 30, 0));
+        cities.add(new City("Novigrad", new Location(0, 60), new Location(120, 180)));
+        cities.add(new City("Oxenfurt", new Location(60, 0), new Location(50, 70)));
+        cities.add(new City("Vizima", new Location(120, 50), new Location(0, 30)));
+        cities.add(new City("Kaer Morhen", new Location(180, 70), new Location(30, 0)));
 
         final int NUM_THREADS = 2;
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
@@ -31,11 +31,17 @@ public class Witcher {
 
         executorService.shutdown();
         try {
-            executorService.awaitTermination(1, TimeUnit.HOURS);
+            if (!executorService.awaitTermination(1, TimeUnit.HOURS)) {
+                System.err.println("Не удалось завершить все задачи за отведенное время");
+                executorService.shutdownNow();
+            }
         } catch (InterruptedException e) {
-//            e.printStackTrace();
+            System.err.println("Поток прерван");
+            executorService.shutdownNow();
+            // чат подсказал. не совсем понимаю зачем нужен
+            Thread.currentThread().interrupt();
         }
-
+        
         long endTime = System.currentTimeMillis();
         System.out.println("Общее время выполнения программы: " + (endTime - startTime) + " миллисекунд");
     }

@@ -20,29 +20,18 @@ public class CityWorker implements Runnable {
         int totalTime = calculateTotalTravelTime(timeToKillMonster);
 
         System.out.println("Геральт в городе " + city.getName() + " убивает монстра " + closestMonster.getName()
-                + ". Общее время: " + totalTime + " минут.");
+                + ". Общее время: " + totalTime + " миллисекунд");
     }
 
     private Monster findClosestMonster() {
-        Monster closestMonster = monsters.get(0);
-        int closestDistance = Integer.MAX_VALUE;
-
-        for (Monster monster : monsters) {
-            int distance = calculateDistance(city.getDistances(), monster.getLocation());
-            if (distance < closestDistance) {
-                closestDistance = distance;
-                closestMonster = monster;
-            }
-        }
-        return closestMonster;
+        return monsters.stream()
+                .min((monster1, monster2) -> calculateDistance(city.getDistances().get(0), monster1.getLocation())
+                        - calculateDistance(city.getDistances().get(0), monster2.getLocation()))
+                .orElseThrow();
     }
 
-    private int calculateDistance(int[] cityLocation, int[] monsterLocation) {
-        int distance = 0;
-        for (int i = 0; i < cityLocation.length; i++) {
-            distance += Math.abs(cityLocation[i] - monsterLocation[i]);
-        }
-        return distance;
+    private int calculateDistance(Location cityLocation, Location monsterLocation) {
+        return Math.abs(cityLocation.getX() - monsterLocation.getX()) + Math.abs(cityLocation.getY() - monsterLocation.getY());
     }
 
     private int calculateTimeToKillMonster(Monster monster) {
@@ -50,10 +39,8 @@ public class CityWorker implements Runnable {
     }
 
     private int calculateTotalTravelTime(int timeToKillMonster) {
-        int travelTime = 0;
-        for (int distance : city.getDistances()) {
-            travelTime += distance;
-        }
-        return travelTime + timeToKillMonster;
+        return timeToKillMonster + city.getDistances().stream()
+                .mapToInt(location -> Math.abs(location.getX()) + Math.abs(location.getY()))
+                .sum();
     }
 }

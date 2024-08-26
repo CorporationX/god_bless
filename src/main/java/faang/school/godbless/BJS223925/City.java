@@ -4,14 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class City {
     private String name;
-    private int[] distances;
+    private List<Location> distances;
 
-    public City(String name, int... distances) {
+    public City(String name, Location... distances) {
         this.name = name;
-        this.distances = distances;
+        this.distances = List.of(distances);
     }
 }

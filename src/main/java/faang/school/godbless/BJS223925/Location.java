@@ -4,12 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Locale;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class Monster {
-    private String name;
-    private Location location;
+public class Location {
+    private int x;
+    private int y;
 }
