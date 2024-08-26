@@ -45,21 +45,23 @@ public class ChatManager {
         }
     }
 
-    public synchronized void endChat(@NonNull Chat chat, @NonNull User user) {
-        var chatUsers = chatUserList.get(chat);
-        user.setCurrentChat(null);
-        chatUsers.remove(user);
-        log.info(user.getName() + " leave chat");
-        if (chatUserList.get(chat).isEmpty()) {
-            chatUserList.remove(chat);
+    public synchronized void endChat(Chat chat, @NonNull User user) {
+        if (chat == null) {
+            log.info("User not in any chat");
+        } else {
+            if (chatUserList.containsKey(chat)) {
+                chatUserList.get(chat).forEach(u -> u.setCurrentChat(null));
+                log.info(user.getName() + " leave chat");
+            } else {
+                throw new IllegalArgumentException("This chat can't be processed with it chat manager");
+            }
             archivedChats.add(chat);
-            log.info("Chat ended");
         }
     }
 
     private synchronized void waitForChat(@NonNull User user) {
         log.info(user.getName() + " waiting for opponent");
-        while (user.getCurrentChat() == null) {
+        while (waitingForChatUsers.contains(user)) {
             try {
                 wait(TIME_OUT);
             } catch (InterruptedException e) {

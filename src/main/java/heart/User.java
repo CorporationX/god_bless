@@ -4,7 +4,9 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Getter
 @RequiredArgsConstructor
 @EqualsAndHashCode
@@ -16,7 +18,7 @@ public class User {
 
     public void sendMessage(@NonNull Message message) {
         if (currentChat == null) {
-            throw new NullPointerException("User not in any chat!");
+            throw new IllegalArgumentException("User not in any chat");
         }
         currentChat.sendMessage(message, name);
     }
@@ -31,6 +33,9 @@ public class User {
     }
 
     public synchronized void setCurrentChat(Chat chat) {
+        if (chat == null) {
+            log.error("User not in any chat");
+        }
         currentChat = chat;
     }
 }
