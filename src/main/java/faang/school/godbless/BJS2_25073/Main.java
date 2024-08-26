@@ -6,20 +6,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
     public static void main(String[] args) {
-        Potion potion1 = new Potion("flying potion", 5);
-        Potion potion2 = new Potion("underwater breath potion", 3);
-        Potion potion3 = new Potion("strength potion", 7);
+        List<Potion> potions = List.of(new Potion("flying potion", 5),
+                new Potion("underwater breath potion", 3),
+                new Potion("strength potion", 7)
+        );
 
-        List<Potion> potions = List.of(potion1, potion2, potion3);
-
-        AtomicInteger sum = new AtomicInteger(0);
+        AtomicInteger sumIngredients = new AtomicInteger(0);
         CompletableFuture<Void> combinedFuture = CompletableFuture.allOf(
                 potions.stream()
                         .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion))
-                                .thenApply(sum::addAndGet))
+                                .thenApply(sumIngredients::addAndGet))
                         .toArray(CompletableFuture[]::new));
         combinedFuture.join();
-        System.out.println(sum);
+        System.out.println(sumIngredients);
     }
 
     public static int gatherIngredients(Potion potion) {
