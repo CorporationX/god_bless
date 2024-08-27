@@ -16,7 +16,6 @@ public class ChatManager {
 
         while (waitForChat(user)) {
             List<User> onlineUsers = users.getOnlineUsers();
-
             long amountWaitForChatUsers = countWaitForChatUser(onlineUsers);
             if (amountWaitForChatUsers > 1) {
                 User secondUser = onlineUsers.stream()
@@ -24,13 +23,10 @@ public class ChatManager {
                         .filter(this::waitForChat)
                         .findFirst()
                         .orElseThrow();
-
                 chats.add(new Chat(user, secondUser));
                 System.out.println(user + " get new chat with " + secondUser);
-
                 this.notifyAll();
                 return;
-
             } else {
                 try {
                     System.out.println(user + " wait chat");
