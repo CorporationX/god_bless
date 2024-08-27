@@ -4,24 +4,35 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Getter
 @Setter
 public class Army {
-    private List<Unit> armyList = new ArrayList<>();
-    private int totalPower;
+    private Map<Class<? extends Unit>, List<Unit>> unitsByType = new HashMap<>();
+    private AtomicInteger totalPower = new AtomicInteger(0);
 
     public void addUnit(Unit unit) {
-        armyList.add(unit);
+        unitsByType.computeIfAbsent(unit.getClass(), units -> new ArrayList<>()).add(unit);
     }
 
     public int calculateTotalPower() {
-        List<Thread> threads = new ArrayList<>();
-        for (Unit unit : armyList) {
-            threads.add(new Thread(() -> totalPower += unit.getPower()));
-        }
+        totalPower.set(0);
+
+        List<Thread> threads = unitsByType.values().stream()
+                .map(units -> new Thread(() -> {
+                    int typePower = units.stream()
+                            .mapToInt(Unit::getPower)
+                            .sum();
+                    totalPower.addAndGet(typePower);
+                }))
+                .toList();
+
         threads.forEach(Thread::start);
+
         threads.forEach(thread -> {
             try {
                 thread.join();
@@ -29,6 +40,7 @@ public class Army {
                 throw new RuntimeException(e);
             }
         });
-        return totalPower;
+
+        return totalPower.get();
     }
 }
