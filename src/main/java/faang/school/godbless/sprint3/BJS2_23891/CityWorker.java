@@ -1,10 +1,12 @@
 package faang.school.godbless.sprint3.BJS2_23891;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.util.List;
 
+@Slf4j
 @AllArgsConstructor
 public class CityWorker implements Runnable {
     private City city;
@@ -45,12 +47,16 @@ public class CityWorker implements Runnable {
         return killTime;
     }
 
-    public double getJourneyDistance() throws IOException {
+    public double getJourneyDistance() throws IllegalArgumentException {
         Location witcherLocation = Witcher.cities.stream()
                 .filter(c -> c.getDistanceToWitcher() == 0)
                 .map(City::getCityLocation)
                 .findFirst()
-                .orElseThrow(() -> new IOException("Error! Multiple values were found!"));
+                .orElse(null);
+
+        if (witcherLocation == null) {
+            log.error("Error! Multiple values were found!");
+        }
 
         return witcherLocation.getDistanceBetweenLocations(city.getCityLocation());
     }
@@ -59,14 +65,10 @@ public class CityWorker implements Runnable {
     @Override
     public void run() {
         Monster nearestMonster = findNearestMonster();
-        try {
-            System.out.printf("City: %s%n" +
-                            "Nearest monster: %s%n" +
-                            "Monster killing time: %d%n" +
-                            "Journey distance to city %s: %f%n%n",
-                    city.getCityName(), nearestMonster.toString(), getKillTime(nearestMonster), city.getCityName(), getJourneyDistance());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        System.out.printf("City: %s%n" +
+                        "Nearest monster: %s%n" +
+                        "Monster killing time: %d%n" +
+                        "Journey distance to city %s: %f%n%n",
+                city.getCityName(), nearestMonster.toString(), getKillTime(nearestMonster), city.getCityName(), getJourneyDistance());
     }
 }
