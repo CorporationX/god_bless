@@ -3,7 +3,7 @@ package faang.school.godbless.thronesConcurrency;
 import lombok.NonNull;
 
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class House {
 
@@ -21,9 +21,9 @@ public class House {
         this.availablePlaces = availableRoles.size();
     }
 
-    public synchronized String addRole() {
+    public String addRole() {
         synchronized (availablePlacesLock) {
-            String availableRole = availableRoles.get(new Random().nextInt(availableRoles.size()));
+            String availableRole = availableRoles.get(ThreadLocalRandom.current().nextInt(availableRoles.size()));
             availableRoles.remove(availableRole);
             availablePlaces--;
             return availableRole;

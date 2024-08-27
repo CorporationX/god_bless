@@ -23,6 +23,7 @@ public class User {
                 this.role = house.addRole();
             }
         } catch (InterruptedException ie) {
+            Thread.currentThread().interrupt();
             System.out.println("InterruptedException in joinHouse method");
         }
         System.out.println("User " + this.name + " get role " + this.role);

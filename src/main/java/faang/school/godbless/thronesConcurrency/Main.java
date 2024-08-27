@@ -15,9 +15,11 @@ public class Main {
     private static final int NUMBER_THREADS = 4;
     private static final int PLAYERS = 10000;
 
-    public static void main(String[] args) throws InterruptedException {
+    private static final long MAIN_THREAD_WAITING = 5000L;
 
+    public static void main(String[] args) throws InterruptedException {
         House house = new House("Vesteros", ROLES);
+
         for (int i = 0; i < PLAYERS; i++) {
             users.add(new User(String.valueOf(i), house));
         }
@@ -28,6 +30,6 @@ public class Main {
             u.leaveHouse();
         }));
         executorService.shutdown();
-        executorService.awaitTermination(5000L, TimeUnit.SECONDS);
+        executorService.awaitTermination(MAIN_THREAD_WAITING, TimeUnit.SECONDS);
     }
 }
