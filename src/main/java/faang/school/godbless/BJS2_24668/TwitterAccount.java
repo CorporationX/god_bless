@@ -14,7 +14,7 @@ public class TwitterAccount {
         followers = 0;
     }
 
-    public void addFollower(){
+    public synchronized void addFollower(){
         followers++;
     }
 }

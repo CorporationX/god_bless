@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class TwitterSubscriptionSystem {
     private static final int NUM_THREADS = 15;
     private static ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
-    private synchronized void addFollower(TwitterAccount twitterAccount){
+    private  void addFollower(TwitterAccount twitterAccount){
         twitterAccount.addFollower();
         log.info("Follower added. Now: {}", twitterAccount.getFollowers());
     }
