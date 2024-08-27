@@ -2,11 +2,9 @@ package mice_are_very_nice;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +32,7 @@ public class House {
         }
 
         executor.shutdown();
-        if (executor.awaitTermination(30L * house.getRooms().size(), TimeUnit.SECONDS)) {
+        if (executor.awaitTermination(DELAY * house.getRooms().size(), TimeUnit.SECONDS)) {
             System.out.println("Все комнаты убраны!");
         } else {
             System.out.println("Время выполнения программы превышено");
