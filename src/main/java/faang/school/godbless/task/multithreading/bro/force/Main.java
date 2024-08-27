@@ -13,10 +13,9 @@ public class Main {
     private static final int THREAD_POOL_LIMIT = NUMBER_OF_PLAYERS;
 
     private static final Game game = new Game();
-    private static List<Player> players;
+    private static List<Player> players = getPlayers();
 
     public static void main(String[] args) {
-        players = getPlayers();
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_LIMIT);
         players.forEach(executor::execute);
         executor.shutdown();
