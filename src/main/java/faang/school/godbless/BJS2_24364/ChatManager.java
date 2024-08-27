@@ -30,7 +30,7 @@ public class ChatManager {
             } else {
                 try {
                     System.out.println(user + " wait chat");
-                    chats.wait();
+                    this.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException("Wait exception");
                 }
