@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.IntStream;
 
 @Slf4j
@@ -43,16 +42,8 @@ public class Main {
     private static int calculateSum() {
         return futures
                 .stream()
-                .mapToInt(Main::futureGet)
+                .mapToInt(CompletableFuture::join)
                 .sum();
-    }
-
-    private static int futureGet(CompletableFuture<Integer> future) {
-        try {
-            return future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private static List<Potion> getPotions() {

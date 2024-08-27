@@ -21,8 +21,8 @@ public class GatherManager {
     }
 
     private int gather(Potion potion) {
-        int ingredients = potion.getRequiredIngredients();
-        log.info("Find {} ingredients for {}", ingredients, potion.getName());
+        int ingredients = potion.requiredIngredients();
+        log.info("Find {} ingredients for {}", ingredients, potion.name());
         sleep(ingredients);
         return ingredients;
     }
