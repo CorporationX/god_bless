@@ -1,16 +1,14 @@
 package faang.school.godbless.BJS2_24521;
 
-import lombok.AllArgsConstructor;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-@AllArgsConstructor
 public class GooglePhotosAutoUploader {
 
-    private static List<String> photosToUpload = new ArrayList<>();
+    private List<String> photosToUpload = new ArrayList<>();
 
-    private Object lock;
+    private final Object lock = new Object();
 
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
@@ -30,10 +28,12 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
-        for (int i = 0; i < photosToUpload.size(); i++) {
-            photosToUpload.remove(i);
+        Iterator<String> iterator = photosToUpload.iterator();
+
+        while (iterator.hasNext()) {
+            iterator.next();
+            iterator.remove();
             System.out.println("Фото загружено на сервер");
-            i--;
         }
     }
 }
