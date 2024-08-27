@@ -22,22 +22,17 @@ public class Main {
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     private static final Random random = new Random();
     private static final List<CompletableFuture<Integer>> futures = new ArrayList<>();
-    private static List<CashierThread> cashiers;
-    private static List<Customer> customers;
+    private static List<Customer> customers = getCustomers();
+    private static List<CashierThread> cashiers = getCashiersThreads();
+
 
 
     public static void main(String[] args) {
-        initialDefaults();
         futures.addAll(getFutures());
         int totalSum = calculateTotalSum();
         log.info("{} cashiers served {} customers", NUMBER_OF_CASHIERS, NUMBER_OF_CUSTOMERS);
         log.info("Total sum: {}$", totalSum);
         executor.shutdown();
-    }
-
-    public static void initialDefaults() {
-        customers = getCustomers();
-        cashiers = getCashiersThreads();
     }
 
     private static int calculateTotalSum() {
