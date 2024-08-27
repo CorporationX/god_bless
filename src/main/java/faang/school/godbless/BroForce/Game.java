@@ -11,10 +11,10 @@ public class Game {
     private int score;
     @Getter
     private int lostLives;
+    private Object scoreLock = new Object();
+    private Object lostLivesLock = new Object();
     private List<Player> players;
-    //нет смысла делать несколько локов,
-    //потому что оба счетчика блокируются и разблокируются
-    //одновременно, поэтому в качестве лока this
+
 
     public Game(List<Player> players) {
         this.players = new ArrayList<>(players);
@@ -32,24 +32,30 @@ public class Game {
         this.lostLives = lostLives;
     }
 
-    public synchronized void update() {
+    public void update() {
         if (players.isEmpty()) {//такое бывает только если игра уже проиграна,
             //или кто то решил сыграть без игроков
             System.err.println("There are no players");
             throw new IllegalArgumentException();
         }
         for (Player player : players) {
-            if (100 * Math.random() < 50) {//типа повезло не повезло
-                if (player.getLive() <= 1) {
-                    gameOver(player);
-                    return;
+                if (100 * Math.random() < 50) {//типа повезло не повезло
+                    synchronized (scoreLock) {
+                        if (player.getLive() <= 1) {
+                            gameOver(player);
+                            return;
+                        } else {
+                            player.setLive(player.getLive() - 1);
+                            lostLives++;
+                        }
+                    }
                 } else {
-                    player.setLive(player.getLive() - 1);
-                    lostLives++;
+                    synchronized (lostLivesLock) {
+                        score++;
+                    }
                 }
-            }
+
         }
-        score += players.size();
         System.out.println("updated");
     }
 

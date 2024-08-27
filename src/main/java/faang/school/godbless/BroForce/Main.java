@@ -20,6 +20,8 @@ public class Main {
         }
 
         stop(service);
+        //ожидаю исключения в нескольких потоках, поскольку они пытаются после окончания игры ее обновить,
+        //и я в честь этого пробрасываю IllegalArgument
     }
 
     private static void stop(ExecutorService service) {
