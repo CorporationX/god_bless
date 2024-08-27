@@ -24,14 +24,17 @@ public class Main {
             int delay = (i / 2) * 30;
             executor.schedule(() -> house.collectFood(assignedRooms), delay, TimeUnit.SECONDS);
         }
+        executor.shutdown();
 
-        executor.schedule(() -> {
-            if (house.allFoodCollected(rooms)) {
-                System.out.println("Еда в доме собрана!");
-            } else {
-                System.out.println("Не вся еда была собрана!");
+        try {
+            if (!executor.awaitTermination(100, TimeUnit.SECONDS)) {
+                executor.shutdownNow();
             }
-            executor.shutdown();
-        }, 30L * (rooms.size() / 2 + 1) + 5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println("Еда в доме собрана!");
     }
 }

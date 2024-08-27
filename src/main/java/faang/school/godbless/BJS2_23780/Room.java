@@ -1,6 +1,5 @@
 package faang.school.godbless.BJS2_23780;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -25,8 +24,4 @@ public class Room {
         foodList.clear();
         return collectedFood;
     }
-    public boolean isFoodListEmpty() {
-        return foodList.isEmpty();
-    }
-
 }
