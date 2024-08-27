@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
+
     private final ConcurrentLinkedQueue<Photo> photosToUpload = new ConcurrentLinkedQueue<>(List.of(
             new Photo("img1"),
             new Photo("img2"),
@@ -29,19 +29,21 @@ public class GooglePhotosAutoUploader {
     public void startAutoUpload() {
         while (true) {
             synchronized (photosToUpload) {
-                if (photosToUpload.isEmpty()) {
-                    try {
+                try {
+                    while (photosToUpload.isEmpty()) {
                         photosToUpload.wait();
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt();
-                        log.error(e.getMessage());
                     }
-                } else {
                     executorService.submit(this::uploadPhotos);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    log.error(e.getMessage());
                 }
             }
+
+
         }
     }
+
 
     private void uploadPhotos() {
         Photo photoToUpload = photosToUpload.poll();
