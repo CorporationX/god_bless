@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_24994;
 
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,7 +18,18 @@ public class Main {
         );
 
         Inventory inventory = new Inventory();
+        CompletableFuture<Item> fromShop;
+        CompletableFuture<Item> fromBox;
+        CompletableFuture<Void> combined = null;
 
+        for (int i = 0; i < shop.size(); i++) {
+            fromShop = inventory.getFromShop(shop.get(i));
+            fromBox = inventory.getFromBox(box.get(i));
+            combined = fromShop.thenCombine(fromBox, inventory::combinedItem)
+                    .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)));
+        }
 
+        combined.join();
+        inventory.getItems().forEach(item -> System.out.println(item.getName() + " - " + item.getPower()));
     }
 }
