@@ -9,12 +9,12 @@ public class MailSender {
         Thread[] threads = new Thread[numberOfThreads];
 
         for (int i = 0; i < numberOfThreads; i++) {
-            int startIndex = i * (mailsPerThread + 1);
+            int startIndex = i * mailsPerThread;
             int endIndex;
             if (i == numberOfThreads - 1) {
                 endIndex = totalMails;
             } else {
-                endIndex = startIndex + mailsPerThread - 1;
+                endIndex = startIndex + mailsPerThread;
             }
 
             threads[i] = new Thread(() -> new SenderRunnable(startIndex, endIndex).run());
