@@ -9,14 +9,15 @@ public class DesignDepartment extends ThreadDepartment {
     @Override
     public void run() {
         DesignResources designResources = this.getDesignResources();
-        synchronized (designResources) {
-            MarketingResources marketingResources = this.getMarketingResources();
-            marketingResources.printFiles();
+        MarketingResources marketingResources = this.getMarketingResources();
 
-            synchronized (marketingResources) {
-                String file = marketingResources.readFile();
-                designResources.writeFile(file);
-            }
+        synchronized (designResources) {
+            designResources.printFiles();
+        }
+
+        synchronized (marketingResources) {
+            String file = marketingResources.readFile();
+            designResources.writeFile(file);
         }
     }
 }

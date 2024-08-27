@@ -1,10 +1,12 @@
 package faang.school.godbless.BJS2_25500;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 @AllArgsConstructor
 public abstract class Resources {
     private List<String> files;

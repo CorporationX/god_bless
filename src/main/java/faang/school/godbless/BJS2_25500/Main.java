@@ -14,5 +14,16 @@ public class Main {
 
         marketingDepartment.start();
         designDepartment.start();
+
+        try {
+            marketingDepartment.join();
+            designDepartment.join();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        System.out.println("Result:");
+        System.out.println(marketingResources.getFiles());
+        System.out.println(designResources.getFiles());
     }
 }
