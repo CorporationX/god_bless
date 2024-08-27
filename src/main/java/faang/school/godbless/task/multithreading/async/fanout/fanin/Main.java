@@ -17,10 +17,9 @@ public class Main {
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     private static final ResultConsumer resultConsumer = new ResultConsumer(0L);
     private static final List<CompletableFuture<Void>> futures = new ArrayList<>();
-    private static List<SquareRequest> requests;
+    private static List<SquareRequest> requests = getRequests();
 
     public static void main(String[] args) {
-        requests = getRequests();
         Long result = fanOutFanIn();
         log.info("Result: {}", result);
         executor.shutdown();
