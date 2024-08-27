@@ -13,7 +13,6 @@ public class ChatManager {
 
     public synchronized void startChat(User user) {
         System.out.println(user + " search chat");
-
         while (waitForChat(user)) {
             List<User> onlineUsers = users.getOnlineUsers();
             long amountWaitForChatUsers = countWaitForChatUser(onlineUsers);
