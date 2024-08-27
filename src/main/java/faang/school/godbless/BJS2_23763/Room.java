@@ -1,11 +1,12 @@
 package faang.school.godbless.BJS2_23763;
 
 
-import lombok.Getter;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode
 public class Room {
     private final List<Food> foods = new ArrayList<>();
 
@@ -13,13 +14,15 @@ public class Room {
         this.foods.addAll(foods);
     }
 
-    public List<Food > collectAllFoodsFromRoom() {
-        List<Food> collectedFood = List.copyOf(foods);
-        foods.removeAll(collectedFood);
-        return collectedFood;
+    public Food getFood() {
+        if (!foods.isEmpty())
+            return foods.remove(0);
+        else {
+            throw new IndexOutOfBoundsException("Room is empty");
+        }
     }
 
-    public boolean isEmpty() {
-        return foods.isEmpty();
+    public boolean isFoodHere() {
+        return !foods.isEmpty();
     }
 }
