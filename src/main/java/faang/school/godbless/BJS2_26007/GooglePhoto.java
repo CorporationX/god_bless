@@ -7,9 +7,9 @@ public class GooglePhoto {
         Thread uploadThread = new Thread(uploader::startAutoUpload);
 
         Thread addPhotoThread = new Thread(() -> {
-            uploader.onNewPhotoAdded("34r9gfkgofg.gpg");
-            uploader.onNewPhotoAdded("dfdfdf.gpg");
-            uploader.onNewPhotoAdded("efdf.gpg");
+            uploader.onNewPhotoAdded("34r9gfkgofg.jpg");
+            uploader.onNewPhotoAdded("dfdfdf.jpg");
+            uploader.onNewPhotoAdded("efdf.png");
         });
 
         uploadThread.start();
