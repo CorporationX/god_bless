@@ -14,10 +14,9 @@ public class Main {
 
     private static final OrderProcessor orderProcessor = new OrderProcessor(THREAD_POOL_SIZE);
     private static final List<CompletableFuture<Void>> futures = new ArrayList<>();
-    private static List<Order> orders;
+    private static List<Order> orders = getOrders();
 
     public static void main(String[] args) {
-        orders = getOrders();
         futures.addAll(runTask());
         printResult();
         orderProcessor.executorShutdown();
