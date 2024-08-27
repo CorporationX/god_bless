@@ -2,15 +2,14 @@ package faang.school.godbless.youtube;
 
 import lombok.NoArgsConstructor;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-@NoArgsConstructor
 public class VideoManager {
-    private Map<Video, Integer> viewsMap = new HashMap<>();
+    private Map<Video, Integer> viewsMap;
 
-    public VideoManager(Map<Video, Integer> viewsMap) {
-        this.viewsMap.putAll(viewsMap);//чтобы объект можно было менять
+    public VideoManager() {
+        viewsMap = new ConcurrentHashMap<>(64, 64, 1);
     }
 
     public void addVideo(Video video, int views) {
@@ -18,16 +17,10 @@ public class VideoManager {
     }
 
     public int getViewCount(Video video) {
-        synchronized (viewsMap.get(video)) {//использую именно это в качестве лока,
-            // чтобы не блокировать остальные видео
-            // (при использовании такого лока для каждого видео гарантирован свой лок)
-            return viewsMap.get(video);
-        }
+        return viewsMap.get(video);
     }
 
     public void addView(Video video) {
-        synchronized (viewsMap.get(video)) {
-            viewsMap.put(video, viewsMap.get(video) + 1);
-        }
+        viewsMap.put(video, viewsMap.get(video) + 1);
     }
 }

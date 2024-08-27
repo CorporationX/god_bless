@@ -7,7 +7,6 @@ import lombok.Setter;
 public class Video {
     private static int currentId = 0;//id последнего созданного видео
     private int id;
-    @Setter//мне важно, чтобы поле id не менялось
     private String title;
 
     public Video(String title) {
