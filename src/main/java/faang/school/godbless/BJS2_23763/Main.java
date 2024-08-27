@@ -20,7 +20,7 @@ public class Main {
 
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(160, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(THREAD_AMOUNT * DELAY, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
