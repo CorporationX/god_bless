@@ -28,8 +28,9 @@ public class Main {
 
     private static void addCombineItem() {
         log.info("Start: addCombineItem() method");
-        inventory.chestGetItem()
-                .thenCombine(inventory.buyItem(), inventory::combineItems)
+        var chestItem = inventory.chestGetItem();
+        var storeItem = inventory.buyItem();
+        chestItem.thenCombine(storeItem, inventory::combineItems)
                 .thenCompose(item -> CompletableFuture.runAsync(() -> inventory.addItem(item)))
                 .join();
     }
