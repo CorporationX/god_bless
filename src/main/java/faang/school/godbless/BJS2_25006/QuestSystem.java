@@ -23,14 +23,16 @@ public class QuestSystem {
                 log.error(e.getMessage());
                 throw new RuntimeException(e);
             }
-            int experience = player.getExperience() + quest.getReward();
-            
-            if (experience > player.getLevel() * EXPERIENCE_TO_LEVEL_UP) {
-                player.setLevel(experience / EXPERIENCE_TO_LEVEL_UP);
-                player.setExperience(experience - player.getLevel() * EXPERIENCE_TO_LEVEL_UP);
+            synchronized (player) {
+                int experience = player.getExperience() + quest.getReward();
 
-            } else {
-                player.setExperience(experience);
+                if (experience > player.getLevel() * EXPERIENCE_TO_LEVEL_UP) {
+                    player.setLevel(experience / EXPERIENCE_TO_LEVEL_UP);
+                    player.setExperience(experience - player.getLevel() * EXPERIENCE_TO_LEVEL_UP);
+
+                } else {
+                    player.setExperience(experience);
+                }
             }
             return player;
         }, executorService);
