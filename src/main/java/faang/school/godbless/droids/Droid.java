@@ -11,50 +11,39 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Droid {
 
-    private final int CAPITAL_A = 65;
-    private final int CAPITAL_Z = 90;
-    private final int LETTER_A = 97;
-    private final int LETTER_Z = 122;
+    private static final int ALPHABET_SIZE = 26;
 
-    public String sendEncryptedMessage(String message, int key) {
+    public String encrypt(String message, int key) {
+        return process(message, key);
+    }
 
+    public String decrypt(String encryptedMessage, int key) {
+        return process(encryptedMessage, -key);
+    }
+
+    private String process(String message, int key) {
         DroidMessageEncryptor droidMessageEncryptor = (incomingMessage, shift) -> {
-            StringBuilder shiftedString = new StringBuilder();
 
-            for (char ch : incomingMessage.toCharArray()) {
+            StringBuilder result = new StringBuilder();
+
+            for (char ch : message.toCharArray()) {
                 if (Character.isUpperCase(ch)) {
-                    shiftedString.append((char) ('A' + (ch - 'A' + shift) % 26));
+                    result.append(shift(ch, key, 'A'));
                 } else if (Character.isLowerCase(ch)) {
-                    shiftedString.append((char) ('a' + (ch - 'a' + shift) % 26));
+                    result.append(shift(ch, key, 'a'));
                 } else {
-                    shiftedString.append(ch);
+                    result.append(ch);
                 }
             }
 
-            return shiftedString.toString();
+            return result.toString();
         };
 
         return droidMessageEncryptor.encryptDecryptMessage(message, key);
     }
 
-    public String receiveEncryptedMessage(String encryptedMessage, int key) {
-
-        DroidMessageEncryptor droidMessageDecrypt = (incomingMessage, shift) -> {
-            StringBuilder shiftedString = new StringBuilder();
-
-            for (char ch : incomingMessage.toCharArray()) {
-                if (Character.isUpperCase(ch)) {
-                    shiftedString.append((char) ('Z' + (ch - 'Z' - shift) % 26));
-                } else if (Character.isLowerCase(ch)) {
-                    shiftedString.append((char) ('z' + (ch - 'z' - shift) % 26));
-                } else {
-                    shiftedString.append(ch);
-                }
-            }
-
-            return shiftedString.toString();
-        };
-
-        return droidMessageDecrypt.encryptDecryptMessage(encryptedMessage, key);
+    private char shift(char ch, int key, char baseChar) {
+        int offset = (ch - baseChar + key + ALPHABET_SIZE) % ALPHABET_SIZE;
+        return (char) (baseChar + offset);
     }
 }
