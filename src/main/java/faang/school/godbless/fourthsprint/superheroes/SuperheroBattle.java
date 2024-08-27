@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -24,11 +25,9 @@ public class SuperheroBattle {
                 Superhero superhero1 = pair.getFirst();
                 Superhero superhero2 = pair.getSecond();
 
-                if (superhero1.getPower() > superhero2.getPower()) {
-                    return superhero1;
-                } else {
-                    return superhero2;
-                }
+                Superhero winner = calculateBattleOutcome(superhero1, superhero2);
+
+                return winner;
             }));
         }
         return futures;
@@ -95,6 +94,18 @@ public class SuperheroBattle {
             System.out.println("Interrupted while waiting for termination.");
             executor.shutdownNow();
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private Superhero calculateBattleOutcome(Superhero hero1, Superhero hero2) {
+        Random random = new Random();
+        double hero1Score = hero1.getStrength() * hero1.getAgility() * (1 + (random.nextDouble() * (2 - 1)));
+        double hero2Score = hero2.getStrength() + hero2.getAgility() + (1 + (random.nextDouble() * (2 - 1)));
+
+        if (hero1Score > hero2Score) {
+            return hero1;
+        } else {
+            return hero2;
         }
     }
 }

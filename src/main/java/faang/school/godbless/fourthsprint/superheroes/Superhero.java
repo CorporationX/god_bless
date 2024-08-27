@@ -5,16 +5,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 @AllArgsConstructor
-@ToString
+@Getter
 public class Superhero {
-    @Getter
     private String name;
     private int strength;
     private int agility;
-
-    public int getPower() {
-        return strength + agility;
-    }
 
     @Override
     public String toString() {
