@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
 
@@ -23,5 +24,14 @@ public class Main {
         players.forEach(player -> executorService.execute(() -> player.startBattle(boss)));
 
         executorService.shutdown();
+
+        try {
+            if (executorService.awaitTermination(3, TimeUnit.MINUTES)) {
+                System.out.println("Работа завершена!");
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
     }
 }

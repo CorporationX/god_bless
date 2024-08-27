@@ -1,7 +1,6 @@
 package faang.school.godbless.supercow;
 
 import lombok.Getter;
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,15 +8,16 @@ import java.util.List;
 @Getter
 public class Boss {
 
+    private static final int SLEEP_TIME = 3000;
+
     private int maxPlayers;
-    private static int currentPlayers;
-    private static List<Player> players = new ArrayList<>();
+    private int currentPlayers;
+    private List<Player> players = new ArrayList<>();
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
     }
 
-    @SneakyThrows
     public void joinBattle(Player player) {
         synchronized (players) {
             if (currentPlayers == maxPlayers) {
@@ -33,7 +33,12 @@ public class Boss {
             System.out.println(player.getName() + " - присоединился к битве");
         }
 
-        Thread.sleep(3000);
+        try {
+            Thread.sleep(SLEEP_TIME);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Thread.currentThread().interrupt();
+        }
 
         killPlayer(player);
     }
