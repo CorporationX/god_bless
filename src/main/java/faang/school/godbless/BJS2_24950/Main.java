@@ -7,7 +7,6 @@ public class Main {
     private static final String COMPLETE_QUEST_MESSAGE = "%s complete quest and now has %d exp\n";
 
     public static void main(String[] args) {
-
         QuestSystem system = new QuestSystem();
 
         Player playerOne = new Player("Thrall", 10, 250);
