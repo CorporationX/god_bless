@@ -1,31 +1,30 @@
 package faang.school.godbless.BJS2_24372;
 
-import lombok.Getter;
+
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
+@Slf4j
 @RequiredArgsConstructor
 public class ChatManager {
-    private static final Logger log = LoggerFactory.getLogger(ChatManager.class);
+
     private final List<Chat> chats = new ArrayList<>();
     private final UserList userList;
 
     public synchronized void startChat(User user) {
-        if (isSuitablePartner(user)) {
+        if (user.getStatus() == Status.WANTS_CHATTING) {
             User partner = userList.getUserWantsChattingExceptUser(user);
-            Chat chat = new Chat(user, partner);
-            user.setStatus(Status.CHATTING);
-            partner.setStatus(Status.CHATTING);
-            chat.chatting();
-            chats.add(chat);
-        } else {
-            if (user.getStatus() == Status.WANTS_CHATTING) {
+            if (partner == null) {
                 waitForChat(user);
+            } else {
+                Chat chat = new Chat(user, partner);
+                user.setStatus(Status.CHATTING);
+                partner.setStatus(Status.CHATTING);
+                chat.chatting();
+                chats.add(chat);
             }
         }
     }

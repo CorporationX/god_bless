@@ -9,5 +9,5 @@ public class User {
     private final String name;
     private final Gender gender;
     private final Gender preference;
-    volatile private Status status;
+    private volatile Status status;
 }

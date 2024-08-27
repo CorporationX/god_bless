@@ -1,7 +1,6 @@
 package faang.school.godbless.BJS2_24372;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +8,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
 
     private static final int USER_COUNT = 10;
-    private static final Logger log = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
