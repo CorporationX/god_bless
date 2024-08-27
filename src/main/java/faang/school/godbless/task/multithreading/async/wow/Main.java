@@ -15,19 +15,13 @@ public class Main {
     private static final QuestPlayerFabric fabric = new QuestPlayerFabric(NUMBER_OF_PLAYERS);
     private static final QuestSystem questSystem = new QuestSystem(THREAD_POOL_SIZE);
     private static final List<CompletableFuture<Player>> futures = new ArrayList<>();
-    private static List<Player> players;
-    private static List<Quest> quests;
+    private static List<Player> players = fabric.getPlayers();
+    private static List<Quest> quests = fabric.getQuests();
 
     public static void main(String[] args) {
-        initDefault();
         startQuests();
         printResults();
         questSystem.shutdownExecutor();
-    }
-
-    private static void initDefault() {
-        players = fabric.getPlayers();
-        quests = fabric.getQuests();
     }
 
     private static void startQuests() {
