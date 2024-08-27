@@ -16,10 +16,9 @@ public class Main {
     private static final PiFinder piFinder = new PiFinder(THREAD_POOL_SIZE);
     private static final Random random = new Random();
     private static final List<CompletableFuture<Void>> futures = new ArrayList<>();
-    private static List<Point> points;
+    private static List<Point> points = getPoints();
 
     public static void main(String[] args) {
-        points = getPoints();
         futures.addAll(runTask());
         printResult();
         piFinder.executorShutdown();
