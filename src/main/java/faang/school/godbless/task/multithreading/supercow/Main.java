@@ -12,10 +12,9 @@ public class Main {
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
     private static final Boss boss = new Boss(LOBBY_SIZE);
-    private static List<Player> players;
+    private static List<Player> players = getPlayers();
 
     public static void main(String[] args) {
-        players = getPlayers();
         runTask();
         executor.shutdown();
     }
