@@ -17,10 +17,9 @@ public class Main {
     private static final GatherManager gatherManager = new GatherManager(THREAD_POOL_SIZE);
     private static final Random random = new Random();
     private static final List<CompletableFuture<Integer>> futures = new ArrayList<>();
-    private static List<Potion> potions;
+    private static List<Potion> potions = getPotions();
 
     public static void main(String[] args) {
-        potions = getPotions();
         futures.addAll(runTask());
         printSumOfIngredients();
         gatherManager.executorShutdown();
