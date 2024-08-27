@@ -30,6 +30,6 @@ public class CityWorker implements Runnable {
     }
 
     public long getJourneyDistance() {
-        return (long) city.getDistance();
+        return city.getDistance();
     }
 }

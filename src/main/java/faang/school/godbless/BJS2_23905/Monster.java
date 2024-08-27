@@ -1,15 +1,16 @@
 package faang.school.godbless.BJS2_23905;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Monster {
     private String name;
     private Location location;
 
-    public Monster(String name, String location) {
+    public Monster(String name) {
         this.name = name;
-        this.location = getLocationCoordinates(location);
     }
 
     public Location getLocationCoordinates(String location) {
