@@ -25,6 +25,7 @@ public class PaymentProcessor {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+
         executor.shutdown();
     }
 }
