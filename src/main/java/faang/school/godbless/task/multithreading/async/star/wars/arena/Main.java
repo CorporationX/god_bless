@@ -21,10 +21,9 @@ public class Main {
     private static final Random random = new Random();
     private static final Battle battle = new Battle();
     private static final List<Future<Robot>> futures = new ArrayList<>();
-    private static List<List<Robot>> robots;
+    private static List<List<Robot>> robots = getRobots();
 
     public static void main(String[] args) {
-        robots = getRobots();
         startBattles();
         printResults();
         battle.shutdownExecutor();
