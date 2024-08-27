@@ -14,10 +14,9 @@ public class Main {
 
     private static final TwitterSubscriptionSystem subscriptionSystem = new TwitterSubscriptionSystem(THREAD_POOL_SIZE);
     private static final List<CompletableFuture<Void>> futures = new ArrayList<>();
-    private static TwitterAccount celebrity;
+    private static TwitterAccount celebrity = new TwitterAccount("Elon Musk");
 
     public static void main(String[] args) {
-        celebrity = new TwitterAccount("Elon Musk");
         futures.addAll(runTask());
         printResult();
         subscriptionSystem.executorShutdown();
