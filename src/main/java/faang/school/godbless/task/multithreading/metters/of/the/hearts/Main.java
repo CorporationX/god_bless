@@ -33,8 +33,7 @@ public class Main {
     }
 
     private static void userRandomMove(User user) {
-        IntStream
-                .range(0, random.nextInt(3))
+        IntStream.range(0, random.nextInt(3))
                 .forEach(i -> {
                     randomOnline(user);
                     randomFindChat(user);
