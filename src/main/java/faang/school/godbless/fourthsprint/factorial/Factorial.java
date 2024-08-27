@@ -56,7 +56,7 @@ public class Factorial {
     }
 
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(1, 10, 50, 3400, 200, 400, 10, 25, 0, 2);
+        List<Integer> numbers = List.of( 50, 100, 200, 300, 400, 10, 25, 1000);
         List<CompletableFuture<Map.Entry<Integer, BigInteger>>> result = factorials(numbers);
 
         result.forEach(future -> future.thenAccept(entry -> System.out.println("Factorial of " +
