@@ -9,8 +9,8 @@ public class Main {
         MarketingResources marketingResources = new MarketingResources(new ArrayList<>(files));
         DesignResources designResources = new DesignResources(new ArrayList<>(files));
 
-        MarketingDepartment marketingDepartment = new MarketingDepartment(designResources, marketingResources);
-        DesignDepartment designDepartment = new DesignDepartment(designResources, marketingResources);
+        ThreadDepartment marketingDepartment = new MarketingDepartment(designResources, marketingResources);
+        ThreadDepartment designDepartment = new DesignDepartment(designResources, marketingResources);
 
         marketingDepartment.start();
         designDepartment.start();

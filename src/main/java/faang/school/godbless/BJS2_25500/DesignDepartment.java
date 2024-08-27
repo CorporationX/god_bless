@@ -8,16 +8,8 @@ public class DesignDepartment extends ThreadDepartment {
 
     @Override
     public void run() {
-        DesignResources designResources = this.getDesignResources();
-        MarketingResources marketingResources = this.getMarketingResources();
-
-        synchronized (designResources) {
-            designResources.printFiles();
-        }
-
-        synchronized (marketingResources) {
-            String file = marketingResources.readFile();
-            designResources.writeFile(file);
-        }
+        Resources designResources = this.getDesignResources();
+        Resources marketingResources = this.getMarketingResources();
+        this.process(designResources, marketingResources);
     }
 }
