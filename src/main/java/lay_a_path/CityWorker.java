@@ -9,8 +9,8 @@ public class CityWorker implements Runnable {
 
     private final static Location CASTLE = new Location(0, 0);
 
-    private City city;
-    private List<Monster> monsters;
+    private final City city;
+    private final List<Monster> monsters;
 
 
     @Override

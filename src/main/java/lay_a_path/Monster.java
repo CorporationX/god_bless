@@ -6,6 +6,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Monster {
-    private String name;
-    private Location location;
+    private final String name;
+    private final Location location;
 }
