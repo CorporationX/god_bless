@@ -5,8 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class QuestSystem {
-    public static CompletableFuture<Player> startQuest(Player player, Quest quest) {
-    ExecutorService executor = Executors.newFixedThreadPool(1);
+    private final ExecutorService executor = Executors.newFixedThreadPool(1);
+
+    public  CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> player,executor)
                 .thenApplyAsync(p -> {
                     try {
@@ -26,6 +27,10 @@ public class QuestSystem {
                 });
     }
 
+    public void shutdown() {
+        executor.shutdown();
+    }
+
     public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
@@ -40,5 +45,8 @@ public class QuestSystem {
 
         player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
+        questSystem.shutdown();
     }
 }
