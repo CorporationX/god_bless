@@ -18,19 +18,13 @@ public class Main {
     private static final List<CompletableFuture<School>> futures = new ArrayList<>();
     private static CompletableFuture<Void> allTasks;
     private static final SchoolTaskFabric fabric = new SchoolTaskFabric(NUMBER_OF_SCHOOLS, NUMBER_OF_TASKS);
-    private static List<School> schools;
-    private static List<Task> tasks;
+    private static List<School> schools = fabric.getSchools();
+    private static List<Task> tasks = fabric.getTasks();
 
     public static void main(String[] args) {
-        defaultInit();
         futures.addAll(runTask());
         printWinners();
         tournament.shutdownExecutor();
-    }
-
-    private static void defaultInit() {
-        schools = fabric.getSchools();
-        tasks = fabric.getTasks();
     }
 
     private static List<CompletableFuture<School>> runTask() {
