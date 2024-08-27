@@ -1,12 +1,15 @@
 package faang.school.godbless.ThirdSprint.BJS2_23623;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
-    Map<String, Unit> unitTypesMap = new HashMap<>();
-    Map<String, CalculateTasks> tasksMap = new HashMap<>();
-    Map<String, Thread> threadMap = new HashMap<>();
+
+    private AtomicInteger totalPower = new AtomicInteger(0);
+    private Map<String, List<Unit>> unitTypesMap = new HashMap<>();
 
     public static void main(String[] args) {
         Army army = new Army();
@@ -20,26 +23,28 @@ public class Army {
 
     public void addUnit(Unit unit){
         String unitTypeName = unit.getClass().getName();
-        unitTypesMap.putIfAbsent(unitTypeName, unit);
-        CalculateTasks tasksByUnitType = tasksMap.computeIfAbsent(unitTypeName, u -> new CalculateTasks());
-        tasksByUnitType.getList().add(unit);
-        threadMap.computeIfAbsent(unitTypeName, u -> new Thread(tasksByUnitType));
+        unitTypesMap.computeIfAbsent(unitTypeName, u -> new ArrayList<>()).add(unit);
     }
 
-    public int calculateTotalPower(){
-        threadMap.keySet().stream()
-                .forEach(t -> threadMap.get(t).start());
-        threadMap.keySet().stream()
-                .forEach(t -> {
+    public int calculateTotalPower() {
+        List<Thread> threadList = unitTypesMap.entrySet()
+                .stream()
+                .map(e -> new Thread(() -> {
+                    System.out.println(Thread.currentThread().getName());
+                    unitTypesMap.get(e.getKey())
+                            .stream()
+                            .forEach(u -> totalPower.addAndGet(u.getPower()));
+                }))
+                .toList();
+
+        threadList.stream().forEach(t -> t.start());
+        threadList.stream().forEach(t -> {
             try {
-                threadMap.get(t).join();
+                t.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         });
-        return unitTypesMap.entrySet().stream()
-                .map( u -> u.getValue())
-                .mapToInt(u -> u.getTotalPower())
-                .sum();
+        return totalPower.get();
     }
 }
