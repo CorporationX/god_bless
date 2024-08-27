@@ -13,15 +13,12 @@ public class ChatManager {
 
     public synchronized void startChat(User user) {
         System.out.println(user + " search chat");
+
         while (waitForChat(user)) {
             List<User> onlineUsers = users.getOnlineUsers();
 
-            long amountWaitForChatUsers = onlineUsers.stream()
-                    .dropWhile(user::equals)
-                    .filter(this::waitForChat)
-                    .count();
-
-            if (amountWaitForChatUsers > 0) {
+            long amountWaitForChatUsers = countWaitForChatUser(onlineUsers);
+            if (amountWaitForChatUsers > 1) {
                 User secondUser = onlineUsers.stream()
                         .dropWhile(user::equals)
                         .filter(this::waitForChat)
@@ -30,8 +27,10 @@ public class ChatManager {
 
                 chats.add(new Chat(user, secondUser));
                 System.out.println(user + " get new chat with " + secondUser);
-                notifyAll();
+
+                this.notifyAll();
                 return;
+
             } else {
                 try {
                     System.out.println(user + " wait chat");
@@ -41,15 +40,15 @@ public class ChatManager {
                 }
             }
         }
-        User secondUser = getSecondUserInChat(user);
+        User secondUser = getSecondUserInChats(user);
         System.out.println(user + " get new chat with " + secondUser);
     }
 
     public synchronized void endChat(User user) {
         if (!waitForChat(user)) {
-            User secondUser = getSecondUserInChat(user);
+            User secondUser = getSecondUserInChats(user);
             chats.removeIf(chat -> chat.contains(user));
-            notifyAll();
+            this.notifyAll();
             System.out.println(user + " and " + secondUser + " leave chat");
         }
     }
@@ -59,7 +58,13 @@ public class ChatManager {
                 .noneMatch(chat -> chat.contains(user));
     }
 
-    private User getSecondUserInChat(User user) {
+    private long countWaitForChatUser(List<User> onlineUsers) {
+        return onlineUsers.stream()
+                .filter(this::waitForChat)
+                .count();
+    }
+
+    private User getSecondUserInChats(User user) {
         Chat userChat = chats.stream()
                 .filter(chat -> chat.contains(user))
                 .findFirst()
