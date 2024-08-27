@@ -21,10 +21,6 @@ public class Knight {
     }
 
     public void startTrials(ExecutorService executorService) {
-        try {
             executorService.submit(() -> trials.forEach(Trial::run));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 }
