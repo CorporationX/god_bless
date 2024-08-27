@@ -1,6 +1,5 @@
 package faang.school.godbless.fourthsprint.superheroes;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -9,15 +8,15 @@ public class Main {
         SuperheroBattle superheroBattle = new SuperheroBattle();
         List<Superhero> superheroes = getSuperheroes();
 
-        superheroBattle.findStrongestSuperhero(superheroes);
+        Superhero winner = superheroBattle.findStrongestSuperhero(superheroes);
+        System.out.printf("\nAnd the strongest superhero is %s.", winner.toString().toUpperCase());
     }
 
     public static List<Superhero> getSuperheroes() {
-
-        return Arrays.asList(
+        return List.of(
                 new Superhero("Iron Man", 9, 6),
                 new Superhero("Captain America", 8, 8),
-                new Superhero("Thor", 10, 6),
+                new Superhero("Thor", 10, 7),
                 new Superhero("Hulk", 10, 4),
                 new Superhero("Black Widow", 7, 8),
                 new Superhero("Hawkeye", 6, 9),

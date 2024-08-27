@@ -1,7 +1,6 @@
 package faang.school.godbless.fourthsprint.superheroes;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -12,21 +11,29 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class SuperheroBattle {
-    private final ExecutorService executor = Executors.newFixedThreadPool(4);
+    private static final int MAX_NUM_PAIRS = 8;
+    private static final int TIME_OUT = 60;
+    private static final int MIN_LUCK_FACTOR = 1;
+    private static final int MAX_LUCK_FACTOR = 2;
 
+    private final ExecutorService executor = Executors.newFixedThreadPool(MAX_NUM_PAIRS);
     private int roundCount = 1;
 
-
     public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> superheroPairs) {
+
+        System.out.println("\nThe pairs for round " + roundCount + " are:");
+        roundCount++;
+
         List<Future<Superhero>> futures = new ArrayList<>();
 
         for (Pair<Superhero, Superhero> pair : superheroPairs) {
             futures.add(executor.submit(() -> {
                 Superhero superhero1 = pair.getFirst();
                 Superhero superhero2 = pair.getSecond();
-
                 Superhero winner = calculateBattleOutcome(superhero1, superhero2);
 
+                System.out.println(superhero1 + " vs " + superhero2 +
+                        ": winner is " + winner.toString().toUpperCase());
                 return winner;
             }));
         }
@@ -34,50 +41,41 @@ public class SuperheroBattle {
     }
 
     public Superhero findStrongestSuperhero(List<Superhero> superheroes) throws InterruptedException, ExecutionException {
-        List<Superhero> copy = new ArrayList<>(superheroes);//Наши герои
+        List<Superhero> mutableSuperheroes = new ArrayList<>(superheroes);
         List<Superhero> remainingHeroes = new ArrayList<>();
 
-        if (copy.size() == 1) {
-            System.out.println("The strongest superhero is " + copy.get(0));
+        if (mutableSuperheroes.size() == 1) {
             shutdownExecutor();
-            return copy.get(0);
+            return mutableSuperheroes.get(0);
         }
-        if (copy.size() % 2 != 0) {
-            Collections.shuffle(copy);
-            Superhero superhero1 = copy.remove(0);
-            remainingHeroes.add(superhero1);
+        if (mutableSuperheroes.size() % 2 != 0) {
+            Collections.shuffle(mutableSuperheroes);
+            remainingHeroes.add(mutableSuperheroes.remove(0));
         }
 
-        List<Pair<Superhero, Superhero>> superheroPairs = generatePairs(copy);
-
+        List<Pair<Superhero, Superhero>> superheroPairs = generatePairs(mutableSuperheroes);
         List<Future<Superhero>> winnersFutures = runCompetitions(superheroPairs);
-        List<Superhero> winners = new ArrayList<>();
-        for (Future<Superhero> future : winnersFutures) {
-            winners.add(future.get());
 
+        for (Future<Superhero> future : winnersFutures) {
+            remainingHeroes.add(future.get());
         }
 
-        remainingHeroes.addAll(winners);
         if (remainingHeroes.size() != 1) {
-            System.out.println("The following superheroes have been promoted to the next round:");
+            System.out.println("\nThe following superheroes have been promoted to the next round:");
             System.out.println(remainingHeroes);
         }
 
         return findStrongestSuperhero(remainingHeroes);
     }
 
-
     private List<Pair<Superhero, Superhero>> generatePairs(List<Superhero> superheroes) {
-
         List<Pair<Superhero, Superhero>> pairs = new ArrayList<>();
         Collections.shuffle(superheroes);
 
         for (int i = 0; i < superheroes.size() - 1; i += 2) {
             pairs.add(new Pair<>(superheroes.get(i), superheroes.get(i + 1)));
         }
-        System.out.println("The pairs for round " + roundCount + " are:");
-        pairs.forEach(pair -> System.out.println(pair.getFirst() + " vs " + pair.getSecond()));
-        roundCount++;
+
         return pairs;
     }
 
@@ -85,9 +83,9 @@ public class SuperheroBattle {
         executor.shutdown();
 
         try {
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(TIME_OUT, TimeUnit.SECONDS)) {
                 System.out.println("Executor did not terminate in the specified time.");
-                List<Runnable> droppedTasks = executor.shutdownNow(); // Принудительная остановка
+                List<Runnable> droppedTasks = executor.shutdownNow();
                 System.out.println("Dropped " + droppedTasks.size() + " tasks.");
             }
         } catch (InterruptedException e) {
@@ -99,13 +97,11 @@ public class SuperheroBattle {
 
     private Superhero calculateBattleOutcome(Superhero hero1, Superhero hero2) {
         Random random = new Random();
-        double hero1Score = hero1.getStrength() * hero1.getAgility() * (1 + (random.nextDouble() * (2 - 1)));
-        double hero2Score = hero2.getStrength() + hero2.getAgility() + (1 + (random.nextDouble() * (2 - 1)));
+        double hero1Score = hero1.getStrength() * hero1.getAgility() *
+                (MIN_LUCK_FACTOR + (random.nextDouble() * (MAX_LUCK_FACTOR - MIN_LUCK_FACTOR)));
+        double hero2Score = hero2.getStrength() * hero2.getAgility() *
+                (MIN_LUCK_FACTOR + (random.nextDouble() * (MAX_LUCK_FACTOR - MIN_LUCK_FACTOR)));
 
-        if (hero1Score > hero2Score) {
-            return hero1;
-        } else {
-            return hero2;
-        }
+        return hero1Score > hero2Score ? hero1 : hero2;
     }
 }

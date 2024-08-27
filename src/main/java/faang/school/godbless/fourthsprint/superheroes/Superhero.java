@@ -2,7 +2,6 @@ package faang.school.godbless.fourthsprint.superheroes;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @AllArgsConstructor
 @Getter
