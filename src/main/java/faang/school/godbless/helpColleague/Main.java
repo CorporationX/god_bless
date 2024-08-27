@@ -21,7 +21,7 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
 
         for (int i = 0; i < NUM_THREADS; i++) {
-            executorService.submit(new PersonNamePrinter(people, i * PEOPLE_PER_THREAD, (i + 1) * PEOPLE_PER_THREAD));
+            executorService.submit(new PersonNamePrinter(people.subList(i * PEOPLE_PER_THREAD, (i + 1) * PEOPLE_PER_THREAD)));
         }
 
         executorService.shutdown();
