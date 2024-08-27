@@ -19,7 +19,8 @@ public class MailSender {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                thread.interrupt();
+                System.out.println("Thread interrupted: " + e.getMessage());
             }
         }
 
