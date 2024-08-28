@@ -20,14 +20,12 @@ public class Main {
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        CompletableFuture[] futures = requests.stream()
+                .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executorService))
+                .toArray(CompletableFuture[]::new);
 
-        requests.forEach(request -> {
-            CompletableFuture<Void> future = CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer), executorService);
-            futures.add(future);
-        });
 
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        CompletableFuture.allOf(futures).join();
 
         executorService.shutdown();
 
@@ -42,7 +40,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        return resultConsumer.add(0L);
+        return resultConsumer.getSumOfSquaredNumbers();
     }
 
     public static void launch() {

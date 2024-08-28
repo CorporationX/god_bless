@@ -12,4 +12,8 @@ public class ResultConsumer {
     public Long add(final Long num) {
         return sumOfSquaredNumbers.addAndGet(num);
     }
+
+    public Long getSumOfSquaredNumbers() {
+        return sumOfSquaredNumbers.get();
+    }
 }
