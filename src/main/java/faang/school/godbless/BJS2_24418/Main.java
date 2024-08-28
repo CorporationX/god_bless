@@ -11,6 +11,7 @@ public class Main {
     public static void main(String[] args) {
         final int USERS_COUNT = 40;
         final int FOUNDERS_COUNT = 100;
+        final int NUMS_THREADS = 20;
 
         UserList userList = new UserList();
         createUsers(USERS_COUNT, "User_")
@@ -22,7 +23,7 @@ public class Main {
         });
 
         ChatManager chatManager = new ChatManager(userList);
-        ExecutorService executor = Executors.newFixedThreadPool(20);
+        ExecutorService executor = Executors.newFixedThreadPool(NUMS_THREADS);
 
         chatFounders
                 .forEach(user -> executor.submit(() -> {
