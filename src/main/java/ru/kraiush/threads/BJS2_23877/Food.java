@@ -12,5 +12,6 @@ import lombok.ToString;
 public class Food {
 
     String name;
+
     int amount;
 }

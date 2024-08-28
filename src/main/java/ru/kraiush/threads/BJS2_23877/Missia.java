@@ -32,11 +32,11 @@ public class Missia implements Runnable {
 
     private void tekeTheFood() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
             listfoods.stream()
                     .map(e -> {
                         try {
-                            Thread.sleep(3000 * e.getAmount());
+                            Thread.sleep(100 * e.getAmount());
                         } catch (InterruptedException ex) {
                             return Optional.empty();
                         }
