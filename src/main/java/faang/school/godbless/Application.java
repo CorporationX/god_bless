@@ -1,41 +1,46 @@
 ﻿package faang.school.godbless;
 
-import faang.school.godbless.Notification.Notification;
-
+import faang.school.godbless.data.City;
+import faang.school.godbless.data.Monster;
 import java.util.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Application {
     public static void main(String[] args) {
-        List<UserProfile> users = Arrays.asList(
-                new UserProfile(1, "MALE", 20, "Москва", Arrays.asList("Сноубординг", "Фантастика", "Видеоигры")),
-                new UserProfile(2, "FEMALE", 25, "Москва", Arrays.asList("Кулинария", "Фантастика", "Туризм"))
-        );
+        List<Monster> monsters = new ArrayList<>();
+        monsters.add(new Monster("Griffin", "Velen"));
+        monsters.add(new Monster("Basilisk", "Toussaint"));
+        monsters.add(new Monster("Cockatrice", "White Orchard"));
+        monsters.add(new Monster("Chort", "Skellige"));
+      
+        List<City> cities = new ArrayList<>();
+        cities.add(new City("Novigrad", 0, 60, 120, 180));
+        cities.add(new City("Oxenfurt", 60, 0, 50, 70));
+        cities.add(new City("Vizima", 120, 50, 0, 30));
+        cities.add(new City("Kaer Morhen", 180, 70, 30, 0));
 
-        List<Product> products = Arrays.asList(
-                new Product(123, "Ботинки для сноуборда", "Спортивные товары", 5000, Arrays.asList("Спорт", "Сноубординг", "Зимний спорт")),
-                new Product(124, "Книга фантастики", "Книги", 700, Arrays.asList("Фантастика", "Литература"))
-        );
+        int NUM_THREADS = 4;
 
-        List<ProductOrder> orders = Arrays.asList(
-                new ProductOrder(1, 123, LocalDateTime.of(2022, 11, 5, 18, 48, 24)),
-                new ProductOrder(2, 124, LocalDateTime.of(2022, 11, 6, 10, 15, 00))
-        );
+        ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
-        RecommendationService recommendationService = new RecommendationService(users, products, orders);
+        long startTime = System.currentTimeMillis();
 
-        System.out.println("Рекомендации по интересам:");
-        List<Product> recommendedProducts = recommendationService.recommendProductsByInterests(1);
-        recommendedProducts.forEach(product -> System.out.println(product.getName()));
+        for (int i = 0; i < cities.size(); i++) {
+            CityWorker worker = new CityWorker(cities.get(i), i, cities, monsters);
+            executor.submit(worker);
+        }
 
-        System.out.println("Популярные товары среди похожих пользователей:");
-        List<Product> topPurchasedProducts = recommendationService.recommendTopPurchasedProducts(1);
-        topPurchasedProducts.forEach(product -> System.out.println(product.getName()));
+        executor.shutdown();
 
-        System.out.println("Категория для скидки:");
-        String discountCategory = recommendationService.recommendCategoryForDiscount(1);
-        System.out.println(discountCategory);
+        try{
+            executor.awaitTermination(1, TimeUnit.MINUTES);
+        }catch (InterruptedException e){
+            e.printStackTrace();
+        }
+
+        long endTime = System.currentTimeMillis();
+        System.out.println("Total execution time: " + (endTime - startTime) + " ms");
     }
 }
