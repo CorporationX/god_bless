@@ -2,6 +2,10 @@ package faang.school.godbless;
 
 public class Application {
     public static void main(String[] args) {
-        System.out.println("God Bless!");
+        try {
+            MasterCardService.doAll();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
