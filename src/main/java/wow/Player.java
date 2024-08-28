@@ -16,10 +16,10 @@ public class Player {
     public void addExperience(int exp) {
         experience += exp;
         log.info(String.format("%s gained %d EP", name, exp));
-        computeLevel();
+        updateLevel();
     }
 
-    private void computeLevel() {
+    private void updateLevel() {
         while (experience > level * LEVEL_SCALE) {
             experience -= level * LEVEL_SCALE;
             level++;
