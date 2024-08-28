@@ -9,12 +9,12 @@ import java.util.concurrent.TimeUnit;
 
 @Getter
 public class House {
-    private final List<Room> ROOMS = new ArrayList<>();
-    private final List<Food> FOOD = new ArrayList<>();
+    private List<Room> rooms = new ArrayList<>();
+    private List<Food> food = new ArrayList<>();
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
-        initialize(house.getROOMS());
+        initialize(house.getRooms());
 
         var scheduledExecutorService = Executors.newScheduledThreadPool(5);
         for (int i = 0; i < 2; i++) {
@@ -23,19 +23,19 @@ public class House {
 
         scheduledExecutorService.shutdown();
         if (scheduledExecutorService.awaitTermination(10, TimeUnit.MINUTES)) {
-            System.out.printf("All food collected. Total food is %d\n", house.getFOOD().size());
+            System.out.printf("All food collected. Total food is %d\n", house.getFood().size());
             System.out.printf("Food in kitchen = %d; Food in living room = %d\n",
-                    house.getROOMS().get(0).getFOOD().size(),
-                    house.getROOMS().get(1).getFOOD().size());
+                    house.getRooms().get(0).getFood().size(),
+                    house.getRooms().get(1).getFood().size());
         } else {
             System.out.println("Not all food collected");
         }
     }
 
     public void collectFood() {
-        ROOMS.forEach(room -> {
-            FOOD.addAll(room.getFOOD());
-            room.getFOOD().clear();
+        rooms.forEach(room -> {
+            food.addAll(room.getFood());
+            room.getFood().clear();
         });
     }
 
@@ -43,7 +43,7 @@ public class House {
         var liveRoom = new Room("Living Room");
         var kitchenRoom = new Room("Kitchen");
 
-        liveRoom.getFOOD().addAll(
+        liveRoom.getFood().addAll(
                 List.of(
                         new Food("Cheese"),
                         new Food("Pineapple"),
@@ -53,7 +53,7 @@ public class House {
                         new Food("Pepper")
                 )
         );
-        kitchenRoom.getFOOD().addAll(
+        kitchenRoom.getFood().addAll(
                 List.of(
                         new Food("Pepperoni"),
                         new Food("Meat"),
