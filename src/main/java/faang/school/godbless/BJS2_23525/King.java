@@ -6,7 +6,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class King {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         var whiteKnight = new Knight("White");
         var darkKnight = new Knight("Dark");
         var trialsForKnights = new ArrayList<>(
@@ -35,6 +35,11 @@ public class King {
         darkKnight.startTrials(executorService);
 
         executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
+        try {
+            executorService.awaitTermination(1, TimeUnit.MINUTES);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+            Thread.currentThread().interrupt();
+        }
     }
 }
