@@ -17,15 +17,14 @@ public class RocketLaunch {
     private String titleStart;
     private long timeStart;
 
-
     public void launch() {
 
-            System.out.println("Запускаем ракету %s".formatted(titleStart));
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        System.out.println("Запускаем ракету %s".formatted(titleStart));
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         System.out.println("Поехали!");
     }
@@ -51,11 +50,9 @@ public class RocketLaunch {
         launches.add(new RocketLaunch("Falcon Heavy", System.currentTimeMillis() + 10000));
         launches.add(new RocketLaunch("Soyuz MS-10", System.currentTimeMillis() + 5000));
 
-
         long startTime = System.currentTimeMillis();
         planRocketLaunches(launches);
         long endTime = System.currentTimeMillis();
-
 
         System.out.println("Time taken to plan rocket launches: " + (endTime - startTime) + " ms");
     }
