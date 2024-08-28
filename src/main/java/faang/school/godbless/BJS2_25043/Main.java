@@ -25,6 +25,7 @@ public class Main {
 
         CompletableFuture allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         allFutures.join();
+
         executor.shutdown();
 
         return resultConsumer.getSum();
