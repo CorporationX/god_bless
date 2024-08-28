@@ -21,8 +21,7 @@ public class House {
 
     public void collectFood() {
         List<Food> tempCollected = new ArrayList<>();
-        for (int i = 0; i < rooms.size(); i++) {
-            Room room = rooms.get(i);
+        for (Room room : rooms) {
             tempCollected.addAll(room.collectFood());
         }
         foodList.addAll(tempCollected);
@@ -36,25 +35,35 @@ public class House {
         Food bread = new Food("Bread");
         Food butter = new Food("Butter");
 
-        List<Food> foodListFirstRoom = List.of(banana, eag, cheese);
-        List<Food> foodListSecondRoom = List.of(bread, butter);
-
+        List<Food> foodListFirstRoom = new ArrayList<>(List.of(banana, eag, cheese));
+        List<Food> foodListSecondRoom = new ArrayList<>(List.of(bread, butter));
 
 
         Room firstRoom = new Room(foodListFirstRoom, "Living room");
         Room secondRoom = new Room(foodListSecondRoom, "Kitchen");
 
-        House house = new House(List.of(firstRoom, secondRoom));
+        House house = new House(new ArrayList<>(List.of(firstRoom, secondRoom)));
 
-        ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService scheduled = Executors.newScheduledThreadPool(1);
 
-        for (int i = 0; i < 5; i++) {
-            scheduled.scheduleAtFixedRate(() -> {
-                house.collectFood();
-            }, 0, 30, TimeUnit.SECONDS);
+        scheduled.scheduleAtFixedRate(() -> {
+            house.collectFood();
+        }, 0, 10, TimeUnit.SECONDS);
+
+
+        try {
+            Thread.sleep(60000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         scheduled.shutdown();
-
+        try {
+            if (!scheduled.awaitTermination(30, TimeUnit.SECONDS)) {
+                scheduled.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            scheduled.shutdownNow();
+        }
     }
 }
