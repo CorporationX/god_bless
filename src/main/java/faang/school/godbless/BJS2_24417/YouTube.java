@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class YouTube {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         var videoManager = new VideoManager();
         final int NUM_THREADS = 100;
         final int NUM_VIDEOS = 10;
@@ -25,11 +25,16 @@ public class YouTube {
 
         executorService.shutdown();
 
-        if (executorService.awaitTermination(1, TimeUnit.MINUTES))
-            System.out.println("All tasks completed");
-        else {
-            var tasks = executorService.shutdownNow();
-            tasks.forEach(task -> System.out.printf("Task %s wasn't ended%n", task));
+        try {
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES))
+                System.out.println("All tasks completed");
+            else {
+                var tasks = executorService.shutdownNow();
+                tasks.forEach(task -> System.out.printf("Task %s wasn't ended%n", task));
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.out.println(Thread.currentThread().getName() + " was interrupted");
         }
     }
 
