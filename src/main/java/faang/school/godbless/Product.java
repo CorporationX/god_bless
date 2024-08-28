@@ -1,21 +1,21 @@
 package faang.school.godbless;
 
 import lombok.Getter;
+import java.util.List;
 
 @Getter
 public class Product {
-    private int id;
+    private int productId;
     private String name;
     private String category;
+    private double price;
+    private List<String> tags;
 
-    public Product(int id, String name, String category) {
-        this.id = id;
+    public Product(int productId, String name, String category, double price, List<String> tags) {
+        this.productId = productId;
         this.name = name;
         this.category = category;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{id=" + id + ", name='" + name + "', category='" + category + "'}";
+        this.price = price;
+        this.tags = tags;
     }
 }
