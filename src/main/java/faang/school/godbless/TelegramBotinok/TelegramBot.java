@@ -6,34 +6,41 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 public class TelegramBot {
-    private final int REQUEST_LIMIT;  //такое название по заданию потребовали
+    private final static int REQUEST_LIMIT = 5;  //такое название по заданию потребовали
     private int requestCounter;
     private LocalDateTime lastRequestTime;
-    private final Object lock = new Object();
 
-    public TelegramBot(int REQUEST_LIMIT, LocalDateTime lastRequestTime) {
-        this.REQUEST_LIMIT = REQUEST_LIMIT;
+    public TelegramBot(LocalDateTime lastRequestTime, int requestCounter) {
         this.lastRequestTime = lastRequestTime;
+        this.requestCounter = requestCounter;
     }
 
     public synchronized void sendMessage(String message) {
         LocalDateTime timeNow = LocalDateTime.now();
+        long millis = timeNow.getNano() / 1_000_000;
+        timeNow = timeNow.minus(millis, ChronoUnit.MILLIS);
+
+        if (lastRequestTime == null) {
+            lastRequestTime = timeNow;
+        }
+
         Duration timeSinceLastRequest = Duration.between(lastRequestTime, timeNow);
 
-        if (timeSinceLastRequest.getSeconds() < 1) { // Он ждёт секунду, а не до конца секунды, потому что иначе они никогда не войдёт в else
-            requestCounter++;                        // потому что программа не запускается ровно в 0 миллисекунд, что бы время до конца секунды было равно секунде
-            System.out.println(requestCounter);
-            if (requestCounter > REQUEST_LIMIT) {
+        if (timeSinceLastRequest.getSeconds() < 1) {
+            while (requestCounter > REQUEST_LIMIT) {
                 try {
-                    Thread.sleep(1000);
+                    wait(1000);
+                    requestCounter = 0;
+                    lastRequestTime = null;
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-        } else {
-            requestCounter = 0;
-            lastRequestTime = timeNow;
+            requestCounter++;
         }
+
+        System.out.println(requestCounter);
         System.out.println("отправил сообщение через telegramAPI: " + message);
+        notifyAll();
     }
 }
