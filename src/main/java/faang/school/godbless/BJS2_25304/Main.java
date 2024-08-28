@@ -1,18 +1,20 @@
 package faang.school.godbless.BJS2_25304;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDate;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     private static final int COMMENTS_COUNT = 50;
     private static final int POSTS_COUNT = 3;
     private static ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         PostService postService = new PostService();
 
         for (int i = 0; i < POSTS_COUNT; i++) {
@@ -29,9 +31,19 @@ public class Main {
             });
         }
 
+        executorService.execute(() -> postService.deletePost(ThreadLocalRandom.current().nextInt(0, 3)));
+
         executorService.shutdown();
-        executorService.awaitTermination(3, TimeUnit.SECONDS);
-        System.out.println("Hi");
+        try {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Thread died: {}", Thread.currentThread().getName());
+        }
+
+        System.out.println(postService.getPosts().size());
         postService.getPosts().forEach(post -> System.out.println(post.comments().size()));
     }
 }
