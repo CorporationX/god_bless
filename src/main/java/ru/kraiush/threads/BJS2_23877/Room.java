@@ -21,8 +21,7 @@ public class Room {
     @Override
     public String toString() {
         return "Room{" +
-                "name='" + name + '\'' +
-                ", number=" + number +
+                "name='" + name + ", number=" + number +
                 '}';
     }
 }

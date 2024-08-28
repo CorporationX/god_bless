@@ -39,7 +39,7 @@ public class AppTournamentAtKingLanding {
         System.out.println("\n    <---  The battle has begun   --->");
         for (int i = 0; i < listTrials.size(); i++) {
             Runnable worker = listTrials.get(i);
-            executor.execute(worker);
+            executor.submit(worker);
         }
         executor.shutdown();
         while (!executor.isTerminated()) {

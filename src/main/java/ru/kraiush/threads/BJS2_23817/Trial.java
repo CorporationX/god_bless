@@ -7,7 +7,6 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
 @AllArgsConstructor
 public class Trial implements Runnable {
 
@@ -28,5 +27,4 @@ public class Trial implements Runnable {
             e.printStackTrace();
         }
     }
-
 }

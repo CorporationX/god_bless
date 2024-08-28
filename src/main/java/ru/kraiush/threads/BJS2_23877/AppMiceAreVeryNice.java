@@ -9,7 +9,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class AppMiceAreVeryNice {
-
     public static void main(String[] args) throws InterruptedException {
 
         Room living = new Room("living");
@@ -69,6 +68,7 @@ public class AppMiceAreVeryNice {
         if (room == null || foods == null || listMissions == null) {
             return null;
         }
+
         Missia missia = new Missia(room.getName());
         missia.setListfoods(foods);
         listMissions.add(missia);
