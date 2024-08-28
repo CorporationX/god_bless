@@ -1,0 +1,83 @@
+18:42:58: Executing ':Main.main()'...
+
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :Main.main()
+18:42:59.582 [main] INFO  - Add TamagotchiVlad(id=1, name=Vlad 1, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.588 [main] INFO  - Add TamagotchiVlad(id=2, name=Vlad 2, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=3, name=Vlad 3, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=4, name=Vlad 4, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=5, name=Vlad 5, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=6, name=Vlad 6, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=7, name=Vlad 7, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=8, name=Vlad 8, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=9, name=Vlad 9, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.589 [main] INFO  - Add TamagotchiVlad(id=10, name=Vlad 10, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.590 [pool-1-thread-1] INFO  - Add TamagotchiVlad(id=12, name=New vlad, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.591 [pool-1-thread-4] INFO  - Remove TamagotchiVlad(id=7, name=Vlad 7, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 1 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 2 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 3 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 4 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 5 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 6 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 8 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 9 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, Vlad 10 boring 9.0
+18:42:59.591 [pool-1-thread-3] INFO  - Playing, New vlad boring 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 1 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 2 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 3 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 4 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 5 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 6 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 8 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 9 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, Vlad 10 hunger 9.0
+18:42:59.591 [pool-1-thread-2] INFO  - Feeding, New vlad hunger 9.0
+18:42:59.591 [pool-1-thread-6] INFO  - Remove TamagotchiVlad(id=5, name=Vlad 5, hunger=9.0, boring=9.0, pollution=10.0, energy=10.0)
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 1 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 2 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 3 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 4 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 6 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 8 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 9 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, Vlad 10 energy 9.0
+18:42:59.592 [pool-1-thread-7] INFO  - Sleeping, New vlad energy 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 1 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 2 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 3 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 4 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 6 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 8 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 9 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, Vlad 10 pollution 9.0
+18:42:59.592 [pool-1-thread-5] INFO  - Cleaning, New vlad pollution 9.0
+Vlad's from main:
+TamagotchiVlad(id=1, name=Vlad 1, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=2, name=Vlad 2, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=3, name=Vlad 3, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=4, name=Vlad 4, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=5, name=Vlad 5, hunger=9.0, boring=9.0, pollution=10.0, energy=10.0)
+TamagotchiVlad(id=6, name=Vlad 6, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=7, name=Vlad 7, hunger=10.0, boring=10.0, pollution=10.0, energy=10.0)
+TamagotchiVlad(id=8, name=Vlad 8, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=9, name=Vlad 9, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=10, name=Vlad 10, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+Vlad's rom controller:
+TamagotchiVlad(id=1, name=Vlad 1, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=2, name=Vlad 2, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=3, name=Vlad 3, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=4, name=Vlad 4, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=6, name=Vlad 6, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=8, name=Vlad 8, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=9, name=Vlad 9, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=10, name=Vlad 10, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+TamagotchiVlad(id=12, name=New vlad, hunger=9.0, boring=9.0, pollution=9.0, energy=9.0)
+
+BUILD SUCCESSFUL in 3s
+3 actionable tasks: 2 executed, 1 up-to-date
+18:43:02: Execution finished ':Main.main()'.
