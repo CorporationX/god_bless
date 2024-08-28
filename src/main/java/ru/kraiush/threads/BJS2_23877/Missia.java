@@ -25,9 +25,9 @@ public class Missia implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(roomName + " - " + Thread.currentThread().getName() + " --- Start at: " + new Date());
+        System.out.println(roomName + " room -> " + Thread.currentThread().getName() + " --- Start at: " + new Date());
         tekeTheFood();
-        System.out.println(roomName + " - " + Thread.currentThread().getName() + " --- End at: " + new Date());
+        System.out.println(roomName + " room -> " + Thread.currentThread().getName() + " --- End at: " + new Date());
     }
 
     private void tekeTheFood() {

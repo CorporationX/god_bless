@@ -49,9 +49,9 @@ public class AppMiceAreVeryNice {
 
         System.out.println("\nCurrent Time = " + new Date());
         for (int i = 0; i < listMissions.size(); i++) {
-            Thread.sleep(2000);
+            Thread.sleep(20000);
             Missia worker = listMissions.get(i);
-            scheduledThreadPool.schedule(worker, 30, TimeUnit.SECONDS);
+            scheduledThreadPool.schedule(worker, 5, TimeUnit.SECONDS);
         }
         scheduledThreadPool.shutdown();
         while (!scheduledThreadPool.isTerminated()) {
