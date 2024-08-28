@@ -13,7 +13,6 @@ public class FanOutFanIn {
     }
 
     private static void fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
-
         List<CompletableFuture<Void>> squareResults = requests.stream()
                 .map(request -> createTask(request, resultConsumer))
                 .map(CompletableFuture::supplyAsync)
@@ -34,6 +33,4 @@ public class FanOutFanIn {
         fanOutFanIn(requests, resultConsumer);
         System.out.println("Sum = " + resultConsumer.getSum());
     }
-
-
 }
