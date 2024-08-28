@@ -7,16 +7,13 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 public class Army {
-    private static final List<Unit> units = new ArrayList<>();
+    private static List<Unit> units = new ArrayList<>();
 
     public static void addUnit(Unit unit) {
         units.add(unit);
     }
 
     public int calculatePower() throws ExecutionException, InterruptedException {
-
-
-
         Map<Class<? extends Unit>, List<Unit>> mapUnits = new HashMap<>();
         for (Unit unit : units) {
             mapUnits.computeIfAbsent(unit.getClass(), k -> new ArrayList<>()).add(unit);
@@ -28,7 +25,7 @@ public class Army {
         for (List<Unit> unitList : mapUnits.values()) {
             PowerThread powerThread = new PowerThread(unitList);
             futures.add(poolThreads.submit(() -> {
-                powerThread.run();
+                powerThread.call();
                 return powerThread.getPower();
             }));
         }

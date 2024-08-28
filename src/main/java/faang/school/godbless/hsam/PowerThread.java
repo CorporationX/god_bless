@@ -2,8 +2,10 @@ package faang.school.godbless.hsam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.Callable;
 
-public class PowerThread extends Thread {
+public class PowerThread extends Thread implements Callable {
 
     private List<Unit> units;
     private int power;
@@ -13,8 +15,8 @@ public class PowerThread extends Thread {
     }
 
     @Override
-    public void run() {
-        power = units.stream()
+    public Object call() {
+        return power = units.stream()
                 .mapToInt(Unit::getPower).sum();
     }
 
