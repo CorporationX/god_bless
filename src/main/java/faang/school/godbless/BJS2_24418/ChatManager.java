@@ -13,18 +13,18 @@ public class ChatManager {
     }
 
     public synchronized void startChat(User user) {
-        while (users.getOnlineUsers(user).isEmpty()) {
-            System.out.println("Nobody wants to talk");
+        while (users.getOnlineUsers().isEmpty() || users.getOnlineUsers().stream().filter(User::isWantToChat).toList().isEmpty()) {
+            System.out.println(user.getName() + " can't talk anybody");
             waitForChat(2000);
         }
-        User secondUser = users.getOnlineUsers(user).stream()
-                .filter(us -> !us.isChatting())
+        User secondUser = users.getOnlineUsers().stream()
+                .filter(us -> !us.isChatting() && us.isWantToChat())
                 .findFirst().get();
         Chat chat = new Chat(user, secondUser);
-//        user.setChatting(true);
         user.setChat(chat);
         secondUser.setChat(chat);
         secondUser.setChatting(true);
+        secondUser.setWantToChat(false);
         chat.startTalk();
         chats.add(chat);
     }
@@ -41,10 +41,12 @@ public class ChatManager {
     public void endChat(User user) {
         Chat chat = user.getChat();
         chats.remove(chat);
-        notifyAll();
         System.out.println("Chat between " + user.getName() + " and " + chat.getUser2().getName() + " ended");
         chat.getUser1().setChat(null);
         chat.getUser2().setChat(null);
+        chat.getUser1().setChatting(false);
+        chat.getUser2().setChatting(false);
+        chat.getUser2().setWantToChat(true);
+        notifyAll();
     }
-
 }

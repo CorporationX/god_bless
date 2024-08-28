@@ -1,6 +1,7 @@
 package faang.school.godbless.BJS2_24418;
 
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -8,38 +9,42 @@ import java.util.stream.IntStream;
 
 public class Main {
     public static void main(String[] args) {
-        final int USERS_COUNT = 20;
+        final int USERS_COUNT = 40;
+        final int FOUNDERS_COUNT = 100;
+
         UserList userList = new UserList();
-        createUsers(USERS_COUNT).stream()
+        createUsers(USERS_COUNT, "User_")
                 .forEach(userList::addUser);
+        List<User> chatFounders = createUsers(FOUNDERS_COUNT, "Founder_");
+        chatFounders.forEach(user -> {
+            user.setChatting(true);
+            user.setOnline(true);
+        });
+
         ChatManager chatManager = new ChatManager(userList);
-        ExecutorService executor = Executors.newFixedThreadPool(8);
+        ExecutorService executor = Executors.newFixedThreadPool(20);
 
-
-        userList.getUsers().get(2).setOnline(true);
-        userList.getUsers().get(2).setWantToChat(true);
-        executor.submit(() -> chatManager.startChat(userList.getUsers().get(2)));
-        sleep(6000);
-        userList.getUsers().get(5).setOnline(true);
-        userList.getUsers().get(5).setWantToChat(true);
-//        userList.getUsers().get(7).setOnline(true);
-//        userList.getUsers().get(7).setWantToChat(true);
-
+        chatFounders
+                .forEach(user -> executor.submit(() -> {
+                    chatManager.startChat(user);
+                    sleep(5000);
+                    chatManager.endChat(user);
+                }));
 
         try {
             executor.shutdown();
-            if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
-
     }
 
-    public static List<User> createUsers(int usersCount) {
+    public static List<User> createUsers(int usersCount, String userName) {
         return IntStream.range(0, usersCount)
-                .mapToObj(i -> new User(i, "User_" + i))
+                .mapToObj(i -> new User(i, userName + i, new Random().nextBoolean(), new Random().nextBoolean()))
                 .toList();
     }
 
@@ -51,5 +56,4 @@ public class Main {
             throw new RuntimeException(e);
         }
     }
-
 }
