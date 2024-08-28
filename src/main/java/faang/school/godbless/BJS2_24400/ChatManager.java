@@ -45,9 +45,7 @@ public class ChatManager {
     }
 
     private void stopExecutorService(User remainingUser) {
-        if (remainingUser != null) {
-            System.out.println(remainingUser + " извините, у нас обед");
-        }
+        System.out.println(remainingUser + " извините, у нас обед");
         stopExecutorService();
     }
 
