@@ -1,4 +1,4 @@
-package faang.school.godbless;
+﻿package faang.school.godbless;
 
 import faang.school.godbless.data.City;
 import faang.school.godbless.data.Monster;
@@ -14,8 +14,7 @@ public class Application {
         monsters.add(new Monster("Basilisk", "Toussaint"));
         monsters.add(new Monster("Cockatrice", "White Orchard"));
         monsters.add(new Monster("Chort", "Skellige"));
-
-        // Создаем список городов
+      
         List<City> cities = new ArrayList<>();
         cities.add(new City("Novigrad", 0, 60, 120, 180));
         cities.add(new City("Oxenfurt", 60, 0, 50, 70));
