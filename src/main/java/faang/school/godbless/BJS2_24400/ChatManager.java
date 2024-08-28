@@ -22,7 +22,12 @@ public class ChatManager {
                 if (user1 != null && user2 != null) {
                     createChat(user1, user2);
                 } else {
-                    stopExecutorService(user1);
+                    System.out.println("Прекращаем работу!");
+                    if (user1 != null) {
+                        stopExecutorService(user1);
+                    } else {
+                        stopExecutorService();
+                    }
                     break;
                 }
             } catch (InterruptedException e) {
@@ -40,11 +45,13 @@ public class ChatManager {
     }
 
     private void stopExecutorService(User remainingUser) {
-        System.out.println("Прекращаем работу!");
         if (remainingUser != null) {
             System.out.println(remainingUser + " извините, у нас обед");
         }
+        stopExecutorService();
+    }
 
+    private void stopExecutorService() {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(3, TimeUnit.SECONDS)) {
