@@ -16,17 +16,16 @@ public class Tournament {
     public CompletableFuture<School> startTask(School school, Task task) {
         return CompletableFuture.supplyAsync(() -> {
             synchronized (school) {
-                for (Student student : school.getTeam()) {
-                    System.out.println("Student: " + student.getName() + " started task - " + task.getName());
-                    try {
-                        TimeUnit.SECONDS.sleep(task.getDifficulty());
-                    } catch (InterruptedException e) {
-                        log.error(e.getMessage());
-                        throw new RuntimeException(e);
-                    }
-                    student.setPoints(student.getPoints() + task.getReward());
-                    System.out.println("Student: " + student.getName() + " ended task - " + task.getName());
+                System.out.println(school.getName() + " started task - " + task.getName());
+                try {
+                    TimeUnit.SECONDS.sleep(task.getDifficulty());
+                } catch (InterruptedException e) {
+                    log.error(e.getMessage());
+                    throw new RuntimeException(e);
                 }
+                school.getTeam().forEach(student -> student.setPoints(student.getPoints() + task.getReward()));
+
+                System.out.println(school.getName() + " ended task - " + task.getName());
             }
             return school;
         }, executorService);
