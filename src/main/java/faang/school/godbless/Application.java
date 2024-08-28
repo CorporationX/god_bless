@@ -1,7 +1,6 @@
-package faang.school.godbless;
+﻿package faang.school.godbless;
 
 import faang.school.godbless.Trial.Trial;
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
