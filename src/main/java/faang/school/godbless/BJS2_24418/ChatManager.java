@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_24418;
 
 public class ChatManager {
     private UserList users;
-//    private List<Chat> chats = new ArrayList<>();
 
     public ChatManager(UserList users) {
         this.users = users;
@@ -22,7 +21,6 @@ public class ChatManager {
         secondUser.setChatting(true);
         secondUser.setWantToChat(false);
         chat.startTalk();
-//        chats.add(chat);
     }
 
     public void waitForChat(long millis) {
@@ -36,7 +34,6 @@ public class ChatManager {
 
     public void endChat(User user) {
         Chat chat = user.getChat();
-//        chats.remove(chat);
         System.out.println("Chat between " + user.getName() + " and " + chat.getUser2().getName() + " ended");
         chat.getUser1().setChat(null);
         chat.getUser2().setChat(null);
