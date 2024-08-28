@@ -16,7 +16,6 @@ public class AlchemyLab {
                 TimeUnit.SECONDS.sleep(ThreadLocalRandom.current().nextInt(1, MAX_WAIT_TIME));
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                throw new RuntimeException(e);
             }
             System.out.println("Collected " + potion.getRequiredIngredients() + " ingredients for " + potion.getName());
             return potion.getRequiredIngredients();
