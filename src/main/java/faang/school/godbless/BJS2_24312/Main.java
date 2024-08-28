@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int NUM_THREADS = 2;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         UserList usersList = new UserList();
 
         usersList.addUser(new User("Max", true, true, false));
@@ -24,24 +24,29 @@ public class Main {
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         ChatManager chatManager = new ChatManager(usersList);
 
-        for (User user: usersList.getUsers()){
-            if(user.isOnline() && user.isLookingForChat() && !user.isChatting()){
+        for (User user : usersList.getUsers()) {
+            if (user.isOnline() && user.isLookingForChat() && !user.isChatting()) {
                 executorService.submit(() -> {
-                        try {
-                            chatManager.startChat(user);
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            Thread.currentThread().interrupt();
-                        }
-                        chatManager.endChat(user);
+                    try {
+                        chatManager.startChat(user);
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    chatManager.endChat(user);
                 });
             }
         }
 
         executorService.shutdown();
 
-        if(!executorService.awaitTermination(6, TimeUnit.SECONDS)){
-            executorService.shutdownNow();
+        try {
+            if (!executorService.awaitTermination(6, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            log.error("Error in thread: {}", e.getMessage());
         }
     }
 }
