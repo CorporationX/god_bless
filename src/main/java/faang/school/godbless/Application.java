@@ -1,41 +1,21 @@
-﻿package faang.school.godbless;
+package faang.school.godbless;
 
 import faang.school.godbless.Notification.Notification;
-
 import java.util.*;
-
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Application {
     public static void main(String[] args) {
-        List<UserProfile> users = Arrays.asList(
-                new UserProfile(1, "MALE", 20, "Москва", Arrays.asList("Сноубординг", "Фантастика", "Видеоигры")),
-                new UserProfile(2, "FEMALE", 25, "Москва", Arrays.asList("Кулинария", "Фантастика", "Туризм"))
-        );
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-        List<Product> products = Arrays.asList(
-                new Product(123, "Ботинки для сноуборда", "Спортивные товары", 5000, Arrays.asList("Спорт", "Сноубординг", "Зимний спорт")),
-                new Product(124, "Книга фантастики", "Книги", 700, Arrays.asList("Фантастика", "Литература"))
-        );
+        String[] characterNames = {"Питер", "Лоис", "Мэг", "Крис", "Стьюи"};
 
-        List<ProductOrder> orders = Arrays.asList(
-                new ProductOrder(1, 123, LocalDateTime.of(2022, 11, 5, 18, 48, 24)),
-                new ProductOrder(2, 124, LocalDateTime.of(2022, 11, 6, 10, 15, 00))
-        );
-
-        RecommendationService recommendationService = new RecommendationService(users, products, orders);
-
-        System.out.println("Рекомендации по интересам:");
-        List<Product> recommendedProducts = recommendationService.recommendProductsByInterests(1);
-        recommendedProducts.forEach(product -> System.out.println(product.getName()));
-
-        System.out.println("Популярные товары среди похожих пользователей:");
-        List<Product> topPurchasedProducts = recommendationService.recommendTopPurchasedProducts(1);
-        topPurchasedProducts.forEach(product -> System.out.println(product.getName()));
-
-        System.out.println("Категория для скидки:");
-        String discountCategory = recommendationService.recommendCategoryForDiscount(1);
-        System.out.println(discountCategory);
+         for (String character : characterNames) {
+            int foodAmount = ThreadLocalRandom.current().nextInt(10, 101);
+            executorService.submit(new FoodDeliveryTask(character, foodAmount));
+        }
+        executorService.shutdown();
     }
 }
