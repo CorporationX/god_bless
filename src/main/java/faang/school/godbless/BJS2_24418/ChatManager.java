@@ -47,5 +47,4 @@ public class ChatManager {
         chat.getUser2().setChat(null);
     }
 
-    private boolean
 }
