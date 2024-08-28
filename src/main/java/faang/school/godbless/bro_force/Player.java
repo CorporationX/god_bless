@@ -1,6 +1,5 @@
 package faang.school.godbless.bro_force;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,12 +12,11 @@ public class Player {
     private String name;
     private int lives;
     private int score = 0;
-    private boolean alive;
+    private boolean alive = true;
 
-    public Player(String name, int lives, boolean alive) {
+    public Player(String name, int lives) {
         this.name = name;
         this.lives = lives;
-        this.alive = alive;
     }
 
     public boolean getAlive() {
@@ -26,7 +24,7 @@ public class Player {
         return random.nextBoolean();
     }
 
-    public void killing() {
-        alive = false;
+    public boolean isAlive() {
+        return alive;
     }
 }

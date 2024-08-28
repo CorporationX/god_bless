@@ -14,60 +14,47 @@ public class Game {
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
     private Random random = new Random();
-    private boolean gameOver = false;
     private int score = 0;
     private int lives;
-
-    public Game(List<Player> players) {
-        this.lives = players.stream().mapToInt(player -> player.getLives()).sum();
-    }
 
     public void addPlayer(Player player) {
         players.add(player);
     }
 
-    public void update() {
-        if (gameOver) {
-            return;
-        }
-
+    public boolean update() {
         int playerIndex = random.nextInt(players.size());
         Player player = players.get(playerIndex);
         boolean isAlive = player.getAlive();
 
-        synchronized (this) {
-            if (player.getLives() == 0) {
-                player.killing();
-            }
-
-            if (player.getAlive()) {
-                if (!isAlive) {
-                    synchronized (livesLock) {
-                        player.setLives(player.getLives() - 1);
-                        lives--;
-                        System.out.println("Осталось жизней " + lives);
-                    }
-                } else {
-                    synchronized (scoreLock) {
-                        player.setScore(player.getScore() + 1);
-                        score++;
-                        System.out.println("Количество очков " + score);
-                    }
+        if (!isAlive) {
+            synchronized (livesLock) {
+                player.setLives(player.getLives() - 1);
+                lives++;
+                System.out.println(player.getName() + " current lives = " + player.getLives());
+                if (player.getLives() == 0) {
+                    player.setAlive(false);
+                    return gameOver();
                 }
             }
-
-            if (player.getLives() <= 0) {
-                gameOver();
+        } else {
+            synchronized (scoreLock) {
+                player.setScore(player.getScore() + 1);
+                score++;
             }
         }
+        return false;
     }
 
-    private synchronized void gameOver() {
-        if (gameOver) {
-            return;
-        }
-        gameOver = true;
-        System.out.println("Game over, max score " + score);
-        System.out.println("Lost lives " + lives);
+    private boolean gameOver() {
+        System.out.println("Game over with max score: " + score);
+        System.out.println("Lost lives: " + lives);
+        return true;
+    }
+
+    public boolean anyOneDead() {
+        long count = players.stream()
+                .filter(player -> !player.isAlive())
+                .count();
+        return count > 0;
     }
 }
