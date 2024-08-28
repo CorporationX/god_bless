@@ -3,6 +3,8 @@ package faang.school.godbless.BJS2_25024;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Supplier;
 import java.util.stream.LongStream;
 
@@ -13,12 +15,15 @@ public class FanOutFanIn {
     }
 
     private static void fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
+        ExecutorService executor = Executors.newFixedThreadPool(requests.size());
+
         List<CompletableFuture<Void>> squareResults = requests.stream()
                 .map(request -> createTask(request, resultConsumer))
-                .map(CompletableFuture::supplyAsync)
+                .map(task -> CompletableFuture.supplyAsync(task, executor))
                 .toList();
 
         CompletableFuture.allOf(squareResults.toArray(new CompletableFuture[0])).join();
+        executor.shutdown();
     }
 
     private static Supplier<Void> createTask(SquareRequest request, ResultConsumer resultConsumer) {
