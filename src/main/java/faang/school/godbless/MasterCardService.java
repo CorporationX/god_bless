@@ -26,7 +26,7 @@ public class MasterCardService {
 
         executor.shutdown();
         if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
-            executor.shutdown();
+            executor.shutdownNow();
         }
     }
 
