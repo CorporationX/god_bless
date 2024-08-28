@@ -13,26 +13,13 @@ public class Main {
     private static final int COMMENTS_COUNT = 50;
     private static final int POSTS_COUNT = 3;
     private static ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private static PostService postService = new PostService();
 
     public static void main(String[] args) {
-        PostService postService = new PostService();
-
-        for (int i = 0; i < POSTS_COUNT; i++) {
-            int finalI = i;
-            executorService.execute(() -> postService
-                    .addPost(new Post(finalI, "Header of " + Thread.currentThread().getName(), "Hello there",
-                            Thread.currentThread().getName())));
-        }
-
-        for (int i = 0; i < COMMENTS_COUNT; i++) {
-            executorService.execute(() -> {
-                postService.addComment(new Comment("content of " + Thread.currentThread().getName(), LocalDate.now(),
-                        Thread.currentThread().getName()), ThreadLocalRandom.current().nextInt(POSTS_COUNT));
-            });
-        }
-
-        executorService.execute(() -> postService.deletePost(ThreadLocalRandom.current().nextInt(0, 3)));
-
+        addPosts();
+        addComments();
+        tryToDeletePost();
+        tryToDeleteComments();
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -45,5 +32,33 @@ public class Main {
 
         System.out.println(postService.getPosts().size());
         postService.getPosts().forEach(post -> System.out.println(post.comments().size()));
+    }
+
+    private static void tryToDeleteComments() {
+        for (int i = 0; i < COMMENTS_COUNT; i++) {
+            executorService.execute(() -> postService.deleteComments(ThreadLocalRandom.current().nextInt(0, 3)));
+        }
+    }
+
+    private static void tryToDeletePost() {
+        executorService.execute(() -> postService.deletePost(ThreadLocalRandom.current().nextInt(0, 3)));
+    }
+
+    private static void addComments() {
+        for (int i = 0; i < COMMENTS_COUNT; i++) {
+            executorService.execute(() -> {
+                postService.addComment(new Comment("content of " + Thread.currentThread().getName(), LocalDate.now(),
+                        Thread.currentThread().getName()), ThreadLocalRandom.current().nextInt(POSTS_COUNT));
+            });
+        }
+    }
+
+    private static void addPosts() {
+        for (int i = 0; i < POSTS_COUNT; i++) {
+            int finalI = i;
+            executorService.execute(() -> postService
+                    .addPost(new Post(finalI, "Header of " + Thread.currentThread().getName(), "Hello there",
+                            Thread.currentThread().getName())));
+        }
     }
 }

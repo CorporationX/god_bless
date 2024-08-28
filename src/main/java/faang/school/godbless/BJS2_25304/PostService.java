@@ -50,4 +50,19 @@ public class PostService {
             }
         });
     }
+
+    public synchronized void deleteComments(int postId) {
+        Optional
+                .ofNullable(posts.get(postId))
+                .ifPresentOrElse((post) -> {
+                    post.comments()
+                            .stream()
+                            .filter(comment -> comment.author().equals(Thread.currentThread().getName()))
+                            .findFirst()
+                            .ifPresent(comment -> {
+                                log.info("Comment with author {} was deleted by author {}", comment.author(), Thread.currentThread().getName());
+                                post.comments().remove(comment);
+                            });
+                }, () -> log.error("Post with id {} does not exist", postId));
+    }
 }
