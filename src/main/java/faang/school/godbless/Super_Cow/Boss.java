@@ -38,9 +38,8 @@ public class Boss {
         }
     }
     public void startBattle(Boss boss,Player player) {
-        synchronized (lock) {
             boss.joinBattle(player);
             boss.leaveBattle(player);
-        }
+
     }
 }
