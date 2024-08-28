@@ -5,15 +5,15 @@ import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 public class House {
     private static List<Room> roomList = new ArrayList<>();
     private static List<Food> foodList = new ArrayList<>();
 
-    public void collectFood(){
-        foodList.addAll(roomList.stream().flatMap(room -> room.getFood().stream()).collect(Collectors.toList()));
-        roomList.clear();
+    public void collectFood(Room room){
+        foodList.addAll(room.getFood());
+        roomList.remove(room);
+        System.out.println("Еда собрана из " + room);
     }
 
     public static void main(String[] args) {
@@ -22,15 +22,17 @@ public class House {
         snaks.add(new Food("Тарталетки"));
         snaks.add(new Food("Чипсы"));
 
-        List<Food> mainCours = new ArrayList<>();
-        mainCours.add(new Food("Пицца"));
-        mainCours.add(new Food("Паста"));
+        List<Food> hotDishes = new ArrayList<>();
+        hotDishes.add(new Food("Пицца"));
+        hotDishes.add(new Food("Паста"));
 
         roomList.add(new Room(snaks));
-        roomList.add(new Room(mainCours));
+        roomList.add(new Room(hotDishes));
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
-            executorService.schedule(() -> house.collectFood(), 30, TimeUnit.SECONDS);
+        for (Room room : roomList) {
+            executorService.schedule(() -> house.collectFood(room), 30, TimeUnit.SECONDS);
+        }
         executorService.shutdown();
     }
 }
