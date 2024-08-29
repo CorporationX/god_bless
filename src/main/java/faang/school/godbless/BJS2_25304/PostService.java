@@ -10,7 +10,7 @@ import java.util.Optional;
 @Slf4j
 @Getter
 public class PostService {
-    private List<Post> posts;
+    private volatile List<Post> posts;
     private static final Object LOCKER_COMMENTS = new Object();
     private static final Object LOCKER_POSTS = new Object();
 
