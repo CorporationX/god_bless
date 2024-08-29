@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+
 @Getter
 @AllArgsConstructor
 
@@ -16,6 +17,6 @@ public class Comment {
 
     @Override
     public String toString() {
-        return id+" "+text+" "+dateTime+" "+author;
+        return id + " " + text + " " + dateTime + " " + author;
     }
 }

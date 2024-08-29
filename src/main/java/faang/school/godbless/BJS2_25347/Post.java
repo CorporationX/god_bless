@@ -13,7 +13,7 @@ public class Post {
     private String title;
     private String content;
     private Author author;
-    private List<Comment> comments=new ArrayList<>();
+    private List<Comment> comments = new ArrayList<>();
 
     public Post(int id, String title, String content, Author author) {
         this.id = id;

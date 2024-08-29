@@ -16,6 +16,7 @@ public class Main {
         PostService postService = new PostService();
         List<Author> authors = createAuthors(20);
         List<Post> posts = postService.getPosts();
+        List<Comment> comments = postService.getComments();
         Random random = new Random();
         ExecutorService executor = Executors.newCachedThreadPool();
 
@@ -26,21 +27,17 @@ public class Main {
             Author author = authors.get(random.nextInt(authors.size()));
             executor.execute(() -> {
                 postService.addPost(new Post(id, title, content, author));
-//                sleep(10000);
+                sleep(10000); //just to watch the streams
             });
 
         }
-        sleep(2000);
         for (int i = 0; i < NUMS_COMMENTS; i++) {
-            int id =i;
+            int id = i;
             String text = "SomeComment_" + i;
             LocalDateTime date = LocalDateTime.now();
             Author author = authors.get(random.nextInt(authors.size()));
             Post post = posts.get(random.nextInt(posts.size()));
-            executor.execute(() -> {
-                postService.addComment(new Comment(id, text, date, author, post));
-//                sleep(10000);
-            });
+            executor.execute(() -> postService.addComment(new Comment(id, text, date, author, post)));
         }
 
         try {
@@ -52,17 +49,23 @@ public class Main {
             Thread.currentThread().interrupt();
             throw new RuntimeException(e);
         }
-//        postService.getPosts().forEach(System.out::println);
-//        postService.getPosts().stream()
-//                .flatMap(post -> post.getComments().stream())
-//                .forEach(System.out::println);
-        System.out.println("View post:");
-        System.out.println(postService.getPost(random.nextInt(posts.size())));
-        System.out.println("Remove post:");
+
         int id = posts.get(random.nextInt(posts.size())).getId();
-        postService.removePost(id,posts.get(id).getAuthor());
+        System.out.println("View post:");
+        System.out.println(postService.getPost(id));
+        System.out.println("Remove post:");
+        postService.removePost(id, posts.get(id).getAuthor());
         System.out.println("Remove not our post:");
-        postService.removePost(id,posts.get(id+1).getAuthor());
+        postService.removePost(id, posts.get(id + 1).getAuthor());
+
+        id = comments.get(random.nextInt(posts.size())).getId();
+        System.out.println("View comment:");
+        System.out.println(postService.getComment(random.nextInt(posts.size())));
+        System.out.println("Remove comment:");
+        postService.removeComment(id, comments.get(id).getAuthor());
+        System.out.println("Remove not our comment:");
+        postService.removeComment(id, comments.get(id + 1).getAuthor());
+
     }
 
     public static List<Author> createAuthors(int count) {

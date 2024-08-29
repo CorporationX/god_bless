@@ -9,16 +9,40 @@ import java.util.concurrent.locks.ReentrantLock;
 @Getter
 public class PostService {
     private volatile List<Post> posts = new ArrayList<>();
+    private volatile List<Comment> comments = new ArrayList<>();
 
-    ReentrantLock lockCommnent = new ReentrantLock();
+    ReentrantLock lockComment = new ReentrantLock();
     ReentrantLock lockPost = new ReentrantLock();
 
     public void addComment(Comment comment) {
-        lockCommnent.lock();
+        lockComment.lock();
         Post post = comment.getPost();
         post.addComment(comment);
         posts.set(post.getId(), post);
-        lockCommnent.unlock();
+        comments.add(comment);
+        lockComment.unlock();
+    }
+
+    public Comment getComment(int id) {
+        lockComment.lock();
+//        Optional<Comment> comment = posts.stream()
+//                .flatMap(post -> post.getComments().stream())
+//                .filter(comm -> comm.getId() == id)
+//                .findAny();
+//        lockComment.unlock();
+        Comment comment = comments.get(id);
+        lockComment.unlock();
+        return comment;
+    }
+
+    public void removeComment(int id, Author author) {
+        lockComment.lock();
+        if (comments.get(id).getAuthor().equals(author)) {
+            comments.remove(id);
+            System.out.println("Comment with id " + id + " removed");
+        } else {
+            System.out.println("This comment does not belong to author " + author);
+        }
     }
 
     public void addPost(Post post) {
@@ -40,7 +64,7 @@ public class PostService {
             posts.remove(id);
             System.out.println("Post with id " + id + " removed");
         } else {
-            System.out.println("This is not your post, you can't delete this post");
+            System.out.println("This post does not belong to author " + author);
         }
         lockPost.unlock();
     }
