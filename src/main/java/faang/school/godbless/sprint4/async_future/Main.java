@@ -8,22 +8,23 @@ import java.util.concurrent.Future;
 
 public class Main {
     public static void main(String[] args) {
-        doALl();
+        try {
+            doAll();
+        } catch(ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    static void doALl() {
+    static void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        Future<Integer> payment = executor.submit(MasterCardService::collectPayment);
+        CompletableFuture<Integer> analytics = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
 
-        executor.shutdown();
-        try {
-            int analytics = analyticsFuture.get();
-            System.out.println("Analytics sent: " + analytics);
-            int payment = paymentFuture.get();
-            System.out.println("Payment sent: $" + payment);
-        } catch(InterruptedException | ExecutionException e) {
-            System.out.println("Failed to get the payment result!");
+        System.out.println("Received analytics: " + analytics.join());
+        while(!payment.isDone()) {
+            // Do something...
         }
+        System.out.println("Received payment: $" + payment.get());
+        executor.shutdown();
     }
 }
