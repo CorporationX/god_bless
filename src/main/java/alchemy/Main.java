@@ -6,33 +6,22 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 public class Main {
     private static final long INGREDIENT_GATHER = 500L;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         var potions = initPotions();
-        try (ExecutorService executor = Executors.newFixedThreadPool(potions.size())) {
-            var futuresList = potions.stream()
-                    .map(p -> CompletableFuture.supplyAsync(() -> gatherIngredients(p), executor))
-                    .toList();
-            AtomicInteger sumOfAllIngredient = new AtomicInteger(0);
-            CompletableFuture.allOf(futuresList.toArray(new CompletableFuture[0]))
-                    .thenRunAsync(() -> futuresList.forEach(r -> sumOfAllIngredient.getAndAdd(r.join())), executor)
-                    .join();
-            log.info("Total ingredients collected: " + sumOfAllIngredient.get());
-            executor.shutdown();
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                log.info("Finished!");
-            } else {
-                log.error("Time out");
-            }
-        }
+        var futuresList = potions.stream()
+                .map(Main::gatherIngredients)
+                .toList();
+        AtomicInteger sumOfAllIngredient = new AtomicInteger(0);
+        CompletableFuture.allOf(futuresList.toArray(new CompletableFuture[0]))
+                .thenRunAsync(() -> futuresList.forEach(r -> sumOfAllIngredient.getAndAdd(r.join())))
+                .join();
+        log.info("Total ingredients collected: " + sumOfAllIngredient.get());
     }
 
     private static List<Potion> initPotions() {
@@ -47,14 +36,17 @@ public class Main {
         return potions;
     }
 
-    private static int gatherIngredients(@NonNull Potion potion) {
-        try {
-            Thread.sleep(potion.getRequiredIngredients() * INGREDIENT_GATHER);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            throw new RuntimeException(e);
-        }
-        log.info(String.format("Gathered %d ingredients for %s", potion.getRequiredIngredients(), potion.getName()));
-        return potion.getRequiredIngredients();
+    private static CompletableFuture<Integer> gatherIngredients(@NonNull Potion potion) {
+        return CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(potion.getRequiredIngredients() * INGREDIENT_GATHER);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new RuntimeException(e);
+            }
+            log.info(String.format("Gathered %d ingredients for %s",
+                    potion.getRequiredIngredients(), potion.getName()));
+            return potion.getRequiredIngredients();
+        });
     }
 }
