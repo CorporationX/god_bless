@@ -13,11 +13,9 @@ public class Main {
     public static void main(String[] args) {
         var kingdoms = initKingdoms();
         List<CompletableFuture<Boolean>> futures = new ArrayList<>();
-        for (int i = 0; i < kingdoms.size(); i++) {
-            for (int j = 0; j < kingdoms.size(); j++) {
-                if (!kingdoms.get(i).equals(kingdoms.get(j))) {
-                    var kingdomFrom = kingdoms.get(i);
-                    var kingdomTo = kingdoms.get(j);
+        for (Kingdom kingdomFrom : kingdoms) {
+            for (Kingdom kingdomTo : kingdoms) {
+                if (!kingdomFrom.equals(kingdomTo)) {
                     futures.add(sendRaven(kingdomFrom, kingdomTo)
                             .handle((result, ex) -> {
                                 if (ex != null) {
@@ -26,7 +24,7 @@ public class Main {
                                 } else {
                                     log.info(String.format(
                                             "Crow successfully delivered message from %s to %s",
-                                            kingdomFrom, kingdomTo));
+                                            kingdomFrom.getName(), kingdomTo.getName()));
                                     return true;
                                 }
                             }));
