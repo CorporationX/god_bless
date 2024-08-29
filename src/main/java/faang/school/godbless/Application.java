@@ -1,21 +1,56 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Notification.Notification;
+import faang.school.godbless.Rocket.RocketLaunch;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class Application {
-    public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+    public long planRocketLaunches(List<RocketLaunch> rocketLaunches){
+        long startTime = System.currentTimeMillis();
 
-        String[] characterNames = {"Питер", "Лоис", "Мэг", "Крис", "Стьюи"};
+        ExecutorService executors = Executors.newSingleThreadExecutor();
 
-         for (String character : characterNames) {
-            int foodAmount = ThreadLocalRandom.current().nextInt(10, 101);
-            executorService.submit(new FoodDeliveryTask(character, foodAmount));
+        try {
+            for(RocketLaunch rocketLaunch : rocketLaunches){
+                long delay = rocketLaunch.getLaunchTime() - System.currentTimeMillis();
+
+                executors.submit(() -> {
+                    try {
+                        if(delay > 0){
+                            Thread.sleep(delay);
+                        }
+                        rocketLaunch.launch();
+                    }catch(InterruptedException e){
+                        Thread.currentThread().interrupt();
+                    }
+                });
+            }
+        }finally {
+            executors.shutdown();
+            try{
+                if(!executors.awaitTermination(rocketLaunches.size() * 2, TimeUnit.SECONDS)) {
+                    executors.shutdownNow();
+                }
+            }catch(InterruptedException e){
+                executors.shutdownNow();
+            }
         }
-        executorService.shutdown();
+
+        long endTime = System.currentTimeMillis();
+        return endTime - startTime;
+    }
+
+    public static void main(String[] args) {
+        List<RocketLaunch> rocketLaunches = List.of(
+                new RocketLaunch("Falcon 1", System.currentTimeMillis() + 1000),
+                new RocketLaunch("Falcon 2", System.currentTimeMillis() + 3000),
+                new RocketLaunch("Falcon Heavy", System.currentTimeMillis() + 5000)
+        );
+
+        Application app = new Application();
+
+        app.planRocketLaunches(rocketLaunches);
     }
 }
