@@ -30,7 +30,7 @@ public class User {
                 String freeRole = availableRoles.iterator().next();
                 house.getCapturedRoles().put(freeRole, this);
                 setRole(freeRole);
-                lock.notifyAll();
+                lock.notify();
             }
         }
     }
@@ -41,7 +41,7 @@ public class User {
                 house.getCapturedRoles().remove(role);
                 setRole(null);
                 setHouse(null);
-                lock.notifyAll();
+                lock.notify();
             }
         }
     }

@@ -21,7 +21,7 @@ public class House {
             if (!roles.contains(role)) {
                 rolesAmount++;
                 roles.add(role);
-                lock.notifyAll();
+                lock.notify();
             }
         }
     }
@@ -31,7 +31,7 @@ public class House {
             if (roles.contains(role)) {
                 rolesAmount--;
                 roles.remove(role);
-                lock.notifyAll();
+                lock.notify();
             }
         }
     }
