@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,22 +16,34 @@ public class DeliveryService {
         promoCodes.put(promoCode.getCode(), promoCode);
     }
 
-    public void processOrder(Order order, List<String> codes) {
+    public void processOrder(Order order, Set<String> codes) {
         System.out.println("Processing order: " + order.getId());
 
         List<PromoCode> promoCodes = codesToPromoCodes(codes);
-        synchronized (this) {
-            Optional<PromoCode> maxPromoCode = PromoCode.findMaxValidPromoCodeForOrder(order, promoCodes);
-            maxPromoCode.ifPresent(order::applyDiscount);
+        List<PromoCode> maxPromoCodes = PromoCode.sortValidPromoCodesForOrder(order, promoCodes);
+        if (!tryUsePromoCode(order, maxPromoCodes)) {
+            System.out.println("No active promo code for order: " + order.getId());
         }
-        orders.add(order);
 
+        orders.add(order);
         System.out.println("Order processed: " + order.getId());
     }
 
-    private List<PromoCode> codesToPromoCodes(List<String> codes) {
+    private List<PromoCode> codesToPromoCodes(Set<String> codes) {
         return codes.stream()
                 .map(promoCodes::get)
                 .toList();
+    }
+
+    private boolean tryUsePromoCode(Order order, List<PromoCode> promoCodes) {
+        for (PromoCode promoCode : promoCodes) {
+            synchronized (promoCode.getLock()) {
+                if (!promoCode.isUsed()) {
+                    order.applyDiscount(promoCode);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

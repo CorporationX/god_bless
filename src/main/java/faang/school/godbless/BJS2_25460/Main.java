@@ -1,15 +1,17 @@
 package faang.school.godbless.BJS2_25460;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 public class Main {
-    private static final Random RANDOM = new Random();
+    private static final ThreadLocalRandom RANDOM = ThreadLocalRandom.current();
 
     public static void main(String[] args) {
         DeliveryService service = new DeliveryService();
@@ -19,7 +21,11 @@ public class Main {
         IntStream.rangeClosed(1, 100).forEach(i -> executor.execute(() -> {
                     Order order = new Order(i);
                     IntStream.range(0, 5).forEach(j -> order.addProduct(getProduct()));
-                    List<String> promoCodes = List.of(getPromoCode().getCode(), getPromoCode().getCode(), getPromoCode().getCode());
+                    Set<String> promoCodes = new HashSet<>(List.of(
+                            getPromoCode().getCode(),
+                            getPromoCode().getCode(),
+                            getPromoCode().getCode()
+                    ));
                     service.processOrder(order, promoCodes);
                 }));
 
@@ -50,7 +56,7 @@ public class Main {
 
     private static List<PromoCode> getPromoCodes() {
         return List.of(
-                new PromoCode("PROMO1", 6.0, LocalDate.now().minusDays(2), 10.0, false),
+                new PromoCode("PROMO1", 6.0, LocalDate.now().plusDays(2), 10.0, false),
                 new PromoCode("PROMO2", 7.0, LocalDate.now().plusDays(4), 20.0, false),
                 new PromoCode("PROMO3", 8.0, LocalDate.now().plusDays(6), 30.0, false),
                 new PromoCode("PROMO4", 9.0, LocalDate.now().minusDays(8), 40.0, false),
