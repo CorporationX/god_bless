@@ -2,6 +2,7 @@ package faang.school.godbless.BJS2_24691;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,21 +11,24 @@ public class OrderProcessor {
 
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    public void processOrder(Order order) {
-        System.out.println("Processing order: " + order.getId());
+    public CompletableFuture<Order> processOrder(Order order) {
 
-        try {
-            TimeUnit.SECONDS.sleep(5);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-            throw new RuntimeException(e);
-        }
+        return CompletableFuture.supplyAsync(() -> {
+            System.out.println("Processing order: " + order.getId());
+            try {
+                TimeUnit.SECONDS.sleep(5);
+            } catch (InterruptedException e) {
+                log.error(e.getMessage());
+                throw new RuntimeException(e);
+            }
 
-        order.setStatus(Status.DONE);
+            order.setStatus(Status.DONE);
 
-        totalProcessedOrders.incrementAndGet();
+            totalProcessedOrders.incrementAndGet();
 
-        System.out.println("Processed order: " + order.getId());
+            System.out.println("Processed order: " + order.getId());
+            return order;
+        });
     }
 
     public int getTotalProcessedOrders() {
