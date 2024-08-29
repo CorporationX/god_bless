@@ -21,15 +21,16 @@ public class Game {
 
     public void update() {
         while (lives != 5) {
+            synchronized (liveLock) {
+                lives++;
+                if (lives == 5) {
+                    gameOver();
+                    break;
+                }
+            }
             synchronized (scoreLock) {
                 score += 1;
             }
-            synchronized (liveLock) {
-                lives++;
-            }
-        }
-        if (lives == 5) {
-            gameOver();
         }
     }
 
