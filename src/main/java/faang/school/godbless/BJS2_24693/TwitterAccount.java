@@ -9,7 +9,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TwitterAccount {
     @Getter
     public final String name;
-    public final AtomicInteger followers = new AtomicInteger(0);
+    private final AtomicInteger followers = new AtomicInteger(0);
 
     public void incrementFollowers() {
         followers.getAndIncrement();
