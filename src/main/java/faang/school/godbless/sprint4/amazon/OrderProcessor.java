@@ -16,7 +16,7 @@ public class OrderProcessor {
     private static final ExecutorService executor = Executors.newFixedThreadPool(QUANTITY_ORDERS);
 
     private static final List<Order> orders = new ArrayList<>(QUANTITY_ORDERS);
-    private static final List<CompletableFuture<Integer>> orderFutures = new ArrayList<>(QUANTITY_ORDERS);
+    private static final List<CompletableFuture<Void>> orderFutures = new ArrayList<>(QUANTITY_ORDERS);
 
     public static void main(String[] args) {
         createOrders();
@@ -26,17 +26,17 @@ public class OrderProcessor {
         System.out.printf("Общее количество отработанных заказов: %s%n", totalProcessedOrders);
     }
 
-    private static CompletableFuture<Integer> processOrder(Order order) {
+    private static CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture
-                .supplyAsync(() -> {
+                .runAsync(() -> {
                     try {
                         Thread.sleep(random.nextInt(1, 11) * 1000L);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     order.setStatus("Отработано");
-                    return 1;
-                }, executor);
+                }, executor)
+                .thenRun(totalProcessedOrders::getAndIncrement);
     }
 
     private static void createOrders() {
@@ -49,7 +49,7 @@ public class OrderProcessor {
         CompletableFuture
                 .allOf(orderFutures.toArray(CompletableFuture[]::new))
                 .thenRun(() -> orderFutures
-                        .forEach(future -> totalProcessedOrders.addAndGet(future.join())))
+                        .forEach(CompletableFuture::join))
                 .join();
     }
 
