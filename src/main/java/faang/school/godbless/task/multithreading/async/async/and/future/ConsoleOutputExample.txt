@@ -1,0 +1,8 @@
+> Task :Main.main()
+00:03:55.205 [pool-1-thread-2] INFO  - SendAnalytics
+00:03:55.204 [pool-1-thread-1] INFO  - CollectPayment
+00:03:56.207 [main] INFO  - Send analytics result: 1000
+00:04:05.212 [main] INFO  - Collect payment result 10000
+00:04:05.212 [main] INFO  - End
+
+BUILD SUCCESSFUL in 10s
