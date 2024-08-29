@@ -22,5 +22,14 @@ public class Main {
         } catch (TimeoutException e) {
             System.out.println("The battle was timed out.");
         }
+
+        battle.getExecutorService().shutdown();
+        try {
+            if (!battle.getExecutorService().awaitTermination(1, TimeUnit.MINUTES)) {
+                battle.getExecutorService().shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            battle.getExecutorService().shutdownNow();
+        }
     }
 }
