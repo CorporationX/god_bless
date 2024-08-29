@@ -32,11 +32,13 @@ public class MasterCardService {
     }
 
     private void waitTaskResult() {
-        log.info("Send analytics result: {}", getAnalytics());
+        log.info("Send analytics result: {}", getAnalytics(analytics));
         log.info("Collect payment result {}", paymentGet(payment));
     }
 
-    private int getAnalytics() {
+    private int getAnalytics(CompletableFuture<Integer> analytics) {
+        while(!analytics.isDone()) {
+        }
         return analytics.join();
     }
 
