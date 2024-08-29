@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int THREAD_AMOUNT = 5;
-    private static final long DElAY = 2;
+    private static final long DELAY = 2;
 
     public static void main(String[] args) {
         House house = new House();
@@ -31,7 +31,7 @@ public class Main {
             ScheduledFuture<Void> result = executor.schedule(() -> {
                 house.collectFood(roomOne, roomTwo);
                 return null;
-            }, DElAY, TimeUnit.SECONDS);
+            }, DELAY, TimeUnit.SECONDS);
 
             try {
                 result.get();
