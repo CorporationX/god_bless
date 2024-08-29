@@ -3,10 +3,10 @@ package faang.school.godbless.StarWarsArena;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 public class Battle {
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
+
     public Future<Robot> fight(Robot robot1, Robot robot2) {
             return EXECUTOR.submit(() -> {
                 int robotHp1 = robot1.getDefensePower();
