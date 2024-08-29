@@ -1,21 +1,30 @@
 package faang.school.godbless;
 
-import faang.school.godbless.Notification.Notification;
-import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ThreadLocalRandom;
-
 public class Application {
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
+        int[][] customer = {
+                {100, 200, 300},
+                {50, 50, 50, 100},
+                {200, 300},
+                {400, 150, 100, 50}
+        };
 
-        String[] characterNames = {"Питер", "Лоис", "Мэг", "Крис", "Стьюи"};
+        CashierThread[] cashiers = new CashierThread[customer.length];
 
-         for (String character : characterNames) {
-            int foodAmount = ThreadLocalRandom.current().nextInt(10, 101);
-            executorService.submit(new FoodDeliveryTask(character, foodAmount));
+        for (int i = 0; i < customer.length; i++) {
+            cashiers[i] = new CashierThread(i + 1, customer[i]);
         }
-        executorService.shutdown();
+
+        for(CashierThread cashier : cashiers){
+            cashier.start();
+        }
+
+        for (CashierThread cashier : cashiers){
+            try {
+                cashier.join();
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
+        }
     }
 }
