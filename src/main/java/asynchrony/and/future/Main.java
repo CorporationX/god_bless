@@ -16,8 +16,13 @@ public class Main {
         executor.shutdown();
 
         try {
-            System.out.println("Результат выполнения sendAnalytics: " + resultSendAnalytics.get());
-            System.out.println("Результат выполнения collectPayment: " + resultCollectPayment.get());
+            resultSendAnalytics
+                    .thenAccept(result -> System.out.println("Результат выполнения sendAnalytics: " +result))
+                    .join();
+
+            while (!resultCollectPayment.isDone()) {
+                System.out.println("Результат выполнения collectPayment: " + resultCollectPayment.get());
+            }
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
         }
