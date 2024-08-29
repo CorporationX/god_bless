@@ -6,43 +6,38 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    private static final int POOL_SIZE = 50;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Inventory inventory = new Inventory();
         var store = initStore();
         var chest = initChest();
-        try (ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE)) {
-            while (!chest.isEmpty()) {
-                CompletableFuture.supplyAsync(() -> getItemFromChest(chest), executor)
-                        .thenCombine(CompletableFuture.supplyAsync(() -> getItemFromStore(store)),
-                                inventory::combineItem)
-                        .thenCompose(r -> CompletableFuture.runAsync(() -> inventory.addItem(r)));
-            }
-            executor.shutdown();
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                log.info("Finished");
-            } else {
-                log.error("Time out");
-            }
+        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        for (int i = chest.size(); i > 0; i--) {
+            futures.add(getItemFromChest(chest)
+                    .thenCombine(getItemFromStore(store), inventory::combineItem)
+                    .thenCompose(r -> CompletableFuture.runAsync(() -> inventory.addItem(r))));
         }
+        futures.forEach(CompletableFuture::join);
         inventory.printAllItems();
     }
 
-    private static synchronized Item getItemFromChest(@NonNull List<Item> chest) {
-        return chest.remove(ThreadLocalRandom.current().nextInt(chest.size()));
+    private static CompletableFuture<Item> getItemFromChest(@NonNull List<Item> chest) {
+        return CompletableFuture.supplyAsync(() -> {
+            synchronized (Main.class) {
+                return chest.remove(ThreadLocalRandom.current().nextInt(chest.size()));
+            }
+        });
     }
 
-    private static Item getItemFromStore(@NonNull List<Item> store) {
-        Item item = store.get(ThreadLocalRandom.current().nextInt(store.size()));
-        return new Item(item.getName(), item.getPower());
+    private static CompletableFuture<Item> getItemFromStore(@NonNull List<Item> store) {
+        return CompletableFuture.supplyAsync(() -> {
+            Item item = store.get(ThreadLocalRandom.current().nextInt(store.size()));
+            return new Item(item.getName(), item.getPower());
+        });
     }
 
     private static List<Item> initStore() {

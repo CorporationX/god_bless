@@ -17,11 +17,13 @@ public class Inventory {
         log.info(item.getName() + " added to hero inventory");
     }
 
-    public Item combineItem(@NonNull Item item1, Item item2) {
+    public Item combineItem(@NonNull Item item1, @NonNull Item item2) {
+        String itemName = "Super " + item1.getName().split(" ")[0] +
+                " " + item2.getName().split(" ")[0];
+        int itemPower = item1.getPower() + item2.getPower();
+        Item item = new Item(itemName, itemPower);
         log.info("Items combined");
-        return new Item("Super " + item1.getName().split(" ")[0] +
-                " " + item2.getName().split(" ")[0],
-                item1.getPower() + item2.getPower());
+        return item;
     }
 
     public void printAllItems() {
