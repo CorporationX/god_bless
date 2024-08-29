@@ -6,10 +6,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class Battle {
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(2);
     public Future<Robot> fight(Robot robot1, Robot robot2) {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        try {
-            return executor.submit(() -> {
+            return EXECUTOR.submit(() -> {
                 int robotHp1 = robot1.getDefensePower();
                 int robotHp2 = robot2.getDefensePower();
                 while (true) {
@@ -23,16 +22,5 @@ public class Battle {
                     }
                 }
             });
-        } finally {
-            executor.shutdown();
-            try {
-                if (executor.awaitTermination(1, TimeUnit.HOURS)) {
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
     }
 }
