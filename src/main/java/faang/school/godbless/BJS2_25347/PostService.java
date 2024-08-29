@@ -26,4 +26,22 @@ public class PostService {
         posts.add(post);
         lockPost.unlock();
     }
+
+    public Post getPost(int id) {
+        lockPost.lock();
+        Post post = posts.get(id);
+        lockPost.unlock();
+        return post;
+    }
+
+    public void removePost(int id, Author author) {
+        lockPost.lock();
+        if (posts.get(id).getAuthor().equals(author)) {
+            posts.remove(id);
+            System.out.println("Post with id " + id + " removed");
+        } else {
+            System.out.println("This is not your post, you can't delete this post");
+        }
+        lockPost.unlock();
+    }
 }
