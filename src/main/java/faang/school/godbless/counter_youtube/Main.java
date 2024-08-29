@@ -8,10 +8,9 @@ public class Main {
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
 
-        final int NUM_THREADS = 100;
+        final int numThreads = 100;
 
-
-        ExecutorService poolThreads = Executors.newFixedThreadPool(NUM_THREADS);
+        ExecutorService poolThreads = Executors.newFixedThreadPool(numThreads);
 
         Video video1 = new Video("Как сварить пельмени", "1");
         Video video2 = new Video("Программирование для новчиков", "2");
@@ -25,10 +24,10 @@ public class Main {
         videoManager.addVideo(video4);
         videoManager.addVideo(video5);
 
-        final int NUM_VIDEOS = videoManager.getVideos().size();
+        final int numVideos = videoManager.getVideos().size();
 
         for (Video video : videoManager.getVideos()) {
-            for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
+            for (int j = 0; j < numThreads / numVideos; j++) {
                 poolThreads.submit(() -> {
                     videoManager.addView(video);
 
@@ -48,6 +47,5 @@ public class Main {
             System.out.println("Текущее количество просмотров " + video.getName()
                     + " " + videoManager.getViewCount(video));
         }
-
     }
 }
