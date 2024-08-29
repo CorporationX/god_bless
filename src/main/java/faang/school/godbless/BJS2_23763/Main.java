@@ -9,14 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     private static final int THREAD_AMOUNT = 5;
-    private static final long DElAY = 30;
+    private static final long DElAY = 2;
 
     public static void main(String[] args) {
         House house = new House();
         setupRoomsAndFood(house);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
 
-        while (countRoomWithFood(house) >= 2) {
+        while (countRoomWithFood(house) > 0) {
             Room roomOne = house.getRooms().stream()
                     .filter(room -> !room.getFoods().isEmpty())
                     .findFirst()
