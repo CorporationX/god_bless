@@ -27,7 +27,7 @@ public class SupportAnimalsApp {
         }
     }
 
-    public static List<Donation> getDonations() {
+    private static List<Donation> getDonations() {
         var donations = new ArrayList<Donation>();
 
         for (int i = 0; i < 30; i++) {
