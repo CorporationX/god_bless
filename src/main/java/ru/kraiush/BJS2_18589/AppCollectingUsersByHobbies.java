@@ -1,7 +1,5 @@
 package ru.kraiush.BJS2_18589;
 
-import ru.kraiush.model.User;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;

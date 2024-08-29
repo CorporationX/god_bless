@@ -1,4 +1,4 @@
-package ru.kraiush.model;
+package ru.kraiush.BJS2_18571;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
