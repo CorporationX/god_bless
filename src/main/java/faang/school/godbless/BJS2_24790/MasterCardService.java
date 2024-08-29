@@ -9,13 +9,12 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<Integer> collectIntegerFuture = service.submit(this::collectPayment);
-        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(this::sendAnalytics, service);
+        CompletableFuture<Void> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, service)
+                .thenAccept(System.out::println);
 
         try {
-            int collectPaymentResult = collectIntegerFuture.get();
-            System.out.println(collectPaymentResult);
-            completableFuture.thenAccept(System.out::println);
-
+            analyticsFuture.join();
+            System.out.println(collectIntegerFuture.get());
             service.shutdown();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
@@ -24,8 +23,8 @@ public class MasterCardService {
 
     private int collectPayment() {
         try {
-            Thread.sleep(5_000);
-            return 5_000;
+            Thread.sleep(1_000);
+            return 1_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -34,8 +33,8 @@ public class MasterCardService {
 
     private int sendAnalytics() {
         try {
-            Thread.sleep(3_000);
-            return 3_000;
+            Thread.sleep(10_000);
+            return 10_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
