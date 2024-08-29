@@ -18,7 +18,6 @@ public class Main {
                         .mapToObj(i -> followService.followAccount(u)))
                 .toList();
         CompletableFuture.allOf(futureList.toArray(new CompletableFuture[0])).join();
-        followService.shutdownService();
         users.forEach(u -> log.info(String.format("%s has %d followers", u.getUsername(), u.getFollowers())));
     }
 

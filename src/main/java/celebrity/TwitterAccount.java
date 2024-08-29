@@ -9,7 +9,7 @@ public class TwitterAccount {
     private final String username;
     private int followers = 0;
 
-    public void addFollower() {
+    public synchronized void addFollower() {
         followers++;
     }
 }
