@@ -1,0 +1,13 @@
+> Task :Main.main()
+13:01:14.535 [pool-1-thread-4] INFO  - Player 4 starts Quest 4, difficulty: 3959
+13:01:14.535 [pool-1-thread-1] INFO  - Player 1 starts Quest 1, difficulty: 3559
+13:01:14.535 [pool-1-thread-2] INFO  - Player 2 starts Quest 2, difficulty: 2424
+13:01:14.535 [pool-1-thread-3] INFO  - Player 3 starts Quest 3, difficulty: 4041
+13:01:14.535 [pool-1-thread-5] INFO  - Player 5 starts Quest 5, difficulty: 4280
+13:01:16.969 [pool-1-thread-2] INFO  - Player 2  has completed the quest and now has 242 experience points.
+13:01:18.103 [pool-1-thread-1] INFO  - Player 1  has completed the quest and now has 355 experience points.
+13:01:18.503 [pool-1-thread-4] INFO  - Player 4  has completed the quest and now has 395 experience points.
+13:01:18.580 [pool-1-thread-3] INFO  - Player 3  has completed the quest and now has 404 experience points.
+13:01:18.824 [pool-1-thread-5] INFO  - Player 5  has completed the quest and now has 428 experience points.
+
+BUILD SUCCESSFUL in 4s
