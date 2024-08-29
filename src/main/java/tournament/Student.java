@@ -10,7 +10,7 @@ public class Student {
     private final int year;
     private int points = 0;
 
-    public void addPoints(int pointsToAdd) {
+    public synchronized void addPoints(int pointsToAdd) {
         points += pointsToAdd;
     }
 }
