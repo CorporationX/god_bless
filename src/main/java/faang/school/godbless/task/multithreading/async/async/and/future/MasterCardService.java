@@ -37,15 +37,13 @@ public class MasterCardService {
     }
 
     private int getAnalytics() {
-        try {
-            return analytics.get();
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        return analytics.join();
     }
 
     private int paymentGet(Future<Integer> payment) {
         try {
+            while(!payment.isDone()) {
+            }
             return payment.get();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e);
