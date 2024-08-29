@@ -1,7 +1,5 @@
 package ru.kraiush.BJS2_18571;
 
-import ru.kraiush.model.UserRegistration;
-
 import java.util.Collections;
 
 public class AppUserRegistration {
