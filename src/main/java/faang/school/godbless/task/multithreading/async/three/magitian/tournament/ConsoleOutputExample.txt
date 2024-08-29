@@ -1,0 +1,7 @@
+> Task :Main.main()
+16:02:43.259 [pool-1-thread-3] INFO  - School 3 do task: Task 3, reward: 200
+16:02:43.259 [pool-1-thread-1] INFO  - School 1 do task: Task 1, reward: 274
+16:02:43.259 [pool-1-thread-2] INFO  - School 2 do task: Task 2, reward: 279
+16:02:46.067 [pool-1-thread-2] INFO  - School 2 won
+
+BUILD SUCCESSFUL in 3s
