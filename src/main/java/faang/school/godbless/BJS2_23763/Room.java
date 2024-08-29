@@ -1,12 +1,12 @@
 package faang.school.godbless.BJS2_23763;
 
 
-import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@EqualsAndHashCode
+@Getter
 public class Room {
     private final List<Food> foods = new ArrayList<>();
 
@@ -20,9 +20,5 @@ public class Room {
         else {
             throw new IndexOutOfBoundsException("Room is empty");
         }
-    }
-
-    public boolean isFoodHere() {
-        return !foods.isEmpty();
     }
 }

@@ -1,40 +1,56 @@
 package faang.school.godbless.BJS2_23763;
 
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.IntStream;
 
 public class Main {
     private static final int THREAD_AMOUNT = 5;
-    private static final long DELAY = 30;
+    private static final long DElAY = 30;
 
     public static void main(String[] args) {
         House house = new House();
         setupRoomsAndFood(house);
-
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
-        IntStream.range(0, THREAD_AMOUNT)
-                .forEach(i -> executor.schedule(house::collectFood, DELAY * i, TimeUnit.SECONDS));
+
+        while (countRoomWithFood(house) >= 2) {
+            Room roomOne = house.getRooms().stream()
+                    .filter(room -> !room.getFoods().isEmpty())
+                    .findFirst()
+                    .orElseThrow();
+
+            Room roomTwo = house.getRooms().stream()
+                    .filter(room -> !room.getFoods().isEmpty())
+                    .dropWhile(room -> room.equals(roomOne))
+                    .findFirst()
+                    .orElseThrow();
+
+            ScheduledFuture<Void> result = executor.schedule(() -> {
+                house.collectFood(roomOne, roomTwo);
+                return null;
+            }, DElAY, TimeUnit.SECONDS);
+
+            try {
+                result.get();
+            } catch (InterruptedException e) {
+                throw new RuntimeException("Thread was interrupted");
+            } catch (ExecutionException e) {
+                throw new RuntimeException("Get result error");
+            }
+        }
 
         executor.shutdown();
-        try {
-            if (!executor.awaitTermination(THREAD_AMOUNT * DELAY, TimeUnit.SECONDS)) {
-                executor.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Await termination error");
-        }
-        System.out.println("Food collected");
+        System.out.println("All foods collected");
     }
 
     private static void setupRoomsAndFood(House house) {
         Room roomOne = new Room();
         roomOne.addFoods(Arrays.asList(
                 new Food("Bread"),
-                new Food("Egg"),
-                new Food("Milk")
+                new Food("Egg")
         ));
 
         Room roomTwo = new Room();
@@ -46,20 +62,14 @@ public class Main {
         Room roomThree = new Room();
         roomThree.addFoods(Arrays.asList(
                 new Food("Cucumber"),
-                new Food("Potato")
+                new Food("Potato"),
+                new Food("Yogurt")
         ));
 
         Room roomFour = new Room();
         roomFour.addFoods(Arrays.asList(
                 new Food("Rise"),
                 new Food("Apple"),
-                new Food("Banana")
-        ));
-
-        Room roomFive = new Room();
-        roomFive.addFoods(Arrays.asList(
-                new Food("Carrot"),
-                new Food("Yogurt"),
                 new Food("Butter")
         ));
 
@@ -67,8 +77,13 @@ public class Main {
                 roomOne,
                 roomTwo,
                 roomThree,
-                roomFour,
-                roomFive
+                roomFour
         ));
+    }
+
+    private static int countRoomWithFood(House house) {
+        return (int) house.getRooms().stream()
+                .filter(room -> !room.getFoods().isEmpty())
+                .count();
     }
 }
