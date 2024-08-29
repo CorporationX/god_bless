@@ -12,8 +12,7 @@ public class MasterCardService {
             Thread.sleep(10_000);
             return 10_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -22,8 +21,7 @@ public class MasterCardService {
             Thread.sleep(1_000);
             return 1_000;
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 
@@ -31,10 +29,14 @@ public class MasterCardService {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
         Future<Integer> future = executorService.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
+                .thenAccept(result -> System.out.println("Analytic finish, result: " + result)).join();
+
         executorService.shutdown();
 
-        System.out.println("Analytic finish, result: " + completableFuture.get());
         System.out.println("Payment finish, result: " + future.get());
+
+
+
     }
 }
