@@ -24,17 +24,14 @@ public class Army {
 
         for (List<Unit> unitList : mapUnits.values()) {
             PowerThread powerThread = new PowerThread(unitList);
-            futures.add(poolThreads.submit(() -> {
-                powerThread.call();
-                return powerThread.getPower();
-            }));
+            futures.add(poolThreads.submit(powerThread));
         }
+
         poolThreads.shutdown();
         int totalPower = 0;
         for (Future<Integer> future : futures) {
             totalPower += future.get();
         }
         return totalPower;
-
     }
 }

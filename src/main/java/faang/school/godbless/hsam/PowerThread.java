@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.Callable;
 
-public class PowerThread extends Thread implements Callable {
+public class PowerThread implements Callable<Integer> {
 
     private List<Unit> units;
     private int power;
@@ -15,12 +15,8 @@ public class PowerThread extends Thread implements Callable {
     }
 
     @Override
-    public Object call() {
+    public Integer call() {
         return power = units.stream()
                 .mapToInt(Unit::getPower).sum();
-    }
-
-    public int getPower() {
-        return power;
     }
 }
