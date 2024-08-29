@@ -12,7 +12,7 @@ public class Battle {
 
     public Future<Robot> fight(@NonNull Robot robot1, @NonNull Robot robot2) {
         return executor.submit(() -> {
-            int robot1Attack = robot1.getDefensePower() - robot2.getAttackPower();
+            int robot1Attack = robot2.getDefensePower() - robot1.getAttackPower();
             int robot2Attack = robot1.getDefensePower() - robot2.getAttackPower();
             if (robot1Attack > robot2Attack) {
                 return robot1;
