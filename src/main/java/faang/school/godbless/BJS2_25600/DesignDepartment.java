@@ -11,17 +11,15 @@ public class DesignDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (designResources) {
-            designResources.addFile("Product Design Draft");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        designResources.addFile("Product Design Draft");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            synchronized (marketingResources) {
-                marketingResources.getFiles();
-            }
+        synchronized (marketingResources) {
+            marketingResources.getFiles();
         }
     }
 }

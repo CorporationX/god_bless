@@ -11,17 +11,15 @@ public class MarketingDepartment implements Runnable {
 
     @Override
     public void run() {
-        synchronized (marketingResources) {
-            marketingResources.addFile("Marketing Plan");
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        marketingResources.addFile("Marketing Plan");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-            synchronized (designResources) {
-                designResources.getFiles();
-            }
+        synchronized (designResources) {
+            designResources.getFiles();
         }
     }
 }
