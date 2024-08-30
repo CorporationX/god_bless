@@ -21,7 +21,6 @@ public class House {
             if (!roles.contains(role)) {
                 rolesAmount++;
                 roles.add(role);
-                lock.notify();
             }
         }
     }
