@@ -37,6 +37,7 @@ public class AppFeedPeterGriffin {
         }
         pool.shutdown();
         while (!pool.isTerminated()) {
+            //wait for all tasks to finish
         }
         System.out.println("Current Time = " + new Date());
         System.out.println("\nList of characters: all their food were eaten:");
