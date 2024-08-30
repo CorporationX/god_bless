@@ -26,7 +26,7 @@ public class Main {
     public static void main(String[] args) {
         startBattles();
         printResults();
-        battle.shutdownExecutor();
+        battle.getExecutor().shutdown();
     }
 
     private static void startBattles() {

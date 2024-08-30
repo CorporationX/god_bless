@@ -1,5 +1,6 @@
 package faang.school.godbless.task.multithreading.async.star.wars.arena;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.Random;
@@ -8,6 +9,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 @Slf4j
+@Getter
 public class Battle {
     private static final int THREAD_POOL_SIZE = 5;
 
@@ -26,10 +28,6 @@ public class Battle {
         } else {
             return robotB;
         }
-    }
-
-    public void shutdownExecutor() {
-        executor.shutdown();
     }
 
     private void sleep() {
