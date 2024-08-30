@@ -1,12 +1,30 @@
 package faang.school.godbless.BJS224391;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 public class User {
-    private long id;
-    private boolean chat;
-    private long chatId;
+    private String name;
+    private boolean isOnline;
+    private boolean isLookingForChat;
+    private boolean isChatting;
+    private Chat chat;
+
+    public User(String name, boolean isOnline, boolean isLookingForChat) {
+        this.name = name;
+        this.isOnline = isOnline;
+        this.isLookingForChat = isLookingForChat;
+        this.isChatting = false;
+        chat = null;
+    }
+
+    public void connectToChat(Chat chat) {
+        this.chat = chat;
+        this.isChatting = true;
+    }
+
+    public void disconnectFromChat() {
+        this.chat = null;
+        this.isChatting = false;
+    }
 }
