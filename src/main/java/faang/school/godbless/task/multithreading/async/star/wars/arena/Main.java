@@ -12,8 +12,8 @@ import java.util.stream.IntStream;
 @Slf4j
 public class Main {
     private static final int NUMBER_OF_ROBOTS = 10;
-    private static final int FIRST_ROBOT = 0;
-    private static final int SECOND_ROBOT = 1;
+    private static final int FIRST_ROBOT_ID = 1;
+    private static final int SECOND_ROBOT_ID = 2;
     private static final int MAX_STATS = 10;
     private static final int MAX_CHAR = 90;
     private static final int MIN_CHAR = 65;
@@ -21,7 +21,7 @@ public class Main {
     private static final Random random = new Random();
     private static final Battle battle = new Battle();
     private static final List<Future<Robot>> futures = new ArrayList<>();
-    private static List<List<Robot>> robots = getRobots();
+    private static List<Pair<Robot, Robot>> robots = getRobots();
 
     public static void main(String[] args) {
         startBattles();
@@ -47,22 +47,20 @@ public class Main {
     private static List<Future<Robot>> startTask() {
         return robots
                 .stream()
-                .map(pare -> battle.fight(pare.get(FIRST_ROBOT), pare.get(SECOND_ROBOT)))
+                .map(pare -> battle.fight(pare.first, pare.second))
                 .toList();
     }
 
-    private static List<List<Robot>> getRobots() {
+    private static List<Pair<Robot, Robot>> getRobots() {
         return IntStream
                 .range(0, NUMBER_OF_ROBOTS / 2)
                 .mapToObj(i -> getTwoRobots())
                 .toList();
     }
 
-    private static List<Robot> getTwoRobots() {
-        return IntStream
-                .rangeClosed(1, 2)
-                .mapToObj(i -> new Robot("Robot " + getId() + i, getStat(), getStat()))
-                .toList();
+    private static Pair<Robot, Robot> getTwoRobots() {
+        return new Pair(new Robot("Robot " + getId() + FIRST_ROBOT_ID, getStat(), getStat()),
+                new Robot("Robot " + getId() + SECOND_ROBOT_ID, getStat(), getStat()));
     }
 
     private static char getId() {
