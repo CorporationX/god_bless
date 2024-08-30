@@ -22,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
         futures.addAll(runTask());
         printSumOfIngredients();
-        gatherManager.executorShutdown();
+        gatherManager.getExecutor().shutdown();
     }
 
     private static List<CompletableFuture<Integer>> runTask() {
