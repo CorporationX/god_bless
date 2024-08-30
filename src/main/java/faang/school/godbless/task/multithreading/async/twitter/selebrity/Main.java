@@ -19,7 +19,7 @@ public class Main {
     public static void main(String[] args) {
         futures.addAll(runTask());
         printResult();
-        subscriptionSystem.executorShutdown();
+        subscriptionSystem.getExecutor().shutdown();
     }
 
     private static List<CompletableFuture<Void>> runTask() {
