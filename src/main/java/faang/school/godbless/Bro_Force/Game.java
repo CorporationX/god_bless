@@ -35,12 +35,10 @@ public class Game {
     }
 
     private void gameOver() {
-        synchronized (scoreLock) {
-            synchronized (liveLock) {
                 System.out.println("Game Over!");
                 System.out.println("Final Score: " + score);
                 System.out.println("Lives Lost: " + lives);
             }
         }
-    }
-}
+
+
