@@ -19,7 +19,7 @@ public class User {
     Set<String> activities= Set.of("journeys", "music", "tennis", "animals", "creeds", "rock climbing", "sailing");
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> checkActivities) {
 
-        Map<User, String> map = new HashMap();
+        Map<User, String> map = new HashMap<>();
 
         for (User user : users) {
             for(String activity: checkActivities) {
