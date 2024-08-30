@@ -43,22 +43,20 @@ public class House {
 
     public void collectFood(int roomIndex1, int roomIndex2) {
 
-        if (roomIndex1 < rooms.size() || roomIndex2 < rooms.size()) {
-            Room room1 = roomIndex1 < rooms.size() ? rooms.get(roomIndex1) : null;
-            Room room2 = roomIndex2 < rooms.size() ? rooms.get(roomIndex2) : null;
-            System.out.println("Поток " + Thread.currentThread().getId() + " начал работу.");
+        Room room1 = roomIndex1 < rooms.size() ? rooms.get(roomIndex1) : null;
+        Room room2 = roomIndex2 < rooms.size() ? rooms.get(roomIndex2) : null;
+        System.out.println("Поток " + Thread.currentThread().getId() + " начал работу.");
 
-            if (room1 != null) {
-                foods.addAll(room1.getFoodList());
-                room1.getFoodList().clear();
-                System.out.println("Еда в комнате " + (roomIndex1 + 1) + " собрана.");
-            }
+        if (room1 != null) {
+            foods.addAll(room1.getFoodList());
+            room1.getFoodList().clear();
+            System.out.println("Еда в комнате " + (roomIndex1 + 1) + " собрана.");
+        }
 
-            if (room2 != null) {
-                foods.addAll(room2.getFoodList());
-                room2.getFoodList().clear();
-                System.out.println("Еда в комнате " + (roomIndex2 + 1) + " собрана.");
-            }
+        if (room2 != null) {
+            foods.addAll(room2.getFoodList());
+            room2.getFoodList().clear();
+            System.out.println("Еда в комнате " + (roomIndex2 + 1) + " собрана.");
         }
     }
 
