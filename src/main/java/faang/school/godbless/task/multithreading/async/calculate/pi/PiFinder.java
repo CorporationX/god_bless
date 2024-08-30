@@ -39,8 +39,4 @@ public class PiFinder {
     public double calculatePi() {
         return 4.0 * inside.get() / all.get();
     }
-
-    public void executorShutdown() {
-        executor.shutdown();
-    }
 }

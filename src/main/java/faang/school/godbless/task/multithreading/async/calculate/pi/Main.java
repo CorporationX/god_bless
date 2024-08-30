@@ -21,7 +21,7 @@ public class Main {
     public static void main(String[] args) {
         futures.addAll(runTask());
         printResult();
-        piFinder.executorShutdown();
+        piFinder.getExecutor().shutdown();
     }
 
     private static List<CompletableFuture<Void>> runTask() {
