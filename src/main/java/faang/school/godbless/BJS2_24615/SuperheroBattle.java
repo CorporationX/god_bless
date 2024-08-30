@@ -54,16 +54,11 @@ public class SuperheroBattle {
 
         List<Pair<Superhero, Superhero>> pairs = new ArrayList<>();
 
-        while (right - left > 1) {
+        while (right - left >= 0) {
             pairs.add(new Pair<>(heroPairs.get(left), heroPairs.get(right)));
             left++;
             right--;
         }
-
-        if (left == right || right - left == 1) {
-            pairs.add(new Pair<>(heroPairs.get(left), heroPairs.get(right)));
-        }
-
         return pairs;
     }
 
