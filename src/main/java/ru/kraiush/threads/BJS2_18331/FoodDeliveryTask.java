@@ -1,26 +1,34 @@
 package ru.kraiush.threads.BJS2_18331;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.kraiush.threads.BJS2_23877.Food;
 
-import java.util.Random;
+import java.util.Date;
 
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
-public class FoodDeliveryTask {
+@AllArgsConstructor
+public class FoodDeliveryTask implements Runnable {
 
     private String character;
-    private int foodAmount;
+    private Food food;
 
-    public FoodDeliveryTask(String character) {
-        this.character = character;
+    @Override
+    public void run() {
+        System.out.println(character + " get the food: " + food + " -> " + Thread.currentThread().getName() + " --- Start at: " + new Date());
+        eat();
+        System.out.println(character + " ate the food: " + food + " -> " + Thread.currentThread().getName() + " --- End at: " + new Date());
     }
-
-
-
-
+    private void eat() {
+        try {
+            Thread.sleep(food.getAmount() * 1000);
+            food = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

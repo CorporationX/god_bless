@@ -1,4 +1,4 @@
-package ru.kraiush.threads.BJS2_23877;
+package ru.kraiush.threads.BJS2_18331;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
