@@ -17,11 +17,17 @@ public class Main {
 
         try {
             Robot winner = winnerFuture.get();
-            System.out.println("Победитель битвы: " + winner.getName());
+
+            if (winner == null) {
+                System.out.println("Ничья");
+            } else {
+                System.out.println("Победитель битвы: " + winner.getName());
+            }
         } catch (InterruptedException | ExecutionException e) {
             log.error(e.getMessage());
             throw new RuntimeException(e);
         }
 
+        battle.shutdown();
     }
 }
