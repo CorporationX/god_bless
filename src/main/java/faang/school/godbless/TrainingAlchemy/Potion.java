@@ -18,12 +18,13 @@ public class Potion {
     private int requiredIngredients;
 
     public static int gatherIngredients(Potion potion) {
-        CompletableFuture<Void> future = CompletableFuture.runAsync(() -> {
+         CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(800);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            return null;
         });
         return potion.requiredIngredients;
     }
