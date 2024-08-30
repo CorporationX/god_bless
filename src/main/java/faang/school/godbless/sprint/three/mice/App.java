@@ -11,14 +11,16 @@ public class App {
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
 
-        house.getRooms().forEach(room -> scheduler.scheduleAtFixedRate(() -> {
-                if (house.noFoodInRooms() && !scheduler.isShutdown()) {
-                    System.out.println("There is no food in rooms, scheduler will be shutdown!");
-                    scheduler.shutdown();
-                }
-                house.collectFood();
-            }, Constants.SCHEDULER_DELAY, Constants.SCHEDULER_PERIOD, TimeUnit.SECONDS)
+        house.getRoomPairs().forEach(roomPairs -> scheduler.scheduleAtFixedRate(() -> roomPairs.forEach(room -> {
+                            if (house.noFoodInRooms() && !scheduler.isShutdown()) {
+                                System.out.println("There is no food in rooms, scheduler will be shutdown!");
+                                scheduler.shutdown();
+                            }
+                            house.collectFood(room);
+                        }
+                ), Constants.SCHEDULER_DELAY, Constants.SCHEDULER_PERIOD, TimeUnit.SECONDS)
         );
+
 
         try {
             if (!scheduler.awaitTermination(Constants.SCHEDULER_TIMEOUT, TimeUnit.SECONDS)) {

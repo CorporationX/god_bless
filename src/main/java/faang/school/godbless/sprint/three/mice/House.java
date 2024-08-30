@@ -10,7 +10,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Getter
 public class House {
     private List<Room> rooms = new ArrayList<>();
+    private List<List<Room>> roomPairs = new ArrayList<>();
     private List<Food> foods = new CopyOnWriteArrayList<>();
+    private final Object lockFood = new Object();
 
     public void initialize() {
         Food fish = new Food("Fish", 2);
@@ -22,23 +24,30 @@ public class House {
         Food cheese = new Food("Cheese", 1);
         Food milk = new Food("Milk", 1);
         Food bread = new Food("Bread", 2);
+        Food tomato = new Food("Tomato", 2);
+        Food sweet = new Food("Sweet", 2);
+        Food mushroom = new Food("Mushroom", 2);
+        Food honey = new Food("Honey", 2);
 
         Room livingRoom = new Room("Living Room", new CopyOnWriteArrayList<>(List.of(fish, apple, salad, pasta, banana)));
         Room kitchen = new Room("Living Room", new CopyOnWriteArrayList<>(List.of(bacon, cheese, milk, bread)));
+        Room livingRoom1 = new Room("Living Room 1", new CopyOnWriteArrayList<>(List.of(tomato, sweet)));
+        Room livingRoom2 = new Room("Living Room 2", new CopyOnWriteArrayList<>(List.of(mushroom, honey)));
 
         addRoom(livingRoom);
         addRoom(kitchen);
+        addRoom(livingRoom1);
+        addRoom(livingRoom2);
+        createRoomPairs();
     }
 
-    public void collectFood() {
-        rooms.forEach(room -> {
-            this.addFood(this.getRandomFoodFromRoom(room));
-        });
+    public void collectFood(Room room) {
+        this.addFood(this.getRandomFoodFromRoom(room));
     }
 
     public boolean noFoodInRooms() {
-        return rooms.stream()
-                .anyMatch(room -> room.getFoods().isEmpty());
+        return roomPairs.stream().flatMap(List::stream)
+                .allMatch(room -> room.getFoods().isEmpty());
     }
 
     private void addRoom(Room room) {
@@ -50,11 +59,24 @@ public class House {
         foods.add(food);
     }
 
+    private void createRoomPairs() {
+        for (int i = 0; i < rooms.size(); i += 2) {
+            List<Room> pair = new ArrayList<>();
+            pair.add(rooms.get(i));
+            if (i + 1 < rooms.size()) {
+                pair.add(rooms.get(i + 1));
+            }
+            roomPairs.add(pair);
+        }
+    }
+
     private Food getRandomFoodFromRoom(Room room) {
-        Random random = new Random();
-        int randomIndex = random.nextInt(room.getFoods().size());
-        Food food = room.getFoods().get(randomIndex);
-        room.getFoods().remove(randomIndex);
-        return food;
+        synchronized (lockFood) {
+            Random random = new Random();
+            int randomIndex = random.nextInt(room.getFoods().size());
+            Food food = room.getFoods().get(randomIndex);
+            room.getFoods().remove(randomIndex);
+            return food;
+        }
     }
 }
