@@ -1,0 +1,54 @@
+> Task :Main.main()
+14:57:35.549 [pool-1-thread-23] INFO  - Participant id: 23 trying connect to conference id: 1
+14:57:35.549 [pool-1-thread-18] INFO  - Participant id: 18 trying connect to conference id: 1
+14:57:35.549 [pool-1-thread-24] INFO  - Participant id: 24 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-12] INFO  - Participant id: 12 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-13] INFO  - Participant id: 13 trying connect to conference id: 1
+14:57:35.551 [pool-1-thread-18] INFO  - Participant id: 18 waiting to start conference
+14:57:35.551 [pool-1-thread-23] INFO  - Participant id: 23 waiting to start conference
+14:57:35.551 [pool-1-thread-24] INFO  - Participant id: 24 waiting to start conference
+14:57:35.548 [pool-1-thread-3] INFO  - Participant id: 3 trying connect to conference id: 1
+14:57:35.551 [pool-1-thread-3] INFO  - Participant id: 3 waiting to start conference
+14:57:35.551 [pool-1-thread-12] INFO  - Participant id: 12 waiting to start conference
+14:57:35.549 [pool-1-thread-17] INFO  - Participant id: 17 trying connect to conference id: 1
+14:57:35.551 [pool-1-thread-13] INFO  - Participant id: 13 waiting to start conference
+14:57:35.549 [pool-1-thread-20] INFO  - Participant id: 20 trying connect to conference id: 1
+14:57:35.549 [pool-1-thread-21] INFO  - Participant id: 21 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-8] INFO  - Participant id: 8 trying connect to conference id: 1
+14:57:35.551 [pool-1-thread-20] INFO  - Participant id: 20 waiting to start conference
+14:57:35.551 [pool-1-thread-21] INFO  - Participant id: 21 waiting to start conference
+14:57:35.551 [pool-1-thread-8] INFO  - Participant id: 8 waiting to start conference
+14:57:35.551 [pool-1-thread-17] INFO  - Participant id: 17 waiting to start conference
+14:57:35.548 [pool-1-thread-16] INFO  - Participant id: 16 trying connect to conference id: 1
+14:57:35.549 [pool-1-thread-22] INFO  - Participant id: 22 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-9] INFO  - Participant id: 9 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-15] INFO  - Participant id: 15 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-22] INFO  - Participant id: 22 waiting to start conference
+14:57:35.548 [pool-1-thread-7] INFO  - Participant id: 7 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-9] INFO  - Participant id: 9 waiting to start conference
+14:57:35.548 [pool-1-thread-14] INFO  - Participant id: 14 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-15] INFO  - Participant id: 15 waiting to start conference
+14:57:35.548 [pool-1-thread-6] INFO  - Participant id: 6 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-14] INFO  - Participant id: 14 waiting to start conference
+14:57:35.549 [pool-1-thread-19] INFO  - Participant id: 19 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-6] INFO  - Participant id: 6 waiting to start conference
+14:57:35.548 [pool-1-thread-5] INFO  - Participant id: 5 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-19] INFO  - Participant id: 19 waiting to start conference
+14:57:35.548 [pool-1-thread-11] INFO  - Participant id: 11 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-4] INFO  - Participant id: 4 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-11] INFO  - Participant id: 11 waiting to start conference
+14:57:35.551 [pool-1-thread-21] INFO  - Conference id: 1 starting
+14:57:35.552 [pool-1-thread-5] INFO  - Participant id: 5 waiting to start conference
+14:57:35.552 [pool-1-thread-4] INFO  - Participant id: 4 waiting to start conference
+14:57:35.548 [pool-1-thread-1] INFO  - Participant id: 1 trying connect to conference id: 1
+14:57:35.548 [pool-1-thread-10] INFO  - Participant id: 10 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-1] INFO  - Participant id: 1 waiting to start conference
+14:57:35.548 [pool-1-thread-2] INFO  - Participant id: 2 trying connect to conference id: 1
+14:57:35.552 [pool-1-thread-16] INFO  - Participant id: 16 waiting to start conference
+14:57:35.552 [pool-1-thread-2] INFO  - Participant id: 2 waiting to start conference
+14:57:35.552 [pool-1-thread-7] INFO  - Participant id: 7 waiting to start conference
+14:57:35.552 [pool-1-thread-10] INFO  - Participant id: 10 waiting to start conference
+14:57:35.552 [pool-1-thread-2] INFO  - Conference id: 1 starting
+14:57:35.552 [pool-1-thread-10] INFO  - Conference id: 1 starting
+
+BUILD SUCCESSFUL in 631ms
