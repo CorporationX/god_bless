@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 public class GriffinsFoodDelivery {
@@ -11,12 +12,12 @@ public class GriffinsFoodDelivery {
 
     public static void main(String[] args) {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
+        int randomNumber = ThreadLocalRandom.current().nextInt(1, 50);
+
         for (int i = 0; i < characterNames.length; i++) {
             int index = i;
-            int randomNumber = new Random().nextInt(1, 50);
-            executorService.submit(() -> {
-                new FoodDeliveryTask(characterNames[index], randomNumber).run();
-            });
+            FoodDeliveryTask task = new FoodDeliveryTask(characterNames[index], randomNumber);
+            executorService.submit(task);
         }
 
         executorService.shutdown();
