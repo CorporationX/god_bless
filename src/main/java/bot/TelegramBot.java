@@ -18,32 +18,30 @@ public class TelegramBot {
         lastRequestTime = new AtomicLong(System.currentTimeMillis());
     }
 
-    public void sendMessage(@NonNull String message) {
+    public synchronized void sendMessage(@NonNull String message) {
         long deltaTime = System.currentTimeMillis() - lastRequestTime.get();
         if (deltaTime < TIME_LIMIT) {
-            requestCounter.getAndIncrement();
             while (requestCounter.get() >= REQUEST_LIMIT) {
                 if (System.currentTimeMillis() - lastRequestTime.get() >= TIME_LIMIT) {
-                    break;
+                    reset();
                 }
                 try {
-                    synchronized (this) {
-                        wait(TIME_LIMIT - deltaTime);
-                    }
+                    wait(TIME_LIMIT - deltaTime);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                     throw new RuntimeException(e);
                 }
             }
-        } else {
-            lastRequestTime.set(System.currentTimeMillis());
-            requestCounter.set(0);
-            synchronized (this) {
-                notifyAll();
-                log.info("----");
-            }
         }
         sendMessageWithAPI(message);
+        requestCounter.getAndIncrement();
+    }
+
+    private synchronized void reset() {
+        lastRequestTime.set(System.currentTimeMillis());
+        requestCounter.set(0);
+        log.info("----");
+        this.notifyAll();
     }
 
     private void sendMessageWithAPI(@NonNull String message) {
