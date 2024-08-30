@@ -13,10 +13,10 @@ public class SquareSumCalculator {
     ResultConsumer resultConsumer = new ResultConsumer(0L);
 
     public void launch(int numTotal) {
-        for (int i = 1; i <= numTotal; i++) {
-            squareRequests.add(new SquareRequest((long) i));
+        for (long i = 1; i <= numTotal; i++) {
+            squareRequests.add(new SquareRequest(i));
         }
-        System.out.println(this.fanOutFanIn(squareRequests, resultConsumer));
+        System.out.println(fanOutFanIn(squareRequests, resultConsumer));
     }
 
     private Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
