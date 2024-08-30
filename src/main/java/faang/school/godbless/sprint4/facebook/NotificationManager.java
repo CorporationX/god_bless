@@ -9,10 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class NotificationManager {
-    private final ExecutorService executor = Executors.newFixedThreadPool(10);
-    private int ID_SEQUENCE = 0;
     @Getter
     private final List<Notification> notifications = new ArrayList<>();
+    private final ExecutorService executor = Executors.newFixedThreadPool(10);
+    private int idSequence = 0;
 
     private void addNotification(Notification notification) {
         notifications.add(notification);
@@ -27,8 +27,8 @@ public class NotificationManager {
             }
 
             synchronized(notifications) {
-                Notification notification = new Notification(ID_SEQUENCE, String.format("Some message (%d)", ID_SEQUENCE));
-                ID_SEQUENCE++;
+                Notification notification = new Notification(idSequence, String.format("Some message (%d)", idSequence));
+                idSequence++;
                 addNotification(notification);
             }
         }, executor);
