@@ -10,19 +10,19 @@ import java.util.concurrent.atomic.AtomicLong;
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 10;
     private static final long TIME_LIMIT = 1000;
-    private AtomicInteger requestCounter;
-    private AtomicLong lastRequestTime;
+    private int requestCounter;
+    private long lastRequestTime;
 
     public TelegramBot() {
-        requestCounter = new AtomicInteger(0);
-        lastRequestTime = new AtomicLong(System.currentTimeMillis());
+        requestCounter = 0;
+        lastRequestTime = System.currentTimeMillis();
     }
 
     public synchronized void sendMessage(@NonNull String message) {
-        long deltaTime = System.currentTimeMillis() - lastRequestTime.get();
+        long deltaTime = System.currentTimeMillis() - lastRequestTime;
         if (deltaTime < TIME_LIMIT) {
-            while (requestCounter.get() >= REQUEST_LIMIT) {
-                if (System.currentTimeMillis() - lastRequestTime.get() >= TIME_LIMIT) {
+            while (requestCounter >= REQUEST_LIMIT) {
+                if (System.currentTimeMillis() - lastRequestTime >= TIME_LIMIT) {
                     reset();
                     break;
                 }
@@ -37,12 +37,12 @@ public class TelegramBot {
             reset();
         }
         sendMessageWithAPI(message);
-        requestCounter.getAndIncrement();
+        requestCounter++;
     }
 
     private synchronized void reset() {
-        lastRequestTime.set(System.currentTimeMillis());
-        requestCounter.set(0);
+        lastRequestTime = System.currentTimeMillis();
+        requestCounter = 0;
         log.info("----");
         this.notifyAll();
     }
