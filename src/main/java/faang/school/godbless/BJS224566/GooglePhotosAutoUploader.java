@@ -19,12 +19,10 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
-        synchronized (lock) {
-            String photo = photosToUpload.poll();
-            if (photo != null) {
-                System.out.println("Uploading photo: " + photo);
-            }
+    private void uploadPhotos() {
+        String photo = photosToUpload.poll();
+        if (photo != null) {
+            System.out.println("Uploading photo: " + photo);
         }
     }
 
