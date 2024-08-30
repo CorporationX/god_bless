@@ -39,8 +39,8 @@ public class Main {
         CompletableFuture<Void> completableFutureAllOf = CompletableFuture
                 .allOf(completableFutures.toArray(new CompletableFuture<?>[0]));
 
-        executorService.shutdown();
         completableFutureAllOf.join();
+        executorService.shutdown();
 
         return resultConsumer.getSumOfSquaredNumbers().get();
     }
