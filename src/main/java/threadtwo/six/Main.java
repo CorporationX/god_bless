@@ -39,8 +39,8 @@ public class Main {
                     Thread.currentThread().interrupt();
                     System.out.println("Interrupted");
                 }
-                System.out.println(users.get(userId).getName() + " снялся с роли в доме " + house.getName());
                 users.get(userId).removeRole(house);
+                System.out.println(users.get(userId).getName() + " снялся с роли в доме " + house.getName());
             });
         }
         executor.shutdown();

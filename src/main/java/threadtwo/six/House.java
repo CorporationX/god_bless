@@ -12,8 +12,8 @@ import java.util.Map;
 @AllArgsConstructor
 public class House {
 
-    private String name;
-    private Map<String, Integer> rolesMap;
+    private final String name;
+    private final Map<String, Integer> rolesMap;
 
     public synchronized void assignRole(String role) {
         if (rolesMap.containsKey(role) && rolesMap.get(role) > 0) {

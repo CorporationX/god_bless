@@ -13,6 +13,7 @@ public class User {
     private String name;
     private String houseName;
     private String houseRole;
+    private Random random = new Random();
 
     public User(String name) {
         this.name = name;
@@ -42,15 +43,15 @@ public class User {
     public void addRole(House house) {
         synchronized (house) {
             List<String> freeRoleList = house.getListFreeRole();
-            houseRole = freeRoleList.get(new Random().nextInt(freeRoleList.size()));
+            houseRole = freeRoleList.get(random.nextInt(freeRoleList.size()));
         }
     }
 
     public void removeRole(House house) {
         synchronized (house) {
             house.releaseRole(houseRole);
-            houseName = "no house";
-            houseRole = "no role";
+            houseName = null;
+            houseRole = null;
             house.notifyAll();
         }
     }
