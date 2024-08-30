@@ -34,8 +34,7 @@ public class Player {
             if (isPlaying) {
                 System.out.println("Включился следующий трек");
             } else {
-                isPlaying = true;
-                System.out.println("Включился следующий трек");
+                System.out.println("Переключились на следующий трек, трек на паузе");
             }
         }
     }
@@ -43,10 +42,9 @@ public class Player {
     public void previous() {
         synchronized (lock) {
             if (isPlaying) {
-                System.out.println("Включился предыдуший лучший трек");
+                System.out.println("Включился предыдущий лучший трек");
             } else {
-                isPlaying = true;
-                System.out.println("Включился предыдуший лучший трек");
+                System.out.println("Переключились на предыдущий трек, трек на паузе");
             }
         }
     }

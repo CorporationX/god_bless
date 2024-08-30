@@ -15,7 +15,7 @@ public class Music {
         threadPool.add(new Thread(player::skip));
         threadPool.add(new Thread(player::previous));
 
-        for (Thread thread : threadPool){
+        for (Thread thread : threadPool) {
             thread.start();
         }
     }
