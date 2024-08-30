@@ -23,6 +23,7 @@ public class Post {
     private final long id = idCounter.incrementAndGet();
     private final Map<Long, Comment> comments = new ConcurrentHashMap<>();
     private final Lock postLock = new ReentrantLock();
+    private boolean isDeleted;
 
     public void addComment(Comment comment) {
         log.info("{} add comment to post with id: {}", comment.getAuthor().getName(), this.id);
@@ -38,5 +39,13 @@ public class Post {
 
     private boolean isAuthor(User user, long commentId) {
         return comments.get(commentId).getAuthor().equals(user);
+    }
+
+    public void markPostAsDelete() {
+        isDeleted = true;
+    }
+
+    public void reinstate() {
+        isDeleted = false;
     }
 }

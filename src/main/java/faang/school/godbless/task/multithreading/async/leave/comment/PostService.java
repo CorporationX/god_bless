@@ -13,38 +13,37 @@ public class PostService {
 
     public void addPost(Post post) {
         log.info("Add new post: {}", post);
+        if(post.isDeleted()) {
+            post.reinstate();
+        }
         posts.put(post.getId(), post);
     }
 
     public void deletePost(User user, long postId) {
-        var post = posts.get(postId);
-        if (post != null && isAuthor(user, postId)) {
-            post.getPostLock().lock();
-            try {
-                posts.remove(postId);
-                log.info("{} deleted post with id: {}", user.getName(), postId);
-            } finally {
-                post.getPostLock().unlock();
+        if (posts.containsKey(postId)) {
+            var post = posts.get(postId);
+            synchronized (post) {
+                if (user.equals(post.getAuthor())) {
+                    post.markPostAsDelete();
+                    log.info("{} deleted post with id: {}", user.getName(), postId);
+                } else {
+                    log.info("{} isn't author of post with id: {}", user.getName(), postId);
+                }
             }
-        } else if (posts.containsKey(postId)) {
-            log.info("{}  not author of post with id: {}", user.getName(), postId);
         } else {
             postDontExist(postId);
         }
     }
 
-    private boolean isAuthor(User user, long postId) {
-        return posts.get(postId).getAuthor().equals(user);
-    }
-
     public void addComment(long postId, Comment comment) {
-        var post = posts.get(postId);
-        if (post != null) {
-            post.getPostLock().lock();
-            try {
-                post.addComment(comment);
-            } finally {
-                post.getPostLock().unlock();
+        if (posts.containsKey(postId)) {
+            var post = posts.get(postId);
+            synchronized (post) {
+                if (!post.isDeleted()) {
+                    post.addComment(comment);
+                } else {
+                    postDeleted(postId);
+                }
             }
         } else {
             postDontExist(postId);
@@ -52,13 +51,14 @@ public class PostService {
     }
 
     public void deleteComment(User user, long postId, Comment comment) {
-        var post = posts.get(postId);
-        if (post != null) {
-            post.getPostLock().lock();
-            try {
-                post.deleteComment(user, comment.getId());
-            } finally {
-                post.getPostLock().unlock();
+        if (posts.containsKey(postId)) {
+            var post = posts.get(postId);
+            synchronized (post) {
+                if (!post.isDeleted()) {
+                    post.deleteComment(user, comment.getId());
+                } else {
+                    postDeleted(postId);
+                }
             }
         } else {
             postDontExist(postId);
@@ -67,5 +67,9 @@ public class PostService {
 
     private void postDontExist(long postId) {
         log.info("Post with id: {} don't exist", postId);
+    }
+
+    private void postDeleted(long postId) {
+        log.info("Post with id {} deleted", postId);
     }
 }

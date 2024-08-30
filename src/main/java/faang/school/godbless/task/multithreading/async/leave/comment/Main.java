@@ -53,10 +53,9 @@ public class Main {
         log.info("Print posts in service:");
         postService.getPosts()
                 .values()
+                .stream()
+                .filter(post -> !post.isDeleted())
                 .forEach(post -> log.info("{}", post));
-        if (postService.getPosts().isEmpty()) {
-            log.info("Posts list is empty");
-        }
     }
 
     private static List<CompletableFuture<Void>> usersAddComments() {
@@ -64,8 +63,7 @@ public class Main {
         postService.addPost(defaullPost);
         return comments
                 .stream()
-                .map(comment -> CompletableFuture.runAsync(() ->
-                        postService.addComment(DEFAULT_POST_ID, comment)))
+                .map(comment -> CompletableFuture.runAsync(() -> postService.addComment(DEFAULT_POST_ID, comment)))
                 .toList();
     }
 
@@ -83,8 +81,5 @@ public class Main {
         defaullPost.getComments()
                 .values()
                 .forEach(comment -> log.info("{}", comment));
-        if (defaullPost.getComments().isEmpty()) {
-            log.info("Comments list is empty");
-        }
     }
 }
