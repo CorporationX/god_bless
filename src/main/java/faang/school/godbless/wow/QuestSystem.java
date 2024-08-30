@@ -8,7 +8,7 @@ import java.util.concurrent.Executors;
 
 public class QuestSystem {
     public CompletableFuture<Player> startQuest(@NonNull Player player, @NonNull Quest quest) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newCachedThreadPool();
         CompletableFuture<Player> playerAfterQuest = CompletableFuture.supplyAsync(() -> {
             if (player.getLevel() > quest.difficulty()) {
                 try {
