@@ -9,13 +9,12 @@ public class Player {
     private String name;
 
     public void startBattle(Boss boss) throws InterruptedException {
-        Object lock = boss.getLock();
-        synchronized (lock) {
-            System.out.println(lock);
+        synchronized (this) {
+            System.out.println(this);
             boss.joinBattle(this);
             Thread.sleep((long) (Math.random() * 10));
-            boss.getCurrentPlayers().remove(this);
-            lock.notify();
+            boss.removePlayer(this);
+            this.notify();
         }
     }
 }
