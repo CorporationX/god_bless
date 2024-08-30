@@ -11,30 +11,25 @@ public class House {
     private List<Room> roomList = new ArrayList<>();
     private List<Food> collectedFood = new ArrayList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         House house = new House();
         house.initialize();
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < 5; i++) {
-            service.scheduleAtFixedRate(() -> {
+            service.schedule(() -> {
                 System.out.println(Thread.currentThread().getName());
                 house.collectFood();
-            }, 0, 30, TimeUnit.SECONDS);
+            },5, TimeUnit.SECONDS);
         }
 
-        while (house.roomList.stream().flatMap(r -> r.getFoodList().stream()).toList().size() > 0) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        }
         service.shutdown();
+        while(!service.awaitTermination(10, TimeUnit.SECONDS)){}
 
         System.out.println(house.roomList);
         System.out.println(house.collectedFood);
+        System.out.println("Done");
     }
 
     public void initialize() {
@@ -55,9 +50,13 @@ public class House {
     public void collectFood() {
         roomList.stream()
                 .forEach(u -> {
-                    u.getFoodList().stream()
-                            .forEach(f -> collectedFood.add(f));
-                    u.getFoodList().remove(0);
+                    collectedFood.addAll(u.getFoodList());
+                    u.getFoodList().clear();
                 });
     }
 }
+//{
+//        u.getFoodList().stream()
+//                            .forEach(f -> collectedFood.add(f));
+//        u.getFoodList().remove(0);
+//                }
