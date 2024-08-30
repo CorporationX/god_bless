@@ -48,9 +48,7 @@ public class AppMiceAreVeryNice {
     static void poolExcecutors(ScheduledExecutorService scheduledThreadPool, List<Missia> listMissions) throws InterruptedException {
 
         System.out.println("\nCurrent Time = " + new Date());
-        for (int i = 0; i < listMissions.size(); i++) {
-            Thread.sleep(20000);
-            Missia worker = listMissions.get(i);
+        for (Missia worker : listMissions) {
             scheduledThreadPool.schedule(worker, 5, TimeUnit.SECONDS);
         }
         scheduledThreadPool.shutdown();
