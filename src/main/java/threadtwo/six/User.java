@@ -13,12 +13,12 @@ public class User {
     private String name;
     private String houseName;
     private String houseRole;
-    private Random random = new Random();
+    private final Random random = new Random();
 
     public User(String name) {
         this.name = name;
-        this.houseName = " ";
-        this.houseRole = " ";
+        this.houseName = null;
+        this.houseRole = null;
     }
 
     public void joinHouse(House house) {
