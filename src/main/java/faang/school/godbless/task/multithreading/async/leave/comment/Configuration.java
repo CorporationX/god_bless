@@ -24,14 +24,14 @@ public class Configuration {
     private List<Post> createPosts() {
         return users
                 .stream()
-                .map(user -> new Post(user, "Header", "Content"))
+                .map(user -> new Post(user.getId(), user, "Header", "Content"))
                 .toList();
     }
 
     private List<Comment> createComments() {
         return users
                 .stream()
-                .map(user -> new Comment(user, "Content"))
+                .map(user -> new Comment(user.getId(), user, "Content"))
                 .toList();
     }
 

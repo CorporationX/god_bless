@@ -11,9 +11,8 @@ import java.util.concurrent.atomic.AtomicLong;
 @ToString
 @RequiredArgsConstructor
 public class Comment {
+    private final long id;
     private final User author;
     private final String content;
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final long id = idCounter.incrementAndGet();
     private final LocalDateTime createdAt = LocalDateTime.now();
 }

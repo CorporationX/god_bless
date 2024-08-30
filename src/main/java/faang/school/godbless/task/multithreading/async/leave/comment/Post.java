@@ -16,11 +16,10 @@ import java.util.concurrent.locks.ReentrantLock;
 @ToString
 @RequiredArgsConstructor
 public class Post {
+    private final long id;
     private final User author;
     private final String header;
     private final String content;
-    private static final AtomicLong idCounter = new AtomicLong();
-    private final long id = idCounter.incrementAndGet();
     private final Map<Long, Comment> comments = new ConcurrentHashMap<>();
     private final Lock postLock = new ReentrantLock();
     private boolean isDeleted;
