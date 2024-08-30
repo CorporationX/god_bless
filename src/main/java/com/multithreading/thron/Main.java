@@ -35,13 +35,10 @@ public class Main {
         }
         service.shutdown();
         try {
-            if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
-                service.shutdownNow();
-            } else {
-                service.shutdownNow();
-            }
+            service.awaitTermination(10, TimeUnit.SECONDS);
+            service.shutdownNow();
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+            e.printStackTrace();
         }
     }
 
