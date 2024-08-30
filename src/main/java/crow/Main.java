@@ -13,31 +13,30 @@ public class Main {
     public static void main(String[] args) {
         var kingdoms = initKingdoms();
         List<CompletableFuture<Boolean>> futures = new ArrayList<>();
-        for (Kingdom kingdomFrom : kingdoms) {
-            for (Kingdom kingdomTo : kingdoms) {
-                if (!kingdomFrom.equals(kingdomTo)) {
-                    futures.add(sendRaven(kingdomFrom, kingdomTo)
-                            .handle((result, ex) -> {
-                                if (ex != null) {
-                                    log.error(ex.getMessage());
-                                    return false;
-                                } else {
-                                    log.info(String.format(
-                                            "Crow successfully delivered message from %s to %s",
-                                            kingdomFrom.getName(), kingdomTo.getName()));
-                                    return true;
-                                }
-                            }));
-                }
+        for (int i = 0; i < kingdoms.size() - 1; i++) {
+            for (int j = i + 1; j < kingdoms.size(); j++) {
+                futures.add(sendRaven(kingdoms.get(i), kingdoms.get(j)));
+                futures.add(sendRaven(kingdoms.get(j), kingdoms.get(i)));
             }
         }
         futures.forEach(CompletableFuture::join);
     }
 
-    private static CompletableFuture<Void> sendRaven(
-            @NonNull Kingdom kingdomFrom, @NonNull Kingdom kingdomTo
-    ) throws CrowFailedException {
-        return CompletableFuture.runAsync(() -> kingdomFrom.sendMessage(kingdomTo));
+    private static CompletableFuture<Boolean> sendRaven(@NonNull Kingdom kingdomFrom, @NonNull Kingdom kingdomTo) {
+        return CompletableFuture.runAsync(() -> kingdomFrom.sendMessage(kingdomTo))
+                .handle((result, ex) -> handleError(ex, kingdomFrom, kingdomTo));
+    }
+
+    private static boolean handleError(Throwable ex, @NonNull Kingdom kingdomFrom, @NonNull Kingdom kingdomTo) {
+        if (ex != null) {
+            log.error(ex.getMessage());
+            return false;
+        } else {
+            log.info(String.format(
+                    "Crow successfully delivered message from %s to %s",
+                    kingdomFrom.getName(), kingdomTo.getName()));
+            return true;
+        }
     }
 
     private static List<Kingdom> initKingdoms() {
