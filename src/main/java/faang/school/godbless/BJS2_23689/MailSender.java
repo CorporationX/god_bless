@@ -8,13 +8,9 @@ public class MailSender {
         for (int i = 0; i < arrayThread.length; i++) {
             int startIndex = i * 200;
             int endIndex = startIndex + 200;
-            arrayThread[i] = new Thread(
-                    () -> {
-                        System.out.println("Запуск потока для индексов: " + startIndex + " - " + endIndex);
-                        new SenderRunnable(startIndex, endIndex).run();
-                        System.out.println("Завершение потока для индексов: " + startIndex + " - " + endIndex);
-                    }
-            );
+
+            SenderRunnable runnable = new SenderRunnable(startIndex, endIndex);
+            arrayThread[i] = new Thread(runnable);
             arrayThread[i].start();
         }
 
