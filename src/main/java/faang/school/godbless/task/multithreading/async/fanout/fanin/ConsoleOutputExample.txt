@@ -1,0 +1,4 @@
+> Task :Main.main()
+14:30:48.886 [main] INFO  - Result: 333833500
+
+BUILD SUCCESSFUL in 4s
