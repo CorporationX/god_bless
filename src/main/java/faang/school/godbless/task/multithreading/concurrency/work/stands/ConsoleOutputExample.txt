@@ -1,0 +1,35 @@
+> Task :Main.main()
+18:49:39.545 [main] INFO  - Writing new file: Marketing file 1 into Marketing resources
+18:49:41.551 [main] INFO  - Writing into Marketing resources done
+18:49:41.553 [main] INFO  - Writing new file: Design file 1 into Design resources
+18:49:43.557 [main] INFO  - Writing into Design resources done
+18:49:43.558 [main] INFO  - Writing new file: Marketing file 2 into Marketing resources
+18:49:45.563 [main] INFO  - Writing into Marketing resources done
+18:49:45.563 [main] INFO  - Writing new file: Design file 2 into Design resources
+18:49:47.568 [main] INFO  - Writing into Design resources done
+18:49:47.569 [main] INFO  - Writing new file: Marketing file 3 into Marketing resources
+18:49:49.573 [main] INFO  - Writing into Marketing resources done
+18:49:49.574 [main] INFO  - Writing new file: Design file 3 into Design resources
+18:49:51.579 [main] INFO  - Writing into Design resources done
+18:49:51.585 [Thread-0] INFO  - Reading Marketing resources files:
+18:49:51.585 [Thread-1] INFO  - Writing new file: New marketing file into Marketing resources
+18:49:53.589 [Thread-1] INFO  - Writing into Marketing resources done
+18:49:53.591 [Thread-0] INFO  -
+Marketing resources files:
+Marketing file 1
+Marketing file 2
+Marketing file 3
+New marketing file
+
+18:49:55.595 [Thread-1] INFO  - Reading Design resources files:
+18:49:55.596 [Thread-0] INFO  - Writing new file: New design file into Design resources
+18:49:57.601 [Thread-0] INFO  - Writing into Design resources done
+18:49:57.602 [Thread-1] INFO  -
+Design resources files:
+Design file 1
+Design file 2
+Design file 3
+New design file
+
+
+BUILD SUCCESSFUL in 18s
