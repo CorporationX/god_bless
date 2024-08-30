@@ -24,6 +24,7 @@ public class TelegramBot {
             while (requestCounter.get() >= REQUEST_LIMIT) {
                 if (System.currentTimeMillis() - lastRequestTime.get() >= TIME_LIMIT) {
                     reset();
+                    break;
                 }
                 try {
                     wait(TIME_LIMIT - deltaTime);
@@ -32,6 +33,8 @@ public class TelegramBot {
                     throw new RuntimeException(e);
                 }
             }
+        } else {
+            reset();
         }
         sendMessageWithAPI(message);
         requestCounter.getAndIncrement();
