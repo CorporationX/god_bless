@@ -9,12 +9,12 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class Inventory {
     private final List<Item> items;
-    private final int INVENTORY_SIZE = 6;
-    private final int ITEM_GETTING_TIME = 3;
+    private final static int MAX_INVENTORY_SIZE = 6;
+    private final static int ITEM_GETTING_TIME = 3;
 
 
     public void addItem(Item item) {
-        if (items.size() == INVENTORY_SIZE) {
+        if (items.size() == MAX_INVENTORY_SIZE) {
             System.out.println("Inventory is full");
         } else {
             items.add(item);
