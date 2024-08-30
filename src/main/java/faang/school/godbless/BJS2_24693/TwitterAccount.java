@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @AllArgsConstructor
 public class TwitterAccount {
     @Getter
-    public final String name;
+    private final String name;
     private final AtomicInteger followers = new AtomicInteger(0);
 
     public void incrementFollowers() {
