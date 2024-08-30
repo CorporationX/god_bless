@@ -1,5 +1,6 @@
 package faang.school.godbless.task.multithreading.telegram.bot;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.Executors;
@@ -7,6 +8,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
+@Getter
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
     private static final int TIME_LIMIT = 1000;
@@ -68,9 +70,5 @@ public class TelegramBot {
 
     private long getTimeRange() {
         return System.currentTimeMillis() - lastRequestTime;
-    }
-
-    public void schedulerShutdown() {
-        scheduler.shutdown();
     }
 }

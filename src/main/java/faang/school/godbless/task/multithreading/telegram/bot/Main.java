@@ -19,7 +19,7 @@ public class Main {
         messages.forEach(msg -> log.info(bot.sendMessage(msg)));
         long end = System.currentTimeMillis();
         System.out.println("Time of sending: " + (end - start));
-        bot.schedulerShutdown();
+        bot.getScheduler().shutdown();
     }
     private static List<String> getMessages() {
         return IntStream
