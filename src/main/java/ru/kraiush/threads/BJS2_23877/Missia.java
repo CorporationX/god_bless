@@ -8,6 +8,7 @@ import lombok.ToString;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -32,16 +33,17 @@ public class Missia implements Runnable {
 
     private void tekeTheFood() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
             listfoods.stream()
                     .map(e -> {
                         try {
-                            Thread.sleep(100 * e.getAmount());
+//                            System.out.println("room: " + roomName +" food:  " + e.getName() + " amout:  " + e.getAmount() + " sleep time; " +500 * e.getAmount());;
+                            Thread.sleep(1000 * e.getAmount());
                         } catch (InterruptedException ex) {
                             return Optional.empty();
                         }
                         return e;
-                    });
+                    }).collect(Collectors.toList());
             listfoods = null;
         } catch (InterruptedException e) {
             e.printStackTrace();
