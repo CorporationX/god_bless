@@ -17,30 +17,22 @@ public class Inventory {
     private List<Item> items;
 
     public void addItem(ItemStore store) {
-        CompletableFuture<Item> item = CompletableFuture.supplyAsync(this::getItem);
-        CompletableFuture<Item> newItem = CompletableFuture.supplyAsync(store::removeItem);
-        CompletableFuture<Item> combineItem = item.thenCombineAsync(newItem, store::combineItems);
+        CompletableFuture<Item> item = CompletableFuture.supplyAsync(this::getItem, executor);
+        CompletableFuture<Item> newItem = CompletableFuture.supplyAsync(store::removeItem, executor);
+        CompletableFuture<Item> combineItem = item.thenCombineAsync(newItem, store::combineItems, executor);
 
-        combineItem.thenComposeAsync(result -> CompletableFuture.runAsync(
-                () -> addItem(result, item)
-        )).join();
-    }
-
-    private void addItem(Item combineItem, CompletableFuture<Item> oldItemFuture) {
-        try {
-            Item oldItem = oldItemFuture.get();
-            if (!combineItem.equals(oldItem)) {
+        item.thenCombine(combineItem, (combine, old) -> {
+            if (!combine.equals(old)) {
                 synchronized (lockItems) {
-                    items.remove(oldItem);
-                    items.add(combineItem);
+                    items.remove(old);
+                    items.add(combine);
                 }
                 System.out.println("Новый элемент получен!");
             } else {
                 System.out.println("Новый элемент НЕ получен!");
             }
-        } catch (Exception e) {
-            Thread.currentThread().interrupt();
-        }
+            return combine;
+        }).join();
     }
 
     private Item getItem() {
