@@ -11,18 +11,18 @@ import java.util.concurrent.TimeUnit;
 public class VideoManager {
     private static final int NUM_THREADS = 100;
     private static final int NUM_VIDEOS = 10;
-    private static Map<String, Video> videos = new HashMap<>();
-    private static final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
+    private static final Map<String, Video> VIDEOS = new HashMap<>();
+    private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(NUM_THREADS);
 
     public static void main(String[] args) {
 
         for (int i = 0; i < NUM_VIDEOS; i++) {
             String videoId = String.valueOf(i);
-            videos.put(videoId, new Video(videoId, 0));
+            VIDEOS.put(videoId, new Video(videoId, 0));
             System.out.println("Video created with ID: " + videoId);
 
             for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
-                executor.execute(() -> {
+                EXECUTOR.execute(() -> {
                     System.out.println("Thread " + Thread.currentThread().getId() +
                             " started for video index: " + videoId);
                     addView(videoId);
@@ -32,9 +32,9 @@ public class VideoManager {
                 });
             }
         }
-        executor.shutdown();
+        EXECUTOR.shutdown();
         try {
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (EXECUTOR.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("All videos have been edited");
             }
         } catch (InterruptedException e) {
@@ -44,7 +44,7 @@ public class VideoManager {
     }
 
     public static synchronized void addView(@NonNull String videoId) {
-        Video video = videos.get(videoId);
+        Video video = VIDEOS.get(videoId);
         if (video == null) {
             throw new IllegalArgumentException("Video not found: " + videoId);
         }
@@ -53,8 +53,8 @@ public class VideoManager {
     }
 
     public static synchronized int getViewCount(@NonNull String videoId) {
-        if (videos.containsKey(videoId)) {
-            return videos.get(videoId).getView();
+        if (VIDEOS.containsKey(videoId)) {
+            return VIDEOS.get(videoId).getView();
         } else {
             throw new IllegalArgumentException("Video ID " + videoId + " does not exist");
         }
