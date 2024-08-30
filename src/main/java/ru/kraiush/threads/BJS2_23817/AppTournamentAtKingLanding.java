@@ -37,9 +37,17 @@ public class AppTournamentAtKingLanding {
     static void startTrials(ExecutorService executor, List<Trial> listTrials) {
         System.out.print(String.join("", Collections.nCopies(100, "-")));
         System.out.println("\n    <---  The battle has begun   --->");
-        for (int i = 0; i < listTrials.size(); i++) {
-            Runnable worker = listTrials.get(i);
+        for (Runnable worker : listTrials) {
             executor.submit(worker);
+//            executor.submit(() -> {
+//                System.out.println("Task " + worker + " started by " + Thread.currentThread().getName());
+//                try {
+//                    Thread.sleep(1000); // Simulate a short task
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println("Task " + worker + " completed by " + Thread.currentThread().getName());
+//            });
         }
         executor.shutdown();
         while (!executor.isTerminated()) {
