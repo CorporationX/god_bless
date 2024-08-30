@@ -1,0 +1,336 @@
+15:20:50: Executing ':Main.main()'...
+
+> Task :compileJava
+> Task :processResources UP-TO-DATE
+> Task :classes
+
+> Task :Main.main()
+15:20:50.887 [main] INFO  - Запущено 57 потоков, для 57 пользователей:
+15:20:50.895 [pool-1-thread-5] INFO  - User 5. online
+15:20:50.895 [pool-1-thread-1] INFO  - User 1. online
+15:20:50.895 [pool-1-thread-3] INFO  - User 3. online
+15:20:50.895 [pool-1-thread-1] INFO  - User 1. хочет начать чат
+15:20:50.895 [pool-1-thread-6] INFO  - User 6. online
+15:20:50.895 [pool-1-thread-5] INFO  - User 5. хочет начать чат
+15:20:50.895 [pool-1-thread-1] INFO  - User 1. начал поиск пользователя для чата
+15:20:50.895 [pool-1-thread-3] INFO  - User 3. хочет начать чат
+15:20:50.896 [pool-1-thread-9] INFO  - User 9. online
+15:20:50.896 [pool-1-thread-12] INFO  - User 12. online
+15:20:50.896 [pool-1-thread-12] INFO  - User 12. хочет начать чат
+15:20:50.896 [pool-1-thread-1] INFO  - User 1. создает новый чат с User 3.
+15:20:50.896 [pool-1-thread-16] INFO  - User 16. online
+15:20:50.897 [pool-1-thread-18] INFO  - User 18. online
+15:20:50.897 [pool-1-thread-1] INFO  - User 1. нашел и больше не ищет чат
+15:20:50.897 [pool-1-thread-1] INFO  - У User 1. новый чат с User 3.
+15:20:50.897 [pool-1-thread-18] INFO  - User 18. хочет начать чат
+15:20:50.897 [pool-1-thread-1] INFO  - User 3. нашел и больше не ищет чат
+15:20:50.897 [pool-1-thread-1] INFO  - У User 3. новый чат с User 1.
+15:20:50.897 [pool-1-thread-18] INFO  - User 18. начал поиск пользователя для чата
+15:20:50.897 [pool-1-thread-23] INFO  - User 23. online
+15:20:50.897 [pool-1-thread-22] INFO  - User 22. online
+15:20:50.897 [pool-1-thread-18] INFO  - User 18. создает новый чат с User 5.
+15:20:50.897 [pool-1-thread-22] INFO  - User 22. хочет начать чат
+15:20:50.897 [pool-1-thread-25] INFO  - User 25. online
+15:20:50.897 [pool-1-thread-18] INFO  - User 18. нашел и больше не ищет чат
+15:20:50.897 [pool-1-thread-24] INFO  - User 24. online
+15:20:50.897 [pool-1-thread-26] INFO  - User 26. online
+15:20:50.897 [pool-1-thread-18] INFO  - У User 18. новый чат с User 5.
+15:20:50.897 [pool-1-thread-27] INFO  - User 27. online
+15:20:50.897 [pool-1-thread-26] INFO  - User 26. хочет начать чат
+15:20:50.897 [pool-1-thread-24] INFO  - User 24. хочет начать чат
+15:20:50.897 [pool-1-thread-28] INFO  - User 28. online
+15:20:50.897 [pool-1-thread-18] INFO  - User 5. нашел и больше не ищет чат
+15:20:50.897 [pool-1-thread-29] INFO  - User 29. online
+15:20:50.897 [pool-1-thread-28] INFO  - User 28. хочет начать чат
+15:20:50.897 [pool-1-thread-30] INFO  - User 30. online
+15:20:50.897 [pool-1-thread-18] INFO  - У User 5. новый чат с User 18.
+15:20:50.898 [pool-1-thread-28] INFO  - User 28. начал поиск пользователя для чата
+15:20:50.898 [pool-1-thread-31] INFO  - User 31. online
+15:20:50.898 [pool-1-thread-28] INFO  - User 28. создает новый чат с User 12.
+15:20:50.898 [pool-1-thread-28] INFO  - User 28. нашел и больше не ищет чат
+15:20:50.898 [pool-1-thread-28] INFO  - У User 28. новый чат с User 12.
+15:20:50.898 [pool-1-thread-28] INFO  - User 12. нашел и больше не ищет чат
+15:20:50.898 [pool-1-thread-31] INFO  - User 31. хочет начать чат
+15:20:50.898 [pool-1-thread-28] INFO  - У User 12. новый чат с User 28.
+15:20:50.898 [pool-1-thread-24] INFO  - User 24. начал поиск пользователя для чата
+15:20:50.898 [pool-1-thread-33] INFO  - User 33. online
+15:20:50.898 [pool-1-thread-24] INFO  - User 24. создает новый чат с User 22.
+15:20:50.898 [pool-1-thread-24] INFO  - User 24. нашел и больше не ищет чат
+15:20:50.898 [pool-1-thread-24] INFO  - У User 24. новый чат с User 22.
+15:20:50.898 [pool-1-thread-24] INFO  - User 22. нашел и больше не ищет чат
+15:20:50.898 [pool-1-thread-34] INFO  - User 34. online
+15:20:50.898 [pool-1-thread-34] INFO  - User 34. хочет начать чат
+15:20:50.898 [pool-1-thread-24] INFO  - У User 22. новый чат с User 24.
+15:20:50.898 [pool-1-thread-36] INFO  - User 36. online
+15:20:50.898 [pool-1-thread-36] INFO  - User 36. хочет начать чат
+15:20:50.898 [pool-1-thread-26] INFO  - User 26. начал поиск пользователя для чата
+15:20:50.898 [pool-1-thread-26] INFO  - User 26. создает новый чат с User 34.
+15:20:50.898 [pool-1-thread-37] INFO  - User 37. online
+15:20:50.898 [pool-1-thread-26] INFO  - User 26. нашел и больше не ищет чат
+15:20:50.898 [pool-1-thread-26] INFO  - У User 26. новый чат с User 34.
+15:20:50.900 [pool-1-thread-39] INFO  - User 39. online
+15:20:50.900 [pool-1-thread-39] INFO  - User 39. хочет начать чат
+15:20:50.900 [pool-1-thread-26] INFO  - User 34. нашел и больше не ищет чат
+15:20:50.900 [pool-1-thread-26] INFO  - У User 34. новый чат с User 26.
+15:20:50.901 [pool-1-thread-22] INFO  - User 22. присоединяется к чату с: User 24.
+15:20:50.901 [pool-1-thread-43] INFO  - User 43. online
+15:20:50.901 [pool-1-thread-44] INFO  - User 44. online
+15:20:50.901 [pool-1-thread-12] INFO  - User 12. присоединяется к чату с: User 28.
+15:20:50.901 [pool-1-thread-47] INFO  - User 47. online
+15:20:50.901 [pool-1-thread-47] INFO  - User 47. хочет начать чат
+15:20:50.901 [pool-1-thread-46] INFO  - User 46. online
+15:20:50.901 [pool-1-thread-49] INFO  - User 49. online
+15:20:50.901 [pool-1-thread-3] INFO  - User 3. присоединяется к чату с: User 1.
+15:20:50.901 [pool-1-thread-5] INFO  - User 5. присоединяется к чату с: User 18.
+15:20:50.901 [pool-1-thread-50] INFO  - User 50. online
+15:20:50.901 [pool-1-thread-47] INFO  - User 47. начал поиск пользователя для чата
+15:20:50.901 [pool-1-thread-50] INFO  - User 50. хочет начать чат
+15:20:50.901 [pool-1-thread-52] INFO  - User 52. online
+15:20:50.901 [pool-1-thread-51] INFO  - User 51. online
+15:20:50.901 [pool-1-thread-52] INFO  - User 52. хочет начать чат
+15:20:50.901 [pool-1-thread-53] INFO  - User 53. online
+15:20:50.901 [pool-1-thread-47] INFO  - User 47. создает новый чат с User 31.
+15:20:50.901 [pool-1-thread-47] INFO  - User 47. нашел и больше не ищет чат
+15:20:50.901 [pool-1-thread-47] INFO  - У User 47. новый чат с User 31.
+15:20:50.901 [pool-1-thread-47] INFO  - User 31. нашел и больше не ищет чат
+15:20:50.901 [pool-1-thread-47] INFO  - У User 31. новый чат с User 47.
+15:20:50.901 [pool-1-thread-55] INFO  - User 55. online
+15:20:50.901 [pool-1-thread-56] INFO  - User 56. online
+15:20:50.901 [pool-1-thread-57] INFO  - User 57. online
+15:20:50.901 [pool-1-thread-55] INFO  - User 55. хочет начать чат
+15:20:50.901 [pool-1-thread-57] INFO  - User 57. хочет начать чат
+15:20:50.902 [pool-1-thread-55] INFO  - User 55. начал поиск пользователя для чата
+15:20:50.902 [pool-1-thread-55] INFO  - User 55. создает новый чат с User 36.
+15:20:50.902 [pool-1-thread-55] INFO  - User 55. нашел и больше не ищет чат
+15:20:50.902 [pool-1-thread-55] INFO  - У User 55. новый чат с User 36.
+15:20:50.902 [pool-1-thread-55] INFO  - User 36. нашел и больше не ищет чат
+15:20:50.902 [pool-1-thread-55] INFO  - У User 36. новый чат с User 55.
+15:20:50.902 [pool-1-thread-39] INFO  - User 39. начал поиск пользователя для чата
+15:20:50.902 [pool-1-thread-39] INFO  - User 39. создает новый чат с User 50.
+15:20:50.902 [pool-1-thread-39] INFO  - User 39. нашел и больше не ищет чат
+15:20:50.902 [pool-1-thread-39] INFO  - У User 39. новый чат с User 50.
+15:20:50.902 [pool-1-thread-39] INFO  - User 50. нашел и больше не ищет чат
+15:20:50.902 [pool-1-thread-39] INFO  - У User 50. новый чат с User 39.
+15:20:50.902 [pool-1-thread-36] INFO  - User 36. присоединяется к чату с: User 55.
+15:20:50.902 [pool-1-thread-34] INFO  - User 34. присоединяется к чату с: User 26.
+15:20:50.902 [pool-1-thread-31] INFO  - User 31. присоединяется к чату с: User 47.
+15:20:50.902 [pool-1-thread-57] INFO  - User 57. начал поиск пользователя для чата
+15:20:50.902 [pool-1-thread-57] INFO  - User 57. создает новый чат с User 52.
+15:20:50.902 [pool-1-thread-57] INFO  - User 57. нашел и больше не ищет чат
+15:20:50.903 [pool-1-thread-57] INFO  - У User 57. новый чат с User 52.
+15:20:50.903 [pool-1-thread-57] INFO  - User 52. нашел и больше не ищет чат
+15:20:50.903 [pool-1-thread-57] INFO  - У User 52. новый чат с User 57.
+15:20:50.903 [pool-1-thread-52] INFO  - User 52. присоединяется к чату с: User 57.
+15:20:50.903 [pool-1-thread-50] INFO  - User 50. присоединяется к чату с: User 39.
+15:20:51.058 [pool-1-thread-27] INFO  - User 27. online
+15:20:51.059 [pool-1-thread-27] INFO  - User 27. хочет начать чат
+15:20:51.059 [pool-1-thread-27] INFO  - User 27. начал поиск пользователя для чата
+15:20:51.059 [pool-1-thread-27] INFO  - User 27. не нашел чат и перешел в режим ожидания
+15:20:51.079 [pool-1-thread-51] INFO  - User 51. online
+15:20:51.080 [pool-1-thread-51] INFO  - User 51. хочет начать чат
+15:20:51.080 [pool-1-thread-51] INFO  - User 51. начал поиск пользователя для чата
+15:20:51.080 [pool-1-thread-51] INFO  - User 51. создает новый чат с User 27.
+15:20:51.080 [pool-1-thread-51] INFO  - User 51. нашел и больше не ищет чат
+15:20:51.080 [pool-1-thread-51] INFO  - У User 51. новый чат с User 27.
+15:20:51.080 [pool-1-thread-51] INFO  - User 27. нашел и больше не ищет чат
+15:20:51.080 [pool-1-thread-51] INFO  - У User 27. новый чат с User 51.
+15:20:51.081 [pool-1-thread-51] INFO  - Оповещение для User 27., для выхода из режима ожидания
+15:20:51.081 [pool-1-thread-27] INFO  - User 27., запущенный таймер для пробуждения потока отключен
+15:20:51.081 [pool-1-thread-27] INFO  - User 27. вышел из режима ожидания для общения с User 51.
+15:20:51.440 [pool-1-thread-5] INFO  - User 5. хочет покинуть чат
+15:20:51.440 [pool-1-thread-5] INFO  - User 5. покидает чат с User 18.
+15:20:51.440 [pool-1-thread-5] INFO  - User 5. online
+15:20:51.509 [pool-1-thread-30] INFO  - User 30. online
+15:20:51.509 [pool-1-thread-30] INFO  - User 30. хочет начать чат
+15:20:51.509 [pool-1-thread-30] INFO  - User 30. начал поиск пользователя для чата
+15:20:51.510 [pool-1-thread-30] INFO  - User 30. не нашел чат и перешел в режим ожидания
+15:20:51.813 [pool-1-thread-16] INFO  - User 16. offline
+15:20:51.813 [pool-1-thread-16] INFO  - User 16. online
+15:20:52.154 [pool-1-thread-52] INFO  - User 52. offline
+15:20:52.155 [pool-1-thread-52] INFO  - User 52. online
+15:20:52.155 [pool-1-thread-52] INFO  - User 52. хочет начать чат
+15:20:52.155 [pool-1-thread-52] INFO  - User 52. начал поиск пользователя для чата
+15:20:52.156 [pool-1-thread-52] INFO  - User 52. создает новый чат с User 30.
+15:20:52.156 [pool-1-thread-52] INFO  - User 52. нашел и больше не ищет чат
+15:20:52.156 [pool-1-thread-52] INFO  - У User 52. новый чат с User 30.
+15:20:52.156 [pool-1-thread-52] INFO  - User 30. нашел и больше не ищет чат
+15:20:52.156 [pool-1-thread-52] INFO  - У User 30. новый чат с User 52.
+15:20:52.156 [pool-1-thread-52] INFO  - Оповещение для User 30., для выхода из режима ожидания
+15:20:52.156 [pool-1-thread-30] INFO  - User 30., запущенный таймер для пробуждения потока отключен
+15:20:52.157 [pool-1-thread-30] INFO  - User 30. вышел из режима ожидания для общения с User 52.
+15:20:52.282 [pool-1-thread-3] INFO  - User 3. offline
+15:20:52.283 [pool-1-thread-3] INFO  - User 3. online
+15:20:52.330 [pool-1-thread-16] INFO  - User 16. online
+15:20:52.331 [pool-1-thread-16] INFO  - User 16. хочет начать чат
+15:20:52.331 [pool-1-thread-16] INFO  - User 16. начал поиск пользователя для чата
+15:20:52.331 [pool-1-thread-16] INFO  - User 16. не нашел чат и перешел в режим ожидания
+15:20:52.544 [pool-1-thread-51] INFO  - User 51. offline
+15:20:52.737 [pool-1-thread-46] INFO  - User 46. online
+15:20:52.738 [pool-1-thread-46] INFO  - User 46. хочет начать чат
+15:20:52.738 [pool-1-thread-46] INFO  - User 46. начал поиск пользователя для чата
+15:20:52.738 [pool-1-thread-46] INFO  - User 46. создает новый чат с User 16.
+15:20:52.738 [pool-1-thread-46] INFO  - User 46. нашел и больше не ищет чат
+15:20:52.738 [pool-1-thread-46] INFO  - У User 46. новый чат с User 16.
+15:20:52.739 [pool-1-thread-46] INFO  - User 16. нашел и больше не ищет чат
+15:20:52.739 [pool-1-thread-46] INFO  - У User 16. новый чат с User 46.
+15:20:52.739 [pool-1-thread-46] INFO  - Оповещение для User 16., для выхода из режима ожидания
+15:20:52.739 [pool-1-thread-16] INFO  - User 16., запущенный таймер для пробуждения потока отключен
+15:20:52.739 [pool-1-thread-16] INFO  - User 16. вышел из режима ожидания для общения с User 46.
+15:20:52.914 [pool-1-thread-6] INFO  - User 6. online
+15:20:52.915 [pool-1-thread-6] INFO  - User 6. хочет начать чат
+15:20:52.915 [pool-1-thread-6] INFO  - User 6. начал поиск пользователя для чата
+15:20:52.915 [pool-1-thread-6] INFO  - User 6. не нашел чат и перешел в режим ожидания
+15:20:53.350 [pool-1-thread-56] INFO  - User 56. offline
+15:20:53.481 [pool-1-thread-18] INFO  - User 18. хочет покинуть чат
+15:20:53.481 [pool-1-thread-18] INFO  - User 18. покидает пустой чат
+15:20:53.481 [pool-1-thread-18] INFO  - User 18. offline
+15:20:53.603 [pool-1-thread-47] INFO  - User 47. хочет покинуть чат
+15:20:53.604 [pool-1-thread-47] INFO  - User 47. покидает чат с User 31.
+15:20:53.604 [pool-1-thread-47] INFO  - User 47. online
+15:20:53.718 [pool-1-thread-22] INFO  - User 22. хочет покинуть чат
+15:20:53.718 [pool-1-thread-22] INFO  - User 22. покидает чат с User 24.
+15:20:53.719 [pool-1-thread-22] INFO  - User 22. offline
+15:20:53.744 [pool-1-thread-5] INFO  - User 5. offline
+15:20:53.787 [pool-1-thread-33] INFO  - User 33. online
+15:20:53.787 [pool-1-thread-33] INFO  - User 33. хочет начать чат
+15:20:53.788 [pool-1-thread-33] INFO  - User 33. начал поиск пользователя для чата
+15:20:53.788 [pool-1-thread-33] INFO  - User 33. создает новый чат с User 6.
+15:20:53.788 [pool-1-thread-33] INFO  - User 33. нашел и больше не ищет чат
+15:20:53.788 [pool-1-thread-33] INFO  - У User 33. новый чат с User 6.
+15:20:53.788 [pool-1-thread-33] INFO  - User 6. нашел и больше не ищет чат
+15:20:53.788 [pool-1-thread-33] INFO  - У User 6. новый чат с User 33.
+15:20:53.788 [pool-1-thread-33] INFO  - Оповещение для User 6., для выхода из режима ожидания
+15:20:53.788 [pool-1-thread-6] INFO  - User 6., запущенный таймер для пробуждения потока отключен
+15:20:53.788 [pool-1-thread-6] INFO  - User 6. вышел из режима ожидания для общения с User 33.
+15:20:54.115 [pool-1-thread-9] INFO  - User 9. online
+15:20:54.116 [pool-1-thread-9] INFO  - User 9. хочет начать чат
+15:20:54.116 [pool-1-thread-9] INFO  - User 9. начал поиск пользователя для чата
+15:20:54.117 [pool-1-thread-9] INFO  - User 9. не нашел чат и перешел в режим ожидания
+15:20:54.126 [pool-1-thread-53] INFO  - User 53. offline
+15:20:54.179 [pool-1-thread-23] INFO  - User 23. offline
+15:20:54.279 [pool-1-thread-3] INFO  - User 3. online
+15:20:54.280 [pool-1-thread-3] INFO  - User 3. хочет начать чат
+15:20:54.280 [pool-1-thread-3] INFO  - User 3. начал поиск пользователя для чата
+15:20:54.281 [pool-1-thread-3] INFO  - User 3. создает новый чат с User 9.
+15:20:54.281 [pool-1-thread-3] INFO  - User 3. нашел и больше не ищет чат
+15:20:54.281 [pool-1-thread-3] INFO  - У User 3. новый чат с User 9.
+15:20:54.281 [pool-1-thread-3] INFO  - User 9. нашел и больше не ищет чат
+15:20:54.281 [pool-1-thread-3] INFO  - У User 9. новый чат с User 3.
+15:20:54.281 [pool-1-thread-3] INFO  - Оповещение для User 9., для выхода из режима ожидания
+15:20:54.281 [pool-1-thread-9] INFO  - User 9., запущенный таймер для пробуждения потока отключен
+15:20:54.281 [pool-1-thread-9] INFO  - User 9. вышел из режима ожидания для общения с User 3.
+15:20:54.442 [pool-1-thread-25] INFO  - User 25. online
+15:20:54.442 [pool-1-thread-25] INFO  - User 25. хочет начать чат
+15:20:54.442 [pool-1-thread-25] INFO  - User 25. начал поиск пользователя для чата
+15:20:54.442 [pool-1-thread-25] INFO  - User 25. не нашел чат и перешел в режим ожидания
+15:20:54.506 [pool-1-thread-27] INFO  - User 27. offline
+15:20:54.682 [pool-1-thread-43] INFO  - User 43. online
+15:20:54.683 [pool-1-thread-43] INFO  - User 43. хочет начать чат
+15:20:54.683 [pool-1-thread-43] INFO  - User 43. начал поиск пользователя для чата
+15:20:54.683 [pool-1-thread-43] INFO  - User 43. создает новый чат с User 25.
+15:20:54.684 [pool-1-thread-43] INFO  - User 43. нашел и больше не ищет чат
+15:20:54.684 [pool-1-thread-43] INFO  - У User 43. новый чат с User 25.
+15:20:54.684 [pool-1-thread-43] INFO  - User 25. нашел и больше не ищет чат
+15:20:54.684 [pool-1-thread-43] INFO  - У User 25. новый чат с User 43.
+15:20:54.684 [pool-1-thread-43] INFO  - Оповещение для User 25., для выхода из режима ожидания
+15:20:54.684 [pool-1-thread-25] INFO  - User 25., запущенный таймер для пробуждения потока отключен
+15:20:54.684 [pool-1-thread-25] INFO  - User 25. вышел из режима ожидания для общения с User 43.
+15:20:54.694 [pool-1-thread-37] INFO  - User 37. offline
+15:20:55.319 [pool-1-thread-44] INFO  - User 44. online
+15:20:55.319 [pool-1-thread-44] INFO  - User 44. хочет начать чат
+15:20:55.319 [pool-1-thread-44] INFO  - User 44. начал поиск пользователя для чата
+15:20:55.320 [pool-1-thread-44] INFO  - User 44. не нашел чат и перешел в режим ожидания
+15:20:55.338 [pool-1-thread-33] INFO  - User 33. хочет покинуть чат
+15:20:55.339 [pool-1-thread-33] INFO  - User 33. покидает чат с User 6.
+15:20:55.339 [pool-1-thread-33] INFO  - User 33. offline
+15:20:55.410 [pool-1-thread-29] INFO  - User 29. offline
+15:20:55.663 [pool-1-thread-49] INFO  - User 49. online
+15:20:55.663 [pool-1-thread-49] INFO  - User 49. хочет начать чат
+15:20:55.663 [pool-1-thread-49] INFO  - User 49. начал поиск пользователя для чата
+15:20:55.664 [pool-1-thread-49] INFO  - User 49. создает новый чат с User 44.
+15:20:55.664 [pool-1-thread-49] INFO  - User 49. нашел и больше не ищет чат
+15:20:55.664 [pool-1-thread-49] INFO  - У User 49. новый чат с User 44.
+15:20:55.664 [pool-1-thread-49] INFO  - User 44. нашел и больше не ищет чат
+15:20:55.664 [pool-1-thread-49] INFO  - У User 44. новый чат с User 49.
+15:20:55.664 [pool-1-thread-49] INFO  - Оповещение для User 44., для выхода из режима ожидания
+15:20:55.664 [pool-1-thread-44] INFO  - User 44., запущенный таймер для пробуждения потока отключен
+15:20:55.664 [pool-1-thread-44] INFO  - User 44. вышел из режима ожидания для общения с User 49.
+15:20:57.183 [pool-1-thread-47] INFO  - User 47. offline
+15:20:57.887 [pool-1-thread-3] INFO  - User 3. offline
+15:20:58.273 [pool-1-thread-16] INFO  - User 16. offline
+15:20:58.868 [pool-1-thread-26] INFO  - User 26. хочет покинуть чат
+15:20:58.869 [pool-1-thread-26] INFO  - User 26. покидает чат с User 34.
+15:20:58.869 [pool-1-thread-26] INFO  - User 26. offline
+15:20:59.221 [pool-1-thread-43] INFO  - User 43. offline
+15:21:00.456 [pool-1-thread-31] INFO  - User 31. offline
+15:21:00.682 [pool-1-thread-34] INFO  - User 34. хочет покинуть чат
+15:21:00.683 [pool-1-thread-34] INFO  - User 34. покидает пустой чат
+15:21:00.683 [pool-1-thread-34] INFO  - User 34. offline
+15:21:01.913 [pool-1-thread-1] INFO  - User 1. offline
+15:21:02.010 [pool-1-thread-57] INFO  - User 57. offline
+15:21:02.010 [pool-1-thread-57] INFO  - User 57. online
+15:21:02.010 [pool-1-thread-57] INFO  - User 57. хочет начать чат
+15:21:02.011 [pool-1-thread-57] INFO  - User 57. начал поиск пользователя для чата
+15:21:02.012 [pool-1-thread-57] INFO  - User 57. не нашел чат и перешел в режим ожидания
+15:21:02.257 [pool-1-thread-49] INFO  - User 49. хочет покинуть чат
+15:21:02.257 [pool-1-thread-49] INFO  - User 49. покидает чат с User 44.
+15:21:02.257 [pool-1-thread-49] INFO  - User 49. offline
+15:21:02.937 [pool-1-thread-55] INFO  - User 55. хочет покинуть чат
+15:21:02.938 [pool-1-thread-55] INFO  - User 55. покидает чат с User 36.
+15:21:02.938 [pool-1-thread-55] INFO  - User 55. offline
+15:21:03.263 [pool-1-thread-12] INFO  - User 12. offline
+15:21:03.455 [pool-1-thread-24] INFO  - User 24. offline
+15:21:03.570 [pool-1-thread-36] INFO  - User 36. offline
+15:21:03.906 [pool-1-thread-28] INFO  - User 28. хочет покинуть чат
+15:21:03.907 [pool-1-thread-28] INFO  - User 28. покидает пустой чат
+15:21:03.907 [pool-1-thread-28] INFO  - User 28. offline
+15:21:03.907 [pool-1-thread-28] INFO  - User 28. online
+15:21:04.185 [pool-1-thread-50] INFO  - User 50. offline
+15:21:04.226 [pool-1-thread-25] INFO  - User 25. хочет покинуть чат
+15:21:04.226 [pool-1-thread-25] INFO  - User 25. покидает пустой чат
+15:21:04.226 [pool-1-thread-25] INFO  - User 25. offline
+15:21:04.513 [pool-1-thread-46] INFO  - User 46. offline
+15:21:04.973 [pool-1-thread-39] INFO  - User 39. хочет покинуть чат
+15:21:04.974 [pool-1-thread-39] INFO  - User 39. покидает пустой чат
+15:21:04.974 [pool-1-thread-39] INFO  - User 39. offline
+15:21:05.332 [pool-1-thread-9] INFO  - User 9. хочет покинуть чат
+15:21:05.333 [pool-1-thread-9] INFO  - User 9. покидает пустой чат
+15:21:05.333 [pool-1-thread-9] INFO  - User 9. offline
+15:21:05.635 [pool-1-thread-44] INFO  - User 44. хочет покинуть чат
+15:21:05.636 [pool-1-thread-44] INFO  - User 44. покидает пустой чат
+15:21:05.636 [pool-1-thread-44] INFO  - User 44. offline
+15:21:06.277 [pool-1-thread-30] INFO  - User 30. хочет покинуть чат
+15:21:06.277 [pool-1-thread-30] INFO  - User 30. покидает чат с User 52.
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. offline
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. online
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. хочет начать чат
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. начал поиск пользователя для чата
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. создает новый чат с User 57.
+15:21:06.278 [pool-1-thread-30] INFO  - User 30. нашел и больше не ищет чат
+15:21:06.278 [pool-1-thread-30] INFO  - У User 30. новый чат с User 57.
+15:21:06.278 [pool-1-thread-30] INFO  - User 57. нашел и больше не ищет чат
+15:21:06.278 [pool-1-thread-30] INFO  - У User 57. новый чат с User 30.
+15:21:06.278 [pool-1-thread-30] INFO  - Оповещение для User 57., для выхода из режима ожидания
+15:21:06.279 [pool-1-thread-57] INFO  - User 57., запущенный таймер для пробуждения потока отключен
+15:21:06.279 [pool-1-thread-57] INFO  - User 57. вышел из режима ожидания для общения с User 30.
+15:21:06.565 [pool-1-thread-28] INFO  - User 28. offline
+15:21:07.097 [pool-1-thread-52] INFO  - User 52. хочет покинуть чат
+15:21:07.098 [pool-1-thread-52] INFO  - User 52. покидает пустой чат
+15:21:07.098 [pool-1-thread-52] INFO  - User 52. offline
+15:21:07.366 [pool-1-thread-6] INFO  - User 6. хочет покинуть чат
+15:21:07.366 [pool-1-thread-6] INFO  - User 6. покидает пустой чат
+15:21:07.366 [pool-1-thread-6] INFO  - User 6. online
+15:21:10.740 [pool-1-thread-6] INFO  - User 6. online
+15:21:10.744 [pool-1-thread-6] INFO  - User 6. хочет начать чат
+15:21:10.744 [pool-1-thread-6] INFO  - User 6. начал поиск пользователя для чата
+15:21:10.745 [pool-1-thread-6] INFO  - User 6. не нашел чат и перешел в режим ожидания
+15:21:12.478 [pool-1-thread-30] INFO  - User 30. offline
+15:21:15.752 [pool-7-thread-1] INFO  - Вышло время ожидания нового чата, для пользователя: User 6.
+15:21:15.752 [pool-1-thread-6] INFO  - User 6. не дождался собеседника и вышел из режима ожидания
+15:21:15.753 [pool-1-thread-6] INFO  - User 6. прекратил поиски чата
+15:21:17.575 [pool-1-thread-57] INFO  - User 57. offline
+15:21:22.977 [pool-1-thread-6] INFO  - User 6. offline
+
+BUILD SUCCESSFUL in 32s
+3 actionable tasks: 2 executed, 1 up-to-date
+15:21:23: Execution finished ':Main.main()'.
