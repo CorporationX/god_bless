@@ -14,12 +14,11 @@ public class QuestSystem {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(quest.getDifficulty() * 1000L);
-                return player;
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 log.error(e.getMessage());
-                return null;
             }
+            return player;
         }, executor);
     }
 
