@@ -1,11 +1,9 @@
-// Alchemist.java
 package faang.school.godbless.DownloadingAlchemy;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 public class Alchemist {
 
