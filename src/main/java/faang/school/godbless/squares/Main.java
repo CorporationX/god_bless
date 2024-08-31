@@ -24,16 +24,7 @@ public class Main {
                     , service));
         }
 
-        futures.stream()
-                .forEach(f -> {
-                    try {
-                        f.get();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    } catch (ExecutionException e) {
-                        throw new RuntimeException(e);
-                    }
-                });//дожидается выполнения всех задач
+        futures.forEach(CompletableFuture::join);//дожидается выполнения всех задач
 
         service.shutdown();
 
