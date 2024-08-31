@@ -12,7 +12,7 @@ public class House {
 
     public void collectFood(Room room){
         foodList.addAll(room.getFood());
-        roomList.remove(room);
+        room.deleteFood();
         System.out.println("Еда собрана из " + room);
     }
 
@@ -30,8 +30,9 @@ public class House {
         roomList.add(new Room(hotDishes));
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
-        for (Room room : roomList) {
-            executorService.schedule(() -> house.collectFood(room), 30, TimeUnit.SECONDS);
+        for (int i = 0; i < roomList.size(); i++) {
+            Room room = roomList.get(i);
+            executorService.schedule(() -> house.collectFood(room), i * 10, TimeUnit.SECONDS);
         }
         executorService.shutdown();
     }

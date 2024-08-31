@@ -12,4 +12,8 @@ import java.util.List;
 @Getter
 public class Room {
     private List<Food> food = new ArrayList<>();
+
+    public void deleteFood(){
+        food.clear();
+    }
 }
