@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 @NoArgsConstructor
 public class Organization {
     @Getter
-    private volatile Balance balance = new Balance(0);
+    private AtomicInteger balance = new AtomicInteger(0);
 
     public void addDonation(int amount) {
-        balance = new Balance(balance.getBalance() + amount);
+        balance.getAndAdd(amount);
     }
 }

@@ -9,7 +9,7 @@ public class Main {
         Organization organization = new Organization();
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 100; i++) {
             executor.execute(() -> organization.addDonation(10));
         }
 
@@ -21,7 +21,7 @@ public class Main {
             throw new RuntimeException(e);
         }
 
-        System.out.println(organization.getBalance().getBalance());
+        System.out.println(organization.getBalance().get());
 
     }
 }
