@@ -1,5 +1,8 @@
 package faang.school.godbless.BJS2_25405;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
 public class Main {
     public static void main(String[] args) {
         TransportManagementSystem system = new TransportManagementSystem();
@@ -12,7 +15,8 @@ public class Main {
         vehicle = new Vehicle(4, Status.BUSY, new Location(0, 0));
         system.putVehicle(4, vehicle);
 
-        VehicleTracker vehicleTracker = new VehicleTracker(system);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(system.getCountVehicles());
+        VehicleTracker vehicleTracker = new VehicleTracker(system, executor);
         vehicleTracker.startTracking();
     }
 }

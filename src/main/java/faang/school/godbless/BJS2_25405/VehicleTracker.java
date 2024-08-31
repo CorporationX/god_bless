@@ -1,19 +1,16 @@
 package faang.school.godbless.BJS2_25405;
 
-import java.util.concurrent.Executors;
+import lombok.AllArgsConstructor;
+
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
+@AllArgsConstructor
 public class VehicleTracker {
 
     private TransportManagementSystem transportManagement;
     private ScheduledExecutorService scheduledExecutor;
-
-    public VehicleTracker(TransportManagementSystem transportManagement) {
-        this.transportManagement = transportManagement;
-        this.scheduledExecutor = Executors.newScheduledThreadPool(transportManagement.getCountVehicles());
-    }
 
     public void startTracking() {
         transportManagement.forEachValues((vehicle -> scheduledExecutor.scheduleWithFixedDelay(
