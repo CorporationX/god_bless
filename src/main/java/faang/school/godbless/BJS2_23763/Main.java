@@ -1,50 +1,41 @@
 package faang.school.godbless.BJS2_23763;
 
 import java.util.Arrays;
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class Main {
-    private static final int THREAD_AMOUNT = 5;
-    private static final long DELAY = 30;
+    private static final int THREAD_AMOUNT = 1;
+    private static final long DELAY = 2;
 
     public static void main(String[] args) {
         House house = new House();
         setupRoomsAndFood(house);
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
 
-        while (countRoomWithFood(house) > 0) {
-            Room roomOne = house.getRooms().stream()
-                    .filter(room -> !room.getFoods().isEmpty())
-                    .findFirst()
-                    .orElseThrow();
+        List<List<Room>> roomPairs = createRoomsPair(house);
+        IntStream.range(0, roomPairs.size())
+                .forEach(i -> {
+                    Room roomOne = roomPairs.get(i).get(0);
+                    Room roomTwo = roomPairs.get(i).get(1);
+                    executor.schedule(() -> house.collectFood(roomOne, roomTwo), i * DELAY, TimeUnit.SECONDS);
+                });
+        executor.shutdown();
 
-            Room roomTwo = house.getRooms().stream()
-                    .filter(room -> !room.getFoods().isEmpty())
-                    .dropWhile(room -> room.equals(roomOne))
-                    .findFirst()
-                    .orElseThrow();
-
-            ScheduledFuture<Void> result = executor.schedule(() -> {
-                house.collectFood(roomOne, roomTwo);
-                return null;
-            }, DELAY, TimeUnit.SECONDS);
-
-            try {
-                result.get();
-            } catch (InterruptedException e) {
-                throw new RuntimeException("Thread was interrupted");
-            } catch (ExecutionException e) {
-                throw new RuntimeException("Get result error");
+        try {
+            if (!executor.awaitTermination(DELAY * roomPairs.size(), TimeUnit.SECONDS)) {
+                executor.shutdownNow();
             }
+        } catch (InterruptedException e) {
+            throw new RuntimeException("Await error");
         }
 
-        executor.shutdown();
-        System.out.println("All foods collected");
+        System.out.println("All food collected");
     }
+
 
     private static void setupRoomsAndFood(House house) {
         Room roomOne = new Room();
@@ -81,9 +72,13 @@ public class Main {
         ));
     }
 
-    private static int countRoomWithFood(House house) {
-        return (int) house.getRooms().stream()
-                .filter(room -> !room.getFoods().isEmpty())
-                .count();
+    private static List<List<Room>> createRoomsPair(House house) {
+        List<Room> rooms = house.getRooms().stream()
+                .flatMap(room -> room.getFoods().stream().map(food -> room))
+                .toList();
+
+        return IntStream.iterate(0, i -> i < rooms.size(), i -> i + 2)
+                .mapToObj(i -> Arrays.asList(rooms.get(i), rooms.get(i + 1)))
+                .toList();
     }
 }
