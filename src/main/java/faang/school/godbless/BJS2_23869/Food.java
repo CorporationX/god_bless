@@ -7,5 +7,5 @@ import lombok.Getter;
 @Getter
 public class Food {
 
-    private String foodDescription;
+    private final String foodDescription;
 }
