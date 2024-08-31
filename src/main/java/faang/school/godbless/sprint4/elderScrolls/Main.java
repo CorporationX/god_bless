@@ -27,8 +27,6 @@ public class Main {
     private static void countSumOfAllIngredients() {
         CompletableFuture
                 .allOf(futures.toArray(CompletableFuture[]::new))
-                .thenRun(() -> futures
-                        .forEach(future -> sumOfAllIngredients.addAndGet(future.join())))
                 .thenRun(() -> System.out.printf("Sum of all ingredients: %s%n", sumOfAllIngredients))
                 .join();
     }
@@ -36,7 +34,7 @@ public class Main {
     private static void createListOfFutures() {
         futures = potions.stream()
                 .map(potion -> CompletableFuture
-                        .supplyAsync(() -> gatherIngredients(potion), executor))
+                        .supplyAsync(() -> gatherIngredients(potion)))
                 .toList();
     }
 
