@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Witcher {
 
@@ -30,7 +31,11 @@ public class Witcher {
             executor.submit(new CityWorker(city, monsters));
         }
         executor.shutdown();
-        while (!executor.isTerminated()) {}
+        try {
+            executor.awaitTermination(Long.MAX_VALUE,TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         long endTime = System.currentTimeMillis();
         long duration = endTime - startTime;

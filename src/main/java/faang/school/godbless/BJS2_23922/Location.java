@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class Location {
 
-    private int coordinateX;
-    private int coordinateY;
+    private final int coordinateX;
+    private final int coordinateY;
 
     public double distanceTo(Location other) {
         return Math.sqrt(Math.pow(other.getCoordinateX() - this.coordinateX, 2) + Math.pow(other.getCoordinateY() - this.coordinateY, 2));
