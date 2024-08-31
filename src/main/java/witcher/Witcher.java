@@ -20,7 +20,6 @@ public class Witcher {
     public static void main(String[] args) {
 
         List<Monster> monsters = new ArrayList<>();
-
         monsters.add(new Monster("Griffin", new Location(40,7) ,"Velen"));
         monsters.add(new Monster("Basilisk", new Location(23,87), "Toussaint"));
         monsters.add(new Monster("Cockatrice", new Location(28,73), "White Orchard"));
@@ -39,20 +38,20 @@ public class Witcher {
 //        for (City city : cities) {
 //            executorService.execute(new CityWorker(city, monsters));
 //        }
-            //это для теста без потоков
-            //вопрос: почему без потоков выходит быстрее чем с потоками?
+
         for (City city : cities) {
         CityWorker cityWorker = new CityWorker(city, monsters);
         System.out.println("Ближайший монстр к городу " + city.getName() + " это " + cityWorker.findNearestMonster().getName());
         System.out.println("Время для убийства этого монстра " + cityWorker.getKillTime());
         System.out.println("Дистанция до города " + cityWorker.getJourneyDistance());
         }
-
+        executorService.shutdown();
         try {
             if (!executorService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
-                executorService.shutdown();
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
+            executorService.shutdownNow();
             throw new RuntimeException(e);
         }
         long endTime = System.currentTimeMillis();
