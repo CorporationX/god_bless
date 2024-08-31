@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Item {
-private String name;
-private double power;
+    private String name;
+    private double power;
 }

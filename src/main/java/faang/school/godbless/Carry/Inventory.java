@@ -34,9 +34,9 @@ public class Inventory {
                     } else {
                         log.info("Combination failed, item not created");
                     }
-                }));
+                })).join();
 
-        inventory.sleeeeeeping(5);
+
     }
 
     public void addItem(Item item) {
@@ -45,7 +45,9 @@ public class Inventory {
 
     public Optional<Item> combineItem(@NonNull Item... itemsToCombine) {
         List<Item> itemsList = Arrays.asList(itemsToCombine);
-        if (!checkAvailabilityOfItems(itemsList)) return Optional.empty();
+        if (!checkAvailabilityOfItems(itemsList)) {
+            return Optional.empty();
+        }
         Item resultItem = itemsList.get(0);
         decreaseByOneOrRemoveItemsFromInventory(itemsList);
         resultItem.setName(concatenateItemsName(itemsList));
