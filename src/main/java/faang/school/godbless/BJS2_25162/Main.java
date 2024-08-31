@@ -15,7 +15,10 @@ public class Main {
 
         AtomicInteger totalIngredients = new AtomicInteger(0);
 
-        CompletableFuture<Void> allOf = CompletableFuture.allOf(potions.stream().map(potion -> (gatherIngredients(potion).thenApply(totalIngredients::addAndGet))).toArray(CompletableFuture[]::new));
+        CompletableFuture<Void> allOf = CompletableFuture.allOf(potions.stream()
+                .map(potion -> (gatherIngredients(potion)
+                        .thenApply(totalIngredients::addAndGet)))
+                .toArray(CompletableFuture[]::new));
         allOf.join();
 
         System.out.println("Total number of ingredients that need is " + totalIngredients.get());
