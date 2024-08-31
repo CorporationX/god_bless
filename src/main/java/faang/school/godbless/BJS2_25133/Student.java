@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class Student {
     private String name;
-    private String year;
+    private int year;
     private int points;
 }
