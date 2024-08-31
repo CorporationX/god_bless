@@ -11,7 +11,8 @@ public class QuestSystem {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            player.setExperience(player.getExperience() + quest.getReward());
             return player;
-        }).thenApply(player1 -> new Player(player.getName(), player.getLevel(), player.getExperience() + quest.getReward()));
+        });
     }
 }
