@@ -1,7 +1,10 @@
 package faang.school.godbless.sprint4.fanOutFanIn;
 
+import lombok.Getter;
+
 import java.util.concurrent.atomic.AtomicLong;
 
+@Getter
 public class ResultConsumer {
     private final AtomicLong sumOfSquaredNumbers;
 

@@ -2,7 +2,6 @@ package faang.school.godbless.sprint4.fanOutFanIn;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class SquareRequest {
     private static final long MIN_TIMEOUT = 3000L;
     private final Long number;

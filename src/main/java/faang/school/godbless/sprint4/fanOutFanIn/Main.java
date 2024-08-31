@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.LongStream;
-import java.util.stream.Stream;
 
 public class Main {
     private static final int QUANTITY_OF_REQUESTS = 1000;
@@ -16,21 +16,22 @@ public class Main {
 
     public static void main(String[] args) {
         launch();
-        executor.shutdown();
     }
 
-    private static Long fanOutFanIn() {
+    private static AtomicLong fanOutFanIn() {
         CompletableFuture
-                .allOf(streamOfCompletableFutures()
+                .allOf(listOfCompletableFutures()
                         .toArray(CompletableFuture[]::new))
                 .join();
-        return resultConsumer.add(0L);
+        return resultConsumer.getSumOfSquaredNumbers();
     }
 
-    private static Stream<CompletableFuture<Void>> streamOfCompletableFutures() {
+    private static List<CompletableFuture<Void>> listOfCompletableFutures() {
         return requests.stream()
                 .map(request -> CompletableFuture
-                        .runAsync(() -> request.longTimeSquare(resultConsumer), executor));
+                        .runAsync(() -> request.longTimeSquare(resultConsumer)))
+//                        .thenRun(() -> System.out.println(Thread.currentThread().getName()))
+                .toList();
     }
 
     private static void launch() {
@@ -38,5 +39,6 @@ public class Main {
                 .forEach(number -> requests.add(new SquareRequest(number)));
         executor = Executors.newFixedThreadPool(requests.size());
         System.out.println(fanOutFanIn());
+        executor.shutdown();
     }
 }
