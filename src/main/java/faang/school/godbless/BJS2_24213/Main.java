@@ -17,12 +17,16 @@ public class Main {
         List<GameObject> gameObjects = game.getGameObjects();
         for (GameObject gameObject : gameObjects) {
             executorService.execute(() -> {
-                while (gameObjects.stream()
-                        .allMatch(gameObj -> gameObj.getLives() > 0)) {
+                while (allGameObjectsHaveLives(gameObjects)) {
                     game.update(gameObject);
                 }
             });
         }
         executorService.shutdown();
+    }
+
+    private static boolean allGameObjectsHaveLives(List<GameObject> gameObjects) {
+        return gameObjects.stream()
+                .allMatch(gameObj -> gameObj.getLives() > 0);
     }
 }
