@@ -13,13 +13,13 @@ public class House {
     private Map<String, Boolean> availableRoles;
     private int countOfAvailableRoles;
 
-    public synchronized void addRole(String role) {
+    public void takeRole(String role) {
         availableRoles.put(role, Boolean.FALSE);
         countOfAvailableRoles--;
         System.out.println("The role '" + role + "' was taken");
     }
 
-    public synchronized void removeRole(String role) {
+    public void freeUpRole(String role) {
         availableRoles.put(role, Boolean.TRUE);
         countOfAvailableRoles++;
         System.out.println("The role '" + role + "' is free");

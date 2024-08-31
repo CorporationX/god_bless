@@ -29,14 +29,14 @@ public class User {
                 }
             }
             role = chosenRole;
-            house.addRole(chosenRole);
+            house.takeRole(chosenRole);
             System.out.println(name + " joined house with role '" + role + "'");
         }
     }
 
     public void leaveHouse() {
         synchronized (house) {
-            house.removeRole(role);
+            house.freeUpRole(role);
             house = null;
             role = null;
             System.out.println(name + " left house");
