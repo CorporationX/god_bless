@@ -8,6 +8,7 @@ import java.util.List;
 
 @Getter
 @ToString
+
 public class Room {
     private List<Food> foodList = new ArrayList<>();
 }

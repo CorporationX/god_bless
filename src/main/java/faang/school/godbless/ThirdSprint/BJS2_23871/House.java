@@ -33,8 +33,10 @@ public class House {
     }
 
     public void initialize() {
+        for (int i = 0; i < 5; i++){
         roomList.add(new Room());
         roomList.add(new Room());
+        }
         Food[] foods = new Food[]{new Food("cheese"),
                 new Food("meet"),
                 new Food("milk"),
@@ -47,16 +49,13 @@ public class House {
         }
     }
 
-    public void collectFood() {
-        roomList.stream()
-                .forEach(u -> {
-                    collectedFood.addAll(u.getFoodList());
-                    u.getFoodList().clear();
-                });
+    public synchronized void collectFood() {
+            roomList.stream()
+                    .sorted((a, b) -> b.getFoodList().size() - a.getFoodList().size())
+                    .limit(2)
+                    .forEach(u -> {
+                        collectedFood.addAll(u.getFoodList());
+                        u.getFoodList().clear();
+                    });
     }
 }
-//{
-//        u.getFoodList().stream()
-//                            .forEach(f -> collectedFood.add(f));
-//        u.getFoodList().remove(0);
-//                }
