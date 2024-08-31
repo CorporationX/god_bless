@@ -21,11 +21,11 @@ public class House {
             service.schedule(() -> {
                 System.out.println(Thread.currentThread().getName());
                 house.collectFood();
-            },5, TimeUnit.SECONDS);
+            },30, TimeUnit.SECONDS);
         }
 
         service.shutdown();
-        while(!service.awaitTermination(10, TimeUnit.SECONDS)){}
+        while(!service.awaitTermination(30, TimeUnit.SECONDS)){}
 
         System.out.println(house.roomList);
         System.out.println(house.collectedFood);
