@@ -12,7 +12,7 @@ public class Player {
     private final String name;
     private int lives;
 
-    public static void getDamage(Player player){
+    public synchronized void dealsDamage(Player player){
         player.setLives(player.getLives() - 1);
         System.out.println(player.getName() + " has died. Lifes = " + player.getLives());
     }

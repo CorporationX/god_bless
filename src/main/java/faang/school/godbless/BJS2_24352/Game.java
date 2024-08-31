@@ -3,6 +3,8 @@ package faang.school.godbless.BJS2_24352;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Random;
+
 @AllArgsConstructor
 @Getter
 public class Game {
@@ -13,16 +15,20 @@ public class Game {
     private final Object lockLives = new Object();
 
     public void update(Player attacker, Player defender) {
-        boolean damageTaken = Math.random() < 0.5;
-        Player.getDamage(damageTaken ? attacker : defender);
+        int methodToInvoke = new Random().nextInt(2);
+        if (methodToInvoke == 0) {
+            attacker.dealsDamage(defender);
+        } else {
+            defender.dealsDamage(attacker);
+        }
         synchronized (lockScore) {
             score++;
         }
-        if (attacker.getLives() == 0 || defender.getLives() == 0) {
+        synchronized (lockLives){
+            if (attacker.getLives() == 0 || defender.getLives() == 0) {
             gameOver();
         } else {
-            synchronized (lockLives) {
-                lives++;
+            lives++;
             }
         }
     }
