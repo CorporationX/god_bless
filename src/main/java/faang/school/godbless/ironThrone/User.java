@@ -15,7 +15,7 @@ public class User {
     }
 
     public void joinHouse(House house) {
-        List<String> roles = House.getRoles();
+        List<String> roles = House.ROLES;
         String chosenRole = roles.get((int) (roles.size() * Math.random()));//имитация выбора
         house.joinUser(chosenRole);
 
