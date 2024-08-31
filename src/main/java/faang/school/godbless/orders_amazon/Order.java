@@ -1,7 +1,6 @@
 package faang.school.godbless.orders_amazon;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
