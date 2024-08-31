@@ -22,8 +22,8 @@ public class MasterCardService {
 
     public static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);    // Имитация задержки в 1 секунду
-            return 1_000;            // Возврат результата аналитики
+            Thread.sleep(1_000);
+            return 1_000;
         } catch (InterruptedException e) {
             log.error(e.getMessage());
             throw new RuntimeException();
