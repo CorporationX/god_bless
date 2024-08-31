@@ -9,6 +9,7 @@ public class Main {
     }
 
     public static void doAll() throws ExecutionException, InterruptedException {
+
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> future = executor.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
@@ -17,6 +18,5 @@ public class Main {
         int futureResult = future.get();
         System.out.println(futureResult);
         executor.shutdown();
-        completableFuture.isCancelled();
     }
 }
