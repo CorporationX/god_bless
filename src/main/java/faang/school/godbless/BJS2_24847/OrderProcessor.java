@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Getter
 public class OrderProcessor {
 
-    AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {

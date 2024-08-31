@@ -16,6 +16,6 @@ public class Main {
 
         CompletableFuture<Void> future = CompletableFuture.allOf(orders.stream().map(orderProcessor::processOrder).toArray(CompletableFuture[]::new));
         future.join();
-        System.out.println(orderProcessor.totalProcessedOrders.get());
+        System.out.println(orderProcessor.getTotalProcessedOrders().get());
     }
 }
