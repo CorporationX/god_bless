@@ -2,9 +2,9 @@ package faang.school.godbless.microsoft;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 
-@AllArgsConstructor
+@Builder
 public class SenderRunnable implements Runnable {
     private int startIndex;
     private int endIndex;
