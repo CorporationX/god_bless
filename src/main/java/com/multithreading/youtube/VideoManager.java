@@ -33,8 +33,9 @@ public class VideoManager {
         }
         service.shutdown();
         try {
-            service.awaitTermination(10, TimeUnit.SECONDS);
-            service.shutdownNow();
+            if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
+                service.shutdownNow();
+            }
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
