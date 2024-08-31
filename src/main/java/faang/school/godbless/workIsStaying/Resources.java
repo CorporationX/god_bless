@@ -1,27 +1,26 @@
 package faang.school.godbless.workIsStaying;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.StampedLock;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Resources {
     protected List<String> files;
-    protected StampedLock lock;
 
     public Resources() {
-        lock = new StampedLock();
-        files = new ArrayList<>();
+        files = new CopyOnWriteArrayList<>();
     }
 
-    public void read(long millis) {
-        long stamp = lock.readLock();
-        try {
-            System.out.println("reading...");
-            Thread.sleep(millis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } finally {
-            lock.unlockRead(stamp);
+    public void read() {
+        System.out.println("reading...");
+        for (String s : files) {
+            System.out.println("\t" + s);
+        }
+    }
+
+    public void write() {
+        System.out.println("writing...");
+        for (int i = 0; i < 100; i++) {
+            files.add(i + " ");
         }
     }
 }
