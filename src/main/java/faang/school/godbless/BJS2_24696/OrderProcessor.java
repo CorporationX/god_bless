@@ -1,7 +1,6 @@
 package faang.school.godbless.BJS2_24696;
 
 import lombok.Getter;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
@@ -13,9 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class OrderProcessor {
     private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
-    @SneakyThrows
-    public CompletableFuture<Integer> processOrder(Order order) {
-        return CompletableFuture.supplyAsync(() -> {
+    public CompletableFuture<Void> processOrder(Order order) {
+        return CompletableFuture.runAsync(() -> {
             try {
                 TimeUnit.SECONDS.sleep(2);
                 order.markDone();
@@ -23,7 +21,6 @@ public class OrderProcessor {
             } catch (Exception exception) {
                 log.error(exception.getMessage(), exception);
             }
-            return totalProcessedOrders.get();
         });
     }
 }

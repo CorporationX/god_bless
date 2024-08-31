@@ -6,17 +6,16 @@ public class Amazon {
     public static void main(String[] args) {
         OrderProcessor orderProcessor = new OrderProcessor();
 
-        Order book = new Order(1);
-        Order notebook = new Order(2);
-        Order tv = new Order(3);
+        Order book = new Order(11);
+        Order notebook = new Order(22);
+        Order tv = new Order(33);
 
-        CompletableFuture<Integer> orderOne = orderProcessor.processOrder(book);
-        CompletableFuture<Integer> orderTwo = orderProcessor.processOrder(notebook);
-        CompletableFuture<Integer> orderThree = orderProcessor.processOrder(tv);
-
-        CompletableFuture<Void> orders = CompletableFuture.allOf(orderOne, orderTwo, orderThree);
-
-        orders.thenRun(() ->
-                System.out.printf("Всего обработано заказов: %s%n", orderProcessor.getTotalProcessedOrders())).join();
+        CompletableFuture.allOf(
+                orderProcessor.processOrder(book),
+                orderProcessor.processOrder(notebook),
+                orderProcessor.processOrder(tv)
+        ).thenRun(() ->
+                System.out.printf("Всего обработано заказов: %s%n", orderProcessor.getTotalProcessedOrders())
+        ).join();
     }
 }
