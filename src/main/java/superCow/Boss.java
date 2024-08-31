@@ -1,8 +1,10 @@
 package superCow;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public class Boss {
     private final int MAX_PLAYERS = 10;
     private int currentPlayers;
@@ -22,9 +24,6 @@ public class Boss {
             }
             if (currentPlayers == MAX_PLAYERS) {
                 lock.notifyAll();
-            }
-            if (currentPlayers >= MAX_PLAYERS) {
-                currentPlayers--;
             }
         }
 

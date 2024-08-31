@@ -18,6 +18,10 @@ public class Player {
                 System.out.println("игрок " + Player.this.getName() + " ожидает");
                 lock.wait();
             }
+            if (boss.getCurrentPlayers() >= boss.getMAX_PLAYERS()) {
+                System.out.println("игрок " + Player.this.getName() + " завершил бой");
+                boss.setCurrentPlayers(boss.getCurrentPlayers() - 1);
+            }
         }
     }
 }
