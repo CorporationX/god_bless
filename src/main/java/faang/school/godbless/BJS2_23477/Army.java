@@ -15,7 +15,7 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        int[] totalPower = {0};
+        int totalPower = 0;
         List<UnitPowerThread> threads = new ArrayList<>();
         for (Unit unit : army) {
             UnitPowerThread thread = new UnitPowerThread(unit, totalPower);
@@ -25,10 +25,11 @@ public class Army {
         for (UnitPowerThread thread : threads) {
             try {
                 thread.join();
+                totalPower += thread.getResult();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        return totalPower[0];
+        return totalPower;
     }
 }
