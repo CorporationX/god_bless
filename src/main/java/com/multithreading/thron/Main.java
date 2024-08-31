@@ -35,8 +35,9 @@ public class Main {
         }
         service.shutdown();
         try {
-            service.awaitTermination(10, TimeUnit.SECONDS);
-            service.shutdownNow();
+            if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
+                service.shutdownNow();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
