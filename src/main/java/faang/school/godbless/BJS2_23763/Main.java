@@ -14,9 +14,9 @@ public class Main {
     public static void main(String[] args) {
         House house = new House();
         setupRoomsAndFood(house);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
+        List<List<Room>> roomPairs = house.createRoomsPair();
 
-        List<List<Room>> roomPairs = createRoomsPair(house);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
         IntStream.range(0, roomPairs.size())
                 .forEach(i -> {
                     Room roomOne = roomPairs.get(i).get(0);
@@ -24,7 +24,6 @@ public class Main {
                     executor.schedule(() -> house.collectFood(roomOne, roomTwo), i * DELAY, TimeUnit.SECONDS);
                 });
         executor.shutdown();
-
         try {
             if (!executor.awaitTermination(DELAY * roomPairs.size(), TimeUnit.SECONDS)) {
                 executor.shutdownNow();
@@ -70,15 +69,5 @@ public class Main {
                 roomThree,
                 roomFour
         ));
-    }
-
-    private static List<List<Room>> createRoomsPair(House house) {
-        List<Room> rooms = house.getRooms().stream()
-                .flatMap(room -> room.getFoods().stream().map(food -> room))
-                .toList();
-
-        return IntStream.iterate(0, i -> i < rooms.size(), i -> i + 2)
-                .mapToObj(i -> Arrays.asList(rooms.get(i), rooms.get(i + 1)))
-                .toList();
     }
 }
