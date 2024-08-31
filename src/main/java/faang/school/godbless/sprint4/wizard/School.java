@@ -18,6 +18,6 @@ public class School {
     }
 
     public void modifyPoints(Task task) {
-        team.forEach(s -> s.setPoints(task.reward()));
+        team.forEach(s -> s.setPoints(s.getPoints() + task.reward()));
     }
 }
