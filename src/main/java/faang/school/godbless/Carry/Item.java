@@ -1,10 +1,11 @@
-package faang.school.godbless.MiceAreVeryNice;
+package faang.school.godbless.Carry;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Food {
+public class Item {
     private String name;
+    private int power;
 }
