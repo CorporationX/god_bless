@@ -18,4 +18,9 @@ public class School {
                 .sum();
         return total;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
