@@ -23,7 +23,7 @@ public class School {
                 .mapToInt(Student::getPoints).max().orElseThrow(
                         () ->  new NoSuchElementException("No students found"));
 
-        return (Student) team.stream()
+        return team.stream()
                 .filter(student -> student.getPoints() == pointsWinner)
                 .findFirst()
                 .orElseThrow(

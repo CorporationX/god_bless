@@ -13,8 +13,8 @@ public class Main {
         Student st3 = new Student("Third", 18);
         Student st4 = new Student("Fourth", 20);
 
-        List<Student> firstTeam = new ArrayList<>(List.of(st1, st2));
-        List<Student> secondTeam = new ArrayList<>(List.of(st3, st4));
+        List<Student> firstTeam = List.of(st1, st2);
+        List<Student> secondTeam = List.of(st3, st4);
 
         School school1 = new School(firstTeam, "First School");
         School school2 = new School(secondTeam, "Second School");
@@ -33,9 +33,11 @@ public class Main {
                 if (completedSchool1.getTotalPoints() > completedSchool2.getTotalPoints()) {
                     System.out.println("The winner of the magical tournament is " + completedSchool1.getName()
                             + " with " + completedSchool1.getTotalPoints() + " points.");
+                    System.out.println("Winner of team " + completedSchool1.getWinnerTeam());
                 } else if (completedSchool2.getTotalPoints() > completedSchool1.getTotalPoints()) {
                     System.out.println("The winner of the magical tournament is " + completedSchool2.getName()
                             + " with " + completedSchool2.getTotalPoints() + " points.");
+                    System.out.println("Winner of team " + completedSchool2.getWinnerTeam());
                 } else {
                     System.out.println("The magical tournament ended in a tie!");
                 }
