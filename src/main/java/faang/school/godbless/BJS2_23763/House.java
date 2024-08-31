@@ -21,7 +21,7 @@ public class House {
         System.out.println(foodOne + " and " + foodTwo + " collected");
     }
 
-    public synchronized List<List<Room>> createRoomsPair() {
+    public synchronized List<List<Room>> createRoomsPairs() {
         List<Room> roomsWithFood = rooms.stream()
                 .flatMap(room -> room.getFoods().stream().map(food -> room))
                 .toList();

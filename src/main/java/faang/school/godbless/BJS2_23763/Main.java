@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
         House house = new House();
         setupRoomsAndFood(house);
-        List<List<Room>> roomPairs = house.createRoomsPair();
+        List<List<Room>> roomPairs = house.createRoomsPairs();
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_AMOUNT);
         IntStream.range(0, roomPairs.size())
