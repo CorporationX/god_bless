@@ -1,14 +1,12 @@
 package faang.school.godbless.royal.tournament;
 
+import static faang.school.godbless.royal.tournament.King.TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import static faang.school.godbless.royal.tournament.King.TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS;
 
 @Getter
 public class Knight {
@@ -26,20 +24,16 @@ public class Knight {
 
     public void startTrials() {
         ExecutorService executorService = Executors.newCachedThreadPool();
+        trials.forEach(executorService::submit);
+        executorService.shutdown();
 
         try {
-            trials.forEach(executorService::submit);
-        } finally {
-            executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
-            } catch (InterruptedException e) {
+            if (!executorService.awaitTermination(TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
-                Thread.currentThread().interrupt();
             }
+        } catch (InterruptedException exception) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
         }
-
     }
 }

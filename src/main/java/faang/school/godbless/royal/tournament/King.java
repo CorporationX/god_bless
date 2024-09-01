@@ -17,19 +17,16 @@ public class King {
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(knights.size());
-        try {
-            knights.forEach(knight -> executorService.submit(knight::startTrials));
-        } finally {
-            executorService.shutdown();
-            try {
-                if (!executorService.awaitTermination(TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS, TimeUnit.SECONDS)) {
-                    executorService.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                executorService.shutdownNow();
-                Thread.currentThread().interrupt();
-            }
-        }
+        knights.forEach(knight -> executorService.submit(knight::startTrials));
+        executorService.shutdown();
 
+        try {
+            if (!executorService.awaitTermination(TIME_FOR_WHOLE_TOURNAMENT_IN_SECONDS, TimeUnit.SECONDS)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
