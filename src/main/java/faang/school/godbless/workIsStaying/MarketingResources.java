@@ -8,7 +8,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class MarketingResources {
     @Getter
     private static final List<String> files = new CopyOnWriteArrayList<>();
-    private MarketingResources() {}
+
+    private MarketingResources() {
+    }
 
     public static void init(List<String> files) {
         MarketingResources.files.addAll(files);

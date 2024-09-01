@@ -5,10 +5,12 @@ import lombok.Getter;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class DesignResources{
+public class DesignResources {
     @Getter
-    private static final List<String> files = new CopyOnWriteArrayList<>();
-    private DesignResources() {}
+    private static List<String> files = new CopyOnWriteArrayList<>();
+
+    private DesignResources() {
+    }
 
     public static void init(List<String> files) {
         if (files == null) {

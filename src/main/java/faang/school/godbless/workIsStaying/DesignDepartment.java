@@ -3,7 +3,7 @@ package faang.school.godbless.workIsStaying;
 import lombok.Getter;
 
 @Getter
-public class DesignDepartment extends Thread{
+public class DesignDepartment extends Thread {
 
     public DesignDepartment() {
     }
