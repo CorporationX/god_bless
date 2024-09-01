@@ -16,19 +16,17 @@ public class Main {
 
         List<String> videoIds = generateVideos();
 
-        videoIds.forEach(videoManager::addVideo);
-
         videoIds.forEach(videoId -> {
-            int threadsCount = NUM_THREADS / NUM_VIDEOS;
-            while (threadsCount > 0) {
+            videoManager.addVideo(videoId);
+            for (int i = 0; i < NUM_THREADS / NUM_VIDEOS; i++) {
                 executorService.execute(() -> {
                     videoManager.addView(videoId);
                     int videoViews = videoManager.getViewCount(videoId);
                     System.out.printf("Видео с id %s имеет %d просмотров%n", videoId, videoViews);
                 });
-                threadsCount--;
             }
         });
+
         executorService.shutdown();
         videoManager.printInfoAboutAllVideos();
         if (executorService.awaitTermination(5, TimeUnit.SECONDS)) {
