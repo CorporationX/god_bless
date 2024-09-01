@@ -5,6 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main {
+
     private static List<Potion> potions = List.of(
             new Potion("Philter of Strength", 3),
             new Potion("Elixir of Strength", 4),
@@ -17,10 +18,10 @@ public class Main {
 
         AtomicInteger ingredients = new AtomicInteger(0);
 
-        List<CompletableFuture<Void>> futures = potions.stream()
-                .map(potion -> CompletableFuture.runAsync(() -> {
-                    AtomicInteger ingredient = gatherIngredients(potion);
+        List<CompletableFuture<AtomicInteger>> futures = potions.stream()
+                .map(potion -> gatherIngredients(potion).thenApply(ingredient -> {
                     ingredients.addAndGet(ingredient.get());
+                    return ingredient;
                 }))
                 .toList();
 
@@ -30,8 +31,8 @@ public class Main {
         System.out.println("Total ingredients: " + ingredients);
     }
 
-    public static AtomicInteger gatherIngredients(Potion potions) {
-        CompletableFuture<AtomicInteger> future = CompletableFuture.supplyAsync(() -> {
+    public static CompletableFuture<AtomicInteger> gatherIngredients(Potion potions) {
+        return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -40,6 +41,5 @@ public class Main {
             }
             return new AtomicInteger(potions.getRequiredIngredients());
         });
-        return future.join();
     }
 }
