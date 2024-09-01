@@ -7,39 +7,39 @@ import java.util.List;
 public class VladController {
     private final List<TamagotchiVlad> tamagotchiList = Collections.synchronizedList(new ArrayList<>());
 
-    public void addTamagotchi(TamagotchiVlad tamagotchi) {
+    public synchronized void addTamagotchi(TamagotchiVlad tamagotchi) {
         synchronized (tamagotchiList) {
             tamagotchiList.add(tamagotchi);
             System.out.println(tamagotchi.getName() + " is added");
         }
     }
 
-    public void removeTamagotchi(TamagotchiVlad tamagotchi) {
+    public synchronized void removeTamagotchi(TamagotchiVlad tamagotchi) {
         synchronized (tamagotchiList) {
             tamagotchiList.remove(tamagotchi);
             System.out.println(tamagotchi.getName() + " is removed");
         }
     }
 
-    public void feedAll() {
+    public synchronized void feedAll() {
         synchronized (tamagotchiList) {
             tamagotchiList.forEach(TamagotchiVlad::feed);
         }
     }
 
-    public void playAll() {
+    public synchronized void playAll() {
         synchronized (tamagotchiList) {
             tamagotchiList.forEach(TamagotchiVlad::play);
         }
     }
 
-    public void cleanAll() {
+    public synchronized void cleanAll() {
         synchronized (tamagotchiList) {
             tamagotchiList.forEach(TamagotchiVlad::clean);
         }
     }
 
-    public void sleepAll() {
+    public synchronized void sleepAll() {
         synchronized (tamagotchiList) {
             tamagotchiList.forEach(TamagotchiVlad::sleep);
         }
