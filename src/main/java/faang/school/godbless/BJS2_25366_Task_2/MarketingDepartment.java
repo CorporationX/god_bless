@@ -13,14 +13,13 @@ public class MarketingDepartment implements Runnable {
     public void run() {
         for (int i = 0; i < 5; i++) {
             try {
-                Thread.sleep(100);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
             }
             marketingResources.addFile("Marketing_Report_%d".formatted(i + 1));
             designResources.readFiles();
-            designResources.addFile("Design_Feedback_%d".formatted(i + 1));
         }
     }
 }

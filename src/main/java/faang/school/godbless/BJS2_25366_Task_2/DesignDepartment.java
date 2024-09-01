@@ -19,8 +19,7 @@ public class DesignDepartment implements Runnable {
                 break;
             }
             designResources.addFile("Design_Draft_%d".formatted(i + 1));
-            marketingResources.addFile("Marketing_Suggestions_%d".formatted(i + 1));
-            designResources.readFiles();
+            marketingResources.readFiles();
         }
     }
 }
