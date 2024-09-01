@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @AllArgsConstructor
 @Getter
-public class Player extends Thread {
+public class Player implements Runnable {
     private final String playerName;
     private final Boss boss;
 
