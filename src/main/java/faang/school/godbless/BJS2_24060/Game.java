@@ -2,45 +2,57 @@ package faang.school.godbless.BJS2_24060;
 
 import lombok.RequiredArgsConstructor;
 
-import java.util.concurrent.ExecutorService;
+import java.util.List;
+import java.util.Random;
 
 @RequiredArgsConstructor
 public class Game {
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
 
-    private int score;
+    private static Random rand = new Random();
+    private final Object scoreLock = new Object();
+    private final Object lostLivesLock = new Object();
+
     private int lostLives;
-    private final ExecutorService stopGame;
+    private int score;
+    private final List<Player> players;
 
     public void update() {
-        synchronized (lock1) {
-            System.out.println("Update! Score: " + score);
-            score++;
-        }
-    }
+        while (isAlive()) {
+            int index = rand.nextInt(players.size());
+            Player player = players.get(index);
+            boolean isLostLive = rand.nextBoolean();
 
-    public void die(Player player) {
-        synchronized (lock2) {
-            player.die();
-            lostLives++;
+            if (isLostLive) {
+                synchronized (lostLivesLock) {
+                    player.loseLife();
+                    lostLives++;
+                    System.out.printf("У игрока %s жизней: %d\n", player.getName(), player.getLives());
 
-            if (lostLives == 12) {
-                gameOver(player);
+                    if (!player.isAlive()) {
+                        gameOver();
+                        return;
+                    }
+                }
+            }
+
+            synchronized (scoreLock) {
+                score++;
+                System.out.println("Score увеличен: " + score);
             }
         }
     }
 
-    private void gameOver(Player player) {
-        stopGame.shutdownNow();
+    private boolean isAlive() {
+        return players.stream()
+                .map(Player::getLives)
+                .allMatch(lives -> lives > 0);
+    }
 
-        synchronized (lock1) {
-            System.out.println();
-            System.out.println(player.getName() + " dead!");
-            System.out.println("Total score: " + score);
-            System.out.println();
-
-            GeneralStatistics.addNewScore(score);
+    private void gameOver() {
+        synchronized (scoreLock) {
+            System.out.println("GAME OVER");
+            System.out.println("Score: " + score);
+            System.out.println("lost lives: " + lostLives);
         }
     }
 }
