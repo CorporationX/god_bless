@@ -8,15 +8,14 @@ import lombok.RequiredArgsConstructor;
 public class Boss {
     private final int maxPlayers;
     private int currentPlayers;
-    private final Object lock = new Object();
 
     public void joinBattle(Player player) {
-        synchronized (lock) {
+        synchronized (this) {
             try {
-                while (currentPlayers == maxPlayers) {
+                while (currentPlayers >= maxPlayers) {
                     System.out.println("Сейчас с боссом сражается игроков: " + currentPlayers);
                     System.out.println("Все слоты заняты. Ждем...");
-                    lock.wait();
+                    wait();
                 }
                 currentPlayers++;
             } catch (InterruptedException e) {
@@ -28,9 +27,9 @@ public class Boss {
 
     private void processBattle(Player player) {
         player.battle();
-        synchronized (lock) {
+        synchronized (this) {
             currentPlayers--;
-            lock.notifyAll();
+            notifyAll();
         }
     }
 }

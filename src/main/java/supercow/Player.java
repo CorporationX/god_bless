@@ -9,7 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Getter
 public class Player {
     private final String name;
-    private final Random random = ThreadLocalRandom.current();
+    private static final Random random = ThreadLocalRandom.current();
 
     public void battle() {
         try {
