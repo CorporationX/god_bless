@@ -1,4 +1,4 @@
-package faang.school.godbless.heroes.creature;
+package faang.school.godbless.heroes.core.sprint.creature;
 
 public class Pikeman extends Creature {
 
