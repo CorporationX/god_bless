@@ -1,6 +1,10 @@
 package faang.school.godbless.BJS2_25446;
 
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+
 public class DesignDepartment extends ThreadDepartment {
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public DesignDepartment(MarketingResources marketingResources, DesignResources designResources) {
         super(marketingResources, designResources);
@@ -8,11 +12,17 @@ public class DesignDepartment extends ThreadDepartment {
 
     @Override
     public void run() {
-        synchronized (getMarketingResources()) {
+        lock.readLock().lock();
+        try {
             getMarketingResources().getResources();
-            synchronized (getDesignResources()) {
+            lock.readLock().lock();
+            try {
                 getDesignResources().getResources();
+            } finally {
+                lock.readLock().unlock();
             }
+        } finally {
+            lock.readLock().unlock();
         }
     }
 }
