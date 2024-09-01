@@ -8,37 +8,49 @@ public class Main {
     public static void main(String[] args) {
         var postService = new PostService();
 
-        var executorService = Executors.newFixedThreadPool(3);
+        var executorService = Executors.newFixedThreadPool(4);
 
         executorService.submit(() -> {
             var random = new Random();
             int i = 0;
 
             while (true) {
-                i++;
 
-                if (i > 5) {
-                    Thread.sleep(10000);
+                if (i > 10) {
+                    try {
+                        Thread.sleep(new Random().nextInt(10001));
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        break;
+                    }
                 }
 
-                var post = new Post("Title " + (i + 1), "Content " + (i + 1),
+                var post = new Post(i + 1, "Title " + (i + 1), "Content " + (i + 1),
                         "Author " + random.nextInt(1, 15));
                 postService.addPost(post);
 
+                i++;
             }
         });
 
         executorService.submit(() -> {
             var random = new Random();
 
-            int i = 0;
             while (true) {
-                i++;
-                Thread.sleep(2000);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
 
-                var posts = postService.getPosts();
+                var Ids = postService.getPosts().stream()
+                        .mapToInt(Post::getId)
+                        .toArray();
+                var randomId = new Random().nextInt(Ids.length);
+//                Добавление к случайному посту по id рандомное количество коментариев
                 for (int j = 0; j < random.nextInt(30); j++) {
-                    postService.addComment(random.nextInt(posts.size()), new Comment("Comment " + j,
+                    postService.addComment(randomId, new Comment("New comment",
                             "Author " + random.nextInt(15)));
                 }
             }
@@ -47,15 +59,27 @@ public class Main {
 
         executorService.submit(() -> {
             while (true) {
-                Thread.sleep(3000);
-                postService.viewPost(new Random().nextInt(postService.getPosts().size()));
+                try {
+                    Thread.sleep(4500);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    break;
+                }
+
+                var ids = postService.getPosts().parallelStream()
+                        .mapToInt(Post::getId)
+                        .toArray();
+
+//                Читаем случайный пост по id
+                var randomId = ids[new Random().nextInt(ids.length)];
+                postService.viewPost(randomId);
             }
         });
 
         executorService.shutdown();
         try {
-            if (!executorService.awaitTermination(40, TimeUnit.SECONDS)) {
-                executorService.shutdownNow();// Для завершения программы через 40 сек.!
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();// Для завершения программы через минуту.
                 var commentsLeft = postService.getPosts().stream()
                         .mapToInt(value -> value.getComments().size())
                         .sum();

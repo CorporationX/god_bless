@@ -5,17 +5,17 @@ import lombok.Getter;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class PostService {
-    private final Lock lock = new ReentrantLock();
-    private volatile List<Post> posts = new ArrayList<>();
+    private final Lock lock = new ReentrantLock(true);
+    private List<Post> posts = new ArrayList<>();
 
-    public synchronized void addPost(Post post) {
+    public void addPost(Post post) {
         lock.lock();
-
         try {
             posts.add(post);
         } finally {
@@ -23,39 +23,50 @@ public class PostService {
         }
     }
 
-    public synchronized void addComment(int postId, Comment comment) {
+    public void addComment(int postId, Comment comment) {
         lock.lock();
         try {
-            Post post = posts.get(postId);
-            if (post != null) {
-                post.getComments().add(comment);
+            var foundPost = posts.stream()
+                    .filter(post -> post.getId() == postId)
+                    .findAny()
+                    .orElseThrow(() -> new NoSuchElementException("Post not found"));
+
+            if (foundPost != null) {
+                foundPost.addComment(comment);
             }
+
         } finally {
             lock.unlock();
         }
     }
 
 
-    public synchronized void viewPost(int postId) {
+    public void viewPost(int postId) {
         lock.lock();
-        try {
-            var post = posts.get(postId);
-            System.out.println("===========================================");
-            System.out.printf("%s\t %s\n", post.getTitle(), post.getAuthor());
 
-            if (post.getComments().isEmpty()) {
-                System.out.println("No comments for " + post.getTitle());
+        try {
+            var foundPost = posts.stream()
+                    .filter(post -> post.getId() == postId)
+                    .findAny()
+                    .orElseThrow(() -> new NoSuchElementException("Post not found"));
+
+            System.out.println("===========================================");
+            System.out.printf("%s\t %s\n", foundPost.getTitle(), foundPost.getAuthor());
+
+            if (foundPost.getComments().isEmpty()) {
+                System.out.println("No comments for " + foundPost.getTitle());
             }
 
-            for (int i = 0; i < post.getComments().size(); i++) {
-                var comment = post.getComments().get(i);
+            for (int i = 0; i < foundPost.getComments().size(); i++) {
+                var comment = foundPost.getComments().get(i);
                 System.out.printf("\t%s\n", comment.getAuthor());
                 System.out.printf("\t\t%s\t%s\n", comment.getComment(),
                         DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss").format(comment.getDateTime()));
 
-                if (i != post.getComments().size() - 1)
+                if (i != foundPost.getComments().size() - 1)
                     System.out.println("-------------------------------------------");
             }
+
         } finally {
             lock.unlock();
         }
