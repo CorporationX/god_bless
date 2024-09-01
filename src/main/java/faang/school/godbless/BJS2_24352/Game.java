@@ -1,11 +1,9 @@
 package faang.school.godbless.BJS2_24352;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.Random;
 
-@AllArgsConstructor
 @Getter
 public class Game {
 
@@ -13,22 +11,28 @@ public class Game {
     private int lives;
     private final Object lockScore = new Object();
     private final Object lockLives = new Object();
+    private int methodToInvoke;
+
+    public Game(int score, int lives) {
+        this.score = score;
+        this.lives = lives;
+    }
 
     public void update(Player attacker, Player defender) {
-        int methodToInvoke = new Random().nextInt(2);
+        methodToInvoke = new Random().nextInt(2);
         if (methodToInvoke == 0) {
-            attacker.dealsDamage(defender);
+            attacker.dealsDamage();
         } else {
-            defender.dealsDamage(attacker);
+            defender.dealsDamage();
         }
         synchronized (lockScore) {
             score++;
         }
-        synchronized (lockLives){
+        synchronized (lockLives) {
             if (attacker.getLives() == 0 || defender.getLives() == 0) {
-            gameOver();
-        } else {
-            lives++;
+                gameOver();
+            } else {
+                lives++;
             }
         }
     }

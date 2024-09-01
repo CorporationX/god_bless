@@ -12,8 +12,8 @@ public class Player {
     private final String name;
     private int lives;
 
-    public synchronized void dealsDamage(Player player){
-        player.setLives(player.getLives() - 1);
-        System.out.println(player.getName() + " has died. Lifes = " + player.getLives());
+    public synchronized void dealsDamage(){
+        setLives(getLives() - 1);
+        System.out.println(getName() + " has died. Lifes = " + getLives());
     }
 }
