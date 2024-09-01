@@ -2,7 +2,6 @@ package faang.school.godbless.BJS2_25303;
 
 import java.util.Map;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
@@ -30,7 +29,11 @@ public class Main {
             while (from.equals(to)) {
                 to = accounts.get(ThreadLocalRandom.current().nextInt(accounts.size()));
             }
-            executor.schedule()
+            Account finalTo = to;
+//            executor.scheduleAtFixedRate(()->bank.transfer(from, finalTo, ThreadLocalRandom.current().nextInt(5000, 20000)), 0, 2, TimeUnit.SECONDS);
+            executor.scheduleAtFixedRate(()->{
+                bank.transfer(from, finalTo, ThreadLocalRandom.current().nextInt(5000, 20000));
+            }, 0, 2, TimeUnit.SECONDS);
         }
 
         try {
