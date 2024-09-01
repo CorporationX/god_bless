@@ -10,5 +10,5 @@ import java.util.List;
 @ToString
 
 public class Room {
-    private List<Food> foodList = new ArrayList<>();
+    private final List<Food> foodList = new ArrayList<>();
 }
