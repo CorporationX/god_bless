@@ -1,0 +1,4 @@
+> Task :Main.main()
+23:59:44.262 [pool-1-thread-886] INFO  - Pi number ~ 3.14135
+
+BUILD SUCCESSFUL in 6s
