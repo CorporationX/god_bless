@@ -17,48 +17,52 @@ public class SuperheroBattle {
 
     public List<Future<Superhero>> runCompetitions(List<Pair<Superhero, Superhero>> heroPairs) {
         return heroPairs.stream()
-                .map(pair -> executor.submit(() -> pair.getKey().getTotalPower() > pair.getValue().getTotalPower() ? pair.getKey() : pair.getValue()))
+                .map(pair -> executor.submit(() -> getWinnerSuperhero(pair)))
                 .toList();
+    }
+
+    private Superhero getWinnerSuperhero(Pair<Superhero, Superhero> pair) {
+        if (pair.getValue() == null) {
+            return pair.getKey();
+        }
+        return pair.getKey().getTotalPower() > pair.getValue().getTotalPower() ? pair.getKey() : pair.getValue();
     }
 
     public Future<Superhero> getStrongestSuperhero(List<Pair<Superhero, Superhero>> heroPairs) {
 
         List<Future<Superhero>> futures = runCompetitions(heroPairs);
 
-        System.out.println(futures.size());
+        while (futures.size() > 1) {
 
-        List<Superhero> winners = new ArrayList<>();
+            List<Superhero> winners = new ArrayList<>();
 
-        futures.forEach(future -> {
-            try {
-                Superhero hero = future.get();
-                winners.add(hero);
-                System.out.println("Победитель раунда" + ": " + hero.getName());
-            } catch (InterruptedException | ExecutionException e) {
-                log.error(e.getMessage(), e);
-                throw new RuntimeException(e);
-            }
-        });
-
-        if (futures.size() == 1) {
-
-            return futures.get(0);
-        } else {
-            return getStrongestSuperhero(splitIntoPairs(winners));
+            futures.forEach(future -> {
+                try {
+                    Superhero hero = future.get();
+                    winners.add(hero);
+                    System.out.println("Победитель раунда" + ": " + hero.getName());
+                } catch (InterruptedException | ExecutionException e) {
+                    log.error(e.getMessage(), e);
+                    throw new RuntimeException(e);
+                }
+            });
+            futures = runCompetitions(splitIntoPairs(winners));
         }
+        return futures.get(0);
     }
 
     private List<Pair<Superhero, Superhero>> splitIntoPairs(List<Superhero> heroPairs) {
-        int left = 0;
-        int right = heroPairs.size() - 1;
 
         List<Pair<Superhero, Superhero>> pairs = new ArrayList<>();
 
-        while (right - left >= 0) {
-            pairs.add(new Pair<>(heroPairs.get(left), heroPairs.get(right)));
-            left++;
-            right--;
+        for (int i = 0; i < heroPairs.size() - 1; i += 2) {
+            pairs.add(new Pair<>(heroPairs.get(i), heroPairs.get(i + 1)));
         }
+
+        if (heroPairs.size() % 2 != 0) {
+            pairs.add(new Pair<>(heroPairs.get(heroPairs.size() - 1), null));
+        }
+
         return pairs;
     }
 
