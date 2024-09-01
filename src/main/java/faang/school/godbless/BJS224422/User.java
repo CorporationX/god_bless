@@ -14,7 +14,6 @@ public class User {
         if (house.joinHouse(role)) {
             System.out.println("User " + userName + " joined the house, role: " + role);
         }
-
     }
 
     public void leaveHouse() {

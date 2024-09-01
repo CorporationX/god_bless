@@ -24,16 +24,12 @@ public class House {
         notifyAll();
     }
 
-    public void addRole(String role) {
-        synchronized (this) {
+    public synchronized void addRole(String role) {
             availableRoles.add((role));
             notifyAll();
-        }
     }
 
-    public void removeRole(String role) {
-        synchronized (this) {
+    public synchronized void removeRole(String role) {
             availableRoles.remove(role);
         }
-    }
 }
