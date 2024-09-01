@@ -3,13 +3,12 @@ package faang.school.godbless.BJS2_23869;
 import lombok.Getter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Getter
 public class House {
@@ -46,20 +45,19 @@ public class House {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < 5; i++) {
-            int startIndex = i * 2;
-            executor.schedule(() -> house.collectFood(startIndex), 30 * i, TimeUnit.SECONDS);
+            int roomIndex1 = i * 2 % roomInHome.size();
+            int roomIndex2 = (i * 2 + 1) % roomInHome.size();
+            executor.schedule(() -> house.collectFood(roomIndex1, roomIndex2), 30 * i, TimeUnit.SECONDS);
         }
         executor.shutdown();
         executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
         System.out.println("All food is collected");
     }
 
-    public void collectFood(int startIndex) {
-        List<Food> foodToCollect = IntStream.range(startIndex, Math.min(startIndex + 2, rooms.size()))
-                .mapToObj(rooms::get)
-                .flatMap(room -> room.collectFood().stream())
-                .toList();
-
-        foodsInHouse.addAll(foodToCollect);
+    public void collectFood(int roomIndex1, int roomIndex2) {
+        List<Room> selectedRooms = Arrays.asList(rooms.get(roomIndex1), rooms.get(roomIndex2));
+        selectedRooms.stream()
+                .map(Room::collectRoomFoodAndClear)
+                .forEach(foodsInHouse::addAll);
     }
 }

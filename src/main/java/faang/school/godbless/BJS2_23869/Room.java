@@ -14,7 +14,7 @@ public class Room {
 
     private final List<Food> foodInRoom;
 
-    public List<Food> collectFood() {
+    public List<Food> collectRoomFoodAndClear() {
         List<Food> collectedFood = new ArrayList<>(foodInRoom);
         foodInRoom.clear();
         return collectedFood;
