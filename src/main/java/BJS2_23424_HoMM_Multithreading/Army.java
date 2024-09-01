@@ -18,12 +18,6 @@ public class Army {
             PowerThread powerThread = new PowerThread(unit);
             powerThread.start();
             powers.add(powerThread);
-            try {
-                powerThread.join();
-            } catch (InterruptedException e) {
-                log.error("Thread was interrupted!", e);
-                Thread.currentThread().interrupt();
-            }
         });
 
         return powers.stream()
