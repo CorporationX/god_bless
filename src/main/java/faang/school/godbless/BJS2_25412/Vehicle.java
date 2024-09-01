@@ -2,26 +2,28 @@ package faang.school.godbless.BJS2_25412;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
 @EqualsAndHashCode
 @AllArgsConstructor
+@ToString
 public class Vehicle {
     private final int id;
-    private volatile Status status;
-    private volatile Location location;
+    private Status status;
+    private Locaton location;
 
     public void setLocation() {
-//        double t = new Random().nextDouble(-0.000020,0.000040);
-//        System.out.println(Math.round((d+t)*1000000.0)/1000000.0);
-
-
-        double newLatitude = location.getLatitude()+new Random().nextDouble(-0.030000,0.030000);
-        location = new Location(location.getLatitude())
+        double newLatitude = location.latitude() + new Random().nextDouble(-0.030000, 0.030000);
+        double newLongtitude = location.longitude() + new Random().nextDouble(-0.030000, 0.030000);
+        location = new Locaton(newLatitude, newLongtitude);
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setStatus() {
+        status = Status.values()[ThreadLocalRandom.current().nextInt(Status.values().length)];
     }
 }
