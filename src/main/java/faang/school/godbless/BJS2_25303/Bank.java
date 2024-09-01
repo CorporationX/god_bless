@@ -11,12 +11,28 @@ public class Bank {
     private final Map<Integer, Account> accounts;
 
     public boolean transfer(Account from, Account to, int amount) {
-        if (from.getBalance() < amount) {
-            return false;
-        }
-        if (from.getId() < 0 || to.getId() < 0) {
+        System.out.println("Start transfer from " + from.getId() + " to " + to.getId());
+        Object firstLock = Math.min(from.getId(), to.getId());
+        Object secondLock = Math.max(from.getId(), to.getId());
+
+        if (from.getId() < to.getId()) {
             synchronized (from) {
                 synchronized (to) {
+                    if (from.getBalance() < amount) {
+                        System.out.println("FALSE");
+                        return false;
+                    }
+                    from.withdraw(amount);
+                    to.deposit(amount);
+                }
+            }
+        } else {
+            synchronized (to) {
+                synchronized (from) {
+                    if (from.getBalance() < amount) {
+                        System.out.println("FALSE");
+                        return false;
+                    }
                     from.withdraw(amount);
                     to.deposit(amount);
                 }
