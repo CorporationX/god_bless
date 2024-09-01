@@ -1,0 +1,10 @@
+package three_wizards_tournament;
+
+import lombok.Data;
+
+@Data
+public class Task {
+    private final String name;
+    private final int difficulty;
+    private final int reward;
+}
