@@ -19,43 +19,63 @@ public class Cosmodrome {
         launches.add(new RocketLaunch("Falcon 7", currentDateTime.plusSeconds(10)));
 
         long startTime = System.currentTimeMillis();
-        planRocketLaunches(launches);
+        scheduleLaunches(launches);
         long endTime = System.currentTimeMillis();
 
         System.out.println("Time taken to execute planRocketLaunches: " + (endTime - startTime) + " ms");
     }
 
-    public static void planRocketLaunches(List<RocketLaunch> launches) {
+    public static void scheduleLaunches(List<RocketLaunch> launches) {
+        List<RocketLaunch> sortedLaunches = sortLaunchesByDate(launches);
+        executeLaunches(sortedLaunches);
+    }
+
+    private static List<RocketLaunch> sortLaunchesByDate(List<RocketLaunch> launches) {
+        return launches.stream()
+                .sorted(Comparator.comparing(RocketLaunch::getLaunchDateTime))
+                .toList();
+    }
+
+    private static void executeLaunches(List<RocketLaunch> launches) {
         try (ExecutorService executor = Executors.newSingleThreadExecutor()) {
-            launches
-                    .stream()
-                    .sorted(Comparator.comparing(RocketLaunch::getLaunchDateTime))
-                    .forEach(launch -> executor.submit(() -> {
-                        LocalDateTime launchDateTime = launch.getLaunchDateTime();
-                        long delay = ChronoUnit.MILLIS.between(LocalDateTime.now(), launchDateTime);
-
-                        if (delay > 0) {
-                            try {
-                                Thread.sleep(delay);
-                            } catch (InterruptedException e) {
-                                Thread.currentThread().interrupt();
-                                System.err.println("Launch of " + launchDateTime + " was interrupted");
-                            }
-                        }
-                        launch.launch();
-                    }));
-
-            executor.shutdown();
-            try {
-                if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                    executor.shutdownNow();
-                }
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                executor.shutdownNow();
-            }
+            launches.forEach(launch -> executor.submit(() -> handleLaunch(launch)));
+            shutdownExecutor(executor);
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            handleError(e);
         }
+    }
+
+    private static void handleLaunch(RocketLaunch launch) {
+        LocalDateTime launchDateTime = launch.getLaunchDateTime();
+        long delay = calculateDelay(launchDateTime);
+
+        if (delay > 0) {
+            sleepForDelay(delay, launchDateTime);
+        }
+        launch.launch();
+    }
+
+    private static long calculateDelay(LocalDateTime launchDateTime) {
+        return ChronoUnit.MILLIS.between(LocalDateTime.now(), launchDateTime);
+    }
+
+    private static void sleepForDelay(long delay, LocalDateTime launchDateTime) {
+        try {
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            System.err.println("Launch of " + launchDateTime + " was interrupted");
+        }
+    }
+
+    private static void shutdownExecutor(ExecutorService executor) throws InterruptedException {
+        executor.shutdown();
+        if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
+        }
+    }
+
+    private static void handleError(Exception e) {
+        System.err.println(e.getMessage());
     }
 }
