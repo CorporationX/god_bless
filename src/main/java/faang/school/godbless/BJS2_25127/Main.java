@@ -16,7 +16,7 @@ public class Main {
     public static double calculatePi(int n) {
         List<Pair> coords = new ArrayList<>();
 
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             double x = Math.round(Math.random() * 10) / 10.0;
             double y = Math.round(Math.random() * 10) / 10.0;
             coords.add(new Pair(x, y));
@@ -25,19 +25,17 @@ public class Main {
         AtomicInteger inside = new AtomicInteger();
         int all = coords.size();
 
-        List<CompletableFuture<Void>> futures = coords.stream()
-                .map(pair -> CompletableFuture.runAsync(()
-                        -> {
-                    if((pair.getX() * pair.getX() + pair.getY() * pair.getY()) < radius) {
-                        inside.incrementAndGet();
-                    }
-                }))
-                .collect(Collectors.toList());
+        List<CompletableFuture<Void>> futures = coords.stream().map(pair -> CompletableFuture.runAsync(() -> {
+            if ((pair.getX() * pair.getX() + pair.getY() * pair.getY()) < radius) {
+                inside.incrementAndGet();
+            }
+        })).collect(Collectors.toList());
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
 
         return 4.0 * inside.get() / all;
     }
+
     public static void main(String[] args) {
         System.out.println(calculatePi(1000));
     }
