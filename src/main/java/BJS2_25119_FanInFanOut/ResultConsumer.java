@@ -24,11 +24,13 @@ public class ResultConsumer {
 
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         ExecutorService executor = Executors.newFixedThreadPool(requests.size());
+
         CompletableFuture<Void> allThreads = CompletableFuture.allOf(requests.stream()
                 .map(squareRequest -> CompletableFuture.runAsync(() ->
                         squareRequest.longTimeSquare(resultConsumer), executor))
                 .toArray(CompletableFuture[]::new));
         allThreads.join();
+
         executor.shutdown();
         try {
             if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
