@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class Item {
 
-    private String name;
-    private int power;
+    private final String name;
+    private final int power;
 }

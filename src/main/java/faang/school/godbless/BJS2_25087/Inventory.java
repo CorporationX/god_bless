@@ -11,7 +11,7 @@ import java.util.List;
 @ToString
 public class Inventory {
 
-    private List<Item> items;
+    private final List<Item> items;
 
     public void addItem(Item item){
         items.add(item);
