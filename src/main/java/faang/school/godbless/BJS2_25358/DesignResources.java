@@ -4,16 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class DesignResources {
     private final ReadWriteLock designLock = new ReentrantReadWriteLock();
-    private final List<String> designResources = new ArrayList<>() {{
-        add("DesignContent1");
-        add("DesignContent2");
-        add("DesignContent3");
-        add("DesignContent4");
-        add("DesignContent5");
-    }};
+    private final List<String> designResources = generateDesignResources(5);
 
     public void addDesignResource(String designResource) {
         designLock.writeLock().lock();
@@ -26,5 +22,11 @@ public class DesignResources {
         List<String> result = new ArrayList<>(designResources);
         designLock.readLock().unlock();
         return result;
+    }
+
+    public List<String> generateDesignResources(int size) {
+        return IntStream.range(0, size)
+                .mapToObj(i -> "DesignContent" + i)
+                .collect(Collectors.toList());
     }
 }
