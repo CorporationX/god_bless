@@ -1,63 +1,41 @@
 package faang.school.godbless.leaveacomment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class PostService {
-    private final List<Post> posts = new ArrayList<>();
-    private final Lock lock = new ReentrantLock();
+    private final Map<Integer, Post> posts;
+
+    public PostService() {
+        this.posts = new ConcurrentHashMap<>();
+    }
 
     public void addPost(Post post) {
-        lock.lock();
-        try {
-            posts.add(post);
-        } finally {
-            lock.unlock();
-        }
+        posts.put(post.getId(), post);
     }
 
     public void removePost(int postId, String author) {
-        lock.lock();
-        try {
-            posts.removeIf(post -> post.getId() == postId && post.getAuthor().equals(author));
-        } finally {
-            lock.unlock();
+        Post post = posts.get(postId);
+        if (post != null && post.getAuthor().equals(author)) {
+            posts.remove(postId);
         }
     }
 
     public void addComment(int postId, Comment comment) {
-        lock.lock();
-        try {
-            Optional<Post> post = posts.stream().filter(p -> p.getId() == postId).findFirst();
-            post.ifPresent(p -> p.addComment(comment));
-        } finally {
-            lock.unlock();
+        Post post = posts.get(postId);
+        if (post != null) {
+            post.addComment(comment);
         }
     }
 
     public void removeComment(int postId, Comment comment, String author) {
-        lock.lock();
-        try {
-            Optional<Post> post = posts.stream().filter(p -> p.getId() == postId).findFirst();
-            post.ifPresent(p -> {
-                if (comment.getAuthor().equals(author)) {
-                    p.removeComment(comment);
-                }
-            });
-        } finally {
-            lock.unlock();
+        Post post = posts.get(postId);
+        if (post != null && comment.getAuthor().equals(author)) {
+            post.removeComment(comment);
         }
     }
 
-    public List<Post> getPosts() {
-        lock.lock();
-        try {
-            return new ArrayList<>(posts);
-        } finally {
-            lock.unlock();
-        }
+    public Map<Integer, Post> getPosts() {
+        return new ConcurrentHashMap<>(posts);
     }
 }

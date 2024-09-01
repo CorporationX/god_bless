@@ -29,7 +29,7 @@ public class Main {
 
         shutdown(executorService);
 
-        postService.getPosts().forEach(System.out::println);
+        postService.getPosts().values().forEach(System.out::println);
     }
 
     private static void shutdown(ExecutorService executorService) {
@@ -37,6 +37,9 @@ public class Main {
         try {
             if (executorService.awaitTermination(20, TimeUnit.SECONDS)) {
                 executorService.shutdownNow();
+                if (!executorService.awaitTermination(20, TimeUnit.SECONDS)) {
+                    log.error("Pool did not terminate");
+                }
             }
         } catch (InterruptedException e) {
             log.error(e.getMessage());
