@@ -9,14 +9,14 @@ import java.util.Random;
 @Getter
 public class User {
     private final String name;
-
+    private final static Random random = new Random();
     private final House house;
 
     private Role role;
 
     public void joinHouse() {
         synchronized (house) {
-            if (house.getAvailableRolesCount() == 0) {
+            while (house.getAvailableRolesCount() == 0) {
                 try {
                     System.out.println("Нет доступных ролей, ждем");
                     house.wait();
@@ -25,7 +25,7 @@ public class User {
                 }
             }
             int rolesCount = house.getRoles().size();
-            this.role = house.getRoles().get(new Random().nextInt(rolesCount));
+            this.role = house.getRoles().get(random.nextInt(rolesCount));
             house.addRole();
         }
     }

@@ -10,14 +10,16 @@ import java.util.List;
 public class House {
     private final String name;
     private final List<Role> roles;
-    private int availableRolesCount = 3;
+    private int availableRolesCount = 5;
 
-    public void addRole() {
+    public synchronized void addRole() {
         this.availableRolesCount--;
     }
 
     public void removeRole() {
-        this.availableRolesCount++;
+        synchronized (this) {
+            this.availableRolesCount++;
+        }
         notifyAll();
     }
 }
