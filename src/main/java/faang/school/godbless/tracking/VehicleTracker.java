@@ -1,6 +1,7 @@
 package faang.school.godbless.tracking;
 
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
@@ -18,24 +19,23 @@ public class VehicleTracker {
 
     public void startUpdating() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        service.scheduleAtFixedRate(system::update,
-                2_000,
-                3_000,
-                TimeUnit.MILLISECONDS
-        );
-
         ArrayList<Vehicle> vehicles = new ArrayList<>(system.getInfo().values());
 
         service.scheduleAtFixedRate(() -> {
+                    CompletableFuture<Void> future = null;
                     for (Vehicle vehicle : vehicles) {
-                        service.schedule(
-                                () -> vehicle.setLocation(new Location(vehicle.getLocation().latitude() + random.nextInt(-100, 100),
-                                        vehicle.getLocation().longitude() + random.nextInt(-100, 100))),
-                                1_000,
-                                TimeUnit.MILLISECONDS
-                        );
+                        future = CompletableFuture.runAsync(
+                                () -> vehicle.setLocation(
+                                        new Location(vehicle.getLocation().latitude()
+                                                + random.nextInt(-100, 100),
+                                        vehicle.getLocation().longitude()
+                                                + random.nextInt(-100, 100))),
+                                service);
                     }
-                }, 1_000,
+                    assert future != null;
+                    future.thenRun(system::update);
+                },
+                1_000,
                 2_000,
                 TimeUnit.MILLISECONDS
         );
