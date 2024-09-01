@@ -38,12 +38,12 @@ public class CityWorker implements Runnable {
             throw new IllegalArgumentException("Monsters shouldn't be null or empty");
         }
 
-        return monsters.stream()
+        Map<Monster, Integer> monsterDistanceEstimate = monsters.stream()
                 .collect(Collectors.toMap(Function.identity(),
                         monster -> Math.abs(city.getLocation().getX() - monster.getLocation().getX()) +
-                                Math.abs(city.getLocation().getY() - monster.getLocation().getY())))
-                .entrySet()
-                .stream()
+                                Math.abs(city.getLocation().getY() - monster.getLocation().getY())));
+
+        return monsterDistanceEstimate.entrySet().stream()
                 .sorted(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .findFirst()

@@ -2,7 +2,6 @@ package faang.school.godbless.wither.monster.map;
 
 import lombok.Getter;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -16,14 +15,15 @@ public class Monster {
         this.place = place;
     }
 
-    private static final Map<String, Location> placeLocationMap = new HashMap<>();
-
-    public static void addPlaceLocation(String place, Location location) {
-        placeLocationMap.put(place, location);
+    public Location getLocation() {
+        return Optional.ofNullable(getPlaceLocationMap().get(place))
+                .orElseThrow(() -> new IllegalArgumentException(String.format("There is no information about place: %s", place)));
     }
 
-    public Location getLocation() {
-        return Optional.ofNullable(placeLocationMap.get(place))
-                .orElseThrow(() -> new IllegalArgumentException(String.format("There is no information about place: %s", place)));
+    private Map<String, Location> getPlaceLocationMap() {
+        return Map.of("Toussaint", new Location(10, 15),
+                "White Orchard", new Location(140, 10),
+                "Velen", new Location(200, 45),
+                "Skellige", new Location(120, 85));
     }
 }
