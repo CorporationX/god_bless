@@ -22,5 +22,7 @@ public class Main {
                 player.getName(), player.getExperience()));
         player2Quest.thenAccept(player -> log.info("{} has completed the quest and now has {} experience points.",
                 player.getName(), player.getExperience()));
+
+        CompletableFuture.allOf(player1Quest, player2Quest).join();
     }
 }
