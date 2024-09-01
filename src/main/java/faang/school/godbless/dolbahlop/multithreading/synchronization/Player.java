@@ -1,42 +1,18 @@
 package faang.school.godbless.dolbahlop.multithreading.synchronization;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class Player {
-    private Object lock = new Object();
-    private boolean isPlaying;
+    private String name;
+    private int lives;
 
-    public void play() {
-        synchronized (lock) {
-            if (!isPlaying) {
-                isPlaying = true;
-            }
-            System.out.println("Music is playing");
-        }
+    public synchronized boolean isAlive() {
+        return lives > 0;
     }
-
-    public void pause() {
-        synchronized (lock) {
-            if (isPlaying) {
-                isPlaying = false;
-            }
-            System.out.println("Music has beeen paused");
-        }
-    }
-
-    public void skip() {
-        synchronized (lock) {
-            System.out.println("Music has been stopped");
-            if (isPlaying) {
-                System.out.println("Next music is playing");
-            }
-        }
-    }
-
-    public void previous() {
-        synchronized (lock) {
-            System.out.println("Return to the previous music");
-            if (isPlaying) {
-                System.out.println("Previous music is playing");
-            }
-        }
+    public synchronized void loseLife() {
+        lives--;
     }
 }
