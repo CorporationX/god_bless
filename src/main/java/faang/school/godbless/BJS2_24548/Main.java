@@ -12,8 +12,8 @@ public class Main {
 
         VideoManager videoManager = new VideoManager();
 
-        final int NUM_THREADS = 50;
-        final int NUM_VIDEOS = 5;
+        final int NUM_THREADS = 100;
+        final int NUM_VIDEOS = 10;
         ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
 
         List<String> videos = new ArrayList<>();
