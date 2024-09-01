@@ -16,7 +16,7 @@ public class Main {
         });
         Thread checkingThread = new Thread(() -> {
             try {
-                for (int i = 1; i <= 5; i++) {
+                for (int i = 1; i <= 10; i++) {
                     googlePhoto.onNewPhotoAdded("photo" + i + ".jpg");
                     Thread.sleep(500);
                 }
