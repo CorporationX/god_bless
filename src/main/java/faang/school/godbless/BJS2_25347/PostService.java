@@ -25,11 +25,6 @@ public class PostService {
 
     public Comment getComment(int id) {
         lockComment.lock();
-//        Optional<Comment> comment = posts.stream()
-//                .flatMap(post -> post.getComments().stream())
-//                .filter(comm -> comm.getId() == id)
-//                .findAny();
-//        lockComment.unlock();
         Comment comment = comments.get(id);
         lockComment.unlock();
         return comment;
