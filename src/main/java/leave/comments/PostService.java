@@ -28,9 +28,7 @@ public class PostService {
     }
 
     public void removePost(Author author, long postId) {
-        Optional<Post> removingPost = this.findPostById(postId);
-        if (removingPost.isPresent()) {
-            Post post = removingPost.get();
+        this.findPostById(postId).ifPresent(post -> {
             if (!post.getAuthor().equals(author)) {
                 System.out.println("У вас нет прав на удаление чужого поста");
                 return;
@@ -40,7 +38,7 @@ public class PostService {
                 this.posts.remove(post);
                 System.out.printf("Был удалён пост: %d\n", postId);
             }
-        }
+        });
     }
 
     public void removeComment(long postId, Comment comment) {
@@ -48,17 +46,18 @@ public class PostService {
 
         if (post.isPresent()) {
             post.get().getComments()
-                    .stream()
-                    .filter(c -> c.equals(comment))
-                    .findFirst()
-                    .ifPresent(c -> {
+                .removeIf(c -> {
+                    if (c.equals(comment)) {
                         if (c.getAuthor().equals(comment.getAuthor())) {
-                            post.get().removeComment(comment);
                             System.out.printf("Был удалён комментарий: %s\n", comment.getText());
+
+                            return true;
                         } else {
                             System.out.println("Удалять можно только свои комментарии");
                         }
-                    });
+                    }
+                    return false;
+                });
         }
     }
 
