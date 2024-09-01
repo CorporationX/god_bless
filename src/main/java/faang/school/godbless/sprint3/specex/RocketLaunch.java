@@ -1,4 +1,4 @@
-package faang.school.godbless.sprint3;
+package faang.school.godbless.sprint3.specex;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
