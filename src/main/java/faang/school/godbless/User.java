@@ -2,33 +2,39 @@ package faang.school.godbless;
 
 import lombok.Getter;
 
-import java.util.Objects;
-
 @Getter
 public class User {
-    private int id;
     private String name;
+    private House house;
+    private String role;
 
-    public User(int id, String name) {
-        this.id = id;
+    public User(String name) {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && Objects.equals(name, user.name);
+    public void joinHouse(House house, String role) throws InterruptedException {
+        this.house = house;
+
+        synchronized (house) {
+            while (!house.isRoleAvailable(role)) {
+                System.out.println(name + " ждет освобождения роли " + role + " в доме " + house.getName());
+                house.wait();
+            }
+            if (house.addRole(role)) {
+                this.role = role;
+                System.out.println(name + " присоединился к " + house.getName() + " в роли " + role);
+            }
+        }
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +  "id=" + id + ", name='" + name + '\'' + '}';
+    public void leaveHouse() {
+        if (house != null && role != null) {
+            synchronized (house) {
+                house.removeRole(role);
+                System.out.println(name + " покинул " + house.getName() + " и освободил роль " + role);
+                role = null;
+                house = null;
+            }
+        }
     }
 }
