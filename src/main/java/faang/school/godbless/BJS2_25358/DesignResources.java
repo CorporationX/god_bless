@@ -11,6 +11,7 @@ public class DesignResources {
     private final ReadWriteLock designLock = new ReentrantReadWriteLock();
     private final List<String> designResources = generateDesignResources(5);
 
+
     public void addDesignResource(String designResource) {
         designLock.writeLock().lock();
         designResources.add(designResource);
