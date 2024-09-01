@@ -11,8 +11,8 @@ public class Factorial {
     private static final int MAX_LONG_FACTORIAL = 19;
 
     public static void main(String[] args) {
-        List<Integer> numbers = List.of(18,
-                50, 100, 200, 300, 400, 10, 25, 10000
+        List<Integer> numbers = List.of(
+                18, 50, 100, 200, 300, 400, 10, 25, 10000, 0
         );
         List<CompletableFuture<BigInteger>> result = factorials(numbers);
         AtomicInteger counter = new AtomicInteger(0);
@@ -32,57 +32,52 @@ public class Factorial {
     }
 
     private static int factorialInt(int n) throws IllegalArgumentException {
-        if (n > MAX_INT_FACTORIAL) {
+        if (n < 0 || n > MAX_INT_FACTORIAL) {
             throw new IllegalArgumentException(n + " is too big");
         }
         int result = 1;
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 2; i <= n; i++) {
             result *= i;
         }
         return result;
     }
 
     private static long factorialLong(int n) throws IllegalArgumentException {
-        if (n > MAX_LONG_FACTORIAL) {
+        if (n < 0 || n > MAX_LONG_FACTORIAL) {
             throw new IllegalArgumentException(n + " is too big");
         }
-        long result = 1;
-        int resultInt;
+        long result;
 
-        try {
+        if (n < MAX_INT_FACTORIAL) {
             return factorialInt(n);
-        } catch (IllegalArgumentException e) {
-            resultInt = factorialInt(MAX_INT_FACTORIAL);
+        } else {
+            result = factorialInt(MAX_INT_FACTORIAL);
         }
 
         for (int i = MAX_INT_FACTORIAL + 1; i <= n; i++) {
             result *= i;
         }
-        return result * resultInt;
+        return result;
     }
 
     private static BigInteger factorialBig(int n) {
-        if (n < 1) {
+        if (n < 0) {
             throw new IllegalArgumentException(n + " is too small");
         }
-        BigInteger result = new BigInteger("1");
-        long resultLong;
+        BigInteger result;
 
-        try {
-            return new BigInteger(String.valueOf(factorialLong(n)));
-        } catch (IllegalArgumentException e) {
-            resultLong = factorialLong(MAX_LONG_FACTORIAL);
-        }
-        BigInteger start = new BigInteger(String.valueOf(MAX_LONG_FACTORIAL + 1));
-        BigInteger end = new BigInteger(String.valueOf(n));
-        BigInteger increment = new BigInteger("1");
-
-        for (BigInteger i = start; i.compareTo(end) <= 0; i = i.add(increment)) {
-            result = result.multiply(i);
+        if (n < MAX_LONG_FACTORIAL) {
+            return BigInteger.valueOf(factorialLong(n));
+        } else {
+            result = BigInteger.valueOf(factorialLong(MAX_LONG_FACTORIAL));
         }
 
-        return result.multiply(new BigInteger(String.valueOf(resultLong)));
+        for (int i = MAX_LONG_FACTORIAL + 1; i <= n; i++) {
+            result = result.multiply(BigInteger.valueOf(i));
+        }
+
+        return result;
 
     }
 
