@@ -37,13 +37,15 @@ public class GooglePhotosAutoUploader {
             String photoPath = photosToUpload.remove(0);
             System.out.println("Uploading photo: " + photoPath);
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1000); // Симулируем время загрузки фотографии
             } catch (InterruptedException e) {
                 System.out.println("Upload interrupted");
                 Thread.currentThread().interrupt(); // Восстанавливаем флаг прерывания
+                return;
             }
+        } else {
+            System.out.println("No photos to upload");
         }
         System.out.println("All photos uploaded");
     }
-
 }
