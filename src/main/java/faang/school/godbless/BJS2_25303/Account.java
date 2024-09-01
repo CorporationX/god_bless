@@ -10,14 +10,14 @@ import lombok.Getter;
 public class Account {
     private int id, balance;
 
-    public void deposit(long amount) {
+    public void deposit(int amount) {
         System.out.println("Account id: " + id + " balance: " + balance);
         balance += amount;
-        System.out.println("Account id: " + id + " balance after deposit + " + amount + " is " + balance);
+        System.out.println("Account id: " + id + " balance after deposit + " + amount + " is " + balance + " Thread: " + Thread.currentThread().getId());
 
     }
 
-    public void withdraw(long amount) {
+    public void withdraw(int amount) {
         System.out.println("Account id: " + id + " balance: " + balance);
         balance -= amount;
         System.out.println("Account id: " + id + " balance after withdraw - " + amount + " is " + balance);

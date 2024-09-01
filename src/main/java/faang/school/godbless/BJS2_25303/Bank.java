@@ -11,31 +11,17 @@ public class Bank {
     private final Map<Integer, Account> accounts;
 
     public boolean transfer(Account from, Account to, int amount) {
-        System.out.println("Start transfer from " + from.getId() + " to " + to.getId());
+        System.out.println("Start transfer from " + from.getId() + " to " + to.getId() + " Thread " + Thread.currentThread().getId());
         Object firstLock = Math.min(from.getId(), to.getId());
         Object secondLock = Math.max(from.getId(), to.getId());
-
-        if (from.getId() < to.getId()) {
-            synchronized (from) {
-                synchronized (to) {
-                    if (from.getBalance() < amount) {
-                        System.out.println("FALSE");
-                        return false;
-                    }
-                    from.withdraw(amount);
-                    to.deposit(amount);
+        synchronized (firstLock) {
+            synchronized (secondLock) {
+                if (from.getBalance() < amount) {
+                    System.out.println("FALSE");
+                    return false;
                 }
-            }
-        } else {
-            synchronized (to) {
-                synchronized (from) {
-                    if (from.getBalance() < amount) {
-                        System.out.println("FALSE");
-                        return false;
-                    }
-                    from.withdraw(amount);
-                    to.deposit(amount);
-                }
+                from.withdraw(amount);
+                to.deposit(amount);
             }
         }
         return true;
