@@ -3,6 +3,7 @@ package bank.game;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -47,5 +48,9 @@ public class Bank {
         return accounts.values().stream()
                 .mapToDouble(Account::getBalance)
                 .sum();
+    }
+
+    public List<Integer> getAllIds() {
+        return accounts.keySet().stream().toList();
     }
 }
