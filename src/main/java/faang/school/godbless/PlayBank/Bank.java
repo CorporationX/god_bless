@@ -29,14 +29,10 @@ public class Bank {
     }
 
     private boolean executeTransfer(Account from, Account to, int amount) {
-        synchronized (from) {
-            synchronized (to) {
-                if (from.withdraw(amount)) {
-                    to.deposit(amount);
-                    System.out.println(from.getId() + " успешно перевёл " + amount + " на аккаунт " + to.getId());
-                    return true;
-                }
-            }
+        if (from.withdraw(amount)) {
+            to.deposit(amount);
+            System.out.println(from.getId() + " успешно перевёл " + amount + " на аккаунт " + to.getId());
+            return true;
         }
         System.out.println(from.getId() + " не смог перевести " + amount + " на аккаунт " + to.getId());
         return false;
