@@ -1,5 +1,6 @@
 package commenting;
 
+import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDateTime;
@@ -16,39 +17,12 @@ public class Main {
     public static void main(String[] args) {
         PostService service = new PostService();
         var posts = initPost();
-        var postFutures = posts.stream()
-                .map(p -> CompletableFuture.runAsync(() -> service.addPost(p)))
-                .toList();
-        CompletableFuture.allOf(postFutures.toArray(new CompletableFuture[0])).join();
-        List<CompletableFuture<Void>> commentFutures = new ArrayList<>();
-        var postsIdx = new ArrayList<>(service.getAllPostsId());
-        postsIdx.forEach(i -> log.info("post: " + i));
-        log.info(posts.get(0).getId() + " " + posts.get(0).getHeader());
-        List<Comment> comments = new ArrayList<>();
-        for (Integer postId : postsIdx) {
-            log.info("commenting post " + postId);
-            CompletableFuture.runAsync(() -> {
-                for (int i = 0; i < COMMENT_COUNT; i++) {
-                    int finalI = i;
-                    Comment comment = new Comment("text", LocalDateTime.now(), "author_" + finalI);
-                    comments.add(comment);
-                    commentFutures.add(CompletableFuture.runAsync(() -> service.addComment(
-                            comment, postId)));
-                }
-            });
-        }
+        addPosts(posts, service);
+        var postsIdx = service.getAllPostsId();
         int randomIdx = postsIdx.get(ThreadLocalRandom.current().nextInt(postsIdx.size()));
+        var comments = addComments(service);
         CompletableFuture.runAsync(() -> service.removePost(randomIdx, service.getPost(randomIdx).getAuthor()));
-        CompletableFuture.allOf(commentFutures.toArray(new CompletableFuture[0])).join();
-        List<CompletableFuture<?>> commentDelFutures = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Comment comment = comments.remove(ThreadLocalRandom.current().nextInt(comments.size()));
-            if (comment != null) {
-                commentDelFutures.add(
-                        CompletableFuture.runAsync(() -> service.removeComment(comment.getId(), comment.getAuthor())));
-            }
-        }
-        CompletableFuture.allOf(commentDelFutures.toArray(new CompletableFuture[0])).join();
+        deleteComments(comments, service);
         posts.forEach(p -> log.info(
                 String.format("post %s : comments %d", p.getHeader(), p.getAllCommentsId().size())));
     }
@@ -59,5 +33,54 @@ public class Main {
             posts.add(new Post("header_" + i, "text", "author_" + i));
         }
         return posts;
+    }
+
+    private static void addPosts(@NonNull List<Post> posts, @NonNull PostService service) {
+        var postFutures = posts.stream()
+                .map(p -> CompletableFuture.runAsync(() -> service.addPost(p)))
+                .toList();
+        CompletableFuture.allOf(postFutures.toArray(new CompletableFuture[0])).join();
+    }
+
+    private static List<Comment> addComments(@NonNull PostService service) {
+        List<CompletableFuture<Void>> commentFutures = new ArrayList<>();
+        var postsIdx = new ArrayList<>(service.getAllPostsId());
+        List<Comment> comments = new ArrayList<>();
+        for (Integer postId : postsIdx) {
+            commentFutures.add(CompletableFuture.runAsync(() -> {
+                List<CompletableFuture<Void>> futures = new ArrayList<>();
+                addCommentsToPost(postId, comments, futures, service);
+                CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+            }));
+        }
+        CompletableFuture.allOf(commentFutures.toArray(new CompletableFuture[0])).join();
+        return comments;
+    }
+
+    private static void addCommentsToPost(int postId,
+                                          @NonNull List<Comment> comments,
+                                          @NonNull List<CompletableFuture<Void>> futures,
+                                          @NonNull PostService service) {
+        for (int i = 0; i < COMMENT_COUNT; i++) {
+            Comment comment = new Comment("text", LocalDateTime.now(), "author_" + i);
+            comments.add(comment);
+            futures.add(CompletableFuture.runAsync(() -> service.addComment(
+                    comment, postId)));
+        }
+    }
+
+    private static void deleteComments(@NonNull List<Comment> comments, @NonNull PostService service) {
+        List<CompletableFuture<Void>> commentDelFutures = new ArrayList<>();
+        var commentIdx = new ArrayList<>(service.getAllCommentsId());
+        for (int i = 0; i < 10; i++) {
+            int commentId = commentIdx.remove(ThreadLocalRandom.current().nextInt(commentIdx.size()));
+            Comment comment = comments.stream()
+                    .filter(com -> com.getId() == commentId)
+                    .findFirst()
+                    .orElseThrow();
+            commentDelFutures.add(
+                    CompletableFuture.runAsync(() -> service.removeComment(comment.getId(), comment.getAuthor())));
+        }
+        CompletableFuture.allOf(commentDelFutures.toArray(new CompletableFuture[0])).join();
     }
 }

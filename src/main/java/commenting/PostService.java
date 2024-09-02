@@ -12,13 +12,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public class PostService {
     public static final String NO_POST = "Don't have post with this id!";
     public static final String ALREADY_HAS_POST = "Posts already in service";
-    public static final String NO_COMMENT = "Don't have post with this id!";
+    public static final String NO_COMMENT = "Don't have comment with this id!";
     private final Map<Integer, Object> postLocks = new ConcurrentHashMap<>();
     private final Map<Integer, Post> postIdx = new ConcurrentHashMap<>();
     private final Map<Integer, Integer> commentIdx = new ConcurrentHashMap<>();
 
 
-    public synchronized void addPost(@NonNull Post post) {
+    public void addPost(@NonNull Post post) {
         if (!postLocks.containsKey(post.getId())) {
             postLocks.put(post.getId(), new Object());
             postIdx.put(post.getId(), post);
@@ -39,11 +39,11 @@ public class PostService {
         }
     }
 
-    public synchronized Post getPost(int id) {
+    public Post getPost(int id) {
         return postIdx.get(id);
     }
 
-    public synchronized void removePost(int id, @NonNull String author) {
+    public void removePost(int id, @NonNull String author) {
         if (!postIdx.containsKey(id)) {
             log.error("post: " + id);
             throw new IllegalArgumentException(NO_POST);
@@ -66,20 +66,22 @@ public class PostService {
         if (!commentIdx.containsKey(id)) {
             throw new IllegalArgumentException(NO_COMMENT);
         }
-        int postId;
-        synchronized (this) {
-            postId = commentIdx.get(id);
-        }
+        int postId = commentIdx.get(id);
         if (postIdx.containsKey(postId)) {
             synchronized (postLocks.get(postId)) {
                 postIdx.get(postId).removeComment(id, author);
+                commentIdx.remove(id);
             }
         } else {
             throw new IllegalArgumentException(NO_POST);
         }
     }
 
-    public synchronized List<Integer> getAllPostsId() {
+    public List<Integer> getAllPostsId() {
         return postIdx.keySet().stream().toList();
+    }
+
+    public List<Integer> getAllCommentsId() {
+        return commentIdx.keySet().stream().toList();
     }
 }
