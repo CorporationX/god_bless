@@ -31,16 +31,22 @@ public class Bank {
         }
         Account accountFrom = accounts.get(idFrom);
         accountFrom.getLock().lock();
-        if (accountFrom.getBalance() < amountToTransfer) {
-            log.error("Can't transfer from account#{} to account#{}. Not enough money on balance", idFrom, idTo);
-            return false;
+        try {
+            if (accountFrom.getBalance() < amountToTransfer) {
+                log.error("Can't transfer from account#{} to account#{}. Not enough money on balance", idFrom, idTo);
+                return false;
+            }
+            accountFrom.withdraw(amountToTransfer);
+        } finally {
+            accountFrom.getLock().unlock();
         }
-        accountFrom.withdraw(amountToTransfer);
-        accountFrom.getLock().unlock();
         Account accountTo = accounts.get(idTo);
         accountTo.getLock().lock();
-        accountTo.deposit(amountToTransfer);
-        accountTo.getLock().unlock();
+        try {
+            accountTo.deposit(amountToTransfer);
+        } finally {
+            accountTo.getLock().unlock();
+        }
         return true;
     }
 

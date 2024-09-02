@@ -11,8 +11,9 @@ public class Account {
     private static final AtomicInteger idCount = new AtomicInteger(0);
 
     @Getter
-    private final int id = idCount.getAndIncrement();
+    private final int id = idCount.incrementAndGet();
     private double balance = DEFAULT_BALANCE;
+    @Getter
     private final Lock lock = new ReentrantLock();
 
     public void deposit(double amountToDeposit) {

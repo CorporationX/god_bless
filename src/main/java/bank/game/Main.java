@@ -25,21 +25,22 @@ public class Main {
                     int idTo = ids.get(ThreadLocalRandom.current().nextInt(ids.size()));
                     log.info("{} {}", idFrom, idTo);
                     if (idFrom != idTo) {
-                        return bank.transfer(idFrom, idTo, ThreadLocalRandom.current().nextDouble() * 100.0 + 1.0);
+                        return bank.transfer(idFrom, idTo,
+                                ThreadLocalRandom.current().nextDouble() * 100.0 + 1.0);
                     }
+                    log.error("Same id");
                     return false;
                 }))
                 .toList();
         transferFutures.stream()
                 .map(CompletableFuture::join)
-                .peek(result -> {
+                .forEach(result -> {
                     if (result) {
                         log.info("Transaction successful");
                     } else {
                         log.error("Transaction failed");
                     }
-                })
-                .toList();
+                });
     }
 
     private static List<Account> initAccount() {
