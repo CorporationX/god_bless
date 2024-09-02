@@ -6,6 +6,7 @@ import java.util.Random;
 
 public class Main {
     private static final int VEHICLES_COUNT = 20;
+
     public static void main(String[] args) throws InterruptedException {
         var vehicles = initVehicles();
         TransportManagementSystem managementSystem = new TransportManagementSystem();

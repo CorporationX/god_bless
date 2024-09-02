@@ -13,8 +13,8 @@ public class Vehicle {
     private static final AtomicInteger idCount = new AtomicInteger(0);
     private final int id = idCount.getAndIncrement();
 
-    private StatusState status;
-    private Location currentLocation;
+    private volatile StatusState status;
+    private volatile Location currentLocation;
 
     public Vehicle(StatusState status, Location currentLocation) {
         this.status = status;
