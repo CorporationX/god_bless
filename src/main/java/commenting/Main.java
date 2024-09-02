@@ -24,20 +24,33 @@ public class Main {
         var postsIdx = new ArrayList<>(service.getAllPostsId());
         postsIdx.forEach(i -> log.info("post: " + i));
         log.info(posts.get(0).getId() + " " + posts.get(0).getHeader());
+        List<Comment> comments = new ArrayList<>();
         for (Integer postId : postsIdx) {
             log.info("commenting post " + postId);
             CompletableFuture.runAsync(() -> {
                 for (int i = 0; i < COMMENT_COUNT; i++) {
                     int finalI = i;
+                    Comment comment = new Comment("text", LocalDateTime.now(), "author_" + finalI);
+                    comments.add(comment);
                     commentFutures.add(CompletableFuture.runAsync(() -> service.addComment(
-                            new Comment("text", LocalDateTime.now(), "author_" + finalI), postId)));
+                            comment, postId)));
                 }
             });
         }
         int randomIdx = postsIdx.get(ThreadLocalRandom.current().nextInt(postsIdx.size()));
         CompletableFuture.runAsync(() -> service.removePost(randomIdx, service.getPost(randomIdx).getAuthor()));
         CompletableFuture.allOf(commentFutures.toArray(new CompletableFuture[0])).join();
-        posts.forEach(p -> log.info(String.format("post %s : comments %d", p.getHeader(), p.getAllCommentsId().size())));
+        List<CompletableFuture<?>> commentDelFutures = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Comment comment = comments.remove(ThreadLocalRandom.current().nextInt(comments.size()));
+            if (comment != null) {
+                commentDelFutures.add(
+                        CompletableFuture.runAsync(() -> service.removeComment(comment.getId(), comment.getAuthor())));
+            }
+        }
+        CompletableFuture.allOf(commentDelFutures.toArray(new CompletableFuture[0])).join();
+        posts.forEach(p -> log.info(
+                String.format("post %s : comments %d", p.getHeader(), p.getAllCommentsId().size())));
     }
 
     private static List<Post> initPost() {

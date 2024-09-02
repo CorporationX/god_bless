@@ -3,19 +3,19 @@ package commenting;
 import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class PostService {
     public static final String NO_POST = "Don't have post with this id!";
     public static final String ALREADY_HAS_POST = "Posts already in service";
     public static final String NO_COMMENT = "Don't have post with this id!";
-    private final Map<Integer, Object> postLocks = new HashMap<>();
-    private final Map<Integer, Post> postIdx = new HashMap<>();
-    private final Map<Integer, Integer> commentIdx = new HashMap<>();
+    private final Map<Integer, Object> postLocks = new ConcurrentHashMap<>();
+    private final Map<Integer, Post> postIdx = new ConcurrentHashMap<>();
+    private final Map<Integer, Integer> commentIdx = new ConcurrentHashMap<>();
 
 
     public synchronized void addPost(@NonNull Post post) {
@@ -36,9 +36,6 @@ public class PostService {
         synchronized (postLocks.get(id)) {
             postIdx.get(id).addComment(comment);
             commentIdx.put(comment.getId(), id);
-            /*if (id == 1) {
-                log.info("Comment " + comment.getId() + " added to " + postIdx.get(id).getHeader());
-            }*/
         }
     }
 
