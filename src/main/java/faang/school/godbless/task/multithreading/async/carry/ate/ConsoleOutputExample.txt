@@ -1,0 +1,52 @@
+> Task :Main.main()
+14:34:32.891 [ForkJoinPool.commonPool-worker-4] INFO  - Start: addCombineItem() method
+14:34:32.891 [ForkJoinPool.commonPool-worker-2] INFO  - Start: addCombineItem() method
+14:34:32.891 [ForkJoinPool.commonPool-worker-1] INFO  - Start: addCombineItem() method
+14:34:32.892 [ForkJoinPool.commonPool-worker-2] INFO  - Chest get item
+14:34:32.892 [ForkJoinPool.commonPool-worker-4] INFO  - Chest get item
+14:34:32.892 [ForkJoinPool.commonPool-worker-1] INFO  - Chest get item
+14:34:32.891 [ForkJoinPool.commonPool-worker-5] INFO  - Start: addCombineItem() method
+14:34:32.891 [ForkJoinPool.commonPool-worker-3] INFO  - Start: addCombineItem() method
+14:34:32.892 [ForkJoinPool.commonPool-worker-3] INFO  - Chest get item
+14:34:32.892 [ForkJoinPool.commonPool-worker-5] INFO  - Chest get item
+14:34:32.891 [ForkJoinPool.commonPool-worker-6] INFO  - Start: addCombineItem() method
+14:34:32.893 [ForkJoinPool.commonPool-worker-6] INFO  - Chest get item
+14:34:32.894 [ForkJoinPool.commonPool-worker-4] INFO  - Store, by item
+14:34:32.894 [ForkJoinPool.commonPool-worker-1] INFO  - Store, by item
+14:34:32.894 [ForkJoinPool.commonPool-worker-6] INFO  - Store, by item
+14:34:32.894 [ForkJoinPool.commonPool-worker-5] INFO  - Store, by item
+14:34:32.894 [ForkJoinPool.commonPool-worker-3] INFO  - Store, by item
+14:34:32.894 [ForkJoinPool.commonPool-worker-2] INFO  - Store, by item
+14:34:34.537 [ForkJoinPool.commonPool-worker-5] INFO  - New item: Item[name=Chest item C1, power=226]
+14:34:34.683 [ForkJoinPool.commonPool-worker-1] INFO  - New item: Item[name=Chest item I3, power=249]
+14:34:34.862 [ForkJoinPool.commonPool-worker-2] INFO  - New item: Item[name=Chest item T2, power=227]
+14:34:34.998 [ForkJoinPool.commonPool-worker-3] INFO  - New item: Item[name=Store item S8, power=70]
+14:34:35.001 [ForkJoinPool.commonPool-worker-7] INFO  - New item: Item[name=Chest item T5, power=167]
+14:34:35.001 [ForkJoinPool.commonPool-worker-7] INFO  - New combined item: Item[name=Combined item T5S8, power=237]
+14:34:35.002 [ForkJoinPool.commonPool-worker-7] INFO  - Add Item[name=Combined item T5S8, power=237] to inventory
+14:34:35.174 [ForkJoinPool.commonPool-worker-4] INFO  - New item: Item[name=Chest item D1, power=50]
+14:34:35.361 [ForkJoinPool.commonPool-worker-6] INFO  - New item: Item[name=Chest item E1, power=206]
+14:34:35.924 [ForkJoinPool.commonPool-worker-5] INFO  - New item: Item[name=Store item M5, power=71]
+14:34:35.924 [ForkJoinPool.commonPool-worker-5] INFO  - New combined item: Item[name=Combined item C1M5, power=297]
+14:34:35.925 [ForkJoinPool.commonPool-worker-5] INFO  - Add Item[name=Combined item C1M5, power=297] to inventory
+14:34:36.045 [ForkJoinPool.commonPool-worker-3] INFO  - New item: Item[name=Store item N3, power=79]
+14:34:36.046 [ForkJoinPool.commonPool-worker-3] INFO  - New combined item: Item[name=Combined item D1N3, power=129]
+14:34:36.046 [ForkJoinPool.commonPool-worker-3] INFO  - Add Item[name=Combined item D1N3, power=129] to inventory
+14:34:36.161 [ForkJoinPool.commonPool-worker-2] INFO  - New item: Item[name=Store item O6, power=136]
+14:34:36.161 [ForkJoinPool.commonPool-worker-2] INFO  - New combined item: Item[name=Combined item T2O6, power=363]
+14:34:36.162 [ForkJoinPool.commonPool-worker-2] INFO  - Add Item[name=Combined item T2O6, power=363] to inventory
+14:34:36.274 [ForkJoinPool.commonPool-worker-7] INFO  - New item: Item[name=Store item L3, power=187]
+14:34:36.275 [ForkJoinPool.commonPool-worker-7] INFO  - New combined item: Item[name=Combined item E1L3, power=393]
+14:34:36.275 [ForkJoinPool.commonPool-worker-7] INFO  - Add Item[name=Combined item E1L3, power=393] to inventory
+14:34:36.449 [ForkJoinPool.commonPool-worker-1] INFO  - New item: Item[name=Store item Y3, power=155]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - New combined item: Item[name=Combined item I3Y3, power=404]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Add Item[name=Combined item I3Y3, power=404] to inventory
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item T5S8, power=237]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item C1M5, power=297]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item D1N3, power=129]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item T2O6, power=363]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item E1L3, power=393]
+14:34:36.450 [ForkJoinPool.commonPool-worker-1] INFO  - Inventory: Item[name=Combined item I3Y3, power=404]
+14:34:36.451 [main] INFO  - End
+
+BUILD SUCCESSFUL in 3s
