@@ -1,13 +1,13 @@
 package work.waiting.departments;
 
 import lombok.RequiredArgsConstructor;
-import work.waiting.department_resources.Resources;
-
-import java.util.concurrent.locks.ReadWriteLock;
+import work.waiting.departments.resources.Resources;
 
 @RequiredArgsConstructor
-public class ThreadDepartment extends Thread {
+public abstract class ThreadDepartment extends Thread {
     protected final Resources marketingResources;
     protected final Resources designResources;
-    protected final ReadWriteLock lock;
+
+    @Override
+    public abstract void run();
 }
