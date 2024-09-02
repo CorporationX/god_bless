@@ -3,7 +3,7 @@ package faang.school.godbless.BJS227755;
 import java.util.concurrent.*;
 
 public class MasterCardService {
-    private static final ExecutorService executor = Executors.newCachedThreadPool();
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public void doAll() {
         Future<Integer> payment = executor.submit(MasterCardService::collectPayment);
