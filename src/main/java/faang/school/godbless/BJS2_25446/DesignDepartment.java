@@ -1,28 +1,14 @@
 package faang.school.godbless.BJS2_25446;
 
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
 public class DesignDepartment extends ThreadDepartment {
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public DesignDepartment(MarketingResources marketingResources, DesignResources designResources) {
+    public DesignDepartment(Resources marketingResources, Resources designResources) {
         super(marketingResources, designResources);
     }
 
     @Override
     public void run() {
-        lock.readLock().lock();
-        try {
-            getMarketingResources().getResources();
-            lock.readLock().lock();
-            try {
-                getDesignResources().getResources();
-            } finally {
-                lock.readLock().unlock();
-            }
-        } finally {
-            lock.readLock().unlock();
-        }
+        getDesignResources().getResources();
+        getMarketingResources().getResources();
     }
 }

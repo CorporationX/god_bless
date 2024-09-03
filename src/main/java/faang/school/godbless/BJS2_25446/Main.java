@@ -7,8 +7,8 @@ import java.util.ArrayList;
 @Slf4j
 public class Main {
     public static void main(String[] args) {
-        MarketingResources marketingResources = new MarketingResources(new ArrayList<>());
-        DesignResources designResources = new DesignResources(new ArrayList<>());
+        Resources marketingResources = new Resources(new ArrayList<>());
+        Resources designResources = new Resources(new ArrayList<>());
 
         marketingResources.addResource("MarketingResource 1");
         marketingResources.addResource("MarketingResource 2");

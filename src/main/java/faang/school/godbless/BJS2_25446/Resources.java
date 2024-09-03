@@ -3,16 +3,29 @@ package faang.school.godbless.BJS2_25446;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @RequiredArgsConstructor
-public abstract class Resources {
+public class Resources {
     private final List<String> resources;
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void addResource(String resource) {
-        resources.add(resource);
+        lock.writeLock().lock();
+        try {
+            resources.add(resource);
+        } finally {
+            lock.writeLock().unlock();
+        }
     }
 
     public void getResources() {
-        System.out.println(resources.toString());
+        lock.readLock().lock();
+        try {
+            System.out.println(resources.toString());
+        } finally {
+            lock.readLock().unlock();
+        }
     }
 }

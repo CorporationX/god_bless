@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public abstract class ThreadDepartment extends Thread {
-    private final MarketingResources marketingResources;
-    private final DesignResources designResources;
+    private final Resources marketingResources;
+    private final Resources designResources;
 }
