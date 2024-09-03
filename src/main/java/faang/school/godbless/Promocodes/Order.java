@@ -16,7 +16,7 @@ public class Order {
         totalPrice -= promoCode.getDiscount();
     }
 
-    public synchronized void addProduct(Product product) {
+    public void addProduct(Product product) {
         products.add(product);
         totalPrice += product.getPrice();
     }

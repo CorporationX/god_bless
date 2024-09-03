@@ -9,16 +9,13 @@ public class DeliveryService {
     private Set<PromoCode> activePromoCodes = Collections.synchronizedSet(new HashSet<>());
     private List<Order> activeOrders = Collections.synchronizedList(new ArrayList<>());
 
-
     public void add(PromoCode promoCode) {
         activePromoCodes.add(promoCode);
     }
 
     public synchronized void processOrder(Order order, List<String> promoCodes) {
-        Set<String> inputPromoCodes = new HashSet<>(promoCodes);
-
         List<PromoCode> sortedPromos = activePromoCodes.stream()
-                .filter(promoCode -> order.getTotalPrice() >= promoCode.getMinimumOrderSum())
+                .filter(promoCode -> promoCode.isValidForOrder(order))
                 .sorted((v1, v2) -> v2.getDiscount() - v1.getDiscount())
                 .toList();
 

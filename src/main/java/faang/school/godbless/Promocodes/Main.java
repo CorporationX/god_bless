@@ -11,8 +11,10 @@ public class Main {
         DeliveryService deliveryService = new DeliveryService();
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
-        deliveryService.add(new PromoCode("promo1", 10, 100, LocalDateTime.of(2030,1,1,1,1,1), false));
-        deliveryService.add(new PromoCode("promo2", 5, 50, LocalDateTime.of(2030,1,1,1,1,1), false));
+        PromoCode promoCode1 = new PromoCode("promo1", 10, 100, LocalDateTime.of(2030,1,1,1,1,1), false);
+        deliveryService.add(promoCode1);
+        PromoCode promoCode2 = new PromoCode("promo2", 5, 50, LocalDateTime.of(2030,1,1,1,1,1), false);
+        deliveryService.add(promoCode2);
 
         List<Order> orders = new ArrayList<>();
         Order order1 = new Order();
