@@ -8,34 +8,24 @@ import java.util.List;
 public class VladController {
     private final List<TamagotchiVlad> vlads;
 
-    public void removeVlad(TamagotchiVlad vlad) {
-        synchronized (vlads) {
-            vlads.remove(vlad);
-        }
+    public synchronized void removeVlad(TamagotchiVlad vlad) {
+        vlads.remove(vlad);
     }
 
-    public void feedAll() {
-        synchronized (vlads) {
-            vlads.forEach(TamagotchiVlad::feed);
-        }
+    public synchronized void feedAll() {
+        vlads.forEach(TamagotchiVlad::feed);
     }
 
-    public void playAll() {
-        synchronized (vlads) {
-            vlads.forEach(TamagotchiVlad::play);
-        }
+    public synchronized void playAll() {
+        vlads.forEach(TamagotchiVlad::play);
     }
 
-    public void cleanAll() {
-        synchronized (vlads) {
-            vlads.forEach(TamagotchiVlad::clean);
-        }
+    public synchronized void cleanAll() {
+        vlads.forEach(TamagotchiVlad::clean);
     }
 
-    public void sleepAll() {
-        synchronized (vlads) {
-            vlads.forEach(TamagotchiVlad::sleep);
-        }
+    public synchronized void sleepAll() {
+        vlads.forEach(TamagotchiVlad::sleep);
     }
 
 }
