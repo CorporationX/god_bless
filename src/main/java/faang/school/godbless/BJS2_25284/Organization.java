@@ -6,7 +6,7 @@ public class Organization {
     private final AtomicInteger atomicInteger = new AtomicInteger();
 
     public void addDonation(Donation donation) {
-        atomicInteger.accumulateAndGet(donation.donationAmount(), Integer::sum);
+        atomicInteger.addAndGet(donation.donationAmount());
     }
 
     public int getDonationAmount() {
