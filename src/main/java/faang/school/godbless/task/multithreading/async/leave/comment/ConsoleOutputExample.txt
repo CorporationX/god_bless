@@ -1,0 +1,72 @@
+> Task :Main.main()
+11:59:06.345 [main] INFO  - Add posts test:
+11:59:06.348 [ForkJoinPool.commonPool-worker-4] INFO  - Add new post: Post(author=User(id=4, name=User 4), header=Header, content=Content, id=4, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@b694653[Unlocked], isDeleted=false)
+11:59:06.348 [ForkJoinPool.commonPool-worker-3] INFO  - Add new post: Post(author=User(id=3, name=User 3), header=Header, content=Content, id=3, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@735bbdd4[Unlocked], isDeleted=false)
+11:59:06.348 [ForkJoinPool.commonPool-worker-1] INFO  - Add new post: Post(author=User(id=1, name=User 1), header=Header, content=Content, id=1, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@4d766ca8[Unlocked], isDeleted=false)
+11:59:06.358 [ForkJoinPool.commonPool-worker-1] INFO  - Add new post: Post(author=User(id=9, name=User 9), header=Header, content=Content, id=9, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@5991552f[Unlocked], isDeleted=false)
+11:59:06.358 [ForkJoinPool.commonPool-worker-4] INFO  - Add new post: Post(author=User(id=8, name=User 8), header=Header, content=Content, id=8, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@bc5e4e7[Unlocked], isDeleted=false)
+11:59:06.358 [ForkJoinPool.commonPool-worker-3] INFO  - Add new post: Post(author=User(id=10, name=User 10), header=Header, content=Content, id=10, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@132f6ca8[Unlocked], isDeleted=false)
+11:59:06.348 [ForkJoinPool.commonPool-worker-5] INFO  - Add new post: Post(author=User(id=5, name=User 5), header=Header, content=Content, id=5, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@1e315f8d[Unlocked], isDeleted=false)
+11:59:06.349 [ForkJoinPool.commonPool-worker-6] INFO  - Add new post: Post(author=User(id=6, name=User 6), header=Header, content=Content, id=6, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@3aea3243[Unlocked], isDeleted=false)
+11:59:06.349 [ForkJoinPool.commonPool-worker-7] INFO  - Add new post: Post(author=User(id=7, name=User 7), header=Header, content=Content, id=7, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@510561f0[Unlocked], isDeleted=false)
+11:59:06.348 [ForkJoinPool.commonPool-worker-2] INFO  - Add new post: Post(author=User(id=2, name=User 2), header=Header, content=Content, id=2, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@2d013c94[Unlocked], isDeleted=false)
+11:59:06.358 [ForkJoinPool.commonPool-worker-2] INFO  - Print posts in service:
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=1, name=User 1), header=Header, content=Content, id=1, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@4d766ca8[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=2, name=User 2), header=Header, content=Content, id=2, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@2d013c94[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=3, name=User 3), header=Header, content=Content, id=3, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@735bbdd4[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=4, name=User 4), header=Header, content=Content, id=4, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@b694653[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=5, name=User 5), header=Header, content=Content, id=5, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@1e315f8d[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=6, name=User 6), header=Header, content=Content, id=6, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@3aea3243[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=7, name=User 7), header=Header, content=Content, id=7, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@510561f0[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=8, name=User 8), header=Header, content=Content, id=8, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@bc5e4e7[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=9, name=User 9), header=Header, content=Content, id=9, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@5991552f[Unlocked], isDeleted=false)
+11:59:06.359 [ForkJoinPool.commonPool-worker-2] INFO  - Post(author=User(id=10, name=User 10), header=Header, content=Content, id=10, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@132f6ca8[Unlocked], isDeleted=false)
+11:59:06.359 [main] INFO  - Delete posts test:
+11:59:06.360 [ForkJoinPool.commonPool-worker-6] INFO  - User 4 deleted post with id: 4
+11:59:06.360 [ForkJoinPool.commonPool-worker-7] INFO  - User 2 deleted post with id: 2
+11:59:06.360 [ForkJoinPool.commonPool-worker-5] INFO  - User 6 deleted post with id: 6
+11:59:06.360 [ForkJoinPool.commonPool-worker-5] INFO  - User 8 deleted post with id: 8
+11:59:06.360 [ForkJoinPool.commonPool-worker-7] INFO  - User 7 deleted post with id: 7
+11:59:06.360 [ForkJoinPool.commonPool-worker-5] INFO  - User 9 deleted post with id: 9
+11:59:06.360 [ForkJoinPool.commonPool-worker-3] INFO  - User 3 deleted post with id: 3
+11:59:06.360 [ForkJoinPool.commonPool-worker-7] INFO  - User 10 deleted post with id: 10
+11:59:06.360 [ForkJoinPool.commonPool-worker-2] INFO  - User 1 deleted post with id: 1
+11:59:06.360 [ForkJoinPool.commonPool-worker-6] INFO  - User 5 deleted post with id: 5
+11:59:06.360 [ForkJoinPool.commonPool-worker-6] INFO  - Print posts in service:
+11:59:06.360 [main] INFO  - Add comments test:
+11:59:06.360 [main] INFO  - Add new post: Post(author=User(id=1, name=User 1), header=Header, content=Content, id=1, comments={}, postLock=java.util.concurrent.locks.ReentrantLock@4d766ca8[Unlocked], isDeleted=true)
+11:59:06.361 [ForkJoinPool.commonPool-worker-6] INFO  - User 1 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-6] INFO  - User 4 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-6] INFO  - User 6 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-5] INFO  - User 8 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-7] INFO  - User 2 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-6] INFO  - User 10 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-1] INFO  - User 9 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-4] INFO  - User 7 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-3] INFO  - User 5 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-2] INFO  - User 3 add comment to post with id: 1
+11:59:06.361 [ForkJoinPool.commonPool-worker-2] INFO  - Print comments of post with id: 1
+11:59:06.362 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=1, name=User 1), content=Content, id=1, createdAt=2024-08-30T11:59:06.344384)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=2, name=User 2), content=Content, id=2, createdAt=2024-08-30T11:59:06.344418)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=3, name=User 3), content=Content, id=3, createdAt=2024-08-30T11:59:06.344424)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=4, name=User 4), content=Content, id=4, createdAt=2024-08-30T11:59:06.344427)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=5, name=User 5), content=Content, id=5, createdAt=2024-08-30T11:59:06.344430)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=6, name=User 6), content=Content, id=6, createdAt=2024-08-30T11:59:06.344433)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=7, name=User 7), content=Content, id=7, createdAt=2024-08-30T11:59:06.344436)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=8, name=User 8), content=Content, id=8, createdAt=2024-08-30T11:59:06.344438)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=9, name=User 9), content=Content, id=9, createdAt=2024-08-30T11:59:06.344441)
+11:59:06.366 [ForkJoinPool.commonPool-worker-2] INFO  - Comment(author=User(id=10, name=User 10), content=Content, id=10, createdAt=2024-08-30T11:59:06.344444)
+11:59:06.366 [main] INFO  - Delete comments test:
+11:59:06.367 [ForkJoinPool.commonPool-worker-2] INFO  - User 1 deleted comment with id: 1
+11:59:06.367 [ForkJoinPool.commonPool-worker-5] INFO  - User 7 deleted comment with id: 7
+11:59:06.367 [ForkJoinPool.commonPool-worker-5] INFO  - User 9 deleted comment with id: 9
+11:59:06.367 [ForkJoinPool.commonPool-worker-5] INFO  - User 10 deleted comment with id: 10
+11:59:06.367 [ForkJoinPool.commonPool-worker-2] INFO  - User 8 deleted comment with id: 8
+11:59:06.367 [ForkJoinPool.commonPool-worker-7] INFO  - User 6 deleted comment with id: 6
+11:59:06.367 [ForkJoinPool.commonPool-worker-6] INFO  - User 5 deleted comment with id: 5
+11:59:06.367 [ForkJoinPool.commonPool-worker-1] INFO  - User 4 deleted comment with id: 4
+11:59:06.367 [ForkJoinPool.commonPool-worker-4] INFO  - User 3 deleted comment with id: 3
+11:59:06.367 [ForkJoinPool.commonPool-worker-3] INFO  - User 2 deleted comment with id: 2
+11:59:06.367 [ForkJoinPool.commonPool-worker-3] INFO  - Print comments of post with id: 1
+
+BUILD SUCCESSFUL in 652ms
