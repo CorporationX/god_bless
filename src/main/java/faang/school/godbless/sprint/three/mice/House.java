@@ -71,12 +71,10 @@ public class House {
     }
 
     private Food getRandomFoodFromRoom(Room room) {
-        synchronized (lockFood) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(room.getFoods().size());
-            Food food = room.getFoods().get(randomIndex);
-            room.getFoods().remove(randomIndex);
-            return food;
-        }
+        Random random = new Random();
+        int randomIndex = random.nextInt(room.getFoods().size());
+        Food food = room.getFoods().get(randomIndex);
+        room.getFoods().remove(randomIndex);
+        return food;
     }
 }
