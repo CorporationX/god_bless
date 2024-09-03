@@ -9,13 +9,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
 
 public class EncryptionUtils {
-    private static final String algorithm = "AES";
-    private static final SecretKey key;
+    private static final String ALGORITHM = "AES";
+    private static final SecretKey KEY;
 
     static {
         try {
-            KeyGenerator aes = KeyGenerator.getInstance(algorithm);
-            key = aes.generateKey();
+            KeyGenerator aes = KeyGenerator.getInstance(ALGORITHM);
+            KEY = aes.generateKey();
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
@@ -23,8 +23,8 @@ public class EncryptionUtils {
 
     @SneakyThrows
     public static String encrypt(String text) {
-        Cipher cipher = Cipher.getInstance(algorithm);
-        cipher.init(Cipher.ENCRYPT_MODE, key);
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.ENCRYPT_MODE, KEY);
         byte[] encryptedBytes = cipher.doFinal(text.getBytes());
 
         return Base64.getEncoder().encodeToString(encryptedBytes);
@@ -32,8 +32,8 @@ public class EncryptionUtils {
 
     @SneakyThrows
     public static String decrypt(String text) {
-        Cipher cipher = Cipher.getInstance(algorithm);
-        cipher.init(Cipher.DECRYPT_MODE, key);
+        Cipher cipher = Cipher.getInstance(ALGORITHM);
+        cipher.init(Cipher.DECRYPT_MODE, KEY);
         byte[] decodedBytes = Base64.getDecoder().decode(text);
         byte[] decryptedBytes = cipher.doFinal(decodedBytes);
 
