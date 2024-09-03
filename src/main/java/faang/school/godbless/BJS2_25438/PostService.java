@@ -3,16 +3,16 @@ package faang.school.godbless.BJS2_25438;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @RequiredArgsConstructor
 public class PostService {
     private final Map<Long, Post> posts;
-    private final Lock lock = new ReentrantLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
     public void addComment(Long postId, Comment comment) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
             Post post = posts.get(postId);
             if (post == null) {
@@ -20,21 +20,21 @@ public class PostService {
             }
             post.comments().putIfAbsent(comment.id(), comment);
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void addPost(Post post) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
             posts.putIfAbsent(post.id(), post);
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void removePost(Long postId, Author author) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
             Post post = posts.get(postId);
             if (post == null) {
@@ -44,12 +44,12 @@ public class PostService {
                 posts.remove(postId);
             }
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void removeComment(Long commentId, Long postId, Author author) {
-        lock.lock();
+        lock.writeLock().lock();
         try {
             Post post = posts.get(postId);
             if (post == null) {
@@ -64,18 +64,18 @@ public class PostService {
                 posts.get(postId).comments().remove(commentId);
             }
         } finally {
-            lock.unlock();
+            lock.writeLock().unlock();
         }
     }
 
     public void showPosts() {
-        lock.lock();
+        lock.readLock().lock();
         try {
             for (Map.Entry<Long, Post> entry : posts.entrySet()) {
                 System.out.println(entry.getKey() + ": " + entry.getValue());
             }
         } finally {
-            lock.unlock();
+            lock.readLock().unlock();
         }
     }
 
