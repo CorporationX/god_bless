@@ -7,7 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 @Getter
 public class Post implements Comparable {
-    private static int CUR_ID = 0;
+    private static int curId = 0;
     private final Integer id;
     private final String title;
     private final String body;

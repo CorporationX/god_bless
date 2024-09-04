@@ -52,8 +52,8 @@ public class PostService {
 
     public void deletePost(int id) {
         posts.stream()
-                .filter(post -> post.getAuthor().equals(Thread.currentThread().getName()))
-                .filter(post -> post.getId() == id)
+                .filter(post -> post.getAuthor().equals(Thread.currentThread().getName())
+                && post.getId() == id)
                 .findAny()
                 .ifPresentOrElse(posts::remove,
                         () -> {
