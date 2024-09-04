@@ -46,7 +46,7 @@ public class Main {
         }
 
         List<Thread> removeThreads = new ArrayList<>();
-        postService.getPosts().stream()
+        postService.getPosts().values().stream()
             .skip(10)
             .limit(10)
             .forEach(post -> removeThreads.add(
@@ -56,7 +56,7 @@ public class Main {
                 )))
             );
 
-        postService.getPosts().stream()
+        postService.getPosts().values().stream()
             .skip(50)
             .limit(10)
             .forEach(post ->  removeThreads.add(
@@ -75,7 +75,7 @@ public class Main {
             }
         });
 
-        postService.getPosts().forEach(post -> {
+        postService.getPosts().values().forEach(post -> {
             postService.showPost(post.getId());
             post.getComments().forEach(Comment::showComment);
         });

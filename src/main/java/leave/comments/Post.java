@@ -26,6 +26,18 @@ public class Post {
     }
 
     public void removeComment(Comment comment) {
-        comments.remove(comment);
+        this.getComments()
+            .removeIf(c -> {
+                if (c.equals(comment)) {
+                    if (this.getAuthor().equals(comment.getAuthor())) {
+                        System.out.printf("Был удалён комментарий: %s\n", comment.getText());
+
+                        return true;
+                    } else {
+                        System.out.println("Удалять можно только свои комментарии");
+                    }
+                }
+                return false;
+            });
     }
 }
