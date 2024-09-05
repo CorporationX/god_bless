@@ -1,33 +1,44 @@
 package ru.kraiush.threads.BJS2_18339;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
+import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
-@ToString
-public class Boss {
+@Slf4j
+public class Boss extends Thread {
 
-    private String name;
+    private final Queue<Member> queue;
     private int maxPlayers;
-    private List<Player> currentPlayers;
 
-    public Boss(String name, int maxPlayers) {
-        this.name = name;
-        this.maxPlayers = maxPlayers;
+    public Boss(Queue<Member> queue, int maxSize) {
+        this.queue = queue;
+        this.maxPlayers = maxSize;
     }
 
-    public  synchronized void joinBattle(Player player) {
-
-        if (maxPlayers == currentPlayers.size()) {
-
-
-        } else {
-            currentPlayers.add(player);
+    @Override
+    public void run() {
+        while (true) {
+            synchronized (queue) {
+                while (queue.isEmpty()) {
+                    try {
+                        queue.wait();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                }
+                try {
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 4000));
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("\nOh, the player <" + queue.remove() + "> played with the boss!");
+                queue.notifyAll();
+            }
         }
-    })
+    }
 }
