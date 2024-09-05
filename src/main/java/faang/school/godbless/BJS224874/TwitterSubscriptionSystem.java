@@ -1,33 +1,21 @@
 package faang.school.godbless.BJS224874;
 
-import lombok.NonNull;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Slf4j
 public class TwitterSubscriptionSystem {
-    private final Map<TwitterAccount, Object> accountLocks = new HashMap<>();
+    private static final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public CompletableFuture<Void> followAccount(@NonNull TwitterAccount account) {
-        return CompletableFuture.runAsync(() -> addFollower(account));
+    public static CompletableFuture<Void> followAccount(TwitterAccount account) {
+        return CompletableFuture.runAsync(() -> addFollower(account), executor);
     }
 
-    public void addFollower(@NonNull TwitterAccount account) {
-        addLock(account);
-        synchronized (accountLocks.get(account)) {
-            account.addFollower();
-        }
-        log.info(account.getUsername() + " get new follower!");
-    }
-
-    private synchronized void addLock(@NonNull TwitterAccount account) {
-        if (accountLocks.containsKey(account)) {
-            return;
-        }
-        accountLocks.put(account, new Object());
-
+    private static void addFollower(TwitterAccount account) {
+        account.incrementFollowersCount();
+        log.info(account.getUsername() + " get " + account.getFollowersCount() + " follower!");
     }
 }
