@@ -26,20 +26,15 @@ public class GooglePhotosAutoUploader {
                 Thread.sleep(100 * num);
                 if (num % 4 == 0) {
                     uploadPhotos(new GooglePhoto("photo-" + i));
-//                    uploadPhotos(new GooglePhoto("photo-" + String.valueOf(i)), true);
                     seePhotos();
                 }
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-//        seePhotos(false);
     }
 
     public synchronized void uploadPhotos(GooglePhoto photo) {
-//        public synchronized void uploadPhotos(GooglePhoto photo, boolean lock) {
-
-//        System.out.println("uploadPhotos - lock: " + lock);
         while (!lock) {
             try {
                 wait();
@@ -73,7 +68,6 @@ public class GooglePhotosAutoUploader {
 
     private synchronized GooglePhoto onNewPhotoAdded(GooglePhoto photo) {
         photo.setPhotoPath("https://google.com/photos/" + ThreadLocalRandom.current().nextInt(1, 1000));
-        notifyAll();
         return photo;
     }
 }
