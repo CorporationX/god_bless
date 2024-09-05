@@ -10,16 +10,17 @@ public class AppSupercow {
     public static void main(String[] args) {
 
         Queue<Member> currentPlayers = new LinkedList<>();
-        int maxPlayers = 1;
-        int maxMembers = 5;
+        int maxPlayers = 2;
+        int maxMembers = 3;
 
         System.out.print(String.join("", Collections.nCopies(80, "-")));
+        System.out.println();
         startBattle(currentPlayers, maxMembers, new Boss(currentPlayers, maxPlayers));
     }
 
     static void startBattle(Queue<Member> currentPlayers, int maxMembers, Boss boss) {
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             Thread player = new Player(currentPlayers, maxMembers, new Member(getPlayerName()));
             player.start();
         }

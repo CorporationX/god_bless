@@ -32,11 +32,11 @@ public class Boss extends Thread {
                     }
                 }
                 try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 4000));
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                System.out.println("\nOh, the player <" + queue.remove() + "> played with the boss!");
+                System.out.println("<<<Oh, the player " + queue.remove() + " played with the boss!>>>");
                 queue.notifyAll();
             }
         }
