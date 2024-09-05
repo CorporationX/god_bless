@@ -2,13 +2,11 @@ package faang.school.godbless.dolbahlop.multithreading.synchronization;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
-@Setter
 @AllArgsConstructor
-public class Player {
+public class Quest {
     private String name;
-    private int level;
-    private int experience;
+    private int difficulty;
+    private int reward;
 }
