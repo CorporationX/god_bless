@@ -14,6 +14,7 @@ public class Main {
         combinedItemFuture.thenCompose(combinedItem ->
                 CompletableFuture.runAsync(() -> inventory.addItem(combinedItem))
         ).join();
+
         System.out.println(inventory.getItems());
     }
 }
