@@ -18,18 +18,17 @@ public class Main {
     }
 
     private static double calculatePi(int n) throws InterruptedException {
-        try (ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE)) {
-            long inCircleCount = IntStream.range(0, n)
-                    .mapToObj(i -> CompletableFuture.supplyAsync(Point::new, executor))
-                    .map(CompletableFuture::join)
-                    .filter(Point::isInCircle)
-                    .count();
-            executor.shutdown();
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
-                return 4.0 * inCircleCount / n;
-            } else {
-                throw new RuntimeException("Time out");
-            }
+        ExecutorService executor = Executors.newFixedThreadPool(POOL_SIZE);
+        long inCircleCount = IntStream.range(0, n)
+                .mapToObj(i -> CompletableFuture.supplyAsync(Point::new, executor))
+                .map(CompletableFuture::join)
+                .filter(Point::isInCircle)
+                .count();
+        executor.shutdown();
+        if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            return 4.0 * inCircleCount / n;
+        } else {
+            throw new RuntimeException("Time out");
         }
     }
 }
