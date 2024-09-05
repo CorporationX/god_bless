@@ -32,10 +32,11 @@ public class Player extends Thread {
                 }
             }
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(100, 1000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(500, 3000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            System.out.println("   >>> " + member + " wanted to play <<<");
             queue.add(member);
             queue.notifyAll();
         }
