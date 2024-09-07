@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import ru.kraiush.threads.BJS2_23877.Food;
 
 import java.util.Date;
 

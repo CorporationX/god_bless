@@ -1,7 +1,5 @@
 package ru.kraiush.threads.BJS2_18331;
 
-import ru.kraiush.threads.BJS2_23877.Food;
-
 import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
