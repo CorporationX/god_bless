@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 @Setter
 @ToString
 @AllArgsConstructor
-public class TamagotchiVlad implements Runnable {
+public class TamagotchiVlad {
 
     private String name;
 
@@ -27,25 +27,20 @@ public class TamagotchiVlad implements Runnable {
         this.listOfFood = listOfFood;
     }
 
-    public synchronized void play(String name) {
-        System.out.println("just to play with " + name);
+    public synchronized void play(String name, String threadName) {
+        System.out.println(threadName + "- just to play with " + name);
     }
 
     public synchronized void clean(TamagotchiVlad item) {
         item.setListOfFood(null);
     }
 
-    public synchronized void sleep(TamagotchiVlad item) {
+    public synchronized void sleep(TamagotchiVlad item, String threadName) {
         try {
             Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
-            System.out.println(item.getName() + " - it's time to get some sleep!");
+            System.out.println(threadName + " - " + item.getName() + " - it's time to get some sleep!");
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void run() {
-
     }
 }

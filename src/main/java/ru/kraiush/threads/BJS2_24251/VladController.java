@@ -1,7 +1,7 @@
 package ru.kraiush.threads.BJS2_24251;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -11,50 +11,86 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class VladController {
+@AllArgsConstructor
+public class VladController extends Thread {
 
-    public List<TamagotchiVlad> tamagotchi;
+    private List<TamagotchiVlad> toys;
+    private String threadName;
 
-    synchronized List<TamagotchiVlad> feedAll(List<TamagotchiVlad> toys) {
+    @Override
+    public void run() {
+//        System.out.println(character + " get the food: " + food + " -> " + Thread.currentThread().getName() + " --- Start at: " + new Date());
+//        System.out.println("\n" + threadName + " < Feeding the toys! > ");
+        feedAll(toys);
+        playAll(toys);
+        sleepAll(toys);
+        deleteTamagotchi(toys);
+        addTamagotchi(toys, new TamagotchiVlad("<Lilo> in " + threadName));
+    }
 
-        for (TamagotchiVlad item : toys) {
-            List<Food> listOfFood = new ArrayList<>();
-            int setOfFood = ThreadLocalRandom.current().nextInt(1, 5);
-            for (int j = 1; j <= setOfFood; j++) {
+    List<TamagotchiVlad> feedAll(List<TamagotchiVlad> toys) {
+        synchronized (toys) {
+            for (TamagotchiVlad item : toys) {
+                List<Food> listOfFood = new ArrayList<>();
+                int setOfFood = ThreadLocalRandom.current().nextInt(1, 5);
+                for (int j = 1; j <= setOfFood; j++) {
+                    try {
+                        Thread.sleep(ThreadLocalRandom.current().nextInt(500, 1500));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    item.feed(listOfFood, new Food(getFoodType(), ThreadLocalRandom.current().nextInt(1, 10)));
+                }
+                System.out.println(threadName + " - " + item.getName() + " fed: " + item.getListOfFood());
+            }
+            return toys;
+        }
+    }
+
+    void playAll(List<TamagotchiVlad> toys) {
+        synchronized (toys) {
+            for (TamagotchiVlad item : toys) {
                 try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(500, 2000));
+                    Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 3000));
+                    item.play(item.getName(), threadName);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-                item.feed(listOfFood, new Food(getFoodType(), ThreadLocalRandom.current().nextInt(1, 10)));
             }
-            System.out.println(item.getName() + " fed: " + item.getListOfFood());
+        }
+    }
+
+    void cleanAll(List<TamagotchiVlad> toys) {
+        synchronized (toys) {
+            for (TamagotchiVlad item : toys) {
+                item.clean(item);
+            }
+        }
+    }
+
+    void sleepAll(List<TamagotchiVlad> toys) {
+        synchronized (toys) {
+            for (TamagotchiVlad item : toys) {
+                item.sleep(item, threadName);
+            }
+        }
+    }
+
+    List<TamagotchiVlad> deleteTamagotchi(List<TamagotchiVlad> toys) {
+        synchronized (toys) {
+            TamagotchiVlad tm = toys.get(toys.size() - 1);
+            toys.remove(tm);
+            System.out.print(threadName + " - the Tamagotchi " + tm.getName() + " deleted\n");
         }
         return toys;
     }
 
-    synchronized void playAll(List<TamagotchiVlad> toys) {
-        for (TamagotchiVlad item : toys) {
-            try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(2000, 5000));
-                item.play(item.getName());
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+    List<TamagotchiVlad> addTamagotchi(List<TamagotchiVlad> toys, TamagotchiVlad tm) {
+        synchronized (toys) {
+            toys.add(tm);
+            System.out.print("\n" + threadName + " - the Tamagotchi " + tm.getName() + " added!");
         }
-    }
-
-    synchronized void cleanAll(List<TamagotchiVlad> toys) {
-        for (TamagotchiVlad item : toys) {
-            item.clean(item);
-        }
-    }
-
-    synchronized void sleepAll(List<TamagotchiVlad> toys) {
-        for (TamagotchiVlad item : toys) {
-            item.sleep(item);
-        }
+        return toys;
     }
 
     public static String getFoodType() {
