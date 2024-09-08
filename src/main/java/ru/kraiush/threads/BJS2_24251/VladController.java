@@ -19,6 +19,8 @@ public class VladController extends Thread {
 
     @Override
     public void run() {
+//        System.out.println(character + " get the food: " + food + " -> " + Thread.currentThread().getName() + " --- Start at: " + new Date());
+//        System.out.println("\n" + threadName + " < Feeding the toys! > ");
         feedAll(toys);
         playAll(toys);
         sleepAll(toys);
