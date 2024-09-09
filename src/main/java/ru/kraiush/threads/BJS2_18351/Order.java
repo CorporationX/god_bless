@@ -11,9 +11,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Order {
 
-    private int id;
-    private int status;
+    private long id;
 
-
+    private OrderType type;
 
 }
