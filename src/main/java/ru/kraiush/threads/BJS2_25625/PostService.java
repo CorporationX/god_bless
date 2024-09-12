@@ -7,22 +7,22 @@ import java.util.List;
 @AllArgsConstructor
 public class PostService extends Thread {
 
-    volatile List<Post> posts;
+    private List<Post> commonAccess;
     private Post post;
     private Comment comment;
 
     @Override
     public void run() {
         if(comment == null) {
-            addPost(posts, post);
+            addPost(commonAccess, post);
         } else {
-            addComment(posts, comment);
+            addComment(commonAccess, comment);
         }
     }
 
-    public void addComment(List<Post> posts, Comment comment) {
-        synchronized (posts) {
-            posts.stream()
+    public void addComment(List<Post> commonAccess, Comment comment) {
+        synchronized (commonAccess) {
+            commonAccess.stream()
                     .filter(w -> comment.getId() == w.getId())
                     .findAny()
                     .map(p -> p.getListComments().add(comment))
@@ -30,9 +30,9 @@ public class PostService extends Thread {
         }
     }
 
-    public void addPost(List<Post> posts, Post post) {
-        synchronized (posts) {
-            posts.add(post);
+    public void addPost(List<Post> commonAccess, Post post) {
+        synchronized (commonAccess) {
+            commonAccess.add(post);
         }
     }
 }
