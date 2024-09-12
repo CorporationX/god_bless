@@ -16,6 +16,7 @@ public class AppAcceptanceBase {
 
         Thread langley = new MilitaryBase(queue, false);
         langley.start();
+        langley.setName("Langley");
 
         try {
             TimeUnit.MILLISECONDS.sleep(7500);

@@ -35,7 +35,6 @@ public class MilitaryBase extends Thread {
                     System.out.println("  <<<We've got a secret massage!>>>\n" + decrypteData(inbox.take()));
                 } catch (InterruptedException e) {
                     System.out.println("The end!");
-//                    e.printStackTrace();
                 }
             }
         }
