@@ -13,7 +13,7 @@ public class PostService extends Thread {
 
     @Override
     public void run() {
-        if(comment == null) {
+        if (comment == null) {
             addPost(commonAccess, post);
         } else {
             addComment(commonAccess, comment);

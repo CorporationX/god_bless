@@ -3,24 +3,24 @@ package ru.kraiush.threads.BJS2_25625;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class AopWeLeaveComments_in_Facebook {
+public class AppWeLeaveComments_in_Facebook {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         List<Post> posts = new ArrayList<>();
-        System.out.print(String.join("", Collections.nCopies(80, "-")));
+        System.out.print(String.join("", Collections.nCopies(120, "-")));
         System.out.println();
-
         Post post1 = new Post(1, "Wild world", "Dangerous predators", new Author(getAuthor()));
         Post post2 = new Post(2, "Be healthy", "Do morning exercises", new Author(getAuthor()));
         Post post3 = new Post(3, "The Golden Key", "The tale of Pinocchio", new Author("Alexey Tolstoy"));
 
-        PostService service = new PostService(posts, post1, null);
-        service.start();
-        service = new PostService(posts, post2, null);
-        service.start();
-        service = new PostService(posts, post3, null);
-        service.start();
+        List<PostService> listPosts = new ArrayList<>();
+        listPosts.add(new PostService(posts, post1, null));
+        listPosts.add(new PostService(posts, post2, null));
+        listPosts.add(new PostService(posts, post3, null));
+        for (PostService listPost : listPosts) {
+            listPost.start();
+        }
 
         Comment comm1 = new Comment(ThreadLocalRandom.current().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
         Comment comm2 = new Comment(ThreadLocalRandom.current().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
@@ -28,18 +28,19 @@ public class AopWeLeaveComments_in_Facebook {
         Comment comm4 = new Comment(ThreadLocalRandom.current().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
         Comment comm5 = new Comment(ThreadLocalRandom.current().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
 
-        service = new PostService(posts, null, comm1);
-        service.start();
-        service = new PostService(posts, null, comm2);
-        service.start();
-        service = new PostService(posts, null, comm3);
-        service.start();
-        service = new PostService(posts, null, comm4);
-        service.start();
-        service = new PostService(posts, null, comm5);
-        service.start();
+        List<PostService> listComments = new ArrayList<>();
+
+        listComments.add(new PostService(posts, null, comm1));
+        listComments.add(new PostService(posts, null, comm2));
+        listComments.add(new PostService(posts, null, comm3));
+        listComments.add(new PostService(posts, null, comm4));
+        listComments.add(new PostService(posts, null, comm5));
+
+        for (PostService listComment : listComments) {
+            listComment.start();
+        }
         posts.forEach(System.out::println);
-        System.out.print(String.join("", Collections.nCopies(80, "-")));
+        System.out.print(String.join("", Collections.nCopies(120, "-")));
     }
 
     public static String getAuthor() {
