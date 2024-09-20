@@ -4,9 +4,9 @@ import java.util.concurrent.CompletableFuture;
 
 public class QuestSystem {
 
-    public CompletableFuture<Player> combineItems(Player player, Quest quest) {
+    public CompletableFuture<Player> combineItems(Player palyer, Quest quest) {
 
-        return CompletableFuture.supplyAsync(() -> player)
+        return CompletableFuture.supplyAsync(() -> palyer)
                 .thenCombine(CompletableFuture.supplyAsync(
                         () -> quest), (p, q) -> {
                     p.setExperience(p.getExperience() + q.getReward());
