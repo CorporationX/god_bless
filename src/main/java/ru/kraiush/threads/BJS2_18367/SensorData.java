@@ -26,5 +26,4 @@ public class SensorData {
     public void putSensorData(double data) {
         listSensorData.add(data);
     }
-
 }
