@@ -14,10 +14,10 @@ public class AppMonitoring_of_ElectricalSubstations {
         List<Substation> listSubstations = new ArrayList();
         List<SensorData> listSensorsData = new ArrayList<>();
         MonitoringSystem monitor = new MonitoringSystem(listSubstations);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(3);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(listSubstations.size() + 1);
         System.out.print(String.join("", Collections.nCopies(80, "-")));
         System.out.println();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
             listSubstations.add(new Substation(i, listSensorsData));
             List<Sensor> listSensors = new ArrayList<>();
             for (int j = 0; j < 10; j++) {
@@ -27,10 +27,10 @@ public class AppMonitoring_of_ElectricalSubstations {
             listSubstations.get(i).setListSensors(listSensors);
             executor.scheduleAtFixedRate(listSubstations.get(i), 0, 2, TimeUnit.SECONDS);
         }
-        executor.scheduleAtFixedRate(monitor, 3, 20, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(monitor, 3, 10, TimeUnit.SECONDS);
 
         try {
-            TimeUnit.SECONDS.sleep(120);
+            TimeUnit.SECONDS.sleep(90);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
