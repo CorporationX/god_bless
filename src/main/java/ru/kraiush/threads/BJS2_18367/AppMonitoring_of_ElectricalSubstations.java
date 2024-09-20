@@ -14,10 +14,9 @@ public class AppMonitoring_of_ElectricalSubstations {
         List<Substation> listSubstations = new ArrayList();
         List<SensorData> listSensorsData = new ArrayList<>();
         MonitoringSystem monitor = new MonitoringSystem(listSubstations);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(listSubstations.size() + 1);
-        System.out.print(String.join("", Collections.nCopies(80, "-")));
-        System.out.println();
-        for (int i = 0; i < 4; i++) {
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
+
+        for (int i = 0; i < 3; i++) {
             listSubstations.add(new Substation(i, listSensorsData));
             List<Sensor> listSensors = new ArrayList<>();
             for (int j = 0; j < 10; j++) {

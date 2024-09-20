@@ -14,7 +14,6 @@ import java.util.Random;
 public class Sensor {
 
     private int substationId;
-    //    private Substation station;
     private int id;
     private double data;
 
@@ -25,8 +24,8 @@ public class Sensor {
     }
 
     public Double generatingData() {
-        double lowerBound = 10;
-        double upperBound = 1000;
+        double lowerBound = 10.0;
+        double upperBound = 1000.0;
         return lowerBound + new Random().nextDouble() * (upperBound - lowerBound);
     }
 }

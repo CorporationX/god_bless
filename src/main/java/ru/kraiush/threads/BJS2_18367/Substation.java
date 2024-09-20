@@ -34,8 +34,6 @@ public class Substation implements Runnable {
             for (int k = 0; k < listSensorsData.size(); k++) {
                 if (listSensorsData.get(k).getSubstationId() == id) {
                     if (listSensorsData.get(k).getSensorId() == i) {
-//                        System.out.println("listSensorsData.get(k): " + listSensorsData.get(k));
-//                        System.out.println("mapCurrentSensorsData.get(): " + mapCurrentSensorsData.get(i));
                         listSensorsData.get(k).putSensorData(mapCurrentSensorsData.get(i));
                     }
                 }
