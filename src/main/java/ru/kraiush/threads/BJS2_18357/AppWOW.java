@@ -3,13 +3,14 @@ package ru.kraiush.threads.BJS2_18357;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
-public class AppWorldOfWarcraft {
+public class AppWOW {
 
     public static void main(String[] args) {
 
@@ -17,6 +18,8 @@ public class AppWorldOfWarcraft {
 
         String[] questes = {"look for the Kladenets sword", "hide in the invisibility cloak", "throw the wizard's hat"};
 
+        System.out.print(String.join("", Collections.nCopies(80, "-")));
+        System.out.println();
         List<Player> listOfPlayers = new ArrayList<>();
         List<Quest> listOfQuests = new ArrayList<>();
 
@@ -46,5 +49,6 @@ public class AppWorldOfWarcraft {
                 o.thenAccept(player -> System.out.println("player {" + player.getName() + "} has completed the quest and now has " + player.getExperience() + " experience points."));
             }
         }
+        System.out.print(String.join("", Collections.nCopies(80, "-")));
     }
 }
