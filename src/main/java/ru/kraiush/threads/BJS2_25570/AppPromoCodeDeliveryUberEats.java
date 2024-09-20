@@ -34,7 +34,7 @@ public class AppPromoCodeDeliveryUberEats {
         }
 
         DeliveryService service = new DeliveryService();
-        PromoCode promoCode = new PromoCode("Newest",
+        PromoCode promoCode = new PromoCode("New",
                 ThreadLocalRandom.current().nextInt(1, 10),
                 new Date(System.currentTimeMillis() + ThreadLocalRandom.current().nextInt(200, 7000)),
                 randomBigDecimal(new BigDecimal(500), new BigDecimal(2000)),
