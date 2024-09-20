@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
-public class DeliveryService extends Thread  {
+public class DeliveryService extends Thread {
 
     private Order order;
 
@@ -22,7 +22,7 @@ public class DeliveryService extends Thread  {
         this.listPromoCodes = listPromoCodes;
     }
 
-    private List<Order> listprocessedOrders= new ArrayList<>();
+    private final List<Order> listprocessedOrders = new ArrayList<>();
 
     @Override
     public void run() {
@@ -32,7 +32,7 @@ public class DeliveryService extends Thread  {
     void processOrder(Order order, List<PromoCode> listPromoCodes) {
 
         synchronized (listPromoCodes) {
-            BigDecimal totalPrice= order.getTotalPrice(order.getListProducts());
+            BigDecimal totalPrice = order.getTotalPrice(order.getListProducts());
             System.out.println("Order: " + order);
             System.out.println(" totalPrice: " + totalPrice);
 
@@ -42,17 +42,17 @@ public class DeliveryService extends Thread  {
                 throw new IllegalStateException(e);
             }
 
-            List<PromoCode> list= listPromoCodes.stream()
+            List<PromoCode> list = listPromoCodes.stream()
                     .filter(w -> !w.isUsed())
                     .filter(o -> order.getTotalPrice(order.getListProducts()).compareTo(o.getMinimumOrderValue()) > 0)
                     .filter(t -> t.getExpirationDate().before(new Date()))
-                    .collect(Collectors.toList());
+                    .toList();
 
-            if(list.size() != 0) {
+            if (!list.isEmpty()) {
                 PromoCode orderPromoCode = list.stream().max(Comparator.comparing(PromoCode::getDiscount)).get();
                 orderPromoCode.setUsed(true);
                 System.out.println("selected the orderPromoCode: \n" + orderPromoCode);
-                BigDecimal priceWithDiscont= order.applyDiscount(totalPrice, orderPromoCode);
+                BigDecimal priceWithDiscont = order.applyDiscount(totalPrice, orderPromoCode);
                 System.out.println(" price With Discont: " + priceWithDiscont);
             } else {
                 System.out.println(" >>>No suitable promoCode was sfound!<<<");
