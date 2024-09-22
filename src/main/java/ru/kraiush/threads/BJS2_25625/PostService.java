@@ -3,36 +3,43 @@ package ru.kraiush.threads.BJS2_25625;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.concurrent.locks.Lock;
 
 @AllArgsConstructor
-public class PostService extends Thread {
+public class PostService implements Runnable {
 
-    private List<Post> commonAccess;
+    private List<Post> listPosts;
     private Post post;
     private Comment comment;
+    private Lock lock;
 
     @Override
     public void run() {
         if (comment == null) {
-            addPost(commonAccess, post);
+            addPost(listPosts, post);
         } else {
-            addComment(commonAccess, comment);
+            addComment(listPosts, comment);
         }
     }
 
-    public void addComment(List<Post> commonAccess, Comment comment) {
-        synchronized (commonAccess) {
-            commonAccess.stream()
-                    .filter(w -> comment.getId() == w.getId())
+    public void addComment(List<Post> listPosts, Comment comment) {
+        lock.lock();
+        try {
+            listPosts.stream()
+                    .filter(w -> comment.getId() == w.getPostID())
                     .findAny()
-                    .map(p -> p.getListComments().add(comment))
-                    .orElse(null);
+                    .map(p -> p.getListComments().add(comment));
+        } finally {
+            lock.unlock();
         }
     }
 
-    public void addPost(List<Post> commonAccess, Post post) {
-        synchronized (commonAccess) {
-            commonAccess.add(post);
+    public void addPost(List<Post> listPosts, Post post) {
+        lock.lock();
+        try {
+            listPosts.add(post);
+        } finally {
+            lock.unlock();
         }
     }
 }
