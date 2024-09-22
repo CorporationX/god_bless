@@ -1,6 +1,7 @@
 package ru.kraiush.threads.BJS2_25625;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -11,10 +12,10 @@ public class AppWeLeaveComments_in_Facebook {
 
     public static void main(String[] args) throws InterruptedException {
 
-        final List<Post> posts = new ArrayList<>();
+        final CopyOnWriteArrayList<Post> posts = new CopyOnWriteArrayList<>();
         final List<PostService> listPosts = new ArrayList<>();
         final Lock lock = new ReentrantLock();
-        ExecutorService THREAD_POOL = Executors.newFixedThreadPool(10);
+        ExecutorService THREAD_POOL = Executors.newFixedThreadPool(8);
 
         Post post1 = new Post(1, "Wild world", "Dangerous predators", new Author(getAuthor()));
         Post post2 = new Post(2, "Be healthy", "Do morning exercises", new Author(getAuthor()));
@@ -29,15 +30,15 @@ public class AppWeLeaveComments_in_Facebook {
         }
         Thread.sleep(1000);
 
-        System.out.print(String.join("", Collections.nCopies(125, "-")));
+        System.out.print(String.join("", Collections.nCopies(175, "-")));
         System.out.println("\nPosts without comments");
         posts.forEach(System.out::println);
 
-        Comment comm1 = new Comment(new Random().nextInt(posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
-        Comment comm2 = new Comment(new Random().nextInt(posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
-        Comment comm3 = new Comment(new Random().nextInt(posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
-        Comment comm4 = new Comment(new Random().nextInt(posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
-        Comment comm5 = new Comment(new Random().nextInt(posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
+        Comment comm1 = new Comment(new Random().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
+        Comment comm2 = new Comment(new Random().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
+        Comment comm3 = new Comment(new Random().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
+        Comment comm4 = new Comment(new Random().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
+        Comment comm5 = new Comment(new Random().nextInt(1, posts.size() + 1), getCommentText(), new Date(), new Author(getAuthor()));
 
         List<PostService> listComments = new ArrayList<>();
 
@@ -50,16 +51,13 @@ public class AppWeLeaveComments_in_Facebook {
         for (PostService comment : listComments) {
             THREAD_POOL.execute(comment);
         }
-
         try {
-            TimeUnit.SECONDS.sleep(2);
+            TimeUnit.SECONDS.sleep(4);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         THREAD_POOL.shutdown();
-        while (!THREAD_POOL.isTerminated()) {
-            //wait for all tasks to finish
-        }
+
         System.out.println("\nPosts with comments");
         posts.forEach(System.out::println);
         System.out.print(String.join("", Collections.nCopies(175, "-")));

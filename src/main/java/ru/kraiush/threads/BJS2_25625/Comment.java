@@ -11,7 +11,7 @@ import java.util.Date;
 @AllArgsConstructor
 public class Comment {
 
-    private int id;
+    private int postID;
     private String text;
     private Date commentDate;
     private Author author;
@@ -19,7 +19,7 @@ public class Comment {
     @Override
     public String toString() {
         return "Comment{" +
-                "id=" + id +
+                "postID=" + postID +
                 ", text='" + text + '\'' +
                 ", date=" + commentDate +
                 ", author=" + author +

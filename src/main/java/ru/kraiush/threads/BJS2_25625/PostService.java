@@ -3,12 +3,14 @@ package ru.kraiush.threads.BJS2_25625;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 
 @AllArgsConstructor
 public class PostService implements Runnable {
 
-    private volatile List<Post> listPosts;
+    private CopyOnWriteArrayList<Post> listPosts;
     private Post post;
     private Comment comment;
     private Lock lock;
@@ -22,19 +24,19 @@ public class PostService implements Runnable {
         }
     }
 
-    public void addComment(List<Post> listPosts, Comment comment) {
-            listPosts.stream()
-                    .filter(w -> comment.getId() == w.getPostID())
-                    .findAny()
-                    .map(p -> p.getListComments().add(comment));
-    }
-
-    public void addPost(List<Post> listPosts, Post post) {
+    public void addComment(CopyOnWriteArrayList<Post> listPosts, Comment comment) {
         lock.lock();
         try {
-            listPosts.add(post);
+            listPosts.stream()
+                    .filter(w -> comment.getPostID() == w.getPostID())
+                    .findAny()
+                    .map(p -> p.getListComments().add(comment));
         } finally {
             lock.unlock();
         }
+    }
+
+    public void addPost(CopyOnWriteArrayList<Post> listPosts, Post post) {
+        listPosts.add(post);
     }
 }
