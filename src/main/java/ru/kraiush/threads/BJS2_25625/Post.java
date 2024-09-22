@@ -12,14 +12,14 @@ import java.util.List;
 @AllArgsConstructor
 public class Post {
 
-    private int id;
+    private int postID;
     private String headline;
     private String text;
     private Author author;
     private List<Comment> listComments;
 
     public Post(int id, String headline, String text, Author author) {
-        this.id = id;
+        this.postID = id;
         this.headline = headline;
         this.text = text;
         this.author = author;
@@ -29,7 +29,7 @@ public class Post {
     @Override
     public String toString() {
         return "Post{" +
-                "id=" + id +
+                "id=" + postID +
                 ", head='" + headline + '\'' +
                 ", text='" + text + '\'' +
                 ", author=" + author +
