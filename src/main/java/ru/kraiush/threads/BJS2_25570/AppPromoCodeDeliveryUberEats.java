@@ -2,6 +2,7 @@ package ru.kraiush.threads.BJS2_25570;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class AppPromoCodeDeliveryUberEats {
@@ -10,7 +11,10 @@ public class AppPromoCodeDeliveryUberEats {
 
         System.out.print(String.join("", Collections.nCopies(80, "-")));
         System.out.println();
-        List<PromoCode> listPromoCodes = new ArrayList<>();
+
+        final CopyOnWriteArrayList<PromoCode> listPromoCodes = new CopyOnWriteArrayList<>();
+        final List<Order> listOrders = new ArrayList<>();
+//        final CopyOnWriteArrayList<Order> listOrders = new CopyOnWriteArrayList<>();
         for (int i = 1; i < 21; i++) {
             listPromoCodes.add(
                     new PromoCode(getPromoCode(),
@@ -22,7 +26,6 @@ public class AppPromoCodeDeliveryUberEats {
             );
         }
 
-        List<Order> listOrders = new ArrayList<>();
         for (int q = 1; q < 6; q++) {
             List<Product> listProducts = new ArrayList<>();
             int numberGoods = ThreadLocalRandom.current().nextInt(1, 6);

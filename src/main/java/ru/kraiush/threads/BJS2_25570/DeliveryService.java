@@ -7,31 +7,44 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.stream.Collectors;
 
 @NoArgsConstructor
 public class DeliveryService extends Thread {
 
     private Order order;
+    private Lock lock;
+    private CopyOnWriteArrayList<PromoCode> listPromoCodes;
+    private final List<Order> listprocessedOrders = new ArrayList<>();
+//    private final CopyOnWriteArrayList<Order> listprocessedOrders = new CopyOnWriteArrayList<>();
 
-    private List<PromoCode> listPromoCodes;
-
-    public DeliveryService(Order order, List<PromoCode> listPromoCodes) {
+    public DeliveryService(Order order, CopyOnWriteArrayList<PromoCode> listPromoCodes) {
         this.order = order;
         this.listPromoCodes = listPromoCodes;
+        this.lock = new ReentrantLock();
     }
-
-    private final List<Order> listprocessedOrders = new ArrayList<>();
 
     @Override
     public void run() {
         processOrder(order, listPromoCodes);
+//        try {
+//            if (lock.tryLock(2, TimeUnit.SECONDS)) {
+//                processOrder(order, listPromoCodes);
+//            }
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } finally {
+//            lock.unlock();
+//        }
     }
 
-    void processOrder(Order order, List<PromoCode> listPromoCodes) {
-
-        synchronized (listPromoCodes) {
+    void processOrder(Order order, CopyOnWriteArrayList<PromoCode> listPromoCodes) {
+        lock.lock();
+        try {
             BigDecimal totalPrice = order.getTotalPrice(order.getListProducts());
             System.out.println("Order: " + order);
             System.out.println(" totalPrice: " + totalPrice);
@@ -58,13 +71,13 @@ public class DeliveryService extends Thread {
                 System.out.println(" >>>No suitable promoCode was sfound!<<<");
             }
             listprocessedOrders.add(order);
-            System.out.println(" <<<The order has been processed!>>>\n\n");
+            System.out.println(" <<<The order has been processed!>>>\n");
+        } finally {
+            lock.unlock();
         }
     }
 
-    void addPromoCode(List<PromoCode> listPromoCodes, PromoCode promoCode) {
-        synchronized (listPromoCodes) {
-            listPromoCodes.add(promoCode);
-        }
+    void addPromoCode(CopyOnWriteArrayList<PromoCode> listPromoCodes, PromoCode promoCode) {
+        listPromoCodes.add(promoCode);
     }
 }
