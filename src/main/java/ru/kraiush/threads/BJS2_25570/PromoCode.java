@@ -13,6 +13,7 @@ import java.util.Date;
 @ToString
 @AllArgsConstructor
 public class PromoCode {
+
     private String code;
     private int discount;
     private Date expirationDate;

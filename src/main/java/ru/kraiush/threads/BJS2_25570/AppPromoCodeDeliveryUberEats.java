@@ -2,7 +2,9 @@ package ru.kraiush.threads.BJS2_25570;
 
 import java.math.BigDecimal;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class AppPromoCodeDeliveryUberEats {
 
@@ -10,7 +12,13 @@ public class AppPromoCodeDeliveryUberEats {
 
         System.out.print(String.join("", Collections.nCopies(80, "-")));
         System.out.println();
-        List<PromoCode> listPromoCodes = new ArrayList<>();
+
+        final CopyOnWriteArrayList<Order> listOrders = new CopyOnWriteArrayList<>();
+        final List<PromoCode> listPromoCodes = new ArrayList<>();
+        final List<DeliveryService> listServices = new ArrayList<>();
+        final Lock lock = new ReentrantLock();
+        ExecutorService THREAD_POOL = Executors.newFixedThreadPool(50);
+
         for (int i = 1; i < 21; i++) {
             listPromoCodes.add(
                     new PromoCode(getPromoCode(),
@@ -22,7 +30,6 @@ public class AppPromoCodeDeliveryUberEats {
             );
         }
 
-        List<Order> listOrders = new ArrayList<>();
         for (int q = 1; q < 6; q++) {
             List<Product> listProducts = new ArrayList<>();
             int numberGoods = ThreadLocalRandom.current().nextInt(1, 6);
@@ -41,10 +48,19 @@ public class AppPromoCodeDeliveryUberEats {
                 false);
         service.addPromoCode(listPromoCodes, promoCode);
 
-        for (Order listOrder : listOrders) {
-            Thread task = new DeliveryService(listOrder, listPromoCodes);
-            task.start();
+        for (int i = 0; i < listOrders.size(); i++) {
+            listServices.add(new DeliveryService(listOrders, listOrders.get(i), listPromoCodes, lock));
+
         }
+        for (DeliveryService s : listServices) {
+            THREAD_POOL.execute(s);
+        }
+        try {
+            TimeUnit.SECONDS.sleep(7);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        THREAD_POOL.shutdown();
     }
 
     public static String getPromoCode() {
