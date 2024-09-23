@@ -24,15 +24,6 @@ public class DeliveryService implements Runnable {
     @Override
     public void run() {
         processOrder(order, listPromoCodes);
-//        try {
-//            if (lock.tryLock(2, TimeUnit.SECONDS)) {
-//                processOrder(order, listPromoCodes);
-//            }
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } finally {
-//            lock.unlock();
-//        }
     }
 
     void processOrder(Order order, List<PromoCode> listPromoCodes) {
