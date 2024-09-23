@@ -15,17 +15,13 @@ public class Order {
     private List<Product> listProducts;
 
     public BigDecimal getTotalPrice(List<Product> listProducts) {
-        synchronized (listProducts) {
-            return listProducts.stream()
-                    .map(Product::getPrice)
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-        }
+        return listProducts.stream()
+                .map(Product::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     public BigDecimal applyDiscount(BigDecimal totalPrice, PromoCode ortderPromoCode) {
-        synchronized (listProducts) {
-            BigDecimal discont = (BigDecimal.valueOf(ortderPromoCode.getDiscount()).multiply(totalPrice)).divide(new BigDecimal(100));
-            return totalPrice.subtract(discont);
-        }
+        BigDecimal discont = (BigDecimal.valueOf(ortderPromoCode.getDiscount()).multiply(totalPrice)).divide(new BigDecimal(100));
+        return totalPrice.subtract(discont);
     }
 }

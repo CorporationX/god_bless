@@ -1,5 +1,6 @@
 package ru.kraiush.threads.BJS2_25570;
 
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -10,23 +11,15 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.stream.Collectors;
 
 @NoArgsConstructor
-public class DeliveryService extends Thread {
+@AllArgsConstructor
+public class DeliveryService implements Runnable {
 
+    private CopyOnWriteArrayList<Order> listOrders = new CopyOnWriteArrayList<>();
     private Order order;
+    private List<PromoCode> listPromoCodes;
     private Lock lock;
-    private CopyOnWriteArrayList<PromoCode> listPromoCodes;
-    private final List<Order> listprocessedOrders = new ArrayList<>();
-//    private final CopyOnWriteArrayList<Order> listprocessedOrders = new CopyOnWriteArrayList<>();
-
-    public DeliveryService(Order order, CopyOnWriteArrayList<PromoCode> listPromoCodes) {
-        this.order = order;
-        this.listPromoCodes = listPromoCodes;
-        this.lock = new ReentrantLock();
-    }
 
     @Override
     public void run() {
@@ -42,7 +35,7 @@ public class DeliveryService extends Thread {
 //        }
     }
 
-    void processOrder(Order order, CopyOnWriteArrayList<PromoCode> listPromoCodes) {
+    void processOrder(Order order, List<PromoCode> listPromoCodes) {
         lock.lock();
         try {
             BigDecimal totalPrice = order.getTotalPrice(order.getListProducts());
@@ -70,14 +63,14 @@ public class DeliveryService extends Thread {
             } else {
                 System.out.println(" >>>No suitable promoCode was sfound!<<<");
             }
-            listprocessedOrders.add(order);
+            listOrders.add(order);
             System.out.println(" <<<The order has been processed!>>>\n");
         } finally {
             lock.unlock();
         }
     }
 
-    void addPromoCode(CopyOnWriteArrayList<PromoCode> listPromoCodes, PromoCode promoCode) {
+    void addPromoCode(List<PromoCode> listPromoCodes, PromoCode promoCode) {
         listPromoCodes.add(promoCode);
     }
 }
