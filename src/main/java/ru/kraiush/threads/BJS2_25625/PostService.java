@@ -2,8 +2,6 @@ package ru.kraiush.threads.BJS2_25625;
 
 import lombok.AllArgsConstructor;
 
-import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.locks.Lock;
 
