@@ -22,7 +22,6 @@ public class DeliveryService implements Runnable {
 
     @Override
     public void run() {
-
         processOrder(order, listPromoCodes);
     }
 
