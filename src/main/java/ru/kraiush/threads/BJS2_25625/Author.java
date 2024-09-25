@@ -10,7 +10,6 @@ import lombok.Setter;
 public class Author {
 
     private String name;
-
     @Override
     public String toString() {
         return name;

@@ -7,7 +7,6 @@ import java.util.concurrent.locks.Lock;
 
 @AllArgsConstructor
 public class PostService implements Runnable {
-
     private CopyOnWriteArrayList<Post> listPosts;
     private Post post;
     private Comment comment;

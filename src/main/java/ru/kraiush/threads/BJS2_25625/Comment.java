@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 public class Comment {
-
     private int postID;
     private String text;
     private Date commentDate;
