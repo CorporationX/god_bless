@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Substation implements Runnable {
 
     private int id;
-    List<Sensor> listSensors = new ArrayList<>();
+    private List<Sensor> listSensors = new ArrayList<>();
     private double data;
     private ConcurrentHashMap<Integer, Double> mapCurrentSensorsData = new ConcurrentHashMap<>();
     private List<SensorData> listSensorsData;
