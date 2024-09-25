@@ -11,7 +11,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
-
     private List<Product> listProducts;
 
     public BigDecimal getTotalPrice(List<Product> listProducts) {
