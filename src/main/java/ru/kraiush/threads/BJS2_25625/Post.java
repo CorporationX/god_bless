@@ -25,7 +25,6 @@ public class Post {
         this.author = author;
         this.listComments = new ArrayList<>();
     }
-
     @Override
     public String toString() {
         return "Post{" +

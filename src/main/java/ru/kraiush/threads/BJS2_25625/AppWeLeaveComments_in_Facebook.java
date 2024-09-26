@@ -67,7 +67,6 @@ public class AppWeLeaveComments_in_Facebook {
         String[] memberNames = {"Apollo", "Sharon", "Maggie", "Lewis", "Steve", "Bridget", "Jessica", "Om", "John", "Elvis"};
         return memberNames[new Random().nextInt(memberNames.length)];
     }
-
     public static String getCommentText() {
         String[] memberNames = {"Complete nonsense", "Perfectly", "It sucks", "Fuck you thouts", "It's inimitable", "Abra Cada Bra", "It is very useful and informative"};
         return memberNames[new Random().nextInt(memberNames.length)];
