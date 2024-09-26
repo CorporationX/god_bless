@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
@@ -60,7 +59,6 @@ public class DeliveryService implements Runnable {
             lock.unlock();
         }
     }
-
     void addPromoCode(List<PromoCode> listPromoCodes, PromoCode promoCode) {
         listPromoCodes.add(promoCode);
     }

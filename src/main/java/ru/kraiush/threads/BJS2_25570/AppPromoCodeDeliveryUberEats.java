@@ -17,7 +17,7 @@ public class AppPromoCodeDeliveryUberEats {
         final List<PromoCode> listPromoCodes = new ArrayList<>();
         final List<DeliveryService> listServices = new ArrayList<>();
         final Lock lock = new ReentrantLock();
-        ExecutorService THREAD_POOL = Executors.newFixedThreadPool(50);
+        final ExecutorService THREAD_POOL = Executors.newFixedThreadPool(50);
 
         for (int i = 1; i < 21; i++) {
             listPromoCodes.add(
