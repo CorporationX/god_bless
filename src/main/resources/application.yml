@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/werewolf
+    username: kraiu
+    password: dbsys91
+    driverClassName: org.postgresql.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+        ddl-auto: create-drop
+#      // update  // create-drop // none
+    properties:
+        hibernate:
+            dialect: org.hibernate.dialect.PostgreSQLDialect
+            format_sql: true
+            default_schema: public
+#  profiles:
+#    active: dev
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: DEBUG
+    org.hibernate: DEBUG

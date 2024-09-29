@@ -47,15 +47,13 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Event create(Event entity) {
-
-        Optional<Event> eventOptional = Optional.empty();
         try {
-            eventOptional = eventRepository.findById(entity.getId());
-        } catch (Exception ex) {
-            throw new EventException(EVENT_ALREADY_EXISTS + entity.getId());
-        }
-        try {
-            return eventRepository.save(entity);
+            Optional<Event> eventOptional = eventRepository.findById(entity.getId());
+            if (eventOptional == null) {
+                return eventRepository.save(entity);
+            } else {
+                throw new EventException(EVENT_ALREADY_EXISTS + entity.getId());
+            }
         } catch (final RuntimeException e) {
             throw new EventException(EVENT_CREATE_EXCEPTION, e);
         }

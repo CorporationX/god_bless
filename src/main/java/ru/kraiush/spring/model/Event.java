@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Table(name = "events")
 @Data  // @Getter @Setter @RequiredArgsConstructor @ToString @EqualsAndHashCode
 public class Event {
 
@@ -21,9 +22,10 @@ public class Event {
     private String location;
     private int maxAttendees;
 
-    @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @ManyToMany
+    @JoinTable(
+            name = "event_skill",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> relatedSkills;
 }

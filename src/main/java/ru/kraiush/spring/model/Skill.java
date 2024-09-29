@@ -5,10 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
+@Table(name= "skills")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class Skill {
 
     @Id
@@ -16,5 +18,13 @@ public class Skill {
     private Long id;
 
     private String SkillType;
+
+    public Skill(Long id, String skillType) {
+        this.id = id;
+        SkillType = skillType;
+    }
+
+    @ManyToMany(mappedBy = "relatedSkills")
+    List<Event> events;
 }
 

@@ -1,9 +1,11 @@
 package ru.kraiush.spring.service.event;
 
+import org.springframework.stereotype.Component;
 import ru.kraiush.spring.model.Event;
 
 import java.util.List;
 
+@Component
 public interface EventService {
 
     Event findById(long id);
