@@ -1,7 +1,6 @@
 package ru.kraiush.BJS2_18616;
 
 import org.junit.jupiter.api.Test;
-import ru.kraiush.model.Person;
 
 import java.util.List;
 import java.util.Map;
