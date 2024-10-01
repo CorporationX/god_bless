@@ -19,6 +19,5 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : result.entrySet()) {
             System.out.println("Age: " + entry);
         }
-        System.out.println();
     }
 }
