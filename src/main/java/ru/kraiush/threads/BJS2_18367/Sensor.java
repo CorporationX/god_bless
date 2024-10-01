@@ -12,11 +12,9 @@ import java.util.Random;
 @ToString
 @AllArgsConstructor
 public class Sensor {
-
     private int substationId;
     private int id;
     private double data;
-
 
     public Sensor(int substationId, int id) {
         this.substationId = substationId;
