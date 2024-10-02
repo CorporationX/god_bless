@@ -11,6 +11,7 @@ public class Main {
         private static final int LEGAL_AGE = 18;
         private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
         private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
         private String name;
         private Integer age;
         private String job;
