@@ -1,5 +1,9 @@
 package school.faang;
 
+import school.faang.abstraction.Archer;
+import school.faang.abstraction.Character;
+import school.faang.abstraction.Warrior;
+
 import java.util.List;
 import java.util.Map;
 
@@ -19,5 +23,22 @@ public class Main {
         Map<Integer, List<User>> groupUser = User.groupUsers(users);
 
         System.out.println(groupUser);
+
+        System.out.println("====================");
+        System.out.println("====================");
+
+        Character warrior = new Warrior("sven");
+        Character archer = new Archer("windranger");
+
+        System.out.println("warrior HP: " + warrior.getHealth());
+        System.out.println("archer HP: " + archer.getHealth());
+
+        archer.attack(warrior);
+        archer.attack(warrior);
+
+        warrior.attack(archer);
+
+        System.out.println("warrior HP: " + warrior.getHealth());
+        System.out.println("archer HP: " + archer.getHealth());
     }
 }
