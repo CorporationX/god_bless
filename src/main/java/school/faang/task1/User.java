@@ -24,7 +24,7 @@ public class User {
         users.add(user);
     }
 
-    public static Map<Integer, List<User>> sortUsers(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> sortedUsers = new TreeMap<>();
         for (User user : users) {
             sortedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
@@ -32,8 +32,8 @@ public class User {
         return sortedUsers;
     }
 
-    public static void printSortedUsers(Map<Integer, List<User>> orderedUsers) {
-        System.out.println("USERS SORTED BY AGE");
+    public static void printGroupedUsers(Map<Integer, List<User>> orderedUsers) {
+        System.out.println("USERS GROUPED BY AGE");
         for (Integer age : orderedUsers.keySet()) {
             System.out.println("Age:" + age);
             for (User user : orderedUsers.get(age)) {

@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import static school.faang.task1.User.addUserToList;
-import static school.faang.task1.User.printSortedUsers;
-import static school.faang.task1.User.sortUsers;
+import static school.faang.task1.User.printGroupedUsers;
+import static school.faang.task1.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
@@ -21,7 +21,7 @@ public class Main {
         addUserToList(users, new User("User 8", 18, "Company 8", "Address 888"));
         addUserToList(users, new User("User 9", 50, "Company 9", "Address 999"));
 
-        Map<Integer, List<User>> sortedUsers = sortUsers(users);
-        printSortedUsers(sortedUsers);
+        Map<Integer, List<User>> sortedUsers = groupUsers(users);
+        printGroupedUsers(sortedUsers);
     }
 }
