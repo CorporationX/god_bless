@@ -11,13 +11,14 @@ import java.util.Set;
 
 @Data
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int VALID_MINIMUM_AGE = 18;
+
     private String name;
     private int age;
     private String job;
     private String address;
-
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String job, String address) {
         validate(name, age, job, address);
@@ -31,7 +32,7 @@ public class User {
     private void validate(String name, int age, String job, String address) {
         if(name == null || name.trim().isEmpty())
             throw new IllegalArgumentException("Name cannot be null or empty");
-        if(age < 18)
+        if(age < VALID_MINIMUM_AGE)
             throw new IllegalArgumentException("Age cannot be less than 18");
         if(!VALID_JOBS.contains(job))
             throw new IllegalArgumentException("Invalid job");
