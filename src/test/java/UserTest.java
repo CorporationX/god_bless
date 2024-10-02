@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class UserTest {
 
     @Test
-    public void TestIfUserConstructed() {
+    public void testIfConstructedCorrectly() {
         // arrange
         User expectedUser = new User("Notch", 50, "Google", "New York");
 
@@ -22,15 +22,19 @@ public class UserTest {
         String actualAddress = expectedUser.getAddress();
 
         // assert
-        assertThrows(IllegalArgumentException.class, () -> new User("", 20, "Google", "London"));
-        assertThrows(IllegalArgumentException.class, () -> new User("Maksim", 4, "Google", "London"));
-        assertThrows(IllegalArgumentException.class, () -> new User("Alex", 20, "Zavod", "London"));
-        assertThrows(IllegalArgumentException.class, () -> new User("Jeff", 20, "Google", "Moon"));
 
         assertEquals("Notch", actualName, "The name must be Notch");
         assertEquals(50, actualAge, "The age must be 50");
         assertEquals("Google", actualJob, "The job must be Google");
         assertEquals("New York", actualAddress, "The address must be New York");
+    }
+
+    @Test
+    public void testIfThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, () -> new User("", 20, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Maksim", 4, "Google", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Alex", 20, "Zavod", "London"));
+        assertThrows(IllegalArgumentException.class, () -> new User("Jeff", 20, "Google", "Moon"));
     }
 
     @Test
