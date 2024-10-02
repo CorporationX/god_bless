@@ -10,7 +10,7 @@ public class Main {
                 new User("Charlie", "25", "Amazon", "Amsterdam"),
                 new User("Diana", "30", "Amazon", "London")
 
-//                If uncomment any row below will be throw IllegalArgumentException()
+//                If uncomment any row below , will be throw IllegalArgumentException()
 
 //                new User("", "40", "Uber", "New York")
 //                new User("Eve", "12", "Uber", "New York")
