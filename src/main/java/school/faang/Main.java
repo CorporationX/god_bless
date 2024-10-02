@@ -7,11 +7,11 @@ public class Main {
     public static void main(String[] args) {
 
         List<User> users = List.of(
-                new User("Nikita", 21, "java Bootcamp", "Voronezh"),
-                new User("Vlad", 21, "developer", "Moscow"),
-                new User("Dima", 21, "java Bootcamp", "Moscow"),
-                new User("Katia", 22, "hospital", "Voronezh"),
-                new User("Maxim", 33, "factory", "Moscow")
+                new User("Nikita", 21, "Google", "London"),
+                new User("Vlad", 21, "Google", "London"),
+                new User("Dima", 19, "123", "Amsterdam"),
+                new User("Katia", 22, "Amazon", "London"),
+                new User("Maxim", 33, "Amazon", "Amsterdam")
         );
 
         System.out.println(users);
