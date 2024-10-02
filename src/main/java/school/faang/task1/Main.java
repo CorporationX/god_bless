@@ -21,7 +21,7 @@ public class Main {
         addUserToList(users, new User("User 8", 18, "Company 8", "Address 888"));
         addUserToList(users, new User("User 9", 50, "Company 9", "Address 999"));
 
-        Map<Integer, List<User>> sortedUsers = groupUsers(users);
-        printGroupedUsers(sortedUsers);
+        Map<Integer, List<User>> groupedUsers = groupUsers(users);
+        printGroupedUsers(groupedUsers);
     }
 }

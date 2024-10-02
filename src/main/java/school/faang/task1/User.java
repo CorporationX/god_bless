@@ -25,18 +25,18 @@ public class User {
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> sortedUsers = new TreeMap<>();
+        Map<Integer, List<User>> groupedUsers = new TreeMap<>();
         for (User user : users) {
-            sortedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
-        return sortedUsers;
+        return groupedUsers;
     }
 
-    public static void printGroupedUsers(Map<Integer, List<User>> orderedUsers) {
+    public static void printGroupedUsers(Map<Integer, List<User>> groupedUsers) {
         System.out.println("USERS GROUPED BY AGE");
-        for (Integer age : orderedUsers.keySet()) {
+        for (Integer age : groupedUsers.keySet()) {
             System.out.println("Age:" + age);
-            for (User user : orderedUsers.get(age)) {
+            for (User user : groupedUsers.get(age)) {
                 System.out.println("\t" + user);
             }
         }

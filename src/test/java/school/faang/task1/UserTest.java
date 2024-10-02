@@ -31,10 +31,10 @@ public class UserTest {
         User user = new User("User 1", 20, "Company 1", "Address 111");
         users.add(user);
 
-        Map<Integer, List<User>> sortedUsers = groupUsers(users);
+        Map<Integer, List<User>> groupedUsers = groupUsers(users);
 
-        assertEquals(1, sortedUsers.size());
-        assertEquals(users, sortedUsers.get(20));
+        assertEquals(1, groupedUsers.size());
+        assertEquals(users, groupedUsers.get(20));
     }
 
     @Test
@@ -45,11 +45,11 @@ public class UserTest {
         users.add(user1);
         users.add(user2);
 
-        Map<Integer, List<User>> sortedUsers = groupUsers(users);
+        Map<Integer, List<User>> groupedUsers = groupUsers(users);
 
-        assertEquals(2, sortedUsers.size());
-        assertEquals(1, sortedUsers.get(20).size());
-        assertEquals(List.of(user2), sortedUsers.get(20));
+        assertEquals(2, groupedUsers.size());
+        assertEquals(1, groupedUsers.get(20).size());
+        assertEquals(List.of(user2), groupedUsers.get(20));
     }
 
     @Test
@@ -60,11 +60,11 @@ public class UserTest {
         users.add(user1);
         users.add(user2);
 
-        Map<Integer, List<User>> sortedUsers = groupUsers(users);
+        Map<Integer, List<User>> groupedUsers = groupUsers(users);
 
-        assertEquals(1, sortedUsers.size());
-        assertEquals(2, sortedUsers.get(30).size());
-        assertEquals(List.of(user1, user2), sortedUsers.get(30));
+        assertEquals(1, groupedUsers.size());
+        assertEquals(2, groupedUsers.get(30).size());
+        assertEquals(List.of(user1, user2), groupedUsers.get(30));
     }
 
     @Test
