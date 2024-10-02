@@ -13,6 +13,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    private static final int LEGAL_AGE = 18;
 
     private String name;
     @Getter
@@ -24,7 +25,7 @@ public class User {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < 18) {
+        if (age < LEGAL_AGE) {
             throw new IllegalArgumentException("Age cannot be less than 18");
         }
         if (!VALID_JOBS.contains(job)) {
