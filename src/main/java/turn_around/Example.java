@@ -6,10 +6,11 @@ import lombok.ToString;
 @ToString
 public class Example {
     public Integer[] reverse(Integer[] nums) {
-        Integer[] result = new Integer[nums.length];
-        for (int i = 0; i < nums.length; i++) {
-            result[i] = nums[nums.length - 1 - i];
+        for (int i = 0; i < nums.length / 2; i++) {
+            int temp = nums[i];
+            nums[i] = nums[nums.length - 1 - i];
+            nums[nums.length - 1 - i] = temp;
         }
-        return result;
+        return nums;
     }
 }
