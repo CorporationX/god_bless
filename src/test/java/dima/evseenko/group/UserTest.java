@@ -16,9 +16,9 @@ class UserTest {
     void groupUsersFullList() {
         Map<Integer, List<User>> groupedUsers = User.groupUsers(getUsers());
 
-        assertTrue(groupedUsers.get(22).contains(new User("Dima", 22, "Amazon", "Poland")));
-        assertTrue(groupedUsers.get(20).contains(new User("Kolya", 20, "Randstad", "Poland")));
-        assertTrue(groupedUsers.get(22).contains(new User("Olya", 22, "Google", "England")));
+        assertTrue(groupedUsers.get(22).contains(new User("Dima", 22, "Amazon", "New York")));
+        assertTrue(groupedUsers.get(20).contains(new User("Kolya", 20, "Google", "New York")));
+        assertTrue(groupedUsers.get(22).contains(new User("Olya", 22, "Google", "Amsterdam")));
     }
 
     @Test
@@ -33,15 +33,47 @@ class UserTest {
         assertThrows(IllegalArgumentException.class, () -> User.groupUsers(null));
     }
 
+    @Test
+    void groupUsersValidUser(){
+        Map<Integer, List<User>> groupedUsers = User.groupUsers(List.of(new User("Dima", 22, "Amazon", "New York")));
+
+        assertTrue(groupedUsers.get(22).contains(new User("Dima", 22, "Amazon", "New York")));
+    }
+
+    @Test
+    void groupUsersInvalidNameNull(){
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(List.of(new User(null, 22, "Amazon", "New York"))));
+    }
+
+    @Test
+    void groupUsersInvalidNameEmptyOrBlank(){
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(List.of(new User("", 22, "Amazon", "New York"))));
+    }
+
+    @Test
+    void groupUsersInvalidAge(){
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(List.of(new User("Dima", 9, "Amazon", "New York"))));
+    }
+
+    @Test
+    void groupUsersInvalidJob(){
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(List.of(new User("Dima", 22, "Sber", "New York"))));
+    }
+
+    @Test
+    void groupUsersInvalidAddress(){
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(List.of(new User("Dima", 22, "Amazon", "Warsaw"))));
+    }
+
     private List<User> getUsers(){
         return Arrays.asList(
-                new User("Dima", 22, "Amazon", "Poland"),
-                new User("Kolya", 20, "Randstad", "Poland"),
-                new User("Olya", 22, "Google", "England"),
-                new User("Vasya", 21, "DNS", "Russia"),
-                new User("Vladislav", 19, "Uber", "Amsterdam"),
-                new User("Polina", 23, "Amazon", "Poland"),
-                new User("Igor", 20, "Amazon", "Poland")
+                new User("Dima", 22, "Amazon", "New York"),
+                new User("Kolya", 20, "Google", "New York"),
+                new User("Olya", 22, "Google", "Amsterdam"),
+                new User("Vasya", 21, "Amazon", "New York"),
+                new User("Vladislav", 19, "Uber", "London"),
+                new User("Polina", 23, "Google", "Amsterdam"),
+                new User("Igor", 20, "Amazon", "London")
         );
     }
 }
