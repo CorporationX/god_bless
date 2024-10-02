@@ -1,15 +1,14 @@
 package groupUsers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> userList = new ArrayList<>();
-        userList.add(new User("Ann", 22, "Google", "London"));
-        userList.add(new User("Nastya", 19, "Sber", "Moscow"));
-        userList.add(new User("Pasha", 19, "Sber", "Moscow"));
+        List<User> userList = List.of(new User("Ann", 22, "Google", "London"),
+                new User("Nastya", 19, "Sber", "Moscow"),
+                new User("Pasha", 19, "Sber", "Moscow"));
+
         System.out.println("USERLIST:\t" + userList);
 
         System.out.println();
