@@ -7,12 +7,10 @@ public class Main {
         Library lib = new Library();
 
         getBooks().forEach(lib::addBook);
-
         lib.printBooks();
 
         lib.addBook(new Book("Title5", "Author5", 1999), "5 полка");
         lib.deleteBook("Title1", "Author1", 2000);
-
         lib.printBooks();
 
         System.out.println(lib.findBook("Title2", "Author2", 2001));
