@@ -21,10 +21,8 @@ class LibraryTest {
 
     @Test
     void addNullBookOrNullShelf() {
-        Library lib = new Library();
-
-        assertThrows(IllegalArgumentException.class, () -> lib.addBook(null, "1 полка"));
-        assertThrows(IllegalArgumentException.class, () -> lib.addBook(new Book("Book", "Author", 2000), null));
+        assertThrows(IllegalArgumentException.class, () -> new Library().addBook(null, "1 полка"));
+        assertThrows(IllegalArgumentException.class, () -> new Library().addBook(new Book("Book", "Author", 2000), null));
     }
 
     @Test
@@ -40,9 +38,7 @@ class LibraryTest {
 
     @Test
     void deleteNullBook() {
-        Library lib = new Library();
-
-        assertThrows(IllegalArgumentException.class, () -> lib.deleteBook(null));
+        assertThrows(IllegalArgumentException.class, () -> new Library().deleteBook(null));
     }
 
     @Test
@@ -57,8 +53,11 @@ class LibraryTest {
 
     @Test
     void findNullBook() {
-        Library lib = new Library();
+        assertThrows(IllegalArgumentException.class, () -> new Library().findBook(null));
+    }
 
-        assertThrows(IllegalArgumentException.class, () -> lib.findBook(null));
+    @Test
+    void findNotExistsBook(){
+        assertNull(new Library().findBook("Book", "Author", 2000));
     }
 }
