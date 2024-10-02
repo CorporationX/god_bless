@@ -3,9 +3,7 @@ package school.faang;
 public class Archer extends Character {
 
     private static final int BASE_STRENGTH = 3;
-
     private static final int BASE_AGILITY = 10;
-
     private static final int BASE_INTELLIGENCE = 5;
 
     public Archer(String name) {

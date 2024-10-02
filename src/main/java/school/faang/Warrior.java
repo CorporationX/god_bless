@@ -3,9 +3,7 @@ package school.faang;
 public class Warrior extends Character {
 
     private static final int BASE_STRENGTH = 10;
-
     private static final int BASE_AGILITY = 5;
-
     private static final int BASE_INTELLIGENCE = 3;
 
     public Warrior(String name) {
