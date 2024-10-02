@@ -1,4 +1,4 @@
-import java.util.Objects;
+import java.util.*;
 
 public class User {
     private final String name;
@@ -42,6 +42,13 @@ public class User {
                 ", placeOfJod='" + placeOfJod + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        HashMap<Integer, List<User>> usersmap = new HashMap<>();
+        for (User user : users) {
+            usersmap.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
+        }
+        return usersmap;
     }
 }
 

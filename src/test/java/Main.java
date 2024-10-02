@@ -15,7 +15,7 @@ public class Main {
         add(Kyza);
         add(Vlad);
 
-        Map<Integer, List<User>> group = groupUsers(userList);
+        Map<Integer, List<User>> group = User.groupUsers(userList);
 
         printAll(group);
     }
@@ -24,18 +24,10 @@ public class Main {
         userList.add(user);
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        HashMap<Integer, List<User>> usersmap = new HashMap<>();
-        for (User user : users) {
-            usersmap.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
-        }
-        return usersmap;
-    }
-
     public static void printAll(Map<Integer, List<User>> user) {
         user.forEach((integer, users) -> {
             System.out.println(integer.toString() + " ");
-            users.forEach(user1 -> System.out.println(user1.getName() + ", "));
+            users.forEach(user1 -> System.out.println(user1.getName() + " "));
         });
     }
 }
