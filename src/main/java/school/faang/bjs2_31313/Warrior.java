@@ -8,6 +8,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character target) {
-        target.hp -= this.getStrength();
+        target.setHp(target.getHp() - this.getStrength());
     }
 }

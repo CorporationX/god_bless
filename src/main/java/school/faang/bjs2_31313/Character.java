@@ -1,14 +1,16 @@
 package school.faang.bjs2_31313;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 public abstract class Character {
     private final String name;
-    protected final int strength;
-    protected final int agility;
-    protected final int intelligence;
-    protected int hp = 100;
+    private final int strength;
+    private final int agility;
+    private final int intelligence;
+    private int hp = 100;
 
 
     protected Character(String name, int strength, int agility, int intelligence) {
