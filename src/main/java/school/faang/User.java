@@ -5,27 +5,30 @@ import java.util.*;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_VALID_AGE = 18;
+
     private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        try {
-            if (name.length() > 0) {
-                this.name = name;
-            }
-            if (age > 17) {
-                this.age = age;
-            }
-            if (placeOfWork.equals(VALID_JOBS)) {
-                this.placeOfWork = placeOfWork;
-            }
-            if (address.equals(VALID_ADDRESS)) {
-                this.address = address;
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println("Exception");
+        validate(name, age, placeOfWork, address);
+        this.name = name;
+        this.age = age;
+        this.placeOfWork = placeOfWork;
+        this.address = address;
+    }
+
+    public void validate(String name, int age, String placeOfWork, String address) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }if (age < MIN_VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("Некорректное место работы");
+        }if (!VALID_ADDRESS.contains(address)) {
+            throw new IllegalArgumentException("Некорректный адрес");
         }
     }
 
