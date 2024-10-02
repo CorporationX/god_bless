@@ -17,21 +17,10 @@ public class User {
     private String company;
     private String address;
 
-    public static Map<Integer, List<User>> groupUsersV1(List<User> users) {
-        return users.stream()
-                .collect(Collectors.groupingBy(User::getAge));
-    }
-
-    public static Map<Integer, List<User>> groupUsersV2(List<User> users) {
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
         for (User user : users) {
-            if (!groupedUsersByAge.containsKey(user.getAge())) {
-                List<User> userGroup = new ArrayList<>();
-                userGroup.add(user);
-                groupedUsersByAge.put(user.getAge(), userGroup);
-            } else {
-                groupedUsersByAge.get(user.getAge()).add(user);
-            }
+            groupedUsersByAge.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return groupedUsersByAge;
     }

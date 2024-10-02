@@ -18,18 +18,8 @@ public class Main {
             users.add(user);
         }
 
-        Map<Integer, List<User>> groupedUsersByAgeV1 = User.groupUsersV1(users);
+        Map<Integer, List<User>> groupedUsersByAgeV1 = User.groupUsers(users);
         for (Map.Entry<Integer, List<User>> entry: groupedUsersByAgeV1.entrySet()) {
-            System.out.println("Age: " + entry.getKey());
-            for (User user : entry.getValue()) {
-                System.out.println(" - " + user);
-            }
-        }
-
-        System.out.println("__________________________");
-
-        Map<Integer, List<User>> groupedUsersByAgeV2 = User.groupUsersV1(users);
-        for (Map.Entry<Integer, List<User>> entry: groupedUsersByAgeV2.entrySet()) {
             System.out.println("Age: " + entry.getKey());
             for (User user : entry.getValue()) {
                 System.out.println(" - " + user);
