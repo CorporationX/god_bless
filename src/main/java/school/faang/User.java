@@ -10,6 +10,8 @@ public class User {
 
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
+    private static final int VALID_AGE = 18;
+
     private String name;
 
     private int age;
@@ -22,8 +24,8 @@ public class User {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age must be at least 18");
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Age must be at least " + VALID_AGE);
         }
         if (job == null || !VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Invalid job");
