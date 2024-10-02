@@ -6,14 +6,14 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 
 class UserTest {
 
     @Test
     void groupUsersFullList() {
         Map<Integer, List<User>> groupedUsers = User.groupUsers(getUsers());
-        System.out.println(groupedUsers);
 
         assertTrue(groupedUsers.get(22).contains(new User("Dima", 22, "Amazon", "Poland")));
         assertTrue(groupedUsers.get(20).contains(new User("Kolya", 20, "Randstad", "Poland")));

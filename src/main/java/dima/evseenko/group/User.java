@@ -3,7 +3,10 @@ package dima.evseenko.group;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -14,7 +17,7 @@ public class User {
     private String address;
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupedUsersMap = new HashMap<Integer, List<User>>();
+        Map<Integer, List<User>> groupedUsersMap = new HashMap();
 
         if(users == null){
             throw new IllegalArgumentException("users is null");
@@ -26,9 +29,7 @@ public class User {
                     groupedUsersMap.get(u.getAge()).add(u);
                 }
             }else {
-                List<User> userList = new ArrayList<User>();
-                userList.add(u);
-                groupedUsersMap.put(u.getAge(), userList);
+                groupedUsersMap.computeIfAbsent(u.getAge(), k -> new ArrayList<>()).add(u);
             }
         });
         return groupedUsersMap;

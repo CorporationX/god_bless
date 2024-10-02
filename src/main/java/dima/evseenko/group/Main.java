@@ -5,14 +5,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        new Main().start();
-    }
-
-    private void start(){
         System.out.println(User.groupUsers(getUsers()));
     }
 
-    private List<User> getUsers(){
+    private static List<User> getUsers(){
         return Arrays.asList(
                 new User("Dima", 22, "Amazon", "Poland"),
                 new User("Kolya", 20, "Randstad", "Poland"),
