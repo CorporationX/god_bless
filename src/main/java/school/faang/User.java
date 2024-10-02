@@ -1,20 +1,41 @@
 package school.faang;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
-@AllArgsConstructor
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int AGE_LIMIT = 18;
+
     private String userName;
     private int age;
     private String job;
     private String address;
+
+    public User(String userName, int age, String job, String address) {
+        if (userName == null || userName.trim().isEmpty())
+            throw new IllegalArgumentException("User name cannot be blank");
+        this.userName = userName;
+
+        if (age < AGE_LIMIT)
+            throw new IllegalArgumentException("User age cannot be less than 18");
+        this.age = age;
+
+        if (!VALID_JOBS.contains(job))
+            throw new IllegalArgumentException("User job is not valid");
+        this.job = job;
+
+        if (!VALID_ADDRESSES.contains(address))
+            throw new IllegalArgumentException("User address is not valid");
+        this.address = address;
+    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
@@ -24,4 +45,6 @@ public class User {
 
         return map;
     }
+
+
 }
