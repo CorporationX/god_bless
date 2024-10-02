@@ -12,9 +12,9 @@ class UserTest {
     @Test
     void groupUsers() {
         List<User> users = List.of(
-                new User("John", 30, "Software Engineer", "123 Main St"),
-                new User("Jane", 30, "Product Manager", "456 Oak Ave"),
-                new User("Mark", 40, "VP of Engineering", "789 Elm St")
+                new User("John", 30, "Uber", "Amsterdam"),
+                new User("Jane", 30, "Uber", "Amsterdam"),
+                new User("Mark", 40, "Google", "Amsterdam")
         );
 
         Map<Integer, List<User>> usersByAge = User.groupUsers(users);
