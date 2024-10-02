@@ -8,6 +8,7 @@ public class User {
     private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private final static int legalAge = 18;
+
     private String name;
     private int age;
     private String workPlace;
