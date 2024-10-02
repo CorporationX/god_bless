@@ -12,6 +12,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_ALLOWED_AGE = 18;
 
     private String name;
     private int age;
@@ -22,7 +23,7 @@ public class User {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Enter your name please...");
         }
-        if (age < 18) {
+        if (age < MIN_ALLOWED_AGE) {
             throw new IllegalArgumentException("You must be over 18 years of age...");
         }
         if (!VALID_JOBS.contains(workPlace)) {
