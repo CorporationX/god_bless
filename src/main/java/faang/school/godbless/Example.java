@@ -14,5 +14,6 @@ public class Example {
     public static void main(String[] args) {
         Example d = new Example();
         System.out.println(d.reverse(new int[]{1, 2, 3, 4, 5}));
+        System.out.println(d.reverse(new int[]{23, -17, 85,32, 7444}));
     }
 }
