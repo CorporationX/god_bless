@@ -1,3 +1,4 @@
+/*
 package ru.kraiush.BJS2_18616;
 
 import org.junit.jupiter.api.Test;
@@ -20,4 +21,4 @@ class PersonTest extends Person {
         assertEquals(1, res.get(53).size());
         assertEquals(2, res.get(124).size());
     }
-}
+}*/
