@@ -52,6 +52,27 @@ class LibraryTest {
     }
 
     @Test
+    void findInvalidBookTitle() {
+        Book book = new Book(null, "Author", 2000);
+
+        assertThrows(IllegalArgumentException.class, () -> new Library().addBook(book, "1 полка"));
+    }
+
+    @Test
+    void findInvalidBookAuthor() {
+        Book book = new Book("Book", null, 2000);
+
+        assertThrows(IllegalArgumentException.class, () -> new Library().addBook(book, "1 полка"));
+    }
+
+    @Test
+    void findInvalidBookReleaseYear() {
+        Book book = new Book("Book", "Author", -1000);
+
+        assertThrows(IllegalArgumentException.class, () -> new Library().addBook(book, "1 полка"));
+    }
+
+    @Test
     void findNullBook() {
         assertThrows(IllegalArgumentException.class, () -> new Library().findBook(null));
     }

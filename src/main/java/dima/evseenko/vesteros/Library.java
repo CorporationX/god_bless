@@ -7,41 +7,45 @@ public class Library {
     private final Map<Book, String> booksMap = new HashMap<>();
 
     public void addBook(Book book, String shelf) {
-        if (book == null || shelf == null)
-            throw new IllegalArgumentException("book or shelf cannot be null");
+        validateBook(book);
+
+        if (shelf == null)
+            throw new IllegalArgumentException("shelf cannot be null");
 
         booksMap.put(book, shelf);
     }
 
     public void deleteBook(Book book) {
-        if(book == null)
-            throw new IllegalArgumentException("book cannot be null");
-
+        validateBook(book);
         booksMap.remove(book);
     }
 
     public void deleteBook(String title, String author, int releaseYear) {
-        if(title == null || author == null || releaseYear < 0)
-            throw new IllegalArgumentException("title or author or releaseYear cannot be null");
-
         deleteBook(new Book(title, author, releaseYear));
     }
 
     public String findBook(Book book) {
-        if(book == null)
-            throw new IllegalArgumentException("book cannot be null");
-
+        validateBook(book);
         return booksMap.get(book);
     }
 
     public String findBook(String title, String author, int releaseYear) {
-        if(title == null || author == null || releaseYear < 0)
-            throw new IllegalArgumentException("title or author or releaseYear cannot be null");
-
         return findBook(new Book(title, author, releaseYear));
+    }
+
+    private void validateBook(Book book) {
+        if(book == null)
+            throw new IllegalArgumentException("book cannot be null");
+        if(book.getTitle() == null)
+            throw new IllegalArgumentException("book title cannot be null");
+        if(book.getAuthor() == null)
+            throw new IllegalArgumentException("book author cannot be null");
+        if(book.getReleaseYear() < 0)
+            throw new IllegalArgumentException("book release year cannot be negative");
     }
 
     public void printBooks() {
         booksMap.forEach((book, shelf) -> System.out.println(book + ": " + shelf));
+        System.out.println();
     }
 }

@@ -10,19 +10,12 @@ public class Main {
 
         lib.printBooks();
 
-        System.out.println();
-
         lib.addBook(new Book("Title5", "Author5", 1999), "5 полка");
-
-        lib.printBooks();
-
-        System.out.println();
-
-        System.out.println(lib.findBook("Title2", "Author2", 2001));
-
         lib.deleteBook("Title1", "Author1", 2000);
 
         lib.printBooks();
+
+        System.out.println(lib.findBook("Title2", "Author2", 2001));
     }
 
     private static Map<Book, String> getBooks(){
