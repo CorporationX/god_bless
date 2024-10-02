@@ -15,7 +15,7 @@ public class UserTest {
     @Test
     public void testAddUserToList() {
         List<User> users = new ArrayList<>();
-        User user = new User("User 1", 20, "Company 1", "Address 111");
+        User user = new User("User 1", 20, "Google", "New York");
         addUserToList(users, user);
 
         assertEquals(1, users.size());
@@ -28,7 +28,7 @@ public class UserTest {
     @Test
     public void testGroupUsersSingleElement() {
         List<User> users = new ArrayList<>();
-        User user = new User("User 1", 20, "Company 1", "Address 111");
+        User user = new User("User 1", 20, "Google", "New York");
         users.add(user);
 
         Map<Integer, List<User>> groupedUsers = groupUsers(users);
@@ -40,8 +40,8 @@ public class UserTest {
     @Test
     public void testGroupUsersMultipleUsersDifferentAge() {
         List<User> users = new ArrayList<>();
-        User user1 = new User("User 1", 30, "Company 1", "Address 111");
-        User user2 = new User("User 2", 20, "Company 2", "Address 222");
+        User user1 = new User("User 1", 30, "Google", "New York");
+        User user2 = new User("User 2", 20, "Amazon", "Amsterdam");
         users.add(user1);
         users.add(user2);
 
@@ -55,8 +55,8 @@ public class UserTest {
     @Test
     public void testGroupUsersMultipleUsersSameAge() {
         List<User> users = new ArrayList<>();
-        User user1 = new User("User 1", 30, "Company 1", "Address 111");
-        User user2 = new User("User 2", 30, "Company 2", "Address 222");
+        User user1 = new User("User 1", 30, "Google", "New York");
+        User user2 = new User("User 2", 30, "Uber", "London");
         users.add(user1);
         users.add(user2);
 
