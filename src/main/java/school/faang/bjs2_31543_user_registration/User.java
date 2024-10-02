@@ -12,15 +12,22 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOB = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int AGE_FOR_VALIDATION = 18;
+
     private String name;
     private String age;
     private String placeOfWork;
     private String address;
 
     public User(String name, String age, String placeOfWork, String address) {
-        if (name.isEmpty() || Integer.parseInt(age) < 18 ||
-                !VALID_JOB.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        } else if (Integer.parseInt(age) < AGE_FOR_VALIDATION) {
+            throw new IllegalArgumentException("Age cannot be less than " + AGE_FOR_VALIDATION);
+        } else if (!VALID_JOB.contains(placeOfWork)) {
+            throw new IllegalArgumentException("You should choose a valid job : " + VALID_JOB);
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("You should choose a valid address : " + VALID_ADDRESSES);
         } else {
             this.name = name;
             this.age = age;
