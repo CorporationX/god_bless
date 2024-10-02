@@ -20,13 +20,13 @@ public class User {
     private String workPlace;
     private String address;
 
-    public static final Set<String> VALID_JOBS = new HashSet<String>() {{
+    public static final Set<String> VALID_JOBS = new HashSet<>() {{
         add("Google");
         add("Uber");
         add("Amazon");
     }};
 
-    public static final Set<String> VALID_ADDRESSES = new HashSet<String>() {{
+    public static final Set<String> VALID_ADDRESSES = new HashSet<>() {{
         add("London");
         add("New York");
         add("Amsterdam");
@@ -55,7 +55,7 @@ public class User {
 
     public void setWorkPlace(String workPlace) {
         if (!VALID_JOBS.contains(workPlace)) {
-            throw new IllegalArgumentException("Job is invalid. Valid jobs are: " + VALID_JOBS.toString());
+            throw new IllegalArgumentException("Job is invalid. Valid jobs are: " + VALID_JOBS);
         }
         this.workPlace = workPlace;
     }
