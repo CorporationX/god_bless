@@ -18,6 +18,14 @@ public class User {
         this.address = address;
     }
 
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupUsers = new HashMap<>();
+        for (User user : users) {
+            groupUsers.computeIfAbsent(user.getAge(), age -> new ArrayList<>()).add(user);
+        }
+        return groupUsers;
+    }
+
     public String getName() {
         return name;
     }
@@ -32,14 +40,6 @@ public class User {
 
     public String getAddress() {
         return address;
-    }
-
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
-        for (User user : users) {
-            groupUsers.computeIfAbsent(user.getAge(), age -> new ArrayList<>()).add(user);
-        }
-        return groupUsers;
     }
 
     @Override
