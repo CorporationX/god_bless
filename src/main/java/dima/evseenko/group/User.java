@@ -23,15 +23,7 @@ public class User {
             throw new IllegalArgumentException("users is null");
         }
 
-        users.forEach(u -> {
-            if(groupedUsersMap.containsKey(u.getAge())) {
-                if(!groupedUsersMap.get(u.getAge()).contains(u)) {
-                    groupedUsersMap.get(u.getAge()).add(u);
-                }
-            }else {
-                groupedUsersMap.computeIfAbsent(u.getAge(), k -> new ArrayList<>()).add(u);
-            }
-        });
+        users.forEach(u -> groupedUsersMap.computeIfAbsent(u.getAge(), k -> new ArrayList<>()).add(u));
         return groupedUsersMap;
     }
 }
