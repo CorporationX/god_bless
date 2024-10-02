@@ -1,19 +1,22 @@
 package faang.school.godbless;
 
+
+import java.util.Arrays;
+
 public class Example {
     int[] reverse(int array[]) {
-        int reversedArray[] = new int[array.length];
-        for (int index = array.length - 1, reversedIndex = 0; index >= 0; index--, reversedIndex++) {
-            reversedArray[reversedIndex] = array[index];
+        int temp;
+        for (int index = array.length - 1, reversedIndex = 0; reversedIndex < array.length / 2; index--, reversedIndex++) {
+            temp = array[reversedIndex];
+            array[reversedIndex] = array[index];
+            array[index] = temp;
         }
-        for (int i : reversedArray)
-            System.out.println(i);
-        return reversedArray;
+        return array;
     }
 
     public static void main(String[] args) {
-        Example d = new Example();
-        System.out.println(d.reverse(new int[]{1, 2, 3, 4, 5}));
-        System.out.println(d.reverse(new int[]{23, -17, 85,32, 7444}));
+        Example example = new Example();
+        System.out.println(Arrays.toString(example.reverse(new int[]{1, 2, 3, 4, 5, 6})));
+        System.out.println(Arrays.toString(example.reverse(new int[]{23, -17, 85, 32})));
     }
 }
