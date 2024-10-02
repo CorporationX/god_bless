@@ -11,6 +11,6 @@ public class Archer extends Character {
     public void attack(Character character) {
         character.health -= this.agility;
         System.out.println("Персонаж " + getName() + " нанес урон " + character.getName() + " в размере " + getAgility()
-                + "\n" + character.getName()+ " health: " + character.getHealth() + "\n");
+                + "\n" + character.getName() + " health: " + character.getHealth() + "\n");
     }
 }
