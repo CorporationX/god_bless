@@ -16,6 +16,10 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsersMap = new HashMap<Integer, List<User>>();
 
+        if(users == null){
+            throw new IllegalArgumentException("users is null");
+        }
+
         users.forEach(u -> {
             if(groupedUsersMap.containsKey(u.getAge())) {
                 if(!groupedUsersMap.get(u.getAge()).contains(u)) {

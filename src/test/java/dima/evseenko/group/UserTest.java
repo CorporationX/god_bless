@@ -27,6 +27,11 @@ class UserTest {
         assertTrue(groupedUsers.isEmpty());
     }
 
+    @Test
+    void groupUsersNullList() {
+        assertThrows(IllegalArgumentException.class, () -> User.groupUsers(null));
+    }
+
     private List<User> getUsers(){
         return Arrays.asList(
                 new User("Dima", 22, "Amazon", "Poland"),
