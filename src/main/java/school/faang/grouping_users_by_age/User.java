@@ -11,6 +11,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> PLACE_OF_WORK = Set.of("Yandex", "Sber", "Aston", "VK");
     private static final Set<String> ADDRESS = Set.of("Moscow", "Saint-Petersburg", "Kazan");
+
     private String userName;
     private int userAge;
     private String placeOfWork;
@@ -20,21 +21,21 @@ public class User {
         if (userName == null || userName.isBlank()) {
             throw new IllegalArgumentException("Имя пользователя не может быть пустым");
         }
-        this.userName = userName;
 
         if (userAge <= 0) {
             throw new IllegalArgumentException("Возраст не может быть нулевым или отрицательным");
         }
-        this.userAge = userAge;
 
         if (!PLACE_OF_WORK.contains(placeOfWork)) {
             throw new IllegalArgumentException("Неверное рабочее место");
         }
-        this.placeOfWork = placeOfWork;
 
         if (!ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Неверный адрес");
         }
+        this.userName = userName;
+        this.userAge = userAge;
+        this.placeOfWork = placeOfWork;
         this.address = address;
     }
 
