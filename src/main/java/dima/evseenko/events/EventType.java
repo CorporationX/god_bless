@@ -1,5 +1,5 @@
 package dima.evseenko.events;
 
 public enum EventType {
-    STREAM
+    STREAM_VIDEO, STREAM_AUDIO
 }
