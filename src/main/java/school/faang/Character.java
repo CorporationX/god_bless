@@ -2,8 +2,8 @@ package school.faang;
 
 public abstract class Character {
     protected String name;
-    protected int strengh;
     protected int dexterity;
+    protected int strengh;
     protected int intelligence;
     protected int health = 100;
 
