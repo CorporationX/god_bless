@@ -38,9 +38,7 @@ public class User {
 
         User user = (User) obj;
 
-        return this.age == user.age && Objects.equals(this.name, user.name)
-                && Objects.equals(this.placeWork, user.placeWork)
-                && Objects.equals(this.address, user.address);
+        return this.age == user.age && Objects.equals(this.name, user.name) && Objects.equals(this.placeWork, user.placeWork) && Objects.equals(this.address, user.address);
     }
 
     @Override
@@ -50,12 +48,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", placeWork='" + placeWork + '\'' +
-                ", address='" + address + '\'' +
-                '}';
+        return "User{" + "name='" + name + '\'' + ", age=" + age + ", placeWork='" + placeWork + '\'' + ", address='" + address + '\'' + '}';
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
@@ -66,12 +59,12 @@ public class User {
             boolean found = false;
 
             for (Entry<Integer, List<User>> entry : res.entrySet()) {
-                if(entry.getKey().equals(user.getAge())){
+                if (entry.getKey().equals(user.getAge())) {
                     entry.getValue().add(user);
                     found = true;
                 }
             }
-            if(!found) {
+            if (!found) {
                 List<User> userList = new ArrayList<User>();
                 userList.add(user);
                 res.put(user.getAge(), userList);
