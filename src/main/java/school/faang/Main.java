@@ -1,8 +1,7 @@
 package school.faang;
 
-import school.faang.abstraction.Archer;
-import school.faang.abstraction.Character;
-import school.faang.abstraction.Warrior;
+import school.faang.westerosLibrary.Book;
+import school.faang.westerosLibrary.Library;
 
 import java.util.List;
 import java.util.Map;
@@ -27,18 +26,24 @@ public class Main {
         System.out.println("====================");
         System.out.println("====================");
 
-        Character warrior = new Warrior("sven");
-        Character archer = new Archer("windranger");
+        Book book1 = new Book("fist book", "Nikita", 23);
+        Book book2 = new Book("second book", "Katia", 24);
+        Book book3 = new Book("third book", "Alice", 16);
 
-        System.out.println("warrior HP: " + warrior.getHealth());
-        System.out.println("archer HP: " + archer.getHealth());
 
-        archer.attack(warrior);
-        archer.attack(warrior);
+        Library library = new Library();
+        library.addNewBook(book1, "верхняя полка");
+        library.addNewBook(book2, "нижняя полка");
+        library.addNewBook(book3, "средняя полка");
 
-        warrior.attack(archer);
-
-        System.out.println("warrior HP: " + warrior.getHealth());
-        System.out.println("archer HP: " + archer.getHealth());
+        System.out.println(library.getAllBook());
+        System.out.println("==================");
+        System.out.println("search third book " + library.searchBook(book3));
+        System.out.println("==================");
+        System.out.println("delete first book " + library.deleteBook(book2));
+        System.out.println("==================");
+        System.out.println("search first book " + library.searchBook(book1));
+        System.out.println("==================");
+        System.out.println(library.getAllBook());
     }
 }
