@@ -13,9 +13,8 @@ public class Main {
         User userThree = new User("Clark", 40, "Daily Planet", "Metropolis");
         User userFour = new User("Tony", 45, "Stark Enterprises", "New York");
 
-        List<User> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>(List.of(userOne, userTwo, userThree, userFour));
 
-        userList.addAll(Arrays.asList(userOne, userTwo, userThree, userFour));
 
         System.out.println((User.groupUsers(userList)));
     }
