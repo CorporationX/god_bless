@@ -6,10 +6,10 @@ import java.util.Arrays;
 public class Example {
     int[] reverse(int array[]) {
         int temp;
-        for (int index = array.length - 1, reversedIndex = 0; reversedIndex < array.length / 2; index--, reversedIndex++) {
+        for (int i = 0, reversedIndex = array.length - 1; i < reversedIndex; i++, reversedIndex--) {
             temp = array[reversedIndex];
-            array[reversedIndex] = array[index];
-            array[index] = temp;
+            array[reversedIndex] = array[i];
+            array[i] = temp;
         }
         return array;
     }
