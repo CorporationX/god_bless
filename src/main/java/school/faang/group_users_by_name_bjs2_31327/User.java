@@ -20,12 +20,7 @@ public class User {
         Map<String, List<User>> userGroups = new HashMap<>();
 
         for (User user : users) {
-            if (!userGroups.containsKey(user.getAge())) {
-                userGroups.put(user.getAge(), new ArrayList<User>());
-                userGroups.get(user.getAge()).add(user);
-            } else {
-                userGroups.get(user.getAge()).add(user);
-            }
+            userGroups.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return userGroups;
     }
