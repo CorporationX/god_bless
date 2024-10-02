@@ -22,7 +22,7 @@ public abstract class Character implements Attacking {
     }
 
     @Override
-    public void damage(int damage) {
-        health -= damage;
+    public void takeDamage(int damage) {
+        this.health -= damage;
     }
 }
