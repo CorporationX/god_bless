@@ -9,7 +9,6 @@ public class Main {
                 new User("John", 32, "Google", "3th avenue"),
                 new User("Eric", 30, "Meta", "5th avenue"));
 
-
         System.out.println(User.groupUsers(users));
     }
 }
