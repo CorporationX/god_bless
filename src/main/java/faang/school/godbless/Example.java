@@ -1,14 +1,14 @@
 package faang.school.godbless;
 
 public class Example {
-    int[] reverse(int e[]) {
-        int e1[] = new int[e.length];
-        for (int i = e.length - 1, i1 = 0; i >= 0; i--, i1++) {
-            e1[i1] = e[i];
+    int[] reverse(int array[]) {
+        int reversedArray[] = new int[array.length];
+        for (int index = array.length - 1, reversedIndex = 0; index >= 0; index--, reversedIndex++) {
+            reversedArray[reversedIndex] = array[index];
         }
-        for (int i : e1)
+        for (int i : reversedArray)
             System.out.println(i);
-        return e1;
+        return reversedArray;
     }
 
     public static void main(String[] args) {
