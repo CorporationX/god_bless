@@ -23,7 +23,7 @@ public class User {
             throw new IllegalArgumentException("Work place does not exist");
         }
         if(!User.VALID_ADDRESSES.contains(address)){
-            throw new IllegalArgumentException("Work place does not exist");
+            throw new IllegalArgumentException("Address does not exist");
         }
 
         this.name = name;

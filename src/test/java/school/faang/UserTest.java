@@ -48,7 +48,7 @@ class UserTest {
     @Test
     void groupUsers_shouldReturnIllegalArgumentException_whenNameIsEmpty(){
         try {
-            new User("", 17, "Amazon", "London");
+            new User("", 23, "Amazon", "London");
         } catch(IllegalArgumentException exception){
             assertThat(exception.getMessage()).isEqualTo("Name is empty");
         }
@@ -57,18 +57,18 @@ class UserTest {
     @Test
     void groupUsers_shouldReturnIllegalArgumentException_whenWorkPlaceNotExist(){
         try {
-            new User("", 17, "Netflix", "London");
+            new User("Max", 34, "Netflix", "London");
         } catch(IllegalArgumentException exception){
-            assertThat(exception.getMessage()).isEqualTo("Name is empty");
+            assertThat(exception.getMessage()).isEqualTo("Work place does not exist");
         }
     }
 
     @Test
     void groupUsers_shouldReturnIllegalArgumentException_whenAddressNotExist(){
         try {
-            new User("", 17, "Amazon", "Manila");
+            new User("John", 18, "Amazon", "Manila");
         } catch(IllegalArgumentException exception){
-            assertThat(exception.getMessage()).isEqualTo("Name is empty");
+            assertThat(exception.getMessage()).isEqualTo("Address does not exist");
         }
     }
 
