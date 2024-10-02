@@ -12,14 +12,11 @@ public class Main {
         private String job;
         private String address;
 
-        static Map<Integer, List<User>> groupUsers(List<User> usersList) {
+        public static Map<Integer, List<User>> groupUsers(List<User> usersList) {
             Map<Integer, List<User>> usersMap = new HashMap<>();
 
             for(User user : usersList) {
-                if(!usersMap.containsKey(user.age)) {
-                    usersMap.put(user.age, new ArrayList<>());
-                }
-                usersMap.get(user.age).add(user);
+                usersMap.computeIfAbsent(user.age, u -> new ArrayList<>()).add(user);
             }
             return usersMap;
         }
