@@ -22,14 +22,9 @@ public class User {
         for (User user : users) {
             int key = user.getAge();
 
-            if (usersByAge.containsKey(key)) {
-                usersByAge.get(key).add(user);
-            } else {
-                usersByAge.put(key, new ArrayList<User>());
-                usersByAge.get(key).add(user);
-            }
+            usersByAge.computeIfAbsent(key, k -> new ArrayList<User>());
+            usersByAge.get(key).add(user);
         }
         return usersByAge;
     }
-
 }
