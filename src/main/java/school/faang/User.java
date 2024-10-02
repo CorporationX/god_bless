@@ -1,10 +1,15 @@
 package school.faang;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@Setter
 public class User {
     private String name;
     private Integer age;
@@ -18,44 +23,12 @@ public class User {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
-    }
-
-    public String getWorkingPlace() {
-        return workingPlace;
-    }
-
-    public void setWorkingPlace(String workingPlace) {
-        this.workingPlace = workingPlace;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public static Map<Integer, List<User>> groupUsers(List<User> list) {
         Map<Integer, List<User>> userMap = new HashMap<>();
 
         for (User user : list) {
-            userMap.putIfAbsent(user.getAge(), new ArrayList<>());
-            userMap.get(user.getAge()).add(user);
+            userMap.computeIfAbsent(user.getAge(), u -> new ArrayList<>()).add(user);
         }
         return userMap;
     }
