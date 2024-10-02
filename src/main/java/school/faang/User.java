@@ -10,36 +10,43 @@ import java.util.Map;
 
 @Data
 public class User {
-    final private String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
-    final private String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
+  final private String[] VALID_JOBS = {"Google", "Uber", "Amazon"};
+  final private String[] VALID_ADDRESSES = {"London", "New York", "Amsterdam"};
 
-    private String name;
-    private int age;
-    private String placeOfWork;
-    private String address;
+  final int MINIMAL_AGE = 18;
 
-    User(String name, int age, String placeOfWork, String address) {
-        if(name == null || name.isEmpty()
-            || age < 18 || age > 100
-            || !Arrays.asList(VALID_JOBS).contains(placeOfWork)
-            || !Arrays.asList(VALID_ADDRESSES).contains(address)) {
+  private String name;
+  private int age;
+  private String placeOfWork;
+  private String address;
 
-            throw new IllegalArgumentException("Name: " + name + ", age: " + age + ", placeOfWork: " + placeOfWork + ", address: " + address);
-        }else {
-            this.name = name;
-            this.age = age;
-            this.placeOfWork = placeOfWork;
-            this.address = address;
-        }
+  User(String name, int age, String placeOfWork, String address) {
+    if (name == null || name.isEmpty()) {
+      throw new IllegalArgumentException("Name cannot be null or empty");
+    }
+    if (age < MINIMAL_AGE) {
+      throw new IllegalArgumentException("Age cannot be less than " + MINIMAL_AGE + " years");
+    }
+    if (!Arrays.asList(VALID_JOBS).contains(placeOfWork)) {
+      throw new IllegalArgumentException("place of work not exist in the valid list, expected: " + Arrays.toString(VALID_JOBS));
+    }
+    if (!Arrays.asList(VALID_ADDRESSES).contains(address)) {
+      throw new IllegalArgumentException("address not exist in the valid list, expected: " + Arrays.toString(VALID_ADDRESSES));
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> groupUsers = new HashMap<>();
+    this.name = name;
+    this.age = age;
+    this.placeOfWork = placeOfWork;
+    this.address = address;
+  }
 
-        for (User user : users) {
-            groupUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
-        }
+  public static Map<Integer, List<User>> groupUsers(List<User> users) {
+    Map<Integer, List<User>> groupUsers = new HashMap<>();
 
-        return groupUsers;
+    for (User user : users) {
+      groupUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
     }
+
+    return groupUsers;
+  }
 }
