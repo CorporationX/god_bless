@@ -6,8 +6,7 @@ import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-        User user = new User(6L, "Alex", 20, Set.of("Games", "Guitar"));
-        System.out.println(user.findHobbyLovers(getUsers()));
+        System.out.println(User.findHobbyLovers(getUsers(), Set.of("Swimming", "Football")));
     }
 
     private static List<User> getUsers() {

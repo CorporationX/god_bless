@@ -9,25 +9,32 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
 class UserTest {
 
     @Test
     void groupUsersFullList() {
-        Map<User, String> hobbyLovers = new User(6L, "Alex", 20, Set.of("Games", "Guitar")).findHobbyLovers(getUsers());
+        Map<User, String> hobbyLovers = User.findHobbyLovers(getUsers(), Set.of("Games", "Guitar"));
 
         assertTrue(hobbyLovers.containsKey(new User(1L, "Dima", 22, Set.of("Guitar", "Football"))));
+        assertTrue(hobbyLovers.containsKey(new User(5L, "Polina", 19, Set.of("Games", "Football"))));
     }
 
     @Test
     void groupUsersEmptyList() {
-        Map<User, String> hobbyLovers = new User(6L, "Alex", 20, Set.of("Games", "Guitar")).findHobbyLovers(List.of());
+        Map<User, String> hobbyLovers = User.findHobbyLovers(getUsers(), Set.of());
 
         assertTrue(hobbyLovers.isEmpty());
     }
 
     @Test
     void groupUsersNullList() {
-        assertThrows(IllegalArgumentException.class, () -> new User(6L, "Alex", 20, Set.of("Games", "Guitar")).findHobbyLovers(null));
+        assertThrows(IllegalArgumentException.class, () -> User.findHobbyLovers(null, Set.of("Guitar", "Football")));
+    }
+
+    @Test
+    void groupActivitiesNullSet() {
+        assertThrows(IllegalArgumentException.class, () -> User.findHobbyLovers(getUsers(), null));
     }
 
     private List<User> getUsers() {

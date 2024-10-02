@@ -16,15 +16,15 @@ public class User {
     private int age;
     private Set<String> activities;
 
-    public Map<User, String> findHobbyLovers(List<User> users){
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activities) {
         Map<User, String> hobbyLovers = new HashMap();
 
-        if(users == null)
-            throw new IllegalArgumentException("users is null");
+        if(users == null || activities == null)
+            throw new IllegalArgumentException("users or activities cannot be null");
 
         users.forEach(user -> {
             for(String activity : user.getActivities()){
-                if(this.activities.contains(activity)){
+                if(activities.contains(activity)){
                     hobbyLovers.put(user, activity);
                     break;
                 }
