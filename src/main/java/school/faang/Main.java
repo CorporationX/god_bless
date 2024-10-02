@@ -1,19 +1,18 @@
 package school.faang;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<User> users = Arrays.asList(
-                new User("Gadzhi", 20, "google", "address"),
-                new User("Ali", 20, "microsoft", "address"),
-                new User("Maks", 20, "sber", "address"),
-                new User("Anastasya", 13, "amazon", "address"),
-                new User("Vlad", 13, "uber", "address"),
-                new User("Andrey", 33, "meta", "address")
+        List<User> users = List.of(
+                new User("Gadzhi", 19, "Google", "London"),
+                new User("Vlad", 19, "Uber", "New York"),
+                new User("Andrey", 19, "Amazon", "Amsterdam"),
+                new User("Anton", 19, "Microsoft", "Paris"),
+                new User("Basiliy", 22, "Meta", "Machachkala"),
+                new User("Anastasya", 22, "Sber", "Moscow"),
+                new User("Petr", 40, "Yandex", "Piter")
         );
-
         System.out.println(User.groupUsers(users));
     }
 }
