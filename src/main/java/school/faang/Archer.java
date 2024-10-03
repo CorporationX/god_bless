@@ -1,5 +1,9 @@
 package school.faang;
 
+import lombok.Getter;
+import lombok.Setter;
+
+
 public class Archer extends Character {
 
     public Archer(String name) {

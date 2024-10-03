@@ -1,5 +1,8 @@
 package school.faang;
 
+import lombok.Getter;
+
+@Getter
 abstract class Character {
     private String name;
     protected Integer power;
