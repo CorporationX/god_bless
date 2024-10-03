@@ -15,6 +15,6 @@ public class CharacterTest {
         Bekassyl.attack(Zhubanysh);
 
         assertEquals(97, Zhubanysh.getHealth());
-        assertEquals(80, Zhubanysh.getHealth());
+        assertEquals(80, Bekassyl.getHealth());
     }
 }

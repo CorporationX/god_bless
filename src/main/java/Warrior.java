@@ -5,6 +5,6 @@ public class Warrior extends Character {
 
     @Override
     public void attack(Character character) {
-        character.setHealth(character.power - this.getPower());
+        character.setHealth(character.getHealth() - this.getPower());
     }
 }
