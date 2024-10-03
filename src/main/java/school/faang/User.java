@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class User {
 
-    String name;
-    int age;
-    String placeOfWork;
-    String address;
+    private final String name;
+    private final int age;
+    private final String placeOfWork;
+    private final String address;
 
     public User(User other) {
         this(other.getName(), other.getAge(), other.getPlaceOfWork(), other.getAddress());
