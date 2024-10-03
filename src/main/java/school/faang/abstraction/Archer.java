@@ -1,19 +1,16 @@
 package school.faang.abstraction;
 
-public class Archer extends Warrior {
+public class Archer extends Character {
     public Archer(String name) {
-        super(name);
-        this.strength = 3;
-        this.agility = 10;
-        this.intelligence = 5;
+        super(name, 3, 10, 5);
     }
 
     @Override
     public void attack(Character target) {
-        int damage = this.getAgility();
-        int targetHealth = target.getHealth();
+        int damage = this.agility;
+        int targetHealth = target.health;
         target.health = targetHealth - damage;
-        System.out.println(this.getName() + " attacks " + target.getName() + " with " + damage + " damage points");
-        System.out.println(target.getName() + "'s health is now " + target.getHealth() + ".");
+        System.out.println(this.name + " attacks " + target.name + " with " + damage + " damage points");
+        System.out.println(target.name + "'s health is now " + target.health + ".");
     }
 }
