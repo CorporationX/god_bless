@@ -26,12 +26,20 @@ public class Main {
         addStudent(student5);
         addStudent(student6);
         addStudent(student7);
-
         STUDENTS.forEach(System.out::println);
-        System.out.println();
 
         groupStudentsByCourse(STUDENTS);
+        System.out.println();
         COURSES.forEach((k, v) -> System.out.println("course: " + k.getFaculty() + "-" + k.getYear() + " students: " + v));
+
+        removeStudent("Irina", "IT", 2010);
+        System.out.println();
+        STUDENTS.forEach(System.out::println);
+
+        List<Student> findStudents = findStudent("IT", 2000);
+        System.out.println();
+        findStudents.forEach(System.out::println);
+
     }
 
     public static void addStudent(Student student) {
@@ -43,6 +51,15 @@ public class Main {
             Course course = new Course(student.getFaculty(), student.getYear());
             COURSES.computeIfAbsent(course, k -> new ArrayList<>()).add(student);
         }
+    }
+
+    public static void removeStudent(String name, String faculty, int year) {
+        Student student = new Student(name, faculty, year);
+        STUDENTS.removeIf(student::equals);
+    }
+
+    public static List<Student> findStudent(String faculty, int year) {
+        return COURSES.get(new Course(faculty, year));
     }
 
 }
