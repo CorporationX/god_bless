@@ -20,4 +20,7 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
+    public void showInfoAboutCharacterHealth(){
+        System.out.println(name + " health is " + health);
+    }
 }

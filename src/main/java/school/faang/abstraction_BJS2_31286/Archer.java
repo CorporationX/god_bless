@@ -3,10 +3,7 @@ package school.faang.abstraction_BJS2_31286;
 public class Archer extends Character {
 
     public Archer(String name) {
-        super(name);
-        super.strength = 3;
-        super.dexterity = 10;
-        super.intelligence = 5;
+        super(name, 3, 10, 5);
     }
 
     @Override
