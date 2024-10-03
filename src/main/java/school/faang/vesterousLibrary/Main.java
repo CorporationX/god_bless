@@ -35,7 +35,7 @@ public class Main {
         if (place == null) {
             System.out.println("Can't find your book");
         } else {
-            System.out.println("The book you're looking for is at " + BOOKS.get(new Book(title, author, year)));
+            System.out.println("The book you're looking for is at " + place);
         }
     }
 
