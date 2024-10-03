@@ -3,7 +3,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -28,5 +30,13 @@ public class User {
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
+    }
+
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
+        Map<Integer, List<User>> groupedUsersByAge = new HashMap<>();
+        for (User u : users) {
+            groupedUsersByAge.computeIfAbsent(u.getAge(), k -> new ArrayList<User>()).add(u);
+        }
+        return groupedUsersByAge;
     }
 }
