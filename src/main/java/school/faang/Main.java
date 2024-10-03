@@ -1,14 +1,20 @@
 package school.faang;
 
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+        Warrior warrior = new Warrior("Warrior");
+        System.out.println("Health of warrior: " + warrior.health);
 
-        List<User> users = List.of(new User("Max", 30, "Amazon", "5th avenue"),
-                new User("John", 32, "Google", "3th avenue"),
-                new User("Eric", 30, "Meta", "5th avenue"));
+        Archer archer = new Archer("Archer");
+        System.out.println("Archer health: " + archer.health);
 
-        System.out.println(User.groupUsers(users));
+        // Case: warrior attacks archer
+        warrior.attack(archer);
+        System.out.println("Archer health: " + archer.health);
+
+        // Case: archer attacks warrior
+        archer.attack(warrior);
+        System.out.println("Warrior health: " + warrior.health);
     }
 }
