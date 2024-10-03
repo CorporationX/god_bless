@@ -55,7 +55,6 @@ public class BookTest {
     @Test
     public void testAddBookBookNull() {
         Map<Book, String> books = new HashMap<>();
-
 //        add book to an empty map
         addBook(books, null, "1");
 
@@ -64,16 +63,49 @@ public class BookTest {
     }
 
     @Test
-    public void testDeleteBook(){
+    public void testDeleteBook() {
         Book book1 = new Book("Book Title1", "Author1", 1900);
         Book book2 = new Book("Book Title2", "Author2", 1910);
         Map<Book, String> books = new HashMap<>();
         books.put(book1, "1");
         books.put(book2, "2");
 
-        deleteBook(books,book1);
+        deleteBook(books, book1);
         assertEquals(1, books.size());
         assertNull(books.get(book1));
+
+//        delete a book that doesn't exist in the Map
+        deleteBook(books, book1);
+        assertEquals(1, books.size());
+        assertNull(books.get(book1));
+
+//        delete the last book from the map
+        deleteBook(books, book2);
+        assertEquals(0, books.size());
+        assertNull(books.get(book2));
+    }
+
+    @Test
+    public void testDeleteBookByTitleAuthorYear() {
+        Book book1 = new Book("Book Title1", "Author1", 1900);
+        Book book2 = new Book("Book Title2", "Author2", 1910);
+        Map<Book, String> books = new HashMap<>();
+        books.put(book1, "1");
+        books.put(book2, "2");
+
+        deleteBook(books, "Book Title1", "Author1", 1900);
+        assertEquals(1, books.size());
+        assertNull(books.get(book1));
+
+//        delete a book that doesn't exist in the Map
+        deleteBook(books, "Book Title1", "Author1", 1900);
+        assertEquals(1, books.size());
+        assertNull(books.get(book1));
+
+//        delete the last book from the map
+        deleteBook(books, "Book Title2", "Author2", 1910);
+        assertEquals(0, books.size());
+        assertNull(books.get(book2));
     }
 
 }
