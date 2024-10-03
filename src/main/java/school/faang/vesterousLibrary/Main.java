@@ -6,7 +6,7 @@ import java.util.Map;
 public class Main {
     private static final Map<Book, String> BOOKS = new HashMap<>();
     private static final Map<Book, Integer> BOOKS_INDEXES = new HashMap<>();
-    private static int COUNT_INDEXES = 0;
+    private static int index = 0;
 
     public static void main(String[] args) {
         Book encyclopedia = new Book("Dinosaurs", "Someone", 1995);
@@ -27,8 +27,8 @@ public class Main {
 
     private static void add(Book book, String place) {
         BOOKS.put(book, place);
-        BOOKS_INDEXES.put(book, COUNT_INDEXES);
-        COUNT_INDEXES++;
+        BOOKS_INDEXES.put(book, index);
+        index++;
     }
 
     private static void remove(String title, String author, int year) {
