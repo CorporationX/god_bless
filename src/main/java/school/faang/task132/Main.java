@@ -7,10 +7,10 @@ import java.util.Map;
 
 public class Main {
 
-    private static final HashMap<Integer,StreamEvent> EVENT = new HashMap<>();
-    private static final HashMap<String,List<StreamEvent>> EVENTS = new HashMap<>();
+    private static final HashMap<Integer, StreamEvent> EVENT = new HashMap<>();
+    private static final HashMap<String, List<StreamEvent>> EVENTS = new HashMap<>();
     public void addEvent(StreamEvent streamEvent){
-        EVENT.put(streamEvent.getId(),streamEvent);
+        EVENT.put(streamEvent.getId(), streamEvent);
         EVENTS.computeIfAbsent(streamEvent.getEventType(), K->new ArrayList<>()).add(streamEvent);
     }
     public StreamEvent findEventById(int id){
@@ -25,7 +25,7 @@ public class Main {
         EVENT.remove(id);
     }
     public void printAllEvents(){
-        for(Map.Entry<String,List<StreamEvent>> entry : EVENTS.entrySet()){
+        for(Map.Entry<String, List<StreamEvent>> entry : EVENTS.entrySet()){
             for(StreamEvent event : entry.getValue()){
                 System.out.println(event);
             }
@@ -43,13 +43,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        StreamEvent streamEvent1 = new StreamEvent(1,"USER LOGIN","Some Information");
-        StreamEvent streamEvent2 = new StreamEvent(2,"USER LOGOUT","Some Information");
-        StreamEvent streamEvent3 = new StreamEvent(3,"USER UPDATE","Some Information");
-        StreamEvent streamEvent4 = new StreamEvent(4,"USER LOGIN","Some Information");
-        StreamEvent streamEvent5 = new StreamEvent(5,"USER LOGOUT","Some Information");
-        StreamEvent streamEvent6 = new StreamEvent(6,"USER UPDATE","Some Information");
-        StreamEvent streamEvent7 = new StreamEvent(7,"USER LOGIN","Some Information");
+        StreamEvent streamEvent1 = new StreamEvent(1, "USER LOGIN", "Some Information");
+        StreamEvent streamEvent2 = new StreamEvent(2, "USER LOGOUT", "Some Information");
+        StreamEvent streamEvent3 = new StreamEvent(3, "USER UPDATE", "Some Information");
+        StreamEvent streamEvent4 = new StreamEvent(4, "USER LOGIN", "Some Information");
+        StreamEvent streamEvent5 = new StreamEvent(5, "USER LOGOUT", "Some Information");
+        StreamEvent streamEvent6 = new StreamEvent(6, "USER UPDATE", "Some Information");
+        StreamEvent streamEvent7 = new StreamEvent(7, "USER LOGIN", "Some Information");
         List<StreamEvent> listWithEvents = List.of(streamEvent1, streamEvent2, streamEvent3, streamEvent4, streamEvent5, streamEvent6, streamEvent7);
 
         Main main = new Main();
