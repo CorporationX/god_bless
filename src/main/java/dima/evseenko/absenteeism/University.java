@@ -67,10 +67,8 @@ public class University {
             throw new IllegalArgumentException("Student is null");
         if(student.getName() == null)
             throw new IllegalArgumentException("Student name is null");
-        if(student.getFaculty() == null)
-            throw new IllegalArgumentException("Student faculty is null");
-        if(student.getYear() <= 0)
-            throw new IllegalArgumentException("Student year is null");
+
+        validateKeyPair(student.getKeyPair());
     }
 
     private void validateStudents(List<Student> students) {
