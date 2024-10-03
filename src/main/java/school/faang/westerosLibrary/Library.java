@@ -11,11 +11,15 @@ public class Library {
     library.put(book, shelf);
   }
 
-  public String deleteBook(Book book) {
+  public String deleteBook(String title, String author, int year) {
+    Book book = new Book(title, author, year);
     return library.remove(book);
   }
 
-  public String searchBook(Book book) {return library.get(book); }
+  public String searchBook(String title, String author, int year) {
+    Book book = new Book(title, author, year);
+    return library.get(book);
+  }
 
   public String getAllBook() {
     StringBuilder allBooks = new StringBuilder();

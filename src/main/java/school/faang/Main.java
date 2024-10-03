@@ -38,11 +38,11 @@ public class Main {
 
         System.out.println(library.getAllBook());
         System.out.println("==================");
-        System.out.println("search third book " + library.searchBook(book3));
+        System.out.println("search third book " + library.searchBook("third book", "Alice", 16));
         System.out.println("==================");
-        System.out.println("delete first book " + library.deleteBook(book2));
+        System.out.println("delete first book " + library.deleteBook("fist book", "Nikita", 23));
         System.out.println("==================");
-        System.out.println("search first book " + library.searchBook(book1));
+        System.out.println("search first book " + library.searchBook("second book", "Katia", 24));
         System.out.println("==================");
         System.out.println(library.getAllBook());
     }
