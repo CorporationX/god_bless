@@ -5,13 +5,13 @@ import java.util.*;
 
 @Data
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Integer ALLOWED_AGE_LIMIT = 18;
     private String name;
     private int age;
     private String workPlace;
     private String address;
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private static final Integer ALLOWED_AGE_LIMIT = 18;
 
     public User(String name, int age, String workPlace, String address) {
         if(name.isEmpty()){
