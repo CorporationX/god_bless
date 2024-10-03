@@ -8,13 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
+@Setter
 public class User {
 
-    @Getter
-    @Setter
     private String name;
-    @Getter
-    @Setter
     private int age;
     private String address;
     private String workPlace;
