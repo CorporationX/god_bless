@@ -17,20 +17,8 @@ public class User {
         this.address = address;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getAge() {
         return age;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
