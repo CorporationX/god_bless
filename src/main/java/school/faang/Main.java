@@ -1,3 +1,4 @@
+
 package school.faang;
 
 public class Main {
@@ -17,6 +18,7 @@ public class Main {
 //            }
 //        }
 
+        //проверка Абстракции задачи
         Archer asya = new Archer("Ася");
         Warrior wari = new Warrior("Вари");
 
