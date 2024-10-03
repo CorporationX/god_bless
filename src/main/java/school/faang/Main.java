@@ -5,14 +5,14 @@ public class Main {
     public static void main(String[] args) {
         Character warrior = new Warrior("Alex");
         Character archer = new Archer("Ivan");
-        printStatistics(warrior, archer);
+        printCharacterStatistics(warrior, archer);
 
         warrior.attack(archer);
         archer.attack(warrior);
-        printStatistics(warrior, archer);
+        printCharacterStatistics(warrior, archer);
     }
 
-    private static void printStatistics(Character... characters) {
+    private static void printCharacterStatistics(Character... characters) {
         for (Character character : characters) {
             System.out.printf(
                     "%s health: %d%n",
