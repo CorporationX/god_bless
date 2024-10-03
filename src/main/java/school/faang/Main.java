@@ -1,5 +1,6 @@
 package school.faang;
 
+
 import java.util.List;
 import java.util.Map;
 
@@ -15,5 +16,6 @@ public class Main {
         for (Map.Entry<Integer, List<User>> entry : groupedUsers.entrySet()) {
             System.out.println("Age: " + entry.getKey() + " Users" + entry.getValue());
         }
+
     }
 }
