@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     private static final Map<Student, Map<Subject, Integer>> studentToSubjectMap = new HashMap<>();
@@ -11,17 +12,44 @@ public class Main {
 
     public static void main(String[] args) {
 
+        updateDataBase(new Student(1, "Alice"), Map.of(
+                new Subject(1, "Literature"), 5,
+                new Subject(2, "Math"), 4,
+                new Subject(3, "CS"), 3
+        ));
+        updateDataBase(new Student(2, "Bob"), Map.of(
+                new Subject(1, "Literature"), 5
+        ));
+        updateDataBase(new Student(3, "Charlie"), Map.of(
+                new Subject(2, "Math"), 5,
+                new Subject(3, "CS"), 4,
+                new Subject(4, "Physics"), 4
+        ));
+
+        displayStudents();
+        displaySubjects();
+
+        removeStudent(new Student(2, "Bob"));
+
+        displayStudents();
+        displaySubjects();
     }
 
-    private static void updateStudent(Student student, HashMap<Subject, Integer> scores) {
-        studentToSubjectMap.computeIfAbsent(student, k -> scores).putAll(scores);
+    public static void updateDataBase(Student student, Map<Subject, Integer> scores) {
+        studentToSubjectMap.computeIfAbsent(student, k -> new HashMap<>()).putAll(scores);
+        for (Subject subject : scores.keySet()) {
+            updateSubject(subject, student);
+        }
     }
 
-    private static void removeStudent(Student student) {
-        studentToSubjectMap.remove(student);
+    public static void removeStudent(Student student) {
+        Set<Subject> subjectSet = studentToSubjectMap.remove(student).keySet();
+        for (Subject subject : subjectSet) {
+            subjectToStudentMap.get(subject).remove(student);
+        }
     }
 
-    private static void displayStudents() {
+    public static void displayStudents() {
         for (var entry : studentToSubjectMap.entrySet()) {
             Student student = entry.getKey();
             System.out.printf("Student %s (id #%d). ", student.getName(), student.getId());
@@ -35,15 +63,11 @@ public class Main {
         }
     }
 
-    private static void updateSubject(Subject subject, List<Student> studentList) {
-        subjectToStudentMap.computeIfAbsent(subject, k -> new ArrayList<>()).addAll(studentList);
+    private static void updateSubject(Subject subject, Student student) {
+        subjectToStudentMap.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    private static void removeStudentFromSubject(Subject subject, Student student) {
-        subjectToStudentMap.get(subject).remove(student);
-    }
-
-    private static void displaySubjects() {
+    public static void displaySubjects() {
         for (var entry : subjectToStudentMap.entrySet()) {
             Subject subject = entry.getKey();
             System.out.printf("%s (id #%d). Students: ", subject.getName(), subject.getId());
