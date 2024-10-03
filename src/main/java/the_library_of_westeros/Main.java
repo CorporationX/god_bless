@@ -1,10 +1,13 @@
 package the_library_of_westeros;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    static Map<Book, String> library = new HashMap<>();
+    @Getter
+    private static final Map<Book, String> library = new HashMap<>();
 
     public static void main(String[] args) {
         library.put(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925), "2");

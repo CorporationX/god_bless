@@ -12,15 +12,15 @@ class MainTest {
     void addBook() {
         Main.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925), "2");
 
-        assertEquals(Main.library.size(), 1);
+        assertEquals(Main.getLibrary().size(), 1);
     }
 
     @Test
     void removeBook() {
         Main.addBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925), "2");
-        assertEquals(Main.library.size(), 2);
+        assertEquals(Main.getLibrary().size(), 2);
         Main.removeBook(new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925));
-        assertEquals(Main.library.size(), 1);
+        assertEquals(Main.getLibrary().size(), 1);
     }
 
     @Test
