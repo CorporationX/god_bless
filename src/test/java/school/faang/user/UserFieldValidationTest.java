@@ -1,4 +1,4 @@
-package school.faang.task1;
+package school.faang.user;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
