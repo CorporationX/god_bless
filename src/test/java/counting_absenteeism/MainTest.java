@@ -15,7 +15,7 @@ class MainTest {
         Student student = new Student("Jane", "Theatre", 3);
         Main.addStudent(student);
 
-        assertEquals(2, Main.getStudentsList().size());
+        assertEquals(2, Main.getStudents().size());
 
         Main.removeStudent(student);
     }
@@ -25,18 +25,18 @@ class MainTest {
         Student student = new Student("Jane", "Theatre", 3);
         Main.addStudent(student);
 
-        assertEquals(1, Main.getStudentsList().size());
+        assertEquals(1, Main.getStudents().size());
 
         Main.removeStudent(student);
 
-        assertEquals(0, Main.getStudentsList().size());
+        assertEquals(0, Main.getStudents().size());
     }
 
     @Test
     void getStudents() {
         Student student = new Student("Jane", "Theatre", 3);
         Main.addStudent(student);
-        Map<Course, List<Student>> courseByStudent = Main.getCourseByStudents(Main.getStudentsList());
+        Map<Course, List<Student>> courseByStudent = Main.getCourseByStudents(Main.getStudents());
         assertEquals(1, Main.getStudents(new Course("Theatre", 3), courseByStudent).size());
 
         Main.removeStudent(student);
@@ -46,7 +46,7 @@ class MainTest {
     void printAllInfo() {
         Student student = new Student("Jane", "Theatre", 3);
         Main.addStudent(student);
-        Map<Course, List<Student>> courseByStudent = Main.getCourseByStudents(Main.getStudentsList());
+        Map<Course, List<Student>> courseByStudent = Main.getCourseByStudents(Main.getStudents());
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
@@ -71,8 +71,8 @@ class MainTest {
     void getCourseByStudents() {
         Main.addStudent(new Student("John", "Computer Science", 3));
         
-        assertEquals(1, Main.getCourseByStudents(Main.getStudentsList()).size());
-        assertEquals(1, Main.getCourseByStudents(Main.getStudentsList()).get(new Course("Computer Science", 3)).size());
-        assertEquals("{Course(faculty=Computer Science, year=3)=[Student(name=John, faculty=Computer Science, year=3)]}", Main.getCourseByStudents(Main.getStudentsList()).toString());
+        assertEquals(1, Main.getCourseByStudents(Main.getStudents()).size());
+        assertEquals(1, Main.getCourseByStudents(Main.getStudents()).get(new Course("Computer Science", 3)).size());
+        assertEquals("{Course(faculty=Computer Science, year=3)=[Student(name=John, faculty=Computer Science, year=3)]}", Main.getCourseByStudents(Main.getStudents()).toString());
     }
 }

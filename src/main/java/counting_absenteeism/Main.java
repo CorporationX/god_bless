@@ -1,16 +1,15 @@
 package counting_absenteeism;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
+    @Getter
     static private final List<Student> students = new ArrayList<>();
-
-    public static List<Student> getStudentsList() {
-        return students;
-    }
 
     public static void main(String[] args) {
         students.add(new Student("John", "Computer Science", 3));
