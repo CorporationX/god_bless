@@ -1,4 +1,4 @@
-package school.faang.task1;
+package school.faang.user;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

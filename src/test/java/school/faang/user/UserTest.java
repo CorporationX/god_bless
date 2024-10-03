@@ -1,4 +1,4 @@
-package school.faang.task1;
+package school.faang.user;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static school.faang.task1.User.addUserToList;
-import static school.faang.task1.User.groupUsers;
+import static school.faang.user.User.addUserToList;
+import static school.faang.user.User.groupUsers;
 
 public class UserTest {
 

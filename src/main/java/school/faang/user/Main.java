@@ -1,12 +1,12 @@
-package school.faang.task1;
+package school.faang.user;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.task1.User.addUserToList;
-import static school.faang.task1.User.printGroupedUsers;
-import static school.faang.task1.User.groupUsers;
+import static school.faang.user.User.addUserToList;
+import static school.faang.user.User.printGroupedUsers;
+import static school.faang.user.User.groupUsers;
 
 public class Main {
     public static void main(String[] args) {
