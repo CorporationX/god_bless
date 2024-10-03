@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.abstraction;
 
 abstract class Character {
     protected String name;
