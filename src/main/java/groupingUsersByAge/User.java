@@ -1,4 +1,4 @@
-package school.faang;
+package groupingUsersByAge;
 
 import lombok.Data;
 

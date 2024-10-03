@@ -1,4 +1,4 @@
-package school.faang;
+package groupingUsersByAge;
 
 import java.util.ArrayList;
 import java.util.List;
