@@ -25,13 +25,14 @@ public class User {
     public User(int id, String name, int age, Set<String> activities,
                 String jobPlace, String address) {
 
-        if (name.isEmpty()){
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < AGE_OF_MAJORITY){
+        if (age < AGE_OF_MAJORITY) {
             throw new IllegalArgumentException("Age cannot be less than 18 " +
                     "years");
-        }if (!VALID_JOBS.contains(jobPlace)){
+        }
+        if (!VALID_JOBS.contains(jobPlace)) {
             throw new IllegalArgumentException("Unacceptable place of work");
         }
         if (!VALID_ADDRESSES.contains(address)) {
