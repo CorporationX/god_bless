@@ -11,19 +11,13 @@ public class User {
     private String name;
     private int age;
     private String job;
+    private String adress;
 
-    public static Map<Integer, List<User>> groupUsers (List<User> UsersList){
+    public static Map<Integer, List<User>> groupUsers (List<User> usersList){
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
 
-        for (int i = 0; i < UsersList.size(); i++) {
-            List<User> TempList = new ArrayList<>();
-
-            for (int j = 0; j < UsersList.size(); j++) {
-                if (Objects.equals(UsersList.get(i).getAge(), UsersList.get(j).getAge())){
-                    TempList.add(UsersList.get(j));
-                    groupedUsers.put(UsersList.get(i).getAge(), TempList);
-                }
-            }
+        for (User user : usersList) {
+            groupedUsers.computeIfAbsent(user.getAge(), k -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
     }

@@ -6,13 +6,12 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User Alexander = new User("Alexander", 20, "SNG");
-        User Timur = new User("Timur", 25, "Administration");
-        User Denis = new User("Denis", 20, "RosNeft");
-        User Kirill = new User("Kirill", 24, "SNG");
-        User Artur = new User("Artur", 25, "Administration");
-        User Artem = new User("Artem", 24, "SNG");
-        List<User> userList = List.of(Alexander,Timur, Denis, Kirill, Artur, Artem);
+        List<User> userList = List.of(new User("Alexander", 20, "SNG", "Surgut"),
+                new User("Timur", 25, "Administration", "Moscow"),
+                new User("Denis", 20, "RosNeft", "EKB"),
+                new User("Kirill", 24, "SNG","Surgut"),
+                new User("Artur", 25, "Administration", "Novosibirsk"),
+                new User("Artem", 24, "SNG", "Surgut"));
 
         Map<Integer, List<User>> result = User.groupUsers(userList);
         System.out.println(result);
