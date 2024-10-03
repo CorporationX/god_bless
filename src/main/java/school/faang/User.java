@@ -12,26 +12,27 @@ import java.util.Set;
 @Getter
 @Setter
 public class User {
+
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final Integer MINIMAL_AGE = 18;
+
     private String name;
     private Integer age;
     private String workingPlace;
     private String address;
 
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     public User(String name, Integer age, String workingPlace, String address) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("The name cannot be empty.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18.");
+        if (age < MINIMAL_AGE) {
+            throw new IllegalArgumentException("Age cannot be less than " + MINIMAL_AGE + ".");
         }
-        if (!VALID_JOBS.contains(workingPlace))
-        {
+        if (!VALID_JOBS.contains(workingPlace)) {
             throw new IllegalArgumentException("Uncorrected workingPlace");
         }
-        if (!VALID_ADDRESSES.contains(address))
-        {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Uncorrected address");
         }
         this.name = name;
