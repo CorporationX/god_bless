@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-    static final Map<String, Set<WebPage>> wordIndex = new HashMap<>();
-    static final Map<String, WebPage> urlIndex = new HashMap<>();
+    private static final Map<String, Set<WebPage>> wordIndex = new HashMap<>();
+    private static final Map<String, WebPage> urlIndex = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -23,10 +23,9 @@ public class Main {
 
         deleteByUrl("faang-school.net");
         System.out.println(wordIndex);
-
     }
 
-    static void indexWebPage(WebPage webPage) {
+    private static void indexWebPage(WebPage webPage) {
         String url = webPage.getUrl();
         urlIndex.put(url, webPage);
 
@@ -37,11 +36,11 @@ public class Main {
         }
     }
 
-    static Set<WebPage> searchByIndex(String word) {
+    private static Set<WebPage> searchByIndex(String word) {
         return wordIndex.get(word.toLowerCase());
     }
 
-    static void deleteByUrl(String url) {
+    private static void deleteByUrl(String url) {
         WebPage targetPage = urlIndex.get(url);
         for (var entry : wordIndex.entrySet()) {
             Set<WebPage> webPageSet = entry.getValue();
