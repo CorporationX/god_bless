@@ -1,13 +1,17 @@
 package catch_event;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<Integer, StreamEvent> streamEvents = new HashMap<>();
-    static Map<String, List<StreamEvent>> eventsByUser = new HashMap<>();
+    @Getter
+    private static final Map<Integer, StreamEvent> streamEvents = new HashMap<>();
+    @Getter
+    private static final Map<String, List<StreamEvent>> eventsByUser = new HashMap<>();
 
     public static void main(String[] args) {;
         addNewEvent(new StreamEvent(1, "user.created", "John"));

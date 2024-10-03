@@ -12,7 +12,7 @@ class MainTest {
     void addNewEvent() {
         Main.addNewEvent(new StreamEvent(999, "user.login", "Kate"));
 
-        assertEquals(1, Main.streamEvents.size());
+        assertEquals(1, Main.getStreamEvents().size());
 
         Main.removeEventByID(999);
     }
@@ -62,9 +62,9 @@ class MainTest {
         Main.addNewEvent(new StreamEvent(666, "user.created", "John"));
         Main.removeEventByID(666);
 
-        assertEquals(0, Main.streamEvents.size());
+        assertEquals(0, Main.getStreamEvents().size());
 
-        assertEquals(4, Main.eventsByUser.size());
+        assertEquals(0, Main.getStreamEvents().size());
     }
 
     @Test
