@@ -18,5 +18,6 @@ abstract class Character {
         this.intellect = intellect;
         this.health = 100;
     }
-    abstract protected Character attack(Character character);
+
+    protected abstract Character attack(Character character);
 }
