@@ -21,20 +21,16 @@ public class User {
 
     public void validate(String name, int age, String workplace, String address) {
 
-        if (!name.isEmpty());
-        else {
+        if (name.isEmpty()) {
             throw new IllegalArgumentException("name is empty");
         }
-        if (age >= VALID_AGE);
-        else {
+        if (age < VALID_AGE) {
             throw new IllegalArgumentException("bring your parents");
         }
-        if (VALID_JOBS.contains(workplace));
-        {
+        if (!VALID_JOBS.contains(workplace)) {
             throw new IllegalArgumentException("invalid job");
         }
-        if (VALID_ADDRESSES.contains(address));
-        else {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("invalid address");
         }
     }
