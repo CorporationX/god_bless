@@ -15,15 +15,14 @@ public class Example {
     }
 
     public static void turnAround(int[] array) {
-        int temp = 0;
-        int temp2 = array.length - 1;
-        int temp3;
-        for (int i = 0; i < array.length/2; i++) {
-            temp3 = array[temp];
-            array[temp] = array[temp2];
-            array[temp2] = temp3;
-            temp++;
-            temp2--;
+        int halfArrayLength = array.length / 2;
+        int index = 0;
+        int tempNum;
+        for (int i = 0; i < halfArrayLength; i++) {
+            tempNum = array[index];
+            array[index] = array[array.length - 1 - i];
+            array[array.length - 1 - i] = tempNum;
+            index++;
         }
     }
 }
