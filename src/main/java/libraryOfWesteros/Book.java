@@ -2,6 +2,9 @@ package libraryOfWesteros;
 
 import lombok.Getter;
 //import lombok.ToString;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 @Getter
@@ -51,5 +54,35 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", year=" + year +
                 '}';
+    }
+
+    public static void addBook(Map<Book, String> map, Book book, String location) {
+        map.put(book, location);
+    }
+
+    public static void removeBook(Map<Book, String> map, String title, String author, int year) {
+        List<Book> toRemove = new ArrayList<>();
+
+        for (Map.Entry<Book, String> entry : map.entrySet()) {
+            Book book = entry.getKey();
+            if (book.getTitle().equals(title) && book.getAuthor().equals(author) && book.getYear() == year) {
+                toRemove.add(book);
+            }
+        }
+
+        for (Book book : toRemove) {
+            map.remove(book);
+        }
+    }
+
+    public static void findBook(Map<Book, String> map, String title, String author, int year) {
+        Book book = new Book(title, author, year);
+        System.out.println(map.getOrDefault(book, "Книга не найдена"));
+    }
+
+    public static void printMap(Map<Book, String> map) {
+        for (Map.Entry<Book, String> entry : map.entrySet()) {
+            System.out.println("Книга: " + entry.getKey() + "\t\tСекция: " + entry.getValue());
+        }
     }
 }
