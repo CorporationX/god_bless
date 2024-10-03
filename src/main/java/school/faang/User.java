@@ -1,5 +1,4 @@
 package school.faang;
-
 import lombok.Getter;
 import lombok.Setter;
 
