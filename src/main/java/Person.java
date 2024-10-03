@@ -4,27 +4,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 public class Person {
     private long id = 0;
     private String name;
     private int age;
-    private List<String> activities;
+    private Set<String> activities;
 
-    public Person(String name, int age, List<String> activities) {
+    public Person(String name, int age, Set<String> activities) {
         ++this.id;
         this.name = name;
         this.age = age;
         this.activities = activities;
     }
 
-    public static Map<Person, String> findHobbyLovers(List<Person> personList, List<String> activities){
+    public static Map<Person, String> findHobbyLovers(List<Person> personList, Set<String> activities) {
         var result = new HashMap<Person, String>();
 
-        for(Person person: personList){
-            for(String activity: activities){
-                if(person.getActivities().contains(activity)){
+        for (Person person : personList) {
+            for (String activity : activities) {
+                if (person.getActivities().contains(activity)) {
                     result.put(person, activity);
                     break;
                 }
