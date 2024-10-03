@@ -1,4 +1,3 @@
-
 package school.faang;
 
 public class Warrior extends Character {

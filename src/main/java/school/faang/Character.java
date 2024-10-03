@@ -1,4 +1,3 @@
-
 package school.faang;
 
 abstract public class Character {
