@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.users;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
