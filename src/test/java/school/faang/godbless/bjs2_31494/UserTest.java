@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 class UserTest {
 
   @Test
-  void testHandlesAllCases() {
+  void testFindHobbyLovers() {
     User user1 = new User(1, "Vasya", 25, Set.of("Basketball", "Hockey", "Gaming"));
     User user2 = new User(2, "Petya", 19, Set.of("Basketball", "Skydiving", "Gaming"));
     User user3 = new User(3, "Masha", 53, Set.of("Rock Climbing", "Cooking"));
