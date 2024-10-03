@@ -45,7 +45,7 @@ public class UserCollectionTest {
 
         Map<User, String> hobbyLovers = findHobbyLovers(users, hobbies);
         assertEquals(2, hobbyLovers.size());
-        assertEquals("Hiking", hobbyLovers.get(new User(1, "User1", 25, new HashSet<>(Set.of("Running", "Swimming", "Cycling", "Hiking", "Yoga")))));
+        assertEquals("Running", hobbyLovers.get(new User(1, "User1", 25, new HashSet<>(Set.of("Running", "Swimming", "Cycling", "Hiking", "Yoga")))));
         assertEquals("Writing", hobbyLovers.get(new User(2, "User2", 15, new HashSet<>(Set.of("Reading", "Writing", "Painting", "Drawing", "Sculpting")))));
     }
 
