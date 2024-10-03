@@ -8,25 +8,26 @@ import java.util.stream.Collectors;
 
 public class User {
     private String name;
-    private int age;
+    private int userAge;
     private String company;
     private String address;
+    private static final int ELIGIBILITY_AGE = 18;
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
 
 
-    public User(String name, int age, String company, String address) {
+    public User(String name, int userAge, String company, String address) {
         if (name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Name can not be empty");
         } else {
             this.name = name;
         }
 
-        if (age < 18) {
+        if (userAge < ELIGIBILITY_AGE) {
             throw new IllegalArgumentException("Age can not be less than 18");
         } else {
-            this.age = age;
+            this.userAge = userAge;
         }
 
         for (String job : VALID_JOBS) {
@@ -47,7 +48,7 @@ public class User {
     }
 
     public int getAge() {
-        return age;
+        return userAge;
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
