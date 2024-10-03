@@ -7,7 +7,7 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.HEALTH -= this.agility;
+        character.health -= this.agility;
         System.out.println(String.format("The enemy received %s  points damage", this.agility));
     }
 }
