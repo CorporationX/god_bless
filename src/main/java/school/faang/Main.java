@@ -13,6 +13,7 @@ public class Main {
                 new User("Anastasya", 22, "Sber", "Moscow"),
                 new User("Petr", 40, "Yandex", "Piter")
         );
+
         System.out.println(User.groupUsers(users));
     }
 }

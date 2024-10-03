@@ -1,7 +1,11 @@
 package school.faang;
 
+import lombok.Getter;
+import lombok.ToString;
 import java.util.*;
 
+@Getter
+@ToString
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
@@ -13,23 +17,23 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
-        validate(name, age, placeOfWork, address);
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Имя не может быть пустым");
+        }
+        if (age < MIN_VALID_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        }
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("Некорректное место работы");
+        }
+        if (!VALID_ADDRESS.contains(address)) {
+            throw new IllegalArgumentException("Некорректный адрес");
+        }
+
         this.name = name;
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
-    }
-
-    public void validate(String name, int age, String placeOfWork, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
-        }if (age < MIN_VALID_AGE) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
-        }if (!VALID_JOBS.contains(placeOfWork)) {
-            throw new IllegalArgumentException("Некорректное место работы");
-        }if (!VALID_ADDRESS.contains(address)) {
-            throw new IllegalArgumentException("Некорректный адрес");
-        }
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
@@ -38,31 +42,5 @@ public class User {
             groupUsers.computeIfAbsent(user.getAge(), age -> new ArrayList<>()).add(user);
         }
         return groupUsers;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getPlaceOfWork() {
-        return placeOfWork;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", placeOfWork='" + placeOfWork + '\'' +
-                ", address='" + address + '\'' +
-                '}';
     }
 }
