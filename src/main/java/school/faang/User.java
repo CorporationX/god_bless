@@ -14,6 +14,7 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
     private static final int AGE_OF_MAJORITY = 18;
+
     private int id;
     private String jobPlace;
     private String address;
@@ -24,7 +25,6 @@ public class User {
 
     public User(int id, String name, int age, Set<String> activities,
                 String jobPlace, String address) {
-
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
