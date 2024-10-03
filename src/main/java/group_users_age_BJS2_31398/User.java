@@ -1,5 +1,8 @@
 package group_users_age_BJS2_31398;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -22,9 +25,9 @@ public class User {
 
         for (User user : users) {
             int age = user.getAge();
-            if (!ageGroupList.containsKey(age)) {
-                ageGroupList.put(age, new ArrayList<>());
-            }
+
+            ageGroupList.putIfAbsent(age, new ArrayList<>());
+
             ageGroupList.get(age).add(user);
         }
 
