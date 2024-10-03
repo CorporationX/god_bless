@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Green",
+    "age": 35,
+    "workplace": "Google",
+    "address": "Moscow"
+  },
+  {
+    "name": "Black",
+    "age": 55,
+    "workplace": "Yandex",
+    "address": "London"
+  },
+  {
+    "name": "White",
+    "age": 44,
+    "workplace": "Amazon",
+    "address": "St.Petersburg"
+  },
+  {
+    "name": "Red",
+    "age": 35,
+    "workplace": "Amazon",
+    "address": "Kazan"
+  },
+  {
+    "name": "Blue",
+    "age": 35,
+    "workplace": "Amazon",
+    "address": "Omsk"
+  },
+  {
+    "name": "Brown",
+    "age": 35,
+    "workplace": "Amazon",
+    "address": "Tomsk"
+  }
+]
