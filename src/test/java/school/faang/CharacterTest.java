@@ -17,14 +17,14 @@ class CharacterTest {
     }
 
     @Test
-    public void shouldReduceHealthWhenWarriorAttack() {
+    public void warriorAttackTest() {
         int archerHealth = archer.getHealth();
         warrior.attack(archer);
         assertEquals(archerHealth - warrior.getStrength(), archer.getHealth());
     }
 
     @Test
-    public void shouldReduceHealthWhenArcherAttack() {
+    public void archerAttackTest() {
         int warriorHealth = warrior.getHealth();
         archer.attack(warrior);
         assertEquals(warriorHealth - archer.getAgility(), warrior.getHealth());
