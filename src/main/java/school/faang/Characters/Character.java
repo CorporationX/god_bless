@@ -1,16 +1,14 @@
 package school.faang.Characters;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
-abstract public class Character {
+@Getter
+public abstract class Character {
     protected String name;
     protected int strength;
     protected int agility;
     protected int intellect;
     protected int health = 100;
-
-    abstract public void attack(Character defender);
 
     public Character(String name) {
         this.name = name;
@@ -22,4 +20,6 @@ abstract public class Character {
         this.agility = agility;
         this.intellect = intellect;
     }
+
+    public abstract void attack(Character defender);
 }

@@ -31,14 +31,19 @@ public class CharactersTest {
         // arrange
         Character archer = new Archer("Hawkeye");
         Character warrior = new Warrior("Guts");
+        Character singleAttacker = new Archer("Butcher");
+        Character singleDefender = new Warrior("Homelander");
 
         // act
         archer.attack(warrior);
         archer.attack(warrior);
         warrior.attack(archer);
+        singleAttacker.attack(singleDefender);
 
         // assert
         assertEquals(80, warrior.getHealth(), "Warrior's health after two attacks should be 80.");
         assertEquals(90, archer.getHealth(), "Archer's health after one attack should be 90.");
+        assertEquals(90, singleDefender.getHealth(), "Defender's health after receiving an attack should be 90");
+        assertEquals(100, singleAttacker.getHealth(), "Attacker's health after striking an attack should remain 100");
     }
 }
