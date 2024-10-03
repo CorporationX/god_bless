@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class Main {
     private static final Map<Book, String> BOOKS = new HashMap<>();
+    private static final Map<Book, Integer> BOOKS_INDEXES = new HashMap<>();
+    private static int COUNT_INDEXES = 0;
 
     public static void main(String[] args) {
         Book encyclopedia = new Book("Dinosaurs", "Someone", 1995);
@@ -12,6 +14,7 @@ public class Main {
 
         add(encyclopedia, "Row 10");
         add(fairyTails, "Row 5");
+
         remove("Thumbelina", "Hans Anderson", 1848);
         remove("Dinosaurs", "WRONG AUTHOR", 1995);
         printAllBooks();
@@ -24,10 +27,17 @@ public class Main {
 
     private static void add(Book book, String place) {
         BOOKS.put(book, place);
+        BOOKS_INDEXES.put(book, COUNT_INDEXES);
+        COUNT_INDEXES++;
     }
 
     private static void remove(String title, String author, int year) {
-        BOOKS.remove(new Book(title, author, year));
+        Book temp_book = new Book(title, author, year);
+        Integer idx = BOOKS_INDEXES.get(temp_book);
+        if (idx != null) {
+            BOOKS.remove(temp_book);
+            BOOKS_INDEXES.remove(temp_book);
+        }
     }
 
     private static void printInfo(String title, String author, int year) {
