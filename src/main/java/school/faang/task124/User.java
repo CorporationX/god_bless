@@ -17,12 +17,12 @@ public class User {
     @Getter
     private Set<String> activity;
 
-    public static Map<User,String> findHobbyLovers (List<User> users , Set<String> activity){
-        Map<User,String> answer = new HashMap<>();
+    public static Map<User, String> findHobbyLovers (List<User> users, Set<String> activity){
+        Map<User, String> answer = new HashMap<>();
         for(User user : users){
             for(String userActivity : user.getActivity()){
                 if(activity.contains(userActivity)){
-                    answer.put(user,userActivity);
+                    answer.put(user, userActivity);
                     break ;
                 }
             }
