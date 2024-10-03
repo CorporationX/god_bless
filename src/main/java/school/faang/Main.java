@@ -18,14 +18,12 @@ public class Main {
 //        }
 
         //проверка Абстракции задачи
-        Archer asya = new Archer("Ася");
         Warrior wari = new Warrior("Вари");
+        Character asya = new Archer("Ася");
 
         wari.attack(asya);
-        System.out.println(asya.name + " здоровье : " + asya.health);
+        System.out.println(asya.getName() + " здоровье : " + asya.getHealth());
 
-        asya.attack(wari);
-        System.out.println(wari.name + " здоровье : " + wari.health);
     }
 }
 

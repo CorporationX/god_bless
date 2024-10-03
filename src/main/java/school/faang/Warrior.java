@@ -1,5 +1,10 @@
 package school.faang;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Warrior extends Character {
 
     public Warrior(String name) {

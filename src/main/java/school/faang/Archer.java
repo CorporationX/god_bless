@@ -1,5 +1,10 @@
 package school.faang;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class Archer extends Character {
 
     public Archer(String name) {
@@ -8,7 +13,12 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character enemy) {
-        enemy.health -= this.dexterity;
-        System.out.println(this.name + " атакует - " + enemy.name + " нанося : " + this.dexterity + " урон");
+        if (enemy == null) {
+            System.out.println(this.name + " не может атаковать, враг не найден.");
+            return;
+        }
+
+        enemy.takeDamage(this.dexterity);
+        System.out.println(this.name + " атакует - " + enemy.getName() + " нанося : " + this.dexterity + " урон");
     }
 }
