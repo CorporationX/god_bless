@@ -3,7 +3,7 @@ import lombok.Data;
 @Data
 public abstract class Character {
     protected String name;
-    protected int power;
+    public int power;
     protected int dexterity;
     protected int intelligence;
     protected int health = 100;
