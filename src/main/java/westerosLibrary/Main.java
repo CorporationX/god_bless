@@ -16,16 +16,15 @@ public class Main {
         addBook(book2, "0001");
         addBook(book3, "0002");
         addBook(book4, "0003");
-        LIBRARY.forEach((book, shelf) -> System.out.println(book + " - " + shelf));
-
+        printAllBooks();
 
         System.out.println();
         removeBook("Мёртвые души", "Гоголь Н.В.", 1842);
-        LIBRARY.forEach((book, shelf) -> System.out.println(book + " - " + shelf));
+        printAllBooks();
 
         System.out.println();
-        System.out.println(getShelf(book1));
-        System.out.println(getShelf(book4));
+        System.out.println(getShelf("Мёртвые души", "Гоголь Н.В.", 1842));
+        System.out.println(getShelf("Бич времён", "Головачев В.В.", 2008));
 
     }
 
@@ -37,7 +36,11 @@ public class Main {
         LIBRARY.remove(new Book(title, author, year));
     }
 
-    public static String getShelf(Book book) {
-        return LIBRARY.get(book);
+    public static String getShelf(String title, String author, int year) {
+        return LIBRARY.get(new Book(title, author, year));
+    }
+
+    public static void printAllBooks() {
+        LIBRARY.forEach((book, shelf) -> System.out.println(book + " - " + shelf));
     }
 }
