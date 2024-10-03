@@ -26,20 +26,24 @@ public class Main {
         addStudent(student5);
         addStudent(student6);
         addStudent(student7);
+        System.out.println("Список студентов:");
         STUDENTS.forEach(System.out::println);
 
         groupStudentsByCourse(STUDENTS);
-        System.out.println();
-        COURSES.forEach((k, v) -> System.out.println("course: " + k.getFaculty() + "-" + k.getYear() + " students: " + v));
+        System.out.println("\nГруппировка по курсам");
+        COURSES.forEach((course, students) -> System.out.println("факультет: " + course.getFaculty()
+                + " год: " + course.getYear()
+                + " студенты: " + students.toString()));
 
         removeStudent("Irina", "IT", 2010);
-        System.out.println();
+        System.out.println("\nПосле удаления студента Irina c курса IT-2010");
         STUDENTS.forEach(System.out::println);
 
         List<Student> findStudents = findStudent("IT", 2000);
-        System.out.println();
+        System.out.println("\nСтуденты курса IT-2000");
         findStudents.forEach(System.out::println);
 
+        printStudentsGroupByCourse();
     }
 
     public static void addStudent(Student student) {
@@ -60,6 +64,14 @@ public class Main {
 
     public static List<Student> findStudent(String faculty, int year) {
         return COURSES.get(new Course(faculty, year));
+    }
+
+    public static void printStudentsGroupByCourse() {
+        System.out.println();
+        for (Map.Entry<Course, List<Student>> entry : COURSES.entrySet()) {
+            System.out.println("Курс: " + entry.getKey().getFaculty() + " " + entry.getKey().getYear() + ":");
+            entry.getValue().forEach(System.out::println);
+        }
     }
 
 }
