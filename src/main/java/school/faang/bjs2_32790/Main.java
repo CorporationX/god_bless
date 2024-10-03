@@ -41,7 +41,7 @@ public class Main {
     }
 
     private static void deleteByUrl(String url) {
-        WebPage targetPage = urlIndex.get(url);
+        WebPage targetPage = urlIndex.remove(url);
         for (var entry : wordIndex.entrySet()) {
             Set<WebPage> webPageSet = entry.getValue();
             webPageSet.remove(targetPage);
