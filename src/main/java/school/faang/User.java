@@ -22,18 +22,22 @@ public class User {
     public User(String userName, int age, String job, String address) {
         if (userName == null || userName.trim().isEmpty())
             throw new IllegalArgumentException("User name cannot be blank");
-        this.userName = userName;
 
-        if (age < AGE_LIMIT)
+        if (age < AGE_LIMIT) {
             throw new IllegalArgumentException("User age cannot be less than 18");
-        this.age = age;
+        }
 
-        if (!VALID_JOBS.contains(job))
+        if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("User job is not valid");
-        this.job = job;
+        }
 
-        if (!VALID_ADDRESSES.contains(address))
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("User address is not valid");
+        }
+
+        this.userName = userName;
+        this.age = age;
+        this.job = job;
         this.address = address;
     }
 
