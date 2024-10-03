@@ -10,12 +10,12 @@ public class Main {
         BOOKS.put(book, place);
     }
 
-    private static void remove(Book book) {
-        BOOKS.remove(book);
+    private static void remove(String title, String author, int year) {
+        BOOKS.remove(new Book(title, author, year));
     }
 
-    private static void findAndGetInfo(Book book) {
-        System.out.println("Книга найдена на месте: " + BOOKS.get(book));
+    private static void findAndGetInfo(String title, String author, int year) {
+        System.out.println("Книга найдена на месте: " + BOOKS.get(new Book(title, author, year)));
     }
 
     private static void printAll() {
@@ -23,7 +23,6 @@ public class Main {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
-
 
     public static void main(String[] args) {
         Book bookOne = new Book("Philosopher's Stone", "J.K. Rowling", 2015);
@@ -35,9 +34,9 @@ public class Main {
         add(bookThree, "5 полка 4 ряд");
 
         System.out.println("After add : " + BOOKS);
-        remove(bookOne);
+        remove("Philosopher's Stone", "J.K. Rowling", 2015);
         System.out.println("After remove : " + BOOKS);
-        findAndGetInfo(bookTwo);
+        findAndGetInfo("The Wonder of Nature", "Natural History Museum", 2020);
         printAll();
     }
 }
