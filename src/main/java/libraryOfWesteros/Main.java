@@ -3,7 +3,7 @@ package libraryOfWesteros;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainLibrary {
+public class Main {
     public static void main(String[] args) {
         Map<Book, String> libraryMap = new HashMap<>();
 
