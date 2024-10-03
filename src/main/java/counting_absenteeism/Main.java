@@ -6,7 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static List<Student> students = new ArrayList<>();
+    static private final List<Student> students = new ArrayList<>();
+
+    public static List<Student> getStudentsList() {
+        return students;
+    }
 
     public static void main(String[] args) {
         students.add(new Student("John", "Computer Science", 3));
