@@ -9,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WarriorTest {
+
     @Test
     @DisplayName("Атака другого перса")
     public void attack_anotherCharacterAttacked() {
         //arrange
-        school.faang.abstraction.Character target = new Warrior("Груша для битья");
+        Character target = new Warrior("Груша для битья");
         school.faang.abstraction.Character character = new Warrior("Axe");
 
         //act
