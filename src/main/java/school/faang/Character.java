@@ -1,5 +1,8 @@
 package school.faang;
 
+import lombok.Setter;
+
+@Setter
 public abstract class Character {
     protected String name;
     protected int dexterity;
