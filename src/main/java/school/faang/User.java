@@ -22,10 +22,9 @@ public class User {
         Map<Integer, List<User>> userMap = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-            if (!userMap.containsKey(age)) {
-                userMap.put(age, new ArrayList<>());
 
-            }
+            userMap.putIfAbsent(age, new ArrayList<>());
+
             userMap.get(age).add(user);
         }
         return userMap;
