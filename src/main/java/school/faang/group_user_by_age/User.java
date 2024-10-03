@@ -19,7 +19,6 @@ public class User {
     static Map<Integer, List<User>> groupUsers(List<User> users) {
         var groupedUsers = new HashMap<Integer, List<User>>();
         for (User user : users) {
-
             if (!groupedUsers.containsKey(user.getAge())) {
                 groupedUsers.put(user.getAge(), new ArrayList<>());
             }
