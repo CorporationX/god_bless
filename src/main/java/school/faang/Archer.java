@@ -9,6 +9,6 @@ public class Archer extends Character {
     @Override
     public void attack(Character enemy) {
         enemy.health -= this.dexterity;
-        System.out.println(this.name + " атакует - " + enemy.name + " нанося: " + this.dexterity + " урон");
+        System.out.println(this.name + " атакует - " + enemy.name + " нанося : " + this.dexterity + " урон");
     }
 }

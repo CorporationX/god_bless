@@ -9,6 +9,6 @@ public class Warrior extends Character {
     @Override
     public void attack(Character enemy) {
         enemy.health -= this.strength; // Урон противнику - это сила воина
-        System.out.println(this.name + " атакует - " + enemy.name + " нанося: " + this.strength + " урон");
+        System.out.println(this.name + " атакует - " + enemy.name + " нанося : " + this.strength + " урон");
     }
 }

@@ -17,7 +17,6 @@ public class User {
         this.address = address;
         this.workPlace = workPlace;
     }
-
 //    public static Map<Integer, List<User>> groupUsers(List<User> users) {
 //        Map<Integer, List<User>> groupedUsers = new HashMap<>();
 //

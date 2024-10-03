@@ -1,6 +1,5 @@
 package school.faang;
 
-
 abstract public class Character {
     String name;
     int strength;

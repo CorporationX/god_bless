@@ -21,10 +21,10 @@ public class Main {
         Warrior wari = new Warrior("Вари");
 
         wari.attack(asya);
-        System.out.println(asya.name + " здоровье: " + asya.health);
+        System.out.println(asya.name + " здоровье : " + asya.health);
 
         asya.attack(wari);
-        System.out.println(wari.name + " здоровье: " + wari.health);
+        System.out.println(wari.name + " здоровье : " + wari.health);
     }
 }
 
