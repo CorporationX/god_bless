@@ -1,14 +1,12 @@
 package userRegistration;
 
-
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<User> userList = List.of(new User("Ann", 2, "Google", "London"),
+        List<User> userList = List.of(new User("Ann", 22, "Google", "London"),
                 new User("Nastya", 19, "Sber", "Moscow"),
                 new User("Pasha", 19, "Sber", "Moscow"));
 

@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class User {
     public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
-    public final int ageMore18 = 18;
+    public static final int AGEMORE18 = 18;
 
     private String name;
     private int age;
@@ -25,15 +25,15 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeWork, String address) {
-//
+
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Пустое имя");
-        } else if (age < ageMore18) {
-            throw new IllegalArgumentException();
+        } else if (age < AGEMORE18) {
+            throw new IllegalArgumentException("Возраст меньше 18");
         } else if (!VALID_JOBS.contains(placeWork)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Место работы не \"Google\", \"Uber\" или \"Amazon\" ");
         } else if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Адрес не \"London\", \"New York\", \"Amsterdam\"");
         }
 
         this.name = name;
