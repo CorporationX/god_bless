@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserTest {
     @Test
@@ -60,5 +62,61 @@ public class UserTest {
 
         //assert
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Создание пользователя с корректными данными")
+    public void createUser_withCorrectData() {
+        //arrange & act
+        User user = new User("Nikola", 21, "Google", "London");
+
+        //assert
+        assertNotNull(user);
+        assertEquals("Nikola", user.getName());
+        assertEquals(21, user.getAge());
+        assertEquals("Google", user.getPlaceOfWork());
+        assertEquals("London", user.getAddress());
+    }
+
+    @Test
+    @DisplayName("Создание пользователя с пустым именем")
+    public void createUser_withEmptyName_throwsIllegalArgumentException() {
+        //arrange & act & assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new User("", 21, "Google", "London"));
+        assertThrows(IllegalArgumentException.class,
+                () -> new User(" ", 21, "Google", "London"));
+    }
+
+    @Test
+    @DisplayName("Создание пользователя с null, вместо имени")
+    public void createUser_withNullName_throwsIllegalArgumentException() {
+        //arrange & act & assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new User(null, 21, "Google", "London"));
+    }
+
+    @Test
+    @DisplayName("Создание пользователя младше 18")
+    public void createUser_withAgeUnderEighteen_throwsIllegalArgumentException() {
+        //arrange & act & assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new User("Nikola", 14, "Google", "London"));
+    }
+
+    @Test
+    @DisplayName("Создание пользователя, работающего в галере")
+    public void createUser_withNonValidPlaceOfWork_throwsIllegalArgumentException() {
+        //arrange & act & assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new User("Nikola", 14, "ItGalera", "London"));
+    }
+
+    @Test
+    @DisplayName("Создание пользователя с невалидным адресом")
+    public void createUser_withNonValidAddress_throwsIllegalArgumentException() {
+        //arrange & act & assert
+        assertThrows(IllegalArgumentException.class,
+                () -> new User("Nikola", 14, "Google", "Moscow"));
     }
 }
