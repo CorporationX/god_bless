@@ -11,7 +11,11 @@ public class Warrior extends Character {
     @Override
     public void attack(Character character) {
         Integer hitPointsCharacter = character.getHitPoints();
-        Integer newPointsCharacter = hitPointsCharacter - getForce();
-        character.setHitPoints(newPointsCharacter);
+        if (hitPointsCharacter <= 0) {
+            throw new NullPointerException("character is dead");
+        } else {
+            Integer newPointsCharacter = hitPointsCharacter - getForce();
+            character.setHitPoints(newPointsCharacter);
+        }
     }
 }

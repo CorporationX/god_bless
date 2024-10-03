@@ -11,7 +11,11 @@ public class Archer extends Character {
     @Override
     public void attack(Character character) {
         Integer hitPointsCharacter = character.getHitPoints();
-        Integer newPointsCharacter = hitPointsCharacter - getSkill();
-        character.setHitPoints(newPointsCharacter);
+        if (hitPointsCharacter <= 0) {
+            throw new NullPointerException("character is dead");
+        } else {
+            Integer newPointsCharacter = hitPointsCharacter - getSkill();
+            character.setHitPoints(newPointsCharacter);
+        }
     }
 }
