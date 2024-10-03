@@ -1,7 +1,9 @@
 package school.faang;
 
+import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Setter
 public abstract class Character {
     protected String name;
@@ -21,6 +23,5 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public void attack(Character character) {
-    }
+    public abstract void attack(Character character);
 }
