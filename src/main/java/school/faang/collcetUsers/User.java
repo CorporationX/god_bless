@@ -1,13 +1,10 @@
 package school.faang.collcetUsers;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import lombok.Getter;
 import lombok.Setter;
-
 
 
 @Getter
@@ -22,27 +19,22 @@ public class User {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.activities = new ArrayList<String>();
+        this.activities = activities;
     }
 
-    public void addActivity(String activity) {
-        activities.add(activity);
-    }
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = new HashMap<>();
 
-
-public static Map<User, String> findHobbyLovers (List<User> users,  Set<String> hobbies) {
-        Map<User, String> hobbyLovers = new HashMap();
-
-    for (User user : users) {
-        for (String hobby : hobbies) {
-            if (user.getActivities().contains(hobby)) {
-                hobbyLovers.put(user, user.getName() + " увлекается " + hobby);
+        for (User user : users) {
+            for (String hobby : hobbies) {
+                if (user.getActivities().contains(hobby)) {
+                    hobbyLovers.put(user, user.getName() + " увлекается " + hobby);
+                    break;
+                }
             }
         }
+        return hobbyLovers;
     }
-
-    return hobbyLovers;
-}
 
     @Override
     public String toString() {
@@ -54,11 +46,5 @@ public static Map<User, String> findHobbyLovers (List<User> users,  Set<String> 
                 '}';
     }
 
-    public static void main(String[] args) {
-        User user = new User(1,"Алекс",15,new ArrayList<>() );
-        user.addActivity("Бег");
-        user.addActivity("Ходьба");
 
-        System.out.println(user);
-    }
 }
