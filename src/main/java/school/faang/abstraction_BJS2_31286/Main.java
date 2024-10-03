@@ -6,10 +6,10 @@ public class Main {
         Character warrior = new Warrior("Ivan");
         Character warriorForStrike = new Warrior("Sufferer");
 
-        System.out.println(warriorForStrike.name + " health is " + warriorForStrike.health);
+        warriorForStrike.showInfoAboutCharacterHealth();
         archer.attack(warriorForStrike);
-        System.out.println(warriorForStrike.name + " health is " + warriorForStrike.health);
+        warriorForStrike.showInfoAboutCharacterHealth();
         warrior.attack(warriorForStrike);
-        System.out.println(warriorForStrike.name + " health is " + warriorForStrike.health);
+        warriorForStrike.showInfoAboutCharacterHealth();
     }
 }
