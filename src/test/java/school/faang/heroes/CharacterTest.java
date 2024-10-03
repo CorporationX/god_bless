@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.heroes;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

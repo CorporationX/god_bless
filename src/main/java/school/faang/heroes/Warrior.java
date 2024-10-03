@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.heroes;
 
 public class Warrior extends Character {
     public Warrior(String name) {
