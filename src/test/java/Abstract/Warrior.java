@@ -8,7 +8,7 @@ public class Warrior extends Character {
 
     @Override
     public void attack (Character character){
-        character.HEALTH -= this.strength;
+        character.health -= this.strength;
         System.out.println(String.format("The enemy received %s  points damage", this.strength));
     }
 }
