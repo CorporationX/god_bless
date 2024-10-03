@@ -13,24 +13,20 @@ public class User {
     private int id;
     @Getter
     private String name;
-
     private int age ;
     @Getter
     private Set<String> activity;
 
-    public static Map<User,String> findHobbyLovers (List<User> users,Set<String> activity){
+    public static Map<User,String> findHobbyLovers (List<User> users , Set<String> activity){
         Map<User,String> answer = new HashMap<>();
-        outer:
         for(User user : users){
             for(String userActivity : user.getActivity()){
                 if(activity.contains(userActivity)){
                     answer.put(user,userActivity);
-                    continue outer;
+                    break ;
                 }
             }
         }
         return answer;
     }
-
-
 }
