@@ -8,10 +8,10 @@ public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String>  VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
-    String name;
-    int age;
-    String placeOfWork;
-    String address;
+    private final String name;
+    private final int age;
+    private final String placeOfWork;
+    private final String address;
 
     public User(String name, int age, String placeOfWork, String address) {
 
