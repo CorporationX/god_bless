@@ -21,20 +21,23 @@ public class User {
 
     public void validate(String name, int age, String workplace, String address) {
 
-        if (name.isEmpty())
+        if (!name.isEmpty());
+        else {
             throw new IllegalArgumentException("name is empty");
-        System.out.println("name is empty");
-        if (age < VALID_AGE)
+        }
+        if (age >= VALID_AGE);
+        else {
             throw new IllegalArgumentException("bring your parents");
-        System.out.println("bring your parents");
-        if (VALID_JOBS.contains(workplace))
+        }
+        if (VALID_JOBS.contains(workplace));
+        {
             throw new IllegalArgumentException("invalid job");
-        System.out.println("invalid job");
-        if (VALID_ADDRESSES.contains(address))
+        }
+        if (VALID_ADDRESSES.contains(address));
+        else {
             throw new IllegalArgumentException("invalid address");
-        System.out.println("invalid address");
+        }
     }
-
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
