@@ -23,30 +23,30 @@ public class Main {
         Subject subject4 = new Subject(4, "Chemistry");
 
         addStudentToSubject(student, subject, 5);
-//        addStudentToSubject(student, subject2, 3);
-//        addStudentToSubject(student2, subject3, 4);
-//
+        addStudentToSubject(student, subject2, 3);
+        addStudentToSubject(student2, subject3, 4);
+
         System.out.println(studentsOfEstimation);
         System.out.println(subjectsOfStudents);
-//
-//        removeStudentFromSubject(student2);
-//
-//        System.out.println(studentsOfEstimation);
-//
-//        printAllStudent();
-//
-//        addNewSubjectAndStudentsList(subject4, List.of(student2));
-//
-//        System.out.println(studentsOfEstimation);
-//        System.out.println(subjectsOfStudents);
-//
-//        addStudentByExistingSubject(student, subject4);
-//        System.out.println(subjectsOfStudents);
-//
-//        removeStudentForSubject(student, subject4);
-//        System.out.println(subjectsOfStudents);
-//
-//        printAllSubjects();
+
+        removeStudentFromSubject(student2);
+
+        System.out.println(studentsOfEstimation);
+
+        printAllStudent();
+
+        addNewSubjectAndStudentsList(subject4, List.of(student2));
+
+        System.out.println(studentsOfEstimation);
+        System.out.println(subjectsOfStudents);
+
+        addStudentByExistingSubject(student, subject4);
+        System.out.println(subjectsOfStudents);
+
+        removeStudentForSubject(student, subject4);
+        System.out.println(subjectsOfStudents);
+
+        printAllSubjects();
     }
 
     public static void addStudentToSubject(Student student, Subject subject, int estimation) {
