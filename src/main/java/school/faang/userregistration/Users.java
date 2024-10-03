@@ -8,7 +8,7 @@ public class Users {
     private Integer age;
     private String workPlace;
     private String address;
-    private final Integer MIN_AGE = 18;
+    private static final Integer MIN_AGE = 18;
 
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New-York", "Amsterdam");
@@ -37,26 +37,14 @@ public class Users {
     }
 
     private String workPlaceValidation(String workPlace) {
-        boolean logicValue = false;
-        for (String element : VALID_JOBS) {
-            if (element.contains(workPlace)) {
-                logicValue = true;
-            }
-        }
-        if (!logicValue) {
+        if (!VALID_JOBS.contains(workPlace)) {
             throw new IllegalArgumentException("Этого элемента workPlace нет в сэте");
         }
         return workPlace;
     }
 
     private String addressValidation(String address) {
-        boolean logicValue = false;
-        for (String element : VALID_ADDRESSES) {
-            if (element.contains(address)) {
-                logicValue = true;
-            }
-        }
-        if (!logicValue) {
+        if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Этого элемента address нет в сэте");
         }
         return address;
