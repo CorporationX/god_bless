@@ -1,8 +1,10 @@
 package bjs2_31292;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public abstract class Character {
     private String name;
     private Integer power;
@@ -15,7 +17,7 @@ public abstract class Character {
     }
 
     public Character(String name, Integer power, Integer agility, Integer intelligence) {
-        this.name = name;
+        this(name);
         this.power = power;
         this.agility = agility;
         this.intelligence = intelligence;
