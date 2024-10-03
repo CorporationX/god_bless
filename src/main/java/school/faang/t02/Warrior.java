@@ -10,7 +10,7 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character character) {
-        character.health = character.health - getPower();
+        character.getHealth() -= power;
     }
 
     public Warrior(String name) {

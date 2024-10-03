@@ -7,11 +7,11 @@ public class Main {
         Archer archer = new Archer("Vasya");
 
         warrior.attack(archer);
-        System.out.println(archer.name + " получил урон: " + warrior.getPower());
+        System.out.println(archer.getName() + " получил урон: " + warrior.getPower());
         archer.attack(warrior);
-        System.out.println(warrior.name + " получил урон: " + archer.getDexterity());
+        System.out.println(warrior.getName() + " получил урон: " + archer.getDexterity());
 
-        System.out.println("Здоровье после битвы у " + archer.name + " :" + archer.health);
-        System.out.println("Здоровье после битвы у " + warrior.name + " :" + warrior.health);
+        System.out.println("Здоровье после битвы у " + archer.getName() + " :" + archer.getHealth());
+        System.out.println("Здоровье после битвы у " + warrior.getName() + " :" + warrior.getHealth());
     }
 }
