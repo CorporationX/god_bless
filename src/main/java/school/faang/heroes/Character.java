@@ -21,6 +21,9 @@ public abstract class Character {
         this.intellect = intellect;
     }
 
+    public void showHealth() {
+        System.out.printf("Здоровье %s %d\n", this.getName(), this.getHealth());
+    }
     public void takeDamage(Integer damage) {
         this.health -= damage;
     }

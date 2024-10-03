@@ -8,11 +8,14 @@ public class Main {
         Warrior warrior = new Warrior("Ivan");
         Archer archer = new Archer("Sergey");
 
-        System.out.printf("Здоровье %s %d\n", archer.getName(), archer.getHealth());
-        System.out.printf("Здоровье %s %d\n", warrior.getName(), warrior.getHealth());
+        System.out.println("До боя:");
+        warrior.showHealth();
+        archer.showHealth();
+        System.out.println("Бой:");
         warrior.attack(archer);
         archer.attack(warrior);
-        System.out.printf("Здоровье %s %d\n", archer.getName(), archer.getHealth());
-        System.out.printf("Здоровье %s %d\n", warrior.getName(), warrior.getHealth());
+        System.out.println("После боя:");
+        warrior.showHealth();
+        archer.showHealth();
     }
 }
