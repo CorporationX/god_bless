@@ -7,11 +7,11 @@ public class Archer extends Character {
 
     @Override
     void attack(Character target) {
-        int damage = dexterity;
-        target.health -= damage;
+        int damage = getDexterity();
+        target.setHealth(target.getHealth() - damage);
         System.out.printf("Archer атакует %s и наносит урона %s, осталось " +
                         "здоровья: %s\n",
-                target.name
-                , damage, target.health);
+                target.getName()
+                , damage, target.getHealth());
     }
 }

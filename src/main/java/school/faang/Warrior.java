@@ -7,11 +7,12 @@ public class Warrior extends Character {
 
     @Override
     void attack(Character target) {
-        int damage = power;
-        target.health -= damage;
+        int damage = getPower();
+
+        target.setHealth(target.getHealth() - damage);
         System.out.printf("Warrior атакует %s и наносит урона %s, осталось " +
                         "здоровья: %s\n",
-                target.name
-                , damage, target.health);
+                target.getName()
+                , damage, target.getHealth());
     }
 }
