@@ -7,12 +7,14 @@ public class Main {
     public static void main(String[] args) {
 
         var users = List.of(
-                new User("Sam", 18, "Google", "Washington DC"),
-                new User("Ban", 21, "Amazon", "Miami"),
-                new User("Keanu", 18, "Netflix", "California"),
-                new User("John", 40, "Microsoft", "Texas")
+                new User("Sam", 24, "Google", "Washington DC"),
+                new User("Ban", 24, "Amazon", "Miami"),
+                new User("Ken", 21, "Amazon", "Chicago"),
+                new User("Keanu", 21, "Netflix", "California"),
+                new User("Man", 32, "Netflix", "New York"),
+                new User("John", 32, "Microsoft", "Texas")
         );
 
-        System.out.println(User.groupUser(users, 18));
+        System.out.println(User.groupUsers(users));
     }
 }
