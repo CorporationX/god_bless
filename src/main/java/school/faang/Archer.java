@@ -11,7 +11,6 @@ public class Archer extends Character {
         target.setHealth(target.getHealth() - damage);
         System.out.printf("Archer атакует %s и наносит урона %s, осталось " +
                         "здоровья: %s\n",
-                target.getName()
-                , damage, target.getHealth());
+                target.getName(), damage, target.getHealth());
     }
 }

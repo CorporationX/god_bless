@@ -12,7 +12,6 @@ public class Warrior extends Character {
         target.setHealth(target.getHealth() - damage);
         System.out.printf("Warrior атакует %s и наносит урона %s, осталось " +
                         "здоровья: %s\n",
-                target.getName()
-                , damage, target.getHealth());
+                target.getName(), damage, target.getHealth());
     }
 }
