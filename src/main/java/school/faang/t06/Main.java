@@ -3,76 +3,67 @@ package school.faang.t06;
 import java.util.*;
 
 public class Main {
-    private static final List<Student> STUDENTS = new ArrayList<>();
-    private static final Map<Map.Entry<String, Integer>, List<Student>> GROUPED_STUDENTS = new HashMap<>();
-    private static final Map<Student, Integer> INDEX_STUDENTS = new HashMap<>();
+    private static final List<Student> students = new ArrayList<>();
+
 
     public static void main(String[] args) {
 
-        addStudent(new Student("Masha", "it", 1));
-        addStudent(new Student("Sasha", "it", 2));
-        addStudent(new Student("Vasya", "gum", 1));
-        addStudent(new Student("ADel", "gum", 3));
-        addStudent(new Student("Tom", "it", 1));
+        Student studOne = new Student("Masha", "it", 1);
+        Student studTwo = new Student("Sasha", "it", 2);
+        Student studThree = new Student("Vasya", "gum", 1);
+        Student studFour = new Student("ADel", "gum", 3);
+        Student studFive = new Student("Tom", "it", 1);
+        Student Addotic = new Student("Addotic", "gum", 5);
 
-        System.out.println("Все студенты:");
-        printAllGroupedStudents();
+        students.add(studOne);
+        students.add(studTwo);
+        students.add(studThree);
+        students.add(studFour);
+        students.add(studFive);
 
-        System.out.println("Студенты факультета it, 1 курс:");
-        List<Student> infoFirstYear = findStudents("it", 1);
-        infoFirstYear.forEach(System.out::println);
+        addStudent(Addotic);
 
-        removeStudent("ADel", "gum", 3);
-        System.out.println("\nПосле удаления ADel:");
-        printAllGroupedStudents();
+        removeStudent("Addotic", "gum", 5);
 
-        addStudent(new Student("Addotic", "gum", 5));
-        System.out.println("\nПосле добавления нового студента:");
-        printAllGroupedStudents();
+        findStudentsByFacultyAndYear("it", 1);
+
+        printAllGroupedUsers();
     }
 
-    public static void addStudent(Student student) {
-        STUDENTS.add(student);
-        INDEX_STUDENTS.put(student, STUDENTS.size() - 1);
-        updateGroupedStudents();
+
+    static void addStudent(Student student) {
+        students.add(student);
     }
 
-    private static void removeStudent(String name, String faculty, int year) {
+    static void removeStudent(String name, String faculty, int year) {
         Student key = new Student(name, faculty, year);
-        Integer index = INDEX_STUDENTS.remove(key);
-        if (index != null) {
-            STUDENTS.remove(index.intValue());
-            updateIndexes(index);
-            updateGroupedStudents();
-        }
+        students.remove(key);
     }
 
-    public static List<Student> findStudents(String faculty, int year) {
-        return GROUPED_STUDENTS.getOrDefault(Map.entry(faculty, year), new ArrayList<>());
-    }
-
-    public static void printAllGroupedStudents() {
-        for (Map.Entry<Map.Entry<String, Integer>, List<Student>> entry : GROUPED_STUDENTS.entrySet()) {
-            System.out.println("Faculty: " + entry.getKey().getKey() + ", Year: " + entry.getKey().getValue());
-            for (Student student : entry.getValue()) {
-                System.out.println("  " + student);
+    public static List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
+        List<Student> foundStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getFaculty().equalsIgnoreCase(faculty) && student.getYear() == year) {
+                foundStudents.add(student);
             }
-            System.out.println();
+        }
+        return foundStudents;
+    }
+
+    public static void printAllGroupedUsers() {
+        Map<Map.Entry<String, Integer>, List<Student>> result = groupStudents(students);
+
+        for (Map.Entry<Map.Entry<String, Integer>, List<Student>> listEntry : result.entrySet()) {
+            System.out.println(listEntry);
         }
     }
 
-    private static void updateIndexes(int removedIndex) {
-        for (int i = removedIndex; i < STUDENTS.size(); i++) {
-            Student student = STUDENTS.get(i);
-            INDEX_STUDENTS.put(student, i);
+    static Map<Map.Entry<String, Integer>, List<Student>> groupStudents(List<Student> students) {
+        Map<Map.Entry<String, Integer>, List<Student>> groupedStudents = new HashMap<>();
+        for (Student student : students) {
+            Map.Entry<String, Integer> key = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
+            groupedStudents.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
-    }
-
-    private static void updateGroupedStudents() {
-        GROUPED_STUDENTS.clear();
-        for (Student student : STUDENTS) {
-            Map.Entry<String, Integer> key = Map.entry(student.getFaculty(), student.getYear());
-            GROUPED_STUDENTS.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
-        }
+        return groupedStudents;
     }
 }
