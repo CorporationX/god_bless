@@ -1,6 +1,4 @@
 package school.faang.solution.userSignUp.abstractTask;
-
-
 import lombok.Data;
 
 @Data
@@ -9,7 +7,7 @@ public abstract class Character {
     private int strength;
     private int agility;
     private int intellect;
-    private int hp = 100; // подумать
+    private int hp = 100;
 
     public Character(String name) {
         this.name = name;
@@ -23,9 +21,4 @@ public abstract class Character {
     }
 
     public abstract void attack(Character character);
-
-
-
-
-
 }
