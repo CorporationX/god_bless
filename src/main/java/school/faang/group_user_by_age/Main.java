@@ -15,6 +15,6 @@ public class Main {
                 new User("John", 32, "Microsoft", "Texas")
         );
 
-        System.out.println(User.groupUsers(users));
+        User.groupUsers(users).entrySet().forEach(System.out::println);
     }
 }
