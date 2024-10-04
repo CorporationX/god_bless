@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 abstract public class Character {
-    private static final int LOW_HEALTH_THRESHOLD = 20;
+    private static final int LOW_HEALTH_THRESHOLD = 20; // Порог здоровья
     @Getter
     private int maxHealth = 100;
     private String name;
@@ -18,7 +18,6 @@ abstract public class Character {
     @Getter
     private int health;
 
-
     public Character(String name, int strength, int dexterity, int intelligence) {
         this.name = name;
         this.strength = strength;
@@ -27,7 +26,7 @@ abstract public class Character {
         this.health = this.maxHealth;
     }
 
-    public Character (String name) {
+    public Character(String name) {
         this(name, 0, 0, 0);
     }
 
@@ -38,16 +37,19 @@ abstract public class Character {
         }
         checkLowHealth();
     }
-    private void activateAbility() {
-        System.out.println(this.name + " активировал способность! Низкий уровень здоровья: " + this.health);
-    }
-    public void receiveDamage(int damage) {
-        this.takeDamage(damage);
-    }
+
+    protected abstract void activateAbility();
+
+    public abstract void receiveDamage(int damage);
+
     private void checkLowHealth() {
         if (this.health <= this.maxHealth * LOW_HEALTH_THRESHOLD / 100) {
             activateAbility();
         }
+    }
+
+    public double getLowHealthThreshold() {
+        return LOW_HEALTH_THRESHOLD / 100.0; // Возвращает порог как десятичное число
     }
 
     abstract public void attack(Character enemy);
