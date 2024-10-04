@@ -15,7 +15,6 @@ public class Main {
         for (Subject sub : subject.keySet()) {
             SUBJECT_STUDENT_GROUP_LIST.computeIfAbsent(sub, K -> new ArrayList<>()).add(student);
         }
-
     }
 
     public void addNewSubjectAndGradeToStudent(Student student, Subject subject, int grade) {
@@ -30,9 +29,9 @@ public class Main {
         STUDENTS_GRADE.remove(student);
     }
 
-    public void printAllInfoAboutStudent(){
+    public void printAllInfoAboutStudent() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : STUDENTS_GRADE.entrySet()) {
-            for (Map.Entry<Subject, Integer> secondEntry : entry.getValue().entrySet()){
+            for (Map.Entry<Subject, Integer> secondEntry : entry.getValue().entrySet()) {
                 System.out.println(entry.getKey().getName() + " " + secondEntry.getKey().getName() + " " + secondEntry.getValue());
             }
             System.out.println("=========================================================");
@@ -46,19 +45,19 @@ public class Main {
         }
     }
 
-    public void addNewStudentToSubject(Subject subject, Student student){
+    public void addNewStudentToSubject(Subject subject, Student student) {
         SUBJECT_STUDENT_GROUP_LIST.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
         STUDENTS_GRADE.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
     }
 
-    public void removeStudentFromSubject(Student student, Subject subject){
+    public void removeStudentFromSubject(Student student, Subject subject) {
         SUBJECT_STUDENT_GROUP_LIST.get(subject).remove(student);
         STUDENTS_GRADE.get(student).remove(subject);
     }
 
     public void printAllSubjectAndStudent() {
-        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENT_GROUP_LIST.entrySet()){
-            for(Student student : entry.getValue()){
+        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENT_GROUP_LIST.entrySet()) {
+            for(Student student : entry.getValue()) {
                 System.out.println(entry.getKey().getName() + " " + student.getName());
             }
             System.out.println("=========================================================");
