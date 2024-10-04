@@ -21,14 +21,11 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
 
-        for (User user : users) {
-            if (userGroups.containsKey(user.getAge())) {
-                userGroups.get(user.getAge()).add(user);
-            } else {
-                userGroups.put(user.getAge(), new ArrayList<User>());
-                userGroups.get(user.getAge()).add(user);
-            }
-        }
+        users.forEach(user -> {
+            userGroups.putIfAbsent(user.getAge(), new ArrayList<>());
+            userGroups.get(user.getAge()).add(user);
+        });
+
         return userGroups;
     }
 }
