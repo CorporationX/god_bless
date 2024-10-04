@@ -1,4 +1,4 @@
-package school.faang.abstractclasses;
+package school.faang.abstractions;
 
 public class Archer extends Character {
     private static final int POWER_DEFAULT = 3;

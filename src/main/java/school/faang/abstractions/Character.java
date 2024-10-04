@@ -1,13 +1,13 @@
-package school.faang.abstractclasses;
+package school.faang.abstractions;
 
 public abstract class Character {
     private static final int HEALTH_DEFAULT = 100;
 
-    private String name;
+    protected String name;
     protected int power;
     protected int skill;
-    private int intelligence;
-    protected int health;
+    protected int intelligence;
+    protected int health = HEALTH_DEFAULT;
 
     public Character(String name) {
         this(name, 0,0,0);
@@ -18,7 +18,6 @@ public abstract class Character {
         this.power = power;
         this.skill = skill;
         this.intelligence = intelligence;
-        this.health = HEALTH_DEFAULT;
     }
 
     public abstract void attack(Character character);
