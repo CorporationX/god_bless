@@ -13,6 +13,7 @@ import java.util.Set;
 
 public class Main {
     private static final Map<String, List<WebPage>> INDEX_WEB_PAGES = new HashMap<>();
+    private static final Map<String, Set<String>> INDEX_URLS = new HashMap<>();
 
 
     public static void main(String[] args) {
@@ -29,22 +30,31 @@ public class Main {
         INDEX_WEB_PAGES.forEach((k, v) -> System.out.println(k + " " + v.stream().map(WebPage::getTitle).toList()));
 
         System.out.println();
-        System.out.println(findWebPages("hello").toString());
+        System.out.println(findWebPages("Plot").toString());
+
+        System.out.println();
+        removeWebPageFromIndex("https://www.mail.ru");
+        INDEX_WEB_PAGES.forEach((k, v) -> System.out.println(k + " " + v.stream().map(WebPage::getTitle).toList()));
 
     }
 
-    public static void indexingWebPage(WebPage webPage) {
-        if (webPage == null) return;
-        List<String> words = List.of(webPage.getContent().replaceAll("\\p{P}", " ").split(" "));
+    public static void indexingWebPage(@NonNull WebPage webPage) {
+        Set<String> words = new HashSet<>(List.of(webPage
+                .getContent()
+                .replaceAll("\\p{P}", " ")
+                .split(" ")));
+
+        INDEX_URLS.computeIfAbsent(webPage.getUrl(), k -> new HashSet<>()).addAll(words);
+
         for (String word : words) {
-            if (!word.isEmpty()) {
-                if (INDEX_WEB_PAGES.containsKey(word)) {
-                    Set<WebPage> pages = new HashSet<>(INDEX_WEB_PAGES.get(word));
-                    if (!pages.contains(webPage)) INDEX_WEB_PAGES.get(word).add(webPage);
-                } else {
-                    INDEX_WEB_PAGES.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
-                }
+            if (word.isEmpty()) continue;
+            if (INDEX_WEB_PAGES.containsKey(word)) {
+                Set<WebPage> pages = new HashSet<>(INDEX_WEB_PAGES.get(word));
+                if (!pages.contains(webPage)) INDEX_WEB_PAGES.get(word).add(webPage);
+            } else {
+                INDEX_WEB_PAGES.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
             }
+
         }
     }
 
@@ -52,5 +62,17 @@ public class Main {
         return INDEX_WEB_PAGES.getOrDefault(word, List.of());
     }
 
+    public static void removeWebPageFromIndex(@NonNull String url) {
+        Set<String> words = INDEX_URLS.get(url);
+        for (String word : words) {
+            if (word.isEmpty()) continue;
+            List<WebPage> webPages = findWebPages(word);
+            if (webPages.size() == 1 && webPages.get(0).getUrl().equals(url)) {
+                INDEX_WEB_PAGES.remove(word);
+            } else {
+                INDEX_WEB_PAGES.get(word).removeIf(webPage -> webPage.getUrl().equals(url));
+            }
+        }
+    }
 
 }
