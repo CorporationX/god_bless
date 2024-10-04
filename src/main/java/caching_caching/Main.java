@@ -1,13 +1,11 @@
 package caching_caching;
 
-import lombok.Getter;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    @Getter
-    private static final Map<String, WeatherData> weatherData = new HashMap<>();
+    static final Map<String, WeatherData> weatherData = new HashMap<>();
+    private static final WeatherService weatherService = new WeatherService();
 
     public static void main(String[] args) {
         System.out.println(getWeather("London"));
@@ -29,15 +27,14 @@ public class Main {
             return data;
         }
 
-        ApiWeather apiWeather = new ApiWeather();
-        data = apiWeather.getWeatherData(city);
+
+        data = weatherService.getWeatherData(city);
         weatherData.put(city, data);
         return data;
     }
 
     public static void updateWeatherData(String city) {
-        ApiWeather apiWeather = new ApiWeather();
-        weatherData.put(city, apiWeather.getWeatherData(city));
+        weatherData.put(city, weatherService.getWeatherData(city));
     }
 
     public static void deleteWeatherData(String city) {

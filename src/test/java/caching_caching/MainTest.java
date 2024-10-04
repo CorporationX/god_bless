@@ -11,7 +11,7 @@ class MainTest {
     @Test
     void getWeatherData() {
         WeatherData weatherData = Main.getWeather("London");
-        assertEquals(Main.getWeatherData().toString(), "{London=" + weatherData.toString() + "}");
+        assertEquals(Main.weatherData.toString(), "{London=" + weatherData.toString() + "}");
         Main.deleteWeatherData("London");
     }
 
@@ -19,14 +19,14 @@ class MainTest {
     void updateWeatherData() {
         WeatherData weatherData = Main.getWeather("London");
         Main.updateWeatherData("London");
-        assertNotEquals(Main.getWeatherData().toString(), "{London=" + weatherData.toString() + "}");
+        assertNotEquals(Main.weatherData.toString(), "{London=" + weatherData.toString() + "}");
     }
 
     @Test
     void deleteWeatherData() {
         Main.getWeather("London");
         Main.deleteWeatherData("London");
-        assertEquals("{}", Main.getWeatherData().toString());
+        assertNull(Main.weatherData.get("London"));
     }
 
     @Test
