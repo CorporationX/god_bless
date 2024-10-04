@@ -18,7 +18,7 @@ public class Product {
     private String name;
     private String category;
 
-    public Map<String, List<Product>> groupByCategory(Set<Product> productHashSet) {
+    public static Map<String, List<Product>> groupByCategory(Set<Product> productHashSet) {
         Map<String, List<Product>> groupedProductsByCategory = new HashMap<>();
         for (Product product : productHashSet) {
             groupedProductsByCategory.computeIfAbsent(product.category,
