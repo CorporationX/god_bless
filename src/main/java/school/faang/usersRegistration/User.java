@@ -6,18 +6,19 @@ import java.util.Set;
 
 public record User(
         String name,
-        String age,
+        int age,
         String workPlace,
         String address
 ) {
-    public static Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    public static Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final int AGE_RESTRICTION = 18;
 
-    public User(String name, String age, String workPlace, String address) {
-        if(name == null || name.equals("")) {
+    public User(String name, int age, String workPlace, String address) {
+        if(name == null || name.isEmpty()) {
             throw new IllegalArgumentException("name is null or empty");
         }
-        if(Integer.parseInt(age) < 18) {
+        if(age < AGE_RESTRICTION) {
             throw new IllegalArgumentException("age can`t be less then 18");
         }
         if(!VALID_JOBS.contains(workPlace)) {
