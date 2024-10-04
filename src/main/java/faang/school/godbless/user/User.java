@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int MIN_AGE = 18;
 
     private final String name;
     private final int age;
@@ -19,7 +20,7 @@ public class User {
 
     public User(String name, int age, String work, String address) {
         if (name == null || name.isBlank()) throw new IllegalArgumentException("name must not be empty");
-        if (age < 18) throw new IllegalArgumentException("age must be over 18");
+        if (age < MIN_AGE) throw new IllegalArgumentException(String.format("age must be over %s", MIN_AGE));
         if (work == null || !VALID_JOBS.contains(work)) throw new IllegalArgumentException("job must be a valid value");
         if (address == null || !VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException("address must be a valid value");
 
