@@ -1,12 +1,16 @@
 package bjs2_31309;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public abstract class Character {
     private String name;
-    protected int strength;
-    protected int agility;
+    private int strength;
+    private int agility;
     private int intellect;
-    public int health = 100;
+    private int health = 100;
 
     public Character(String name) {
         this.name = name;
