@@ -1,24 +1,33 @@
 package school.faang;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class Main {
 
-    public static void main(String[] args) {
-        Character warrior = new Warrior("Alex");
-        Character archer = new Archer("Ivan");
-        printCharacterStatistics(warrior, archer);
+    private static final Map<String, List<WebPage>> INDEX_TO_PAGES = new HashMap<>();
 
-        warrior.attack(archer);
-        archer.attack(warrior);
-        printCharacterStatistics(warrior, archer);
+    public static void main(String[] args) {
+
     }
 
-    private static void printCharacterStatistics(Character... characters) {
-        for (Character character : characters) {
-            System.out.printf(
-                    "%s health: %d%n",
-                    character.getClass().getSimpleName(),
-                    character.getHealth()
-            );
+    public static void addPageToIndex(WebPage page) {
+        for (String word : page.getContent().split(" ")) {
+            INDEX_TO_PAGES.computeIfAbsent(word, k -> new ArrayList<>()).add(page);
+        }
+    }
+
+    public static List<WebPage> getWebPagesFromIndex(String index) {
+        return INDEX_TO_PAGES.get(index);
+    }
+
+    public static void removePageFromIndex(WebPage page) {
+        for (String word : page.getContent().split(" ")) {
+            if (INDEX_TO_PAGES.containsKey(word)) {
+                INDEX_TO_PAGES.get(word).remove(page);
+            }
         }
     }
 }
