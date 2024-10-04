@@ -12,10 +12,10 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
-    Integer  id;
-    String name;
-    Integer age;
-    Set<String> activity;
+    private Integer  id;
+    private String name;
+    private Integer age;
+    private Set<String> activity;
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
         Map<User, String> userMap = new HashMap<>();
@@ -23,6 +23,7 @@ public class User {
             for (String oneActivity: activity) {
                 if (user.getActivity().contains(oneActivity)) {
                     userMap.put(user, oneActivity.toString());
+                    break;
                 }
             }
         }
