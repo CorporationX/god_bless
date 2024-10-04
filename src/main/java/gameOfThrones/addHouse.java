@@ -7,7 +7,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 @EqualsAndHashCode
-public class House {
+public class addHouse {
     private String name;
     private String sigil;
 }
