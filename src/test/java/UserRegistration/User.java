@@ -10,24 +10,39 @@ import java.util.Objects;
 import java.util.Set;
 
 public class User {
+    private final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private final Set<String> VALID_ADRESS = new HashSet<>(Arrays.asList("London", "New-York", "Amsterdam"));
+    private final int LEGAL_AGE = 18;
+
     private String name;
     private int age;
     private String work;
     private String adress;
-    private final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private final Set <String> VALID_ADRESS = new HashSet<>(Arrays.asList("London", "New-York", "Amsterdam"));
 
 
     public User(String name, int age, String work, String adress) {
-        if ( !name.isEmpty() && age >= 18 && VALID_JOBS.contains(work) && VALID_ADRESS.contains(adress)) {
+        if (!name.isEmpty()) {
             this.name = name;
+        } else {
+            throw new IllegalArgumentException("Field cannot be empty");
+        }
+        if (age >= LEGAL_AGE) {
             this.age = age;
+        } else {
+            throw new IllegalArgumentException(" Must be over 18 years of age");
+        }
+        if (VALID_JOBS.contains(work)) {
             this.work = work;
+        } else {
+            throw new IllegalArgumentException("The work place is not suitable ");
+        }
+        if (VALID_ADRESS.contains(adress)) {
             this.adress = adress;
-        }else  {
-            throw new IllegalArgumentException("Incorrect data");
+        } else {
+            throw new IllegalArgumentException("The adress is not suitable");
         }
     }
+
     public String getName() {
         return name;
     }
@@ -35,7 +50,6 @@ public class User {
     public int getAge() {
         return age;
     }
-
 
 
     @Override
