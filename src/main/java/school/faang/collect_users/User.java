@@ -20,7 +20,7 @@ public class User {
         var hobbyLovers = new HashMap<User, String>();
         users.forEach(user -> {
             hobbies.retainAll(user.getHobbies());
-            hobbyLovers.put(user, hobbies.stream().findAny().orElse("Doesn't have matched hobbies"));
+            hobbyLovers.put(user, hobbies.stream().findFirst().orElse("Doesn't have matched hobbies"));
         });
         return hobbyLovers;
     }
