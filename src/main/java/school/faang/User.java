@@ -21,14 +21,19 @@ public class User {
     private int age;
 
     public User(String name, String address, String job, int age) {
-        if (name.isBlank() || !VALID_ADDRESSES.contains(address) || age < VALID_AGE || !VALID_JOBS.contains(job)) {
-            throw new IllegalArgumentException();
-        } else {
-            this.name = name;
-            this.address = address;
-            this.job = job;
-            this.age = age;
+        if (name.isBlank()) {
+            throw new IllegalArgumentException("The name is empty!");
+        } else if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("The address is not valid!");
+        } else if (age < VALID_AGE) {
+            throw new IllegalArgumentException("The age is not valid!");
+        } else if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("The job is not valid!");
         }
+        this.name = name;
+        this.address = address;
+        this.job = job;
+        this.age = age;
     }
 
 
