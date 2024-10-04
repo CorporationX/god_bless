@@ -12,9 +12,9 @@ public class Main {
         Book secondBook = new Book("Crime and punishment", "Fyodor Dostoevsky", 1866);
         Book thirdBook = new Book("1984", "George Orwell", 1949);
 
-        BOOK_PLACE.put(firstBook,  "First shelf");
-        BOOK_PLACE.put(secondBook,  "Second shelf");
-        BOOK_PLACE.put(thirdBook,  "Third shelf");
+        BOOK_PLACE.put(firstBook, "First shelf");
+        BOOK_PLACE.put(secondBook, "Second shelf");
+        BOOK_PLACE.put(thirdBook, "Third shelf");
     }
 
     public void addBook(Book book, String place) {
@@ -31,9 +31,9 @@ public class Main {
         System.out.println(BOOK_PLACE.get(book));
     }
 
-    public void printAllBook(){
-        for(Map.Entry<Book, String> entry : BOOK_PLACE.entrySet()) {
-            Book book=entry.getKey();
+    public void printAllBook() {
+        for (Map.Entry<Book, String> entry : BOOK_PLACE.entrySet()) {
+            Book book = entry.getKey();
             System.out.println(book + " Place=" + entry.getValue());
         }
     }
