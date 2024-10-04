@@ -31,21 +31,19 @@ public class Warrior extends Character {
         // Дополнительная логика смерти
     }
 
-    private void activateLowHealthAbility() {
-        System.out.println(this.getName() + " активирует способность при низком здоровье!");
-        // Логика активации способности
+
+    @Override
+    public void receiveDamage(int damage) {
+        takeDamage(damage);
+        if (this.getHealth() <= 0) {
+            die();
+        }
     }
 
-    public void receiveDamage(int damage) {
-        // Логика получения урона
-        this.setHealth(this.getHealth() - damage);
+    private void activateLowHealthAbility() {
+    }
 
-        if (this.getHealth() <= 0) {
-            // Логика смерти
-            this.die();
-            System.out.println("Умер");
-        } else if (this.getHealth() < this.getMaxHealth() * 0.2) {
-            activateLowHealthAbility();
-        }
+    protected void activateAbility() {
+        System.out.println(this.getName() + " активирует способность при низком здоровье!");
     }
 }
