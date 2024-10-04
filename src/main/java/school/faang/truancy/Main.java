@@ -2,24 +2,21 @@ package school.faang.truancy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class Main {
 
     private static final List<Student> STUDENTS = new ArrayList<>();
-
-    static {
-        STUDENTS.addAll(List.of(
-                new Student("Alex", "IVT", 2),
-                new Student("John", "MRM", 3),
-                new Student("Ivan", "IVT", 2)
-                )
-        );
-    }
+    private static final Set<Student> addedStudents = new HashSet<>();
 
     public static void main(String[] args) {
+        addStudent(new Student("Alex", "IVT", 2));
+        addStudent(new Student("John", "MRM", 3));
+        addStudent(new Student("Ivan", "IVT", 2));
         printAllStudents();
         addStudent(new Student("Petr", "MRM", 3));
         printAllStudents();
@@ -32,12 +29,16 @@ public class Main {
         if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
-        STUDENTS.add(student);
+        if (addedStudents.add(student)) {
+            STUDENTS.add(student);
+        }
     }
 
     public static void removeStudent(String name, String faculty, int year) {
         Student studentToRemove = new Student(name, faculty, year);
-        STUDENTS.remove(studentToRemove);
+        if (addedStudents.remove(studentToRemove)) {
+            STUDENTS.remove(studentToRemove);
+        }
     }
 
     public static List<Student> getStudentsByFacultyAndYear(String faculty, int year) {

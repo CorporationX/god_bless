@@ -1,13 +1,13 @@
 package school.faang.truancy;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class Student {
 
-    private String name;
-    private String faculty;
-    private int year;
+    private final String name;
+    private final String faculty;
+    private final int year;
 }
