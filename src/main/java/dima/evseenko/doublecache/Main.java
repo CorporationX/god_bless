@@ -5,46 +5,46 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        University university = new University();
-        addMarks(university);
-        university.printStudentMarks();
+        StudentService studentService = new StudentService();
+        addMarks(studentService);
+        studentService.printStudentMarks();
 
-        university.deleteSubjectFromMarks(new Student(1L, "Dima"), new Subject(1L, "Math"));
-        university.printStudentMarks();
+        studentService.deleteSubjectFromMarks(new Student(1L, "Dima"), new Subject(1L, "Math"));
+        studentService.printStudentMarks();
 
-        university.deleteStudentFromMarks(new Student(1L, "Dima"));
-        university.printStudentMarks();
+        studentService.deleteStudentFromMarks(new Student(1L, "Dima"));
+        studentService.printStudentMarks();
 
-        addSubjectStudents(university);
-        university.printSubjectStudents();
+        addSubjectStudents(studentService);
+        studentService.printSubjectStudents();
     }
 
-    private static void addSubjectStudents(University university) {
-        university.addSubjectStudents(new Subject(1L, "Math"), List.of(
+    private static void addSubjectStudents(StudentService studentService) {
+        studentService.addSubjectStudents(new Subject(1L, "Math"), List.of(
                 new Student(1L, "Dima"),
                 new Student(2L, "Scott"),
                 new Student(3L, "Bob"),
                 new Student(4L, "Jack")
         ));
 
-        university.addSubjectStudents(new Subject(2L, "Programming"), List.of(
+        studentService.addSubjectStudents(new Subject(2L, "Programming"), List.of(
                 new Student(2L, "Scott"),
                 new Student(4L, "Jack")
         ));
 
-        university.addSubjectStudents(new Subject(2L, "Programming"), List.of(
+        studentService.addSubjectStudents(new Subject(2L, "Programming"), List.of(
                 new Student(3L, "Bob")
         ));
 
-        university.deleteStudentFromSubject(new Subject(2L, "Programming"), new Student(4L, "Jack"));
+        studentService.deleteStudentFromSubject(new Subject(2L, "Programming"), new Student(4L, "Jack"));
     }
 
-    private static void addMarks(University university) {
+    private static void addMarks(StudentService studentService) {
         Student student = new Student(1L, "Dima");
 
-        university.addStudentMark(student, new Subject(1L, "Math"), 5);
-        university.addStudentMark(student, new Subject(2L, "Programming"), 5);
-        university.addStudentMarks(student, Map.of(
+        studentService.addStudentMark(student, new Subject(1L, "Math"), 5);
+        studentService.addStudentMark(student, new Subject(2L, "Programming"), 5);
+        studentService.addStudentMarks(student, Map.of(
                         new Subject(3L, "Physics"), 3,
                         new Subject(4L, "Music"), 4
                 )

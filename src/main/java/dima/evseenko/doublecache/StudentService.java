@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class University {
+public class StudentService {
     private final Map<Student, Map<Subject, Integer>> studentMarks = new HashMap<>();
     private final Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
