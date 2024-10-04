@@ -3,7 +3,7 @@ package school.faang.google;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -31,14 +31,14 @@ class GoogleTest {
     @Test
     void addAndFindByRequestTest() {
         google.indexWebPage(new WebPage("https://four.com", "Title 4", "one two eleven"));
-        List<WebPage> responses = google.search("two");
+        Set<WebPage> responses = google.search("two");
         assertEquals(3, responses.size());
     }
 
     @Test
     void deletePageTest() {
         google.removeWebPage("https://two.com");
-        List<WebPage> responses = google.search("two");
+        Set<WebPage> responses = google.search("two");
         assertEquals(2, responses.size());
     }
 }
