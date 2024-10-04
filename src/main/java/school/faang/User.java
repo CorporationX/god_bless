@@ -3,23 +3,27 @@ package school.faang;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
 public class User {
+    private int id;
     private String name;
-    private String address;
-    private String job;
     private int age;
+    private Set<String> hobbies;
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users) {
-        Map<Integer, List<User>> result = new HashMap<>();
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> result = new HashMap<>();
         for (User user : users) {
-            result.computeIfAbsent(user.getAge(), u -> new ArrayList<>()).add(user);
+            for (String hobby : user.hobbies) {
+                if (hobbies.contains(hobby)) {
+                    result.put(user, hobby);
+                }
+            }
         }
         return result;
     }

@@ -2,23 +2,17 @@ package school.faang;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static school.faang.User.groupUsers;
+import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
-        users.add(new User("Аслан", "Пушкина 51", "Менеджер", 35));
-        users.add(new User("Арман", "Абылайхана 1", "Маркетолог", 28));
-        users.add(new User("Станислав", "Шевченко 11", "Разработчик", 23));
-        users.add(new User("Таисия", "Абая 103", "Бухгалтер", 29));
-        users.add(new User("Батырхан", "село Абай", "Курьер", 23));
+        users.add(new User(1, "Andrey", 23, Set.of("Football", "Volleyball", "Tennis")));
+        users.add(new User(2, "Vyacheslav", 51, Set.of("Running", "Tennis", "Fitness")));
+        users.add(new User(3, "Benjamin", 44, Set.of("Basketball", "Chess")));
+        users.add(new User(4, "John", 32, Set.of("Golf")));
+        users.add(new User(5, "Abay", 36, Set.of("Table Tennis", "Chess")));
 
-        for (Map.Entry<Integer, List<User>> result : groupUsers(users).entrySet()) {
-            if (result.getKey() == 29) {
-                System.out.println(result.getValue());
-            }
-        }
+        System.out.println(User.findHobbyLovers(users, Set.of("Football", "Chess")));
     }
 }
