@@ -1,6 +1,6 @@
 package school.faang;
 
-import school.faang.dto.User;
+import school.faang.bjs231347.dto.User;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package school.faang.dto;
+package school.faang.bjs231347.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
