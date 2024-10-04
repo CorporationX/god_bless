@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
-    private static final Map<Student, Map<Subject, Integer>> studentToSubjectMap = new HashMap<>();
-    private static final Map<Subject, List<Student>> subjectToStudentMap = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> STUDENT_TO_SUBJECT_MAP = new HashMap<>();
+    private static final Map<Subject, List<Student>> SUBJECT_TO_STUDENT_MAP = new HashMap<>();
 
     public static void main(String[] args) {
 
@@ -36,21 +36,21 @@ public class Main {
     }
 
     public static void updateDataBase(Student student, Map<Subject, Integer> scores) {
-        studentToSubjectMap.computeIfAbsent(student, k -> new HashMap<>()).putAll(scores);
+        STUDENT_TO_SUBJECT_MAP.computeIfAbsent(student, k -> new HashMap<>()).putAll(scores);
         for (Subject subject : scores.keySet()) {
             updateSubject(subject, student);
         }
     }
 
     public static void removeStudent(Student student) {
-        Set<Subject> subjectSet = studentToSubjectMap.remove(student).keySet();
+        Set<Subject> subjectSet = STUDENT_TO_SUBJECT_MAP.remove(student).keySet();
         for (Subject subject : subjectSet) {
-            subjectToStudentMap.get(subject).remove(student);
+            SUBJECT_TO_STUDENT_MAP.get(subject).remove(student);
         }
     }
 
     public static void displayStudents() {
-        for (var entry : studentToSubjectMap.entrySet()) {
+        for (var entry : STUDENT_TO_SUBJECT_MAP.entrySet()) {
             Student student = entry.getKey();
             System.out.printf("Student %s (id #%d). ", student.getName(), student.getId());
             var scores = entry.getValue();
@@ -64,11 +64,11 @@ public class Main {
     }
 
     private static void updateSubject(Subject subject, Student student) {
-        subjectToStudentMap.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        SUBJECT_TO_STUDENT_MAP.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public static void displaySubjects() {
-        for (var entry : subjectToStudentMap.entrySet()) {
+        for (var entry : SUBJECT_TO_STUDENT_MAP.entrySet()) {
             Subject subject = entry.getKey();
             System.out.printf("%s (id #%d). Students: ", subject.getName(), subject.getId());
             List<Student> studentList = entry.getValue();
