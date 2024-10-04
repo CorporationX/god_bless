@@ -57,7 +57,7 @@ public class Main {
 
     public void printAllSubjectAndStudent() {
         for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENT_GROUP_LIST.entrySet()) {
-            for(Student student : entry.getValue()) {
+            for (Student student : entry.getValue()) {
                 System.out.println(entry.getKey().getName() + " " + student.getName());
             }
             System.out.println("=========================================================");
@@ -99,13 +99,13 @@ public class Main {
 
         ArrayList<Student> students = new ArrayList<>();
         Stream.of(secondStudent, thirdStudent, fourthStudent)
-                        .forEach(students::add);
-        main.addNewSubjectAndStudents(thirdSubject,  students);
+                .forEach(students::add);
+        main.addNewSubjectAndStudents(thirdSubject, students);
         main.printAllInfoAboutStudent();
         main.printAllSubjectAndStudent();
         System.out.println();
 
-        main.addNewStudentToSubject(firstSubject,sixthStudent);
+        main.addNewStudentToSubject(firstSubject, sixthStudent);
         main.printAllInfoAboutStudent();
         main.printAllSubjectAndStudent();
         System.out.println();
