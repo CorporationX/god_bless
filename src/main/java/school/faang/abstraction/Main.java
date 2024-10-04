@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.abstraction;
 
 import java.util.HashMap;
 import java.util.Map;
