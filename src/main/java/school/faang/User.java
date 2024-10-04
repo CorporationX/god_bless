@@ -1,9 +1,12 @@
 package school.faang;
 
+import lombok.Data;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Data
 public class User {
     private String name;
     private int age;
@@ -15,22 +18,6 @@ public class User {
         this.age = age;
         this.company = company;
         this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getCompany() {
-        return company;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     private static Map<Integer, List<User>> groupUsers(List<User> users) {
