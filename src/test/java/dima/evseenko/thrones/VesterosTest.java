@@ -69,22 +69,6 @@ class VesterosTest {
     }
 
     @Test
-    void deleteNullHouse(){
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().deleteHouse((String) null));
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().deleteHouse((House) null));
-    }
-
-    @Test
-    void deleteInvalidHouseName(){
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().deleteHouse(new House(null, "Прыгающая серебряная форель среди красно-синих волн")));
-    }
-
-    @Test
-    void deleteInvalidHouseSigil(){
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().deleteHouse(new House("Талли", null)));
-    }
-
-    @Test
     void getHouse(){
         House house = new House("Старки", "Голова серого лютоволка на бело-зелёном фоне");
 
@@ -96,7 +80,7 @@ class VesterosTest {
 
     @Test
     void getHouseNullName(){
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().getHouse(null));
+        assertNull(new Vesteros().getHouse(null));
     }
 
     @Test
@@ -111,7 +95,7 @@ class VesterosTest {
 
     @Test
     void getSigilNullName(){
-        assertThrows(IllegalArgumentException.class, () -> new Vesteros().getSigil(null));
+        assertNull(new Vesteros().getSigil(null));
     }
 
     private List<House> getHouses() {

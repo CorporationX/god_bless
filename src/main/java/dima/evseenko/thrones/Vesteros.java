@@ -20,46 +20,34 @@ public class Vesteros {
     }
 
     public void deleteHouse(String houseName) {
-        validateHouseName(houseName);
-
         houses.remove(houseName);
     }
 
     public void deleteHouse(House house) {
-        validateHouse(house);
-
         deleteHouse(house.getName());
     }
 
     public House getHouse(String houseName) {
-        validateHouseName(houseName);
-
         return houses.get(houseName);
     }
 
     public String getSigil(String houseName) {
-        validateHouseName(houseName);
-
+        if(houseName == null) return null;
         return getHouse(houseName).getSigil();
     }
 
     private void validateHouse(House house) {
         if(house == null)
             throw new IllegalArgumentException("house is null");
+        if(house.getName() == null)
+            throw new IllegalArgumentException("house name is null");
         if(house.getSigil() == null)
             throw new IllegalArgumentException("house sigil is null");
-        validateHouseName(house.getName());
-    }
-
-    private void validateHouseName(String houseName) {
-        if(houseName == null)
-            throw new IllegalArgumentException("house name is null");
     }
 
     private void validateHouses(List<House> houses) {
         if(houses == null)
             throw new IllegalArgumentException("houses is null");
-        houses.forEach(this::validateHouse);
     }
 
     public void printHouses() {
