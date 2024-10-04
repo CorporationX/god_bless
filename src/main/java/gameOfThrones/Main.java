@@ -25,10 +25,19 @@ public class Main {
         HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
 
 
+        removeHouse("Targaryen");
+        removeHouse("Arryn");
+        removeHouse("Tully");
+        System.out.println();
+        HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
     }
 
     public static void addHouse(String name, String sigil) {
         String key = name.split(" ")[0];
         HOUSES.computeIfAbsent(key, (k) -> new addHouse(name, sigil));
+    }
+
+    public static void removeHouse(String name) {
+        HOUSES.remove(name);
     }
 }
