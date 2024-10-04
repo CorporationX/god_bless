@@ -1,3 +1,5 @@
+package service;
+
 public class Example {
     public static void reverse(int[] nums) {
         for(int i = 0; i < nums.length/2; i++){
