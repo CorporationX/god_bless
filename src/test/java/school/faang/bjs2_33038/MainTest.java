@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static school.faang.bjs2_33038.Main.addBook;
@@ -45,7 +46,7 @@ class MainTest {
 
     @Test
     void testFindBook() {
-        assertTrue(findBook("Война и мир", "Толстой", 1867));
+        assertEquals("shelf_2", findBook("Война и мир", "Толстой", 1867));
     }
 
     @Test

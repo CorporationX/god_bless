@@ -18,9 +18,9 @@ public class Main {
         library.remove(new Book(title, author, year));
     }
 
-    public static boolean findBook(String title, String author, int year) {
+    public static String findBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        return library.containsKey(book);
+        return library.getOrDefault(book, "Книга не найдена");
     }
 
     public static void printAllBooks() {
