@@ -8,6 +8,8 @@ import java.util.*;
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int REQUIRED_AGE = 18;
+
     private final String name;
     private int age;
     private String company;
@@ -15,7 +17,7 @@ public class User {
 
     public User(String name, int age, String company, String address) throws IllegalAccessException {
         if (name.isEmpty() || name.isBlank()) throw new IllegalAccessException("Name cannot be empty");
-        if (age < 18) throw new IllegalAccessException("Age cannot be less than 18");
+        if (age < REQUIRED_AGE) throw new IllegalAccessException("Age cannot be less than " + REQUIRED_AGE);
         if (!VALID_JOBS.contains(company)) throw new IllegalAccessException("Company not exists");
         if (!VALID_ADDRESSES.contains(address)) throw new IllegalAccessException("Address not exists");
 
