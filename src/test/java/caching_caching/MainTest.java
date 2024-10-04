@@ -24,14 +24,14 @@ class MainTest {
 
     @Test
     void deleteWeatherData() {
-        WeatherData weatherData = Main.getWeather("London");
+        Main.getWeather("London");
         Main.deleteWeatherData("London");
         assertEquals("{}", Main.getWeatherData().toString());
     }
 
     @Test
     void printAllWeatherData() {
-        WeatherData weatherData = Main.getWeather("London");
+        Main.getWeather("London");
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
