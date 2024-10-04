@@ -16,14 +16,28 @@ public class User {
     private static final List<String> VALID_ADDRESSES = new ArrayList<>(Arrays.asList(
             "London", "New York", "Amsterdam"
     ));
+    private static final int MINIMUM_AGE_FOR_REGISTRATION = 18;
     private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
     User(String name, int age, String placeOfWork, String address) {
-        if ("".equals(name) || age < 18 || !VALID_JOBS.contains(placeOfWork) || !VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("parameters don't correct");
+        String errors = "";
+        if ("".equals(name)) {
+            errors += "name is empty, ";
+        }
+        if(age < MINIMUM_AGE_FOR_REGISTRATION){
+            errors += "age is not suitable";
+        }
+        if(!VALID_JOBS.contains(placeOfWork)){
+            errors += "place of work does not match";
+        }
+        if(!VALID_ADDRESSES.contains(address)){
+            errors += "address does not match";
+        }
+        if("".equals(errors)){
+            throw new IllegalArgumentException(errors);
         }
 
         this.name = name;
