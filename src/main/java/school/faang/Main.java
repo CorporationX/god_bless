@@ -18,6 +18,6 @@ public class Main {
         System.out.println("\nКоличество уникальных возрастов: " + groupedPersons.size());
 
         System.out.println("\nКоличество людей в каждой группе: ");
-        groupedPersons.forEach((age, personsList) -> System.out.println("Возраст: " + age + " Количество людей: " +personsList.size()));
+        groupedPersons.forEach((age, personsList) -> System.out.println("Возраст: " + age + " Количество людей: " + personsList.size()));
     }
 }

@@ -14,12 +14,13 @@ public class Person {
 
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    public static final int MIN_ADULT_AGE = 18;
 
     public Person(String name, int age, String workplace, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не должно быть пустым");
         }
-        if (age < 18) {
+        if (age < MIN_ADULT_AGE) {
             throw new IllegalArgumentException("Возраст должен быть больше 18");
         }
         if (!VALID_JOBS.contains(workplace)) {
