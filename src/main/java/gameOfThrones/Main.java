@@ -2,6 +2,7 @@ package gameOfThrones;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Main {
     private static final Map<String, addHouse> HOUSES = new HashMap<>();
@@ -30,6 +31,12 @@ public class Main {
         removeHouse("Tully");
         System.out.println();
         HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
+
+
+        System.out.println();
+        System.out.println("Greyjoy: " + findHouse("Greyjoy"));
+        System.out.println("Tyrell: " + findHouse("Tyrell"));
+        System.out.println("Targaryen: " + findHouse("Targaryen"));
     }
 
     public static void addHouse(String name, String sigil) {
@@ -40,4 +47,14 @@ public class Main {
     public static void removeHouse(String name) {
         HOUSES.remove(name);
     }
+
+    public static String findHouse(String name) {
+        if (HOUSES.containsKey(name)) {
+            return HOUSES.get(name).getSigil();
+        } else {
+            return null;
+        }
+    }
+
+
 }
