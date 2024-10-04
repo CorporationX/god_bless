@@ -7,31 +7,31 @@ import java.util.Map;
 
 public class Main {
     public static final List<Student> STUDENTS = new ArrayList<>();
-    public static final Map<Course, List<Student>> COURSES = new HashMap<>();
+    public static final Map<Course, List<Student>> STUDENTS_BY_COURSE = new HashMap<>();
 
     public static void main(String[] args) {
 
-        Student student1 = new Student("Petya", "IT", 2000);
-        Student student2 = new Student("Masha", "IT", 2000);
-        Student student3 = new Student("Masha", "OEP", 2000);
-        Student student4 = new Student("Kolya", "OEP", 2002);
-        Student student5 = new Student("Vasya", "RL", 2002);
-        Student student6 = new Student("Vasilisa", "RL", 2002);
-        Student student7 = new Student("Irina", "IT", 2010);
+        Student studentPetya = new Student("Petya", "IT", 2000);
+        Student studentMasha = new Student("Masha", "IT", 2000);
+        Student studentNatasha = new Student("Natasha", "OEP", 2000);
+        Student studentKolya = new Student("Kolya", "OEP", 2002);
+        Student studentVasya = new Student("Vasya", "RL", 2002);
+        Student studentVasilisa = new Student("Vasilisa", "RL", 2002);
+        Student studentIrina = new Student("Irina", "IT", 2010);
 
-        addStudent(student1);
-        addStudent(student2);
-        addStudent(student3);
-        addStudent(student4);
-        addStudent(student5);
-        addStudent(student6);
-        addStudent(student7);
+        addStudent(studentPetya);
+        addStudent(studentMasha);
+        addStudent(studentNatasha);
+        addStudent(studentKolya);
+        addStudent(studentVasya);
+        addStudent(studentVasilisa);
+        addStudent(studentIrina);
         System.out.println("Список студентов:");
         STUDENTS.forEach(System.out::println);
 
         groupStudentsByCourse(STUDENTS);
         System.out.println("\nГруппировка по курсам");
-        COURSES.forEach((course, students) -> System.out.println("факультет: " + course.getFaculty()
+        STUDENTS_BY_COURSE.forEach((course, students) -> System.out.println("факультет: " + course.getFaculty()
                 + " год: " + course.getYear()
                 + " студенты: " + students.toString()));
 
@@ -53,7 +53,7 @@ public class Main {
     public static void groupStudentsByCourse(List<Student> students) {
         for (Student student : students) {
             Course course = new Course(student.getFaculty(), student.getYear());
-            COURSES.computeIfAbsent(course, k -> new ArrayList<>()).add(student);
+            STUDENTS_BY_COURSE.computeIfAbsent(course, k -> new ArrayList<>()).add(student);
         }
     }
 
@@ -63,12 +63,12 @@ public class Main {
     }
 
     public static List<Student> findStudent(String faculty, int year) {
-        return COURSES.get(new Course(faculty, year));
+        return STUDENTS_BY_COURSE.get(new Course(faculty, year));
     }
 
     public static void printStudentsGroupByCourse() {
         System.out.println();
-        for (Map.Entry<Course, List<Student>> entry : COURSES.entrySet()) {
+        for (Map.Entry<Course, List<Student>> entry : STUDENTS_BY_COURSE.entrySet()) {
             System.out.println("Курс: " + entry.getKey().getFaculty() + " " + entry.getKey().getYear() + ":");
             entry.getValue().forEach(System.out::println);
         }
