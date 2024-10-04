@@ -14,6 +14,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int ADULT_AGE = 18;
 
     private String name;
     private int age;
@@ -24,8 +25,8 @@ public class User {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18");
+        if (age < ADULT_AGE) {
+            throw new IllegalArgumentException("Age cannot be less than " + ADULT_AGE);
         }
         if (!VALID_JOBS.contains(employment)) {
             throw new IllegalArgumentException("Employment is not valid");
