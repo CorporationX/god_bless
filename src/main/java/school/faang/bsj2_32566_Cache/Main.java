@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<String, WeatherData> cityWeatherCache = new HashMap<>();
+    private static final Map<String, WeatherData> CITY_WEATHER_CACHE = new HashMap<>();
 
     public static void main(String[] args) {
-        System.out.println(cityWeatherCache);
+        System.out.println(CITY_WEATHER_CACHE);
         System.out.println(showWeather("Gotham"));
 
         updateData("Metropolis");
@@ -17,35 +17,35 @@ public class Main {
         updateData("Gotham");
         updateData("Night City");
 
-        System.out.println(cityWeatherCache);
+        System.out.println(CITY_WEATHER_CACHE);
 
         deleteData("Night City");
 
-        System.out.println(cityWeatherCache);
+        System.out.println(CITY_WEATHER_CACHE);
 
         System.out.println(listCachedCities());
     }
 
     private static WeatherData showWeather(String city) {
-        if (!cityWeatherCache.containsKey(city)) {
-            WeatherData newData = WeatherWebMock.provideData(city);
-            cityWeatherCache.put(city, newData);
+        if (!CITY_WEATHER_CACHE.containsKey(city)) {
+            WeatherData newData = new WeatherService(city).provideData();
+            CITY_WEATHER_CACHE.put(city, newData);
         }
-        return cityWeatherCache.get(city);
+        return CITY_WEATHER_CACHE.get(city);
     }
 
     private static void updateData(String city) {
-        WeatherData newData = WeatherWebMock.provideData(city);
-        cityWeatherCache.put(city, newData);
+        WeatherData newData = new WeatherService(city).provideData();
+        CITY_WEATHER_CACHE.put(city, newData);
     }
 
     private static void deleteData(String city) {
-        cityWeatherCache.remove(city);
+        CITY_WEATHER_CACHE.remove(city);
     }
 
     private static List<String> listCachedCities() {
         List<String> cityList = new ArrayList<>();
-        cityList.addAll(cityWeatherCache.keySet());
+        cityList.addAll(CITY_WEATHER_CACHE.keySet());
         return cityList;
     }
 }
