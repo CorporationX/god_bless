@@ -44,14 +44,16 @@ public class Main {
     }
 
     public static void deleteStudent(List<Student> students, String name, String faculty, int year) {
-        Iterator<Student> iterator = students.iterator();
-        while (iterator.hasNext()) {
-            Student student = iterator.next();
+        List<Student> toRemove = new ArrayList<>();
+
+        for (Student student : students) {
             if (student.getFaculty().equals(faculty) && student.getYear() == year &&
                     student.getName().equals(name)) {
-                iterator.remove();
+                toRemove.add(student);
             }
         }
+
+        students.removeAll(toRemove);
     }
 
     public static void searchStudentsByFacultyAndYear(List<Student> students, String faculty, int year) {
