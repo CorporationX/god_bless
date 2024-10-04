@@ -21,8 +21,6 @@ public class University {
     }
 
     public void deleteStudent(Student student) {
-        validateStudent(student);
-
         if(students.containsKey(student.getKeyPair())){
             students.get(student.getKeyPair()).remove(student);
         }
@@ -33,14 +31,10 @@ public class University {
     }
 
     public void deleteStudents(List<Student> students) {
-        validateStudents(students);
-
         students.forEach(this::deleteStudent);
     }
 
     public List<Student> findStudents(Student.KeyPair keyPair) {
-        validateKeyPair(keyPair);
-
         return students.get(keyPair);
     }
 
@@ -53,22 +47,15 @@ public class University {
         System.out.println();
     }
 
-    private void validateKeyPair(Student.KeyPair keyPair) {
-        if(keyPair == null)
-            throw new IllegalArgumentException("key pair is null");
-        if(keyPair.getFaculty() == null)
-            throw new IllegalArgumentException("faculty is null");
-        if(keyPair.getYear() <= 0)
-            throw new IllegalArgumentException("year is less than 0");
-    }
-
     private void validateStudent(Student student) {
         if(student == null)
             throw new IllegalArgumentException("Student is null");
         if(student.getName() == null)
             throw new IllegalArgumentException("Student name is null");
-
-        validateKeyPair(student.getKeyPair());
+        if(student.getFaculty() == null)
+            throw new IllegalArgumentException("Student faculty is null");
+        if(student.getYear() <= 0)
+            throw new IllegalArgumentException("Student year is null");
     }
 
     private void validateStudents(List<Student> students) {

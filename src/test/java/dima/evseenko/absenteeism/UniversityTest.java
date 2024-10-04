@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -64,26 +65,6 @@ class UniversityTest {
     }
 
     @Test
-    void deleteNullStudent(){
-        assertThrows(IllegalArgumentException.class, () -> new University().deleteStudent(null));
-    }
-
-    @Test
-    void deleteInvalidStudentName(){
-        assertThrows(IllegalArgumentException.class, () -> new University().deleteStudent(new Student(null, Student.Faculty.IT, 1)));
-    }
-
-    @Test
-    void deleteInvalidStudentFaculty(){
-        assertThrows(IllegalArgumentException.class, () -> new University().deleteStudent(new Student("Dima", null, 1)));
-    }
-
-    @Test
-    void deleteInvalidStudentYear(){
-        assertThrows(IllegalArgumentException.class, () -> new University().deleteStudent(new Student("Dima", Student.Faculty.IT, 0)));
-    }
-
-    @Test
     void findStudents() {
         University university = new University();
         university.addStudents(getStudents());
@@ -93,27 +74,27 @@ class UniversityTest {
 
     @Test
     void findNullStudentsKeyPair() {
-        assertThrows(IllegalArgumentException.class, () -> new University().findStudents(null));
+        assertNull(new University().findStudents(null));
     }
 
     @Test
     void findNullStudentsKeyPairFaculty() {
-        assertThrows(IllegalArgumentException.class, () -> new University().findStudents(new Student.KeyPair(null, 2)));
+        assertNull(new University().findStudents(new Student.KeyPair(null, 2)));
     }
 
     @Test
     void findNullStudentsKeyPairYear() {
-        assertThrows(IllegalArgumentException.class, () -> new University().findStudents(new Student.KeyPair(Student.Faculty.PHYSICS, 0)));
+        assertNull(new University().findStudents(new Student.KeyPair(Student.Faculty.PHYSICS, 0)));
     }
 
     @Test
     void findNullStudentsKeyPairFacultyOther() {
-        assertThrows(IllegalArgumentException.class, () -> new University().findStudents(null, 1));
+        assertNull(new University().findStudents(null, 1));
     }
 
     @Test
     void findNullStudentsKeyPairYearOther() {
-        assertThrows(IllegalArgumentException.class, () -> new University().findStudents(Student.Faculty.IT, 0));
+        assertNull(new University().findStudents(Student.Faculty.IT, 0));
     }
 
     private List<Student> getStudents() {
