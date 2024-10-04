@@ -13,18 +13,11 @@ public class WeatherRepository {
     );
 
     public static WeatherData getWeather(String city){
-        validateCity(city);
-
         for (WeatherData weatherData : weatherDataList) {
             if (weatherData.getCity().equals(city)) {
                 return weatherData;
             }
         }
         return null;
-    }
-
-    private static void validateCity(String city) {
-        if(city == null)
-            throw new IllegalArgumentException("city is null");
     }
 }

@@ -7,8 +7,6 @@ public class WeatherService {
     private final Map<String, WeatherData> cachedWeatherData = new HashMap<>();
 
     public WeatherData getWeatherData(String city) {
-        validateCity(city);
-
         return cachedWeatherData.computeIfAbsent(city, WeatherRepository::getWeather);
     }
 
@@ -19,14 +17,10 @@ public class WeatherService {
     }
 
     public void deleteWeatherData(String city) {
-        validateCity(city);
-
         cachedWeatherData.remove(city);
     }
 
     public WeatherData getCachedWeatherData(String city) {
-        validateCity(city);
-
         return cachedWeatherData.get(city);
     }
 

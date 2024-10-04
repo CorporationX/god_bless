@@ -16,7 +16,7 @@ class WeatherServiceTest {
 
     @Test
     void getWeatherDataNullCity(){
-        assertThrows(IllegalArgumentException.class, () -> new WeatherService().getWeatherData(null));
+        assertNull(new WeatherService().getWeatherData(null));
     }
 
     @Test
@@ -34,7 +34,7 @@ class WeatherServiceTest {
 
     @Test
     void getCachedWeatherDataNullCity(){
-        assertThrows(IllegalArgumentException.class, () -> new WeatherService().getCachedWeatherData(null));
+        assertNull(new WeatherService().getCachedWeatherData(null));
     }
 
     @Test

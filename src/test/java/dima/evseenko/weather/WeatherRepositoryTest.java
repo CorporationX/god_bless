@@ -3,7 +3,6 @@ package dima.evseenko.weather;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 class WeatherRepositoryTest {
@@ -15,7 +14,7 @@ class WeatherRepositoryTest {
 
     @Test
     void getWeatherNullCity(){
-        assertThrows(IllegalArgumentException.class, () -> WeatherRepository.getWeather(null));
+        assertNull(WeatherRepository.getWeather(null));
     }
 
     @Test
