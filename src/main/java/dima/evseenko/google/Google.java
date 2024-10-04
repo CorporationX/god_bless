@@ -21,14 +21,11 @@ public class Google {
     }
 
     public List<WebPage> findWebPages(String keyword) {
-        validateWebPageKeyword(keyword);
-
+        if(keyword == null) return null;
         return pages.get(keyword.toLowerCase());
     }
 
     public void deleteWebPage(WebPage page) {
-        validateWebPage(page);
-
         page.getKeywords().forEach(word -> {
             if(pages.containsKey(word)) {
                 pages.get(word).remove(page);
@@ -37,8 +34,6 @@ public class Google {
     }
 
     public void deleteWebPageByUrl(String url) {
-        validateWebPageUrl(url);
-
         WebPage page = null;
         for (Map.Entry<String, List<WebPage>> entry : pages.entrySet()) {
             for(WebPage webPage : entry.getValue()) {
@@ -61,23 +56,13 @@ public class Google {
             throw new IllegalArgumentException("Page content is null");
         if(page.getKeywords() == null)
             throw new IllegalArgumentException("Page keywords is null");
-
-        validateWebPageUrl(page.getUrl());
+        if(page.getUrl() == null)
+            throw new IllegalArgumentException("Page url is null");
     }
 
     private void validateWebPages(List<WebPage> pages) {
         if(pages == null)
             throw new IllegalArgumentException("Pages is null");
-    }
-
-    private void validateWebPageKeyword(String keyword) {
-        if(keyword == null)
-            throw new IllegalArgumentException("Keyword is null");
-    }
-
-    private void validateWebPageUrl(String url) {
-        if(url == null)
-            throw new IllegalArgumentException("Url is null");
     }
 
     public void printWebPages(){

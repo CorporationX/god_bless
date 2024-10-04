@@ -64,7 +64,7 @@ class GoogleTest {
 
     @Test
     void findWebPageNullKeyword(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().findWebPages(null));
+        assertNull(new Google().findWebPages(null));
     }
 
     @Test
@@ -90,11 +90,6 @@ class GoogleTest {
     }
 
     @Test
-    void deleteWebPageNullKeyword(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().deleteWebPage(null));
-    }
-
-    @Test
     void deleteWebPageByUrl() {
         WebPage page = new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде.");
 
@@ -106,11 +101,6 @@ class GoogleTest {
         google.deleteWebPageByUrl(page.getUrl());
 
         assertFalse(google.findWebPages("Кэшируем").contains(page));
-    }
-
-    @Test
-    void deleteWebPageNullUrl(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().deleteWebPageByUrl(null));
     }
 
     private static List<WebPage> getPages(){
