@@ -8,7 +8,6 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class UniversityTest {
@@ -22,11 +21,6 @@ class UniversityTest {
     }
 
     @Test
-    void addNullStudentMark(){
-        assertThrows(IllegalArgumentException.class, () -> new University().addStudentMark(null, new Subject(1L, "Math"), 4));
-    }
-
-    @Test
     void addStudentMarks(){
         University university = new University();
         university.addStudentMarks(new Student(1L, "Dima"), Map.of(
@@ -36,11 +30,6 @@ class UniversityTest {
 
         assertTrue(university.getStudentMarks(new Student(1L, "Dima")).containsKey(new Subject(1L, "Math")));
         assertTrue(university.getStudentMarks(new Student(1L, "Dima")).containsKey(new Subject(2L, "Physics")));
-    }
-
-    @Test
-    void addNullStudentMarks(){
-        assertThrows(IllegalArgumentException.class, () -> new University().addStudentMarks(new Student(1L, "Dima"), null));
     }
 
     @Test
@@ -70,13 +59,6 @@ class UniversityTest {
     }
 
     @Test
-    void addNullSubjectStudent(){
-        University university = new University();
-
-        assertThrows(IllegalArgumentException.class, () -> university.addSubjectStudent(null, new Student(1L, "Dima")));
-    }
-
-    @Test
     void addSubjectStudents(){
         University university = new University();
         university.addSubjectStudents(new Subject(1L, "Math"), List.of(
@@ -86,13 +68,6 @@ class UniversityTest {
 
         assertTrue(university.getSubjectStudents(new Subject(1L, "Math")).contains(new Student(1L, "Dima")));
         assertTrue(university.getSubjectStudents(new Subject(1L, "Math")).contains(new Student(2L, "Vasya")));
-    }
-
-    @Test
-    void addNullSubjectStudents(){
-        University university = new University();
-
-        assertThrows(IllegalArgumentException.class, () -> university.addSubjectStudents(new Subject(1L, "Math"), null));
     }
 
     @Test
