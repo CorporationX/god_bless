@@ -35,7 +35,6 @@ public class UserTest {
 
         //assert
         assertEquals(expected, actual);
-
     }
 
     @Test
