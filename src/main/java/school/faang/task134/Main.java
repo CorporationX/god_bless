@@ -8,20 +8,22 @@ import java.util.Map;
 public class Main {
     private static final HashMap<String, List<WebPage>> INDEX = new HashMap<>();
 
-    public void indexNewWebPage(WebPage webPage){
+    public void indexNewWebPage(WebPage webPage) {
         String[] words = webPage.getContent()
                 .replaceAll("[^a-zA-Zа-яА-ЯёЁ\\s]", "")
                 .toLowerCase()
                 .split("\\s");
-        for (String word : words){
-            INDEX.computeIfAbsent(word, k->new ArrayList<>()).add(webPage);
+        for (String word : words) {
+            INDEX.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
         }
     }
-    public List<WebPage> findWebPage(String word){
+
+    public List<WebPage> findWebPage(String word) {
         return INDEX.get(word.toLowerCase());
     }
-    public void removeByUrl(String url){
-        for(Map.Entry<String, List<WebPage>> entry: INDEX.entrySet()){
+
+    public void removeByUrl(String url) {
+        for (Map.Entry<String, List<WebPage>> entry : INDEX.entrySet()) {
             entry.getValue().removeIf(webPage -> (webPage.getUrl().equals(url)));
         }
     }
