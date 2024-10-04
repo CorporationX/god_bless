@@ -23,9 +23,9 @@ public class Main {
         // Создание набора увлечений для сравнения
         Set<String> hobbies = new HashSet<>(List.of("Football", "Movies", "Tennis"));
 
-        Map<User, Set<String>> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
-        usersHobbiesIntersection.forEach((user, userHobbies) ->
-                System.out.println(user + ": " + String.join(", ", userHobbies))
+        Map<User, String> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
+        usersHobbiesIntersection.forEach((user, userHobby) ->
+                System.out.println(user + ": " + userHobby)
         );
     }
 }
