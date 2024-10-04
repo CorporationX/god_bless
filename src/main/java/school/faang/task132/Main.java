@@ -9,37 +9,44 @@ public class Main {
 
     private static final HashMap<Integer, StreamEvent> EVENT = new HashMap<>();
     private static final HashMap<String, List<StreamEvent>> EVENTS = new HashMap<>();
-    public void addEvent(StreamEvent streamEvent){
+
+    public void addEvent(StreamEvent streamEvent) {
         EVENT.put(streamEvent.getId(), streamEvent);
-        EVENTS.computeIfAbsent(streamEvent.getEventType(), K->new ArrayList<>()).add(streamEvent);
+        EVENTS.computeIfAbsent(streamEvent.getEventType(), K -> new ArrayList<>()).add(streamEvent);
     }
-    public StreamEvent findEventById(int id){
+
+    public StreamEvent findEventById(int id) {
         return EVENT.get(id);
     }
-    public List<StreamEvent> findEventListByEventType(String event){
+
+    public List<StreamEvent> findEventListByEventType(String event) {
         return EVENTS.get(event);
     }
-    public void removeEventById(int id){
+
+    public void removeEventById(int id) {
         String eventType= EVENT.get(id).getEventType();
-        EVENTS.get(eventType).removeIf(p->(p.getId()==id));
+        EVENTS.get(eventType).removeIf(p -> (p.getId() == id));
         EVENT.remove(id);
     }
-    public void printAllEvents(){
-        for(Map.Entry<String, List<StreamEvent>> entry : EVENTS.entrySet()){
-            for(StreamEvent event : entry.getValue()){
+
+    public void printAllEvents() {
+        for(Map.Entry<String, List<StreamEvent>> entry : EVENTS.entrySet()) {
+            for(StreamEvent event : entry.getValue()) {
                 System.out.println(event);
             }
         }
     }
-    public void addListOfEvents(List<StreamEvent> events){
-        for (StreamEvent event :events){
+
+    public void addListOfEvents(List<StreamEvent> events) {
+        for (StreamEvent event : events) {
             addEvent(event);
         }
     }
-    public void printAllEventsFromList(List<StreamEvent> events){
-            for(StreamEvent event : events){
-                System.out.println(event);
-            }
+
+    public void printAllEventsFromList(List<StreamEvent> events) {
+        for(StreamEvent event : events) {
+            System.out.println(event);
+        }
     }
 
     public static void main(String[] args) {
