@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.collect_users;
 
 import lombok.AllArgsConstructor;
 import lombok.ToString;
