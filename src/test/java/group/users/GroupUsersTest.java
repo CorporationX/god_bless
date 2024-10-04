@@ -1,4 +1,5 @@
-import groupUsersByAge.User;
+package group.users;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class GroupUsersByAgeTest {
+public class GroupUsersTest {
     public static List<User> ungroupedUserList;
 
     @BeforeEach
@@ -20,9 +21,9 @@ public class GroupUsersByAgeTest {
 
     @Test
     void testGroupUsers() {
-        User userVasya = new User("Vasya", 21, "Google", "house1");
-        User userKolya = new User("Kolya", 21, "Apple", "house2");
-        User userSanya = new User("Sanya", 24, "Sony", "house14");
+        User userVasya = new User("Vasya", 21, "Google", "Amsterdam");
+        User userKolya = new User("Kolya", 21, "Uber", "London");
+        User userSanya = new User("Sanya", 24, "Amazon", "New York");
         ungroupedUserList.add(userVasya);
         ungroupedUserList.add(userKolya);
         ungroupedUserList.add(userSanya);
@@ -37,12 +38,22 @@ public class GroupUsersByAgeTest {
     }
 
     @Test
-    void testExceptionThrowsWithIncorrectUserData() {
-        User userVasya = new User("Vasya", 21, "Google", "house1");
-        User userVanya = new User("Vanya", 0, "Google", "house1");
-        ungroupedUserList.add(userVasya);
-        ungroupedUserList.add(userVanya);
+    void testUserNameValidation() {
+        assertThrows(IllegalArgumentException.class, () -> new User("", 21, "Google", "London"));
+    }
 
-        assertThrows(IllegalArgumentException.class, () -> User.groupUsersByAge(ungroupedUserList));
+    @Test
+    void testUserAgeValidation() {
+        assertThrows(IllegalArgumentException.class, () -> new User("Vasya", 17, "Uber", "Amsterdam"));
+    }
+
+    @Test
+    void testUserCompanyValidation() {
+        assertThrows(IllegalArgumentException.class, () -> new User("Vanya", 27, "Invalid company", "London"));
+    }
+
+    @Test
+    void testUserAddressValidation() {
+        assertThrows(IllegalArgumentException.class, () -> new User("Sanya", 25, "Amazon", "Invalid address"));
     }
 }
