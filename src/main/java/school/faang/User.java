@@ -10,6 +10,7 @@ import java.util.Set;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+  
     private String name;
     private int age;
     private String placeOfWork;
@@ -54,7 +55,7 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        school.faang.User user = (school.faang.User) o;
+        User user = (User) o;
         return age == user.age && Objects.equals(name, user.name) && Objects.equals(placeOfWork, user.placeOfWork) && Objects.equals(address, user.address);
     }
 
@@ -73,5 +74,4 @@ public class User {
                 '}';
     }
 }
-
 
