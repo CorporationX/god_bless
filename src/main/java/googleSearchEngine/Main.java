@@ -13,7 +13,7 @@ import java.util.Set;
 
 public class Main {
     private static final Map<String, List<WebPage>> INDEX_WEB_PAGES = new HashMap<>();
-    private static final Map<String, Set<String>> INDEX_URLS = new HashMap<>();
+    private static final Map<String, Set<String>> INDEX_URLS_WORDS = new HashMap<>();
 
 
     public static void main(String[] args) {
@@ -44,7 +44,7 @@ public class Main {
                 .replaceAll("\\p{P}", " ")
                 .split(" ")));
 
-        INDEX_URLS.computeIfAbsent(webPage.getUrl(), k -> new HashSet<>()).addAll(words);
+        INDEX_URLS_WORDS.computeIfAbsent(webPage.getUrl(), k -> new HashSet<>()).addAll(words);
 
         for (String word : words) {
             if (word.isEmpty()) continue;
@@ -63,7 +63,7 @@ public class Main {
     }
 
     public static void removeWebPageFromIndex(@NonNull String url) {
-        Set<String> words = INDEX_URLS.get(url);
+        Set<String> words = INDEX_URLS_WORDS.get(url);
         for (String word : words) {
             if (word.isEmpty()) continue;
             List<WebPage> webPages = findWebPages(word);
