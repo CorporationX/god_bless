@@ -14,7 +14,7 @@ class MainTest {
 
         Main.indexPage(webPage);
 
-        assertEquals(4, Main.getWebPages().size());
+        assertEquals(2, Main.webPages.size());
 
         Main.removePage(webPage);
     }
@@ -36,7 +36,7 @@ class MainTest {
 
         Main.indexPage(webPage);
 
-        assertEquals(5, Main.getWebPages().size());
+        assertEquals(3, Main.webPages.size());
 
         Main.removePage(webPage);
 

@@ -1,25 +1,22 @@
 package googles_mini_search_engine;
 
-import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    @Getter
-    private static final Map<String, List<WebPage>> webPages = new HashMap<>();
+    static final Map<String, List<WebPage>> webPages = new HashMap<>();
 
     public static void main(String[] args) {
-        WebPage webPage1 = new WebPage("https://www.google.com", "Google", "Search engine");
-        WebPage webPage2 = new WebPage("https://www.yahoo.com", "Yahoo", "Technical search engine");
-        WebPage webPage3 = new WebPage("https://www.bing.com", "Bing", "Test search domain");
-        indexPage(webPage1);
-        indexPage(webPage2);
-        indexPage(webPage3);
+        WebPage googlePage = new WebPage("https://www.google.com", "Google", "Search engine");
+        WebPage yahooPage = new WebPage("https://www.yahoo.com", "Yahoo", "Technical search engine");
+        WebPage bingPage = new WebPage("https://www.bing.com", "Bing", "Test search domain");
+        indexPage(googlePage);
+        indexPage(yahooPage);
+        indexPage(bingPage);
         System.out.println(search("engine"));
-        removePage(webPage1);
+        removePage(googlePage);
         System.out.println(webPages);
     }
 
@@ -35,8 +32,14 @@ public class Main {
     }
 
     public static void removePage(WebPage webPage) {
-        for (String word : webPage.getContent().toLowerCase().split(" ")) {
-            webPages.get(word).remove(webPage);
+        String content = webPage.getContent().toLowerCase();
+        String[] words = content.split(" ");
+
+        for (String word : words) {
+            webPages.computeIfPresent(word, (key, pages) -> {
+                pages.remove(webPage);
+                return pages.isEmpty() ? null : pages;
+            });
         }
     }
 }
