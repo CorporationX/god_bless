@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -111,29 +112,23 @@ class UserTest {
         //arrange
         User Alex = new User("Alex", 30, new HashSet<>(List.of("Football", "Movies", "Travel")));
         User Catherine = new User("Catherine", 28, new HashSet<>(List.of("Drawing", "Swimming")));
-        User Michael = new User("Michael", 25, new HashSet<>(List.of("Football", "Tennis", "Travel")));
+        User Michael = new User("Michael", 25, new HashSet<>(List.of("Tennis", "Football", "Travel")));
         User Irina = new User("Irina", 35, new HashSet<>(List.of("Swimming", "Yoga", "Travel")));
         List<User> users = List.of(Alex, Catherine, Michael, Irina);
 
-        Set<String> hobbies = new HashSet<>(List.of("Football", "Movies", "Tennis"));
+        Set<String> hobbies = new LinkedHashSet<>(List.of("Tennis", "Football", "Movies"));
 
         //act
-        Map<User, Set<String>> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
+        Map<User, String> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
 
         //assert
         assertEquals(2, usersHobbiesIntersection.size());
 
         assertTrue(usersHobbiesIntersection.containsKey(Alex));
-        assertTrue(CollectionUtils.isEqualCollection(
-                new HashSet<>(List.of("Football", "Movies")),
-                usersHobbiesIntersection.get(Alex)
-        ));
+        assertEquals("Football", usersHobbiesIntersection.get(Alex));
 
         assertTrue(usersHobbiesIntersection.containsKey(Michael));
-        assertTrue(CollectionUtils.isEqualCollection(
-                new HashSet<>(List.of( "Tennis", "Football")),
-                usersHobbiesIntersection.get(Michael)
-        ));
+        assertEquals("Tennis", usersHobbiesIntersection.get(Michael));
     }
 
     @Test
@@ -149,7 +144,7 @@ class UserTest {
         Set<String> hobbies = new HashSet<>();
 
         //act
-        Map<User, Set<String>> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
+        Map<User, String> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
 
         //assert
         assertEquals(0, usersHobbiesIntersection.size());
@@ -163,7 +158,7 @@ class UserTest {
         Set<String> hobbies = new HashSet<>(List.of("Football", "Movies", "Tennis"));
 
         //act
-        Map<User, Set<String>> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
+        Map<User, String> usersHobbiesIntersection = User.findHobbyLovers(users, hobbies);
 
         //assert
         assertEquals(0, usersHobbiesIntersection.size());
