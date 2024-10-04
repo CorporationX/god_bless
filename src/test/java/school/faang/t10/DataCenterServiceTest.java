@@ -64,6 +64,16 @@ class DataCenterServiceTest {
     }
 
     @Test
+    @DisplayName("Negative Allocate Resources test")
+    void testAllocateResourcesNegative() {
+        assertTrue(service.allocateResources(new ResourceRequest(80)));
+        assertEquals(80, server1.getLoad());
+        assertTrue(service.allocateResources(new ResourceRequest(150)));
+        assertFalse(service.allocateResources(new ResourceRequest(200)));
+    }
+
+
+    @Test
     @DisplayName("Release Resources test")
     void testReleaseResources() {
         server1.setLoad(80);
@@ -73,6 +83,17 @@ class DataCenterServiceTest {
         assertTrue(service.releaseResources(new ResourceRequest(100)));
         assertEquals(50, server1.getLoad());
         assertEquals(50, server2.getLoad());
+        assertFalse(service.releaseResources(new ResourceRequest(200)));
+    }
+
+    @Test
+    @DisplayName("Negative Release Resources test")
+    void testReleaseResourcesNegative() {
+        server1.setLoad(80);
+        server2.setLoad(150);
+        assertTrue(service.releaseResources(new ResourceRequest(30)));
+        assertEquals(50, server1.getLoad());
+        assertTrue(service.releaseResources(new ResourceRequest(100)));
         assertFalse(service.releaseResources(new ResourceRequest(200)));
     }
 }

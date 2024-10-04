@@ -25,6 +25,5 @@ public class Server {
 
     public void setLoad(double load) {
         this.load = Math.min(load, maxLoad);
-        calculateEnergyConsumption();
     }
 }
