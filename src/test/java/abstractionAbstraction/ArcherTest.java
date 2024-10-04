@@ -1,7 +1,5 @@
-package abstractionAbstractionTest;
+package abstractionAbstraction;
 
-import abstractionAbstraction.Archer;
-import abstractionAbstraction.Warrior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,13 +16,10 @@ public class ArcherTest {
     }
 
     @Test
-    @DisplayName("Positive test")
+    @DisplayName("Archer attack test")
     void attackTest() {
-        // Arrange
         Warrior warrior = new Warrior("Grommash");
-        // Act
         archer.attack(warrior);
-        // Assert
         assertEquals(90, warrior.getHp());
     }
 }
