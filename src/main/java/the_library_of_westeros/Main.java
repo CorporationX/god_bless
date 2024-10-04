@@ -20,7 +20,7 @@ public class Main {
 
         searchAndPrintInfoBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
 
-        removeBook(new Book("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997));
+        removeBook("Harry Potter and the Philosopher's Stone", "J. K. Rowling", 1997);
 
         printAllBooks();
     }
@@ -29,8 +29,8 @@ public class Main {
         library.put(book, shelf);
     }
 
-    public static void removeBook(Book book) {
-        library.remove(book);
+    public static void removeBook(String title, String author, int year) {
+        library.remove(new Book(title, author, year));
     }
 
     public static void searchAndPrintInfoBook(Book book) {
