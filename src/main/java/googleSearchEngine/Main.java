@@ -66,12 +66,7 @@ public class Main {
         Set<String> words = INDEX_URLS_WORDS.get(url);
         for (String word : words) {
             if (word.isEmpty()) continue;
-            List<WebPage> webPages = findWebPages(word);
-            if (webPages.size() == 1 && webPages.get(0).getUrl().equals(url)) {
-                INDEX_WEB_PAGES.remove(word);
-            } else {
-                INDEX_WEB_PAGES.get(word).removeIf(webPage -> webPage.getUrl().equals(url));
-            }
+            INDEX_WEB_PAGES.get(word).removeIf(webPage -> webPage.getUrl().equals(url));
         }
     }
 
