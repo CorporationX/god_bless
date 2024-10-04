@@ -24,14 +24,14 @@ public class Main {
     }
 
     public void removeEventById(int id) {
-        String eventType= EVENT.get(id).getEventType();
+        String eventType = EVENT.get(id).getEventType();
         EVENTS.get(eventType).removeIf(p -> (p.getId() == id));
         EVENT.remove(id);
     }
 
     public void printAllEvents() {
-        for(Map.Entry<String, List<StreamEvent>> entry : EVENTS.entrySet()) {
-            for(StreamEvent event : entry.getValue()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : EVENTS.entrySet()) {
+            for (StreamEvent event : entry.getValue()) {
                 System.out.println(event);
             }
         }
@@ -44,7 +44,7 @@ public class Main {
     }
 
     public void printAllEventsFromList(List<StreamEvent> events) {
-        for(StreamEvent event : events) {
+        for (StreamEvent event : events) {
             System.out.println(event);
         }
     }
@@ -67,7 +67,7 @@ public class Main {
         System.out.println(main.findEventById(4));
         System.out.println();
 
-        listWithEvents=main.findEventListByEventType("USER LOGIN");
+        listWithEvents = main.findEventListByEventType("USER LOGIN");
         main.printAllEventsFromList(listWithEvents);
         System.out.println();
 
