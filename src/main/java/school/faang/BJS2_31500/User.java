@@ -34,17 +34,20 @@ public class User {
         this.hobbies = new HashSet<>(hobbies);
     }
 
-    public static Map<User, Set<String>> findHobbyLovers(List<User> users, Set<String> hobbies) {
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         validateCollection(users, "Invalid users list.");
         validateCollection(hobbies, "Invalid set of hobbies.");
 
-        Map<User, Set<String>> usersHobbiesIntersection = new HashMap<>();
-        users.forEach(user -> {
-           Set<String> hobbiesIntersection = SetUtils.intersection(user.getHobbies(), hobbies);
-           if (!hobbiesIntersection.isEmpty()) {
-               usersHobbiesIntersection.put(user, hobbiesIntersection);
-           }
-        });
+        Map<User, String> usersHobbiesIntersection = new HashMap<>();
+        for (User user: users) {
+            for (String hobby: hobbies) {
+                if (user.getHobbies().contains(hobby)) {
+                    usersHobbiesIntersection.put(user, hobby);
+                    break;
+                }
+            }
+        }
+
         return usersHobbiesIntersection;
     }
 
