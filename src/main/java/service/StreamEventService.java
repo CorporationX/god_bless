@@ -26,7 +26,13 @@ public class StreamEventService {
 
     public static void removeStreamEventById(int id){
         StreamEvent removingEvent = eventById.remove(id);
-        eventsByType.remove(removingEvent.getEventType());
+        eventsByType.computeIfPresent(removingEvent.getEventType(), (eventType, eventList) -> {
+            eventList.remove(removingEvent);
+            if(eventList.size() == 0){
+                return new ArrayList<>();
+            }
+            return eventList;
+        });
     }
 
     public static void getAllStreamEvents(){
