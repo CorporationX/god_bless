@@ -41,7 +41,7 @@ class LibraryTest {
     library.addBook(oldBook, "old shelf");
     library.addBook(newBook, "new shelf");
 
-    library.deleteBook(newBook);
+    library.deleteBook(newBook.getAuthor(), newBook.getTitle(), newBook.getYear());
 
     List<Entry<Book, String>> entriesFromLibraryMap = library.getAllBookEntries();
     assertEquals(1, entriesFromLibraryMap.size());
@@ -56,8 +56,8 @@ class LibraryTest {
     Book book = new Book("book", "author", 2011);
     library.addBook(book, "shelf");
 
-    assertTrue(library.getBookShelf(new Book("s", "s", 1)).isEmpty());
-    assertTrue(library.getBookShelf(book).isPresent());
-    assertEquals("shelf", library.getBookShelf(book).get());
+    assertTrue(library.getBookShelf("s", "s", 1).isEmpty());
+    assertTrue(library.getBookShelf(book.getAuthor(), book.getTitle(), book.getYear()).isPresent());
+    assertEquals("shelf", library.getBookShelf(book.getAuthor(), book.getTitle(), book.getYear()).get());
   }
 }

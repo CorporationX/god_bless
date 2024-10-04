@@ -15,11 +15,13 @@ public class Library {
     map.put(book, shelf);
   }
 
-  public void deleteBook(Book book) {
+  public void deleteBook(String author, String title, int year) {
+    Book book = new Book(title, author, year);
     map.remove(book);
   }
 
-  public Optional<String> getBookShelf(Book book) {
+  public Optional<String> getBookShelf(String author, String title, int year) {
+    Book book = new Book(title, author, year);
     return map.containsKey(book) ? Optional.of(map.get(book)) : Optional.empty();
   }
 
