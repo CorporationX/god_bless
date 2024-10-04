@@ -9,6 +9,7 @@ import java.util.*;
 public class User {
     private static final Set<String> VALID_JOBS;
     private static final Set<String> VALID_ADDRESSES;
+    private static final int MIN_VALID_AGE = 18;
 
     private String name;
     private int age;
@@ -44,22 +45,22 @@ public class User {
     }
 
     public void setAge(int age) throws IllegalArgumentException {
-        if (age < 18) {
-            throw new IllegalArgumentException("Age cannot be less than 18");
+        if (age < MIN_VALID_AGE) {
+            throw new IllegalArgumentException("Unfortunately, " + age + " is not a valid age. It cannot be less than " + MIN_VALID_AGE);
         }
         this.age = age;
     }
 
     public void setWorkplace(String workplace) throws IllegalArgumentException {
         if (!VALID_JOBS.contains(workplace)) {
-            throw new IllegalArgumentException("Provided job is not in our list");
+            throw new IllegalArgumentException(workplace + " is not in our list. Please provide the valid job");
         }
         this.workplace = workplace;
     }
 
     public void setAddress(String address) throws IllegalArgumentException {
         if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("Provided address is not in our list");
+            throw new IllegalArgumentException(address + " is not in our list. Please, provide the valid address");
         }
         this.address = address;
     }
