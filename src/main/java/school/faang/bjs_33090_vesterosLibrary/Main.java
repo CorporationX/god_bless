@@ -28,8 +28,11 @@ public class Main {
         deleteBook("Afterlife", "Night King", 1000);
         deleteBook("Afterlife", "Night King", 1666);
 
+        System.out.println();
         searchBook("History of Vesteros", "Leonardo", 3455);
+        searchBook("History of Vesteros", "Michelangelo", 3455);
 
+        System.out.println();
         displayLibrary();
     }
 
@@ -43,11 +46,13 @@ public class Main {
 
     private static void searchBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (LIBRARY.containsKey(book)) {
+        Shelf shelf = LIBRARY.getOrDefault(book, null);
+
+        if (shelf == null) {
+            System.out.println("No such book in the library");
+        } else {
             System.out.printf("The book '%s', written by %s (%d) can by found on the %s shelf\n",
                     title, author, year, LIBRARY.get(book));
-        } else {
-            System.out.println("No such book in the library");
         }
     }
 
