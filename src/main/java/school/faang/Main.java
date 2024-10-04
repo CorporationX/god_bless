@@ -6,13 +6,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User Alexander = new User("Alexander", 17, "SNG", "Surgut");
-        User Timur = new User("Timur", 25, "Google", "London");
-        User Denis = new User("Denis", 20, "Amazon", "New York");
-        User Kirill = new User("Kirill", 24, "SNG", "EKB");
-        User Artur = new User("Artur", 25, "Administration", "Surgut");
-        User Artem = new User("Artem", 24, "SNG", "EKB");
-
-
+        User alexander = new User("Alexander", 18, "Amazon", "Amsterdam");
+        User timur = new User("Timur", 25, "Google", "London");
+        User denis = new User("Denis", 20, "Amazon", "New York");
+        User kirill = new User("Kirill", 17, "Uber", "New York");
     }
 }

@@ -17,16 +17,21 @@ public class User {
     private String address;
 
     public User(String name, int age, String job, String address) {
-        if (!name.isEmpty() & age >= VALID_AGE & VALID_JOBS.contains(job) &
-                VALID_ADDRESSES.contains(address)) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Name can't be empty");
+        }
+        if (age < VALID_AGE) {
+            throw new IllegalArgumentException("Age must be at least 18");
+        }
+        if (!VALID_JOBS.contains(job)) {
+            throw new IllegalArgumentException("Invalid job");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Invalid address");
+        }
             this.name = name;
             this.age = age;
             this.job = job;
             this.address = address;
-        } else {
-            throw new IllegalArgumentException("Invalid argument");
-        }
-
-
     }
 }
