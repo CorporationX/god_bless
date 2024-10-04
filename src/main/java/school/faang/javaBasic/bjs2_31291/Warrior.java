@@ -40,9 +40,6 @@ public class Warrior extends Character {
         }
     }
 
-    private void activateLowHealthAbility() {
-    }
-
     protected void activateAbility() {
         System.out.println(this.getName() + " активирует способность при низком здоровье!");
     }
