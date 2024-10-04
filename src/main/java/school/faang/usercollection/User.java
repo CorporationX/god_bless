@@ -20,13 +20,10 @@ public class User {
         var result = new HashMap<User, HobbyTypes>();
         for (User user : users) {
             for (HobbyTypes hobby : user.getHobbies()) {
-                if (!hobbySet.contains(hobby)) {
-                    continue;
-                }
-                if (!result.containsKey(user)) {
+                if (hobbySet.contains(hobby)) {
                     result.put(user, hobby);
+                    break;
                 }
-                break;
             }
         }
 
