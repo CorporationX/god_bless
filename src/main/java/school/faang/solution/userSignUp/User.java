@@ -8,20 +8,20 @@ import java.util.stream.Collectors;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
-
     private static final int ELIGIBILITY_AGE = 18;
+
     private String name;
     private int userAge;
     private String company;
     private String address;
 
-    public User(String name, int userAge, String company, String address) {
+    public User (String name, int userAge, String company, String address) {
         if (name.isEmpty() || name.isBlank()) {
-            throw new IllegalArgumentException("Name can not be empty");
+            throw new IllegalArgumentException("Name can not be empty. Provided value: " + name);
         }
 
         if (userAge < ELIGIBILITY_AGE) {
-            throw new IllegalArgumentException("Age can not be less than 18");
+            throw new IllegalArgumentException("Age must be at least 18, but was " + userAge);
         }
 
         boolean validCompany = false;
@@ -33,11 +33,11 @@ public class User {
         }
 
         if (!validCompany) {
-            throw new IllegalArgumentException("Invalid job");
+            throw new IllegalArgumentException("Invalid job: " + company);
         }
 
         if (!VALID_ADDRESS.contains(address)) {
-            throw new IllegalArgumentException("Invalid address");
+            throw new IllegalArgumentException("Invalid address: " + address);
         }
 
         this.name = name;
