@@ -2,7 +2,11 @@ package school.faang.t03;
 
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
@@ -17,6 +21,12 @@ public class User {
 
     public User(String name, int age, String workplace, String address) {
         validate(name, age, workplace, address);
+
+        this.name = name;
+        this.age = age;
+        this.workplace = workplace;
+        this.address = address;
+
     }
 
     public void validate(String name, int age, String workplace, String address) {
