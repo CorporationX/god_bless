@@ -13,8 +13,7 @@ public abstract class Character {
     protected int hp;
 
     public Character(String name) {
-        this.name = name;
-        this.hp = 100;
+        this(name, 0, 0, 0);
     }
 
     public Character(String name, int strength, int agility, int intellect) {
@@ -25,5 +24,5 @@ public abstract class Character {
         this.hp = 100;
     }
 
-    protected abstract void attack(Character targetCharacter);
+    public abstract void attack(Character targetCharacter);
 }
