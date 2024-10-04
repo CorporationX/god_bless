@@ -11,11 +11,11 @@ enum Shelf {
 }
 
 public class Main {
-    private static final Map<Book, Shelf> library = new HashMap<>();
+    private static final Map<Book, Shelf> LIBRARY = new HashMap<>();
 
     public static void main(String[] args) {
 
-        library.putAll(Map.of(
+        LIBRARY.putAll(Map.of(
                 new Book("History of Vesteros", "Leonardo", 3455), Shelf.HISTORY,
                 new Book("Afterlife", "Night King", 1666), Shelf.SCIENCE,
                 new Book("Nomad desserts", "Khal Drogo", 4266), Shelf.COOKING,
@@ -34,25 +34,25 @@ public class Main {
     }
 
     private static void addBook(Book book, Shelf shelf) {
-        library.put(book, shelf);
+        LIBRARY.put(book, shelf);
     }
 
     private static void deleteBook(String title, String author, int year) {
-        library.remove(new Book(title, author, year));
+        LIBRARY.remove(new Book(title, author, year));
     }
 
     private static void searchBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        if (library.containsKey(book)) {
+        if (LIBRARY.containsKey(book)) {
             System.out.printf("The book '%s', written by %s (%d) can by found on the %s shelf\n",
-                    title, author, year, library.get(book));
+                    title, author, year, LIBRARY.get(book));
         } else {
             System.out.println("No such book in the library");
         }
     }
 
     private static void displayLibrary() {
-        for (Map.Entry<Book, Shelf> entry : library.entrySet()) {
+        for (Map.Entry<Book, Shelf> entry : LIBRARY.entrySet()) {
             Book book = entry.getKey();
             Shelf shelf = entry.getValue();
             System.out.printf("The book '%s', written by %s (%d) can by found on the %s shelf\n",
