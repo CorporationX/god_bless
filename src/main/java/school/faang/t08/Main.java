@@ -6,27 +6,7 @@ import java.util.List;
 
 public class Main {
 
-    HashMap<String, List<WebPage>> index = new HashMap<>();
-
-    public void indexWebPage(WebPage webPage) {
-        String[] words = webPage.getContent().toLowerCase().split("\\s+");
-        for (String word : words) {
-            index.putIfAbsent(word, new ArrayList<>());
-            if (!index.get(word).contains(webPage)) {
-                index.get(word).add(webPage);
-            }
-        }
-    }
-
-    public List<WebPage> searchByKeyword(String keyword) {
-        return index.getOrDefault(keyword.toLowerCase(), new ArrayList<>());
-    }
-
-    public void removeWebPage(String url) {
-        for (List<WebPage> pages : index.values()) {
-            pages.removeIf(page -> page.getUrl().equals(url));
-        }
-    }
+    public static final HashMap<String, List<WebPage>> INDEX = new HashMap<>();
 
     public static void main(String[] args) {
         Main method = new Main();
@@ -42,5 +22,25 @@ public class Main {
         System.out.println(method.searchByKeyword("жираф"));
         method.removeWebPage("http://example.com/3");
     }
-}
 
+
+    public void indexWebPage(WebPage webPage) {
+        String[] words = webPage.getContent().toLowerCase().split("\\s+");
+        for (String word : words) {
+            INDEX.putIfAbsent(word, new ArrayList<>());
+            if (!INDEX.get(word).contains(webPage)) {
+                INDEX.get(word).add(webPage);
+            }
+        }
+    }
+
+    public List<WebPage> searchByKeyword(String keyword) {
+        return INDEX.getOrDefault(keyword.toLowerCase(), new ArrayList<>());
+    }
+
+    public void removeWebPage(String url) {
+        for (List<WebPage> pages : INDEX.values()) {
+            pages.removeIf(page -> page.getUrl().equals(url));
+        }
+    }
+}
