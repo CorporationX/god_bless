@@ -9,11 +9,14 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        System.out.println("Houses: ");
+        printAllHouses();
+
         HOUSES.computeIfAbsent("Stark", key -> new addHouse("Stark of Winterfell", "SOW"));
         HOUSES.computeIfAbsent("Lannister", key -> new addHouse("Lannister of Casterly Rock", "LOCR"));
         HOUSES.computeIfAbsent("Barateon", key -> new addHouse("Barateon of Storm's End", "BOSE"));
-        HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
-
+        printAllHouses();
 
         addHouse("Targaryen of King's Landing", "TOKL");
         addHouse("Arryn of the Eyrie", "Arr");
@@ -23,14 +26,13 @@ public class Main {
         addHouse("Martell of Sunspear", "MOS");
 
         System.out.println();
-        HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
-
+        printAllHouses();
 
         removeHouse("Targaryen");
         removeHouse("Arryn");
         removeHouse("Tully");
         System.out.println();
-        HOUSES.forEach((k, v) -> System.out.println("Ключ-" + k + "/ Дом-" + v.getName() + "/ Герб-" + v.getSigil()));
+        printAllHouses();
 
 
         System.out.println();
@@ -54,6 +56,10 @@ public class Main {
         } else {
             return null;
         }
+    }
+
+    public static void printAllHouses() {
+        HOUSES.forEach((key, house) -> System.out.println("Дом-" + house.getName() + ". Герб-" + house.getSigil()));
     }
 
 
