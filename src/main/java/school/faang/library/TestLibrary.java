@@ -6,8 +6,7 @@ import java.util.Optional;
 
 public class TestLibrary {
 
-    public void doTest() {
-
+    public static void main(String[] args) {
         var booksMap = new HashMap<Book, String>();
         booksMap.put(new Book("Rich Dad", "Kiyosaki", 2010), "A150");
         booksMap.put(new Book("Harry Potter", "Rowling", 2005), "B012");
@@ -49,16 +48,16 @@ public class TestLibrary {
         print(booksMap);
     }
 
-    private void add(HashMap<Book, String> booksMap, Book newBook, String place) {
+    private static void add(HashMap<Book, String> booksMap, Book newBook, String place) {
         booksMap.put(newBook, place);
     }
 
-    private void remove(HashMap<Book, String> booksMap, String title, String author, int year) {
+    private static void remove(HashMap<Book, String> booksMap, String title, String author, int year) {
         var book = new Book(title, author, year);
         booksMap.remove(book);
     }
 
-    private Optional<String> find(HashMap<Book, String> booksMap, String title, String author, int year) {
+    private static Optional<String> find(HashMap<Book, String> booksMap, String title, String author, int year) {
         var book = new Book(title, author, year);
 
         if (booksMap.containsKey(book)) {
@@ -67,7 +66,7 @@ public class TestLibrary {
         return Optional.empty();
     }
 
-    private void print(HashMap<Book, String> booksMap) {
+    private static void print(HashMap<Book, String> booksMap) {
         var keys = booksMap.keySet().stream().sorted(Comparator.comparing(Book::getYear)).toList();
         for (Book key : keys) {
             System.out.print(key);
