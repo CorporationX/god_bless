@@ -2,33 +2,37 @@ package school.faang.task131;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 public class Main {
-    private HashMap<Book,String> bookPlace = new HashMap<>();
+
+    private static final HashMap<Book, String> BOOK_PLACE = new HashMap<>();
 
     {
         Book firstBook = new Book("A Song of Ice and Fire", "George R. R. Martin", 1997);
         Book secondBook = new Book("Crime and punishment", "Fyodor Dostoevsky", 1866);
         Book thirdBook = new Book("1984", "George Orwell", 1949);
 
-        bookPlace.put(firstBook, "First shelf");
-        bookPlace.put(secondBook, "Second shelf");
-        bookPlace.put(thirdBook, "Third shelf");
+        BOOK_PLACE.put(firstBook,  "First shelf");
+        BOOK_PLACE.put(secondBook,  "Second shelf");
+        BOOK_PLACE.put(thirdBook,  "Third shelf");
     }
-    public void addBook(Book book, String place){
-        bookPlace.put(book, place);
+
+    public void addBook(Book book, String place) {
+        BOOK_PLACE.put(book, place);
     }
-    public void removeBook(String title, String author, int year){
+
+    public void removeBook(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        bookPlace.remove(book);
+        BOOK_PLACE.remove(book);
     }
-    public void findBookPlace(String title, String author, int year){
+
+    public void findBookPlace(String title, String author, int year) {
         Book book = new Book(title, author, year);
-        System.out.println(bookPlace.get(book));
+        System.out.println(BOOK_PLACE.get(book));
     }
+
     public void printAllBook(){
-        for(Map.Entry<Book, String> entry : bookPlace.entrySet()){
+        for(Map.Entry<Book, String> entry : BOOK_PLACE.entrySet()) {
             Book book=entry.getKey();
             System.out.println(book + " Place=" + entry.getValue());
         }
