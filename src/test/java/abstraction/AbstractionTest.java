@@ -1,16 +1,16 @@
-import abstractionAbstraction.Archer;
-import abstractionAbstraction.Warrior;
+package abstraction;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AbstractionAbstractionTest {
+public class AbstractionTest {
     private static final String WARRIOR_NAME = "TestWarrior";
     private static final String ARCHER_NAME = "TestArcher";
 
-    private Warrior warrior;
-    private Archer archer;
+    private Character warrior;
+    private Character archer;
 
     @BeforeEach
     void setup() {
@@ -21,13 +21,13 @@ public class AbstractionAbstractionTest {
     @Test
     void testStatsOfCreatedCharacters() {
         assertEquals(WARRIOR_NAME, warrior.getName());
-        assertEquals(Warrior.WARRIOR_STRENGTH, warrior.getStrength());
-        assertEquals(Warrior.WARRIOR_AGILITY, warrior.getAgility());
-        assertEquals(Warrior.WARRIOR_INTELLIGENCE, warrior.getIntelligence());
+        assertEquals(Warrior.warriorStrength, warrior.getStrength());
+        assertEquals(Warrior.warriorAgility, warrior.getAgility());
+        assertEquals(Warrior.warriorIntelligence, warrior.getIntelligence());
         assertEquals(ARCHER_NAME, archer.getName());
-        assertEquals(Archer.ARCHER_STRENGTH, archer.getStrength());
-        assertEquals(Archer.ARCHER_AGILITY, archer.getAgility());
-        assertEquals(Archer.ARCHER_INTELLIGENCE, archer.getIntelligence());
+        assertEquals(Archer.archerStrength, archer.getStrength());
+        assertEquals(Archer.archerAgility, archer.getAgility());
+        assertEquals(Archer.archerIntelligence, archer.getIntelligence());
     }
 
     @Test

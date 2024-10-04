@@ -1,9 +1,9 @@
-package abstractionAbstraction;
+package abstraction;
 
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Tank");
-        Archer archer = new Archer("DamageDealer");
+        Character warrior = new Warrior("Tank");
+        Character archer = new Archer("DamageDealer");
 
         warrior.attack(archer);
         warrior.attack(archer);

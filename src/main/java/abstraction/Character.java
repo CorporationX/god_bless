@@ -1,4 +1,4 @@
-package abstractionAbstraction;
+package abstraction;
 
 import lombok.Getter;
 
@@ -8,9 +8,9 @@ public abstract class Character {
     protected int strength;
     protected int agility;
     protected int intelligence;
-    protected int health;
+    protected int health = 100;
 
-    protected abstract void attack(Character character);
+    public abstract void attack(Character character);
 
     protected void decreaseHealth(int damage) {
         this.health -= damage;
@@ -25,6 +25,5 @@ public abstract class Character {
         this.strength = strength;
         this.agility = agility;
         this.intelligence = intelligence;
-        this.health = 100;
     }
 }
