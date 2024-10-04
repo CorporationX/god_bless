@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 class User {
     public static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     public static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-    private final int minimumAge = 18;
+    private static final int MINIMUM_AGE = 18;
     private String name;
     private int age;
     private String job;
@@ -19,7 +19,7 @@ class User {
     public User(String name, int age, String job, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Имя не должно быть пустым");
-        } else  if (age < minimumAge) {
+        } else  if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Возраст меньше 18 лет недопустим");
         } else if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Место работы не допустимо");
