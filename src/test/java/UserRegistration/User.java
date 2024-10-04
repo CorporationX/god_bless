@@ -21,26 +21,27 @@ public class User {
 
 
     public User(String name, int age, String work, String adress) {
-        if (!name.isEmpty()) {
-            this.name = name;
-        } else {
+        validDate(name, age, work, adress);
+        this.name = name;
+        this.age = age;
+        this.work = work;
+        this.adress = adress;
+    }
+
+    public void validDate(String name, int age, String work, String adress) {
+        if (name.isEmpty() || name == null) {
             throw new IllegalArgumentException("Field cannot be empty");
         }
-        if (age >= LEGAL_AGE) {
-            this.age = age;
-        } else {
+        if (age < LEGAL_AGE) {
             throw new IllegalArgumentException(" Must be over 18 years of age");
         }
-        if (VALID_JOBS.contains(work)) {
-            this.work = work;
-        } else {
+        if (!VALID_JOBS.contains(work)) {
             throw new IllegalArgumentException("The work place is not suitable ");
         }
-        if (VALID_ADRESS.contains(adress)) {
-            this.adress = adress;
-        } else {
+        if (!VALID_ADRESS.contains(adress)) {
             throw new IllegalArgumentException("The adress is not suitable");
         }
+
     }
 
     public String getName() {
