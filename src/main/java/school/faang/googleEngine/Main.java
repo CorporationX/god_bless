@@ -31,9 +31,16 @@ public class Main {
     }
 
     private static void removePage(String url) {
+        List<String> keysToRemove = new ArrayList<>();
         for (var entry : wordsMap.entrySet()) {
-            List<WebPage> values = entry.getValue();
-            values.removeIf(webPage -> webPage.getUrl().equals(url));
+            List<WebPage> pages = entry.getValue();
+            pages.removeIf(webPage -> webPage.getUrl().equals(url));
+            if (pages.isEmpty()) {
+                keysToRemove.add(entry.getKey());
+            }
+        }
+        for (String key : keysToRemove) {
+            wordsMap.remove(key);
         }
     }
 
