@@ -1,13 +1,11 @@
 package ru.kraiush.BJS2_18616.collecting.users;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import school.faang.collecting.users.User;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,9 +25,6 @@ public class UserTest {
         User user3 = new User(1L, "Костя", 21, Set.of("прогулки", "спорт зал", "просмотр фильмов"));
         User user4 = new User(1L, "Аноним", 21, Set.of("бухать в подъзде"));
         List<User> users = List.of(user2, user3, user4);
-        Map<User, String> expected = Map.of(
-                user2, "программирование",
-                user3, "прогулки");
 
         //act
         Map<User, String> actual = user1.findHobbyLovers(users, user1.getActivities());
