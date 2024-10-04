@@ -11,7 +11,7 @@ public abstract class Character  implements Attackable{
     protected int health = 100;
 
     Character(String name) {
-        if ("".equals(name)) {
+        if ("".equals(name) || name == null) {
             throw new IllegalArgumentException("Name is empty");
         } else {
             this.name = name;
