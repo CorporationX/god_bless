@@ -1,6 +1,7 @@
 package school.faang.googleEngine;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 

@@ -19,7 +19,6 @@ public class Main {
         printAllInfo();
         System.out.println(findByKeyword("marketplace"));
         removePage("https://wb.com");
-
         printAllInfo();
     }
 
