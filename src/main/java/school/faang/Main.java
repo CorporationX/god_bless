@@ -40,7 +40,7 @@ public class Main {
 
     public static void getAllBooks(Map<Book, String> bookMap) {
         for (Map.Entry<Book, String> entry : bookMap.entrySet()) {
-            System.out.println(entry.getKey() + ":" + entry.getValue());
+            System.out.println("Книга: "+ entry.getKey().getTitle() + " Положение на полке " + entry.getValue());
         }
     }
 
