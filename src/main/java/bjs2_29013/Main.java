@@ -10,15 +10,14 @@ public class Main {
 
     public static void main(String[] args) {
         List<Student> students = new ArrayList<>();
-        Map<Student, Integer> studentIndices = new HashMap<>();
 
-        addStudent(students, studentIndices, new Student("Jack", "Computer Science", 3));
-        addStudent(students, studentIndices, new Student("Jane", "Economy", 2));
-        addStudent(students, studentIndices, new Student("Jess", "Computer Science", 3));
-        addStudent(students, studentIndices, new Student("Jacob", "Economy", 2));
-        addStudent(students, studentIndices, new Student("Jonathon", "Psychology", 4));
+        addStudent(students, new Student("Jack", "Computer Science", 3));
+        addStudent(students, new Student("Jane", "Economy", 2));
+        addStudent(students, new Student("Jess", "Computer Science", 3));
+        addStudent(students, new Student("Jacob", "Economy", 2));
+        addStudent(students, new Student("Jonathon", "Psychology", 4));
 
-        removeStudent(students, studentIndices, new Student("Jack", "Computer Science", 3));
+        removeStudent(students, new Student("Jack", "Computer Science", 3));
 
         Map<AcademicProgram, List<Student>> groupedStudents = groupStudents(students);
 
@@ -33,33 +32,19 @@ public class Main {
         Map<AcademicProgram, List<Student>> groupedStudents = new HashMap<>();
 
         for (Student student : students) {
-            groupedStudents.computeIfAbsent(new AcademicProgram(student.getFaculty(), student.getYear()),
-                    k -> new ArrayList<Student>()).add(student);
+            groupedStudents.computeIfAbsent(new AcademicProgram(student.getAcademicProgram().getFaculty(),
+                    student.getAcademicProgram().getYear()), k -> new ArrayList<Student>()).add(student);
         }
 
         return groupedStudents;
     }
 
-    public static void addStudent(List<Student> students,
-                                  Map<Student, Integer> studentIndices,
-                                  Student student) {
-        studentIndices.put(student, students.size());
+    public static void addStudent(List<Student> students, Student student) {
         students.add(student);
     }
 
-    public static void removeStudent(List<Student> students,
-                                     Map<Student, Integer> studentIndices,
-                                     Student student) {
-        int studentIndex = studentIndices.get(student);
-        int lastStudentIndex = students.size() - 1;
-
-        Collections.swap(students, studentIndex, lastStudentIndex);
-        students.remove(lastStudentIndex);
-        studentIndices.remove(student);
-
-        if (!students.isEmpty() && studentIndex != lastStudentIndex) {
-            studentIndices.put(students.get(studentIndex), studentIndex);
-        }
+    public static void removeStudent(List<Student> students, Student student) {
+        students.remove(student);
     }
 
     public static List<Student> searchAcademicProgramStudents(Map<AcademicProgram, List<Student>> groupedStudents,
