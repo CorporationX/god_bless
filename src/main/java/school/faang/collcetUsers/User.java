@@ -11,6 +11,21 @@ import lombok.Setter;
 @Getter
 @Setter
 public class User {
+    public static final int MINIMUM_AGE = 18;
+    public static final Set<String> VALID_JOBS = new HashSet<>(){ {
+        add("Google");
+        add("Uber");
+        add("Amazone");
+
+    }};
+
+    public static final Set<String> VALID_ADDRESSES = new HashSet<>(){ {
+        add("London");
+        add("New York");
+        add("Amsterdam");
+
+    }};
+
     private int id;
     private String name;
     private int age;
@@ -28,26 +43,12 @@ public class User {
     }
 
 
-    public static final Set<String> VALID_JOBS = new HashSet<>(){ {
-        add("Google");
-        add("Uber");
-        add("Amazone");
-
-    }};
-
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>(){ {
-        add("London");
-        add("New York");
-        add("Amsterdam");
-
-    }};
-
     public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18.");
+        if (age < MINIMUM_AGE) {
+            throw new IllegalArgumentException("Возраст не может быть меньше " + MINIMUM_AGE + ".");
         }
         if (!VALID_JOBS.contains(job)) {
             throw new IllegalArgumentException("Недопустимая профессия. Допустимые профессии: " + VALID_JOBS);
