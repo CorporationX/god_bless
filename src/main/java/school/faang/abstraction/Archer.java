@@ -1,12 +1,13 @@
 package school.faang.abstraction;
 
 public class Archer extends Character {
+
     public Archer(String name) {
         super(name, 3, 10, 5);
     }
 
     @Override
     protected void attack(Character character) {
-        character.setHealth(character.getHealth()-this.getDexterity());
+        character.setHealth(character.getHealth() - this.getDexterity());
     }
 }
