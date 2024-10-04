@@ -1,8 +1,10 @@
 package school.faang.t09;
 
-@lombok.Data
-@lombok.AllArgsConstructor
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
+@Data
+@AllArgsConstructor
 public class Product {
     private int id;
     private String name;
