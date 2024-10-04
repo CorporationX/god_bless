@@ -6,53 +6,46 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final List<Student> allStudents = new ArrayList<>(List.of(
-            new Student("Ivan Ivanov", "Computer Science", "1"),
-            new Student("Maria Smirnova", "Mathematics", "2"),
-            new Student("Alexey Petrov", "Physics", "3"),
-            new Student("Anna Kuznetsova", "Computer Science", "1"),
-            new Student("Olga Sokolova", "Chemistry", "4"),
-            new Student("Petr Volkov", "Physics", "3")
-    ));
+    private static final List<Student> allStudents = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println(sortStudentByFacultyAndCourse(allStudents));
-        printDivider();
 
-        printAllGroupedStudentsByFacultyAndCourse();
-        printDivider();
+        addNewStudent(new Student("Ivan Ivanov", "Computer Science", "1"));
+        addNewStudent(new Student("Maria Smirnova", "Mathematics", "2"));
+        addNewStudent(new Student("Alexey Petrov", "Physics", "3"));
+        addNewStudent(new Student("Anna Kuznetsova", "Computer Science", "1"));
+        addNewStudent(new Student("Olga Sokolova", "Chemistry", "4"));
+        addNewStudent(new Student("Petr Volkov", "Physics", "3"));
 
+        System.out.println(groupStudentsByFacultyAndCourse(allStudents));
+        printGroupedStudents();
         System.out.println(findAllStudentsByFacultyAndCourse("Physics", "3"));
-        printDivider();
-
         addNewStudent(new Student("Aleksey Petrov", "Chemistry", "4"));
-        printDivider();
-
-        printAllGroupedStudentsByFacultyAndCourse();
-        printDivider();
-
+        printGroupedStudents();
         deleteStudentByNameFacultyYear("Maria Smirnova", "Mathematics", "2");
-        printAllGroupedStudentsByFacultyAndCourse();
+        printGroupedStudents();
     }
 
-    public static Map<String, List<Student>> sortStudentByFacultyAndCourse(List<Student> students) {
-        Map<String, List<Student>> sortedStudents = new HashMap<>();
+    public static Map<String, List<Student>> groupStudentsByFacultyAndCourse(List<Student> students) {
+        Map<String, List<Student>> groupedStudents = new HashMap<>();
 
         for (Student student : students) {
             String faultyAndCourse = student.getFaculty() + student.getYear();
-            sortedStudents.computeIfAbsent(faultyAndCourse, k -> new ArrayList<>()).add(student);
+            groupedStudents.computeIfAbsent(faultyAndCourse, k -> new ArrayList<>()).add(student);
         }
-        return sortedStudents;
+        return groupedStudents;
     }
 
     public static void addNewStudent(Student student) {
-        allStudents.add(student);
-        System.out.printf("Student %s was successfully added \n", student.getName());
+        if (allStudents.contains(student)) {
+            System.out.println("Student is already in the list");
+        } else {
+            allStudents.add(student);
+        }
     }
 
     public static void deleteStudentByNameFacultyYear(String name, String faculty, String year) {
         allStudents.remove(new Student(name, faculty, year));
-        System.out.printf("Student %s was successfully deleted \n", name);
     }
 
     public static List<Student> findAllStudentsByFacultyAndCourse(String faculty, String course) {
@@ -60,24 +53,24 @@ public class Main {
         String facultyAndCourseFromParam = faculty + course;
 
         for (Student student : allStudents) {
-            String facultiesAndCoursesFromList = student.getFaculty() + student.getYear();
+            String valueToCompare = student.getFaculty() + student.getYear();
 
-            if (facultiesAndCoursesFromList.equals(facultyAndCourseFromParam)) {
+            if (valueToCompare.equals(facultyAndCourseFromParam)) {
                 sortedStudents.add(student);
             }
         }
         return sortedStudents;
     }
 
-    public static void printAllGroupedStudentsByFacultyAndCourse() {
-        Map<String, List<Student>> allSortedStudents = sortStudentByFacultyAndCourse(allStudents);
+    public static void printGroupedStudents() {
+        Map<String, List<Student>> allGroupedStudents = groupStudentsByFacultyAndCourse(allStudents);
 
-        for (Map.Entry<String, List<Student>> entryStudent : allSortedStudents.entrySet()) {
-            System.out.println(entryStudent.getValue());
+        for (Map.Entry<String, List<Student>> entryStudent : allGroupedStudents.entrySet()) {
+            System.out.printf("\nFaculty and course: %s | Students: ", entryStudent.getKey());
+            for (Student student : entryStudent.getValue()) {
+                System.out.printf("%s, ", student.getName());
+            }
         }
     }
 
-    public static void printDivider() {
-        System.out.println("-".repeat(15));
-    }
 }
