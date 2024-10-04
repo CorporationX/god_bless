@@ -12,14 +12,14 @@ public abstract class Character {
     protected int health;
 
     public Character(String name) {
-       expEmptyName(name);
+        checkEmptyName(name);
 
         this.name = name;
         health = 100;
     }
 
     public Character(String name, int strength, int agility, int intelligence) {
-        expEmptyName(name);
+        checkEmptyName(name);
 
         this.name = name;
         this.strength = strength;
@@ -30,7 +30,7 @@ public abstract class Character {
 
     public abstract void attack(Character character);
 
-    public void expEmptyName(String name){
+    public void checkEmptyName(String name) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("Пустое имя");
         }
