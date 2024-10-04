@@ -30,7 +30,7 @@ public class User {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
         if (age < MINIMAL_AGE) {
-            throw new IllegalArgumentException("Возраст %s меньше %s".formatted(age, MINIMAL_AGE));
+            throw new IllegalArgumentException("Возраст %d меньше %d".formatted(age, MINIMAL_AGE));
         }
         if (!VALID_JOBS.contains(workPlace)) {
             throw new IllegalArgumentException("Место работы должно содержаться во множестве VALID_JOBS");
@@ -48,8 +48,8 @@ public class User {
         Map<Integer, List<User>> userGroups = new HashMap<>();
 
         users.forEach(user -> {
-            userGroups.putIfAbsent(user.age, new ArrayList<>());
-            userGroups.get(user.age).add(user);
+            userGroups.putIfAbsent(user.getAge(), new ArrayList<>());
+            userGroups.get(user.getAge()).add(user);
         });
 
         return userGroups;
