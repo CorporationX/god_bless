@@ -2,11 +2,12 @@ package school.faang.godbless.bjs2_31293;
 
 public class Warrior extends Character {
 
+  private static final int DEFAULT_STRENGTH = 10;
+  private static final int DEFAULT_AGILITY = 5;
+  private static final int DEFAULT_INTELLIGENCE = 4;
+
   public Warrior(String name) {
-    super(name);
-    this.strength = 10;
-    this.agility = 5;
-    this.intelligence = 3;
+    super(name, DEFAULT_STRENGTH, DEFAULT_AGILITY, DEFAULT_INTELLIGENCE);
   }
 
   public Warrior(String name, int strength, int agility, int intelligence) {
@@ -15,6 +16,6 @@ public class Warrior extends Character {
 
   @Override
   public void attack(Character character) {
-    character.health -= strength;
+    character.setHealth(character.getHealth() - super.getStrength());
   }
 }

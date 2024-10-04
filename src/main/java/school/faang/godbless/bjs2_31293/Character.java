@@ -1,12 +1,15 @@
 package school.faang.godbless.bjs2_31293;
 
+import lombok.Data;
+
+@Data
 public abstract class Character {
 
-  protected String name;
-  protected int strength;
-  protected int agility;
-  protected int intelligence;
-  protected int health = 100;
+  private String name;
+  private int strength;
+  private int agility;
+  private int intelligence;
+  private int health = 100;
 
   public Character(String name) {
     this.name = name;
