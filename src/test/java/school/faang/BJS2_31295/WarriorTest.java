@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class WarriorTest {
     @Test
-    @DisplayName("Testing the creation of Warrior object using constructor with valid name")
-    void testWarrior_OnlyNameConstructorInitializationValidName() {
+    @DisplayName("Testing the creation of Warrior object using constructor (only name) with valid name")
+    void testConstructorWithValidNameOnly() {
         String name = "Anna";
         int expectedPower = 10;
         int expectedAgility = 5;
@@ -26,8 +26,8 @@ class WarriorTest {
     }
 
     @Test
-    @DisplayName("Testing the creation of Warrior object using constructor with empty name")
-    void testWarrior_OnlyNameConstructorInitializationEmptyName() {
+    @DisplayName("Testing the creation of Warrior object using constructor (only name) with empty name")
+    void testConstructorWithEmptyNameOnly() {
         String name = "    ";
 
         IllegalArgumentException argumentException = assertThrows(IllegalArgumentException.class,
@@ -36,8 +36,8 @@ class WarriorTest {
     }
 
     @Test
-    @DisplayName("Testing the creation of Warrior object using constructor with null name")
-    void testWarrior_OnlyNameConstructorInitializationNullName() {
+    @DisplayName("Testing the creation of Warrior object using constructor (only name) with null name")
+    void testConstructorWithNullNameOnly() {
         String name = null;
 
         IllegalArgumentException argumentException = assertThrows(IllegalArgumentException.class,
@@ -46,8 +46,8 @@ class WarriorTest {
     }
 
     @Test
-    @DisplayName("Testing character damage")
-    void testWarrior_WarriorAttack() {
+    @DisplayName("Testing the damage given by a Warrior to another character")
+    void testWarriorAttack() {
         Character warrior = new Warrior("warrior");
         Character archer = new Archer("archer");
         int expectedArcherHealth = 90;

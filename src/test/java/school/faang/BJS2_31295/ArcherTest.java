@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ArcherTest {
     @Test
-    @DisplayName("Testing the creation of Archer object using constructor with valid name")
-    void testArcher_OnlyNameConstructorInitializationValidName() {
+    @DisplayName("Testing the creation of Archer object using constructor (only name) with valid name")
+    void testConstructorWithValidNameOnly() {
         String name = "Anna";
         int expectedPower = 3;
         int expectedAgility = 10;
@@ -26,8 +26,8 @@ class ArcherTest {
     }
 
     @Test
-    @DisplayName("Testing the creation of Archer object using constructor with empty name")
-    void testArcher_OnlyNameConstructorInitializationEmptyName() {
+    @DisplayName("Testing the creation of Archer object using constructor (only name) with empty name")
+    void testConstructorWithEmptyNameOnly() {
         String name = "    ";
 
         IllegalArgumentException argumentException = assertThrows(IllegalArgumentException.class,
@@ -36,8 +36,8 @@ class ArcherTest {
     }
 
     @Test
-    @DisplayName("Testing the creation of Archer object using constructor with null name")
-    void testArcher_OnlyNameConstructorInitializationNullName() {
+    @DisplayName("Testing the creation of Archer object using constructor (only name) with null name")
+    void testConstructorWithNullNameOnly() {
         String name = null;
 
         IllegalArgumentException argumentException = assertThrows(IllegalArgumentException.class,
@@ -46,8 +46,8 @@ class ArcherTest {
     }
 
     @Test
-    @DisplayName("Testing Archer damage")
-    void testArcher_ArcherAttack() {
+    @DisplayName("Testing the damage given by a Archer to another character")
+    void testArcherAttack() {
         Character warrior = new Warrior("warrior");
         Character archer = new Archer("archer");
         int expectedArcherHealth = 90;
