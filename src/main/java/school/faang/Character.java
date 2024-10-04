@@ -1,11 +1,11 @@
 package school.faang;
 
-abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int intelligence;
-    protected int health;
-    protected int agility;
+abstract public class Character {
+    private String name;
+    private int strength;
+    private int intelligence;
+    private int health;
+    private int agility;
 
     public Character(String name) {
         this.name = name;
@@ -23,6 +23,18 @@ abstract class Character {
         this.agility = agility;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getIntelligence() {
+        return intelligence;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -31,35 +43,13 @@ abstract class Character {
         this.health = health;
     }
 
-    public String getName() {
-        return name;
+    public int getAgility() {
+        return agility;
     }
 
     public abstract void attack(Character hostile);
 }
 
-class Warrior extends Character {
-    public Warrior(String name) {
-        super(name, 10, 5, 3);
-    }
 
-    @Override
-    public void attack(Character hostile) {
-        System.out.println(this.name + " обрушивает свою мощь на " + hostile.name + " с силой " + this.strength);
-        hostile.setHealth(hostile.getHealth() - this.strength);
-        System.out.println(hostile.getName() + " теряет " + this.strength + " здоровья и остается с " + hostile.getHealth() + " здоровья");
-    }
-}
 
-class Archer extends Character {
-    public Archer(String name) {
-        super(name, 3, 10, 5);
-    }
 
-    @Override
-    public void attack(Character hostile) {
-        System.out.println(this.name + " стреляет из эльфийского лука в " + hostile.getName() + " с ловкостью " + this.agility);
-        hostile.setHealth(hostile.getHealth() - this.agility);
-        System.out.println(hostile.getName() + " теряет " + this.strength + " здоровья и остается с " + hostile.getHealth() + " здоровья");
-    }
-}
