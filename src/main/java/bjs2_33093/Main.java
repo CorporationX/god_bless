@@ -18,11 +18,13 @@ public class Main {
 
         Book book = new Book("Wolf Hall", "Hilary Mantel", 2009);
         addBook(library, book, "Shelf2");
-        searchBook(library, book);
+        searchBook(library, "Wolf Hall", "Hilary Mantel", 2009);
+        System.out.println(); // Чтобы удобнее вывод было читать
+
         printAllBooksLocations(library);
         System.out.println(); // Чтобы удобнее вывод было читать
 
-        deleteBook(library, book);
+        deleteBook(library, "Wolf Hall", "Hilary Mantel", 2009);
         printAllBooksLocations(library);
     }
 
@@ -30,11 +32,13 @@ public class Main {
         library.put(book, location);
     }
 
-    public static void deleteBook(Map<Book, String> library, Book book) {
+    public static void deleteBook(Map<Book, String> library, String title, String author, int year) {
+        Book book = new Book(title, author, year);
         library.remove(book);
     }
 
-    public static void searchBook(Map<Book, String> library, Book book) {
+    public static void searchBook(Map<Book, String> library, String title, String author, int year) {
+        Book book = new Book(title, author, year);
         System.out.println(library.get(book));
     }
 
