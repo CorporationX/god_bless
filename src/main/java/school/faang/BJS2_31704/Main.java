@@ -5,14 +5,12 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        User user1 = new User("Mark", 22, "Google", "London");
-        User user2 = new User("Tim", 25, "Uber", "London");
-        User user3 = new User("Lucas", 25, "Amazon", "New York");
-        User user4 = new User("Guillermo", 22, "Google", "New York");
-        User user5 = new User("Dennis", 22, "Uber", "Amsterdam");
-        User user6 = new User("Mustafa", 22, "Amazon", "Amsterdam");
-
-        List<User> users = List.of(user1, user2, user3, user4, user5, user6);
+        List<User> users = List.of(new User("Mark", 22, "Google", "London"),
+                new User("Tim", 25, "Uber", "London"),
+                new User("Lucas", 25, "Amazon", "New York"),
+                new User("Guillermo", 22, "Google", "New York"),
+                new User("Dennis", 22, "Uber", "Amsterdam"),
+                new User("Mustafa", 22, "Amazon", "Amsterdam"));
 
         Map<Integer, List<User>> usersGroupByAge = User.groupUsers(users);
 

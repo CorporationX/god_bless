@@ -8,18 +8,20 @@ import java.util.*;
 @Getter
 @ToString
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int THRESHOLD_AGE = 18;
+
     private String name;
     private int age;
     private String workPlace;
     private String address;
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String workPlace, String address) {
         if (name.isBlank()) {
             throw new IllegalArgumentException("Name cannot be empty");
         }
-        if (age < 18) {
+        if (age < THRESHOLD_AGE) {
             throw new IllegalArgumentException("Age must be at least 18");
         }
         if (!VALID_JOBS.contains(workPlace)) {
