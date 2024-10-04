@@ -1,3 +1,5 @@
+package model;
+
 public class Warrior extends Character {
     Warrior(String name) {
         super(name, 10, 5, 3);

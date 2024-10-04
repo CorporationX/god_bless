@@ -1,3 +1,6 @@
+import model.Archer;
+import model.Character;
+import model.Warrior;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

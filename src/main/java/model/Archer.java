@@ -1,3 +1,5 @@
+package model;
+
 public class Archer extends Character {
     Archer(String name) {
         super(name, 3, 10, 5);
