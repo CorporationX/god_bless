@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.character;
 
 public class Archer extends Character {
   public Archer(String name) {

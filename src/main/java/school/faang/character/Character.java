@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.character;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ public abstract class Character {
   protected int power;
   protected int agility;
   protected int intellect;
-  protected int Health = 100;
+  protected int health = 100;
 
   Character(String name) {
     this.name = name;
@@ -22,7 +22,7 @@ public abstract class Character {
   }
 
   public void damage(int damage) {
-    this.Health -= damage;
+    this.health -= damage;
   }
 
   public abstract void attack(Character character);
