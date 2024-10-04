@@ -28,26 +28,22 @@ public abstract class Character {
     public abstract void attack(Character character);
 
     private void validateName(String name) {
-        if (name == null || name.isBlank()) {
+        if (name == null || name.isBlank())
             throw new IllegalArgumentException("Invalid name.");
-        }
     }
 
     private void validatePower(int power) {
-        if (power <= 0) {
+        if (power <= 0)
             throw new IllegalArgumentException("Invalid power value. Must be at least 1.");
-        }
     }
 
     private void validateAgility(int agility) {
-        if (agility <= 0) {
+        if (agility <= 0)
             throw new IllegalArgumentException("Invalid agility value. Must be at least 1.");
-        }
     }
 
     private void validateIntelligence(int intelligence) {
-        if (intelligence <= 0) {
+        if (intelligence <= 0)
             throw new IllegalArgumentException("Invalid intelligence value. Must be at least 1.");
-        }
     }
 }

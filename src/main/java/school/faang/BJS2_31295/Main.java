@@ -7,9 +7,8 @@ public class Main {
 
         while (warrior.health > 0 && archer.health > 0) {
             warrior.attack(archer);
-            if (archer.health > 0) {
+            if (archer.health > 0)
                 archer.attack(warrior);
-            }
         }
         System.out.println(warrior.health > 0
                 ? "Победил воин, осталось здоровья " + warrior.health
