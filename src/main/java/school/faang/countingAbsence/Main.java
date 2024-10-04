@@ -19,8 +19,9 @@ public class Main {
         printAllStudents();
         removeStudent("Harry Potter", "Puffendui", 1);
         printAllStudents();
-        findByFacultyAndYear("Magic", 2);
-        printGroupedStudents();
+        Map<String, List<Student>> groupedStudents = groupByFacultyAndYear(students);
+        printGroupedStudents(groupedStudents);
+        findByFacultyAndYear(groupedStudents, "Magic", 2);
     }
 
     private static void addStudent(Student student) {
@@ -32,30 +33,22 @@ public class Main {
     }
 
     private static void removeStudent(String name, String faculty, int year) {
-        Student studentToRemove = new Student(name, faculty, year);
-        for (int i = 0; i < students.size(); i++) {
-            Student tempStudent = students.get(i);
-            if (tempStudent.getName().equals(studentToRemove.getName())
-                    && tempStudent.getFaculty().equals(studentToRemove.getFaculty())
-                    && tempStudent.getYear() == studentToRemove.getYear()) {
-                students.remove(i);
+        students.removeIf(k -> (k.getName().equals(name)
+                && k.getYear() == year
+                && k.getFaculty().equals(faculty)));
+
+    }
+
+    private static void findByFacultyAndYear(Map<String, List<Student>> groupedStudents, String faculty, int year) {
+        for (var entry : groupedStudents.entrySet()) {
+            if (entry.getKey().equals(faculty+year)) {
+                System.out.println(entry.getValue());
                 break;
             }
         }
     }
 
-    private static void findByFacultyAndYear(String faculty, int year) {
-        List<Student> groupedStudents = new ArrayList<>();
-        for (Student student : students) {
-            if (student.getFaculty().equals(faculty)
-                    && student.getYear() == year) {
-                groupedStudents.add(student);
-            }
-        }
-        System.out.println(groupedStudents);
-    }
-
-    private static Map<String, List<Student>> studentsFacultyInfo(List<Student> students) {
+    private static Map<String, List<Student>> groupByFacultyAndYear(List<Student> students) {
         Map<String, List<Student>> groupedStudents = new HashMap<>();
         for (Student student : students) {
             String key = student.getFaculty() + student.getYear();
@@ -64,8 +57,8 @@ public class Main {
         return groupedStudents;
     }
 
-    private static void printGroupedStudents() {
-        System.out.println(studentsFacultyInfo(students));
+    private static void printGroupedStudents(Map<String, List<Student>> groupedStudents) {
+        System.out.println(groupedStudents);
     }
 
     private static void printAllStudents() {
