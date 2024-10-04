@@ -29,7 +29,7 @@ public class User {
         Map<String, List<User>> mapByAge = new HashMap<>();
         List<User> listByAge = new ArrayList<>();
         for (User user : users) {
-            if (user.age == this.age) {
+            if (user.age.equals(this.age)) {
                 listByAge.add(user);
                 System.out.println("Закинул " + user.name + "\n");
             }
