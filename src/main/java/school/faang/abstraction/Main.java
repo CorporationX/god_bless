@@ -1,5 +1,6 @@
-package school.faang;
+package school.faang.abstraction;
 
+import school.faang.main_code.*;
 public class Main {
     public static void main(String[] args) {
         Warrior warrior = new Warrior("Achiles", 10, 5, 3);
@@ -9,7 +10,7 @@ public class Main {
         archer.attack(warrior);
         warrior.attack(archer);
 
-        System.out.println(warrior.health);
-        System.out.println(archer.health);
+        System.out.println(warrior);
+        System.out.println(archer);
     }
 }
