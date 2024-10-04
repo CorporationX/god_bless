@@ -11,3 +11,9 @@ public class Student {
     private int year;
 }
 
+@Data
+@AllArgsConstructor
+class FacultyAndYear{
+    private String faculty;
+    private int year;
+}
