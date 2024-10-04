@@ -3,7 +3,10 @@ package school.faang.collect_users;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -13,14 +16,11 @@ public class User {
     private int age;
     private Set<String> hobbies;
 
-    static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) throws NoSuchElementException {
-
+    static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         var hobbyLovers = new HashMap<User, String>();
-        String hobby = hobbies.stream().findFirst().orElseThrow(() -> new NoSuchElementException("Hobby not exists"));
         users.forEach(user -> {
-            if (user.getHobbies().contains(hobby)) {
-                hobbyLovers.put(user, hobby);
-            }
+            hobbies.retainAll(user.getHobbies());
+            hobbyLovers.put(user, hobbies.stream().findAny().orElse("Doesn't have matched hobbies"));
         });
         return hobbyLovers;
     }
