@@ -26,17 +26,17 @@ public class Main {
         indexingWebPage(mail);
         indexingWebPage(faangSchool);
 
-        for (Map.Entry<String, List<WebPage>> entry : INDEX_WEB_PAGES.entrySet()) {
-            System.out.println("Index: " + entry.getKey());
-            for (WebPage webPage : entry.getValue()) {
-                System.out.print(" " + webPage.getTitle());
-            }
-            System.out.println();
-        }
+        INDEX_WEB_PAGES.forEach((k,v) -> {
+            System.out.println(k + " " + v.stream().map(WebPage::getTitle).toList());
+        });
+
+        System.out.println();
+        System.out.println(findWebPages("hello").toString());
 
     }
 
-    public static void indexingWebPage(@NonNull WebPage webPage) {
+    public static void indexingWebPage(WebPage webPage) {
+        if (webPage == null) return;
         List<String> words = List.of(webPage.getContent().replaceAll("\\p{P}", " ").split(" "));
         for (String word : words) {
             if (!word.isEmpty()) {
@@ -49,4 +49,10 @@ public class Main {
             }
         }
     }
+
+    public static List<WebPage> findWebPages( @NonNull String word) {
+        return INDEX_WEB_PAGES.getOrDefault(word, List.of());
+    }
+
+
 }
