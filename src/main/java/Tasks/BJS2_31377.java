@@ -65,7 +65,7 @@ class User {
 		
 		for (User user : users) {
 			groupedUsersByAge.putIfAbsent(user.age, new ArrayList<>());
-			groupedUsersByAge.get(user).add(user);
+			groupedUsersByAge.get(user.age).add(user);
 		}
 		
 		return groupedUsersByAge;
