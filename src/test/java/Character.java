@@ -1,18 +1,19 @@
 public abstract class Character {
     protected String name;
     protected int power;
-    protected String skil;
-    protected String intelligence;
-    protected boolean health;
+    protected int skil;
+    protected int intelligence;
+    protected int health = 100;
 
     public Character(String name) {
         this.name = name;
     }
 
-    public Character(int power, String intelligence, String skil, boolean health) {
+    public Character(int power, int intelligence, int skil) {
         this.power = power;
         this.intelligence = intelligence;
         this.skil = skil;
-        this.health = health;
     }
+
+    public abstract void attack(Character character);
 }

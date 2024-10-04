@@ -2,20 +2,21 @@
 
 public class Main {
 
-        public static void main(String[] args) {
-            User Vasy = new User("Vasy", 18, "hgh", "Voronezh");
-            User Kyza = new User("Kyza", 33, "II", "Piter");
-            User Vlad = new User("Vlad", 16, "ggg", "Moscow");
-            add(Vasy);
-            add(Kyza);
-            add(Vlad);
+    public static void main(String[] args) {
+        Character Pasha = new Warrior(10, 18, 33, "Pasha");
+        Character Vasy = new Archer(11, 20, 33, "Vasy");
 
-            Map<Integer, List<User>> group = User.groupUsers(userList);
+        System.out.println("Pasha health is: " + Pasha.health);
+        System.out.println("Vasy health is: " + Vasy.health);
+        System.out.println();
 
-            printAll(group);
-        }
+        Pasha.attack(Vasy);
+        Vasy.attack(Pasha);
 
-        private static void add(User user) {
-            userList.add(user);
-        }
+        System.out.println("Pasha health is: " + Pasha.health);
+        System.out.println("Vasy health is: " + Vasy.health);
+        System.out.println();
+    }
 }
+
+
