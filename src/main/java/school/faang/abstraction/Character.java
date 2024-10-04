@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class Character {
+public abstract class Character implements Attackable {
     private String name;
     private int strength;
     private int agility;
