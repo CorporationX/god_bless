@@ -9,6 +9,35 @@ public class Main {
     static List<Student> allStudents = new ArrayList<>();
 
     public static void main(String[] args) {
+        Student aleksey = new Student("Aleksey", "IT", 2023);
+        Student olga = new Student("Olga", "IT", 2022);
+        Student ivan = new Student("Ivan", "IT", 2023);
+        Student david = new Student("David", "HR", 2021);
+
+        addNewStudent(aleksey);
+        addNewStudent(olga);
+        addNewStudent(ivan);
+        addNewStudent(david);
+
+        Map<StudentRecord, List<Student>> groupedStudents = addStudents(allStudents);
+
+        System.out.println("All Grouped Students:");
+        printAllGroupedStudents(groupedStudents);
+
+        System.out.println("\nStudents in IT, Year 2023:");
+        findAllStudentsByCourseAndFaculty(groupedStudents, "IT", 2023);
+
+        System.out.println("\nRemoving student: Ivan");
+        removeStudentByName(groupedStudents, "Ivan");
+
+        System.out.println("\nUpdated Grouped Students:");
+        printAllGroupedStudents(groupedStudents);
+
+        System.out.println("\nRemoving all students from Mathematics, Year " +
+                "2022");
+        removeByFacultyAndCourse(groupedStudents, new Student("",
+                "Mathematics", 2022));
+        printAllGroupedStudents(groupedStudents);
     }
 
     public static Map<StudentRecord, List<Student>> addStudents(List<Student> listStudents) {

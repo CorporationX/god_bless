@@ -1,13 +1,11 @@
 package school.faang.truancy;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+public record StudentRecord(String faculty, int year) {
+    public String getFaculty() {
+        return faculty;
+    }
 
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class StudentRecord {
-    private String faculty;
-    private int year;
+    public int getYear() {
+        return year;
+    }
 }
