@@ -1,6 +1,11 @@
 package groupUsers;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class User {
     private final static Set<String> VALID_JOBS = new HashSet<String>() {{
@@ -13,6 +18,7 @@ public class User {
         add("New York");
         add("Amsterdam");
     }};
+    private final static int MINIMAL_AGE = 18;
 
     private String name;
     private int age;
@@ -23,8 +29,8 @@ public class User {
         if(name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
-        if (age < 18) {
-            throw new IllegalArgumentException("Возраст не может быть меньше 18");
+        if (age < MINIMAL_AGE) {
+            throw new IllegalArgumentException("Возраст %s меньше %s".formatted(age, MINIMAL_AGE));
         }
         if (!VALID_JOBS.contains(workPlace)) {
             throw new IllegalArgumentException("Место работы должно содержаться во множестве VALID_JOBS");
@@ -41,14 +47,11 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userGroups = new HashMap<>();
 
-        for (User user : users) {
-            if (userGroups.containsKey(user.age)) {
-                userGroups.get(user.age).add(user);
-            } else {
-                userGroups.put(user.age, new ArrayList<User>());
-                userGroups.get(user.age).add(user);
-            }
-        }
+        users.forEach(user -> {
+            userGroups.putIfAbsent(user.age, new ArrayList<>());
+            userGroups.get(user.age).add(user);
+        });
+
         return userGroups;
     }
 }
