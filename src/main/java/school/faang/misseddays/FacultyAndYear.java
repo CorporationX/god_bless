@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-class FacultyAndYear{
+public class FacultyAndYear{
     private String faculty;
     private int year;
 }
