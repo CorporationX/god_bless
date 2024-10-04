@@ -1,14 +1,14 @@
+package school.faang;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.Archer;
-import school.faang.Warrior;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CharacterTest {
     private Archer archer;
     private Warrior warrior;
-    private Warrior target;
+    private Character target;
 
     @BeforeEach
     public void setUp() {
