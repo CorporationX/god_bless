@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CharacterTest {
-    private Archer archer;
-    private Warrior warrior;
+    private Character archer;
+    private Character warrior;
     private Character target;
 
     @BeforeEach
