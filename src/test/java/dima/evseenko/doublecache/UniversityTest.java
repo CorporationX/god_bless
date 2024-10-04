@@ -53,28 +53,12 @@ class UniversityTest {
     }
 
     @Test
-    void deleteNullSubjectFromMarks(){
-        University university = new University();
-        university.addStudentMark(new Student(1L, "Dima"), new Subject(1L, "Math"), 4);
-
-        assertThrows(IllegalArgumentException.class, () -> university.deleteSubjectFromMarks(null, new Subject(1L, "Math")));
-    }
-
-    @Test
     void deleteStudentFromMarks(){
         University university = new University();
         university.addStudentMark(new Student(1L, "Dima"), new Subject(1L, "Math"), 4);
         university.deleteStudentFromMarks(new Student(1L, "Dima"));
 
         assertNull(university.getStudentMarks(new Student(1L, "Dima")));
-    }
-
-    @Test
-    void deleteNullStudentFromMarks(){
-        University university = new University();
-        university.addStudentMark(new Student(1L, "Dima"), new Subject(1L, "Math"), 4);
-
-        assertThrows(IllegalArgumentException.class, () -> university.deleteStudentFromMarks(null));
     }
 
     @Test
@@ -122,13 +106,6 @@ class UniversityTest {
         university.deleteStudentFromSubject(new Subject(1L, "Math"), new Student(2L, "Vasya"));
 
         assertFalse(university.getSubjectStudents(new Subject(1L, "Math")).contains(new Student(2L, "Vasya")));
-    }
-
-    @Test
-    void deleteNullStudentFromSubject(){
-        University university = new University();
-
-        assertThrows(IllegalArgumentException.class, () -> university.deleteStudentFromSubject(null, new Student(1L, "Dima")));
     }
 
     @Test

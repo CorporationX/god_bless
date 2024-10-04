@@ -25,15 +25,10 @@ public class University {
     }
 
     public void deleteStudentFromMarks(Student student) {
-        validateStudent(student);
-
         studentMarks.remove(student);
     }
 
     public void deleteSubjectFromMarks(Student student, Subject subject) {
-        validateStudent(student);
-        validateSubject(subject);
-
         if(studentMarks.containsKey(student)) {
             studentMarks.get(student).remove(subject);
         }
@@ -54,23 +49,16 @@ public class University {
     }
 
     public void deleteStudentFromSubject(Subject subject, Student student) {
-        validateSubject(subject);
-        validateStudent(student);
-
         if(subjectStudents.containsKey(subject)) {
             subjectStudents.get(subject).remove(student);
         }
     }
 
     public Map<Subject, Integer> getStudentMarks(Student student) {
-        validateStudent(student);
-
         return studentMarks.get(student);
     }
 
     public List<Student> getSubjectStudents(Subject subject) {
-        validateSubject(subject);
-
         return subjectStudents.get(subject);
     }
 
@@ -92,12 +80,6 @@ public class University {
             throw new IllegalArgumentException("Subject name is null");
     }
 
-    private void validateStudents(List<Student> students) {
-        if(students == null)
-            throw new IllegalArgumentException("Students is null");
-        students.forEach(this::validateStudent);
-    }
-
     private void validateMark(int mark) {
         if(mark <= 0)
             throw new IllegalArgumentException("Mark must be greater than 0");
@@ -106,10 +88,11 @@ public class University {
     private void validateMarks(Map<Subject, Integer> marks) {
         if(marks == null)
             throw new IllegalArgumentException("Marks is null");
-        marks.forEach((subject, integer) -> {
-            validateSubject(subject);
-            validateMark(integer);
-        });
+    }
+
+    private void validateStudents(List<Student> students){
+        if(students == null)
+            throw new IllegalArgumentException("Students is null");
     }
 
     public void printStudentMarks() {
