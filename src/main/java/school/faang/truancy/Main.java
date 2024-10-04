@@ -11,7 +11,7 @@ import java.util.Set;
 public class Main {
 
     private static final List<Student> STUDENTS = new ArrayList<>();
-    private static final Set<Student> addedStudents = new HashSet<>();
+    private static final Set<Student> ADDED_STUDENTS = new HashSet<>();
 
     public static void main(String[] args) {
         addStudent(new Student("Alex", "IVT", 2));
@@ -29,14 +29,14 @@ public class Main {
         if (student == null) {
             throw new IllegalArgumentException("Student cannot be null");
         }
-        if (addedStudents.add(student)) {
+        if (ADDED_STUDENTS.add(student)) {
             STUDENTS.add(student);
         }
     }
 
     public static void removeStudent(String name, String faculty, int year) {
         Student studentToRemove = new Student(name, faculty, year);
-        if (addedStudents.remove(studentToRemove)) {
+        if (ADDED_STUDENTS.remove(studentToRemove)) {
             STUDENTS.remove(studentToRemove);
         }
     }
