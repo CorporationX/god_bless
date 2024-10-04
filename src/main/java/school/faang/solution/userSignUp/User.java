@@ -6,14 +6,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class User {
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
+
     private static final int ELIGIBILITY_AGE = 18;
     private String name;
     private int userAge;
     private String company;
     private String address;
-    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private static final Set<String> VALID_ADDRESS = Set.of("London", "New York", "Amsterdam");
-
 
     public User(String name, int userAge, String company, String address) {
         if (name.isEmpty() || name.isBlank()) {
@@ -26,7 +26,7 @@ public class User {
 
         boolean validCompany = false;
         for (String job : VALID_JOBS) {
-            if (company.equalsIgnoreCase(job)) {
+            if (company.contains(job)) {
                 validCompany = true;
                 break;
             }
