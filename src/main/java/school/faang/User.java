@@ -1,13 +1,13 @@
 package school.faang;
 
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@Getter
+@Data
 public class User {
     private String name;
     private String age;
@@ -38,5 +38,7 @@ public class User {
         return  mapByAge;
 
     }
+
+
 }
 

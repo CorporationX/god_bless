@@ -19,11 +19,10 @@ public class Main {
         usersList.add(user2);
         usersList.add(user3);
         usersList.add(user4);
+        System.out.println("age of user = "+user.getAge()+"\n");
         Map<String, List<User>> mapByAge = user.groupUsers(usersList);
         System.out.println(Arrays.toString(mapByAge.get(user.getAge()).toArray())+"\n");
-        System.out.println(user.toString());
-        System.out.println(user2.toString());
-        System.out.println(user4.toString());
+
 
     }
 
