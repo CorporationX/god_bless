@@ -26,9 +26,7 @@ public class Main {
         indexingWebPage(mail);
         indexingWebPage(faangSchool);
 
-        INDEX_WEB_PAGES.forEach((k,v) -> {
-            System.out.println(k + " " + v.stream().map(WebPage::getTitle).toList());
-        });
+        INDEX_WEB_PAGES.forEach((k, v) -> System.out.println(k + " " + v.stream().map(WebPage::getTitle).toList()));
 
         System.out.println();
         System.out.println(findWebPages("hello").toString());
@@ -50,7 +48,7 @@ public class Main {
         }
     }
 
-    public static List<WebPage> findWebPages( @NonNull String word) {
+    public static List<WebPage> findWebPages(@NonNull String word) {
         return INDEX_WEB_PAGES.getOrDefault(word, List.of());
     }
 
