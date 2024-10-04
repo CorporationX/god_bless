@@ -7,10 +7,6 @@ public class Warrior extends Character{
 
     @Override
     public void attack(Character character) {
-        if (character.health < power) {
-            character.health = 0;
-        } else {
-            character.health -= power;
-        }
+        character.health -= character.health < power ? character.health : power;
     }
 }
