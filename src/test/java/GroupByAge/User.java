@@ -1,13 +1,12 @@
 package GroupByAge;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
- 
+
+@Getter
 public class User {
     private String name;
     private int age;
@@ -19,22 +18,6 @@ public class User {
         this.age = age;
         this.work = work;
         this.adress = adress;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getWork() {
-        return work;
-    }
-
-    public String getAdress() {
-        return adress;
     }
 
     @Override
