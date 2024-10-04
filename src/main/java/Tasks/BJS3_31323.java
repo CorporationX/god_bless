@@ -64,7 +64,7 @@ class Warrior extends Character {
 	@Override
 	public void attack(Defensible defensible) {
 		showAttackInformation(defensible.getName(), this.strength);
-		defensible.takeDamage(this.agility);
+		defensible.takeDamage(this.strength);
 	}
 }
 
