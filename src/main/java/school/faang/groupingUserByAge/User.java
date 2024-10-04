@@ -8,22 +8,31 @@ import java.util.*;
 @Data
 @Builder
 public class User {
+    private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private final static int MIN_AGE = 18;
+
     private String name;
     private int age;
     private String workplace;
     private String address;
-    private final static Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
-    private final static Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String workplace, String address) {
-        if (!name.isEmpty() && age >= 18 && VALID_JOBS.contains(workplace) && VALID_ADDRESSES.contains(address)) {
+        if (!name.isEmpty()) {
             this.name = name;
-            this.age = age;
-            this.workplace = workplace;
-            this.address = address;
-        } else {
-            throw new IllegalArgumentException("Invalid user");
-        }
+        } else throw new IllegalArgumentException("The name field cannot be empty");
+
+        if (age >= MIN_AGE) {
+            this.name = name;
+        } else throw new IllegalArgumentException("The minimum age is 18");
+
+        if (VALID_JOBS.contains(workplace)) {
+            this.name = name;
+        } else throw new IllegalArgumentException("Invalid workplace: " + workplace);
+
+        if (VALID_ADDRESSES.contains(address)) {
+            this.name = name;
+        } else throw new IllegalArgumentException("Invalid address: " + address);
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
