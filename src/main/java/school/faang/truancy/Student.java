@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.truancy;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
