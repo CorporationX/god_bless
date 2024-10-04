@@ -28,6 +28,8 @@ public class Main {
         removeEvent(5);
         printAllStreamEvents();
 
+        System.out.println();
+        System.out.println(findEventsByType("event3").toString());
     }
 
     public static void addEvent(String eventType, String data) {
@@ -41,7 +43,7 @@ public class Main {
     }
 
     public static List<StreamEvent> findEventsByType(String eventType) {
-        return null;
+        return EVENTS_BY_TYPE.get(eventType);
     }
 
     public static void removeEvent(Integer id) {
