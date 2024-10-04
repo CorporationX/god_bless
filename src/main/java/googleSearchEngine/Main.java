@@ -41,13 +41,12 @@ public class Main {
     public static void indexingWebPage(@NonNull WebPage webPage) {
         Set<String> words = new HashSet<>(List.of(webPage
                 .getContent()
-                .replaceAll("\\p{P}", " ")
-                .split(" ")));
+                .toLowerCase()
+                .split("[(\\s,.\"!?:';)]+")));
 
         INDEX_URLS_WORDS.computeIfAbsent(webPage.getUrl(), k -> new HashSet<>()).addAll(words);
 
         for (String word : words) {
-            if (word.isEmpty()) continue;
             if (INDEX_WEB_PAGES.containsKey(word)) {
                 Set<WebPage> pages = new HashSet<>(INDEX_WEB_PAGES.get(word));
                 if (!pages.contains(webPage)) INDEX_WEB_PAGES.get(word).add(webPage);
