@@ -60,7 +60,6 @@ public class Main {
                 System.out.println(student);
             }
         }
-
     }
 
     public static void printAllStudents(Map<FacultyAndYear, List<Student>> filter) {
@@ -69,4 +68,3 @@ public class Main {
         }
     }
 }
-
