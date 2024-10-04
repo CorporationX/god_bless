@@ -1,6 +1,6 @@
 package school.faang.abstraction;
 
-public class Warrior extends Character{
+public class Warrior extends Character implements Attackable{
     public Warrior(String name) {
         super(10,  5,  3);
         this.setName(name);
