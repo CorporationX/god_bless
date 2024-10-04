@@ -16,9 +16,17 @@ public class Main {
         addEvent("event1", "data3");
         addEvent("event3", "data4");
         addEvent("event3", "data5");
-
         printAllStreamEvents();
 
+        System.out.println();
+        EVENTS_BY_TYPE.forEach((k,v) -> System.out.println("тип события: " + k + ", события: " + v.toString()));
+
+        System.out.println();
+        System.out.println(findEventByID(2).toString());
+
+        System.out.println();
+        removeEvent(5);
+        printAllStreamEvents();
 
     }
 
@@ -29,14 +37,16 @@ public class Main {
     }
 
     public static StreamEvent findEventByID(int id) {
-        return null;
+        return EVENTS.get(id);
     }
 
     public static List<StreamEvent> findEventsByType(String eventType) {
         return null;
     }
 
-    public static void removeEvent(int id) {
+    public static void removeEvent(Integer id) {
+        EVENTS.remove(id);
+        EVENTS_BY_TYPE.values().forEach(events -> events.removeIf(event -> event.getId() == id));
     }
 
     public static void printAllStreamEvents(){

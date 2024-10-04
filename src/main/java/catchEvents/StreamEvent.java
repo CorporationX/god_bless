@@ -3,9 +3,11 @@ package catchEvents;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
 @EqualsAndHashCode
+@ToString
 public class StreamEvent {
     private static int count = 0;
 
