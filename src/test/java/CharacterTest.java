@@ -1,3 +1,6 @@
+import model.Archer;
+import model.Character;
+import model.Warrior;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -15,6 +18,6 @@ public class CharacterTest {
         Bekassyl.attack(Zhubanysh);
 
         assertEquals(97, Zhubanysh.getHealth());
-        assertEquals(80, Zhubanysh.getHealth());
+        assertEquals(80, Bekassyl.getHealth());
     }
 }
