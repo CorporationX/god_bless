@@ -3,8 +3,6 @@ package school.faang;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 abstract class Character {
@@ -15,8 +13,8 @@ abstract class Character {
     protected int health;
 
     public Character(String name) {
-        this.name = name;
-        this.health = 100;
+        this(name, 0, 0, 0, 100);
+
     }
 
     public Character(String name, int strength, int dexterity, int intellect, int health) {
