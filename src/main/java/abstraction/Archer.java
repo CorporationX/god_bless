@@ -12,7 +12,10 @@ public class Archer extends Character {
     }
 
     public Archer(String name, int power, int skill, int intellect) {
-        super(name, power, skill, intellect);
+        super(name);
+        this.power = power;
+        this.skill = skill;
+        this.intellect = intellect;
     }
 
     @Override
