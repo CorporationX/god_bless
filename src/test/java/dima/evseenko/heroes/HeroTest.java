@@ -3,7 +3,7 @@ package dima.evseenko.heroes;
 import dima.evseenko.heroes.entity.Pikeman;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HeroTest {
 

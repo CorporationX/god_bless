@@ -7,7 +7,7 @@ import dima.evseenko.heroes.entity.Pikeman;
 import dima.evseenko.heroes.entity.Swordman;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BattlefieldTest {
 
