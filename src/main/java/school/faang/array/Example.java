@@ -1,5 +1,7 @@
 package school.faang.array;
 
+import java.util.Arrays;
+
 public class Example {
 
 
@@ -9,7 +11,7 @@ public class Example {
             nums[i] = nums[nums.length - i - 1];
             nums[nums.length - i - 1] = result;
         }
-        nums.toString();
+
         return nums;
 
 
