@@ -8,9 +8,6 @@ public class Example {
             nums[i] = nums[nums.length - i - 1];
             nums[nums.length - i - 1] = result;
         }
-
         return nums;
-
-
     }
 }
