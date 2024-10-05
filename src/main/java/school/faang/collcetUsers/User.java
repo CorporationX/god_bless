@@ -52,6 +52,7 @@ public class User {
         this.job = job;
         this.address = address;
     }
+
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {

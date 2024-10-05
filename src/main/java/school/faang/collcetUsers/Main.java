@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class Main {
+
     public static void main(String[] args) {
         // Создаем пользователей
         User user1 = new User(1, "Alice", 25, Arrays.asList("reading", "swimming"), "Google", "London");
