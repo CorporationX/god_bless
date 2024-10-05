@@ -3,7 +3,7 @@ package school.faang.character;
 import lombok.Data;
 
 @Data
-public abstract class Character {
+public abstract class Character{
   protected String name;
   protected int power;
   protected int agility;
@@ -19,10 +19,6 @@ public abstract class Character {
     this.power = power;
     this.agility = agility;
     this.intellect = intellect;
-  }
-
-  public void damage(int damage) {
-    this.health -= damage;
   }
 
   public abstract void attack(Character character);
