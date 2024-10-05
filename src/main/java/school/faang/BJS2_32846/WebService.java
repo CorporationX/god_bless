@@ -40,6 +40,15 @@ public class WebService {
     public void removeWebPage(String url) {
         WebPage page = alreadyIndexedPages.remove(url);
         Set<String> wordsOnPage = pageToWords.remove(url);
-        wordsOnPage.forEach(word -> wordToPages.get(word).remove(page));
+        for (String word: wordsOnPage) {
+            List<WebPage> pages = wordToPages.get(word);
+            pages.remove(page);
+            if (pages.isEmpty())
+                wordToPages.remove(word);
+        }
+    }
+
+    public int getWordsCount() {
+        return wordToPages.size();
     }
 }
