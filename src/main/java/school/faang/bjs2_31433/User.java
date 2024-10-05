@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_31433;
 
 import lombok.*;
 
@@ -19,12 +19,8 @@ public class User {
         Map<Integer, List<User>> sortedByAgeUsers = new HashMap<>();
 
         for (User user : users) {
-            if (!sortedByAgeUsers.containsKey(user.age)) {
-                sortedByAgeUsers.put(user.age, new ArrayList<>());
-                sortedByAgeUsers.get(user.age).add(user);
-            } else {
-                sortedByAgeUsers.get(user.age).add(user);
-            }
+            sortedByAgeUsers.putIfAbsent(user.age, new ArrayList<>());
+            sortedByAgeUsers.get(user.age).add(user);
         }
 
         return sortedByAgeUsers;
