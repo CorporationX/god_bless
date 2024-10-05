@@ -15,8 +15,10 @@ public class Main {
         StreamEvent secondEvent = new StreamEvent(51, "burn", "thinking");
         StreamEvent thirdEvent = new StreamEvent(18, "burn", "thinking");
 
-        List<StreamEvent> eventsBurn = Arrays.asList(secondEvent, thirdEvent);
-        List<StreamEvent> eventsSomething = List.of(firstEvent);
+        List<StreamEvent> eventsBurn = new ArrayList(Arrays.asList(secondEvent,secondEvent));
+        List<StreamEvent> eventsSomething = new ArrayList(Arrays.asList(firstEvent));
+
+
 
         eventTypeMap.put("burn", eventsBurn);
         eventTypeMap.put("something", eventsSomething);
@@ -55,22 +57,25 @@ public class Main {
     }
 
     public static void eventSearchById(Map<Integer, StreamEvent> map, int idSearch) {
-        System.out.println("Событие найденное по ID: " + map.get(idSearch));
+        System.out.println("Событие найденное по ID = " + idSearch + " : " + map.get(idSearch));
     }
 
     public static void eventsSearchByEventType(Map<String, List<StreamEvent>> map, String eventTypeSearch) {
-        System.out.println("Список событий найденных по типу: " + map.get(eventTypeSearch));
+        System.out.println("Список событий найденных по типу " + eventTypeSearch + " : " + map.get(eventTypeSearch));
     }
 
-    public static void deleteEventByID(Map<Integer, StreamEvent> map,
-                                       Map<String, List<StreamEvent>> map2, int id) {
+    public static void deleteEventByID(Map<Integer, StreamEvent> map, Map<String, List<StreamEvent>> map2, int id) {
         if (map.get(id) != null) {
             //Поиск типа события для удаления
             String eventTypeForId = map.get(id).getEventType();
 
             List<StreamEvent> listToDelete = map2.get(eventTypeForId);
+            int index = listToDelete.indexOf(map.get(id));
 
-            listToDelete.remove(map.get(id));
+            if (index != -1) {
+                listToDelete.remove(index);
+            }
+            map2.put(eventTypeForId, listToDelete);
             map.remove(id);
         }
     }

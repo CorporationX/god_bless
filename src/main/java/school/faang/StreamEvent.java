@@ -1,5 +1,7 @@
 package school.faang;
 
+import java.util.Objects;
+
 public class StreamEvent {
     private int id;
     private String eventType;
@@ -35,4 +37,23 @@ public class StreamEvent {
         this.data = data;
     }
 
+    @Override
+    public int hashCode(){
+        return Objects.hash(id, eventType, data);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        StreamEvent streamEvent = (StreamEvent) obj;
+        return id == streamEvent.id &&
+                Objects.equals(eventType, streamEvent.eventType) &&
+                Objects.equals(data, streamEvent.data);
+
+    }
 }
