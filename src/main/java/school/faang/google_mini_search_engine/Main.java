@@ -2,11 +2,13 @@ package school.faang.google_mini_search_engine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
-import java.util.Map;
+import java.util.Set;
 
 public class Main {
     public static final HashMap<String, ArrayList<WebPage>> WEB_PAGES = new HashMap<>();
+    public static final Set<WebPage> EXISTING_PAGES = new HashSet<>();
 
     public static void main(String[] args) {
         indexingNewWebPage(new WebPage("https://docs.oracle.com/", "Class String",
@@ -19,7 +21,10 @@ public class Main {
                 "Modded apps are simply modified versions of the original mobile app"));
         indexingNewWebPage(new WebPage("https://faang-school.com/courses/",
                 "Java HashMap",
-                "Key-value data structure, also known as associative array"));
+                "Key-value data structure"));
+        indexingNewWebPage(new WebPage("https://faang-school.com/courses/",
+                "Java HashMap",
+                "Key-value data structure"));
 
         ArrayList<WebPage> testWebPagesByKeyWord = getWebPagesByKeyWord("modified");
         testPrintAllPagesByKeyWord(testWebPagesByKeyWord);
@@ -32,10 +37,15 @@ public class Main {
     }
 
     public static void indexingNewWebPage(WebPage webPage) {
-        String[] keyWords = webPage.getContent().split(" ");
-        for (int i = 0; i < keyWords.length; i++) {
-            WEB_PAGES.put(keyWords[i], WEB_PAGES.computeIfAbsent(
-                    keyWords[i], keyWord -> new ArrayList<>())).add(webPage);
+        if (!EXISTING_PAGES.contains(webPage)) {
+            String[] keyWords = webPage.getContent().split(" ");
+            for (int i = 0; i < keyWords.length; i++) {
+                WEB_PAGES.put(keyWords[i], WEB_PAGES.computeIfAbsent(
+                        keyWords[i], keyWord -> new ArrayList<>())).add(webPage);
+                EXISTING_PAGES.add(webPage);
+            }
+        } else {
+            System.out.println("This page is already indexed");
         }
     }
 
