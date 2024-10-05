@@ -17,8 +17,7 @@ public class Main {
         students.add(new Student("Ada", "CRANCH", 1));
         students.add(new Student("Stela", "ILGIS", 6));
 
-        Map<KeyForHashMap, List<Student>> studentsMap = createStudentMap(
-                students);
+        Map<KeyForHashMap, List<Student>> studentsMap = createStudentMap(students);
 
         addNewStudent(studentsMap);
         System.out.println(studentsMap);
@@ -34,48 +33,50 @@ public class Main {
         gropedList(studentsMap);
     }
 
-    public static Map<KeyForHashMap, List<Student>> createStudentMap(
-            List<Student> list) {
+    public static Map<KeyForHashMap, List<Student>> createStudentMap(List<Student> list) {
         Map<KeyForHashMap, List<Student>> classmates = new HashMap<>();
+
         for (Student student : list) {
             KeyForHashMap key = new KeyForHashMap(student.getYear(), student.getFaculty());
-            classmates.putIfAbsent(key, new ArrayList<>());
-            classmates.get(key).add(student);
+            if (classmates.containsKey(key)) {
+                if (classmates.get(key) != null) {
+                    classmates.get(key).add(student);
+                } else {
+                    List<Student> students = new ArrayList<>(Arrays.asList());
+                }
+            }
         }
         return classmates;
     }
 
     public static void addNewStudent(Map<KeyForHashMap, List<Student>> map) {
         Student newStudent = new Student("Victor", "CRANCH", 1);
-        KeyForHashMap newKey = new KeyForHashMap(newStudent.getYear(),
-                                                 newStudent.getFaculty());
+        KeyForHashMap newKey = new KeyForHashMap(newStudent.getYear(), newStudent.getFaculty());
         map.putIfAbsent(newKey, new ArrayList<>());
         map.get(newKey).add(newStudent);
     }
 
-    public static void deleteStudent(Map<KeyForHashMap, List<Student>> map,
-                                     String name, String faculty, int year) {
+    public static void deleteStudent(Map<KeyForHashMap, List<Student>> map, String name, String faculty, int year) {
         KeyForHashMap deleteKey = new KeyForHashMap(year, faculty);
 
 
         if (map.containsKey(deleteKey) && map.get(deleteKey).equals(name)) {
             map.remove(deleteKey, name);
         }
-        if(!map.containsKey(deleteKey)){
+        if (!map.containsKey(deleteKey)) {
             map.remove(deleteKey);
         }
     }
 
-    public static void searchStudents(Map<KeyForHashMap, List<Student>> map,
-                                      KeyForHashMap searchKey) {
+    public static void searchStudents(Map<KeyForHashMap, List<Student>> map, KeyForHashMap searchKey) {
         System.out.println(map.get(searchKey));
     }
 
     public static void gropedList(Map<KeyForHashMap, List<Student>> map) {
         for (Map.Entry<KeyForHashMap, List<Student>> entry : map.entrySet()) {
             System.out.println("Faculty: " + entry.getKey().getFaculty() +
-                    " Year: " + entry.getKey().getYear() + " " );
-            for (Student student : entry.getValue()){
+                    " Year: " + entry.getKey().getYear() + " ");
+            for (Student student : entry.getValue()) {
                 System.out.println(student.getName());
 
             }
