@@ -7,20 +7,20 @@ import java.lang.reflect.Method;
 
 public class TeamServiceInvocationHandler implements InvocationHandler {
 
-    private final TeamMember member;
+    private TeamMember user;
 
     private boolean isAdmin;
 
-    public TeamServiceInvocationHandler(TeamMember member) {
-        this.member = member;
-        if (member.getRole().equals("ROLE_ADMIN")) isAdmin = true;
+    public TeamServiceInvocationHandler(TeamMember user) {
+        this.user = user;
+        if (user.getRole().equals("ROLE_ADMIN")) isAdmin = true;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         if (isAdmin) {
-            System.out.println("Hi " + member.getName() + "!");
-            return method.invoke(member, args);
+            System.out.println("Hi " + user.getName() + "!");
+            return method.invoke(user, args);
         } else {
             throw new Exception("run this command is not allowed for non-admin users!");
         }

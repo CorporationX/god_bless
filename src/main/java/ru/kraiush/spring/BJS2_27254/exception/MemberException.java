@@ -6,8 +6,8 @@ public class MemberException extends RuntimeException {
         super(message);
     }
 
-    public MemberException(final String message, Throwable cause)	{
+    public MemberException(final String message, Throwable cause) {
         super(message, cause);
     }
-    
+
 }

@@ -2,6 +2,8 @@ package ru.kraiush.spring.BJS2_27254.service.impl;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kraiush.spring.BJS2_27254.exception.MemberException;
@@ -9,6 +11,7 @@ import ru.kraiush.spring.BJS2_27254.model.TeamMember;
 import ru.kraiush.spring.BJS2_27254.repository.TeamMemberRepository;
 import ru.kraiush.spring.BJS2_27254.service.TeamMemberService;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,11 +20,11 @@ import static ru.kraiush.spring.BJS2_27254.common.ConstantsMember.ErrorMessage.M
 import static ru.kraiush.spring.BJS2_27254.common.ConstantsMember.eventItemsExceptionMessage.*;
 
 @Service
-@Transactional
 @RequiredArgsConstructor
 public class TeamMemberServiceImpl implements TeamMemberService {
 
     private TeamMemberRepository repository;
+    private static final Logger log = LoggerFactory.getLogger(TeamMemberServiceImpl.class);
 
     @Autowired
     public TeamMemberServiceImpl(TeamMemberRepository repository) {
@@ -30,32 +33,34 @@ public class TeamMemberServiceImpl implements TeamMemberService {
 
     @Override
     public List<TeamMember> findAll() {
-        try {
-            List<TeamMember> listMembers = repository.findAll();
+        List<TeamMember> listMembers = repository.findAll();
+        if (listMembers.isEmpty()) {
+            log.info("No elements found!");
+        } else {
             return listMembers.stream()
-                    .sorted((o1, o2) -> o1.getId().compareTo(o2.getId()))
+                    .sorted(Comparator.comparing(TeamMember::getId))
                     .collect(Collectors.toList());
-        } catch (final Exception e) {
-            throw new MemberException(MEMBER_LIST_EXCEPTION, e);
         }
+        return listMembers;
     }
 
     @Override
     public TeamMember findById(long id) {
-        try {
-            return repository.findById(id).stream()
-                    .findAny()
-                    .orElseThrow(RuntimeException::new);
-        } catch (final RuntimeException e) {
-            throw new MemberException(MEMBER_ITEM_EXCEPTION + id, e);
+        Optional<TeamMember> element = repository.findById(id);
+        if (element.isPresent()) {
+            return element.get();
+        } else {
+            log.info("The element wasn't found!");
+            return null;
         }
     }
 
     @Override
+    @Transactional
     public TeamMember create(TeamMember entity) {
         try {
             Optional<TeamMember> eventOptional = repository.findById(entity.getId());
-            if (eventOptional == null) {
+            if (eventOptional.isEmpty()) {
                 return repository.save(entity);
             } else {
                 throw new MemberException(MEMBER_ALREADY_EXISTS + entity.getId());
