@@ -30,7 +30,7 @@ class StudentServiceTest {
     }
 
     @Test
-    void deleteStudent(){
+    void deleteStudent() {
         StudentService studentService = new StudentService();
         studentService.addStudents(getStudents());
 

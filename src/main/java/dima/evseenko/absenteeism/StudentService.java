@@ -13,19 +13,19 @@ public class StudentService {
     private final Map<FacultyYearKeyPair, List<Student>> students = new HashMap<>();
 
     public void addStudent(Student student) {
-        if(Objects.nonNull(student)) {
+        if (Objects.nonNull(student)) {
             students.computeIfAbsent(student.getFacultyYearKeyPair(), k -> new ArrayList<>()).add(student);
         }
     }
 
-    public void addStudents(List<Student> students){
-        if(Objects.nonNull(students)){
+    public void addStudents(List<Student> students) {
+        if (Objects.nonNull(students)) {
             students.forEach(this::addStudent);
         }
     }
 
     public void deleteStudent(Student student) {
-        if(students.containsKey(student.getFacultyYearKeyPair())){
+        if (students.containsKey(student.getFacultyYearKeyPair())) {
             students.get(student.getFacultyYearKeyPair()).remove(student);
         }
     }
@@ -46,8 +46,8 @@ public class StudentService {
         return findStudents(new FacultyYearKeyPair(faculty, year));
     }
 
-    public void printStudents(){
-        students.forEach((k,v)->System.out.println(k+" "+v));
+    public void printStudents() {
+        students.forEach((k, v) -> System.out.println(k + " " + v));
         System.out.println();
     }
 }
