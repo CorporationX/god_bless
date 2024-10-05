@@ -1,9 +1,6 @@
-package school.faang.array;
-
-import java.util.Arrays;
+package school.faang.arrays;
 
 public class Example {
-
 
     public  int[] reverse(int[] nums) {
         for (int i = 0; i < nums.length / 2; i++) {

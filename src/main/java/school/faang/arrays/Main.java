@@ -1,4 +1,4 @@
-package school.faang.array;
+package school.faang.arrays;
 
 public class Main {
     public static void main(String[] args) {
