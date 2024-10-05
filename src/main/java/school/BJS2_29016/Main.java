@@ -32,17 +32,11 @@ public class Main {
     private static void addWebPage(WebPage webPage) {
         String[] contents = webPage.getContent().split(" ");
         for (String content : contents) {
-//            mappa.computeIfAbsent(content, k -> new ArrayList<>()).add(webPage);
-
-            if (!mappa.containsKey(content)) {
-                mappa.computeIfAbsent(content, k -> new ArrayList<>()).add(webPage);
-            } else {
-                if (!mappa.get(content).contains(webPage)) {
-                    mappa.get(content).add(webPage);
-                }
-            }
+           List<WebPage> list = mappa.computeIfAbsent(content, k -> new ArrayList<>());
+           if(!list.contains(webPage)) {
+               mappa.get(content).add(webPage);
+           }
         }
-
     }
 
     //получение списка по ключевому слову
