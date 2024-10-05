@@ -1,5 +1,7 @@
 package group.users;
 
+import lombok.val;
+
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -29,9 +31,11 @@ public class User {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            List<User> usersList = new ArrayList<>();
-            List<User> value = groupedUsers.putIfAbsent(user.getAge(), usersList);
-            groupedUsers.get(user.getAge()).add(user);
+            List<User> value = groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
+            if (value == null) {
+                value = groupedUsers.get(user.getAge());
+            }
+            value.add(user);
         }
         return groupedUsers;
     }
