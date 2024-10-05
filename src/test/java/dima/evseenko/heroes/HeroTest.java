@@ -9,7 +9,7 @@ class HeroTest {
 
     @Test
     void addCreature() {
-        Hero hero = new Hero("Dima", Hero.Fraction.PEOPLE, 1, 1);
+        Hero hero = new Hero("Dima", Fraction.PEOPLE, 1, 1);
         hero.addCreature(new Pikeman("Pikeman"), 2);
 
         assertEquals(new Pikeman("Pikeman"), hero.getArmy().get(0));
@@ -18,7 +18,7 @@ class HeroTest {
 
     @Test
     void addInvalidCreature() {
-        Hero hero = new Hero("Dima", Hero.Fraction.PEOPLE, 1, 1);
+        Hero hero = new Hero("Dima", Fraction.PEOPLE, 1, 1);
         hero.addCreature(null, 0);
 
         assertEquals(0, hero.getArmy().size());
@@ -26,7 +26,7 @@ class HeroTest {
 
     @Test
     void deleteCreature() {
-        Hero hero = new Hero("Dima", Hero.Fraction.PEOPLE, 1, 1);
+        Hero hero = new Hero("Dima", Fraction.PEOPLE, 1, 1);
         hero.addCreature(new Pikeman("Pikeman"), 2);
         hero.deleteCreature(new Pikeman("Pikeman"), 1);
 

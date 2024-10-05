@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Data
 @RequiredArgsConstructor
-public abstract class Creature implements Attacking, Cloneable{
+public abstract class Creature implements Attacking, Cloneable {
     private final String name;
     private final int damage;
     private final int protection;
@@ -16,7 +16,7 @@ public abstract class Creature implements Attacking, Cloneable{
 
     @Override
     public void takeDamage(int damage) {
-        if(damage - (this.protection * level) > 0)
+        if (damage - (this.protection * level) > 0)
             this.hp -= damage - (protection * level);
     }
 

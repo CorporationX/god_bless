@@ -31,9 +31,9 @@ public class Battlefield {
     }
 
     private void attack(Creature creatureHero1, Creature creatureHero2, Hero hero) {
-        if(creatureHero1.getHp() > 0){
+        if (creatureHero1.getHp() > 0) {
             creatureHero1.attack(creatureHero2);
-            if(creatureHero2.getHp() <= 0){
+            if (creatureHero2.getHp() <= 0) {
                 hero.deleteCreature(creatureHero2, 1);
             }
         }

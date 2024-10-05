@@ -13,11 +13,11 @@ class BattlefieldTest {
 
     @Test
     void battle() {
-        Hero dima = new Hero("Dima", Hero.Fraction.PEOPLE, 1, 1);
+        Hero dima = new Hero("Dima", Fraction.PEOPLE, 1, 1);
         dima.addCreature(getPikeman(3), 50);
         dima.addCreature(getSwordman(2), 10);
 
-        Hero vasya = new Hero("Vasya", Hero.Fraction.ELVES, 1, 1);
+        Hero vasya = new Hero("Vasya", Fraction.ELVES, 1, 1);
         vasya.addCreature(getGriffin(2), 15);
         vasya.addCreature(getPikeman(2), 10);
         vasya.addCreature(getAngel(3), 5);

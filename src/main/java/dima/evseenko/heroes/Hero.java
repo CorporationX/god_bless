@@ -19,11 +19,11 @@ public class Hero {
     private int level;
 
     public void addCreature(Creature creature, int quantity) {
-        if(Objects.nonNull(creature) && quantity > 0) {
-            for(int i = 0; i < quantity; i++) {
+        if (Objects.nonNull(creature) && quantity > 0) {
+            for (int i = 0; i < quantity; i++) {
                 try {
                     army.add((Creature) creature.clone());
-                }catch (CloneNotSupportedException e) {
+                } catch (CloneNotSupportedException e) {
                     throw new RuntimeException(e);
                 }
             }
@@ -31,14 +31,12 @@ public class Hero {
     }
 
     public void deleteCreature(Creature creature, int quantity) {
-        if(Objects.nonNull(creature) && quantity > 0) {
-            for(int i = 0; i < quantity; i++) {
+        if (Objects.nonNull(creature) && quantity > 0) {
+            for (int i = 0; i < quantity; i++) {
                 army.remove(creature);
             }
         }
     }
 
-    public enum Fraction{
-        PEOPLE, ELVES, MAGI
-    }
+
 }
