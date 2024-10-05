@@ -12,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static school.faang.library.Book.addBook;
 import static school.faang.library.Book.deleteBook;
+import static school.faang.library.Book.findBook;
 
 public class BookTest {
 
@@ -106,6 +107,20 @@ public class BookTest {
         deleteBook(books, "Book Title2", "Author2", 1910);
         assertEquals(0, books.size());
         assertNull(books.get(book2));
+    }
+
+    @Test
+    public void testFindBook(){
+        Book book1 = new Book("Book Title1", "Author1", 1900);
+        Book book2 = new Book("Book Title2", "Author2", 1910);
+        Map<Book, String> books = new HashMap<>();
+        books.put(book1, "1");
+        books.put(book2, "2");
+
+//        Book is found
+        assertEquals("1", findBook(books,"Book Title1", "Author1", 1900));
+//        Book is not found
+        assertNull(findBook(books,"Book", "Author1", 1900));
     }
 
 }

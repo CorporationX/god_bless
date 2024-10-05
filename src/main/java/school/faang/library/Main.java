@@ -30,5 +30,6 @@ public class Main {
 
         System.out.println();
         findBook(books, "Book Title2", "Author2", 1910);
+        findBook(books, "This book does not exist", "Author2", 1910);
     }
 }

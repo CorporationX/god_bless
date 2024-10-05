@@ -39,13 +39,18 @@ public class Book {
 
     public static void deleteBook(Map<Book, String> books, String title, String author, int year) {
         Book bookToDelete = new Book(title, author, year);
-        books.remove(bookToDelete);
-        System.out.println(bookToDelete + " has been deleted.");
+        deleteBook(books, bookToDelete);
     }
 
-    public static void findBook(Map<Book, String> books, String title, String author, int year) {
-        System.out.println("Location for Book: \"" + title + "\" by " + author + ", Year: " + year + ", is shelf: "
-                + books.get(new Book(title, author, year)));
+    public static String findBook(Map<Book, String> books, String title, String author, int year) {
+        String bookDetails = "Title: \"" + title + "\", Author: " + author + ", Year: " + year;
+        String location = books.get(new Book(title, author, year));
+        if (location != null) {
+            System.out.println("Location for book: " + bookDetails + ", is shelf: " + location);
+        } else {
+            System.out.println("The following book wat not found: " + bookDetails);
+        }
+        return location;
     }
 
     public static void listAllBooks(Map<Book, String> books) {
