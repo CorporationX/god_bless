@@ -1,16 +1,16 @@
 package bjs2_29010;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
+    private static Map<Student, Map<Subject, Integer>> studentSubjectGrades = new HashMap<>();
+    private static Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public static void main(String[] args) {
-        Map<Student, Map<Subject, Integer>> studentSubjectGrades = new HashMap<>();
-        Map<Subject, List<Student>> subjectStudents = new HashMap<>();
-
         Subject math = new Subject(0, "Math");
         Subject acos = new Subject(1, "ACOS");
         Subject machineLearning = new Subject(2, "ML");
@@ -33,94 +33,97 @@ public class Main {
             put(machineLearning, 6);
         }};
 
-        addStudent(studentSubjectGrades, studentJohn, johnGrades);
-        addStudent(studentSubjectGrades, studentJack, jackGrades);
-        addSubjectForStudent(studentSubjectGrades, studentJohn, calculus, 7);
-        printAllStudentGrades(studentSubjectGrades);
+        addStudent(studentJohn, johnGrades);
+        addStudent(studentJack, jackGrades);
+        addSubjectForStudent(studentJohn, calculus, 7);
+        printAllStudentGrades();
         System.out.println();
 
-        removeStudent(studentSubjectGrades, studentJack);
-        printAllStudentGrades(studentSubjectGrades);
+        removeStudent(studentJack);
+        printAllStudentGrades();
         System.out.println();
 
-        addSubject(subjectStudents, acos, new ArrayList<Student>() {{
+        addSubject(acos, new ArrayList<Student>() {{
             add(studentJohn);
         }});
-        addSubject(subjectStudents, machineLearning, new ArrayList<Student>() {{
-            add(studentJohn);
-            add(studentJack);
-        }});
-        addSubject(subjectStudents, math, new ArrayList<Student>() {{
-            add(studentJohn);
-        }});
-        addSubject(subjectStudents, calculus, new ArrayList<Student>() {{
-            add(studentJohn);
-        }});
-        addSubject(subjectStudents, english, new ArrayList<Student>() {{
+        addSubject(machineLearning, new ArrayList<Student>() {{
             add(studentJohn);
             add(studentJack);
         }});
-        addSubject(subjectStudents, law, new ArrayList<Student>() {{
+        addSubject(math, new ArrayList<Student>() {{
+            add(studentJohn);
+        }});
+        addSubject(calculus, new ArrayList<Student>() {{
+            add(studentJohn);
+        }});
+        addSubject(english, new ArrayList<Student>() {{
+            add(studentJohn);
             add(studentJack);
         }});
-        addStudentToSubject(subjectStudents, math, studentJack);
-        removeStudentFromSubject(subjectStudents, english, studentJohn);
-        printAllSubjectsStudents(subjectStudents);
+        addSubject(law, new ArrayList<Student>() {{
+            add(studentJack);
+        }});
+        addStudentToSubject(math, studentJack);
+        removeStudentFromSubject(english, studentJohn);
+        printAllSubjectsStudents();
     }
 
-    public static void addStudent(Map<Student, Map<Subject, Integer>> studentSubjectGrades,
-                                  Student student,
-                                  Map<Subject, Integer> subjectGrades) {
+    public static void addStudent(Student student, Map<Subject, Integer> subjectGrades) {
         studentSubjectGrades.put(student, subjectGrades);
+
+        for (Subject subject : subjectGrades.keySet()) {
+            subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        }
     }
 
-    public static void addSubjectForStudent(Map<Student, Map<Subject, Integer>> studentSubjectGrades,
-                                            Student student,
-                                            Subject subject,
-                                            Integer grade) {
-        studentSubjectGrades.get(student).put(subject, grade);
+    public static void addSubjectForStudent(Student student, Subject subject, Integer grade) {
+        studentSubjectGrades.computeIfAbsent(student, k -> new HashMap<Subject, Integer>()).put(subject, grade);
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
-    public static void removeStudent(Map<Student, Map<Subject, Integer>> studentSubjectGrades,
-                                     Student student) {
-        studentSubjectGrades.remove(student);
+    public static void removeStudent(Student student) {
+        if (studentSubjectGrades.containsKey(student)) {
+            Map<Subject, Integer> grades = studentSubjectGrades.remove(student);
+
+            for (Subject subject : grades.keySet()) {
+                subjectStudents.get(subject).remove(student);
+            }
+        } else {
+            System.out.println("Please make sure that the student exists");
+        }
     }
 
-    public static void printAllStudentGrades(Map<Student, Map<Subject, Integer>> studentSubjectGrades) {
+    public static void printAllStudentGrades() {
         for (var entry : studentSubjectGrades.entrySet()) {
             System.out.printf("Student: %s -> Grades: %s\n", entry.getKey(), entry.getValue());
         }
     }
 
-    public static void addSubject(Map<Subject, List<Student>> subjectStudents,
-                                  Subject subject,
-                                  List<Student> students) {
+    public static void addSubject(Subject subject, List<Student> students) {
         subjectStudents.put(subject, students);
-    }
 
-    public static void addStudentToSubject(Map<Subject, List<Student>> subjectStudents,
-                                           Subject subject,
-                                           Student student) {
-        try {
-            subjectStudents.get(subject).add(student);
-        } catch (NullPointerException e) {
-            System.out.println("Please enter an existing subject");
+        for (Student student : students) {
+            studentSubjectGrades.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
         }
     }
 
-    public static void removeStudentFromSubject(Map<Subject, List<Student>> subjectStudents,
-                                                Subject subject,
-                                                Student student) {
-        try {
+    public static void addStudentToSubject(Subject subject, Student student) {
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        studentSubjectGrades.computeIfAbsent(student, k -> new HashMap<Subject, Integer>()).put(subject, null);
+    }
+
+    public static void removeStudentFromSubject(Subject subject, Student student) {
+        if (subjectStudents.containsKey(subject) && studentSubjectGrades.containsKey(student)) {
             subjectStudents.get(subject).remove(student);
-        } catch (NullPointerException e) {
-            System.out.println("Please enter an existing subject");
+            studentSubjectGrades.get(student).remove(subject);
+        } else {
+            System.out.println("Something went wrong. Please make sure that both subject and user exist");
         }
     }
 
-    public static void printAllSubjectsStudents(Map<Subject, List<Student>> subjectStudents) {
-       for (var entry : subjectStudents.entrySet()) {
-           System.out.printf("Subject: %s -> Students: %s\n", entry.getKey(), entry.getValue());
-       }
+    public static void printAllSubjectsStudents() {
+        for (var entry : subjectStudents.entrySet()) {
+            System.out.printf("Subject: %s -> Students: %s\n", entry.getKey(), entry.getValue());
+        }
     }
 }
