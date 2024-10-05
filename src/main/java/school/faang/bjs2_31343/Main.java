@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_31343;
 
 public class Main {
 
@@ -10,5 +10,4 @@ public class Main {
         System.out.println(warrior.health);
         System.out.println(warrior.getName());
     }
-
 }

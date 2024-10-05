@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs2_31343;
 
 public class Archer extends Character {
 
@@ -8,6 +8,6 @@ public class Archer extends Character {
 
     @Override
     public void attack(Character character) {
-        character.health = character.health - dexterity;
+        character.setHealth(character.getHealth() - super.getDexterity());
     }
 }
