@@ -3,7 +3,7 @@ package school.faang.countingAbsenteeism;
 public class Main {
   public static void main(String[] args) {
 
-    Institute institute = new Institute();
+    StudentsService institute = new StudentsService();
 
     institute.addNewStudent("Nikita", "FITKB", 4);
     institute.addNewStudent("Katia", "FITKB", 4);
