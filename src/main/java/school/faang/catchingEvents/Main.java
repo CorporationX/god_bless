@@ -18,7 +18,7 @@ public class Main {
     System.out.println(streamEventRepository.findStreamEventById(3));
     System.out.println(streamEventRepository.findArraysStreamEventByEventType("23"));
 
-    streamEventRepository.deleteStreamEvent(2);
+    streamEventRepository.deleteStreamEvent(5);
     streamEventRepository.deleteStreamEvent(0);
 
     System.out.println("=============");

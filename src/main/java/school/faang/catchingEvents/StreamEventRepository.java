@@ -28,7 +28,8 @@ public class StreamEventRepository {
   public void deleteStreamEvent(int id) {
     StreamEvent streamEvent = findStreamEventById(id);
 
-    events.remove(id);
-    groupEvents.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).remove(streamEvent);
+    if(streamEvent == null) return;
+
+    groupEvents.get(streamEvent.getEventType()).remove(streamEvent);
   }
 }
