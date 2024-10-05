@@ -7,12 +7,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StudentManagementService {
-    private final List<Student> STUDENTS;
-    private final Map<Student, Integer> STUDENT_TO_INDEX;
+    private final List<Student> students;
+    private final Map<Student, Integer> studentToIndex;
 
     public StudentManagementService() {
-        STUDENTS = new ArrayList<>();
-        STUDENT_TO_INDEX = new HashMap<>();
+        students = new ArrayList<>();
+        studentToIndex = new HashMap<>();
     }
 
     public static Map<String, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
@@ -27,8 +27,8 @@ public class StudentManagementService {
     }
 
     public void addStudent(Student student) {
-        STUDENTS.add(student);
-        STUDENT_TO_INDEX.put(student, STUDENTS.size() - 1);
+        students.add(student);
+        studentToIndex.put(student, students.size() - 1);
     }
 
     public void removeStudent(String name, String faculty, int year) {
@@ -39,28 +39,28 @@ public class StudentManagementService {
         //а последний элемент просто затирается, в мапе удаляется пара с ключом в виде этого студента, а для того,
         //который был последним, обновляется информация в мапе
         Student studentToDelete = new Student(name, faculty, year);
-        int index = STUDENT_TO_INDEX.getOrDefault(studentToDelete, -1);
+        int index = studentToIndex.getOrDefault(studentToDelete, -1);
         if (index != -1) {
-            if (index == STUDENTS.size() - 1)
-                STUDENTS.remove(index);
+            if (index == students.size() - 1)
+                students.remove(index);
             else {
-                Student newStudent = STUDENTS.get(STUDENTS.size() - 1);
-                STUDENTS.set(index, newStudent);
-                STUDENTS.remove(STUDENTS.size() - 1);
-                STUDENT_TO_INDEX.remove(studentToDelete);
-                STUDENT_TO_INDEX.put(newStudent, index);
+                Student newStudent = students.get(students.size() - 1);
+                students.set(index, newStudent);
+                students.remove(students.size() - 1);
+                studentToIndex.remove(studentToDelete);
+                studentToIndex.put(newStudent, index);
             }
         }
     }
 
     public List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
-        return STUDENTS.stream()
+        return students.stream()
                 .filter(student -> student.getFaculty().equals(faculty) && student.getYear() == year)
                 .collect(Collectors.toList());
     }
 
     public void printGroupedStudents() {
-        groupStudentsByFacultyAndYear(STUDENTS).forEach((facultyYear, students) ->
+        groupStudentsByFacultyAndYear(students).forEach((facultyYear, students) ->
                 {
                     System.out.print(facultyYear + ": ");
                     students.forEach(student -> System.out.print(student + " "));
