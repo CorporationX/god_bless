@@ -22,6 +22,7 @@ public class User {
         add("New York");
         add("Amsterdam");
     }};
+
     private int id;
     private String name;
     private int age;

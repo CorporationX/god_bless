@@ -27,6 +27,7 @@ public class Main {
         hobbyLovers.forEach((user, message) -> System.out.println(message));
 
         // Печатаем информацию о пользователях
+
         for (User user : users) {
             System.out.println(user);
         }
