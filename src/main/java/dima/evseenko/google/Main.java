@@ -4,18 +4,18 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Google google = new Google();
-        google.addWebPages(getPages());
-        google.printWebPages();
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPages(getPages());
+        webPageService.printWebPages();
 
-        System.out.println(google.findWebPages("мини"));
-        System.out.println(google.findWebPages("java"));
+        System.out.println(webPageService.findWebPages("мини"));
+        System.out.println(webPageService.findWebPages("java"));
 
-        google.deleteWebPage(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде."));
-        google.printWebPages();
+        webPageService.deleteWebPage(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде."));
+        webPageService.printWebPages();
 
-        google.deleteWebPageByUrl("https://faang-school.com/courses/4jnzmndg/n7zv2jjz");
-        google.printWebPages();
+        webPageService.deleteWebPageByUrl("https://faang-school.com/courses/4jnzmndg/n7zv2jjz");
+        webPageService.printWebPages();
     }
 
     private static List<WebPage> getPages(){

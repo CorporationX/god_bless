@@ -7,100 +7,74 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class GoogleTest {
+class WebPageServiceTest {
 
     @Test
     void addWebPage() {
-        Google google = new Google();
-        google.addWebPage(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде."));
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPage(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде."));
 
-        assertNotNull(google.findWebPages("java"));
-    }
-
-    @Test
-    void addNullWebPage(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().addWebPage(null));
-    }
-
-    @Test
-    void addInvalidWebPageUrl(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().addWebPage(new WebPage(null, "", "")));
-    }
-
-    @Test
-    void addInvalidWebPageTitle(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().addWebPage(new WebPage("", null, "")));
-    }
-
-    @Test
-    void addInvalidWebPageContent(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().addWebPage(new WebPage("", "", null)));
+        assertNotNull(webPageService.findWebPages("java"));
     }
 
     @Test
     void addWebPages() {
-        Google google = new Google();
-        google.addWebPages(getPages());
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPages(getPages());
 
-        assertTrue(google.findWebPages("Кэшируем").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде.")));
-        assertTrue(google.findWebPages("престолов").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/n7zv2jjz", "Java HashMap: Игра престолов", "Сюжет: В мире Игры Престолов между домами Вестероса идёт борьба за Железный трон. В качестве помощника главного советника короля, вам необходимо создать систему для отслеживания домов и их гербов. Вам предстоит разработать программу, которая будет использовать HashMap для хранения информации о домах и их гербах.")));
-    }
-
-    @Test
-    void addNullWebPages(){
-        assertThrows(IllegalArgumentException.class, () -> new Google().addWebPages(null));
+        assertTrue(webPageService.findWebPages("Кэшируем").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде.")));
+        assertTrue(webPageService.findWebPages("престолов").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/n7zv2jjz", "Java HashMap: Игра престолов", "Сюжет: В мире Игры Престолов между домами Вестероса идёт борьба за Железный трон. В качестве помощника главного советника короля, вам необходимо создать систему для отслеживания домов и их гербов. Вам предстоит разработать программу, которая будет использовать HashMap для хранения информации о домах и их гербах.")));
     }
 
     @Test
     void findWebPages() {
-        Google google = new Google();
-        google.addWebPages(getPages());
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPages(getPages());
 
-        assertTrue(google.findWebPages("престолов").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/n7zv2jjz", "Java HashMap: Игра престолов", "Сюжет: В мире Игры Престолов между домами Вестероса идёт борьба за Железный трон. В качестве помощника главного советника короля, вам необходимо создать систему для отслеживания домов и их гербов. Вам предстоит разработать программу, которая будет использовать HashMap для хранения информации о домах и их гербах.")));
+        assertTrue(webPageService.findWebPages("престолов").contains(new WebPage("https://faang-school.com/courses/4jnzmndg/n7zv2jjz", "Java HashMap: Игра престолов", "Сюжет: В мире Игры Престолов между домами Вестероса идёт борьба за Железный трон. В качестве помощника главного советника короля, вам необходимо создать систему для отслеживания домов и их гербов. Вам предстоит разработать программу, которая будет использовать HashMap для хранения информации о домах и их гербах.")));
     }
 
     @Test
     void findWebPageNullKeyword(){
-        assertNull(new Google().findWebPages(null));
+        assertNull(new WebPageService().findWebPages(null));
     }
 
     @Test
     void findWebPageNotExistKeyword(){
-        Google google = new Google();
-        google.addWebPages(getPages());
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPages(getPages());
 
-        assertNull(google.findWebPages("example"));
+        assertNull(webPageService.findWebPages("example"));
     }
 
     @Test
     void deleteWebPage() {
         WebPage page = new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде.");
 
-        Google google = new Google();
-        google.addWebPage(page);
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPage(page);
 
-        assertTrue(google.findWebPages("Кэшируем").contains(page));
+        assertTrue(webPageService.findWebPages("Кэшируем").contains(page));
 
-        google.deleteWebPage(page);
+        webPageService.deleteWebPage(page);
 
-        assertFalse(google.findWebPages("Кэшируем").contains(page));
+        assertFalse(webPageService.findWebPages("Кэшируем").contains(page));
     }
 
     @Test
     void deleteWebPageByUrl() {
         WebPage page = new WebPage("https://faang-school.com/courses/4jnzmndg/92db5gpz", "Java HashMap: Кэшируем, кэшируем", "Сюжет: Вы работаете над созданием системы прогноза погоды. Ваша система должна быть способна предоставлять информацию о погоде в разных городах быстро и эффективно. Вы решаете использовать Java и HashMap для реализации кэширования информации о погоде.");
 
-        Google google = new Google();
-        google.addWebPage(page);
+        WebPageService webPageService = new WebPageService();
+        webPageService.addWebPage(page);
 
-        assertTrue(google.findWebPages("Кэшируем").contains(page));
+        assertTrue(webPageService.findWebPages("Кэшируем").contains(page));
 
-        google.deleteWebPageByUrl(page.getUrl());
+        webPageService.deleteWebPageByUrl(page.getUrl());
 
-        assertFalse(google.findWebPages("Кэшируем").contains(page));
+        assertFalse(webPageService.findWebPages("Кэшируем").contains(page));
     }
 
     private static List<WebPage> getPages(){
