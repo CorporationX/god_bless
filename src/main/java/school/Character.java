@@ -12,10 +12,8 @@ public abstract class Character {
     private int helth = 100;
 
     public Character(String name) {
-        this.name = name;
+        this(name, 0, 0, 0);
     }
-
-    abstract void attack(Character character);
 
     public Character(String name, int strength, int agility, int intelligence) {
         this.name = name;
@@ -23,6 +21,8 @@ public abstract class Character {
         this.agility = agility;
         this.intelligence = intelligence;
     }
+
+    protected abstract void attack(Character character);
 
     public int getHealth() {
         return helth;
