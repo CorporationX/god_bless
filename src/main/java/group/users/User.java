@@ -29,9 +29,8 @@ public class User extends Main {
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
-            List<User> value = groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
-            value = groupedUsers.get(user.getAge());
-            value.add(user);
+            groupedUsers.putIfAbsent(user.getAge(), new ArrayList<>());
+            groupedUsers.get(user.getAge()).add(user);
         }
         return groupedUsers;
     }
