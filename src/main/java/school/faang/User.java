@@ -12,22 +12,14 @@ import java.util.Set;
 
 @Data
 public class User {
+    private static int VALID_AGE = 18;
     private static Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     private static Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+
     private String name;
     private String age;
     private String job;
     private String address;
-
-    private void Validation(String name, String age, String job, String address) throws IllegalArgumentException {
-        if (name.equals("")) throw new IllegalArgumentException("Uncorrected name");
-        if ((Integer.parseInt(age) < 18) || (Integer.parseInt(age) > 100))
-            throw new IllegalArgumentException("Uncorrected age");
-        if (!VALID_JOBS.contains(job))
-            throw new IllegalArgumentException("Uncorrected job");
-        if (!VALID_ADDRESSES.contains(address))
-            throw new IllegalArgumentException("Uncorrected address");
-    }
 
     public User(String name, String age, String job, String address) {
         try {
@@ -39,6 +31,16 @@ public class User {
         } catch (IllegalArgumentException e) {
             System.out.println(e);
         }
+    }
+
+    private void Validation(String name, String age, String job, String address) throws IllegalArgumentException {
+        if (name.equals("")) throw new IllegalArgumentException("Uncorrected name: \""+name+"\"");
+        if (Integer.parseInt(age) < VALID_AGE)
+            throw new IllegalArgumentException("Uncorrected age: \""+age+"\"");
+        if (!VALID_JOBS.contains(job))
+            throw new IllegalArgumentException("Uncorrected job: \""+job+"\"");
+        if (!VALID_ADDRESSES.contains(address))
+            throw new IllegalArgumentException("Uncorrected address: \""+address+"\"");
     }
 
     public static Map<String, List<User>> groupUsers(List<User> users) {
