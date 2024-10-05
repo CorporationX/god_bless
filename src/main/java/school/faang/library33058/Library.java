@@ -1,10 +1,11 @@
-package school.faang.library;
+package school.faang.library33058;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Library {
     private static final Map<Book, String> map = new HashMap<>();
+
     public void addBook(Book book, String location) {
         map.put(book, location);
     }
@@ -16,14 +17,8 @@ public class Library {
 
     public void searchBook(String name, String author, int year) {
         Book book = new Book(name, author, year);
-        for (Map.Entry<Book, String> entry : map.entrySet()) {
-            Book key = entry.getKey();
-            String location = entry.getValue();
-
-            if (key.equals(book)) {
-                System.out.println(key + " " + location);
-            }
-        }
+        String location = map.getOrDefault(book, "Location not found");
+        System.out.println(book + " " + location);
     }
 
     public void printAllBooks() {
