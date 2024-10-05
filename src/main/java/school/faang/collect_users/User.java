@@ -18,10 +18,16 @@ public class User {
 
     static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         var hobbyLovers = new HashMap<User, String>();
-        users.forEach(user -> {
-            hobbies.retainAll(user.getHobbies());
-            hobbyLovers.put(user, hobbies.stream().findFirst().orElse("Doesn't have matched hobbies"));
-        });
+        for (var user : users) {
+            for (var hobby : user.getHobbies()) {
+                if (hobbies.contains(hobby)) {
+                    if (!hobbyLovers.containsKey(user)) {
+                        hobbyLovers.put(user, hobby);
+                    }
+                    break;
+                }
+            }
+        }
         return hobbyLovers;
     }
 }
