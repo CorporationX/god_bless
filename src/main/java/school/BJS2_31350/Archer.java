@@ -1,6 +1,6 @@
-package school;
+package school.BJS2_31350;
 
-public class Archer extends Character{
+public class Archer extends Character {
 
     public Archer(String name){
         super(name,3,10,5);

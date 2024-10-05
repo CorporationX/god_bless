@@ -1,4 +1,4 @@
-package school;
+package school.BJS2_31350;
 
 public class Main {
     public static void main(String[] args) {

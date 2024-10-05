@@ -1,4 +1,4 @@
-package school;
+package school.BJS2_31350;
 
 
 import lombok.Setter;

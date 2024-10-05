@@ -1,6 +1,6 @@
-package school;
+package school.BJS2_31350;
 
-public class Warrior extends Character{
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name,10,5,3);
