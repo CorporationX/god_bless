@@ -64,6 +64,7 @@ public class StudentManagementService {
                 {
                     System.out.print(facultyYear + ": ");
                     students.forEach(student -> System.out.print(student + " "));
+                    System.out.println();
                 }
         );
     }
