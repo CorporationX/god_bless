@@ -2,11 +2,15 @@ package school.faang.abstraction;
 
 public class Main {
     public static void main(String[] args) {
-        Character qwe = new Warrior("senja");
-        Character zxc = new Archer("monstar");
-        System.out.println(zxc.getHealth());
-        System.out.println("ныыыа");
-        qwe.attack(zxc);
-        System.out.println(zxc.getHealth());
+        Character warrior = new Warrior("warrior");
+        Character archer = new Archer("archer");
+        System.out.println(archer.getHealth());
+        warrior.attack(archer);
+        System.out.println(archer.getHealth());
+        warrior.attack(archer);
+        archer.attack(warrior);
+        System.out.println(warrior.getHealth());
+        System.out.println(archer.getHealth());
+
     }
 }

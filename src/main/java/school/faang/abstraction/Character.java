@@ -12,7 +12,7 @@ public abstract class Character {
     private int intelligence;
     private int health = 100;
 
-    public Character(String name){
+    public Character(String name) {
         this.name = name;
     }
 
