@@ -1,6 +1,6 @@
 package tasks.bjs2_31323;
 
-class Archer extends Character {
+public class Archer extends Character {
     public Archer(String name) {
         super(name, 3, 11, 5);
     }
