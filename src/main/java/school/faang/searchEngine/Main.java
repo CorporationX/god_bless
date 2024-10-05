@@ -3,13 +3,13 @@ package school.faang.searchEngine;
 public class Main {
   public static void main(String[] args) {
 
-    WebPage webPage1 = new WebPage("url1", "page1", "123 asd zxc qwe");
+    WebPage webPage1 = new WebPage("url1", "page1", "123, asd zxc qwe");
     WebPage webPage2 = new WebPage("url2", "page2", "1233 asdd zxcz qwee");
     WebPage webPage3 = new WebPage("url3", "page3", "1234 asdw zxcz qwez");
-    WebPage webPage4 = new WebPage("url4", "page4", "qwe asdw zxcz 123");
-    WebPage webPage5 = new WebPage("url5", "page5", "1234 asdw 123 qwez");
+    WebPage webPage4 = new WebPage("url4", "page4", "qwe asdw zxcz , 123");
+    WebPage webPage5 = new WebPage("url5", "page5", "1234 a,sdw 123 qwez");
 
-    WebPageRepository webPageRepository = new WebPageRepository();
+    WebPageService webPageRepository = new WebPageService();
 
     webPageRepository.indexingPage(webPage1);
     webPageRepository.indexingPage(webPage2);
@@ -18,8 +18,6 @@ public class Main {
     webPageRepository.indexingPage(webPage5);
     webPageRepository.indexingPage(webPage5);
     webPageRepository.indexingPage(webPage5);
-
-    System.out.println(webPageRepository.getNodesByWords());
 
     System.out.println(webPageRepository.searchPages("123"));
     System.out.println(webPageRepository.searchPages("zxc"));

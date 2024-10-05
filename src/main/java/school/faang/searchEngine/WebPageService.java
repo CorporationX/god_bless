@@ -1,24 +1,23 @@
 package school.faang.searchEngine;
 
 import lombok.Getter;
-import school.faang.searchEngine.nodes.Node;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
-public class WebPageRepository {
+public class WebPageService {
 
   private final Map<String, List<WebPage>> webPages = new HashMap<>();
-  private final Map<String, List<Node>> nodesByWords = new HashMap<>();
-  private final HashSet<WebPage> noRepetitionsWebPages = new HashSet<>();
+  private final Set<WebPage> noRepetitionsWebPages = new HashSet<>();
+
+  private String[] splitByWords(String content) {
+    if(content == null) return new String[0];
+
+    return content.replaceAll("[^а-яА-ЯёЁa-zA-Z0-9 ]", "").trim().split("\\s+");
+  }
 
   public void indexingPage(WebPage page) {
-    String[] words = page.getContent().split(" ");
+    String[] words = splitByWords(page.getContent());
 
     for(String word : words) {
       if(!noRepetitionsWebPages.contains(page)) {
