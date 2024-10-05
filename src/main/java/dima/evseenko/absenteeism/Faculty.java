@@ -1,5 +1,5 @@
 package dima.evseenko.absenteeism;
 
-public enum Faculty{
+public enum Faculty {
     IT, MATH, PHYSICS
 }

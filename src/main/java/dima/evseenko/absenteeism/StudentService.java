@@ -14,7 +14,7 @@ public class StudentService {
 
     public void addStudent(Student student) {
         if (Objects.nonNull(student)) {
-            students.computeIfAbsent(student.getFacultyYearKeyPair(), k -> new ArrayList<>()).add(student);
+            students.computeIfAbsent(new FacultyYearKeyPair(student.getFaculty(), student.getYear()), k -> new ArrayList<>()).add(student);
         }
     }
 
@@ -25,8 +25,8 @@ public class StudentService {
     }
 
     public void deleteStudent(Student student) {
-        if (students.containsKey(student.getFacultyYearKeyPair())) {
-            students.get(student.getFacultyYearKeyPair()).remove(student);
+        if (students.containsKey(new FacultyYearKeyPair(student.getFaculty(), student.getYear()))) {
+            students.get(new FacultyYearKeyPair(student.getFaculty(), student.getYear())).remove(student);
         }
     }
 

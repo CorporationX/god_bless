@@ -9,8 +9,4 @@ public class Student {
     private String name;
     private Faculty faculty;
     private int year;
-
-    public FacultyYearKeyPair getFacultyYearKeyPair() {
-        return new FacultyYearKeyPair(this.faculty, this.year);
-    }
 }
