@@ -26,8 +26,8 @@ public class Battlefield {
         hero1.addCreature(new Griffin("Griffin", 5, 20, 45, 10), 2);
         Hero hero2 = new Hero("Костя", "Орда", 30, 1);
         hero2.addCreature(new Griffin("Griffin", 2, 15, 30, 20), 1);
-        hero2.addCreature(new Angel("Angel", 3, 20, 20, 10), rand.nextInt(2) + 1);
-        hero2.addCreature(new Swordman("Swordman", 4, 15, 10, 30), rand.nextInt(5) + 1);
+//        hero2.addCreature(new Angel("Angel", 3, 20, 20, 10), rand.nextInt(2) + 1);
+//        hero2.addCreature(new Swordman("Swordman", 4, 15, 10, 30), rand.nextInt(5) + 1);
         while (true) {
             Creature creatureFromHero2 = getCreatureFromArmeeHero(hero2);
             Creature creatureFromHero1 = getCreatureFromArmeeHero(hero1);
