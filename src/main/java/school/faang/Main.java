@@ -20,7 +20,7 @@ public class Main {
 
     public static void displayOneBook(String title, String author, Integer year) {
         Book necessaryBook = new Book(title, author, year);
-        System.out.println(booksMap.computeIfPresent(necessaryBook, (a, b) -> b));
+        System.out.println(booksMap.getOrDefault(necessaryBook, "Not find"));
     }
 
     public static void deleteBook(String title, String author, Integer year) {
