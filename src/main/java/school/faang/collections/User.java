@@ -18,13 +18,17 @@ public class User {
         this.activity = activity;
     }
 
-    public Map<User, String> findHobbyLovers (List<User> users , Set<String> activityUsers) {
+    public Set<String> getActivity() {
+        return activity;
+    }
+
+    public static Map<User, String> findHobbyLovers (List<User> users , Set<String> activityUsers) {
 
         Map <User,String> userWithActivity = new HashMap<>();
 
        for(User user : users) {
           for (String activityUser : activityUsers) {
-              if (user.activity.contains(activityUser)){
+              if (user.getActivity().contains(activityUser)){
                   userWithActivity.put(user,activityUser);
               }
           }
