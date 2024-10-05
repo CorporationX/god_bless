@@ -1,0 +1,43 @@
+package school.faang.BJS2_32846;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class WebService {
+    private final Map<String, List<WebPage>> wordToPages;
+    private final Map<String, WebPage> alreadyIndexedPages;
+    private final Map<String, Set<String>> pageToWords;
+
+    public WebService() {
+        wordToPages = new HashMap<>();
+        alreadyIndexedPages = new HashMap<>();
+        pageToWords = new HashMap<>();
+    }
+
+    public void indexWebPage(WebPage page) {
+        if (!alreadyIndexedPages.containsKey(page.getUrl())) {
+            String[] words = page.getContent().toLowerCase().split("[^\\p{L}\\p{N}]+");
+            Set<String> uniqueWords = Set.of(words);
+            uniqueWords.forEach(
+                    word -> wordToPages
+                            .computeIfAbsent(word.toLowerCase(), wordOnPage -> new ArrayList<>())
+                            .add(page)
+            );
+            pageToWords.put(page.getUrl(), uniqueWords);
+            alreadyIndexedPages.put(page.getUrl(), page);
+        }
+    }
+
+    public List<WebPage> getWebPages(String word) {
+        return wordToPages.get(word);
+    }
+
+    public void removeWebPage(String url) {
+        WebPage page = alreadyIndexedPages.remove(url);
+        Set<String> wordsOnPage = pageToWords.remove(url);
+        wordsOnPage.forEach(word -> wordToPages.get(word).remove(page));
+    }
+}
