@@ -17,6 +17,8 @@ public class Main {
         System.out.println(ProductService.groupProductsByCategory(productService.getProducts()));
         System.out.println(productService.getProductsByCategory(Product.Category.PHONE));
         System.out.println(productService.findProduct(5L));
+
+        System.out.println(productService.getProductsByCategory(null));
     }
 
     private static List<Product> getProducts() {

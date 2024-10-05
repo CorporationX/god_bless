@@ -39,7 +39,6 @@ public class ProductService {
     }
 
     public List<Product> getProductsByCategory(Product.Category category) {
-        if(category == null) return null;
         return groupProductsByCategory(this.products).get(category);
     }
 
@@ -52,6 +51,8 @@ public class ProductService {
     }
 
     public static Map<Product.Category, List<Product>> groupProductsByCategory(Map<Long, Product> products) {
+        if(Objects.isNull(products)) return null;
+
         Map<Product.Category, List<Product>> productsByCategory = new HashMap<>();
         products.forEach((id, product) -> productsByCategory.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product));
         return productsByCategory;
