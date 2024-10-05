@@ -10,5 +10,4 @@ public class WeatherData {
     private String city;
     private double temperature;
     private double humidity;
-
 }
