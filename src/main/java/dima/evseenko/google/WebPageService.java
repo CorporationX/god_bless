@@ -2,16 +2,18 @@ package dima.evseenko.google;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class WebPageService {
     private final Map<String, List<WebPage>> pages = new HashMap<>();
 
     public void addWebPage(WebPage page) {
         if (Objects.nonNull(page)) {
-            page.getKeywords().forEach(word -> pages.computeIfAbsent(word, k -> new ArrayList<>()).add(page));
+            getKeywords(page).forEach(word -> pages.computeIfAbsent(word, k -> new ArrayList<>()).add(page));
         }
     }
 
@@ -22,12 +24,11 @@ public class WebPageService {
     }
 
     public List<WebPage> findWebPages(String keyword) {
-        if (keyword == null) return null;
-        return pages.get(keyword.toLowerCase());
+        return keyword == null ? null : pages.get(keyword.toLowerCase());
     }
 
     public void deleteWebPage(WebPage page) {
-        page.getKeywords().forEach(word -> {
+        getKeywords(page).forEach(word -> {
             if (pages.containsKey(word)) {
                 pages.get(word).remove(page);
             }
@@ -46,6 +47,14 @@ public class WebPageService {
         if (page != null) {
             deleteWebPage(page);
         }
+    }
+
+    private Set<String> getKeywords(WebPage webPage) {
+        String keywords = webPage.getTitle() + " " + webPage.getContent();
+        keywords = keywords.replace("-", " ");
+        keywords = keywords.replaceAll("[(\\\\s,.\\\"!?:';)]+", "");
+
+        return new HashSet<>(List.of(keywords.trim().toLowerCase().split(" ")));
     }
 
     public void printWebPages() {

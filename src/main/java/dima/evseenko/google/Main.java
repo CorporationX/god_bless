@@ -18,7 +18,7 @@ public class Main {
         webPageService.printWebPages();
     }
 
-    private static List<WebPage> getPages(){
+    private static List<WebPage> getPages() {
         return List.of(
                 new WebPage("https://faang-school.com/courses/4jnzmndg/xjd77jbd", "Java HashMap: Поисковый мини-движок Google", "Сюжет: Вы решили создать простой поисковой движок, который будет индексировать веб-страницы и позволять пользователям быстро находить страницы по ключевым словам. Ваша задача состоит в создании прототипа поискового движка, используя Java и HashMap для хранения и обработки данных."),
                 new WebPage("https://faang-school.com/courses/4jnzmndg/vyd98gxz", "Java HashMap: Считаем прогулы", "Сюжет: Вы работаете на должности администратора в университете и получили задание создать систему учёта студентов по факультетам и курсам. Вы решаете использовать Java и HashMap для организации информации о студентах."),

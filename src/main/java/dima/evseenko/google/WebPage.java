@@ -13,15 +13,4 @@ public class WebPage {
     private String url;
     private String title;
     private String content;
-
-    public Set<String> getKeywords() {
-        String keywords = getTitle()+" "+getContent();
-        keywords = keywords.replace("!", "");
-        keywords = keywords.replace("-", " ");
-        keywords = keywords.replace(".", "");
-        keywords = keywords.replace(",", "");
-        keywords = keywords.replace(":", "");
-
-        return new HashSet<>(List.of(keywords.trim().toLowerCase().split(" ")));
-    }
 }
