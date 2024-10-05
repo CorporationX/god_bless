@@ -13,15 +13,15 @@ public class Main {
         OptimizationStrategy loadBalancingStrategy = new LoadBalancingOptimizationStrategy();
         DataCenterService service = new DataCenterService(dataCenter, loadBalancingStrategy);
 
-        ResourceRequest request1 = new ResourceRequest(50);
-        service.allocateResources(request1);
+        ResourceRequest firstRequest = new ResourceRequest(50);
+        service.allocateResources(firstRequest);
 
-        ResourceRequest request2 = new ResourceRequest(80);
-        service.allocateResources(request2);
+        ResourceRequest secondRequest = new ResourceRequest(80);
+        service.allocateResources(secondRequest);
 
         System.out.println("Total energy consumption: " + service.getTotalEnergyConsumption());
 
-        service.releaseResources(request1);
+        service.releaseResources(firstRequest);
         System.out.println("Total energy consumption after release: " + service.getTotalEnergyConsumption());
     }
 }

@@ -12,6 +12,8 @@ public class DataCenterService {
     private DataCenter dataCenter;
     private OptimizationStrategy optimizationStrategy;
 
+    private static final int OPTIMIZATION_DELAY = 1800000;
+
     public double getTotalEnergyConsumption() {
         return dataCenter.getServers().stream()
                 .mapToDouble(Server::getEnergyConsumption)
@@ -40,7 +42,7 @@ public class DataCenterService {
             public void run() {
                 optimizeDataCenter();
             }
-        }, 0, 1800000);
+        }, 0, OPTIMIZATION_DELAY);
     }
 
     private void optimizeDataCenter() {
