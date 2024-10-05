@@ -27,6 +27,6 @@ public class StreamEvent {
 
     @Override
     public String toString() {
-        return "id: " + id + ", Тип события: " + eventType + ", Данные: " + data;
+        return "{id: " + id + ", Тип события: " + eventType + ", Данные: " + data + "}";
     }
 }
