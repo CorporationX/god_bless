@@ -1,9 +1,7 @@
-package school.faang;
+package school.faang.Abstraction;
 
 public class Archer extends Character{
-    private int power = 3;
-    private int dexterity = 10;
-    private int intelligence = 5;
+
 
     public Archer(String name) {
         super(name);
@@ -15,6 +13,6 @@ public class Archer extends Character{
 
     @Override
     public void attack(Character character) {
-        character.health -= this.dexterity;
+        character.setHealth(character.getHealth() - this.getDexterity());
     }
 }
