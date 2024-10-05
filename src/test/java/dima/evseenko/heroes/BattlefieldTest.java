@@ -5,10 +5,14 @@ import dima.evseenko.heroes.entity.Creature;
 import dima.evseenko.heroes.entity.Griffin;
 import dima.evseenko.heroes.entity.Pikeman;
 import dima.evseenko.heroes.entity.Swordman;
+import org.junit.jupiter.api.Test;
 
-public class Main {
-    public static void main(String[] args) {
+import static org.junit.jupiter.api.Assertions.*;
 
+class BattlefieldTest {
+
+    @Test
+    void battle() {
         Hero dima = new Hero("Dima", Hero.Fraction.PEOPLE, 1, 1);
         dima.addCreature(getPikeman(3), 50);
         dima.addCreature(getSwordman(2), 10);
@@ -18,22 +22,9 @@ public class Main {
         vasya.addCreature(getPikeman(2), 10);
         vasya.addCreature(getAngel(3), 5);
 
-        System.out.println(dima.getArmy().size());
-        System.out.println(vasya.getArmy().size());
-
-        System.out.println(dima);
-        System.out.println(vasya);
-
-        vasya.deleteCreature(getPikeman(2), 2);
-
-        System.out.println(vasya);
-
         Battlefield battlefield = new Battlefield(dima, vasya);
 
-        System.out.println(battlefield.battle());
-
-        System.out.println(dima.getArmy().size());
-        System.out.println(vasya.getArmy().size());
+        assertEquals(dima, battlefield.battle());
     }
 
     private static Creature getPikeman(int level) {
