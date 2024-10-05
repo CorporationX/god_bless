@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        User test = new User("qwe", 20, "Google", "Amsterdam");
+        User test = new User("qwe", 18, "Google", "Amsterdam");
         System.out.println("ok");
     }
 }
