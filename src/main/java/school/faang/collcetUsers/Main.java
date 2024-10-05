@@ -17,6 +17,7 @@ public class Main {
 
         List<User> users = Arrays.asList(user1, user2, user3);
 
+
         // Определяем хобби
         Set<String> hobbies = new HashSet<>(Arrays.asList("reading", "swimming"));
 
