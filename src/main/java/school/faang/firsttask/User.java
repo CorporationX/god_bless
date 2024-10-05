@@ -5,21 +5,15 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-@Getter
+@Data
 public class User {
-    private String name;
-    private int age;
-    private String workplace;
-    private String address;
-
-    public User(String name, int age, String workplace, String address) {
-        this.name = name;
-        this.age = age;
-        this.workplace = workplace;
-        this.address = address;
-    }
+    final private String name;
+    final private int age;
+    final private String workplace;
+    final private String address;
 
     /**
      * @param users - List of users
@@ -29,8 +23,7 @@ public class User {
         Map<Integer, List<User>> groupedUsers = new HashMap<>();
         for (User user : users) {
             int age = user.getAge();
-            groupedUsers.putIfAbsent(age, new ArrayList<>());
-            groupedUsers.get(age).add(user);
+            groupedUsers.computeIfAbsent(user.getAge(), value -> new ArrayList<>()).add(user);
         }
         return groupedUsers;
     }
