@@ -17,7 +17,7 @@ public class Main {
         usersList.add(user3);
         usersList.add(user4);
         Map<String, List<User>> mapByAge = user.groupUsers(usersList);
-        System.out.println(mapByAge.get("21"));
+        System.out.println("mapByAge = " + mapByAge.get("21"));
     }
 
 }
