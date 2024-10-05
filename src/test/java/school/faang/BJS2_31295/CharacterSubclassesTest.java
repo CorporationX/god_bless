@@ -75,21 +75,10 @@ class CharacterSubclassesTest {
         Character character2 = constructor.newInstance("character2");
 
         int initialHealth = character2.health;
-        int expectedDamage;
-
-        character1.attack(character2);
-
-
-        if (character1 instanceof Warrior) {
-            expectedDamage = character1.power;
-        } else if (character1 instanceof Archer) {
-            expectedDamage = character1.agility;
-        } else {
-            throw new IllegalArgumentException("Unknown character type");
-        }
-
+        int expectedDamage = character1 instanceof Warrior ? character1.power : character1.agility;
         int expectedHealth = initialHealth < expectedDamage ? 0 : initialHealth - expectedDamage;
 
+        character1.attack(character2);
         assertEquals(expectedHealth, character2.health);
     }
 }
