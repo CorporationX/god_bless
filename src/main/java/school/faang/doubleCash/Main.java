@@ -15,22 +15,22 @@ public class Main {
         Subject algebra = new Subject(1, "Linear algebra");
         Subject diff = new Subject(2, "Differential equations");
         Subject philosophy = new Subject(3, "Philosophy");
+        Subject economy = new Subject(4, "Economy Theory");
         Map<Subject, Integer> ilyaGrades = new HashMap<>();
         ilyaGrades.put(algebra, 3);
         ilyaGrades.put(diff, 4);
         Map<Subject, Integer> sashaGrades = new HashMap<>();
         sashaGrades.put(algebra, 5);
-        Map<Student, Integer> grades = new HashMap<>();
-        grades.put(ilya, 5);
-        grades.put(sasha, 3);
+        List<Student> studentsList = new ArrayList<>(List.of(ilya, sasha));
 
         addStudentAndGrades(ilya, ilyaGrades);
         addStudentAndGrades(sasha, sashaGrades);
         addSubjectAndGrade(sasha, diff, 4);
         removeStudent(sasha);
-        addSubjectAndStudents(philosophy, grades);
+        addSubjectAndStudents(economy, studentsList);
+        addSubjectAndStudents(philosophy, studentsList);
         addStudentToExistingSubject(diff, sasha, 4);
-        removeStudentFromSubject(sasha, philosophy);
+        removeStudentFromSubject(ilya, philosophy);
         removeStudentFromSubject(sasha, diff);
         printStudents();
         printSubjects();
@@ -46,29 +46,24 @@ public class Main {
     private static void addSubjectAndGrade(Student student, Subject subject, int grade) {
         Map<Subject, Integer> grades = studentsGrades.get(student);
         grades.put(subject, grade);
+        learntSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     private static void removeStudent(Student student) {
-        List<Subject> subjectsToRemove = new ArrayList<>();
-        studentsGrades.remove(student);
-        for (var entry : learntSubjects.entrySet()) {
-            entry.getValue().remove(student);
-            if (entry.getValue().isEmpty()) {
-                subjectsToRemove.add(entry.getKey());
+        Map<Subject, Integer> studentsSubject = studentsGrades.remove(student);
+        for (var entry : studentsSubject.entrySet()) {
+            List<Student> studentsList = learntSubjects.get(entry.getKey());
+            studentsList.remove(student);
+            if (studentsList.isEmpty()) {
+                learntSubjects.remove(entry.getKey());
             }
-        }
-        for (Subject subject : subjectsToRemove) {
-            learntSubjects.remove(subject);
         }
     }
 
-    private static void addSubjectAndStudents(Subject subject, Map<Student, Integer> grades) {
-        for (var entry : grades.entrySet()) {
-            Student currentStudent = entry.getKey();
-            int currentGrade = entry.getValue();
-
-            learntSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(currentStudent);
-            studentsGrades.computeIfAbsent(currentStudent, k -> new HashMap<>()).put(subject, currentGrade);
+    private static void addSubjectAndStudents(Subject subject, List<Student> students) {
+        for (Student student : students) {
+            learntSubjects.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+            studentsGrades.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
         }
     }
 
@@ -78,29 +73,15 @@ public class Main {
     }
 
     private static void removeStudentFromSubject(Student studentToRemove, Subject subject) {
-        List<Subject> subjectsToRemove = new ArrayList<>();
-        List<Student> studentsToRemove = new ArrayList<>();
-        for (var entry : learntSubjects.entrySet()) {
-            List<Student> students = entry.getValue();
-            students.removeIf(student -> (student.equals(studentToRemove) && entry.getKey().equals(subject)));
-            for (var studentsEntry : studentsGrades.entrySet()) {
-                Map<Subject, Integer> gradesForSubject = studentsEntry.getValue();
-                for (var subjectsEntry : gradesForSubject.entrySet()) {
-                    if (subjectsEntry.getKey().equals(subject)
-                            && studentsEntry.getKey().equals(studentToRemove)) {
-                        subjectsToRemove.add(subjectsEntry.getKey());
-                    }
-                }
-                for (Subject subjectToRemove : subjectsToRemove) {
-                    gradesForSubject.remove(subjectToRemove);
-                }
-                if (studentsEntry.getValue().isEmpty()) {
-                    studentsToRemove.add(studentsEntry.getKey());
-                }
-            }
+        List<Student> studentsToRemove = learntSubjects.get(subject);
+        studentsToRemove.removeIf(student -> student.equals(studentToRemove));
+        Map<Subject, Integer> grades = studentsGrades.get(studentToRemove);
+        grades.remove(subject);
+        if (studentsToRemove.isEmpty()) {
+            learntSubjects.remove(subject);
         }
-        for (Student student : studentsToRemove) {
-            studentsGrades.remove(student);
+        if (grades.isEmpty()) {
+            studentsGrades.remove(studentToRemove);
         }
     }
 
