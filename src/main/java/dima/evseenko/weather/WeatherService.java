@@ -2,6 +2,7 @@ package dima.evseenko.weather;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class WeatherService {
     private final Map<String, WeatherData> cachedWeatherData = new HashMap<>();
@@ -11,9 +12,9 @@ public class WeatherService {
     }
 
     public void updateWeatherData(String city) {
-        validateCity(city);
-
-        cachedWeatherData.put(city, WeatherRepository.getWeather(city));
+        if (Objects.nonNull(city)) {
+            cachedWeatherData.put(city, WeatherRepository.getWeather(city));
+        }
     }
 
     public void deleteWeatherData(String city) {
@@ -22,11 +23,6 @@ public class WeatherService {
 
     public WeatherData getCachedWeatherData(String city) {
         return cachedWeatherData.get(city);
-    }
-
-    private void validateCity(String city) {
-        if(city == null)
-            throw new IllegalArgumentException("city is null");
     }
 
     public void printCachedWeatherData() {

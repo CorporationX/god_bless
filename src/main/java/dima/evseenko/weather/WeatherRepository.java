@@ -12,7 +12,7 @@ public class WeatherRepository {
             new WeatherData("Воронеж", 22, 23)
     );
 
-    public static WeatherData getWeather(String city){
+    public static WeatherData getWeather(String city) {
         for (WeatherData weatherData : weatherDataList) {
             if (weatherData.getCity().equals(city)) {
                 return weatherData;

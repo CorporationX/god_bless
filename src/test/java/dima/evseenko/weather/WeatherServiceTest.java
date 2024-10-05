@@ -3,7 +3,6 @@ package dima.evseenko.weather;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -48,11 +47,6 @@ class WeatherServiceTest {
         weatherService.updateWeatherData("Москва");
 
         assertNotNull(weatherService.getWeatherData("Москва"));
-    }
-
-    @Test
-    void updateWeatherDataNullCity(){
-        assertThrows(IllegalArgumentException.class, () -> new WeatherService().updateWeatherData(null));
     }
 
     @Test
