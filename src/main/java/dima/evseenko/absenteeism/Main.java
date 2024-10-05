@@ -4,29 +4,29 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        University university = new University();
-        university.addStudents(getStudents());
-        university.addStudent(new Student("Kirill", Student.Faculty.IT, 1));
-        university.printStudents();
+        StudentService studentService = new StudentService();
+        studentService.addStudents(getStudents());
+        studentService.addStudent(new Student("Kirill", Faculty.IT, 1));
+        studentService.printStudents();
 
-        System.out.println(university.findStudents(Student.Faculty.PHYSICS, 3));
+        System.out.println(studentService.findStudents(Faculty.PHYSICS, 3));
 
-        university.deleteStudent("Dima", Student.Faculty.IT, 1);
-        university.deleteStudent(new Student("Polina", Student.Faculty.PHYSICS, 3));
-        university.printStudents();
+        studentService.deleteStudent("Dima", Faculty.IT, 1);
+        studentService.deleteStudent(new Student("Polina", Faculty.PHYSICS, 3));
+        studentService.printStudents();
 
-        System.out.println(university.findStudents(new Student.KeyPair(Student.Faculty.PHYSICS, 3)));
+        System.out.println(studentService.findStudents(new FacultyYearKeyPair(Faculty.PHYSICS, 3)));
     }
 
     private static List<Student> getStudents() {
         return List.of(
-                new Student("Dima", Student.Faculty.IT, 1),
-                new Student("Vasya", Student.Faculty.IT, 2),
-                new Student("Kolya", Student.Faculty.MATH, 1),
-                new Student("Sasha", Student.Faculty.PHYSICS, 2),
-                new Student("Masha", Student.Faculty.MATH, 1),
-                new Student("Polina", Student.Faculty.PHYSICS, 3),
-                new Student("Danil", Student.Faculty.IT, 1)
+                new Student("Dima", Faculty.IT, 1),
+                new Student("Vasya", Faculty.IT, 2),
+                new Student("Kolya", Faculty.MATH, 1),
+                new Student("Sasha", Faculty.PHYSICS, 2),
+                new Student("Masha", Faculty.MATH, 1),
+                new Student("Polina", Faculty.PHYSICS, 3),
+                new Student("Danil", Faculty.IT, 1)
         );
     }
 }

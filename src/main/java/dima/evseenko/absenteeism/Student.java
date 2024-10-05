@@ -10,18 +10,7 @@ public class Student {
     private Faculty faculty;
     private int year;
 
-    public KeyPair getKeyPair() {
-        return new KeyPair(this.faculty, this.year);
-    }
-
-    @Data
-    @AllArgsConstructor
-    public static class KeyPair{
-        private Faculty faculty;
-        private int year;
-    }
-
-    enum Faculty{
-        IT, MATH, PHYSICS
+    public FacultyYearKeyPair getFacultyYearKeyPair() {
+        return new FacultyYearKeyPair(this.faculty, this.year);
     }
 }
