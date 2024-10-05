@@ -2,10 +2,11 @@ package school.faang.reverse.classes;
 
 public class Example {
     public static int[] reverse(int[] nums) {
-        int[] newArray = new int[nums.length];
-        for(int i = 0; i < nums.length; i++) {
-            newArray[i] = nums[nums.length -1 - i];
+        for (int i = 0; i < nums.length / 2; i++) {
+            int temp = nums[i];
+            nums[i] = nums[nums.length - i - 1];
+            nums[nums.length - i - 1] = temp;
         }
-        return newArray;
+        return nums;
     }
 }
