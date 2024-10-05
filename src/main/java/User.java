@@ -1,4 +1,11 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class User {
     private final String name;
@@ -12,10 +19,10 @@ public class User {
 
     public User(String name, int age, String placeOfJod, String address) {
         if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException("name is null or empty");
+            throw new IllegalArgumentException( name + "is null or empty");
         }
         if (age < AGE) {
-            throw new IllegalArgumentException("age can`t be less then 18");
+            throw new IllegalArgumentException(age + "can`t be less then 18");
         }
         if (!VALID_JOBS.contains(placeOfJod)) {
             throw new IllegalArgumentException("placeOfJod can be " + "Google" + "Uber" + "Amazon");
@@ -28,7 +35,6 @@ public class User {
         this.placeOfJod = placeOfJod;
         this.address = address;
     }
-
 
     @Override
     public boolean equals(Object o) {
