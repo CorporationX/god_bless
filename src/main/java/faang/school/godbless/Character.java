@@ -39,10 +39,6 @@ abstract class Character {
 
 class Warrior extends Character {
     protected Warrior(String name) {
-        super(name);
-    }
-
-    protected Warrior(String name, int strength, int dexterity, int intelligence) {
         super(name, 10, 5, 3);
     }
 
@@ -55,10 +51,6 @@ class Warrior extends Character {
 
 class Archer extends Character {
     protected Archer(String name) {
-        super(name);
-    }
-
-    protected Archer(String name, int strength, int dexterity, int intelligence) {
         super(name, 3, 10, 5);
     }
 
@@ -71,10 +63,11 @@ class Archer extends Character {
 
 class Game {
     public static void main(String[] args) {
-        Warrior d = new Warrior("Воин", 1, 1, 1);
-        d.attack(d);
-        Archer e = new Archer("Лучник", 1, 1, 1);
-        e.attack(e);
+        Warrior warrior = new Warrior("Воин");
+        Archer archer = new Archer("Лучник");
+
+        warrior.attack(warrior);
+        archer.attack(archer);
     }
 }
 
