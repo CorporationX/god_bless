@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static private Map<University, List<Student>> mainMap = new HashMap<>();
+    static private Map<University, List<Student>> studentMap = new HashMap<>();
     static private University university = new University("Филология", 3);
     public static void main(String[] args) {
 
@@ -22,18 +22,18 @@ public class Main {
 
        List<Student> firstStudent = new ArrayList<>();
        firstStudent.add(new Student("Masha", "Филология", 3));
-       mainMap.put(university, firstStudent);
+       studentMap.put(university, firstStudent);
 
        // 3 пункт задачи
        addStudentSameFaculty(students);
-       System.out.println(mainMap);
+       System.out.println(studentMap);
 
        addNewStudent("Sasha", "Engnering", 3);
-       System.out.println(mainMap);
+       System.out.println(studentMap);
 
        // удаление
        deleteStudent("Den","Филология", 3);
-       System.out.println(mainMap);
+       System.out.println(studentMap);
 
        // добавление
        addNewStudent("Gibert", "Менеджмент", 1);
@@ -55,34 +55,34 @@ public class Main {
     }
 
     static public Map<University, List<Student>> addStudentSameFaculty(List<Student> students) {
-        List<Student> filteredList = mainMap.get(university);;
-        for (Map.Entry<University, List<Student>> entry : mainMap.entrySet()) {
+        List<Student> filteredList = studentMap.get(university);;
+        for (Map.Entry<University, List<Student>> entry : studentMap.entrySet()) {
             for (Student student : students) {
                 if (entry.getKey().getFaculty().equals(student.getFaculty()) && entry.getKey().getYear().equals(student.getYear())) {;
                     filteredList.add(new Student(student.getName(), student.getFaculty(), student.getYear()));
                 }
             }
         }
-        mainMap.put(university, filteredList);
-        return mainMap;
+        studentMap.put(university, filteredList);
+        return studentMap;
     }
 
     static public Map<University, List<Student>> addNewStudent(String name, String faculty, Integer year) {
-        List<Student> newListStudents = mainMap.get(university);
+        List<Student> newListStudents = studentMap.get(university);
         newListStudents.add(new Student(name, faculty, year));
-        mainMap.put(university, newListStudents);
-        return mainMap;
+        studentMap.put(university, newListStudents);
+        return studentMap;
     }
 
     static public Map<University, List<Student>> deleteStudent(String name, String faculty, Integer year) {
-        List<Student> listFromMap = mainMap.get(university);
+        List<Student> listFromMap = studentMap.get(university);
         listFromMap.remove(new Student(name, faculty, year));
-        mainMap.put(university, listFromMap);
-        return mainMap;
+        studentMap.put(university, listFromMap);
+        return studentMap;
     }
 
     static public void sortStudents() {
-        List<Student> listFromMap = mainMap.get(university);
+        List<Student> listFromMap = studentMap.get(university);
         listFromMap.sort(Comparator.comparing(Student::getFaculty).thenComparing(Student::getYear));
         for (Student student : listFromMap) {
             System.out.println(student);
@@ -90,7 +90,7 @@ public class Main {
     }
 
     static public void searchSameStudents(String faculty, Integer year) {
-        List<Student> listFromMap = mainMap.get(university);
+        List<Student> listFromMap = studentMap.get(university);
         for (Student student : listFromMap) {
             if (faculty.equals(student.getFaculty()) && year.equals(student.getYear())) {
                 System.out.println(student);
