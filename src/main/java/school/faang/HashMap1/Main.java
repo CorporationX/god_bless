@@ -1,10 +1,11 @@
-package school.faang;
+package school.faang.HashMap1;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+
         Map<Book, String> library = new HashMap<>();
         library.put(new Book("book1", "author1", 1975), "1");
         library.put(new Book("book2", "author2", 2005), "2");
@@ -21,5 +22,6 @@ public class Main {
         System.out.println("\nПоиск удаленной book4:");
         Book.searchBook("book4", "author4", 2000, library);
         Book.allBooksInfo(library);
+
     }
 }

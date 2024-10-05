@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.HashMap1;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
