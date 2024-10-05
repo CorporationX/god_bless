@@ -19,7 +19,6 @@ public class Example {
 
         System.out.println(Arrays.toString(nums));
 
-
     }
     public static int[] reverse(int[] nums) {
 
