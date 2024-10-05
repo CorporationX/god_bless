@@ -1,11 +1,14 @@
 package school.BJS2_32386;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
-    private static final Map<Student, Map<Subject, Integer>> mappa1 = new HashMap<>();
-    private static final Map<Subject, List<Student>> mappa2 = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> mappaAboutStudents = new HashMap<>();
+    private static final Map<Subject, List<Student>> mappaAboutSubject = new HashMap<>();
 
     public static void main(String[] args) {
         Student student_1 = new Student(1025, "Рома");
@@ -75,22 +78,22 @@ public class Main {
 
     //добавление нового студента и его предметов с оценками
     private static void addStudent(Student student, Map<Subject, Integer> mappa) {
-        mappa1.put(student, mappa);
+        mappaAboutStudents.put(student, mappa);
     }
 
     //добавление нового предмета для существующего студента с оценкой
     private static void addSubjectForStudent(Student student, Subject subject, int note) {
-        if(!mappa1.get(student).containsKey(subject)) mappa1.get(student).put(subject, note);
+        mappaAboutStudents.get(student).putIfAbsent(subject, note);
     }
 
     //удаление студента и его предметов с оценками
     private static void removeStudent(Student student) {
-        mappa1.remove(student);
+        mappaAboutStudents.remove(student);
     }
 
     //вывод списка всех студентов и их оценок по предметам
     private static void printStudents() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : mappa1.entrySet()) {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : mappaAboutStudents.entrySet()) {
             System.out.printf("Для студента с id %d, именем %s список предметов: ", entry.getKey().getId(), entry.getKey().getName());
             System.out.println();
             for (Map.Entry<Subject, Integer> subject : entry.getValue().entrySet()) {
@@ -102,31 +105,24 @@ public class Main {
 
     //добавление нового предмета и списка студентов
     public static void addSubject(Subject subject, List<Student> students) {
-        mappa2.put(subject, students);
+        mappaAboutSubject.put(subject, students);
     }
 
     //добавление студента к существующему предмету
     public static void addStudentToSubject(Subject subject, Student student) {
-
-        for (Map.Entry<Subject, List<Student>> entry : mappa2.entrySet()) {
-            if (Objects.equals(entry.getKey(), subject) && !entry.getValue().contains(student)) {
-                entry.getValue().add(student);
-            }
+        if (!mappaAboutSubject.get(subject).contains(student)) {
+            mappaAboutSubject.get(subject).add(student);
         }
     }
 
     //удаление студента из предмета
     public static void removeStudentFromSubject(Subject subject, Student student) {
-        for (Map.Entry<Subject, List<Student>> entry : mappa2.entrySet()) {
-            if (Objects.equals(entry.getKey(), subject)) {
-                entry.getValue().remove(student);
-            }
-        }
+        mappaAboutSubject.get(subject).remove(student);
     }
 
     //вывод списка всех предметов и студентов, изучающих их
     private static void printSubjects() {
-        for (Map.Entry<Subject, List<Student>> entry : mappa2.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> entry : mappaAboutSubject.entrySet()) {
             System.out.printf("Предмет %s посещают студенты : ", entry.getKey().getName());
             System.out.println();
             for (Student s : entry.getValue()) {
