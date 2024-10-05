@@ -10,42 +10,53 @@ import java.util.Objects;
 import java.util.Set;
 
 public class SearchEngine {
-    private final Map<String, Map<String, WebPage>> wordToPages = new HashMap<>();
-    private final Map<String, Set<String>> urlToWords = new HashMap<>();
+    private final Map<String, List<WebPage>> wordToPages = new HashMap<>();
+    private final Map<String, Map<String, Integer>> urlToPositions = new HashMap<>();
 
     public void add(WebPage page) {
         Objects.requireNonNull(page, "page is null");
         String[] wordsArr = page.getContent().split("\\PL+");
         Set<String> words = new HashSet<>(Arrays.asList(wordsArr));
+        Map<String, Integer> urlToIndex = new HashMap<>();
 
         //Добавление в индекс
         for (String word : words) {
-            Map<String, WebPage> pages = wordToPages.getOrDefault(word, new HashMap<>());
-            pages.put(page.getUrl(), page);
+            List<WebPage> pages = wordToPages.getOrDefault(word, new ArrayList<>());
+            pages.add(page);
             wordToPages.put(word, pages);
-        }
-
-        //обновляем вспомогательный индекс
-        urlToWords.put(page.getUrl(), words);
-    }
-
-    public List<WebPage> getPages(String word) {
-        return new ArrayList<>(wordToPages.get(word).values());
-    }
-
-    public void remove(String url) {
-        Set<String> words = urlToWords.get(url);
-        if (words == null) {
-            return;
-        }
-
-        //удаление из индекса
-        for (String word : words){
-            Map<String, WebPage> urlToPage = wordToPages.get(word);
-            urlToPage.remove(url);
+            urlToIndex.put(word, pages.size() - 1);
         }
 
         //обновление вспомогательного индекса
-        urlToWords.remove(url);
+        urlToPositions.put(page.getUrl(), urlToIndex);
+    }
+
+    public List<WebPage> getPages(String word) {
+        return wordToPages.get(word);
+    }
+
+    public void remove(String url) {
+        Map<String, Integer> wordToPosition = urlToPositions.get(url);
+        for (Map.Entry<String, Integer> entry : wordToPosition.entrySet()) {
+            //слово, которое содержит страница
+            String word = entry.getKey();
+            //позиция удаляемой страницы в списке
+            int index = entry.getValue();
+
+            //Удаление из основного индекса
+            List<WebPage> pages = wordToPages.get(word);
+            pages.set(index, pages.get(pages.size() - 1));
+            WebPage last = pages.remove(pages.size() - 1);
+            if (pages.isEmpty()) {
+                wordToPages.remove(word);
+            } else {
+                wordToPages.put(word, pages);
+            }
+
+            //обновление вспомогательного индекса
+            Map<String, Integer> map = urlToPositions.get(last.getUrl());
+            map.put(word, index);
+        }
+        urlToPositions.remove(url);
     }
 }

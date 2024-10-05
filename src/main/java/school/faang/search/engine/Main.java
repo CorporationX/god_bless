@@ -27,7 +27,7 @@ public class Main {
             System.out.println("Совпадения по слову одна: \n" + pages);
 
             //удаление
-            searchEngine.remove(page1.getUrl());
+            searchEngine.remove(page2.getUrl());
             System.out.println("Совпадения по слову одна: \n" + searchEngine.getPages("одна"));
         } catch (IOException ex) {
             ex.printStackTrace();
