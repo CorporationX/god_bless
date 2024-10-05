@@ -20,11 +20,9 @@ public class User {
         Map<User, String> hobbyLovers = new HashMap<>();
         for (User user : users) {
             for (String activity : user.getActivities()) {
-                for (String hobby : activities) {
-                    if (hobby.equals(activity)) {
-                        hobbyLovers.put(user, activity);
-                        break;
-                    }
+                if (activities.contains(activity)) {
+                    hobbyLovers.put(user, activity);
+                    break;
                 }
             }
         }
