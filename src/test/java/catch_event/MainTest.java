@@ -5,14 +5,14 @@ import org.junit.jupiter.api.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class MainTest {
     @Test
     void addNewEvent() {
         Main.addNewEvent(new StreamEvent(999, "user.login", "Kate"));
 
-        assertEquals(1, Main.getStreamEvents().size());
+        assertEquals(1, Main.STREAM_EVENTS.size());
 
         Main.removeEventByID(999);
     }
@@ -62,9 +62,9 @@ class MainTest {
         Main.addNewEvent(new StreamEvent(666, "user.created", "John"));
         Main.removeEventByID(666);
 
-        assertEquals(0, Main.getStreamEvents().size());
+        assertEquals(0, Main.STREAM_EVENTS.size());
 
-        assertEquals(0, Main.getStreamEvents().size());
+        assertEquals(0, Main.STREAM_EVENTS.size());
     }
 
     @Test
