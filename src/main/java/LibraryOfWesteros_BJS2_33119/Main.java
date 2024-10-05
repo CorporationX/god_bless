@@ -15,9 +15,9 @@ public class Main {
     // method of deleting book by (title, name, year)
     public void deleteBook(String title, String author, int year) {
         Book bookForRemove = new Book(title, author, year);
-        library.remove(bookForRemove);
 
         if (library.containsKey(bookForRemove)) {
+            library.remove(bookForRemove);
             System.out.println("Book removed from library");
         } else {
             System.out.println("Book doesn't exist in library");
@@ -29,8 +29,8 @@ public class Main {
         Book bookToSearch = new Book(title, author, year);
         if (library.containsKey(bookToSearch)) {
             String location = library.get(bookToSearch);
-            System.out.println("Book is found on the " + location);
-        } else {
+            System.out.println("Book is found on the " + location);}
+         else {
             System.out.println("Book doesn't exist in library");
 
         }
