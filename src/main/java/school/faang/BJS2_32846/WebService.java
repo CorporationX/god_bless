@@ -1,7 +1,9 @@
 package school.faang.BJS2_32846;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,7 +22,7 @@ public class WebService {
     public void indexWebPage(WebPage page) {
         if (!alreadyIndexedPages.containsKey(page.getUrl())) {
             String[] words = page.getContent().toLowerCase().split("[^\\p{L}\\p{N}]+");
-            Set<String> uniqueWords = Set.of(words);
+            Set<String> uniqueWords = new HashSet<>(Arrays.asList(words));
             uniqueWords.forEach(
                     word -> wordToPages
                             .computeIfAbsent(word.toLowerCase(), wordOnPage -> new ArrayList<>())
