@@ -8,47 +8,69 @@ public class Battlefield {
         buttle();
     }
 
+    /*
+    Справка по игре:
+    Для каждого героя создаем армию состоящую из разных существ.
+    Выбираем им параметры, все параметры участвуют в боевых действиях.
+    Для каждого существа прописаны отдельные условия нанесения урона.
+    Можно выбрать точное число созданных экземпляров существ, а можно предоставить выбор рандому, как в примере.
+    При убийстве существа, существо, которое нанесло смертельную атаку повышает уровень на 1, что так-же влияет на нанесение урона.
 
+    Приятной игры. Да победит сильнейший.
+     */
     private static void buttle() throws InterruptedException {
-        Hero hero1 = new Hero("Рома", "Альянс", 50, 1);
-        hero1.addCreature(new Angel("Angel", 3, 15, 20, 10), 1);
-        hero1.addCreature(new Pikeman("Pikeman", 2, 20, 10, 5), 2);
-        Hero hero2 = new Hero("Денис", "Орда", 30, 1);
-        hero2.addCreature(new Swordman("Swordan", 2, 10, 30, 20), 1);
-        hero2.addCreature(new Angel("Angel", 3, 15, 20, 10), 1);
         Random rand = new Random();
+        Hero hero1 = new Hero("Рома", "Альянс", 50, 1);
+        hero1.addCreature(new Pikeman("Pikeman", 3, 8, 20, 10), rand.nextInt(4) + 1);
+        hero1.addCreature(new Angel("Angel", 2, 25, 15, 5), rand.nextInt(3) + 1);
+        hero1.addCreature(new Griffin("Griffin", 5, 20, 45, 10), 2);
+        Hero hero2 = new Hero("Костя", "Орда", 30, 1);
+        hero2.addCreature(new Griffin("Griffin", 2, 15, 30, 20), 1);
+        hero2.addCreature(new Angel("Angel", 3, 20, 20, 10), rand.nextInt(2) + 1);
+        hero2.addCreature(new Swordman("Swordman", 4, 15, 10, 30), rand.nextInt(5) + 1);
         while (true) {
-            int siseArmee_1 = hero1.getArmee().size();
-            int siseArmee_2 = hero1.getArmee().size();
-            Creature creatureFromHero2 = hero2.getArmee().get(rand.nextInt(siseArmee_2-1));
-            Creature creatureFromHero1 = hero1.getArmee().get(rand.nextInt(siseArmee_1-1));
-            creatureFromHero1.attackEnemy(creatureFromHero2);
-            System.out.printf("Герой %s бьет Героя 2", creatureFromHero1.getName());
-            System.out.println();
-            System.out.println(creatureFromHero2.getHealth());
-            Thread.sleep(300);
-            if (creatureFromHero2.getHealth() < 0) {
-                hero2.getArmee().remove(creatureFromHero2);
-                if (hero2.getArmee().isEmpty()) {
-                    System.out.println(hero1.getName() + " Победил");
-                    break;
-                }
+            Creature creatureFromHero2 = getCreatureFromArmeeHero(hero2);
+            Creature creatureFromHero1 = getCreatureFromArmeeHero(hero1);
+            creatureFromHero1.attackEnemy(creatureFromHero2,hero1,hero2);
+            checkHelthStatusOfCreature(creatureFromHero2, hero2);
+            if (hero2.getArmee().isEmpty()) {
+                System.out.println(hero1.getName() + " Победил");
+                break;
             } else {
-                creatureFromHero2.attackEnemy(creatureFromHero1);
-                System.out.printf("Герой %s бьет Героя 1", creatureFromHero2.getName());
-                System.out.println();
-                System.out.println(creatureFromHero2.getHealth());
-            }
-            Thread.sleep(300);
-            if (creatureFromHero1.getHealth() < 0) {
-                hero1.getArmee().remove(creatureFromHero1);
+                creatureFromHero2.attackEnemy(creatureFromHero1,hero2,hero1);
+                checkHelthStatusOfCreature(creatureFromHero1, hero1);
                 if (hero1.getArmee().isEmpty()) {
                     System.out.println(hero2.getName() + " Победил");
-                   break;
+                    break;
                 }
             }
-
         }
+    }
+
+
+    private static Creature getCreatureFromArmeeHero(Hero hero) {
+        Random rand = new Random();
+        if (hero.getArmee().size() == 1) {
+            return hero.getArmee().get(0);
+        } else
+            return hero.getArmee().get(rand.nextInt(hero.getArmee().size()));
+    }
+
+    private static Creature checkHelthStatusOfCreature(Creature creature, Hero hero) throws InterruptedException {
+        if (creature.getHealth() <= 0) {
+            System.out.printf("Существо %s из Армии %s убито", creature.getName(), hero.getName());
+            hero.getArmee().remove(creature);
+            System.out.println();
+            if(!hero.getArmee().isEmpty()) {
+                return getCreatureFromArmeeHero(hero);
+            }
+        } else  {
+            System.out.printf("Здоровье существа %s теперь равно %d", creature.getName(), creature.getHealth());
+            System.out.println();
+            Thread.sleep(500);
+            return creature;
+        }
+        return null;
     }
 
 }

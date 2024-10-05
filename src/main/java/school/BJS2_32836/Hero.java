@@ -1,11 +1,8 @@
 package school.BJS2_32836;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Getter
 public class Hero {
@@ -39,7 +36,6 @@ public class Hero {
     public List<Creature> getArmee() {
         return armia;
     }
-
 
 
 }
