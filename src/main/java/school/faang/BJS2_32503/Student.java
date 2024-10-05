@@ -1,14 +1,11 @@
 package school.faang.BJS2_32503;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+import lombok.Data;
+import lombok.ToString;
 
-@EqualsAndHashCode
-@Getter
-@AllArgsConstructor
+@Data
 public class Student {
-    private String name;
-    private String faculty;
-    private int year;
+    private final String name;
+    private final String faculty;
+    private final int year;
 }
