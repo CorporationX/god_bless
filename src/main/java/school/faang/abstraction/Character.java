@@ -6,23 +6,25 @@ import lombok.Setter;
 @Getter
 @Setter
 abstract class Character {
-    protected String name;
-    protected int strength;
-    protected int dexterity;
-    protected int intellect;
-    protected int health;
+    private String name;
+    private int strength;
+    private int dexterity;
+    private int intellect;
+    private int health;
 
     public Character(String name) {
-        this(name, 0, 0, 0, 100);
+        this(name, 0, 0, 0);
+
 
     }
 
-    public Character(String name, int strength, int dexterity, int intellect, int health) {
+    public Character(String name, int strength, int dexterity, int intellect) {
         this.name = name;
         this.strength = strength;
         this.dexterity = dexterity;
         this.intellect = intellect;
-        this.health = 100;
+        this.health= 100;
+
     }
 
 
