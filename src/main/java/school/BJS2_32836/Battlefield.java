@@ -5,7 +5,7 @@ import java.util.Random;
 public class Battlefield {
 
     public static void main(String[] args) throws InterruptedException {
-        buttle();
+        battle();
     }
 
     /*
@@ -18,16 +18,18 @@ public class Battlefield {
 
     Приятной игры. Да победит сильнейший.
      */
-    private static void buttle() throws InterruptedException {
+    private static void battle() throws InterruptedException {
         Random rand = new Random();
         Hero hero1 = new Hero("Рома", "Альянс", 50, 1);
-        hero1.addCreature(new Pikeman("Pikeman", 3, 8, 20, 10), rand.nextInt(4) + 1);
-        hero1.addCreature(new Angel("Angel", 2, 25, 15, 5), rand.nextInt(3) + 1);
-        hero1.addCreature(new Griffin("Griffin", 5, 20, 45, 10), 2);
+        hero1.addCreature(new Pikeman("Pikeman"), rand.nextInt(4) + 1);
+        hero1.addCreature(new Angel("Angel"), rand.nextInt(3) + 1);
+        hero1.addCreature(new Griffin("Griffin"), 2);
+        hero1.addCreature(new Swordman("Swordman"), 3);
         Hero hero2 = new Hero("Костя", "Орда", 30, 1);
-        hero2.addCreature(new Griffin("Griffin", 2, 15, 30, 20), 1);
-//        hero2.addCreature(new Angel("Angel", 3, 20, 20, 10), rand.nextInt(2) + 1);
-//        hero2.addCreature(new Swordman("Swordman", 4, 15, 10, 30), rand.nextInt(5) + 1);
+        hero1.addCreature(new Pikeman("Pikeman"), rand.nextInt(4) + 1);
+        hero2.addCreature(new Griffin("Griffin"), 1);
+        hero2.addCreature(new Angel("Angel"), rand.nextInt(2) + 1);
+        hero2.addCreature(new Swordman("Swordman"), rand.nextInt(5) + 1);
         while (true) {
             Creature creatureFromHero2 = getCreatureFromArmeeHero(hero2);
             Creature creatureFromHero1 = getCreatureFromArmeeHero(hero1);

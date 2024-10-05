@@ -12,7 +12,7 @@ public class Hero {
     private int experience;
     private int level;
 
-    List<Creature> armia = new ArrayList<Creature>();
+    private List<Creature> armia = new ArrayList<Creature>();
 
     public Hero(String name, String fraction, int experience, int level) {
         this.name = name;

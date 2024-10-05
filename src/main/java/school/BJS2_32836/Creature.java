@@ -1,9 +1,11 @@
 package school.BJS2_32836;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
+@AllArgsConstructor
 public abstract class Creature {
 
     protected String name;
@@ -12,29 +14,21 @@ public abstract class Creature {
     protected int protect;
     protected int speed;
     @Setter
-    protected int health = 100;
+    protected int health;
 
-    public Creature(String name, int lvl, int attack, int protect, int speed) {
-        this.name = name;
-        this.lvl = lvl;
-        this.attack = attack;
-        this.protect = protect;
-        this.speed = speed;
-    }
+    public abstract int getDamage();
 
-    protected abstract int getDamage();
-
-    protected void attackEnemy(Creature creature, Hero hero, Hero hero2) {
-        if (creature.getHealth() - (getDamage() - (int) (0.2 * creature.getProtect())) > creature.getHealth()) {
-            creature.setHealth(100);
-            System.out.printf("Существо %s из армии Героя %s наносит урон существу %s Героя %s", name, hero.getName(), creature.getName(), hero2.getName());
-            System.out.println();
-        } else {
-            creature.setHealth(creature.getHealth() - (getDamage() + (int) (0.3 * this.lvl) - (int) (0.2 * creature.getProtect())));
-            System.out.printf("Существо %s из армии Героя %s наносит урон существу %s Героя %s", name, hero.getName(), creature.getName(), hero2.getName());
-            System.out.println();
-        }
-        if (creature.getHealth() <= 0) {
+    /*
+    Изменил логику нанесение урона. Теперь урон снижается в проценте от защиты врага
+     */
+    public void attackEnemy(Creature enemy, Hero myHero, Hero enemyHero) {
+        int damagePercentage = getDamage() * (1 - enemy.getProtect() / 100);
+        int damageFromLVL = (int) (0.3 * this.lvl);
+        int damage = damagePercentage + damageFromLVL;
+        enemy.setHealth(enemy.getHealth()-damage);
+        System.out.printf("Существо %s из армии Героя %s наносит урон существу %s Героя %s", name, myHero.getName(), enemy.getName(), enemyHero.getName());
+        System.out.println();
+        if (enemy.getHealth() <= 0) {
             this.lvl = this.lvl + 1;
             System.out.printf("%s повышает уровень за убийство", name);
             System.out.println();
