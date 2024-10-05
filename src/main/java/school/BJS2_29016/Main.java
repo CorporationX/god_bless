@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    private static final Map<String, List<WebPage>> mappa = new HashMap<>();
+    private static Map<String, List<WebPage>> mappa = new HashMap<>();
 
     public static void main(String[] args) {
         WebPage webPage1 = new WebPage("https://en.wikipedia.org/wiki/Beatrix_of_the_Netherlands", "Королева Нидерландов", "В апреле 1999 года познакомилась с принцем Виллем-Александром на частной вечеринке в Испании. 31 марта 2001 года королева Нидерландов Беатрикс и принц Клаус объявили о помолвке своего старшего сына, принца Оранского Виллема-Александра, и Максимы Соррегьеты. 17 мая 2001 года Максима стала подданной Нидерландов. С 1 сентября по 14 ноября 2001 года Максима и Виллем-Александр побывали в турне по городам Нидерландов.\n" +
@@ -46,12 +47,9 @@ public class Main {
 
     //удаление страницы по url
     private static void removePageWithUrl(String url) {
-        HashMap<String,List<WebPage>> clone = new HashMap<>(mappa);
-        for (Map.Entry<String, List<WebPage>> entry : clone.entrySet()) {
-            entry.getValue().removeIf(s -> s.getUrl().equals(url));
-            if (entry.getValue().isEmpty()) {
-                mappa.remove(entry.getKey());
-            }
-        }
+        for (Map.Entry<String, List<WebPage>> entry : mappa.entrySet()) {
+            entry.getValue().removeIf(s -> s.getUrl().equals(url));}
+       mappa = mappa.entrySet().stream().filter(entry -> !entry.getValue().isEmpty())
+               .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
     }
 }
