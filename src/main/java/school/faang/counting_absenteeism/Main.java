@@ -15,25 +15,24 @@ public class Main {
             new Student("Oleg", "Botan", 2023)));
 
     public static void main(String[] args) {
-        Map<Map<String, Integer>, List<Student>> studentsByDepartmentAndCourse = getMapStudentsByDepartmentAndCourse(students);
+        Map<Key, List<Student>> studentsByDepartmentAndCourse = getMapStudentsByDepartmentAndCourse(students);
         addStudent("Eva", "IT", 2023);
         showAllStudents(studentsByDepartmentAndCourse);
         System.out.println("-----------------------------");
-        Map<Map<String, Integer>, List<Student>> studentsByDepartmentAndCourseAfterAdd = getMapStudentsByDepartmentAndCourse(students);
+        Map<Key, List<Student>> studentsByDepartmentAndCourseAfterAdd = getMapStudentsByDepartmentAndCourse(students);
         showAllStudents(studentsByDepartmentAndCourseAfterAdd);
         System.out.println("-----------------------------");
         removeStudent("Eva", "IT", 2023);
-        Map<Map<String, Integer>, List<Student>> studentsByDepartmentAndCourseAfterRemove = getMapStudentsByDepartmentAndCourse(students);
+        Map<Key, List<Student>> studentsByDepartmentAndCourseAfterRemove = getMapStudentsByDepartmentAndCourse(students);
         showAllStudents(studentsByDepartmentAndCourseAfterRemove);
         System.out.println("-----------------------------");
         System.out.print("Все студенты: IT 2024: " + searchAllStudentsByFacultyAndCourse("IT", 2024, studentsByDepartmentAndCourseAfterRemove));
     }
 
-    public static Map<Map<String, Integer>, List<Student>> getMapStudentsByDepartmentAndCourse(List<Student> students) {
-        Map<Map<String, Integer>, List<Student>> studentsResultMap = new HashMap<>();
+    public static Map<Key, List<Student>> getMapStudentsByDepartmentAndCourse(List<Student> students) {
+        Map<Key, List<Student>> studentsResultMap = new HashMap<>();
         for (Student student : students) {
-            Map<String, Integer> key = new HashMap<>();
-            key.put(student.getFaculty(), student.getYear());
+            Key key = new Key(student.getFaculty(), student.getYear());
             studentsResultMap.computeIfAbsent(key, s -> new ArrayList<>()).add(student);
         }
         return studentsResultMap;
@@ -57,19 +56,16 @@ public class Main {
         }
     }
 
-    public static List<Student> searchAllStudentsByFacultyAndCourse(String faculty, int course, Map<Map<String, Integer>, List<Student>> studentsByDepartmentAndCourse) {
-        Map<String, Integer> keyStudents = new HashMap<>();
-        keyStudents.put(faculty, course);
+    public static List<Student> searchAllStudentsByFacultyAndCourse(String faculty, int course, Map<Key, List<Student>> studentsByDepartmentAndCourse) {
+        Key keyStudents = new Key(faculty, course);
         return studentsByDepartmentAndCourse.get(keyStudents);
     }
 
-    public static void showAllStudents(Map<Map<String, Integer>, List<Student>> studentsByDepartmentAndCourse) {
-        for (Map.Entry<Map<String, Integer>, List<Student>> entry : studentsByDepartmentAndCourse.entrySet()) {
+    public static void showAllStudents(Map<Key, List<Student>> studentsByDepartmentAndCourse) {
+        for (Map.Entry<Key, List<Student>> entry : studentsByDepartmentAndCourse.entrySet()) {
             List<Student> students = entry.getValue();
-            Map<String, Integer> key = entry.getKey();
-            for (Map.Entry<String, Integer> dataKey : key.entrySet()) {
-                System.out.printf("Все студенты с факультета %s и курса %d%n", dataKey.getKey(), dataKey.getValue());
-            }
+            Key key = entry.getKey();
+            System.out.printf("Все студенты с факультета %s и курса %d%n", key.faculty(), key.year());
             for (Student student : students) {
                 System.out.print(student.getName() + " ");
             }
