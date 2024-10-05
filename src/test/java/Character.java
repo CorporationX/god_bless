@@ -9,10 +9,11 @@ public abstract class Character {
         this.name = name;
     }
 
-    public Character(int power, int intelligence, int skil) {
+    public Character(int power, int intelligence, int skil,String name) {
         this.power = power;
         this.intelligence = intelligence;
         this.skil = skil;
+        this.name = name;
     }
 
     public abstract void attack(Character character);
