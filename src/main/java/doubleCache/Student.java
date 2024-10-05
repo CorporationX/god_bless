@@ -10,9 +10,9 @@ import lombok.ToString;
 @Getter
 @ToString
 public class Student {
-    private static long counter = 0L;
+    private static int counter = 0;
 
-    private final long id;
+    private final int id;
     private final String name;
 
     public Student(String name) {
