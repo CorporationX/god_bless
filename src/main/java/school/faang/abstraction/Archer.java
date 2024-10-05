@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.abstraction;
 
 public class Archer extends Character {
     public Archer(String name) {
@@ -8,7 +8,7 @@ public class Archer extends Character {
     @Override
     public void attack(Character target) {
         System.out.println(getName() + " атакует,  " + target.getName() + "и наносит " + this.getStrength() + " урона");
-        strength-= this.getStrength();
+        target.health-= this.getStrength();
         System.out.println(target.name + " теперь имеет  " + target.health + " здоровья");
 
     }
