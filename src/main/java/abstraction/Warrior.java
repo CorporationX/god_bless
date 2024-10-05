@@ -1,13 +1,13 @@
 package abstraction;
 
 public class Warrior extends Character {
-    public static int warriorStrength = 10;
-    public static int warriorAgility = 5;
-    public static int warriorIntelligence = 3;
+    public static final int warriorStrength = 10;
+    public static final int warriorAgility = 5;
+    public static final int warriorIntelligence = 3;
 
     @Override
     public void attack(Character character) {
-        character.decreaseHealth(warriorStrength);
+        character.decreaseHealth(this.strength);
     }
 
     public Warrior(String name) {
