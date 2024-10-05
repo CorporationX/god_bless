@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ArrayList;
 
-public class User extends Main {
+public class User {
     private String name;
     private int age;
     private String workplace;

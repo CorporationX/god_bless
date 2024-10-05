@@ -3,6 +3,7 @@ package group.users;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import group.users.User;
 
 import static group.users.User.groupUsers;
 import static group.users.User.printResult;
