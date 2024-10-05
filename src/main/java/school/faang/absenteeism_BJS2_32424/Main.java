@@ -10,20 +10,21 @@ public class Main {
 
     public static void main(String[] args) {
 
-        addNewStudent(new Student("Ivan Ivanov", "Computer Science", "1"));
-        addNewStudent(new Student("Maria Smirnova", "Mathematics", "2"));
-        addNewStudent(new Student("Alexey Petrov", "Physics", "3"));
-        addNewStudent(new Student("Anna Kuznetsova", "Computer Science", "1"));
-        addNewStudent(new Student("Olga Sokolova", "Chemistry", "4"));
-        addNewStudent(new Student("Petr Volkov", "Physics", "3"));
+        addStudent(new Student("Ivan Ivanov", "Computer Science", "1"));
+        addStudent(new Student("Maria Smirnova", "Mathematics", "2"));
+        addStudent(new Student("Alexey Petrov", "Physics", "3"));
+        addStudent(new Student("Anna Kuznetsova", "Computer Science", "1"));
+        addStudent(new Student("Olga Sokolova", "Chemistry", "4"));
+        addStudent(new Student("Klava Sokolova", "Chemistry", "4"));
+        addStudent(new Student("Petr Volkov", "Physics", "3"));
 
         System.out.println(groupStudentsByFacultyAndCourse(allStudents));
         printGroupedStudents();
-        System.out.println(findAllStudentsByFacultyAndCourse("Physics", "3"));
-        addNewStudent(new Student("Aleksey Petrov", "Chemistry", "4"));
+        addStudent(new Student("Aleksey Petrov", "Chemistry", "4"));
         printGroupedStudents();
         deleteStudentByNameFacultyYear("Maria Smirnova", "Mathematics", "2");
         printGroupedStudents();
+        System.out.println(groupStudentsByFacultyAndCourse(allStudents).get("Physics" + "3"));
     }
 
     public static Map<String, List<Student>> groupStudentsByFacultyAndCourse(List<Student> students) {
@@ -36,7 +37,7 @@ public class Main {
         return groupedStudents;
     }
 
-    public static void addNewStudent(Student student) {
+    public static void addStudent(Student student) {
         if (allStudents.contains(student)) {
             System.out.println("Student is already in the list");
         } else {
@@ -48,27 +49,13 @@ public class Main {
         allStudents.remove(new Student(name, faculty, year));
     }
 
-    public static List<Student> findAllStudentsByFacultyAndCourse(String faculty, String course) {
-        List<Student> sortedStudents = new ArrayList<>();
-        String facultyAndCourseFromParam = faculty + course;
-
-        for (Student student : allStudents) {
-            String valueToCompare = student.getFaculty() + student.getYear();
-
-            if (valueToCompare.equals(facultyAndCourseFromParam)) {
-                sortedStudents.add(student);
-            }
-        }
-        return sortedStudents;
-    }
-
     public static void printGroupedStudents() {
         Map<String, List<Student>> allGroupedStudents = groupStudentsByFacultyAndCourse(allStudents);
 
         for (Map.Entry<String, List<Student>> entryStudent : allGroupedStudents.entrySet()) {
-            System.out.printf("\nFaculty and course: %s | Students: ", entryStudent.getKey());
+            System.out.printf("Faculty and course: %s | Students: ", entryStudent.getKey());
             for (Student student : entryStudent.getValue()) {
-                System.out.printf("%s, ", student.getName());
+                System.out.println(student.getName() + ", ");
             }
         }
     }
