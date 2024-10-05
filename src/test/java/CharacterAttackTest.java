@@ -1,6 +1,5 @@
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import school.faang.abstraction.Archer;
@@ -10,11 +9,6 @@ public class CharacterAttackTest {
 
   private final Warrior warrior = new Warrior("Warrior");
   private final Archer archer = new Archer("Archer");
-
-  @BeforeEach
-  void setUp() {
-
-  }
 
   @Test
   @DisplayName("warrior attacks")
