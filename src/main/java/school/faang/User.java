@@ -1,15 +1,12 @@
 package school.faang;
 
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-
 @Data
 public class User {
     private static Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
@@ -28,16 +25,12 @@ public class User {
         this.address = address;
     }
 
-    public Map<String, List<User>> groupUsers(List<User> users) {
+    public static Map<String, List<User>> groupUsers(List<User> users) {
         Map<String, List<User>> mapByAge = new HashMap<>();
         List<User> listByAge = new ArrayList<>();
         for (User user : users) {
-            if (user.age.equals(this.age)) {
-                listByAge.add(user);
-                System.out.println("Закинул " + user.name + "\n");
-            }
+            mapByAge.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
         }
-        mapByAge.put(this.age, listByAge);
         return mapByAge;
 
     }
