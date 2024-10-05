@@ -1,4 +1,4 @@
-package school.faang.Abstract;
+package school.faang.BJS231308;
 
 public class Warrior extends Character {
     public Warrior(String name) {
