@@ -21,9 +21,8 @@ public class StudentService {
             new Student("Damir", "Design", 2),
             new Student("Daniyar", "Finance", 4)
     ));
-    private static Map<Student, Integer> studentsIndex = new HashMap<>();
 
-    public static Map<Group, List<Student>> groupingStudentsToGroup(List<Student> students) {
+    public static Map<Group, List<Student>> groupingStudentsByFacultyAndYear(List<Student> students) {
         students.forEach(student -> {
             var currentStudentGroup = new Group(student.getFaculty(), student.getYear());
             groupedStudentsByFacultyAndYear.computeIfAbsent(currentStudentGroup, group -> new ArrayList<Student>()).add(student);
@@ -35,31 +34,32 @@ public class StudentService {
     public static Student addStudent(String name, String faculty, int year){
         var newStudent = new Student(name, faculty, year);
         var groupOfTheNewStudent = new Group(faculty, year);
+
         students.add(newStudent);
         groupedStudentsByFacultyAndYear.computeIfAbsent(groupOfTheNewStudent, group -> new ArrayList<Student>()).add(newStudent);
+
         return newStudent;
     }
 
     public static Student removeStudent(String name, String faculty, int year){
         var removingStudent = new Student(name, faculty, year);
-        var deletingGroup = new Group(faculty, year);
+        var deletingStudentGroup = new Group(faculty, year);
+
         students.remove(removingStudent);
-        groupedStudentsByFacultyAndYear.computeIfPresent(deletingGroup, (group, studentList) -> {
+        groupedStudentsByFacultyAndYear.computeIfPresent(deletingStudentGroup, (group, studentList) -> {
             studentList.remove(removingStudent);
             if(studentList.size() == 0){
                 return null;
             }
             return studentList;
         });
+
         return removingStudent;
     }
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, int year){
         var group = new Group(faculty, year);
-        return groupedStudentsByFacultyAndYear.get(group);
-    }
 
-    public static Map<Group, List<Student>> getAllGroupedStudents(){
-        return groupedStudentsByFacultyAndYear;
+        return groupedStudentsByFacultyAndYear.get(group);
     }
 }
