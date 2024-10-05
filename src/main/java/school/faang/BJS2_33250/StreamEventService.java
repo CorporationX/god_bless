@@ -47,4 +47,12 @@ public class StreamEventService {
             System.out.println(entry);
         }
     }
+
+    public int getEventsCount() {
+        return idToEvent.size();
+    }
+
+    public int getEventGroupsCount() {
+        return typeToEvents.size();
+    }
 }
