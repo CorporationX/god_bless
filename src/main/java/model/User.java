@@ -25,7 +25,7 @@ public class User {
     private String placeOfWork;
     private String address;
 
-    User(String name, int age, String placeOfWork, String address) {
+    public User(String name, int age, String placeOfWork, String address) {
         String errors = "";
         if ("".equals(name)) {
             errors += "name is empty, ";
