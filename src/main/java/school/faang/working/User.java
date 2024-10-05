@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.working;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
