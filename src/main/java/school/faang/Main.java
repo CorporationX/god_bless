@@ -42,8 +42,9 @@ public class Main {
     public static void deleteeEvent(StreamEvent event) {
         streamEvents.remove(event.getId());
         if (groupStreamEvent.containsKey(event.getEventType())) {
-            groupStreamEvent.remove(event.getEventType()).remove(event);
+            groupStreamEvent.get(event.getEventType()).remove(event);
         }
+
     }
 
     public static void printAllEvents() {
