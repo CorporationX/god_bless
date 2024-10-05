@@ -10,6 +10,7 @@ public class Main {
         testGroupUsersByAgeWithNullList();
         testGroupUsersByAgeWithNullUserInList();
         testGroupUsersByAgeWithNullAgeInUser();
+        testGroupUsersByAgeWthValidUserList();
 
     }
 
@@ -36,9 +37,7 @@ public class Main {
                 new User("Ольга", 22, "Avito", "Санкт-Петербург, ул. Марата, 12"),
                 new User("Николай", 35, "Ростелеком", "Воронеж, ул. Плехановская, 89")
         ));
-        System.out.println("the initial number of users in the list = " + userList.size());
-        Map<Integer, List<User>> groupedUsersByAge = User.groupUsers(userList);
-        printGroupedUsersByAge(groupedUsersByAge);
+        groupAndPrintUsersByAge(userList);
     }
 
     private static void testGroupUsersByAgeWithNullAgeInUser() {
@@ -53,14 +52,28 @@ public class Main {
                 new User("Ольга", null, "Avito", "Санкт-Петербург, ул. Марата, 12"),
                 new User("Николай", 35, "Ростелеком", "Воронеж, ул. Плехановская, 89")
         ));
-        System.out.println("the initial number of users in the list = " + userList.size());
-        Map<Integer, List<User>> groupedUsersByAge = User.groupUsers(userList);
-        printGroupedUsersByAge(groupedUsersByAge);
+        groupAndPrintUsersByAge(userList);
     }
 
-    private static void printGroupedUsersByAge(Map<Integer, List<User>> groupedUsersByAge) {
+    private static void testGroupUsersByAgeWthValidUserList() {
+        System.out.println("\nTestGroupUsersByAgeWthValidUserList");
+        List<User> userList = new ArrayList<>(Arrays.asList(
+                new User("Алексей", 25, "Google", "Москва, ул. Ленина, 10"),
+                new User("Иван", 25, "Sberbank", "Москва, ул. Тверская, 15"),
+                new User("Дмитрий", 30, "Ozon", "Новосибирск, Красный проспект, 100"),
+                new User("Светлана", 22, "Tinkoff", "Москва, ул. Варшавское шоссе, 200"),
+                new User("Николай", 22, "Ростелеком", "Воронеж, ул. Плехановская, 89")
+        ));
+        groupAndPrintUsersByAge(userList);
+    }
+
+    private static void groupAndPrintUsersByAge(List<User> userList) {
+        System.out.println("the initial number of users in the list = " + userList.size());
+
+        Map<Integer, List<User>> groupedUsersByAge = User.groupUsers(userList);
 
         int countUsers = 0;
+
         for (Map.Entry<Integer, List<User>> userByAgeEntry : groupedUsersByAge.entrySet()) {
             System.out.print(userByAgeEntry.getKey() + " ");
             System.out.println(userByAgeEntry.getValue());
@@ -68,4 +81,6 @@ public class Main {
         }
         System.out.println("sum users = " + countUsers);
     }
+
+
 }
