@@ -25,13 +25,15 @@ public class Main {
         }
         System.out.println("---------------------------------------");
         removePageWithUrl("https://en.wikipedia.org/wiki/Mark_Rutte");
-        System.out.println(mappa.get("НАТО"));
+        System.out.println(mappa.get("Совет"));
     }
 
     //Метод должен разбивать содержание страницы на слова, и для каждого слова добавлять веб-страницу в список, связанный с этим словом в HashMap.
     private static void addWebPage(WebPage webPage) {
         String[] contents = webPage.getContent().split(" ");
         for (String content : contents) {
+//            mappa.computeIfAbsent(content, k -> new ArrayList<>()).add(webPage);
+
             if (!mappa.containsKey(content)) {
                 mappa.computeIfAbsent(content, k -> new ArrayList<>()).add(webPage);
             } else {
@@ -40,6 +42,7 @@ public class Main {
                 }
             }
         }
+
     }
 
     //получение списка по ключевому слову
@@ -49,12 +52,11 @@ public class Main {
 
     //удаление страницы по url
     private static void removePageWithUrl(String url) {
-        for (Map.Entry<String, List<WebPage>> entry : mappa.entrySet()) {
-            if (!entry.getValue().isEmpty()) {
-                entry.getValue().removeIf(s -> s.getUrl().equals(url));
-            } else {
-                entry.getValue().add(null);
-                entry.getValue().removeIf(s -> s.getUrl().equals(url));
+        HashMap<String,List<WebPage>> clone = new HashMap<>(mappa);
+        for (Map.Entry<String, List<WebPage>> entry : clone.entrySet()) {
+            entry.getValue().removeIf(s -> s.getUrl().equals(url));
+            if (entry.getValue().isEmpty()) {
+                mappa.remove(entry.getKey());
             }
         }
     }
