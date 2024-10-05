@@ -39,19 +39,17 @@ public class Main {
     }
 
     public static List<WebPage> searchByKeyWord(Map<String, List<WebPage>> searchRequestsByWord, String word) {
-        return searchRequestsByWord.get(word);
+        return searchRequestsByWord.getOrDefault(word, new ArrayList<WebPage>());
     }
 
     public static void deleteFromIndexByUrl(Map<String, List<WebPage>> searchRequestsByWord,
                                             Map<String, List<String>> urlToKeyWords,
                                             String url) {
-        List<String> keyWords = urlToKeyWords.get(url);
+        List<String> keyWords = urlToKeyWords.remove(url);
         for (String word : keyWords) {
             searchRequestsByWord.get(word).removeIf(n -> n.getUrl().equals(url));
         }
 
         searchRequestsByWord.entrySet().removeIf(k -> k.getValue().isEmpty());
-
-        urlToKeyWords.remove(url);
     }
 }
