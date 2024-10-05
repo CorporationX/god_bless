@@ -8,13 +8,13 @@ public class Main {
 
     public static void main(String[] args) {
 
-        WeatherData cityOne = new WeatherData("London", 20, 80);
-        WeatherData cityTwo = new WeatherData("Moscow", 25, 60);
-        WeatherData cityThree = new WeatherData("Paris", 12, 50);
+        WeatherData cityWeatherLondon = new WeatherData("London", 20, 80);
+        WeatherData cityWeatherMoscow = new WeatherData("Moscow", 25, 60);
+        WeatherData cityWeatherParis = new WeatherData("Paris", 12, 50);
 
-        WEATHER_CACHE.put("London", cityOne);
-        WEATHER_CACHE.put("Moscow", cityTwo);
-        WEATHER_CACHE.put("Paris", cityThree);
+        WEATHER_CACHE.put("London", cityWeatherLondon);
+        WEATHER_CACHE.put("Moscow", cityWeatherMoscow);
+        WEATHER_CACHE.put("Paris", cityWeatherParis);
 
         getWeather("London");
         getWeather("Berlin");
