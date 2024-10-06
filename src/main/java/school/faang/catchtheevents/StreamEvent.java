@@ -1,4 +1,4 @@
-package school.faang.catch_the_events;
+package school.faang.catchtheevents;
 
 import lombok.Getter;
 import lombok.ToString;

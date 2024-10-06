@@ -1,9 +1,15 @@
-package school.faang.catch_the_events;
+package school.faang.catchtheevents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static school.faang.catchtheevents.StreamEventService.addNewEvent;
+import static school.faang.catchtheevents.StreamEventService.getEventById;
+import static school.faang.catchtheevents.StreamEventService.getEventListByType;
+import static school.faang.catchtheevents.StreamEventService.printAllEvents;
+import static school.faang.catchtheevents.StreamEventService.removeEventById;
 
 public class Main {
     public static final Map<Integer, StreamEvent> STREAM_EVENTS = new HashMap<>();
@@ -38,35 +44,6 @@ public class Main {
         }
         for (var entry : EVENT_TYPES.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-    }
-
-    public static void addNewEvent(StreamEvent event) {
-        STREAM_EVENTS.put(event.getId(), event);
-        EVENT_TYPES.computeIfAbsent(event.getEventType(), eventType -> new ArrayList<>()).add(event);
-    }
-
-    public static StreamEvent getEventById(Integer id) {
-        return STREAM_EVENTS.get(id);
-    }
-
-    public static ArrayList<StreamEvent> getEventListByType(String eventType) {
-        ArrayList<StreamEvent> streamsByType = EVENT_TYPES.get(eventType);
-        return streamsByType;
-    }
-
-    public static void removeEventById(Integer id) {
-        StreamEvent eventForDelete = STREAM_EVENTS.get(id);
-        String eventTypeForDelete = eventForDelete.getEventType();
-        if (eventTypeForDelete != null) {
-            EVENT_TYPES.remove(eventTypeForDelete);
-            STREAM_EVENTS.remove(id);
-        }
-    }
-
-    public static void printAllEvents() {
-        for (var entry : STREAM_EVENTS.entrySet()) {
-            System.out.println(entry.getValue());
         }
     }
 }
