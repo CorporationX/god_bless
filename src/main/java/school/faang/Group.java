@@ -1,7 +1,6 @@
 package school.faang;
 
 import lombok.Data;
-import java.util.Objects;
 
 @Data
 public class Group {
@@ -11,6 +10,10 @@ public class Group {
     public Group(Student student) {
         this.faculty = student.getFaculty();
         this.year = student.getYear();
+    }
+    public Group(String faculty, String year) {
+        this.faculty = faculty;
+        this.year = year;
     }
 
 }

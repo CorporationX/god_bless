@@ -1,7 +1,6 @@
 package school.faang;
 
 import lombok.Data;
-import java.util.Objects;
 
 @Data
 public class Student {
