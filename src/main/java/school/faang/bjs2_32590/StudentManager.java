@@ -35,6 +35,17 @@ public class StudentManager {
         students.remove(student);
     }
 
+    public static List<Student> findStudentsByFacultyAndYear(List<Student> students, String faculty, int year) {
+        FacultyYearPair facultyYearPair = new FacultyYearPair(faculty, year);
+        ArrayList<Student> studentsBySpecificFacultyAndYear = new ArrayList<>();
+        for (Student student : students) {
+            if (Objects.equals(facultyYearPair, student.getFacultyYearPair())) {
+                studentsBySpecificFacultyAndYear.add(student);
+            }
+        }
+        return studentsBySpecificFacultyAndYear;
+    }
+
     private static List<Student> allocationToCurrentGroup(List<Student> students, FacultyYearPair facultyYearPairCurrentStudent) {
         ArrayList<Student> groupStudentByFacultyAndYear = new ArrayList<>();
         for (Student studentForGroup : students) {

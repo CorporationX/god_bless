@@ -26,6 +26,7 @@ public class Main {
         testGroupStudentsByFacultyAndYear(students);
         testAddStudentToList();
         testRemoveStudent();
+        testFindStudentsByFacultyAndYear(students);
     }
 
     private static void testGroupStudentsByFacultyAndYear(List<Student> students) {
@@ -72,13 +73,24 @@ public class Main {
 
         System.out.println("list students before: " + students);
         System.out.println("remove student: " + "name - " + name + ", faculty - " + faculty + ", year - " + year);
-        StudentManager.removeStudent(name,faculty,year,students);
+        StudentManager.removeStudent(name, faculty, year, students);
         System.out.println("list students after: " + students);
 
         year = 2;
-        StudentManager.removeStudent(name,faculty,year,students);
+        StudentManager.removeStudent(name, faculty, year, students);
         System.out.println("remove student: " + "name - " + name + ", faculty - " + faculty + ", year - " + year);
         System.out.println("list students after: " + students);
 
+    }
+
+    private static void testFindStudentsByFacultyAndYear(List<Student> students) {
+        System.out.println("\ntestFindStudentsByFacultyAndYear\n");
+        String faculty = "Engineering";
+        int year = 2;
+        System.out.println("find all students by faculty - " + faculty + ", year - " + year);
+        List<Student> studentsByFacultyAndYear = StudentManager.findStudentsByFacultyAndYear(students, faculty, year);
+        for (Student student : studentsByFacultyAndYear) {
+            System.out.println(student);
+        }
     }
 }
