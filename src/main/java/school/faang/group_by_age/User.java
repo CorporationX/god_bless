@@ -1,15 +1,17 @@
-package school.faang;
+package school.faang.group_by_age;
 
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Getter
 public class User {
-    String name;
-    int age;
-    String placeWork;
-    String address;
+    private String name;
+    private int age;
+    private String placeWork;
+    private String address;
 
     public User(String name, int age, String placeWork, String address) {
         this.name = name;
@@ -26,9 +28,7 @@ public class User {
         Map<Integer, List<User>> usersMapByAge = new HashMap<>();
 
         for (User user : usersList) {
-            usersMapByAge.computeIfAbsent(user.getAge(), x -> new ArrayList<User>());
-
-            List<User> valueAdded = usersMapByAge.get(user.getAge());
+            List<User> valueAdded = usersMapByAge.computeIfAbsent(user.age, x -> new ArrayList<User>());
             valueAdded.add(user);
         }
 
@@ -39,21 +39,5 @@ public class User {
                 System.out.println("    - " + user.getString());
             }
         }
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public String getPlaceWork() {
-        return placeWork;
-    }
-
-    public String getAddress() {
-        return address;
     }
 }

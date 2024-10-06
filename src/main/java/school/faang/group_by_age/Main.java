@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.group_by_age;
 
 
 import java.util.ArrayList;
@@ -18,5 +18,6 @@ public class Main {
         usersList.add(new User("Zhenia", 20, "Apple", "US"));
 
         User.groupUsers(usersList);
+
     }
 }
