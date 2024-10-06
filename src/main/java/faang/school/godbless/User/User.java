@@ -1,24 +1,27 @@
-package faang.school.godbless;
-
+package faang.school.godbless.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Getter
 @AllArgsConstructor
 public class User {
     private String name;
     private int age;
-    private String placeofwork;
+    private String placeOfWork;
     private String address;
 
-    private static Map<Integer, List<User>> groupUsers(List<User> i) {
+    private static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> map = new HashMap<>();
         User user;
-        for (int j = 0; j < i.size(); j++) {
-            user = i.get(j);
+        for (int j = 0; j < users.size(); j++) {
+            user = users.get(j);
             if (map.containsKey(user.age)) {
                 map.get(user.age).add(user);
             } else {
@@ -29,11 +32,10 @@ public class User {
     }
 
     private static void print(Map<Integer, List<User>> map) {
-
         for (Map.Entry<Integer, List<User>> entry : map.entrySet()) {
             System.out.println("\t\tвозраст " + entry.getKey());
             for (User user : entry.getValue()) {
-                System.out.println("имя " + user.getName() + " место работы " + user.getPlaceofwork() + " адресс " + user.getAddress());
+                System.out.println("имя " + user.getName() + " место работы " + user.getPlaceOfWork() + " адресс " + user.getAddress());
             }
         }
     }
