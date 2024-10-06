@@ -8,19 +8,18 @@ import java.util.Map;
 public class Main {
     static List<Student> students = new ArrayList<>();
 
-    static Map<Map<String, Integer>, List<Student>> groupStudentListToMap() {
-        Map<Map<String, Integer>, List<Student>> studentMap = new HashMap<>();
+    static Map<String, List<Student>> groupStudentsByFacultyAndYear() {
+        Map<String, List<Student>> studentMap = new HashMap<>();
         for (Student student : students) {
-            Map<String, Integer> key = Map.of(student.getFaculty(), student.getYear());
+            String key = student.getFaculty() + " " + student.getYear();
             studentMap.computeIfAbsent(key, v -> new ArrayList<>()).add(student);
         }
         return studentMap;
     }
 
-    static void addNewStudent(Student newStudent) {
+    static void addStudent(Student newStudent) {
         try {
             students.add(newStudent);
-            System.out.println("ADDED - " + newStudent);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("The incorrect input. Try again!");
         }
@@ -30,20 +29,19 @@ public class Main {
         try {
             Student student = new Student(name, faculty, year);
             students.remove(student);
-            System.out.println("DELETED - " + student);
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("The name/faculty/year are wrong! Check inputs");
         }
     }
 
     static List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
-        Map<String, Integer> key = Map.of(faculty, year);
-        return groupStudentListToMap().get(key);
+        String key = faculty + " " + year;
+        return groupStudentsByFacultyAndYear().get(key);
     }
 
     static void showAllStudents() {
-        for (Map.Entry<Map<String, Integer>, List<Student>> mapListEntry : groupStudentListToMap().entrySet()) {
-            System.out.println(mapListEntry.getKey() + " ");
+        for (Map.Entry<String, List<Student>> mapListEntry : groupStudentsByFacultyAndYear().entrySet()) {
+            System.out.println(mapListEntry.getKey());
             for (Student student : mapListEntry.getValue()) {
                 System.out.println(student.getName());
             }
@@ -58,8 +56,8 @@ public class Main {
         students.add(new Student("Brook", "Marketing", 2));
         students.add(new Student("James", "Finance", 3));
 
-        System.out.println(groupStudentListToMap());
-        addNewStudent(new Student("Batyr", "Jurisprudence", 1));
+        System.out.println(groupStudentsByFacultyAndYear());
+        addStudent(new Student("Batyr", "Jurisprudence", 1));
         deleteStudent("Alex", "Software Engineering", 1);
         System.out.println(findStudentsByFacultyAndYear("Marketing", 2));
         showAllStudents();
