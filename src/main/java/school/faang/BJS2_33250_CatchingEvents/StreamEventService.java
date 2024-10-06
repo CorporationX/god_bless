@@ -1,4 +1,4 @@
-package school.faang.BJS2_33250;
+package school.faang.BJS2_33250_CatchingEvents;
 
 import java.util.ArrayList;
 import java.util.HashMap;

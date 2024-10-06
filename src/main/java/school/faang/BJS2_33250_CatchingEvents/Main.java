@@ -1,4 +1,4 @@
-package school.faang.BJS2_33250;
+package school.faang.BJS2_33250_CatchingEvents;
 
 public class Main {
     private static final StreamEventService STREAM_SERVICE = new StreamEventService();

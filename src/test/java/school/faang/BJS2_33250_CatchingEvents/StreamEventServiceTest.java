@@ -1,10 +1,11 @@
-package school.faang.BJS2_33250;
+package school.faang.BJS2_33250_CatchingEvents;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class StreamEventServiceTest {
     StreamEventService streamEventService;
@@ -57,6 +58,6 @@ class StreamEventServiceTest {
         streamEventService.removeEvent(event1Id);
 
         assertEquals(3, streamEventService.getEventsCount());
-        assertEquals(null, streamEventService.getEvent(event1Id));
+        assertNull(streamEventService.getEvent(event1Id));
     }
 }

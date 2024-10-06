@@ -1,6 +1,5 @@
-package school.faang.BJS2_33250;
+package school.faang.BJS2_33250_CatchingEvents;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
