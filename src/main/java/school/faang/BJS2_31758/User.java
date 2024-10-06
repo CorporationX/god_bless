@@ -1,20 +1,23 @@
 package school.faang.BJS2_31758;
 
+import lombok.Data;
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
 public class User {
 
+    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    private static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
     private int id;
     private String name;
     private int age;
     private Set<String> activities;
     private String job;
     private String address;
-
-    private static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    private static final Set<String> VALID_ADDRESS = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
 
     public User(int id, String name, int age, Set<String> activities, String job, String address) {
         if (name == null || name.trim().isEmpty()) {
@@ -39,30 +42,6 @@ public class User {
         this.activities = activities;
         this.job = job;
         this.address = address;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public Set<String> getActivities() {
-        return activities;
-    }
-
-    public String getJob() {
-        return job;
-    }
-
-    public String getAddress() {
-        return address;
     }
 
     @Override
