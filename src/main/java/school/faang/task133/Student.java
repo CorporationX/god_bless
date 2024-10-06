@@ -3,7 +3,6 @@ package school.faang.task133;
 import lombok.*;
 
 @AllArgsConstructor
-@ToString
 @Data
 public class Student {
 
