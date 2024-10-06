@@ -1,16 +1,18 @@
 package school.faang.task132;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
-@Data
+
+
 @ToString
 @AllArgsConstructor
+@EqualsAndHashCode
 public class StreamEvent {
 
+    @Getter
     private int id;
+    @Getter
     private String eventType;
     private String data;
 }
