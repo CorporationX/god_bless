@@ -1,6 +1,4 @@
-package school.faang.main;
-
-import school.faang.main_code.User;
+package school.faang.main_code_register_user;
 
 import java.util.List;
 
