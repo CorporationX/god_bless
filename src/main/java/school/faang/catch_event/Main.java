@@ -28,11 +28,12 @@ public class Main {
         eventTypes.computeIfAbsent(streamEvent.eventType(), v -> new ArrayList<>()).add(streamEvent);
     }
 
-    private static StreamEvent findById(int id, Map<Integer, StreamEvent> eventIds) {
+    private static StreamEvent findById(int id, Map<Integer, StreamEvent> eventIds) throws NoSuchElementException {
         return Optional.of(eventIds.get(id)).orElseThrow(() -> new NoSuchElementException("Event does not exist"));
     }
 
-    private static List<StreamEvent> findByType(String type, Map<String, List<StreamEvent>> typeEvents) {
+    private static List<StreamEvent> findByType(String type, Map<String, List<StreamEvent>> typeEvents)
+            throws NoSuchElementException {
         return Optional.of(typeEvents.get(type)).orElseThrow(() ->
                 new NoSuchElementException("List of events does not exist"));
     }
