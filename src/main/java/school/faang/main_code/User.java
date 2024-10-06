@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.main_code;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class User {
-     private String name;
-     private int age;
-     private String placeOfWork;
-     private String address;
+    private String name;
+    private int age;
+    private String placeOfWork;
+    private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
         this.name = name;
