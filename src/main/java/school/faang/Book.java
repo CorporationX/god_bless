@@ -1,6 +1,7 @@
 package school.faang;
 
 import lombok.Data;
+
 import java.util.Objects;
 
 @Data
@@ -20,7 +21,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return super.toString();
+        return getTitle() + " - " + getAuthor() + " - " + getYear();
     }
 
     @Override
