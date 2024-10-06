@@ -1,5 +1,6 @@
 package hogvarts_hogvarts;
 
+@FunctionalInterface
 public interface SpellAction {
-    String act(String spell);
+    String castSpell(String spell);
 }
