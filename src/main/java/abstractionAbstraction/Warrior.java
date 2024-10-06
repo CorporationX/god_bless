@@ -1,6 +1,7 @@
 package abstractionAbstraction;
 
 public class Warrior extends Character {
+
     public Warrior(String name) {
         super(3, 5, 10, name);
     }
