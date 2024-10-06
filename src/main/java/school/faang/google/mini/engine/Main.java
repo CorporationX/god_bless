@@ -1,4 +1,4 @@
-package school.faang.googleMiniEngine;
+package school.faang.google.mini.engine;
 
 public class Main {
 
@@ -6,10 +6,10 @@ public class Main {
         WebPage page1 = new WebPage("mysite.com", "title", "страница о том как я джава приложение писал");
         WebPage page2 = new WebPage("anothersite.com", "site", "ещё одна очень полезная страница о джава");
         SearchEngine searchEngine = new SearchEngine();
-        searchEngine.addWebPageToIndex(page1);
-        searchEngine.addWebPageToIndex(page2);
+        searchEngine.indexWebPage(page1);
+        searchEngine.indexWebPage(page2);
         searchEngine.showSearchIndexContent();
-        searchEngine.removeWebPageFromIndexByUrl("mysite.com");
+        searchEngine.removeWebPageFromIndex("mysite.com");
         searchEngine.showSearchIndexContent();
     }
 }
