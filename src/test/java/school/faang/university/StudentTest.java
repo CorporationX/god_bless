@@ -22,7 +22,7 @@ public class StudentTest {
         addStudent(students, student);
 
         assertEquals(1, students.size());
-        assertEquals("Student1", students.get(0).getName());
+        assertEquals("Student1", students.get(0).name());
         assertTrue(students.contains(student));
     }
 

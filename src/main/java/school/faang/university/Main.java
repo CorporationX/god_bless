@@ -52,7 +52,7 @@ public class Main {
         FacultyYearDistribution facultyAndYear = new FacultyYearDistribution(faculty, year);
         String message = "\nNo students found for this Faculty and Year";
         if (distributionMap.containsKey(facultyAndYear)) {
-            message = "\nFaculty: " + facultyAndYear.getFaculty() + " Year: " + facultyAndYear.getYear() + " Students: " + distributionMap.get(facultyAndYear).toString();
+            message = "\nFaculty: " + facultyAndYear.faculty() + " Year: " + facultyAndYear.year() + " Students: " + distributionMap.get(facultyAndYear).toString();
         }
         System.out.println(message);
     }
@@ -62,7 +62,7 @@ public class Main {
         System.out.println("\nDISTRIBUTION BY FACULTY AND YEAR LIST:");
         System.out.printf("| %-15s | %-15s | %-150s |%n", "Faculty:", "Year:", "Student:");
         for (FacultyYearDistribution facultyAndYear : distributionMap.keySet()) {
-            System.out.printf("| %-15s | %-15s | %-150s |%n", facultyAndYear.getFaculty(), facultyAndYear.getYear(), distributionMap.get(facultyAndYear));
+            System.out.printf("| %-15s | %-15s | %-150s |%n", facultyAndYear.faculty(), facultyAndYear.year(), distributionMap.get(facultyAndYear));
         }
     }
 
@@ -71,7 +71,7 @@ public class Main {
         Map<FacultyYearDistribution, List<Student>> studentsDistributionMap = new HashMap<>();
 
         for (Student student : students) {
-            FacultyYearDistribution key = new FacultyYearDistribution(student.getFaculty(), student.getYear());
+            FacultyYearDistribution key = new FacultyYearDistribution(student.faculty(), student.year());
             studentsDistributionMap.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
         return studentsDistributionMap;
@@ -81,7 +81,7 @@ public class Main {
         System.out.println("\nSTUDENTS LIST:");
         System.out.printf("| %-15s | %-15s | %-15s |%n", "Student:", "Faculty:", "Year:");
         for (Student student : students) {
-            System.out.printf("| %-15s | %-15s | %-15s |%n", student.getName(), student.getFaculty(), student.getYear());
+            System.out.printf("| %-15s | %-15s | %-15s |%n", student.name(), student.faculty(), student.year());
         }
     }
 }
