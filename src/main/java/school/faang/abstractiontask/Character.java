@@ -1,4 +1,4 @@
-package school.faang.abstraction_task;
+package school.faang.abstractiontask;
 
 import lombok.Getter;
 import lombok.ToString;
