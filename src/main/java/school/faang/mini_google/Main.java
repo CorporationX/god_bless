@@ -3,7 +3,6 @@ package school.faang.mini_google;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,7 +10,6 @@ import java.util.stream.Collectors;
 
 public class Main {
     private static final Map<String, List<WebPage>> WEB_PAGE_INDEX = new HashMap<>();
-    private static final Set<String> EXISTING_KEY_WORD = new HashSet<>();
 
     public static void main(String[] args) {
         WebPage cats = new WebPage("www.cats.ru", "cats", "cats Are cute");
@@ -32,7 +30,6 @@ public class Main {
                 .filter(word -> !word.isEmpty())
                 .map(String::toLowerCase)
                 .collect(Collectors.toSet());
-        EXISTING_KEY_WORD.addAll(keywords);
         for (String keyword : keywords) {
             WEB_PAGE_INDEX.computeIfAbsent(keyword, k -> new ArrayList<>()).add(webPage);
         }
@@ -40,11 +37,7 @@ public class Main {
 
     public static List<WebPage> findWebPageByKeyWord(String keyword) {
         keyword = keyword.toLowerCase();
-        if (WEB_PAGE_INDEX.containsKey(keyword)) {
-            return WEB_PAGE_INDEX.get(keyword);
-        } else {
-            return new ArrayList<>();
-        }
+        return WEB_PAGE_INDEX.get(keyword);
     }
 
     public static void deleteWebPageByUrl(String url) {
