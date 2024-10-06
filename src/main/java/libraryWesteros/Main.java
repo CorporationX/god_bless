@@ -24,8 +24,8 @@ public class Main {
         books.remove(new Book(title, author, year));
     }
 
-    public static String findBook(String title, String author, int year) {
-        return books.get(new Book(title, author, year));
+    public static void findBook(String title, String author, int year) {
+        System.out.println(books.get(new Book(title, author, year)));
     }
 
     public static void printBooks() {
@@ -41,7 +41,7 @@ public class Main {
         addBook(new Book("Война и мир VI", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
         printBooks();
         System.out.println();
-        System.out.println(findBook("Война и мир I", "Толстой Л.Н.", 2000));
+        findBook("Война и мир I", "Толстой Л.Н.", 2000);
 
     }
 }
