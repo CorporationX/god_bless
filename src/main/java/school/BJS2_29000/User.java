@@ -1,14 +1,19 @@
 package school.BJS2_29000;
 
 import lombok.Getter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Getter
 public class User {
 
-    public final static String[] VALID_JOBS = { "Google", "Uber", "Amazon"};
-    public final static String[] VALID_ADDRESSES = { "London", "New York", "Amsterdam"};
-    public final static int minAvailableAgeForUser = 18;
+    public final static Set<String> VALID_JOBS = new HashSet<>(Set.of("Google", "Uber", "Amazon"));
+    public final static Set<String> VALID_ADDRESSES = new HashSet<>(Set.of("London", "New York", "Amsterdam"));
+    public final static int MIN_AVAILABLE_AGE_FOR_USER = 18;
 
     private String name;
     private int age;
@@ -20,22 +25,16 @@ public class User {
        место работы должно содержаться во множестве VALID_JOBS;
        адрес должен содержаться во множестве VALID_ADDRESSES.*/
     public User(String name, String address, String job, int age) {
-        if(name == null) throw new IllegalArgumentException("name is null");
-        else if(age < minAvailableAgeForUser) throw new IllegalArgumentException("age is smaller than 18");
-        else if(Arrays.stream(VALID_ADDRESSES).noneMatch(a -> a.equals(address))) throw new IllegalArgumentException("address is invalid");
-        else if(Arrays.stream(VALID_JOBS).noneMatch(j -> j.equals(job))) throw new IllegalArgumentException("job is invalid");
-        //Можно сделать так, но будет обобщенный Exception
-        /*
-        if (name == null ||
-             age < minAvailableAgeForUser ||
-                 Arrays.stream(VALID_ADDRESSES).noneMatch(a -> a.equals(address)) ||
-                    Arrays.stream(VALID_JOBS).noneMatch(j -> j.equals(job))) throw new IllegalArgumentException("data is invalid");
-         */
+        if (name == null) throw new IllegalArgumentException(name +" is null");
+        if (age < MIN_AVAILABLE_AGE_FOR_USER) throw new IllegalArgumentException(age + " is smaller than 18");
+        if (!VALID_ADDRESSES.contains(address)) throw new IllegalArgumentException(address + " is invalid");
+        if (!VALID_JOBS.contains(job)) throw new IllegalArgumentException(job + " is invalid");
         else {
-        this.address = address;
-        this.age = age;
-        this.name = name;
-        this.job = job; }
+            this.address = address;
+            this.age = age;
+            this.name = name;
+            this.job = job;
+        }
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
