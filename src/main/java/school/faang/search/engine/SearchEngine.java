@@ -19,15 +19,11 @@ public class SearchEngine {
         Set<String> words = new HashSet<>(Arrays.asList(wordsArr));
         Map<String, Integer> urlToIndex = new HashMap<>();
 
-        //Добавление в индекс
         for (String word : words) {
             List<WebPage> pages = wordToPages.getOrDefault(word, new ArrayList<>());
             pages.add(page);
-            wordToPages.put(word, pages);
             urlToIndex.put(word, pages.size() - 1);
         }
-
-        //обновление вспомогательного индекса
         urlToPositions.put(page.getUrl(), urlToIndex);
     }
 
@@ -38,12 +34,9 @@ public class SearchEngine {
     public void remove(String url) {
         Map<String, Integer> wordToPosition = urlToPositions.get(url);
         for (Map.Entry<String, Integer> entry : wordToPosition.entrySet()) {
-            //слово, которое содержит страница
             String word = entry.getKey();
-            //позиция удаляемой страницы в списке
             int index = entry.getValue();
 
-            //Удаление из основного индекса
             List<WebPage> pages = wordToPages.get(word);
             pages.set(index, pages.get(pages.size() - 1));
             WebPage last = pages.remove(pages.size() - 1);
@@ -52,8 +45,6 @@ public class SearchEngine {
             } else {
                 wordToPages.put(word, pages);
             }
-
-            //обновление вспомогательного индекса
             Map<String, Integer> map = urlToPositions.get(last.getUrl());
             map.put(word, index);
         }
