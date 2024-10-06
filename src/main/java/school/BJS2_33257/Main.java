@@ -1,11 +1,15 @@
 package school.BJS2_33257;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
 
-    private static final Map<Integer, StreamEvent> mappa = new HashMap<>();
-    private static final Map<String, List<StreamEvent>> mappa2 = new HashMap<>();
+    private static final Map<Integer, StreamEvent> mapWithIdOfEvent = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> mapWithTypeOfEventt = new HashMap<>();
 
 
     public static void main(String[] args) {
@@ -32,32 +36,30 @@ public class Main {
     }
 
     private static void addEvent(StreamEvent streamEvent) {
-        mappa.put(streamEvent.getId(), streamEvent);
-        mappa2.computeIfAbsent(streamEvent.getType(), k -> new ArrayList<>()).add(streamEvent);
+        mapWithIdOfEvent.put(streamEvent.getId(), streamEvent);
+        mapWithTypeOfEventt.computeIfAbsent(streamEvent.getType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     private static StreamEvent getStreamEventWithID(Integer id) {
-        return mappa.get(id);
+        return mapWithIdOfEvent.get(id);
     }
 
     private static List<StreamEvent> getStreamEventWithEventType(String eventType) {
-        return mappa2.get(eventType);
+        return mapWithTypeOfEventt.get(eventType);
     }
 
     private static void removeStreamEvent(Integer id) {
-        mappa.remove(id);
-        Map<String, List<StreamEvent>> clone = new HashMap<>(mappa2);
-        for (Map.Entry<String, List<StreamEvent>> entry : clone.entrySet())
-            for (StreamEvent se : entry.getValue()) {
-                if (se.getId() == id) {
-                    mappa2.remove(se.getType());
-                    return;
-                }
-            }
+        StreamEvent event = mapWithIdOfEvent.remove(id);
+        String type = event.getType();
+        List<StreamEvent> events = mapWithTypeOfEventt.get(type);
+        events.remove(event);
+        if (mapWithTypeOfEventt.get(type) == null) {
+            mapWithTypeOfEventt.remove(type);
+        }
     }
 
     private static void printStreamEvent() {
-        for (Map.Entry<Integer, StreamEvent> entry : mappa.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : mapWithIdOfEvent.entrySet()) {
             System.out.println(entry.getValue());
         }
     }
