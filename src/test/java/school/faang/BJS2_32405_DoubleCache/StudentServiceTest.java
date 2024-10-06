@@ -5,15 +5,13 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class StudentPerformanceServiceTest {
-    StudentPerformanceService service;
+class StudentServiceTest {
+    StudentService service;
     Student John;
     Student Alice;
     Student Bob;
@@ -27,7 +25,7 @@ class StudentPerformanceServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new StudentPerformanceService();
+        service = new StudentService();
 
         John = new Student(1, "John");
         Alice = new Student(2, "Alice");

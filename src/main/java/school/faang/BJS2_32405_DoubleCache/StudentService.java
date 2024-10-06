@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class StudentPerformanceService {
+public class StudentService {
     Map<Student, Map<Subject, Integer>> studentToScores;
     Map<Subject, List<Student>> subjectToStudents;
 
-    public StudentPerformanceService() {
+    public StudentService() {
         studentToScores = new HashMap<>();
         subjectToStudents = new HashMap<>();
     }
