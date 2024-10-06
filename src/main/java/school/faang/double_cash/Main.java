@@ -1,7 +1,4 @@
-package school.faang.main_code;
-
-import school.faang.double_cash.Student;
-import school.faang.double_cash.Subject;
+package school.faang.double_cash;
 
 import java.util.ArrayList;
 import java.util.HashMap;
