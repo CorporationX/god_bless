@@ -1,3 +1,5 @@
+package rrrrr;
+
 public abstract class Character {
     protected String name;
     protected int power;
