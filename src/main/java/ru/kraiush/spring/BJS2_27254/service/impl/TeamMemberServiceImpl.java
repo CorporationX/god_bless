@@ -31,6 +31,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         this.repository = repository;
     }
 
+    @Transactional
     @Override
     public List<TeamMember> findAll() {
         List<TeamMember> listMembers = repository.findAll();
@@ -44,6 +45,7 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return listMembers;
     }
 
+    @Transactional
     @Override
     public TeamMember findById(long id) {
         Optional<TeamMember> element = repository.findById(id);
@@ -56,7 +58,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    @Transactional
     public TeamMember create(TeamMember entity) {
         try {
             Optional<TeamMember> eventOptional = repository.findById(entity.getId());
@@ -71,7 +72,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
     }
 
     @Override
-    @Transactional
     public void update(TeamMember event) {
         try {
             repository.save(event);
