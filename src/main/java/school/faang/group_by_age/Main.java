@@ -3,6 +3,7 @@ package school.faang.group_by_age;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -17,7 +18,7 @@ public class Main {
         usersList.add(new User("Alla", 21, "VK", "RU"));
         usersList.add(new User("Zhenia", 20, "Apple", "US"));
 
-        User.groupUsers(usersList);
+        Map<Integer, List<User>> mapResult =  User.groupUsers(usersList);
 
     }
 }

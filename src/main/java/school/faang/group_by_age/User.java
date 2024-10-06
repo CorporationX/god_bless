@@ -1,6 +1,7 @@
 package school.faang.group_by_age;
 
 import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,20 +25,19 @@ public class User {
         return name + ", " + age + ", " + placeWork + ", " + address;
     }
 
-    static void groupUsers(List<User> usersList) {
+    static Map<Integer, List<User>> groupUsers(List<User> usersList) {
         Map<Integer, List<User>> usersMapByAge = new HashMap<>();
 
         for (User user : usersList) {
             List<User> valueAdded = usersMapByAge.computeIfAbsent(user.age, x -> new ArrayList<User>());
             valueAdded.add(user);
         }
-
-        for (Map.Entry<Integer, List<User>> entry : usersMapByAge.entrySet()) {
-            List<User> selectedUsersList = entry.getValue();
-            System.out.println("Age " + entry.getKey());
-            for (User user : selectedUsersList) {
-                System.out.println("    - " + user.getString());
-            }
-        }
+        return usersMapByAge;
+//        for (Map.Entry<Integer, List<User>> entry : usersMapByAge.entrySet()) {
+//            List<User> selectedUsersList = entry.getValue();
+//            System.out.println("Age " + entry.getKey());
+//            for (User user : selectedUsersList) {
+//                System.out.println("    - " + user.getString());
+//            }
     }
 }
