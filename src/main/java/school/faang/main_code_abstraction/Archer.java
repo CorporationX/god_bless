@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_abstraction;
 
 public class Archer extends Character {
     public Archer(String name, int strengh, int dexterity, int intelligence) {

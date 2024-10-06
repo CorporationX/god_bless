@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_abstraction;
 
 import lombok.Data;
 
