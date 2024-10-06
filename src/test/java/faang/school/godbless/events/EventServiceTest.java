@@ -8,7 +8,6 @@ public class EventServiceTest {
     @Test
     void testAddInEmptyList() {
         var service = new EventService();
-
         var event = new StreamEvent(1, "video", "data1");
 
         service.addEvent(event);
@@ -23,7 +22,6 @@ public class EventServiceTest {
     @Test
     void testAddInNotEmptyList() {
         var service = new EventService();
-
         var event1 = new StreamEvent(1, "video", "data1");
         var event2 = new StreamEvent(2, "video", "data2");
 
@@ -42,13 +40,11 @@ public class EventServiceTest {
     @Test
     void testRemoveEvent() {
         var service = new EventService();
-
         var event1 = new StreamEvent(1, "video", "data1");
         var event2 = new StreamEvent(2, "video", "data2");
 
         service.addEvent(event1);
         service.addEvent(event2);
-
         service.removeEventById(1);
 
         Assertions.assertAll(
@@ -57,6 +53,18 @@ public class EventServiceTest {
                 ()-> Assertions.assertEquals(1, service.findEventsByType("video").size()),
                 ()-> Assertions.assertEquals(event2, service.findEventsByType("video").get(0))
         );
+    }
+
+    @Test
+    void testPrintEvents() {
+        var service = new EventService();
+        var event1 = new StreamEvent(1, "video", "data1");
+        var event2 = new StreamEvent(2, "video", "data2");
+
+        service.addEvent(event1);
+        service.addEvent(event2);
+
+        Assertions.assertDoesNotThrow(service::printEvents);
     }
 
 }
