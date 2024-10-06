@@ -1,6 +1,4 @@
-package school.faang.main;
-
-import school.faang.main_code.StreamEvent;
+package school.faang.main_code_catch_events;
 
 import java.util.ArrayList;
 import java.util.HashMap;

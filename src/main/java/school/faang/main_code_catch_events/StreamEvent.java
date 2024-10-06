@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_catch_events;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
