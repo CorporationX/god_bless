@@ -9,15 +9,13 @@ public class WebIndexer {
 
     private final Map<String, List<WebPage>> indexMap = new HashMap<>();
 
-    public void setIndexMap(WebPage page) {
+    public void addIndexMap(WebPage page) {
         String content = page.getContent();
         String[] words = content.toLowerCase().split("\\W+");
 
         for (String word : words) {
-
-            List<WebPage> dd = indexMap.computeIfAbsent(word, key -> new ArrayList<>());
-            dd.add(page);
-
+            List<WebPage> webPageList = indexMap.computeIfAbsent(word, key -> new ArrayList<>());
+            webPageList.add(page);
         }
     }
 
@@ -40,6 +38,8 @@ public class WebIndexer {
             for (WebPage pageRe : pageToRemove) {
                 indexMap.get(word).remove(pageRe);
             }
+
+            pageToRemove.clear();
         }
     }
 

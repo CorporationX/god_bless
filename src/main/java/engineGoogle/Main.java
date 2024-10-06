@@ -8,9 +8,9 @@ public class Main {
         WebPage page2 = new WebPage("https://sql", "История", "how do SQL and TELL");
         WebPage page3 = new WebPage("https://LOOOOOVE_SQLLLLL", "Love", "love ABOUT aqL");
 
-        webIndexer.setIndexMap(page1);
-        webIndexer.setIndexMap(page2);
-        webIndexer.setIndexMap(page3);
+        webIndexer.addIndexMap(page1);
+        webIndexer.addIndexMap(page2);
+        webIndexer.addIndexMap(page3);
         webIndexer.printPages();
 
 

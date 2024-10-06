@@ -8,9 +8,9 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class WebPage {
-    String url;
-    String title;
-    String content;
+    private String url;
+    private String title;
+    private String content;
 
     public WebPage(String url, String title, String content) {
 
@@ -24,14 +24,6 @@ public class WebPage {
     }
 }
 
-//    public void checkExp(String url, String title, String content) {
-//        if (url.isEmpty() && url.isBlank()) {
-//            throw new IllegalArgumentException("Нет URL веб-страницы");
-//        } else if (title.isEmpty() && title.isBlank(Нет)) {
-//            throw new IllegalArgumentException("");
-//        } else if (content.isEmpty() && content.isBlank()) {
-//            throw new IllegalArgumentException("");
-//        }
 
 
 
