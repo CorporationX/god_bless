@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static private Map<University, List<Student>> studentMap = new HashMap<>();
-    static private University university = new University("Филология", 3);
+    private static Map<FacyltyAndCours, List<Student>> studentMap = new HashMap<>();
+    private static FacyltyAndCours facyltyAndCours = new FacyltyAndCours("Филология", 3);
     public static void main(String[] args) {
 
        List<Student> students = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Main {
 
        List<Student> firstStudent = new ArrayList<>();
        firstStudent.add(new Student("Masha", "Филология", 3));
-       studentMap.put(university, firstStudent);
+       studentMap.put(facyltyAndCours, firstStudent);
 
        // 3 пункт задачи
        addStudentSameFaculty(students);
@@ -54,43 +54,43 @@ public class Main {
 
     }
 
-    static public Map<University, List<Student>> addStudentSameFaculty(List<Student> students) {
-        List<Student> filteredList = studentMap.get(university);;
-        for (Map.Entry<University, List<Student>> entry : studentMap.entrySet()) {
+    public static Map<FacyltyAndCours, List<Student>> addStudentSameFaculty(List<Student> students) {
+        List<Student> filteredList = studentMap.get(facyltyAndCours);
+        for (Map.Entry<FacyltyAndCours, List<Student>> entry : studentMap.entrySet()) {
             for (Student student : students) {
-                if (entry.getKey().getFaculty().equals(student.getFaculty()) && entry.getKey().getYear().equals(student.getYear())) {;
+                if (entry.getKey().getFaculty().equals(student.getFaculty()) && entry.getKey().getYear().equals(student.getYear())) {
                     filteredList.add(new Student(student.getName(), student.getFaculty(), student.getYear()));
                 }
             }
         }
-        studentMap.put(university, filteredList);
+        studentMap.put(facyltyAndCours, filteredList);
         return studentMap;
     }
 
-    static public Map<University, List<Student>> addNewStudent(String name, String faculty, Integer year) {
-        List<Student> newListStudents = studentMap.get(university);
+    public static Map<FacyltyAndCours, List<Student>> addNewStudent(String name, String faculty, Integer year) {
+        List<Student> newListStudents = studentMap.get(facyltyAndCours);
         newListStudents.add(new Student(name, faculty, year));
-        studentMap.put(university, newListStudents);
+        studentMap.put(facyltyAndCours, newListStudents);
         return studentMap;
     }
 
-    static public Map<University, List<Student>> deleteStudent(String name, String faculty, Integer year) {
-        List<Student> listFromMap = studentMap.get(university);
+    public static Map<FacyltyAndCours, List<Student>> deleteStudent(String name, String faculty, Integer year) {
+        List<Student> listFromMap = studentMap.get(facyltyAndCours);
         listFromMap.remove(new Student(name, faculty, year));
-        studentMap.put(university, listFromMap);
+        studentMap.put(facyltyAndCours, listFromMap);
         return studentMap;
     }
 
-    static public void sortStudents() {
-        List<Student> listFromMap = studentMap.get(university);
+    public static void sortStudents() {
+        List<Student> listFromMap = studentMap.get(facyltyAndCours);
         listFromMap.sort(Comparator.comparing(Student::getFaculty).thenComparing(Student::getYear));
         for (Student student : listFromMap) {
             System.out.println(student);
         }
     }
 
-    static public void searchSameStudents(String faculty, Integer year) {
-        List<Student> listFromMap = studentMap.get(university);
+    public static void searchSameStudents(String faculty, Integer year) {
+        List<Student> listFromMap = studentMap.get(facyltyAndCours);
         for (Student student : listFromMap) {
             if (faculty.equals(student.getFaculty()) && year.equals(student.getYear())) {
                 System.out.println(student);
