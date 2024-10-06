@@ -23,7 +23,7 @@ public class Main {
         service.removeWebPageByUrl(page, urls);
         System.out.println("-------------------------------------------");
 
-        // check if webpage was removed successfully
+        // print updated data
         for (Map.Entry<String, List<WebPage>> entry : urls.entrySet()){
             System.out.println("Key: " + entry.getKey() + ", Obj: " + entry.getValue());
         }

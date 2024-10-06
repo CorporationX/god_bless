@@ -5,7 +5,7 @@ import java.util.*;
 public class WebPageService {
 
     public void addWebPage(WebPage webPage, Map<String, List<WebPage>> webPages){
-        String[] keyWords = webPage.getContent().toLowerCase().split(" ");
+        String[] keyWords = webPage.getContent().toLowerCase().replaceAll("[^a-zA-Z0-9\\s]", "").split("\\s+");
 
         for(String s : keyWords){
             webPages.putIfAbsent(s, new ArrayList<>());
@@ -18,7 +18,7 @@ public class WebPageService {
     }
 
     public void removeWebPageByUrl(WebPage webPage, Map<String, List<WebPage>> webPages){
-        String[] keyWords = webPage.getContent().toLowerCase().split(" ");
+        String[] keyWords = webPage.getContent().toLowerCase().replaceAll("[^a-zA-Z0-9\\s]", "").split("\\s+");
 
         for(String keyWord : keyWords){
 
