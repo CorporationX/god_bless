@@ -4,5 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataCenter {
-    protected static final List<Server> SERVERS = new ArrayList<>();
+        private final List<Server> SERVERS = new ArrayList<>();
+
+    public List<Server> getServers() {
+        return this.SERVERS;
+    }
 }

@@ -1,24 +1,29 @@
 package school.faang.data_center;
 
+import lombok.Data;
+
 import java.util.Comparator;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+@Data
 public class DataCenterService implements OptimizationStrategy {
+    private final DataCenter dataCenter;
+
+    public DataCenterService(DataCenter dataCenter) {
+        this.dataCenter = dataCenter;
+    }
 
     protected void addServerToDataCenter(Server server) {
-        DataCenter.SERVERS.add(server);
+        dataCenter.getServers().add(server);
     }
 
     protected void removeServerFromDataCenter(Server server) {
-        DataCenter.SERVERS.remove(server);
+        dataCenter.getServers().remove(server);
     }
 
     protected double getTotalEnergyConsumption() {
         AtomicReference<Double> totalEnergy = new AtomicReference<>(0.0);
-        DataCenter.SERVERS.forEach(server -> {
+        dataCenter.getServers().forEach(server -> {
             totalEnergy.updateAndGet(atom -> (double) (atom + server.getEnergyConsumption()));
         });
         return totalEnergy.get();
@@ -26,9 +31,9 @@ public class DataCenterService implements OptimizationStrategy {
 
     protected void allocateResources(ResourceRequest request) {
         //сортируем чтобы получить сначала менее загруженные
-        DataCenter.SERVERS.sort(Comparator.comparingDouble(Server::getLoad));
+        dataCenter.getServers().sort(Comparator.comparingDouble(Server::getLoad));
         double newResourceLoad = request.load();
-        for (Server server : DataCenter.SERVERS) {
+        for (Server server : dataCenter.getServers()) {
             double valueLoad = server.getLoad();
             double maxValueLoad = server.getMAX_LOAD();
             double freeResourceOnServer = maxValueLoad - valueLoad;
@@ -44,9 +49,9 @@ public class DataCenterService implements OptimizationStrategy {
 
     protected void releaseResources(ResourceRequest request) {
         //Сортируем, чтобы сначало освободить самые загруженные серверы
-        DataCenter.SERVERS.sort(Comparator.comparingDouble(Server::getLoad).reversed());
+        dataCenter.getServers().sort(Comparator.comparingDouble(Server::getLoad).reversed());
         double releaseResource = request.load();
-        for (Server server : DataCenter.SERVERS) {
+        for (Server server : dataCenter.getServers()) {
             double valueLoad = server.getLoad();
             if (valueLoad - releaseResource > 0) {
                 server.setLoad(valueLoad - releaseResource);
@@ -60,41 +65,5 @@ public class DataCenterService implements OptimizationStrategy {
             }
         }
 
-    }
-
-    @Override
-    public void optimize(DataCenter dataCenter) {
-        //сортируем, сначало самые загруженные
-        dataCenter.SERVERS.sort(Comparator.comparingDouble(Server::getLoad).reversed());
-        for (Server observableServer : dataCenter.SERVERS) {
-            double valueLoad = observableServer.getLoad();
-            double maxload = observableServer.getMAX_LOAD();
-            if (maxload < valueLoad) {
-                double remainder = valueLoad - maxload;
-                for (Server receivingServer : dataCenter.SERVERS) {
-                    double valueLoadReceivingServer = receivingServer.getLoad();
-                    if (valueLoadReceivingServer > receivingServer.getMAX_LOAD()) {
-                        double freeResourceLoad = receivingServer.getMAX_LOAD() - valueLoadReceivingServer;
-                        if (freeResourceLoad > remainder) {
-                            receivingServer.setLoad(valueLoadReceivingServer + remainder);
-                            break;
-                        } else {
-                            remainder = remainder - freeResourceLoad;
-                            receivingServer.setLoad(freeResourceLoad);
-                        }
-                    }
-                }
-                if (remainder > 0) {
-                    System.out.println("Внимание сервер перегружен!");
-                } else {
-                    System.out.println("Оптимизация прошла успешно");
-                }
-            }
-        }
-        //Запускаем оптимизацию каждые полчаса
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(() -> {
-            optimize(dataCenter);
-        }, 0, 30, TimeUnit.MINUTES);
     }
 }
