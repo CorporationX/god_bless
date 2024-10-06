@@ -17,14 +17,14 @@ public class Main {
         students.add(new Student("Michael", "Mathematics", 1));
         students.add(new Student("David", "Biology", 3));
 
-        System.out.println(getStudents(students));
+        System.out.println(sortingStudentsByFacultyAndCourse(students));
 
         deleteStudent("Ivan", "Biology", 3);
         System.out.println(searchStudents("Mathematics", 1));
         printStudents();
     }
 
-    public static Map<FacultyYear, List<Student>> getStudents(List<Student> studentList) {
+    public static Map<FacultyYear, List<Student>> sortingStudentsByFacultyAndCourse(List<Student> studentList) {
         Map<FacultyYear, List<Student>> map = new HashMap<>();
         for (Student student : studentList) {
             map.computeIfAbsent(new FacultyYear(student.getFaculty(), student.getYear()), x -> new ArrayList<>()).add(student);
@@ -42,17 +42,11 @@ public class Main {
     }
 
     public static List<Student> searchStudents(String faculty, int year) {
-        List<Student> studentsList = new ArrayList<>();
-        for (Student student : students) {
-            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
-                studentsList.add(student);
-            }
-        }
-        return studentsList;
+        return sortingStudentsByFacultyAndCourse(students).get(new FacultyYear(faculty, year));
     }
 
     public static void printStudents() {
-        Map<FacultyYear, List<Student>> map = getStudents(students);
+        Map<FacultyYear, List<Student>> map = sortingStudentsByFacultyAndCourse(students);
         for (Map.Entry<FacultyYear, List<Student>> entry : map.entrySet()) {
             for (Student student : entry.getValue()) {
                 System.out.println(student.getName() + " " + student.getFaculty() + " " + student.getYear());
