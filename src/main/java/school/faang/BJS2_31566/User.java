@@ -1,10 +1,13 @@
 package school.faang.BJS2_31566;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Getter
 public class User {
 
     private int id;
@@ -17,22 +20,6 @@ public class User {
         this.name = name;
         this.age = age;
         this.activities = activities;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public Set<String> getActivities() {
-        return activities;
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
