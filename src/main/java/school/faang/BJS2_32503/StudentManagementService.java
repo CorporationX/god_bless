@@ -32,12 +32,6 @@ public class StudentManagementService {
     }
 
     public void removeStudent(String name, String faculty, int year) {
-        //принцип в том, чтобы долго не искать нужный элемент в списке для удаления
-        //и чтобы после этого все долго не сдвигалось в списке
-        //будет мапа (студент - индекс в списке), чтобы быстро удалять по индексу
-        //когда удаляется студент, ищется его индекс в списке, на это место встает последний элемент из списка
-        //а последний элемент просто затирается, в мапе удаляется пара с ключом в виде этого студента, а для того,
-        //который был последним, обновляется информация в мапе
         Student studentToDelete = new Student(name, faculty, year);
         int index = studentToIndex.getOrDefault(studentToDelete, -1);
         if (index != -1) {
