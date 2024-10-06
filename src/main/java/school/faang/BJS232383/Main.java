@@ -6,37 +6,38 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<Student, Map<Subject, Integer>> studentMap = new HashMap<>();
-    static Map<Subject, List<Student>> subjectMap = new HashMap<>();
+    static Map<Student, Map<Subject, Integer>> studentSubjects = new HashMap<>();
+    static Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     static void addStudentAndSubject(Student student, Subject subject, int assessments) {
-        studentMap.computeIfAbsent(student, sub -> new HashMap<>()).put(subject, assessments);
-        subjectMap.computeIfAbsent(subject, sub -> new ArrayList<>()).add(student);
+        studentSubjects.computeIfAbsent(student, sub -> new HashMap<>()).put(subject, assessments);
+        subjectStudents.computeIfAbsent(subject, sub -> new ArrayList<>()).add(student);
     }
 
     static void deleteStudent(Student student) {
-        studentMap.remove(student);
+        subjectStudents.entrySet().removeIf(s -> s.getValue().equals(student));
+        studentSubjects.remove(student);
     }
 
     static void showAllStudents() {
-        for (Map.Entry<Student, Map<Subject, Integer>> mapEntry : studentMap.entrySet()) {
+        for (Map.Entry<Student, Map<Subject, Integer>> mapEntry : studentSubjects.entrySet()) {
             System.out.println(mapEntry.getKey() + " " + mapEntry.getValue());
         }
     }
 
-    static void addNewSubjectWithStudents(Subject subject, List<Student> students) {
-        subjectMap.put(subject, students);
+    static void addSubjectWithStudents(Subject subject, List<Student> students) {
+        subjectStudents.put(subject, students);
     }
 
     static void deleteStudentFromSubject(Student student, Subject subject) {
-        subjectMap.get(subject).remove(student);
-        if (subjectMap.get(subject).isEmpty()) {
-            subjectMap.remove(subject);
+        subjectStudents.get(subject).remove(student);
+        if (subjectStudents.get(subject).isEmpty()) {
+            subjectStudents.remove(subject);
         }
     }
 
     static void showAllSubjects() {
-        for (Map.Entry<Subject, List<Student>> mapEntry : subjectMap.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> mapEntry : subjectStudents.entrySet()) {
             System.out.println(mapEntry.getKey() + " " + mapEntry.getValue());
         }
     }
@@ -63,7 +64,7 @@ public class Main {
 
         showAllStudents();
 
-        addNewSubjectWithStudents(new Subject(106, "History"), List.of(slava, penelopa, richard));
+        addSubjectWithStudents(new Subject(106, "History"), List.of(slava, penelopa, richard));
         showAllSubjects();
         deleteStudent(slava);
         showAllStudents();
