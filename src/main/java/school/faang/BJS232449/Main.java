@@ -6,39 +6,43 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<Map<String, Integer>, List<Student>> LIST_STUDENTS = new HashMap<>();
+    static List<Student> students = new ArrayList<>();
 
-    static Map<Map<String, Integer>, List<Student>> addStudentsToList(List<Student> students) {
+    static Map<Map<String, Integer>, List<Student>> groupStudentListToMap() {
+        Map<Map<String, Integer>, List<Student>> studentMap = new HashMap<>();
         for (Student student : students) {
             Map<String, Integer> key = Map.of(student.getFaculty(), student.getYear());
-            LIST_STUDENTS.computeIfAbsent(key, v -> new ArrayList<>()).add(student);
+            studentMap.computeIfAbsent(key, v -> new ArrayList<>()).add(student);
         }
-        return LIST_STUDENTS;
+        return studentMap;
     }
 
     static void addNewStudent(Student newStudent) {
-        Map<String, Integer> key = Map.of(newStudent.getFaculty(), newStudent.getYear());
-        LIST_STUDENTS.computeIfAbsent(key, v -> new ArrayList<>()).add(newStudent);
+        try {
+            students.add(newStudent);
+            System.out.println("ADDED - " + newStudent);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("The incorrect input. Try again!");
+        }
     }
 
-    static void deleteStudentByName(String name, String faculty, int year) {
-        for (Map.Entry<Map<String, Integer>, List<Student>> mapListEntry : LIST_STUDENTS.entrySet()) {
-            for (Student student : mapListEntry.getValue()) {
-                if (student.getName().equals(name) && student.getFaculty().equals(faculty) && student.getYear() == year) {
-                    mapListEntry.getValue().remove(student);
-                    System.out.println("DELETED - " + student);
-                }
-            }
+    static void deleteStudent(String name, String faculty, int year) {
+        try {
+            Student student = new Student(name, faculty, year);
+            students.remove(student);
+            System.out.println("DELETED - " + student);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("The name/faculty/year are wrong! Check inputs");
         }
     }
 
     static List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
         Map<String, Integer> key = Map.of(faculty, year);
-        return LIST_STUDENTS.get(key);
+        return groupStudentListToMap().get(key);
     }
 
-    static void getAll() {
-        for (Map.Entry<Map<String, Integer>, List<Student>> mapListEntry : LIST_STUDENTS.entrySet()) {
+    static void showAllStudents() {
+        for (Map.Entry<Map<String, Integer>, List<Student>> mapListEntry : groupStudentListToMap().entrySet()) {
             System.out.println(mapListEntry.getKey() + " ");
             for (Student student : mapListEntry.getValue()) {
                 System.out.println(student.getName());
@@ -47,7 +51,6 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        List<Student> students = new ArrayList<>();
         students.add(new Student("Alex", "Software Engineering", 1));
         students.add(new Student("John", "Marketing", 2));
         students.add(new Student("Esther", "Finance", 3));
@@ -55,11 +58,10 @@ public class Main {
         students.add(new Student("Brook", "Marketing", 2));
         students.add(new Student("James", "Finance", 3));
 
-        System.out.println(addStudentsToList(students));
+        System.out.println(groupStudentListToMap());
         addNewStudent(new Student("Batyr", "Jurisprudence", 1));
-        deleteStudentByName("Alex", "Software Engineering", 1);
-        System.out.println(LIST_STUDENTS);
+        deleteStudent("Alex", "Software Engineering", 1);
         System.out.println(findStudentsByFacultyAndYear("Marketing", 2));
-        getAll();
+        showAllStudents();
     }
 }
