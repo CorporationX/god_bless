@@ -15,9 +15,11 @@ public class Main {
         testAddBookAndShelf(bookShelfMap);
         testRemoveBook(bookShelfMap);
         testPrintBookLocation(bookShelfMap);
+        testPrintAllBooksAndLocation(bookShelfMap);
     }
 
     public static void testAddBookAndShelf(Map<Book, String> bookShelfMap) {
+        System.out.println("testAddBookAndShelf");
         Book bookForAdd = new Book("Crime and Punishment", "Fyodor Dostoevsky", 1866);
         String shelfForAdd = "Shelf 4";
 
@@ -29,6 +31,7 @@ public class Main {
     }
 
     public static void testRemoveBook(Map<Book, String> bookShelfMap) {
+        System.out.println("testRemoveBook");
         String title = "Fahrenheit 451";
         String author = "Ray Bradbury";
         int year = 1953;
@@ -40,10 +43,15 @@ public class Main {
     }
 
     public static void testPrintBookLocation(Map<Book, String> bookShelfMap){
+        System.out.println("testPrintBookLocation");
         String title = "1984";
         String author = "George Orwell";
         int year = 1949;
         BookShelfUtils.printBookLocation(title,author,year,bookShelfMap);
         System.out.println();
+    }
+    public static void testPrintAllBooksAndLocation(Map<Book, String> bookShelfMap){
+        System.out.println("testPrintAllBooksAndLocation");
+        BookShelfUtils.printAllBooksAndLocation(bookShelfMap);
     }
 }
