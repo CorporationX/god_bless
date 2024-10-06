@@ -10,6 +10,7 @@ public class Main {
         Map<String, List<StreamEvent>> eventTypeToStreamEventsMap = new HashMap<>();
         testAddStreamEventUpdateBothMaps(idToStreamEventMap, eventTypeToStreamEventsMap);
         testFindEventById(idToStreamEventMap);
+        testFindEventsByType(eventTypeToStreamEventsMap);
     }
 
     public static void testAddStreamEventUpdateBothMaps(Map<Integer, StreamEvent> idToStreamEventMap,
@@ -30,9 +31,19 @@ public class Main {
         System.out.println("\ntestFindEventById\n");
 
         int idEvent = 5;
-        System.out.println("ID events: " + idEvent);
+        System.out.println("ID event: " + idEvent);
 
         StreamEvent eventById = StreamEventUtils.findEventById(idEvent, idToStreamEventMap);
-        System.out.println("Event by Id: " + eventById);
+        System.out.println("event by Id: " + eventById);
+    }
+
+    public static void testFindEventsByType(Map<String, List<StreamEvent>> eventTypeToStreamEventsMap) {
+        System.out.println("\ntestFindEventsByType\n");
+
+        String eventType = "Start";
+        System.out.println("event type: " + eventType);
+
+        List<StreamEvent> eventsByType = StreamEventUtils.findEventsByType(eventType, eventTypeToStreamEventsMap);
+        System.out.println("events by type" + eventsByType);
     }
 }

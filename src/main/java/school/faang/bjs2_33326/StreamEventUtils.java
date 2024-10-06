@@ -23,4 +23,8 @@ public class StreamEventUtils {
         return idToStreamEventMap.get(id);
     }
 
+    public static List<StreamEvent> findEventsByType(String eventType,
+                                                     Map<String, List<StreamEvent>> eventTypeToStreamEventsMap) {
+        return eventTypeToStreamEventsMap.get(eventType);
+    }
 }
