@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_hero_sword_and_magic;
 
 public class Angel extends Creature {
     public Angel(String name) {

@@ -1,9 +1,8 @@
-package school.faang.main_code;
+package school.faang.main_code_hero_sword_and_magic;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Data
