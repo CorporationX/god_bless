@@ -35,7 +35,7 @@ public class Main {
     public static void addEvent(StreamEvent event) {
         events.put(event.getId(), event);
         groupsOfEvents
-                .putIfAbsent(event.getEventType(), new ArrayList<>(List.of(event)));
+                .putIfAbsent(event.getEventType(), new ArrayList<>());
         groupsOfEvents.get(event.getEventType()).add(event);
     }
 
