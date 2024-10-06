@@ -27,7 +27,7 @@ public class Main {
         System.out.println("Founded book: " + findBookByLocation("3", library));
 
         // find location of the book by location
-        System.out.println(findLocationOfBook(new Book("Book4", "Author4", 1998), library));
+        System.out.println(findLocationOfBook("Book4", "Author4", 1998));
 
         showAllBook(library);
 
@@ -51,8 +51,8 @@ public class Main {
         return Optional.empty();
     }
 
-    public static Optional<String> findLocationOfBook(Book book, Map<Book, String> library){
-
+    public static Optional<String> findLocationOfBook(String title, String author, Integer year){
+        Book book = new Book(title, author, year);
         return Optional.ofNullable(library.get(book));
     }
 
