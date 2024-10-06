@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.main_code;
 
 import lombok.Getter;
 import lombok.ToString;
