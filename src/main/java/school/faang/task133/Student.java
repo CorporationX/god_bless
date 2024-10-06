@@ -4,11 +4,10 @@ import lombok.*;
 
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode
+@Data
 public class Student {
+
     private String name;
-    @Getter
     private String faculty;
-    @Getter
     private int year;
 }

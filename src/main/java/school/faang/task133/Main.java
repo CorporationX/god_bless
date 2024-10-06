@@ -7,56 +7,52 @@ import java.util.Map;
 
 public class Main {
 
-    private static final List<Student> STUDENTS = new ArrayList<>();
+    private static final List<Student> students = new ArrayList<>();
 
-    {
+    static {
         Student student1 = new Student("Ilya", "Гриффиндор", 4);
         Student student2 = new Student("Artem", "Слизерин", 4);
         Student student3 = new Student("Dima", "Слизерин", 4);
         Student student4 = new Student("Svyatoslav", "Пуффендуй", 4);
         Student student5 = new Student("ivan", "Слизерин", 3);
 
-        STUDENTS.add(student1);
-        STUDENTS.add(student2);
-        STUDENTS.add(student3);
-        STUDENTS.add(student4);
-        STUDENTS.add(student5);
+        students.add(student1);
+        students.add(student2);
+        students.add(student3);
+        students.add(student4);
+        students.add(student5);
     }
 
-    public HashMap<String, List<Student>> studentGroup(List<Student> students) {
-        HashMap<String, List<Student>> answer = new HashMap<>();
+    public HashMap<Cohort, List<Student>> createCohort(List<Student> students) {
+        HashMap<Cohort, List<Student>> result = new HashMap<>();
         for (Student student : students) {
-            answer.computeIfAbsent(facultyAndYear(student), k -> new ArrayList<>()).add(student);
+            result.computeIfAbsent(Cohort.createNewCohort(student), k -> new ArrayList<>()).add(student);
         }
-        return answer;
-    }
-
-    private String facultyAndYear(Student student) {
-        return student.getFaculty() + " year=" + student.getYear();
+        return result;
     }
 
     public void addStudent(Student student) {
-        STUDENTS.add(student);
+        students.add(student);
     }
 
     public void removeStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
-        STUDENTS.remove(student);
+        students.remove(student);
     }
 
     public List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
-        List<Student> answer = new ArrayList<>();
-        for (Student student : STUDENTS) {
+        List<Student> result = new ArrayList<>();
+        for (Student student : students) {
             if (student.getYear() == year && student.getFaculty().equals(faculty)) {
-                answer.add(student);
+                result.add(student);
             }
         }
-        return answer;
+        return result;
     }
 
     public void printAllGroupedStudents() {
-        HashMap<String, List<Student>> allStudentsGrouped = studentGroup(STUDENTS);
-        for (Map.Entry<String, List<Student>> entry : allStudentsGrouped.entrySet()) {
+        HashMap<Cohort, List<Student>> allStudentsGrouped = createCohort(students);
+        for (Map.Entry<Cohort, List<Student>> entry : allStudentsGrouped.entrySet()) {
             for (Student student : entry.getValue()) {
                 System.out.println(entry.getKey() + " " + student);
             }
