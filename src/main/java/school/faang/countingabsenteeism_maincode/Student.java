@@ -1,4 +1,4 @@
-package school.faang.counting_absenteeism;
+package school.faang.countingabsenteeism_maincode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
