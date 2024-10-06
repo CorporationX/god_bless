@@ -13,10 +13,10 @@ public class Main {
         String content = webPage.getContent();
         String[] words = content.split("\\s+");
 
-        for (String word : words) {
-            word = word.toLowerCase();
-            INDEX.putIfAbsent(word, new ArrayList<>());
-            INDEX.get(word).add(webPage);
+        for (String keyword : words) {
+            keyword = keyword.toLowerCase();
+            INDEX.putIfAbsent(keyword, new ArrayList<>());
+            INDEX.get(keyword).add(webPage);
         }
     }
 
