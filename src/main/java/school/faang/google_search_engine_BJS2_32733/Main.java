@@ -13,7 +13,7 @@ public class Main {
     public static void main(String[] args) {
         WebPage page1 = new WebPage(
                 "https://www.example.com", "Example Domain",
-                "This domain is for use in illustrative examples in documents.");
+                "This domain is For use in illustrative examples in documents.");
 
         WebPage page2 = new WebPage(
                 "https://www.wikipedia.org", "Wikipedia",
@@ -27,9 +27,14 @@ public class Main {
                 "https://www.stackoverflow.com", "Stack Overflow",
                 "Stack Overflow is a question and answer site for professional and enthusiast programmers.");
 
-        addPageToIndex(page1);
+        WebPage page5 = new WebPage(
+                "https://www.webPage.com", "Online Page",
+                "This   page   has   lots   of   spaces");
+
+        addPageToIndex(page5);
         System.out.println(index);
         System.out.println("---".repeat(3));
+        addPageToIndex(page1);
         addPageToIndex(page2);
         addPageToIndex(page3);
         addPageToIndex(page4);
@@ -40,7 +45,7 @@ public class Main {
     }
 
     public static void addPageToIndex(WebPage page) {
-        Set<String> keyWords = new HashSet<>(List.of(page.getContent().split(" ")));
+        Set<String> keyWords = new HashSet<>(List.of(page.getContent().toLowerCase().split("\\s+")));
         for (String keyWord : keyWords) {
             index.computeIfAbsent(keyWord, k -> new ArrayList<>()).add(page);
         }
@@ -48,12 +53,12 @@ public class Main {
     }
 
     public static List<WebPage> findPagesByKeyWord(String keyword) {
-        System.out.println("Pages with keyword: " + keyword);
         return index.get(keyword);
     }
 
     public static void deletePageFromIndexByUrl(String url) {
-        index.entrySet().removeIf(entry -> entry.getValue().stream().anyMatch(webPage -> webPage.getUrl().equals(url)));
+        index.entrySet().removeIf(entry -> entry.getValue().stream()
+                .anyMatch(webPage -> webPage.getUrl().equals(url)));
         System.out.println("Page with url: " + url + " was deleted");
     }
 
