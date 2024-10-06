@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_group_users_by_age;
 
 import java.util.ArrayList;
 import java.util.List;

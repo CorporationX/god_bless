@@ -1,6 +1,4 @@
-package school.faang.main;
-
-import school.faang.main_code.User;
+package school.faang.main_code_group_users_by_age;
 
 import java.util.List;
 
