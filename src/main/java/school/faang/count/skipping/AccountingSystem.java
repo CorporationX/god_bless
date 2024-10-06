@@ -8,16 +8,20 @@ import java.util.Objects;
 
 public class AccountingSystem {
     private final List<Student> students = new ArrayList<>();
-    private final Map<String, Integer> index = new HashMap<>();
+    private final Map<String, Integer> studentToIndex = new HashMap<>();
+    private final Map<Course, List<Student>>  courseToStudents = new HashMap<>();
 
     public void add(Student student) {
         Objects.requireNonNull(student, "student is null");
         students.add(student);
-        index.put(student.getName(), students.size() - 1);
+        studentToIndex.put(student.getName(), students.size() - 1);
+        List<Student> students = courseToStudents.getOrDefault(student.getCourse(), new ArrayList<>());
+        students.add(student);
+        courseToStudents.put(student.getCourse(), students);
     }
 
     public void remove(String name) {
-        int position = index.get(name);
+        int position = studentToIndex.get(name);
         int lastIndex = students.size() - 1;
 
         //удаление элемента
@@ -25,21 +29,33 @@ public class AccountingSystem {
         Student lastStudent = students.remove(lastIndex);
 
         //обновление индекса
-        index.remove(name);
-        index.put(lastStudent.getName(), position);
+        studentToIndex.remove(name);
+        if (!name.equals(lastStudent.getName())) {
+            studentToIndex.put(lastStudent.getName(), position);
+        }
+
+        //обновление courseToStudents
+        for (var entry : courseToStudents.entrySet()) {
+            Course course = entry.getKey();
+            List<Student> students = entry.getValue();
+            students.removeIf(s -> s.getName().equals(name));
+            if (students.isEmpty()) {
+                courseToStudents.remove(course);
+                return;
+            }
+            courseToStudents.put(course, students);
+        }
     }
 
     public List<Student> get(Course course) {
-        Map<Course, List<Student>> courseToStudents = transform(students);
         return courseToStudents.get(course);
     }
 
     public void print() {
-        Map<Course, List<Student>> courseToStudents = transform(students);
         courseToStudents.forEach((course, students) -> System.out.println(course + ": " + students));
     }
 
-    public Map<Course, List<Student>> transform(List<Student> students) {
+    public Map<Course, List<Student>> groupingByCourse(List<Student> students) {
         Map<Course, List<Student>> courseToStudents = new HashMap<>();
         for (Student student : students) {
             List<Student> list = courseToStudents.getOrDefault(student.getCourse(), new ArrayList<>());
