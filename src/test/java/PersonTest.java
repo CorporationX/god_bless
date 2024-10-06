@@ -1,4 +1,4 @@
-import model.Person;
+import org.example.model.Person;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

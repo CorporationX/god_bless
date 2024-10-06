@@ -21,8 +21,9 @@ public class StudentService {
             new Student("Damir", "Design", 2),
             new Student("Daniyar", "Finance", 4)
     ));
+    private static Map<Student, Integer> studentsIndex = new HashMap<>();
 
-    public static Map<Group, List<Student>> groupingStudentsByFacultyAndYear(List<Student> students) {
+    public static Map<Group, List<Student>> groupingStudentsToGroup(List<Student> students) {
         students.forEach(student -> {
             var currentStudentGroup = new Group(student.getFaculty(), student.getYear());
             groupedStudentsByFacultyAndYear.computeIfAbsent(currentStudentGroup, group -> new ArrayList<Student>()).add(student);
@@ -53,7 +54,6 @@ public class StudentService {
             }
             return studentList;
         });
-
         return removingStudent;
     }
 
@@ -61,5 +61,9 @@ public class StudentService {
         var group = new Group(faculty, year);
 
         return groupedStudentsByFacultyAndYear.get(group);
+    }
+
+    public static Map<Group, List<Student>> getAllGroupedStudents(){
+        return groupedStudentsByFacultyAndYear;
     }
 }

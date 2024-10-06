@@ -1,4 +1,4 @@
-package app;
+package org.example.app;
 
 public class App {
     private static final String OPEN_SOON_TEXT = "Открытие магазина ожидается через 4 дня";
