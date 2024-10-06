@@ -18,7 +18,7 @@ public class Main {
         userList.add(new User("Grace Wilson", 27, "DataInsights", "404 Spruce St, Seattle"));
         userList.add(new User("Henry Anderson", 33, "CyberTech", "505 Ash St, Miami"));
         userList.add(new User("Isabella Martinez", 30, "DesignPro", "606 Elm St, Boston"));
-        userList.add(new User("Jack Thomas", 35, "FinServices", "707 Willow St, Denver"));
+        userList.add(new User("Jack Thomas", 34, "FinServices", "707 Willow St, Denver"));
 
         Map<Integer, List<User>> groupedUsers =  User.groupUser(userList);
 
