@@ -7,26 +7,26 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Test {
+    private static final HashMap<Integer, StreamEvent> eventsMap = new HashMap<>();
+    private static final HashMap<String, List<StreamEvent>> eventsByTypeMap = new HashMap<>();
+
     public static void main(String[] args) {
-        var eventsMap = new HashMap<Integer, StreamEvent>();
-        var eventsByTypeMap = new HashMap<String, List<StreamEvent>>();
-
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(100, "set", "01.10.2024"));
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(110, "get", "04.10.2024"));
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(200, "push", "05.10.2024"));
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(220, "poll", "31.09.2024"));
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(130, "set", "02.10.2024"));
-        addEvent(eventsMap, eventsByTypeMap, new StreamEvent(140, "set", "03.10.2024"));
-        printEvents(eventsByTypeMap);
+        addEvent(new StreamEvent(100, "set", "01.10.2024"));
+        addEvent(new StreamEvent(110, "get", "04.10.2024"));
+        addEvent(new StreamEvent(200, "push", "05.10.2024"));
+        addEvent(new StreamEvent(220, "poll", "31.09.2024"));
+        addEvent(new StreamEvent(130, "set", "02.10.2024"));
+        addEvent(new StreamEvent(140, "set", "03.10.2024"));
+        printEvents();
 
         System.out.println();
-        var id = 140;
-        removeEventById(eventsMap, eventsByTypeMap, id);
+        int id = 140;
+        removeEventById(id);
         System.out.println("Remove by id=140");
-        printEvents(eventsByTypeMap);
+        printEvents();
 
         System.out.println();
-        var eventOtherOptional = findEventById(eventsMap, id);
+        Optional<StreamEvent> eventOtherOptional = findEventById(id);
         if (eventOtherOptional.isEmpty()) {
             System.out.println("Not found by id=140");
         } else {
@@ -34,24 +34,22 @@ public class Test {
             System.out.println(eventOtherOptional.get());
         }
 
-
         System.out.println();
-        var eventOptional = findEventById(eventsMap, 110);
+        Optional<StreamEvent> eventOptional = findEventById(110);
         eventOptional.ifPresent(event -> {
             System.out.println("Found by id=110");
             System.out.println(event);
         });
 
         System.out.println();
-        var eventListOptional = findEventListByEventType(eventsByTypeMap, "set");
+        Optional<List<StreamEvent>> eventListOptional = findEventListByEventType("set");
         eventListOptional.ifPresent(list -> {
             System.out.println("Found by EventType = set");
             printEventList(list);
         });
 
-
         System.out.println();
-        var eventListOtherOptional = findEventListByEventType(eventsByTypeMap, "SET");
+        Optional<List<StreamEvent>> eventListOtherOptional = findEventListByEventType("SET");
         if (eventListOtherOptional.isEmpty()) {
             System.out.println("Not found by EventType = SET");
         } else {
@@ -60,41 +58,37 @@ public class Test {
         }
     }
 
-    private static void addEvent(HashMap<Integer, StreamEvent> eventsMap, HashMap<String, List<StreamEvent>> eventsByTypeMap, StreamEvent newEvent) {
-
+    private static void addEvent(StreamEvent newEvent) {
         eventsMap.put(newEvent.getId(), newEvent);
-        var eventList = eventsByTypeMap.computeIfAbsent(newEvent.getEventType(), (k) -> new ArrayList<>());
+        List<StreamEvent> eventList = eventsByTypeMap.computeIfAbsent(newEvent.getEventType(), k -> new ArrayList<>());
         if (!eventList.contains(newEvent)) {
             eventList.add(newEvent);
         }
     }
 
-    private static Optional<StreamEvent> findEventById(HashMap<Integer, StreamEvent> eventsMap, int id) {
-
-        var streamEvent = eventsMap.get(id);
+    private static Optional<StreamEvent> findEventById(int id) {
+        StreamEvent streamEvent = eventsMap.get(id);
         if (streamEvent != null) {
             return Optional.of(streamEvent);
         }
         return Optional.empty();
     }
 
-    private static Optional<List<StreamEvent>> findEventListByEventType(HashMap<String, List<StreamEvent>> eventsByTypeMap, String eventType) {
-
-        var eventList = eventsByTypeMap.get(eventType);
+    private static Optional<List<StreamEvent>> findEventListByEventType(String eventType) {
+        List<StreamEvent> eventList = eventsByTypeMap.get(eventType);
         if (eventList != null) {
             return Optional.of(eventList);
         }
         return Optional.empty();
     }
 
-    private static void removeEventById(HashMap<Integer, StreamEvent> eventsMap, HashMap<String, List<StreamEvent>> eventsByTypeMap, int id) {
-
-        var streamEvent = eventsMap.get(id);
+    private static void removeEventById(int id) {
+        StreamEvent streamEvent = eventsMap.get(id);
         if (streamEvent == null) {
             return;
         }
 
-        var eventList = eventsByTypeMap.get(streamEvent.getEventType());
+        List<StreamEvent> eventList = eventsByTypeMap.get(streamEvent.getEventType());
         if (eventList == null) {
             return;
         }
@@ -104,7 +98,7 @@ public class Test {
         eventsMap.remove(id);
     }
 
-    private static void printEvents(HashMap<String, List<StreamEvent>> eventsByTypeMap) {
+    private static void printEvents() {
         for (Map.Entry<String, List<StreamEvent>> stringListEntry : eventsByTypeMap.entrySet()) {
             System.out.printf("%s:%n", stringListEntry.getKey());
             printEventList(stringListEntry.getValue());
@@ -116,5 +110,4 @@ public class Test {
             System.out.println(streamEvent);
         }
     }
-
 }
