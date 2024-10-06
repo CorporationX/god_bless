@@ -1,4 +1,4 @@
-package school.faang.google_mini_search_engine;
+package school.faang.googleminisearchengine;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
