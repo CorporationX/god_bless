@@ -27,6 +27,7 @@ public class Main {
         testAddStudentToList();
         testRemoveStudent();
         testFindStudentsByFacultyAndYear(students);
+        testPrintAllStudentsGroupedByFacultyAndYear(students);
     }
 
     private static void testGroupStudentsByFacultyAndYear(List<Student> students) {
@@ -83,6 +84,7 @@ public class Main {
 
     }
 
+
     private static void testFindStudentsByFacultyAndYear(List<Student> students) {
         System.out.println("\ntestFindStudentsByFacultyAndYear\n");
         String faculty = "Engineering";
@@ -92,5 +94,11 @@ public class Main {
         for (Student student : studentsByFacultyAndYear) {
             System.out.println(student);
         }
+    }
+
+    private static void testPrintAllStudentsGroupedByFacultyAndYear(List<Student> students){
+        System.out.println("\ntestPrintAllStudentsGroupedByFacultyAndYear\n");
+
+        StudentManager.printAllStudentsGroupedByFacultyAndYear(students);
     }
 }

@@ -46,6 +46,18 @@ public class StudentManager {
         return studentsBySpecificFacultyAndYear;
     }
 
+    public static void printAllStudentsGroupedByFacultyAndYear(List<Student> students){
+        Map<FacultyYearPair, List<Student>> facultyYearPairListMap = groupStudentsByFacultyAndYear(students);
+        for (Map.Entry<FacultyYearPair, List<Student>> facultyYearPairListEntry : facultyYearPairListMap.entrySet()) {
+            System.out.println(facultyYearPairListEntry.getKey());
+            List<Student> groupStudent = facultyYearPairListEntry.getValue();
+            for (Student student : groupStudent) {
+                System.out.println(student);
+            }
+            System.out.println();
+        }
+    }
+
     private static List<Student> allocationToCurrentGroup(List<Student> students, FacultyYearPair facultyYearPairCurrentStudent) {
         ArrayList<Student> groupStudentByFacultyAndYear = new ArrayList<>();
         for (Student studentForGroup : students) {
