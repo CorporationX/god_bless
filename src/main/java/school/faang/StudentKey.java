@@ -1,15 +1,12 @@
 package school.faang;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
+
+@Data
 @AllArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
-public class Key {
+public class StudentKey {
     private String faculty;
     private Integer year;
 }

@@ -3,10 +3,11 @@ package school.faang;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
-   static List<Student> listStudents = new ArrayList<>();
+    static List<Student> listStudents = new ArrayList<>();
 
     public static void main(String[] args) {
 
@@ -28,11 +29,13 @@ public class Main {
         }
     }
 
-    public static HashMap<Key, List<Student>> listToHashMap(List<Student> list) {
-        HashMap<Key, List<Student>> stMap = new HashMap<>();
+    public static Map<StudentKey, List<Student>> listToHashMap(List<Student> list) {
+        Map<StudentKey, List<Student>> stMap = new HashMap<>();
         list.forEach(student ->
-                stMap.computeIfAbsent(new Key(student.getFaculty(), student.getYear()),
-                        st -> new ArrayList<>()).add(student));
+                stMap.computeIfAbsent(
+                        new StudentKey(student.getFaculty(), student.getYear()),
+                        st -> new ArrayList<>()
+                ).add(student));
         return stMap;
     }
 
@@ -46,7 +49,7 @@ public class Main {
     }
 
     public static List<Student> findStudentsByCourseAndFaculty(String faculty, Integer year) {
-        return listToHashMap(listStudents).get(new Key(faculty, year));
+        return listToHashMap(listStudents).get(new StudentKey(faculty, year));
     }
 
     public static void printStudentsByCourseAndFaculty() {
@@ -57,6 +60,4 @@ public class Main {
                     value.forEach(System.out::println);
                 });
     }
-
-
 }
