@@ -21,14 +21,10 @@ public class SearchEngineTest {
     private WebPage page;
 
     @BeforeEach
-    public void setUp() {
+    public void setUp() throws IOException {
         searchEngine = new SearchEngine();
-        try {
-            String content = Files.readString(Path.of("src/main/resources/habr.txt"));
-            page = new WebPage("https://habr.com/", "Habr", content);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        String content = Files.readString(Path.of("src/test/resources/habr.txt"));
+        page = new WebPage("https://habr.com/", "Habr", content);
     }
 
     @Test
