@@ -1,8 +1,8 @@
-package school.faang;
+package school.faang.warrior;
 
-public class Warrior extends Character {
+public class Warrior extends school.faang.warrior.Character {
     public Warrior(String name, int power, int agility, int intelligence) {
-        super(10, 5, 3);
+        super("Warrior", 10, 5, 3);
         this.name = name;
     }
 
