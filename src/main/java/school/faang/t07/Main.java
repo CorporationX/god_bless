@@ -7,8 +7,8 @@ import java.util.Map;
 
 public class Main {
 
-    private static final Map<Integer, StreamEvent> EVENT = new HashMap<>(); // ID + eventType
-    private static final Map<String, List<StreamEvent>> LIST_MAP = new HashMap<>(); // eventType + eventTypeList
+    private static final Map<Integer, StreamEvent> EVENTS = new HashMap<>(); // ID + eventType
+    private static final Map<String, List<StreamEvent>> EVENT_TYPES = new HashMap<>(); // eventType + eventTypeList
 
 
     public static void main(String[] args) {
@@ -30,40 +30,32 @@ public class Main {
         addStreamEvent(eventSeven);
 
         System.out.println(findStreamEventById(1));
-
         System.out.println(findStreamByEventType("login"));
-
         removeStreamEventById(3);
-
         EventsInfo();
     }
 
     public static void addStreamEvent(StreamEvent streamEvent) {
-        EVENT.put(streamEvent.getId(), streamEvent);
-        LIST_MAP.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
+        EVENTS.put(streamEvent.getId(), streamEvent);
+        EVENT_TYPES.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     public static StreamEvent findStreamEventById(int id) {
-        return EVENT.get(id);
+        return EVENTS.get(id);
     }
 
     public static List<StreamEvent> findStreamByEventType(String eventType) {
-        return LIST_MAP.get(eventType);
+        return EVENT_TYPES.get(eventType);
     }
 
     public static void removeStreamEventById(int id) {
-        StreamEvent streamEvent = EVENT.remove(id);
-        EVENT.remove(id);
-        LIST_MAP.get(streamEvent.getEventType()).remove(streamEvent);
+        StreamEvent streamEvent = EVENTS.remove(id);
+        EVENT_TYPES.get(streamEvent.getEventType()).remove(streamEvent);
     }
 
     public static void EventsInfo() {
-        for (Map.Entry<Integer, StreamEvent> entry : EVENT.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : EVENTS.entrySet()) {
             System.out.println(entry.getValue());
         }
     }
 }
-
-
-
-
