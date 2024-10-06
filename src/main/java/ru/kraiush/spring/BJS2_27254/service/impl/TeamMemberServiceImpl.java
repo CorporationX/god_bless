@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.annotation.Propagation;
 import ru.kraiush.spring.BJS2_27254.exception.MemberException;
 import ru.kraiush.spring.BJS2_27254.model.TeamMember;
 import ru.kraiush.spring.BJS2_27254.repository.TeamMemberRepository;
@@ -31,7 +33,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         this.repository = repository;
     }
 
-    @Transactional
     @Override
     public List<TeamMember> findAll() {
         List<TeamMember> listMembers = repository.findAll();
@@ -45,7 +46,6 @@ public class TeamMemberServiceImpl implements TeamMemberService {
         return listMembers;
     }
 
-    @Transactional
     @Override
     public TeamMember findById(long id) {
         Optional<TeamMember> element = repository.findById(id);
