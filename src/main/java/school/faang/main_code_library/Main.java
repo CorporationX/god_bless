@@ -1,6 +1,6 @@
-package school.faang.main;
+package school.faang.main_code_library;
 
-import school.faang.main_code.Book;
+import school.faang.main_code_library.Book;
 
 import java.util.HashMap;
 import java.util.Map;
