@@ -11,7 +11,7 @@ public class Cohort {
     private String faculty;
     private int year;
 
-    public static Cohort createNewCohort(Student student){
+    public static Cohort createNewCohort(Student student) {
         return new Cohort(student.getFaculty(), student.getYear());
     }
 }
