@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class WeatherData {
     private String city;
-    private int temperature;
-    private int humidity;
+    private double temperature;
+    private double humidity;
 }
