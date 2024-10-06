@@ -1,4 +1,4 @@
-package school.faang.BJS2_29019;
+package school.faang.streamevent;
 
 import lombok.Data;
 

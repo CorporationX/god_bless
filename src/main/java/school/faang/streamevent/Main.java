@@ -1,4 +1,4 @@
-package school.faang.BJS2_29019;
+package school.faang.streamevent;
 
 import lombok.extern.slf4j.Slf4j;
 
