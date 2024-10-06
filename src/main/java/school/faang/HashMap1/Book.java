@@ -39,18 +39,22 @@ public class Book {
     // поиск книги и вывод её местонахождения по названию, автору и году
     public static void searchBook(String title, String author, int year, Map<Book, String> library){
         Book book = new Book(title, author, year);
-        if(library.containsKey(book)){
+        if(library.get(book) != null){
             System.out.println(book.getTitle() + " находится на полке №" + library.get(book));
         } else {
             System.out.println("Книга: " + book.getTitle() + " не найдена.");
         }
     }
 
+    //перегрузка для метода allBooksInfo
+    public static void searchBook(Book book, Map<Book, String> library){
+        System.out.println(book.getTitle() + " находится на полке №" + library.get(book));
+    }
+
     //Вывод списка всех книг и местонахождения
     public static void allBooksInfo(Map<Book, String> library){
         for (Map.Entry<Book, String> entry: library.entrySet()){
-            searchBook(entry.getKey().getTitle(), entry.getKey().getAuthor(),  entry.getKey().getYear(),
-                    library);
+            searchBook(entry.getKey(), library);
         }
     }
 }
