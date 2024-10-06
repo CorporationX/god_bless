@@ -18,45 +18,33 @@ public class Test {
         Subject physics = new Subject(102, "Physics");
         Subject chemistry = new Subject(103, "Chemistry");
 
-        Map<Subject, Integer> student1Subjects = new HashMap<>();
-        student1Subjects.put(math, 85);
-        student1Subjects.put(physics, 90);
-
-        Map<Subject, Integer> student2Subjects = new HashMap<>();
-        student2Subjects.put(math, 80);
-        student2Subjects.put(chemistry, 75);
-
+        Map<Subject, Integer> student1Subjects = new HashMap<>(Map.of(math, 85, physics, 90));
+        Map<Subject, Integer> student2Subjects = new HashMap<>(Map.of(math, 80, chemistry, 75));
         List<Student> studentsForMath = new ArrayList<>(List.of(student1, student2));
         List<Student> studentsForPhysics = new ArrayList<>(List.of(student1));
 
-        main.addNewStudent(student1, student1Subjects, main.getStudentsListWithSubjects());
-        main.printAllStudentsWithSubjectsGrades(main.getStudentsListWithSubjects());
+        main.addStudent(student1, student1Subjects, main.getStudentsWithSubjects(), main.getSubjectsWithStudents());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
         printGaps();
-
-        main.addNewSubjectForExistingStudent(chemistry, 76, student1, main.getStudentsListWithSubjects());
-        main.printAllStudentsWithSubjectsGrades(main.getStudentsListWithSubjects());
+        main.addSubjectForStudent(chemistry, 76, student1, main.getStudentsWithSubjects());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
         printGaps();
-
-        main.addNewStudent(student2, student2Subjects, main.getStudentsListWithSubjects());
-        main.printAllStudentsWithSubjectsGrades(main.getStudentsListWithSubjects());
+        main.addStudent(student2, student2Subjects, main.getStudentsWithSubjects(), main.getSubjectsWithStudents());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
         printGaps();
-
-        main.deleteStudentWithGrades(student1, main.getStudentsListWithSubjects());
-        main.printAllStudentsWithSubjectsGrades(main.getStudentsListWithSubjects());
+        main.deleteStudentWithGrades(student1, main.getStudentsWithSubjects());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
         printGaps();
-
-
-        main.addNewSubjectAndStudyingStudents(math, studentsForMath, main.getSubjectsListWithStudents());
-        main.printAllSubjectsAndStudyingStudents(main.getSubjectsListWithStudents());
+        main.addSubjectAndStudyingStudents(math, studentsForMath, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
         printGaps();
-
-        main.addNewStudentToExistingSubject(student3, math, main.getSubjectsListWithStudents());
-        main.addNewSubjectAndStudyingStudents(physics, studentsForPhysics, main.getSubjectsListWithStudents());
-        main.printAllSubjectsAndStudyingStudents(main.getSubjectsListWithStudents());
+        main.addStudentToSubject(student3, math, main.getSubjectsWithStudents());
+        main.addSubjectAndStudyingStudents(physics, studentsForPhysics, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
         printGaps();
-
-        main.deleteStudentFromSubject(student1, math, main.getSubjectsListWithStudents());
-        main.printAllSubjectsAndStudyingStudents(main.getSubjectsListWithStudents());
+        main.deleteStudentFromSubject(student1, math, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
     }
 
     public static void printGaps() {

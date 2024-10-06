@@ -3,6 +3,7 @@ package school.faang.double_cache_cache_BJS2_32377;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,16 +11,23 @@ import java.util.Map;
 @Getter
 @Setter
 public class Main {
-    private Map<Student, Map<Subject, Integer>> studentsListWithSubjects = new HashMap<>();
-    private Map<Subject, List<Student>> subjectsListWithStudents = new HashMap<>();
+    private Map<Student, Map<Subject, Integer>> studentsWithSubjects = new HashMap<>();
+    private Map<Subject, List<Student>> subjectsWithStudents = new HashMap<>();
 
-    public void addNewStudent(Student student, Map<Subject, Integer> subjectsAndGrades,
-                              Map<Student, Map<Subject, Integer>> targetMap) {
-        targetMap.put(student, subjectsAndGrades);
+    public static void main(String[] args) {
+
     }
 
-    public void addNewSubjectForExistingStudent(Subject subject, int grade, Student student,
-                                                Map<Student, Map<Subject, Integer>> targetMap) {
+    public void addStudent(Student student, Map<Subject, Integer> subjectsAndGrades,
+                           Map<Student, Map<Subject, Integer>> students, Map<Subject, List<Student>> subjects) {
+        students.put(student, subjectsAndGrades);
+        for (Map.Entry<Subject, Integer> entry : subjectsAndGrades.entrySet()) {
+            subjects.computeIfAbsent(entry.getKey(), key -> new ArrayList<>()).add(student);
+        }
+    }
+
+    public void addSubjectForStudent(Subject subject, int grade, Student student,
+                                     Map<Student, Map<Subject, Integer>> targetMap) {
         targetMap.get(student).put(subject, grade);
     }
 
@@ -27,7 +35,7 @@ public class Main {
         targetMap.remove(student);
     }
 
-    public void printAllStudentsWithSubjectsGrades(Map<Student, Map<Subject, Integer>> mapForPrint) {
+    public void printStudentsWithSubjectsGrades(Map<Student, Map<Subject, Integer>> mapForPrint) {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : mapForPrint.entrySet()) {
             String studentName = entry.getKey().getName();
             System.out.printf("\nStudent : %s, Subjects : ", studentName);
@@ -40,11 +48,11 @@ public class Main {
         }
     }
 
-    public void addNewSubjectAndStudyingStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> targetMap) {
+    public void addSubjectAndStudyingStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> targetMap) {
         targetMap.put(subject, students);
     }
 
-    public void addNewStudentToExistingSubject(Student student, Subject subject, Map<Subject, List<Student>> targetMap) {
+    public void addStudentToSubject(Student student, Subject subject, Map<Subject, List<Student>> targetMap) {
         targetMap.get(subject).add(student);
     }
 
@@ -52,7 +60,7 @@ public class Main {
         targetMap.get(subject).remove(student);
     }
 
-    public void printAllSubjectsAndStudyingStudents(Map<Subject, List<Student>> targetMap) {
+    public void printSubjectsAndStudyingStudents(Map<Subject, List<Student>> targetMap) {
         for (Map.Entry<Subject, List<Student>> entry : targetMap.entrySet()) {
             String subjectName = entry.getKey().getName();
             System.out.printf("\nSubject : %s. Students learning subject : ", subjectName);
