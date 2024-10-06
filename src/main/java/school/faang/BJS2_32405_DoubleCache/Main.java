@@ -50,5 +50,8 @@ public class Main {
         System.out.println();
         service.addStudentSubjectScore(Mike, math, 60);
         service.printAllStudentsScores();
+
+        System.out.println("\nStudents by subjects:");
+        service.printAllSubjectsAndStudents();
     }
 }

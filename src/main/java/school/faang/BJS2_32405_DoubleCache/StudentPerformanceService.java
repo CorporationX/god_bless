@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class StudentPerformanceService {
     Map<Student, Map<Subject, Integer>> studentToScores;
@@ -41,6 +42,16 @@ public class StudentPerformanceService {
             }
         } else
             System.out.println("There is no such student in DB.");
+    }
+
+    public void printAllSubjectsAndStudents() {
+        for (var entry: subjectToStudents.entrySet()) {
+            System.out.println();
+            String studentNames = entry.getValue().stream()
+                    .map(Student::getName)
+                    .collect(Collectors.joining(", "));
+            System.out.println(entry.getKey().getName() + ": " + studentNames);
+        }
     }
 
     public void printAllStudentsScores() {
