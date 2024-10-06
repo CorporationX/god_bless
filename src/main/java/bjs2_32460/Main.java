@@ -28,12 +28,12 @@ public class Main {
         printAllGroups();
     }
 
-    public static Map<GroupKey, List<Student>> getGroups(List<Student> students) {
+    public static Map<FacultyYear, List<Student>> getGroups(List<Student> students) {
         return students
                 .stream()
-                .collect(Collectors.groupingBy(student -> {
-                    return new GroupKey(student.getFaculty(), student.getYear());
-                }));
+                .collect(Collectors.groupingBy(student ->
+                        new FacultyYear(student.getFaculty(), student.getYear())
+                ));
     }
 
     public static void addStudent(Student student) {
@@ -45,7 +45,7 @@ public class Main {
     }
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
-        return getGroups(students).get(new GroupKey(faculty, year));
+        return getGroups(students).get(new FacultyYear(faculty, year));
     }
 
     public static void printAllGroups() {
