@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class VesterrosBooksTest {
     @Test
     @DisplayName("test to equals of the books hashcode and equals method")
-    void testToEqualsOfTheBook(){
+    void testToEqualsOfTheBook() {
         Book book1 = new Book("title1", "author1", 1901);
         Book book2 = new Book("title1", "author1", 1901);
         Book book3 = new Book("title7", "author7", 1903);
@@ -30,7 +30,7 @@ public class VesterrosBooksTest {
 
     @Test
     @DisplayName("test to add book")
-    void testToAddBookToLibrary(){
+    void testToAddBookToLibrary() {
         int currentSizeOfBooksInVesterros = Main.books.size();
         Book newBook = new Book("title10", "author10", 1910);
         String placeOfTheNewBook = "place of the new book";
@@ -42,7 +42,7 @@ public class VesterrosBooksTest {
 
     @Test
     @DisplayName("test to remove book")
-    void testToRemoveBookFromLibrary(){
+    void testToRemoveBookFromLibrary() {
         int currentSizeOfBooksInVesterros = Main.books.size();
         Book removingBook = new Book("title1", "author1", 1905);
 
@@ -56,7 +56,7 @@ public class VesterrosBooksTest {
 
     @Test
     @DisplayName("test to find place of the book")
-    void testToFindBookPlace(){
+    void testToFindBookPlace() {
         Book findingBook = new Book("title2", "author2", 1922);
         String placeOfTheBook = Main.books.get(findingBook);
 

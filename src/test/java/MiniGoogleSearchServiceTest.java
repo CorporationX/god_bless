@@ -1,7 +1,7 @@
-import model.WebPage;
+import org.example.model.WebPage;
+import org.example.service.MiniGoogleSearchService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.MiniGoogleSearchService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

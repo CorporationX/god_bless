@@ -29,16 +29,16 @@ public class User {
         if ("".equals(name)) {
             errors += "name is empty, ";
         }
-        if(age < MINIMUM_AGE_FOR_REGISTRATION){
+        if (age < MINIMUM_AGE_FOR_REGISTRATION) {
             errors += "age is not suitable";
         }
-        if(!VALID_JOBS.contains(placeOfWork)){
+        if (!VALID_JOBS.contains(placeOfWork)) {
             errors += "place of work does not match";
         }
-        if(!VALID_ADDRESSES.contains(address)){
+        if (!VALID_ADDRESSES.contains(address)) {
             errors += "address does not match";
         }
-        if("".equals(errors)){
+        if ("".equals(errors)) {
             throw new IllegalArgumentException(errors);
         }
 

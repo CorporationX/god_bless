@@ -1,8 +1,8 @@
-import model.StreamEvent;
+import org.example.model.StreamEvent;
+import org.example.service.StreamEventService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.StreamEventService;
 
 import java.util.ArrayList;
 import java.util.Arrays;

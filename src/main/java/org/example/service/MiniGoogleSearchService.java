@@ -1,6 +1,6 @@
-package service;
+package org.example.service;
 
-import model.WebPage;
+import org.example.model.WebPage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -52,8 +52,8 @@ public class MiniGoogleSearchService {
         String keyWordOfRemovingWebPage = urlsByKeyWord.remove(url);
 
         webPagesByKeyWord.computeIfPresent(keyWordOfRemovingWebPage, (keyWord, pages) -> {
-            for(WebPage webPage : pages){
-                if(webPage.getUrl().equals(url)){
+            for (WebPage webPage : pages) {
+                if (webPage.getUrl().equals(url)) {
                     pages.remove(webPage);
                     break;
                 }

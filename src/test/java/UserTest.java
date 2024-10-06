@@ -1,5 +1,4 @@
 import org.example.model.User;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -17,10 +16,10 @@ public class UserTest {
 
     @Test
     @DisplayName("registration users(positive)")
-    void positiveTestRegistrationUsers(){
-        User user1 = new User("Name1" ,18, "Amazon", "London");
-        User user2 = new User("Name2" ,19, "Uber", "Amsterdam");
-        User user3 = new User("Name3" ,20, "Google", "New York");
+    void positiveTestRegistrationUsers() {
+        User user1 = new User("Name1", 18, "Amazon", "London");
+        User user2 = new User("Name2", 19, "Uber", "Amsterdam");
+        User user3 = new User("Name3", 20, "Google", "New York");
 
         assertNotNull(user1);
         assertNotNull(user2);

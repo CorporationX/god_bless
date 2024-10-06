@@ -1,8 +1,8 @@
-import model.Group;
-import model.Student;
+import org.example.model.Group;
+import org.example.model.Student;
+import org.example.service.StudentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.StudentService;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ public class StudentServiceTest {
     @Test
     @DisplayName("test to grouping students by faculty and year")
     void testToGroupingStudentsByFacultyANdYear() {
-        Map<Group, List<Student>> groupedStudents = StudentService.groupingStudentsByFacultyAndYear(students);
+        Map<Group, List<Student>> groupedStudents = StudentService.groupingStudentsToGroup(students);
 
         assertEquals(7, groupedStudents.size());
     }
@@ -40,7 +40,7 @@ public class StudentServiceTest {
     @Test
     @DisplayName("test to find one group students")
     void testToFindingSameGroupStudents() {
-        StudentService.groupingStudentsByFacultyAndYear(StudentService.students);
+        StudentService.groupingStudentsToGroup(StudentService.students);
         List<Student> foundStudentsList = StudentService.findStudentsByFacultyAndYear("Design", 2);
 
         assertEquals(2, foundStudentsList.size());
