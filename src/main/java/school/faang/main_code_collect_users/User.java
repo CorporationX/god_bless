@@ -1,4 +1,4 @@
-package school.faang.collect_users;
+package school.faang.main_code_collect_users;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,8 +13,8 @@ import java.util.Set;
 @AllArgsConstructor
 @Data
 public class User {
-    private int id;
     private String name;
+    private int id;
     private int age;
     private Set<String> activity;
 
