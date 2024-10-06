@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+
+    private static Integer AGE_OF_MAJORITY = 18;
+
     private String name;
     private int age;
     private String workplace;
     private String address;
 
     public User(String name, int age, String workplace, String address) throws IllegalAccessException {
-        validateName(name);
-        validateAge(age);
-        validateWorkplace(workplace);
-        validateAddress(address);
+        validateUser(name, age, workplace, address);
         this.name = name;
         this.age = age;
         this.workplace = workplace;
@@ -29,6 +29,13 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> userList) {
         return userList.stream().collect(Collectors.groupingBy(User::getAge));
+    }
+
+    private void validateUser(String name, int age, String workplace, String address) throws IllegalAccessException {
+        validateName(name);
+        validateAge(age);
+        validateWorkplace(workplace);
+        validateAddress(address);
     }
 
     private void validateAddress(String address) throws IllegalAccessException {
@@ -44,14 +51,14 @@ public class User {
     }
 
     private void validateAge(int age) throws IllegalAccessException {
-        if (age < 18) {
-            throw new IllegalAccessException("Пользователь не должен быть моложе 18 лет");
+        if (age < AGE_OF_MAJORITY) {
+            throw new IllegalAccessException(String.format("Пользователь не должен быть моложе 18 лет! Переданное значение: %s", age));
         }
     }
 
     private void validateName(String name) throws IllegalAccessException {
         if (name.isEmpty()) {
-            throw new IllegalAccessException("Имя пользоваетля не должно бьть пустым");
+            throw new IllegalAccessException("Имя пользователя не должно быть пустым");
         }
     }
 }
