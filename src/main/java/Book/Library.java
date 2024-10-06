@@ -21,9 +21,8 @@ public class Library {
     }
 
     public void readMap(HashMap<Book, String> map){
-        for(Map.Entry<Book,String> book: placebook.entrySet()){
+        for(Map.Entry<Book,String> book: map.entrySet()){
             System.out.println(book.getKey() + "лежит на полке № " + book.getValue());
         }
     }
-
 }

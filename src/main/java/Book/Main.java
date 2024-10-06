@@ -12,10 +12,14 @@ public class Main {
         library.addbook(book2, "1");
         library.addbook(book3, "2");
         library.readMap(library.placebook);
+
         System.out.println("");
 
         library.removebook(book2);
         library.findBookPlace(book3);
+
+        System.out.println("");
+
         library.readMap(library.placebook);
     }
 }
