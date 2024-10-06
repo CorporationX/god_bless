@@ -19,12 +19,12 @@ public class Main {
         productsSet.add(secondProduct);
         productsSet.add(thirdProduct);
 
-        main.groupedProduct(productsSet);
+        main.groupedProductsByCategory(productsSet);
 
         main.printProductsByCategory();
     }
 
-    public Map<String, List<Product>> groupedProduct(Set<Product> products) {
+    public Map<String, List<Product>> groupedProductsByCategory(Set<Product> products) {
         for (Product product : products) {
             productsMap.computeIfAbsent(product.getCategory(), k -> new ArrayList<>()).add(product);
         }
