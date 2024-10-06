@@ -1,14 +1,13 @@
 package school.faang;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 public class Main {
     public static void main(String[] args) {
         List<User> userList = List.of(
-                new User("Alice", 26, "Google", "New York"),
+                new User("Alice", 18, "Google", "New York"),
                 new User("Alice Johnson", 28, "Amazon", "London"),
                 new User("Bob Smith", 34, "Uber", "Amsterdam"),
                 new User("Charlie Brown", 30, "Amazon", "New York"),
