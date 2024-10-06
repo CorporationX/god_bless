@@ -8,14 +8,19 @@ public class StreamEventUtils {
     public static void addStreamEvent(StreamEvent event, Map<Integer, StreamEvent> idToStreamEventMap,
                                       Map<String, List<StreamEvent>> eventTypeToStreamEventsMap) {
         int idEvent = event.getId();
-        idToStreamEventMap.put(idEvent,event);
+        idToStreamEventMap.put(idEvent, event);
 
         String eventType = event.getEventType();
         List<StreamEvent> streamEvents = eventTypeToStreamEventsMap.get(eventType);
-        if (streamEvents == null){
+        if (streamEvents == null) {
             streamEvents = new ArrayList<>();
-            eventTypeToStreamEventsMap.put(eventType,streamEvents);
+            eventTypeToStreamEventsMap.put(eventType, streamEvents);
         }
         streamEvents.add(event);
     }
+
+    public static StreamEvent findEventById(int id, Map<Integer, StreamEvent> idToStreamEventMap) {
+        return idToStreamEventMap.get(id);
+    }
+
 }
