@@ -8,7 +8,10 @@ public class Main {
     private static Map<Book, String> library = new HashMap<>();
 
     public static void main(String[] args) {
-        // Добавление книг в библиотеку
+        vesterosLibrary();
+    }
+
+    private static void vesterosLibrary() {
         addBook(new Book("1984", "Джордж Оруэлл", 1949), "Полка 1");
         addBook(new Book("Чебурашка", "Успенский", 1975), "Полка 2");
         addBook(new Book("Незнайка", "Носов", 1979), "Полка 3");
