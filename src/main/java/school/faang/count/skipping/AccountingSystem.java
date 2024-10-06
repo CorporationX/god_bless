@@ -9,7 +9,7 @@ import java.util.Objects;
 public class AccountingSystem {
     private final List<Student> students = new ArrayList<>();
     private final Map<String, Integer> studentToIndex = new HashMap<>();
-    private final Map<Course, List<Student>>  courseToStudents = new HashMap<>();
+    private final Map<Course, List<Student>> courseToStudents = new HashMap<>();
 
     public void add(Student student) {
         Objects.requireNonNull(student, "student is null");
@@ -24,17 +24,13 @@ public class AccountingSystem {
         int position = studentToIndex.get(name);
         int lastIndex = students.size() - 1;
 
-        //удаление элемента
         students.set(position, students.get(lastIndex));
         Student lastStudent = students.remove(lastIndex);
-
-        //обновление индекса
         studentToIndex.remove(name);
         if (!name.equals(lastStudent.getName())) {
             studentToIndex.put(lastStudent.getName(), position);
         }
 
-        //обновление courseToStudents
         for (var entry : courseToStudents.entrySet()) {
             Course course = entry.getKey();
             List<Student> students = entry.getValue();

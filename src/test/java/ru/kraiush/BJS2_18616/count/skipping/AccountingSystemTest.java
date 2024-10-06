@@ -3,7 +3,6 @@ package ru.kraiush.BJS2_18616.count.skipping;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import school.faang.count.skipping.AccountingSystem;
-import school.faang.count.skipping.Course;
 import school.faang.count.skipping.Student;
 
 import java.util.List;
