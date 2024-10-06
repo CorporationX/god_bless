@@ -10,18 +10,17 @@ public abstract class Character  implements Attackable{
     protected int intelligence;
     protected int health = 100;
 
-    Character(String name) {
-        if ("".equals(name) || name == null) {
-            throw new IllegalArgumentException("Name is empty");
-        } else {
-            this.name = name;
-        }
-    }
-
     public Character(String name, int power, int dexterity, int intelligence) {
+        if (name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name is empty");
+        }
         this.name = name;
         this.power = power;
         this.dexterity = dexterity;
         this.intelligence = intelligence;
+    }
+
+    Character(String name) {
+        this(name, 0, 0, 0);
     }
 }
