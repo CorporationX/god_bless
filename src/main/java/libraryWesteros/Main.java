@@ -42,6 +42,5 @@ public class Main {
         printBooks();
         System.out.println();
         findBook("Война и мир I", "Толстой Л.Н.", 2000);
-
     }
 }
