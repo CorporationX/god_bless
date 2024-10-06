@@ -1,4 +1,13 @@
 package cacheCache;
 
-public record WeatherData(String city, int temperature, int humidity) {
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class WeatherData {
+    private final String city;
+    private final int temperature;
+    private final int humidity;
+
 }
