@@ -7,8 +7,8 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StudentService {
-    Map<Student, Map<Subject, Integer>> studentToScores;
-    Map<Subject, List<Student>> subjectToStudents;
+    private final Map<Student, Map<Subject, Integer>> studentToScores;
+    private final Map<Subject, List<Student>> subjectToStudents;
 
     public StudentService() {
         studentToScores = new HashMap<>();
