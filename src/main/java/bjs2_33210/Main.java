@@ -34,13 +34,9 @@ public class Main {
 
     public static void addEvent(StreamEvent event) {
         events.put(event.getId(), event);
-
-        var list = groupsOfEvents
+        groupsOfEvents
                 .putIfAbsent(event.getEventType(), new ArrayList<>(List.of(event)));
-
-        if (list != null) {
-            groupsOfEvents.get(event.getEventType()).add(event);
-        }
+        groupsOfEvents.get(event.getEventType()).add(event);
     }
 
     public static StreamEvent findEventById(Integer id) {
@@ -52,9 +48,18 @@ public class Main {
     }
 
     public static void deleteEventById(int id) {
-        groupsOfEvents
-                .get(events.get(id).getEventType())
-                .remove(events.get(id));
+        StreamEvent event = events.get(id);
+        if (event == null) {
+            return;
+        }
+        String eventType = event.getEventType();
+
+        List<StreamEvent> listEvents = groupsOfEvents.get(eventType);
+        listEvents.remove(event);
+        if (listEvents.isEmpty()) {
+            groupsOfEvents.remove(eventType);
+        }
+
         events.remove(id);
     }
 
