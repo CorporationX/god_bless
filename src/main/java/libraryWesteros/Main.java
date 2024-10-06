@@ -5,15 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    static final Map<Book, String> books = new HashMap<>(){{
-        put(new Book("Война и мир I","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир II","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир III","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир IV","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир V","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир VI","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир VII","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
-        put(new Book("Война и мир VIII","Толстой Л.Н.", 2000 ),"5 стелаж 3 полка");
+    static final Map<Book, String> books = new HashMap<>() {{
+        put(new Book("Война и мир I", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир II", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир III", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир IV", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир V", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир VI", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир VII", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
+        put(new Book("Война и мир VIII", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
     }};
 
     public static void addBook(Book book, String bookLocation) {
@@ -35,13 +35,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        deleteBook("Война и мир VI","Толстой Л.Н.",2000);
+        deleteBook("Война и мир VI", "Толстой Л.Н.", 2000);
         printBooks();
         System.out.println();
-        addBook(new Book("Война и мир VI","Толстой Л.Н.",2000),"5 стелаж 3 полка");
+        addBook(new Book("Война и мир VI", "Толстой Л.Н.", 2000), "5 стелаж 3 полка");
         printBooks();
         System.out.println();
-        System.out.println(findBook("Война и мир I","Толстой Л.Н.",2000));
+        System.out.println(findBook("Война и мир I", "Толстой Л.Н.", 2000));
 
     }
 }
