@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 @Getter
-public class StreamEventRepository {
+public class StreamEventService {
   private final Map<Integer, StreamEvent> events = new HashMap<>();
   private final Map<String, List<StreamEvent>> groupEvents = new HashMap<>();
 
@@ -31,5 +31,6 @@ public class StreamEventRepository {
     if(streamEvent == null) return;
 
     groupEvents.get(streamEvent.getEventType()).remove(streamEvent);
+    events.remove(id);
   }
 }

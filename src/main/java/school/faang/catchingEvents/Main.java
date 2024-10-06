@@ -3,7 +3,7 @@ package school.faang.catchingEvents;
 public class Main {
   public static void main(String[] args) {
 
-    StreamEventRepository streamEventRepository = new StreamEventRepository();
+    StreamEventService streamEventRepository = new StreamEventService();
 
     streamEventRepository.addStreamEvent(new StreamEvent(0, "2", "12312"));
     streamEventRepository.addStreamEvent(new StreamEvent(1, "2", "12321313"));
