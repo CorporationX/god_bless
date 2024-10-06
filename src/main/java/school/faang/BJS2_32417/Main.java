@@ -4,37 +4,27 @@ import java.util.*;
 
 public class Main {
     private static final Map<Student, Map<Subject, Integer>> STUDENTS_SUBJECTS = new HashMap<>();
-    private static final Map<Subject, List<Student>> STUDENTS_WITH_SUBJECT = new HashMap<>();
+    private static final Map<Subject, List<Student>> SUBJECT_WITH_STUDENTS = new HashMap<>();
 
-    public static void addStudent(Student student, Subject subject, int grade) {
-        dataValidation(student, subject, grade);
 
-        STUDENTS_SUBJECTS.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-
-        STUDENTS_WITH_SUBJECT.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+    public static void addStudent(Student student, Map<Subject, Integer> scores) {
+        STUDENTS_SUBJECTS.computeIfAbsent(student, k -> new HashMap<>()).putAll(scores);
+        for (Subject subject : scores.keySet()) {
+            addSubject(subject, student);
+        }
     }
 
-    public static void addSubject(Student student, Subject subject, int grade) {
-        dataValidation(student, subject, grade);
-
-        if (!STUDENTS_SUBJECTS.containsKey(student)) {
-            System.out.println("Студент не найден");
-        }
-
-        STUDENTS_SUBJECTS.get(student).putIfAbsent(subject, grade);
-
-        STUDENTS_WITH_SUBJECT.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+    private static void addSubject(Subject subject, Student student) {
+        dataValidation(student, subject);
+        SUBJECT_WITH_STUDENTS.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public static void deleteStudent(Student student) {
         dataValidation(student);
-
-        STUDENTS_SUBJECTS.remove(student);
-    }
-
-    //для доп возможности удалить студента по id
-    public static void deleteStudent(int id) {
-        STUDENTS_SUBJECTS.entrySet().removeIf(entry -> entry.getKey().getId() == id);
+        Set<Subject> subjectSet = STUDENTS_SUBJECTS.remove(student).keySet();
+        for (Subject subject : subjectSet) {
+            SUBJECT_WITH_STUDENTS.get(subject).remove(student);
+        }
     }
 
     public static void getAllStudents() {
@@ -58,34 +48,8 @@ public class Main {
         }
     }
 
-    public static void addSubjectAndStudents(Subject subject, List<Student> students) {
-        dataValidation(students, subject);
-
-        STUDENTS_WITH_SUBJECT.putIfAbsent(subject, students);
-    }
-
-    public static void addNewStudentToSubject(Student student, Subject subject) {
-        dataValidation(student, subject);
-
-        if (!STUDENTS_WITH_SUBJECT.containsKey(subject)) {
-            System.out.println("Предмет не найден");
-        }
-
-        STUDENTS_WITH_SUBJECT.get(subject).add(student);
-    }
-
-    public static void deleteStudentFromSubject(Student student, Subject subject) {
-        dataValidation(student, subject);
-
-        if (STUDENTS_WITH_SUBJECT.containsKey(subject)) {
-            STUDENTS_WITH_SUBJECT.get(subject).remove(student);
-        } else {
-            System.out.println("Предмет не найден");
-        }
-    }
-
     public static void getAllSubjectsWithStudents() {
-        for (var entry : STUDENTS_WITH_SUBJECT.entrySet()) {
+        for (var entry : SUBJECT_WITH_STUDENTS.entrySet()) {
             Subject subject = entry.getKey();
             List<Student> students = entry.getValue();
 
@@ -98,20 +62,8 @@ public class Main {
         }
     }
 
-    private static void dataValidation(Student student, Subject subject, int grade) {
-        if (Objects.isNull(student) && Objects.isNull(subject) && grade <= 0) {
-            throw new IllegalArgumentException("Проверьте данные");
-        }
-    }
-
     private static void dataValidation(Student student, Subject subject) {
         if (Objects.isNull(student) && Objects.isNull(subject)) {
-            throw new IllegalArgumentException("Проверьте данные");
-        }
-    }
-
-    private static void dataValidation(List<Student> students, Subject subject) {
-        if (students.isEmpty() && Objects.isNull(subject)) {
             throw new IllegalArgumentException("Проверьте данные");
         }
     }
@@ -127,18 +79,20 @@ public class Main {
         Student tim = new Student(2, "Tim");
         Student erik = new Student(3, "Erik");
 
-        addStudent(mark, new Subject(1, "CS"), 5);
-        addStudent(tim, new Subject(2, "English"), 4);
-        addStudent(erik, new Subject(3, "Sport"), 3);
+        addStudent(mark, Map.of(new Subject(1, "CS"), 5,
+                new Subject(2, "English"), 4));
+        addStudent(tim, Map.of(new Subject(3, "Literature"), 4,
+                new Subject(2, "English"), 4));
+        addStudent(erik, Map.of(new Subject(3, "Literature"), 3,
+                new Subject(1, "CS"), 5));
 
         getAllStudents();
         getAllSubjectsWithStudents();
 
-        addSubject(tim, new Subject(4, "Mathe"), 5);
-        deleteStudent(erik);
+        Subject chemistry = new Subject(4, "Chemistry");
 
-        Subject chemistry = new Subject(5, "Chemistry");
-        addSubjectAndStudents(chemistry, List.of(mark, tim));
+        addSubject(chemistry, mark);
+        deleteStudent(erik);
 
         getAllStudents();
         getAllSubjectsWithStudents();
