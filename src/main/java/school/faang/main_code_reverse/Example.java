@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_reverse;
 
 public class Example {
     public static int[] reverse(int[] mas) {

@@ -1,6 +1,6 @@
-package school.faang.main;
+package school.faang.main_code_reverse;
 
-import school.faang.main_code.Example;
+import school.faang.main_code_reverse.Example;
 
 import java.util.Arrays;
 
