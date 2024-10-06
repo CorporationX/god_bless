@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_cash_cash;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
