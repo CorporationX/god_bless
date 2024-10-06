@@ -14,64 +14,63 @@ class StudentServiceTest {
     StudentService service;
     Student John;
     Student Alice;
-    Student Bob;
-    Student Eva;
-    Student Mike;
     Subject math;
     Subject physics;
-    Subject chemistry;
-    Subject literature;
-    Subject history;
 
     @BeforeEach
     void setUp() {
         service = new StudentService();
-
         John = new Student(1, "John");
         Alice = new Student(2, "Alice");
-        Bob = new Student(3, "Bob");
-        Eva = new Student(4, "Eva");
-        Mike = new Student(5, "Mike");
-
         math = new Subject(1,"Math");
         physics = new Subject(2, "Physics");
-        chemistry = new Subject(3, "Chemistry");
-        literature = new Subject(4, "Literature");
-        history = new Subject(5, "History");
+    }
 
+    @Test
+    @DisplayName("Adding multiple subjects' scores for a student")
+    void testAddStudentSubjectsScores() {
         Map<Subject, Integer> johnScores = new HashMap<>();
         johnScores.put(math, 90);
         johnScores.put(physics, 85);
         service.addStudentSubjectsScores(John, johnScores);
 
-        Map<Subject, Integer> AliceScores = new HashMap<>();
-        AliceScores.put(literature, 95);
-        AliceScores.put(history, 88);
-        service.addStudentSubjectsScores(Alice, AliceScores);
+        assertEquals(1, service.getStudentsCount());
+        assertEquals(2, service.getSubjectsCount());
 
-        service.addStudentSubjectScore(Bob, math, 78);
-        service.addStudentSubjectScore(Bob, literature, 81);
+        Map<Subject, Integer> aliceScores = new HashMap<>();
+        aliceScores.put(math, 80);
+        aliceScores.put(physics, 95);
+        service.addStudentSubjectsScores(Alice, aliceScores);
 
-        service.addStudentSubjectScore(Eva, chemistry, 92);
-        service.addStudentSubjectScore(Eva, physics, 89);
-
-        service.addStudentSubjectScore(Mike, history, 85);
-        service.addStudentSubjectScore(Mike, math, 80);
+        assertEquals(2, service.getStudentsCount());
+        assertEquals(2, service.getSubjectsCount());
     }
 
     @Test
-    @DisplayName("Adding student scores")
-    void testAddStudent() {
-        assertEquals(5, service.getStudentsCount());
-        assertEquals(5, service.getSubjectsCount());
+    @DisplayName("Adding single subject score for a student")
+    void testAddStudentSubjectScore() {
+        service.addStudentSubjectScore(John, math, 65);
+
+        assertEquals(1, service.getStudentsCount());
+        assertEquals(1, service.getSubjectsCount());
+
+        service.addStudentSubjectScore(Alice, math, 78);
+        service.addStudentSubjectScore(Alice, physics, 81);
+
+        assertEquals(2, service.getStudentsCount());
+        assertEquals(2, service.getSubjectsCount());
     }
 
     @Test
     @DisplayName("Removing the student from DB")
     void testRemoveStudent() {
-        service.removeStudent(Eva);
+        service.addStudentSubjectScore(John, math, 78);
+        service.addStudentSubjectScore(Alice, physics, 81);
+        service.addStudentSubjectScore(Alice, math, 78);
 
-        assertEquals(4, service.getStudentsCount());
-        assertEquals(4, service.getSubjectsCount());
+        service.removeStudent(John);
+
+        assertEquals(1, service.getStudentsCount());
+        assertEquals(2, service.getSubjectsCount());
     }
 }
