@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.main_code;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
