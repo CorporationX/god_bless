@@ -24,10 +24,15 @@ public class StudentManager {
         return groupedStudentsByFacultyAndYear;
     }
 
-    public static void addStudentToList(Student student,List<Student> students){
+    public static void addStudentToList(Student student, List<Student> students) {
         if (!(students.contains(student))) {
             students.add(student);
         }
+    }
+
+    public static void removeStudent(String name, String faculty, int year, List<Student> students) {
+        Student student = new Student(name, faculty, year);
+        students.remove(student);
     }
 
     private static List<Student> allocationToCurrentGroup(List<Student> students, FacultyYearPair facultyYearPairCurrentStudent) {

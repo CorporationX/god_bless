@@ -25,6 +25,7 @@ public class Main {
         }};
         testGroupStudentsByFacultyAndYear(students);
         testAddStudentToList();
+        testRemoveStudent();
     }
 
     private static void testGroupStudentsByFacultyAndYear(List<Student> students) {
@@ -57,6 +58,26 @@ public class Main {
 
         System.out.println("adding the same student again");
         StudentManager.addStudentToList(student, students);
+        System.out.println("list students after: " + students);
+
+    }
+
+    private static void testRemoveStudent() {
+        System.out.println("\ntestRemoveStudent\n");
+        ArrayList<Student> students = new ArrayList<>();
+        StudentManager.addStudentToList(new Student("Frank", "Engineering", 2), students);
+        String name = "Frank";
+        String faculty = "Engineering";
+        int year = 3;
+
+        System.out.println("list students before: " + students);
+        System.out.println("remove student: " + "name - " + name + ", faculty - " + faculty + ", year - " + year);
+        StudentManager.removeStudent(name,faculty,year,students);
+        System.out.println("list students after: " + students);
+
+        year = 2;
+        StudentManager.removeStudent(name,faculty,year,students);
+        System.out.println("remove student: " + "name - " + name + ", faculty - " + faculty + ", year - " + year);
         System.out.println("list students after: " + students);
 
     }
