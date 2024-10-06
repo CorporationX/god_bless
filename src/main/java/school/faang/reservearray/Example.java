@@ -1,17 +1,12 @@
 package school.faang.reservearray;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 public class Example {
-    public ArrayList<Integer> reserve(int[] array) {
-        ArrayList<Integer> listArray = new ArrayList<>();
-
-        for(int element : array) {
-            listArray.add(element);
+    public int[] reserve(int[] array) {
+        for (int i = 0; i < array.length / 2; i++) {
+            int temp = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = temp;
         }
-
-        Collections.reverse(listArray);
-        return listArray;
+        return array;
     }
 }
