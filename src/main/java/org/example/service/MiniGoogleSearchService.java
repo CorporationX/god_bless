@@ -11,36 +11,33 @@ import java.util.Map;
 import java.util.Set;
 
 public class MiniGoogleSearchService {
-    private static List<WebPage> webPagesAboutSport = new ArrayList<>(Arrays.asList(
-            new WebPage("http://sport.kz", "sport", "some content about sport"),
-            new WebPage("http://newsSport.kz", "De Yong back to training", "some sport content about news"),
-            new WebPage("http://sport_life.kz", "La liga table", "some sport content la liga table"),
-            new WebPage("http://setanta_sport.kz", "Chanel plan for today", "some sport content about setanta"),
-            new WebPage("http://qazsport.kz", "Qazaqstan sport is growing", "some content about sport in KZ")
-    ));
-    private static List<WebPage> webPagesAboutAI = new ArrayList<>(Arrays.asList(
-            new WebPage("medicine.kz", "AI in medicine", "AI in KZ medicine"),
-            new WebPage("medlife.kz", "AI in medicine", "AI in KZ medicine"),
-            new WebPage("news.kz", "AI in medicine", "AI in KZ medicine"),
-            new WebPage("AI.kz", "AI in medicine", "AI in KZ medicine")
-    ));
     public static Map<String, List<WebPage>> webPagesByKeyWord = new HashMap<>(Map.of(
-            "sport", webPagesAboutSport,
-            "ai", webPagesAboutAI
+            "some", new ArrayList<>(Arrays.asList(new WebPage("http://sport.kz", "sport", "some content about sport"))),
+            "content", new ArrayList<>(Arrays.asList(new WebPage("http://sport.kz", "sport", "some content about sport"))),
+            "about", new ArrayList<>(Arrays.asList(new WebPage("http://sport.kz", "sport", "some content about sport"))),
+            "sport", new ArrayList<>(Arrays.asList(new WebPage("http://sport.kz", "sport", "some content about sport"))),
+            "ai", new ArrayList<>(Arrays.asList(new WebPage("medicine.kz", "AI in medicine", "AI in KZ medicine"))),
+            "in", new ArrayList<>(Arrays.asList(new WebPage("medicine.kz", "AI in medicine", "AI in KZ medicine"))),
+            "kz", new ArrayList<>(Arrays.asList(new WebPage("medicine.kz", "AI in medicine", "AI in KZ medicine"))),
+            "medicine", new ArrayList<>(Arrays.asList(new WebPage("medicine.kz", "AI in medicine", "AI in KZ medicine")))
     ));
-    private static Map<String, String> urlsByKeyWord = new HashMap<>();
+    private static Map<String, Set<String>> urlByKeyWords = new HashMap<>(Map.of(
+            "http://sport.kz", Set.of("some", "content", "about", "sport"),
+            "medicine.kz", Set.of("ai", "in", "kz", "medicine")
+    ));
 
     public static void indexingWebPage(WebPage webPage) {
-        String allContentOfWebPage = (webPage.getTitle() + " " + webPage.getContent())
-                .toLowerCase();
-        Set<String> uniqueWordsCurrentWebPage = new HashSet<>(Arrays.asList(allContentOfWebPage.split(" ")));
+        if (!urlByKeyWords.containsKey(webPage.getUrl())) {
+            Set<String> uniqueWordsCurrentWebPage = new HashSet<>(
+                    Arrays.asList(webPage.getContent().toLowerCase().split(" "))
+            );
+            urlByKeyWords.computeIfAbsent(webPage.getUrl(), url -> new HashSet<>()).addAll(uniqueWordsCurrentWebPage);
 
-        for (String word : uniqueWordsCurrentWebPage) {
-            if (webPagesByKeyWord.containsKey(word)) {
-                urlsByKeyWord.put(word, webPage.getUrl());
-                webPagesByKeyWord.get(word).add(webPage);
-                break;
+            for (String uniqueWord : uniqueWordsCurrentWebPage) {
+                webPagesByKeyWord.computeIfAbsent(uniqueWord, word -> new ArrayList<>()).add(webPage);
             }
+        } else {
+            throw new IllegalArgumentException("Web page by this " + webPage.getUrl() + " is already have");
         }
     }
 
@@ -49,20 +46,19 @@ public class MiniGoogleSearchService {
     }
 
     public static void removeWebPageByUrl(String url) {
-        String keyWordOfRemovingWebPage = urlsByKeyWord.remove(url);
+        Set<String> keyWordsOfRemovingWebPage = urlByKeyWords.remove(url);
 
-        webPagesByKeyWord.computeIfPresent(keyWordOfRemovingWebPage, (keyWord, pages) -> {
-            for (WebPage webPage : pages) {
-                if (webPage.getUrl().equals(url)) {
-                    pages.remove(webPage);
-                    break;
-                }
+        if(keyWordsOfRemovingWebPage != null){
+            for (String keyWord : keyWordsOfRemovingWebPage) {
+                webPagesByKeyWord.get(keyWord).removeIf(webPage -> {
+                    if(webPage.getUrl().equals(url)){
+                        return true;
+                    }
+                    return false;
+                });
             }
-            if (pages.isEmpty()) {
-                return new ArrayList<>();
-            }
-
-            return pages;
-        });
+        }else{
+            throw new NullPointerException("we dont have such web page with this url: " + url);
+        }
     }
 }

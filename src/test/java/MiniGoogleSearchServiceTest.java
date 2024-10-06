@@ -4,6 +4,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MiniGoogleSearchServiceTest {
     @Test
@@ -13,7 +15,9 @@ public class MiniGoogleSearchServiceTest {
 
         MiniGoogleSearchService.indexingWebPage(newWebPage);
 
-        assertEquals(5, MiniGoogleSearchService.webPagesByKeyWord.get("ai").size());
+        assertEquals(2, MiniGoogleSearchService.webPagesByKeyWord.get("in").size());
+        assertEquals(1, MiniGoogleSearchService.webPagesByKeyWord.get("football").size());
+        assertNull(MiniGoogleSearchService.webPagesByKeyWord.get("unKnownPage"));
     }
 
     @Test
@@ -21,19 +25,18 @@ public class MiniGoogleSearchServiceTest {
     void testSearchByKeyWord() {
         int sizeOfResult = MiniGoogleSearchService.searchWebPageByKeyWord("sport").size();
 
-        assertEquals(5, sizeOfResult);
+        assertEquals(1, sizeOfResult);
     }
 
     @Test
     @DisplayName("test to remove webpage with url")
     void testToRemoveWebPageByUrl() {
-        int sizeOfSportContentPages = MiniGoogleSearchService.searchWebPageByKeyWord("sport").size();
         int sizeOfSAIContentPages = MiniGoogleSearchService.searchWebPageByKeyWord("ai").size();
 
         MiniGoogleSearchService.removeWebPageByUrl("http://sport.kz");
-        MiniGoogleSearchService.removeWebPageByUrl("news.kz");
 
-        assertEquals(4, sizeOfSportContentPages - 1);
-        assertEquals(3, sizeOfSAIContentPages - 1);
+        assertEquals(0, MiniGoogleSearchService.webPagesByKeyWord.get("sport").size());
+        assertEquals(sizeOfSAIContentPages, MiniGoogleSearchService.webPagesByKeyWord.get("ai").size());
+        assertThrows(NullPointerException.class, () -> MiniGoogleSearchService.removeWebPageByUrl("new.kz"));
     }
 }
