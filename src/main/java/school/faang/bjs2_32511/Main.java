@@ -10,31 +10,79 @@ import java.util.Map;
 
 public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+    private static final List<Student> STUDENTS = new ArrayList<>();
 
     private Main() {
     }
 
     public static void main(String[] args) {
-        List<Student> students = new ArrayList<>();
-
         Student student1 = new Student("Дэвид", "Физика", 3);
         Student student2 = new Student("Мария", "Химия", 2);
         Student student3 = new Student("Рассел", "Робототехника", 4);
         Student student4 = new Student("Альберт", "Физика", 3);
+        Student student5 = new Student("Марк", "Робототехника", 2);
 
-        students.add(student1);
-        students.add(student2);
-        students.add(student3);
-        students.add(student4);
+        addNewStudent(student1);
+        addNewStudent(student2);
+        addNewStudent(student3);
+        addNewStudent(student4);
+        addNewStudent(student5);
+        addNewStudent(student5);
 
-        System.out.println(sortStudent(students));
+        deleteStudent(student3);
+        deleteStudent(student3);
+
+        searchStudents("Физика", 3);
+
+        printListOfSortedStudents();
     }
 
-    public static Map<String, Integer> sortStudent(List<Student> students) {
-        HashMap<String, Integer> sortedStudents = new HashMap<>();
+    private static void addNewStudent(Student student) {
+        if (STUDENTS.contains(student)) {
+            LOG.error("Указанный студент уже присутствует в списке");
+        } else {
+            STUDENTS.add(student);
+            LOG.info("Студент добавлен в список студентов");
+        }
+    }
 
-        for (Student student : students) {
-            sortedStudents.putIfAbsent(student.getFaculty(), student.getYear());
+    private static void deleteStudent(Student student) {
+        if (!STUDENTS.contains(student)) {
+            LOG.error("Указанный студент отсутствует в списке");
+        } else {
+            STUDENTS.remove(student);
+            LOG.info("Студент " + student.getName() + " удален из списка студентов");
+        }
+    }
+
+    private static void searchStudents(String faculty, int year) {
+        LOG.info("Поиск студентов на факультете " + faculty + " " + year + " курса...");
+
+        List<Student> sortedStudents = new ArrayList<>();
+
+        for (Student student : STUDENTS) {
+            if (student.getFaculty().equals(faculty) && student.getYear() == year) {
+                sortedStudents.add(student);
+            }
+        }
+        if (sortedStudents.isEmpty()) {
+            LOG.error("На указанном факультете и курсе не учится ни одного студента");
+        } else {
+            LOG.info("Результат поиска: "  + sortedStudents);
+        }
+    }
+
+    private static void printListOfSortedStudents() {
+        for (Map.Entry<Map<String, Integer>, List<Student>> student : sortStudents().entrySet()) {
+            LOG.info("\nФакультет и курс: " + student.getKey() + "\nСтуденты: " + student.getValue());
+        }
+    }
+
+    private static Map<Map<String, Integer>, List<Student>> sortStudents() {
+        Map<Map<String, Integer>, List<Student>> sortedStudents = new HashMap<>();
+        for (Student student : STUDENTS) {
+            sortedStudents.putIfAbsent(Map.of(student.getFaculty(), student.getYear()), new ArrayList<>());
+            sortedStudents.get(Map.of(student.getFaculty(), student.getYear())).add(student);
         }
 
         return sortedStudents;
