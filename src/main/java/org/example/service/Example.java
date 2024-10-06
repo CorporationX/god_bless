@@ -1,4 +1,4 @@
-package service;
+package org.example.service;
 
 public class Example {
     public static void reverse(int[] nums) {

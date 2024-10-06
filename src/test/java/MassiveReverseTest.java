@@ -1,6 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import service.Example;
+import org.example.service.Example;
 
 import java.util.Arrays;
 
