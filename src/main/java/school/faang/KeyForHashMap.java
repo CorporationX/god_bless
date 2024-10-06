@@ -43,6 +43,5 @@ public class KeyForHashMap {
         KeyForHashMap key = (KeyForHashMap) obj;
         return year == key.year &&
                 Objects.equals(faculty, key.faculty);
-
     }
 }
