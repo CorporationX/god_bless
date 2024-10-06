@@ -11,12 +11,13 @@ public class Main {
     static void addPage(WebPage page) {
         String[] words = page.getContent().split("\\W+");
         for (String word : words) {
-            webPageMap.computeIfAbsent(word, w -> new ArrayList<>()).add(page);
+            webPageMap.computeIfAbsent(word.toLowerCase(), w -> new ArrayList<>()).add(page);
         }
     }
 
     static List<WebPage> getWebPagesByKeyWord(String keyWord) {
-        return webPageMap.get(keyWord);
+        String key = keyWord.toLowerCase();
+        return webPageMap.get(key);
     }
 
     static void deleteWebPageByURL(String url) {
@@ -44,7 +45,7 @@ public class Main {
         for (WebPage page : pages) {
             addPage(page);
         }
+        System.out.println(getWebPagesByKeyWord("BOOK"));
         deleteWebPageByURL("https://flip.kz");
-        System.out.println(getWebPagesByKeyWord("Book"));
     }
 }
