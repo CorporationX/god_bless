@@ -3,7 +3,7 @@ package org.example.model;
 import lombok.Data;
 
 @Data
-public abstract class Character  implements Attackable{
+public abstract class Character implements Attackable {
     protected String name;
     public int power;
     protected int dexterity;

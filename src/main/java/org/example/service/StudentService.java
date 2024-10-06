@@ -1,7 +1,7 @@
-package service;
+package org.example.service;
 
-import model.Group;
-import model.Student;
+import org.example.model.Group;
+import org.example.model.Student;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +32,7 @@ public class StudentService {
         return groupedStudentsByFacultyAndYear;
     }
 
-    public static Student addStudent(String name, String faculty, int year){
+    public static Student addStudent(String name, String faculty, int year) {
         var newStudent = new Student(name, faculty, year);
         var groupOfTheNewStudent = new Group(faculty, year);
 
@@ -42,14 +42,14 @@ public class StudentService {
         return newStudent;
     }
 
-    public static Student removeStudent(String name, String faculty, int year){
+    public static Student removeStudent(String name, String faculty, int year) {
         var removingStudent = new Student(name, faculty, year);
         var deletingStudentGroup = new Group(faculty, year);
 
         students.remove(removingStudent);
         groupedStudentsByFacultyAndYear.computeIfPresent(deletingStudentGroup, (group, studentList) -> {
             studentList.remove(removingStudent);
-            if(studentList.size() == 0){
+            if (studentList.size() == 0) {
                 return null;
             }
             return studentList;
@@ -57,13 +57,13 @@ public class StudentService {
         return removingStudent;
     }
 
-    public static List<Student> findStudentsByFacultyAndYear(String faculty, int year){
+    public static List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
         var group = new Group(faculty, year);
 
         return groupedStudentsByFacultyAndYear.get(group);
     }
 
-    public static Map<Group, List<Student>> getAllGroupedStudents(){
+    public static Map<Group, List<Student>> getAllGroupedStudents() {
         return groupedStudentsByFacultyAndYear;
     }
 }

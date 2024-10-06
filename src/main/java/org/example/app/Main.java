@@ -48,9 +48,9 @@ public class Main {
             Book currentBook = entryBook.getKey();
             System.out.println(
                     currentBook.getTitle() + ", " +
-                    currentBook.getAuthor() + ", " +
-                    currentBook.getYear() + ": " +
-                    entryBook.getValue());
+                            currentBook.getAuthor() + ", " +
+                            currentBook.getYear() + ": " +
+                            entryBook.getValue());
         }
     }
 }

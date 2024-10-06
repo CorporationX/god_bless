@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class CharacterTest {
     @Test
     @DisplayName("check method attack")
-    void positiveTestAttack(){
+    void positiveTestAttack() {
         Character Zhubanysh = new Warrior("Zhubanysh");
         Character Bekassyl = new Archer("Bekassyl");
 

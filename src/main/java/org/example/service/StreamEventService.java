@@ -1,6 +1,6 @@
-package service;
+package org.example.service;
 
-import model.StreamEvent;
+import org.example.model.StreamEvent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,36 +11,36 @@ public class StreamEventService {
     public static Map<Integer, StreamEvent> eventById = new HashMap<>();
     public static Map<String, List<StreamEvent>> eventsByType = new HashMap<>();
 
-    public static void addEvent(StreamEvent event){
+    public static void addEvent(StreamEvent event) {
         eventById.put(event.getId(), event);
         eventsByType.computeIfAbsent(event.getEventType(), eventType -> new ArrayList<StreamEvent>()).add(event);
     }
 
-    public static StreamEvent findStreamEventById(int id){
+    public static StreamEvent findStreamEventById(int id) {
         return eventById.get(id);
     }
 
-    public static List<StreamEvent> findStreamEventsByEvenType(String eventType){
+    public static List<StreamEvent> findStreamEventsByEvenType(String eventType) {
         return eventsByType.get(eventType);
     }
 
-    public static void removeStreamEventById(int id){
+    public static void removeStreamEventById(int id) {
         StreamEvent removingEvent = eventById.remove(id);
         eventsByType.computeIfPresent(removingEvent.getEventType(), (eventType, eventList) -> {
             eventList.remove(removingEvent);
-            if(eventList.size() == 0){
+            if (eventList.size() == 0) {
                 return new ArrayList<>();
             }
             return eventList;
         });
     }
 
-    public static void getAllStreamEvents(){
-        for(Map.Entry<Integer, StreamEvent> eventEntry : eventById.entrySet()){
+    public static void getAllStreamEvents() {
+        for (Map.Entry<Integer, StreamEvent> eventEntry : eventById.entrySet()) {
             System.out.println(
                     "id: " + eventEntry.getKey() +
-                    "\nevent type: " + eventEntry.getValue().getEventType() +
-                    "\ndata: " + eventEntry.getValue().getData()
+                            "\nevent type: " + eventEntry.getValue().getEventType() +
+                            "\ndata: " + eventEntry.getValue().getData()
             );
         }
     }
