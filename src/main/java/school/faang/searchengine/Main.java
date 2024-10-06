@@ -10,8 +10,8 @@ import java.util.Set;
 
 
 public class Main {
-    public static Map<String, List<WebPage>> keyWords = new HashMap<>();
-    public static Map<String, Set<String>> urlWords = new HashMap<>();
+    public static Map<String, List<WebPage>> webPagesOfKeyWords = new HashMap<>();
+    public static Map<String, Set<String>> keyWordsPerUrl = new HashMap<>();
 
     public static void main(String[] args) {
         WebPage page1 = new WebPage("https://test-page1.com", "Title1", "This is an test-page1 content.");
@@ -21,7 +21,7 @@ public class Main {
         indexWebPage(page1);
         indexWebPage(page2);
         indexWebPage(page3);
-        printMap(keyWords);
+        printMap(webPagesOfKeyWords);
 
         System.out.println("\nFind web pages by key word");
         findWebPageByKeyWord("interesting");
@@ -29,25 +29,25 @@ public class Main {
         findWebPageByKeyWord("TEST-not-found");
 
         removePageByUrl("https://test-page3.com");
-        printMap(keyWords);
+        printMap(webPagesOfKeyWords);
     }
 
     //    метод для индексирования новой веб-страницы
     public static void indexWebPage(WebPage page) {
         Set<String> words = parseContent(page);
         for (String word : words) {
-            keyWords.computeIfAbsent(word, k -> new ArrayList<>()).add(page);
+            webPagesOfKeyWords.computeIfAbsent(word, k -> new ArrayList<>()).add(page);
         }
-        urlWords.put(page.getUrl(), words);
+        keyWordsPerUrl.put(page.getUrl(), words);
     }
 
     //    метод для удаления веб-страницы из индекса по её URL
     public static void removePageByUrl(String url) {
-        Set<String> words = urlWords.get(url);
+        Set<String> words = keyWordsPerUrl.get(url);
         for (String word : words) {
-            keyWords.get(word).removeIf(webPage -> webPage.getUrl().equals(url));
-            if (keyWords.get(word).isEmpty()) {
-                keyWords.remove(word);
+            webPagesOfKeyWords.get(word).removeIf(webPage -> webPage.getUrl().equals(url));
+            if (webPagesOfKeyWords.get(word).isEmpty()) {
+                webPagesOfKeyWords.remove(word);
             }
         }
         words.remove(url);
@@ -55,7 +55,7 @@ public class Main {
 
     //    метод поиска веб-страниц по ключевому слову, который будет принимать строку (ключевое слово) и возвращать список веб-страниц, содержащих это ключевое слово
     public static List<WebPage> findWebPageByKeyWord(String keyWord) {
-        List<WebPage> webPages = keyWords.get(keyWord.toLowerCase());
+        List<WebPage> webPages = webPagesOfKeyWords.get(keyWord.toLowerCase());
         if (webPages != null && !webPages.isEmpty()) {
             System.out.println("Web pages for key word " + keyWord + ": " + webPages);
         } else {
