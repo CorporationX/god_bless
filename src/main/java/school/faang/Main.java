@@ -7,8 +7,12 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Integer> numbers = new ArrayList<>(List.of(1, 2, 3, 4, 5));
-        List result = Example.reverse(numbers);
-        System.out.println("ArrayList reversed : " + result);
+        int[] nums = {1, 2, 3, 4, 5};
+        Example.reverse(nums);
+
+        System.out.println("ArrayList reversed : ");
+        for (int num : nums) {
+            System.out.print(num + " ");
+        }
     }
 }
