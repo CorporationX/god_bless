@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final ArrayList<Student> STUDENTS = new ArrayList<>();
+    private static final List<Student> STUDENTS = new ArrayList<>();
     private static Map<LearningStage, List<Student>> learningStages = new HashMap<>();
 
-    public static Map<LearningStage, List<Student>> getListStudentsOfLearningStage(List<Student> students) {
+    public static Map<LearningStage, List<Student>> getLearningStageToStudentsMap(List<Student> students) {
         Map<LearningStage, List<Student>> learningStages = new HashMap<>();
         for (Student student : students) {
             learningStages.computeIfAbsent(new LearningStage(student.getFaculty(), student.getYear()), key -> new ArrayList<>()).add(student);
@@ -44,7 +44,7 @@ public class Main {
                 new Student("Lion", "Computer science", 2),
                 new Student("Albert", "Computer science", 4)
         ));
-        learningStages = getListStudentsOfLearningStage(STUDENTS);
+        learningStages = getLearningStageToStudentsMap(STUDENTS);
 
         for (Student student : STUDENTS) {
             System.out.println(student);
