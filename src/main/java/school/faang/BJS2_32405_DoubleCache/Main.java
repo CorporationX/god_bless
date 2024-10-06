@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StudentPerformanceService service = new StudentPerformanceService();
+        StudentService service = new StudentService();
 
         Student John = new Student(1, "John");
         Student Alice = new Student(2, "Alice");
