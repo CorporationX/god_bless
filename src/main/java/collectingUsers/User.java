@@ -21,12 +21,13 @@ public class User {
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> activity) {
         Map<User, String> hobbyLovers = new HashMap<User, String>();
-        activity.forEach(activ -> {
-            users.forEach(user -> {
+        users.forEach(user -> {
+            for (String activ : activity) {
                 if (user.getActivity().contains(activ)) {
-                    hobbyLovers.putIfAbsent(user, activ);
+                    hobbyLovers.put(user, activ);
+                    break;
                 }
-            });
+            }
         });
         return hobbyLovers;
     }
