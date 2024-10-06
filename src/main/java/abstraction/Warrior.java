@@ -1,21 +1,12 @@
 package abstraction;
 
 public class Warrior extends Character {
-    {
-        this.power = 10;
-        this.skill = 5;
-        this.intellect = 3;
-    }
-
     public Warrior(String name) {
-        super(name);
+        super(name, 10, 5, 3);
     }
 
     public Warrior(String name, int power, int skill, int intellect) {
-        super(name);
-        this.power = power;
-        this.skill = skill;
-        this.intellect = intellect;
+        super(name, power, skill, intellect);
     }
 
     @Override

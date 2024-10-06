@@ -1,21 +1,12 @@
 package abstraction;
 
 public class Archer extends Character {
-    {
-        this.power = 3;
-        this.skill = 10;
-        this.intellect = 5;
-    }
-
     public Archer(String name) {
-        super(name);
+        super(name, 3, 10, 5);
     }
 
     public Archer(String name, int power, int skill, int intellect) {
-        super(name);
-        this.power = power;
-        this.skill = skill;
-        this.intellect = intellect;
+        super(name,power, skill, intellect);
     }
 
     @Override
