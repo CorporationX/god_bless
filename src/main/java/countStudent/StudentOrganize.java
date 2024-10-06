@@ -11,12 +11,7 @@ public class StudentOrganize {
 
     public Map<String, Map<Integer, List<Student>>> organizeStudent(List<Student> students) {
         for (Student student : students) {
-            int year = student.getYear();
-            String faculty = student.getFaculty();
-
-            Map<Integer, List<Student>> courseMap = facultatyMap.computeIfAbsent(faculty, key -> new HashMap<>());
-            List<Student> studentList = courseMap.computeIfAbsent(year, key -> new ArrayList<>());
-            studentList.add(student);
+            addStudentToFacultyYear(student);
         }
         return facultatyMap;
     }
@@ -25,11 +20,18 @@ public class StudentOrganize {
         int year = student.getYear();
         String faculty = student.getFaculty();
 
+        addStudentToFacultyYear(student);
+
+        return facultatyMap.get(faculty).get(year);
+    }
+
+    public void addStudentToFacultyYear(Student student) {
+        int year = student.getYear();
+        String faculty = student.getFaculty();
+
         Map<Integer, List<Student>> courseMap = facultatyMap.computeIfAbsent(faculty, key -> new HashMap<>());
         List<Student> studentList = courseMap.computeIfAbsent(year, key -> new ArrayList<>());
         studentList.add(student);
-
-        return facultatyMap.get(faculty).get(year);
     }
 
     public void removeStudent(String name, String faculty, int year) {
@@ -43,7 +45,7 @@ public class StudentOrganize {
         }
     }
 
-    public List<Student> findAllStudent(String faculty, int year){
+    public List<Student> findAllStudent(String faculty, int year) {
         return facultatyMap.get(faculty).get(year);
     }
 

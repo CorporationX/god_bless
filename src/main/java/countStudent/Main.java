@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         List<Student> studentList = new ArrayList<>();
         Student student1 = new Student("Tom Riddle", "Slipperiness", 7);
         studentList.add(student1);
@@ -35,7 +35,7 @@ public class Main {
         System.out.println("\n");
         try {
             studentOrganize.removeStudent("ss s", "sss s", 5);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
 
