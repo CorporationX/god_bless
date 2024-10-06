@@ -10,5 +10,5 @@ import java.time.LocalDateTime;
 public class Query {
     private int id;
     private String content;
-    LocalDateTime timestamp;
+    private LocalDateTime timestamp;
 }

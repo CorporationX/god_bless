@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private Map<User, List<Query>> userToQueries = new HashMap<>();
+    private final Map<User, List<Query>> userToQueries = new HashMap<>();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -53,8 +53,6 @@ public class Main {
     }
 
     public void print() {
-        userToQueries.forEach((user, queries) -> {
-            System.out.println(user + ": " + queries);
-        });
+        userToQueries.forEach((user, queries) -> System.out.println(user + ": " + queries));
     }
 }
