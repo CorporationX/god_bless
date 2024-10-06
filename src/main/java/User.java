@@ -8,28 +8,25 @@ import java.util.Objects;
 import java.util.Set;
 
 public class User {
+    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
+    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final int AGE = 18;
+
     private final String name;
     private final int age;
     private final String placeOfJod;
     private final String address;
 
-    public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
-    public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
-    public static final int AGE = 18;
+
 
     public User(String name, int age, String placeOfJod, String address) {
-        if (name == null || name.isEmpty()) {
-            throw new IllegalArgumentException( name + "is null or empty");
+        if (name == null || name.isEmpty()
+            || (age < AGE)
+            ||(!VALID_JOBS.contains(placeOfJod))
+            || (!VALID_ADDRESSES.contains(address))) {
+                throw new IllegalArgumentException("This is IllegalArgumentException");
         }
-        if (age < AGE) {
-            throw new IllegalArgumentException(age + "can`t be less then 18");
-        }
-        if (!VALID_JOBS.contains(placeOfJod)) {
-            throw new IllegalArgumentException("placeOfJod can be " + "Google" + "Uber" + "Amazon");
-        }
-        if (!VALID_ADDRESSES.contains(address)) {
-            throw new IllegalArgumentException("address can be only" + "London" + "New York" + "Amsterdam");
-        }
+
         this.name = name;
         this.age = age;
         this.placeOfJod = placeOfJod;
