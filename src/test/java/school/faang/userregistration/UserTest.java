@@ -1,5 +1,6 @@
+package school.faang.userregistration;
+
 import org.junit.jupiter.api.Test;
-import school.faang.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
