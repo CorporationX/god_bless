@@ -1,6 +1,6 @@
-import model.Archer;
-import model.Character;
-import model.Warrior;
+import org.example.model.Archer;
+import org.example.model.Character;
+import org.example.model.Warrior;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

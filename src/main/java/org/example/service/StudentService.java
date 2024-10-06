@@ -35,16 +35,19 @@ public class StudentService {
     public static Student addStudent(String name, String faculty, int year){
         var newStudent = new Student(name, faculty, year);
         var groupOfTheNewStudent = new Group(faculty, year);
+
         students.add(newStudent);
         groupedStudentsByFacultyAndYear.computeIfAbsent(groupOfTheNewStudent, group -> new ArrayList<Student>()).add(newStudent);
+
         return newStudent;
     }
 
     public static Student removeStudent(String name, String faculty, int year){
         var removingStudent = new Student(name, faculty, year);
-        var deletingGroup = new Group(faculty, year);
+        var deletingStudentGroup = new Group(faculty, year);
+
         students.remove(removingStudent);
-        groupedStudentsByFacultyAndYear.computeIfPresent(deletingGroup, (group, studentList) -> {
+        groupedStudentsByFacultyAndYear.computeIfPresent(deletingStudentGroup, (group, studentList) -> {
             studentList.remove(removingStudent);
             if(studentList.size() == 0){
                 return null;
@@ -56,6 +59,7 @@ public class StudentService {
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, int year){
         var group = new Group(faculty, year);
+
         return groupedStudentsByFacultyAndYear.get(group);
     }
 
