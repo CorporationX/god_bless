@@ -5,7 +5,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         Map<Book, String> library = new HashMap<>();
         library.put(new Book("Соловей", "Кристин Ханна", 2015), "Романы");
         library.put(new Book("Голем", "Питер Акройд", 1949), "Романы");
