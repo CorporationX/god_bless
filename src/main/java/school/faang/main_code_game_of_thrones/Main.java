@@ -1,6 +1,4 @@
-package school.faang.game_of_thrones;
-
-import school.faang.main_code.House;
+package school.faang.main_code_game_of_thrones;
 
 import java.util.HashMap;
 import java.util.Map;
