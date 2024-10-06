@@ -48,8 +48,8 @@ public class User {
         Map<Integer, List<User>> userGroups = new HashMap<>();
 
         users.forEach(user -> {
-            userGroups.putIfAbsent(user.getAge(), new ArrayList<>());
-            userGroups.get(user.getAge()).add(user);
+            userGroups.putIfAbsent(user.age, new ArrayList<>());
+            userGroups.get(user.age).add(user);
         });
 
         return userGroups;
