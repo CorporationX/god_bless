@@ -1,13 +1,13 @@
 package school.faang.forthTask;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+@Getter
 public class SearchEngine {
     // According to the conditions we need to use List,
     // but better to use Set to escape duplicates for the index words
