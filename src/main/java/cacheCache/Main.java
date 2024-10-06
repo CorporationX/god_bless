@@ -3,7 +3,6 @@ package cacheCache;
 import cacheCache.services.WeatherService;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -46,7 +45,7 @@ public class Main {
 
     public static void printWeatherData() {
         for (Map.Entry<String, WeatherData> entry : CITY_WEATHER_DATA.entrySet()) {
-            if (entry.getValue() != null) System.out.println(entry.getKey() + " " + entry.getValue().toString());
+            if (entry.getValue() != null) System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
 
