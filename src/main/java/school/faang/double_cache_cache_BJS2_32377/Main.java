@@ -1,76 +1,49 @@
 package school.faang.double_cache_cache_BJS2_32377;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Getter
-@Setter
 public class Main {
-    private Map<Student, Map<Subject, Integer>> studentsWithSubjects = new HashMap<>();
-    private Map<Subject, List<Student>> subjectsWithStudents = new HashMap<>();
 
     public static void main(String[] args) {
+        University main = new University();
 
+        Student student1 = new Student(1, "Alice");
+        Student student2 = new Student(2, "Bob");
+        Student student3 = new Student(3, "Charlie");
+
+        Subject math = new Subject(101, "Math");
+        Subject physics = new Subject(102, "Physics");
+        Subject chemistry = new Subject(103, "Chemistry");
+
+        Map<Subject, Integer> student1Subjects = new HashMap<>(Map.of(math, 85, physics, 90));
+        Map<Subject, Integer> student2Subjects = new HashMap<>(Map.of(math, 80, chemistry, 75));
+        List<Student> studentsForMath = new ArrayList<>(List.of(student1, student2));
+        List<Student> studentsForPhysics = new ArrayList<>(List.of(student1));
+
+        main.addStudent(student1, student1Subjects, main.getStudentsWithSubjects(), main.getSubjectsWithStudents());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
+
+        main.addSubjectForStudent(chemistry, 76, student1, main.getStudentsWithSubjects());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
+
+        main.addStudent(student2, student2Subjects, main.getStudentsWithSubjects(), main.getSubjectsWithStudents());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
+
+        main.deleteStudentWithGrades(student1, main.getStudentsWithSubjects());
+        main.printStudentsWithSubjectsGrades(main.getStudentsWithSubjects());
+
+        main.addSubjectAndStudyingStudents(math, studentsForMath, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
+
+        main.addStudentToSubject(student3, math, main.getSubjectsWithStudents());
+        main.addSubjectAndStudyingStudents(physics, studentsForPhysics, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
+
+        main.deleteStudentFromSubject(student1, math, main.getSubjectsWithStudents());
+        main.printSubjectsAndStudyingStudents(main.getSubjectsWithStudents());
     }
-
-    public void addStudent(Student student, Map<Subject, Integer> subjectsAndGrades,
-                           Map<Student, Map<Subject, Integer>> students, Map<Subject, List<Student>> subjects) {
-        students.put(student, subjectsAndGrades);
-        for (Map.Entry<Subject, Integer> entry : subjectsAndGrades.entrySet()) {
-            subjects.computeIfAbsent(entry.getKey(), key -> new ArrayList<>()).add(student);
-        }
-    }
-
-    public void addSubjectForStudent(Subject subject, int grade, Student student,
-                                     Map<Student, Map<Subject, Integer>> targetMap) {
-        targetMap.get(student).put(subject, grade);
-    }
-
-    public void deleteStudentWithGrades(Student student, Map<Student, Map<Subject, Integer>> targetMap) {
-        targetMap.remove(student);
-    }
-
-    public void printStudentsWithSubjectsGrades(Map<Student, Map<Subject, Integer>> mapForPrint) {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : mapForPrint.entrySet()) {
-            String studentName = entry.getKey().getName();
-            System.out.printf("\nStudent : %s, Subjects : ", studentName);
-
-            for (Map.Entry<Subject, Integer> internalEntry : entry.getValue().entrySet()) {
-                String subjectName = internalEntry.getKey().getName();
-                int grade = internalEntry.getValue();
-                System.out.printf("%s grade = %s, ", subjectName, grade);
-            }
-        }
-    }
-
-    public void addSubjectAndStudyingStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> targetMap) {
-        targetMap.put(subject, students);
-    }
-
-    public void addStudentToSubject(Student student, Subject subject, Map<Subject, List<Student>> targetMap) {
-        targetMap.get(subject).add(student);
-    }
-
-    public void deleteStudentFromSubject(Student student, Subject subject, Map<Subject, List<Student>> targetMap) {
-        targetMap.get(subject).remove(student);
-    }
-
-    public void printSubjectsAndStudyingStudents(Map<Subject, List<Student>> targetMap) {
-        for (Map.Entry<Subject, List<Student>> entry : targetMap.entrySet()) {
-            String subjectName = entry.getKey().getName();
-            System.out.printf("\nSubject : %s. Students learning subject : ", subjectName);
-
-            for (Student student : entry.getValue()) {
-                System.out.printf("%s, ", student.getName());
-            }
-        }
-    }
-
 }
-
-
