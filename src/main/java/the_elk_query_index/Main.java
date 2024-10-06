@@ -22,13 +22,10 @@ public class Main {
 
         addQuery(firstUser, thirdQuery);
 
-        printUserQueries();
         printUsersQueries();
         removeUser(secondUser);
-        printUserQueries();
         printUsersQueries();
         addUser(firstUser, List.of(firstQuery, secondQuery));
-        printUserQueries();
         printUsersQueries();
     }
 
@@ -52,17 +49,6 @@ public class Main {
         USER_QUERIES.remove(user);
     }
 
-    public static void printUserQueries() {
-        for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet()) {
-            User user = entry.getKey();
-            List<Query> queries = entry.getValue();
-            System.out.println(user.getName() + ":");
-            for (Query query : queries) {
-                System.out.println(query.getId() + " " + query.getContent() + " " + query.getTimestamp());
-            }
-        }
-    }
-
     public static void printUsersQueries() {
         for (Map.Entry<User, List<Query>> entry : USER_QUERIES.entrySet()) {
             User user = entry.getKey();
@@ -70,9 +56,7 @@ public class Main {
             System.out.println(user.getName() + ":");
             List<Query> sortedQueries = new ArrayList<>(queries);
             sortedQueries.sort(Comparator.comparing(Query::getTimestamp));
-            for (Query query : sortedQueries) {
-                System.out.println(query.getId() + " " + query.getContent() + " " + query.getTimestamp());
-            }
+            sortedQueries.forEach(query -> System.out.println("  " + query.getId() + " " + query.getContent() + " " + query.getTimestamp()));
         }
     }
 }

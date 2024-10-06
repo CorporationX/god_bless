@@ -26,35 +26,21 @@ class MainTest {
     void addUser() {
         Main.addUser(new User(1, "John"), List.of(new Query(1, "Hello World", 123456789)));
         assertEquals(2, Main.USER_QUERIES.size());
+
+        assertEquals(new User(1, "Jane"), Main.USER_QUERIES.keySet().iterator().next());
     }
 
     @Test
     void addQuery() {
         Main.addQuery(USER, new Query(2, "How are you?", 98765321));
         assertEquals(2, Main.USER_QUERIES.get(USER).size());
+        assertEquals(new Query(2, "How are you?", 98765321), Main.USER_QUERIES.get(USER).get(1));
     }
 
     @Test
     void removeUser() {
         Main.removeUser(USER);
         assertEquals(0, Main.USER_QUERIES.size());
-    }
-
-    @Test
-    void printUserQueries() {
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        PrintStream originalOut = System.out;
-        System.setOut(new PrintStream(outContent));
-
-        Main.printUserQueries();
-
-        assertEquals(
-                "Jane:\n" +
-                        "1 Hello World 12345678\n",
-                outContent.toString()
-        );
-
-        System.setOut(originalOut);
     }
 
     @Test
@@ -67,7 +53,7 @@ class MainTest {
 
         assertEquals(
                 "Jane:\n" +
-                        "1 Hello World 12345678\n",
+                        "  1 Hello World 12345678\n",
                 outContent.toString()
         );
 
