@@ -39,7 +39,7 @@ public class User {
     }
 
     public static void main(String[] args) {
-        List<User> er = Arrays.asList(
+        List<User> listUser = Arrays.asList(
                 new User("Alice", 30, "Google", "123 Main St"),
                 new User("Bob", 28, "Amazon", "456 Elm St"),
                 new User("Charlie", 25, "Facebook", "789 Oak St"),
@@ -51,6 +51,6 @@ public class User {
                 new User("Ivy", 22, "Uber", "606 Pecan St"),
                 new User("Olivia", 28, "Oracle", "1212 Pinecone St")
         );
-        print(groupUsers(er));
+        print(groupUsers(listUser));
     }
 }
