@@ -1,5 +1,8 @@
 package school.faang.BJS2_31288;
 
+import lombok.Getter;
+
+@Getter
 public abstract class Character {
 
     protected String name;
@@ -20,10 +23,6 @@ public abstract class Character {
     }
 
     public  abstract void attack(Character opponent);
-
-    public int getHealth(){
-        return health;
-    }
 
     public void takeDamage(int damage){
         this.health -= damage;
