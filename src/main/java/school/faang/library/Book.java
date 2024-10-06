@@ -24,7 +24,9 @@ public class Book {
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
-        if(!(obj instanceof Book)) return false;
+        if (!(obj instanceof Book)) {
+            return false;
+        }
         Book other = (Book) obj;
         return title.equals(other.title) && author.equals(other.author) && year == other.year;
     }
