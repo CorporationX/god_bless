@@ -3,7 +3,7 @@ package rrrrr;
 public class Warrior extends Character{
 
     public Warrior(String name) {
-        super(10, 5, 3, name);
+        super(10,5, 3, name);
     }
 
     @Override

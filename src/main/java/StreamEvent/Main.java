@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final HashMap<Integer, StreamEvent> EVENT1 = new HashMap<>();
-    private static final HashMap<String, List<StreamEvent>> EVENT2 = new HashMap<>();
+    private static final Map<Integer, StreamEvent> EVENT_ALL = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> EVENT_TO_TYPE = new HashMap<>();
 
 
     public static void main(String[] args) {
@@ -23,29 +23,35 @@ public class Main {
 
         findToEventType("good");
 
+        getMaps(EVENT_ALL,EVENT_TO_TYPE);
+        System.out.println("");
+
         removeEvent(4);
-        getMaps(EVENT1,EVENT2);
+
+        getMaps(EVENT_ALL,EVENT_TO_TYPE);
 
     }
 
     public static void addMapEvent(StreamEvent streamEvent) {
-        EVENT1.put(streamEvent.getId(), streamEvent);
-        EVENT2.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
+        EVENT_ALL.put(streamEvent.getId(), streamEvent);
+        EVENT_TO_TYPE.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
-    public static void findEvent(Integer id) {
-         EVENT1.get(id);
+    public static void findEvent(int id) {
+        EVENT_ALL.get(id);
     }
 
     public static void findToEventType(String eventType) {
-         EVENT2.get(eventType);
+        EVENT_TO_TYPE.get(eventType);
     }
 
     public static void removeEvent(Integer id) {
-         EVENT1.remove(id);
+        StreamEvent streamEvent = EVENT_ALL.remove(id);
+        EVENT_TO_TYPE.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).remove(streamEvent);
+
     }
 
-    public static void getMaps(HashMap<Integer, StreamEvent> maps,HashMap<String, List<StreamEvent>> map2) {
+    public static void getMaps(Map<Integer, StreamEvent> maps,Map<String, List<StreamEvent>> map2) {
         for (Map.Entry<Integer, StreamEvent> map : maps.entrySet()) {
             System.out.println("Id № " + map.getKey() + "  содержит следующий поток: " + map.getValue());
         }
