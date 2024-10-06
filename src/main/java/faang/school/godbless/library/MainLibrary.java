@@ -1,12 +1,9 @@
 package faang.school.godbless.library;
 
-import lombok.ToString;
-
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-@ToString
 public class MainLibrary {
     private final Map<Book, String> library = new HashMap<>();
 
@@ -24,6 +21,15 @@ public class MainLibrary {
 
     public String searchBook(String title, String author, int year) {
         return library.get(new Book(title, author, year));
+    }
+
+    public void printLibrary() {
+        var sb = new StringBuilder();
+        for(var book : library.entrySet()) {
+            sb.append(String.format("%s | %s - %s - %s%n", book.getValue(), book.getKey().title(),
+                    book.getKey().author(), book.getKey().year()));
+        }
+        System.out.println(sb);
     }
 
 }
