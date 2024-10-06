@@ -24,9 +24,11 @@ public class Main {
             add(new Student("Jack", "Law", 2));
         }};
         testGroupStudentsByFacultyAndYear(students);
+        testAddStudentToList();
     }
 
     private static void testGroupStudentsByFacultyAndYear(List<Student> students) {
+        System.out.println("\ntestGroupStudentsByFacultyAndYear\n");
         Map<FacultyYearPair, List<Student>> facultyYearPairListMap = StudentManager.groupStudentsByFacultyAndYear(students);
         printAllGroupedStudentsByFacultyAndYear(facultyYearPairListMap);
     }
@@ -40,5 +42,22 @@ public class Main {
             }
             System.out.println();
         }
+    }
+
+    private static void testAddStudentToList() {
+        ArrayList<Student> students = new ArrayList<>();
+        Student student = new Student("Jack", "Law", 2);
+
+        System.out.println("\ntestAddStudentToList\n");
+        System.out.println("list students before: " + students);
+
+        StudentManager.addStudentToList(student, students);
+        System.out.println("add student: " + student);
+        System.out.println("list students after: " + students);
+
+        System.out.println("adding the same student again");
+        StudentManager.addStudentToList(student, students);
+        System.out.println("list students after: " + students);
+
     }
 }

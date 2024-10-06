@@ -24,6 +24,12 @@ public class StudentManager {
         return groupedStudentsByFacultyAndYear;
     }
 
+    public static void addStudentToList(Student student,List<Student> students){
+        if (!(students.contains(student))) {
+            students.add(student);
+        }
+    }
+
     private static List<Student> allocationToCurrentGroup(List<Student> students, FacultyYearPair facultyYearPairCurrentStudent) {
         ArrayList<Student> groupStudentByFacultyAndYear = new ArrayList<>();
         for (Student studentForGroup : students) {
@@ -33,4 +39,5 @@ public class StudentManager {
         }
         return groupStudentByFacultyAndYear;
     }
+
 }
