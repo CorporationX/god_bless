@@ -12,7 +12,10 @@ public class Main {
     static void groupStudents() {
         for (Student student : students) {
             String facultyYearKey = student.getFaculty() + " " + student.getYear();
-            GROUPED_STUDENTS.computeIfAbsent(facultyYearKey, key -> new ArrayList<>()).add(student);
+            if ((GROUPED_STUDENTS.get(facultyYearKey) == null ||
+                    !GROUPED_STUDENTS.get(facultyYearKey).contains(student))) {
+                GROUPED_STUDENTS.computeIfAbsent(facultyYearKey, key -> new ArrayList<>()).add(student);
+            }
         }
     }
 
