@@ -16,8 +16,6 @@ public class UniversityDB {
 
     public void addStudent(@NonNull Student student, @NonNull Map<Subject, Integer> subjectToMark) {
         studentToSubject.put(student, subjectToMark);
-
-        //обновляем subjectToStudent
         for (Subject subject : subjectToMark.keySet()) {
             updateStudentList(student, subject);
         }
@@ -26,10 +24,9 @@ public class UniversityDB {
     public void addSubject(@NonNull Subject subject, @NonNull Map<Student, Integer> studentToMark) {
         List<Student> students = new ArrayList<>(studentToMark.keySet());
         subjectToStudent.put(subject, students);
-
-        //обновляем studentToSubject
         for (Student student : students) {
-            updateSubjectToMark(student, subject, validateMark(studentToMark.get(student)));
+            validateMark(studentToMark.get(student));
+            updateSubjectToMark(student, subject, studentToMark.get(student));
         }
     }
 
@@ -46,16 +43,12 @@ public class UniversityDB {
         }
         Map<Subject, Integer> subjectToMark = studentToSubject.get(student);
         subjectToMark.put(subject, mark);
-
-        //обновляем subjectToStudent
         updateStudentList(student, subject);
     }
 
     public void addStudentToSubject(@NonNull Student student, @NonNull Subject subject, int mark) {
         validateMark(mark);
         updateStudentList(student, subject);
-
-        //обновляем studentToSubject
         updateSubjectToMark(student, subject, mark);
     }
 
@@ -65,7 +58,6 @@ public class UniversityDB {
         }
         Map<Subject, Integer> subjectToMark = studentToSubject.remove(student);
 
-        //обновление subjectToStudent
         for (Subject subject : subjectToMark.keySet()) {
             List<Student> students = subjectToStudent.getOrDefault(subject, new ArrayList<>());
             students.remove(student);
@@ -93,7 +85,6 @@ public class UniversityDB {
             subjectToStudent.put(subject, students);
         }
 
-        //обновление studentToSubject
         Map<Subject, Integer> subjectToMark = studentToSubject.getOrDefault(student, new HashMap<>());
         subjectToMark.remove(subject);
         if (subjectToMark.isEmpty()) {
@@ -111,11 +102,10 @@ public class UniversityDB {
         System.out.println();
     }
 
-    private int validateMark(int mark) {
+    private void validateMark(int mark) {
         if (mark < MIN_MARK || mark > MAX_MARK) {
             throw new IllegalArgumentException("У нас пятибальная шкала");
         }
-        return mark;
     }
 
     private void updateStudentList(Student student, Subject subject) {
