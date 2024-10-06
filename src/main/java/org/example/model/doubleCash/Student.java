@@ -1,12 +1,11 @@
-package org.example.model;
+package org.example.model.doubleCash;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class Student {
+    private int id;
     private String name;
-    private String faculty;
-    private int year;
 }
