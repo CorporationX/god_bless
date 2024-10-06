@@ -1,4 +1,6 @@
-package school.faang;
+package school.faang.main;
+
+import school.faang.main_code.Example;
 
 import java.util.Arrays;
 

@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.main_code;
 
 public class Example {
     public static int[] reverse(int[] mas) {
@@ -8,5 +8,5 @@ public class Example {
             mas[mas.length - i - 1] = temp;
         }
         return mas;
-     }
+    }
 }
