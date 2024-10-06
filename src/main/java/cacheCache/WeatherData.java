@@ -1,4 +1,4 @@
 package cacheCache;
 
-public class WeatherData {
+public record WeatherData(String city, int temperature, int humidity) {
 }
