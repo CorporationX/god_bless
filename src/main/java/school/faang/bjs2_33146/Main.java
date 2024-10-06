@@ -13,6 +13,7 @@ public class Main {
             put(new Book("To Kill a Mockingbird", "Harper Lee", 1960), "Shelf 5");
         }};
         testAddBookAndShelf(bookShelfMap);
+        testRemoveBook(bookShelfMap);
     }
 
     public static void testAddBookAndShelf(Map<Book, String> bookShelfMap) {
@@ -23,8 +24,18 @@ public class Main {
         BookShelfUtils.addBookAndShelf(bookForAdd, shelfForAdd, bookShelfMap);
 
         System.out.println("added: " + bookForAdd + " - " + shelfForAdd);
-        System.out.println("bookShelfMap after: " + bookShelfMap);
+        System.out.println("bookShelfMap after: " + bookShelfMap + "\n");
     }
 
+    public static void testRemoveBook(Map<Book, String> bookShelfMap) {
+        String title = "1984";
+        String author = "George Orwell";
+        int year = 1949;
+
+        System.out.println("bookShelfMap before: " + bookShelfMap);
+        System.out.println("removedBook: " + "title - " + title + ", author - " + author + ", year - " + year);
+        BookShelfUtils.removeBook(title, author, year, bookShelfMap);
+        System.out.println("bookShelfMap after: " + bookShelfMap + "\n");
+    }
 
 }
