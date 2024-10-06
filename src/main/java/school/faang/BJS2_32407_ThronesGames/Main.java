@@ -2,7 +2,7 @@ package school.faang.BJS2_32407_ThronesGames;
 
 public class Main {
     public static void main(String[] args) {
-        WesterosHousesService service = new WesterosHousesService();
+        HousesService service = new HousesService();
 
         service.addHouse(new House("Stark", "A grey direwolf on a white field"));
         service.addHouse(new House("Lannister", "A golden lion on a crimson field"));

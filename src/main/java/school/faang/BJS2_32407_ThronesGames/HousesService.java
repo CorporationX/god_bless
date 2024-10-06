@@ -3,10 +3,10 @@ package school.faang.BJS2_32407_ThronesGames;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WesterosHousesService {
-    Map<String, House> houses;
+public class HousesService {
+    private final Map<String, House> houses;
 
-    public WesterosHousesService() {
+    public HousesService() {
         houses = new HashMap<>();
     }
 

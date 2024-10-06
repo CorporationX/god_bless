@@ -6,15 +6,15 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class WesterosHousesServiceTest {
-    WesterosHousesService service;
+class HousesServiceTest {
+    HousesService service;
     House stark;
     House lannister;
     House baratheon;
 
     @BeforeEach
     void setUp() {
-        service = new WesterosHousesService();
+        service = new HousesService();
 
         stark = new House("Stark", "A grey direwolf on a white field");
         lannister = new House("Lannister", "A golden lion on a crimson field");
