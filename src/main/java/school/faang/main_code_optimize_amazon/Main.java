@@ -1,6 +1,4 @@
-package school.faang.optimize_amazon;
-
-import school.faang.main_code.Product;
+package school.faang.main_code_optimize_amazon;
 
 import java.util.*;
 

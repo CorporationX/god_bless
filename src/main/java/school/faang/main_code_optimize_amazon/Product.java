@@ -1,4 +1,4 @@
-package school.faang.main_code;
+package school.faang.main_code_optimize_amazon;
 
 
 import lombok.AllArgsConstructor;
