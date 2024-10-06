@@ -42,6 +42,13 @@ class NotificationManagerTest {
                 (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
         );
         notificationManager.sendNotification(new Notification("sms", "Вы успешно изменили свой пароль с плохим словом"));
+    }
+
+    @Test
+    public void deleteCensureTest() {
+        notificationManager.addCensure("badWord",
+                notification -> notification.getMessage().toLowerCase().contains("плохим словом")
+        );
         notificationManager.removeCensure("badWord");
     }
 
@@ -57,6 +64,16 @@ class NotificationManagerTest {
                 (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
         );
         notificationManager.sendNotification(new Notification("sms", "Вы успешно изменили свой пароль mrX"));
-        notificationManager.removeCorrector("mrXCorrector");
+    }
+
+    @Test
+    public void deleteCorrectorsTest() {
+        notificationManager.addCorrector("mrXCorrector",
+                (notification -> {
+                    notification.setMessage(notification.getMessage().replace("mrX", "noMrX"));
+                    return notification;
+                })
+        );
+        notificationManager.removeCensure("mrXCorrector");
     }
 }
