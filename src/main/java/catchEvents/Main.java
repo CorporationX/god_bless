@@ -16,19 +16,20 @@ public class Main {
         addEvent("event1", "data3");
         addEvent("event3", "data4");
         addEvent("event3", "data5");
+        System.out.println("События: ");
         printAllStreamEvents();
 
-        System.out.println();
+        System.out.println("\nВывод событий по типу событий: ");
         EVENTS_BY_TYPE.forEach((k,v) -> System.out.println("тип события: " + k + ", события: " + v.toString()));
 
-        System.out.println();
+        System.out.println("\nВывод события id: 2");
         System.out.println(findEventByID(2).toString());
 
-        System.out.println();
+        System.out.println("\nПосле удаление события id: 5");
         removeEvent(5);
         printAllStreamEvents();
 
-        System.out.println();
+        System.out.println("\nПоиск события по типу события event3");
         System.out.println(findEventsByType("event3").toString());
     }
 
@@ -47,8 +48,8 @@ public class Main {
     }
 
     public static void removeEvent(Integer id) {
-        EVENTS.remove(id);
-        EVENTS_BY_TYPE.values().forEach(events -> events.removeIf(event -> event.getId() == id));
+        StreamEvent event = EVENTS.remove(id);
+        EVENTS_BY_TYPE.get(event.getEventType()).remove(event);
     }
 
     public static void printAllStreamEvents(){
