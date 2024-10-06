@@ -2,12 +2,12 @@ package school.faang;
 
 public class WebPage {
     private String url;
-    private String titlel;
+    private String title;
     private String content;
 
     public WebPage(String url, String titlel, String content) {
         this.url = url;
-        this.titlel = titlel;
+        this.title = title;
         this.content = content;
     }
 
@@ -15,8 +15,8 @@ public class WebPage {
         return content;
     }
 
-    public String getTitlel() {
-        return titlel;
+    public String getTitle() {
+        return title;
     }
 
     public String getUrl() {
@@ -27,8 +27,8 @@ public class WebPage {
         this.url = url;
     }
 
-    public void setTitlel(String titlel) {
-        this.titlel = titlel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public void setContent(String content) {
