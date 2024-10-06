@@ -1,34 +1,34 @@
-package school.faang.google_engine;
+package school.faang.googleengine;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Main {
 
-    static Map<String, List<WebPage>> webPageMap = new HashMap<>();
+    static Map<String, List<WebPage>> webPageMap = new ConcurrentHashMap<>();
 
-    public static void addWebPageToMap(WebPage webPage) {
+    public static void indexWebPage(WebPage webPage) {
         String[] words = webPage.getContent().split("\\s+");
         for (String st : words) {
-            webPageMap.computeIfAbsent(st, wp -> new ArrayList<>()).add(webPage);
+            webPageMap.computeIfAbsent(st.toLowerCase(), wp -> new ArrayList<>()).add(webPage);
         }
     }
 
     public static List<WebPage> findByWord(String word) {
-        return webPageMap.get(word);
+        return webPageMap.getOrDefault(word.toLowerCase(), new ArrayList<>());
     }
 
     public static Boolean removeByUrl(String url) {
         boolean removed = false;
-        Iterator<Map.Entry<String, List<WebPage>>> iterator = webPageMap.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<String, List<WebPage>> entry = iterator.next();
-            boolean wasRemoved = entry.getValue().removeIf(webPage -> webPage.getURL().equals(url));
+        for (Map.Entry<String, List<WebPage>> entry : webPageMap.entrySet()) {
+            boolean wasRemoved = entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
             if (wasRemoved) {
                 removed = true;
             }
             if (entry.getValue().isEmpty()) {
-                iterator.remove();
+                webPageMap.remove(entry.getKey());
             }
+
         }
         return removed;
     }
@@ -41,9 +41,9 @@ public class Main {
 
         // Add WebPages to the map
 
-        addWebPageToMap(page1);
-        addWebPageToMap(page2);
-        addWebPageToMap(page3);
+        indexWebPage(page1);
+        indexWebPage(page2);
+        indexWebPage(page3);
 
         // Find WebPages by word
         System.out.println("Pages with word 'test': " + findByWord("test"));

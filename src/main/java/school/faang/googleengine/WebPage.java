@@ -1,15 +1,12 @@
-package school.faang.google_engine;
+package school.faang.googleengine;
 
 import lombok.*;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
-@ToString
 public class WebPage {
 
-    private String URL;
+    private String url;
     private String title;
     private String content;
 }
