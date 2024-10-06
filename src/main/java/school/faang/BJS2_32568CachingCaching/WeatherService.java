@@ -23,6 +23,8 @@ public class WeatherService {
     }
 
     public void updateCityWeather(WeatherData cityWeather) {
+        if (cityWeather == null)
+            throw new IllegalArgumentException("Weather data can't be null.");
         cityToWeather.put(cityWeather.getCity(), cityWeather);
     }
 
