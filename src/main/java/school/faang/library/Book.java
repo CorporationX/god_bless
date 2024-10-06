@@ -1,5 +1,8 @@
 package school.faang.library;
 
+import lombok.Getter;
+
+@Getter
 public class Book {
     private final String title;
     private final String author;
@@ -9,9 +12,6 @@ public class Book {
         this.title = title;
         this.author = author;
         this.year = year;
-    }
-    public Integer getYear() {
-        return year;
     }
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Optional;
 public class TestLibrary {
 
     public static void main(String[] args) {
-        var booksMap = new HashMap<Book, String>();
+        HashMap<Book, String> booksMap = new HashMap<>();
         booksMap.put(new Book("Rich Dad", "Kiyosaki", 2010), "A150");
         booksMap.put(new Book("Harry Potter", "Rowling", 2005), "B012");
         booksMap.put(new Book("The Snow Queen", "Andersen", 2000), "F001");
@@ -21,9 +21,9 @@ public class TestLibrary {
         add(booksMap, new Book("The Little Prince", "Saint-Exupery", 2003), "H345");
         print(booksMap);
 
-        var bookName = "Harry Potter";
-        var bookAuthor = "Rowling";
-        var bookYear = 2005;
+        String bookName = "Harry Potter";
+        String bookAuthor = "Rowling";
+        int bookYear = 2005;
 
         System.out.println();
         System.out.println("Book removed");
@@ -32,10 +32,10 @@ public class TestLibrary {
 
         System.out.println();
         System.out.println("Book place found");
-        var bookNameForFind = "Rich Dad";
-        var bookAuthorForFind = "Kiyosaki";
-        var bookYearForFind = 2010;
-        var findResultOptional = find(booksMap, bookNameForFind, bookAuthorForFind, bookYearForFind);
+        String bookNameForFind = "Rich Dad";
+        String bookAuthorForFind = "Kiyosaki";
+        int bookYearForFind = 2010;
+        Optional<String> findResultOptional = find(booksMap, bookNameForFind, bookAuthorForFind, bookYearForFind);
         findResultOptional.ifPresent(place -> {
             System.out.print(new Book(bookNameForFind, bookAuthorForFind, bookYearForFind));
             System.out.print(" - ");
@@ -53,13 +53,12 @@ public class TestLibrary {
     }
 
     private static void remove(HashMap<Book, String> booksMap, String title, String author, int year) {
-        var book = new Book(title, author, year);
+        Book book = new Book(title, author, year);
         booksMap.remove(book);
     }
 
     private static Optional<String> find(HashMap<Book, String> booksMap, String title, String author, int year) {
-        var book = new Book(title, author, year);
-
+        Book book = new Book(title, author, year);
         if (booksMap.containsKey(book)) {
             return Optional.of(booksMap.get(book));
         }
@@ -67,11 +66,10 @@ public class TestLibrary {
     }
 
     private static void print(HashMap<Book, String> booksMap) {
-        var keys = booksMap.keySet().stream().sorted(Comparator.comparing(Book::getYear)).toList();
-        for (Book key : keys) {
-            System.out.print(key);
+        for (var bookStringEntry : booksMap.entrySet().stream().sorted(Comparator.comparing(a -> a.getKey().getYear())).toList()) {
+            System.out.print(bookStringEntry.getKey());
             System.out.print(" - ");
-            System.out.println(booksMap.get(key));
+            System.out.println(bookStringEntry.getValue());
         }
     }
 }
