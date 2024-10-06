@@ -1,4 +1,4 @@
-package school.faang.BJS2_28996;
+package school.faang.groupingbyage;
 
 import java.util.List;
 import java.util.Map;

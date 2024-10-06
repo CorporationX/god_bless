@@ -1,4 +1,4 @@
-package school.faang.BJS2_28996;
+package school.faang.groupingbyage;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
