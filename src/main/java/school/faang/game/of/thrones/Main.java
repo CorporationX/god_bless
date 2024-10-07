@@ -9,20 +9,20 @@ public class Main {
     Map<String, House> nameToHouse = new HashMap<>();
 
     public static void main(String[] args) {
-        House house1 =  new House("Старк", "Какой-то герб");
-        House house2 =  new House("Ланнистер", "Какой-то герб");
-        House house3 =  new House("Баратеон", "Какой-то герб");
+        House stark = new House("Старк", "Герб дома Старк");
+        House lannister = new House("Ланнистер", "герб дома Ланнистер");
+        House baratheon = new House("Баратеон", "герб дома Баратеон");
 
         Main main = new Main();
-        main.add(house1);
-        main.add(house2);
-        main.add(house3);
+        main.add(stark);
+        main.add(lannister);
+        main.add(baratheon);
         main.print();
 
-        main.remove(house1.getName());
+        main.remove(stark.getName());
         main.print();
 
-        String sigil = main.get(house2.getName());
+        String sigil = main.get(lannister.getName());
         System.out.println("Информация про герб второго дома " + sigil);
     }
 
