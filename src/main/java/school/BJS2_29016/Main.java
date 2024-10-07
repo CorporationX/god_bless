@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -33,10 +32,10 @@ public class Main {
     private static void addWebPage(WebPage webPage) {
         String[] contents = webPage.getContent().split(" ");
         for (String content : contents) {
-           List<WebPage> list = mappa.computeIfAbsent(content, k -> new ArrayList<>());
-           if(!list.contains(webPage)) {
-               mappa.get(content).add(webPage);
-           }
+            List<WebPage> list = mappa.computeIfAbsent(content, k -> new ArrayList<>());
+            if (!list.contains(webPage)) {
+                mappa.putIfAbsent(content,list).add(webPage);
+            }
         }
     }
 
@@ -47,9 +46,9 @@ public class Main {
 
     //удаление страницы по url
     private static void removePageWithUrl(String url) {
-        for (Map.Entry<String, List<WebPage>> entry : mappa.entrySet()) {
-            entry.getValue().removeIf(s -> s.getUrl().equals(url));}
-       mappa = mappa.entrySet().stream().filter(entry -> !entry.getValue().isEmpty())
-               .collect(Collectors.toMap(Map.Entry::getKey,Map.Entry::getValue));
+        for (List<WebPage> list : mappa.values()) {
+            list.removeIf(webPage -> webPage.getUrl().equals(url));
+        }
+        mappa.entrySet().removeIf(entry -> entry.getValue().isEmpty());
     }
 }
