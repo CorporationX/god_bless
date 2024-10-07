@@ -20,7 +20,7 @@ public class Main {
         indexWebPage(page2);
         indexWebPage(page3);
 
-        deleteWebPage("https://wikipedia.org/", webPages);
+        deleteWebPage("https://newsuperschool.com/", webPages);
 
         for (Map.Entry<String, List<WebPage>> entry : webPages.entrySet()) {
             List<WebPage> pages = entry.getValue();
@@ -52,9 +52,10 @@ public class Main {
         for (Map.Entry<String, List<WebPage>> entry : map.entrySet()) {
             List<WebPage> pages = entry.getValue();
             for (int i = 0; i < pages.size(); i++) {
-                if (pages.get(i).getUrl().equals(url)) {
-                    pages.remove(i);
-                    i--;
+                WebPage page = pages.get(i);
+                if (page.getUrl().equals(url)) {
+                    pages.remove(page);
+                    break;
                 }
             }
         }
