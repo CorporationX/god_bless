@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class StreamEvent {
-    private Integer id;
+    private String id;
     private String eventType;
     private String data;
 

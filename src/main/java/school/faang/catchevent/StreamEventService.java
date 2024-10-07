@@ -4,13 +4,19 @@ import java.util.*;
 
 public class StreamEventService {
 
-    public void addStreamEvent(StreamEvent streamEvent, Map<Integer, StreamEvent> events){
-        streamEvent.setId(events.size() + 1);
-        events.put(streamEvent.getId(), streamEvent);
+    public void addStreamEvent(StreamEvent streamEvent, Map<String, StreamEvent> events, Map<String, List<StreamEvent>> groupedEvents){
+        String id = UUID.randomUUID().toString();
+        streamEvent.setId(id);
+        events.put(id, streamEvent);
+
+        String eventType = streamEvent.getEventType();
+
+        groupedEvents.putIfAbsent(eventType, new ArrayList<>());
+        groupedEvents.get(eventType).add(streamEvent);
     }
 
-    public void updateMapsByAddingEvent(Map<Integer, StreamEvent> events, Map<String, List<StreamEvent>> groupedEvents){
-        for(Map.Entry<Integer, StreamEvent> entry : events.entrySet()){
+    public void updateMapsByAddingEvent(Map<String, StreamEvent> events, Map<String, List<StreamEvent>> groupedEvents){
+        for(Map.Entry<String, StreamEvent> entry : events.entrySet()){
             if(events.size() > groupedEvents.size()){
                 StreamEvent event = entry.getValue();
                 if (!groupedEvents.containsKey(event.getEventType())){
@@ -21,37 +27,25 @@ public class StreamEventService {
         }
     }
 
-    public void deleteEventsFromBothMaps(Integer id, Map<Integer, StreamEvent> events, Map<String, List<StreamEvent>> groupedEvents) {
+    public void deleteEventsFromBothMaps(String id, Map<String, StreamEvent> events, Map<String, List<StreamEvent>> groupedEvents) {
         StreamEvent event = events.remove(id);
         String eventType = event.getEventType();
         List<StreamEvent> eventList = groupedEvents.get(eventType);
-
-        Iterator<StreamEvent> iterator = eventList.iterator();
-        while (iterator.hasNext()) {
-            StreamEvent currentEvent = iterator.next();
-
-            if (Objects.equals(currentEvent.getId(), id)) {
-                iterator.remove();
-                break;
-            }
-        }
-        if (eventList.isEmpty()) {
-            groupedEvents.remove(eventType);
-        }
+        eventList.remove(event);
     }
 
-    public Optional<StreamEvent> findStreamEventById(Integer id, Map<Integer, StreamEvent> events){
+    public Optional<StreamEvent> findStreamEventById(String id, Map<String, StreamEvent> events){
         return Optional.ofNullable(events.get(id));
     }
 
-    public Optional<List<StreamEvent>> findListOfStreamEventsByEventType(String eventType, Map<String, List<StreamEvent>> groupedEvents){
-        return Optional.ofNullable(groupedEvents.get(eventType));
+    public List<StreamEvent> findListOfStreamEventsByEventType(String eventType, Map<String, List<StreamEvent>> groupedEvents){
+        return groupedEvents.get(eventType);
     }
 
-    public List<StreamEvent> showAllEvents(Map<Integer, StreamEvent> events){
+    public List<StreamEvent> showAllEvents(Map<String, StreamEvent> events){
         List<StreamEvent> allEvents = new ArrayList<>();
 
-        for(Map.Entry<Integer, StreamEvent> entry : events.entrySet()){
+        for(Map.Entry<String, StreamEvent> entry : events.entrySet()){
             StreamEvent streamEvent = entry.getValue();
             allEvents.add(new StreamEvent(streamEvent.getId(), streamEvent.getEventType(), streamEvent.getData()));
         }
