@@ -22,7 +22,8 @@ public class Main {
             System.out.println(page.getUrl() + ": " + page.getTitle());
         }
 
-        foundedPages = webService.getWebPages("example");
+        searchWord = "example";
+        foundedPages = webService.getWebPages(searchWord);
         System.out.println("\nPages containing the word 'example' before removing 2nd page:");
         for (WebPage page : foundedPages) {
             System.out.println(page.getUrl() + ": " + page.getTitle());
