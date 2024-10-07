@@ -11,8 +11,7 @@ import java.util.stream.Collectors;
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
-
-    private static Integer AGE_OF_MAJORITY = 18;
+    private static final Integer AGE_OF_MAJORITY = 18;
 
     private String name;
     private int age;
