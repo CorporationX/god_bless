@@ -1,9 +1,9 @@
 package school.faang.t12;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class House {
     private String name;

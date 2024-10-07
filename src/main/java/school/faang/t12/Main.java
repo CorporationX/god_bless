@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-
     public static final HashMap<String, House> HOUSES = new HashMap<>();
 
     public static void main(String[] args) {
@@ -14,27 +13,26 @@ public class Main {
         House lanister = new House("Lanister", "Hear Me Roar");
         House arryn = new House("Stark", "As High As Honor ");
 
-        HOUSES.put("houseOne", targaryen);
-        HOUSES.put("houseTwo", stark);
-        HOUSES.put("houseTree", lanister);
+        HOUSES.put("targaryen", targaryen);
+        HOUSES.put("stark", stark);
+        HOUSES.put("lanister", lanister);
 
         addHouse(arryn);
-        removeHouse(arryn);
-        findHouse(lanister);
+        removeHouseByName("Stark");
+        findHouse("lanister");
         getAllHouses();
-
     }
 
     private static void addHouse(House house) {
         HOUSES.put(house.getName(), house);
     }
 
-    private static void removeHouse(House house) {
-        HOUSES.remove(house.getName(), house);
+    private static void removeHouseByName(String name) {
+        HOUSES.remove(name);
     }
 
-    private static void findHouse(House house) {
-        System.out.println(HOUSES.get(house).getSigil());
+    private static void findHouse(String name) {
+        System.out.println(HOUSES.get(name).getSigil());
     }
 
     private static void getAllHouses() {
