@@ -10,6 +10,7 @@ import java.util.Map;
 public class WebPageService {
     @Getter
     private static final HashMap<String, List<WebPage>> index = new HashMap<>();
+
     public static void indexNewWebPage(WebPage webPage) {
         String[] words = webPage.getContent()
                 .replaceAll("[^a-zA-Zа-яА-ЯёЁ\\s]", "")
