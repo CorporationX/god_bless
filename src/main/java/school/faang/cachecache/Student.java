@@ -1,11 +1,6 @@
 package school.faang.cachecache;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public record Student(int id, String name){
 
-@Data
-@AllArgsConstructor
-public class Student {
-    private int id;
-    private String name;
 }
+

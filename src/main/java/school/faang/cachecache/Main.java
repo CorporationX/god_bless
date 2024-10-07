@@ -15,24 +15,24 @@ public class Main {
     public static void main(String[] args) {
         Student studentAlex = new Student(1, "Alex");
         Student studentJohn = new Student(2, "John");
-        Subject subject1 = new Subject(1, "Math");
-        Subject subject2 = new Subject(2, "Programming");
+        Subject subjectMath = new Subject(1, "Math");
+        Subject subjectProgramming = new Subject(2, "Programming");
 
-        addStudentWithSubjects(studentAlex, Map.of(subject1, 85, subject2, 90));
-        addStudentWithSubjects(studentJohn, Map.of(subject1, 75));
+        addStudentWithSubjects(studentAlex, Map.of(subjectMath, 85, subjectProgramming, 90));
+        addStudentWithSubjects(studentJohn, Map.of(subjectMath, 75));
 
-        addSubjectToStudent(studentAlex, subject1, 88);
+        addSubjectToStudent(studentAlex, subjectMath, 88);
 
         printAllStudentsWithScores();
 
-        addSubjectWithStudents(subject1, List.of(studentAlex, studentJohn));
-        addStudentToSubject(studentJohn, subject2);
+        addSubjectWithStudents(subjectMath, List.of(studentAlex, studentJohn));
+        addStudentToSubject(studentJohn, subjectProgramming);
 
         printAllSubjectsWithStudents();
 
         removeStudent(studentAlex);
 
-        removeStudentFromSubject(studentJohn, subject1);
+        removeStudentFromSubject(studentJohn, subjectMath);
 
         printAllStudentsWithScores();
         printAllSubjectsWithStudents();
@@ -68,9 +68,9 @@ public class Main {
 
     public static void printAllStudentsWithScores() {
         for (Map.Entry<Student, Map<Subject, Integer>> entry : studentSubjects.entrySet()) {
-            System.out.println("Студент: " + entry.getKey().getName());
+            System.out.println("Студент: " + entry.getKey().name());
             for (Map.Entry<Subject, Integer> subjectEntry : entry.getValue().entrySet()) {
-                System.out.println("    Предмет: " + subjectEntry.getKey().getName() + ", Оценка: " + subjectEntry.getValue());
+                System.out.println("    Предмет: " + subjectEntry.getKey().name() + ", Оценка: " + subjectEntry.getValue());
             }
         }
     }
@@ -101,9 +101,9 @@ public class Main {
 
     public static void printAllSubjectsWithStudents() {
         for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
-            System.out.println("Предмет: " + entry.getKey().getName());
+            System.out.println("Предмет: " + entry.getKey().name());
             for (Student student : entry.getValue()) {
-                System.out.println("    Студент: " + student.getName());
+                System.out.println("    Студент: " + student.name());
             }
         }
     }
