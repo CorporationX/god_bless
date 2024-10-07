@@ -6,6 +6,6 @@ import lombok.Data;
 @AllArgsConstructor
 @Data
 public class Subject {
-    private int id;
-    private String name;
+    private final int id;
+    private final String name;
 }
