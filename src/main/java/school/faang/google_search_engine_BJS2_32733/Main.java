@@ -32,8 +32,7 @@ public class Main {
                 "This   page   has   lots   of   spaces");
 
         addPageToIndex(page5);
-        System.out.println(index);
-        System.out.println("---".repeat(3));
+        System.out.println(index + "\n");
         addPageToIndex(page1);
         addPageToIndex(page2);
         addPageToIndex(page3);
@@ -49,7 +48,6 @@ public class Main {
         for (String keyWord : keyWords) {
             index.computeIfAbsent(keyWord, k -> new ArrayList<>()).add(page);
         }
-        System.out.println("Page added to index: " + page.getTitle());
     }
 
     public static List<WebPage> findPagesByKeyWord(String keyword) {
@@ -59,7 +57,6 @@ public class Main {
     public static void deletePageFromIndexByUrl(String url) {
         index.entrySet().removeIf(entry -> entry.getValue().stream()
                 .anyMatch(webPage -> webPage.getUrl().equals(url)));
-        System.out.println("Page with url: " + url + " was deleted");
     }
 
 }
