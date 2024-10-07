@@ -11,12 +11,12 @@ import java.util.Set;
 public class WebService {
     private Map<String, List<WebPage>> wordToPages;
     private Map<String, WebPage> alreadyIndexedPages;
-    private Map<String, Set<String>> pageToWords;
+    private Map<String, Set<String>> urlToWords;
 
     public WebService() {
         wordToPages = new HashMap<>();
         alreadyIndexedPages = new HashMap<>();
-        pageToWords = new HashMap<>();
+        urlToWords = new HashMap<>();
     }
 
     public void indexWebPage(WebPage page) {
@@ -28,7 +28,7 @@ public class WebService {
                             .computeIfAbsent(word, wordOnPage -> new ArrayList<>())
                             .add(page)
             );
-            pageToWords.put(page.getUrl(), uniqueWords);
+            urlToWords.put(page.getUrl(), uniqueWords);
             alreadyIndexedPages.put(page.getUrl(), page);
         }
     }
@@ -39,7 +39,7 @@ public class WebService {
 
     public void removeWebPage(String url) {
         WebPage page = alreadyIndexedPages.remove(url);
-        Set<String> wordsOnPage = pageToWords.remove(url);
+        Set<String> wordsOnPage = urlToWords.remove(url);
         for (String word: wordsOnPage) {
             List<WebPage> pages = wordToPages.get(word);
             pages.remove(page);
