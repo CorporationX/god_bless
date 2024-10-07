@@ -23,40 +23,39 @@ public class Main {
 
         System.out.println("Add Student: " + addToList(student, testMap) + " was added\n");
 
-        System.out.println("Remove student: " + removeStudent(student, testMap) + " was removed\n");
-
         System.out.println("Find Students By faculty and course:");
-        System.out.println(findStudents("Gym", "Second-Grade", testMap) + "\n");
+        System.out.println(findStudents(student, testMap) + "\n");
+
+        System.out.println("Remove student: " + removeStudent(student, testMap) + " was removed\n");
 
         print(testMap);
     }
 
     private static Map<String, List<Student>> listToMap(List<Student> students) {
         var studentsMap = new HashMap<String, List<Student>>();
-        students.forEach(student -> studentsMap.computeIfAbsent(student.faculty() + student.year(),
-                v -> new ArrayList<>()).add(student)
-        );
+        students.forEach(student -> studentsMap.computeIfAbsent(buildKey(student), v -> new ArrayList<>()).add(student));
         return studentsMap;
     }
 
     private static Student addToList(Student student, Map<String, List<Student>> students) {
-        students.computeIfAbsent(student.faculty() + DELIMITER + student.year(), v -> new ArrayList<>()).add(student);
+        students.computeIfAbsent(buildKey(student), v -> new ArrayList<>()).add(student);
         return student;
     }
 
-    private static Student removeStudent(Student studentToRemove, Map<String, List<Student>> students) throws NoSuchElementException {
-        boolean removed = students.entrySet().removeIf(entry -> entry.getValue().removeIf(
-                student -> student.name().equalsIgnoreCase(studentToRemove.name()) &&
-                        student.faculty().equalsIgnoreCase(studentToRemove.faculty()) &&
-                        student.year().equalsIgnoreCase(studentToRemove.year())));
-
-        if (!removed) throw new NoSuchElementException("Student does not exist");
-
+    private static Student removeStudent(Student studentToRemove, Map<String, List<Student>> students) {
+        students.entrySet().removeIf(entry -> entry.getValue().removeIf(student ->
+                student.name().equals(studentToRemove.name()) &&
+                        student.faculty().equals(studentToRemove.faculty()) &&
+                        student.year().equals(studentToRemove.year())));
         return studentToRemove;
     }
 
-    private static List<Student> findStudents(String faculty, String year, Map<String, List<Student>> students) {
-        return students.get(faculty + DELIMITER + year);
+    private static List<Student> findStudents(Student student, Map<String, List<Student>> students) {
+        return students.get(buildKey(student));
+    }
+
+    private static String buildKey(Student student) {
+        return student.faculty() + DELIMITER + student.year();
     }
 
     private static void print(Map<String, List<Student>> students) {
