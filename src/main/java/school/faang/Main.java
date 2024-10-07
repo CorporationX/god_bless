@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 public class Main {
     public static void main(String[] args) {
-        String bookshelf;
-
         Map<Book, String> bookMap = new HashMap<>();
         bookMap.put(new Book("Rowling", 1997, "harryPotter"), "5");
         bookMap.put(new Book("Pushkin", 1833, "theQueenOfSpades"), "1");
