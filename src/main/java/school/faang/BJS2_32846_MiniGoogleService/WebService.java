@@ -1,4 +1,4 @@
-package school.faang.BJS2_32846;
+package school.faang.BJS2_32846_MiniGoogleService;
 
 import java.util.ArrayList;
 import java.util.Arrays;

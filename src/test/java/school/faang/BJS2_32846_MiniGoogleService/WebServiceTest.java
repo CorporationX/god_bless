@@ -1,4 +1,4 @@
-package school.faang.BJS2_32846;
+package school.faang.BJS2_32846_MiniGoogleService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
