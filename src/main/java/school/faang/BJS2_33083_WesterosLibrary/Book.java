@@ -7,6 +7,8 @@ import java.util.Objects;
 
 @Getter
 public class Book {
+    public static final int MIN_PUBLICATION_YEAR = 1564;
+
     private final String title;
     private final String author;
     private final int year;
@@ -45,7 +47,7 @@ public class Book {
     }
 
     private void validateYear(int year) {
-        if (year < 1564) {
+        if (year < MIN_PUBLICATION_YEAR) {
             throw new IllegalArgumentException("Invalid year of publication. Must be at least 1564.");
         }
     }
