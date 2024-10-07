@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Library {
-    HashMap<Book, String> placebook = new HashMap<>();
+    public final Map<Book, String> placebook = new HashMap<>();
 
     public void addbook(Book book, String place){
         placebook.put(book,place);
@@ -20,7 +20,7 @@ public class Library {
         System.out.println(book + "лежит на полке № " + place);
     }
 
-    public void readMap(HashMap<Book, String> map){
+    public void readMap(Map<Book, String> map){
         for(Map.Entry<Book,String> book: map.entrySet()){
             System.out.println(book.getKey() + "лежит на полке № " + book.getValue());
         }
