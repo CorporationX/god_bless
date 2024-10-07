@@ -1,9 +1,9 @@
 package school.faang.warrior;
 
-public class Warrior extends school.faang.warrior.Character {
-    public Warrior(String name, int power, int agility, int intelligence) {
-        super("Warrior", 10, 5, 3);
-        this.name = name;
+public class Warrior extends Character {
+    public Warrior(String name) {
+        super(name, 10, 5, 3);
+
     }
 
     @Override
