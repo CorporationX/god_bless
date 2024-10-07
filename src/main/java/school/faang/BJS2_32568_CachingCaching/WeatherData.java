@@ -1,4 +1,4 @@
-package school.faang.BJS2_32568CachingCaching;
+package school.faang.BJS2_32568_CachingCaching;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

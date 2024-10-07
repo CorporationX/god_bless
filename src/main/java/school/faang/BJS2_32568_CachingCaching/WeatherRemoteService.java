@@ -1,4 +1,4 @@
-package school.faang.BJS2_32568CachingCaching;
+package school.faang.BJS2_32568_CachingCaching;
 
 public class WeatherRemoteService {
     private static final double MIN_TEMPERATURE = -30;

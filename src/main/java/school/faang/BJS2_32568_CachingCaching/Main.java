@@ -1,4 +1,4 @@
-package school.faang.BJS2_32568CachingCaching;
+package school.faang.BJS2_32568_CachingCaching;
 
 public class Main {
     public static void main(String[] args) {
