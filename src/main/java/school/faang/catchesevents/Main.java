@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
-    public static Map<String, List<StreamEvent>> listStreamEventMap = new HashMap<>();
+    private static Map<Integer, StreamEvent> streamEventMap = new HashMap<>();
+    private static Map<String, List<StreamEvent>> listStreamEventMap = new HashMap<>();
+    private static List<StreamEvent> streamEventsList = new ArrayList<>();
     public static void main(String[] args) {
         streamEventMap.put(12, new StreamEvent(14, "someEvent", "someData"));
         addNewStream(16, "newEvent16", "newData16");
@@ -39,10 +40,9 @@ public class Main {
 
     }
     private static void addNewStream(Integer id, String eventType, String data) {
-        List<StreamEvent> streamEvents = new ArrayList<>();
-        streamEvents.add(new StreamEvent(id, eventType, data));
+        streamEventsList.add(new StreamEvent(id, eventType, data));
         streamEventMap.put(id, new StreamEvent(id, eventType, data));
-        listStreamEventMap.put(eventType, streamEvents);
+        listStreamEventMap.put(eventType, streamEventsList);
     }
 
     private static void searchStream(Integer id) {
@@ -61,6 +61,7 @@ public class Main {
         }
     }
 
+    // в гите написал в комментарии почему использовал цикл, или я не правильно понял условия этого пункта?
     private static void deleteStreamEvent(Integer id) {
         String eventType = "";
         for (Map.Entry<Integer, StreamEvent> entry : streamEventMap.entrySet()) {
