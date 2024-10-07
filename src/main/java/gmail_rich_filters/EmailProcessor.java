@@ -14,7 +14,7 @@ public class EmailProcessor {
     ) {
         for (Email email : emails) {
             if (filter.test(email)) {
-                String editedBody= transformer.apply(email);
+                String editedBody = transformer.apply(email);
                 email.setBody(editedBody);
                 handler.accept(email);
             }
