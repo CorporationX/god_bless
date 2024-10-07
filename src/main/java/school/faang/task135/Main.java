@@ -7,30 +7,30 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 public class Main {
-    private static final Map<Student, Map<Subject, Integer>> STUDENTS_GRADE = new HashMap<>();
-    private static final Map<Subject, List<Student>> SUBJECT_STUDENT_GROUP_LIST = new HashMap<>();
+    private static final Map<Student, Map<Subject, Integer>> students_Grade = new HashMap<>();
+    private static final Map<Subject, List<Student>> subjectStudentsGroupList = new HashMap<>();
 
-    public void addNewStudent(Student student, HashMap<Subject, Integer> subject) {
-        STUDENTS_GRADE.put(student, subject);
-        for (Subject sub : subject.keySet()) {
-            SUBJECT_STUDENT_GROUP_LIST.computeIfAbsent(sub, K -> new ArrayList<>()).add(student);
+    public void addNewStudent(Student student, HashMap<Subject, Integer> studentsGrade) {
+        students_Grade.put(student, studentsGrade);
+        for (Subject sub : studentsGrade.keySet()) {
+            subjectStudentsGroupList.computeIfAbsent(sub, K -> new ArrayList<>()).add(student);
         }
     }
 
     public void addNewSubjectAndGradeToStudent(Student student, Subject subject, int grade) {
-        STUDENTS_GRADE.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-        SUBJECT_STUDENT_GROUP_LIST.computeIfAbsent(subject, K -> new ArrayList<>()).add(student);
+        students_Grade.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectStudentsGroupList.computeIfAbsent(subject, K -> new ArrayList<>()).add(student);
     }
 
     public void removeStudent(Student student) {
-        for (Subject subject : STUDENTS_GRADE.get(student).keySet()) {
-            SUBJECT_STUDENT_GROUP_LIST.get(subject).remove(student);
+        for (Subject subject : students_Grade.get(student).keySet()) {
+            subjectStudentsGroupList.get(subject).remove(student);
         }
-        STUDENTS_GRADE.remove(student);
+        students_Grade.remove(student);
     }
 
     public void printAllInfoAboutStudent() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : STUDENTS_GRADE.entrySet()) {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : students_Grade.entrySet()) {
             for (Map.Entry<Subject, Integer> secondEntry : entry.getValue().entrySet()) {
                 System.out.println(entry.getKey().getName() + " " + secondEntry.getKey().getName() + " " + secondEntry.getValue());
             }
@@ -39,24 +39,24 @@ public class Main {
     }
 
     public void addNewSubjectAndStudents(Subject subject, ArrayList<Student> students) {
-        SUBJECT_STUDENT_GROUP_LIST.put(subject, students);
+        subjectStudentsGroupList.put(subject, students);
         for (Student student : students) {
-            STUDENTS_GRADE.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+            students_Grade.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
         }
     }
 
     public void addNewStudentToSubject(Subject subject, Student student) {
-        SUBJECT_STUDENT_GROUP_LIST.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
-        STUDENTS_GRADE.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
+        subjectStudentsGroupList.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        students_Grade.computeIfAbsent(student, k -> new HashMap<>()).put(subject, 0);
     }
 
     public void removeStudentFromSubject(Student student, Subject subject) {
-        SUBJECT_STUDENT_GROUP_LIST.get(subject).remove(student);
-        STUDENTS_GRADE.get(student).remove(subject);
+        subjectStudentsGroupList.get(subject).remove(student);
+        students_Grade.get(student).remove(subject);
     }
 
     public void printAllSubjectAndStudent() {
-        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENT_GROUP_LIST.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudentsGroupList.entrySet()) {
             for (Student student : entry.getValue()) {
                 System.out.println(entry.getKey().getName() + " " + student.getName());
             }
