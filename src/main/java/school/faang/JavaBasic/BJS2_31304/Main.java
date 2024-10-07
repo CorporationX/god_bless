@@ -5,13 +5,16 @@ public class Main {
         Warrior warrior = new Warrior("Thor");
         Archer archer = new Archer("Legolas");
 
-        System.out.println("Здоровье " + warrior.getName() + ": " + warrior.getHealth());
-        System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealth());
+        printHealthStatus(warrior, archer);
 
-        warrior.attack(archer); //
-        archer.attack(warrior);  //
+        warrior.attack(archer);
+        archer.attack(warrior);
 
-        System.out.println("Здоровье " + warrior.getName() + ": " + warrior.getHealth());
-        System.out.println("Здоровье " + archer.getName() + ": " + archer.getHealth());
+        printHealthStatus(warrior, archer);
+    }
+
+    private static void printHealthStatus(Character firstCharacter, Character secondCharacter) {
+        System.out.println("Здоровье " + firstCharacter.getName() + ": " + firstCharacter.getHealth());
+        System.out.println("Здоровье " + secondCharacter.getName() + ": " + secondCharacter.getHealth());
     }
 }

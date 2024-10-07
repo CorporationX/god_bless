@@ -23,7 +23,7 @@ public abstract class Character {
 
     abstract void attack(Character character);
 
-    protected void damage(int damage) {
-        this.health -= damage;
+    protected void reduceHealth(int amount) {
+        this.health -= amount;
     }
 }
