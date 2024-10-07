@@ -2,22 +2,17 @@ package school.faang.HashMaps.doubleCache;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import static school.faang.HashMaps.doubleCache.service.StudentAction.addStudentWithSubject;
-import static school.faang.HashMaps.doubleCache.service.StudentAction.addSubjectForStudent;
-import static school.faang.HashMaps.doubleCache.service.StudentAction.printStudents;
-import static school.faang.HashMaps.doubleCache.service.StudentAction.removeStudent;
-import static school.faang.HashMaps.doubleCache.service.SubjectAction.addStudentToSubject;
-import static school.faang.HashMaps.doubleCache.service.SubjectAction.addSubject;
-import static school.faang.HashMaps.doubleCache.service.SubjectAction.printSubjects;
-import static school.faang.HashMaps.doubleCache.service.SubjectAction.removeStudentFromSubject;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addStudentToSubject;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addStudentWithSubject;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addSubject;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addSubjectForStudent;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.printStudents;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.printSubjects;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.removeStudent;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.removeStudentFromSubject;
 
 public class Main {
-    public static final Map<Student, Map<Subject, Integer>> STUDENT_MAP = new HashMap<>();
-    public static final Map<Subject, List<Student>> SUBJECT_MAP = new HashMap<>();
-
     public static void main(String[] args) {
         Subject math = new Subject("Math", 1);
         Subject english = new Subject("English", 2);
@@ -42,7 +37,7 @@ public class Main {
             put(english, 4);
             put(history, 3);
         }});
-        addSubjectForStudent(lithography, student1, 3);
+        addSubjectForStudent(lithography, student1);
         removeStudent(student3);
         printStudents();
 
