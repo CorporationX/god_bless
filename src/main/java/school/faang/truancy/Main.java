@@ -33,7 +33,6 @@ public class Main {
     private static Map<StudentGrouper, List<Student>> groupStudents(List<Student> students) {
         return students.stream()
                 .collect(Collectors.groupingBy(student -> new StudentGrouper(student.getFaculty(), student.getYear())));
-
     }
 
     private static void addStudent(Student student) {
