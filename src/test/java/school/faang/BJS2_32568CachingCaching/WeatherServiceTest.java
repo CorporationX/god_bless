@@ -10,18 +10,12 @@ class WeatherServiceTest {
     WeatherService weatherService;
     WeatherData newYorkWeather;
     WeatherData londonWeather;
-    WeatherData tokyoWeather;
 
     @BeforeEach
     void setUp() {
         weatherService = new WeatherService();
         newYorkWeather = new WeatherData("New York", 20.0, 60.0);
         londonWeather =  new WeatherData("London", 10.0, 80.0);
-        tokyoWeather = new WeatherData("Tokyo", 25.0, 50.0);
-
-        weatherService.updateCityWeather(newYorkWeather);
-        weatherService.updateCityWeather(londonWeather);
-        weatherService.updateCityWeather(tokyoWeather);
     }
 
     @Test
@@ -29,13 +23,13 @@ class WeatherServiceTest {
     void testUpdateWeatherData() {
         String newYork = "New York";
         String london = "London";
-        String tokyo = "Tokyo";
 
-        assertEquals(3, weatherService.cityToWeather.size());
+        weatherService.updateCityWeather(newYorkWeather);
+        weatherService.updateCityWeather(londonWeather);
 
+        assertEquals(2, weatherService.cityToWeather.size());
         assertTrue(weatherService.cityToWeather.containsKey(newYork));
         assertTrue(weatherService.cityToWeather.containsKey(london));
-        assertTrue(weatherService.cityToWeather.containsKey(tokyo));
     }
 
     @Test
@@ -66,9 +60,11 @@ class WeatherServiceTest {
     @Test
     @DisplayName("Remove city weather data")
     void testRemoveCityWeatherData() {
+        weatherService.updateCityWeather(newYorkWeather);
+        weatherService.updateCityWeather(londonWeather);
         weatherService.removeCityWeather("New York");
 
-        assertEquals(2, weatherService.cityToWeather.size());
+        assertEquals(1, weatherService.cityToWeather.size());
         assertFalse(weatherService.cityToWeather.containsKey("New York"));
     }
 
