@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static final Map<String, List<WebPage>> SEARCH = new HashMap<String, List<WebPage>>();
+    private static final Map<String, List<WebPage>> SEARCH = new HashMap<>();
 
     public static void addWebPage(WebPage page) {
         String[] index = page.getContent().replaceAll("[.,!?]", "").split(" ");
