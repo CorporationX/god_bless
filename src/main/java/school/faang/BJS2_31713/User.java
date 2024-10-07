@@ -1,4 +1,5 @@
 package school.faang.BJS2_31713;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -6,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
-
 
 @Getter
 @Setter
@@ -16,14 +16,11 @@ public class User {
         add("Google");
         add("Uber");
         add("Amazone");
-
     }};
-
     public static final Set<String> VALID_ADDRESSES = new HashSet<>(){ {
         add("London");
         add("New York");
         add("Amsterdam");
-
     }};
 
     private int id;
@@ -32,7 +29,6 @@ public class User {
     private List<String> activities;
     private String job;
     private String address;
-
     public User(int id, String name, int age, List<String> activities, String job, String address) {
         this.id = id;
         this.name = name;
@@ -41,8 +37,6 @@ public class User {
         this.job = job;
         this.address = address;
     }
-
-
     public User(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
@@ -56,15 +50,11 @@ public class User {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Недопустимый адрес. Допустимые адреса: " + VALID_ADDRESSES);
         }
-
         this.job = job;
         this.address = address;
     }
-
-
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> hobbyLovers = new HashMap<>();
-
         for (User user : users) {
             for (String hobby : hobbies) {
                 if (user.getActivities().contains(hobby)) {
@@ -75,7 +65,6 @@ public class User {
         }
         return hobbyLovers;
     }
-
     @Override
     public String toString() {
         return "User{" +
