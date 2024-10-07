@@ -12,24 +12,24 @@ public class BookManager {
     }
 
     public void removeBook(Book book) {
-        if (library.remove(book) !=null){
+        if (library.remove(book) != null) {
             System.out.println("Book removed: " + book.toString());
-        } else{
+        } else {
             System.out.println("Book not found: " + book.toString());
         }
     }
 
     public void findBook(Book book) {
         String location = library.get(book);
-        if (location !=null){
+        if (location != null) {
             System.out.println("Book found: " + book.toString() + " at " + location);
-        } else{
+        } else {
             System.out.println("Book not found: " + book.toString());
         }
     }
 
     public void listAllBooks() {
-        for (Map.Entry<Book, String> entry :library.entrySet()){
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
             Book book = entry.getKey();
             String location = entry.getValue();
             System.out.println("Book: " + book.getTitle() + ", Author: " + book.getAuthor() + ", Year: " + book.
