@@ -9,7 +9,7 @@ public class UniversityManagerService {
 
     public static void addSubjectForExistingStudent(String studentName, String subjectName, int grade) {
         StudentService.addSubjectForExistStudent(studentName, subjectName, grade);
-        SubjectService.addStudentForExistSubject(subjectName, new Student(studentName)); // изменить параметр в методе
+        SubjectService.addStudentForExistSubject(subjectName, new Student(studentName));
     }
 
     public static void removeStudent(String studentName) {
