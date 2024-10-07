@@ -1,14 +1,13 @@
 package school.faang.secondTask;
 
 import lombok.Data;
-
 import java.util.Objects;
 
 @Data
 public class Book {
-    private final String title;
-    private final String author;
-    private final int year;
+    final private String title;
+    final private String author;
+    final private int year;
 
     @Override
     public boolean equals(Object o) {
@@ -18,5 +17,10 @@ public class Book {
         return year == book.year &&
                 Objects.equals(title, book.title) &&
                 Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, author, year);
     }
 }
