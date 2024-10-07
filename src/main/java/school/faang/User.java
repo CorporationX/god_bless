@@ -18,15 +18,14 @@ public class User {
     private String address;
 
     public User(String name, int age, String placeOfWork, String address) {
+        validateUser(name, age, placeOfWork, address);
         this.name = name;
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
-
-        validateUser();
     }
 
-    private void validateUser() {
+    private boolean validateUser(String name, int age, String placeOfWork, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name should not be empty");
         }
@@ -39,6 +38,8 @@ public class User {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("The cities addresses should be only in London, New York or Amsterdam");
         }
+
+        return false;
     }
 
     public int getAge() {
