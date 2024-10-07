@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private final Map<String, WeatherData> listWeatherData = new HashMap<>();
+    private Map<String, WeatherData> weatherDataForCities = new HashMap<>();
+    private WeatherSource weatherSource = new WeatherSource();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -21,30 +22,27 @@ public class Main {
     }
 
     public WeatherData getWeatherData(String city) {
-        for (Map.Entry<String, WeatherData> entry : listWeatherData.entrySet()) {
-            if (entry.getKey().equals(city)) {
-                return entry.getValue();
-            }
+        if (weatherDataForCities.containsKey(city)) {
+            return weatherDataForCities.get(city);
         }
-        WeatherSource weatherSource = new WeatherSource();
-        listWeatherData.put(city, weatherSource.fetchWeather(city));
+        weatherDataForCities.put(city, weatherSource.fetchWeather(city));
         return weatherSource.fetchWeather(city);
     }
 
     public void renewWeatherData(String city, double temperature, double humidity) {
-        listWeatherData.put(city, new WeatherData(city, temperature, humidity));
+        weatherDataForCities.put(city, new WeatherData(city, temperature, humidity));
     }
 
     public void deleteWeatherData(String city) {
-        if (!listWeatherData.containsKey(city)) {
+        if (!weatherDataForCities.containsKey(city)) {
             System.out.println("There is no weather data to delete for city " + city);
         } else {
-            listWeatherData.remove(city);
+            weatherDataForCities.remove(city);
         }
     }
 
     public void printWeatherData() {
-        for (Map.Entry<String, WeatherData> entry : listWeatherData.entrySet()) {
+        for (Map.Entry<String, WeatherData> entry : weatherDataForCities.entrySet()) {
             System.out.printf("Weather for city %s : temperature - %.1f , humidity - %.1f\n"
                     , entry.getKey(), entry.getValue().getTemperature(), entry.getValue().getHumidity());
         }
