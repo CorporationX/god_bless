@@ -4,12 +4,15 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 
 public class StudentRegistry {
     private static final List<Student> STUDENT_LIST = new ArrayList<>();
+    private static final Set<Student> STUDENT_SET = new HashSet<>();
 
     {
         STUDENT_LIST.add(new Student("Olga", "Math", 2));
@@ -17,7 +20,7 @@ public class StudentRegistry {
         STUDENT_LIST.add(new Student("Ekaterina", "Computer Technology", 4));
     }
 
-    Map<Pair<String, Integer>, List<Student>> findAndGroupByFacultyAndYear(List<Student> students) {
+    public static Map<Pair<String, Integer>, List<Student>> findAndGroupByFacultyAndYear(List<Student> students) {
         Map<Pair<String, Integer>, List<Student>> studentMap = new HashMap<>();
 
         for (Student student : students) {
@@ -28,16 +31,16 @@ public class StudentRegistry {
         return studentMap;
     }
 
-    void addStudent(Student student) {
+    public static void addStudent(Student student) {
         STUDENT_LIST.add(student);
     }
 
-    void removeStudent(String name, String faculty, int year) {
+    public static void removeStudent(String name, String faculty, int year) {
         Student student = new Student(name, faculty, year);
-        STUDENT_LIST.remove(student);
+        STUDENT_SET.remove(student);
     }
 
-    void findStudent(String name, String faculty, int year) {
+    public static void findStudent(String name, String faculty, int year) {
         Student getStudent = new Student(name, faculty, year);
         for (Student st : STUDENT_LIST) {
             if (st.equals(getStudent)) {
@@ -46,7 +49,7 @@ public class StudentRegistry {
         }
     }
 
-    void printAllStudents() {
+    public static void printAllStudents() {
         for (Student student : STUDENT_LIST) {
             System.out.println(student);
         }
