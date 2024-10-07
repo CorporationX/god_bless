@@ -20,7 +20,9 @@ public class Main {
         library.put(empireOfTheStormKings, "Second");
 
         adBookToLibrary(new Book("Ambers", "Olivia Nord", 1225), "Six");
-        removeBooKFromLibrary(houseStarcNew);
+        printBookFromLibrary();
+        System.out.println();
+        removeBooKFromLibrary("Ambers", "Olivia Nord", 1225);
         printBookFromLibrary();
         findBookFromLibrary(dorn);
     }
@@ -29,8 +31,10 @@ public class Main {
         library.put(book, shelf);
     }
 
-    private static void removeBooKFromLibrary(Book book) {
-        library.remove(book);
+    private static void removeBooKFromLibrary(String title, String autor, int year) {
+        Book bookToRemove = new Book(title,autor,year);
+//        library.remove(library.get( new Book (title, autor, year)));
+        library.remove(bookToRemove);
     }
 
     private static void findBookFromLibrary(Book book) {
