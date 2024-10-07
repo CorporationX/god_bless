@@ -15,24 +15,24 @@ public class Main {
         webService.indexWebPage(page3);
 
         String searchWord = "keywords";
-        List<WebPage> foundPages = webService.getWebPages(searchWord.toLowerCase());
+        List<WebPage> foundedPages = webService.getWebPages(searchWord.toLowerCase());
 
         System.out.println("Pages containing the word '" + searchWord + "':");
-        for (WebPage page : foundPages) {
+        for (WebPage page : foundedPages) {
             System.out.println(page.getUrl() + ": " + page.getTitle());
         }
 
-        foundPages = webService.getWebPages("example");
+        foundedPages = webService.getWebPages("example");
         System.out.println("\nPages containing the word 'example' before removing 2nd page:");
-        for (WebPage page : foundPages) {
+        for (WebPage page : foundedPages) {
             System.out.println(page.getUrl() + ": " + page.getTitle());
         }
 
         webService.removeWebPage(page2.getUrl());
 
-        foundPages = webService.getWebPages("example");
+        foundedPages = webService.getWebPages("example");
         System.out.println("\nPages containing the word 'example' after removing 2nd page:");
-        for (WebPage page : foundPages) {
+        for (WebPage page : foundedPages) {
             System.out.println(page.getUrl() + ": " + page.getTitle());
         }
     }
