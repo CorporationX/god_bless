@@ -3,6 +3,8 @@ package school.faang.HashMap1;
 import java.util.HashMap;
 import java.util.Map;
 
+import static school.faang.HashMap1.Book.searchBook;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -11,17 +13,14 @@ public class Main {
         library.put(new Book("book2", "author2", 2005), "2");
         library.put(new Book("book3", "author3", 2024), "3");
 
-        // 1.Добавление новой книги
         Book.addBook(new Book("book4", "author4", 2000), "4", library);
-        Book.allBooksInfo(library);
+        Book.printBooksInfo(library);
         System.out.println("\nПоиск book4:");
-        Book.searchBook("book4", "author4", 2000, library);
-
-        // 2.Удаление по названию, автору и году
+        Book.printBook(searchBook("book4", "author4", 2000, library), library);
         Book.deleteBook("book4", "author4", 2000, library);
         System.out.println("\nПоиск удаленной book4:");
-        Book.searchBook("book4", "author4", 2000, library);
-        Book.allBooksInfo(library);
+        Book.printBook(searchBook("book4", "author4", 2000, library), library);
+        Book.printBooksInfo(library);
 
     }
 }
