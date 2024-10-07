@@ -31,6 +31,7 @@ public class User {
     private String address;
 
     public User(int id, String name, int age, List<String> activities, String job, String address) {
+        validateUser(name, age, job, address);
         this.id = id;
         this.name = name;
         this.age = age;
@@ -39,7 +40,7 @@ public class User {
         this.address = address;
     }
 
-    public User(String name, int age, String job, String address) {
+    private void validateUser(String name, int age, String job, String address) {
         if (name == null || name.isEmpty()) {
             throw new IllegalArgumentException("Имя не может быть пустым.");
         }
@@ -52,11 +53,6 @@ public class User {
         if (!VALID_ADDRESSES.contains(address)) {
             throw new IllegalArgumentException("Недопустимый адрес. Допустимые адреса: " + VALID_ADDRESSES);
         }
-
-        this.name = name;
-        this.age = age;
-        this.job = job;
-        this.address = address;
     }
 
     public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
