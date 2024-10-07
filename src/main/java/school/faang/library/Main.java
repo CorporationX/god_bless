@@ -11,17 +11,17 @@ public class Main {
         library.put(new Book("Чужак", "Стивен Кинг", 1995), "Мистика");
         library.put(new Book("Шедевр", "Элис Броуч", 2000), "Разное");
 
-        Book.receiveAllBooks(library);
+        Book.printAllBooks(library);
         System.out.println("**********");
         Book.addBook(new Book("Адюльтер", "Пауло Коэльо", 1995), "Разное", library);
-        Book.receiveAllBooks(library);
+        Book.printAllBooks(library);
         System.out.println("**********");
-        Book.receiveBook("Чужак", "Стивен Кинг", 1995, library);
-        Book.receiveBook("Чужак", "Стивен Кинг", 2000, library);
+        Book.printBook("Чужак", "Стивен Кинг", 1995, library);
+        Book.printBook("Чужак", "Стивен Кинг", 2000, library);
         System.out.println("**********");
-        Book.receiveBook("Шедевр", "Элис Броуч", 2000, library);
+        Book.printBook("Шедевр", "Элис Броуч", 2000, library);
         Book.deleteBook("Шедевр", "Элис Броуч", 2000, library);
-        Book.receiveBook("Шедевр", "Элис Броуч", 2000, library);
+        Book.printBook("Шедевр", "Элис Броуч", 2000, library);
 
     }
 }

@@ -20,7 +20,7 @@ public class Book {
         library.remove(new Book(title, author, year));
     }
 
-    public static void receiveBook(String title, String author, int year, Map<Book, String> library){
+    public static void printBook(String title, String author, int year, Map<Book, String> library){
         Book book = new Book(title, author, year);
         if(library.containsKey(book)){
             System.out.printf("Книга %s находится в категории %s \n", book, library.get(book));
@@ -29,7 +29,7 @@ public class Book {
         }
     }
 
-    public static void receiveAllBooks(Map<Book, String> library){
+    public static void printAllBooks(Map<Book, String> library){
         for (var book: library.entrySet()){
             System.out.println(book);
         }
