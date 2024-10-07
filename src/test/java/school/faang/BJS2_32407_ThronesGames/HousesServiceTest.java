@@ -10,7 +10,6 @@ class HousesServiceTest {
     HousesService service;
     House stark;
     House lannister;
-    House baratheon;
 
     @BeforeEach
     void setUp() {
@@ -18,17 +17,15 @@ class HousesServiceTest {
 
         stark = new House("Stark", "A grey direwolf on a white field");
         lannister = new House("Lannister", "A golden lion on a crimson field");
-        baratheon = new House("Baratheon", "A crowned black stag on a gold field");
-
-        service.addHouse(stark);
-        service.addHouse(lannister);
-        service.addHouse(baratheon);
     }
 
     @Test
     @DisplayName("Adding new houses info")
     void testAddHouse() {
-        assertEquals(3, service.getHousesCount());
+        service.addHouse(stark);
+        service.addHouse(lannister);
+
+        assertEquals(2, service.getHousesCount());
     }
 
     @Test
@@ -42,8 +39,11 @@ class HousesServiceTest {
     @Test
     @DisplayName("Removing house")
     void testRemoveHouse() {
+        service.addHouse(stark);
+        service.addHouse(lannister);
         service.removeHouse(lannister.getName());
-        assertEquals(2, service.getHousesCount());
+
+        assertEquals(1, service.getHousesCount());
     }
 
     @Test
