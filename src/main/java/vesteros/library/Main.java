@@ -27,9 +27,9 @@ public class Main {
 
     public static void addBookToLibrary(Map<Book, String> library, Book book, String shelf) {
         if (book == null) {
-            throw new NullPointerException("Incorrect book value: " + book);
+            throw new IllegalArgumentException("Incorrect book value: " + book);
         } else if (shelf == null) {
-            throw new NullPointerException("Incorrect shelf value: " + shelf);
+            throw new IllegalArgumentException("Incorrect shelf value: " + shelf);
         }
         library.put(book, shelf);
     }
