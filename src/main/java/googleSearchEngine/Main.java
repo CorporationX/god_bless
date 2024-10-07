@@ -30,10 +30,9 @@ public class Main {
 
     private static List<WebPage> getListWebPagesWitchContainWord(String word) {
         if (INDEX_WEBPAGES.get(word) == null) {
-            throw new NullPointerException("A web page containing word was not found: " + word);
-        } else {
-            return INDEX_WEBPAGES.get(word);
+            System.out.println("A web page containing word was not found: " + word);
         }
+        return INDEX_WEBPAGES.get(word);
     }
 
     private static void removeWebPageFromIndexByUrl(String webPageUrl) {
@@ -79,5 +78,9 @@ public class Main {
         for (Map.Entry<String, List<WebPage>> webPages : INDEX_WEBPAGES.entrySet()) {
             System.out.println(webPages.getKey() + ": " + webPages.getValue());
         }
+
+        System.out.println();
+        System.out.println(getListWebPagesWitchContainWord("java"));
+        System.out.println(getListWebPagesWitchContainWord("randomWord"));
     }
 }
