@@ -8,7 +8,6 @@ import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SpellCasterTest {
-
     @Test
     void cast() {
         SpellCaster spellCaster = new SpellCaster();
