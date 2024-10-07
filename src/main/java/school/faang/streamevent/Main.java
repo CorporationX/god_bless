@@ -27,16 +27,16 @@ public class Main {
     }
 
     public static void searchForEventById(int id) {
-        for (Map.Entry<Integer, StreamEvent> entry : events.entrySet()) {
-            if (entry.getKey() == id) {
-                System.out.println(entry.getValue().getEventType());
-            }
-        }
+        System.out.println(events.get(id));
     }
 
     public static void deleteEventById(int id) {
         StreamEvent removedEvent = events.remove(id);
-        sortedEvents.remove(removedEvent.getEventType());
+        if (removedEvent == null) {
+            System.out.println("Event not found");
+        } else {
+            sortedEvents.remove(removedEvent.getEventType());
+        }
     }
 
     public static void printEvents() {
