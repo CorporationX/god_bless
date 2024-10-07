@@ -1,18 +1,15 @@
 package school.faang.BJS2_33328;
 
-
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Data
+
 public class Main {
 
-    private Map<Integer, StreamEvent> integerStreamEventMap = new HashMap<>();
-    private Map<String, List<StreamEvent>> typeEventsMap = new HashMap<>();
+    private final Map<Integer, StreamEvent> integerStreamEventMap = new HashMap<>();
+    private final Map<String, List<StreamEvent>> typeEventsMap = new HashMap<>();
 
     public static void main(String[] args) {
         Main main = new Main();
@@ -42,7 +39,7 @@ public class Main {
     }
 
     public List<StreamEvent> findStreamEventByType(String eventType){
-        return typeEventsMap.containsKey(eventType) ? typeEventsMap.get(eventType) : new ArrayList<>();
+        return typeEventsMap.getOrDefault(eventType, new ArrayList<>());
     }
 
     public void deleteEventById(int id) {
