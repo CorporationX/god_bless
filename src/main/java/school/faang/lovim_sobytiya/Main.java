@@ -49,16 +49,16 @@ public class Main {
         } else {
             System.out.println("No event found with id: " + id);
         }
-
-        System.out.println("The event with id " + id + " was deleted. " +
-                "Here is how EVENTS_GROUP_BY_TYPE looks like now: ");
-        for (Map.Entry<String, List<StreamEvent>> event : EVENTS_GROUPED_BY_TYPE.entrySet()) {
-            System.out.println(event.getKey() + ":" + event.getValue());
-        }
+        System.out.println("The event with id: " + id + " was deleted");
     }
 
     public static void printAllStreamEvents() {
+        System.out.println("List of all the events: ");
         for (Map.Entry<Integer, StreamEvent> event : ID_EVENT.entrySet()) {
+            System.out.println(event.getKey() + ":" + event.getValue());
+        }
+        System.out.println("Here is how EVENTS_GROUP_BY_TYPE looks like:");
+        for (Map.Entry<String, List<StreamEvent>> event : EVENTS_GROUPED_BY_TYPE.entrySet()) {
             System.out.println(event.getKey() + ":" + event.getValue());
         }
     }
