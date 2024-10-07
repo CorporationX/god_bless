@@ -44,7 +44,7 @@ class FilterProcessorTest {
     }
 
     @Test
-    void applyNullFilters() {
+    void combineNullFilters() {
         Image image = new Image("Image", "Default image");
 
         FilterProcessor filterProcessor = new FilterProcessor();
