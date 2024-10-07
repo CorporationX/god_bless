@@ -1,4 +1,4 @@
-package school.faang.BJS2_33083;
+package school.faang.BJS2_33083_WesterosLibrary;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
