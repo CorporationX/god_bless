@@ -61,18 +61,10 @@ public class Main {
         }
     }
 
-    // в гите написал в комментарии почему использовал цикл, или я не правильно понял условия этого пункта?
     private static void deleteStreamEvent(Integer id) {
-        String eventType = "";
-        for (Map.Entry<Integer, StreamEvent> entry : streamEventMap.entrySet()) {
-            if (id.equals(entry.getKey())) {
-               eventType = entry.getValue().getEventType();
-            }
-        }
+        listStreamEventMap.remove(streamEventMap.get(id).getEventType());
         streamEventMap.remove(id);
-        listStreamEventMap.remove(eventType);
     }
-
 
     private static void showAllEvents() {
         System.out.println("событие потока streamEventMap");
@@ -85,5 +77,4 @@ public class Main {
             System.out.println(entry.getValue());
         }
     }
-
 }
