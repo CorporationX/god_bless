@@ -11,7 +11,24 @@ public class User {
     private String workPlace;
     private String address;
 
+    private final List<String> VALID_JOBS = List.of("Google", "Uber", "Amazon");
+    private final List<String> VALID_ADDRESSES = List.of("London", "New York", "Amsterdam");
+    private final int VALID_AGE = 18;
+
     public User(String name, int age, String workPlace, String address) {
+
+        if(name.isBlank())
+            throw new IllegalArgumentException("Имя пользователя не может быть пустым!");
+
+        if(VALID_AGE > age)
+            throw new IllegalArgumentException("Возраст пользователя должен быть больше " + VALID_AGE);
+
+        if(!VALID_JOBS.contains(workPlace))
+            throw new IllegalArgumentException("Пользователя должен работать в одной из компаний : " + VALID_JOBS);
+
+        if(!VALID_ADDRESSES.contains(address))
+            throw new IllegalArgumentException("Пользователь должен проживать в одном из городов : " + VALID_ADDRESSES);
+
         this.name = name;
         this.age = age;
         this.workPlace = workPlace;
