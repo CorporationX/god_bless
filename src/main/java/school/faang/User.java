@@ -23,7 +23,7 @@ public class User {
 
     public User(String name, String age, String job, String address) {
         try {
-            Validation(name, age, job, address);
+            validation(name, age, job, address);
             this.name = name;
             this.age = age;
             this.job = job;
@@ -33,14 +33,14 @@ public class User {
         }
     }
 
-    private void Validation(String name, String age, String job, String address) throws IllegalArgumentException {
-        if (name.equals("")) throw new IllegalArgumentException("Uncorrected name: \""+name+"\"");
+    public void validation(String name, String age, String job, String address) throws IllegalArgumentException {
+        if (name.equals("")) throw new IllegalArgumentException("Uncorrected name: \"" + name + "\"");
         if (Integer.parseInt(age) < VALID_AGE)
-            throw new IllegalArgumentException("Uncorrected age: \""+age+"\"");
+            throw new IllegalArgumentException("Uncorrected age: \"" + age + "\"");
         if (!VALID_JOBS.contains(job))
-            throw new IllegalArgumentException("Uncorrected job: \""+job+"\"");
+            throw new IllegalArgumentException("Uncorrected job: \"" + job + "\"");
         if (!VALID_ADDRESSES.contains(address))
-            throw new IllegalArgumentException("Uncorrected address: \""+address+"\"");
+            throw new IllegalArgumentException("Uncorrected address: \"" + address + "\"");
     }
 
     public static Map<String, List<User>> groupUsers(List<User> users) {
