@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import static school.faang.HashMap2.StreamEvent.addEvent;
-import static school.faang.HashMap2.StreamEvent.allEventsInfo;
+import static school.faang.HashMap2.StreamEvent.printEventsInfo;
 import static school.faang.HashMap2.StreamEvent.deleteEvent;
 import static school.faang.HashMap2.StreamEvent.searchEvent;
 import static school.faang.HashMap2.StreamEvent.searchEventList;
@@ -20,7 +20,7 @@ public class Main {
         addEvent(5, "subscribe", "19.00", idMap, typeMap);
         addEvent(6, "subscribe", "20.00", idMap, typeMap);
 
-        allEventsInfo(typeMap);
+        printEventsInfo(typeMap);
         System.out.println(searchEvent(1, idMap));
         System.out.println(searchEvent(10, idMap));
         System.out.println(searchEventList("exit", typeMap));
@@ -28,7 +28,7 @@ public class Main {
         System.out.println("Удалили событие c id №1");
         deleteEvent(1, idMap, typeMap);
         System.out.println(searchEvent(1, idMap));
-        allEventsInfo(typeMap);
+        printEventsInfo(typeMap);
 
     }
 }
