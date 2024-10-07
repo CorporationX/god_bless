@@ -15,11 +15,11 @@ public class Main {
         addEvent(new StreamEvent(3, "info", "Process exit"));
         addEvent(new StreamEvent(4, "debug", "Test"));
         findEventId(4);
-        findEventTupe("info");
-        printStreamEent();
+        findEventType("info");
+        printStreamEvent();
         removeEvent(3);
         System.out.println();
-        printStreamEent();
+        printStreamEvent();
 
     }
 
@@ -40,7 +40,7 @@ public class Main {
         }
     }
 
-    public static void findEventTupe(String type) {
+    public static void findEventType(String type) {
         if (eventByType.containsKey(type)) {
             ArrayList eventList = (ArrayList) eventByType.get(type);
             System.out.println("List event with type " + type + " " + eventList);
@@ -61,7 +61,7 @@ public class Main {
         }
     }
 
-    private static void printStreamEent() {
+    private static void printStreamEvent() {
         for (Map.Entry<Integer, StreamEvent> entry : eventById.entrySet()) {
             String value = entry.getValue().toString();
             System.out.println("StreamEvent: " + value);
