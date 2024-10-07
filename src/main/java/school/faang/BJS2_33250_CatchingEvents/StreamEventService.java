@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class StreamEventService {
-    private final Map<Integer, StreamEvent> idToEvent;
-    private final Map<String, List<StreamEvent>> typeToEvents;
+    private Map<Integer, StreamEvent> idToEvent;
+    private Map<String, List<StreamEvent>> typeToEvents;
 
     public StreamEventService() {
         idToEvent = new HashMap<>();
