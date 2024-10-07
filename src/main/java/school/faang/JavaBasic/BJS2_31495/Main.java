@@ -26,7 +26,6 @@ public class Main {
                 new User(14, "Nina", 28, new HashSet<>(Arrays.asList("Hiking", "Painting", "Traveling"))),
                 new User(15, "Oscar", 34, new HashSet<>(Arrays.asList("Gaming", "Cooking", "Swimming")))
         ));
-
         Set<String> activities = new HashSet<>(Arrays.asList("Reading", "Gaming", "Cooking"));
 
         Map<User, String> groupingOfUsersByActivities = User.findHobbyLovers(users, activities);
