@@ -22,18 +22,14 @@ public class User {
     private String address;
 
     public User(String name, String age, String job, String address) {
-        try {
             validation(name, age, job, address);
             this.name = name;
             this.age = age;
             this.job = job;
             this.address = address;
-        } catch (IllegalArgumentException e) {
-            System.out.println(e);
-        }
     }
 
-    public void validation(String name, String age, String job, String address) throws IllegalArgumentException {
+    private void validation(String name, String age, String job, String address) throws IllegalArgumentException {
         if (name.equals("")) throw new IllegalArgumentException("Uncorrected name: \"" + name + "\"");
         if (Integer.parseInt(age) < VALID_AGE)
             throw new IllegalArgumentException("Uncorrected age: \"" + age + "\"");
