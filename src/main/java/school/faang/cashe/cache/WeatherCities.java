@@ -4,31 +4,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeatherCities {
-    private Map<String, WeatherData> cacheWeatherData;
-
-    public WeatherCities() {
-        this.cacheWeatherData = new HashMap<>();
-    }
+    private Map<String, WeatherData> cachedWeatherData = new HashMap<>();
 
     public WeatherData getWeatherData(String city) {
-        return cacheWeatherData.getOrDefault(city, MockWeatherInfo.getWeatherData(city));
+        return cachedWeatherData.getOrDefault(city, MockWeatherInfo.getWeatherData(city));
     }
 
     public void updateWeatherDataForCity(String city) {
         WeatherData updatedWeatherData = MockWeatherInfo.getWeatherData(city);
-        cacheWeatherData.put(city, updatedWeatherData);
+        cachedWeatherData.put(city, updatedWeatherData);
     }
 
     public void removeWeatherDataForCity(String city) {
-        cacheWeatherData.remove(city);
+        cachedWeatherData.remove(city);
     }
 
     public void printAllCities() {
-        cacheWeatherData.keySet().forEach(System.out::println);
+        cachedWeatherData.keySet().forEach(System.out::println);
     }
 
     public void printAllData() {
-        cacheWeatherData.forEach(
+        cachedWeatherData.forEach(
                 (city, data) -> System.out.println(city + " " + data)
         );
     }
