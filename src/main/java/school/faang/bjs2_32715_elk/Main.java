@@ -33,6 +33,7 @@ public class Main {
         System.out.println();
 
         deleteUser(2);
+        deleteUser("Charlie");
 
         displayAllQueries();
         System.out.println();
@@ -47,48 +48,43 @@ public class Main {
         NAME_TO_USER_MAP.put(user.getName(), user);
     }
 
-    private static void addQueryToUser(Object idOrName, String newQuery) {
+    private static void addQueryToUser(int id, String newQuery) {
+        validateId(id);
         Query query = new Query(newQuery);
+        User user = ID_TO_USER_MAP.get(id);
+        USER_QUERY_MAP.get(user).add(query);
+    }
 
-        if (idOrName instanceof Integer) {
-            int id = (int) idOrName;
-            if (!ID_TO_USER_MAP.containsKey(id)) {
-                throw new IllegalArgumentException("User with id " + id + " doesn't exist");
-            }
-            User user = ID_TO_USER_MAP.get(id);
-            USER_QUERY_MAP.get(user).add(query);
-        }
+    private static void addQueryToUser(String name, String newQuery) {
+        validateName(name);
+        Query query = new Query(newQuery);
+        User user = NAME_TO_USER_MAP.get(name);
+        USER_QUERY_MAP.get(user).add(query);
+    }
 
-        if (idOrName instanceof String) {
-            String name = (String) idOrName;
-            if (!NAME_TO_USER_MAP.containsKey(name)) {
-                throw new IllegalArgumentException("User with name " + name + " doesn't exist");
-            }
-            User user = NAME_TO_USER_MAP.get(name);
-            USER_QUERY_MAP.get(user).add(query);
+    private static void deleteUser(int id) {
+        validateId(id);
+        User user = ID_TO_USER_MAP.remove(id);
+        NAME_TO_USER_MAP.remove(user.getName());
+        USER_QUERY_MAP.remove(user);
+    }
+
+    private static void deleteUser(String name) {
+        validateName(name);
+        User user = NAME_TO_USER_MAP.remove(name);
+        ID_TO_USER_MAP.remove(user.getId());
+        USER_QUERY_MAP.remove(user);
+    }
+
+    private static void validateId(int id) {
+        if (!ID_TO_USER_MAP.containsKey(id)) {
+            throw new IllegalArgumentException("User with id " + id + " doesn't exist");
         }
     }
 
-    private static void deleteUser(Object idOrName) {
-
-        if (idOrName instanceof Integer) {
-            int id = (int) idOrName;
-            if (!ID_TO_USER_MAP.containsKey(id)) {
-                throw new IllegalArgumentException("User with id " + id + " doesn't exist");
-            }
-            User user = ID_TO_USER_MAP.remove(id);
-            NAME_TO_USER_MAP.remove(user.getName());
-            USER_QUERY_MAP.remove(user);
-        }
-
-        if (idOrName instanceof String) {
-            String name = (String) idOrName;
-            if (!NAME_TO_USER_MAP.containsKey(name)) {
-                throw new IllegalArgumentException("User with name " + name + " doesn't exist");
-            }
-            User user = NAME_TO_USER_MAP.remove(name);
-            ID_TO_USER_MAP.remove(user.getId());
-            USER_QUERY_MAP.remove(user);
+    private static void validateName(String name) {
+        if (!NAME_TO_USER_MAP.containsKey(name)) {
+            throw new IllegalArgumentException("User with name " + name + " doesn't exist");
         }
     }
 
