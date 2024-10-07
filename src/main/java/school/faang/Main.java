@@ -1,10 +1,16 @@
 package school.faang;
 
+import school.faang.fifthTask.Student;
+import school.faang.fifthTask.StudentsMapManager;
+import school.faang.fifthTask.Subject;
+import school.faang.fifthTask.SubjectWithGrade;
 import school.faang.firsttask.User;
 import school.faang.forthTask.SearchEngine;
 import school.faang.forthTask.WebPage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +18,48 @@ public class Main {
     public static void main(String[] args) {
         usersGrouping();
         googleSearchEngine();
+        doubleCache();
+    }
+
+    public static void doubleCache() {
+        StudentsMapManager manager = new StudentsMapManager();
+
+        Student student1 = new Student(1, "Ivan");
+        Student student2 = new Student(2, "Alex");
+        Student student3 = new Student(3, "Andrei");
+
+        Subject subject1 = new Subject(1, "Subject1");
+        Subject subject2 = new Subject(2, "Subject2");
+        Subject subject3 = new Subject(3, "Subject3");
+        Subject subjectNew = new Subject(4, "subjectNew");
+
+        // 1 part
+        manager.addNewStudentAndSubjects(
+                student1,
+                List.of(
+                        new SubjectWithGrade(subject1, 5),
+                        new SubjectWithGrade(subject2, 9)
+                )
+        );
+        manager.addSubjectForStudent(student1, subject3, 6);
+        manager.addSubjectForStudent(student1, subject3, 7);
+        manager.addSubjectForStudent(student2, subject1, 7);
+
+        manager.printAllStudentsAndGrades();
+        manager.printAllSubjectsAndStudents();
+        System.out.println("=======================================");
+
+        // 2 part
+        manager.addNewSubjectForStudents(subjectNew, Arrays.asList(student1, student2));
+        manager.addNewSubjectForStudents(subject2, Collections.singletonList(student3));
+        manager.addStudentToSubject(subjectNew, student3);
+
+        manager.printAllStudentsAndGrades();
+        manager.printAllSubjectsAndStudents();
+
+        System.out.println("=======================================");
+        manager.removeStudent(student1);
+        manager.printAllStudentsAndGrades();
     }
 
     public static void usersGrouping() {
