@@ -34,11 +34,7 @@ public class Main {
     }
 
     public void deleteWeatherData(String city) {
-        if (!weatherDataForCities.containsKey(city)) {
-            System.out.println("There is no weather data to delete for city " + city);
-        } else {
-            weatherDataForCities.remove(city);
-        }
+        weatherDataForCities.remove(city);
     }
 
     public void printWeatherData() {
