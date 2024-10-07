@@ -17,33 +17,37 @@ public class Main {
         removeEventInLists(2);
         showTypesOfEvents();
     }
+
     public static void addEvent(StreamEvent streamEvent) {
-        int id = streamEvent.getId();
-        String eventType = streamEvent.getEventType();
+        int id = streamEvent.id();
+        String eventType = streamEvent.eventType();
         listEvents.put(id, streamEvent);
         typesOfEvents.computeIfAbsent(eventType, k -> new ArrayList<>()).add(streamEvent);
     }
+
     public static StreamEvent searchEventInListEvents(StreamEvent event) {
-        int id = event.getId();
+        int id = event.id();
         return listEvents.get(id);
     }
+
     public static List<StreamEvent> searchEventInTypesOfEvents(StreamEvent event) {
-        String type = event.getEventType();
+        String type = event.eventType();
         return typesOfEvents.get(type);
     }
+
     public static void removeEventInLists(int id) {
         StreamEvent event = listEvents.remove(id);
-        for (Map.Entry<String, List<StreamEvent>> entry : typesOfEvents.entrySet()) {
-            List<StreamEvent> streamEvents = entry.getValue();
-            streamEvents.removeIf(streamEvent -> streamEvent.equals(event));
+        for (List<StreamEvent> entry : typesOfEvents.values()) {
+            entry.remove(event);
         }
     }
+
     public static void showTypesOfEvents() {
         for (Map.Entry<String, List<StreamEvent>> entry : typesOfEvents.entrySet()) {
             List<StreamEvent> events = entry.getValue();
             for (StreamEvent streamEvent : events) {
-                System.out.println("ID события: " + streamEvent.getId() + "\nтип события: "
-                    + streamEvent.getEventType() + "\nданные события: " + streamEvent.getData());
+                System.out.println("ID события: " + streamEvent.id() + "\nтип события: "
+                    + streamEvent.eventType() + "\nданные события: " + streamEvent.data());
             }
         }
     }
