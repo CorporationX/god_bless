@@ -1,5 +1,7 @@
 package school.faang.catch_event;
 
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.util.*;
 
 public class Main {
@@ -28,14 +30,13 @@ public class Main {
         eventTypes.computeIfAbsent(streamEvent.eventType(), v -> new ArrayList<>()).add(streamEvent);
     }
 
-    private static StreamEvent findById(int id, Map<Integer, StreamEvent> eventIds) throws NoSuchElementException {
-        return Optional.of(eventIds.get(id)).orElseThrow(() -> new NoSuchElementException("Event does not exist"));
+    private static StreamEvent findById(int id, Map<Integer, StreamEvent> eventIds) throws UncheckedIOException {
+        return Optional.of(eventIds.get(id)).orElseThrow(() ->
+                new UncheckedIOException("StreamEvent not found with ID: " + id, new IOException("Event not found")));
     }
 
-    private static List<StreamEvent> findByType(String type, Map<String, List<StreamEvent>> typeEvents)
-            throws NoSuchElementException {
-        return Optional.of(typeEvents.get(type)).orElseThrow(() ->
-                new NoSuchElementException("List of events does not exist"));
+    private static List<StreamEvent> findByType(String type, Map<String, List<StreamEvent>> typeEvents) {
+        return typeEvents.get(type);
     }
 
     private static void removeById(int id, Map<Integer, StreamEvent> eventIds, Map<String, List<StreamEvent>> eventTypes) {
