@@ -28,19 +28,15 @@ public class Main {
 
     public static void searchForEventById(int id) {
         for (Map.Entry<Integer, StreamEvent> entry : events.entrySet()) {
-            if (entry.getValue().getId() == id) {
+            if (entry.getKey() == id) {
                 System.out.println(entry.getValue().getEventType());
             }
         }
     }
 
     public static void deleteEventById(int id) {
-        events.remove(id);
-
-        for (Map.Entry<String, List<StreamEvent>> entry : sortedEvents.entrySet()) {
-            List<StreamEvent> eventList = entry.getValue();
-            eventList.removeIf(event -> event.getId() == id);
-        }
+        StreamEvent removedEvent = events.remove(id);
+        sortedEvents.remove(removedEvent.getEventType());
     }
 
     public static void printEvents() {
