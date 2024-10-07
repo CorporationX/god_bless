@@ -1,9 +1,9 @@
 package school.faang.task132;
 
-import lombok.*;
-
-import java.util.Date;
-
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
 @ToString
 @AllArgsConstructor
