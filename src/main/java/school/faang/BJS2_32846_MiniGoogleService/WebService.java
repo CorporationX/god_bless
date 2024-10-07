@@ -21,7 +21,7 @@ public class WebService {
 
     public void indexWebPage(WebPage page) {
         if (!alreadyIndexedPages.containsKey(page.getUrl())) {
-            String[] words = page.getContent().toLowerCase().split("[^\\p{L}\\p{N}]+");
+            String[] words = page.getContent().toLowerCase().split("\\W+");
             Set<String> uniqueWords = new HashSet<>(Arrays.asList(words));
             uniqueWords.forEach(
                     word -> wordToPages
