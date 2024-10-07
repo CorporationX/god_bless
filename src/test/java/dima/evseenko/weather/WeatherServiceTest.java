@@ -9,22 +9,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 class WeatherServiceTest {
 
     @Test
-    void getWeatherData(){
+    void getWeatherData() {
         assertEquals(new WeatherData("Санкт-Петербург", 9, 91), new WeatherService().getWeatherData("Санкт-Петербург"));
     }
 
     @Test
-    void getWeatherDataNullCity(){
+    void getWeatherDataNullCity() {
         assertNull(new WeatherService().getWeatherData(null));
     }
 
     @Test
-    void getWeatherDataNotExistsCity(){
+    void getWeatherDataNotExistsCity() {
         assertNull(new WeatherService().getWeatherData("Уфа"));
     }
 
     @Test
-    void getCachedWeatherData(){
+    void getCachedWeatherData() {
         WeatherService weatherService = new WeatherService();
         weatherService.updateWeatherData("Москва");
 
@@ -32,17 +32,17 @@ class WeatherServiceTest {
     }
 
     @Test
-    void getCachedWeatherDataNullCity(){
+    void getCachedWeatherDataNullCity() {
         assertNull(new WeatherService().getCachedWeatherData(null));
     }
 
     @Test
-    void getCachedWeatherDataNotExistsCity(){
+    void getCachedWeatherDataNotExistsCity() {
         assertNull(new WeatherService().getCachedWeatherData("Уфа"));
     }
 
     @Test
-    void updateWeatherData(){
+    void updateWeatherData() {
         WeatherService weatherService = new WeatherService();
         weatherService.updateWeatherData("Москва");
 
@@ -50,7 +50,7 @@ class WeatherServiceTest {
     }
 
     @Test
-    void updateWeatherDataNotExistsCity(){
+    void updateWeatherDataNotExistsCity() {
         WeatherService weatherService = new WeatherService();
         weatherService.updateWeatherData("Уфа");
 
@@ -58,7 +58,7 @@ class WeatherServiceTest {
     }
 
     @Test
-    void deleteWeatherData(){
+    void deleteWeatherData() {
         WeatherService weatherService = new WeatherService();
         weatherService.updateWeatherData("Москва");
         weatherService.updateWeatherData("Санкт-Петербург");

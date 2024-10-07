@@ -6,14 +6,15 @@ import java.util.Objects;
 
 public class WeatherService {
     private final Map<String, WeatherData> cachedWeatherData = new HashMap<>();
+    private final WeatherRepository repository = new MockedWeatherRepository();
 
     public WeatherData getWeatherData(String city) {
-        return cachedWeatherData.computeIfAbsent(city, WeatherRepository::getWeather);
+        return cachedWeatherData.computeIfAbsent(city, repository::getWeather);
     }
 
     public void updateWeatherData(String city) {
         if (Objects.nonNull(city)) {
-            cachedWeatherData.put(city, WeatherRepository.getWeather(city));
+            cachedWeatherData.put(city, repository.getWeather(city));
         }
     }
 
