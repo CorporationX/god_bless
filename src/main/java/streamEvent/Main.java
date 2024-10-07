@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static final Map<Integer, StreamEvent> EVENT_MAP = new HashMap<>();
-    static final Map<String, List<StreamEvent>> EVENT_GROUP = new HashMap<>();
+    private static final Map<Integer, StreamEvent> EVENT_MAP = new HashMap<>();
+    private static final Map<String, List<StreamEvent>> EVENT_GROUP = new HashMap<>();
 
     public static void addEvent(StreamEvent event) {
         EVENT_MAP.putIfAbsent(event.getId(), event);
