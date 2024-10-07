@@ -2,6 +2,7 @@ package school.faang.elk;
 
 import lombok.Getter;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ElkQuery {
     }
 
     public void addQueryForUser(User user, Query query) {
+        usersQueries.putIfAbsent(user, new ArrayList<>());
         usersQueries.get(user).add(query);
     }
 

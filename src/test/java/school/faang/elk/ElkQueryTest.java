@@ -22,8 +22,8 @@ class ElkQueryTest {
     public void setUp() {
         elkQuery = new ElkQuery();
 
-        user1 = new User(1, "User 1");
-        user2 = new User(2, "User 2");
+        user1 = new User("User 1");
+        user2 = new User("User 2");
 
         query1 = new Query(1, "Query 1", now());
         query2 = new Query(2, "Query 2", now().minusDays(2));
@@ -42,23 +42,36 @@ class ElkQueryTest {
 
     @Test
     void addUserTest() {
-        User user3 = new User(3, "User 3");
+        int initializeUserCount = elkQuery.getUsersQueries().keySet().size();
+        User user3 = new User("User 3");
         List<Query> user3Queries = new ArrayList<>();
         user3Queries.add(new Query(4, "Query 4", now().minusDays(4)));
 
         elkQuery.addUser(user3, user3Queries);
 
-        assertEquals(1, elkQuery.getUsersQueries().get(user3).size());
+        assertEquals(initializeUserCount + 1, elkQuery.getUsersQueries().keySet().size());
     }
 
     @Test
     void addQueryForUserTest() {
+        int initializeQueryCount = elkQuery.getUsersQueries().get(user1).size();
         Query newQuery = new Query(5, "Query 5", now().minusDays(5));
         elkQuery.addQueryForUser(user1, newQuery);
 
         List<Query> user1Queries = elkQuery.getUsersQueries().get(user1);
 
-        assertEquals(3, user1Queries.size());
+        assertEquals(initializeQueryCount + 1, user1Queries.size());
+    }
+
+    @Test
+    void addQueryForNewUserTest() {
+        User newUser = new User("User 3");
+        Query newQuery = new Query(5, "Query 5", now().minusDays(5));
+        elkQuery.addQueryForUser(newUser, newQuery);
+
+        List<Query> newUserQueries = elkQuery.getUsersQueries().get(newUser);
+
+        assertEquals(1, newUserQueries.size());
     }
 
     @Test

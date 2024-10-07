@@ -1,11 +1,18 @@
 package school.faang.elk;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.UUID;
 
 @Data
-@AllArgsConstructor
+@EqualsAndHashCode(exclude = "name")
 public class User {
-    private Integer id;
+    private final String id;
     private String name;
+
+    public User(String name) {
+        this.id = UUID.randomUUID().toString();
+        this.name = name;
+    }
 }
