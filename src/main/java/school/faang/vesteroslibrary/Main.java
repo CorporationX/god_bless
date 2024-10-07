@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class Main {
     private static Map<Book, String> LIBRARY = new HashMap<>();
+
     public static void main(String[] args) {
         addToLibrary(new Book("Java Programming", "Java", 2003), "1");
         addToLibrary(new Book("Programming", "Program", 2002), "2");
@@ -15,6 +16,7 @@ public class Main {
         deleteFromLibrary("Not Java Programming", "WHO", 2000);
 
         printEveryBookInLibrary();
+        searchInLibrary("SQL", "SQL", 2001);
 
     }
 
@@ -23,15 +25,11 @@ public class Main {
     }
 
     public static void deleteFromLibrary(String title, String author, int year) {
-        Iterator<Map.Entry<Book, String>> iterator = LIBRARY.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Book, String> entry = iterator.next();
-            if (entry.getKey().getTitle().equals(title) &&
-                    entry.getKey().getAuthor().equals(author) &&
-                    entry.getKey().getYear() == year) {
-                iterator.remove();
-            }
-        }
+        LIBRARY.remove(new Book(title, author, year));
+    }
+
+    public static void searchInLibrary(String title, String author, int year) {
+        System.out.println(LIBRARY.get(new Book(title, author,year)));
     }
 
     public static void printEveryBookInLibrary(){
