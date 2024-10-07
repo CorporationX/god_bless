@@ -17,14 +17,15 @@ public class Main {
         students.add(new Student("Michael", "Mathematics", 1));
         students.add(new Student("David", "Biology", 3));
 
-        System.out.println(sortingStudentsByFacultyAndCourse(students));
+        System.out.println(groupingStudentsByFacultyAndCourse(students));
 
+        Map<FacultyYear, List<Student>> studentsMap = groupingStudentsByFacultyAndCourse(students);
         deleteStudent("Ivan", "Biology", 3);
-        System.out.println(searchStudents("Mathematics", 1));
+        System.out.println(searchStudents(studentsMap, "Mathematics", 1));
         printStudents();
     }
 
-    public static Map<FacultyYear, List<Student>> sortingStudentsByFacultyAndCourse(List<Student> studentList) {
+    public static Map<FacultyYear, List<Student>> groupingStudentsByFacultyAndCourse(List<Student> studentList) {
         Map<FacultyYear, List<Student>> map = new HashMap<>();
         for (Student student : studentList) {
             map.computeIfAbsent(new FacultyYear(student.getFaculty(), student.getYear()), x -> new ArrayList<>()).add(student);
@@ -41,13 +42,12 @@ public class Main {
         students.removeIf(s -> s.equals(student));
     }
 
-    public static List<Student> searchStudents(String faculty, int year) {
-        return sortingStudentsByFacultyAndCourse(students).get(new FacultyYear(faculty, year));
+    public static List<Student> searchStudents(Map<FacultyYear, List<Student>> studentsMap, String faculty, int year) {
+        return studentsMap.get(new FacultyYear(faculty, year));
     }
 
-    public static void printStudents() {
-        Map<FacultyYear, List<Student>> map = sortingStudentsByFacultyAndCourse(students);
-        for (Map.Entry<FacultyYear, List<Student>> entry : map.entrySet()) {
+    public static void printStudents(Map<FacultyYear, List<Student>> studentsMap) {
+        for (Map.Entry<FacultyYear, List<Student>> entry : studentsMap.entrySet()) {
             for (Student student : entry.getValue()) {
                 System.out.println(student.getName() + " " + student.getFaculty() + " " + student.getYear());
             }
