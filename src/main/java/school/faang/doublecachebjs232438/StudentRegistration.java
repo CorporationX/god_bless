@@ -1,4 +1,4 @@
-package school.faang.doublecache_BJS2_32438;
+package school.faang.doublecachebjs232438;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,12 +7,12 @@ import java.util.Map;
 
 public class StudentRegistration {
 
-    private HashMap<Student, Map<Subject, Integer>> studentsMap = new HashMap<>();
-    private HashMap<Subject, List<Student>> subjectsMap = new HashMap<>();
+    private final Map<Student, Map<Subject, Integer>> studentsMap = new HashMap<>();
+    private final Map<Subject, List<Student>> subjectsMap = new HashMap<>();
 
     public void addStudent(Student newStudent, Map<Subject, Integer> newSubjects) {
 
-        var curSubjects = studentsMap.computeIfAbsent(newStudent, (k) -> new HashMap<>());
+        Map<Subject, Integer> curSubjects = studentsMap.computeIfAbsent(newStudent, (k) -> new HashMap<>());
 
         for (Map.Entry<Subject, Integer> subjectIntegerEntry : newSubjects.entrySet()) {
             if (subjectsMap.containsKey(subjectIntegerEntry.getKey())) {
@@ -23,7 +23,6 @@ public class StudentRegistration {
     }
 
     public void addSubjectForExistStudent(Student student, Subject subject, Integer rating) {
-
         if (!studentsMap.containsKey(student)) {
             return;
         }
@@ -35,15 +34,13 @@ public class StudentRegistration {
     }
 
     private void addToSubjectsMap(Subject subject, Student newStudent) {
-
-        var students = subjectsMap.computeIfAbsent(subject, k -> new ArrayList<>());
+        List<Student> students = subjectsMap.computeIfAbsent(subject, k -> new ArrayList<>());
         if (!students.contains(newStudent)) {
             students.add(newStudent);
         }
     }
 
     public void removeStudent(Student student) {
-
         if (!studentsMap.containsKey(student)) {
             return;
         }
@@ -58,7 +55,7 @@ public class StudentRegistration {
     }
 
     public void addSubjectWithStudents(Subject newSubject, List<Student> newStudents) {
-        var students = subjectsMap.computeIfAbsent(newSubject, k -> new ArrayList<>());
+        List<Student> students = subjectsMap.computeIfAbsent(newSubject, k -> new ArrayList<>());
         newStudents.forEach(s -> {
             if (!students.contains(s)) {
                 students.add(s);
@@ -67,12 +64,11 @@ public class StudentRegistration {
     }
 
     public void pushStudentsToSubjects(Student newStudent, Subject subject) {
-
         if (!subjectsMap.containsKey(subject)) {
             return;
         }
 
-        var studentsList = subjectsMap.get(subject);
+        List<Student> studentsList = subjectsMap.get(subject);
         if (!studentsList.contains(newStudent)) {
             studentsList.add(newStudent);
         }
@@ -84,13 +80,13 @@ public class StudentRegistration {
         }
 
         if (studentsMap.containsKey(student)) {
-            var subjMap = studentsMap.get(student);
+            Map<Subject, Integer> subjMap = studentsMap.get(student);
             if (subjMap.containsKey(subject)) {
                 return;
             }
         }
 
-        var studentsList = subjectsMap.get(subject);
+        List<Student> studentsList = subjectsMap.get(subject);
 
         studentsList.remove(student);
     }
@@ -102,11 +98,11 @@ public class StudentRegistration {
         }
     }
 
-    public HashMap<Student, Map<Subject, Integer>> getStudentsMap() {
+    public Map<Student, Map<Subject, Integer>> getStudentsMap() {
         return studentsMap;
     }
 
-    public HashMap<Subject, List<Student>> getSubjectsMap() {
+    public Map<Subject, List<Student>> getSubjectsMap() {
         return subjectsMap;
     }
 }

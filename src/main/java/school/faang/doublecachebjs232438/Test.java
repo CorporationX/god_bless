@@ -1,8 +1,8 @@
-package school.faang.doublecache_BJS2_32438;
+package school.faang.doublecachebjs232438;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
@@ -38,11 +38,11 @@ public class Test {
         studentRegistration.printSubjects();
 
 
-        var subjects = new HashMap<Subject, Integer>(){{
-            put(math, 4);
-            put(music, 3);
-            put(history,5);
-        }};
+        var subjects = Map.of(
+                math, 4,
+                music, 3,
+                history, 5
+        );
 
         var jeni = new Student(15, "Jeni");
         System.out.println();

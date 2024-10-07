@@ -1,12 +1,12 @@
-package school.faang.doublecache_BJS2_32438;
+package school.faang.doublecachebjs232438;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 class StudentRegistrationTest {
 
@@ -18,7 +18,7 @@ class StudentRegistrationTest {
     List<Subject> subjectsList;
 
     @BeforeEach
-     void init() {
+    void init() {
 
         studentRegistrationEmpty = new StudentRegistration();
         studentRegistrationKseniya = new StudentRegistration();
@@ -48,9 +48,9 @@ class StudentRegistrationTest {
 
         studentRegistrationKseniya.addSubjectWithStudents(subjectsList.get(1), studentsLongList);
 
-        var subjects = new HashMap<Subject, Integer>() {{
-            put(subjectsList.get(1), 4);
-        }};
+        var subjects = Map.of(
+                subjectsList.get(1), 4
+        );
         studentRegistrationKseniya.addStudent(studentsLongList.get(3), subjects);
     }
 
@@ -61,11 +61,12 @@ class StudentRegistrationTest {
         var math = subjectsList.get(0);
         var music = subjectsList.get(1);
         var history = subjectsList.get(2);
-        var subjects = new HashMap<Subject, Integer>(){{
-            put(math, 4);
-            put(music, 3);
-            put(history,5);
-        }};
+
+        var subjects = Map.of(
+                math, 4,
+                music, 3,
+                history, 5
+        );
 
         studentRegistration.addStudent(jeni, subjects);
         Assertions.assertAll(
@@ -84,11 +85,12 @@ class StudentRegistrationTest {
         var math = subjectsList.get(0);
         var music = subjectsList.get(1);
         var history = subjectsList.get(2);
-        var subjects = new HashMap<Subject, Integer>(){{
-            put(math, 4);
-            put(music, 3);
-            put(history,5);
-        }};
+
+        var subjects = Map.of(
+                math, 4,
+                music, 3,
+                history, 5
+        );
 
         studentRegistration.addSubjectWithStudents(music, new ArrayList<>());
         studentRegistration.addSubjectWithStudents(history, new ArrayList<>());
@@ -125,9 +127,10 @@ class StudentRegistrationTest {
         var math = subjectsList.get(2);
         var history = subjectsList.get(2);
         var rating = 5;
-        var subjects = new HashMap<Subject, Integer>(){{
-            put(math, 5);
-        }};
+
+        var subjects = Map.of(
+                math, 5
+        );
 
         studentRegistration.addSubjectWithStudents(history, new ArrayList<>());
         studentRegistration.addStudent(alex, subjects);
