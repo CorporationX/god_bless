@@ -1,12 +1,8 @@
 package school.faang.searchEngine;
 
-import lombok.Getter;
-
 import java.util.*;
 
-@Getter
 public class WebPageService {
-
   private final Map<String, List<WebPage>> webPages = new HashMap<>();
   private final Set<WebPage> noRepetitionsWebPages = new HashSet<>();
 

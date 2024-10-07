@@ -2,7 +2,6 @@ package school.faang.searchEngine;
 
 public class Main {
   public static void main(String[] args) {
-
     WebPage webPage1 = new WebPage("url1", "page1", "123, asd zxc qwe");
     WebPage webPage2 = new WebPage("url2", "page2", "1233 asdd zxcz qwee");
     WebPage webPage3 = new WebPage("url3", "page3", "1234 asdw zxcz qwez");
@@ -25,8 +24,5 @@ public class Main {
 
     webPageRepository.removePage("url2");
     System.out.println(webPageRepository.searchPages("1234"));
-
-    System.out.println(webPageRepository.getWebPages());
-
   }
 }
