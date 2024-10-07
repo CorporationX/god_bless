@@ -12,13 +12,10 @@ public class Main {
         String city1 = "Москва";
         String city2 = "Казань";
         String city3 = "Питер";
-        WeatherData data1 = new WeatherData(city1, 12, 78);
-        WeatherData data2 = new WeatherData(city2, 5, 80);
-        WeatherData data3 = new WeatherData(city3, 15, 60);
 
-        main.update(city1, data1);
-        main.update(city2, data2);
-        main.update(city3, data3);
+        main.update(city1);
+        main.update(city2);
+        main.update(city3);
         main.print();
 
         System.out.println(main.getWeather(city1));
@@ -34,7 +31,8 @@ public class Main {
         return weatherData;
     }
 
-    public void update(String cityName, WeatherData weatherData) {
+    public void update(String cityName) {
+        WeatherData weatherData = weatherService.getWeatherData(cityName);
         cityToWeatherData.put(cityName, weatherData);
     }
 
