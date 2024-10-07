@@ -46,7 +46,7 @@ public class Main {
     }
     public static List<StreamEvent> getEventsByType(String type){
         if (type == null) {
-            return null;
+            return new LinkedList<StreamEvent>();
         }
         return eventsByType.get(type);
     }

@@ -33,9 +33,4 @@ public class StreamEvent {
     public String toString(){
         return "StreamEvent [id = " + id + ", eventType = " + eventType + ", data = " + data + "] ";
     }
-
-
-
-
-
 }
