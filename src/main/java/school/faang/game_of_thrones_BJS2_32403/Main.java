@@ -1,11 +1,8 @@
 package school.faang.game_of_thrones_BJS2_32403;
 
-import lombok.Data;
-
 import java.util.HashMap;
 import java.util.Map;
 
-@Data
 public class Main {
     private Map<String, House> houses = new HashMap<>();
 
@@ -20,15 +17,10 @@ public class Main {
         main.printAllHouses();
         main.deleteHouse("Lannister");
         main.printAllHouses();
-
     }
 
     public void addHouse(House house) {
-        if (houses.containsKey(house.getName())) {
-            System.out.println("House with name " + house.getName() + " already exists");
-        } else {
-            houses.put(house.getName(), house);
-        }
+        houses.putIfAbsent(house.getName(), house);
     }
 
     public void deleteHouse(String houseName) {
@@ -52,6 +44,4 @@ public class Main {
             System.out.printf("House name - %s, House blazon - %s\n", house.getName(), house.getBlazon());
         }
     }
-
-
 }
