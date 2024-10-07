@@ -12,19 +12,12 @@ public class Main {
         System.out.println("На полке " +
                 searchBook(hashMap, "Приключения Тома Сойера", "Dima", "2003") + "\n");
         deleteBookFromKey(hashMap, "Оно", "Dima", "2003");
-        getMap(hashMap);
+        printMap(hashMap);
     }
 
     public static void addBook(Map<Book, String> map, String shelf, String title, String author, String year) {
-        Book book = new Book();
-        book.setAuthor(author);
-        book.setYear(year);
-        book.setTitle(title);
+        Book book = new Book(title, author, year);
         map.put(book, shelf);
-    }
-
-    public static String getBookFromKey(Map<Book, String> map, Book key) {
-        return map.get(key);
     }
 
     public static Map<Book, String> deleteBookFromKey(Map<Book, String> map, String title, String author, String year) {
@@ -35,18 +28,14 @@ public class Main {
 
     public static String searchBook(Map<Book, String> map, String title, String author, String year) {
         Book book = new Book(title, author, year);
-        String shelf = "";
-        for (Map.Entry<Book, String> entry : map.entrySet()) {
-            if (entry.getKey().equals(book)) shelf += entry.getValue();
-        }
-        return shelf;
+        String bufferShelf = map.get(book);
+        return bufferShelf;
     }
 
-    public static void getMap(Map<Book, String> map) {
-        String books = "";
+    public static void printMap(Map<Book, String> map) {
         for (Map.Entry<Book, String> entry : map.entrySet()) {
             System.out.println(entry.getKey().toString() +
-                    " на полке " + getBookFromKey(map, entry.getKey()));
+                    " на полке: " + map.get(entry.getKey()));
         }
     }
 }

@@ -1,17 +1,16 @@
 package school.faang;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 public class Book {
     private String title;
     private String author;
     private String year;
-
-    public Book() {
-    }
 
     public Book(String title, String author, String year) {
         this.title = title;
@@ -29,7 +28,7 @@ public class Book {
         if (this == object) return true;
         if (object == null || getClass() != object.getClass()) return false;
         Book book = (Book) object;
-        return title == book.title && author == book.author && year == book.year;
+        return title.equals(book.title) && author.equals(book.author) && year.equals(book.year);
     }
 
     @Override
