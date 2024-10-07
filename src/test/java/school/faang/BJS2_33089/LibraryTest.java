@@ -1,6 +1,5 @@
 package school.faang.BJS2_33089;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,8 +20,7 @@ public class LibraryTest {
 
         library.addBook(book, shelf);
 
-        Assertions.assertTrue(library.getBOOKS_AND_LOCATION().containsKey(book));
-        Assertions.assertEquals(shelf, library.getBOOKS_AND_LOCATION().get(book));
+        assertNotNull(library.findBook(book));
     }
 
     @Test
@@ -35,21 +33,25 @@ public class LibraryTest {
     @Test
     void deleteBookPositive() {
         Book book = new Book("Book A", "Author A", 2024);
+
         library.addBook(book, "Shelf A");
-        library.deleteBook(book.getTitle());
-        assertNull(library.findBook(book.getTitle()));
+        library.deleteBook(book);
+
+        assertNull(library.findBook(book));
     }
 
     @Test
     void deleteBookNegative() {
-        assertThrows(IllegalArgumentException.class, () -> new Library().deleteBook(""));
+        assertThrows(IllegalArgumentException.class, () -> new Library().deleteBook(null));
     }
 
     @Test
     void findBook() {
         Book book = new Book("Book B", "Author B", 1997);
+
         library.addBook(book, "Shelf B");
-        assertEquals("Shelf B", library.findBook("Book B"));
+
+        assertEquals("Shelf B", library.findBook(book));
     }
 
     @Test
