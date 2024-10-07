@@ -13,13 +13,12 @@ public class User {
     private int age;
     private Set<String> activities;
 
-
     public static Map<User, String> findHobbyLovers(List<User> userList, Set<String> activities){
         Map<User, String> groupedUsers = new HashMap<>();
         for(User user : userList){
-            for(String set : activities){
-                if(user.getActivities().contains(set)){
-                    groupedUsers.put(user, set);
+            for(String activity : activities){
+                if(user.getActivities().contains(activity)){
+                    groupedUsers.put(user, activity);
                     break;
                 }
             }
