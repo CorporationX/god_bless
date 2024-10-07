@@ -42,11 +42,14 @@ public class Main {
         if (eventToRemove != null) {
             String eventType = eventToRemove.getEventType();
             List<StreamEvent> eventList = EVENTS_GROUPED_BY_TYPE.get(eventType);
-            if (eventList != null) {
-                eventList.remove(eventToRemove);
+            eventList.remove(eventToRemove);
+            if (eventList.isEmpty()) {
+                EVENTS_GROUPED_BY_TYPE.remove(eventType);
             }
+        } else {
+            System.out.println("No event found with id: " + id);
         }
-        ID_EVENT.remove(id);
+
         System.out.println("The event with id " + id + " was deleted. " +
                 "Here is how EVENTS_GROUP_BY_TYPE looks like now: ");
         for (Map.Entry<String, List<StreamEvent>> event : EVENTS_GROUPED_BY_TYPE.entrySet()) {
