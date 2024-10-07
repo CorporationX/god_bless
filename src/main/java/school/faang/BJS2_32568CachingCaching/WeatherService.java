@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WeatherService {
-    final Map<String, WeatherData> cityToWeather;
-    final WeatherRemoteService remoteService;
+    Map<String, WeatherData> cityToWeather;
+    private final WeatherRemoteService remoteService;
 
     public WeatherService() {
         cityToWeather = new HashMap<>();
