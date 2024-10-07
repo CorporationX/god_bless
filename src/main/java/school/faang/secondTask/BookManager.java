@@ -7,7 +7,6 @@ public class BookManager {
     private Map<Book, String> library = new HashMap<>();
 
     public void addBook(Book book, String location) {
-        // Depends on business logic, if we use put or putIfAbsent. Here I use putIfAbsent
         library.putIfAbsent(book, location);
         System.out.println("Book added: " + book.toString() + " at " + location);
     }
