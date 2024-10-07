@@ -14,9 +14,6 @@ public class User {
     private Set<String> activities;
 
 
-    public User() {
-    }
-
     public User(int id, String name, int age, Set<String> activities) {
         this.id = id;
         this.name = name;
@@ -34,9 +31,7 @@ public class User {
                 }
             }
         }
-
         return hobbyLoversMap;
-
     }
 
     @Override
