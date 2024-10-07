@@ -43,7 +43,7 @@ class GoogleTest {
     }
 
     @Test
-    void notAddIfAlreadyExistTest() {
+    void notIndexDuplicatePageIfAlreadyExistTest() {
         google.indexWebPage(new WebPage("https://one.com", "Title 1", "one two three"));
         List<WebPage> responses = google.search("two");
         assertEquals(2, responses.size());
