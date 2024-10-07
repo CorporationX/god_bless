@@ -18,7 +18,7 @@ import static school.faang.bsj2_33230.Main.searchStreamEventsByType;
 class MainTest {
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         STREAM_EVENTS_BY_ID.clear();
         STREAM_EVENTS_BY_TYPE.clear();
         id = 0;
