@@ -10,7 +10,9 @@ public class StreamEvent {
     private final Map<String, List<Event>> typeToStreamEvent = new HashMap<>();
 
     public void add(Event event) {
-        if(event == null) throw new NullPointerException("event is null");
+        if (event == null) {
+            throw new IllegalArgumentException("event не может быть null");
+        }
         idToStreamEvent.put(event.getId(), event);
         List<Event> events = typeToStreamEvent.getOrDefault(event.getEventType(), new ArrayList<>());
         events.add(event);
@@ -30,7 +32,6 @@ public class StreamEvent {
         List<Event> events = typeToStreamEvent.get(event.getEventType());
         if (events != null) {
             events.remove(event);
-            typeToStreamEvent.put(event.getEventType(), events);
             if (events.isEmpty()) {
                 typeToStreamEvent.remove(event.getEventType());
             }

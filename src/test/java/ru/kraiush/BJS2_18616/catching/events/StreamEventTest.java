@@ -37,7 +37,7 @@ public class StreamEventTest {
     @DisplayName("Добавление - event null")
     public void add_withEventNull_throwsNullPointerException() {
         //act & assert
-        assertThrows(NullPointerException.class, () -> streamEvent.add(null));
+        assertThrows(IllegalArgumentException.class, () -> streamEvent.add(null));
     }
 
     @Test

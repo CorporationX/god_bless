@@ -18,14 +18,9 @@ public class Main {
         eventStream.add(event5);
         eventStream.printEvents();
 
-        //получаем по id
         System.out.println("Событие с id 1: " + eventStream.get(1));
-
-        //получаем по типу
         List<Event> events = eventStream.get("Работа");
         events.forEach(System.out::println);
-
-        //удаление
         eventStream.remove(4);
         eventStream.printEvents();
     }
