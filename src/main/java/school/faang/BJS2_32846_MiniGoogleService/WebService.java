@@ -25,7 +25,7 @@ public class WebService {
             Set<String> uniqueWords = new HashSet<>(Arrays.asList(words));
             uniqueWords.forEach(
                     word -> wordToPages
-                            .computeIfAbsent(word.toLowerCase(), wordOnPage -> new ArrayList<>())
+                            .computeIfAbsent(word, wordOnPage -> new ArrayList<>())
                             .add(page)
             );
             pageToWords.put(page.getUrl(), uniqueWords);
@@ -34,7 +34,7 @@ public class WebService {
     }
 
     public List<WebPage> getWebPages(String word) {
-        return wordToPages.get(word);
+        return wordToPages.get(word.toLowerCase());
     }
 
     public void removeWebPage(String url) {

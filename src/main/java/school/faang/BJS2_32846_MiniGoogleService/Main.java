@@ -15,7 +15,7 @@ public class Main {
         webService.indexWebPage(page3);
 
         String searchWord = "keywords";
-        List<WebPage> foundedPages = webService.getWebPages(searchWord.toLowerCase());
+        List<WebPage> foundedPages = webService.getWebPages(searchWord);
 
         System.out.println("Pages containing the word '" + searchWord + "':");
         for (WebPage page : foundedPages) {
