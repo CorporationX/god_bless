@@ -1,2 +1,2 @@
 my first file
-new line
+and my new line (feature2)
