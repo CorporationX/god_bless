@@ -1,43 +1,8 @@
 package school.faang.task1311;
 
-import java.util.*;
+import java.util.ArrayList;
 
 public class Main {
-
-    public static final HashMap<User, List<Query>> USERS_CONTENT = new HashMap<>();
-
-    public static void addUser(User user, ArrayList<Query> query) {
-        USERS_CONTENT.put(user, query);
-    }
-
-    public static void addQuery(User user, Query query) {
-        USERS_CONTENT.get(user).add(query);
-    }
-
-    public static void removeUser(User user) {
-        USERS_CONTENT.remove(user);
-    }
-
-    public static void printAll() {
-        for (Map.Entry<User, List<Query>> entry : USERS_CONTENT.entrySet()) {
-            System.out.println(entry.getKey() + " " + entry.getValue());
-        }
-    }
-
-    public static void printAllUserQuery(User user) {
-        ArrayList<Query> listToPrint = (ArrayList<Query>) USERS_CONTENT.get(user);
-        Collections.sort(listToPrint, new Comparator<Query>() {
-            @Override
-            public int compare(Query o1, Query o2) {
-                return o1.getTimestamp() - o2.getTimestamp();
-            }
-        });
-
-        for (Query query : listToPrint) {
-            System.out.println(query);
-        }
-    }
-
     public static void main(String[] args) {
         User firstUser = new User(1, "Ilya");
         User secondUser = new User(2, "Artem");
@@ -65,22 +30,22 @@ public class Main {
         userThreeList.add(queryThirdUser);
         userThreeList.add(queryThirdUser2);
 
-        addUser(firstUser, userOneList);
-        addUser(secondUser, userTwoList);
-        addUser(thirdUser, userThreeList);
+        UserService.addUser(firstUser, userOneList);
+        UserService.addUser(secondUser, userTwoList);
+        UserService.addUser(thirdUser, userThreeList);
 
-        printAll();
+        UserService.printAll();
         System.out.println();
 
         Query queryToAdd = new Query(7, "Habr", 10);
-        addQuery(firstUser, queryToAdd);
-        printAll();
+        UserService.addQuery(firstUser, queryToAdd);
+        UserService.printAll();
         System.out.println();
 
-        removeUser(firstUser);
-        printAll();
+        UserService.removeUser(firstUser);
+        UserService.printAll();
         System.out.println();
 
-        printAllUserQuery(thirdUser);
+        UserService.printAllUserQuery(secondUser);
     }
 }
