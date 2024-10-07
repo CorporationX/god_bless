@@ -1,48 +1,44 @@
 package school.faang.bjs2_32707;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
-    static final Map<String, List<Student>> GROUPED_STUDENTS = new HashMap<>();
-    static List<Student> students = new ArrayList<>();
+    static final Map<String, Set<Student>> GROUPED_STUDENTS = new HashMap<>();
+    static final Set<Student> STUDENTS = new HashSet<>();
+    static String searchKey;
 
     static void groupStudents() {
-        for (Student student : students) {
-            String facultyYearKey = student.getFaculty() + " " + student.getYear();
-            if ((GROUPED_STUDENTS.get(facultyYearKey) == null ||
-                    !GROUPED_STUDENTS.get(facultyYearKey).contains(student))) {
-                GROUPED_STUDENTS.computeIfAbsent(facultyYearKey, key -> new ArrayList<>()).add(student);
-            }
+        for (Student student : STUDENTS) {
+            searchKey = createSearchKey(student.getFaculty(), student.getYear());
+            GROUPED_STUDENTS.computeIfAbsent(searchKey, key -> new HashSet<>()).add(student);
         }
     }
 
-    static void addStudent(String name, String faculty, int year) {
+    public static void addStudent(String name, String faculty, int year) {
         Student newStudent = new Student(name, faculty, year);
-        if (!students.contains(newStudent)) {
-            students.add(newStudent);
-            groupStudents();
-        }
+        searchKey = createSearchKey(faculty, year);
+
+        STUDENTS.add(newStudent);
+        GROUPED_STUDENTS.computeIfAbsent(searchKey, key -> new HashSet<>()).add(newStudent);
     }
 
-    static void deleteStudent(String name, String faculty, int year) {
+    public static void deleteStudent(String name, String faculty, int year) {
         Student targetStudent = new Student(name, faculty, year);
-        String facultyYearKey = faculty + " " + year;
+        searchKey = createSearchKey(faculty, year);
 
-        if (students.contains(targetStudent)) {
-            students.remove(targetStudent);
-            GROUPED_STUDENTS.get(facultyYearKey).remove(targetStudent);
+        if (STUDENTS.remove(targetStudent)) {
+            GROUPED_STUDENTS.get(searchKey).remove(targetStudent);
         }
     }
 
-    static List<Student> findStudentsByFacultyAndYear(String faculty, int year) {
-        String facultyYearKey = faculty + " " + year;
-        return GROUPED_STUDENTS.getOrDefault(facultyYearKey, null);
+    public static Set<Student> findStudentsByFacultyAndYear(String searchKey) {
+        return GROUPED_STUDENTS.getOrDefault(searchKey, new HashSet<>());
     }
 
-    static void printAllGroupedStudents() {
+    public static void printAllGroupedStudents() {
         for (var entry : GROUPED_STUDENTS.entrySet()) {
             System.out.println("Студенты факультета и курса " + entry.getKey() + ":");
             for (Student student : entry.getValue()) {
@@ -51,5 +47,9 @@ public class Main {
             System.out.println();
             System.out.println("-".repeat(20));
         }
+    }
+
+    public static String createSearchKey(String faculty, int year) {
+        return (faculty + " " + year);
     }
 }

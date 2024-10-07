@@ -3,23 +3,25 @@ package school.faang.bjs2_32707;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static school.faang.bjs2_32707.Main.GROUPED_STUDENTS;
+import static school.faang.bjs2_32707.Main.STUDENTS;
 import static school.faang.bjs2_32707.Main.addStudent;
+import static school.faang.bjs2_32707.Main.createSearchKey;
 import static school.faang.bjs2_32707.Main.deleteStudent;
 import static school.faang.bjs2_32707.Main.findStudentsByFacultyAndYear;
 import static school.faang.bjs2_32707.Main.groupStudents;
 import static school.faang.bjs2_32707.Main.printAllGroupedStudents;
-import static school.faang.bjs2_32707.Main.students;
+import static school.faang.bjs2_32707.Main.searchKey;
 
 class MainTest {
 
     @BeforeEach
     void setUp() {
-        students.clear();
+        STUDENTS.clear();
         GROUPED_STUDENTS.clear();
     }
 
@@ -30,12 +32,13 @@ class MainTest {
         Student helen = new Student("Helen", "Math", 3);
 
         assertTrue(GROUPED_STUDENTS.isEmpty());
-        students.addAll(List.of(mary, john, helen));
+        STUDENTS.addAll(Set.of(mary, john, helen));
+        groupStudents();
         addStudent("Bob", "Birds", 1);
 
-        for (Student student : students) {
-            String facultyYearKey = student.getFaculty() + " " + student.getYear();
-            assertTrue(GROUPED_STUDENTS.get(facultyYearKey).contains(student));
+        for (Student student : STUDENTS) {
+            searchKey = createSearchKey(student.getFaculty(), student.getYear());
+            assertTrue(GROUPED_STUDENTS.get(searchKey).contains(student));
         }
     }
 
@@ -45,12 +48,12 @@ class MainTest {
         String faculty = "Sport";
         int year = 3;
         Student larry = new Student(name, faculty, year);
-        String larryKey = faculty + " " + year;
+        String larryKey = createSearchKey(faculty, year);
         addStudent(name, faculty, year);
-        assertTrue(findStudentsByFacultyAndYear(faculty, year).contains(larry));
+        assertTrue(findStudentsByFacultyAndYear(larryKey).contains(larry));
 
         deleteStudent(larry.getName(), larry.getFaculty(), larry.getYear());
-        assertFalse(students.contains(larry));
+        assertFalse(STUDENTS.contains(larry));
         assertFalse(GROUPED_STUDENTS.get(larryKey).contains(larry));
     }
 
@@ -59,7 +62,7 @@ class MainTest {
         Student mary = new Student("Mary", "Math", 3);
         Student john = new Student("John", "Sport", 3);
         Student helen = new Student("Helen", "Math", 3);
-        students.addAll(List.of(mary, john, helen));
+        STUDENTS.addAll(Set.of(mary, john, helen));
         groupStudents();
         printAllGroupedStudents();
     }
