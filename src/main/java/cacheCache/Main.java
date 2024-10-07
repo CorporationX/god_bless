@@ -28,7 +28,9 @@ public class Main {
     }
 
     public static WeatherData getWeather(String city) {
-        if (CITY_WEATHER_DATA.containsKey(city)) return CITY_WEATHER_DATA.get(city);
+        if (CITY_WEATHER_DATA.containsKey(city)) {
+            return CITY_WEATHER_DATA.get(city);
+        }
         WeatherData weatherData = WeatherService.getWeatherData(city);
         CITY_WEATHER_DATA.put(city, weatherData);
         return weatherData;
@@ -45,7 +47,9 @@ public class Main {
 
     public static void printWeatherData() {
         for (Map.Entry<String, WeatherData> entry : CITY_WEATHER_DATA.entrySet()) {
-            if (entry.getValue() != null) System.out.println(entry.getKey() + " " + entry.getValue());
+            if (entry.getValue() != null) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
         }
     }
 
