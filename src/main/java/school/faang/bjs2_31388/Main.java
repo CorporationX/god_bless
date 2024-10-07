@@ -23,6 +23,5 @@ public class Main {
         Map<Integer, List<User>> groupedUsers =  User.groupUser(userList);
 
         System.out.println(groupedUsers);
-
     }
 }
