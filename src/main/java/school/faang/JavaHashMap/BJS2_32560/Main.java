@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static Map<String, WeatherData> weather = new HashMap<>();
-    private static WeatherService weatherService = new WeatherService();
+    private static final Map<String, WeatherData> weather = new HashMap<>();
+    private static final WeatherService weatherService = new WeatherService();
 
     public static void main(String[] args) {
         System.out.println("Получение данных о погоде:");
@@ -23,10 +23,8 @@ public class Main {
         System.out.println("\nУдаление информации о погоде:");
         removeWeatherInfo("Санкт-Петербург");
 
-        // Повторный вывод всех городов в кэше
         System.out.println("\nПовторный вывод всех городов в кэше:");
         printAllCitiesWeatherInfo();
-
     }
 
     public static String weatherData(String cityName) {
