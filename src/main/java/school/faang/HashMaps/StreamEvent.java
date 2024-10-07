@@ -1,10 +1,11 @@
 package school.faang.HashMaps;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
-@Data
-@Builder
+
+@AllArgsConstructor
+@Getter
 public class StreamEvent {
     private int id;
     private String eventType;

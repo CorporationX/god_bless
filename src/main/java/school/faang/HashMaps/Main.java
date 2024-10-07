@@ -42,7 +42,7 @@ public class Main {
     public static void deleteEvent(int id) {
         StreamEvent event = eventMap.get(id);
         eventMap.remove(id);
-        eventTypeMap.computeIfAbsent(event.getEventType(), e -> new ArrayList<>()).remove(event);
+        eventTypeMap.get(event.getEventType()).remove(event);
     }
 
     public static void getAllStreamInfo() {
