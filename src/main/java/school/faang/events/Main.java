@@ -37,9 +37,7 @@ public class Main {
 
     public static void removeEventInLists(int id) {
         StreamEvent event = listEvents.remove(id);
-        for (List<StreamEvent> entry : typesOfEvents.values()) {
-            entry.remove(event);
-        }
+        typesOfEvents.remove(event.eventType());
     }
 
     public static void showTypesOfEvents() {
