@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class StreamEvent {
-    private static Integer counter = 0;
+    private static int counter = 0;
     private Integer id;
     private String eventType;
     private String data;

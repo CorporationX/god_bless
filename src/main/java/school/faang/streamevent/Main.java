@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Slf4j
 public class Main {
@@ -18,19 +17,19 @@ public class Main {
         eventTypeMap.computeIfAbsent(streamEvent.getEventType(), event -> new ArrayList<>()).add(streamEvent);
     }
 
-    public static StreamEvent receiveEventById(Integer id) throws Exception {
-        if (Objects.isNull(eventMap.get(id))) {
+    public static StreamEvent receiveEventById(Integer id) {
+        if (!eventMap.containsKey(id)) {
             log.error("Событие с id = {} не найдено", id);
-            throw new Exception("Событие не найдено");
+            throw new IllegalArgumentException("Событие не найдено");
         } else {
             return eventMap.get(id);
         }
     }
 
-    public static List<StreamEvent> receiveEventByType(String type) throws Exception {
-        if (Objects.isNull(eventTypeMap.get(type))) {
+    public static List<StreamEvent> receiveEventByType(String type) {
+        if (!eventTypeMap.containsKey(type)) {
             log.error("События с типом: {} не найдены", type);
-            throw new Exception("События не найдены");
+            throw new IllegalArgumentException("События не найдены");
         } else {
             return eventTypeMap.get(type);
         }
@@ -48,7 +47,7 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         addEvent(new StreamEvent("Логин пользователя", "Пользователь Alex15 вошел в систему"));
         addEvent(new StreamEvent("Редактирование профиля пользователя", "Пользователь Alex15 отредактировал профиль"));
         addEvent(new StreamEvent("Логин пользователя", "Пользователь Stray228 вошел в систему"));
