@@ -9,13 +9,8 @@ import java.util.Map;
 
 @Getter
 public class School {
-    private Map<Student, Map<Subject, Integer>> journal;
-    private Map<Subject, List<Student>> subjectsWithStudents;
-
-    public School() {
-        this.journal = new HashMap<>();
-        this.subjectsWithStudents = new HashMap<>();
-    }
+    private Map<Student, Map<Subject, Integer>> journal = new HashMap<>();
+    private Map<Subject, List<Student>> subjectsWithStudents = new HashMap<>();
 
     public void addStudentWithSubjects(Student student, Map<Subject, Integer> progress) {
         journal.put(student, progress);

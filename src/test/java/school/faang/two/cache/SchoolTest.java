@@ -25,8 +25,8 @@ class SchoolTest {
 
     @BeforeEach
     public void setUp() {
-        student1 = new Student(1,"Student 1");
-        student2 = new Student(2,"Student 2");
+        student1 = new Student(1, "Student 1");
+        student2 = new Student(2, "Student 2");
 
         subject1 = new Subject(1, "Subject 1");
         subject2 = new Subject(2, "Subject 2");
@@ -47,7 +47,8 @@ class SchoolTest {
 
     @Test
     void addStudentWithSubjectsTest() {
-        Student student3 = new Student(3,"Student 3");
+        int initialStudentCount = school.getJournal().size();
+        Student student3 = new Student(3, "Student 3");
         Map<Subject, Integer> student3progress = new HashMap<>();
         student3progress.put(new Subject(4, "Subject 4"), 5);
         student3progress.put(new Subject(5, "Subject 5"), 4);
@@ -55,6 +56,7 @@ class SchoolTest {
 
         Map<Subject, Integer> progress = school.getJournal().get(student3);
 
+        assertEquals(initialStudentCount + 1, school.getJournal().size());
         assertEquals(2, progress.size());
         assertEquals(5, progress.get(new Subject(4, "Subject 4")));
         assertEquals(4, progress.get(new Subject(5, "Subject 5")));
@@ -62,12 +64,13 @@ class SchoolTest {
 
     @Test
     void addNewSubjectForStudentTest() {
+        int initialSubjectCount = school.getJournal().get(student1).size();
         Subject newSubject = new Subject(6, "Subject 6");
 
         school.addNewSubjectForStudent(student1, newSubject, 5);
 
         Map<Subject, Integer> updatedProgress = school.getJournal().get(student1);
-        assertEquals(3, updatedProgress.size());
+        assertEquals(initialSubjectCount + 1, updatedProgress.size());
         assertEquals(5, updatedProgress.get(newSubject));
     }
 
@@ -85,23 +88,34 @@ class SchoolTest {
 
     @Test
     void addSubjectAndStudentsTest() {
-        school.addSubjectAndStudents(new Subject(4, "Subject 4"), Collections.singletonList(new Student(4,"Student 4")));
+        int initialSubjectCount = school.getSubjectsWithStudents().keySet().size();
+        school.addSubjectAndStudents(new Subject(4, "Subject 4"), Collections.singletonList(new Student(4, "Student 4")));
+
         Set<Subject> subjects = school.getSubjectsWithStudents().keySet();
-        assertEquals(4, subjects.size());
+
+        assertEquals(initialSubjectCount + 1, subjects.size());
     }
 
     @Test
     void addStudentToSubjectTest() {
-        school.addStudentToSubject(new Subject(1, "Subject 1"), new Student(4,"Student 4"));
-        List<Student> students = school.getSubjectsWithStudents().get(new Subject(1, "Subject 1"));
-        assertEquals(3, students.size());
+        Subject subject1 = new Subject(1, "Subject 1");
+        int initialSubjectStudentsCount = school.getSubjectsWithStudents().get(subject1).size();
+
+        school.addStudentToSubject(subject1, new Student(4, "Student 4"));
+
+        List<Student> students = school.getSubjectsWithStudents().get(subject1);
+        assertEquals(initialSubjectStudentsCount + 1, students.size());
     }
 
     @Test
     void removeStudentFromSubjectTest() {
-        school.removeStudentFromSubject(new Subject(1, "Subject 1"), new Student(1,"Student 1"));
+        Subject subject1 = new Subject(1, "Subject 1");
+        int initialSubjectStudentsCount = school.getSubjectsWithStudents().get(subject1).size();
+
+        school.removeStudentFromSubject(subject1, new Student(1, "Student 1"));
+
         List<Student> students = school.getSubjectsWithStudents().get(new Subject(1, "Subject 1"));
-        assertEquals(1, students.size());
+        assertEquals(initialSubjectStudentsCount - 1, students.size());
     }
 
     @Test
