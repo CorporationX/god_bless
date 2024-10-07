@@ -2,8 +2,14 @@ package school.faang.godbless.bjs2_33231;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
-@Data
+@EqualsAndHashCode
+@Getter
+@ToString
 @AllArgsConstructor
 public class StreamEvent {
 

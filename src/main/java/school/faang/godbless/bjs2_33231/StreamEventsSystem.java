@@ -14,8 +14,7 @@ public class StreamEventsSystem {
 
   public void addStreamEvent(StreamEvent event) {
     idEventMap.put(event.getId(), event);
-    typeEventsListMap.computeIfAbsent(event.getEventType(), key -> new ArrayList<>());
-    typeEventsListMap.get(event.getEventType()).add(event);
+    typeEventsListMap.computeIfAbsent(event.getEventType(), key -> new ArrayList<>()).add(event);
   }
 
   public Optional<StreamEvent> getById(int id) {
@@ -37,10 +36,7 @@ public class StreamEventsSystem {
 
   public String getEventsAsString() {
     StringBuilder sb = new StringBuilder();
-    //idEventMap.forEach((key, event) -> sb.append(event));
-    for (Entry<Integer, StreamEvent> entry : idEventMap.entrySet()) {
-      sb.append(entry.getValue());
-    }
+    idEventMap.forEach((key, event) -> sb.append(event));
     return sb.toString();
   }
 }
