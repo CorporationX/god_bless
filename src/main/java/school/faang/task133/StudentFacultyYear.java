@@ -10,7 +10,7 @@ public class StudentFacultyYear {
     private String faculty;
     private int year;
 
-    public static StudentFacultyYear createNewCohort(Student student) {
+    public static StudentFacultyYear createNewClassObject(Student student) {
         return new StudentFacultyYear(student.getFaculty(), student.getYear());
     }
 }

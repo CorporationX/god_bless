@@ -23,10 +23,10 @@ public class StudentService {
         students.add(student5);
     }
 
-    public static HashMap<StudentFacultyYear, List<Student>> createCohort(List<Student> students) {
+    public static HashMap<StudentFacultyYear, List<Student>> getStudentsByFacultiesAndYear(List<Student> students) {
         HashMap<StudentFacultyYear, List<Student>> result = new HashMap<>();
         for (Student student : students) {
-            result.computeIfAbsent(StudentFacultyYear.createNewCohort(student), k -> new ArrayList<>()).add(student);
+            result.computeIfAbsent(StudentFacultyYear.createNewClassObject(student), k -> new ArrayList<>()).add(student);
         }
         return result;
     }
@@ -51,7 +51,7 @@ public class StudentService {
     }
 
     public static void printAllGroupedStudents() {
-        HashMap<StudentFacultyYear, List<Student>> allStudentsGrouped = createCohort(students);
+        HashMap<StudentFacultyYear, List<Student>> allStudentsGrouped = getStudentsByFacultiesAndYear(students);
         for (Map.Entry<StudentFacultyYear, List<Student>> entry : allStudentsGrouped.entrySet()) {
             for (Student student : entry.getValue()) {
                 System.out.println(entry.getKey() + " " + student);
