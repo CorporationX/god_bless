@@ -1,7 +1,10 @@
 package school.faang.BJS2_32285;
 
+import lombok.Getter;
+
 import java.util.Objects;
 
+@Getter
 public class Product {
     private int id;
     private String name;
@@ -11,18 +14,6 @@ public class Product {
         this.id = id;
         this.name = name;
         this.category = category;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getCategory() {
-        return category;
     }
 
     @Override
