@@ -42,7 +42,7 @@ class GoogleTest {
     void deletePageTest() {
         int initialPageSize = google.getExistingPages().size();
 
-        google.removeWebPage("https://two.com");
+        google.removePageFromIndex("https://two.com");
 
         List<WebPage> responses = google.search("two");
         assertEquals(initialPageSize - 1, responses.size());

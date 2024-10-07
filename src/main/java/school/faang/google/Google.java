@@ -31,28 +31,20 @@ public class Google {
         return pages.getOrDefault(request.toLowerCase(), Collections.emptyList());
     }
 
-    public void removeWebPage(String url) {
-        removeFromExistingPages(url);
-        removeFromPages(url);
+    public void removePageFromIndex(String url) {
+        removeWebPageFromExisting(url);
+        removeEmptyPageRequests(url);
     }
 
-    private void removeFromPages(String url) {
-        findRequestsWithEmptyPagesAfterRemoval(url).forEach(pages::remove);
+    private void removeWebPageFromExisting(String url) {
+        existingPages.removeIf(page -> page.getUrl().equals(url));
     }
 
-    private Set<String> findRequestsWithEmptyPagesAfterRemoval(String url) {
-        Set<String> requestToRemove = new HashSet<>();
-        for (Map.Entry<String, List<WebPage>> entry : pages.entrySet()) {
+    private void removeEmptyPageRequests(String url) {
+        pages.entrySet().removeIf(entry -> {
             List<WebPage> webPages = entry.getValue();
             webPages.removeIf(page -> page.getUrl().equals(url));
-            if (webPages.isEmpty()) {
-                requestToRemove.add(entry.getKey());
-            }
-        }
-        return requestToRemove;
-    }
-
-    private void removeFromExistingPages(String url) {
-        existingPages.removeIf(page -> page.getUrl().equals(url));
+            return webPages.isEmpty();
+        });
     }
 }
