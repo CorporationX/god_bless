@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Map<Book, String> BOOK_SHELF = new HashMap<>();
+    private static final Map<Book, String> bookToShelf = new HashMap<>();
 
     public static void main(String[] args) {
         Book theGreatGatsby = new Book("The Great Gatsby", "F. Scott Fitzgerald", 1925);
@@ -36,22 +36,22 @@ public class Main {
     }
 
     private static void addBookLocation(Book book, String shelf) {
-        BOOK_SHELF.put(book, shelf);
+        bookToShelf.put(book, shelf);
     }
 
     private static void deleteBookInfo(String title, String author, int year) {
-        BOOK_SHELF.remove(new Book(title, author, year));
+        bookToShelf.remove(new Book(title, author, year));
     }
 
     private static void printBookLocation(String title, String author, int year) {
         Book requiredBook = new Book(title, author, year);
-        String location = BOOK_SHELF.get(requiredBook);
+        String location = bookToShelf.get(requiredBook);
 
         System.out.println(location != null ? bookShelfInfo(requiredBook, location) : "There is no such book.");
     }
 
     private static void printLibraryBooksLocations() {
-        for (var entry : BOOK_SHELF.entrySet()) {
+        for (var entry : bookToShelf.entrySet()) {
             System.out.println(bookShelfInfo(entry.getKey(), entry.getValue()));
         }
     }
