@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
         main.addBook(new Book("Title book 1", "Author 1", 2001), "Regal 1");
-        main.addBook(new Book("Title book 2", "Author 2", 2002), "Regal 2");
+        main.addBook(new Book("Title book 4", "Author 4", 2002), "Regal 2");
         main.addBook(new Book("Title book 3", "Author 3", 2002), "Regal 1");
         main.printAllBooks();
 
