@@ -30,22 +30,31 @@ class GoogleTest {
 
     @Test
     void addAndFindByRequestTest() {
+        int initialPageSize = google.search("two").size();
+
         google.indexWebPage(new WebPage("https://four.com", "Title 4", "one two eleven"));
+
         List<WebPage> responses = google.search("two");
-        assertEquals(3, responses.size());
+        assertEquals(initialPageSize + 1, responses.size());
     }
 
     @Test
     void deletePageTest() {
+        int initialPageSize = google.getExistingPages().size();
+
         google.removeWebPage("https://two.com");
+
         List<WebPage> responses = google.search("two");
-        assertEquals(2, responses.size());
+        assertEquals(initialPageSize - 1, responses.size());
     }
 
     @Test
     void notIndexDuplicatePageIfAlreadyExistTest() {
+        int initialPageSize = google.search("two").size();
         google.indexWebPage(new WebPage("https://one.com", "Title 1", "one two three"));
+
         List<WebPage> responses = google.search("two");
-        assertEquals(2, responses.size());
+
+        assertEquals(initialPageSize, responses.size());
     }
 }
