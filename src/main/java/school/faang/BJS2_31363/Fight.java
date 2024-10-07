@@ -9,14 +9,15 @@ public class Fight {
 
         while (warrior.isAlive() && archer.isAlive()) {
             warrior.attack(archer);
-            if (!archer.isAlive())
+            if (!archer.isAlive()) {
                 break;
+            }
             System.out.println(archer.name + "'s health: " + archer.health);
             archer.attack(warrior);
-            if(!archer.isAlive())
+            if (!archer.isAlive()){
                 break;
+            }
             System.out.println(warrior.name + "'s health: " + warrior.health);
-
         }
     }
 

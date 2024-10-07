@@ -34,10 +34,10 @@ public abstract class Character {
     }
 
     public void setHealth(int health) {
-        if(health > MAX_HEALTH)
+        if (health > MAX_HEALTH) {
             this.health = MAX_HEALTH;
+        }
         else this.health = Math.max(health, 0);
     }
-
     public abstract void attack(Character Enemy);
 }
