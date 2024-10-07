@@ -44,33 +44,37 @@ public class Main {
         if (STUDENT_GRADES_BY_SUBJECT.containsKey(student)) {
             STUDENT_GRADES_BY_SUBJECT.put(student, subjectGradeMap);
         } else {
-            throw new IllegalArgumentException("404 student not found");
+            throw new IllegalArgumentException("404 student not found " + student);
         }
     }
 
     public static void deleteStudent(Student student, Subject subject, int score) {
-        STUDENT_GRADES_BY_SUBJECT.forEach((st, map) -> {
-            if (st.equals(student) && map.containsKey(subject) && map.containsValue(score)) {
-                STUDENT_GRADES_BY_SUBJECT.remove(st, map);
+        Map<Subject, Integer> subjectsAndScores = STUDENT_GRADES_BY_SUBJECT.get(student);
+        if (subjectsAndScores != null) {
+            if (subjectsAndScores.containsKey(subject) && subjectsAndScores.get(subject).equals(score)) {
+                subjectsAndScores.remove(subject);
+                if (subjectsAndScores.isEmpty()) {
+                    STUDENT_GRADES_BY_SUBJECT.remove(student);
+                }
             }
-        });
+        }
     }
 
     public static void printAllStudentWithScore() {
         STUDENT_GRADES_BY_SUBJECT.forEach((student, map) -> {
             System.out.println(student);
-            map.forEach((key, value) -> System.out.println(key + " " + value));
+            map.forEach((key, value) -> System.out.println(key + ":" + value));
         });
     }
 
     public static void deleteStudentFromSubject(Subject subject, List<Student> student) {
-        List<Student> students = SUBJECT_TO_STUDENT_LIST.get(subject);
+        List<Student> studentToRemove = SUBJECT_TO_STUDENT_LIST.get(subject);
 
         if (student != null) {
-            students.removeAll(student);
+            studentToRemove.removeAll(student);
         }
 
-        if (students.isEmpty()) {
+        if (studentToRemove.isEmpty()) {
             SUBJECT_TO_STUDENT_LIST.remove(subject);
         }
     }
