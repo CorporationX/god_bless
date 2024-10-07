@@ -9,9 +9,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class WebService {
-    private final Map<String, List<WebPage>> wordToPages;
-    private final Map<String, WebPage> alreadyIndexedPages;
-    private final Map<String, Set<String>> pageToWords;
+    private Map<String, List<WebPage>> wordToPages;
+    private Map<String, WebPage> alreadyIndexedPages;
+    private Map<String, Set<String>> pageToWords;
 
     public WebService() {
         wordToPages = new HashMap<>();
