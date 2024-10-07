@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class HousesService {
-    private final Map<String, House> houses;
+    private Map<String, House> houses;
 
     public HousesService() {
         houses = new HashMap<>();
