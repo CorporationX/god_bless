@@ -48,9 +48,10 @@ public class Main {
             if (mapFaculte.containsKey(student.getFaculte())) {
                 mapFaculte.get(student.getFaculte()).add(student);
             } else {
-                List<Student> studentList1 = new ArrayList<>();
-                studentList1.add(student);
-                mapFaculte.put(student.getFaculte(), studentList1);
+                List<Student> group = new ArrayList<>();
+                group.add(student);
+                mapFaculte.put(student.getFaculte(), group);
+
             }
         }
         return mapFaculte;
@@ -67,12 +68,13 @@ public class Main {
         studentList.set(index, studentList.get(studentList.size() - 1));
         mapStudentIndex.put(studentList.get(studentList.size() - 1), index);
         studentList.remove(studentList.size() - 1);
+        mapStudentIndex.remove(mapStudentIndex.get(student));
     }
 
     public static void findStudent(String nameFaculte, int year) {
         List<Student> listStudent = mapFaculte.get(new Faculte(nameFaculte, year));
         if (listStudent == null) {
-            System.out.println("not found");
+            System.out.println("No students found in this faculty");
             return;
         }
         listStudent.forEach(studentNew -> System.out.println(studentNew.getName()));
