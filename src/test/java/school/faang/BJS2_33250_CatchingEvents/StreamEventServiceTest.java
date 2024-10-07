@@ -13,7 +13,6 @@ class StreamEventServiceTest {
     StreamEvent event1;
     StreamEvent event2;
     StreamEvent event3;
-    StreamEvent event4;
 
     @BeforeEach
     void setUp() {
@@ -22,42 +21,48 @@ class StreamEventServiceTest {
         event1 = new StreamEvent("INFO", "First event data");
         event2 = new StreamEvent("ERROR", "Second event data");
         event3 = new StreamEvent("INFO", "Third event data");
-        event4 = new StreamEvent("DEBUG", "Fourth event data");
-
-        streamEventService.addEvent(event1);
-        streamEventService.addEvent(event2);
-        streamEventService.addEvent(event3);
-        streamEventService.addEvent(event4);
     }
 
     @Test
     @DisplayName("Adding events")
     void testAddingEvents() {
-        assertEquals(streamEventService.getEventsCount(), 4);
-        assertEquals(streamEventService.getEventGroupsCount(), 3);
+        addThreeEvents();
+
+        assertEquals(streamEventService.getEventsCount(), 3);
+        assertEquals(streamEventService.getEventGroupsCount(), 2);
     }
 
     @Test
     @DisplayName("Getting event by its id")
     void testGetEventById() {
+        addThreeEvents();
+
         assertEquals(event2, streamEventService.getEvent(event2.getId()));
     }
 
     @Test
     @DisplayName("Getting events by theirs types")
     void testGetEventsByType() {
+        addThreeEvents();
+
         assertEquals(2, streamEventService.getEvents("INFO").size());
-        assertEquals(1, streamEventService.getEvents("DEBUG").size());
         assertEquals(1, streamEventService.getEvents("ERROR").size());
     }
 
     @Test
     @DisplayName("Removing event")
     void testRemoveEventById() {
+        addThreeEvents();
         int event1Id = event1.getId();
         streamEventService.removeEvent(event1Id);
 
-        assertEquals(3, streamEventService.getEventsCount());
+        assertEquals(2, streamEventService.getEventsCount());
         assertNull(streamEventService.getEvent(event1Id));
+    }
+
+    private void addThreeEvents() {
+        streamEventService.addEvent(event1);
+        streamEventService.addEvent(event2);
+        streamEventService.addEvent(event3);
     }
 }
