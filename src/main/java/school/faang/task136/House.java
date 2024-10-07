@@ -1,12 +1,13 @@
 package school.faang.task136;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
 @AllArgsConstructor
-@Data
 public class House {
-
+    @Getter
     private String name;
+    @Getter
     private String sigil;
 }
