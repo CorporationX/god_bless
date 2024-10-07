@@ -50,7 +50,7 @@ public class BattlefieldTest {
     }
 
     @Test
-    void battleWinSecondHeroBecauseArmySecondHeroEmptyTest() {
+    void battleEmptyArmyTest() {
         hero1.removeCreature(angel, 10);
         hero1.removeCreature(pikeman, 10);
         assertEquals(0, hero1.getArmy().size());
