@@ -1,15 +1,11 @@
 package tasks.bjs2_31449;
 
 public class Example {
-    public static int[] reverse(int[] nums) {
-        int[] reverseNums = new int[nums.length];
-
-        for (int i = 0; i < nums.length / 2; i++) {
-            int temp = nums[i];
-            reverseNums[i] = nums[nums.length - 1 - i];
-            reverseNums[nums.length - 1 - i] = temp;
+    public static void reverse(int[] numbers) {
+        for (int i = 0; i < numbers.length / 2; i++) {
+            int temp = numbers[i];
+            numbers[i] = numbers[numbers.length - 1 - i];
+            numbers[numbers.length - 1 - i] = temp;
         }
-
-        return reverseNums;
     }
 }
