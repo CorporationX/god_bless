@@ -32,9 +32,8 @@ public class Main {
 
     public static void listAll() {
         for (Map.Entry<Book, String> entry : books.entrySet()) {
-            Book book = entry.getKey();
             String value = entry.getValue();
-            System.out.println(book.toString() + " : " + value);
+            System.out.println(entry.getKey().toString() + " : " + value);
         }
     }
 
