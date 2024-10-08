@@ -7,18 +7,16 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
-        Map<Integer, StreamEvent> idEventMap = new HashMap<>();
-        Map<String, List<StreamEvent>> eventTypeMap = new HashMap<>();
+    private static Map<Integer, StreamEvent> idEventMap = new HashMap<>();
+    private static Map<String, List<StreamEvent>> eventTypeMap = new HashMap<>();
 
+    public static void main(String[] args) {
         StreamEvent firstEvent = new StreamEvent(1, "something", "speech");
         StreamEvent secondEvent = new StreamEvent(51, "burn", "thinking");
         StreamEvent thirdEvent = new StreamEvent(18, "burn", "thinking");
 
-        List<StreamEvent> eventsBurn = new ArrayList(Arrays.asList(secondEvent,secondEvent));
+        List<StreamEvent> eventsBurn = new ArrayList(Arrays.asList(secondEvent, secondEvent));
         List<StreamEvent> eventsSomething = new ArrayList(Arrays.asList(firstEvent));
-
-
 
         eventTypeMap.put("burn", eventsBurn);
         eventTypeMap.put("something", eventsSomething);
@@ -27,66 +25,59 @@ public class Main {
         idEventMap.put(51, secondEvent);
         idEventMap.put(18, thirdEvent);
 
-        addNewEvent(idEventMap, eventTypeMap);
+        addNewEvent(new StreamEvent(12, "basic end-to-end mode", "Speech"));
 
-        eventSearchById(idEventMap, 51);
+        eventSearchById(51);
 
-        eventsSearchByEventType(eventTypeMap, "burn");
+        eventsSearchByEventType("burn");
 
-        deleteEventByID(idEventMap, eventTypeMap, 18);
+        deleteEventByID(18);
 
-        allStreamEvents(idEventMap, eventTypeMap);
+        allStreamEvents();
     }
 
-    public static void addNewEvent(Map<Integer, StreamEvent> map, Map<String, List<StreamEvent>> map2) {
-        int newId = 12;
-        String newEventType = "basic end-to-end mode";
-        String newData = "Speech";
-
-        StreamEvent newEvent = new StreamEvent(newId, newEventType, newData);
+    public static void addNewEvent(StreamEvent newEvent) {
         List<StreamEvent> events;
-
-        if (map2.get(newEventType) == null) {
+        if (eventTypeMap.get(newEvent.getEventType()) == null) {
             events = new ArrayList<>();
         } else {
-            events = map2.get(newEventType);
+            events = eventTypeMap.get(newEvent.getEventType());
         }
         events.add(newEvent);
-        map2.put(newEventType, events);
-        map.put(newId, newEvent);
+        eventTypeMap.put(newEvent.getEventType(), events);
+        idEventMap.put(newEvent.getId(), newEvent);
     }
 
-    public static void eventSearchById(Map<Integer, StreamEvent> map, int idSearch) {
-        System.out.println("Событие найденное по ID = " + idSearch + " : " + map.get(idSearch));
+    public static void eventSearchById(int idSearch) {
+        System.out.println("Событие найденное по ID = " + idSearch + " : " + idEventMap.get(idSearch));
     }
 
-    public static void eventsSearchByEventType(Map<String, List<StreamEvent>> map, String eventTypeSearch) {
-        System.out.println("Список событий найденных по типу " + eventTypeSearch + " : " + map.get(eventTypeSearch));
+    public static void eventsSearchByEventType(String eventTypeSearch) {
+        System.out.println("Список событий найденных по типу " + eventTypeSearch + " : " + idEventMap.get(eventTypeSearch));
     }
 
-    public static void deleteEventByID(Map<Integer, StreamEvent> map, Map<String, List<StreamEvent>> map2, int id) {
-        if (map.get(id) != null) {
-            //Поиск типа события для удаления
-            String eventTypeForId = map.get(id).getEventType();
-
-            List<StreamEvent> listToDelete = map2.get(eventTypeForId);
-            int index = listToDelete.indexOf(map.get(id));
+    public static void deleteEventByID(int id) {
+        if (idEventMap.get(id) != null) {
+            String eventTypeForId = idEventMap.get(id).getEventType();
+            List<StreamEvent> listToDelete = eventTypeMap.get(eventTypeForId);
+            int index = listToDelete.indexOf(idEventMap.get(id));
 
             if (index != -1) {
-                listToDelete.remove(index);
+                if (listToDelete.size() == 1) {
+                    listToDelete = null;
+                } else {
+                    listToDelete.remove(index);
+                }
+                idEventMap.remove(id);
             }
-            map2.put(eventTypeForId, listToDelete);
-            map.remove(id);
         }
     }
 
-
-    public static void allStreamEvents(Map<Integer, StreamEvent> map, Map<String, List<StreamEvent>> map2) {
-        for (Map.Entry<Integer, StreamEvent> entry : map.entrySet()) {
+    public static void allStreamEvents() {
+        for (Map.Entry<Integer, StreamEvent> entry : idEventMap.entrySet()) {
             System.out.println("ID события: " + entry.getKey() + " Событие: " + entry.getValue());
         }
-
-        for (Map.Entry<String, List<StreamEvent>> entry : map2.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : eventTypeMap.entrySet()) {
             System.out.println("Тип события: " + entry.getKey() + "  Список таких событий: " + entry.getValue());
         }
     }
