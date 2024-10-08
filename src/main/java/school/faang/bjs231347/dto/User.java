@@ -1,8 +1,6 @@
 package school.faang.bjs231347.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NonNull;
 
@@ -14,9 +12,7 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
-@Builder
 @NonNull
-@EqualsAndHashCode
 public class User {
     @NonNull
     private String name;
@@ -31,11 +27,10 @@ public class User {
         Map<Integer, List<User>> groupResult = new HashMap<>();
         for (User user : userList) {
             if (Objects.nonNull(user)) {
-                if (groupResult.containsKey(user.getAge())) {
-                    groupResult.get(user.getAge()).add(user);
-                } else {
-                    groupResult.put(user.getAge(), new LinkedList<>(List.of(user)));
-                }
+                groupResult.merge(user.getAge(), new LinkedList<>(List.of(user)), (k, v) -> {
+                    v.add(user);
+                    return v;
+                });
             }
         }
         return groupResult;

@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.bjs231347;
 
 import school.faang.bjs231347.dto.User;
 
