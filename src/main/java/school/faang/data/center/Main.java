@@ -21,30 +21,30 @@ public class Main {
     }
 
     public static void testDataCenterService(List<Server> servers,
-                                                          OptimizationStrategy optimizationStrategy) {
+                                             OptimizationStrategy optimizationStrategy) {
         DataCenter dataCenter = new DataCenter();
-        DataCenterService dataCenterService = new DataCenterService(dataCenter, optimizationStrategy);
-        for(Server server : servers) {
-            dataCenterService.add(server);
+        DataCenterService dataCenterService = new DataCenterService(optimizationStrategy);
+        for (Server server : servers) {
+            dataCenterService.add(server, dataCenter);
         }
 
         System.out.println("Сервера после добавления");
-        dataCenterService.printReport();
+        dataCenterService.printReport(dataCenter);
         System.out.println();
 
         System.out.println("Сервера после удаления");
-        dataCenterService.remove(servers.get(4));
-        dataCenterService.printReport();
+        dataCenterService.remove(servers.get(4), dataCenter);
+        dataCenterService.printReport(dataCenter);
         System.out.println();
 
         System.out.println("Сервера выделения ресурсов");
-        dataCenterService.allocateResources(new ResourceRequest(100));
-        dataCenterService.printReport();
+        dataCenterService.allocateResources(new ResourceRequest(100), dataCenter);
+        dataCenterService.printReport(dataCenter);
         System.out.println();
 
         System.out.println("Сервера освобождения ресурсов");
-        dataCenterService.releaseResources(new ResourceRequest(500));
-        dataCenterService.printReport();
+        dataCenterService.releaseResources(new ResourceRequest(500), dataCenter);
+        dataCenterService.printReport(dataCenter);
         System.out.println();
     }
 }
