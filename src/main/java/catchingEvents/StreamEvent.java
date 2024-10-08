@@ -37,7 +37,6 @@ public class StreamEvent {
         }
     }
 
-
     public static void addStreamEvent(Map<Integer, StreamEvent> streamEventMap,
                                       Map<String, List<StreamEvent>> specificStreamMap, StreamEvent newEvent) {
         streamEventMap.put(newEvent.getId(), newEvent);
@@ -51,25 +50,12 @@ public class StreamEvent {
 
     public static void removeStreamEvent(Integer id, Map<Integer, StreamEvent> streamEventMap,
                                          Map<String, List<StreamEvent>> specificStreamMap) {
-
         if (!streamEventMap.containsKey(id)) {
             throw new RuntimeException("Потока с таким ID не существует. Невозможно удалить");
         }
         String typeToRemove = streamEventMap.get(id).getEventType();
         streamEventMap.remove(id);
-
-        List<StreamEvent> eventList = specificStreamMap.get(typeToRemove);
-        List<StreamEvent> eventsToRemove = new ArrayList<>();
-
-        for (StreamEvent streamEvent : eventList) {
-            if (id.equals(streamEvent.getId())) {
-                eventsToRemove.add(streamEvent);
-            }
-        }
-
-        for (StreamEvent eventRemove : eventsToRemove) {
-            eventList.remove(eventRemove);
-        }
+        specificStreamMap.remove(typeToRemove);
     }
 
     public static List<StreamEvent> findStreamEventList(String eventType, Map<String, List<StreamEvent>> specificStreamEventMap) {
