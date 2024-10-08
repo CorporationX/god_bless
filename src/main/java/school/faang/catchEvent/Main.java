@@ -18,9 +18,7 @@ public class Main {
         addEvent(streamEvent2);
         addEvent(streamEvent3);
 
-//        printAllEvents();
-//
-//        removeEventById(2);
+        removeEventById(2);
 
         printAllEvents();
 
@@ -40,7 +38,10 @@ public class Main {
     }
 
     public static void removeEventById(int id) {
-        EVENT.remove(id);
+        StreamEvent getRemovedEvent = EVENT.remove(id);
+        if (getRemovedEvent == null) {
+            EVENT_TYPE.get(getRemovedEvent.getEventType()).remove(getRemovedEvent);
+        }
     }
 
     public static void printAllEvents() {
