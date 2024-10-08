@@ -43,11 +43,20 @@ public class Main {
 
     public static void addSubjectToStudents(Subject subject, List<Student> students) {
         STUDENTS_SUBJECT.put(subject, students);
+
+        STUDENT_PERFORMANCE.forEach((student, subjectGrade) -> {
+            subjectGrade.putIfAbsent(subject, null);
+        });
     }
 
     public static void addStudentToSubjects(Student student, Subject subject) {
         STUDENTS_SUBJECT.putIfAbsent(subject, new ArrayList<>());
-        STUDENTS_SUBJECT.get(subject).add(student);
+
+        if (!STUDENTS_SUBJECT.get(subject).contains(student)) {
+            STUDENTS_SUBJECT.get(subject).add(student);
+        }
+
+        STUDENT_PERFORMANCE.get(student).putIfAbsent(subject, null);
     }
 
     public static void deleteStudentFromSubjects(Subject subject, Student student) {
@@ -58,6 +67,10 @@ public class Main {
         }
 
         STUDENT_PERFORMANCE.get(student).remove(subject);
+
+        if (STUDENT_PERFORMANCE.get(student).isEmpty()) {
+            STUDENT_PERFORMANCE.remove(student);
+        }
     }
 
     public static void printSubjectsWithStudents() {
