@@ -8,7 +8,8 @@ public class Main {
         MY_HERO.addCreature(new Pikeman("Rocki"), 90);
         MY_HERO.addCreature(new Angel("Fire"), 10);
         Hero ENEMY_HERO = new Hero("Cyclop", "Cyclops", 330, 4);
-        ENEMY_HERO.addCreature(new Griffin("Zloy"), 150);
+        ENEMY_HERO.addCreature(new Griffin("Zloy"), 50);
         Battlefield battlefield = new Battlefield(MY_HERO, ENEMY_HERO);
+        battlefield.battle();
     }
 }
