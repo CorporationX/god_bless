@@ -16,9 +16,9 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-//        usersGrouping();
-//        googleSearchEngine();
-//        doubleCache();
+        usersGrouping();
+        googleSearchEngine();
+        doubleCache();
     }
 
     public static void doubleCache() {
