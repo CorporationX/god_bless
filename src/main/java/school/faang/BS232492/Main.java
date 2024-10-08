@@ -6,7 +6,7 @@ import java.util.Map;
 public class Main {
     private static final Map<String, House> HOUSE_MAP = new HashMap<>();
 
-    {
+   static {
         HOUSE_MAP.put("Stark", new House("Stark house", "Stark"));
         HOUSE_MAP.put("Lanister", new House("Lanister house", "Lanister"));
         HOUSE_MAP.put("Barateon", new House("Barateon house", "Barateon"));
@@ -37,7 +37,7 @@ public class Main {
 
     public static void findAndGetSigilOfHouse(String nameOfHouse) {
         if (nameOfHouse.isEmpty() || nameOfHouse.isBlank()) {
-            throw new IllegalArgumentException("Put the nameOfHouse in " + nameOfHouse);
+            throw new IllegalArgumentException("Fill the nameOfHouse");
         }
 
         House house = HOUSE_MAP.get(nameOfHouse);
