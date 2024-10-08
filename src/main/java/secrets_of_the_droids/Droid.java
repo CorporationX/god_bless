@@ -1,13 +1,14 @@
 package secrets_of_the_droids;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import secrets_of_the_droids.interfaces.DroidMessageEncryptor;
 
-@Data
+@Getter
 @AllArgsConstructor
 public class Droid {
-    private String name;
+    private final String name;
+    private final int THE_NUMBER_OF_LETTERS_IN_THE_ALPHABET = 26;
 
     /**
      * Encrypts a message by replacing each letter with the letter
@@ -31,7 +32,10 @@ public class Droid {
      * @return the decrypted message
      */
     private String decryptMessage(String message, int encryptionKey) {
-        DroidMessageEncryptor decryptor = (msg, key) -> encrypt(message, 26 - (encryptionKey % 26));
+        DroidMessageEncryptor decryptor = (msg, key) -> encrypt(
+                message,
+                THE_NUMBER_OF_LETTERS_IN_THE_ALPHABET - (encryptionKey % THE_NUMBER_OF_LETTERS_IN_THE_ALPHABET)
+        );
         return decryptor.encrypt(message, encryptionKey);
     }
 
@@ -45,11 +49,11 @@ public class Droid {
      */
     private String encrypt(String message, int encryptionKey) {
         StringBuilder encryptedText = new StringBuilder();
-        encryptionKey = encryptionKey % 26;
+        encryptionKey = encryptionKey % THE_NUMBER_OF_LETTERS_IN_THE_ALPHABET;
         for (char c : message.toCharArray()) {
             if (Character.isLetter(c)) {
                 char base = Character.isLowerCase(c) ? 'a' : 'A';
-                char shiftedChar = (char) ((c - base + encryptionKey) % 26 + base);
+                char shiftedChar = (char) ((c - base + encryptionKey) % THE_NUMBER_OF_LETTERS_IN_THE_ALPHABET + base);
                 encryptedText.append(shiftedChar);
             } else {
                 encryptedText.append(c);
