@@ -8,9 +8,9 @@ import lombok.Getter;
 @EqualsAndHashCode
 @Getter
 public class Product {
-    int id;
-    String name;
-    String category;
+    private int id;
+    private String name;
+    private String category;
 
     @Override
     public String toString() {

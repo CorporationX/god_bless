@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -13,11 +12,11 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductManagerTest {
-    ProductManager manager;
-    Set<Product> products;
-    Product laptop;
-    Product smartphone;
-    Product chair;
+    private ProductManager manager;
+    private Set<Product> products;
+    private Product laptop;
+    private Product smartphone;
+    private Product chair;
 
     @BeforeEach
     void setUp() {
