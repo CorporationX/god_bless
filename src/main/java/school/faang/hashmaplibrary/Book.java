@@ -6,20 +6,20 @@ import java.util.Objects;
 
 @ToString
 public class Book {
-    private final String TITLE;
-    private final String AUTHOR;
-    private final int YEAR;
+    private final String title;
+    private final String author;
+    private final int year;
 
 
-    public Book(String TITLE, String AUTHOR, int YEAR) {
-        this.TITLE = TITLE;
-        this.AUTHOR = AUTHOR;
-        this.YEAR = YEAR;
+    public Book(String title, String author, int year) {
+        this.title = title;
+        this.author = author;
+        this.year = year;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(TITLE, AUTHOR, YEAR);
+        return Objects.hash(title, author, year);
     }
 
     @Override
@@ -32,6 +32,6 @@ public class Book {
         }
 
         Book book = (Book) obj;
-        return YEAR == book.YEAR && Objects.equals(TITLE, book.TITLE) && Objects.equals(AUTHOR, book.AUTHOR);
+        return year == book.year && Objects.equals(title, book.title) && Objects.equals(author, book.author);
     }
 }

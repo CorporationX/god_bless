@@ -17,18 +17,19 @@ public class Main {
         catalogue.put(book, "shelf " + numShelf);
     }
 
-    public static void getShelf(Book book) {
-        String valueResult = catalogue.get(book);
+    public static void getShelf(String title, String author, int year) {
+        Book searchBook = new Book (title, author, year);
+        String valueResult = catalogue.get(searchBook);
 
         if (valueResult == null) {
-            System.out.println(book + " not exist!");
+            System.out.println(searchBook + " not exist!");
         } else {
-            System.out.println(book + " is on " + valueResult);
+            System.out.println(searchBook + " is on " + valueResult);
         }
     }
 
-    public static void deleteBookFromCatalogue(Book book) {
-        catalogue.remove(book);
+    public static void deleteBookFromCatalogue(String title, String author, int year) {
+        catalogue.remove(new Book (title, author, year));
     }
 
     public static void printCatalogue() {
