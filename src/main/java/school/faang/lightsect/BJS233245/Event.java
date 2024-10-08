@@ -23,12 +23,24 @@ public class Event {
     }
 
     public static void deleteStreamById(int id) {
-        STREAM_EVENT_BY_ID.remove(id);
+        StreamEvent event = STREAM_EVENT_BY_ID.remove(id);
+
+        if (event != null) {
+            String eventType = event.getEventType();
+            List<StreamEvent> events = LIST_OF_EVENT_WITH_TYPE.get(eventType);
+
+            if (events != null) {
+                events.remove(event);
+
+                if (events.isEmpty()) {
+                    LIST_OF_EVENT_WITH_TYPE.remove(eventType);
+                }
+            }
+        }
     }
 
     public static void printAllEvents() {
-        STREAM_EVENT_BY_ID.forEach((key, value) -> System.out.printf("id: %d, type: %s, data: %s\n",
-                key, value.getEventType(), value.getData()));
+        STREAM_EVENT_BY_ID.forEach((key, value) -> System.out.printf("id: %d, type: %s, data: %s\n", key, value.getEventType(), value.getData()));
     }
 
 }
