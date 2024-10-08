@@ -27,8 +27,11 @@ public class Main {
     public static void groupingProductsByCategory(Set<Product> products) {
         for(Product product: products) {
             String category = product.getCategory();
-            if (CATEGORY_PRODUCTS.containsKey(category) && CATEGORY_PRODUCTS.get(category).contains(product)) continue;
-            CATEGORY_PRODUCTS.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
+            if (CATEGORY_PRODUCTS.containsKey(category) && CATEGORY_PRODUCTS.get(category).contains(product)) {
+                continue;
+            }else {
+                CATEGORY_PRODUCTS.computeIfAbsent(category, k -> new ArrayList<>()).add(product);
+            }
         }
     }
 
