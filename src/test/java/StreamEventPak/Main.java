@@ -25,10 +25,7 @@ public class Main {
 
     public static void addEvent(StreamEvent streamEvent) {
         eventById.put(streamEvent.getId(), streamEvent);
-        if (!eventByType.containsKey(streamEvent.getEventType())) {
-            eventByType.put(streamEvent.getEventType(), new ArrayList<>());
-        }
-        eventByType.get(streamEvent.getEventType()).add(streamEvent);
+        eventByType.computeIfAbsent(streamEvent.getEventType(), key->new ArrayList<>()).add(streamEvent);
     }
 
     public static void findEventId(int id) {
