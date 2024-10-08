@@ -25,26 +25,25 @@ public class User {
 
         List<User> users = new ArrayList<>(Arrays.asList(damba, kit, mongol, vasilisa));
 
-        printMapUser(groupUsersOrAge(users));
+        printMapUser (groupUsersOrAge(users));
     }
 
-    private static void printMapUser(HashMap<Integer, List<User>> mapUsers) {
-        if (mapUsers != null) {
-            for (Map.Entry<Integer, List<User>> user : mapUsers.entrySet()) {
-                System.out.println(user);
-            }
+    private static Map<Integer, List<User>> groupUsersOrAge(List<User> listUsers) {
+        if (listUsers == null) {
+            return new HashMap<>();
         }
-    }
-
-    private static HashMap<Integer, List<User>> groupUsersOrAge(List<User> listUsers) {
-        if (listUsers != null) {
-            HashMap<Integer, List<User>> mapUsers = new HashMap<>();
-            for (User user : listUsers) {
+        Map<Integer, List<User>> mapUsers = new HashMap<>();
+        for (User   user : listUsers) {
+            if (user != null) {
                 mapUsers.computeIfAbsent(user.age, k -> new ArrayList<>()).add(user);
             }
-            return mapUsers;
         }
-        return null;
+        return mapUsers;
     }
 
+    private static void printMapUser  (Map<Integer, List<User>> mapUsers) {
+        for (Map.Entry<Integer, List<User>> user : mapUsers.entrySet()) {
+            System.out.println(user);
+        }
+    }
 }
