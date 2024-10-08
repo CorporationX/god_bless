@@ -8,17 +8,17 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<User, List<Query>> USER_QUERIES = new HashMap<>();
+    private static final Map<User, List<Query>> USER_QUERIES = new HashMap<>();
 
-    private static String stringFormat(String user, String query) {
+    private static String stringFormat(String user, String queries) {
         return """
                 Пользователь: %s
                 Запросы: %s
-                """.formatted(user, query);
+                """.formatted(user, queries);
     }
 
     public static void addToUserQueries(User user, List<Query> queries) {
-        USER_QUERIES.putIfAbsent(user, queries);
+        USER_QUERIES.computeIfAbsent(user, k -> new ArrayList<>()).addAll(queries);
     }
 
     public static void addNewQuery(User user, Query query) {
