@@ -7,7 +7,6 @@ public class Main {
     private static final Map<String, House> HOUSES = new HashMap<>();
 
     public static void main(String[] args) {
-
         House stark = new House("Stark", "Grey Wolf");
         House lannister = new House("Lannister", "Golden Lion");
         addHouse(stark);
@@ -22,7 +21,6 @@ public class Main {
         System.out.println();
 
         printSigilByName("Stark");
-
     }
 
     public static void addHouse(House house) {
