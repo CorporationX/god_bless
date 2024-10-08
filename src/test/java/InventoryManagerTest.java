@@ -4,15 +4,17 @@ import school.faang.lordOfTheRings.InventoryManager;
 import school.faang.lordOfTheRings.Item;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class InventoryManagerTest {
-    private static final InventoryManager inventoryManager = new InventoryManager();
+    private final InventoryManager inventoryManager = new InventoryManager();
     private static final Consumer<Item> handler =
             (item) -> System.out.println(item.getName() + " was added to inventory.");
     private static final Predicate<Item> filter =
@@ -27,18 +29,13 @@ public class InventoryManagerTest {
         Item ring = new Item("The one Ring", 500);
         Item sword = new Item("Legendary Sword", 1000);
 
-        Map<String, Integer> expected = new HashMap<>();
-        expected.put("The one Ring", 500);
-        expected.put("Legendary Sword", 1000);
-        Map<String, Integer> actual = new HashMap<>();
-
         // act
         inventoryManager.addItem(frodo, ring, handler);
         inventoryManager.addItem(frodo, sword, handler);
-        frodo.getInventory().forEach(item -> actual.put(item.getName(), item.getValue()));
 
         // assert
-        assertEquals(expected, actual, "Should add ring and sword with their names and values.");
+        assertEquals(2, frodo.getInventory().size(), "Inventory size should be 2 after adding items.");
+        assertTrue(frodo.getInventory().containsAll(List.of(ring, sword)), "Inventory should have ring and sword.");
     }
 
     @Test
@@ -48,18 +45,14 @@ public class InventoryManagerTest {
         Item ring = new Item("The one Ring", 500);
         Item sword = new Item("Legendary Sword", 1000);
 
-        Map<String, Integer> expected = new HashMap<>();
-        expected.put("The one Ring", 500);
-        Map<String, Integer> actual = new HashMap<>();
-
         // act
         inventoryManager.addItem(frodo, ring, handler);
         inventoryManager.addItem(frodo, sword, handler);
         inventoryManager.removeItem(frodo, filter);
-        frodo.getInventory().forEach(item -> actual.put(item.getName(), item.getValue()));
 
         // assert
-        assertEquals(expected, actual, "Sword should be removed due to it's price.");
+        assertEquals(1, frodo.getInventory().size(), "Inventory size should be 1 due to sword's price.");
+        assertTrue(frodo.getInventory().contains(ring), "Inventory should contain only ring.");
     }
 
     @Test

@@ -1,5 +1,6 @@
 package school.faang.lordOfTheRings;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,11 +16,11 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> function) {
-        for (Item item : character.getInventory()) {
-            if (filter.test(item)) {
-                Item newItem = function.apply(item);
-                item.setName(newItem.getName());
-                item.setValue(newItem.getValue());
+        List<Item> newItems = character.getInventory();
+        for (int i=0; i<newItems.size(); i++) {
+            Item newItem = newItems.get(i);
+            if (filter.test(newItem)) {
+                newItems.set(i, function.apply(newItem));
             }
         }
     }
