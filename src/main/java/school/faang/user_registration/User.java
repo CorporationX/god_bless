@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.user_registration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
