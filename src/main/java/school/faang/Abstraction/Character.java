@@ -23,5 +23,4 @@ public abstract class Character {
 
     public void attack(Character character) {
     }
-
 }
