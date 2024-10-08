@@ -7,7 +7,7 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmail(List<Email> emails, Predicate<Email> filter,
-                             Function<Email, String> transformer, Consumer<Email> consumer) {
+                             Consumer<Email> consumer, Function<Email, String> transformer) {
         for (Email email :emails) {
             if(filter.test(email)) {
                 String transformerBody = transformer.apply(email);

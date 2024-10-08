@@ -1,5 +1,6 @@
 package school.faang.gmailrichfilter.main;
 
+
 import school.faang.gmailrichfilter.maincode.Email;
 import school.faang.gmailrichfilter.maincode.EmailProcessor;
 
@@ -21,12 +22,13 @@ public class Main {
 
         Predicate<Email> filterEmail = Email::getIsImportant;
 
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-
         Consumer<Email> printEmail = System.out::println;
 
-        emailProcessor.processEmail(emails, filterEmail, toUpperCase, printEmail);
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
 
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        emailProcessor.processEmail(emails, filterEmail, printEmail, toUpperCase);
+
+        emails.forEach(email ->
+                System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 }
