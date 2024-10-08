@@ -1,9 +1,12 @@
 package school.faang.collectionusers;
-
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
