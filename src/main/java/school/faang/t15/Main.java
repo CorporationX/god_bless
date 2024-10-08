@@ -52,7 +52,7 @@ public class Main {
             List<Query> queries = entry.getValue();
             System.out.println("Пользователь: " + user.getName() + " (ID: " + user.getId() + ")");
             for (Query query : queries) {
-                System.out.println("  Query ID: " + query.getId() + ", Content: " + query.getContent());
+                System.out.println("  Запрос ID: " + query.getId() + ", Content: " + query.getContent());
             }
         }
     }
