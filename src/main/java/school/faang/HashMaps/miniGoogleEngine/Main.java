@@ -13,7 +13,7 @@ public class Main {
         index(new WebPage("faang.com", "faang", "Вы создать простой поисковой движок"));
         index(new WebPage("yandex.ru", "yandex", "какой-то текст"));
         index(new WebPage("dzen.ru", "dzen", "решили"));
-        deletePageFromIndex("dzen.ru");
+        deletePageFromIndex("yandex.ru");
         System.out.println(index);
         System.out.println(searchPages("Вы"));
     }
@@ -24,11 +24,15 @@ public class Main {
     }
 
     public static List<WebPage> searchPages(String word) {
-        return index.containsKey(word) ? index.get(word) : new ArrayList<>();
+        return index.getOrDefault(word, new ArrayList<>());
     }
 
     public static void deletePageFromIndex(String url) {
-        index.forEach((k, v) -> v.removeIf(x -> x.getUrl().equals(url)));
-        index.values().removeIf(List::isEmpty);
+        List<String> keyWithEmptyList = new ArrayList<>();
+        index.forEach((k, v) -> {
+            v.removeIf(x -> x.getUrl().equals(url));
+            if (v.isEmpty()) keyWithEmptyList.add(k);
+        });
+        keyWithEmptyList.forEach(key -> index.remove(key));
     }
 }
