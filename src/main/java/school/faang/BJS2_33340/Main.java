@@ -6,7 +6,7 @@ public class Main {
 
     private static Map<Integer, StreamEvent> eventById = new HashMap<>();
     private static Map<String, List<StreamEvent>> eventsByType = new HashMap<>();
-    final static int EVENT_COUNT = 20;
+    private final static int EVENT_COUNT = 20;
 
     public static void main(String[] args) {
         Random random = new Random();
