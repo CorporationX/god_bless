@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Main {
 
-    static Map<Integer, StreamEvent> eventById = new HashMap<>();
-    static Map<String, LinkedList<StreamEvent>> eventsByType = new HashMap<>();
+    private static Map<Integer, StreamEvent> eventById = new HashMap<>();
+    private static Map<String, List<StreamEvent>> eventsByType = new HashMap<>();
     final static int EVENT_COUNT = 20;
 
     public static void main(String[] args) {
@@ -44,6 +44,7 @@ public class Main {
     public static StreamEvent getEventById(int id){
         return eventById.get(id);
     }
+
     public static List<StreamEvent> getEventsByType(String type){
         if (type == null) {
             return new LinkedList<StreamEvent>();
@@ -55,17 +56,17 @@ public class Main {
         return eventById.get(id);
     }
 
-    public static LinkedList<StreamEvent> findEventsListByType(String type){
+    public static List<StreamEvent> findEventsListByType(String type){
         return eventsByType.get(type);
     }
 
     public static boolean deleteEventById(int id) {
-        if (eventById.remove(id) == null) {
+        StreamEvent event = eventById.get(id);
+        if (event == null) {
             return false;
         }
-        for (Map.Entry<String, LinkedList<StreamEvent>> entry : eventsByType.entrySet()) {
-            entry.getValue().removeIf(event -> event.getId() == id);
-        }
+        eventsByType.get(event.getEventType()).remove(event);
+        eventById.remove(id);
         return true;
     }
 
@@ -78,7 +79,7 @@ public class Main {
 
     public static void printEventsByType(){
         System.out.println("=========================EventsByType start==========================");
-        for (Map.Entry<String, LinkedList<StreamEvent>> entry : eventsByType.entrySet()) {
+        for (Map.Entry<String, List<StreamEvent>> entry : eventsByType.entrySet()) {
             System.out.println("List of events with EventType = " + entry.getKey());
             for (StreamEvent event : entry.getValue()) {
                 System.out.println(event);
