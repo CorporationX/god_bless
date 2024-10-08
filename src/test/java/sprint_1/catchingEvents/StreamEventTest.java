@@ -28,12 +28,6 @@ class StreamEventTest {
 
     //позитивные
     //используют только корректные данные и возвращает нам корректный результат
-    @Test
-    void sumTest() {
-        int res = StreamEvent.sum(2, 5);
-        assertEquals(7, res);
-    }
-
 
     @Test
     void addEventTest() {
@@ -49,6 +43,7 @@ class StreamEventTest {
         StreamEvent event2 = new StreamEvent(3, "LOGOUT", "User logged out");
         StreamEvent.addStreamEvent(streamEventMap, specificStreamEventMap, event1);
         StreamEvent.addStreamEvent(streamEventMap, specificStreamEventMap, event2);
+
         StreamEvent.removeStreamEvent(13, streamEventMap, specificStreamEventMap);
 
         assertNull(StreamEvent.findStreamEvent(13, streamEventMap));

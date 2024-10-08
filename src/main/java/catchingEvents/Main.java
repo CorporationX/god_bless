@@ -35,9 +35,19 @@ public class Main {
         System.out.println(StreamEvent.findStreamEventList("LOGIN", specificStreamEventMap));
 
         System.out.println("\n");
-        StreamEvent.removeStreamEvent(1, streamEventMap, specificStreamEventMap);
+
+        try {
+            StreamEvent.removeStreamEvent(22, streamEventMap, specificStreamEventMap);
+        } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
+        }
+
         StreamEvent.printAllStreamEventMap(streamEventMap);
         StreamEvent.printSpecificEventMap(specificStreamEventMap);
 
+        System.out.println("\n");
+        StreamEvent.removeStreamEvent(1, streamEventMap, specificStreamEventMap);
+        StreamEvent.printAllStreamEventMap(streamEventMap);
+        StreamEvent.printSpecificEventMap(specificStreamEventMap);
     }
 }

@@ -1,13 +1,5 @@
 package catchingEvents;
 
-
-/**
- * ВОПРОС
- *
- * Плохо ли что методы для добавления, печати и т.д я реализовала в этом классе?
- * Или нужно было отдельный класс для работы с потоками создать?
- */
-
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -45,9 +37,6 @@ public class StreamEvent {
         }
     }
 
-    public static int sum(int a, int b) {
-        return a + b;
-    }
 
     public static void addStreamEvent(Map<Integer, StreamEvent> streamEventMap,
                                       Map<String, List<StreamEvent>> specificStreamMap, StreamEvent newEvent) {
@@ -62,6 +51,10 @@ public class StreamEvent {
 
     public static void removeStreamEvent(Integer id, Map<Integer, StreamEvent> streamEventMap,
                                          Map<String, List<StreamEvent>> specificStreamMap) {
+
+        if (!streamEventMap.containsKey(id)) {
+            throw new RuntimeException("Потока с таким ID не существует. Невозможно удалить");
+        }
         String typeToRemove = streamEventMap.get(id).getEventType();
         streamEventMap.remove(id);
 
@@ -74,10 +67,9 @@ public class StreamEvent {
             }
         }
 
-        for (StreamEvent eventRe : eventsToRemove) {
-            eventList.remove(eventRe);
+        for (StreamEvent eventRemove : eventsToRemove) {
+            eventList.remove(eventRemove);
         }
-
     }
 
     public static List<StreamEvent> findStreamEventList(String eventType, Map<String, List<StreamEvent>> specificStreamEventMap) {
@@ -85,7 +77,6 @@ public class StreamEvent {
     }
 
     public static void printAllStreamEventMap(Map<Integer, StreamEvent> streamEventMap) {
-
         System.out.println("------");
         for (Map.Entry<Integer, StreamEvent> entry : streamEventMap.entrySet()) {
             StreamEvent streamEvent = entry.getValue();
