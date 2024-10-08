@@ -4,10 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import javax.crypto.spec.SecretKeySpec;
 
-import java.util.Arrays;
-
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class EncryptorUtilTest {
 
@@ -20,7 +18,7 @@ class EncryptorUtilTest {
         for (int i = 0; i < encryptedMessage.length; i++) {
             System.out.println(encryptedMessage[i]);
         }
-        assertTrue(Arrays.equals(new byte[]{-18, -117, 26, -15, -45, -56, 33, 100, -40, 103, -120, -123, 73, -55, 20, 93}, encryptedMessage));
+        assertArrayEquals(new byte[]{-18, -117, 26, -15, -45, -56, 33, 100, -40, 103, -120, -123, 73, -55, 20, 93}, encryptedMessage);
     }
 
     @Test

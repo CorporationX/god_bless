@@ -8,6 +8,9 @@ public class Main {
         Droid petya = new Droid("Petya");
         Droid vasya = new Droid("Vasya");
         Droid dima = new Droid("Dima");
+        dima.setMessageHandler(((from, message) -> {
+            System.out.println("Дима получил сообщение: " + message);
+        }));
 
         dima.sendMessage(vasya, "hello", KeyGenerator.getInstance("AES").generateKey());
         petya.sendMessage(dima, "Join the Rebellion!", KeyGenerator.getInstance("AES").generateKey());
