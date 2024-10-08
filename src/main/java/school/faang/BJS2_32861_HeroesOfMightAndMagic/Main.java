@@ -18,6 +18,6 @@ public class Main {
         Battlefield battlefield = new Battlefield();
         Hero winner = battlefield.battle(firstHero, secondHero);
 
-        System.out.println("Winner of the battle: " + winner.getName());
+        System.out.println(winner == null ? "Draw!" : "Winner of the battle: " + winner.getName());
     }
 }
