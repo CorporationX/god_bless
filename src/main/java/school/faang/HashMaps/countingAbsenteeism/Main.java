@@ -22,7 +22,7 @@ public class Main {
         Map<FacultyYear, List<Student>> studentsMap = groupingStudentsByFacultyAndCourse(students);
         deleteStudent("Ivan", "Biology", 3);
         System.out.println(searchStudents(studentsMap, "Mathematics", 1));
-        printStudents();
+        //printStudents();
     }
 
     public static Map<FacultyYear, List<Student>> groupingStudentsByFacultyAndCourse(List<Student> studentList) {
