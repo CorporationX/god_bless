@@ -10,25 +10,25 @@ import static school.faang.countabsenteeism.StudentService.printForTest;
 import static school.faang.countabsenteeism.StudentService.remove;
 
 public class Main {
-    public static final List<Student> STUDENTS = new ArrayList<>();
+    public static List<Student> students = new ArrayList<>();
 
     public static void main(String[] args) {
-        add(new Student("Dmitry", new StudentProfile("Humanities", 1)));
-        add(new Student("Yaroslav", new StudentProfile("Mathematics", 3)));
-        add(new Student("Sergei", new StudentProfile("Humanities", 1)));
-        add(new Student("Alexey", new StudentProfile("Humanities", 3)));
-        add(new Student("Alena", new StudentProfile("Chemistry", 2)));
-        add(new Student("Anastasia", new StudentProfile("Chemistry", 2)));
-        add(new Student("Anatoly", new StudentProfile("Chemistry", 2)));
-        add(new Student("Ruslan", new StudentProfile("Chemistry", 2)));
+        add(new Student("Dmitry", new StudentProfile("Humanities", 1)), students);
+        add(new Student("Yaroslav", new StudentProfile("Mathematics", 3)), students);
+        add(new Student("Sergei", new StudentProfile("Humanities", 1)), students);
+        add(new Student("Alexey", new StudentProfile("Humanities", 3)), students);
+        add(new Student("Alena", new StudentProfile("Chemistry", 2)), students);
+        add(new Student("Anastasia", new StudentProfile("Chemistry", 2)), students);
+        add(new Student("Anatoly", new StudentProfile("Chemistry", 2)), students);
+        add(new Student("Ruslan", new StudentProfile("Chemistry", 2)), students);
 
-        remove("Yaroslav", "Mathematics", 3);
-        remove("Dmitry", "Humanities", 1);
+        remove("Yaroslav", "Mathematics", 3, students);
+        remove("Dmitry", "Humanities", 1, students);
 
 
-        List<Student> testGetStudents = getStudentsByStudentProfile("Chemistry", 2);
+        List<Student> testGetStudents = getStudentsByStudentProfile("Chemistry", 2, students);
         printForTest(testGetStudents);
 
-        printAll(STUDENTS);
+        printAll(students);
     }
 }

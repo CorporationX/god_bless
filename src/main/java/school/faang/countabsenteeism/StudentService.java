@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static school.faang.countabsenteeism.Main.STUDENTS;
 
 public class StudentService {
     public static HashMap<StudentProfile, ArrayList<Student>> groupingStudents(List<Student> students) {
@@ -17,21 +16,21 @@ public class StudentService {
         return groupedStudents;
     }
 
-    public static void add(Student student) {
-        STUDENTS.add(student);
+    public static void add(Student student, List<Student> students) {
+        students.add(student);
     }
 
-    public static void remove(String name, String faculty, int year) {
+    public static void remove(String name, String faculty, int year, List<Student> students) {
         Student studentToRemove = new Student(name, new StudentProfile(faculty, year));
-        int indexStudent = STUDENTS.indexOf(studentToRemove);
+        int indexStudent = students.indexOf(studentToRemove);
         if (studentToRemove != null) {
-            STUDENTS.remove(indexStudent);
+            students.remove(indexStudent);
         }
     }
 
-    public static ArrayList<Student> getStudentsByStudentProfile(String faculty, int year) {
+    public static ArrayList<Student> getStudentsByStudentProfile(String faculty, int year, List<Student> students) {
         ArrayList<Student> studentsByStudentProfile = new ArrayList<>();
-        for (Student student : STUDENTS) {
+        for (Student student : students) {
             if (student.getStudentProfile().getFaculty().equals(faculty)
                     && student.getStudentProfile().getYear() == year) {
                 studentsByStudentProfile.add(student);
