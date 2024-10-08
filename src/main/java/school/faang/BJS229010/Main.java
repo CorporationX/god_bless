@@ -48,7 +48,7 @@ public class Main {
         }
     }
 
-    public static void deleteStudent(Student student, Subject subject, int score) {
+    public void deleteStudent(Student student, Subject subject, int score) {
         Map<Subject, Integer> subjectsAndScores = STUDENT_GRADES_BY_SUBJECT.get(student);
         if (subjectsAndScores != null) {
             if (subjectsAndScores.containsKey(subject) && subjectsAndScores.get(subject).equals(score)) {
@@ -67,14 +67,14 @@ public class Main {
         });
     }
 
-    public static void deleteStudentFromSubject(Subject subject, List<Student> student) {
-        List<Student> studentToRemove = SUBJECT_TO_STUDENT_LIST.get(subject);
+    public static void deleteStudentsFromSubject(Subject subject, List<Student> students) {
+        List<Student> studentsToRemove = SUBJECT_TO_STUDENT_LIST.get(subject);
 
-        if (student != null) {
-            studentToRemove.removeAll(student);
+        if (students != null) {
+            studentsToRemove.removeAll(students);
         }
 
-        if (studentToRemove.isEmpty()) {
+        if (studentsToRemove.isEmpty()) {
             SUBJECT_TO_STUDENT_LIST.remove(subject);
         }
     }
