@@ -36,8 +36,8 @@ public class Main {
     }
 
     public static void addSubjectAndGradeForAnExistingStudent(Student student, Subject subject, Integer grade) {
-        if (STUDENT_SUBJECTS_GRADES.containsKey(student)) {
-            Map<Subject, Integer> subjectGrades = STUDENT_SUBJECTS_GRADES.get(student);
+        Map<Subject, Integer> subjectGrades = STUDENT_SUBJECTS_GRADES.get(student);
+        if (subjectGrades != null) {
             subjectGrades.put(subject, grade);
         } else {
             System.out.println("Student not found, use addStudentAndTheirGrades method instead");
@@ -57,12 +57,11 @@ public class Main {
     public static void addNewSubjectAndParticipatingStudents(Subject subject, Student... students) {
         List<Student> studentList = SUBJECTS_AND_STUDENTS.computeIfAbsent(subject, k -> new ArrayList<>());
         studentList.addAll(Arrays.asList(students));
-
     }
 
     public static void addStudentToAnExistingSubject(Subject subject, Student student) {
-        if (SUBJECTS_AND_STUDENTS.containsKey(subject)) {
-            List<Student> students = SUBJECTS_AND_STUDENTS.get(subject);
+        List<Student> students = SUBJECTS_AND_STUDENTS.get(subject);
+        if (!students.isEmpty()) {
             students.add(student);
         } else {
             System.out.println("Subject not found, use addNewSubjectAndParticipatingStudents method instead");
@@ -70,10 +69,18 @@ public class Main {
     }
 
     public static void removeStudentFromSubject(Subject subject, Student student) {
-        if (SUBJECTS_AND_STUDENTS.containsKey(subject)) {
-            List<Student> students = SUBJECTS_AND_STUDENTS.get(subject);
-            students.remove(student);
+        List<Student> students = SUBJECTS_AND_STUDENTS.get(subject);
+        if (students == null) {
+            System.out.println("Subject not found: " + subject.getName());
+            return;
         }
+        boolean removed = students.remove(student);
+        if (removed) {
+            System.out.println("Removed student " + student.getName() + " from subject " + subject.getName());
+        } else {
+            System.out.println("Student " + student.getName() + " is not enrolled in subject + " + subject.getName());
+        }
+
     }
 
     public static void printAllSubjectsAndStudents() {
