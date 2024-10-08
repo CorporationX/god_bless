@@ -21,5 +21,7 @@ public abstract class Character {
         this.intelligence = intelligence;
     }
 
-    public abstract void attack(Character character);
+    public void attack(Character character) {
+    }
+
 }
