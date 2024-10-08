@@ -1,4 +1,4 @@
-package school.faang.T31402;
+package school.faang.abstraction;
 
 public class TestInitData {
     public Archer archerStandard;

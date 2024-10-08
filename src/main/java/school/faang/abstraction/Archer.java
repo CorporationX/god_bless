@@ -1,4 +1,4 @@
-package school.faang.T31402;
+package school.faang.abstraction;
 
 public class Archer extends Character {
     private static final int POWER = 3;
