@@ -50,6 +50,9 @@ public class Main {
             throw new IllegalArgumentException();
         }
         STUDENT_TO_SUBJECT_MARKS.put(student, marks);
+        for (Subject subject : marks.keySet()) {
+            addStudentToSubject(subject, student);
+        }
     }
 
     public static void addMarkToStudent(Student student, Subject subject, int mark) {
@@ -85,7 +88,8 @@ public class Main {
         if (subject == null || student == null) {
             throw new IllegalArgumentException();
         }
-        if (SUBJECT_TO_STUDENTS.containsKey(subject)) {
+        if (SUBJECT_TO_STUDENTS.containsKey(subject) &&
+                !SUBJECT_TO_STUDENTS.get(subject).contains(student)) {
             SUBJECT_TO_STUDENTS.get(subject).add(student);
         }
     }
