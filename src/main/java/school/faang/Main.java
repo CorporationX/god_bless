@@ -1,16 +1,17 @@
 package school.faang;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Warrior warrior = new Warrior("Abzalkhan");
-        Archer archer = new Archer("Olzhas");
-        warrior.attack(archer);
-        warrior.attack(archer);
-        warrior.attack(archer);
-        System.out.println(archer.getHealth());
-        archer.attack(warrior);
-        archer.attack(warrior);
-        archer.attack(warrior);
-        System.out.println(warrior.getHealth());
+        List<User> userList = new ArrayList<>();
+        userList.add(new User("Abzalkhan", "24", "IT", "60 Bob street"));
+        userList.add(new User("Nural", "25", "Health care", "65 Bob street"));
+        userList.add(new User("Aida", "25", "Student", "70 Bob street"));
+        userList.add(new User("Olzhas", "24", "IT", "75 Bob street"));
+        userList.add(new User("Ruslan", "25", "IT", "80 Bob street"));
+
+        System.out.println(User.groupUsers(userList).get("25"));
     }
 }
