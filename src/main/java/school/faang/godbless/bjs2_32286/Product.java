@@ -1,0 +1,13 @@
+package school.faang.godbless.bjs2_32286;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Product {
+
+  private int id;
+  private String name;
+  private String category;
+}
