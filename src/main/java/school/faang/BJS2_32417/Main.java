@@ -1,6 +1,11 @@
 package school.faang.BJS2_32417;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 public class Main {
     private static final Map<Student, Map<Subject, Integer>> STUDENTS_SUBJECTS = new HashMap<>();
@@ -16,7 +21,12 @@ public class Main {
 
     private static void addSubject(Subject subject, Student student) {
         dataValidation(student, subject);
-        SUBJECT_WITH_STUDENTS.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+
+        if (!SUBJECT_WITH_STUDENTS.get(subject).contains(student)) {
+            SUBJECT_WITH_STUDENTS.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+        } else {
+            System.out.println("Student already added to the subject list.");
+        }
     }
 
     public static void deleteStudent(Student student) {
