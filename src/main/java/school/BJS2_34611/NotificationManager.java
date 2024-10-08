@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 public class NotificationManager {
 
     private Map<String, Consumer<Notification>> listeners = new HashMap<>();
-
     private Map<Set<String>, Predicate<Notification>> listenersWithPredicate = new HashMap<>();
 
     public void registerHandler2(Set<String> set, Predicate<Notification> predicate) {
@@ -20,9 +19,9 @@ public class NotificationManager {
         listeners.put(type, handler);
     }
 
-    public void sendNotification(Set<String> set, Notification notification) {
+    public void sendNotification(Set<String> availableType, Notification notification) {
         String type = notification.getType();
-        if (!listenersWithPredicate.get(set).test(notification)) {
+        if (!listenersWithPredicate.get(availableType).test(notification)) {
             listeners.get(type).accept(notification);
         } else {
             System.out.printf("Отправка %s заблокировна, есть контент 18+", type);
