@@ -17,16 +17,17 @@ public class Main {
         addStudent(STUDENTS, new Student("Will", "Physics", 25));
         addStudent(STUDENTS, new Student("John", "Computer Science", 21));
 
-        Map<String, List<Student>> studentMap = createFacultyAndYearMap(STUDENTS);
+        Map<facultyAndYear, List<Student>> studentMap = createFacultyAndYearMap(STUDENTS);
 
         findFaculty(studentMap, "Computer Science", 21);
 
     }
 
-    public static HashMap<String, List<Student>> createFacultyAndYearMap(List<Student> students) {
-        Map<String, List<Student>> map = new HashMap<>();
+    public static HashMap<facultyAndYear, List<Student>> createFacultyAndYearMap(List<Student> students) {
+        Map<facultyAndYear, List<Student>> map = new HashMap<>();
         for (Student student : students) {
-            map.computeIfAbsent(student.getFaculty() + " " + student.getYear(), k -> new ArrayList<>()).add(student);
+            facultyAndYear key = new facultyAndYear(student.getFaculty(), student.getYear());
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
         }
         return new HashMap<>(map);
     }
@@ -40,9 +41,12 @@ public class Main {
         students.removeIf(s -> s.equals(student));
     }
 
-    public static void findFaculty(Map<String, List<Student>> studentMap, String faculty, int year) {
-        for (Map.Entry<String, List<Student>> student : studentMap.entrySet()) {
-            if (student.getKey().equals(faculty + " " + year)) {
+    public static void findFaculty(Map<facultyAndYear, List<Student>> studentMap, String faculty, int year) {
+        for (Map.Entry<facultyAndYear, List<Student>> student : studentMap.entrySet()) {
+
+            facultyAndYear key = new facultyAndYear(student.getKey().getFaculty(), student.getKey().getYear());
+
+            if (student.getKey().equals(key.getCombineFacultyAndYear())) {
                 System.out.println(student.getValue());
             }
         }
