@@ -12,9 +12,6 @@ public class Main {
     private static final Map<Integer, StreamEvent> SORTED_EVENTS_BY_ID = new HashMap<>();
     private static final Map<String, List<StreamEvent>> SORTED_EVENTS_BY_TYPE = new HashMap<>();
 
-    private Main() {
-    }
-
     public static void main(String[] args) {
         StreamEvent userErrorEvent = new StreamEvent(2, "ERROR", "У пользователя возникла ошибка");
         StreamEvent sendingDataEvent = new StreamEvent(2, "INFO", "Отправка данных в бд");
@@ -29,7 +26,7 @@ public class Main {
         StreamEvent newEvent = searchStreamEventById(5);
         System.out.println(newEvent);
 
-        List <StreamEvent> streamEvents = searchStreamEventByType("ERROR");
+        List<StreamEvent> streamEvents = searchStreamEventByType("ERROR");
         System.out.println(streamEvents);
 
         deleteStreamEventById(2);
@@ -38,22 +35,23 @@ public class Main {
         System.out.println(SORTED_EVENTS_BY_TYPE);
 
     }
-    public static void addStreamEvent(StreamEvent streamEvent) {
-       SORTED_EVENTS_BY_ID.putIfAbsent(streamEvent.getId(), streamEvent);
-       log.info("Событие c id " + streamEvent.getId() +  " добавлено в мапу 1");
 
-       SORTED_EVENTS_BY_TYPE.putIfAbsent(streamEvent.getEventType(), new ArrayList<>());
-       SORTED_EVENTS_BY_TYPE.get(streamEvent.getEventType()).add(streamEvent);
-        log.info("Событие c id " + streamEvent.getId() +  " добавлено в мапу 2");
+    public static void addStreamEvent(StreamEvent streamEvent) {
+        SORTED_EVENTS_BY_ID.putIfAbsent(streamEvent.getId(), streamEvent);
+        log.info("Событие c id " + streamEvent.getId() + " добавлено в мапу 1");
+
+        SORTED_EVENTS_BY_TYPE.putIfAbsent(streamEvent.getEventType(), List.of(streamEvent));
+        log.info("Событие c id " + streamEvent.getId() + " добавлено в мапу 2");
     }
 
     public static StreamEvent searchStreamEventById(int id) {
-        if (SORTED_EVENTS_BY_ID.containsKey(id)) {
-            log.info("Возвращаю событие с id " + id);
-            return SORTED_EVENTS_BY_ID.get(id);
-        } else {
-            log.error("События с id " + id + " не существует");
+        StreamEvent streamEvent = SORTED_EVENTS_BY_ID.get(id);
+        if (streamEvent == null) {
+            log.warn("События с id " + id + " не существует");
             return null;
+        } else {
+            log.info("Возвращаю событие с id " + id);
+            return streamEvent;
         }
     }
 
@@ -68,20 +66,20 @@ public class Main {
     }
 
     public static void deleteStreamEventById(int id) {
-        if (!SORTED_EVENTS_BY_ID.containsKey(id)) {
-            log.error("События c id " + id + " не существует в мапе");
-        } else {
-            SORTED_EVENTS_BY_ID.remove(id);
-            log.info("Событие с id " + id + " удалено из памы 1");
+        StreamEvent streamEventToDelete = SORTED_EVENTS_BY_ID.remove(id);
 
-            for (Map.Entry<String, List<StreamEvent>> event : SORTED_EVENTS_BY_TYPE.entrySet()) {
-                for (StreamEvent streamEvent : event.getValue()) {
-                   if (streamEvent.getId() == id) {
-                       event.getValue().remove(streamEvent);
-                       log.info("События с id " + id + " удалено из памы 2");
-                   }
+        if (streamEventToDelete == null) {
+            log.warn("События c id " + id + " не существует в мапе");
+        } else {
+            if (SORTED_EVENTS_BY_TYPE.containsKey(streamEventToDelete.getEventType())) {
+                //Перебираем лист с типом указанным
+                for (StreamEvent streamEvent : SORTED_EVENTS_BY_TYPE.get(streamEventToDelete.getEventType())) {
+                    if (streamEvent.getId() == id) {
+                        SORTED_EVENTS_BY_TYPE.get(streamEventToDelete.getEventType()).remove(streamEvent);
+                    }
                 }
             }
+            log.info("События с id " + id + " удалены из пам");
         }
     }
 }
