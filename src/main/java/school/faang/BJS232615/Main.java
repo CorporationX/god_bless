@@ -7,45 +7,45 @@ public class Main {
     private static final Map<String, WeatherData> CITY_TEMPERATURE = new HashMap<>();
 
     public static void main(String[] args) {
+        Main main = new Main();
         System.out.println(CITY_TEMPERATURE);
-        System.out.println(getTemperatureAndCity("London"));
+        System.out.println(main.getTemperatureAndCity("London"));
         System.out.println();
-        updateWeatherInfo("London", new WeatherData("London", 15, 20));
+        main.updateWeatherInfo("London", new WeatherData("London", 15, 20));
         System.out.println(CITY_TEMPERATURE);
-        removeCityByName("London");
+        main.removeCityByName("London");
         System.out.println(CITY_TEMPERATURE);
         System.out.println();
-        updateWeatherInfo("New York", new WeatherData("New York", 20, 9));
+        main.updateWeatherInfo("New York", new WeatherData("New York", 20, 9));
         printAllCitiesAndWeather();
 
     }
 
-    public static WeatherData getTemperatureAndCity(String nameOfCity) {
+    private void validateCity(String nameOfCity) {
         if (nameOfCity.isEmpty() || nameOfCity.isBlank()) {
-            throw new IllegalArgumentException("Fill the nameOfCity" + nameOfCity);
+            throw new IllegalArgumentException("Please provide a valid city name");
         }
+    }
+
+    public WeatherData getTemperatureAndCity(String nameOfCity) {
+        validateCity(nameOfCity);
 
         if (CITY_TEMPERATURE.containsKey(nameOfCity)) {
             return CITY_TEMPERATURE.get(nameOfCity);
         } else {
-            WeatherData weatherData = MockClass.getWeatherData(nameOfCity);
+            WeatherData weatherData = WeatherService.getWeatherData(nameOfCity);
             CITY_TEMPERATURE.put(nameOfCity, weatherData);
             return weatherData;
         }
     }
 
-    public static void updateWeatherInfo(String nameOfCity, WeatherData updatedWeatherData) {
-        if (nameOfCity.isEmpty() || nameOfCity.isBlank()) {
-            throw new IllegalArgumentException("Please provide a valid city name");
-        }
-
+    public void updateWeatherInfo(String nameOfCity, WeatherData updatedWeatherData) {
+        validateCity(nameOfCity);
         CITY_TEMPERATURE.put(nameOfCity, updatedWeatherData);
     }
 
-    public static void removeCityByName(String nameOfCity) {
-        if (nameOfCity.isEmpty() || nameOfCity.isBlank()) {
-            throw new IllegalArgumentException("Fill the nameOfCity" + nameOfCity);
-        }
+    public void removeCityByName(String nameOfCity) {
+        validateCity(nameOfCity);
         CITY_TEMPERATURE.remove(nameOfCity);
     }
 
