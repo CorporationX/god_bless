@@ -14,13 +14,22 @@ public class Main {
         Student Masha = new Student(1, "Masha");
         Student Dasha = new Student(2, "Dasha");
         Student Grisha = new Student(3, "Grisha");
+        Student newStudentMisha = new Student(4, "Misha");
+
         Subject philosophy = new Subject(1, "philosophy");
         Subject mathematics = new Subject(2, "mathematics");
         Subject physics = new Subject(3, "physics");
 
-        addStudentAndTheirGrades(Dasha, philosophy, 5);
+        Map<Subject, Integer> mishasGrades = Map.of(
+                philosophy, 5,
+                physics, 4,
+                mathematics, 4
+        );
+
+        addStudentAndTheirGrades(newStudentMisha, mishasGrades);
         addSubjectAndGradeForAnExistingStudent(Dasha, mathematics, 4);
-        addStudentAndTheirGrades(Masha, philosophy, 3);
+        addStudentAndTheirGrades(Dasha, null);
+        addStudentAndTheirGrades(Masha, null);
         removeStudentAndTheirSubjectsAndGrades(Masha);
         printAllStudentsWithTheirSubjectsAndGrades();
         addNewSubjectAndParticipatingStudents(physics, Masha, Dasha);
@@ -29,10 +38,8 @@ public class Main {
         printAllSubjectsAndStudents();
     }
 
-    public static void addStudentAndTheirGrades(Student student, Subject subject, Integer grade) {
-        Map<Subject, Integer> subjectGrade = new HashMap<>();
-        subjectGrade.put(subject, grade);
-        STUDENT_SUBJECTS_GRADES.put(student, subjectGrade);
+    public static void addStudentAndTheirGrades(Student student, Map<Subject, Integer> grades) {
+        STUDENT_SUBJECTS_GRADES.put(student, grades);
     }
 
     public static void addSubjectAndGradeForAnExistingStudent(Student student, Subject subject, Integer grade) {
