@@ -1,30 +1,31 @@
 package school.faang.heroes_of_might_and_magic;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Battlefield {
-    private final static Hero MY_HERO;
-    private final static Hero ENEMY_HERO;
-    //<существа, кол-во существ>
-    private static final Map<Creature, Integer> MY_ARMY = new HashMap<>();
-    private static final Map<Creature, Integer> ENEMY_ARMY = new HashMap<>();
+    private final  Hero MY_HERO;
+    private final  Hero ENEMY_HERO;
 
-    static {
-        MY_HERO = new Hero("Maksimus", "Cyclops", 550, 8);
-        ENEMY_HERO = new Hero("Cyclop", "Cyclops", 330, 4);
-        MY_ARMY.put(new Griffin("Griff"), 15);
-        MY_ARMY.put(new Swordman("Snow"), 25);
-        MY_ARMY.put(new Pikeman("Rocki"), 90);
-        MY_ARMY.put(new Angel("Fire"), 10);
-        ENEMY_ARMY.put(new Griffin("Zloy"), 150);
+    public Battlefield(Hero MY_HERO, Hero ENEMY_HERO) {
+        this.MY_HERO = MY_HERO;
+        this.ENEMY_HERO = ENEMY_HERO;
     }
 
-    public static void batle() {
-        int bonusMyHero = MY_HERO.getExperience();
-        int bonusEnemyHero = ENEMY_HERO.getExperience();
+    public void batle() {
 
 
+    }
+
+    public void getAttackUnits(Creature creature, int quantity) {
+        for (Map.Entry<Creature, Integer> entry : ENEMY_HERO.getArmy().entrySet()) {
+            Creature creature1 = entry.getKey();
+        }
+    }
+
+    public void show(Creature creature, int quantity) {
+        System.out.println("Убиты: " + creature.getName() + " в количестве " + quantity);
     }
 
 }

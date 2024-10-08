@@ -13,21 +13,21 @@ public class Hero {
     private final Integer experience;
     private final Integer level;
 
-    public static void addCreature(Creature creature, int quantity) {
+    public void addCreature(Creature creature, int quantity) {
         if (creature == null || quantity <= 0) {
             throw new IllegalArgumentException("В методе addCreature: аргументы = null");
         }
         ARMORS.put(creature, quantity);
     }
 
-    public static void removeCreature(Creature creature, int quantity) {
+    public void removeCreature(Creature creature, int quantity) {
         if (creature == null || quantity <= 0) {
             throw new IllegalArgumentException("В методе removeCreature: аргументы = null");
         }
         ARMORS.remove(creature, quantity);
     }
 
-    public static Map<Creature, Integer> getArmy() {
+    public Map<Creature, Integer> getArmy() {
         return ARMORS;
     }
 }
