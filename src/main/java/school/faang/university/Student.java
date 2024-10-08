@@ -1,7 +1,13 @@
 package school.faang.university;
 
-public class Student extends University{
-    public Student(int i, String name) {
-        super();
-    }
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Student {
+
+    private int id;
+    private String name;
 }
+

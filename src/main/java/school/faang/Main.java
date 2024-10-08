@@ -48,7 +48,7 @@ public class Main {
             Map<Subject, Integer> grade
     ) {
         if (!studentMap.containsKey(student)) {
-            studentMap.put(student, new HashMap<>(grade));
+            studentMap.put(student, grade);
         }
         for (Map.Entry<Subject, Integer> entry : grade.entrySet()) {
             Subject keySubject = entry.getKey();
