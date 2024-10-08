@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.library_of_vesteros;
 
 import java.util.Objects;
 
