@@ -1,6 +1,7 @@
-package school.faang.cashcash;
+package school.faang.cachecache;
 
 import java.util.*;
+import java.util.function.Function;
 
 public class Main {
 
@@ -9,24 +10,30 @@ public class Main {
 
     static public boolean addNewStudent(Student student, Subject subject, Integer grade) {
         if (!studentMap.containsKey(student)) {
-            Map<Subject, Integer> subjects = new HashMap<>();
-            subjects.put(subject, grade);
-            studentMap.put(student, subjects);
+            studentMap.computeIfAbsent(student, map -> new HashMap<>()).put(subject, grade);
+            subjectMap.computeIfAbsent(subject, value -> new ArrayList<>()).add(student);
             return true;
         }
         return false;
     }
 
     static public void addNewSubjectWithGrade(Student student, Subject subject, Integer grade) {
-        studentMap.get(student).computeIfAbsent(subject, subj -> grade);
+        studentMap.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
+        subjectMap.computeIfAbsent(subject, st -> new ArrayList<>()).add(student);
     }
 
     static public void addNewSubjectWithStudentList(Subject subject, List<Student> studentList) {
         subjectMap.put(subject, studentList);
+        studentList.stream()  //if list contains new students
+                .filter(student -> !studentMap.containsKey(student))
+                .forEach(student -> studentMap
+                        .computeIfAbsent(student, value -> new HashMap<>())
+                        .put(subject, 0));
     }
 
     static public void addNewStudentToSubject(Student student, Subject subject) {
         subjectMap.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
+        addNewStudent(student, subject, 0);
     }
 
     static public boolean removeStudentFromStudentMap(Student student) {
