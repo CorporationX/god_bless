@@ -30,15 +30,15 @@ public class Main {
             put(history, 4);
         }};
 
-        addStudent(alex, alexGrades);
-        addStudent(ann, annGrades);
-        addStudent(lisa, lisaGrades);
+        addNewStudent(alex, alexGrades);
+        addNewStudent(ann, annGrades);
+        addNewStudent(lisa, lisaGrades);
         printAllStudentsWithGrades();
         deleteStudent(lisa);
         printAllStudentsWithGrades();
-        addSubjectWithStudents(chemistry, List.of(ann, alex));
+        addNewSubjectWithStudents(chemistry, List.of(ann, alex));
         printAllSubjectsWithStudents();
-        addStudent(lisa, lisaGrades);
+        addNewStudent(lisa, lisaGrades);
         printAllStudentsWithGrades();
         addStudentToSubject(lisa, chemistry);
         printAllSubjectsWithStudents();
@@ -47,7 +47,7 @@ public class Main {
         printAllSubjectsWithStudents();
     }
 
-    public static void addStudent(Student student, Map<Subject, Integer> subjectGrades) {
+    public static void addNewStudent(Student student, Map<Subject, Integer> subjectGrades) {
         if (!SUBJECT_GRADES_OF_STUDENT.containsKey(student)) {
             SUBJECT_GRADES_OF_STUDENT.put(student, subjectGrades);
             for (Subject subject : subjectGrades.keySet()) {
@@ -56,12 +56,14 @@ public class Main {
         }
     }
 
-    public static void addSubjectWithGrade(Student student, Subject subject, Integer grade) {
-        SUBJECT_GRADES_OF_STUDENT.computeIfPresent(student, (k, v) -> {
-            v.put(subject, grade);
-            STUDENTS_OF_SUBJECT.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
-            return v;
-        });
+    public static void addNewSubjectWithGrade(Student student, Subject subject, Integer grade) {
+        if (!STUDENTS_OF_SUBJECT.containsKey(subject)) {
+            SUBJECT_GRADES_OF_STUDENT.computeIfPresent(student, (k, v) -> {
+                v.put(subject, grade);
+                STUDENTS_OF_SUBJECT.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
+                return v;
+            });
+        }
     }
 
     public static void deleteStudent(Student student) {
@@ -73,10 +75,10 @@ public class Main {
         System.out.println(SUBJECT_GRADES_OF_STUDENT);
     }
 
-    public static void addSubjectWithStudents(Subject subject, List<Student> students) {
+    public static void addNewSubjectWithStudents(Subject subject, List<Student> students) {
         if (!STUDENTS_OF_SUBJECT.containsKey(subject)) {
             for (Student student : students) {
-                addSubjectWithGrade(student, subject, 0);
+                addNewSubjectWithGrade(student, subject, 0);
             }
         }
     }
