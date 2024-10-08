@@ -21,16 +21,16 @@ public class Main {
     }
 
     public static void deleteWebPage(String url) {
-        List<String> keys = new ArrayList<>();
+        List<String> keysToRemove = new ArrayList<>();
 
         for (Map.Entry<String, List<WebPage>> entry : SEARCH.entrySet()) {
             entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
             if (entry.getValue().isEmpty()) {
-                keys.add(entry.getKey());
+                keysToRemove.add(entry.getKey());
             }
         }
 
-        SEARCH.remove(keys);
+        SEARCH.remove(keysToRemove);
     }
 
     public static void main(String[] args) {
