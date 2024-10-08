@@ -21,7 +21,7 @@ public class Main {
         Subject pe = new Subject(15, "PE");
         Subject maths = new Subject(26, "Maths");
 
-        addNewStudent(firstStudent, new HashMap<>(chemistry, 8, pe, 12, maths, 3));
+        addNewStudent(firstStudent, new HashMap<>(Map.of(chemistry, 8, pe, 12, maths, 3)));
         addNewStudent(secondStudent, new HashMap<>(Map.of(pe, 10, chemistry, 7)));
         addNewStudent(thirdStudent, new HashMap<>(Map.of(maths, 12)));
 
