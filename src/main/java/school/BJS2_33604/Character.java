@@ -12,6 +12,6 @@ public class Character {
 
     public Character(String name) {
         this.name = name;
-        items = new ArrayList<Item>();
+        items = new ArrayList<>();
     }
 }
