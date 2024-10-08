@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.streamevent;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,11 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    static Map<Integer, StreamEvent> idMap = new HashMap<>();
-    static Map<String, List<StreamEvent>> typeMap = new HashMap<>();
-
+    static private Map<Integer, StreamEvent> idMap = new HashMap<>();
+    static private Map<String, List<StreamEvent>> typeMap = new HashMap<>();
     public static void main(String[] args) {
-
 
         addStreamEvent(new StreamEvent(1, "Warning", "adfadfasd"));
         addStreamEvent(new StreamEvent(2, "Warning", "fdsfsdf"));
@@ -24,6 +22,7 @@ public class Main {
         System.out.println("After remove");
         printStreamEvents();
     }
+
     public static void addStreamEvent(StreamEvent streamEvent) {
         idMap.put(streamEvent.getId(), streamEvent);
         typeMap.computeIfAbsent(streamEvent.getEventType(), se -> new ArrayList<>()).add(streamEvent);
@@ -52,5 +51,4 @@ public class Main {
                     + "; Data: " + entry.getValue().getData());
         }
     }
-
 }
