@@ -15,9 +15,7 @@ class EncryptorUtilTest {
         SecretKeySpec key = new SecretKeySpec(keyBytes, "AES");
 
         byte[] encryptedMessage = EncryptorUtil.encryptMessage("Hello".getBytes(), key);
-        for (int i = 0; i < encryptedMessage.length; i++) {
-            System.out.println(encryptedMessage[i]);
-        }
+
         assertArrayEquals(new byte[]{-18, -117, 26, -15, -45, -56, 33, 100, -40, 103, -120, -123, 73, -55, 20, 93}, encryptedMessage);
     }
 
