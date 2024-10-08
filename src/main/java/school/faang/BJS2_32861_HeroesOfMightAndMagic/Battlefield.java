@@ -11,7 +11,9 @@ public class Battlefield {
                 firstHero.getName(), firstHeroTotalDamage, secondHero.getName(), secondHeroTotalDamage
         );
 
-        return firstHeroTotalDamage > secondHeroTotalDamage ? firstHero : secondHero;
+        return firstHeroTotalDamage != secondHeroTotalDamage
+                ? (firstHeroTotalDamage > secondHeroTotalDamage ? firstHero : secondHero)
+                : null;
     }
 
     private int getHeroTotalDamage(Hero hero) {
