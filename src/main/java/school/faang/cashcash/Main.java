@@ -7,18 +7,26 @@ public class Main {
     static Map<Student, Map<Subject, Integer>> studentMap = new HashMap<>();
     static Map<Subject, List<Student>> subjectMap = new HashMap<>();
 
-    static public void addNewStudent(Student student, Subject subject, Integer grade) {
-        Map<Subject, Integer> subjects = new HashMap<>();
-        subjects.put(subject, grade);
-        studentMap.put(student, subjects);
+    static public boolean addNewStudent(Student student, Subject subject, Integer grade) {
+        if (!studentMap.containsKey(student)) {
+            Map<Subject, Integer> subjects = new HashMap<>();
+            subjects.put(subject, grade);
+            studentMap.put(student, subjects);
+            return true;
+        }
+        return false;
     }
 
     static public void addNewSubjectWithGrade(Student student, Subject subject, Integer grade) {
-         studentMap.computeIfAbsent(student, sb -> new HashMap<>()).put(subject, grade);
+        studentMap.get(student).computeIfAbsent(subject, subj -> grade);
     }
 
     static public void addNewSubjectWithStudentList(Subject subject, List<Student> studentList) {
         subjectMap.put(subject, studentList);
+    }
+
+    static public void addNewStudentToSubject(Student student, Subject subject) {
+        subjectMap.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
     }
 
     static public boolean removeStudentFromStudentMap(Student student) {
@@ -27,6 +35,7 @@ public class Main {
         while (iterator.hasNext()) {
             boolean wasRemoved = iterator.next().getKey().equals(student);
             if (wasRemoved) {
+                iterator.remove();
                 removed = true;
             }
         }
@@ -38,17 +47,13 @@ public class Main {
 
     static public void removeStudentFromSubjectMap(Student student) {
         Iterator<Map.Entry<Subject, List<Student>>> iterator = subjectMap.entrySet().iterator();
-
         while (iterator.hasNext()) {
             Map.Entry<Subject, List<Student>> entry = iterator.next();
             List<Student> students = entry.getValue();
-
             students.remove(student);
-
             if (students.isEmpty()) {
                 iterator.remove();
             }
-
         }
     }
 
@@ -83,20 +88,21 @@ public class Main {
         Subject science = new Subject(2, "Science");
 
         addNewStudent(student1, math, 90);
-        addNewStudent(student1, science, 85);
+        addNewSubjectWithGrade(student1, science, 85);
+
         addNewStudent(student2, math, 95);
-        addNewStudent(student2, science, 75);
+        addNewSubjectWithGrade(student2, science, 75);
+
         addNewStudent(student3, math, 90);
-        addNewStudent(student3, science, 85);
+        addNewSubjectWithGrade(student3, science, 85);
+
         addNewStudent(student4, math, 95);
-        addNewStudent(student4, science, 75);
+        addNewSubjectWithGrade(student4, science, 75);
         List<Student> studentList1 = new ArrayList<>(Arrays.asList(student1, student2));
         List<Student> studentList2 = new ArrayList<>(Arrays.asList(student3, student4));
 
         addNewSubjectWithStudentList(math, studentList1);
         addNewSubjectWithStudentList(science, studentList2);
-        addNewStudent(student1, science, 85);
-        addNewStudent(student2, math, 95);
 
         printAllStudents();
         printAllSubjects();
@@ -104,7 +110,6 @@ public class Main {
         removeStudentFromStudentMap(student1);
         printAllStudents();
         printAllSubjects();
-
     }
 }
 
