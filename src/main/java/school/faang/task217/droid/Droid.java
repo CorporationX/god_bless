@@ -1,10 +1,12 @@
 package school.faang.task217.droid;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import school.faang.task217.functional.DroidMessageEncryptor;
 
 @AllArgsConstructor
 public class Droid {
+    @Getter
     private String name;
 
     public String encryptMessage(String message, int key) {
@@ -38,10 +40,11 @@ public class Droid {
 
     public void sendMessage(String message, int key, Droid droid) {
         message = encryptMessage(message, key);
+        System.out.println(this.getName() + " отправил зашифрованное сообщение: " + message);
         droid.receiveMessage(message, key);
     }
 
     public void receiveMessage(String message, int key) {
-        System.out.println(decryptMessage(message, key));
+        System.out.println(this.getName() + " получил расшифрованное сообщение: " + decryptMessage(message, key));
     }
 }
