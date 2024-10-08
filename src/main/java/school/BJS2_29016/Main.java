@@ -34,7 +34,7 @@ public class Main {
         for (String content : contents) {
             List<WebPage> list = mappa.computeIfAbsent(content, k -> new ArrayList<>());
             if (!list.contains(webPage)) {
-                mappa.putIfAbsent(content,list).add(webPage);
+                list.add(webPage);
             }
         }
     }
