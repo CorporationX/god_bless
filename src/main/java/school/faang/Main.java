@@ -1,16 +1,16 @@
 package school.faang;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import school.faang.warrior.Archer;
+import school.faang.warrior.Warrior;
+
 import java.util.List;
-import java.util.Map;
 
 public class Main {
 
     private static Map<Book, String> BOOKS = new HashMap<>();
 
     public static void main(String[] args) {
-
+      
         List<User> userList = List.of(
                 new User("Alice", 26, "IBM Technologies", "123 Main st, Seattle, WA 988003"),
                 new User("Alice Johnson", 28, "Tech Corp", "123 Elm St, Springfield"),
@@ -77,7 +77,5 @@ public class Main {
         }
     }
 }
-
-
 
 
