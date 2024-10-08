@@ -1,7 +1,10 @@
-package school.faang;
+package school.faang.hashmap.doublekesh;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.hashmap.doublekesh.hashmap.doublekesh.Main;
+import school.faang.hashmap.doublekesh.hashmap.doublekesh.Student;
+import school.faang.hashmap.doublekesh.hashmap.doublekesh.Subject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -46,10 +49,10 @@ class MainTest {
         assertEquals(1, main.getStudentSubjectsMarks().size(), "Check 1.2");
         assertTrue(main.getStudentSubjectsMarks().containsKey(student), "Check 1.3");
         assertNotNull(main.getStudentSubjectsMarks().get(student),"Check 1.4");
-        assertEquals(0, main.getStudentSubjectsMarks().get(student).size(), "Check 1.5");
+        assertTrue(main.getStudentSubjectsMarks().get(student).isEmpty(), "Check 1.5");
 
         assertNotNull(main.getSubjectListStudents(), "Check 1.6");
-        assertEquals(0, main.getSubjectListStudents().size(), "Check 1.7");
+        assertTrue(main.getSubjectListStudents().isEmpty(), "Check 1.7");
     }
 
     @Test
@@ -60,7 +63,7 @@ class MainTest {
         assertEquals(1, main.getStudentSubjectsMarks().size(),  "Check 2.2");
         assertTrue(main.getStudentSubjectsMarks().containsKey(student), "Check 2.3");
         assertNotNull(main.getStudentSubjectsMarks().get(student),"Check 2.4");
-        assertEquals(0, main.getStudentSubjectsMarks().get(student).size(), "Check 2.5");
+        assertTrue(main.getStudentSubjectsMarks().get(student).isEmpty(), "Check 2.5");
 
         assertNotNull(main.getSubjectListStudents(), "Check 2.6");
         assertEquals(1, main.getSubjectListStudents().size(), "Check 2.7");
@@ -98,12 +101,12 @@ class MainTest {
         assertEquals(1, main.getStudentSubjectsMarks().size(),  "Check 4.2");
         assertTrue(main.getStudentSubjectsMarks().containsKey(student), "Check 4.3");
         assertNotNull(main.getStudentSubjectsMarks().get(student),"Check 4.4");
-        assertEquals(0, main.getStudentSubjectsMarks().get(student).size(),"Check 4.5");
+        assertTrue(main.getStudentSubjectsMarks().get(student).isEmpty(),"Check 4.5");
 
         assertNotNull(main.getSubjectListStudents(), "Check 4.6");
         assertEquals(1, main.getSubjectListStudents().size(), "Check 4.7");
         assertTrue(main.getSubjectListStudents().containsKey(subject), "Check 4.8");
-        assertEquals(0, main.getSubjectListStudents().get(subject).size(),  "Check 4.9");
+        assertTrue(main.getSubjectListStudents().get(subject).isEmpty(),  "Check 4.9");
     }
 
     @Test
@@ -112,11 +115,11 @@ class MainTest {
         main.deleteStudent(student);
 
         assertNotNull(main.getStudentSubjectsMarks(), "Check 5.1");
-        assertEquals(0, main.getStudentSubjectsMarks().size(),  "Check 5.2");
+        assertTrue(main.getStudentSubjectsMarks().isEmpty(),  "Check 5.2");
 
         assertNotNull(main.getSubjectListStudents(), "Check 5.3");
         assertEquals(1, main.getSubjectListStudents().size(), "Check 5.4");
         assertTrue(main.getSubjectListStudents().containsKey(subject), "Check 5.5");
-        assertEquals(0, main.getSubjectListStudents().get(subject).size(),  "Check 5.6");
+        assertTrue(main.getSubjectListStudents().get(subject).isEmpty(),  "Check 5.6");
     }
 }
