@@ -23,7 +23,7 @@ public class Main {
         System.out.println(sepiaImage.getDescription());
 
         // Комбинирование фильтров
-        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter,vinetkaFilter);
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, vinetkaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
         System.out.println(combinedImage.getDescription());
 
