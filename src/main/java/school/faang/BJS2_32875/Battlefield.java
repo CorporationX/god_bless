@@ -5,19 +5,17 @@ public class Battlefield {
         int totalLevel = 0;
         int totalDamage = 0;
         int totalProtection = 0;
-        int totalSpeed = 0;
         int totalHp = 0;
 
         for (var entry : hero.getArmy().entrySet()) {
             totalLevel += entry.getKey().getLevel() * entry.getValue();
             totalDamage += entry.getKey().getDamage() * entry.getValue();
             totalProtection += entry.getKey().getProtection() * entry.getValue();
-            totalSpeed += entry.getKey().getSpeed() * entry.getValue();
             totalHp += entry.getKey().getHp() * entry.getValue();
         }
 
-        return new Army(hero.getName(), totalLevel, totalDamage,
-                totalProtection, totalSpeed, totalHp);
+        return new Army(hero.getFraction(), totalLevel, totalDamage,
+                totalProtection, totalHp);
     }
 
     public void fight(Hero attacker, Hero defender) {
@@ -28,7 +26,7 @@ public class Battlefield {
 
     private void battle(Army attacker, Army defender) {
         int round = 1;
-        System.out.printf("Battle begins. %s vs %s\n", attacker.getName(), defender.getName());
+        System.out.println("Battle begins");
 
         while (attacker.getHp() > 0 || defender.getHp() > 0) {
             System.out.printf("\nRound %d\n", round);

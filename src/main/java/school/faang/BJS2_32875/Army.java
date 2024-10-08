@@ -1,7 +1,22 @@
 package school.faang.BJS2_32875;
 
-public class Army extends Creature{
-    public Army(String name, int level, int damage, int protection, int speed, int hp) {
-        super(name, level, damage, protection, speed, hp);
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
+public class Army {
+    private String name;
+    private int level;
+    private int damage;
+    private int protection;
+    private int hp;
+
+    public int strikeEnemy(Army army) {
+        return army.getProtection() * army.getLevel() - this.damage * this.level;
     }
 }
