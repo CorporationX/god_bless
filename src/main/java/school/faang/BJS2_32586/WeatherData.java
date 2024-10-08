@@ -10,7 +10,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 public class WeatherData {
-    private String city;
+    private City city;
     private int temperature;
     private int humidity;
 }

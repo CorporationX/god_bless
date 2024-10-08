@@ -10,5 +10,8 @@ public enum City {
     VIENNA,
     STOCKHOLM,
     NEW_YORK,
-    TOKYO
+    TOKYO,
+    HAMBURG,
+    PRAGUE,
+    BARCELONA
 }
