@@ -1,4 +1,4 @@
-package school.faang.T33122;
+package school.faang.javahashmap.libveser;
 
 import lombok.Data;
 @Data
