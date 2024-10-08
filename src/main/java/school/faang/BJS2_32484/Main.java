@@ -1,17 +1,20 @@
 package school.faang.BJS2_32484;
 
-import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Main {
     private static final List<Student> STUDENTS = new ArrayList<>();
 
-    //вначале написал с вложенными циклами, затем с кучей вспомогательных переменных, Map и листов
-    //после с желанием оптимизировать код на чатГПТшился до этого)))
-    public static Map<Map.Entry<Faculty, Integer>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
-        Map<Map.Entry<Faculty, Integer>, List<Student>> studentsGroup = new HashMap<>();
+    public static Map<Entry<Faculty, Integer>, List<Student>> groupStudentsByFacultyAndYear(List<Student> students) {
+        Map<Entry<Faculty, Integer>, List<Student>> studentsGroup = new HashMap<>();
 
         for (Student student : students) {
-            Map.Entry<Faculty, Integer> key = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
+            Entry<Faculty, Integer> key = new SimpleEntry<>(student.getFaculty(), student.getYear());
             studentsGroup.computeIfAbsent(key, value -> new ArrayList<>()).add(student);
         }
         return studentsGroup;
