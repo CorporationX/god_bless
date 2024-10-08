@@ -9,15 +9,14 @@ public class Main {
     private static final Map<City, WeatherData> WEATHER_CACHE = new HashMap<>();
     private static final Random RANDOM = new Random();
 
-    private static boolean checkContentsInCache(City cityName) {
-        return WEATHER_CACHE.containsKey(cityName);
-    }
 
     public static WeatherData getWeatherData(City cityName) {
-        if (checkContentsInCache(cityName)) {
-            return WEATHER_CACHE.get(cityName);
+        WeatherData weatherData = WEATHER_CACHE.get(cityName);
+
+        if (Objects.nonNull(weatherData)) {
+            return weatherData;
         } else {
-            WeatherData weatherData = fetchWeatherDataFromExternalAPI(cityName);
+            weatherData = fetchWeatherDataFromExternalAPI(cityName);
 
             WEATHER_CACHE.put(cityName, weatherData);
 
@@ -40,7 +39,7 @@ public class Main {
     }
 
     public static void updateWeatherData(City cityName, int temperature, int humidity) {
-        if (!checkContentsInCache(cityName)) {
+        if (!WEATHER_CACHE.containsKey(cityName)) {
             System.out.println("Город " + cityName.name() + " не найден в кэше");
         } else {
             WEATHER_CACHE.putIfAbsent(cityName, new WeatherData(cityName, temperature, humidity));
@@ -48,9 +47,9 @@ public class Main {
     }
 
     public static void removeWeatherData(City cityName) {
-        if (checkContentsInCache(cityName)) {
-            WEATHER_CACHE.remove(cityName);
-        } else {
+        WeatherData weatherData = WEATHER_CACHE.remove(cityName);
+
+        if (Objects.isNull(weatherData)) {
             System.out.println("Город " + cityName.name() + " не найден в кэше");
         }
     }
