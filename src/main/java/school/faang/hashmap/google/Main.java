@@ -1,4 +1,4 @@
-package school.faang.T32879;
+package school.faang.hashmap.google;
 
 import java.util.ArrayList;
 import java.util.Arrays;

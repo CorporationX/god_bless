@@ -1,4 +1,4 @@
-package school.faang.T32879;
+package school.faang.hashmap.google;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
