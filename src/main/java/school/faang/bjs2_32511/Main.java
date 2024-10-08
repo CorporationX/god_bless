@@ -12,9 +12,6 @@ public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
     private static final List<Student> STUDENTS = new ArrayList<>();
 
-    private Main() {
-    }
-
     public static void main(String[] args) {
         Student student1 = new Student("Дэвид", "Физика", 3);
         Student student2 = new Student("Мария", "Химия", 2);
@@ -39,7 +36,7 @@ public class Main {
 
     private static void addNewStudent(Student student) {
         if (STUDENTS.contains(student)) {
-            LOG.error("Указанный студент уже присутствует в списке");
+            LOG.warn("Указанный студент уже присутствует в списке");
         } else {
             STUDENTS.add(student);
             LOG.info("Студент добавлен в список студентов");
@@ -48,14 +45,14 @@ public class Main {
 
     private static void deleteStudent(Student student) {
         if (!STUDENTS.contains(student)) {
-            LOG.error("Указанный студент отсутствует в списке");
+            LOG.warn("Указанный студент отсутствует в списке");
         } else {
             STUDENTS.remove(student);
             LOG.info("Студент " + student.getName() + " удален из списка студентов");
         }
     }
 
-    private static void searchStudents(String faculty, int year) {
+    private static List<Student> searchStudents(String faculty, int year) {
         LOG.info("Поиск студентов на факультете " + faculty + " " + year + " курса...");
 
         List<Student> sortedStudents = new ArrayList<>();
@@ -64,12 +61,10 @@ public class Main {
             if (student.getFaculty().equals(faculty) && student.getYear() == year) {
                 sortedStudents.add(student);
             }
+            return sortedStudents;
         }
-        if (sortedStudents.isEmpty()) {
-            LOG.error("На указанном факультете и курсе не учится ни одного студента");
-        } else {
-            LOG.info("Результат поиска: "  + sortedStudents);
-        }
+        LOG.warn("На указанном факультете и курсе не учится ни одного студента");
+        return sortedStudents;
     }
 
     private static void printListOfSortedStudents() {
@@ -81,8 +76,7 @@ public class Main {
     private static Map<Map<String, Integer>, List<Student>> sortStudents() {
         Map<Map<String, Integer>, List<Student>> sortedStudents = new HashMap<>();
         for (Student student : STUDENTS) {
-            sortedStudents.putIfAbsent(Map.of(student.getFaculty(), student.getYear()), new ArrayList<>());
-            sortedStudents.get(Map.of(student.getFaculty(), student.getYear())).add(student);
+            sortedStudents.putIfAbsent(Map.of(student.getFaculty(), student.getYear()), List.of(student));
         }
 
         return sortedStudents;
