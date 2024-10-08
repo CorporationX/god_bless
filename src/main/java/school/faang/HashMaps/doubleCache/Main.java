@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addStudentToSubject;
-import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addStudentWithSubject;
+import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addStudentWithSubjects;
 import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addSubject;
 import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.addSubjectForStudent;
 import static school.faang.HashMaps.doubleCache.service.StudentAndSubjectAction.printStudents;
@@ -23,22 +23,22 @@ public class Main {
         Student student2 = new Student("John", 2);
         Student student3 = new Student("Andrey", 3);
 
-        addStudentWithSubject(student1, new HashMap<>() {{
+        addStudentWithSubjects(student1, new HashMap<>() {{
             put(math, 5);
             put(english, 4);
             put(history, 3);
         }});
-        addStudentWithSubject(student2, new HashMap<>() {{
+        addStudentWithSubjects(student2, new HashMap<>() {{
             put(math, 5);
             put(english, 5);
             put(history, 3);
         }});
-        addStudentWithSubject(student3, new HashMap<>() {{
+        addStudentWithSubjects(student3, new HashMap<>() {{
             put(english, 4);
             put(history, 3);
         }});
-        addSubjectForStudent(lithography, student1);
-        removeStudent(student3);
+        addSubjectForStudent(lithography, student1, 4);
+       // removeStudent(student3);
         printStudents();
 
         addSubject(new Subject("Psyhology", 5), new ArrayList<>() {{
@@ -49,5 +49,7 @@ public class Main {
         addStudentToSubject(math, student3);
         removeStudentFromSubject(math, student1);
         printSubjects();
+        removeStudentFromSubject(math, new Student("kas", 5));
+
     }
 }
