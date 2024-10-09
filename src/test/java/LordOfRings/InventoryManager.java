@@ -23,8 +23,8 @@ public class InventoryManager {
         List<Item> itemList = character.getInventory();
         for (Item unit : itemList) {
             if (filter.test(unit)) {
-                update.apply(unit.getValue());
-                System.out.println("The cost of the " +unit.getName()+"  has doubled");
+                unit.setValue(update.apply(unit.getValue()));
+                System.out.println("The cost of the " + unit.getName() + "  has doubled");
             }
         }
 

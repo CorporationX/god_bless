@@ -22,7 +22,7 @@ public class Main {
         manager.addItem(bilbo, pick, addItemConsumer);
         manager.removeItem(sword, bilbo, item -> item.equals(sword));
         manager.updateItem(bilbo, filterPredicate, x -> x * 2);
-
-
+        System.out.println();
+        System.out.println(sword.getValue());
     }
 }
