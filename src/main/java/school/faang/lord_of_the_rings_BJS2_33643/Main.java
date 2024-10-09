@@ -1,10 +1,10 @@
 package school.faang.lord_of_the_rings_BJS2_33643;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Character frodo = new Character(new HashSet<>());
+        Character frodo = new Character(new ArrayList<>());
         Item ring = new Item("The One Ring", 1000);
         InventoryManager manager = new InventoryManager();
 
