@@ -9,13 +9,13 @@ import java.util.function.Consumer;
 @Getter
 @AllArgsConstructor
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> HANDLERS;
+    private Map<String, Consumer<Notification>> handlers;
 
     public void registerHandler(String notificationType, Consumer<Notification> handler) {
-        HANDLERS.put(notificationType, handler);
+        handlers.put(notificationType, handler);
     }
 
     public void sendNotification(Notification notification) {
-        HANDLERS.get(notification.getType()).accept(notification);
+        handlers.get(notification.getType()).accept(notification);
     }
 }

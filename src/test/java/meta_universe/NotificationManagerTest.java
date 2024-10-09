@@ -3,8 +3,6 @@ package meta_universe;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import the_library_of_westeros.Book;
-import the_library_of_westeros.Main;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -36,7 +34,7 @@ class NotificationManagerTest {
             System.out.println(notification.getMessage());
         });
 
-        assertEquals(handlers.get("sms"), notificationManager.getHANDLERS().get("sms"));
+        assertEquals(handlers.get("sms"), notificationManager.getHandlers().get("sms"));
     }
 
     @Test
