@@ -25,12 +25,18 @@ public class InventoryManager {
             Character character,
             Predicate<Item> predicate,
             Function<Item, Item> function) {
-        List<Item> inventory = character.getInventory();
-        for (int i = 0; i < inventory.size(); i++) {
-            if (predicate.test(inventory.get(i))) {
-                Item updatedItem = function.apply(inventory.get(i));
-                inventory.set(i, updatedItem);
-            }
-        }
+
+        List<Item> updatedInventory = character
+                .getInventory()
+                .stream()
+                .map(item -> {
+                    if (predicate.test(item)) {
+                        return function.apply(item);
+                    }
+                    return item;
+                })
+                .collect(Collectors.toList());
+
+        character.setInventory(updatedInventory);
     }
 }
