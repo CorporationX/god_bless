@@ -25,7 +25,6 @@ import static ru.kraiush.spring.BJS2_27194.common.Constants.Common.BASE_PACKAGE;
 public class GlobalExceptionHandler {
 
     private static final int STACK_TRACE_DEEP = 10;
-
     @ResponseStatus(INTERNAL_SERVER_ERROR)
     @ExceptionHandler(EventException.class)
     public ResponseEntity<ErrorDto> handleException(final HttpServletRequest request, final Exception exception) {
