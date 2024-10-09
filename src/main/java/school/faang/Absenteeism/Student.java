@@ -1,14 +1,9 @@
 package school.faang.Absenteeism;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
 
-@Getter
-@ToString
+@Data
 @AllArgsConstructor
-@EqualsAndHashCode
 public class Student {
     private String name;
     private String faculty;
