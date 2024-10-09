@@ -1,7 +1,9 @@
 package school.faang.BJS2_31288;
 
+import lombok.Data;
 import lombok.Getter;
 
+@Data
 @Getter
 public abstract class Character {
 
@@ -29,14 +31,5 @@ public abstract class Character {
         if (this.health < 0){
             this.health = 0;
         }
-    }
-
-    @Override
-    public String toString() {
-        return name + ": Health: " +
-            health + ", Strength: " +
-            strength + ", Agility: " +
-            agility + ", Intelligence: " +
-            intelligence;
     }
 }
