@@ -1,24 +1,23 @@
 package school.faang.t16;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@Data
 class Hero {
-    @Getter
     private String name;
     private String faction;
     private int experience;
     private int level;
-    private Map<Creature, Integer> army;
+    private Map<Creature, Integer> army = new HashMap<>();
 
     public Hero(String name, String faction) {
         this.name = name;
         this.faction = faction;
         this.experience = 0;
         this.level = 1;
-        this.army = new HashMap<>();
     }
 
     public void addCreature(Creature creature, int quantity) {

@@ -36,9 +36,9 @@ class Battlefield {
         while (!army1.isEmpty() && !army2.isEmpty()) {
             for (Creature creature : allCreatures) {
                 if (army1.containsKey(creature)) {
-                    attack(creature, army1, army2);
+                    attack(creature, army2);
                 } else if (army2.containsKey(creature)) {
-                    attack(creature, army2, army1);
+                    attack(creature, army1);
                 }
 
                 if (army1.isEmpty() || army2.isEmpty()) {
@@ -50,8 +50,10 @@ class Battlefield {
         return army1.isEmpty() ? hero2 : hero1;
     }
 
-    private void attack(Creature attacker, Map<Creature, Integer> attackerArmy, Map<Creature, Integer> defenderArmy) {
-        if (defenderArmy.isEmpty()) return;
+    private void attack(Creature attacker, Map<Creature, Integer> defenderArmy) {
+        if (defenderArmy.isEmpty()) {
+            return;
+        }
 
         Creature defender = defenderArmy.keySet().iterator().next();
         int damage = attacker.getDamage();
