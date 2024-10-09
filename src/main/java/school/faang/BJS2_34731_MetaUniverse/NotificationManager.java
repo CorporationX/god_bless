@@ -17,16 +17,13 @@ public class NotificationManager {
     }
 
     public void registerHandler(String notificationType, Consumer<Notification> notificationHandler) {
-        if (notificationType == null || notificationHandler == null) {
-            throw new IllegalArgumentException("Notification type or its handler can't be null.");
-        }
+        validateString(notificationType, "Invalid notification type!");
+        validateConsumer(notificationHandler, "Notification handler can't be null!");
         handlersByNotificationsTypes.put(notificationType.toLowerCase(), notificationHandler);
     }
 
     public void sendNotification(Notification notification) {
-        if (notification == null) {
-            throw new IllegalArgumentException("Notification can't be null.");
-        }
+        validateNotification(notification);
 
         boolean isValidNotification = true;
         for (var entry: filtersByNames.entrySet()) {
@@ -47,6 +44,35 @@ public class NotificationManager {
     }
 
     public void registerFilter(String filterName, Predicate<Notification> filterLogic) {
+        validateString(filterName, "Invalid filter name!");
+        validatePredicate(filterLogic, "Invalid filter!");
         filtersByNames.put(filterName, filterLogic);
+    }
+
+    private void validateConsumer(Consumer<?> consumer, String message) {
+        if (consumer == null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    private void validatePredicate(Predicate<?> predicate, String message) {
+        if (predicate == null) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    private void validateString(String info, String message) {
+        if (info == null || info.isBlank()) {
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    private void validateNotification(Notification notification) {
+        if (notification != null) {
+            validateString(notification.getType(), "Invalid notification type!");
+            validateString(notification.getMessage(), "Invalid notification message text!");
+        } else {
+            throw new IllegalArgumentException("Notification can't be null!");
+        }
     }
 }
