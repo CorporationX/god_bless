@@ -78,7 +78,7 @@ public class Main {
     public static void addNewSubjectWithStudents(Subject subject, List<Student> students) {
         if (!STUDENTS_OF_SUBJECT.containsKey(subject)) {
             for (Student student : students) {
-                addNewSubjectWithGrade(student, subject, 0);
+                addNewSubjectWithGrade(student, subject, null);
             }
         }
     }
