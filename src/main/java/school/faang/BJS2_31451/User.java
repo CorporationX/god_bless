@@ -1,10 +1,12 @@
 package school.faang.BJS2_31451;
 
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Data
 @Getter
 public class User {
     private String name;
@@ -21,14 +23,5 @@ public class User {
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
         return users.stream().collect(Collectors.groupingBy(User::getAge));
-    }
-
-    @Override
-    public String toString() {
-        return "User{name='" +
-            name + "', age=" +
-            age + ", workplace='" +
-            workplace + "', address='" +
-            address + "'}";
     }
 }

@@ -15,7 +15,6 @@ public class Main {
 
         Map<Integer, List<User>> groupedUsers = User.groupUsers(userList);
 
-        // Выводим результат
         groupedUsers.forEach((age, users) -> {
             System.out.println("Age: " + age);
             users.forEach(System.out::println);
