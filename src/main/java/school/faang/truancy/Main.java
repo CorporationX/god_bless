@@ -1,8 +1,10 @@
 package school.faang.truancy;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -30,9 +32,13 @@ public class Main {
         printStudentsByGroups(receiveStudentByFacilityAndYear(HISTORY, 2000));
     }
 
-    private static Map<StudentGrouper, List<Student>> groupStudents(List<Student> students) {
-        return students.stream()
-                .collect(Collectors.groupingBy(student -> new StudentGrouper(student.getFaculty(), student.getYear())));
+    private static Map<Map.Entry<String, Integer>, List<Student>> groupStudents(List<Student> students) {
+        if (!Objects.isNull(students)) {
+            return students.stream()
+                    .collect(Collectors.groupingBy(student -> new AbstractMap.SimpleEntry<>(student.faculty(), student.year())));
+        } else {
+            return Map.of();
+        }
     }
 
     private static void addStudent(Student student) {
@@ -40,16 +46,15 @@ public class Main {
     }
 
     private static void deleteStudentByName(String name) {
-        STUDENTS.removeIf(student -> student.getName().equalsIgnoreCase(name));
+        STUDENTS.removeIf(student -> student.name().equalsIgnoreCase(name));
     }
 
     private static void deleteStudentByFacilityAndYear(String facility, int year) {
-        STUDENTS.removeIf(student -> student.getFaculty().equals(facility) && student.getYear() == year);
+        STUDENTS.removeIf(student -> student.faculty().equals(facility) && student.year() == year);
     }
 
     private static List<Student> receiveStudentByFacilityAndYear(String facility, int year) {
-        return STUDENTS.stream()
-                .filter(student -> student.getFaculty().equals(facility) && student.getYear() == year).toList();
+        return groupStudents(STUDENTS).get(new AbstractMap.SimpleEntry<>(facility, year));
     }
 
     private static void printStudentsByGroups(List<Student> students) {
