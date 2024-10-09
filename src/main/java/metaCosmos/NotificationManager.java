@@ -13,6 +13,9 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
+        if (notification == null) {
+            throw new IllegalArgumentException("Уведомление не может быть пустым!");
+        }
         NOTIFICATIONS.get(notification.getType()).accept(notification);
     }
 
