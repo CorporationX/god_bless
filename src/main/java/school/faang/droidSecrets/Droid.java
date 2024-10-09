@@ -15,8 +15,6 @@ public class Droid {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
                     encryptedMessage.append((char) ((ch - base + encyptKey) % 26 + base));
-                } else if (Character.isDigit(ch)) {
-                    encryptedMessage.append((char) (ch + encyptKey));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -27,21 +25,7 @@ public class Droid {
     }
 
     public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptKey + 26) % 26 + base));
-                } else if (Character.isDigit(ch)) {
-                    decryptedMessage.append((char) (ch - decryptKey));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encrypt(message, key);
+        return encryptMessage(message, -key + 26);
     }
 
     public void sendMessage(String message, int key, Droid otherDroid) {

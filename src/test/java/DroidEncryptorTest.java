@@ -11,7 +11,7 @@ public class DroidEncryptorTest {
         // arrange
         String message = "MESsage, 3, 2, 1...";
         int key = 3;
-        String expected = "PHVvdjh, 6, 5, 4...";
+        String expected = "PHVvdjh, 3, 2, 1...";
 
         // act
         String actual = r2d2.encryptMessage(message, key);
@@ -23,21 +23,22 @@ public class DroidEncryptorTest {
     @Test
     public void testDecryptor() {
         // arrange
-        String message = "some OTHER message, 100, 0.0, -100!!!";
-        int key = 5;
+        String message = "some OTHER message, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 0.0, -100zz!!!";
+        int key = 3;
 
         // act
         String encryptedMessage = r2d2.encryptMessage(message, key);
         String actual = r2d2.decryptMessage(encryptedMessage, key);
 
         // assert
+        System.out.println(encryptedMessage);
         assertEquals(message, actual, "Should return the same message.");
     }
 
     @Test
     public void testIfReceivesMessage() {
         // arrange
-        String message = "PHVvdjh, 6, 5, 4...";
+        String message = "PHVvdjh, 3, 2, 1...";
         int key = 3;
         String expected = "MESsage, 3, 2, 1...";
 
