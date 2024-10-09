@@ -7,10 +7,10 @@ import java.util.List;
 
 @Getter
 public class Character {
-    private final String NAME;
-    private final List<Item> INVENTORY = new ArrayList<>();
+    private String name;
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String NAME) {
-        this.NAME = NAME;
+        this.name = NAME;
     }
 }
