@@ -1,10 +1,5 @@
 package tasks.bjs2_33307;
 
-import java.util.*;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 public class Main {
     public static void main(String[] args) {
         EventController controller = new EventController(100);

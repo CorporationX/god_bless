@@ -1,6 +1,10 @@
 package tasks.bjs2_33307;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -30,28 +34,9 @@ public class EventController {
         }
     }
 
-    public String generateData(EventType eventType) {
-        return switch (eventType) {
-            case ADD_POST -> String.format("{accountId: %d, post: Какой то пост}", randomInt());
-            case DELETE_POST -> String.format("{accountId: %d, postId: %d}", randomInt(), randomInt());
-            case LIKE_POST -> String.format("{accountId: %d, postId: %d}", randomInt(), randomInt());
-            case DISLIKE_POST -> String.format("{accountId: %d, postId: %d}", randomInt(), randomInt());
-            case SHARE_POST -> String.format("{accountId: %d, postId: %d}", randomInt(), randomInt());
-            case ADD_FRIEND -> String.format("{accountId: %d, userId: %d}", randomInt(), randomInt());
-            case REMOVE_FRIEND -> String.format("{accountId: %d, userId: %d}", randomInt(), randomInt());
-            case BLOCK_USER -> String.format("{accountId: %d, userId: %d}", randomInt(), randomInt());
-            case UNBLOCK_USER -> String.format("{accountId: %d, userId: %d}", randomInt(), randomInt());
-            case ADD_COMMENT ->
-                    String.format("{accountId: %d, userId: %d, comment: Какой-то коммент}", randomInt(), randomInt());
-            case DELETE_COMMENT ->
-                    String.format("{accountId: %d, userId: %d, commentId: %d}", randomInt(), randomInt(), randomInt());
-            case ADD_IMAGE -> String.format("{userId: %d, byte: %d}", randomInt(), randomInt());
-        };
-    }
-
     public void addEvent(EventType eventType) {
         System.out.println("Добавить события. Тип события : " + eventType);
-        StreamEvent streamEvent = new StreamEvent(eventType, generateData(eventType));
+        StreamEvent streamEvent = new StreamEvent(eventType, eventType.getData());
         events.putIfAbsent(streamEvent.getId(), streamEvent);
         eventsGroupedByEventType.computeIfAbsent(eventType, k -> new ArrayList<>()).add(streamEvent);
         System.out.println("Добавлено событие. id : " + streamEvent.getId() + "\n");
@@ -68,8 +53,8 @@ public class EventController {
 
         events.remove(id);
         eventsGroupedByEventType
-                .values()
-                .forEach(list -> list.removeIf(value -> value.equals(event)));
+                .get(event.getEventType())
+                .removeIf(el -> el.getId() == id);
         System.out.println("Удалено событие по id : " + id + "\n");
     }
 
@@ -107,10 +92,6 @@ public class EventController {
         return getValueByPredicate(events, p -> p.getKey() == id);
     }
 
-    public List<StreamEvent> getStreamEventsByEventType(EventType eventType) {
-        return getValueByPredicate(eventsGroupedByEventType, p -> p.getKey() == eventType);
-    }
-
     private void showEvents(List<StreamEvent> events) {
         if (events == null) {
             System.out.println("Список событий пуст!" + "\n");
@@ -122,10 +103,6 @@ public class EventController {
         }
 
         System.out.println();
-    }
-
-    private int randomInt() {
-        return randomInt(Integer.MAX_VALUE);
     }
 
     private int randomInt(int max) {
