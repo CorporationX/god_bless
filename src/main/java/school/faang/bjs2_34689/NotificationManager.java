@@ -5,7 +5,8 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private final Map<String, Consumer<Notification>> HANDLERS = new HashMap<>();
+    private static final Map<String, Consumer<Notification>> HANDLERS = new HashMap<>();
+    private static final String REGEX_FOR_CENSOR = "(?i)(ass|idiot|dumb)";
 
     public void registerHandler(String notificationType, Consumer<Notification> notificationConsumer) {
         HANDLERS.put(notificationType, notificationConsumer);
@@ -13,19 +14,18 @@ public class NotificationManager {
 
     public void sendNotification(Notification notification) {
         String type = notification.getType();
-        if (!HANDLERS.containsKey(type)) {
-            checkHandler(notification);
+        if (HANDLERS.containsKey(type)) {
+            censorNotification(notification);
+            Consumer<Notification> handler = HANDLERS.get(type);
+            handler.accept(notification);
+        } else {
+            System.out.println("Обработчик для сообщений такого типа отсутствует.");
         }
-        Consumer<Notification> handler = HANDLERS.get(type);
-        handler.accept(notification);
     }
 
-    private void checkHandler(Notification notification) {
-        String type = notification.getType();
+    private void censorNotification(Notification notification) {
         String message = notification.getMessage();
-        if (!HANDLERS.containsKey(type)) {
-            registerHandler(type, (newNotification) ->
-                    System.out.println("Получено сообщение нового типа '" + type + "': " + message));
-        }
+        String censoredMessage = message.replaceAll(REGEX_FOR_CENSOR, "***");
+        notification.setMessage(censoredMessage);
     }
 }
