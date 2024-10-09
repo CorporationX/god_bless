@@ -51,7 +51,7 @@ public class TeamController {
     }
 
     @PostMapping(value = "/members")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Create a user")
     public UserDto createUser(@RequestBody UserDto userDto) {
         log.info("create user: ", userDto);
@@ -70,7 +70,7 @@ public class TeamController {
     }
 
     @PutMapping(value = "/members/updateRole")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Change a role for a user")
     public void changeRole(@RequestBody UserDto userDto, Role role) throws Exception {
         log.info("change role for user: ", userDto);
@@ -79,7 +79,7 @@ public class TeamController {
     }
 
     @DeleteMapping(value = "/members/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Delete a user")
     public void delete(@PathVariable long id) throws Exception {
         service.deleteById(id);
