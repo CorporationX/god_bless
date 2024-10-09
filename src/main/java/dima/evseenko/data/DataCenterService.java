@@ -76,9 +76,7 @@ public class DataCenterService {
     }
 
     public void removeOptimizationStrategy(OptimizationStrategy.Strategy strategy) {
-        if (Objects.nonNull(strategy)) {
-            optimizationStrategies.remove(strategy);
-        }
+        optimizationStrategies.remove(strategy);
     }
 
     public void optimize() {
