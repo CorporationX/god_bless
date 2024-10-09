@@ -1,7 +1,7 @@
 package Hogvards;
 
 @FunctionalInterface
-public  interface SpellAction {
+public interface SpellAction {
     String makeSpell(String spell);
 }
 
