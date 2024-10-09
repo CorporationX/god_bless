@@ -7,6 +7,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class StreamService {
+
     public static int countEvenNumbers(List<Integer> list) {
         return list.stream()
                 .filter(n -> n % 2 == 0)

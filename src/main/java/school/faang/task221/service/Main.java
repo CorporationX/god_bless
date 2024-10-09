@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) {
         System.out.println(StreamService.countEvenNumbers(List.of(1, 2, 3, 4, 5, 6, 7, 8)));
         System.out.println(StreamService.maxNumber(List.of(12, 25)));
