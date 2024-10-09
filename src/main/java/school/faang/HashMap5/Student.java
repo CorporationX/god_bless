@@ -1,6 +1,11 @@
 package school.faang.HashMap5;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public class Student {
-    int id;
-    String name;
+    private int id;
+    private String name;
 }
