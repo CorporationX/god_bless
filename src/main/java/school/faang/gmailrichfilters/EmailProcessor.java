@@ -11,25 +11,17 @@ public class EmailProcessor {
     public List<Email> processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer,
                                      Function<Email, String> function) {
 
-        List<Email> filteredByImportant = new ArrayList<>();
+        List<Email> filteredEmailList = new ArrayList<>();
 
         for (Email email : emails) {
             if (predicate.test(email)) {
-                String messageInUpperCase = function.apply(email);
-                email.setBody(messageInUpperCase);
+                String refactoredMessage = function.apply(email);
+                email.setBody(refactoredMessage);
                 consumer.accept(email);
-                if (!filteredByImportant.isEmpty() && !filteredByImportant.get(filteredByImportant.size() - 1).isImportant
-                        && email.isImportant()) {
-                    filteredByImportant.add(filteredByImportant.size() - 1, email);
-                }
-            } else {
-                filteredByImportant.add(email);
+                filteredEmailList.add(email);
             }
-
         }
-        emails.clear();
-        emails.addAll(filteredByImportant);
-        return emails;
+        return filteredEmailList;
     }
 }
 

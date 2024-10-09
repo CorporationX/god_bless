@@ -7,8 +7,8 @@ import lombok.Data;
 @Data
 public class Email {
 
-    String subject;
-    String body;
-    boolean isImportant;
+    private String subject;
+    private String body;
+    private boolean isImportant;
 
 }
