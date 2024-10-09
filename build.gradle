@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
 
+    implementation("org.jetbrains:annotations:26.0.0")
     implementation("org.mockito:mockito-core:5.14.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
     implementation("org.slf4j:slf4j-api:2.0.5")
