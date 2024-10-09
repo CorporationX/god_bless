@@ -46,12 +46,15 @@ public class StudentAndSubjectAction {
     }
 
     public static void removeStudentFromSubject(Subject subject, Student student) {
-        SUBJECT_MAP.getOrDefault(subject, new ArrayList<>()).remove(student);
-        if (SUBJECT_MAP.getOrDefault(subject, new ArrayList<>()).isEmpty()) {
+        List<Student> students = SUBJECT_MAP.getOrDefault(subject, new ArrayList<>());
+        Map<Subject, Integer> subjects = STUDENT_MAP.getOrDefault(student, new HashMap<>());
+
+        students.remove(student);
+        if (students.isEmpty()) {
             SUBJECT_MAP.remove(subject);
         }
-        STUDENT_MAP.getOrDefault(student, new HashMap<>()).remove(subject);
-        if (STUDENT_MAP.getOrDefault(student, new HashMap<>()).isEmpty()) {
+        subjects.remove(subject);
+        if (subjects.isEmpty()) {
             STUDENT_MAP.remove(student);
         }
     }
