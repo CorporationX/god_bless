@@ -15,7 +15,7 @@ public class StreamService {
         numberList = list.stream()
                 .filter(p -> numbers.contains(sum - p))
                 .map(n -> new ServiceNumber(n, sum - n))
-                .limit(numbers.size() % 2 == 0 ? numbers.size() / 2 : numbers.size() / 2 + 1)
+                .distinct()
                 .collect(Collectors.toList());
         return numberList;
     }

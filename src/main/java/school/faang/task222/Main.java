@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        StreamService.getPair(List.of(1, 2, 3, 4, 5, 6), 7)
+        StreamService.getPair(List.of(1, 2, 3, 4, 5, 6, 0, 7), 7)
                 .forEach(serviceNumber ->
                         System.out.println(serviceNumber.getFirstNumber() + " "
                                 + serviceNumber.getSecondNumber()));
