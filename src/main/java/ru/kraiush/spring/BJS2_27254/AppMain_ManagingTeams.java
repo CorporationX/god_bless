@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AppManagingTeams {
+public class AppMain_ManagingTeams {
 
     public static void main(String[] args) {
-        SpringApplication.run(AppManagingTeams.class, args);
+        SpringApplication.run(AppMain_ManagingTeams.class, args);
     }
 }
