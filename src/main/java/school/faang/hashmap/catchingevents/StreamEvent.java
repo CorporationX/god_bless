@@ -1,4 +1,4 @@
-package school.faang.BJS2_33328;
+package school.faang.hashmap.catchingevents;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,13 +1,11 @@
-package school.faang.BJS2_33328;
+package school.faang.hashmap.catchingevents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class Main {
-
     private final Map<Integer, StreamEvent> integerStreamEventMap = new HashMap<>();
     private final Map<String, List<StreamEvent>> typeEventsMap = new HashMap<>();
 
@@ -48,7 +46,7 @@ public class Main {
             integerStreamEventMap.remove(id);
             if (typeEventsMap.containsKey(streamEventTemp.getEventType())) {
                 typeEventsMap.get(streamEventTemp.getEventType()).remove(streamEventTemp);
-                if (typeEventsMap.get(streamEventTemp.getEventType()).size() == 0) {
+                if (typeEventsMap.get(streamEventTemp.getEventType()).isEmpty()) {
                     typeEventsMap.remove(streamEventTemp.getEventType());
                 }
             }
