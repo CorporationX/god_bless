@@ -1,62 +1,51 @@
 package school.faang.cashing;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final Map<String, WeatherData> weather = new HashMap<>();
+    private static final Map<String, WeatherData> weatherCache = new HashMap<>();
     private static final MockClass mock = new MockClass();
 
     public static void main(String[] args) {
-        WeatherData moscowWeather = new WeatherData("Moscow", 20.5, 40.2);
-        WeatherData klinWeather = new WeatherData("Klin", 19.5, 44.5);
-        WeatherData spbWeather = new WeatherData("Saint Petersburg", 16.8, 48.3);
-        WeatherData nyWeather = new WeatherData("New York", 24.6, 37.6);
-
-        add(moscowWeather);
-        add(klinWeather);
-        add(spbWeather);
-        infoForCity("New York");
+        getInfoForCity("New York");
+        getInfoForCity("Moscow");
+        getInfoForCity("Saint Petersburg");
         printInfo();
-        updateInfo(nyWeather);
+        updateInfo("New York");
         printInfo();
-        removeInfo("Klin");
+        removeInfo("Moscow");
         printAllCities();
     }
 
-    private static void add(WeatherData data) {
-        weather.put(data.getCity(), data);
-    }
-
-    private static WeatherData infoForCity(String city) {
-        WeatherData info = weather.get(city);
+    private static WeatherData getInfoForCity(String city) {
+        WeatherData info = weatherCache.get(city);
         if (info == null) {
             WeatherData data = mock.getInfo(city);
-            weather.put(city, data);
+            weatherCache.put(city, data);
         }
         return info;
     }
 
-    private static void updateInfo(WeatherData data) {
-        String city = data.getCity();
-        weather.put(city, data);
+    private static void updateInfo(String city) {
+        WeatherData updatedData = mock.getInfo(city);
+        weatherCache.put(city, updatedData);
     }
 
     private static void removeInfo(String city) {
-        weather.remove(city);
+        weatherCache.remove(city);
     }
 
     private static void printAllCities() {
-        List<String> cityList = new ArrayList<>();
-        for (var entry : weather.entrySet()) {
-            cityList.add(entry.getKey());
-        }
-        System.out.println(cityList);
+        System.out.println(weatherCache.keySet());
     }
 
     private static void printInfo() {
-        System.out.println(weather);
+        for (var entry : weatherCache.entrySet()) {
+            System.out.println("City: " + entry.getKey());
+            System.out.println("Temperature: " + entry.getValue().getTemperature());
+            System.out.println("Humidity: " + entry.getValue().getHumidity());
+            System.out.println("--------------");
+        }
     }
 }
