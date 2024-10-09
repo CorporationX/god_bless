@@ -14,17 +14,24 @@ public class WebPageIndexer {
         String[] contentWords = content.split(nonLetterOrDigitRegex);
 
         for (String contentWord : contentWords) {
-            if(!(webPageKeywordIndex.containsKey(contentWord))){
+            String contentWordLowerCase = contentWord.toLowerCase();
+
+            if(!(webPageKeywordIndex.containsKey(contentWordLowerCase))){
                 List<WebPage> webPagesToWord = new ArrayList<>();
                 webPagesToWord.add(webPage);
-                webPageKeywordIndex.put(contentWord,webPagesToWord);
+                webPageKeywordIndex.put(contentWordLowerCase,webPagesToWord);
             }else {
-                List<WebPage> webPages = webPageKeywordIndex.get(contentWord);
+                List<WebPage> webPages = webPageKeywordIndex.get(contentWordLowerCase);
                 if(!(webPages.contains(webPage))){
                     webPages.add(webPage);
                 }
 
             }
         }
+    }
+
+    public List<WebPage> getWebPagesByWord(String keyWord,Map<String, List<WebPage>> webPageKeywordIndex){
+        String contentWordLowerCase = keyWord.toLowerCase();
+        return  webPageKeywordIndex.get(contentWordLowerCase);
     }
 }
