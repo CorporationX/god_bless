@@ -43,7 +43,7 @@ public class Droid {
         return encryptor.apply(message, key);
     }
 
-    public String decryptMessage(String message, int key, DroidMessageEncryptor decryptor) {
+    private String decryptMessage(String message, int key, DroidMessageEncryptor decryptor) {
         return decryptor.apply(message, -key);
     }
 }
