@@ -15,8 +15,8 @@ public class Main {
         StreamEvent secondEvent = new StreamEvent(51, "burn", "thinking");
         StreamEvent thirdEvent = new StreamEvent(18, "burn", "thinking");
 
-        List<StreamEvent> eventsBurn = new ArrayList(Arrays.asList(secondEvent, secondEvent));
-        List<StreamEvent> eventsSomething = new ArrayList(Arrays.asList(firstEvent));
+        List<StreamEvent> eventsBurn = new ArrayList<>(Arrays.asList(secondEvent, secondEvent));
+        List<StreamEvent> eventsSomething = new ArrayList<>(Arrays.asList(firstEvent));
 
         eventTypeMap.put("burn", eventsBurn);
         eventTypeMap.put("something", eventsSomething);
