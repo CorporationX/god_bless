@@ -3,8 +3,6 @@ package school.faang.BJS2_32549;
 import lombok.Data;
 import lombok.Getter;
 
-import java.util.Objects;
-
 @Data
 @Getter
 public class Student {
