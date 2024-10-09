@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CacheService {
+public class StudentRecordService {
     private final Map<Student, Map<Subject, Integer>> students = new HashMap<>();
     private final Map<Subject, List<Student>> subjects = new HashMap<>();
 

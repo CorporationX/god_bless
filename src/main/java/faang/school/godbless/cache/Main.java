@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        var service = new CacheService();
+        var service = new StudentRecordService();
         service.printStudentGrades();
 
         service.addSubjectsForStudent(new Student(1L, "Ivan"), Map.of(
