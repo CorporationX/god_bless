@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> predicate, Function<Email, String> convertEmail, Consumer<Email> consumer){
-        List<Email> filteredEmails = new ArrayList<>();
+        //List<Email> filteredEmails = new ArrayList<>();
 
         for(Email email : emails){
             if(predicate.test(email)){
@@ -17,7 +17,7 @@ public class EmailProcessor {
 
                 consumer.accept(email);
 
-                filteredEmails.add(email);
+                //filteredEmails.add(email);
             }
         }
     }
