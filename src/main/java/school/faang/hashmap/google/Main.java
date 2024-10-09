@@ -29,42 +29,26 @@ public class Main {
     }
 
     public void indexNewPage(WebPage webPage) {
-        String[] indexWords = webPage.getContent().split(" ");
-        Arrays.stream(indexWords).forEach(s -> {
-            google.putIfAbsent(s, new ArrayList<>());
-            google.get(s).add(webPage);
-        });
+        String[] indexWords = webPage.getContent().toLowerCase().split(" ");
+        Arrays.stream(indexWords).forEach(word -> google.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage));
     }
 
-    public List<WebPage> getContentByWord (String keyWord){
-        return google.getOrDefault(keyWord, new ArrayList<>());
+    public List<WebPage> getContentByWord(String keyWord) {
+        return google.getOrDefault(keyWord.toLowerCase(), new ArrayList<>());
     }
 
     public void deleteContextByUrl(String url) {
-        KeyWordAndWebPage keyWordAndWebPage = new KeyWordAndWebPage(null, null);
-        while (keyWordAndWebPage != null) {
-            keyWordAndWebPage = deleteCalculation(url);
-            if (keyWordAndWebPage != null) {
-                google.get(keyWordAndWebPage.getKeyWord()).remove(keyWordAndWebPage.getWebPage());
-                if(google.get(keyWordAndWebPage.getKeyWord()).isEmpty()) {
-                    google.remove(keyWordAndWebPage.getKeyWord());
-                }
+        List<String> keysToDelete = new ArrayList<>();
+        for (Map.Entry<String, List<WebPage>> mapEntry : google.entrySet()) {
+            mapEntry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
+            if (google.get(mapEntry.getKey()).isEmpty()) {
+                keysToDelete.add(mapEntry.getKey());
             }
         }
+        keysToDelete.forEach(key -> google.remove(key));
     }
 
-    private KeyWordAndWebPage deleteCalculation(String url) {
-        for(Map.Entry<String, List<WebPage>> mapEntry: google.entrySet()) {
-            for (WebPage tempWebPage : mapEntry.getValue()) {
-                if(tempWebPage.getUrl().equals(url)) {
-                    return new KeyWordAndWebPage(mapEntry.getKey(), tempWebPage);
-                }
-            }
-        }
-        return null;
-    }
-
-    public void printAll() {
+    public void printAll () {
         google.forEach((s, webPages) -> System.out.printf("\nKeyWord: %s === Context : %s", s, webPages.toString()));
     }
 }
