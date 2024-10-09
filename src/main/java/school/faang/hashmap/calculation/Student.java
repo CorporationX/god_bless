@@ -1,11 +1,12 @@
-package school.faang.BJS2_32564;
+package school.faang.hashmap.calculation;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class KeyFaculty {
+public class Student {
+    private String name;
     private String faculty;
     private int year;
 }
