@@ -6,8 +6,8 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        WebPage page1 = new WebPage("https://example.com", "Example Page", "this one go ");
-        WebPage page2 = new WebPage("https://examples.com", "Example Page", "this one go ");
+        WebPage page1 = new WebPage("https://example.com", "Example Page", "this ONE go ");
+        WebPage page2 = new WebPage("https://examples.com", "Example Page", "this One go ");
  //       WebPage page2 = new WebPage("https://test.com", "Test Page", "Test the indexing method with this content.");
 //        WebPage page3 = new WebPage("https://java.com", "Java Page", "Learn Java and its features through examples.");
 //        WebPage page4 = new WebPage("https://openai.com", "OpenAI Page", "Explore AI development with OpenAI's tools.");

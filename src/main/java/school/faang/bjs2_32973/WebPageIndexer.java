@@ -47,7 +47,7 @@ public class WebPageIndexer {
             throw new NoSuchElementException("there is no web page with this url in the index");
         }
         for (String keyWordForWebPageToRemove : keyWordsWebPageToRemove) {
-            List<WebPage> webPages = webPageKeywordIndex.get(keyWordForWebPageToRemove);
+            List<WebPage> webPages = getWebPagesByWord(keyWordForWebPageToRemove,webPageKeywordIndex);
 
             for (WebPage webPage : webPages) {
                 String urlCurrentWebPage = webPage.getUrl();
