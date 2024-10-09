@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.javacore.abstraction;
 
 public class Warrior extends Character {
     private static final int POWER = 10;

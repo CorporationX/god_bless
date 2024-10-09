@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.javacore.abstraction;
 
 public class Archer extends Character {
     private static final int POWER = 3;

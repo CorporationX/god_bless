@@ -1,4 +1,4 @@
-package school.faang.abstraction;
+package school.faang.javacore.abstraction;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
