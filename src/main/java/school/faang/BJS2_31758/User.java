@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+@Data
 @Getter
 public class User {
 
@@ -48,16 +49,5 @@ public class User {
         if (!VALID_ADDRESS.contains(address)) {
             throw new IllegalArgumentException("Invalid address. Addres must be one of " + VALID_ADDRESS);
         }
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-            "id=" + id +
-            ", name='" + name + '\'' +
-            ", age=" + age +
-            ", job='" + job + '\'' +
-            ", address='" + address + '\'' +
-            '}';
     }
 }
