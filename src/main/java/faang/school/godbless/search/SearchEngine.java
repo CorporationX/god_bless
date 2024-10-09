@@ -10,7 +10,7 @@ public class SearchEngine {
     private final HashMap<String, List<WebPage>> index = new HashMap<>();
 
     public void addWebPage(WebPage webPage) {
-        for (var w : splitContent(webPage.content())) {
+        for (var w : splitContent(webPage.getContent())) {
             addWebPageByWord(w, webPage);
         }
     }
@@ -20,13 +20,13 @@ public class SearchEngine {
     }
 
     public void removeWebPageByUrl(String url) {
-        index.forEach((key, value) -> value.removeIf(p -> url.equals(p.url())));
+        index.forEach((key, value) -> value.removeIf(p -> url.equals(p.getUrl())));
     }
 
     public void printPages() {
         var sb = new StringBuilder();
         index.forEach((k, v) -> sb.append(String.format("%s: %s%n", k,
-                v.stream().map(WebPage::url).collect(Collectors.joining(","))))
+                v.stream().map(WebPage::getUrl).collect(Collectors.joining(","))))
         );
         System.out.println(sb.append("---"));
     }
