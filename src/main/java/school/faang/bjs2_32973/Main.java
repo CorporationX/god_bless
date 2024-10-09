@@ -12,10 +12,10 @@ public class Main {
         WebPage page4 = new WebPage("https://openai.com", "OpenAI Page", "Explore AI development with OpenAI's tools.");
         WebPage page5 = new WebPage("https://blog.com", "Blog Page", "Welcome to the blog. This is the first post.");
         WebPage page6 = new WebPage("https://blog.com", "Blog Page", "Blog");
-        WebPage page7 = new WebPage("https://blog.com", "Blog Page", "Blog");
-        WebPage page8 = new WebPage("https://blog.com", "Blog Page", "Blog");
-        WebPage page9 = new WebPage("https://blog.com", "Blog Page", "Blog");
-        WebPage page10 = new WebPage("https://blog.com", "Blog Page", "Blog");
+        WebPage page7 = new WebPage("https://blog.com", "Blog Page", "blog");
+        WebPage page8 = new WebPage("https://blog.com", "Blog Page", "BLOG");
+        WebPage page9 = new WebPage("https://blog.com", "Blog Page", "bLOG");
+        WebPage page10 = new WebPage("https://blog.com", "Blog Page", "BLoG");
 
         // Создаем карту для хранения индекса (ключ - слово, значение - список WebPage)
         Map<String, List<WebPage>> indexMap = new HashMap<>();
@@ -39,7 +39,7 @@ public class Main {
 //                System.out.println(webPage);
 //            }
 //            System.out.println();
-        String word = "This";
+        String word = "BLoG";
         List<WebPage> ai = webPageIndexer.getWebPagesByWord(word, indexMap);
         System.out.println(word);
         for (WebPage webPage : ai) {
