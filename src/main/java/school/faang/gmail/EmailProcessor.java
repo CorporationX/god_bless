@@ -13,14 +13,12 @@ public class EmailProcessor {
 
         for(Email email : emails){
             if(predicate.test(email)){
+                convertEmail.apply(email);
+
+                consumer.accept(email);
+
                 filteredEmails.add(email);
             }
-        }
-
-        for(Email email : filteredEmails){
-            convertEmail.apply(email);
-
-            consumer.accept(email);
         }
     }
 }
