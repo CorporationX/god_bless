@@ -1,13 +1,13 @@
 package school.faang.HashMap3;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import static school.faang.HashMap3.Student.addStudent;
-import static school.faang.HashMap3.Student.deleteStudent;
-import static school.faang.HashMap3.Student.groupedStudents;
-import static school.faang.HashMap3.Student.printGroupedStudents;
-import static school.faang.HashMap3.Student.searchStudents;
+import static school.faang.HashMap3.StudentService.addStudent;
+import static school.faang.HashMap3.StudentService.deleteStudent;
+import static school.faang.HashMap3.StudentService.printGroupedStudents;
+import static school.faang.HashMap3.StudentService.searchStudents;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,10 +24,5 @@ public class Main {
         deleteStudent("Anton", 1, "physics", studentsList);
         printGroupedStudents(studentsList);
         searchStudents(1, "physics", studentsList);
-
-
-
-
-
     }
 }
