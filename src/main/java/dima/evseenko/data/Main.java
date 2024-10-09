@@ -1,13 +1,14 @@
 package dima.evseenko.data;
 
-import dima.evseenko.data.strategy.EnergyEfficiencyOptimizationStrategy;
 import dima.evseenko.data.strategy.OptimizationStrategy;
 
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.ENERGY_EFFICIENCY);
+        DataCenterService dataCenterService = new DataCenterService();
+        dataCenterService.addOptimizationStrategy(OptimizationStrategy.Strategy.LOAD_BALANCING);
+
         dataCenterService.addServers(getServers());
         dataCenterService.addServer(new Server(31, 120, 250));
         dataCenterService.printServers();
@@ -22,7 +23,8 @@ public class Main {
         dataCenterService.optimize();
         dataCenterService.printServers();
 
-        dataCenterService.setOptimizationStrategy(new EnergyEfficiencyOptimizationStrategy());
+        dataCenterService.removeOptimizationStrategy(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        dataCenterService.addOptimizationStrategy(OptimizationStrategy.Strategy.ENERGY_EFFICIENCY);
         dataCenterService.optimize();
         dataCenterService.printServers();
     }

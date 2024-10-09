@@ -12,7 +12,7 @@ class DataCenterServiceTest {
 
     @Test
     void addServer() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServer(new Server(45, 100, 200));
 
         assertEquals(new Server(45, 100, 200), dataCenterService.getServers().get(0));
@@ -20,7 +20,7 @@ class DataCenterServiceTest {
 
     @Test
     void addServers() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
 
         assertEquals(new Server(45, 100, 200), dataCenterService.getServers().get(0));
@@ -30,7 +30,7 @@ class DataCenterServiceTest {
 
     @Test
     void deleteServer() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
         dataCenterService.deleteServer(new Server(45, 100, 200));
 
@@ -39,7 +39,7 @@ class DataCenterServiceTest {
 
     @Test
     void allocateResources() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
         dataCenterService.allocateResources(new ResourceRequest(10));
 
@@ -48,7 +48,7 @@ class DataCenterServiceTest {
 
     @Test
     void allocateResourcesFail() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
         dataCenterService.allocateResources(new ResourceRequest(1000));
 
@@ -57,7 +57,7 @@ class DataCenterServiceTest {
 
     @Test
     void releaseResources() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
         dataCenterService.releaseResources(new ResourceRequest(10));
 
@@ -66,7 +66,7 @@ class DataCenterServiceTest {
 
     @Test
     void releaseResourcesFail() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
         dataCenterService.addServers(getServers());
         dataCenterService.releaseResources(new ResourceRequest(1000));
 
@@ -75,7 +75,8 @@ class DataCenterServiceTest {
 
     @Test
     void optimizeLoadBalancing() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.LOAD_BALANCING);
+        DataCenterService dataCenterService = new DataCenterService();
+        dataCenterService.addOptimizationStrategy(OptimizationStrategy.Strategy.LOAD_BALANCING);
         dataCenterService.addServers(getServers());
         dataCenterService.optimize();
 
@@ -84,7 +85,8 @@ class DataCenterServiceTest {
 
     @Test
     void optimizeEnergyEfficiency() {
-        DataCenterService dataCenterService = new DataCenterService(OptimizationStrategy.Strategy.ENERGY_EFFICIENCY);
+        DataCenterService dataCenterService = new DataCenterService();
+        dataCenterService.addOptimizationStrategy(OptimizationStrategy.Strategy.ENERGY_EFFICIENCY);
         dataCenterService.addServers(getServers());
         dataCenterService.optimize();
 

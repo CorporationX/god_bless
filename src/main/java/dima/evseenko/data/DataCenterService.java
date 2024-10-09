@@ -3,28 +3,20 @@ package dima.evseenko.data;
 import dima.evseenko.data.strategy.EnergyEfficiencyOptimizationStrategy;
 import dima.evseenko.data.strategy.LoadBalancingOptimizationStrategy;
 import dima.evseenko.data.strategy.OptimizationStrategy;
-import lombok.Setter;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class DataCenterService {
     private final DataCenter dataCenter = new DataCenter();
+    private final Map<OptimizationStrategy.Strategy, OptimizationStrategy> optimizationStrategies = new HashMap<>();
 
-    @Setter
-    private OptimizationStrategy optimizationStrategy;
-
-    public DataCenterService(OptimizationStrategy.Strategy strategy) {
-        if (Objects.nonNull(strategy)) {
-            optimizationStrategy = switch (strategy) {
-                case LOAD_BALANCING -> new LoadBalancingOptimizationStrategy();
-                case ENERGY_EFFICIENCY -> new EnergyEfficiencyOptimizationStrategy();
-            };
-
-            scheduleOptimize();
-        }
+    public DataCenterService() {
+        scheduleOptimize();
     }
 
     public void addServer(Server server) {
@@ -72,10 +64,25 @@ public class DataCenterService {
         });
     }
 
-    public void optimize() {
-        if (Objects.nonNull(optimizationStrategy)) {
-            optimizationStrategy.optimize(dataCenter);
+    public void addOptimizationStrategy(OptimizationStrategy.Strategy strategy) {
+        if (Objects.nonNull(strategy)) {
+            optimizationStrategies.put(strategy,
+                    switch (strategy) {
+                        case LOAD_BALANCING -> new LoadBalancingOptimizationStrategy();
+                        case ENERGY_EFFICIENCY -> new EnergyEfficiencyOptimizationStrategy();
+                    }
+            );
         }
+    }
+
+    public void removeOptimizationStrategy(OptimizationStrategy.Strategy strategy) {
+        if (Objects.nonNull(strategy)) {
+            optimizationStrategies.remove(strategy);
+        }
+    }
+
+    public void optimize() {
+        optimizationStrategies.forEach((strategy, optimizationStrategy) -> optimizationStrategy.optimize(dataCenter));
     }
 
     public List<Server> getServers() {
