@@ -50,7 +50,7 @@ public class Main {
         for (Map.Entry<User, List<Query>> entry : userQueries.entrySet()) {
             User user = entry.getKey();
             List<Query> queries = entry.getValue();
-            System.out.println("Пользователь: " + user.getName() + " (ID: " + user.getId() + ")");
+            System.out.println("Пользователь: " + user.name() + " (ID: " + user.id() + ")");
             for (Query query : queries) {
                 System.out.println("  Запрос ID: " + query.getId() + ", Content: " + query.getContent());
             }
@@ -64,7 +64,7 @@ public class Main {
             return;
         }
 
-        System.out.println("История запросов от пользователей: " + user.getName() + " (ID: " + user.getId() + ")");
+        System.out.println("История запросов от пользователей: " + user.name() + " (ID: " + user.id() + ")");
         queries.sort(Comparator.comparingLong(Query::getTimestamp));
         for (Query query : queries) {
             System.out.println("  Запрос ID: " + query.getId() + ", Content: " + query.getContent() + ", Timestamp: " + query.getTimestamp());
