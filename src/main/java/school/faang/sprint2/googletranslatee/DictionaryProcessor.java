@@ -1,4 +1,4 @@
-package school.faang.sprint2.googletranslate;
+package school.faang.sprint2.googletranslatee;
 
 import java.util.function.BiConsumer;
 public class DictionaryProcessor {
