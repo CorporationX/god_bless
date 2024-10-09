@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import ru.kraiush.spring.BJS2_27254.domain.dto.UserDto;
+import ru.kraiush.spring.BJS2_27254.domain.model.Role;
 import ru.kraiush.spring.BJS2_27254.domain.model.User;
 import ru.kraiush.spring.BJS2_27254.service.UserServiceFulfil;
 import ru.kraiush.spring.BJS2_27254.util.MapperUtil;
@@ -59,13 +60,22 @@ public class TeamController {
         return MapperUtil.convertClass(userCreated, UserDto.class);
     }
 
-    @PutMapping(value = "/members/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping(value = "/members")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Update a user")
     public void updateUser(@RequestBody UserDto userDto) throws Exception {
         log.info("start update user: ", userDto);
         User user = MapperUtil.convertClass(userDto, User.class);
         service.update(user);
+    }
+
+    @PutMapping(value = "/members/updateRole")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Change a role for a user")
+    public void changeRole(@RequestBody UserDto userDto, Role role) throws Exception {
+        log.info("change role for user: ", userDto);
+        User user = MapperUtil.convertClass(userDto, User.class);
+        service.changeRole(user, role);
     }
 
     @DeleteMapping(value = "/members/{id}")

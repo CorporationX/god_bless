@@ -1,4 +1,4 @@
-package ru.kraiush.spring.util;
+package ru.kraiush.spring.BJS2_27254.util;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,7 +10,6 @@ import java.security.*;
 
 @SpringBootApplication
 public class RSAKeyGeneration {
-
     public static void main(String[] args) throws NoSuchAlgorithmException, FileNotFoundException {
         SpringApplication.run(RSAKeyGeneration.class, args);
 

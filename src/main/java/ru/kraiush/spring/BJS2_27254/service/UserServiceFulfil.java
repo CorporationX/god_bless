@@ -19,7 +19,6 @@ import static ru.kraiush.spring.BJS2_27254.common.ConstantsUser.ErrorMessage.USE
 import static ru.kraiush.spring.BJS2_27254.common.ConstantsUser.ErrorMessage.USER_EMAIL_ALREADY_EXISTS;
 import static ru.kraiush.spring.BJS2_27254.common.ConstantsUser.*;
 
-
 @Service
 @RequiredArgsConstructor
 public class UserServiceFulfil implements UserService {
@@ -74,8 +73,7 @@ public class UserServiceFulfil implements UserService {
         if (userOptional.isPresent()) {
             return userOptional.get();
         } else {
-            log.info("The user wasn't found!");
-            return null;
+            throw new UserException(USERNAME_GET_EXCEPTION);
         }
     }
 
@@ -103,6 +101,16 @@ public class UserServiceFulfil implements UserService {
             repository.deleteAll();
         } catch (final Exception e) {
             throw new UserException(USER_DELETE_ALL_EXCEPTION, e);
+        }
+    }
+
+    @Override
+    public void changeRole(User user, Role role) throws Exception {
+        Optional<User> element = repository.findById(user.getId());
+        if (element.isPresent()) {
+            element.get().setRole(role);
+        } else {
+            throw new UserException(USERNAME_GET_EXCEPTION);
         }
     }
 

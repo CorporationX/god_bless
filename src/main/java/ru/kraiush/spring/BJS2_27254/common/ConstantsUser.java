@@ -8,8 +8,9 @@ import static lombok.AccessLevel.PRIVATE;
 public class ConstantsUser {
 
     public static final String USER_CREATE_EXCEPTION = "Error creating user";
-    public static final String USER_GET_EXCEPTION = "The user wasn't found: ";
+    public static final String USER_GET_EXCEPTION = "The user wasn't found by id: ";
     public static final String USER_UPDATE_EXCEPTION = "Error updating user";
+    public static final String USERNAME_GET_EXCEPTION = "The user wasn't found by username: ";
     public static final String USER_DELETE_EXCEPTION = "Error deleting user";
     public static final String USER_DELETE_ALL_EXCEPTION = "Error deleting all users";
 
