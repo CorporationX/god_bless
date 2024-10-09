@@ -1,7 +1,6 @@
 package school.faang;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class Main {
                 searchPages(keyWord));
 
         System.out.println("=====================================================");
-        deletePage("https://www.vk.ru");
+        deletePage(vkPage);
 
         for (Map.Entry<String, List<WebPage>> entry : webMap.entrySet()) {
             System.out.println("Ключивое слово " + entry.getKey() + " страницы " + entry.getValue());
@@ -55,10 +54,7 @@ public class Main {
 
     public static void indexWeb(WebPage webPage) {
         String content = webPage.getContent();
-        String[] keyWords = content.split(" ");
-
-        //Номер позиции слова в списке определенного ключа в webPage
-        int position;
+        String[] keyWords = content.split("[^\\p{L}\\p{N}]+");
         for (String word : keyWords) {
             List<WebPage> webPages = webMap.get(word);
             LinkedList<UrlValue> urlValues = urlMap.get(webPage.getUrl());
@@ -70,7 +66,6 @@ public class Main {
                 webPages.add(webPage);
                 webMap.put(word, webPages);
             }
-            position = webPages.indexOf(webPage);
             if (urlMap.get(webPage.getUrl()) == null) {
                 urlValues = new LinkedList<>();
                 urlValues.add(new UrlValue(word, webPage));
@@ -86,19 +81,23 @@ public class Main {
         return list;
     }
 
-    public static void deletePage(String url) {
-        LinkedList<UrlValue> deleteList = urlMap.get(url);
-        if (deleteList != null) {
-            for (UrlValue urlValue : deleteList) {
-                String word = urlValue.getWord();
-                List<WebPage> webPages = webMap.get(word);
+    public static void deletePage(WebPage pageToDelete) {
+        LinkedList<UrlValue> deleteList = urlMap.get(pageToDelete.getUrl());
 
-                if (webPages != null) {
-                    WebPage pageToRemove = urlValue.getWebPage();
-                    webPages.remove(pageToRemove);
+        if (deleteList != null) {
+            List<UrlValue> valuesToRemove = new ArrayList<>();
+
+            for (UrlValue urlValue : deleteList) {
+                if (urlValue.getWebPage() == pageToDelete) {
+                    valuesToRemove.add(urlValue);
                 }
             }
-            urlMap.remove(url);
+            deleteList.removeAll(valuesToRemove);
+
+            if (deleteList.isEmpty()) {
+                urlMap.remove(pageToDelete.getUrl());
+            }
         }
     }
+
 }
