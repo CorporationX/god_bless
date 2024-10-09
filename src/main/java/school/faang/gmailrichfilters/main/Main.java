@@ -1,8 +1,7 @@
-package school.faang.gmailrichfilter.main;
+package school.faang.gmailrichfilters.main;
 
-
-import school.faang.gmailrichfilter.maincode.Email;
-import school.faang.gmailrichfilter.maincode.EmailProcessor;
+import school.faang.gmailrichfilters.maincode.Email;
+import school.faang.gmailrichfilters.maincode.EmailProcessor;
 
 import java.util.Arrays;
 import java.util.List;

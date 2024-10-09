@@ -1,4 +1,4 @@
-package school.faang.gmailrichfilter.maincode;
+package school.faang.gmailrichfilters.maincode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
