@@ -1,12 +1,11 @@
 package school.faang.BJS2_31566;
 
+import lombok.Data;
 import lombok.Getter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+@Data
 @Getter
 public class User {
 
@@ -20,28 +19,5 @@ public class User {
         this.name = name;
         this.age = age;
         this.activities = activities;
-    }
-
-    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
-        Map<User, String> hobbyLovers = new HashMap<>();
-
-        for (User user : users) {
-            for (String activity : user.getActivities()) {
-                if (hobbies.contains(activity)) {
-                    hobbyLovers.put(user, activity);
-                    break;
-                }
-            }
-        }
-        return hobbyLovers;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                '}';
     }
 }

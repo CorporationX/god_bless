@@ -1,6 +1,7 @@
 package school.faang.BJS2_31566;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +22,24 @@ public class Main {
         List<User> users = Arrays.asList(user1, user2, user3);
         Set<String> hobbies = new HashSet<>(Arrays.asList("Jellyfish catching", "Sleeping", "Cooking"));
 
-        Map<User, String> hobbyLovers = User.findHobbyLovers(users, hobbies);
+        Map<User, String> hobbyLovers = findHobbyLovers(users, hobbies);
 
         for (Map.Entry<User, String> entry : hobbyLovers.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
+    }
+
+    public static Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
+        Map<User, String> hobbyLovers = new HashMap<>();
+
+        for (User user : users) {
+            for (String activity : user.getActivities()) {
+                if (hobbies.contains(activity)) {
+                    hobbyLovers.put(user, activity);
+                    break;
+                }
+            }
+        }
+        return hobbyLovers;
     }
 }
