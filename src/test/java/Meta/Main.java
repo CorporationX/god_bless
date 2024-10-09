@@ -19,11 +19,10 @@ public class Main {
         notificationManager.registerHandler("email", (notification ->
                 System.out.println("Text  " + notification.getType() + " " + notification.getMessage())));
         notificationManager.registerHandler("sms", (notification ->
-                System.out.println("Sms text  "  + notification.getType() + " " + notification.getMessage())));
+                System.out.println("Sms text  " + notification.getType() + " " + notification.getMessage())));
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.filter(emailNotification.getMessage(), filterFunction);
-
     }
 }
 
