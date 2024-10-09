@@ -5,22 +5,16 @@ public class Main {
     public static void main(String[] args) {
         Character frodo = new Character("Frodo");
         Item ring = new Item("The One Ring", 1000);
+        Item apple = new Item("Apple", 50);
 
         InventoryManager manager = new InventoryManager();
 
-// Добавляем предмет в инвентарь
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
-
-// Удаляем предмет из инвентаря
-        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
-
-// Добавляем обратно предмет и обновляем его стоимость
+        manager.removeItem(frodo,(item) -> item.getName().equals("The One Ring"));
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
-        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 4));
-
+        manager.addItem(frodo, apple, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
+        //не меняет порядок
+        manager.updateItem(frodo, (item) ->item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
         frodo.getItems().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
-
     }
-
-
 }
