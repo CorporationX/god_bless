@@ -1,27 +1,17 @@
-package faang.school.godbless;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+package faang.school.godbless.NotificationManager;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-@Getter
-@AllArgsConstructor
-class Notification {
-    private String type;
-    private String message;
-}
-
 public class NotificationManager {
     Map<String, Consumer<Notification>> map = new HashMap<>();
 
-    void registerHandler(String type, Consumer<Notification> consumer) {
+    public void registerHandler(String type, Consumer<Notification> consumer) {
         map.put(type, consumer);
     }
 
-    void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) {
         map.get(notification.getType()).accept(notification);
     }
 
