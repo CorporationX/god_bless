@@ -21,9 +21,9 @@ class EmailProcessorTest {
 
         Predicate<Email> importantFilter = Email::isImportant;
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        Function<Email, Email> toUpperCase = email -> new Email(email.getSubject(), email.getBody().toUpperCase(), email.isImportant());
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emails = emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
 
         assertFalse(emails.contains(new Email("Письмо 1", "Текст письма 1", false)));
         assertEquals("ТЕКСТ ПИСЬМА 2", emails.get(0).getBody());
