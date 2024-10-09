@@ -12,9 +12,9 @@ public class Main {
     public static void main(String[] args) {
         Main main = new Main();
 
-        main.indexNewPage(new WebPage("url1", "Title 1", "word word11 word12 word13 1"));
-        main.indexNewPage(new WebPage("url2", "Title 2", "word word21 word22 word33 2"));
-        main.indexNewPage(new WebPage("url1", "Title 3", "word word21 word22 word33 3"));
+        main.indexNewPage(new WebPage("url1", "Title 1", "word word11 word12 word133 1"));
+        main.indexNewPage(new WebPage("url2", "Title 2", "word word21 word22 word333 2"));
+        main.indexNewPage(new WebPage("url1", "Title 3", "word word21 word22 word333 3"));
 
         main.printAll();
 
