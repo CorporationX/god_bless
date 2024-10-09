@@ -1,14 +1,10 @@
 package school.faang.googleminisearchengine;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.ToString;
+import lombok.Data;
 
-@ToString
-@Getter
 @AllArgsConstructor
-@EqualsAndHashCode
+@Data
 public class WebPage {
     private String url;
     private String title;

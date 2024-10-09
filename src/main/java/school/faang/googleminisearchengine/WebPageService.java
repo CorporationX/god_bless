@@ -2,28 +2,26 @@ package school.faang.googleminisearchengine;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import static school.faang.googleminisearchengine.Main.EXISTING_PAGES;
-import static school.faang.googleminisearchengine.Main.WEB_PAGES;
-
+import java.util.Map;
+import java.util.Set;
 
 public class WebPageService {
-    public static void indexingNewWebPage(WebPage webPage) {
-        if (!EXISTING_PAGES.contains(webPage)) {
+    public static void indexingNewWebPage(WebPage webPage, Set<WebPage> existingPages, Map<String, ArrayList<WebPage>> webPages) {
+        if (!existingPages.contains(webPage)) {
             String[] keyWords = webPage.getContent().split(" ");
             for (int i = 0; i < keyWords.length; i++) {
-                WEB_PAGES.put(keyWords[i], WEB_PAGES.computeIfAbsent(
+                webPages.put(keyWords[i], webPages.computeIfAbsent(
                         keyWords[i], keyWord -> new ArrayList<>())).add(webPage);
-                EXISTING_PAGES.add(webPage);
+                existingPages.add(webPage);
             }
         } else {
             System.out.println("This page is already indexed");
         }
     }
 
-    public static ArrayList<WebPage> getWebPagesByKeyWord(String keyWord) {
+    public static ArrayList<WebPage> getWebPagesByKeyWord(String keyWord,  Map<String, ArrayList<WebPage>> webPages) {
         ArrayList<WebPage> webPagesByKeyWord = new ArrayList<>();
-        for (var entry : WEB_PAGES.entrySet()) {
+        for (var entry : webPages.entrySet()) {
             if (entry.getKey().equalsIgnoreCase(keyWord)) {
                 for (WebPage page : entry.getValue()) {
                     webPagesByKeyWord.add(page);
@@ -36,8 +34,8 @@ public class WebPageService {
         return webPagesByKeyWord;
     }
 
-    public static void removePageByUrl(String url) {
-        for (var entry : WEB_PAGES.entrySet()) {
+    public static void removePageByUrl(String url, Map<String, ArrayList<WebPage>> webPages) {
+        for (var entry : webPages.entrySet()) {
             ArrayList<WebPage> pages = entry.getValue();
 
             Iterator<WebPage> iterator = pages.iterator();
@@ -56,8 +54,8 @@ public class WebPageService {
         }
     }
 
-    public static void testPrintAllPages() {
-        for (var entry : WEB_PAGES.entrySet()) {
+    public static void testPrintAllPages(Map<String, ArrayList<WebPage>> webPages) {
+        for (var entry : webPages.entrySet()) {
             System.out.println("Keyword:" + entry.getKey() + " | "
                     + "List of pages: " + entry.getValue());
         }
