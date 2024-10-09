@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.stream.event;
 
 import java.util.ArrayList;
 import java.util.HashMap;
