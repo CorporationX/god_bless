@@ -1,12 +1,9 @@
 package school.faang.ELK;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Main {
-    private static final Map<User, List<Query>> USERS = new HashMap<>();
+    private static final Map<User, List<Query>> users = new HashMap<>();
 
     public static void main(String[] args) {
         User user1 = new User(1, "User1");
@@ -30,18 +27,22 @@ public class Main {
     }
 
     public static void addUser(User user, List<Query> queries) {
-        USERS.put(user, queries);
+        users.put(user, queries);
     }
 
     public static void addQueryToUser(User user, Query query) {
-        USERS.get(user).add(query);
+        users.get(user).add(query);
     }
 
     public static void removeUser(User user) {
-        USERS.remove(user);
+        users.remove(user);
     }
 
     public static void printUsers() {
-        USERS.forEach((user, queries) -> System.out.println(user + ": " + queries));
+        users.forEach((user, queries) -> {
+            System.out.println(user + ": ");
+            queries.stream().sorted(Comparator.comparing(Query::getTimestamp)).
+                    forEach(System.out::println);
+        });
     }
 }
