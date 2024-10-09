@@ -31,7 +31,9 @@ public class Main {
         List<String> keyWithEmptyList = new ArrayList<>();
         index.forEach((k, v) -> {
             v.removeIf(x -> x.getUrl().equals(url));
-            if (v.isEmpty()) keyWithEmptyList.add(k);
+            if (v.isEmpty()) {
+                keyWithEmptyList.add(k);
+            }
         });
         keyWithEmptyList.forEach(key -> index.remove(key));
     }
