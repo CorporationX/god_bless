@@ -14,10 +14,14 @@ public class ListOperations {
         Set<Integer> set = new HashSet<>(numbers);
         return numbers.stream()
                 .filter(num -> set.contains(number - num))
-                .map(num -> Arrays.asList(num, number - num))
-                .peek(Collections::sort)
+                .map(num -> {
+                    List<Integer> pair = Arrays.asList(num, number - num);
+                    Collections.sort(pair);
+                    return pair;
+                })
                 .collect(Collectors.toSet());
     }
+
 
     public List<String> sortedCountryByLiteral(Map<String, String> coutryMap) {
         return coutryMap.values().stream().sorted().toList();
@@ -26,7 +30,7 @@ public class ListOperations {
     public List<String> sortedListByLiteral(List<String> stringList, char ch) {
         return stringList.stream()
                 .filter(s -> s.startsWith(String.valueOf(ch)))
-                .sorted((s1, s2) -> s1.length() - s2.length())
+                .sorted(Comparator.comparing(String::length))
                 .sorted(Comparator.naturalOrder())
                 .toList();
     }
@@ -41,8 +45,8 @@ public class ListOperations {
         String regex = "[" + alphabet + "]+";
         return stringList.stream()
                 .filter(s -> s.matches(regex))
-                .sorted((s1, s2) -> s1.length() - s2.length())
-                .sorted(Comparator.naturalOrder())
+                .sorted(Comparator.comparingInt(String::length)
+                        .thenComparing(Comparator.naturalOrder()))
                 .toList();
     }
 }
