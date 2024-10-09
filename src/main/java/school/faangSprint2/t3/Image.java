@@ -1,0 +1,11 @@
+package school.faangSprint2.t3;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+public class Image {
+    private String name;
+    private String description;
+}
