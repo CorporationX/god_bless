@@ -1,11 +1,7 @@
 package school.faang.systemForStudentsGrades;
 
-import lombok.Getter;
-
 import java.util.*;
 
-
-@Getter
 public class GradeTracker {
     Map<Student, Map<Subject, Integer>> subjectsByStudents = new HashMap<>();
     Map<Subject, Set<Student>> groupStudentsBySubject = new HashMap<>();
