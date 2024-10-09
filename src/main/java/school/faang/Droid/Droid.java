@@ -23,7 +23,7 @@ public class Droid {
         droid.receiveMessage(encryptedMessage, key);
     }
 
-    public void receiveMessage(String message, int key) {
+    private void receiveMessage(String message, int key) {
         String decryptedMessage = decryptMessage(message, key, (msg, k) -> {
             StringBuilder result = new StringBuilder();
             for (char character : msg.toCharArray()) {
