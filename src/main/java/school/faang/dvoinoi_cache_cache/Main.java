@@ -68,7 +68,7 @@ public class Main {
 
     public static void addStudentToAnExistingSubject(Subject subject, Student student) {
         List<Student> students = SUBJECTS_AND_STUDENTS.get(subject);
-        if (!students.isEmpty()) {
+        if (students != null) {
             students.add(student);
         } else {
             System.out.println("Subject not found, use addNewSubjectAndParticipatingStudents method instead");
