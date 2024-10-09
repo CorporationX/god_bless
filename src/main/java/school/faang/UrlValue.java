@@ -1,9 +1,6 @@
 package school.faang;
 
 import lombok.Data;
-import java.util.LinkedList;
-import java.util.function.UnaryOperator;
-
 @Data
 public class UrlValue{
     private String word;
