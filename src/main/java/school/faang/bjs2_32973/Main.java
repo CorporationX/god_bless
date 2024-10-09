@@ -6,50 +6,64 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-        WebPage page1 = new WebPage("https://example.com", "Example Page", "this ONE go ");
-        WebPage page2 = new WebPage("https://examples.com", "Example Page", "this One go ");
- //       WebPage page2 = new WebPage("https://test.com", "Test Page", "Test the indexing method with this content.");
-//        WebPage page3 = new WebPage("https://java.com", "Java Page", "Learn Java and its features through examples.");
-//        WebPage page4 = new WebPage("https://openai.com", "OpenAI Page", "Explore AI development with OpenAI's tools.");
-//        WebPage page5 = new WebPage("https://blog.com", "Blog Page", "Welcome to the blog. This is the first post.");
-//        WebPage page6 = new WebPage("https://blog.com", "Blog Page", "Blog");
-//        WebPage page7 = new WebPage("https://blog.com", "Blog Page", "blog");
-//        WebPage page8 = new WebPage("https://blog.com", "Blog Page", "BLOG");
-//        WebPage page9 = new WebPage("https://blog.com", "Blog Page", "bLOG");
-//        WebPage page10 = new WebPage("https://blog.com", "Blog Page", "BLoG");
-
-        // Создаем карту для хранения индекса (ключ - слово, значение - список WebPage)
         Map<String, List<WebPage>> indexMap = new HashMap<>();
+        testIndexWebPage(indexMap);
+        testGetWebPagesByWord(indexMap);
+        testRemoveFromIndexByUrl(indexMap);
 
-        // Тестируем метод индексирования (например, indexWebPage(page1, indexMap))
-        WebPageIndexer webPageIndexer = new WebPageIndexer();
-        webPageIndexer.indexWebPage(page1, indexMap);
-        webPageIndexer.indexWebPage(page2, indexMap);
-//        webPageIndexer.indexWebPage(page3, indexMap);
-//        webPageIndexer.indexWebPage(page4, indexMap);
-//        webPageIndexer.indexWebPage(page5, indexMap);
-//        webPageIndexer.indexWebPage(page6, indexMap);
-//        webPageIndexer.indexWebPage(page7, indexMap);
-//        webPageIndexer.indexWebPage(page8, indexMap);
-//        webPageIndexer.indexWebPage(page9, indexMap);
-//        webPageIndexer.indexWebPage(page10, indexMap);
-        testRemoveFromIndexByUrl(indexMap, webPageIndexer);
 
     }
 
-    private static void testRemoveFromIndexByUrl(Map<String, List<WebPage>> indexMap, WebPageIndexer webPageIndexer) {
-        String urlForRemove = "https://example.com";
+    private static void testIndexWebPage(Map<String, List<WebPage>> webPageKeywordIndex) {
+        System.out.println("\ntestIndexWebPage\n");
+        WebPageIndexer webPageIndexer = new WebPageIndexer();
+        WebPage webPage1 = new WebPage("https://test.com", "Test Page", "Test $#content.");
+        WebPage webPage2 = new WebPage("https://openai.com", "OpenAI Page", "test CONTENT% run");
+
+        System.out.println("index before:");
+        printIndex(webPageKeywordIndex);
+
+        webPageIndexer.indexWebPage(webPage1, webPageKeywordIndex);
+        webPageIndexer.indexWebPage(webPage2, webPageKeywordIndex);
+
+        System.out.println("\nadd:");
+        System.out.println(webPage1);
+        System.out.println(webPage2);
+
+        System.out.println("\nindex after:");
+        printIndex(webPageKeywordIndex);
+    }
+
+    private static void testGetWebPagesByWord(Map<String, List<WebPage>> webPageKeywordIndex) {
+        WebPageIndexer webPageIndexer = new WebPageIndexer();
+        System.out.println("\ntestGetWebPagesByWord\n");
+        String keyWord = "TEST";
+        System.out.println("list web pages by word - " + keyWord);
+        List<WebPage> webPagesByWord = webPageIndexer.getWebPagesByWord(keyWord, webPageKeywordIndex);
+        for (WebPage webPage : webPagesByWord) {
+            System.out.println(webPage);
+        }
+
+
+    }
+
+    private static void testRemoveFromIndexByUrl(Map<String, List<WebPage>> indexMap) {
+        System.out.println("\ntestRemoveFromIndexByUrl\n");
+
+        WebPageIndexer webPageIndexer = new WebPageIndexer();
+        String urlForRemove = "https://openai.com";
 
         System.out.println("indexMap before:");
         printIndex(indexMap);
 
         webPageIndexer.removeFromIndexByUrl(urlForRemove, indexMap);
+        System.out.println("delete by URL - https://openai.com");
 
-        System.out.println("indexMap after:");
+        System.out.println("\nindexMap after:");
         printIndex(indexMap);
     }
 
-    private static void printIndex(Map<String, List<WebPage>> indexMap){
+    private static void printIndex(Map<String, List<WebPage>> indexMap) {
         for (Map.Entry<String, List<WebPage>> stringListEntry : indexMap.entrySet()) {
             System.out.println(stringListEntry.getKey());
             List<WebPage> webPages = stringListEntry.getValue();

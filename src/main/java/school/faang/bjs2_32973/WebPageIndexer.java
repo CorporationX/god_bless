@@ -37,16 +37,9 @@ public class WebPageIndexer {
         }
     }
 
-    private static String[] divideByWords(String content) {
-        if (content == null || content.isEmpty() || content.isBlank()) {
-            throw new NullPointerException("сontent is empty");
-        }
-        String nonLetterOrDigitRegex = "[^\\p{L}\\p{N}']+";
-        return content.split(nonLetterOrDigitRegex);
-    }
 
     public List<WebPage> getWebPagesByWord(String keyWord, Map<String, List<WebPage>> webPageKeywordIndex) {
-        if(webPageKeywordIndex == null){
+        if (webPageKeywordIndex == null) {
             throw new IllegalArgumentException("webPageKeywordIndex is null");
         }
         String contentWordLowerCase = keyWord.toLowerCase();
@@ -54,7 +47,7 @@ public class WebPageIndexer {
     }
 
     public void removeFromIndexByUrl(String urlForRemove, Map<String, List<WebPage>> webPageKeywordIndex) {
-        if(webPageKeywordIndex == null){
+        if (webPageKeywordIndex == null) {
             throw new IllegalArgumentException("webPageKeywordIndex is null");
         }
         String[] keyWordsWebPageToRemove = getKeyWordsCurrentWebPageByUrl(urlForRemove, webPageKeywordIndex);
@@ -91,5 +84,13 @@ public class WebPageIndexer {
             }
         }
         return null;
+    }
+
+    private static String[] divideByWords(String content) {
+        if (content == null || content.isEmpty() || content.isBlank()) {
+            throw new NullPointerException("сontent is empty");
+        }
+        String nonLetterOrDigitRegex = "[^\\p{L}\\p{N}']+";
+        return content.split(nonLetterOrDigitRegex);
     }
 }
