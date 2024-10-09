@@ -9,9 +9,7 @@ public class Main {
         int[] nums = {1, 2, 3, 4, 5};
 
         System.out.println("Before reverse: " + Arrays.toString(nums));
-
-        example.reverse(nums);
-
+            example.reverse(nums);
         System.out.println("After reverse: " + Arrays.toString(nums));
     }
 }
