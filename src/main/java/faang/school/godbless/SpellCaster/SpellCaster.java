@@ -1,11 +1,7 @@
 package faang.school.godbless.SpellCaster;
 
-interface SpellAction {
-    String castSpellAction(String spell);
-}
-
 public class SpellCaster {
-    void cast(String spell, SpellAction spellAction) {
+    public void cast(String spell, SpellAction spellAction) {
         System.out.println(spellAction.castSpellAction(spell));
     }
 
