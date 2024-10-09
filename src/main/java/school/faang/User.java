@@ -5,22 +5,45 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 public class User {
-    private final String name;
+    private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
+    private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
+    private static final int ADULT_18_AND_MORE = 18;
+
+    private String name;
     private int age;
     private String placeOfWork;
     private String address;
 
-    public int getAge() {
-        return age;
-    }
-
     public User(String name, int age, String placeOfWork, String address) {
+        validateUser(name, age, placeOfWork, address);
         this.name = name;
         this.age = age;
         this.placeOfWork = placeOfWork;
         this.address = address;
+    }
+
+    private boolean validateUser(String name, int age, String placeOfWork, String address) {
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("The name should not be empty");
+        }
+        if (!(age >= ADULT_18_AND_MORE)) {
+            throw new IllegalArgumentException(("Age should be at least  " + ADULT_18_AND_MORE));
+        }
+        if (!VALID_JOBS.contains(placeOfWork)) {
+            throw new IllegalArgumentException("The work place should be Google , Uber, Amazon");
+        }
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("The cities addresses should be only in London, New York or Amsterdam");
+        }
+
+        return false;
+    }
+
+    public int getAge() {
+        return age;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
@@ -57,3 +80,4 @@ public class User {
                 '}';
     }
 }
+
