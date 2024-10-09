@@ -1,30 +1,16 @@
 package school.faang;
 
-import java.util.Objects;
+import lombok.Data;
 
-public class KeyForHashMap {
+import java.util.Objects;
+@Data
+public class KeyForStudentsMap {
     private String faculty;
     private int year;
 
-    public KeyForHashMap(int year, String faculty) {
+    public KeyForStudentsMap(int year, String faculty) {
         this.year = year;
         this.faculty = faculty;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setFaculty(String faculty) {
-        this.faculty = faculty;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     @Override
@@ -40,7 +26,7 @@ public class KeyForHashMap {
         if (obj == null || getClass() != obj.getClass()) {
             return false;
         }
-        KeyForHashMap key = (KeyForHashMap) obj;
+        KeyForStudentsMap key = (KeyForStudentsMap) obj;
         return year == key.year &&
                 Objects.equals(faculty, key.faculty);
     }
