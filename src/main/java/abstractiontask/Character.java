@@ -3,7 +3,7 @@ package abstractiontask;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class Character {
+public abstract class Character implements Attackable {
     protected String name;
     @Getter
     protected int strength;
@@ -24,6 +24,4 @@ public abstract class Character {
         this.dexterity = dexterity;
         this.intelligence = intelligence;
     }
-
-    public abstract void attack(Character character);
 }
