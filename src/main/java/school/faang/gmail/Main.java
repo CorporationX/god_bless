@@ -19,8 +19,11 @@ public class Main {
 
 
         Predicate<Email> predicate = email -> email.isImportant();
-        Function<Email, String> function = email -> email.getBody().toLowerCase();
-        Consumer<Email> consumer = email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getSubject());
+        Function<Email, String> function = email -> {
+            email.setBody(email.getBody().toLowerCase());
+            return email.getBody();
+        };
+        Consumer<Email> consumer = email -> System.out.println("Subject: " + email.getSubject() + ", Body: " + email.getBody());
 
         emailProcessor.processEmails(emails, predicate, function, consumer);
 
