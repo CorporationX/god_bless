@@ -7,7 +7,7 @@ public class FilterProcessor {
         return grayscaleFilter.apply(originalImage);
     }
 
-    public Function<Image, Image> combineFilters(Function<Image, Image> grayscaleFilter, Function<Image, Image> sepiaFilter) {
-        return grayscaleFilter.compose(sepiaFilter);
+    public Function<Image, Image> combineFilters(Function<Image, Image> firstFilter, Function<Image, Image> secondFilter) {
+        return firstFilter.compose(secondFilter);
     }
 }
