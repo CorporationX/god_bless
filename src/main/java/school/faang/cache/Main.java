@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-   private static final Map<Student, Map<Subject, Integer>> STUDENTS = new HashMap<>();
-   private static final Map<Subject, List<Student>> SUBJECTS = new HashMap<>();
+   private static final Map<Student, Map<Subject, Integer>> students = new HashMap<>();
+   private static final Map<Subject, List<Student>> subjects = new HashMap<>();
 
     public static void main(String[] args) {
         Student student1 = new Student(1, "Jack");
@@ -26,81 +26,29 @@ public class Main {
         student2Grades.put(science, 5);
         student2Grades.put(it, 4);
 
-        addStudent(student1, student1Grades);
-        addStudent(student2, student2Grades);
+        StudentService service = new StudentService(students, subjects);
 
-        addSubjectAndGrade(student1, science, 3);
+        service.addStudent(student1, student1Grades);
+        service.addStudent(student2, student2Grades);
 
-        printAllStudents();
+        service.addSubjectAndGrade(student1, science, 3);
+
+        service.printAllStudents();
         System.out.println();
 
-        removeStudent(student2);
-        printAllStudents();
+        service.removeStudent(student2);
+        service.printAllStudents();
 
 
         List<Student> students = new ArrayList<>();
         students.add(student1);
-        addSubject(it, students);
+        service.addSubject(it, students);
 
-        addStudentToSubject(it, student3, 3);
+        service.addStudentToSubject(it, student3, 3);
 
-        removeStudentFromSubject(math, student1);
+        service.removeStudentFromSubject(math, student1);
 
-        printAllStudents();
-        printAllSubjects();
-
-
-    }
-
-    public static void addStudent(Student student, Map<Subject, Integer> subjects) {
-        STUDENTS.put(student, subjects);
-        subjects.forEach((k, v) -> SUBJECTS.computeIfAbsent(k, s -> new ArrayList<>()).add(student));
-    }
-
-    public static void addSubjectAndGrade(Student student, Subject subject, int grade) {
-        STUDENTS.get(student).put(subject, grade);
-        SUBJECTS.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
-    }
-
-    public static void removeStudent(Student student) {
-        STUDENTS.remove(student);
-        SUBJECTS.forEach((k, v) -> v.remove(student));
-        SUBJECTS.values().removeIf(List::isEmpty);
-    }
-
-    public static void printAllStudents() {
-        STUDENTS.forEach((k, v) -> {
-            System.out.printf("Student %s id %d: \n", k.getName(), k.getId());
-            v.forEach((k1, v1) -> System.out.printf("%s grade: %d \n", k1.getName(), v1));
-            System.out.println();
-        });
-    }
-
-    public static void addSubject(Subject subject, List<Student> students) {
-        students.forEach(student -> {
-            SUBJECTS.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
-            STUDENTS.computeIfAbsent(student, k -> new HashMap<>()).put(subject, null);
-        });
-    }
-
-    private static void addStudentToSubject(Subject subject, Student student, int grade){
-        SUBJECTS.computeIfAbsent(subject, s -> new ArrayList<>()).add(student);
-        STUDENTS.computeIfAbsent(student, k -> new HashMap<>()).put(subject, grade);
-    }
-
-    public static void removeStudentFromSubject(Subject subject, Student student){
-        SUBJECTS.get(subject).remove(student);
-        SUBJECTS.values().removeIf(List::isEmpty);
-
-        STUDENTS.forEach((k, v) -> v.remove(subject));
-    }
-
-    public static void printAllSubjects() {
-        SUBJECTS.forEach((k, v) -> {
-            System.out.printf("Subject %s id %d: \n", k.getName(), k.getId());
-            v.forEach(student ->
-                    System.out.printf("Student %s, id %d\n", student.getName(), student.getId()));
-            System.out.println();
-        });
+        service.printAllStudents();
+        service.printAllSubjects();
     }
 }
