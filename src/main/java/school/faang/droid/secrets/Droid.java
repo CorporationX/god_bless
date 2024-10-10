@@ -13,46 +13,33 @@ public class Droid {
     private String name;
 
     public String sendMessage(Droid droidReceiver, String message, int key) {
-        String encryptMessage = encryptMessage(message, key);
-        log.info("{}  отправил зашифрованное сообщение {}: {}", this.name, droidReceiver.getName(), encryptMessage);
-        return encryptMessage;
+        String encryptedMessage = processMessage(message, key, true);
+        log.info("{}  отправил зашифрованное сообщение {}: {}", this.name, droidReceiver.getName(), encryptedMessage);
+        return encryptedMessage;
     }
 
     public String receiveMessage(String message, int key) {
-        String decryptMessage = decryptMessage(message, key);
-        log.info("{}  получил расшифрованное сообщение: {}", this.name, decryptMessage);
-        return decryptMessage;
+        String decryptedMessage = processMessage(message, key, false);
+        log.info("{}  получил расшифрованное сообщение: {}", this.name, decryptedMessage);
+        return decryptedMessage;
     }
 
-    private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = ((msg, k) -> {
+    private String processMessage(String message, int key, boolean encrypt) {
+        DroidMessageEncryptor encryptor = (msg, k) -> {
             StringBuilder result = new StringBuilder();
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    result.append((char) ((ch - base + k) % ALPHABET_SIZE + base));
+                    int newCharPosition = encrypt
+                            ? (ch - base + k) % ALPHABET_SIZE
+                            : (ch - base - k + ALPHABET_SIZE) % ALPHABET_SIZE;
+                    result.append((char) (newCharPosition + base));
                 } else {
                     result.append(ch);
                 }
             }
             return result.toString();
-        });
+        };
         return encryptor.encrypt(message, key);
-    }
-
-    private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = ((msg, k) -> {
-            StringBuilder result = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isUpperCase(ch) ? 'A' : 'a';
-                    result.append((char) ((ch - base - k + ALPHABET_SIZE) % ALPHABET_SIZE + base));
-                } else {
-                    result.append(ch);
-                }
-            }
-            return result.toString();
-        });
-        return decryptor.encrypt(message, key);
     }
 }
