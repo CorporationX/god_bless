@@ -1,5 +1,6 @@
 package school.faang.BJS2_33721_LordRPG;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -40,6 +41,7 @@ public class InventoryManager {
         ValidationUtils.validateFunction(itemMapper, "Item mapper can't be null!");
 
         Map<Item, Integer> inventory = character.getInventory();
+        Map<Item, Integer> newItems = new HashMap<>();
         Iterator<Map.Entry<Item, Integer>> inventoryIterator = inventory.entrySet().iterator();
 
         while(inventoryIterator.hasNext()) {
@@ -47,8 +49,10 @@ public class InventoryManager {
             if (condition.test(entry.getKey())) {
                 inventoryIterator.remove();
                 Item newItem = itemMapper.apply(entry.getKey());
-                inventory.put(newItem, entry.getValue());
+                newItems.put(newItem, entry.getValue());
             }
         }
+
+        inventory.putAll(newItems);
     }
 }
