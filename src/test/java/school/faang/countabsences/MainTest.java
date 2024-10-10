@@ -1,6 +1,9 @@
 package school.faang.countabsences;
 
 import org.junit.jupiter.api.Test;
+import school.faang.countabsences.students.Group;
+import school.faang.countabsences.students.Student;
+import school.faang.countabsences.students.StudentService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +26,7 @@ public class MainTest {
                 List.of(s1, s2, s3, s4, s5)
         );
 
-        Map<Group, List<Student>> groupedStudents = Main.getGroupedStudents(students);
+        Map<Group, List<Student>> groupedStudents = StudentService.getGroupedStudents(students);
         assertEquals(groupedStudents.get(new Group("faculty_1", 1)), List.of(s1, s5));
         assertEquals(groupedStudents.get(new Group("faculty_2", 3)), List.of(s2));
         assertEquals(groupedStudents.get(new Group("faculty_1", 3)), List.of(s3));

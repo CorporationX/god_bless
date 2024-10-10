@@ -1,4 +1,4 @@
-package school.faang.countabsences;
+package school.faang.countabsences.students;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
