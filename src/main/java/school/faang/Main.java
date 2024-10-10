@@ -17,7 +17,6 @@ public class Main {
 
         List<StreamEvent> eventsBurn = new ArrayList<>(Arrays.asList(secondEvent, secondEvent));
         List<StreamEvent> eventsSomething = new ArrayList<>(Arrays.asList(firstEvent));
-
         eventTypeMap.put("burn", eventsBurn);
         eventTypeMap.put("something", eventsSomething);
 
