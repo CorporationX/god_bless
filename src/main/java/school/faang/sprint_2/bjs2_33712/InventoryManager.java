@@ -5,12 +5,12 @@ import java.util.function.Predicate;
 
 public class InventoryManager {
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        character.getInventory().add(item);
+        character.addItem(item);
         consumer.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        character.getInventory().removeIf(predicate);
+        character.removeItem(predicate);
     }
 
     public void updateItemValue(Character character, Predicate<Item> predicate, Consumer<Item> updater) {

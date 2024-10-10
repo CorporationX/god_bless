@@ -15,7 +15,7 @@ class InventoryManagerTest {
         Item ring = new Item("The One Ring", 1000);
         Item elvenChainmail = new Item("Бронежилетка кожи с жопы дракона", 300);
         Item bread = new Item("Хлебушек", 20);
-        Set<Item> frodoBackpack = frodo.getInventory();
+        Set<Item> frodoBackpack;
         int ringValue = ring.getValue();
 
         InventoryManager manager = new InventoryManager();
@@ -23,12 +23,14 @@ class InventoryManagerTest {
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен!"));
         manager.addItem(frodo, elvenChainmail, (item) -> System.out.println(item.getName() + " была добавлен!"));
         manager.addItem(frodo, bread, (item) -> System.out.println(item.getName() + " был добавлен!"));
+        frodoBackpack = frodo.getInventory();
 
         assertTrue(frodoBackpack.contains(ring));
         assertTrue(frodoBackpack.contains(elvenChainmail));
         assertTrue(frodoBackpack.contains(bread));
 
         manager.removeItem(frodo, (item) -> item.getName().equalsIgnoreCase("хЛеБушЕк"));
+        frodoBackpack = frodo.getInventory();
 
         assertTrue(frodoBackpack.contains(ring));
         assertTrue(frodoBackpack.contains(elvenChainmail));
@@ -40,3 +42,4 @@ class InventoryManagerTest {
         assertEquals((ringValue * 2), ring.getValue());
     }
 }
+
