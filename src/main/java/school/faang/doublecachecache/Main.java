@@ -13,38 +13,38 @@ import static school.faang.doublecachecache.UniversityManagerService.addSubjectF
 import static school.faang.doublecachecache.UniversityManagerService.removeStudent;
 
 public class Main {
-    public static final Map<Student, Map<Subject, Integer>> STUDENTS = new HashMap<>();
-    public static final Map<Subject, List<Student>> GROUPED_SUB_AND_STUD = new HashMap<>();
-    public static final Set<Subject> SUBJECTS = new HashSet<>(Set.of(new Subject("Math"),
+    public static final Map<Student, Map<Subject, Integer>> students = new HashMap<>();
+    public static final Map<Subject, List<Student>> groupedSubAndStud = new HashMap<>();
+    public static final Set<Subject> subjects = new HashSet<>(Set.of(new Subject("Math"),
             new Subject("Foreign language"),
             new Subject("Computer science"),
             new Subject("Chemistry"),
             new Subject("History")));
 
     public static void main(String[] args) {
-        addStudentAndSubject(new Student("John"), "Math", 5);
-        addStudentAndSubject(new Student("Richard"), "Math", 3);
-        addStudentAndSubject(new Student("Sam"), "History", 4);
-        addStudentAndSubject(new Student("Leonardo"), "Chemistry", 3);
-        addStudentAndSubject(new Student("Scott"), "Computer science", 4);
+        addStudentAndSubject(new Student("John"), "Math", 5, students, subjects, groupedSubAndStud);
+        addStudentAndSubject(new Student("Richard"), "Math", 3, students, subjects, groupedSubAndStud);
+        addStudentAndSubject(new Student("Sam"), "History", 4, students, subjects, groupedSubAndStud);
+        addStudentAndSubject(new Student("Leonardo"), "Chemistry", 3, students, subjects, groupedSubAndStud);
+        addStudentAndSubject(new Student("Scott"), "Computer science", 4, students, subjects, groupedSubAndStud);
 
-        addSubjectForExistingStudent("John", "Chemistry", 4);
-        addSubjectForExistingStudent("John", "History", 3);
-        addSubjectForExistingStudent("Leonardo", "Computer science", 4);
-        addSubjectForExistingStudent("Leonardo", "Math", 5);
-        addSubjectForExistingStudent("Scott", "Math", 3);
-        addSubjectForExistingStudent("Sam", "History", 4);
-        addSubjectForExistingStudent("Sam", "Computer science", 4);
+        addSubjectForExistingStudent("John", "Chemistry", 4, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("John", "History", 3, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("Leonardo", "Computer science", 4, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("Leonardo", "Math", 5, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("Scott", "Math", 3, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("Sam", "History", 4, students, subjects, groupedSubAndStud);
+        addSubjectForExistingStudent("Sam", "Computer science", 4, students, subjects, groupedSubAndStud);
 
-        printInfoAcademicPerformance();
+        printInfoAcademicPerformance(students);
         System.out.println();
-        printInfoAboutSubjectsAndStudents();
+        printInfoAboutSubjectsAndStudents(groupedSubAndStud);
 
-        removeStudent("John");
-        removeStudent("Leonardo");
+        removeStudent("John", students, groupedSubAndStud);
+        removeStudent("Leonardo", students, groupedSubAndStud);
 
-        printInfoAcademicPerformance();
+        printInfoAcademicPerformance(students);
         System.out.println();
-        printInfoAboutSubjectsAndStudents();
+        printInfoAboutSubjectsAndStudents(groupedSubAndStud);
     }
 }

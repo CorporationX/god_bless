@@ -2,58 +2,58 @@ package school.faang.doublecachecache;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import static school.faang.doublecachecache.Main.GROUPED_SUB_AND_STUD;
-import static school.faang.doublecachecache.Main.SUBJECTS;
 import static school.faang.doublecachecache.StudentService.findStudentByName;
 
 public class SubjectService {
-    public static void addNewSubject(String subjectName, Student student) {
+    public static void addNewSubject(String subjectName, Student student, Map<Subject, List<Student>> groupedSubAndStud, Set<Subject> subjects) {
         if (student == null) {
             System.out.println("Student cannot be null!");
             return;
         }
-        Subject subject = findSubjectByName(subjectName);
+        Subject subject = findSubjectByName(subjectName, subjects);
         if (subject == null) {
             System.out.println("Subject not found!");
             return;
         }
-        List<Student> studentsInSubject = GROUPED_SUB_AND_STUD.computeIfAbsent(subject, k -> new ArrayList<>());
+        List<Student> studentsInSubject = groupedSubAndStud.computeIfAbsent(subject, k -> new ArrayList<>());
         if (!studentsInSubject.contains(student)) {
             studentsInSubject.add(student);
         }
     }
 
-    public static void addStudentForExistSubject(String subjectName, Student student) {
+    public static void addStudentForExistSubject(String subjectName, Student student, Map<Subject, List<Student>> groupedSubAndStud, Set<Subject> subjects) {
         if (student == null) {
             System.out.println("Student cannot be null!");
             return;
         }
-        Subject subject = findSubjectByName(subjectName);
+        Subject subject = findSubjectByName(subjectName, subjects);
         if (subject == null) {
             System.out.println("Subject not found!");
             return;
         }
-        if (GROUPED_SUB_AND_STUD.get(subject).contains(student)) {
+        if (groupedSubAndStud.get(subject).contains(student)) {
             System.out.println("Student is already added for this subject!");
             return;
         }
-        GROUPED_SUB_AND_STUD.computeIfAbsent(subject, sub -> new ArrayList<>()).add(student);
+        groupedSubAndStud.computeIfAbsent(subject, sub -> new ArrayList<>()).add(student);
     }
 
-    public static void removeStudent(String studentName) {
-        Student studentForRemove = findStudentByName(studentName);
+    public static void removeStudent(String studentName, Map<Student, Map<Subject, Integer>> students, Map<Subject, List<Student>> groupedSubAndStud) {
+        Student studentForRemove = findStudentByName(studentName, students);
         if (studentForRemove == null) {
             System.out.println("Student cannot be null!");
             return;
         }
-        for (List<Student> studentsInSubject : GROUPED_SUB_AND_STUD.values()) {
+        for (List<Student> studentsInSubject : groupedSubAndStud.values()) {
             studentsInSubject.remove(studentForRemove);
         }
     }
 
-    public static void printInfoAboutSubjectsAndStudents() {
-        for (var entry : GROUPED_SUB_AND_STUD.entrySet()) {
+    public static void printInfoAboutSubjectsAndStudents(Map<Subject, List<Student>> groupedSubAndStud) {
+        for (var entry : groupedSubAndStud.entrySet()) {
             System.out.println("Subject name: " + entry.getKey().getName());
             System.out.println("Students studying this subject: ");
             for (Student student : entry.getValue()) {
@@ -62,8 +62,8 @@ public class SubjectService {
         }
     }
 
-    public static Subject findSubjectByName(String subjectName) {
-        for (Subject subject : SUBJECTS) {
+    public static Subject findSubjectByName(String subjectName, Set<Subject> subjects) {
+        for (Subject subject : subjects) {
             if (subject.getName().equals(subjectName)) {
                 return subject;
             }
