@@ -18,4 +18,10 @@ public class ValidationUtils {
             throw new IllegalArgumentException("Item can't be null!");
         }
     }
+
+    public static void validateCharacter(Character character) {
+        if (character == null) {
+            throw new IllegalArgumentException("Character can't be null!");
+        }
+    }
 }
