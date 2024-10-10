@@ -15,4 +15,9 @@ public class Item {
         this.name = name;
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Item's name: %s, its value: %d dollars", name, value);
+    }
 }
