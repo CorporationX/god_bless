@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 public class Character {
     private String name;
+    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
         if (name.isEmpty() || name.isBlank()) {
@@ -16,6 +17,4 @@ public class Character {
 
         this.name = name;
     }
-
-    public List<Item> inventory = new ArrayList<>();
 }
