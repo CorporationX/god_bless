@@ -14,7 +14,7 @@ public class InventoryManager {
         character.getInventory().removeIf(predicate);
     }
 
-    public static void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
+    public static void updateCharactersItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
         character.setInventory(character.getInventory().stream()
                 .filter(predicate)
                 .map(item -> function.apply(item))
