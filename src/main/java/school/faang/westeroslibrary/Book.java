@@ -1,7 +1,6 @@
-package school.faang;
+package school.faang.westeroslibrary;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 

@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.westeroslibrary;
 
 import java.util.HashMap;
 import java.util.Map;
