@@ -9,7 +9,7 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilter(Function<Image, Image> filterFirst, Function<Image, Image> filterSecond) {
-        return image -> filterSecond.apply(filterFirst.apply(image));
+        return filterFirst.andThen(filterSecond);
     }
 
 }
