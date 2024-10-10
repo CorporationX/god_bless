@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.catchingevents;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,16 +14,7 @@ public class Main {
 
     public static void addStreamEvent(StreamEvent streamEvent) {
         streamEventsById.put(streamEvent.getId(), streamEvent);
-        streamEventsByEventTypes.compute(
-                streamEvent.getEventType(),
-                (k, v) -> {
-                    if (v == null) {
-                        v = new ArrayList<>();
-                    }
-                    v.add(streamEvent);
-                    return v;
-                }
-        );
+        streamEventsByEventTypes.computeIfAbsent(streamEvent.getEventType(), k -> new ArrayList<>()).add(streamEvent);
     }
 
     public static Optional<StreamEvent> getStreamEventById(int id) {

@@ -1,6 +1,6 @@
+package school.faang.catchingevents;
+
 import org.junit.jupiter.api.Test;
-import school.faang.Main;
-import school.faang.StreamEvent;
 
 import java.util.List;
 
