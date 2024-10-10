@@ -10,21 +10,9 @@ public class Item {
     private int value;
 
     public Item(String name, int value) {
-        validateString(name, "Invalid name!");
-        validateValue(value);
+        ValidationUtils.validateString(name, "Invalid name!");
+        ValidationUtils.validatePositiveInteger(value, "Value can't be less or equal to 0!");
         this.name = name;
         this.value = value;
-    }
-
-    private void validateString(String info, String message) {
-        if (info == null || info.isBlank()) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    private void validateValue(int value) {
-        if (value <= 0) {
-            throw new IllegalArgumentException("Invalid value! Must be more than 0.");
-        }
     }
 }
