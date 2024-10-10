@@ -12,11 +12,11 @@ public class Droid {
     private String shiftMessage(String message, int key) {
         DroidMessageEncryptor encryptor = (msg, encryptionKey) -> {
             StringBuilder shiftedMessage = new StringBuilder();
+            int effectiveKey = (key % NUMBER_OF_LETTERS_IN_THE_ALPHABET + NUMBER_OF_LETTERS_IN_THE_ALPHABET)
+                    % NUMBER_OF_LETTERS_IN_THE_ALPHABET;
             for (char ch : message.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    int effectiveKey = (key % NUMBER_OF_LETTERS_IN_THE_ALPHABET + NUMBER_OF_LETTERS_IN_THE_ALPHABET)
-                            % NUMBER_OF_LETTERS_IN_THE_ALPHABET;
                     shiftedMessage.append((char) ((ch - base + effectiveKey) % NUMBER_OF_LETTERS_IN_THE_ALPHABET + base));
                 } else {
                     shiftedMessage.append(ch);
