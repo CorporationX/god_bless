@@ -4,16 +4,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataCenter {
-    private List<Server> servers = new ArrayList<>();
+    private static final double LOAD_BUFFER = 300;
+    private static final double STANDARD_ENERGY_CONSUMPTION = 25;
+
+    private final List<Server> servers = new ArrayList<>();
 
     public List<Server> getServers() {
         return new ArrayList<>(servers);
     }
 
-    public void setServers(List<Server> servers) {
-        if (servers == null) {
-            throw new IllegalArgumentException("servers не может быть null");
+    public void add(Server server) {
+        servers.add(server);
+    }
+
+    public void remove(Server server) {
+        servers.remove(server);
+    }
+
+    public double getTotalEnergyConsumption() {
+        double totalEnergyConsumption = 0;
+        for (Server server : servers) {
+            totalEnergyConsumption += server.getEnergyConsumption();
         }
-        this.servers = servers;
+        return totalEnergyConsumption;
+    }
+
+    public void allocateResources(ResourceRequest request) {
+        double requestLoad = request.getLoad();
+        for (Server server : servers) {
+            if (server.loadAbility(requestLoad)) {
+                server.setLoad(requestLoad + server.getLoad());
+                return;
+            }
+        }
+        servers.add(new Server(requestLoad, requestLoad + LOAD_BUFFER, STANDARD_ENERGY_CONSUMPTION));
+    }
+
+    public void releaseResources(ResourceRequest request) {
+        double requestLoad = request.getLoad();
+        for (Server server : servers) {
+            if (server.getLoad() >= requestLoad) {
+                server.setLoad(server.getLoad() - requestLoad);
+                break;
+            } else {
+                requestLoad -= server.getLoad();
+                server.setLoad(0);
+            }
+        }
+    }
+
+    public void printReport() {
+        for (int i = 0; i < servers.size(); i++) {
+            System.out.println("server " + i + ": " + servers.get(i));
+        }
+        System.out.println(getTotalEnergyConsumption());
     }
 }

@@ -29,22 +29,22 @@ public class Main {
         }
 
         System.out.println("Сервера после добавления");
-        dataCenterService.printReport(dataCenter);
+        dataCenter.printReport();
         System.out.println();
 
         System.out.println("Сервера после удаления");
         dataCenterService.remove(servers.get(4), dataCenter);
-        dataCenterService.printReport(dataCenter);
+        dataCenter.printReport();
         System.out.println();
 
         System.out.println("Сервера выделения ресурсов");
         dataCenterService.allocateResources(new ResourceRequest(100), dataCenter);
-        dataCenterService.printReport(dataCenter);
+        dataCenter.printReport();
         System.out.println();
 
         System.out.println("Сервера освобождения ресурсов");
         dataCenterService.releaseResources(new ResourceRequest(500), dataCenter);
-        dataCenterService.printReport(dataCenter);
+        dataCenter.printReport();
         System.out.println();
     }
 }
