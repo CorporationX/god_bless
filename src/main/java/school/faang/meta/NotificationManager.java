@@ -8,13 +8,13 @@ import java.util.function.Consumer;
 @Data
 public class NotificationManager {
 
-    private Map<String, Consumer<Notification>> notificationIdHandlers = new HashMap<>();
+    private Map<String, Consumer<Notification>> notificationIdsHandlers = new HashMap<>();
 
     public void registerHandler(String id, Consumer<Notification> notificationConsumer) {
-        notificationIdHandlers.put(id, notificationConsumer);
+        notificationIdsHandlers.put(id, notificationConsumer);
     }
     public void sendNotification(Notification notification) {
-        Consumer<Notification> notificationConsumer = notificationIdHandlers.get(notification.getType());
+        Consumer<Notification> notificationConsumer = notificationIdsHandlers.get(notification.getType());
         notificationConsumer.accept(notification);
     }
 }
