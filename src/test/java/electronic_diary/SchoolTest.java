@@ -6,11 +6,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class SchoolTest {
-    private static final List<Student> STUDENTS = JsonReader.readStudentsFromJson("/students_test_data.json");
+    private static JsonReader jsonReader = new JsonReader();
+    private static final List<Student> STUDENTS = jsonReader.readStudentsFromJson("/students_test_data.json");
     @Test
     void averageGrades() {
         Map<String, Double> averageGrades = School.averageGrades(STUDENTS);
@@ -28,13 +32,14 @@ class SchoolTest {
 
     @Test
     void hardestSubject() {
-        String hardestSubject = School.hardestSubject(STUDENTS);
-        assertEquals("История", hardestSubject);
+        Optional<String> hardestSubject = School.hardestSubject(STUDENTS);
+        assertNotNull(hardestSubject);
+        assertEquals("История", hardestSubject.get());
     }
 
     @Test
     void printPerformanceTable() {
-        assert STUDENTS != null;
+        assertNotNull(STUDENTS);
 
         ByteArrayOutputStream outContent = new ByteArrayOutputStream();
         PrintStream originalOut = System.out;
@@ -42,7 +47,7 @@ class SchoolTest {
 
         School.printPerformanceTable(STUDENTS);
 
-        assert outContent.toString().contains("ФИО                  | Математика");
+        assertTrue(outContent.toString().contains("ФИО                  | Математика"));
 
         System.setOut(originalOut);
     }

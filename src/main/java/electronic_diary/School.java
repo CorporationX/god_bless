@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class School {
@@ -72,12 +73,11 @@ public class School {
      * @return The name of the subject with the lowest average grade
      *         (returns an empty string if there are no subjects)
      */
-    public static String hardestSubject(List<Student> students) {
+    public static Optional<String> hardestSubject(List<Student> students) {
         Map<String, Double> averageGrades = averageGrades(students);
         return averageGrades.entrySet().stream()
                 .min(Map.Entry.comparingByValue())
-                .map(Map.Entry::getKey)
-                .orElse(""); // Возвращаем пустую строку, если нет предметов
+                .map(Map.Entry::getKey);
     }
 
     /**

@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        List<Student> students = JsonReader.readStudentsFromJson("/students_test_data.json");
+        JsonReader jsonReader = new JsonReader();
+        List<Student> students = jsonReader.readStudentsFromJson("/students_test_data.json");
 
         if (students == null) {
             System.out.println("Error reading json file");

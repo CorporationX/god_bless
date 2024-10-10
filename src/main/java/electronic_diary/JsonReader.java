@@ -15,13 +15,13 @@ public class JsonReader {
      * @return a list of students read from the json file, or null if an error
      * occurs
      */
-    public static List<Student> readStudentsFromJson(String fileName) {
+    public List<Student> readStudentsFromJson(String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
         try (InputStream inputStream = JsonReader.class.getResourceAsStream(fileName)) {
             return objectMapper.readValue(inputStream, objectMapper.getTypeFactory().constructCollectionType(List.class, Student.class));
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("Error reading json file");
         }
     }
 }
