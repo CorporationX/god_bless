@@ -1,9 +1,9 @@
 package school.BJS2_33604;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class InventoryManager {
 
@@ -17,10 +17,11 @@ public class InventoryManager {
     }
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
-
-        for (int i = 0; i < character.getItems().size(); i++) {
-            if (filter.test(character.getItems().get(i))) {
-                character.getItems().set(i, action.apply(character.getItems().get(i)));
+        List<Item> items = character.getItems();
+        for (int i = 0; i < items.size(); i++) {
+            Item item = items.get(i);
+            if (filter.test(item)) {
+                items.set(i, action.apply(item));
                 break;
             }
         }

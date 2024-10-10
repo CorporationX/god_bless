@@ -10,11 +10,4 @@ public class Item {
     private String name;
     private int value;
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "name='" + name + '\'' +
-                ", value=" + value +
-                '}';
-    }
 }
