@@ -1,5 +1,7 @@
 package school.faang.BJS2_34195_DroidSecrets;
 
+import java.util.Objects;
+
 public class Droid {
     // БЕЗ Ё
     private static final int RUSSIAN_ALPHABET_LENGTH = 32;
@@ -8,6 +10,17 @@ public class Droid {
     private static final char RUSSIAN_ALPHABET_BASE_BIG = 'А';
     private static final char ENGLISH_ALPHABET_BASE_SMALL = 'a';
     private static final char ENGLISH_ALPHABET_BASE_BIG = 'A';
+
+    public void sendMessage(String message, int encryptKey, Droid droid) {
+        validateMessage(message);
+        validateDroid(droid);
+        droid.receiveMessage(encryptMessage(message, encryptKey), encryptKey);
+    }
+
+    public void receiveMessage(String message, int decryptKey) {
+        validateMessage(message);
+        System.out.println(decryptMessage(message, decryptKey));
+    }
 
     public String encryptMessage(String message, int key) {
         validateMessage(message);
@@ -37,6 +50,7 @@ public class Droid {
                 if (isRussianChar(currentChar)) {
                     char base = Character.isLowerCase(currentChar) ? RUSSIAN_ALPHABET_BASE_SMALL : RUSSIAN_ALPHABET_BASE_BIG;
                     int shiftValue = (currentChar - encryptKey - base) % RUSSIAN_ALPHABET_LENGTH;
+                    // shiftValue может быть отрицательным, тогда неправильно дешифруется: уйдет за пределы кодов буквы алфавита
                     shiftValue = shiftValue > 0 ? shiftValue : RUSSIAN_ALPHABET_LENGTH + shiftValue;
                     messageChars[i] = (char)(base + shiftValue);
                 } else if (isEnglishChar(currentChar)) {
@@ -49,6 +63,12 @@ public class Droid {
             return new String(messageChars);
         };
         return encryptLogic.encrypt(message, key);
+    }
+
+    private void validateDroid(Droid droid) {
+        if (droid == null) {
+            throw new IllegalArgumentException("Droid can't be null!");
+        }
     }
 
     private void validateMessage(String message) {
