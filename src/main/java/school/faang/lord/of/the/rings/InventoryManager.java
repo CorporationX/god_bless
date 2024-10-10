@@ -18,9 +18,6 @@ public class InventoryManager {
     }
 
     public static void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        List<Item> updatedInventory = character.getInventory().stream()
-                .map(item -> predicate.test(item) ? function.apply(item) : item)
-                .collect(Collectors.toList());
-        character.setInventory(updatedInventory);
+        character.getInventory().replaceAll(item -> predicate.test(item) ? function.apply(item) : item);
     }
 }

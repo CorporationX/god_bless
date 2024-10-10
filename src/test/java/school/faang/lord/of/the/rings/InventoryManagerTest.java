@@ -50,7 +50,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void addItemAndUpdateValueTest() {
+    void updateItemValueTest() {
         InventoryManager.addItem(frodo, ring, addItemAction2);
         int valueBefore = frodo.getInventory().get(0).getValue();
 
