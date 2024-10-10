@@ -1,6 +1,6 @@
 package school.faang.lord.of.the.rings;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,9 +15,7 @@ public class InventoryManager {
             throw new IllegalArgumentException("itemHandler не может быть null");
         }
 
-        List<Item> items = character.getInventory();
-        items.add(item);
-        character.setInventory(items);
+        character.addItem(item);
         itemHandler.accept(item);
     }
 
@@ -27,9 +25,10 @@ public class InventoryManager {
         }
         validatePredicate(removeCondition, "removeCondition не может быть null");
 
-        List<Item> items = character.getInventory();
-        items.removeIf(removeCondition);
-        character.setInventory(items);
+        Optional<Item> itemOptional = character.getInventory().stream()
+                .filter(removeCondition)
+                .findFirst();
+        itemOptional.ifPresent(character::removeItem);
     }
 
     public void updateItem(Character character, Predicate<Item> updateCondition, Function<Item, Item> itemModifier) {
@@ -39,13 +38,7 @@ public class InventoryManager {
             throw new IllegalArgumentException("itemModifier не может быть null");
         }
 
-        List<Item> items = character.getInventory();
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            if (updateCondition.test(items.get(i))) {
-                items.set(i, itemModifier.apply(items.get(i)));
-            }
-        }
-        character.setInventory(items);
+        character.updateItem(updateCondition, itemModifier);
     }
 
     private static void validateCharacter(Character character) {
