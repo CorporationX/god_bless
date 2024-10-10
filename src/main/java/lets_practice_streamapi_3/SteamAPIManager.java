@@ -1,5 +1,6 @@
 package lets_practice_streamapi_3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -76,30 +77,68 @@ public class SteamAPIManager {
      * @return true if the number is a palindrome, false otherwise
      */
     private static boolean isPalindrome(int number) {
-        String str = String.valueOf(number);
-        String reversedStr = new StringBuilder(str).reverse().toString();
-        return str.equals(reversedStr);
+        int reversed = 0, original = number;
+
+        while (number != 0) {
+            reversed = reversed * 10 + number % 10;
+            number /= 10;
+        }
+
+        return original == reversed;
+    }
+    
+    /**
+     * Finds all the palindrome substrings of the given input string.
+     * <p>
+     * A palindrome is a number or a text phrase that reads the same backwards as forwards.
+     * For example, the string "abcddcba" is a palindrome.
+     * <p>
+     * This method returns a list of all the palindrome substrings of the given input string.
+     * <p>
+     * The algorithm works by iterating over the string and expanding the palindrome
+     * from each character outwards. It takes advantage of the fact that a palindrome
+     * must have an even length, so it only needs to check substrings of even length.
+     *
+     * @param input the input string to find palindrome substrings in
+     * @return a list of all the palindrome substrings of the given input string
+     */
+    public static List<String> findPalindromeSubstrings(String input) {
+        List<String> palindromes = new ArrayList<>();
+        for (int i = 0; i < input.length(); i++) {
+            expandAndCollectPalindromes(input, i, i, palindromes);
+            expandAndCollectPalindromes(input, i, i + 1, palindromes);
+        }
+
+        return palindromes;
     }
 
     /**
-     * Finds all the palindromic substrings of the given string.
+     * Expands around the given center and collects all the palindromic substrings
+     * of the given string.
      * <p>
-     * A palindromic substring is a substring that reads the same backwards as forwards.
-     * For example, the string "madam" has the following palindromic substrings: "madam", "ada", "madam", "ada".
+     * The given center is the center of a potential palindrome. The method starts
+     * by checking if the characters to the left and right of the center are equal.
+     * If they are, the method adds the substring from the left to the right (inclusive)
+     * to the list of palindromes if it is not already there. Then the method moves
+     * one character to the left and one character to the right and repeats the process
+     * until the characters to the left and right of the center are different.
      * <p>
-     * The returned list will not contain any duplicate substrings.
+     * The method assumes that the input string does not contain any null characters.
      *
      * @param input the string to find palindromic substrings in
-     * @return a list of all the palindromic substrings of the given string
+     * @param left the starting index of the left side of the potential palindrome
+     * @param right the starting index of the right side of the potential palindrome
+     * @param palindromes the list of palindromes to add to
      */
-    public static List<String> findPalindromeSubstrings(String input) {
-        return IntStream.range(0, input.length())
-                .boxed()
-                .flatMap(i -> IntStream.range(i + 1, input.length() + 1)
-                        .mapToObj(j -> input.substring(i, j)))
-                .filter(str -> str.contentEquals(new StringBuilder(str).reverse()))
-                .distinct()
-                .collect(Collectors.toList());
+    private static void expandAndCollectPalindromes(String input, int left, int right, List<String> palindromes) {
+        while (left >= 0 && right < input.length() && input.charAt(left) == input.charAt(right)) {
+            String palindrome = input.substring(left, right + 1);
+            if (!palindromes.contains(palindrome)) {
+                palindromes.add(palindrome);
+            }
+            left--;
+            right++;
+        }
     }
 
     /**
