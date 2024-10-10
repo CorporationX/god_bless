@@ -11,20 +11,20 @@ public class Main {
     public static void main(String[] args) {
 
 
-        WebPage google = new WebPage("https://www.google.com", "Google", "Google is the best search platform in the world");
-        WebPage bing = new WebPage("https://www.bing.com", "Bing", "Bing is the best");
-        WebPage yahoo = new WebPage("https://www.yahoo.com", "Yahoo", "Yahoo is search engine");
+        WebPage googleWebPage  = new WebPage("https://www.google.com", "Google", "Google is the best search platform in the world");
+        WebPage bingWebPage = new WebPage("https://www.bing.com", "Bing", "Bing is the best");
+        WebPage yahooWebPage = new WebPage("https://www.yahoo.com", "Yahoo", "Yahoo is search engine");
 
-        indexWebPage(google);
-        indexWebPage(bing);
-        indexWebPage(yahoo);
+        indexWebPage(googleWebPage );
+        indexWebPage(bingWebPage);
+        indexWebPage(yahooWebPage);
 
         searchByWord("google").forEach(System.out::println);
 
     }
 
     public static void indexWebPage(WebPage webPage) {
-        String[] words = webPage.getContent().toLowerCase().split(" ");
+        String[] words = webPage.getContent().toLowerCase().split("'\\S+'");
         for (String word : words) {
             URL.putIfAbsent(word, new ArrayList<>());
             if (!URL.get(word).contains(webPage)) {
