@@ -17,16 +17,14 @@ public class CsvConverter {
     }
 
     public static String toCsv(List<List<String>> table) {
-        VectorJoiner<String> vectorJoiner = (list) -> {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.size() - 1; i++) {
-                sb.append(list.get(i));
-                sb.append(",");
-            }
-            sb.append(list.get(list.size() - 1));
-            return sb.toString();
-        };
+        VectorJoiner<String> vectorJoiner = (vector) -> joinVector(vector);
         MatrixJoiner<String> matrixJoiner = (matrix) -> {
+            if (matrix == null) {
+                throw new IllegalArgumentException("matrix не может быть null");
+            }
+            if (matrix.isEmpty()) {
+                return "";
+            }
             StringBuilder sb = new StringBuilder();
             for (List<String> row : matrix) {
                 sb.append(vectorJoiner.join(row));
@@ -35,5 +33,20 @@ public class CsvConverter {
             return sb.toString();
         };
         return matrixJoiner.join(table);
+    }
+
+    private static String joinVector(List<String> vector) {
+        if (vector == null) {
+            throw new IllegalArgumentException("list не может быть null");
+        }
+        if (vector.isEmpty()) {
+            return "";
+        }
+        StringBuilder sb = new StringBuilder(vector.get(0));
+        for (int i = 0; i < vector.size(); i++) {
+            sb.append(vector.get(i));
+            sb.append(",");
+        }
+        return sb.toString();
     }
 }
