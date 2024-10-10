@@ -1,6 +1,6 @@
 package school.faang.BJS2_34195_DroidSecrets;
 
-import lombok.Getter;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class Droid {
     // БЕЗ Ё
@@ -30,46 +30,42 @@ public class Droid {
     }
 
     public String encryptMessage(String message, int key) {
-        validateString(message, "Invalid message!");
-        DroidMessageEncryptor encryptLogic = (messageToEncrypt, encryptKey) -> {
-            char[] messageChars = messageToEncrypt.toCharArray();
-            for (int i = 0; i < messageChars.length; i++) {
-                char currentChar = messageChars[i];
-                if (isRussianChar(currentChar)) {
-                    char base = Character.isLowerCase(currentChar) ? RUSSIAN_ALPHABET_BASE_SMALL : RUSSIAN_ALPHABET_BASE_BIG;
-                    messageChars[i] = (char)(base + (currentChar + encryptKey - base) % RUSSIAN_ALPHABET_LENGTH);
-                } else if (isEnglishChar(currentChar)) {
-                    char base = Character.isLowerCase(currentChar) ? ENGLISH_ALPHABET_BASE_SMALL : ENGLISH_ALPHABET_BASE_BIG;
-                    messageChars[i] = (char)(base + (currentChar + encryptKey - base) % ENGLISH_ALPHABET_LENGTH);
-                }
-            }
-            return new String(messageChars);
-        };
-        return encryptLogic.encrypt(message, key);
+        return processMessage(message, key, true);
     }
 
     public String decryptMessage(String message, int key) {
+        return processMessage(message, key, false);
+    }
+
+    private String processMessage(String message, int key, boolean isEncrypting) {
         validateString(message, "Invalid message!");
-        DroidMessageEncryptor decryptLogic = (messageToEncrypt, encryptKey) -> {
-            char[] messageChars = messageToEncrypt.toCharArray();
-            for (int i = 0; i < messageChars.length; i++) {
-                char currentChar = messageChars[i];
-                if (isRussianChar(currentChar)) {
-                    char base = Character.isLowerCase(currentChar) ? RUSSIAN_ALPHABET_BASE_SMALL : RUSSIAN_ALPHABET_BASE_BIG;
-                    int shiftValue = (currentChar - encryptKey - base) % RUSSIAN_ALPHABET_LENGTH;
-                    // shiftValue может быть отрицательным, тогда неправильно дешифруется: уйдет за пределы кодов буквы алфавита
-                    shiftValue = shiftValue >= 0 ? shiftValue : RUSSIAN_ALPHABET_LENGTH + shiftValue;
-                    messageChars[i] = (char)(base + shiftValue);
-                } else if (isEnglishChar(currentChar)) {
-                    char base = Character.isLowerCase(currentChar) ? ENGLISH_ALPHABET_BASE_SMALL : ENGLISH_ALPHABET_BASE_BIG;
-                    int shiftValue = (currentChar - encryptKey - base) % ENGLISH_ALPHABET_LENGTH;
-                    shiftValue = shiftValue >= 0 ? shiftValue : ENGLISH_ALPHABET_LENGTH + shiftValue;
-                    messageChars[i] = (char)(base + shiftValue);
+        DroidMessageEncryptor messageProcessor = (messageToEncrypt, encryptKey) -> {
+            StringBuilder stringBuilder = new StringBuilder();
+            for (char currentChar: message.toCharArray()) {
+                if (Character.isLetter(currentChar)) {
+                    Pair<Character, Integer> alphabetInfo = getAlphabetBaseAndLength(currentChar);
+                    char base = alphabetInfo.getLeft();
+                    int alphabetLength = alphabetInfo.getRight();
+                    int shiftValue = isEncrypting
+                            ? (currentChar + encryptKey - base) % alphabetLength
+                            : (currentChar - (encryptKey % alphabetLength) - base + alphabetLength) % alphabetLength;
+                    currentChar = (char)(base + shiftValue);
                 }
+                stringBuilder.append(currentChar);
             }
-            return new String(messageChars);
+            return stringBuilder.toString();
         };
-        return decryptLogic.encrypt(message, key);
+        return messageProcessor.encrypt(message, key);
+    }
+
+    private Pair<Character, Integer> getAlphabetBaseAndLength(char currentChar) {
+        if (isRussianChar(currentChar)) {
+            char base = Character.isLowerCase(currentChar) ? RUSSIAN_ALPHABET_BASE_SMALL : RUSSIAN_ALPHABET_BASE_BIG;
+            return Pair.of(base, RUSSIAN_ALPHABET_LENGTH);
+        } else {
+            char base = Character.isLowerCase(currentChar) ? ENGLISH_ALPHABET_BASE_SMALL : ENGLISH_ALPHABET_BASE_BIG;
+            return Pair.of(base, ENGLISH_ALPHABET_LENGTH);
+        }
     }
 
     private void validateDroid(Droid droid) {
@@ -85,7 +81,7 @@ public class Droid {
     }
 
     private boolean isRussianChar(char ch) {
-        return ('а' < ch && ch < 'я') || ('А' < ch && ch < 'Я');
+        return ('а' <= ch && ch <= 'я') || ('А' <= ch && ch <= 'Я');
     }
 
     private boolean isEnglishChar(char ch) {
