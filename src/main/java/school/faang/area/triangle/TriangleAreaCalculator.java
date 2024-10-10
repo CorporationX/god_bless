@@ -3,11 +3,11 @@ package school.faang.area.triangle;
 import java.util.function.Function;
 
 public class TriangleAreaCalculator {
-    Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
-    Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
-    Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
-    Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
-    Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
+    private final Function<Double, Function<Double, Double>> add = (x) -> (y) -> x + y;
+    private final Function<Double, Function<Double, Double>> multiply = (x) -> (y) -> x * y;
+    private final Function<Double, Function<Double, Double>> subtract = (x) -> (y) -> x - y;
+    private final Function<Double, Function<Double, Double>> divide = (x) -> (y) -> x / y;
+    private final Function<Double, Double> squareRoot = (x) -> Math.sqrt(x);
 
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
         if (a <= 0 || b <= 0 || c <= 0) {
@@ -22,7 +22,8 @@ public class TriangleAreaCalculator {
         double diffPerimeterAndA = subtract.apply(semiPerimeter).apply(a);
         double diffPerimeterAndB = subtract.apply(semiPerimeter).apply(b);
         double diffPerimeterAndC = subtract.apply(semiPerimeter).apply(c);
-        double productOfDiffs = multiply.apply(multiply.apply(diffPerimeterAndA).apply(diffPerimeterAndB))
+        double productOfDiffs = multiply.apply(
+                multiply.apply(diffPerimeterAndA).apply(diffPerimeterAndB))
                 .apply(diffPerimeterAndC);
         double productDiffsAndSemiPerimeter = multiply.apply(productOfDiffs).apply(semiPerimeter);
         return squareRoot.apply(productDiffsAndSemiPerimeter);
