@@ -1,14 +1,13 @@
 package school.faang.handleerrors;
 
-import java.util.function.Function;
 
 public class ErrorHandler {
-
-    public static <T> T withErrorHandling(ExceptionHandler<T> errorHandler, Function<Exception, T> function) {
+    public static <T> T withErrorHandling(ThrowableSupplier<T> action, ExceptionHandler<T> errorHandler) {
         try {
-            return errorHandler.handle();
+            return action.get();
         } catch (Exception e) {
-            return function.apply(e);
+            System.out.println(e.getMessage());
+            return errorHandler.handle(e);
         }
     }
 }
