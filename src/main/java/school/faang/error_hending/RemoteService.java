@@ -1,9 +1,9 @@
 package school.faang.error_hending;
 
 public class RemoteService {
-    public String call(Object param) throws Exception {
+    public <T> T call(String param) throws Exception {
         // Здесь возникнет ошибка для демонстрации
-//        throw new Exception("Сервис недоступен");
-        return "Всё окей, работаемс!;)";
+          throw new Exception("Сервис недоступен");
+//        return (T) "Всё окей, работаемс!;)";
     }
 }

@@ -4,12 +4,13 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public class ErrorHandler {
-    public Object withErrorHandling(String name, Consumer<String> consumer, Function<String, Object> function) {
+
+    public static <T> T withErrorHandling(String name, Consumer<Exception> consumer, Function<String, T> function) {
         try {
             return function.apply(name);
-        } catch (RuntimeException e) {
-            consumer.accept(String.valueOf(e));
-            return "Default";
+        } catch (Exception e) {
+            consumer.accept(e);
+            return (T) "Перезапустите приложение";
         }
     }
 }
