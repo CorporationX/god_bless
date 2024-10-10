@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.stream.event;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
