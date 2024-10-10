@@ -15,7 +15,7 @@ public class NotificationManager {
         if (NOTIFICATION_HANDLERS.containsKey(notification.type())) {
             NOTIFICATION_HANDLERS.get(notification.type()).accept(notification);
         } else {
-            System.out.printf("Для типа оповещения :%s отсутствует обработчик%n", notification.type());
+            System.out.printf("Для типа оповещения %s отсутствует обработчик%n", notification.type());
         }
     }
 }
