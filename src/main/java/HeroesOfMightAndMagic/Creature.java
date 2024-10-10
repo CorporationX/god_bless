@@ -11,7 +11,6 @@ public abstract class Creature {
     private int attack;
     private int defense;
     private int speed;
-    private int quantity;
 
     public int getDamage() {
         return getAttack() * getDefense() * getSpeed() * getLevel();

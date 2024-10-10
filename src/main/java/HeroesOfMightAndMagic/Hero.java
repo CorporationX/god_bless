@@ -8,7 +8,7 @@ public class Hero {
     private String fraction;
     private int experience;
     private int level;
-    private final Map<Creature, Integer> ARMY = new HashMap<>();
+    private final Map<Creature, Integer> army = new HashMap<>();
 
     public Hero(String name, String fraction, int experience, int level) {
         this.name = name;
@@ -18,19 +18,21 @@ public class Hero {
     }
 
     public void addCreature(Creature creature, int quantity) {
-        ARMY.put(creature, ARMY.get(creature) + quantity);
+        if (creature != null) {
+            army.put(creature, army.get(creature) + quantity);
+        }
     }
 
     public void removeCreature(Creature creature, int quantity) {
-        if (ARMY.get(creature) - quantity <= 0) {
-            ARMY.remove(creature);
+        if (army.get(creature) - quantity <= 0) {
+            army.remove(creature);
         } else {
-            ARMY.put(creature, ARMY.get(creature) - quantity);
+            army.put(creature, army.get(creature) - quantity);
         }
     }
 
     public void getArmy() {
-        ARMY.forEach((creature, quantity) -> {
+        army.forEach((creature, quantity) -> {
             System.out.println(creature + ": " + quantity);
         });
     }
@@ -38,7 +40,7 @@ public class Hero {
     public long getArmyDamage() {
         long finalDamage = 0;
 
-        for (Map.Entry<Creature, Integer> entry : ARMY.entrySet()) {
+        for (Map.Entry<Creature, Integer> entry : army.entrySet()) {
             finalDamage += (long) entry.getValue() * entry.getKey().getDamage();
         }
 
