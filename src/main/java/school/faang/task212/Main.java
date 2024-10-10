@@ -8,10 +8,9 @@ import java.util.Set;
 public class Main {
     public static void main(String[] args) {
         Notification emailNotification = new Notification("email", "Your account has been successfully activated");
-        Notification smsNotification = new Notification("sms", "You have successfully  changed your password");
+        Notification smsNotification = new Notification("sms", "You have thirdbadword successfully  changed your password");
         Notification pushNotification = new Notification("push", "New post thirdbadword from user: JohnDoe");
 
-        Set<String> badWords = Set.of("firstbadword", "secondbadword", "thirdbadword");
         NotificationManager notificationManager = new NotificationManager();
 
         notificationManager.registerHandler(emailNotification.getType(),
@@ -23,8 +22,11 @@ public class Main {
         notificationManager.registerHandler(pushNotification.getType(),
                 (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
 
-        notificationManager.sendNotification(badWords, emailNotification);
-        notificationManager.sendNotification(badWords, smsNotification);
-        notificationManager.sendNotification(badWords, pushNotification);
+        boolean needCheck = true;
+        boolean noNeededCheck = false;
+
+        notificationManager.sendNotification(needCheck, emailNotification);
+        notificationManager.sendNotification(needCheck, smsNotification);
+        notificationManager.sendNotification(noNeededCheck, pushNotification);
     }
 }

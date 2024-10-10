@@ -1,46 +1,61 @@
 package school.faang.task212.notifications;
 
-import lombok.RequiredArgsConstructor;
-
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class NotificationManager {
 
-    private static final HashMap<String, Consumer<Notification>> notificationHandler = new HashMap<>();
-    private static final MyPredicate<String, Notification> myPredicate =
-            (set, notification) -> {
+    private final Map<String, Consumer<Notification>> notificationHandlers = new HashMap<>();
+
+    private final Set<String> badWords = new HashSet<>();
+
+    {
+        Stream.of("firstbadword", "secondbadword", "thirdbadword").forEach(badWords::add);
+    }
+
+    public void addBadWord(String badWord) {
+        badWords.add(badWord);
+    }
+
+    public void removeBadWord(String badWord) {
+        badWords.remove(badWord);
+    }
+
+    private final Predicate<Notification> predicateForAdultContent =
+            (notification) -> {
                 String[] words = notification.getMessage()
                         .replaceAll("[^a-zA-Z\\s]", "")
                         .toLowerCase()
                         .split("\\s");
-
                 for (String word : words) {
-                    if (set.contains(word)) return true;
+                    if (badWords.contains(word)) {
+                        return true;
+                    }
                 }
                 return false;
             };
 
     public void registerHandler(String type, Consumer<Notification> consumer) {
-        notificationHandler.put(type, consumer);
+        notificationHandlers.put(type, consumer);
     }
 
-    public void sendNotification(Set<String> badWordsMap, Notification notification) {
-        if (notificationHandler.containsKey(notification.getType())) {
-            if (!myPredicate.test(badWordsMap, notification)) {
-                notificationHandler.get(notification.getType()).accept(notification);
+    public void sendNotification(boolean checkForAdultWords, Notification notification) {
+        if (notificationHandlers.containsKey(notification.getType())) {
+            if (checkForAdultWords) {
+                if (!predicateForAdultContent.test(notification)) {
+                    notificationHandlers.get(notification.getType()).accept(notification);
+                } else {
+                    System.out.println("Плохие слова");
+                }
+            } else {
+                notificationHandlers.get(notification.getType()).accept(notification);
             }
-
-            else {
-                System.out.println("Плохие слова");
-            }
-
-        }
-
-        else {
+        } else {
             System.out.println("Ошибка");
         }
     }
