@@ -16,6 +16,7 @@ public class Droid {
     public void sendMessage(Droid receiver, String message, int key) {
         Objects.requireNonNull(message, "Message cannot be null");
         Objects.requireNonNull(receiver, "Receiver cannot be null");
+        key = Math.abs(key);
 
         String encryptedMessage = encryptMessage(message, key);
         System.out.println(name + " sent encrypted message: " + encryptedMessage);
@@ -24,6 +25,7 @@ public class Droid {
 
     public void receiveMessage(String message, int key) {
         Objects.requireNonNull(message, "Message cannot be null");
+        key = Math.abs(key);
 
         String decryptedMessage = decryptMessage(message, key);
         System.out.println(name + " received decrypted message: " + decryptedMessage);
@@ -51,7 +53,8 @@ public class Droid {
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isUpperCase(ch) ? 'A' : 'a';
-                    ch = (char) ((ch - start - k + 26) % 26 + start);
+                    int shift = (ch - start - k) % 26;
+                    ch = (char) (shift < 0 ? shift + 26 + start : shift + start);
                 }
                 encryptedMessage.append(ch);
             }
