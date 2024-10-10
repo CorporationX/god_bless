@@ -1,9 +1,5 @@
 package school.faang.BJS2_33441_HandlingErrorsBeautifully;
 
-import com.sun.jdi.ObjectCollectedException;
-
-import java.util.Objects;
-
 public class ErrorHandler {
     public static <T> T withErrorHandling(ThrowableAction<T> action, ExceptionHandler<T> exceptionHandler) {
         if (action == null || exceptionHandler == null) {
