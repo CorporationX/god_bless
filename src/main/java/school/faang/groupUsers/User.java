@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.groupUsers;
 
 import lombok.Data;
 
