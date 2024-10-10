@@ -1,11 +1,5 @@
 package school.faang.java_hashmap.catch_events;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-
 public class StreamEvent {
     private Integer id;
     private String eventType;

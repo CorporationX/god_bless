@@ -1,14 +1,11 @@
 package school.faang.java_hashmap.catch_events;
 
-import lombok.AllArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-@AllArgsConstructor
 public class Main {
     private static final Map<Integer, StreamEvent> EVENT_MAP = new HashMap<>();
     private static final Map<String, List<StreamEvent>> EVENT_TYPE = new HashMap<>();
