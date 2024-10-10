@@ -43,9 +43,9 @@ public class CsvConverter {
             return "";
         }
         StringBuilder sb = new StringBuilder(vector.get(0));
-        for (int i = 0; i < vector.size(); i++) {
-            sb.append(vector.get(i));
+        for (int i = 1; i < vector.size(); i++) {
             sb.append(",");
+            sb.append(vector.get(i));
         }
         return sb.toString();
     }
