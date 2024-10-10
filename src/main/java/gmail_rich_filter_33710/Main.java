@@ -13,7 +13,8 @@ public class Main {
         List<Email> emails = List.of(
           new Email("Письмо 1","Текст письма 1", false),
           new Email("Письмо 2","Text mail 2", true),
-          new Email("Письмо 3","Текст письма 3", false)
+          new Email("Письмо 3","Текст письма 3", false),
+          new Email("Письмо 4","Текст письма 4", true)
         );
 
         Predicate<Email> importantFilter = Email::isImportant;
