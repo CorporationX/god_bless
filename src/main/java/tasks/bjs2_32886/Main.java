@@ -55,14 +55,12 @@ public class Main {
             "Mail.ru — Электронная почта",
             "Mail.ru предоставляет почтовый сервис и много других полезных инструментов."
         );
-
-
     }
 
     private static void showAllPageIndexes() {
         System.out.println("Показать все слова индексы :");
 
-        if (pagesIndexes.size() == 0){
+        if (pagesIndexes.size() == 0) {
             System.out.println("Нету ни одного индекса \n");
             return;
         }
