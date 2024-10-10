@@ -17,6 +17,4 @@ public class Main {
         c3po.sendMessage(message2, encryptionKey2, c3po);
         bb8.sendMessage("The mission is complete.", encryptionKey1, c3po);
     }
-
-
 }

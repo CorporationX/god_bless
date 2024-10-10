@@ -18,35 +18,31 @@ public record Droid(String name) {
         return decryptMessage(encryptedMessage, key);
     }
 
-    public static String encryptMessage(String message, int key) {
+    public String encryptMessage(String message, int key) {
+        return encryptCaesar(message, key);
+    }
+
+    public String decryptMessage(String message, int key) {
+        return encryptCaesar(message, -key);
+    }
+
+    public String encryptCaesar(String massage, int key) {
         DroidMessageEncryptor<String, Integer> encryptor = (msg, encryptionKey) -> {
             StringBuilder encryptedMassage = new StringBuilder();
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMassage.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    if (key > 0) {
+                        encryptedMassage.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    } else {
+                        encryptedMassage.append((char) ((ch - base + encryptionKey + 26) % 26 + base));
+                    }
                 } else {
                     encryptedMassage.append(ch);
                 }
             }
             return encryptedMassage.toString();
         };
-        return encryptor.encrypt(message, key);
-    }
-
-    public String decryptMessage(String message, int key) {
-        DroidMessageEncryptor<String, Integer> decryptor = (msg, encryptionKey) -> {
-            StringBuilder decryptedMassage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMassage.append((char) ((ch - base - encryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMassage.append(ch);
-                }
-            }
-            return decryptedMassage.toString();
-        };
-        return decryptor.encrypt(message, key);
+        return encryptor.encrypt(massage, key);
     }
 }
