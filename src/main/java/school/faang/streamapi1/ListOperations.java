@@ -8,16 +8,24 @@ import java.util.function.Predicate;
 public class ListOperations {
 
     public static int sumOfEvenNumbers(List<Integer> integerList) {
-        return integerList.stream().filter(i -> i % 2 == 0).reduce(0,
-                Integer::sum);
+        return integerList.stream()
+                .filter(i -> i % 2 == 0)
+                .mapToInt(Integer::intValue)
+                .sum();
     }
 
     public static int findMax(List<Integer> integerList) {
-        return integerList.stream().max(Comparator.naturalOrder()).orElse(-1);
+        return integerList.stream()
+                .max(Comparator.naturalOrder())
+                .orElseThrow(() -> new NoSuchElementException("List " +
+                        "is empty"));
     }
 
     public static double findAverage(List<Integer> integerList) {
-        return (double) integerList.stream().reduce(0, Integer::sum) / integerList.size();
+        return integerList.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(Double.NaN);
     }
 
     public static int countStringsStartingWith(List<String> stringList, char ch) {
