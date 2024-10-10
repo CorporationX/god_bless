@@ -19,11 +19,12 @@ public class Main {
         System.out.println();
         updateCityWeatherData("California", 0.0, 20);
         updateCityWeatherData("New-York", 30);
+        printAllCities();
+        System.out.println();
         updateCityWeatherData("New-York", 20.0);
         printAllCities();
         System.out.println();
         removeCity("California");
-        System.out.println();
         printAllCities();
     }
 
@@ -35,10 +36,8 @@ public class Main {
     }
 
     public static void searchUnknownCityWeatherData(String city) {
-        Random random = new Random();
-        double temperature = Math.round(random.nextDouble(-30.0, 45.0));
-        int humidity = random.nextInt(0, 100);
-        weatherAcrossCities.put(city, new WeatherData(city, temperature, humidity));
+        WeatherData weatherData = WeatherForecast.searchCityWeatherData(city);
+        weatherAcrossCities.put(city, weatherData);
     }
 
     public static void updateCityWeatherData(String city, double temperature, int humidity) {
@@ -49,13 +48,15 @@ public class Main {
     }
 
     public static void updateCityWeatherData(String city, double temperature) {
-        int humidity = new Random().nextInt(0, 100);
-        weatherAcrossCities.computeIfAbsent(city, k -> new WeatherData(city, temperature, humidity));
+        WeatherData weatherData = weatherAcrossCities.computeIfAbsent(city,
+                k -> WeatherForecast.searchCityWeatherData(city, temperature));
+        weatherData.setTemperature(temperature);
     }
 
     public static void updateCityWeatherData(String city, int humidity) {
-        double temperature = new Random().nextDouble(-30.0, 45.0);
-        weatherAcrossCities.computeIfAbsent(city, k -> new WeatherData(city, temperature, humidity));
+        WeatherData weatherData = weatherAcrossCities.computeIfAbsent(city,
+                k -> WeatherForecast.searchCityWeatherData(city, humidity));
+        weatherData.setHumidity(humidity);
     }
 
     public static void removeCity(String city) {
