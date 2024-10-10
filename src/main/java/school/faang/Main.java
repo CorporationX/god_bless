@@ -12,9 +12,9 @@ public class Main {
 
 // Список входящих писем
         List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+                new Email("Letter 1", "Dear diary.... ", true),
+                new Email("Letter 2", "Rock and stone!!!!! ", true),
+                new Email("Spam", "Spam text", false)
         );
 
 // Фильтр, который пропускает только важные письма
