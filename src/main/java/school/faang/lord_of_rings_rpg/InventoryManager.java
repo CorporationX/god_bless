@@ -1,5 +1,6 @@
 package school.faang.lord_of_rings_rpg;
 
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -30,10 +31,11 @@ public class InventoryManager {
     }
 
     public static void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updater) {
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            Item item = character.getInventory().get(i);
+        List<Item> characterInventory = character.getInventory();
+        for (int i = 0; i < characterInventory.size(); i++) {
+            Item item = characterInventory.get(i);
             if (predicate.test(item)) {
-                character.getInventory().set(i, updater.apply(item));
+                characterInventory.set(i, updater.apply(item));
             }
         }
     }

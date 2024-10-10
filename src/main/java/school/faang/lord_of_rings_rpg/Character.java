@@ -10,7 +10,7 @@ public class Character {
     private String name;
     private List<Item> inventory = new ArrayList<>();
 
-    public Character(String NAME) {
-        this.name = NAME;
+    public Character(String name) {
+        this.name = name;
     }
 }
