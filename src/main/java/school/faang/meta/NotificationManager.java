@@ -6,13 +6,13 @@ import java.util.function.Consumer;
 
 public class NotificationManager  {
 
-   Map<String, Consumer<Notification>> map = new HashMap<>();
+    private Map<String, Consumer<Notification>> notificationHandl = new HashMap<>();
     public void registerHandler(String text, Consumer<Notification> handler) {
-        map.put(text, handler);
+        notificationHandl.put(text, handler);
     }
 
     public void sendNotification(Notification notification) {
-        Consumer<Notification> handler = map.get(notification.getType());
+        Consumer<Notification> handler = notificationHandl.get(notification.getType());
         if (handler != null) {
             handler.accept(notification);
         } else {
