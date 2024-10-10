@@ -8,38 +8,46 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static Map<String, List<WebPage>> webPagesMap = new HashMap<>();
+    public static Map<String, List<WebPage>> webPages = new HashMap<>();
 
-    public static void indexingNewWebPage(WebPage webPage) {
-        for(String word : webPage.getContent().split(" ")) {
-            webPagesMap.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
+    public static void indexWebPage(WebPage webPage) {
+        for(String word : webPage.getContent().toLowerCase().split("[\\s.,:;?!-]+")) { //Убрать знаки припинания
+            webPages.computeIfAbsent(word.toLowerCase(), k -> new ArrayList<>()).add(webPage);
         }
     }
 
     public static List<WebPage> findWebPageByWord(String word) {
-        return webPagesMap.get(word);
+        return webPages.get(word);
     }
 
-    public static void deleteWebPage(String url) {
-        for(List<WebPage> webPageList : webPagesMap.values()) {
-            webPageList.removeIf(webPage -> webPage.getUrl().equals(url));
+    public static void deleteWebPageByUrl(String url) {
+        List<String> keysToRemove = new ArrayList<>();
+
+        for(Map.Entry<String, List<WebPage>> entry : webPages.entrySet()) {
+            entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
+            if(entry.getValue().isEmpty()) {
+                keysToRemove.add(entry.getKey());
+            }
+        }
+        for (String key : keysToRemove) {
+            webPages.remove(key);
         }
     }
 
     public static void main(String[] args) {
-        indexingNewWebPage(new WebPage("lenta.ru", "lenta", "all the latest news"));
-        indexingNewWebPage(new WebPage("mail.ru", "mail", "mail and news"));
-        indexingNewWebPage(new WebPage("drom.ru", "drom", "news about cars"));
+        indexWebPage(new WebPage("lenta.ru", "lenta", "lenta, all the latest NEWS"));
+        indexWebPage(new WebPage("mail.ru", "mail", "mail and news"));
+        indexWebPage(new WebPage("drom.ru", "drom", "news  about cars"));
 
-        for(Map.Entry<String, List<WebPage>> entry : webPagesMap.entrySet()) {
+        for(Map.Entry<String, List<WebPage>> entry : webPages.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
 
-        deleteWebPage("mail.ru");
+        deleteWebPageByUrl("mail.ru");
 
         System.out.println(findWebPageByWord("news"));
 
-        for(Map.Entry<String, List<WebPage>> entry : webPagesMap.entrySet()) {
+        for(Map.Entry<String, List<WebPage>> entry : webPages.entrySet()) {
             System.out.println(entry.getKey() + " " + entry.getValue());
         }
     }
