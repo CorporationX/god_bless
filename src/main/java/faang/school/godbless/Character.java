@@ -1,5 +1,8 @@
 package faang.school.godbless;
 
+import lombok.Getter;
+
+@Getter
 abstract class Character {
     protected String name;
     protected int strength;
@@ -20,21 +23,6 @@ abstract class Character {
 
     protected abstract void attack(Character character);
 
-    public String getName() {
-        return name;
-    }
-
-    public int getStrength() {
-        return strength;
-    }
-
-    public int getDexterity() {
-        return dexterity;
-    }
-
-    public int getHealth() {
-        return health;
-    }
 }
 
 class Warrior extends Character {
@@ -43,9 +31,9 @@ class Warrior extends Character {
     }
 
     protected void attack(Character character) {
-        character.health -= character.strength;
+        character.health -= this.strength;
         System.out.println(getName() + " нанес урон в количестве = " + getStrength());
-        System.out.println("Противнику нанесено урона = " + getHealth());
+        System.out.println("Здоровье = " + getHealth());
     }
 }
 
@@ -55,9 +43,9 @@ class Archer extends Character {
     }
 
     protected void attack(Character character) {
-        character.health -= character.dexterity;
+        character.health -= this.dexterity;
         System.out.println(getName() + " нанес урон в количестве = " + getDexterity());
-        System.out.println("Противнику нанесено урона = " + getHealth());
+        System.out.println("Здоровье = " + getHealth());
     }
 }
 
