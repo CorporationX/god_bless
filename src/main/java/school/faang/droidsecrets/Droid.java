@@ -11,6 +11,8 @@ import java.util.Objects;
 @AllArgsConstructor
 public class Droid {
 
+    private static final int ALPHABET_SIZE = 26;
+
     private String name;
 
     public void sendMessage(Droid receiver, String message, int key) {
@@ -37,7 +39,7 @@ public class Droid {
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isUpperCase(ch) ? 'A' : 'a';
-                    ch = (char) ((ch - start + k) % 26 + start);
+                    ch = (char) ((ch - start + k) % ALPHABET_SIZE + start);
                 }
                 encryptedMessage.append(ch);
             }
@@ -53,8 +55,8 @@ public class Droid {
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char start = Character.isUpperCase(ch) ? 'A' : 'a';
-                    int shift = (ch - start - k) % 26;
-                    ch = (char) (shift < 0 ? shift + 26 + start : shift + start);
+                    int shift = (ch - start - k) % ALPHABET_SIZE;
+                    ch = (char) (shift < 0 ? shift + ALPHABET_SIZE + start : shift + start);
                 }
                 encryptedMessage.append(ch);
             }
