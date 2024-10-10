@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,7 +17,7 @@ public class Main {
 
         List<Integer> listOfNumbers = Arrays.asList(1, 2, 3, 4, 5, 6);
 
-        for (List<Integer> s : UniqueNumberPairs(listOfNumbers, 7)) {
+        for (List<Integer> s : uniqueNumberPairs(listOfNumbers, 7)) {
             System.out.print(s);
         }
         System.out.println();
@@ -39,21 +38,25 @@ public class Main {
     }
 
 
-    public static Set<List<Integer>> UniqueNumberPairs(List<Integer> list, int number) {
+    public static Set<List<Integer>> uniqueNumberPairs(List<Integer> list, int number) {
         Set<Integer> set = new HashSet<>();
         set.addAll(list);
-        Set<List<Integer>> result = list.stream().filter(x -> set.contains(number - x)).map(x -> Arrays.asList(x, number - x)).peek(Collections::sort).collect(Collectors.toSet());
+        Set<List<Integer>> result = list.stream().filter(x -> set.contains(number - x))
+                .map(x -> Arrays.asList(x, number - x))
+                .peek(Collections::sort)
+                .collect(Collectors.toSet());
         return result;
     }
 
-    public static List<String> сountryСapitals(Map<String, String> mappa) {
-        Map<String, String> mappa2 = mappa.entrySet().stream().sorted(Map.Entry.comparingByKey())
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e2, LinkedHashMap::new));
-        return new ArrayList<>(mappa2.values());
+    public static List<String> сountryСapitals(Map<String, String> mapWithCountry) {
+        return mapWithCountry.entrySet().stream().sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).toList();
     }
 
     public static List<String> filteringRows(List<String> list, char a) {
-        return list.stream().filter(x -> x.startsWith(String.valueOf(a))).sorted(Comparator.comparingInt(String::length)).collect(Collectors.toList());
+        return list.stream().filter(x -> x.startsWith(String.valueOf(a)))
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 
     public static List<String> сonversionToBinaryCode(List<Integer> list) {
@@ -61,7 +64,8 @@ public class Main {
     }
 
     public static List<String> filteringStringsAlphabetically(List<String> list, String word) {
-        return list.stream().filter(x -> {
+        return list.stream().filter(x ->
+                {
                     List<String> stringList = Arrays.asList(x.split(""));
                     return stringList.stream().allMatch(word::contains);
                 }
