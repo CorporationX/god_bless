@@ -7,27 +7,28 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 public class Main {
-    public static Map<Student, Map<Subject, Integer>> studentMap = new HashMap<>();
-    public static Map<Subject, List<Student>> subjectMap = new HashMap<>();
+    public static Map<Student, Map<Subject, Integer>> students = new HashMap<>();
+    public static Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
-    public static void addNewStudentAndSubjects(Student student, Map<Subject, Integer> subjectMap) {
-        studentMap.put(student, subjectMap);
+    public static void addStudentAndSubjects(Student student, Map<Subject, Integer> subjects) {
+        students.put(student, subjects);
+        for(Subject subject : subjects.keySet()) {
+            addStudentForSubject(student, subject);
+        }
     }
 
-    public static void addNewSubjectForStudent(Student student, Subject subject, Integer rating) {
-        studentMap.get(student).put(subject, rating);
+    public static void addSubjectForStudent(Student student, Subject subject, Integer rating) {
+        students.get(student).put(subject, rating);
     }
 
     public static void deleteStudentAndSubject(Student student) {
-        studentMap.remove(student);
+        students.remove(student);
     }
 
     public static void displayAllStudentAndRatingOfSubjects() {
-        for(Map.Entry<Student, Map<Subject, Integer>> mapEntry : studentMap.entrySet()) {
+        for(Map.Entry<Student, Map<Subject, Integer>> mapEntry : students.entrySet()) {
             System.out.println("Студент " + mapEntry.getKey().getName());
             System.out.println("Предметы: ");
             for(Map.Entry<Subject, Integer> subjectMap : mapEntry.getValue().entrySet()) {
@@ -36,23 +37,22 @@ public class Main {
         }
     }
 
-    public static void addNewSubjectAndStudents(Subject subject, List<Student> students) {
-        subjectMap.put(subject, students);
+    public static void addSubjectAndStudents(Subject subject, List<Student> students) {
+        subjectStudents.put(subject, students);
     }
 
-    public static void addNewStudentForSubject(Student student, Subject subject) {
-        subjectMap.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
+    public static void addStudentForSubject(Student student, Subject subject) {
+        subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public static void deleteStudentFromSubject(Student student, Subject subject) {
-        List<Student> studentList = subjectMap.get(subject).stream()
-                .filter(student1 -> !Objects.equals(student1, student))
-                .collect(Collectors.toList());
-        subjectMap.put(subject, studentList);
+        List<Student> studentList = new ArrayList<>(subjectStudents.get(subject));
+        studentList.remove(student);
+        subjectStudents.put(subject, studentList);
     }
 
     public static void displayAllSubjectAndStudents() {
-        for(Map.Entry<Subject, List<Student>> mapEntry : subjectMap.entrySet()) {
+        for(Map.Entry<Subject, List<Student>> mapEntry : subjectStudents.entrySet()) {
             System.out.println("Предмет " + mapEntry.getKey().getName());
             System.out.println("Студенты: ");
             for(Student student : mapEntry.getValue()) {
@@ -79,17 +79,15 @@ public class Main {
         uraSubjects.put(Physics, 2);
         uraSubjects.put(Math, 4);
 
-        addNewStudentAndSubjects(Ivan, ivanSubjects);
-        addNewStudentAndSubjects(Alex, alexSubjects);
-        addNewStudentAndSubjects(Ura, uraSubjects);
-        addNewSubjectForStudent(Alex, Math, 3);
+        addStudentAndSubjects(Ivan, ivanSubjects);
+        addStudentAndSubjects(Alex, alexSubjects);
+        addStudentAndSubjects(Ura, uraSubjects);
+        addSubjectForStudent(Alex, Math, 3);
         deleteStudentAndSubject(Ivan);
         displayAllStudentAndRatingOfSubjects();
 
-        addNewSubjectAndStudents(Physics, List.of(Ivan, Alex));
-        addNewStudentForSubject(Ura, Math);
+        addSubjectAndStudents(Physics, List.of(Ivan, Alex));
         deleteStudentFromSubject(Alex, Physics);
         displayAllSubjectAndStudents();
     }
-
 }
