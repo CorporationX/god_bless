@@ -24,7 +24,7 @@ public class Main {
     }
 
     public static void indexWebPage(WebPage webPage) {
-        String[] words = webPage.getContent().toLowerCase().split("'\\S+'");
+        String[] words = webPage.getContent().toLowerCase().split("'\\s+'");
         for (String word : words) {
             URL.putIfAbsent(word, new ArrayList<>());
             if (!URL.get(word).contains(webPage)) {
