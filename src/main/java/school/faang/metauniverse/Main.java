@@ -8,9 +8,9 @@ public class Main {
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
         Notification testNotification = new Notification("test", "test");
 
-        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage()));
-        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.getMessage()));
-        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage()));
+        notificationManager.registerHandler("email", (notification) -> System.out.println("Отправка по электронной почте: " + notification.message()));
+        notificationManager.registerHandler("sms", (notification) -> System.out.println("Отправка SMS: " + notification.message()));
+        notificationManager.registerHandler("push", (notification) -> System.out.println("Отправка push-уведомления: " + notification.message()));
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);

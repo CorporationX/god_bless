@@ -1,11 +1,4 @@
 package school.faang.metauniverse;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Notification {
-    private String type;
-    private String message;
+public record Notification(String type, String message) {
 }

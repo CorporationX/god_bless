@@ -12,10 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notification) {
-        if (NOTIFICATION_HANDLERS.containsKey(notification.getType())) {
-            NOTIFICATION_HANDLERS.get(notification.getType()).accept(notification);
+        if (NOTIFICATION_HANDLERS.containsKey(notification.type())) {
+            NOTIFICATION_HANDLERS.get(notification.type()).accept(notification);
         } else {
-            System.out.printf("Для типа оповещения :%s отсутствует обработчик%n", notification.getType());
+            System.out.printf("Для типа оповещения :%s отсутствует обработчик%n", notification.type());
         }
     }
 }
