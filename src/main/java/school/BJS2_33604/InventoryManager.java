@@ -18,19 +18,12 @@ public class InventoryManager {
 
     public void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> action) {
 
-        //Был вариант так сделать
-//        for (Item item : character.getItems()) {
-//            if(filter.test(item)) {
-//                int index = character.getItems().indexOf(item);
-//                character.getItems().set(index,action.apply(item));
-//            }
-//        }
-        character.setItems(character.getItems().parallelStream().map(x -> {
-            if (filter.test(x)) {
-                x = action.apply(x);
+        for (int i = 0; i < character.getItems().size(); i++) {
+            if (filter.test(character.getItems().get(i))) {
+                character.getItems().set(i, action.apply(character.getItems().get(i)));
+                break;
             }
-            return x;
-        }).collect(Collectors.toList()));
+        }
     }
 
 
