@@ -13,4 +13,12 @@ public class Character {
     public Character(String name) {
         this.name = name;
     }
+
+    public void addItem(Item itemToUpdate) {
+        inventory.add(itemToUpdate);
+    }
+
+    public void removeItem(Item itemToDelete) {
+        inventory.remove(itemToDelete);
+    }
 }
