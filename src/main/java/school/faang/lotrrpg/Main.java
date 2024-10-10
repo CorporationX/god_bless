@@ -29,8 +29,7 @@ public class Main {
                 });
 
 
-        frodo.getInventory();
-        for (Item item : frodo.getInventory()) {
+        for (Item item : frodo.getItems()) {
             if (item != null) {
                 System.out.println(item.getName() + ": " + item.getValue());
             }
