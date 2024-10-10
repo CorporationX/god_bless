@@ -18,7 +18,6 @@ public class Droid {
     public void sendMessage(Droid receiver, String message, int key) {
         Objects.requireNonNull(message, "Message cannot be null");
         Objects.requireNonNull(receiver, "Receiver cannot be null");
-        key = Math.abs(key);
 
         String encryptedMessage = encryptMessage(message, key);
         System.out.println(name + " sent encrypted message: " + encryptedMessage);
@@ -27,7 +26,6 @@ public class Droid {
 
     public void receiveMessage(String message, int key) {
         Objects.requireNonNull(message, "Message cannot be null");
-        key = Math.abs(key);
 
         String decryptedMessage = decryptMessage(message, key);
         System.out.println(name + " received decrypted message: " + decryptedMessage);
@@ -35,6 +33,7 @@ public class Droid {
 
     private String encryptMessage(String message, int key) {
         DroidMessageEncryptor encryptor = (m, k) -> {
+            k = Math.abs(k);
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
@@ -51,6 +50,7 @@ public class Droid {
 
     private String decryptMessage(String message, int key) {
         DroidMessageEncryptor encryptor = (m, k) -> {
+            k = Math.abs(k);
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
