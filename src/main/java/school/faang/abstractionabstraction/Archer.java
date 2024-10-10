@@ -1,6 +1,6 @@
-package school.faang;
+package school.faang.abstractionabstraction;
 
-public class Archer extends Character {
+public class Archer extends Character implements Attackable {
 
     public static final int DEFAULT_STRENGTH = 3;
     public static final int DEFAULT_DEXTERITY = 10;
@@ -11,7 +11,7 @@ public class Archer extends Character {
     }
 
     @Override
-    void attack(Character character) {
+    public void attack(Character character) {
         character.health -= this.dexterity;
     }
 }

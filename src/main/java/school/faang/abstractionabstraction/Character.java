@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.abstractionabstraction;
 
 public abstract class Character {
 
@@ -20,6 +20,4 @@ public abstract class Character {
         this.dexterity = dexterity;
         this.intelligence = intelligence;
     }
-
-    abstract void attack(Character character);
 }
