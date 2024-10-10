@@ -1,17 +1,9 @@
 package school.faang.droid.secrets;
 
-import java.util.function.BiFunction;
-import java.util.function.Function;
-
 public class Main {
     public static void main(String[] args) {
-        DroidMessageEncryptor encryptor = (message, key) ->
-                processMessage(message, key, (currentChar, shift) ->
-                        (base) -> (char) ((currentChar - base + shift) % 26 + base));
-
-        DroidMessageEncryptor decryptor = (message, key) ->
-                processMessage(message, key, (currentChar, shift) ->
-                        (base) -> (char) ((currentChar - base - shift + 26) % 26 + base));
+        DroidMessageEncryptor encryptor = (message, key) -> processMessage(message, key);
+        DroidMessageEncryptor decryptor = (message, key) -> processMessage(message, 26 - key);
 
         Droid r2d2 = new Droid("R2D2", encryptor, decryptor);
         Droid c3po = new Droid("C3PO", encryptor, decryptor);
@@ -28,15 +20,14 @@ public class Main {
         bb8.sendMessage(message3, encryptionKey1, c3po);
     }
 
-    private static String processMessage(String message, int key,
-                                         BiFunction<Character, Integer, Function<Character, Character>> charModifier) {
+    private static String processMessage(String message, int key) {
         char[] chars = message.toCharArray();
         for (int i = 0; i < chars.length; i++) {
             if (Character.isLetter(chars[i])) {
                 if (Character.isUpperCase(chars[i])) {
-                    chars[i] = charModifier.apply(chars[i], key).apply('A');
+                    chars[i] = (char) ((chars[i] - 'A' + key) % 26 + 'A');
                 } else {
-                    chars[i] = charModifier.apply(chars[i], key).apply('a');
+                    chars[i] = (char) ((chars[i] - 'a' + key) % 26 + 'a');
                 }
             }
         }
