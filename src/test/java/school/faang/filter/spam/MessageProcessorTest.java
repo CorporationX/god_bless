@@ -35,6 +35,7 @@ class MessageProcessorTest {
                 "Как дела? 😀",
                 "Длинное, валидное сообщение"};
         List<String> expected = List.of("Длинное, валидное сообщение");
+
         Arrays.stream(messages)
                 .peek(message -> {
                     boolean isFiltered = MessageProcessor.processMessage(message, filters);
