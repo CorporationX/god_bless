@@ -1,6 +1,11 @@
 package metaUniverse;
 
+import java.util.List;
+
 public class Main {
+
+    private static final List<String> BAN_WORDS = List.of("golang", "c#");
+
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
@@ -16,7 +21,7 @@ public class Main {
         notificationManager.registerFilter("ban_words", (notification) -> {
             for (String word : notification.getMessage().split(" ")) {
                 word = word.replaceAll("[,!.:]", "").toLowerCase();
-                if (NotificationManager.getBAN_WORDS().contains(word)) {
+                if (BAN_WORDS.contains(word)) {
                     notification.setMessage("Сообщение заблокировано фильтром!");
                 }
             }
