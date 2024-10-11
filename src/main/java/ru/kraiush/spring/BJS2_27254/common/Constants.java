@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = PRIVATE)
 public final class Constants {
 
-
 	@NoArgsConstructor(access = PRIVATE)
 	public static final class ApiConstants {
 

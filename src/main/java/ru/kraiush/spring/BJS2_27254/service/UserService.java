@@ -11,13 +11,13 @@ public interface UserService {
 
     List<User> findAll();
 
-    User create(User user) throws Exception;
+    User create(User user);
 
-    void update(User user) throws Exception;
+    void update(User user);
 
-    void deleteById(long id) throws Exception;
+    void deleteById(long id);
 
-    void deleteAll() throws Exception;
+    void deleteAll();
 
-    void  changeRole(User use, Role role ) throws Exception;
+    void  changeRole(User user, Role role);
 }
