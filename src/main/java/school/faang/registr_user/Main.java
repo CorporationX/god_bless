@@ -6,34 +6,32 @@ import java.util.Set;
 public class Main {
 
 
-    private String name;
-    private int age;
-    private String placeWork;
-    private String address;
+    static String name;
+    static int age;
+    static String placeWork;
+    static String address;
 
     public static void main(String[] args) {
-
-        Main main = new Main();
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter Name: ");
-        main.name = scanner.next();
+        name = scanner.next();
 
         System.out.print("Enter Age: ");
         if (scanner.hasNextInt()) {
-            main.age = scanner.nextInt();
+            age = scanner.nextInt();
         } else {
             scanner.next();
-            main.age = 0;
+            age = 0;
         }
 
         System.out.print("Enter place of work: ");
-        main.placeWork = scanner.next();
+        placeWork = scanner.next();
 
         System.out.print("Enter address: ");
-        main.address = scanner.next();
+        address = scanner.next();
 
-        User user = new User(main.name, main.age, main.placeWork, main.address);
+        User user = new User(name, age, placeWork, address);
     }
 }
