@@ -10,16 +10,17 @@ public class Droid {
     }
 
     private DroidMessageEncryptor encryptor = (message, key) -> {
-        String encryptedMessage = "";
+        StringBuilder encryptedMessage = new StringBuilder();
         for (int i = 0; i < message.length(); i++) {
             if(Character.isLetter(message.charAt(i))){
                 char startCharacter = Character.isUpperCase(message.charAt(i)) ? 'A' : 'a';
-                encryptedMessage += (char) ((message.charAt(i) - startCharacter + key) % SIZE_ALPHABET + startCharacter);
+                encryptedMessage.append((char) ((message.charAt(i) - startCharacter + key) % SIZE_ALPHABET +
+                                                                                                    startCharacter));
             } else {
-                encryptedMessage += message.charAt(i);
+                encryptedMessage.append(message.charAt(i));
             }
         }
-        return encryptedMessage;
+        return encryptedMessage.toString();
     };
     public String encryptMessage(String message, Integer key){
         return encryptor.crypto(message, key);
