@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
 
-  private static final List<String> CENSORED_WORDS = List.of("violent", "dummy", "nude");
+  private static final List<String> FILTER_VIOLENCE = List.of("violent", "death", "kill");
 
   public static void main(String[] args) {
 
@@ -17,27 +17,37 @@ public class Main {
     notificationManager.registerHandler("push",
         (notification) -> System.out.println("Sending push: " + notification.getMessage()));
 
-    System.out.println(
-        "Number of notification handlers: " + notificationManager.getNotifications().size());
-
     Notification pushlNotification = new Notification("push", "some message push");
     Notification emailNotification = new Notification("email", "some violent message nude");
-    Notification smsNotification = new Notification("sms", "some message sms");
+    Notification smsNotification = new Notification("sms", "some message kills sms");
 
     notificationManager.sendNotification(pushlNotification);
     notificationManager.sendNotification(emailNotification);
     notificationManager.sendNotification(smsNotification);
 
-    emailNotification = notificationManager.censorNotification(emailNotification,
-        (notification) -> {
-          notification.setMessage(correctMessage(notification.getMessage()));
-          return notification;
-        });
-    notificationManager.sendNotification(emailNotification);
+    String filterViolence = "violence";
+    notificationManager.registerFilter(filterViolence, (notification -> {
+      for (String word : FILTER_VIOLENCE) {
+        if (notification.getMessage().contains(word)) {
+          notification.setMessage("BLOCKED DUE TO CONTENT");
+          notificationManager.sendNotification(notification);
+        }
+      }
+      return notification;
+    }));
+    notificationManager.filterNotification(emailNotification, filterViolence);
+
+    String filterViolenceCensored = "violenceCensored";
+    notificationManager.registerFilter(filterViolenceCensored, (notification -> {
+      notification.setMessage(correctMessage(notification.getMessage()));
+      notificationManager.sendNotification(notification);
+      return notification;
+    }));
+    notificationManager.filterNotification(smsNotification, filterViolenceCensored);
   }
 
   private static String correctMessage(String message) {
-    for (String word : CENSORED_WORDS) {
+    for (String word : FILTER_VIOLENCE) {
       message = message.replaceAll(word, "***");
     }
     return "[Censored] " + message;
