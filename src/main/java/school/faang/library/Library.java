@@ -1,11 +1,11 @@
-package school.faang;
+package school.faang.library;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Library {
 
-    static private final HashMap<Book, String> mapBooks = new HashMap<>();
+    private static final Map<Book, String> mapBooks = new HashMap<>();
 
     public static void main(String[] args) {
         Book harryPotter1 = new Book("Гарри Поттер и философский камень", "Дж. Роулинг", 2000);
@@ -21,20 +21,18 @@ public class Library {
         addBook(null, "3.1");
         addBook(witcher, null);
 
-
         printListBook();
         infoShelvingNumb(witcher);
         deleteBook(null);
         deleteBook(witcher);
         printListBook();
-
     }
 
     private static void addBook(Book book, String shelvingNumb) {
         if (book == null) {
             System.out.println("Введите название книги");
         } else {
-            if (shelvingNumb != null && !(shelvingNumb.isBlank())) {
+            if (shelvingNumb != null && !shelvingNumb.isBlank()) {
                 mapBooks.put(book, shelvingNumb);
             } else {
                 System.out.println("Введите номер стеллажа");
@@ -59,5 +57,4 @@ public class Library {
             System.out.println(entry);
         }
     }
-
 }
