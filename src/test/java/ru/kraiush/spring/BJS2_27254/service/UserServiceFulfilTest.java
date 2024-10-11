@@ -9,6 +9,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.kraiush.spring.BJS2_27254.domain.model.Role;
 import ru.kraiush.spring.BJS2_27254.domain.model.User;
+import ru.kraiush.spring.BJS2_27254.exception.ElementAlreadyExistsException;
+import ru.kraiush.spring.BJS2_27254.exception.ElementNotFoundException;
 import ru.kraiush.spring.BJS2_27254.repository.UserRepository;
 
 import java.time.LocalDateTime;
@@ -17,6 +19,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.and;
 import static org.mockito.BDDMockito.*;
 
@@ -52,26 +55,29 @@ class UserServiceFulfilTest {
         given(repository.findByEmail(user.getEmail()))
                 .willReturn(Optional.empty());
         given(repository.save(user)).willReturn(user);
-        // when -  action or the behaviour that we are going test
         User savedUser = service.create(user);
-        // then - verify the output
         assertThat(savedUser).isNotNull();
+        assertThat(repository.findByEmail("abra@cada.bra").isEmpty());
+        assertThat(repository.findByUsername("Adelina")).isNotNull();
+        assertThat(repository.findById(3876l).isPresent());
         verify(repository).save(any());
         verify(repository).save(and(notNull(), argThat(p -> p.getId() == 3876l)));
     }
 
-    @DisplayName("JUnit test for save method which throws exception")
+    @DisplayName("JUnit test for create method for existing element which throws exception")
     @Test
     public void givenExistingEmail_whenSaveUser_thenThrowsException() {
         when(repository.findByEmail(any(String.class)))
                 .thenReturn(Optional.empty());
-        assertThat(repository.findByEmail("abra@cada.bra").isEmpty());
-        assertThat(repository.findByUsername("Adelina")).isNotNull();
-        assertThat(repository.findById(3876l).isPresent());
+        given(repository.findByEmail(user.getEmail()))
+                .willReturn(Optional.of(user));
+        assertThrows(ElementAlreadyExistsException.class, () -> {
+            service.create(user);
+        });
         verify(repository, never()).save(any(User.class));
     }
 
-    @DisplayName("JUnit test should throw an exception if the id is not found")
+    @DisplayName("JUnit test should return empty if the id is not found")
     @Test
     void shouldThrowExceptionWhenNotFoundById() {
         when(repository.findById(any(Long.class)))
