@@ -41,7 +41,7 @@ class ElkQueryTest {
     }
 
     @Test
-    void addUserTest() {
+    public void addUserTest() {
         int initializeUserCount = elkQuery.getUsersQueries().keySet().size();
         User user3 = new User("User 3");
         List<Query> user3Queries = new ArrayList<>();
@@ -53,7 +53,7 @@ class ElkQueryTest {
     }
 
     @Test
-    void addQueryForUserTest() {
+    public void addQueryForUserTest() {
         int initializeQueryCount = elkQuery.getUsersQueries().get(user1).size();
         Query newQuery = new Query(5, "Query 5", now().minusDays(5));
         elkQuery.addQueryForUser(user1, newQuery);
@@ -64,7 +64,7 @@ class ElkQueryTest {
     }
 
     @Test
-    void addQueryForNewUserTest() {
+    public void addQueryForNewUserTest() {
         User newUser = new User("User 3");
         Query newQuery = new Query(5, "Query 5", now().minusDays(5));
         elkQuery.addQueryForUser(newUser, newQuery);
@@ -75,18 +75,18 @@ class ElkQueryTest {
     }
 
     @Test
-    void deleteUserTest() {
+    public void deleteUserTest() {
         elkQuery.deleteUser(user1);
         assertNull(elkQuery.getUsersQueries().get(user1));
     }
 
     @Test
-    void printAllUsersWithQueriesTest() {
+    public void printAllUsersWithQueriesTest() {
         elkQuery.printAllUsersWithQueries();
     }
 
     @Test
-    void printAllUsersWithQueriesSortedByTimestampTest() {
+    public void printAllUsersWithQueriesSortedByTimestampTest() {
         elkQuery.printAllUsersWithQueriesSortedByTimestamp();
     }
 }

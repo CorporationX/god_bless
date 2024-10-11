@@ -29,7 +29,7 @@ class GoogleTest {
     }
 
     @Test
-    void addAndFindByRequestTest() {
+    public void addAndFindByRequestTest() {
         int initialPageSize = google.search("two").size();
 
         google.indexWebPage(new WebPage("https://four.com", "Title 4", "one two eleven"));
@@ -39,7 +39,7 @@ class GoogleTest {
     }
 
     @Test
-    void deletePageTest() {
+    public void deletePageTest() {
         int initialPageSize = google.getExistingPages().size();
 
         google.removePageFromIndex("https://two.com");
@@ -49,7 +49,7 @@ class GoogleTest {
     }
 
     @Test
-    void notIndexDuplicatePageIfAlreadyExistTest() {
+    public void notIndexDuplicatePageIfAlreadyExistTest() {
         int initialPageSize = google.search("two").size();
         google.indexWebPage(new WebPage("https://one.com", "Title 1", "one two three"));
 

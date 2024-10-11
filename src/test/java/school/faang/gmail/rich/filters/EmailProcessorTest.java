@@ -31,7 +31,7 @@ class EmailProcessorTest {
     }
 
     @Test
-    void processEmailsTest() {
+    public void processEmailsTest() {
         List<Email> expected = Arrays.asList(
                 new Email("Письмо 1", "Текст письма 1", false),
                 new Email("Письмо 2", "ТЕКСТ ПИСЬМА 2", true),

@@ -18,7 +18,7 @@ class WeatherCitiesTest {
     }
 
     @Test
-    void getWeatherDataTest() {
+    public void getWeatherDataTest() {
         WeatherData city1Weather = weatherCities.getWeatherData("City1");
         assertEquals("City1", city1Weather.getCity());
 
@@ -27,7 +27,7 @@ class WeatherCitiesTest {
     }
 
     @Test
-    void updateWeatherDataForCityTest() {
+    public void updateWeatherDataForCityTest() {
         weatherCities.updateWeatherDataForCity("City1");
         WeatherData updatedWeather = weatherCities.getWeatherData("City1");
 
@@ -36,7 +36,7 @@ class WeatherCitiesTest {
     }
 
     @Test
-    void removeWeatherDataForCityTest() {
+    public void removeWeatherDataForCityTest() {
         weatherCities.removeWeatherDataForCity("City2");
 
         WeatherData londonWeather = weatherCities.getWeatherData("City2");
@@ -44,12 +44,12 @@ class WeatherCitiesTest {
     }
 
     @Test
-    void printAllCitiesTest() {
+    public void printAllCitiesTest() {
         weatherCities.printAllCities();
     }
 
     @Test
-    void printAllDataTest() {
+    public void printAllDataTest() {
         weatherCities.printAllData();
     }
 }

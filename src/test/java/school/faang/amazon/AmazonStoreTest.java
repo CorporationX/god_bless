@@ -31,7 +31,7 @@ class AmazonStoreTest {
     }
 
     @Test
-    void groupProductsTest() {
+    public void groupProductsTest() {
         Set<Product> products = new HashSet<>(Arrays.asList(product1, product2, product3, product4));
 
         Map<String, List<Product>> grouped = amazonStore.groupProducts(products);
@@ -43,7 +43,7 @@ class AmazonStoreTest {
     }
 
     @Test
-    void printAllGroupProductsTest() {
+    public void printAllGroupProductsTest() {
         Set<Product> products = new HashSet<>(Arrays.asList(product1, product2, product3, product4));
         amazonStore.printAllGroupProducts(products);
     }

@@ -38,19 +38,19 @@ public class BattlefieldTest {
     }
 
     @Test
-    void battleWinFirstHeroTest() {
+    public void battleWinFirstHeroTest() {
         Hero result = battlefield.battle();
         assertEquals(hero1, result);
     }
 
     @Test
-    void battleWinSecondHeroTest() {
+    public void battleWinSecondHeroTest() {
         hero2.addCreature(angel, 5);
         assertEquals(hero2, battlefield.battle());
     }
 
     @Test
-    void battleEmptyArmyTest() {
+    public void battleEmptyArmyTest() {
         hero1.removeCreature(angel, 10);
         hero1.removeCreature(pikeman, 10);
         assertEquals(0, hero1.getArmy().size());

@@ -24,14 +24,14 @@ class ErrorHandlerTest {
     }
 
     @Test
-    void callServiceTest() {
+    public void callServiceTest() {
         String expected = "someParam";
         String actual = ErrorHandler.withErrorHandling(action, handler);
         assertEquals(expected, actual);
     }
 
     @Test
-    void callServiceWithErrorTest() {
+    public void callServiceWithErrorTest() {
         String expected = "DEFAULT";
         String actual = ErrorHandler.withErrorHandling(actionWithError, handler);
         assertEquals(expected, actual);

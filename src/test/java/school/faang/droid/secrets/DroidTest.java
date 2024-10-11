@@ -30,42 +30,42 @@ class DroidTest {
     }
 
     @Test
-    void sendEncryptedMessageR2dpTest() {
+    public void sendEncryptedMessageR2dpTest() {
         String expected = "Mrlq wkh Uhehoolrq!";
         String encryptedMessage = r2d2.sendMessage(c3po, message1, encryptionKey1);
         assertEquals(expected, encryptedMessage);
     }
 
     @Test
-    void receivedDecryptedMessageR2dpTest() {
+    public void receivedDecryptedMessageR2dpTest() {
         String encryptedMessage = r2d2.sendMessage(c3po, message1, encryptionKey1);
         String decryptedMessage = c3po.receiveMessage(encryptedMessage, encryptionKey1);
         assertEquals(message1, decryptedMessage);
     }
 
     @Test
-    void sendEncryptedMessageC3poTest() {
+    public void sendEncryptedMessageC3poTest() {
         String expected = "Aol Klhao Zahy pz vwlyhapvuhs!";
         String encryptedMessage = c3po.sendMessage(r2d2, message2, encryptionKey2);
         assertEquals(expected, encryptedMessage);
     }
 
     @Test
-    void receivedDecryptedMessageC3poTest() {
+    public void receivedDecryptedMessageC3poTest() {
         String encryptedMessage = c3po.sendMessage(r2d2, message2, encryptionKey2);
         String decryptedMessage = r2d2.receiveMessage(encryptedMessage, encryptionKey2);
         assertEquals(message2, decryptedMessage);
     }
 
     @Test
-    void sendEncryptedMessageBb8Test() {
+    public void sendEncryptedMessageBb8Test() {
         String expected = "Aol tpzzpvu pz jvtwslal.";
         String encryptedMessage = bb8.sendMessage(c3po, message3, encryptionKey2);
         assertEquals(expected, encryptedMessage);
     }
 
     @Test
-    void receivedDecryptedMessageBb8Test() {
+    public void receivedDecryptedMessageBb8Test() {
         String encryptedMessage = bb8.sendMessage(c3po, message3, encryptionKey2);
         String decryptedMessage = c3po.receiveMessage(encryptedMessage, encryptionKey2);
         assertEquals(message3, decryptedMessage);

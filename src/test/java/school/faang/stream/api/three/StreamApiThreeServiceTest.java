@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StreamApiThreeServiceTest {
     @Test
-    void findMutualFriendsTest() {
+    public void findMutualFriendsTest() {
         List<Map<String, String>> expected = Arrays.asList(
                 Map.of("Alice", "David"),
                 Map.of("Bob", "Charlie")
@@ -21,7 +21,7 @@ class StreamApiThreeServiceTest {
     }
 
     @Test
-    void findAverageSalaryTest() {
+    public void findAverageSalaryTest() {
         Map<String, Double> expected = Map.of(
                 "IT", 150000.00,
                 "Salary", 100000.00
@@ -31,21 +31,21 @@ class StreamApiThreeServiceTest {
     }
 
     @Test
-    void findNumbersPalindromeTest() {
+    public void findNumbersPalindromeTest() {
         List<Integer> expected = Arrays.asList(101, 111, 121, 131, 141, 151, 161, 171, 181, 191);
         List<Integer> result = StreamApiThreeService.findNumbersPalindrome(100, 200);
         assertEquals(expected, result);
     }
 
     @Test
-    void findStringPalindromeTest() {
+    public void findStringPalindromeTest() {
         List<String> expected = Arrays.asList("a", "aba", "b", "c");
         List<String> result = StreamApiThreeService.findStringPalindrome("abac");
         assertEquals(expected, result);
     }
 
     @Test
-    void findPerfectNumbersTest() {
+    public void findPerfectNumbersTest() {
         List<Integer> expected = Arrays.asList(6, 28, 496);
         List<Integer> result = StreamApiThreeService.findPerfectNumbers(1, 1000);
         assertEquals(expected, result);
