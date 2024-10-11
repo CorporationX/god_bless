@@ -1,16 +1,24 @@
 package school.faang.functionalInterface.lordOfRings;
 
-import lombok.Data;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+
+@Getter
 public class Character {
+    private final List<Item> inventory = new ArrayList<>();
     private String name;
-    private List<Item> inventory = new ArrayList<>();
 
     public Character(String name) {
+        fieldValidation(name);
         this.name = name;
+    }
+
+    private void fieldValidation(String name) {
+        if(name == null || name.isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be null or empty");
+        }
     }
 }
