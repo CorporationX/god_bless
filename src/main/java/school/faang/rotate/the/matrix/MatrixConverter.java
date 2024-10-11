@@ -8,7 +8,7 @@ public class MatrixConverter {
         };
     }
 
-    static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
+    public static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         int rows = matrix.length;
         int columns = matrix[0].length;
         int[][] result = new int[rows][columns];
