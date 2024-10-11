@@ -1,12 +1,11 @@
-package school.faang.double_cash;
+package school.faang.doublecash.maincode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-@AllArgsConstructor
 @Data
-
-public class Student {
+@AllArgsConstructor
+public class Subject {
     private int id;
     private String name;
 }
