@@ -44,15 +44,12 @@ public class UserServiceFulfil implements UserService {
     }
 
     public User create(User user) {
-        User existingUser = repository.findByUsername(user.getUsername())
+        User existingUser = repository.findByEmail(user.getEmail())
                 .orElse(null);
         if (existingUser == null) {
-            if (repository.existsByEmail(user.getEmail())) {
-                throw new ElementAlreadyExistsException("USER WITH THAT EMAIL EXISTS - " + user.getId());
-            }
             return repository.save(user);
         } else
-            throw new ElementAlreadyExistsException("USER ALREADY EXISTS - " + user.getId());
+            throw new ElementAlreadyExistsException("USER WITH SUCH EMAIL ALREADY EXISTS - " + user.getId());
     }
 
     public User getByUsername(String username) {
