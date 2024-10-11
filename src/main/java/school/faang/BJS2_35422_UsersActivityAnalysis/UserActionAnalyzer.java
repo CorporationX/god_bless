@@ -12,13 +12,17 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final int TOP_ACTIVE_USERS_LIMIT = 10;
+    private static final int TOP_POPULAR_HASHTAGS_LIMIT = 5;
+    private static final int TOP_COMMENTERS_LIMIT = 3;
+
     public static List<String> topActiveUsers(List<UserAction> usersActions) {
         return usersActions.stream()
                 .collect(Collectors.groupingBy(action -> Pair.of(action.getId(), action.getName()), Collectors.counting()))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Pair<Integer, String>, Long>comparingByValue().reversed())
-                .limit(10)
+                .limit(TOP_ACTIVE_USERS_LIMIT)
                 .map(entry -> entry.getKey().getRight())
                 .toList();
     }
@@ -30,7 +34,7 @@ public class UserActionAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(TOP_POPULAR_HASHTAGS_LIMIT)
                 .map(Map.Entry::getKey)
                 .toList();
     }
@@ -45,7 +49,7 @@ public class UserActionAnalyzer {
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.<Pair<Integer, String>, Long>comparingByValue().reversed())
-                .limit(3)
+                .limit(TOP_COMMENTERS_LIMIT)
                 .map(entry -> entry.getKey().getRight())
                 .toList();
     }
