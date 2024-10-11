@@ -6,6 +6,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ComparisonAnalyzer {
+    /**
+     * Prints the top 3 companies with the highest total gas emissions, along with their
+     * average and minimum gas emissions.
+     *
+     * @param fileName the name of the CSV file containing the gas emission data
+     */
     public void compareCompanies(String fileName) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> impacts = dataLoader.loadEnvironmentalImpacts(fileName);
@@ -43,6 +49,12 @@ public class ComparisonAnalyzer {
                 });
     }
 
+    /**
+     * Given a company ID, returns the name of the company.
+     *
+     * @param companyId the ID of the company
+     * @return the name of the company
+     */
     private String getCompanyNameById(int companyId) {
         return "Some Company " + companyId;
     }

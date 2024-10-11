@@ -8,6 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDataLoader {
+    /**
+     * Loads environmental impacts from the given CSV file.
+     *
+     * The format of the CSV file is as follows:
+     * <ul>
+     *     <li>id - int</li>
+     *     <li>companyId - int</li>
+     *     <li>volume - double</li>
+     *     <li>date - String</li>
+     *     <li>type - ImpactType</li>
+     * </ul>
+     *
+     * @param fileName the name of the CSV file to read from
+     * @return a list of environmental impacts
+     */
     public List<EnvironmentalImpact> loadEnvironmentalImpacts(String fileName) {
         List<EnvironmentalImpact> impacts = new ArrayList<>();
         try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream(fileName);

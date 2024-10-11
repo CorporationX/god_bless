@@ -5,6 +5,12 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class EmissionPerEmployeeAnalyzer {
+    /**
+     * Analyze gas emissions per employee of companies.
+     *
+     * @param fileName filename of environmental impact data
+     * @param companies list of companies to analyze
+     */
     public void analyzeEmissionsPerEmployee(String fileName, List<Company> companies) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> impacts = dataLoader.loadEnvironmentalImpacts(fileName);

@@ -11,7 +11,7 @@ public class Main {
         List<EnvironmentalImpact> impacts = dataLoader.loadEnvironmentalImpacts(fileName);
         System.out.println(impacts);
 
-        EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer(dataLoader, new StatisticsAggregator());
+        EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer(dataLoader);
         analyzer.analyzeEmissions(fileName, 101);
 
         ComparisonAnalyzer comparisonAnalyzer = new ComparisonAnalyzer();
