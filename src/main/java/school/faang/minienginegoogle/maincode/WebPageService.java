@@ -1,4 +1,4 @@
-package school.faang.googleminiengine.maincode;
+package school.faang.minienginegoogle.maincode;
 
 import java.util.ArrayList;
 import java.util.Iterator;

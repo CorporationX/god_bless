@@ -1,7 +1,7 @@
-package school.faang.googleminiengine.main;
+package school.faang.minienginegoogle.main;
 
-import school.faang.googleminiengine.maincode.WebPage;
-import school.faang.googleminiengine.maincode.WebPageService;
+import school.faang.minienginegoogle.maincode.WebPage;
+import school.faang.minienginegoogle.maincode.WebPageService;
 
 import java.util.*;
 
