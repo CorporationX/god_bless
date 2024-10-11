@@ -13,7 +13,7 @@ public class EmailProcessor {
             Consumer<Email> consumer
     ) {
         for (Email email : emails){
-            if(predicate.test(email)){
+            if(!predicate.test(email)){
                 String functionBody = function.apply(email);
                 email.setBody(functionBody);
                 consumer.accept(email);

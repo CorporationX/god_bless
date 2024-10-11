@@ -23,8 +23,13 @@ public class Main {
         Predicate<Email> importantFilter = email -> email.isImpotant();
         Consumer<Email> printEmail = email ->
                 System.out.println("Обработано письмо: " + email.getSubject());
+
+        System.out.println("==================");
+
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         EmailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
+
+        System.out.println("==================");
 
         emails.forEach(email -> System.out.println(
                 "Тема: " + email.getSubject() +
