@@ -1,9 +1,28 @@
 package school.faang.bjs2_32525;
 
+import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class StudentManager {
+    public void addSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
+        validateAddSubjectWithStudents(subject, students, studentsBySubject);
+        studentsBySubject.put(subject, students);
+    }
+
+    public void printAllStudentsBySubjects(Map<Subject, List<Student>> studentsBySubject) {
+        for (Map.Entry<Subject, List<Student>> subjectListEntry : studentsBySubject.entrySet()) {
+            System.out.println(subjectListEntry.getKey().getName() + ":");
+
+            List<Student> students = subjectListEntry.getValue();
+            for (Student student : students) {
+                System.out.println(student);
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
 
     public void addStudentWithGradesBySubjects(Student student, Map<Subject, Integer> gradesBySubjects,
                                                Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
@@ -26,7 +45,7 @@ public class StudentManager {
     }
 
     public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
-        if(studentsWithGradesBySubjects == null){
+        if (studentsWithGradesBySubjects == null) {
             throw new IllegalArgumentException("students with grades by subjects map is null");
         }
         for (Map.Entry<Student, Map<Subject, Integer>> studentMapEntry : studentsWithGradesBySubjects.entrySet()) {
@@ -82,8 +101,26 @@ public class StudentManager {
         if (gradesBySubjects == null) {
             throw new IllegalArgumentException("grades by subjects map is null");
         }
+        if (gradesBySubjects.isEmpty()) {
+            throw new IllegalArgumentException("grades by subjects map is empty");
+        }
         if (studentsWithGradesBySubjects == null) {
             throw new IllegalArgumentException("students with grades by subjects map is null");
+        }
+    }
+
+    private static void validateAddSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
+        if (subject == null) {
+            throw new IllegalArgumentException("subject is null");
+        }
+        if (students == null) {
+            throw new IllegalArgumentException("students is null");
+        }
+        if (students.isEmpty()) {
+            throw new IllegalArgumentException("students is empty");
+        }
+        if (studentsBySubject == null) {
+            throw new IllegalArgumentException("students by subject is null");
         }
     }
 }
