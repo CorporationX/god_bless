@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class StatisticsAggregator {
-    public Map<String, Double> aggregateStatistics(String startDate, String endDate, List<EnvironmentalImpact> impacts, String type) {
+    public Map<String, Double> aggregateStatistics(String startDate, String endDate, List<EnvironmentalImpact> impacts, ImpactType type) {
         Map<String, Double> companyEmissions = new HashMap<>();
 
         for (EnvironmentalImpact impact : impacts) {

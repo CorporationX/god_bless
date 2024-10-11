@@ -15,10 +15,14 @@ public class Main {
         analyzer.analyzeEmissions(fileName, 101);
 
         ComparisonAnalyzer comparisonAnalyzer = new ComparisonAnalyzer();
-        comparisonAnalyzer.compareCompanies(fileName, "2023.02.15");
+        comparisonAnalyzer.compareCompanies(fileName);
 
         List<Company> companies = List.of(new Company(101, "EcoCompany", 100), new Company(102, "PollutingCo", 200));
         EmissionPerEmployeeAnalyzer emissionPerEmployeeAnalyzer = new EmissionPerEmployeeAnalyzer();
         emissionPerEmployeeAnalyzer.analyzeEmissionsPerEmployee(fileName, companies);
+
+        StatisticsAggregator statisticsAggregator = new StatisticsAggregator();
+        Map<String, Double> companyEmissions = statisticsAggregator.aggregateStatistics("2000-01-01", "2024-12-31", impacts, ImpactType.GAS_EMISSION);
+        System.out.println(companyEmissions);
     }
 }

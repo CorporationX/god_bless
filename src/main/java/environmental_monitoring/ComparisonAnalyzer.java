@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ComparisonAnalyzer {
-    public void compareCompanies(String fileName, String currentDate) {
+    public void compareCompanies(String fileName) {
         CompanyDataLoader dataLoader = new CompanyDataLoader();
         List<EnvironmentalImpact> impacts = dataLoader.loadEnvironmentalImpacts(fileName);
 
