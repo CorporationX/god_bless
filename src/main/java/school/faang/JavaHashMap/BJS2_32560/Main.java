@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    private static final Map<String, WeatherData> weather = new HashMap<>();
+    private static final Map<String, WeatherData> cityWeather = new HashMap<>();
     private static final WeatherService weatherService = new WeatherService();
 
     public static void main(String[] args) {
@@ -28,43 +28,31 @@ public class Main {
     }
 
     public static String weatherData(String cityName) {
-        WeatherData data;
-        if (weather.containsKey(cityName)) {
-            data = weather.get(cityName);
-        } else {
-            data = weatherService.getWeatherData(cityName);
-            weather.put(cityName, data);
-        }
-        return formatWeatherData(data);
-    }
-
-    private static String formatWeatherData(WeatherData data) {
-        return "В городе " + data.getCity() +
-               " температура " + data.getTemperature() + " градусов Цельсия" +
-               ", влажность " + data.getHumidity() + " процентов";
+        WeatherData data = cityWeather.computeIfAbsent(cityName, weatherService::getWeatherData);
+        return data.toString();
     }
 
     public static void updateWeatherInfo(WeatherData weatherInfo) {
         if (weatherInfo == null || weatherInfo.getCity() == null || weatherInfo.getCity().isEmpty()) {
             throw new IllegalArgumentException("WeatherInfo или город не может быть null или пустым");
         }
-        weather.put(weatherInfo.getCity(), weatherInfo);
+        cityWeather.put(weatherInfo.getCity(), weatherInfo);
     }
 
     public static void removeWeatherInfo(String cityName) {
         if (cityName == null || cityName.isEmpty()) {
             throw new IllegalArgumentException("Название города не может быть null или пустым");
         }
-        weather.remove(cityName);
+        cityWeather.remove(cityName);
     }
 
     public static void printAllCitiesWeatherInfo() {
-        if (weather.isEmpty()) {
+        if (cityWeather.isEmpty()) {
             System.out.println("Кэш погоды пуст");
             return;
         }
-        for (Map.Entry<String, WeatherData> entry : weather.entrySet()) {
-            System.out.println(formatWeatherData(entry.getValue()));
+        for (WeatherData weatherData : cityWeather.values()) {
+            System.out.println(weatherData);
         }
     }
 }

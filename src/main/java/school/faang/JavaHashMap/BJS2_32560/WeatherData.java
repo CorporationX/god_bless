@@ -9,4 +9,10 @@ public class WeatherData {
     private String city;
     private int temperature;
     private int humidity;
+
+    @Override
+    public String toString() {
+        return String.format("В городе %s температура %d градусов Цельсия, влажность %d процентов",
+                city, temperature, humidity);
+    }
 }
