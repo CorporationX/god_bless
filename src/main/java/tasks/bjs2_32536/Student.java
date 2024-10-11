@@ -4,13 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor
 public class Student {
     private String name;
     private String faculty;
     private int year;
 
-    public static Student createValidated(String name, String faculty, int year) {
+    public Student(String name, String faculty, int year) {
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("Имя не может быть пустым");
         }
@@ -21,6 +20,8 @@ public class Student {
             throw new IllegalArgumentException("Год обучения должен быть в пределах от 1 до 4");
         }
 
-        return new Student(name, faculty, year);
+        this.name = name;
+        this.faculty = faculty;
+        this.year = year;
     }
 }

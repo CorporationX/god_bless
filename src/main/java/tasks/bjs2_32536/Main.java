@@ -48,7 +48,7 @@ public class Main {
         System.out.println(String.format("Добавление студента %s, из потока %d факультета %s", name, year, faculty));
 
         try {
-            Student student = Student.createValidated(name, faculty, year);
+            Student student = new Student(name, faculty, year);
 
             studentsFlows.computeIfAbsent(
                 Map.of(student.getFaculty(), student.getYear()), k -> new ArrayList<>()
@@ -68,8 +68,9 @@ public class Main {
         try {
             List<Student> students = getStudentByFlow(faculty, year);
 
-            if (students == null)
+            if (students == null) {
                 throw new IllegalArgumentException("На данном потоке нет студентов");
+            }
 
             students.remove(
                 students.stream()
