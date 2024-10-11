@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 
 public class ListOperations {
-    public static int getEvenSum(List<Integer> numbers) {
+    public static int sumOfEvenNumbers(List<Integer> numbers) {
         return numbers.stream().reduce(0, (sum, num) -> sum + num);
     }
 
