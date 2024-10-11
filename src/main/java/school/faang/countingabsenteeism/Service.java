@@ -14,13 +14,17 @@ public class Service {
         for (Student student : students) {
             Pair key = new Pair(student.getFaculty() + student.getYear());
             studentMap.putIfAbsent(key, new ArrayList<>());
-
+            studentMap.get(key).add(student);
         }
         return studentMap;
     }
 
     public void addStudent(Student student) {
-        studentList.add(student);
+        if (!studentList.contains(student)){
+            studentList.add(student);
+        }else {
+            System.out.println("Cтудент уже существует в список ");
+        }
     }
 
     public void removeStudent(String name, String faculty, int year) {
@@ -29,6 +33,7 @@ public class Service {
             if (s.getName().equals(name) && s.getFaculty().equals(faculty) && (s.getYear() == year)) {
                 studentList.remove(i);
                 i--;
+                break;
             }
         }
     }
