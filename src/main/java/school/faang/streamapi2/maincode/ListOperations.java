@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 public class ListOperations {
     public static int sumOfEvenNumbers(List<Integer> numbers) {
-        return numbers.stream().reduce(0, (sum, num) -> sum + num);
+        return numbers.stream().reduce(0, Integer::sum);
     }
 
     public static Optional<Integer> findMax(List<Integer> numbers) {
