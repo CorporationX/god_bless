@@ -1,5 +1,6 @@
 package ru.kraiush.BJS2_34667;
 
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 public class Main {
@@ -27,7 +28,7 @@ public class Main {
             notificationManager.sendNotification(pushNotification);
             notificationManager.sendNotification(callNotification);
         } catch (NoSuchElementException e) {
-            System.out.println(e.getMessage());
+            System.out.println(e.getMessage() + ". Error occurred at: " + Arrays.toString(e.getStackTrace()));
         }
     }
 }
