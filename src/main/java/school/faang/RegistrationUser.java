@@ -16,9 +16,9 @@ public class RegistrationUser {
     private final String placeOfWork;
     private final String address;
 
-    public RegistrationUser(String name, int age, String placeOfWork, String address) {
-        if (validUser(name, age, placeOfWork, address)) {
-            throw new IllegalArgumentException();
+    public RegistrationUser (String name, int age, String placeOfWork, String address) {
+        if (!validUser (name, age, placeOfWork, address)) {
+            throw new IllegalArgumentException("Недопустимые данные пользователя");
         } else {
             this.name = name;
             this.age = age;
@@ -28,8 +28,16 @@ public class RegistrationUser {
 
     }
 
-    private boolean validUser(String name, int age, String placeOfWork, String address) {
-        return name == null || placeOfWork == null || address == null || name.isBlank() || placeOfWork.isBlank() || address.isBlank() || age < MIN_AGE || !(VALID_JOBS.contains(placeOfWork)) || !(VALID_ADDRESS.contains(address));
+    private boolean validUser (String name, int age, String placeOfWork, String address) {
+        return name != null &&
+                !name.isBlank() &&
+                placeOfWork != null &&
+                !placeOfWork.isBlank() &&
+                address != null &&
+                !address.isBlank() &&
+                age >= MIN_AGE &&
+                VALID_JOBS.contains(placeOfWork) &&
+                VALID_ADDRESS.contains(address);
     }
 
 
