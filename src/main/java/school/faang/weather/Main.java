@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class Main {
-    private static HashMap<String, WeatherData> weatherInfo = new HashMap<>();
     private static final Integer MAX_TEMP = 50;
     private static final Integer MAX_HUMIDITY = 100;
+
+    private static HashMap<String, WeatherData> weatherInfo = new HashMap<>();
 
     public static WeatherData getWeatherInCity(String city) {
         return weatherInfo.containsKey(city) ? weatherInfo.get(city) : queryInDb(city);
