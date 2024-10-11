@@ -13,6 +13,7 @@ public class TriangleAreaCalculator {
         if (a > add.apply(b).apply(c) || c > add.apply(a).apply(b) || b > add.apply(c).apply(a)) {
             throw new IllegalArgumentException();
         }
+
         double halfPerimeter = divide.apply(add.apply(a).apply(add.apply(b).apply(c))).apply(2.0);
         double result = squareRoot.apply(
                 multiply.apply(
