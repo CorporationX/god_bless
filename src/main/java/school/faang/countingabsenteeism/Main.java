@@ -1,4 +1,5 @@
 package school.faang.countingabsenteeism;
+
 import java.util.List;
 
 public class Main {
