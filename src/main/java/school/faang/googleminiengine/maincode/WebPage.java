@@ -1,4 +1,4 @@
-package school.faang.mini_engine_google;
+package school.faang.googleminiengine.maincode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
