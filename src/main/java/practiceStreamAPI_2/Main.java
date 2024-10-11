@@ -1,6 +1,5 @@
 package practiceStreamAPI_2;
 
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -29,6 +29,20 @@ public class Main {
         System.out.println("Фильтрация и сортировка строк: ");
         List<String> fruits = List.of("apple", "banana", "orange", "kiwi", "avocado", "mango", "grape");
         System.out.println(filterAndSort(fruits, 'a'));
+
+        System.out.println("Преобразование чисел в двоичный формат: ");
+        System.out.println(mapToBinary(numbers));
+
+        System.out.println("Фильтрация строк по алфавиту и сортировка по длине: ");
+        System.out.println(filterAndSortByLength(fruits, "abcdefghijklmnopqrstuvwxyz"));
+    }
+
+    private static List<String> filterAndSortByLength(List<String> words, String alphabet) {
+        String regex = "[" + alphabet + "]+";
+        return words.stream()
+                .filter(s -> s.matches(regex))
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 
     public static Set<List<Integer>> findUniqPairs(List<Integer> numbers, int sum) {
@@ -51,6 +65,12 @@ public class Main {
         return list.stream()
                 .filter(s -> s.charAt(0) == letter)
                 .sorted(Comparator.comparingInt(String::length))
+                .toList();
+    }
+
+    public static List<String> mapToBinary(List<Integer> numbers) {
+        return numbers.stream()
+                .map(Integer::toBinaryString)
                 .toList();
     }
 
