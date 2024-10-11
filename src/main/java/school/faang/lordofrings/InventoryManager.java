@@ -14,10 +14,14 @@ public class InventoryManager {
         character.getInventory().removeIf(predicate);
     }
 
-    public static void updateCharactersItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        character.setInventory(character.getInventory().stream()
-                .filter(predicate)
-                .map(item -> function.apply(item))
-                .toList());
+    public static void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
+        Item newItem = null;
+        for (Item item : character.getInventory()) {
+            if (filter.test(item)) {
+                newItem = updater.apply(item);
+            }
+        }
+        character.getInventory().removeIf(filter);
+        character.getInventory().add(newItem);
     }
 }
