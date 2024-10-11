@@ -1,7 +1,11 @@
 package analysisOfUserActivity_35491;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
 
@@ -14,7 +18,13 @@ public class UserActionAnalyzer {
 
 
     public static List<String> topActiveUsers(List<UserAction> actions, int limit) {
-        return null;
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
+                .limit(limit)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
     public static List<String> topPopularHashtags(List<UserAction> actions, int limit) {
