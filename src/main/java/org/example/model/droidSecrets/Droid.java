@@ -30,7 +30,19 @@ public class Droid {
     }
 
     public static String decryptMessage(String message, Integer key) {
-        return encryptMessage(message, 26 - key);
+        String result = "";
+        for(char messagePart : message.toCharArray()){
+            if(Character.isLetter(messagePart)){
+                if(messagePart >= startOfTheUpperCaseLetter && messagePart <= endOfTheUpperCaseLatter){
+                    result += (char) (endOfTheUpperCaseLatter - (endOfTheUpperCaseLatter - messagePart + key) % sizeOfTheEnglishLetter);
+                }else{
+                    result += (char) (endOfTheLowerCaseLetter - (endOfTheLowerCaseLetter - messagePart + key) % sizeOfTheEnglishLetter);
+                }
+            }else{
+                result += messagePart;
+            }
+        }
+        return result;
     }
 
     public void sendMessage(Droid droid, String message, Integer key, DroidMessageEncryptor encryptor) {
