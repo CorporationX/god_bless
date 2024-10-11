@@ -26,6 +26,9 @@ public class StudentManager {
     }
 
     public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+        if(studentsWithGradesBySubjects == null){
+            throw new IllegalArgumentException("students with grades by subjects map is null");
+        }
         for (Map.Entry<Student, Map<Subject, Integer>> studentMapEntry : studentsWithGradesBySubjects.entrySet()) {
             System.out.println(studentMapEntry.getKey() + ":");
             Map<Subject, Integer> gradesBySubjects = studentMapEntry.getValue();
