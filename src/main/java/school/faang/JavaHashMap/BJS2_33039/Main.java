@@ -32,27 +32,41 @@ public class Main {
 
         allLibrary();
 
-        searchBook(new Book("Harry Runner", "Bobby Burber", 3));
+        searchBook("Harry Runner", "Bobby Burber", 3);
 
-        searchBook(new Book("Jane Eyre", "Charlotte Brontë", 174));
+        searchBook("Jane Eyre", "Charlotte Brontë", 174);
     }
 
     private static void addBook(Book book, String shelf) {
         library.put(book, shelf);
-        System.out.println("Книга " + book + "добавлена на полку " + shelf + "\n");
+        System.out.println("Книга " + book + " добавлена на полку " + shelf + "\n");
     }
 
-    private static void removeBook(String title, String author, int age){
-        library.remove(new Book(title, author, age));
-        System.out.println("Книга" + title + " удалена " + "\n");
-    }
-
-    private static void searchBook(Book book){
-        if (library.containsKey(book)) {
-            System.out.println("Книга: " + book + " найдена " + library.get(book));
-        } else {
-            System.out.println("Книга не найдена: " + book);
+    private static void removeBook(String title, String author, int age) {
+        Book bookToRemove = null;
+        for (Book book : library.keySet()) {
+            if (book.getTitle().equals(title) && book.getAuthor().equals(author) && book.getAge() == age) {
+                bookToRemove = book;
+                break;
+            }
         }
+        if (bookToRemove != null) {
+            library.remove(bookToRemove);
+            System.out.println("Книга " + title + " удалена");
+        } else {
+            System.out.println("Книга " + title + " не найдена");
+        }
+    }
+
+    private static void searchBook(String title, String author, int age) {
+        for (Map.Entry<Book, String> entry : library.entrySet()) {
+            Book book = entry.getKey();
+            if (book.getTitle().equals(title) && book.getAuthor().equals(author) && book.getAge() == age) {
+                System.out.println("Книга: " + book + " найдена на полке " + entry.getValue());
+                return;
+            }
+        }
+        System.out.println("Книга не найдена: " + title + " by " + author);
     }
 
     private static void allLibrary() {
@@ -60,5 +74,4 @@ public class Main {
             System.out.println("Book: " + entry.getKey() + ", Shelf: " + entry.getValue());
         }
     }
-
 }
