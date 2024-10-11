@@ -46,7 +46,7 @@ class SchoolTest {
     }
 
     @Test
-    void addStudentWithSubjectsTest() {
+    public void addStudentWithSubjectsTest() {
         int initialStudentCount = school.getJournal().size();
         Student student3 = new Student(3, "Student 3");
         Map<Subject, Integer> student3progress = new HashMap<>();
@@ -63,7 +63,7 @@ class SchoolTest {
     }
 
     @Test
-    void addNewSubjectForStudentTest() {
+    public void addNewSubjectForStudentTest() {
         int initialSubjectCount = school.getJournal().get(student1).size();
         Subject newSubject = new Subject(6, "Subject 6");
 
@@ -75,19 +75,19 @@ class SchoolTest {
     }
 
     @Test
-    void deleteStudentWithSubjectTest() {
+    public void deleteStudentWithSubjectTest() {
         school.deleteStudentWithSubject(student1);
         Map<Subject, Integer> updatedProgress = school.getJournal().get(student1);
         assertNull(updatedProgress);
     }
 
     @Test
-    void printAllStudentsWithSubjectsTest() {
+    public void printAllStudentsWithSubjectsTest() {
         school.printAllStudentsWithSubjects();
     }
 
     @Test
-    void addSubjectAndStudentsTest() {
+    public void addSubjectAndStudentsTest() {
         int initialSubjectCount = school.getSubjectsWithStudents().keySet().size();
         school.addSubjectAndStudents(new Subject(4, "Subject 4"), Collections.singletonList(new Student(4, "Student 4")));
 
@@ -97,7 +97,7 @@ class SchoolTest {
     }
 
     @Test
-    void addStudentToSubjectTest() {
+    public void addStudentToSubjectTest() {
         Subject subject1 = new Subject(1, "Subject 1");
         int initialSubjectStudentsCount = school.getSubjectsWithStudents().get(subject1).size();
 
@@ -108,7 +108,7 @@ class SchoolTest {
     }
 
     @Test
-    void removeStudentFromSubjectTest() {
+    public void removeStudentFromSubjectTest() {
         Subject subject1 = new Subject(1, "Subject 1");
         int initialSubjectStudentsCount = school.getSubjectsWithStudents().get(subject1).size();
 
@@ -119,7 +119,7 @@ class SchoolTest {
     }
 
     @Test
-    void printAllSubjectsWithStudentsTest() {
+    public void printAllSubjectsWithStudentsTest() {
         school.printAllSubjectsWithStudents();
     }
 }

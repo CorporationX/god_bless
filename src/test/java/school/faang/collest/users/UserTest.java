@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserTest {
 
     @Test
-    void findHobbyLoversTest() {
+    public void findHobbyLoversTest() {
         User user1 = new User(1, "Name1", 1, new HashSet<>(Arrays.asList("Hobby1", "Hobby4")));
         User user2 = new User(2, "Name1", 2, new HashSet<>(Arrays.asList("Hobby2", "Hobby4")));
         User user3 = new User(3, "Name1", 3, new HashSet<>(Arrays.asList("Hobby3", "Hobby4")));

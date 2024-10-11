@@ -29,27 +29,27 @@ class UniversityTest {
     }
 
     @Test
-    void addStudentTest() {
+    public void addStudentTest() {
         university.add(new Student("Student Name 4", "Faculty 3", 2023));
         List<Student> students = university.findAllByFacultyAndYear("Faculty 3", 2023);
         assertEquals(2, students.size());
     }
 
     @Test
-    void findStudentsByFacultyAndYearTest() {
+    public void findStudentsByFacultyAndYearTest() {
         List<Student> students = university.findAllByFacultyAndYear("Faculty 3", 2023);
         assertEquals(1, students.size());
     }
 
     @Test
-    void deleteStudentTest() {
+    public void deleteStudentTest() {
         university.delete("Student Name 2", "Faculty 2", 2022);
         List<Student> students = university.findAllByFacultyAndYear("Faculty 2", 2022);
         assertNull(students);
     }
 
     @Test
-    void printAllStudentsTest() {
+    public void printAllStudentsTest() {
         university.printAllStudents();
     }
 }

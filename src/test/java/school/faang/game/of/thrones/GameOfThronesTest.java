@@ -22,7 +22,7 @@ class GameOfThronesTest {
     }
 
     @Test
-    void addHouseTest() {
+    public void addHouseTest() {
         House house3 = new House("House 3", "Sigil 3");
         gameOfThrones.addHouse(house3);
         House retrievedHouse = gameOfThrones.findHouse("House 3");
@@ -30,14 +30,14 @@ class GameOfThronesTest {
     }
 
     @Test
-    void deleteHouseTest() {
+    public void deleteHouseTest() {
         gameOfThrones.deleteHouse("House 2");
         House deletedHouse = gameOfThrones.findHouse("House 2");
         assertNull(deletedHouse);
     }
 
     @Test
-    void printAllHousesTest() {
+    public void printAllHousesTest() {
         gameOfThrones.printAllHouses();
     }
 }

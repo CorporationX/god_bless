@@ -12,28 +12,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class UserActionAnalyzerTest {
 
     @Test
-    void topActiveUsersTest() {
+    public void topActiveUsersTest() {
         List<String> expected = Arrays.asList("Eve", "Bob", "Alice", "Charlie", "Dave");
         List<String> result = UserActionAnalyzer.topActiveUsers(createTestUserActions());
         assertEquals(expected, result);
     }
 
     @Test
-    void topPopularHashtagsTest() {
+    public void topPopularHashtagsTest() {
         List<String> expected = Arrays.asList("Java", "conference", "feature", "review", "update");
         List<String> result = UserActionAnalyzer.topPopularHashtags(createTestUserActions());
         assertEquals(expected, result);
     }
 
     @Test
-    void topCommentersLastMonthTest() {
+    public void topCommentersLastMonthTest() {
         List<String> expected = Arrays.asList("Bob", "Eve", "Alice");
         List<String> result = UserActionAnalyzer.topCommentersLastMonth(createTestUserActions());
         assertEquals(expected, result);
     }
 
     @Test
-    void actionTypePercentagesTest() {
+    public void actionTypePercentagesTest() {
         Map<ActionType, Double> expected = Map.of(
                 ActionType.LIKE, 26.0,
                 ActionType.POST, 26.0,

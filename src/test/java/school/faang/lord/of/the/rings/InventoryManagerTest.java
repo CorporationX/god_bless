@@ -31,7 +31,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void addItemTest() {
+    public void addItemTest() {
         int sizeBefore = frodo.getInventory().size();
 
         InventoryManager.addItem(frodo, ring, addItemAction1);
@@ -40,7 +40,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void deleteItemTest() {
+    public void deleteItemTest() {
         InventoryManager.addItem(frodo, ring, addItemAction1);
         int sizeBefore = frodo.getInventory().size();
 
@@ -50,7 +50,7 @@ class InventoryManagerTest {
     }
 
     @Test
-    void updateItemValueTest() {
+    public void updateItemValueTest() {
         InventoryManager.addItem(frodo, ring, addItemAction2);
         int valueBefore = frodo.getInventory().get(0).getValue();
 
