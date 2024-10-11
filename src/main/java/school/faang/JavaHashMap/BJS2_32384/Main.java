@@ -9,8 +9,8 @@ import java.util.Map;
 
 @Data
 public class Main {
-    static Map<Student, Map<Subject, Integer>> subjectsAndGrades = new HashMap<>();
-    static Map<Subject, List<Student>> studentsStudySubject = new HashMap<>();
+    static Map<Student, Map<Subject, Integer>> studentGrades = new HashMap<>();
+    static Map<Subject, List<Student>> subjectStudents = new HashMap<>();
 
     public static void main(String[] args) {
         addNewStudentWithSubjects(new Student(1, "John"), new Subject(1, "Mathematics"), 5);
@@ -48,36 +48,17 @@ public class Main {
     }
 
     public static void addNewStudentWithSubjects(Student student, Subject subject, Integer grade) {
-        if (!subjectsAndGrades.containsKey(student)) {
-            subjectsAndGrades.put(student, new HashMap<>());
-        }
-        subjectsAndGrades.get(student).put(subject, grade);
-
-        if (!studentsStudySubject.containsKey(subject)) {
-            studentsStudySubject.put(subject, new ArrayList<>());
-        }
-        if (!studentsStudySubject.get(subject).contains(student)) {
-            studentsStudySubject.get(subject).add(student);
-        }
+        addStudentSubjectRelation(student, subject, grade);
     }
 
     public static void addSubjectForStudent(Student student, Subject subject, Integer grade) {
-        if (!subjectsAndGrades.containsKey(student)) {
-            subjectsAndGrades.put(student, new HashMap<>());
-        }
-        subjectsAndGrades.get(student).put(subject, grade);
-
-        if (!studentsStudySubject.containsKey(subject)) {
-            studentsStudySubject.put(subject, new ArrayList<>());
-        }
-        if (!studentsStudySubject.get(subject).contains(student)) {
-            studentsStudySubject.get(subject).add(student);
-        }
+        addStudentSubjectRelation(student, subject, grade);
     }
+
 
     public static void removeStudent(String nameStudent) {
         Student studentToRemove = null;
-        for (Student student : subjectsAndGrades.keySet()) {
+        for (Student student : studentGrades.keySet()) {
             if (student.getName().equals(nameStudent)) {
                 studentToRemove = student;
                 break;
@@ -85,22 +66,21 @@ public class Main {
         }
 
         if (studentToRemove != null) {
-            Map<Subject, Integer> removedSubjects = subjectsAndGrades.remove(studentToRemove);
+            Map<Subject, Integer> removedSubjects = studentGrades.remove(studentToRemove);
             if (removedSubjects != null) {
                 for (Subject subject : removedSubjects.keySet()) {
-                    if (studentsStudySubject.containsKey(subject)) {
-                        studentsStudySubject.get(subject).remove(studentToRemove);
+                    if (subjectStudents.containsKey(subject)) {
+                        subjectStudents.get(subject).remove(studentToRemove);
                     }
                 }
             }
-            System.out.println("Студент " + nameStudent + " удален.");
         } else {
             System.out.println("Студент " + nameStudent + " не найден.");
         }
     }
 
     public static void printAllStudentsAndGrades() {
-        for (Map.Entry<Student, Map<Subject, Integer>> entry : subjectsAndGrades.entrySet()) {
+        for (Map.Entry<Student, Map<Subject, Integer>> entry : studentGrades.entrySet()) {
             System.out.println("Студент: " + entry.getKey());
             for (Map.Entry<Subject, Integer> subjectGrade : entry.getValue().entrySet()) {
                 System.out.println("  Предмет: " + subjectGrade.getKey() + ", Оценка: " + subjectGrade.getValue());
@@ -109,42 +89,43 @@ public class Main {
     }
 
     public static void addNewSubjectWithStudents(Subject subject, Student student) {
-        if (!studentsStudySubject.containsKey(subject)) {
-            studentsStudySubject.put(subject, new ArrayList<>());
-        }
-        studentsStudySubject.get(subject).add(student);
-
-        if (!subjectsAndGrades.containsKey(student)) {
-            subjectsAndGrades.put(student, new HashMap<>());
-        }
-        subjectsAndGrades.get(student).put(subject, null);
+        addStudentSubjectRelation(student, subject, null);
     }
 
     public static void addStudentToSubject(Student student, Subject subject) {
-        if (!studentsStudySubject.containsKey(subject)) {
-            studentsStudySubject.put(subject, new ArrayList<>());
-        }
-        if (!studentsStudySubject.get(subject).contains(student)) {
-            studentsStudySubject.get(subject).add(student);
-        }
+        addStudentSubjectRelation(student, subject, null);
     }
 
     public static void removeStudentFromSubject(Student student, Subject subject) {
-        if (studentsStudySubject.containsKey(subject)) {
-            studentsStudySubject.get(subject).remove(student);
+        if (student == null || subject == null) {
+            throw new IllegalArgumentException("Student and Subject cannot be null");
         }
-        if (subjectsAndGrades.containsKey(student)) {
-            subjectsAndGrades.get(student).remove(subject);
-        }
+        subjectStudents.computeIfPresent(subject, (k, v) -> {
+            v.remove(student);
+            return v;
+        });
+        studentGrades.computeIfPresent(student, (k, v) -> {
+            v.remove(subject);
+            return v;
+        });
     }
 
     public static void printAllSubjectsAndStudents() {
-        for (Map.Entry<Subject, List<Student>> entry : studentsStudySubject.entrySet()) {
+        for (Map.Entry<Subject, List<Student>> entry : subjectStudents.entrySet()) {
             System.out.println("Предмет: " + entry.getKey());
             System.out.println("Студенты:");
             for (Student student : entry.getValue()) {
                 System.out.println("  " + student);
             }
         }
+    }
+    private static void addStudentSubjectRelation(Student student, Subject subject, Integer grade) {
+        if (subject == null || student == null) {
+            throw new IllegalArgumentException("Subject and Student cannot be null");
+        }
+        subjectStudents.computeIfAbsent(subject, k ->
+                new ArrayList<>()).add(student);
+        studentGrades.computeIfAbsent(student, k ->
+                new HashMap<>()) .putIfAbsent(subject, grade != null ? grade : 0);
     }
 }
