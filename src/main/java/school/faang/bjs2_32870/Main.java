@@ -1,5 +1,6 @@
 package school.faang.bjs2_32870;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +28,8 @@ public class Main {
         List<String> keywords = List.of(webPage.getContent().split("[\\s.]+"));
 
         for (String keyword : keywords) {
-            SEARCH_ENGINE.putIfAbsent(keyword, List.of(webPage));
+            SEARCH_ENGINE.putIfAbsent(keyword, new ArrayList<>());
+            SEARCH_ENGINE.get(keyword).add(webPage);
         }
     }
 
