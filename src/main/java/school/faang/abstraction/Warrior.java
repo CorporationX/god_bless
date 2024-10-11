@@ -1,6 +1,6 @@
 package school.faang.abstraction;
 
-public class Warrior extends school.faang.abstraction.Character {
+public class Warrior extends Character {
 
     public Warrior(String name) {
         super(name, 10, 5, 3);
@@ -8,6 +8,6 @@ public class Warrior extends school.faang.abstraction.Character {
 
     @Override
     public void attack(Character character) {
-        health -= strength;
+        character.health -= strength;
     }
 }
