@@ -16,6 +16,8 @@ public class InventoryManager {
     }
 
     public void updateItem(Character frodo, Predicate<Item> itemFilter, Function<Item, Item> itemFunction) {
-        frodo.getInventory().stream().filter(itemFilter).forEach(item -> item.setValue(itemFunction.apply(item).getValue()));
+        frodo.getInventory().stream()
+                .filter(itemFilter)
+                .forEach(item -> item.setValue(itemFunction.apply(item).getValue()));
     }
 }
