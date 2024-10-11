@@ -6,15 +6,15 @@ import java.util.function.Consumer;
 
 public class NotificationManager {
 
-    Map<String, Consumer<Notification>> notificationMap = new HashMap<>();
+    private final Map<String, Consumer<Notification>> handlerMap = new HashMap<>();
 
     public void registerHandler(String identifier, Consumer<Notification> doNotification) {
-        notificationMap.put(identifier, doNotification);
+        handlerMap.put(identifier, doNotification);
     }
 
     public void sendNotification(Notification notification) {
         String identifier = notification.type();
 
-        notificationMap.get(identifier).accept(notification);
+        handlerMap.get(identifier).accept(notification);
     }
 }
