@@ -8,9 +8,6 @@ import java.util.Map;
 public class Main {
     private static final Map<String, List<WebPage>> SEARCH_ENGINE = new HashMap<>();
 
-    private Main() {
-    }
-
     public static void main(String[] args) {
         WebPage webPage1 = new WebPage("https://apteka.ru", "24-hour pharmacy \"AptekaRu\"", "The pharmacy is open 24/7. All medicines are available");
         WebPage webPage2 = new WebPage("https://astro.com", "Astronomy in simple terms", "Galaxy, Milky Way, Comet. What do these words tell you?");
