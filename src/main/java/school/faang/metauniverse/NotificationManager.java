@@ -5,15 +5,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private static final Map<String, Consumer<Notification>> NOTIFICATION_HANDLERS = new HashMap<>();
+    private final Map<String, Consumer<Notification>> notificationsHandlers = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> notificationHandler) {
-        NOTIFICATION_HANDLERS.put(type, notificationHandler);
+        notificationsHandlers.put(type, notificationHandler);
     }
 
     public void sendNotification(Notification notification) {
-        if (NOTIFICATION_HANDLERS.containsKey(notification.type())) {
-            NOTIFICATION_HANDLERS.get(notification.type()).accept(notification);
+        if (notificationsHandlers.containsKey(notification.type())) {
+            notificationsHandlers.get(notification.type()).accept(notification);
         } else {
             System.out.printf("Для типа оповещения %s отсутствует обработчик%n", notification.type());
         }
