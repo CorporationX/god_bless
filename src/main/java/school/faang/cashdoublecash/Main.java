@@ -11,7 +11,7 @@ public class Main {
     private static List<Student> students = new ArrayList<>();
     public static void main(String[] args) {
         // добавление нового студента и его предметов с оценками;
-        addStudentAndSubjects(1, "Jake", 1, "Biology", 5);;
+        addStudentAndSubjects(1, "Jake", 1, "Biology", 5);
         addStudentAndSubjects(1, "Jake", 2, "Biology", 5);
         addStudentAndSubjects(2, "Bob", 3, "Psychology", 5);
         addStudentAndSubjects(3,"Bill",3, "Art", 5);
