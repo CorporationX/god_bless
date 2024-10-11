@@ -25,8 +25,7 @@ public class Main {
 
     public static void deleteWebPageByUrl(String url) {
         for (Map.Entry<String, List<WebPage>> entry : similarPages.entrySet()) {
-            List<WebPage> webPages = entry.getValue();
-            webPages.removeIf(webPage -> webPage.getUrl().equals(url));
+            entry.getValue().removeIf(webPage -> webPage.getUrl().equals(url));
         }
     }
 
