@@ -22,11 +22,11 @@ class User {
 	}
 	public static Map<Integer, List<User>> groupUsers(List<User> users) {
 		Map<Integer, List<User>> groupedUsers = new HashMap<>();
-		for (User user : users) {
-			int age = user.getAge();
-			groupedUsers.computeIfAbsent(age, newAge -> new ArrayList<>());
+        for (User user : users) {
+            int age = user.getAge();
+            groupedUsers.computeIfAbsent(age, newAge -> new ArrayList<>());
 			groupedUsers.get(age).add(user);
-		}
-		return groupedUsers;
-	}
+        }
+        return groupedUsers;
+    }
 }
