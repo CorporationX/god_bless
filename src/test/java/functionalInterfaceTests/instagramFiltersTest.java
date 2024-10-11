@@ -11,19 +11,19 @@ public class instagramFiltersTest {
 
     @Test
     public void filtersTest() {
-        Image originalImage = new Image("original.jpg", "Оригинальное изображение");
+        Image originalImage = new Image("original.jpg", "Original image");
         FilterProcessor filterProcessor = new FilterProcessor();
 
-        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: черно-белый");
-        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Фильтр: сепия");
+        Function<Image, Image> grayscaleFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Filter: Black and white");
+        Function<Image, Image> sepiaFilter = (image) -> new Image(image.getName(), image.getDescription() + " | Filter: Sepia");
 
         Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
         Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
-        Assertions.assertEquals("Оригинальное изображение | Фильтр: черно-белый", grayscaleImage.getDescription());
-        Assertions.assertEquals("Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия", sepiaImage.getDescription());
+        Assertions.assertEquals("Original image | Filter: Black and white", grayscaleImage.getDescription());
+        Assertions.assertEquals("Original image | Filter: Black and white | Filter: Sepia", sepiaImage.getDescription());
 
         Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, sepiaFilter);
         Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
-        Assertions.assertEquals("Оригинальное изображение | Фильтр: черно-белый | Фильтр: сепия", combinedImage.getDescription());
+        Assertions.assertEquals("Original image | Filter: Black and white | Filter: Sepia", combinedImage.getDescription());
     }
 }
