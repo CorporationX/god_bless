@@ -6,44 +6,44 @@ import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static final HashMap<Integer, StreamEvent> eventsById = new HashMap<>();
-    private static final HashMap<String, List<StreamEvent>> eventsByType = new HashMap<>();
+    private static final HashMap<Integer, StreamEvent> EVENTS = new HashMap<>();
+    private static final HashMap<String, List<StreamEvent>> SIMILAR_EVENTS = new HashMap<>();
 
     public static void addNewStreamEvent(StreamEvent streamEvent) {
-        eventsById.put(streamEvent.getId(), streamEvent);
-        eventsByType.computeIfAbsent(streamEvent.getEventType(), key -> new ArrayList<>()).add(streamEvent);
+        EVENTS.put(streamEvent.getId(), streamEvent);
+        SIMILAR_EVENTS.computeIfAbsent(streamEvent.getEventType(), key -> new ArrayList<>()).add(streamEvent);
     }
 
     public static void findEventById(Integer id) {
-        if (eventsById.containsKey(id)) {
-            System.out.println(eventsById.get(id));
+        if (EVENTS.containsKey(id)) {
+            System.out.println(EVENTS.get(id));
         } else {
             System.out.println("Event not found");
         }
     }
 
     public static void findEventsListByType(String eventType) {
-        if (eventsByType.containsKey(eventType)) {
-            System.out.println(eventsByType.get(eventType));
+        if (SIMILAR_EVENTS.containsKey(eventType)) {
+            System.out.println(SIMILAR_EVENTS.get(eventType));
         } else {
             System.out.println("Not found");
         }
     }
 
     public static void deleteEventsById(Integer id) {
-        if (eventsById.containsKey(id)) {
-            StreamEvent event = eventsById.get(id);
-            eventsById.remove(id);
-            List<StreamEvent> streamEvents = eventsByType.get(event.getEventType());
+        if (EVENTS.containsKey(id)) {
+            StreamEvent event = EVENTS.get(id);
+            EVENTS.remove(id);
+            List<StreamEvent> streamEvents = SIMILAR_EVENTS.get(event.getEventType());
             streamEvents.remove(event);
             if (streamEvents.isEmpty()) {
-                eventsByType.remove(event.getEventType());
+                SIMILAR_EVENTS.remove(event.getEventType());
             }
         }
     }
 
     public static void printInfo() {
-        for (Map.Entry<Integer, StreamEvent> entry : eventsById.entrySet()) {
+        for (Map.Entry<Integer, StreamEvent> entry : EVENTS.entrySet()) {
             System.out.println(entry.getValue());
         }
     }
