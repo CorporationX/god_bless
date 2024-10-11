@@ -1,9 +1,12 @@
 package school.faang.JavaHashMap.BJS2_32758;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Main {
     static Map<String, List<WebPage>> index = new HashMap<>();
@@ -99,16 +102,13 @@ public class Main {
 
     }
 
-    static void indexUrl(WebPage webPage){
-        String[] keyWords = {"ооп", "stream", "ошибки", "spring", "java"};
+    static void indexUrl(WebPage webPage) {
         String[] contentWords = webPage.getContent().toLowerCase().split("\\W+");
-        for(String keys : keyWords){
-            for(String contents : contentWords){
-                if(contents.contains(keys)){
-                    index.putIfAbsent(keys, new ArrayList<>());
-                    index.get(keys).add(webPage);
-                }
-            }
+
+        Set<String> uniqueWords = new HashSet<>(Arrays.asList(contentWords));
+
+        for (String word : uniqueWords) {
+                index.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
         }
     }
 
@@ -124,11 +124,7 @@ public class Main {
                 isRemoved = true;
             }
         }
-        if (isRemoved) {
-            System.out.println(url + " Удален");
-        } else {
-            System.out.println(url + " не найден");
-        }
+        System.out.println(url + (isRemoved ? " Удален" : " не найден"));
     }
 
     static void printGroupedPages() {
@@ -138,9 +134,10 @@ public class Main {
 
             System.out.println("Ключевое слово: " + keyword);
             for (WebPage webPage : webPages) {
-                System.out.println("  URL: " + webPage.getUrl());
-                System.out.println("  Заголовок: " + webPage.getTitle());
-                System.out.println("  Содержимое: " + webPage.getContent());
+                System.out.println("\tURL: " + webPage.getUrl());
+                System.out.println("\tЗаголовок: " + webPage.getTitle());
+                System.out.println("\tСодержимое: " + webPage.getContent());
+                System.out.println();
             }
             System.out.println();
         }
