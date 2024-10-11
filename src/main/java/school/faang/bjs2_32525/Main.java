@@ -38,7 +38,7 @@ public class Main {
 
         studentManager.addStudentWithGradesBySubjects(student, gradesBySubjects, studentsWithGradesBySubjects);
 
-        printStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
     }
 
     private static void testAddSubjectWithGradesToStudent(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
@@ -48,39 +48,28 @@ public class Main {
         int gradePhysicalEducation = 5;
 
         System.out.println("students with grades by subjects before:\n");
-        printStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
 
         System.out.println("add a student Subject - " + physics.getName() + ", grade - " + gradePhysicalEducation);
         studentManager.addSubjectWithGradesToStudent(student, physics, gradePhysicalEducation, studentsWithGradesBySubjects);
 
         System.out.println("\nstudents with grades by subjects after:\n");
-        printStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
     }
 
     private static void testRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
         System.out.println("\ntestRemoveStudentWithGradesBySubject\n");
 
         System.out.println("students with grades by subjects before:\n");
-        printStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
 
         System.out.println("remove student with grades by subject: " + student);
         studentManager.removeStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
 
         System.out.println("\nstudents with grades by subjects after:\n");
-        printStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
     }
 
-    private static void printStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
-        for (Map.Entry<Student, Map<Subject, Integer>> studentMapEntry : studentsWithGradesBySubjects.entrySet()) {
-            System.out.println(studentMapEntry.getKey() + ":");
-            Map<Subject, Integer> gradesBySubjects = studentMapEntry.getValue();
 
-            for (Map.Entry<Subject, Integer> subjectIntegerEntry : gradesBySubjects.entrySet()) {
-                System.out.println(subjectIntegerEntry.getKey().getName() + " = " + subjectIntegerEntry.getValue());
-            }
-
-        }
-        System.out.println();
-    }
 
 }

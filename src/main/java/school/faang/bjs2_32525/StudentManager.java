@@ -25,6 +25,19 @@ public class StudentManager {
         studentsWithGradesBySubjects.remove(student);
     }
 
+    public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+        for (Map.Entry<Student, Map<Subject, Integer>> studentMapEntry : studentsWithGradesBySubjects.entrySet()) {
+            System.out.println(studentMapEntry.getKey() + ":");
+            Map<Subject, Integer> gradesBySubjects = studentMapEntry.getValue();
+
+            for (Map.Entry<Subject, Integer> subjectIntegerEntry : gradesBySubjects.entrySet()) {
+                System.out.println(subjectIntegerEntry.getKey().getName() + " = " + subjectIntegerEntry.getValue());
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
     private static void validateRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
