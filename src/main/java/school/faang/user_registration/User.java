@@ -1,4 +1,4 @@
-package school.faang.BJS2_31799;
+package school.faang.user_registration;
 
 import lombok.Data;
 import java.util.Set;
