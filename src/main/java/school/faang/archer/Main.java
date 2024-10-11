@@ -1,4 +1,4 @@
-
+package school.faang.archer;
 
 public class Main {
 

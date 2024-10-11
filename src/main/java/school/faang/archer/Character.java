@@ -1,3 +1,5 @@
+package school.faang.archer;
+
 public abstract class Character {
     protected String name;
     protected int power;

@@ -1,3 +1,5 @@
+package school.faang.archer;
+
 public class Warrior extends Character{
 
     public Warrior(String name) {
