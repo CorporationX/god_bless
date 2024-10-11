@@ -1,7 +1,10 @@
 package practiceStreamAPI_2;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +14,21 @@ import java.util.stream.Collectors;
 public class Main {
 
     public static void main(String... args) {
+        System.out.println("Найдите уникальные пары чисел: ");
         List<Integer> numbers = List.of(1, 2, 3, 4, 5, 6);
         System.out.println(findUniqPairs(numbers, 7));
 
+        System.out.println("Отсортируйте страны и выведите столицы: ");
         Map<String, String> capitals = Map.of(
-            "Russia", "Moscow",
-            "USA", "Washington",
-            "Germany", "Berlin"
+                "Russia", "Moscow",
+                "USA", "Washington",
+                "Germany", "Berlin"
         );
         System.out.println(sortByKeyAndGetValue(capitals));
 
+        System.out.println("Фильтрация и сортировка строк: ");
+        List<String> fruits = List.of("apple", "banana", "orange", "kiwi", "avocado", "mango", "grape");
+        System.out.println(filterAndSort(fruits, 'a'));
     }
 
     public static Set<List<Integer>> findUniqPairs(List<Integer> numbers, int sum) {
@@ -36,6 +44,13 @@ public class Main {
         return map.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
+                .toList();
+    }
+
+    public static List<String> filterAndSort(List<String> list, char letter) {
+        return list.stream()
+                .filter(s -> s.charAt(0) == letter)
+                .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
 
