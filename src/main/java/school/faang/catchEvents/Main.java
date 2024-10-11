@@ -18,7 +18,7 @@ public class Main {
         if (EVENTS.containsKey(id)) {
             System.out.println(EVENTS.get(id));
         } else {
-            System.out.println("Event not found");
+            throw new IllegalArgumentException("Event not found");
         }
     }
 
@@ -26,7 +26,7 @@ public class Main {
         if (SIMILAR_EVENTS.containsKey(eventType)) {
             System.out.println(SIMILAR_EVENTS.get(eventType));
         } else {
-            System.out.println("Not found");
+            throw new IllegalArgumentException("Not found");
         }
     }
 
@@ -58,12 +58,13 @@ public class Main {
         addNewStreamEvent(streamEvent2);
         addNewStreamEvent(streamEvent3);
         addNewStreamEvent(streamEvent4);
-        System.out.println();
+
 
         findEventById(2);
+        System.out.println();
         findEventsListByType("game");
+        System.out.println();
         printInfo();
-
         System.out.println();
         deleteEventsById(1);
         printInfo();

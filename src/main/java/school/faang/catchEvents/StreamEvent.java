@@ -1,10 +1,12 @@
 package school.faang.catchEvents;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
 @AllArgsConstructor
+@ToString
 public class StreamEvent {
     private Integer id;
     private String eventType;
