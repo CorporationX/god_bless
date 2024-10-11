@@ -11,10 +11,16 @@ public class Main {
         int encryptionKey1 = 3;
         int encryptionKey2 = 7;
 
-        r2d2.sendMessage(c3po, message1, encryptionKey1);
+        String encryptedMessage1 = r2d2.sendMessage(message1, encryptionKey1);
+        String decryptedMessage1 = c3po.receiveMessage(encryptedMessage1, encryptionKey1);
+        System.out.println("R2D2 -> C3PO: " + decryptedMessage1);
 
-        c3po.sendMessage(r2d2, message2, encryptionKey2);
+        String encryptedMessage2 = c3po.sendMessage(message2, encryptionKey2);
+        String decryptedMessage2 = r2d2.receiveMessage(encryptedMessage2, encryptionKey2);
+        System.out.println("C3PO -> R2D2: " + decryptedMessage2);
 
-        bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
+        String encryptedMessage3 = bb8.sendMessage("The mission is complete.", encryptionKey1);
+        String decryptedMessage3 = c3po.receiveMessage(encryptedMessage3, encryptionKey1);
+        System.out.println("BB-8 -> C3PO: " + decryptedMessage3);
     }
 }

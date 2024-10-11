@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class Droid {
+    private static final int ALPHABET_SIZE = 26;
     private String name;
 
     public Droid(String name) {
@@ -15,7 +16,7 @@ public class Droid {
         for (char c : message.toCharArray()) {
             if (Character.isLetter(c)) {
                 char base = Character.isUpperCase(c) ? 'A' : 'a';
-                result.append((char) ((c - base + key) % 26 + base));
+                result.append((char) ((c - base + key) % ALPHABET_SIZE + base));
             } else {
                 result.append(c);
             }
@@ -23,19 +24,15 @@ public class Droid {
         return result.toString();
     };
 
-    private DroidMessageEncryptor decryptor = (message, key) -> {
-        return encryptor.process(message, 26 - key);
-    };
-
-    public void sendMessage(Droid receiver, String message, int key) {
-        String encryptedMessage = encryptMessage(message, key);
-        System.out.println(name + " отправляет зашифрованное сообщение: " + encryptedMessage);
-        receiver.receiveMessage(encryptedMessage, key);
+    private DroidMessageEncryptor decryptor = (message, key) -> 
+            encryptor.process(message, 26 - key);
+    
+    public String sendMessage(String message, int key) {
+        return encryptMessage(message, key);
     }
 
-    public void receiveMessage(String encryptedMessage, int key) {
-        String decryptedMessage = decryptMessage(encryptedMessage, key);
-        System.out.println(name + " получил и расшифровал сообщение: " + decryptedMessage);
+    public String receiveMessage(String encryptedMessage, int key) {
+        return decryptMessage(encryptedMessage, key);
     }
 
     private String encryptMessage(String message, int key) {
