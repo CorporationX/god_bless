@@ -15,7 +15,7 @@ public class Main {
         manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
 
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"),
-                (item) -> item.setValue(item.getValue() * 2));
+                (item) -> new Item(item.getName(), item.getValue() * 2));
 
         frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
     }
