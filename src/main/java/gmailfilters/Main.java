@@ -16,8 +16,7 @@ public class Main {
 
         Predicate<Email> filter = email -> email.isImportant();
         Function<Email, String> converter = email -> email.getBody() + " преобразовано";
-        Consumer<Email> handler = email -> System.out.println("Обработано письмо: " + email.getSubject()
-                + ", " + email.getBody());
+        Consumer<Email> handler = email -> System.out.println("Обработано письмо: " + email.getSubject() + ", " + email.getBody());
 
         emailProcessor.processEmails(emails, filter, converter, handler);
     }
