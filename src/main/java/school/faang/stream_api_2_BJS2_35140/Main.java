@@ -17,7 +17,7 @@ public class Main {
         System.out.println(Operator.sortCountries(countries));
 
         List<String> strings = new ArrayList<>(List.of("apple", "banana", "avocado", "apricot"));
-        char firstCharacter = 'a';
+        String firstCharacter = "a";
         System.out.println(Operator.filterAndSortStrings(strings, firstCharacter));
 
         System.out.println(Operator.transformationToBinary(numbers));

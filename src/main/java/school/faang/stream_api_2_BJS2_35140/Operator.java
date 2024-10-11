@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Operator {
-    private static final int FIRST_CHARACTER = 0;
 
     public static Set<List<Integer>> findPairsNumbers(List<Integer> numbers, int numForCompare) {
         Set<Integer> numbersSet = new HashSet<>(numbers);
@@ -24,16 +23,15 @@ public class Operator {
 
     public static List<String> sortCountries(Map<String, String> countries) {
         return countries.entrySet().stream()
-                .sorted(Comparator.comparing(word -> word.getKey().charAt(FIRST_CHARACTER)))
+                .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
 
-    public static List<String> filterAndSortStrings(List<String> countries, char letter) {
+    public static List<String> filterAndSortStrings(List<String> countries, String firstLetter) {
         return countries.stream()
-                .filter((str) -> str.charAt(FIRST_CHARACTER) == letter)
+                .filter((str) -> str.startsWith(firstLetter))
                 .sorted(Comparator.comparingInt(String::length))
-                .sorted()
                 .toList();
     }
 
@@ -50,6 +48,4 @@ public class Operator {
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }
-
-
 }
