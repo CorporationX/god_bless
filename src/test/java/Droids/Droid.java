@@ -1,6 +1,10 @@
 package Droids;
 
+
 public class Droid {
+    private final int COUNT_LETTERS = 26;
+    private DroidMessageEncryptor ENCRIPTOR;
+    private DroidMessageEncryptor DECRIPTOR;
     private String name;
 
     public Droid(String name) {
@@ -12,35 +16,35 @@ public class Droid {
     }
 
     private String encryptMessage(String message, int key) {
-        DroidMessageEncryptor encryptor = (m, k) -> {
+        ENCRIPTOR = (m, k) -> {
             StringBuilder encryptedMessage = new StringBuilder();
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + k) % 26 + base));
+                    encryptedMessage.append((char) ((ch - base + k) % COUNT_LETTERS + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
             }
             return encryptedMessage.toString();
         };
-        return encryptor.encrypt(message, key);
+        return ENCRIPTOR.encrypt(message, key);
     }
 
     private String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decryptor = (m, k) -> {
+        DECRIPTOR = (m, k) -> {
             StringBuilder decryptedMessage = new StringBuilder();
             for (char ch : m.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - k + 26) % 26 + base));
+                    decryptedMessage.append((char) ((ch - base - k + COUNT_LETTERS) % COUNT_LETTERS + base));
                 } else {
                     decryptedMessage.append(ch);
                 }
             }
             return decryptedMessage.toString();
         };
-        return decryptor.encrypt(message, key);  // сообщение
+        return DECRIPTOR.encrypt(message, key);
     }
 
     public void sendMessage(String message, int key, Droid droid) {
