@@ -5,8 +5,17 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class StudentManager {
+    public void addStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+        validateArgsAddStudentToSubject(subject, student, studentsBySubject);
+
+        List<Student> students = studentsBySubject.get(subject);
+        students.add(student);
+
+    }
+
+
     public void addSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
-        validateAddSubjectWithStudents(subject, students, studentsBySubject);
+        validateArgsAddSubjectWithStudents(subject, students, studentsBySubject);
         studentsBySubject.put(subject, students);
     }
 
@@ -34,14 +43,15 @@ public class StudentManager {
     public void addSubjectWithGradesToStudent(Student student, Subject subject, int grade,
                                               Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
 
-        validateAddSubjectWithGradesToStudent(student, subject, grade, studentsWithGradesBySubjects);
+        validateArgsAddSubjectWithGradesToStudent(student, subject, grade, studentsWithGradesBySubjects);
         Map<Subject, Integer> subjectIntegerMap = studentsWithGradesBySubjects.get(student);
         subjectIntegerMap.put(subject, grade);
     }
 
     public void removeStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
-        validateRemoveStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
+        validateArgsRemoveStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
         studentsWithGradesBySubjects.remove(student);
+        //TODO: удалить если последний студент был удален
     }
 
     public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
@@ -60,7 +70,7 @@ public class StudentManager {
         System.out.println();
     }
 
-    private static void validateRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private static void validateArgsRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -70,7 +80,7 @@ public class StudentManager {
 
     }
 
-    private static void validateAddSubjectWithGradesToStudent(Student student, Subject subject, int grade, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private static void validateArgsAddSubjectWithGradesToStudent(Student student, Subject subject, int grade, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -109,7 +119,7 @@ public class StudentManager {
         }
     }
 
-    private static void validateAddSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
+    private static void validateArgsAddSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
         if (subject == null) {
             throw new IllegalArgumentException("subject is null");
         }
@@ -118,6 +128,18 @@ public class StudentManager {
         }
         if (students.isEmpty()) {
             throw new IllegalArgumentException("students is empty");
+        }
+        if (studentsBySubject == null) {
+            throw new IllegalArgumentException("students by subject is null");
+        }
+    }
+
+    private static void validateArgsAddStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+        if (subject == null) {
+            throw new IllegalArgumentException("subject is null");
+        }
+        if (student == null) {
+            throw new IllegalArgumentException("student is null");
         }
         if (studentsBySubject == null) {
             throw new IllegalArgumentException("students by subject is null");

@@ -16,21 +16,37 @@ public class Main {
         Student student = new Student("Alex");
         testAddStudentWithGradesBySubjects(student, studentsSubjectsGrades);
         testAddSubjectWithGradesToStudent(student, studentsSubjectsGrades);
-        testRemoveStudentWithGradesBySubject(student,studentsSubjectsGrades);
+        testRemoveStudentWithGradesBySubject(student, studentsSubjectsGrades);
 
-        testAddSubjectWithStudents(studentsBySubject);
+        Subject mathematics = new Subject("Mathematics");
+        testAddSubjectWithStudents(mathematics, studentsBySubject);
+        testAddStudentToSubject(mathematics,studentsBySubject);
     }
-    private static void testAddSubjectWithStudents(Map<Subject, List<Student>> studentsBySubject){
+
+    private static void testAddStudentToSubject(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
+        System.out.println("\ntestAddSubjectWithStudents\n");
+
+        System.out.println("students by subject before:\n");
+        studentManager.printAllStudentsBySubjects(studentsBySubject);
+
+        Student student = new Student("Mark");
+        System.out.println("add: " + student);
+        studentManager.addStudentToSubject(subject, student, studentsBySubject);
+
+        System.out.println("students by subject before:\n");
+        studentManager.printAllStudentsBySubjects(studentsBySubject);
+    }
+
+    private static void testAddSubjectWithStudents(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
         System.out.println("\ntestAddSubjectWithStudents\n");
 
         List<Student> students = generateListStudents();
-        Subject mathematics = new Subject("Mathematics");
 
         System.out.println("students by subject before:\n");
         studentManager.printAllStudentsBySubjects(studentsBySubject);
 
         System.out.println("add subject with list students");
-        studentManager.addSubjectWithStudents(mathematics,students,studentsBySubject);
+        studentManager.addSubjectWithStudents(subject, students, studentsBySubject);
 
         System.out.println("\nstudents by subject after:\n");
         studentManager.printAllStudentsBySubjects(studentsBySubject);
@@ -96,7 +112,6 @@ public class Main {
         System.out.println("\nstudents with grades by subjects after:\n");
         studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
     }
-
 
 
 }
