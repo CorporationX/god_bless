@@ -14,12 +14,12 @@ public class TriangleAreaCalculator {
             throw new IllegalArgumentException();
         }
         double halfPerimeter = divide.apply(add.apply(a).apply(add.apply(b).apply(c))).apply(2.0);
-        double result= squareRoot.apply(
+        double result = squareRoot.apply(
                 multiply.apply(
-                        multiply.apply(
-                                multiply.apply(halfPerimeter)
-                                        .apply(subtract.apply(halfPerimeter).apply(a)))
-                                .apply(subtract.apply(halfPerimeter).apply(b))).
+                                multiply.apply(
+                                                multiply.apply(halfPerimeter)
+                                                        .apply(subtract.apply(halfPerimeter).apply(a)))
+                                        .apply(subtract.apply(halfPerimeter).apply(b))).
                         apply(subtract.apply(halfPerimeter).apply(c))
         );
         return result;
