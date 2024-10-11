@@ -1,4 +1,4 @@
-package school.faang.BJS2_31387;
+package school.faang.abstraction;
 
 public class TestCharacter {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class TestCharacter {
         archer.attack(warrior);
         archer.attack(warrior);
 
-        System.out.println("Warrior: " + warrior.getName() + "'s zdorovye is: " + warrior.getZdorovye());
-        System.out.println("Archer: " + archer.getName() + "'s zdorovye is: " + archer.getZdorovye());
+        System.out.println("Warrior: " + warrior.getName() + "'s health is: " + warrior.getHealth());
+        System.out.println("Archer: " + archer.getName() + "'s health is: " + archer.getHealth());
     }
 }
