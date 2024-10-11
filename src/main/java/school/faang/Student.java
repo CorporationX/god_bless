@@ -1,8 +1,12 @@
 package school.faang;
 
-import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Student {
     private final String name;
     private final String faculty;
