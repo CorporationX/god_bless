@@ -45,15 +45,15 @@ public class Droid {
         return result;
     }
 
-    public void sendMessage(Droid droid, String message, Integer key, DroidMessageEncryptor encryptor) {
-        String encryptedMessage = encryptor.doIt(message, key);
+    public void sendMessage(Droid droid, String message, Integer key, CaesarCipher encryptor) {
+        String encryptedMessage = encryptor.applyCipher(message, key);
         System.out.println(this.getName() + " отправил зашифрованное сообщение: " + encryptedMessage);
 
         droid.receiveMessage(encryptedMessage, key, Droid::decryptMessage);
     }
 
-    public void receiveMessage(String encryptedMessage, Integer key,  DroidMessageEncryptor decryptor) {
-        String decryptedMessage = decryptor.doIt(encryptedMessage, key);
+    public void receiveMessage(String encryptedMessage, Integer key,  CaesarCipher decryptor) {
+        String decryptedMessage = decryptor.applyCipher(encryptedMessage, key);
         System.out.println(this.getName() + " получил расшифрованное сообщение: " + decryptedMessage);
     }
 }
