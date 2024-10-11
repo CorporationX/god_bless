@@ -1,4 +1,4 @@
-package school.faang.bjs2_31491;
+package school.faang.groupedusers;
 
 import lombok.Getter;
 
