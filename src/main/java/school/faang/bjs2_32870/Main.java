@@ -17,9 +17,10 @@ public class Main {
         indexingWebPage(webPage2);
         indexingWebPage(webPage3);
 
-        System.out.println(searchPagesByKeyword("24/7"));
-        System.out.println(searchPagesByKeyword("Milky Way"));
-    }
+        deletePage("https://apteka.ru");
+        deletePage("https://Eapteka.ru");
+
+        System.out.println(SEARCH_ENGINE);}
 
     private static void indexingWebPage(WebPage webPage) {
         List<String> keywords = List.of(webPage.getContent().split("[\\s.]+"));
@@ -32,5 +33,20 @@ public class Main {
 
     private static List<WebPage> searchPagesByKeyword(String keyword) {
        return SEARCH_ENGINE.get(keyword);
+    }
+
+    private static void deletePage(String url) {
+        List<String> searchedKeyword = new ArrayList<>();
+
+        for (Map.Entry<String, List<WebPage>> entry : SEARCH_ENGINE.entrySet()) {
+            for (WebPage webPage : entry.getValue()) {
+                if (webPage.getUrl().equals(url)) {
+                    searchedKeyword.add(entry.getKey());
+                }
+            }
+        }
+        for (String keyword : searchedKeyword) {
+            SEARCH_ENGINE.remove(keyword);
+        }
     }
 }
