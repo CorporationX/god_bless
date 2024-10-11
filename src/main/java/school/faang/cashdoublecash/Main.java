@@ -74,9 +74,9 @@ public class Main {
     private static void printAllStudent() {
         studentAndSubjectMap.forEach((student, subjectMap) -> {
             System.out.println(" ");
-            System.out.println("Имя студента: " + student.getStudentName() + ", Id студента: " + student.getStudentId());
+            System.out.println("Имя студента: " + student.studentName() + ", Id студента: " + student.studentId());
                 subjectMap.forEach((subject, grade) -> {
-                    System.out.println("Id предмета: " + subject.getSubjectId() + ", Название предмета: " + subject.getSubjectName() + ", Оценка: " + grade);
+                    System.out.println("Id предмета: " + subject.subjectId() + ", Название предмета: " + subject.subjectName() + ", Оценка: " + grade);
                 });
         });
     }
@@ -108,9 +108,9 @@ public class Main {
     private static void printAllSubjectsAndStudents() {
         subjectMapAndStudentList.forEach(((subject, studentsList) -> {
                 System.out.println(" ");
-                System.out.println("Id предмета: " + subject.getSubjectId() + ", Название предмета: " + subject.getSubjectName());
+                System.out.println("Id предмета: " + subject.subjectId() + ", Название предмета: " + subject.subjectName());
                 studentsList.forEach(student ->
-                                System.out.println("Id Студента: " + student.getStudentId() + ", Имя студента: " + student.getStudentName()));
+                                System.out.println("Id Студента: " + student.studentId() + ", Имя студента: " + student.studentName()));
         }));
     }
 }
