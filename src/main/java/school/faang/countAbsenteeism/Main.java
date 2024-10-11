@@ -1,25 +1,22 @@
 package school.faang.countAbsenteeism;
 
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class Main {
 
     private static final List<Student> STUDENTS = new ArrayList<>();
 
-    private static Map<Map.Entry<String, Integer>, List<Student>> GROUPED_STUDENTS = new HashMap<>();
+    private static final Map<String, List<Student>> GROUPED_STUDENTS = new HashMap<>();
 
-    public static Map<Map.Entry<String, Integer>, List<Student>> groupStudents(List<Student> students) {
-        Map<Map.Entry<String, Integer>, List<Student>> groupedStudents = new HashMap<>();
+    public static Map<String, List<Student>> groupStudents(List<Student> students) {
         for (Student student : students) {
-            AbstractMap.SimpleEntry<String, Integer> key = new AbstractMap.SimpleEntry<>(student.getFaculty(), student.getYear());
-            groupedStudents.computeIfAbsent(key, k -> new ArrayList<>()).add(student);
+            String keyValue = student.getFaculty() + " " + student.getYear();
+            GROUPED_STUDENTS.computeIfAbsent(keyValue, k -> new ArrayList<>()).add(student);
         }
-        return groupedStudents;
+        return GROUPED_STUDENTS;
     }
 
     public static void addStudent(Student student) {
@@ -31,19 +28,19 @@ public class Main {
     }
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
-        List<Student> studentList = new ArrayList<>();
-        for (Student student : STUDENTS) {
-            if (Objects.equals(student.getYear(), year) && student.getFaculty().equals(faculty)) {
-                studentList.add(student);
+        String keyValue = faculty + " " + year;
+        for (Map.Entry<String, List<Student>> entry : GROUPED_STUDENTS.entrySet()) {
+            if (entry.getKey().equals(keyValue)) {
+                return entry.getValue();
             }
         }
-        return studentList;
+        throw new IllegalArgumentException("There are no students");
     }
+
 
     public static void showGroupedStudents() {
         System.out.println(GROUPED_STUDENTS);
     }
-
 
     public static void main(String[] args) {
         Student student1 = new Student("Abzalkhan", "IT", 5);
@@ -64,10 +61,10 @@ public class Main {
         System.out.println(STUDENTS);
         System.out.println();
 
-        System.out.println(findStudentsByFacultyAndYear("IT", 5));
+        groupStudents(STUDENTS);
+        showGroupedStudents();
         System.out.println();
 
-        GROUPED_STUDENTS = groupStudents(STUDENTS);
-        showGroupedStudents();
+        System.out.println(findStudentsByFacultyAndYear("IT", 5));
     }
 }
