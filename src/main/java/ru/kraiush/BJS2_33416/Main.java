@@ -13,7 +13,7 @@ public class Main {
         System.out.println(result);
     }
 
-    public static class RemoteService<T> {
+    public static class RemoteService {
         public static String call(String param) throws Exception {
             throw new Exception("Service is not available");
         }
