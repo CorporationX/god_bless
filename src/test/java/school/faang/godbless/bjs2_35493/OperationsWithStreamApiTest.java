@@ -1,6 +1,5 @@
 package school.faang.godbless.bjs2_35493;
 
-import jdk.jshell.execution.Util;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,13 +13,13 @@ import java.util.stream.Stream;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-class UtilsWithStreamApiTest {
+class OperationsWithStreamApiTest {
 
     @ParameterizedTest
     @MethodSource("getNumbersForSumOfEven")
     @DisplayName("Testing getSumOfEvenNumbers with valid params")
     void testGetSumOfEvenNumbers(int expected, List<Integer> numbers) {
-        assertEquals(expected, UtilsWithStreamApi.getSumOfEvenNumbers(numbers));
+        assertEquals(expected, NumberManager.getSumOfEvenNumbers(numbers));
     }
 
     static Stream<Arguments> getNumbersForSumOfEven() {
@@ -35,14 +34,14 @@ class UtilsWithStreamApiTest {
     @Test
     @DisplayName("Testing getSumOfEvenNumbers with invalid params")
     void testGetSumOfEvenNumbersNull() {
-        assertThrows(NullPointerException.class, () -> UtilsWithStreamApi.getSumOfEvenNumbers(null));
+        assertThrows(NullPointerException.class, () -> NumberManager.getSumOfEvenNumbers(null));
     }
 
     @ParameterizedTest
     @MethodSource("getNumbersForMax")
     @DisplayName("Testing getMaxNumber with valid params")
     void testGetMaxNumber(int expected, List<Integer> numbers) {
-        assertEquals(expected, UtilsWithStreamApi.getMaxNumber(numbers));
+        assertEquals(expected, NumberManager.getMaxNumber(numbers));
     }
 
     static Stream<Arguments> getNumbersForMax() {
@@ -59,15 +58,15 @@ class UtilsWithStreamApiTest {
     @Test
     @DisplayName("Testing getMaxNumber with invalid params")
     void testGetMaxNumberNullOrEmpty() {
-        assertThrows(NullPointerException.class, () -> UtilsWithStreamApi.getMaxNumber(null));
-        assertThrows(NoSuchElementException.class, () -> UtilsWithStreamApi.getMaxNumber(List.of()));
+        assertThrows(NullPointerException.class, () -> NumberManager.getMaxNumber(null));
+        assertThrows(NoSuchElementException.class, () -> NumberManager.getMaxNumber(List.of()));
     }
 
     @ParameterizedTest
     @MethodSource("getNumbersForAverage")
     @DisplayName("Testing getAverage with valid params")
     void testGetAverage(int expected, List<Integer> numbers) {
-        assertEquals(expected, UtilsWithStreamApi.getAverage(numbers));
+        assertEquals(expected, NumberManager.getAverage(numbers));
     }
 
     static Stream<Arguments> getNumbersForAverage() {
@@ -82,15 +81,15 @@ class UtilsWithStreamApiTest {
     @Test
     @DisplayName("Testing getAverage with invalid params")
     void testGetAverageWithInvalidParams() {
-        assertThrows(NullPointerException.class, () -> UtilsWithStreamApi.getAverage(null));
-        assertThrows(IllegalArgumentException.class, () -> UtilsWithStreamApi.getAverage(List.of()));
+        assertThrows(NullPointerException.class, () -> NumberManager.getAverage(null));
+        assertThrows(IllegalArgumentException.class, () -> NumberManager.getAverage(List.of()));
     }
 
     @ParameterizedTest
     @MethodSource("getWordsForCountStartsWith")
     @DisplayName("Testing countStartsWith with valid params")
     void testCountStartsWith(int expected, List<String> words, char symbol) {
-        assertEquals(expected, UtilsWithStreamApi.countStartsWith(words, symbol));
+        assertEquals(expected, WordsManager.countStartsWith(words, symbol));
     }
 
     static Stream<Arguments> getWordsForCountStartsWith() {
@@ -105,14 +104,14 @@ class UtilsWithStreamApiTest {
     @Test
     @DisplayName("Testing countStartsWith with invalid params")
     void testCountStartsWithWhenInvalidParams() {
-        assertThrows(NullPointerException.class, () -> UtilsWithStreamApi.countStartsWith(null, 's'));
+        assertThrows(NullPointerException.class, () -> WordsManager.countStartsWith(null, 's'));
     }
 
     @ParameterizedTest
     @MethodSource("getWordsForGetWordsContainingSubstring")
     @DisplayName("Testing getWordsContainingSubstring with valid params")
     void testGetWordsContainingSubstring(List<String> expected, List<String> words, String substring) {
-        List<String> actual = UtilsWithStreamApi.getWordsContainingSubstring(words, substring);
+        List<String> actual = WordsManager.getWordsContainingSubstring(words, substring);
         assertEquals(expected.size(), actual.size());
         expected.forEach(word -> assertTrue(actual.contains(word)));
     }
@@ -128,6 +127,6 @@ class UtilsWithStreamApiTest {
     @Test
     @DisplayName("Testing getWordsContainingSubstring with invalid params")
     void testGetWordsContainingSubstringInvalidParams() {
-        assertThrows(NullPointerException.class, () -> UtilsWithStreamApi.getWordsContainingSubstring(null, "s"));
+        assertThrows(NullPointerException.class, () -> WordsManager.getWordsContainingSubstring(null, "s"));
     }
 }
