@@ -16,12 +16,13 @@ public class InventoryManager {
 
     public static void updateItem(Character character, Predicate<Item> filter, Function<Item, Item> updater) {
         Item newItem = null;
+        Integer indexOfItem = null;
         for (Item item : character.getInventory()) {
             if (filter.test(item)) {
                 newItem = updater.apply(item);
+                indexOfItem = character.getInventory().indexOf(item);
+                character.getInventory().set(indexOfItem, newItem);
             }
         }
-        character.getInventory().removeIf(filter);
-        character.getInventory().add(newItem);
     }
 }
