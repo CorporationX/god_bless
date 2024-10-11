@@ -4,7 +4,7 @@ import java.util.List;
 
 public class CalculatorService {
     private static int calculate(List<Integer> nums, Calculator<Integer> calculator) throws IllegalArgumentException {
-        if (nums.isEmpty()){
+        if (nums.isEmpty()) {
             throw new IllegalArgumentException();
         }
         return nums.stream()
