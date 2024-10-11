@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -23,17 +21,17 @@ public class Main {
             System.out.println("\nТоп-5 навыков:");
             dataAnalyzer.printTop5Skills(jobs);
 
-//            System.out.println("\nТоп-5 позиций:");
-//            dataAnalyzer.printTop5Positions(jobs);
-//
-//            System.out.println("\nРаспределение зарплат:");
-//            dataAnalyzer.printSalaryDistribution(jobs);
-//
-//            System.out.println("\nТоп-5 местоположений:");
-//            dataAnalyzer.printTop5Locations(jobs);
+            System.out.println("\nТоп-5 позиций:");
+            dataAnalyzer.printTop5Positions(jobs);
 
-            // Для анализа тенденций можно вызвать метод analyzeTrends
-            // trendsAnalyzer.analyzeTrends(jobs, "2023-01-01", "2023-12-31", "monthly");
+            System.out.println("\nРаспределение зарплат:");
+            dataAnalyzer.printSalaryDistribution(jobs);
+
+            System.out.println("\nТоп-5 местоположений:");
+            dataAnalyzer.printTop5Locations(jobs);
+
+            TrendsAnalyzer trendsAnalyzer = new TrendsAnalyzer();
+            trendsAnalyzer.analyzeTrends(jobs, "2023-01-01", "2023-12-31", Trends.MONTHLY);
 
         } catch (IOException e) {
             System.err.println("Ошибка при чтении файла: " + e.getMessage());
