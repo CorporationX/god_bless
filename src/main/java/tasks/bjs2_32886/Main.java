@@ -15,10 +15,10 @@ public class Main {
         showAllPageIndexes();
         generateWebPages();
         showAllPageIndexes();
-        showPagesByIndex("ЭтО");
-        showPagesByIndex("hfjdhfjdhfj");
+        showPagesByWord("ЭтО");
+        showPagesByWord("hfjdhfjdhfj");
         removeWebPageByURL("https://www.google.ru");
-        showPagesByIndex("https://www.google.ru");
+        showPagesByWord("https://www.google.ru");
         showAllPageIndexes();
     }
 
@@ -74,7 +74,7 @@ public class Main {
         System.out.println("Пытаемся добавить вэб страницу " + title);
 
         try {
-            WebPage page = WebPage.createValidated(url, title, content);
+            WebPage page = new WebPage(url, title, content);
 
             indexingWebPageData(page, page.getUrl(), page.getTitle(), page.getContent());
             System.out.println("Страница добавлена и проиндексированна");
@@ -86,12 +86,12 @@ public class Main {
     }
 
     private static void indexingWebPageData(WebPage page, String... data) {
-        GetIndexes(data).forEach(
-            word -> pagesIndexes.computeIfAbsent(word.toLowerCase(), k -> new ArrayList<>()).add(page)
+        getWords(data).forEach(
+            word -> pagesIndexes.computeIfAbsent(word, k -> new ArrayList<>()).add(page)
         );
     }
 
-    private static void showPagesByIndex(String word) {
+    private static void showPagesByWord(String word) {
         word = word.toLowerCase();
         System.out.println("Показать вэб страницы содержимое которого содержит слово : " + word);
 
@@ -127,7 +127,7 @@ public class Main {
     }
 
     private static void deindexingWebPageData(WebPage page, String... data) {
-        GetIndexes(data).forEach(word -> {
+        getWords(data).forEach(word -> {
                 List<WebPage> pages = pagesIndexes.get(word);
                 pages.remove(page);
                 if (pages.isEmpty()) {
@@ -137,7 +137,7 @@ public class Main {
         );
     }
 
-    private static Set<String> GetIndexes(String... data) {
+    private static Set<String> getWords(String... data) {
         Set<String> words = new HashSet<>();
 
         for (String param : data) {
