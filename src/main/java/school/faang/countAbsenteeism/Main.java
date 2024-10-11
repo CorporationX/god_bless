@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class Main {
 
-    private static final List<Student> students = new ArrayList<>();
+    private static final List<Student> STUDENTS = new ArrayList<>();
 
-    private static Map<Map.Entry<String, Integer>, List<Student>> groupedStudents = new HashMap<>();
+    private static Map<Map.Entry<String, Integer>, List<Student>> GROUPED_STUDENTS = new HashMap<>();
 
     public static Map<Map.Entry<String, Integer>, List<Student>> groupStudents(List<Student> students) {
         Map<Map.Entry<String, Integer>, List<Student>> groupedStudents = new HashMap<>();
@@ -23,16 +23,16 @@ public class Main {
     }
 
     public static void addStudent(Student student) {
-        students.add(student);
+        STUDENTS.add(student);
     }
 
     public static void deleteStudent(String name, String faculty, Integer year) {
-        students.remove(new Student(name, faculty, year));
+        STUDENTS.remove(new Student(name, faculty, year));
     }
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
         List<Student> studentList = new ArrayList<>();
-        for (Student student : students) {
+        for (Student student : STUDENTS) {
             if (Objects.equals(student.getYear(), year) && student.getFaculty().equals(faculty)) {
                 studentList.add(student);
             }
@@ -41,7 +41,7 @@ public class Main {
     }
 
     public static void showGroupedStudents() {
-        System.out.println(groupedStudents);
+        System.out.println(GROUPED_STUDENTS);
     }
 
 
@@ -57,17 +57,17 @@ public class Main {
         addStudent(student3);
         addStudent(student4);
         addStudent(student5);
-        System.out.println(students);
+        System.out.println(STUDENTS);
         System.out.println();
 
         deleteStudent("Ruslan", "Physics", 4);
-        System.out.println(students);
+        System.out.println(STUDENTS);
         System.out.println();
 
         System.out.println(findStudentsByFacultyAndYear("IT", 5));
         System.out.println();
 
-        groupedStudents = groupStudents(students);
+        GROUPED_STUDENTS = groupStudents(STUDENTS);
         showGroupedStudents();
     }
 }
