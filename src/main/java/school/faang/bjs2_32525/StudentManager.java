@@ -5,14 +5,20 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 public class StudentManager {
+    public void removeStudentFromSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+        validateRemoveStudentFromSubject(subject, student, studentsBySubject);
+
+        List<Student> students = studentsBySubject.get(subject);
+        students.remove(student);
+    }
+
+
     public void addStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
         validateArgsAddStudentToSubject(subject, student, studentsBySubject);
 
         List<Student> students = studentsBySubject.get(subject);
         students.add(student);
-
     }
-
 
     public void addSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
         validateArgsAddSubjectWithStudents(subject, students, studentsBySubject);
@@ -51,7 +57,6 @@ public class StudentManager {
     public void removeStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
         validateArgsRemoveStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
         studentsWithGradesBySubjects.remove(student);
-        //TODO: удалить если последний студент был удален
     }
 
     public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
@@ -90,6 +95,10 @@ public class StudentManager {
         if (!(studentsWithGradesBySubjects.containsKey(student))) {
             throw new NoSuchElementException("there is no such student in the map yet");
         }
+        Map<Subject, Integer> subjectIntegerMap = studentsWithGradesBySubjects.get(student);
+        if (subjectIntegerMap.containsKey(subject)) {
+            throw new IllegalArgumentException("there is already such a subject");
+        }
         if (subject == null) {
             throw new IllegalArgumentException("subject is null");
         }
@@ -117,6 +126,9 @@ public class StudentManager {
         if (studentsWithGradesBySubjects == null) {
             throw new IllegalArgumentException("students with grades by subjects map is null");
         }
+        if (studentsWithGradesBySubjects.containsKey(student)) {
+            throw new IllegalArgumentException("there is already such a student");
+        }
     }
 
     private static void validateArgsAddSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
@@ -132,6 +144,9 @@ public class StudentManager {
         if (studentsBySubject == null) {
             throw new IllegalArgumentException("students by subject is null");
         }
+        if (studentsBySubject.containsKey(subject)) {
+            throw new IllegalArgumentException("there is already such a subject");
+        }
     }
 
     private static void validateArgsAddStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
@@ -143,6 +158,25 @@ public class StudentManager {
         }
         if (studentsBySubject == null) {
             throw new IllegalArgumentException("students by subject is null");
+        }
+        if (!(studentsBySubject.containsKey(subject))) {
+            throw new NoSuchElementException("there is no such subject");
+        }
+        List<Student> students = studentsBySubject.get(subject);
+        if (students.contains(student)) {
+            throw new IllegalArgumentException("such a student is already on the list");
+        }
+    }
+
+    private static void validateRemoveStudentFromSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+        if (student == null) {
+            throw new IllegalArgumentException("student is null");
+        }
+        if (subject == null) {
+            throw new IllegalArgumentException("subject is null");
+        }
+        if (studentsBySubject == null) {
+            throw new IllegalArgumentException("studentsBySubject is null");
         }
     }
 }

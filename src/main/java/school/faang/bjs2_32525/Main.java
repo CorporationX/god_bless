@@ -20,7 +20,23 @@ public class Main {
 
         Subject mathematics = new Subject("Mathematics");
         testAddSubjectWithStudents(mathematics, studentsBySubject);
-        testAddStudentToSubject(mathematics,studentsBySubject);
+        testAddStudentToSubject(mathematics, studentsBySubject);
+        testRemoveStudentFromSubject(mathematics,studentsBySubject);
+    }
+
+    private static void testRemoveStudentFromSubject(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
+        System.out.println("\ntestRemoveStudentFromSubject\n");
+
+        System.out.println("students by subject before:\n");
+        studentManager.printAllStudentsBySubjects(studentsBySubject);
+
+        List<Student> students = studentsBySubject.get(subject);
+        Student student = students.get(0);
+        studentManager.removeStudentFromSubject(subject,student,studentsBySubject);
+        System.out.println("remove: " + student);
+
+        System.out.println("\nstudents by subject before:\n");
+        studentManager.printAllStudentsBySubjects(studentsBySubject);
     }
 
     private static void testAddStudentToSubject(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
@@ -33,7 +49,7 @@ public class Main {
         System.out.println("add: " + student);
         studentManager.addStudentToSubject(subject, student, studentsBySubject);
 
-        System.out.println("students by subject before:\n");
+        System.out.println("\nstudents by subject before:\n");
         studentManager.printAllStudentsBySubjects(studentsBySubject);
     }
 
