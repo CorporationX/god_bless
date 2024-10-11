@@ -1,4 +1,4 @@
-package school.faang.bjs2_31830;
+package school.faang.registrusers;
 
 import lombok.Getter;
 
