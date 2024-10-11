@@ -4,26 +4,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static school.faang.meta.InappropriateContentManager.contentCorrection;
-import static school.faang.meta.InappropriateContentManager.contentFiltering;
-
 public class NotificationManager {
-    private static final Map<String, Consumer<Notification>> REGISTERED_HANDLER = new HashMap<>();
+    private InappropriateContentManager contentManager = new InappropriateContentManager();
+    private Map<String, Consumer<Notification>> registeredHandler = new HashMap<>();
 
     public void registerHandler(String type, Consumer<Notification> handler) {
-        REGISTERED_HANDLER.put(type, handler);
+        registeredHandler.put(type, handler);
     }
 
     public void sendNotification(Notification notification) {
-        int stopWords = contentFiltering(notification.getMessage());
+        String message = notification.getMessage();
+        int stopWords = contentManager.contentFiltering(message);
         if (stopWords > 2) {
             System.out.println("The notification is invalid due to objectionable content contained in the message.");
         } else {
-            Consumer<Notification> handler = REGISTERED_HANDLER.get(notification.getType());
+            Consumer<Notification> handler = registeredHandler.get(notification.getType());
             if (handler != null && stopWords == 0) {
                 handler.accept(notification);
-            } else if (stopWords == 1 || stopWords == 2) {
-                String correctMessage = contentCorrection(notification.getMessage());
+            } else if (handler != null && (stopWords == 1 || stopWords == 2)) {
+                String correctMessage = contentManager.contentCorrection(message);
                 notification.setMessage(correctMessage);
                 handler.accept(notification);
             } else {
