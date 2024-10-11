@@ -15,7 +15,10 @@ public class ListOperations {
         Set<Integer> set = new HashSet<>(numbers);
 
         return numbers.stream()
-                .filter(num -> set.contains(sum - num))
+                .filter(num -> {
+                    if (sum - num == num) return Collections.frequency(numbers, num) > 1;
+                    else return set.contains(sum - num);
+                })
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
