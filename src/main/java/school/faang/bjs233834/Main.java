@@ -6,8 +6,8 @@ public class Main {
         SpellCaster expelliarmus = new SpellCaster();
         SpellCaster expectoPatronum = new SpellCaster();
 
-        alohomora.cast("Alohomora", spell -> spell + ": the door opened!");
-        expelliarmus.cast("Expelliarmus", spell -> spell);
+        alohomora.cast("Alohomora", spell -> spell.toLowerCase() + ": the door opened!");
+        expelliarmus.cast("Expelliarmus", String::toUpperCase);
         expectoPatronum.cast("Expecto Patronum", spell -> spell + ": your Patronus came!");
     }
 }
