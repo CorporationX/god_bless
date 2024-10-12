@@ -36,17 +36,9 @@ public class Main {
     }
 
     private static void deletePage(String url) {
-        List<String> searchedKeyword = new ArrayList<>();
-
-        for (Map.Entry<String, List<WebPage>> entry : SEARCH_ENGINE.entrySet()) {
-            for (WebPage webPage : entry.getValue()) {
-                if (webPage.getUrl().equals(url)) {
-                    searchedKeyword.add(entry.getKey());
-                }
-            }
+        for (List<WebPage> pages : SEARCH_ENGINE.values()) {
+            pages.removeIf(webPage -> webPage.getUrl().equals(url));
         }
-        for (String keyword : searchedKeyword) {
-            SEARCH_ENGINE.remove(keyword);
-        }
+        SEARCH_ENGINE.entrySet().removeIf(entry -> entry.getValue().isEmpty());
     }
 }
