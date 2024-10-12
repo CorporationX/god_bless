@@ -7,11 +7,10 @@ import java.util.Map;
 
 public class StreamEventService {
     public static void addStreamEvent(StreamEvent streamEvent,
-                                       Map<Integer, StreamEvent> idStreamEventMap,
-                                       Map<String, List<StreamEvent>> eventStreamsMap) {
+                                      Map<Integer, StreamEvent> idStreamEventMap,
+                                      Map<String, List<StreamEvent>> eventStreamsMap) {
         idStreamEventMap.put(streamEvent.getId(), streamEvent);
         if (!eventStreamsMap.containsKey(streamEvent.getEventType())) {
-            eventStreamsMap.put(streamEvent.getEventType(), new ArrayList<>());
             List<StreamEvent> streamEventList = new ArrayList<>();
             streamEventList.add(streamEvent);
             eventStreamsMap.put(streamEvent.getEventType(), streamEventList);
@@ -33,18 +32,15 @@ public class StreamEventService {
     }
 
     public static void removeById(int id, Map<Integer, StreamEvent> idStreamEventMap,
-                                   Map<String, List<StreamEvent>> eventStreamsMap) {
+                                  Map<String, List<StreamEvent>> eventStreamsMap) {
+        String eventType = idStreamEventMap.get(id).getEventType();
         idStreamEventMap.remove(id);
-        for (Map.Entry<String, List<StreamEvent>> pair : eventStreamsMap.entrySet()) {
-            List<StreamEvent> streamEventList = pair.getValue();
-            Iterator<StreamEvent> iterator = streamEventList.iterator();
-
-            while (iterator.hasNext()) {
-                StreamEvent streamEvent = iterator.next();
-
-                if (streamEvent.getId() == id) {
-                    iterator.remove();
-                }
+        List<StreamEvent> streamEventList = eventStreamsMap.get(eventType);
+        Iterator<StreamEvent> iterator = streamEventList.iterator();
+        while (iterator.hasNext()) {
+            StreamEvent streamEvent = iterator.next();
+            if (streamEvent.getId() == id) {
+                iterator.remove();
             }
         }
     }

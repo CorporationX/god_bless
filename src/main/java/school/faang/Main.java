@@ -22,6 +22,7 @@ public class Main {
         addStreamEvent(streamEvent1, idStreamEventMap, eventStreamsMap);
         addStreamEvent(streamEvent2, idStreamEventMap, eventStreamsMap);
         addStreamEvent(streamEvent3, idStreamEventMap, eventStreamsMap);
+        viewAllStreamEvents(eventStreamsMap);
         removeById(2, idStreamEventMap, eventStreamsMap);
         searchStreamEventById(3, idStreamEventMap);
         searchStreamEventsByType("stream1", eventStreamsMap);
