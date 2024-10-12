@@ -45,8 +45,10 @@ public class Main {
     }
 
     public static Set<List<String>> peopleWithMutualFriends(Map<String, List<String>> mapPeopleWithFriends) {
-        return mapPeopleWithFriends.entrySet().stream().map(x -> mapPeopleWithFriends.entrySet().stream()
-                .filter(y -> !y.getValue().contains(x.getKey())).map(y -> y.getKey()).toList()
+        return mapPeopleWithFriends.entrySet().stream().map(entry -> mapPeopleWithFriends.entrySet().stream()
+                .filter(person -> person.getValue().stream().anyMatch(friend -> person.getValue().contains(friend)))
+                .filter(person -> !person.getValue().contains(entry.getKey()))
+                .map(currentEntry -> currentEntry.getKey()).toList()
         ).collect(Collectors.toSet());
     }
 
@@ -56,7 +58,7 @@ public class Main {
     }
 
     public static List<Integer> numberPalindromes(int start, int end) {
-        return IntStream.range(start, end).filter(number -> findingThePalindromeNumber(number)).boxed().toList();
+        return IntStream.range(start, end + 1).filter(number -> findingThePalindromeNumber(number)).boxed().toList();
     }
 
     public static Set<String> substringPalindromes(String word) {
@@ -73,7 +75,7 @@ public class Main {
 
     }
 
-    public static boolean findingThePalindromeNumber(int number) {
+    private static boolean findingThePalindromeNumber(int number) {
         int reversed = 0;
         int k = number;
         while (k != 0) {
@@ -83,7 +85,7 @@ public class Main {
         return number == reversed;
     }
 
-    public static boolean findingPerfectNumber(int number) {
+    private static boolean findingPerfectNumber(int number) {
         int sum = 0;
         for (int i = 1; i < number; i++) {
             if (number % i == 0) {
@@ -93,7 +95,7 @@ public class Main {
         return number == sum;
     }
 
-    public static boolean checkPolindromLine(String line) {
+    private static boolean checkPolindromLine(String line) {
         StringBuilder stringBuilder = new StringBuilder(line);
         if (line.equals(stringBuilder.reverse().toString())) {
             return true;
