@@ -44,4 +44,3 @@ public class Main {
         siegward .getInventory().forEach(item -> System.out.println(siegward.getName() + ":" + item.getName() + " : " + item.getValue()));
     }
 }
-
