@@ -1,7 +1,9 @@
 package school.faang.character;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @Data
 public abstract class Character implements Attackable{
   protected String name;
