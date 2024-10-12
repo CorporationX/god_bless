@@ -29,12 +29,7 @@ public class Main {
 
     public static List<Student> findStudentsByFacultyAndYear(String faculty, Integer year) {
         String keyValue = faculty + " " + year;
-        for (Map.Entry<String, List<Student>> entry : GROUPED_STUDENTS.entrySet()) {
-            if (entry.getKey().equals(keyValue)) {
-                return entry.getValue();
-            }
-        }
-        throw new IllegalArgumentException("There are no students");
+        return GROUPED_STUDENTS.get(keyValue);
     }
 
 
