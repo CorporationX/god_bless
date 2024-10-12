@@ -16,8 +16,8 @@ public class Main {
         Map<String, List<String>> mapOfFriends = new HashMap<>();
         mapOfFriends.put("Alice", Arrays.asList("Bob", "Charlie"));
         mapOfFriends.put("Bob", Arrays.asList("Alice", "David"));
-        mapOfFriends.put("Charlie", Arrays.asList("Alice", "David"));
-        mapOfFriends.put("David", Arrays.asList("Bob", "Charlie"));
+        mapOfFriends.put("Charlie", Arrays.asList("Alice"));
+        mapOfFriends.put("David", Arrays.asList("Bob"));
 
         Employee employee1 = new Employee("Рома", 3000, "Sber");
         Employee employee2 = new Employee("Вика", 5000, "Sber");
@@ -46,8 +46,8 @@ public class Main {
 
     public static Set<List<String>> peopleWithMutualFriends(Map<String, List<String>> mapPeopleWithFriends) {
         return mapPeopleWithFriends.entrySet().stream().map(entry -> mapPeopleWithFriends.entrySet().stream()
-                .filter(person -> person.getValue().stream().anyMatch(friend -> person.getValue().contains(friend)))
                 .filter(person -> !person.getValue().contains(entry.getKey()))
+                .filter(person -> person.getValue().stream().anyMatch(friend -> entry.getValue().contains(friend)))
                 .map(currentEntry -> currentEntry.getKey()).toList()
         ).collect(Collectors.toSet());
     }
@@ -72,7 +72,6 @@ public class Main {
 
     public static List<Integer> perfectNumbers(int start, int end) {
         return IntStream.range(start, end).filter(number -> findingPerfectNumber(number)).boxed().toList();
-
     }
 
     private static boolean findingThePalindromeNumber(int number) {
