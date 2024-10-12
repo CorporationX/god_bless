@@ -33,38 +33,43 @@ public class Main {
 
         System.out.println(сonversionToBinaryCode(listOfNumbers));
 
-        List<String> listOfFruits_2 = new ArrayList<>(Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape", "gfasla5"));
+        List<String> listOfFruits_2 = new ArrayList<>(Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape", "gfaslaКостяПривет"));
         System.out.println(filteringStringsAlphabetically(listOfFruits_2, "abcdefghijklmnopqrstuvwxyz"));
     }
 
 
-    public static Set<List<Integer>> uniqueNumberPairs(List<Integer> list, int number) {
+    public static Set<List<Integer>> uniqueNumberPairs(List<Integer> listOfIntegers, int number) {
         Set<Integer> set = new HashSet<>();
-        set.addAll(list);
-        Set<List<Integer>> result = list.stream().filter(x -> set.contains(number - x))
-                .map(x -> Arrays.asList(x, number - x))
+        set.addAll(listOfIntegers);
+        Set<List<Integer>> result = listOfIntegers.stream().filter(integer -> set.contains(number - integer))
+                .map(integer -> Arrays.asList(integer, number - integer))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
         return result;
     }
 
-    public static List<String> сountryСapitals(Map<String, String> mapWithCountry) {
-        return mapWithCountry.entrySet().stream().sorted(Map.Entry.comparingByKey())
+    public static List<String> сountryСapitals(Map<String, String> listOfCountriesAndCapitals) {
+        return listOfCountriesAndCapitals.entrySet().stream().sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue).toList();
     }
 
-    public static List<String> filteringRows(List<String> list, char a) {
-        return list.stream().filter(x -> x.startsWith(String.valueOf(a)))
+    public static List<String> filteringRows(List<String> listOfStrings, char a) {
+        return listOfStrings.stream().filter(line -> line.startsWith(String.valueOf(a)))
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
 
-    public static List<String> сonversionToBinaryCode(List<Integer> list) {
-        return list.stream().map(x -> Integer.toBinaryString(x)).collect(Collectors.toList());
+    public static List<String> сonversionToBinaryCode(List<Integer> listOfIntegers) {
+        return listOfIntegers.stream().map(integer -> Integer.toBinaryString(integer)).collect(Collectors.toList());
     }
 
-    public static List<String> filteringStringsAlphabetically(List<String> list, String word) {
-        return list.stream().filter(x ->
+    public static List<String> filteringStringsAlphabetically(List<String> words, String word) {
+//        String regex = "[" + word + "]+";
+//        return words.stream().filter(word_n -> word.matches(regex))
+//                .sorted(Comparator.comparingInt(String::length)).toList();
+
+
+        return words.stream().filter(x ->
                 {
                     List<String> stringList = Arrays.asList(x.split(""));
                     return stringList.stream().allMatch(word::contains);
