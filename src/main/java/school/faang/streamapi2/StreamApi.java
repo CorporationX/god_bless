@@ -1,5 +1,6 @@
 package school.faang.streamapi2;
 
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -7,11 +8,11 @@ import java.util.stream.Collectors;
 
 public class StreamApi {
 
-    public static List<Integer[]> findUniqPairs(List<Integer> integerList, Integer target) {
+    public static List<List<Integer>> findUniqPairs(List<Integer> integerList, Integer target) {
         return integerList.stream()
                 .flatMap(n -> integerList.stream()
                         .filter(m -> n != m && n + m == target)
-                        .map(m -> new Integer[]{m, n}))
+                        .map(m -> Arrays.asList(Math.min(m, n), Math.max(m,n))))
                 .distinct()
                 .collect(Collectors.toList());
     }
@@ -29,7 +30,7 @@ public class StreamApi {
         return stringList
                 .stream()
                 .filter(str -> !str.isEmpty() && str.charAt(0) == ch)
-                .sorted()
+                .sorted(Comparator.comparing(String::length))
                 .collect(Collectors.toList());
     }
 

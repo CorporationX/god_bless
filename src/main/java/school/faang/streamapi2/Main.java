@@ -17,7 +17,7 @@ public class Main {
         mapCapital.put("Germany", "Berlin");
 
 
-        StreamApi.findUniqPairs(numbers, 7).forEach(pair -> System.out.print(Arrays.toString(pair)));
+        StreamApi.findUniqPairs(numbers, 7).forEach(System.out::print);
         System.out.println();
         System.out.println(StreamApi.sortMapByStream(mapCapital));
         System.out.println(StreamApi.sortAndFilter(stringList1, 'a'));
