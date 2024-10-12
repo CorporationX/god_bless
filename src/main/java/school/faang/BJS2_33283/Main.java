@@ -49,16 +49,13 @@ public class Main {
     public void removeEventById(int id) {
         StreamEvent event = eventById.remove(id);
         if (event != null) {
-            return;
-        }
-        List<StreamEvent> events = eventByType.get(event.getEventType());
-        if (events != null) {
-            return;
-        }
-        events.remove(event);
-
-        if (events.isEmpty()) {
-            eventByType.remove(event.getEventType());
+            List<StreamEvent> events = eventByType.get(event.getEventType());
+            if (events != null) {
+                events.remove(event);
+                if (events.isEmpty()) {
+                    eventByType.remove(event.getEventType());
+                }
+            }
         }
     }
 
