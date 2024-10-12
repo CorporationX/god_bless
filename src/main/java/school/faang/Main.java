@@ -22,8 +22,8 @@ public class Main {
         Subject math = new Subject(1, "math");
         addStudent(student1, physics, 5, subjectsAndGradesMap, studentSubjectMap);
         addStudent(student2, physics, 4, subjectsAndGradesMap, studentSubjectMap);
-        //addSubjectsAndGrades(student1, math, 3, subjectsAndGradesMap);
-        removeStudent(student1, subjectsAndGradesMap, studentSubjectMap);
+        addSubjectsAndGrades(student1, math, 3, subjectsAndGradesMap);
+        //removeStudent(student1, subjectsAndGradesMap, studentSubjectMap);
         viewAllStudents(subjectsAndGradesMap, studentSubjectMap);
 
     }

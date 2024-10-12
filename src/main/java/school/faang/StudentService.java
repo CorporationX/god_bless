@@ -10,9 +10,10 @@ public class StudentService {
     public static void addStudent(Student student, Subject subject, int grade,
                                   Map<Student, Map<Subject, Integer>> subjectsAndGradesMap,
                                   Map<Subject, List<Student>> studentSubjectMap) {
-        subjectsAndGradesMap.putIfAbsent(student, Map.of(subject, grade));
+        subjectsAndGradesMap.putIfAbsent(student, new HashMap<>());
+        Map<Subject, Integer> gradesMap = subjectsAndGradesMap.get(student);
+        gradesMap.put(subject, grade);
         if (!studentSubjectMap.containsKey(subject)) {
-            studentSubjectMap.put(subject, new ArrayList<>());
             List<Student> streamEventList = new ArrayList<>();
             streamEventList.add(student);
             studentSubjectMap.put(subject, streamEventList);
@@ -27,13 +28,9 @@ public class StudentService {
                                             Map<Student, Map<Subject, Integer>> subjectsAndGradesMap) {
         if (subjectsAndGradesMap.containsKey(student)) {
             Map<Subject, Integer> gradesMap = subjectsAndGradesMap.get(student);
-            if (gradesMap == null) {
-                gradesMap = new HashMap<>();
-                subjectsAndGradesMap.put(student, gradesMap);
-            }
             gradesMap.put(subject, grade);
         } else {
-            System.out.println("user not found");
+            System.out.println("Student not found.");
         }
     }
 
