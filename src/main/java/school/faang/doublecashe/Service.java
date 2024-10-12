@@ -10,7 +10,7 @@ public class Service {
     public static final Map<Student, Map<Subject, Integer>> STUDENT_SUBJECT_GRADE = new HashMap<>();
     public static final Map<Subject, List<Student>> SUBJECT_STUDENTS = new HashMap<>();
 
-    public void addStudent(Student student) {
+    private void addStudent(Student student) {
         if (!STUDENT_SUBJECT_GRADE.containsKey(student)) {
             STUDENT_SUBJECT_GRADE.put(student, new HashMap<>());
         }
@@ -19,12 +19,13 @@ public class Service {
     /**
      * добавление нового студента и его предметов с оценками
      */
-    public void addNewStudent(Student student, Subject subject, int grade) {
+    public void addNewStudent(Student student, Map<Subject, Integer> subjectMap) {
         addStudent(student);
-        STUDENT_SUBJECT_GRADE.get(student).put(subject, grade);
-        SUBJECT_STUDENTS.putIfAbsent(subject, new ArrayList<>());
-        if (!SUBJECT_STUDENTS.get(subject).contains(student)) {
-            SUBJECT_STUDENTS.get(subject).add(student);
+        STUDENT_SUBJECT_GRADE.put(student, subjectMap);
+        Map<Subject, Integer> map = STUDENT_SUBJECT_GRADE.get(student);
+        for (Map.Entry<Subject, Integer> entry : map.entrySet()) {
+            Subject subject = entry.getKey();
+            SUBJECT_STUDENTS.computeIfAbsent(subject, key -> new ArrayList<>()).add(student);
         }
     }
 
