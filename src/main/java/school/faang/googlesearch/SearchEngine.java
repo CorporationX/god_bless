@@ -22,4 +22,12 @@ public class SearchEngine {
     public List<WebPage> search(String keyword) {
         return index.getOrDefault(keyword.toLowerCase(), new ArrayList<>());
     }
+
+    // Method to remove a web page from the index by its URL
+    public void removeWebPage(String url) {
+        // Iterate over the index and remove any references to the web page with the given URL
+        for (List<WebPage> webPages : index.values()) {
+            webPages.removeIf(webPage -> webPage.getUrl().equalsIgnoreCase(url));
+        }
+    }
 }
