@@ -11,6 +11,7 @@ public class EmailProcessor {
         for (Email email :emails) {
             if(filter.test(email)) {
                 String transformerBody = transformer.apply(email);
+                email.setBody(transformerBody);
                 System.out.println(transformerBody);
 
                 consumer.accept(email);
