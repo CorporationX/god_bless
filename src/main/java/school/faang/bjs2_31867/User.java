@@ -28,8 +28,9 @@ public class User {
         if (name == null || name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("name cannot be empty");
         }
-        if (age == null || age < 18) {
-            throw new IllegalArgumentException("age cannot be less than 18");
+        int minAge = 18;
+        if (age == null || age < minAge) {
+            throw new IllegalArgumentException("age = " + age + " cannot be less than 18");
         }
         if (!(VALID_JOBS.contains(jobLocation))) {
             throw new IllegalArgumentException("job must be one of the valid job options");
