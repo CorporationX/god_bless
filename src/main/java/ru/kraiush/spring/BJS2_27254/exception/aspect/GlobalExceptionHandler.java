@@ -51,28 +51,28 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataFormatException.class)
     public ErrorResponse handleDataFormatException(DataFormatException ex) {
-        log.error("Data format error - " + ex.getMessage());
+        log.error("Data format error" + ex);
         return new ErrorResponse("Data format error - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ElementNotFoundException.class)
     public ErrorResponse handleNotFoundException(ElementNotFoundException ex) {
-        log.error("Failed to find the requested element"  + ex.getMessage());
+        log.error("Failed to find the requested element"  + ex);
         return new ErrorResponse("Failed to find the requested element - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataValidationException.class)
     public ErrorResponse handleDataValidationException(DataValidationException ex) {
-        log.error("Data validation error  - " + ex.getMessage());
+        log.error("Data validation error" + ex);
         return new ErrorResponse("Data validation error - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
     public ErrorResponse notFoundEntityException(EntityNotFoundException ex) {
-        log.error("Entity not found");
+        log.error("Entity not found" + ex);
         return new ErrorResponse(ex.getMessage());
     }
 
@@ -80,30 +80,30 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public Object handleAccessDeniedException(
             Exception ex, WebRequest request) {
-        log.error("Access denied - " + ex.getMessage(), ex);
+        log.error("Access denied" + ex);
         return new ErrorResponse("Access denied - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(ElementAlreadyExistsException.class)
     public ErrorResponse handleResourceAlreadyExistsException(ElementAlreadyExistsException ex) {
-        log.error("Resource Already Exists - " + ex.getMessage());
+        log.error("Resource Already Exists" + ex);
         return new ErrorResponse("Resource Already Exists - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ErrorResponse mismatchTypeException(MethodArgumentTypeMismatchException ex) {
-        log.error("Mismatch argument type - " + ex.getMessage());
+        log.error("Mismatch argument type" + ex);
         return new ErrorResponse("Mismatch argument type - " + ex.getMessage());
     }
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleAllUncaughtException(
-            Exception exception,
+            Exception ex,
             WebRequest request){
-        log.error("Unknown error occurred - ", exception.getMessage());
-        return new ErrorResponse("Unknown error occurred - " + exception.getMessage());
+        log.error("Unknown error occurred", ex);
+        return new ErrorResponse("Unknown error occurred - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
