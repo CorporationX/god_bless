@@ -9,10 +9,10 @@ import java.util.Map;
 
 @Data
 public class User {
-    String name;
-    int age;
-    String work;
-    String address;
+    private String name;
+    private int age;
+    private String work;
+    private String address;
 
     public User(String name, int age, String address, String work) {
         this.name = name;
