@@ -57,10 +57,26 @@ public class Main {
 
     public static void addNewStudent(Student student, Map<Subject, Integer> subjectsAndGrades) {
         STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectsAndGrades);
+
+        for (Map.Entry<Subject, Integer> entry : subjectsAndGrades.entrySet()) {
+            STUDENTS_STUDYING_SUBJECT.putIfAbsent(entry.getKey(), new ArrayList<>());
+            STUDENTS_STUDYING_SUBJECT.get(entry.getKey()).add(student);
+        }
     }
 
     public static void addNewSubjectForStudent(Student student, Subject subject, int grade) {
        STUDENT_SUBJECTS_AND_GRADES.get(student).put(subject, grade);
+
+       Student student1;
+
+       for (Map.Entry<Subject, List<Student>> entry : STUDENTS_STUDYING_SUBJECT.entrySet()) {
+           for (Student searchedStudent : entry.getValue()) {
+               if (searchedStudent.equals(student) && !entry.getKey().equals(subject)) {
+                   STUDENTS_STUDYING_SUBJECT.put(subject, new ArrayList<>());
+                   STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
+               }
+           }
+       }
     }
 
     public static void deleteStudent(Student student) {
