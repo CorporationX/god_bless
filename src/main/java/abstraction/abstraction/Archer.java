@@ -1,4 +1,4 @@
-package group.users;
+package abstraction.abstraction;
 
 public class Archer extends Character {
     public Archer(String name, int strength, int dexterity, int intelligence) {

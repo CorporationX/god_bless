@@ -1,4 +1,4 @@
-package group.users;
+package abstraction.abstraction;
 
 public class Fighting {
     public static void main(String[] args) {

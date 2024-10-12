@@ -1,4 +1,4 @@
-package group.users;
+package abstraction.abstraction;
 
 import lombok.Getter;
 import lombok.Setter;
