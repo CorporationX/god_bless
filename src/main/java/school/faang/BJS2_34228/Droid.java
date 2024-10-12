@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Droid {
+    private static final int ENGLISH_ALPHABET_LENGTH = 26;
+
     private String name;
 
     public void sendMessage(Droid recipient, String message, int key) {
@@ -27,7 +29,7 @@ public class Droid {
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
                     char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMessage.append((char) ((ch - base + encryptionKey) % 26 + base));
+                    encryptedMessage.append((char) ((ch - base + encryptionKey) % ENGLISH_ALPHABET_LENGTH + base));
                 } else {
                     encryptedMessage.append(ch);
                 }
@@ -38,18 +40,6 @@ public class Droid {
     }
 
     private String decryptMessage(String encryptedMessage, int key) {
-        DroidMessageEncryptor decryptor = (msg, decryptionKey) -> {
-            StringBuilder decryptedMessage = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    decryptedMessage.append((char) ((ch - base - decryptionKey + 26) % 26 + base));
-                } else {
-                    decryptedMessage.append(ch);
-                }
-            }
-            return decryptedMessage.toString();
-        };
-        return decryptor.encrypt(encryptedMessage, key);
+        return encryptMessage(encryptedMessage, ENGLISH_ALPHABET_LENGTH - (key % ENGLISH_ALPHABET_LENGTH));
     }
 }
