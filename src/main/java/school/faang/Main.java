@@ -1,5 +1,4 @@
 package school.faang;
-
 import school.faang.spell.services.SpellCaster;
 
 public class Main {
