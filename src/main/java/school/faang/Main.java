@@ -1,83 +1,47 @@
 package school.faang;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import school.faang.university.Student;
+import school.faang.university.Subject;
+import school.faang.university.UniversityServices;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    private static Map<Integer, StreamEvent> idEventMap = new HashMap<>();
-    private static Map<String, List<StreamEvent>> eventTypeMap = new HashMap<>();
-
+    static UniversityServices universityServices = new UniversityServices();
     public static void main(String[] args) {
-        StreamEvent firstEvent = new StreamEvent(1, "something", "speech");
-        StreamEvent secondEvent = new StreamEvent(51, "burn", "thinking");
-        StreamEvent thirdEvent = new StreamEvent(18, "burn", "thinking");
+        Student firstStudent = new Student(12, "John");
+        Student secondStudent = new Student(208, "Mark");
+        Student thirdStudent = new Student(35, "Ada");
 
-        List<StreamEvent> eventsBurn = new ArrayList<>(Arrays.asList(secondEvent, secondEvent));
-        List<StreamEvent> eventsSomething = new ArrayList<>(Arrays.asList(firstEvent));
-        eventTypeMap.put("burn", eventsBurn);
-        eventTypeMap.put("something", eventsSomething);
+        Subject chemistry = new Subject(2, "Chemistry");
+        Subject pe = new Subject(15, "PE");
+        Subject maths = new Subject(26, "Maths");
 
-        idEventMap.put(1, firstEvent);
-        idEventMap.put(51, secondEvent);
-        idEventMap.put(18, thirdEvent);
+        universityServices.addNewStudent(firstStudent, new HashMap<>(Map.of(chemistry, 8, pe, 12, maths, 3)));
+        universityServices.addNewStudent(secondStudent, new HashMap<>(Map.of(pe, 10, chemistry, 7)));
+        universityServices.addNewStudent(thirdStudent, new HashMap<>(Map.of(maths, 12)));
 
-        addNewEvent(new StreamEvent(12, "basic end-to-end mode", "Speech"));
+        universityServices.printAllStudSubj();
+        System.out.println("==============================================");
 
-        eventSearchById(51);
+        universityServices.addNewSubjectToStudent(thirdStudent, pe, 6);
 
-        eventsSearchByEventType("burn");
+        universityServices.addNewSubjectToStudent(firstStudent, chemistry, 7);
 
-        deleteEventByID(18);
+        universityServices.deleteStudent(secondStudent);
 
-        allStreamEvents();
-    }
+        universityServices.printAllStudSubj();
 
-    public static void addNewEvent(StreamEvent newEvent) {
-        List<StreamEvent> events;
-        if (eventTypeMap.get(newEvent.getEventType()) == null) {
-            events = new ArrayList<>();
-        } else {
-            events = eventTypeMap.get(newEvent.getEventType());
-        }
-        events.add(newEvent);
-        eventTypeMap.put(newEvent.getEventType(), events);
-        idEventMap.put(newEvent.getId(), newEvent);
-    }
+        universityServices.addNewSubject(
+                new Subject(12, "Physics"),
+                List.of(firstStudent, thirdStudent)
+        );
+        universityServices.addStudentToASubject(chemistry, thirdStudent);
 
-    public static void eventSearchById(int idSearch) {
-        System.out.println("Событие найденное по ID = " + idSearch + " : " + idEventMap.get(idSearch));
-    }
+        universityServices.detachStudFromSubj(chemistry, firstStudent);
+        System.out.println("=========================================");
 
-    public static void eventsSearchByEventType(String eventTypeSearch) {
-        System.out.println("Список событий найденных по типу " + eventTypeSearch + " : " + idEventMap.get(eventTypeSearch));
-    }
-
-    public static void deleteEventByID(int id) {
-        if (idEventMap.get(id) != null) {
-            String eventTypeForId = idEventMap.get(id).getEventType();
-            List<StreamEvent> listToDelete = eventTypeMap.get(eventTypeForId);
-            int index = listToDelete.indexOf(idEventMap.get(id));
-
-            if (index != -1) {
-                if (listToDelete.size() == 1) {
-                    listToDelete = null;
-                } else {
-                    listToDelete.remove(index);
-                }
-                idEventMap.remove(id);
-            }
-        }
-    }
-
-    public static void allStreamEvents() {
-        for (Map.Entry<Integer, StreamEvent> entry : idEventMap.entrySet()) {
-            System.out.println("ID события: " + entry.getKey() + " Событие: " + entry.getValue());
-        }
-        for (Map.Entry<String, List<StreamEvent>> entry : eventTypeMap.entrySet()) {
-            System.out.println("Тип события: " + entry.getKey() + "  Список таких событий: " + entry.getValue());
-        }
+        universityServices.printAllSubjects();
     }
 }
