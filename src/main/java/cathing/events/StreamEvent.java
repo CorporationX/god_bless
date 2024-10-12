@@ -60,6 +60,5 @@ public class StreamEvent {
         System.out.println("\n" + "Данное событие удалено!" + "\n" + map.get(id));
         map2.get((map.get(id).getEventType())).remove(map.get(id));
         map.remove(id);
-        //map2.get(streamEvent.getEventType()).remove(streamEvent);
     }
 }
