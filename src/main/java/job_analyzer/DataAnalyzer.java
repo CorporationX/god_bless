@@ -2,9 +2,14 @@ package job_analyzer;
 
 import java.util.List;
 import java.util.Map;
+import java.util.LinkedHashMap;
 import java.util.stream.Collectors;
 
 public class DataAnalyzer {
+    private static final String FROM_ZERO_TO_FIFTY_THOUSAND = "0-50k";
+    private static final String FIFTY_THOUSAND_TO_ONE_HUNDRED_THOUSAND = "50k-100k";
+    private static final String ONE_HUNDRED_THOUSAND_PLUS = "100k+";
+
     /**
      * Print the top 5 skills from the given list of jobs.
      * <p>
@@ -13,14 +18,20 @@ public class DataAnalyzer {
      * @param jobs the list of jobs
      */
     public void printTop5Skills(List<Job> jobs) {
-        Map<String, Long> skillCount = jobs.stream()
+        Map<String, Long> topSkills = jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
-                .collect(Collectors.groupingBy(skill -> skill, Collectors.counting()));
+                .collect(Collectors.collectingAndThen(
+                        Collectors.groupingBy(skill -> skill, Collectors.counting()),
+                        skillCount -> skillCount.entrySet().stream()
+                                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                                .limit(5)
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new))));
 
-        skillCount.entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+        topSkills.forEach((skill, count) -> System.out.println(skill + ": " + count));
     }
 
     /**
@@ -31,13 +42,19 @@ public class DataAnalyzer {
      * @param jobs the list of jobs
      */
     public void printTop5Positions(List<Job> jobs) {
-        Map<String, Long> positionCount = jobs.stream()
-                .collect(Collectors.groupingBy(Job::getPosition, Collectors.counting()));
+        Map<String, Long> topPositions = jobs.stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.groupingBy(Job::getPosition, Collectors.counting()),
+                        positionCount -> positionCount.entrySet().stream()
+                                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                                .limit(5)
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new))));
 
-        positionCount.entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+        topPositions.forEach((position, count) -> System.out.println(position + ": " + count));
     }
 
     /**
@@ -53,11 +70,23 @@ public class DataAnalyzer {
      */
     public void printSalaryDistribution(List<Job> jobs) {
         Map<String, Long> salaryDistribution = jobs.stream()
-                .collect(Collectors.groupingBy(job -> {
-                    if (job.getSalary() < 50000) return "0-50k";
-                    else if (job.getSalary() < 100000) return "50k-100k";
-                    else return "100k+";
-                }, Collectors.counting()));
+                .collect(Collectors.collectingAndThen(
+                        Collectors.groupingBy(job -> {
+                            if (job.getSalary() < 50000) {
+                                return FROM_ZERO_TO_FIFTY_THOUSAND;
+                            } else if (job.getSalary() < 100000) {
+                                return FIFTY_THOUSAND_TO_ONE_HUNDRED_THOUSAND;
+                            } else {
+                                return ONE_HUNDRED_THOUSAND_PLUS;
+                            }
+                        }, Collectors.counting()),
+                        distribution -> distribution.entrySet().stream()
+                                .sorted(Map.Entry.comparingByKey())
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new))));
 
         salaryDistribution.forEach((range, count) -> System.out.println(range + ": " + count));
     }
@@ -70,12 +99,19 @@ public class DataAnalyzer {
      * @param jobs the list of jobs
      */
     public void printTop5Locations(List<Job> jobs) {
-        Map<String, Long> locationCount = jobs.stream()
-                .collect(Collectors.groupingBy(Job::getLocation, Collectors.counting()));
+        Map<String, Long> topLocations = jobs.stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.groupingBy(Job::getLocation, Collectors.counting()),
+                        locationCount -> locationCount.entrySet().stream()
+                                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                                .limit(5)
+                                .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new))));
 
-        locationCount.entrySet().stream()
-                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
-                .forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
+        topLocations.forEach((location, count) -> System.out.println(location + ": " + count));
+
     }
 }

@@ -97,8 +97,8 @@ class DataAnalyzerTest {
 
             assertEquals(
                     """
-                            50k-100k: 49
                             100k+: 101
+                            50k-100k: 49
                             """,
                     outContent.toString()
             );

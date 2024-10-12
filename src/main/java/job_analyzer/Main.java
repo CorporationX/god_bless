@@ -34,7 +34,7 @@ public class Main {
             trendsAnalyzer.analyzeTrends(jobs, "2023-01-01", "2023-12-31", Trends.MONTHLY);
 
         } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+            System.err.println("Ошибка при чтении файла: " + e);
         }
     }
 }
