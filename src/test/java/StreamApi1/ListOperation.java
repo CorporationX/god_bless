@@ -3,23 +3,22 @@ package StreamApi1;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.OptionalInt;
 import java.util.function.Predicate;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class ListOperation {
     public int sum(List<Integer> numbers) {
         return numbers.stream()
+                .mapToInt(Integer::intValue)
                 .filter(a -> a % 2 == 0)
-                .reduce(0, (a, b) -> a + b); // .reduce(0, Integer::sum);
+                .sum();
     }
 
     public int max(List<Integer> numbers) {
-        Optional<Integer> max = numbers.stream()
-                .reduce((x, y) -> x > y ? x : y);
-        Integer maxValue = max.orElse(0);
-        return maxValue;
+        OptionalInt max = numbers.stream()
+                .mapToInt(Integer::intValue)
+                .max();
+        return max.getAsInt();
     }
 
     public int findMax(List<Integer> numbers) {
@@ -49,7 +48,7 @@ public class ListOperation {
 
     public List<String> sortByLenth(List<String> stringList) {
         return stringList.stream()
-                .sorted(Comparator.comparing(String::length))//.sorted((s1,s2)->Integer.compare(s1.length(), s2.length()))
+                .sorted(Comparator.comparing(String::length))
                 .toList();
     }
 
@@ -65,7 +64,7 @@ public class ListOperation {
                 .orElseThrow(() -> new NoSuchElementException("No elements greater than: " + num));
     }
 
-    public List<Integer> lenthString(List<String> stringList) {
+    public List<Integer> mapToLengths(List<String> stringList) {
         return stringList.stream()
                 .map(String::length)
                 .toList();

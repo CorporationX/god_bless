@@ -16,7 +16,7 @@ public class Main {
         System.out.println("String  sorted by lenth: " + listOperation.sortByLenth(stringList));
         System.out.println("Numbers >3: " + listOperation.allMatchCondition(nums, n -> n > 3));
         System.out.println("Elements greater than " + listOperation.minForSublist(nums,4));
-        System.out.println("Lenth strings: " + listOperation.lenthString(stringList));
+        System.out.println("Lenth strings: " + listOperation.mapToLengths(stringList));
 
 
     }
