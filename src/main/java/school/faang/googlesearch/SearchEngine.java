@@ -31,4 +31,12 @@ public class SearchEngine {
         }
     }
 
+    public void printIndex() {
+        index.forEach((keyword, webPages) -> {
+            System.out.println("Keyword: " + keyword);
+            for (WebPage page : webPages) {
+                System.out.println("    - " + page.getTitle() + " (" + page.getUrl() + ")");
+            }
+        });
+    }
 }

@@ -35,5 +35,9 @@ public class Main {
         for (WebPage page : result) {
             System.out.println(" - " + page.getTitle() + " (" + page.getUrl() + ")");
         }
+
+        // Print the current index (for debugging purposes)
+        System.out.println("\nCurrent Index:");
+        searchEngine.printIndex();
     }
 }
