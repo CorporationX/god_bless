@@ -58,11 +58,7 @@ public class Main {
         students.add(steve);
         students.add(bob);
 
-        Map<Subject, Integer> subjectsAndGrades = new HashMap<>();
-        subjectsAndGrades.put(new Subject(4, "Mathematics"), 4);
-        subjectsAndGrades.put(new Subject(5, "Geometry"), 5);
-
-        addNewSubjectAndListOfStudents(subjectsAndGrades, students);
+        addNewSubjectAndListOfStudents(new Subject(5, "Geometry"), students);
 
         System.out.println("!!!__Добавление нового предмета и списка студентов, изучающих его__!!!");
 
@@ -73,7 +69,7 @@ public class Main {
 
         Student eve = new Student(3, "Eve");
 
-        addNewStudentToExistingSubject(eve, subjectsAndGrades);
+        addNewStudentToExistingSubject(eve, new Subject(3, "Geography"), 2);
 
         System.out.println("!!!__Добавление студента к существующему предмету__!!!");
 
@@ -82,7 +78,7 @@ public class Main {
         System.out.println(STUDENTS_STUDYING_SUBJECT);
 
 
-        deleteStudentFromSubject(steve, new Subject(4, "Mathematics"));
+        deleteStudentFromSubject(eve, new Subject(4, "Mathematics"));
 
         System.out.println("!!!__Удаление студента из предмета__!!!");
 
@@ -128,31 +124,34 @@ public class Main {
         }
     }
 
-    public static void addNewSubjectAndListOfStudents(Map<Subject, Integer> subjectAndGrades, List<Student> students) {
-        subjectAndGrades.forEach((key, value) -> {
-            STUDENTS_STUDYING_SUBJECT.putIfAbsent(key, new ArrayList<>());
-            for (Student newStudent : students) {
-                STUDENTS_STUDYING_SUBJECT.get(key).add(newStudent);
-            }
-        });
+    public static void addNewSubjectAndListOfStudents(Subject subject, List<Student> students) {
+        for (Student student : students) {
+            STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, new HashMap<>());
+            STUDENT_SUBJECTS_AND_GRADES.get(student).putIfAbsent(subject, 0);
+        }
 
-        students.forEach(student -> STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectAndGrades));
+        STUDENTS_STUDYING_SUBJECT.putIfAbsent(subject, students);
     }
 
-    public static void addNewStudentToExistingSubject(Student student, Map<Subject, Integer> subjectAndGrades) {
-        subjectAndGrades.forEach((key, value) -> {
-            if (STUDENTS_STUDYING_SUBJECT.containsKey(key)) {
-                STUDENTS_STUDYING_SUBJECT.get(key).add(student);
-            }
-        });
+    public static void addNewStudentToExistingSubject(Student student, Subject subject, int grade) {
+        STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, new HashMap<>());
+        STUDENT_SUBJECTS_AND_GRADES.get(student).putIfAbsent(subject, grade);
 
-        STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectAndGrades);
+       if (STUDENTS_STUDYING_SUBJECT.containsKey(subject)) {
+           STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
+       }
     }
 
     public static void deleteStudentFromSubject(Student student, Subject subject) {
         STUDENTS_STUDYING_SUBJECT.get(subject).removeIf(s -> s.equals(student));
 
-        STUDENT_SUBJECTS_AND_GRADES.remove(student);
+        if (STUDENT_SUBJECTS_AND_GRADES.get(student) != null) {
+            STUDENT_SUBJECTS_AND_GRADES.get(student).forEach((key, value) -> {
+                if (key.equals(subject)) {
+                    STUDENT_SUBJECTS_AND_GRADES.get(student).remove(key);
+                }
+            });
+        }
     }
 
     public static void printSubjectsAndStudents() {
