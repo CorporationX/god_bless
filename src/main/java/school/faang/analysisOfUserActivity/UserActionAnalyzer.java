@@ -2,9 +2,6 @@ package school.faang.analysisOfUserActivity;
 
 import school.faang.analysisOfUserActivity.repositorys.UserRepository;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +40,8 @@ public class UserActionAnalyzer {
 
   public static List<User> topCommentersLastMonth(List<UserAction> actions, int numbersOfTop, UserRepository repository) {
     Map<UserAction, Long> groupActions = actions.stream()
-        .filter(action -> ("comment".equals(action.getActionType())
-            && (action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))))
+        .filter(action -> "comment".equals(action.getActionType()))
+        .filter(action -> action.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
         .collect(Collectors.groupingBy(action -> action, Collectors.counting()));
 
     return groupActions.entrySet().stream()
@@ -55,8 +52,6 @@ public class UserActionAnalyzer {
   }
 
   public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-    DecimalFormat df = new DecimalFormat("#.##");
-
     return actions.stream()
         .collect(Collectors.groupingBy(
             UserAction::getActionType,
@@ -65,9 +60,7 @@ public class UserActionAnalyzer {
         .entrySet().stream()
         .collect(Collectors.toMap(
             Map.Entry::getKey,
-            entry -> BigDecimal.valueOf(entry.getValue() / (double) actions.size())
-                .setScale(2, RoundingMode.HALF_UP)
-                .doubleValue()
+            entry -> (entry.getValue() / (double) actions.size()) * 100
         ));
   }
 }
