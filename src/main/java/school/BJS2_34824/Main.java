@@ -2,12 +2,13 @@ package school.BJS2_34824;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -17,7 +18,6 @@ public class Main {
         mapOfFriends.put("Bob", Arrays.asList("Alice", "David"));
         mapOfFriends.put("Charlie", Arrays.asList("Alice", "David"));
         mapOfFriends.put("David", Arrays.asList("Bob", "Charlie"));
-        mapOfFriends.put("Roma", Arrays.asList("Charlie", "Bob"));
 
         Employee employee1 = new Employee("Рома", 3000, "Sber");
         Employee employee2 = new Employee("Вика", 5000, "Sber");
@@ -45,72 +45,60 @@ public class Main {
     }
 
     public static Set<List<String>> peopleWithMutualFriends(Map<String, List<String>> mapPeopleWithFriends) {
-        Map<String, List<String>> sortedMap = mapPeopleWithFriends.entrySet().stream()
-                .collect(Collectors.toMap(x -> x.getKey(), x -> x.getValue().stream().sorted()
-                        .collect(Collectors.toList())));
-        return sortedMap.values().stream().map(strings -> sortedMap.entrySet().stream().
-                filter(y -> y.getValue().equals(strings)).
-                map(Map.Entry::getKey).collect(Collectors.toList())
-        ).peek(Collections::sort).collect(Collectors.toSet());
+        return mapPeopleWithFriends.entrySet().stream().map(x -> mapPeopleWithFriends.entrySet().stream()
+                .filter(y -> !y.getValue().contains(x.getKey())).map(y -> y.getKey()).toList()
+        ).collect(Collectors.toSet());
     }
 
     public static Map<String, Double> averageSalaryForEachDepartment(List<Employee> employees) {
-        Map<String, List<Employee>> mapOfEmployee = employees.stream().collect(Collectors.groupingBy(x -> x.getDepartment()));
-        return mapOfEmployee.entrySet().stream().collect(Collectors.toMap(x -> x.getKey(), x -> {
-            int countOfEmployee = x.getValue().size();
-            int sumOfSalary = x.getValue().stream().map(y -> y.getSalary()).reduce(0, (sum, y) -> sum + y);
-            return (double) Math.round(sumOfSalary / countOfEmployee);
-        }));
+        return employees.stream().collect(Collectors.groupingBy(employee -> employee.getDepartment(),
+                Collectors.averagingDouble(employee_of_department -> employee_of_department.getSalary())));
     }
 
     public static List<Integer> numberPalindromes(int start, int end) {
-        List<Integer> listOfNumber = new ArrayList<>();
-        for (int i = start; i <= end; i++) {
-            listOfNumber.add(i);
-        }
-        return listOfNumber.stream().filter(x -> {
-            int reversed = 0;
-            int k = x;
-            while (k != 0) {
-                reversed = reversed * 10 + k % 10;
-                k /= 10;
-            }
-            return x == reversed;
-        }).collect(Collectors.toList());
+        return IntStream.range(start, end).filter(number -> findingThePalindromeNumber(number)).boxed().toList();
     }
 
     public static Set<String> substringPalindromes(String word) {
-        List<String> lettersСombinations = new ArrayList<>();
-        int wordLength = word.length();
-        for (int size = 1; size <= wordLength; size++) {
-            for (int start = 0; start <= wordLength - size; start++) {
-                int end = start + size;
-                lettersСombinations.add(word.substring(start, end));
-            }
-        }
-        return lettersСombinations.stream().filter(x -> {
-            StringBuilder stringBuilder = new StringBuilder(x);
-            if (x.equals(stringBuilder.reverse().toString())) {
-                return true;
-            }
-            return false;
-        }).collect(Collectors.toSet());
+        final Set<String> lettersСombinations = new HashSet<>();
+        IntStream.range(0, word.length())
+                .forEach(i -> IntStream.range(i + 1, word.length() + 1)
+                        .mapToObj(j -> word.substring(i, j)).filter(x -> checkPolindromLine(x))
+                        .forEach(x -> lettersСombinations.add(x)));
+        return lettersСombinations;
     }
 
     public static List<Integer> perfectNumbers(int start, int end) {
-        List<Integer> listOfNumber = new ArrayList<>();
-        for (int i = start; i <= end; i++) {
-            listOfNumber.add(i);
+        return IntStream.range(start, end).filter(number -> findingPerfectNumber(number)).boxed().toList();
+
+    }
+
+    public static boolean findingThePalindromeNumber(int number) {
+        int reversed = 0;
+        int k = number;
+        while (k != 0) {
+            reversed = reversed * 10 + k % 10;
+            k /= 10;
         }
-        return listOfNumber.stream().filter(x -> {
-            int sum = 0;
-            for (int i = 1; i < x; i++) {
-                if (x % i == 0) {
-                    sum += i;
-                }
+        return number == reversed;
+    }
+
+    public static boolean findingPerfectNumber(int number) {
+        int sum = 0;
+        for (int i = 1; i < number; i++) {
+            if (number % i == 0) {
+                sum += i;
             }
-            return x == sum;
-        }).collect(Collectors.toList());
+        }
+        return number == sum;
+    }
+
+    public static boolean checkPolindromLine(String line) {
+        StringBuilder stringBuilder = new StringBuilder(line);
+        if (line.equals(stringBuilder.reverse().toString())) {
+            return true;
+        }
+        return false;
     }
 
 }
