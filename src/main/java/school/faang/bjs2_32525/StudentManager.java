@@ -183,5 +183,4 @@ public class StudentManager {
             throw new IllegalArgumentException("studentsBySubject is null");
         }
     }
-    //TODO: добавить валидацию мап в конструктор, убрать эту валидацию из других методов
 }
