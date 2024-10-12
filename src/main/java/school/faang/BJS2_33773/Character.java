@@ -20,6 +20,7 @@ public class Character {
     public void addItem(Item item) {
         items.add(item);
     }
+
     public void printItems() {
         System.out.println(name + "'s item list");
         for (Item i : items) {
