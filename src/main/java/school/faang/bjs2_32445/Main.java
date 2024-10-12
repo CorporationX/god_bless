@@ -29,11 +29,23 @@ public class Main {
 
         addNewStudent(steve, steveSubjects);
 
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
+        System.out.println("_______________________________");
+
+
         addNewStudent(bob, bobSubjects);
 
         addNewSubjectForStudent(steve, new Subject(4, "Mathematics"), 4);
 
         addNewSubjectForStudent(bob, new Subject(4, "Mathematics"), 4);
+
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
+        System.out.println("_______________________________");
+
 
         deleteStudent(steve);
 
@@ -65,18 +77,16 @@ public class Main {
     }
 
     public static void addNewSubjectForStudent(Student student, Subject subject, int grade) {
-       STUDENT_SUBJECTS_AND_GRADES.get(student).put(subject, grade);
+        STUDENT_SUBJECTS_AND_GRADES.get(student).put(subject, grade);
 
-       Student student1;
+        if (STUDENTS_STUDYING_SUBJECT.containsKey(subject)) {
+            for (Student foundStudent : STUDENTS_STUDYING_SUBJECT.get(subject)) {
 
-       for (Map.Entry<Subject, List<Student>> entry : STUDENTS_STUDYING_SUBJECT.entrySet()) {
-           for (Student searchedStudent : entry.getValue()) {
-               if (searchedStudent.equals(student) && !entry.getKey().equals(subject)) {
-                   STUDENTS_STUDYING_SUBJECT.put(subject, new ArrayList<>());
-                   STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
-               }
-           }
-       }
+            }
+        } else {
+            STUDENTS_STUDYING_SUBJECT.put(subject, new ArrayList<>());
+            STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
+        }
     }
 
     public static void deleteStudent(Student student) {
