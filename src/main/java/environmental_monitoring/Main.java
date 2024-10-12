@@ -1,6 +1,7 @@
 package environmental_monitoring;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,12 @@ public class Main {
         emissionPerEmployeeAnalyzer.analyzeEmissionsPerEmployee(fileName, companies);
 
         StatisticsAggregator statisticsAggregator = new StatisticsAggregator();
-        Map<String, Double> companyEmissions = statisticsAggregator.aggregateStatistics("2000-01-01", "2024-12-31", impacts, ImpactType.GAS_EMISSION);
+        Map<String, Double> companyEmissions = statisticsAggregator.aggregateStatistics(
+                LocalDate.parse("2000.01.01", DateFormatter.FULL_DATE_SEPARATED_BY_A_DOT),
+                LocalDate.parse("2024.12.31", DateFormatter.FULL_DATE_SEPARATED_BY_A_DOT),
+                impacts,
+                ImpactType.GAS_EMISSION
+        );
         System.out.println(companyEmissions);
     }
 }

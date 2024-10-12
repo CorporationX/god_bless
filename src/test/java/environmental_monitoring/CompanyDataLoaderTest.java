@@ -15,7 +15,7 @@ class CompanyDataLoaderTest {
         assertEquals(1, impacts.get(0).getId());
         assertEquals(101, impacts.get(0).getCompanyId());
         assertEquals(13939.19, impacts.get(0).getVolume());
-        assertEquals("2022.05.30", impacts.get(0).getDate());
+        assertEquals("2022-05-30", impacts.get(0).getDate().toString());
         assertEquals(ImpactType.GAS_EMISSION, impacts.get(0).getType());
     }
 }

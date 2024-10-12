@@ -4,13 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDataLoader {
     /**
      * Loads environmental impacts from the given CSV file.
-     *
+     * <p>
      * The format of the CSV file is as follows:
      * <ul>
      *     <li>id - int</li>
@@ -38,14 +39,14 @@ public class CompanyDataLoader {
                 int id = Integer.parseInt(fields[0]);
                 int companyId = Integer.parseInt(fields[1]);
                 double volume = Double.parseDouble(fields[2]);
-                String  date = fields[3];
+                LocalDate date = LocalDate.parse(fields[3], DateFormatter.FULL_DATE_SEPARATED_BY_A_DOT);
                 ImpactType type = ImpactType.valueOf(fields[4]);
 
                 EnvironmentalImpact impact = new EnvironmentalImpact(id, companyId, volume, date, type);
                 impacts.add(impact);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Failed to load CSV file", e);
         }
         return impacts;
     }

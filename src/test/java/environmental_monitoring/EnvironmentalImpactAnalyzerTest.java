@@ -21,8 +21,8 @@ class EnvironmentalImpactAnalyzerTest {
 
         assertEquals(
                 """
-                        Company Name: EcoCompany 101
-                        Today's date: 2023.02.15
+                        Company Name: Some Company 101
+                        Today's date: 2023-02-15
                         Month    GasEmission
                         2023.02  78354,34
                         2023.01  75324,84
