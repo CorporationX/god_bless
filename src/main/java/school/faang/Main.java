@@ -7,9 +7,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         User firstUser = new User("John",22,"Bells","Google");
-        User secondUser = new User("John",22,"Bells","Google");
-        User thirdUser = new User("John",22,"Bells","Google");
-        User fourthUser = new User("John",22,"Bells","Google");
+        User secondUser = new User("Stu",12,"Bells","Amazon");
+        User thirdUser = new User("Steve",22,"Grows","FAANG");
+        User fourthUser = new User("Ada",19,"Clay","Яндекс");
 
         List<User> users = new ArrayList<>();
         users.add(firstUser);

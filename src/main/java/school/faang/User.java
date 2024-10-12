@@ -21,16 +21,16 @@ public class User {
         this.work = work;
     }
 
-    public static Map<Integer, List<User>> groupUsers (List<User> users){
+    public static Map<Integer, List<User>> groupUsers(List<User> users) {
         Map<Integer, List<User>> userMap = new HashMap<>();
-        List<User> userMapKey = new ArrayList<>();
 
-        for(User user : users){
-            if(userMap.get(user.getAge()) != null) {
-                userMapKey = userMap.get(user.getAge());
-                if (!userMapKey.contains(user)){
-                    userMap.get(userMapKey).add(user);
-                }
+        for (User user : users) {
+            if (!userMap.containsKey(user.getAge()) || userMap.get(user.getAge()) == null) {
+                List<User>  userMapList = new ArrayList<>();
+                userMapList.add(user);
+                userMap.put(user.getAge(), userMapList);
+            } else {
+                userMap.get(user.getAge()).add(user);
             }
         }
         return userMap;
