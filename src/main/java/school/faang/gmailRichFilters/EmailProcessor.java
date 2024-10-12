@@ -7,11 +7,11 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
   public void processEmails(List<Email> emails, Predicate<Email> predicate, Function<Email, String> function, Consumer<Email> consumer) {
-    emails.forEach(email -> {
-      if(email != null && predicate.test(email)) {
-        email.setBody(function.apply(email));
-        consumer.accept(email);
-      }
-    });
+    emails.stream()
+        .filter(predicate)
+        .forEach(email -> {
+          email.setBody(function.apply(email));
+          consumer.accept(email);
+        });
   }
 }
