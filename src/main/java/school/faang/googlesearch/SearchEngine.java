@@ -17,4 +17,9 @@ public class SearchEngine {
             index.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
         }
     }
+
+    // Method to search for web pages by keyword
+    public List<WebPage> search(String keyword) {
+        return index.getOrDefault(keyword.toLowerCase(), new ArrayList<>());
+    }
 }
