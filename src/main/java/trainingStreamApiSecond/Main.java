@@ -21,7 +21,6 @@ public class Main {
         System.out.println(StreamOperations.convertNumberToBinary(List.of(
                 1, 2, 3, 4
         )));
-
         System.out.println(StreamOperations.filterStringByAlphabetAndSortByLenght(List.of(
                 "apple",
                 "banana",
