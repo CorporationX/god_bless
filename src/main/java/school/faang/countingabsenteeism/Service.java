@@ -12,7 +12,7 @@ public class Service {
     public Map<Pair, List<Student>> mapStudent(List<Student> students) {
         Map<Pair, List<Student>> studentMap = new HashMap<>();
         for (Student student : students) {
-            Pair key = new Pair(student.getFaculty() + student.getYear());
+            Pair key = new Pair(student.getFaculty(), student.getYear());
             studentMap.putIfAbsent(key, new ArrayList<>());
             studentMap.get(key).add(student);
         }
@@ -20,9 +20,9 @@ public class Service {
     }
 
     public void addStudent(Student student) {
-        if (!studentList.contains(student)){
+        if (!studentList.contains(student)) {
             studentList.add(student);
-        }else {
+        } else {
             System.out.println("Cтудент уже существует в список ");
         }
     }
@@ -51,7 +51,7 @@ public class Service {
     public Map<Pair, List<Student>> groupStudentByFacultyAndYear() {
         Map<Pair, List<Student>> groupedStudent = new HashMap<>();
         for (Student student : studentList) {
-            Pair key = new Pair(student.getFaculty() + "-" + student.getYear());
+            Pair key = new Pair(student.getFaculty(), student.getYear());
             groupedStudent.putIfAbsent(key, new ArrayList<>());
             groupedStudent.get(key).add(student);
         }
@@ -60,7 +60,7 @@ public class Service {
 
     public void printGroupedStudent() {
         Map<Pair, List<Student>> groupStudents = groupStudentByFacultyAndYear();
-        for (Map.Entry< Pair, List<Student>> entry : groupStudents.entrySet()) {
+        for (Map.Entry<Pair, List<Student>> entry : groupStudents.entrySet()) {
             System.out.println("Key" + entry.getKey() + " -> Students: " + entry.getValue());
         }
     }
