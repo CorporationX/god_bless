@@ -5,24 +5,18 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class InventoryManager {
-
     public void addItem(Character character, Item item, Consumer<Item> consumer) {
-        character.getInventory().add(item);
+        character.addItem(item);
         consumer.accept(item);
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        character.getInventory().removeIf(predicate);
+        character.removeItem(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updater) {
-        for (Item item : character.getInventory()) {
-            if (predicate.test(item)) {
-                updater.apply(item);
-            }
-        }
+        character.updateItem(predicate, updater);
     }
-
 
     public static void main(String[] args) {
         Character frodo = new Character("Frodo");
@@ -41,6 +35,6 @@ public class InventoryManager {
         manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
 
 // Проверяем результат
-        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
+        frodo.displayInventory();
     }
 }
