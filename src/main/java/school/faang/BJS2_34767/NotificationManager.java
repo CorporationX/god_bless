@@ -7,11 +7,11 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    private static final Map<NotificationType, Consumer<Notification>> NOTIFICATION_HANDLER = new HashMap<>();
+    private final Map<NotificationType, Consumer<Notification>> NOTIFICATION_HANDLER = new HashMap<>();
     private static final Set<String> FORBIDDEN_WORDS = Set.of("Дурак", "Глупый", "Толстый", "Плохой");
     private static final String ALLOWED_WORD = "Учиться";
 
-    void registerHandler(NotificationType type, Consumer<Notification> handler) {
+    public void registerHandler(NotificationType type, Consumer<Notification> handler) {
         if (validate(type, handler)) {
             NOTIFICATION_HANDLER.put(type, handler);
         } else {
@@ -19,7 +19,7 @@ public class NotificationManager {
         }
     }
 
-    void sendNotification(Notification notification) {
+    public void sendNotification(Notification notification) {
         if (validate(notification)) {
             checkNotificationMassage(notification);
 
