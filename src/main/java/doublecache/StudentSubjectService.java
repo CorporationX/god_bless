@@ -12,17 +12,15 @@ public class StudentSubjectService {
     private static Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
 
     public static void cacheMatching(Student student, Subject subject, int grade) {
-        if (subjectsAndGradesByStudent.containsKey(student)) {
-            if (!subjectsAndGradesByStudent.get(student).containsKey(subject)) {
-                subjectsAndGradesByStudent.get(student).put(subject, grade);
-            }
+        if (subjectsAndGradesByStudent.get(student) != null) {
+            subjectsAndGradesByStudent.get(student).putIfAbsent(subject, grade);
         } else {
             Map<Subject, Integer> subjectAndGradesOfNewStudent = new HashMap<>();
             subjectAndGradesOfNewStudent.put(subject, grade);
             subjectsAndGradesByStudent.put(student, subjectAndGradesOfNewStudent);
         }
 
-        if (studentsBySubject.containsKey(subject)) {
+        if (studentsBySubject.get(subject) != null) {
             if (!studentsBySubject.get(subject).contains(student)) {
                 studentsBySubject.get(subject).add(student);
             }
