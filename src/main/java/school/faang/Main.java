@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static school.faang.WebPageService.viewWebPagesByIndex;
 import static school.faang.WebPageService.writeIndexToMap;
 
 public class Main {
@@ -22,6 +23,7 @@ public class Main {
         writeIndexToMap(webPage1, webPagesWithKey, pages);
         writeIndexToMap(webPage2, webPagesWithKey, pages);
         writeIndexToMap(webPage3, webPagesWithKey, pages);
+        viewWebPagesByIndex("git", webPagesWithKey);
     }
 
 }

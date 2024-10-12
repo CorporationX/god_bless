@@ -23,4 +23,12 @@ public class WebPageService {
             }
         }
     }
+
+    public static void viewWebPagesByIndex(String index, Map<String, List<WebPage>> webPagesWithKey) {
+        System.out.println(index + ": " + webPagesWithKey.get(index).toString());
+    }
+
+//    public static void removeWebPageByUrl(String url, ){
+//
+//    }
 }
