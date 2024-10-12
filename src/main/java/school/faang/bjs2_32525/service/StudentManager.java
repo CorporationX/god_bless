@@ -1,13 +1,16 @@
 package school.faang.bjs2_32525.service;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import school.faang.bjs2_32525.model.Student;
 import school.faang.bjs2_32525.model.Subject;
 
 import java.util.List;
 import java.util.Map;
 
+
 @AllArgsConstructor
+@Getter
 public class StudentManager {
     private Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects;
     private Map<Subject, List<Student>> studentsBySubject;
