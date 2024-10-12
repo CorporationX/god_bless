@@ -1,9 +1,11 @@
 package school.faang.user_registration;
 
+
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+
         List<User> userList = List.of(
                 new User("Alice", 18, "Google", "New York"),
                 new User("Alice Johnson", 28, "Amazon", "London"),
@@ -21,4 +23,5 @@ public class Main {
         System.out.println(User.groupUsers(userList));
     }
 }
+
 
