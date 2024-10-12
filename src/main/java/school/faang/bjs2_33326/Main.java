@@ -24,7 +24,7 @@ public class Main {
         StreamEvent streamEventForAdd = new StreamEvent(5, "Start", "Stream start");
         System.out.println("\nadd: " + streamEventForAdd + "\n");
 
-        StreamEventUtils.addStreamEvent(streamEventForAdd, idToStreamEventMap, eventTypeToStreamEventsMap);
+        EventManager.addStreamEvent(streamEventForAdd, idToStreamEventMap, eventTypeToStreamEventsMap);
         System.out.println("idToStreamEventMap after: " + idToStreamEventMap);
         System.out.println("eventTypeToStreamEventsMap after: " + eventTypeToStreamEventsMap);
     }
@@ -35,7 +35,7 @@ public class Main {
         int idEvent = 5;
         System.out.println("ID event: " + idEvent);
 
-        StreamEvent eventById = StreamEventUtils.findEventById(idEvent, idToStreamEventMap);
+        StreamEvent eventById = EventManager.findEventById(idEvent, idToStreamEventMap);
         System.out.println("event by Id: " + eventById);
     }
 
@@ -45,7 +45,7 @@ public class Main {
         String eventType = "Start";
         System.out.println("event type: " + eventType);
 
-        List<StreamEvent> eventsByType = StreamEventUtils.findEventsByType(eventType, eventTypeToStreamEventsMap);
+        List<StreamEvent> eventsByType = EventManager.findEventsByType(eventType, eventTypeToStreamEventsMap);
         System.out.println("events by type" + eventsByType);
     }
 
@@ -58,7 +58,7 @@ public class Main {
         int idEventForRemove = 5;
         System.out.println("\nid event for remove: " + idEventForRemove + "\n");
 
-        StreamEventUtils.removeEventById(5, idToStreamEventMap, eventTypeToStreamEventsMap);
+        EventManager.removeEventById(5, idToStreamEventMap, eventTypeToStreamEventsMap);
         System.out.println("idToStreamEventMap after: " + idToStreamEventMap);
         System.out.println("eventTypeToStreamEventsMap after: " + eventTypeToStreamEventsMap);
     }
@@ -66,7 +66,7 @@ public class Main {
     private static void testPrintAllEvents(Map<Integer, StreamEvent> idToStreamEventMap){
         System.out.println("\ntestPrintAllEvents\n");
         generateEventsAddMap(idToStreamEventMap);
-        StreamEventUtils.printAllEvents(idToStreamEventMap);
+        EventManager.printAllEvents(idToStreamEventMap);
     }
     private static void generateEventsAddMap(Map<Integer, StreamEvent> idToStreamEventMap){
         idToStreamEventMap.put(1, new StreamEvent(1, "START", "Stream started"));

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class StreamEventUtils {
+public class EventManager {
     public static void addStreamEvent(StreamEvent event, Map<Integer, StreamEvent> idToStreamEventMap,
                                       Map<String, List<StreamEvent>> eventTypeToStreamEventsMap) {
         int idEvent = event.getId();
@@ -39,6 +39,9 @@ public class StreamEventUtils {
             return;
         }
         streamEvents.remove(streamEvent);
+        if(streamEvents.isEmpty()){
+            eventTypeToStreamEventsMap.remove(eventType);
+        }
 
     }
 
