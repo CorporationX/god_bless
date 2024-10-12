@@ -17,3 +17,4 @@ public class SearchEngine {
             index.computeIfAbsent(word, k -> new ArrayList<>()).add(webPage);
         }
     }
+}
