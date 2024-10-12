@@ -16,13 +16,17 @@ public class Solution {
     public static int getMaxNum(List<Integer> nums) {
         return nums
                 .stream()
-                .mapToInt(v -> v)
+                .mapToInt(Integer::intValue)
                 .max()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("You probably gave an empty list"));
     }
 
     public static double getAverageValue(List<Integer> nums) {
-        return (double) nums.stream().reduce(0, Integer::sum) / nums.size();
+        return nums
+                .stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElseThrow(() -> new NoSuchElementException("You probably gave an empty list"));
     }
 
     public static int getCountOFStringsStartsWith(List<String> strings, char c) {
@@ -56,9 +60,9 @@ public class Solution {
         return nums
                 .stream()
                 .filter(num -> num > number)
-                .mapToInt(v -> v)
+                .mapToInt(Integer::intValue)
                 .min()
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow(() -> new NoSuchElementException("The number is too big or probably list is empty"));
     }
 
     public static List<Integer> mapStringToLength(List<String> strings) {
