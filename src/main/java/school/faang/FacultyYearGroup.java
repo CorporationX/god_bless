@@ -7,15 +7,16 @@ import lombok.ToString;
 @Getter
 @ToString
 @EqualsAndHashCode
-public class Group {
+public class FacultyYearGroup {
     private final String faculty;
     private final String year;
 
-    public Group(Student student) {
+    public FacultyYearGroup(Student student) {
         this.faculty = student.getFaculty();
         this.year = student.getYear();
     }
-    public Group(String faculty, String year) {
+
+    public FacultyYearGroup(String faculty, String year) {
         this.faculty = faculty;
         this.year = year;
     }
