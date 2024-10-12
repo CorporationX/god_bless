@@ -21,7 +21,7 @@ public class User {
         this.work = work;
     }
 
-    public static Map<Integer, List<User>> groupUsers(List<User> users){
+    public static Map<Integer, List<User>> groupUsers (List<User> users){
         Map<Integer, List<User>> userMap = new HashMap<>();
         List<User> userMapKey = new ArrayList<>();
 
