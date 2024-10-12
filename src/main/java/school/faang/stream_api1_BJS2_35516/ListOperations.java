@@ -20,9 +20,9 @@ public class ListOperations {
 
     public static double findAverage(List<Integer> list) {
         return list.stream()
-                .map(integer -> (double) integer)
-                .reduce(0.0, Double::sum)
-                / list.size();
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
     }
 
     public static int countStringsStartingWith(List<String> list, char startCharacter) {
@@ -33,16 +33,7 @@ public class ListOperations {
 
     public static List<String> filterStringsContainingSubstring(List<String> list, String subString) {
         return list.stream()
-                .filter(s -> {
-                    boolean containsSubstring = false;
-                    for (int i = 0; i < s.length() - subString.length(); i++) {
-                        if (s.startsWith(subString, i)) {
-                            containsSubstring = true;
-                            break;
-                        }
-                    }
-                    return containsSubstring;
-                })
+                .filter(s -> s.contains(subString))
                 .toList();
     }
 
