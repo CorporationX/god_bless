@@ -15,5 +15,9 @@ public class Main {
         Notification vkNotification = new Notification("vk", "вы добавлены в группу");
         Notification vk2Notification = new Notification("vk2", "вы добавлены в группу");
 
+        notificationManager.sendNotification(dsNotification);
+        notificationManager.sendNotification(tgNotification);
+        notificationManager.sendNotification(vkNotification);
+        notificationManager.sendNotification(vk2Notification);
     }
 }
