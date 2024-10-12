@@ -4,8 +4,8 @@ public class TestClass {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
 
-        notificationManager.addFilterSubstitution("activated", String::toUpperCase);
-        notificationManager.addFilterSubstitution("elephant", mess -> "<Prohibited content>");
+        notificationManager.addMapper("activated", String::toUpperCase);
+        notificationManager.addMapper("elephant", mess -> "<Prohibited content>");
 
         notificationManager.registerHandler("email",
                 (notification) -> System.out.println("Sending email: " + notification.getMessage())
@@ -19,29 +19,25 @@ public class TestClass {
                 (notification) -> System.out.println("Sending push: " + notification.getMessage())
         );
 
-        Notification otherEmailNotification= new Notification("email", "Elephant for sale");
+        Notification otherEmailNotification = new Notification("email", "Elephant for sale");
         Notification emailNotification = new Notification("email", "Your account has been activated");
         Notification smsNotification = new Notification("sms", "You have successfully changed your password");
         Notification pushNotification = new Notification("push1", "New post from: JohnDoe");
 
-        notificationManager.sendNotification(emailNotification).orElseGet(() -> {
+        if (!notificationManager.sendNotification(emailNotification)) {
             System.out.println("Sending error: " + emailNotification.getType());
-            return false;
-        });
+        }
 
-        notificationManager.sendNotification(otherEmailNotification).orElseGet(() -> {
+        if (!notificationManager.sendNotification(otherEmailNotification)) {
             System.out.println("Sending error: " + otherEmailNotification.getType());
-            return false;
-        });
+        }
 
-        notificationManager.sendNotification(smsNotification).orElseGet(() -> {
+        if (!notificationManager.sendNotification(smsNotification)) {
             System.out.println("Sending error: " + smsNotification.getType());
-            return false;
-        });
+        }
 
-        notificationManager.sendNotification(pushNotification).orElseGet(() -> {
+        if (!notificationManager.sendNotification(pushNotification)) {
             System.out.println("Sending error: " + pushNotification.getType());
-            return false;
-        });
+        }
     }
 }
