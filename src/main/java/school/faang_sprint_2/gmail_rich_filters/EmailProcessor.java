@@ -9,7 +9,6 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> predicate, Consumer<Email> consumer,
                               Function<Email, String> function) {
-
         emails.forEach(email -> {
             if (predicate.test(email)) {
                 consumer.accept(email);

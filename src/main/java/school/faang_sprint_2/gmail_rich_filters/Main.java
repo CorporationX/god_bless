@@ -8,7 +8,6 @@ import java.util.function.Predicate;
 public class Main {
 
     public static void main(String[] args) {
-
         var emailProcessor = new EmailProcessor();
         var emails = Arrays.asList(
                 new Email("Letter 1", "Text of the first letter 1", true),
