@@ -7,65 +7,66 @@ import java.util.Map;
 
 public class Main {
 
-    private static final StudentManager studentManager = new StudentManager();
+    private static StudentManager studentManager;
 
     public static void main(String[] args) {
-        Map<Student, Map<Subject, Integer>> studentsSubjectsGrades = new HashMap<>();
+        Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects = new HashMap<>();
         Map<Subject, List<Student>> studentsBySubject = new HashMap<>();
+        studentManager = new StudentManager(studentsWithGradesBySubjects,studentsBySubject);
 
         Student student = new Student("Alex");
-        testAddStudentWithGradesBySubjects(student, studentsSubjectsGrades);
-        testAddSubjectWithGradesToStudent(student, studentsSubjectsGrades);
-        testRemoveStudentWithGradesBySubject(student, studentsSubjectsGrades);
+        testAddStudentWithGradesBySubjects(student);
+        testAddSubjectWithGradesToStudent(student);
+        testRemoveStudentWithGradesBySubject(student);
 
         Subject mathematics = new Subject("Mathematics");
-        testAddSubjectWithStudents(mathematics, studentsBySubject);
-        testAddStudentToSubject(mathematics, studentsBySubject);
-        testRemoveStudentFromSubject(mathematics,studentsBySubject);
+        testAddSubjectWithStudents(mathematics);
+        testAddStudentToSubject(mathematics);
+        testRemoveStudentFromSubject(mathematics, studentsBySubject);
     }
 
     private static void testRemoveStudentFromSubject(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
         System.out.println("\ntestRemoveStudentFromSubject\n");
 
         System.out.println("students by subject before:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
 
         List<Student> students = studentsBySubject.get(subject);
         Student student = students.get(0);
-        studentManager.removeStudentFromSubject(subject,student,studentsBySubject);
+        studentManager.removeStudentFromSubject(subject, student);
         System.out.println("remove: " + student);
 
         System.out.println("\nstudents by subject before:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
     }
 
-    private static void testAddStudentToSubject(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
+    private static void testAddStudentToSubject(Subject subject) {
         System.out.println("\ntestAddSubjectWithStudents\n");
 
         System.out.println("students by subject before:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
 
         Student student = new Student("Mark");
         System.out.println("add: " + student);
-        studentManager.addStudentToSubject(subject, student, studentsBySubject);
+        studentManager.addStudentToSubject(subject, student);
 
         System.out.println("\nstudents by subject before:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
     }
 
-    private static void testAddSubjectWithStudents(Subject subject, Map<Subject, List<Student>> studentsBySubject) {
+    private static void testAddSubjectWithStudents(Subject subject) {
         System.out.println("\ntestAddSubjectWithStudents\n");
 
         List<Student> students = generateListStudents();
 
         System.out.println("students by subject before:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
 
         System.out.println("add subject with list students");
-        studentManager.addSubjectWithStudents(subject, students, studentsBySubject);
+        studentManager.addSubjectWithStudents(subject, students);
 
         System.out.println("\nstudents by subject after:\n");
-        studentManager.printAllStudentsBySubjects(studentsBySubject);
+        studentManager.printAllStudentsBySubjects();
     }
 
     private static List<Student> generateListStudents() {
@@ -78,7 +79,7 @@ public class Main {
         return students;
     }
 
-    private static void testAddStudentWithGradesBySubjects(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private static void testAddStudentWithGradesBySubjects(Student student) {
         System.out.println("\ntestAddStudentWithGradesBySubjects\n");
 
 
@@ -95,38 +96,38 @@ public class Main {
         int gradeLiterature = 5;
         gradesBySubjects.put(literature, gradeLiterature);
 
-        studentManager.addStudentWithGradesBySubjects(student, gradesBySubjects, studentsWithGradesBySubjects);
-
-        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.addStudentWithGradesBySubjects(student, gradesBySubjects);
+        System.out.println("print all map:\n");
+        studentManager.printAllStudentsWithGradesBySubjects();
     }
 
-    private static void testAddSubjectWithGradesToStudent(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private static void testAddSubjectWithGradesToStudent(Student student) {
         System.out.println("\ntestAddSubjectWithGradesToStudent\n");
 
         Subject physics = new Subject("Physical education");
         int gradePhysicalEducation = 5;
 
         System.out.println("students with grades by subjects before:\n");
-        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects();
 
         System.out.println("add a student Subject - " + physics.getName() + ", grade - " + gradePhysicalEducation);
-        studentManager.addSubjectWithGradesToStudent(student, physics, gradePhysicalEducation, studentsWithGradesBySubjects);
+        studentManager.addSubjectWithGradesToStudent(student, physics, gradePhysicalEducation);
 
         System.out.println("\nstudents with grades by subjects after:\n");
-        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects();
     }
 
-    private static void testRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private static void testRemoveStudentWithGradesBySubject(Student student) {
         System.out.println("\ntestRemoveStudentWithGradesBySubject\n");
 
         System.out.println("students with grades by subjects before:\n");
-        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects();
 
         System.out.println("remove student with grades by subject: " + student);
-        studentManager.removeStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
+        studentManager.removeStudentWithGradesBySubject(student);
 
         System.out.println("\nstudents with grades by subjects after:\n");
-        studentManager.printAllStudentsWithGradesBySubjects(studentsWithGradesBySubjects);
+        studentManager.printAllStudentsWithGradesBySubjects();
     }
 
 

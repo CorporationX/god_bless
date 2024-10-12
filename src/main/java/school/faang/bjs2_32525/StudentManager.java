@@ -1,31 +1,37 @@
 package school.faang.bjs2_32525;
 
+import lombok.AllArgsConstructor;
+
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+@AllArgsConstructor
 public class StudentManager {
-    public void removeStudentFromSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
-        validateRemoveStudentFromSubject(subject, student, studentsBySubject);
+    private Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects;
+    private Map<Subject, List<Student>> studentsBySubject;
+
+    public void removeStudentFromSubject(Subject subject, Student student) {
+        validateRemoveStudentFromSubject(subject, student);
 
         List<Student> students = studentsBySubject.get(subject);
         students.remove(student);
     }
 
 
-    public void addStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
-        validateArgsAddStudentToSubject(subject, student, studentsBySubject);
+    public void addStudentToSubject(Subject subject, Student student) {
+        validateArgsAddStudentToSubject(subject, student);
 
         List<Student> students = studentsBySubject.get(subject);
         students.add(student);
     }
 
-    public void addSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
-        validateArgsAddSubjectWithStudents(subject, students, studentsBySubject);
+    public void addSubjectWithStudents(Subject subject, List<Student> students) {
+        validateArgsAddSubjectWithStudents(subject, students);
         studentsBySubject.put(subject, students);
     }
 
-    public void printAllStudentsBySubjects(Map<Subject, List<Student>> studentsBySubject) {
+    public void printAllStudentsBySubjects() {
         for (Map.Entry<Subject, List<Student>> subjectListEntry : studentsBySubject.entrySet()) {
             System.out.println(subjectListEntry.getKey().getName() + ":");
 
@@ -39,27 +45,25 @@ public class StudentManager {
     }
 
 
-    public void addStudentWithGradesBySubjects(Student student, Map<Subject, Integer> gradesBySubjects,
-                                               Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    public void addStudentWithGradesBySubjects(Student student, Map<Subject, Integer> gradesBySubjects) {
 
-        validateArgsMethodAddStudentWithGradesBySubjects(student, gradesBySubjects, studentsWithGradesBySubjects);
+        validateArgsMethodAddStudentWithGradesBySubjects(student, gradesBySubjects);
         studentsWithGradesBySubjects.put(student, gradesBySubjects);
     }
 
-    public void addSubjectWithGradesToStudent(Student student, Subject subject, int grade,
-                                              Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    public void addSubjectWithGradesToStudent(Student student, Subject subject, int grade) {
 
-        validateArgsAddSubjectWithGradesToStudent(student, subject, grade, studentsWithGradesBySubjects);
+        validateArgsAddSubjectWithGradesToStudent(student, subject, grade);
         Map<Subject, Integer> subjectIntegerMap = studentsWithGradesBySubjects.get(student);
         subjectIntegerMap.put(subject, grade);
     }
 
-    public void removeStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
-        validateArgsRemoveStudentWithGradesBySubject(student, studentsWithGradesBySubjects);
+    public void removeStudentWithGradesBySubject(Student student) {
+        validateArgsRemoveStudentWithGradesBySubject(student);
         studentsWithGradesBySubjects.remove(student);
     }
 
-    public void printAllStudentsWithGradesBySubjects(Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    public void printAllStudentsWithGradesBySubjects() {
         if (studentsWithGradesBySubjects == null) {
             throw new IllegalArgumentException("students with grades by subjects map is null");
         }
@@ -75,7 +79,7 @@ public class StudentManager {
         System.out.println();
     }
 
-    private static void validateArgsRemoveStudentWithGradesBySubject(Student student, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private void validateArgsRemoveStudentWithGradesBySubject(Student student) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -85,7 +89,7 @@ public class StudentManager {
 
     }
 
-    private static void validateArgsAddSubjectWithGradesToStudent(Student student, Subject subject, int grade, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private void validateArgsAddSubjectWithGradesToStudent(Student student, Subject subject, int grade) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -113,7 +117,7 @@ public class StudentManager {
 
     }
 
-    private static void validateArgsMethodAddStudentWithGradesBySubjects(Student student, Map<Subject, Integer> gradesBySubjects, Map<Student, Map<Subject, Integer>> studentsWithGradesBySubjects) {
+    private void validateArgsMethodAddStudentWithGradesBySubjects(Student student, Map<Subject, Integer> gradesBySubjects) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -131,7 +135,7 @@ public class StudentManager {
         }
     }
 
-    private static void validateArgsAddSubjectWithStudents(Subject subject, List<Student> students, Map<Subject, List<Student>> studentsBySubject) {
+    private void validateArgsAddSubjectWithStudents(Subject subject, List<Student> students) {
         if (subject == null) {
             throw new IllegalArgumentException("subject is null");
         }
@@ -149,7 +153,7 @@ public class StudentManager {
         }
     }
 
-    private static void validateArgsAddStudentToSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+    private void validateArgsAddStudentToSubject(Subject subject, Student student) {
         if (subject == null) {
             throw new IllegalArgumentException("subject is null");
         }
@@ -168,7 +172,7 @@ public class StudentManager {
         }
     }
 
-    private static void validateRemoveStudentFromSubject(Subject subject, Student student, Map<Subject, List<Student>> studentsBySubject) {
+    private void validateRemoveStudentFromSubject(Subject subject, Student student) {
         if (student == null) {
             throw new IllegalArgumentException("student is null");
         }
@@ -179,4 +183,5 @@ public class StudentManager {
             throw new IllegalArgumentException("studentsBySubject is null");
         }
     }
+    //TODO: добавить валидацию мап в конструктор, убрать эту валидацию из других методов
 }
