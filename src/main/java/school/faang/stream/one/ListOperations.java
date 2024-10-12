@@ -30,7 +30,10 @@ public class ListOperations {
   }
 
   public static int sumOfEvenNumbers(List<Integer> numbers) {
-    return numbers.stream().filter(num -> num % 2 == 0).mapToInt(Integer::intValue).sum();
+    return numbers.stream()
+        .filter(num -> num % 2 == 0)
+        .mapToInt(Integer::intValue)
+        .sum();
   }
 
   public static int findMax(List<Integer> numbers) {
