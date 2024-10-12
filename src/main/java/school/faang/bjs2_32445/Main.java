@@ -82,7 +82,7 @@ public class Main {
         System.out.println(STUDENTS_STUDYING_SUBJECT);
 
 
-        deleteStudentFromSubject(steve);
+        deleteStudentFromSubject(steve, new Subject(4, "Mathematics"));
 
         System.out.println("!!!__Удаление студента из предмета__!!!");
 
