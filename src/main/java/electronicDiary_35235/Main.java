@@ -1,7 +1,5 @@
 package electronicDiary_35235;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 public class Main {
 

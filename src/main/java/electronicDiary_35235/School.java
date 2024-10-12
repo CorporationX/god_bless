@@ -9,7 +9,7 @@ import java.util.*;
 @Getter
 @EqualsAndHashCode
 public class School {
-    private List<Student> students;
+    private final List<Student> students;
 
     public School() {
         this.students = new ArrayList<>();
