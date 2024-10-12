@@ -1,20 +1,20 @@
 package school.faang.amazon;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Main {
-    public static HashSet<Product> products = new HashSet<>();
+    private static Set<Product> products = new HashSet<>();
 
-    public static HashMap<String, List<Product>> groupByCategories() {
-        return (HashMap<String, List<Product>>) products.stream()
+    public static Map<String, List<Product>> groupByCategories() {
+        return products.stream()
                 .collect(Collectors.groupingBy(Product::getCategory, Collectors.toList()));
     }
 
-    public static void displayInfoOfAllProducts(HashMap<String, List<Product>> productsByCategories) {
+    public static void displayInfoOfAllProducts(Map<String, List<Product>> productsByCategories) {
         productsByCategories.entrySet().stream()
                 .peek(entry -> System.out.println(entry.getKey()))
                 .map(Map.Entry::getValue)
