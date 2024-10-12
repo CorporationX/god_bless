@@ -11,7 +11,6 @@ public class Main {
         testGroupUsersByAgeWithNullUserInList();
         testGroupUsersByAgeWithNullAgeInUser();
         testGroupUsersByAgeWthValidUserList();
-
     }
 
     private static void testGroupUsersByAgeWithNullList() {

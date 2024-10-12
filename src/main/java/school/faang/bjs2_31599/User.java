@@ -32,10 +32,7 @@ public class User {
             if (user == null) {
                 continue;
             }
-            if (!(groupedUsersByAge.containsKey(user.age))) {
-                List<User> ageGroupUsers = addToListUserByAge(userList, user);
-                groupedUsersByAge.put(user.age, ageGroupUsers);
-            }
+            groupedUsersByAge.putIfAbsent(user.age, addToListUserByAge(userList,user));
         }
         return groupedUsersByAge;
     }
