@@ -57,23 +57,14 @@ public class Main {
 
 
     public static void removeStudent(String nameStudent) {
-        Student studentToRemove = null;
-        for (Student student : studentGrades.keySet()) {
-            if (student.getName().equals(nameStudent)) {
-                studentToRemove = student;
-                break;
-            }
-        }
+        Student studentToRemove = studentGrades.keySet().stream()
+                .filter(student -> student.getName().equals(nameStudent))
+                .findFirst()
+                .orElse(null);
 
         if (studentToRemove != null) {
-            Map<Subject, Integer> removedSubjects = studentGrades.remove(studentToRemove);
-            if (removedSubjects != null) {
-                for (Subject subject : removedSubjects.keySet()) {
-                    if (subjectStudents.containsKey(subject)) {
-                        subjectStudents.get(subject).remove(studentToRemove);
-                    }
-                }
-            }
+            studentGrades.remove(studentToRemove);
+            subjectStudents.values().forEach(list -> list.remove(studentToRemove));
         } else {
             System.out.println("Студент " + nameStudent + " не найден.");
         }
