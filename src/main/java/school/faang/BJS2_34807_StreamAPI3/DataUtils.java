@@ -1,9 +1,12 @@
 package school.faang.BJS2_34807_StreamAPI3;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class DataUtils {
     public static Set<List<String>> findMutualFriends(Map<String, List<String>> peopleFriends) {
