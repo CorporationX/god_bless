@@ -4,24 +4,29 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import static school.faang.doublecashe.Main.STUDENT_SUBJECT_GRADE;
 import static school.faang.doublecashe.Main.SUBJECT_STUDENTS;
 
 public class Service {
+
+    public void addStudent(Student student) {
+        if (!STUDENT_SUBJECT_GRADE.containsKey(student)) {
+            STUDENT_SUBJECT_GRADE.put(student, new HashMap<>());
+        }
+    }
+
     /**
      * добавление нового студента и его предметов с оценками
      */
-    public void addNewStudent(Student studentName) {
-        STUDENT_SUBJECT_GRADE.putIfAbsent(studentName, new HashMap<>());
-
-//        for (Subject subject : s) {
-//            if (!SUBJECT_STUDENTS.containsKey(subject)) {
-//                SUBJECT_STUDENTS.put(subject, new ArrayList<>());
-//            }
-//            SUBJECT_STUDENTS.get(subject).add(studentName);
-//        }
-
+    public void addNewStudent(Student studentName, Subject subject, int grade) {
+        addStudent(studentName);
+        STUDENT_SUBJECT_GRADE.get(studentName).put(subject, grade);
+        SUBJECT_STUDENTS.putIfAbsent(subject, new ArrayList<>());
+        if (!SUBJECT_STUDENTS.get(subject).contains(studentName)) {
+            SUBJECT_STUDENTS.get(subject).add(studentName);
+        }
     }
 
     /**
@@ -41,9 +46,15 @@ public class Service {
      * удаление студента и его предметов с оценками
      */
     public void removeStudent(Student student) {
-        STUDENT_SUBJECT_GRADE.remove(student);
-        for (Map.Entry<Subject, List<Student>> entry : SUBJECT_STUDENTS.entrySet()) {
-            entry.getValue().remove(student);
+        List<Subject> studentSubjects = (List<Subject>) STUDENT_SUBJECT_GRADE.get(student);
+        if (studentSubjects != null){
+            STUDENT_SUBJECT_GRADE.remove(student);
+        }
+        for (Subject subject: studentSubjects){
+            Set<Student> studentsInSubject = (Set<Student>) SUBJECT_STUDENTS.get(subject);
+            if (studentsInSubject !=null){
+                studentsInSubject.remove(student);
+            }
         }
     }
 

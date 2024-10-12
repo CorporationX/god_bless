@@ -17,6 +17,7 @@ public class Main {
         Subject subject = new Subject(1, "русский язык");
         Subject subject2 = new Subject(2, "английский язык");
         Subject subject3 = new Subject(3, "математика");
+        service.addNewStudent(student1,subject2,4);
         service.addNewSubject(student3, subject, 4);
         service.addNewSubject(student2, subject2, 5);
         service.addNewSubject(student2, subject3, 3);
