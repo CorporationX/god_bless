@@ -5,8 +5,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static final Map<Student, Map<Subject, Integer>> STUDENT_SUBJECT_GRADE = new HashMap<>();
-    public static final Map<Subject, List<Student>> SUBJECT_STUDENTS = new HashMap<>();
+
 
     public static void main(String[] args) {
         Service service = new Service();

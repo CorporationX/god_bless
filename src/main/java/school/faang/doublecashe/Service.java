@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import static school.faang.doublecashe.Main.STUDENT_SUBJECT_GRADE;
-import static school.faang.doublecashe.Main.SUBJECT_STUDENTS;
-
 public class Service {
+    public static final Map<Student, Map<Subject, Integer>> STUDENT_SUBJECT_GRADE = new HashMap<>();
+    public static final Map<Subject, List<Student>> SUBJECT_STUDENTS = new HashMap<>();
 
     public void addStudent(Student student) {
         if (!STUDENT_SUBJECT_GRADE.containsKey(student)) {
@@ -20,12 +19,12 @@ public class Service {
     /**
      * добавление нового студента и его предметов с оценками
      */
-    public void addNewStudent(Student studentName, Subject subject, int grade) {
-        addStudent(studentName);
-        STUDENT_SUBJECT_GRADE.get(studentName).put(subject, grade);
+    public void addNewStudent(Student student, Subject subject, int grade) {
+        addStudent(student);
+        STUDENT_SUBJECT_GRADE.get(student).put(subject, grade);
         SUBJECT_STUDENTS.putIfAbsent(subject, new ArrayList<>());
-        if (!SUBJECT_STUDENTS.get(subject).contains(studentName)) {
-            SUBJECT_STUDENTS.get(subject).add(studentName);
+        if (!SUBJECT_STUDENTS.get(subject).contains(student)) {
+            SUBJECT_STUDENTS.get(subject).add(student);
         }
     }
 
@@ -34,7 +33,6 @@ public class Service {
      */
 
     public void addNewSubject(Student student, Subject subject, Integer grade) {
-        STUDENT_SUBJECT_GRADE.putIfAbsent(student, new HashMap<>());
         STUDENT_SUBJECT_GRADE.get(student).put(subject, grade);
         SUBJECT_STUDENTS.putIfAbsent(subject, new ArrayList<>());
         if (!SUBJECT_STUDENTS.get(subject).contains(student)) {
@@ -47,12 +45,12 @@ public class Service {
      */
     public void removeStudent(Student student) {
         List<Subject> studentSubjects = (List<Subject>) STUDENT_SUBJECT_GRADE.get(student);
-        if (studentSubjects != null){
+        if (studentSubjects != null) {
             STUDENT_SUBJECT_GRADE.remove(student);
         }
-        for (Subject subject: studentSubjects){
+        for (Subject subject : studentSubjects) {
             Set<Student> studentsInSubject = (Set<Student>) SUBJECT_STUDENTS.get(subject);
-            if (studentsInSubject !=null){
+            if (studentsInSubject != null) {
                 studentsInSubject.remove(student);
             }
         }
@@ -79,8 +77,8 @@ public class Service {
     /**
      * добавление студента к существующему предмету
      */
-    public void addStudentToSubject(Student student, List<Subject> subjects) {
-        SUBJECT_STUDENTS.putIfAbsent((Subject) subjects, new ArrayList<>());
+    public void addStudentToSubject(Student student, Subject subjects) {
+        SUBJECT_STUDENTS.putIfAbsent(subjects, new ArrayList<>());
         if (!SUBJECT_STUDENTS.get(subjects).contains(student)) {
             SUBJECT_STUDENTS.get(subjects).add(student);
         }
