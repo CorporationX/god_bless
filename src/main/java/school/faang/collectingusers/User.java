@@ -10,15 +10,11 @@ import java.util.Set;
 
 @Data
 @AllArgsConstructor
-class User {
+public class User {
     private int id;
     private String name;
     private int age;
     private Set<String> activities;
-
-    public User() {
-        // Default constructor
-    }
 
     public Map<User, String> findHobbyLovers(List<User> users, Set<String> hobbies) {
         Map<User, String> result = new HashMap<>();
