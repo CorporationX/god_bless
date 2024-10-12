@@ -6,7 +6,7 @@ import Java_HashMap.BJS2_32512.Exception.StudentNotFoundException;
 import Java_HashMap.BJS2_32512.Subject;
 import java.util.Map;
 
-public class StudentManager {
+public  class StudentManager {
     public static void addNewStudent(Map<Student, Map<Subject, Integer>> studentGrades, Student student, Map<Subject, Integer> subjects) throws StudentAlreadyExistsException {
         if (studentGrades.containsKey(student)) {
             throw new StudentAlreadyExistsException("Студент уже существует.");
@@ -14,11 +14,10 @@ public class StudentManager {
         studentGrades.put(student, subjects);
     }
 
-    public static void removeStudent(Map<Student, Map<Subject, Integer>> studentGrades, Student student) throws StudentNotFoundException {
-        if (!studentGrades.containsKey(student)) {
+    public static void removeStudent(Map<Student, Map<Subject, Integer>> removedStudent, Student student) throws StudentNotFoundException {
+        if (removedStudent == null) {
             throw new StudentNotFoundException("Студент не найден.");
         }
-        studentGrades.remove(student);
     }
 
     public static void printAllStudents(Map<Student, Map<Subject, Integer>> studentGrades) {
@@ -36,10 +35,10 @@ public class StudentManager {
     }
 
     public static void addNewSubjectForExistingStudent(Map<Student, Map<Subject, Integer>> studentGrades, Student student, Subject subject, int grade) throws StudentNotFoundException {
-        if (!studentGrades.containsKey(student)) {
+        Map<Subject, Integer> subjects = studentGrades.get(student);
+        if (subjects == null) {
             throw new StudentNotFoundException("Студент не найден.");
         }
-        Map<Subject, Integer> subjects = studentGrades.get(student);
         subjects.put(subject, grade);
     }
 }

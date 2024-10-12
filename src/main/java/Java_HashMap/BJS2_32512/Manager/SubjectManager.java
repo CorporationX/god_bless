@@ -1,25 +1,29 @@
 package Java_HashMap.BJS2_32512.Manager;
 
 import Java_HashMap.BJS2_32512.Student;
-
 import Java_HashMap.BJS2_32512.Subject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class SubjectManager {
+
     public static void addNewSubjectAndStudents(Map<Subject, List<Student>> subjectStudents, Subject subject, List<Student> students) {
-        subjectStudents.put(subject, new ArrayList<>(students));
+        subjectStudents.putIfAbsent(subject, new ArrayList<>(students));
     }
 
-    public static void addStudentToExistingSubject(Map<Subject, List<Student>> subjectStudents, Subject subject, Student student) {
+    public static void addStudentToSubject(Map<Subject, List<Student>> subjectStudents, Subject subject, Student student) {
         subjectStudents.computeIfAbsent(subject, k -> new ArrayList<>()).add(student);
     }
 
     public static void removeStudentFromSubject(Map<Subject, List<Student>> subjectStudents, Subject subject, Student student) {
         List<Student> students = subjectStudents.get(subject);
-        if (students != null) {
-            students.remove(student);
+
+        if (students != null && students.remove(student)) {
+            if (students.isEmpty()) {
+                subjectStudents.remove(subject);
+            }
         }
     }
 
