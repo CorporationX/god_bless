@@ -1,31 +1,31 @@
 package school.faang;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static school.faang.WebPageService.removeWebPageByUrl;
+import static school.faang.WebPageService.viewWebPagesByIndex;
+import static school.faang.WebPageService.writeIndexToMap;
 
 public class Main {
 
+    private static Map<String, List<WebPage>> webPagesWithKey = new HashMap<>();
+    private static Set<WebPage> pages = new HashSet<>();
+
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
-
-       notificationManager.registerHandler("email",
-                (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
-        );
-        notificationManager.registerHandler("sms",
-                (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
-        );
-
-        notificationManager.registerHandler("push",
-                (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
-        );
-
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
-
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        WebPage webPage1 = new WebPage("https://github.com/CorporationX", "BEST_COURSE", "Hello word");
+        WebPage webPage2 = new WebPage("https://github.com", "BEST_SITE", "Hello git");
+        WebPage webPage3 = new WebPage("https://google.com", "BEST_BROWSER", "Hello google");
+        writeIndexToMap(webPage1, webPagesWithKey, pages);
+        writeIndexToMap(webPage1, webPagesWithKey, pages);
+        writeIndexToMap(webPage2, webPagesWithKey, pages);
+        writeIndexToMap(webPage3, webPagesWithKey, pages);
+        removeWebPageByUrl("https://github.com",webPagesWithKey);
+        viewWebPagesByIndex("Hello", webPagesWithKey);
     }
-
 
 }
