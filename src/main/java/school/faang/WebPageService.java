@@ -1,6 +1,7 @@
 package school.faang;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +29,16 @@ public class WebPageService {
         System.out.println(index + ": " + webPagesWithKey.get(index).toString());
     }
 
-//    public static void removeWebPageByUrl(String url, ){
-//
-//    }
+    public static void removeWebPageByUrl(String url, Map<String, List<WebPage>> webPagesWithKey) {
+        for (Map.Entry<String, List<WebPage>> pair : webPagesWithKey.entrySet()) {
+            List<WebPage> studentList = pair.getValue();
+            Iterator<WebPage> iterator = studentList.iterator();
+            while (iterator.hasNext()) {
+                WebPage webPage1 = iterator.next();
+                if (webPage1.getUrl().equals(url)) {
+                    iterator.remove();
+                }
+            }
+        }
+    }
 }
