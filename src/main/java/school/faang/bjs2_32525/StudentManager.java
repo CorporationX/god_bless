@@ -1,6 +1,8 @@
 package school.faang.bjs2_32525;
 
 import lombok.AllArgsConstructor;
+import school.faang.bjs2_32525.model.Student;
+import school.faang.bjs2_32525.model.Subject;
 
 import java.util.List;
 import java.util.Map;
