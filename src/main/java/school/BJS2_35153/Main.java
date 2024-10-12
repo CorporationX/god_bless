@@ -63,17 +63,9 @@ public class Main {
         return listOfIntegers.stream().map(integer -> Integer.toBinaryString(integer)).collect(Collectors.toList());
     }
 
-    public static List<String> filteringStringsAlphabetically(List<String> words, String word) {
-//        String regex = "[" + word + "]+";
-//        return words.stream().filter(word_n -> word.matches(regex))
-//                .sorted(Comparator.comparingInt(String::length)).toList();
-
-
-        return words.stream().filter(x ->
-                {
-                    List<String> stringList = Arrays.asList(x.split(""));
-                    return stringList.stream().allMatch(word::contains);
-                }
-        ).sorted(Comparator.comparingInt(String::length)).collect(Collectors.toList());
+    public static List<String> filteringStringsAlphabetically(List<String> words, String criteria) {
+        String regex = "[" + criteria + "]+";
+        return words.stream().filter(word -> word.matches(regex))
+                .sorted(Comparator.comparingInt(String::length)).toList();
     }
 }
