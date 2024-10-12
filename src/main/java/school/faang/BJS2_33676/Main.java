@@ -21,21 +21,16 @@ public class Main {
         );
 
         Predicate<Email> filter = email -> email.isImportant();
-
-        Consumer<Email> printEmail = email -> {
-            System.out.println("Письмо " + email.getSubject() + " обработано");
-        };
-
+        Consumer<Email> printEmail = email -> System.out.println("Письмо " + email.getSubject() + " обработано");
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-
         Function<Email, Email> answer = email -> new Email("RE: " + email.getSubject(),
                 ">> " + email.getBody() + "\n My answer", email.isImportant());
 
         emailProcessor.processEmails(emails, filter, printEmail, toUpperCase);
-        List<Email> answeredMaiil = emailProcessor.answerEmails(emails,answer);
-
         System.out.println();
-        for(Email email : answeredMaiil) {
+        List<Email> answeredEmails = emailProcessor.answerEmails(emails,answer);
+
+        for(Email email : answeredEmails) {
             System.out.println(email);
         }
     }
