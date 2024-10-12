@@ -8,10 +8,9 @@ import java.util.Map;
 
 public  class StudentManager {
     public static void addNewStudent(Map<Student, Map<Subject, Integer>> studentGrades, Student student, Map<Subject, Integer> subjects) throws StudentAlreadyExistsException {
-        if (studentGrades.containsKey(student)) {
+        if (studentGrades.putIfAbsent(student, subjects) != null) {
             throw new StudentAlreadyExistsException("Студент уже существует.");
         }
-        studentGrades.put(student, subjects);
     }
 
     public static void removeStudent(Map<Student, Map<Subject, Integer>> removedStudent, Student student) throws StudentNotFoundException {
