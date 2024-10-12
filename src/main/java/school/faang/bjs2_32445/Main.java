@@ -103,15 +103,23 @@ public class Main {
     public static void addNewSubjectForStudent(Student student, Subject subject, int grade) {
         STUDENT_SUBJECTS_AND_GRADES.get(student).put(subject, grade);
 
-        if (STUDENTS_STUDYING_SUBJECT.containsKey(subject)) {
-            STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
-        }
+        STUDENTS_STUDYING_SUBJECT.putIfAbsent(subject, new ArrayList<>());
+        STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
     }
 
     public static void deleteStudent(Student student) {
+        STUDENT_SUBJECTS_AND_GRADES.forEach((key, value) -> {
+            if (key.equals(student)) {
+                value.forEach((s, g) -> {
+                    if (STUDENTS_STUDYING_SUBJECT.containsKey(s)) {
+                        STUDENTS_STUDYING_SUBJECT.get(s).remove(student);
+                    }
+                });
+            }
+        });
+
         STUDENT_SUBJECTS_AND_GRADES.remove(student);
 
-        STUDENTS_STUDYING_SUBJECT.values().forEach(list -> list.removeIf(foundStudent -> foundStudent.equals(student)));
     }
 
     public static void printStudents() {
@@ -141,8 +149,8 @@ public class Main {
         STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectAndGrades);
     }
 
-    public static void deleteStudentFromSubject(Student student) {
-        STUDENTS_STUDYING_SUBJECT.values().forEach(list -> list.removeIf(foundStudent -> foundStudent.equals(student)));
+    public static void deleteStudentFromSubject(Student student, Subject subject) {
+        STUDENTS_STUDYING_SUBJECT.get(subject).removeIf(s -> s.equals(student));
 
         STUDENT_SUBJECTS_AND_GRADES.remove(student);
     }
