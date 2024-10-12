@@ -30,4 +30,5 @@ public class SearchEngine {
             webPages.removeIf(webPage -> webPage.getUrl().equalsIgnoreCase(url));
         }
     }
+
 }
