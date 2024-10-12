@@ -27,22 +27,27 @@ public class ListOperations {
     }
 
     public static List<String> filterStringsContainingSubstring(List<String> list, String substring) {
-        return list.stream().filter(value -> value.contains(substring)).toList();
+        return list.stream()
+                .filter(value -> value.contains(substring)).toList();
     }
 
     public static List<String> sortByLength(List<String> list) {
-        return list.stream().sorted((o1, o2) -> o1.length() - o2.length()).toList();
+        return list.stream()
+                .sorted((o1, o2) -> o1.length() - o2.length()).toList();
     }
 
     public static boolean allMatchCondition(List<Integer> list, Predicate<Integer> predicate) {
-        return list.stream().allMatch(predicate);
+        return list.stream()
+                .allMatch(predicate);
     }
 
     public static Optional<Integer> findMinGreaterThan(List<Integer> list, int threshold) {
-        return list.stream().filter(value -> value > threshold).min(Integer::compare);
+        return list.stream()
+                .filter(value -> value > threshold).min(Integer::compare);
     }
 
     public static List<Integer> convertToLengths(List<String> list) {
-        return list.stream().map(String::length).toList();
+        return list.stream()
+                .map(String::length).toList();
     }
 }
