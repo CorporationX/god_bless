@@ -26,6 +26,15 @@ public class Main {
 
     public void removeEventById(int id) {
         StreamEvent event = eventById.remove(id);
+        if (event != null) {
+            List<StreamEvent> events = eventsByType.get(event.getEventType());
+            if (events != null) {
+                events.remove(event);
+                if (events.isEmpty()) {
+                    eventsByType.remove(event.getEventType());
+                }
+            }
+        }
     }
 
     public void printAllEvents() {
