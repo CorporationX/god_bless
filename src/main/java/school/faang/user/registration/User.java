@@ -10,11 +10,7 @@ public class User {
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
 
     public User(String name, int age, String placeOfWork, String address) {
-        try {
-            validateUserInfo(name, age, placeOfWork, address);
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
-        }
+        validateUserInfo(name, age, placeOfWork, address);
 
         this.name = name;
         this.age = age;
