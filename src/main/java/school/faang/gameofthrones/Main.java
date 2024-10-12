@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
-    Map<String, House> houseMap = new HashMap<>();
+    private Map<String, House> houseMap = new HashMap<>();
 
     public void addHouse(String name, String sigil) {
         houseMap.put(name, new House(name, sigil));
