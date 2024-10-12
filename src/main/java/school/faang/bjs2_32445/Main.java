@@ -28,43 +28,67 @@ public class Main {
         bobSubjects.put(new Subject(3, "Geography"), 5);
 
         addNewStudent(steve, steveSubjects);
-
-        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
-        System.out.println("_______________________________");
-        System.out.println(STUDENTS_STUDYING_SUBJECT);
-        System.out.println("_______________________________");
-
-
         addNewStudent(bob, bobSubjects);
 
-        addNewSubjectForStudent(steve, new Subject(4, "Mathematics"), 4);
+        System.out.println("!!!__Добавили новых студентов__!!!");
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
 
+
+        addNewSubjectForStudent(steve, new Subject(4, "Mathematics"), 4);
         addNewSubjectForStudent(bob, new Subject(4, "Mathematics"), 4);
+
+        System.out.println("!!!__Добавили предметы для существующих студентов__!!!");
 
         System.out.println(STUDENT_SUBJECTS_AND_GRADES);
         System.out.println("_______________________________");
         System.out.println(STUDENTS_STUDYING_SUBJECT);
-        System.out.println("_______________________________");
-
 
         deleteStudent(steve);
 
-        printStudents();
+        System.out.println("!!!__Удалили студента__!!!");
+
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
+
 
         List<Student> students = new ArrayList<>();
-
         students.add(steve);
         students.add(bob);
 
-        addStudentsStudyingSubject(new Subject(4, "Mathematics"), students);
+        Map<Subject, Integer> subjectsAndGrades = new HashMap<>();
+        subjectsAndGrades.put(new Subject(4, "Mathematics"), 4);
+        subjectsAndGrades.put(new Subject(5, "Geometry"), 5);
+
+        addNewSubjectAndListOfStudents(subjectsAndGrades, students);
+
+        System.out.println("!!!__Добавление нового предмета и списка студентов, изучающих его__!!!");
+
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
+
 
         Student eve = new Student(3, "Eve");
 
-        addNewStudentStudyingSubject(eve, new Subject(4, "Mathematics"));
+        addNewStudentToExistingSubject(eve, subjectsAndGrades);
+
+        System.out.println("!!!__Добавление студента к существующему предмету__!!!");
+
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
+
 
         deleteStudentFromSubject(steve);
 
-        printSubjectsAndStudents();
+        System.out.println("!!!__Удаление студента из предмета__!!!");
+
+        System.out.println(STUDENT_SUBJECTS_AND_GRADES);
+        System.out.println("_______________________________");
+        System.out.println(STUDENTS_STUDYING_SUBJECT);
     }
 
     public static void addNewStudent(Student student, Map<Subject, Integer> subjectsAndGrades) {
@@ -80,17 +104,14 @@ public class Main {
         STUDENT_SUBJECTS_AND_GRADES.get(student).put(subject, grade);
 
         if (STUDENTS_STUDYING_SUBJECT.containsKey(subject)) {
-            for (Student foundStudent : STUDENTS_STUDYING_SUBJECT.get(subject)) {
-
-            }
-        } else {
-            STUDENTS_STUDYING_SUBJECT.put(subject, new ArrayList<>());
             STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
         }
     }
 
     public static void deleteStudent(Student student) {
         STUDENT_SUBJECTS_AND_GRADES.remove(student);
+
+        STUDENTS_STUDYING_SUBJECT.values().forEach(list -> list.removeIf(foundStudent -> foundStudent.equals(student)));
     }
 
     public static void printStudents() {
@@ -99,19 +120,31 @@ public class Main {
         }
     }
 
-    public static void addStudentsStudyingSubject(Subject subject, List<Student> students) {
-        STUDENTS_STUDYING_SUBJECT.putIfAbsent(subject, new ArrayList<>());
-        STUDENTS_STUDYING_SUBJECT.put(subject, students);
+    public static void addNewSubjectAndListOfStudents(Map<Subject, Integer> subjectAndGrades, List<Student> students) {
+        subjectAndGrades.forEach((key, value) -> {
+            STUDENTS_STUDYING_SUBJECT.putIfAbsent(key, new ArrayList<>());
+            for (Student newStudent : students) {
+                STUDENTS_STUDYING_SUBJECT.get(key).add(newStudent);
+            }
+        });
+
+        students.forEach(student -> STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectAndGrades));
     }
 
-    public static void addNewStudentStudyingSubject(Student student, Subject subject) {
-        STUDENTS_STUDYING_SUBJECT.get(subject).add(student);
+    public static void addNewStudentToExistingSubject(Student student, Map<Subject, Integer> subjectAndGrades) {
+        subjectAndGrades.forEach((key, value) -> {
+            if (STUDENTS_STUDYING_SUBJECT.containsKey(key)) {
+                STUDENTS_STUDYING_SUBJECT.get(key).add(student);
+            }
+        });
+
+        STUDENT_SUBJECTS_AND_GRADES.putIfAbsent(student, subjectAndGrades);
     }
 
     public static void deleteStudentFromSubject(Student student) {
-        for (Map.Entry<Subject, List<Student>> subjectListEntry : STUDENTS_STUDYING_SUBJECT.entrySet()) {
-            subjectListEntry.getValue().remove(student);
-        }
+        STUDENTS_STUDYING_SUBJECT.values().forEach(list -> list.removeIf(foundStudent -> foundStudent.equals(student)));
+
+        STUDENT_SUBJECTS_AND_GRADES.remove(student);
     }
 
     public static void printSubjectsAndStudents() {
