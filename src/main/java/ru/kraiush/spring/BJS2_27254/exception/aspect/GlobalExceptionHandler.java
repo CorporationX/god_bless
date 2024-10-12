@@ -17,7 +17,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.w3c.dom.events.EventException;
 import ru.kraiush.spring.BJS2_27254.domain.dto.ErrorDto;
-import ru.kraiush.spring.BJS2_27254.domain.model.ErrorMessage;
+import ru.kraiush.spring.BJS2_27254.domain.model.ErrorResponse;
 import ru.kraiush.spring.BJS2_27254.exception.DataValidationException;
 import ru.kraiush.spring.BJS2_27254.exception.ElementAlreadyExistsException;
 import ru.kraiush.spring.BJS2_27254.exception.ElementNotFoundException;
@@ -50,52 +50,60 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataFormatException.class)
-    public ErrorMessage handleDataFormatException(DataFormatException ex) {
-        return new ErrorMessage("Data format error - " + ex.getMessage());
+    public ErrorResponse handleDataFormatException(DataFormatException ex) {
+        log.error("Data format error - " + ex.getMessage());
+        return new ErrorResponse("Data format error - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ElementNotFoundException.class)
-    public ErrorMessage handleNotFoundException(ElementNotFoundException ex) {
-        return new ErrorMessage("The resource cannot be found - " + ex.getMessage());
+    public ErrorResponse handleNotFoundException(ElementNotFoundException ex) {
+        log.error("Failed to find the requested element"  + ex.getMessage());
+        return new ErrorResponse("Failed to find the requested element - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(DataValidationException.class)
-    public ErrorMessage handleDataValidationException(DataValidationException ex) {
-        return new ErrorMessage("Data validation error - " + ex.getMessage());
-    }
-
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
-    public ErrorMessage notFoundDaoException(ChangeSetPersister.NotFoundException ex) {
-        return new ErrorMessage(ex.getMessage());
+    public ErrorResponse handleDataValidationException(DataValidationException ex) {
+        log.error("Data validation error  - " + ex.getMessage());
+        return new ErrorResponse("Data validation error - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException.class)
-    public ErrorMessage notFoundEntityException(EntityNotFoundException ex) {
-        return new ErrorMessage(ex.getMessage());
+    public ErrorResponse notFoundEntityException(EntityNotFoundException ex) {
+        log.error("Entity not found");
+        return new ErrorResponse(ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ExceptionHandler(AccessDeniedException.class)
     public Object handleAccessDeniedException(
             Exception ex, WebRequest request) {
-        log.error(ex.getMessage(), ex);
-        return new ErrorMessage("Access denied - " + ex.getMessage());
+        log.error("Access denied - " + ex.getMessage(), ex);
+        return new ErrorResponse("Access denied - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(ElementAlreadyExistsException.class)
-    public ErrorMessage handleResourceAlreadyExistsException(ElementAlreadyExistsException ex) {
-        return new ErrorMessage("Resource Already Exists - " + ex.getMessage());
+    public ErrorResponse handleResourceAlreadyExistsException(ElementAlreadyExistsException ex) {
+        log.error("Resource Already Exists - " + ex.getMessage());
+        return new ErrorResponse("Resource Already Exists - " + ex.getMessage());
     }
 
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-    public ErrorMessage mismatchTypeException(MethodArgumentTypeMismatchException ex) {
-        return new ErrorMessage("Mismatch argument type - " + ex.getMessage());
+    public ErrorResponse mismatchTypeException(MethodArgumentTypeMismatchException ex) {
+        log.error("Mismatch argument type - " + ex.getMessage());
+        return new ErrorResponse("Mismatch argument type - " + ex.getMessage());
+    }
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    public ErrorResponse handleAllUncaughtException(
+            Exception exception,
+            WebRequest request){
+        log.error("Unknown error occurred - ", exception.getMessage());
+        return new ErrorResponse("Unknown error occurred - " + exception.getMessage());
     }
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

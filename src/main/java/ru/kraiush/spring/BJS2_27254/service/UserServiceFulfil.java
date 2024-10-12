@@ -28,7 +28,6 @@ public class UserServiceFulfil implements UserService {
     public List<User> findAll() {
         List<User> listMembers = repository.findAll();
         if (listMembers.isEmpty()) {
-            log.info("No elements found!");
         } else {
             return listMembers.stream()
                     .sorted(Comparator.comparing(User::getId))

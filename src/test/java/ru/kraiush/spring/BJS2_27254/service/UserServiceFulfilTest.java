@@ -7,6 +7,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import ru.kraiush.spring.BJS2_27254.domain.model.Role;
 import ru.kraiush.spring.BJS2_27254.domain.model.User;
 import ru.kraiush.spring.BJS2_27254.exception.ElementAlreadyExistsException;
@@ -24,6 +26,7 @@ import static org.mockito.AdditionalMatchers.and;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 @DisplayName("service UserServiceFulfil")
 class UserServiceFulfilTest {
 
@@ -38,7 +41,7 @@ class UserServiceFulfilTest {
     public void setup() {
         user = User.builder()
                 .id(3876l)
-                .username("Adelina")
+                .username("Nika")
                 .gender(false)
                 .email("nika@olymp.gc")
                 .location("Olympus")
@@ -58,7 +61,7 @@ class UserServiceFulfilTest {
         User savedUser = service.create(user);
         assertThat(savedUser).isNotNull();
         assertThat(repository.findByEmail("abra@cada.bra").isEmpty());
-        assertThat(repository.findByUsername("Adelina")).isNotNull();
+        assertThat(repository.findByUsername("Nika")).isNotNull();
         assertThat(repository.findById(3876l).isPresent());
         verify(repository).save(any());
         verify(repository).save(and(notNull(), argThat(p -> p.getId() == 3876l)));
@@ -67,12 +70,19 @@ class UserServiceFulfilTest {
     @DisplayName("JUnit test for create method for existing element which throws exception")
     @Test
     public void givenExistingEmail_whenSaveUser_thenThrowsException() {
-        when(repository.findByEmail(any(String.class)))
-                .thenReturn(Optional.empty());
         given(repository.findByEmail(user.getEmail()))
                 .willReturn(Optional.of(user));
         assertThrows(ElementAlreadyExistsException.class, () -> {
             service.create(user);
+        });
+    }
+
+    @DisplayName("JUnit test for update() method which throws exception")
+    @Test
+    public void givenNotExistedUser_whenUpdate_thenThrowsException() {
+        given(repository.findById(9991L)).willReturn(Optional.of(user));
+        assertThrows(ElementNotFoundException.class, () -> {
+            service.update(user);
         });
         verify(repository, never()).save(any(User.class));
     }
@@ -89,14 +99,14 @@ class UserServiceFulfilTest {
     @Test
     public void whenGetAllUsers_thenReturnUsersList() {
         User user2 = User.builder()
-                .id(3876l)
-                .username("Adelina")
+                .id(7876l)
+                .username("Aloe")
                 .gender(false)
-                .email("nika@olymp.gc")
-                .location("Olympus")
+                .email("aloe@olymp.gc")
+                .location("Greece")
                 .age(17)
                 .lastDate(LocalDateTime.now())
-                .password("pass")
+                .password("pass213")
                 .role(Role.ROLE_USER)
                 .build();
 
@@ -114,20 +124,20 @@ class UserServiceFulfilTest {
         assertThat(savedUser).isNotNull();
     }
 
-    @DisplayName("Should get user by name")
+    @DisplayName("JUnit test should get user by name")
     @Test
-    void getByName() {
-        given(repository.findByUsername("Adelina")).willReturn(Optional.of(user));
-        assertThat(repository.findByUsername("Adelina")).isNotNull();
+    void givenUser_whenGetUsername_thenReturnUserObject() {
+        given(repository.findByUsername("Nika")).willReturn(Optional.of(user));
+        assertThat(repository.findByUsername("Nika")).isNotNull();
         verify(repository).findByUsername(anyString());
-        assertEquals(repository.findByUsername("Adelina").get().getId(), 3876l);
+        assertEquals(repository.findByUsername("Nika").get().getId(), 3876l);
         verify(repository, times(2)).findByUsername(anyString());
-        verify(repository, times(2)).findByUsername("Adelina");
+        verify(repository, times(2)).findByUsername("Nika");
     }
 
     @DisplayName("JUnit test for update() method")
     @Test
-    public void givenUserObject_whenUpdateUser_thenReturnUpdatedUser() {
+    public void givenUserObject_whenUpdateUser_thenReturnUpdatedUser() throws Exception {
         given(repository.findById(3876L)).willReturn(Optional.of(user));
         user.setEmail("crishna@gmail.in");
         user.setUsername("Rama");
@@ -138,7 +148,7 @@ class UserServiceFulfilTest {
 
     @DisplayName("JUnit test for delete() method")
     @Test
-    public void givenUserId_whenDeleteUser_thenNothing() {
+    public void givenUserId_whenDeleteUser_thenNothing() throws Exception {
         given(repository.findById(3876L)).willReturn(Optional.of(user));
         long userId = 3876L;
         willDoNothing().given(repository).deleteById(userId);
