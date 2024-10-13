@@ -1,6 +1,8 @@
 package electronicDiary_35235;
 
 
+import electronicDiary_35235.entity.School;
+
 public class Main {
 
     public static void main(String[] args) {

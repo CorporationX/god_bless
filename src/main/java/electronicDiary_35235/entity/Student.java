@@ -1,4 +1,4 @@
-package electronicDiary_35235;
+package electronicDiary_35235.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
