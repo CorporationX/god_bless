@@ -38,14 +38,9 @@ public class DataUtils {
 
     public static Map<String, Double> departuresAverageSalaries(List<Employee> employees) {
         return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDeparture))
-                .entrySet().stream()
-                .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        departureEmployees -> departureEmployees.getValue().stream()
-                                .mapToDouble(Employee::getSalary)
-                                .average()
-                                .orElse(0.0)
+                .collect(Collectors.groupingBy(
+                        Employee::getDeparture,
+                        Collectors.averagingDouble(Employee::getSalary)
                 ));
     }
 
