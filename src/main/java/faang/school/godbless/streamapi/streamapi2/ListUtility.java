@@ -3,26 +3,23 @@ package faang.school.godbless.streamapi.streamapi2;
 import lombok.NonNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ListUtility {
     private ListUtility() {
     }
 
-    public static List<List<Integer>> findPairsWithSpecificSum(@NonNull List<Integer> numbers, int sum) {
+    public static Set<List<Integer>> findPairsWithSpecificSum(@NonNull List<Integer> numbers, int sum) {
         if (numbers.size() <= 1) {
-            return new ArrayList<>();
+            return new HashSet<>();
         }
-        var pairs = new ArrayList<List<Integer>>();
 
-        for (int i = 0; i < numbers.size(); i++) {
-            for (int j = i + 1; j < numbers.size(); j++) {
-                if (numbers.get(i) + numbers.get(j) == sum) {
-                    pairs.add(Arrays.asList(numbers.get(i), numbers.get(j)));
-                }
-
-            }
-        }
-        return pairs;
+        var uniqueNumbers = new HashSet<>(numbers);
+        return numbers.stream()
+                .filter(n -> uniqueNumbers.contains(sum - n))
+                .map(n -> Stream.of(n, sum - n).sorted().toList())
+                .collect(Collectors.toSet());
     }
 
     public static List<String> getSortedCapitals(@NonNull Map<String, String> countries) {
