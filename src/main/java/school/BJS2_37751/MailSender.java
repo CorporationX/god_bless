@@ -15,7 +15,7 @@ public class MailSender {
             thread.start();
             thread.join();
         }
-        System.out.println("Все письма отправлены!");
+        System.out.println("Все письма отправлены");
 
 
     }
