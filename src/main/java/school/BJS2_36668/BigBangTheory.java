@@ -24,7 +24,6 @@ public class BigBangTheory {
 
         executorService.shutdown();
 
-
         try {
             if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("потоки не завершили свою работу");
@@ -33,9 +32,5 @@ public class BigBangTheory {
         } catch (InterruptedException e) {
             executorService.shutdownNow();
         }
-
-
     }
-
-
 }
