@@ -35,5 +35,5 @@ public class Main {
                 "Тема: " + email.getSubject() +
                 ", Тело письма: " + email.getBody()
         ));
-    }
+  }
 }
