@@ -1,31 +1,32 @@
 package school.faang;
 
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Main {
-
     public static void main(String[] args) {
-        NotificationManager notificationManager = new NotificationManager();
+        EmailProcessor emailProcessor = new EmailProcessor();
 
-       notificationManager.registerHandler("email",
-                (notification) -> System.out.println("Отправка по электронной почте: " + notification.getMessage())
-        );
-        notificationManager.registerHandler("sms",
-                (notification) -> System.out.println("Отправка SMS: " + notification.getMessage())
-        );
-
-        notificationManager.registerHandler("push",
-                (notification) -> System.out.println("Отправка push-уведомления: " + notification.getMessage())
+        List<Email> emails = Arrays.asList(
+                new Email("Letter 1", "Dear diary.... ", true),
+                new Email("Letter 2", "Rock and stone!!!!! ", true),
+                new Email("Spam", "Spam text", false)
         );
 
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
-        Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
-        Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        Predicate<Email> importantFilter = email -> email.isImportant();
 
-        notificationManager.sendNotification(emailNotification);
-        notificationManager.sendNotification(smsNotification);
-        notificationManager.sendNotification(pushNotification);
+        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+
+        Function<Email, String> toUpperCase = email -> {
+            email.setBody(email.getBody().toUpperCase());
+            return email.getBody();  // Возвращает преобразованный текст
+        };
+
+        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
+        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
-
 
 }
