@@ -9,6 +9,6 @@ public class FilterProcessor {
     }
 
     public Function<Image, Image> combineFilters(Function<Image, Image> filterWhite, Function<Image, Image> filterBlack) {
-        return (image) -> filterWhite.apply(filterBlack.apply(image));
+        return filterBlack.andThen(filterWhite);
     }
 }
