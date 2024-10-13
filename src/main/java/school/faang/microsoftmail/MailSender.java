@@ -28,5 +28,10 @@ public class MailSender {
                 Thread.currentThread().interrupt();
             }
         }
+
+        if (threadList.size() == COUNT_THREADS) {
+            System.out.println("All letters were sent!");
+        }
     }
+
 }
