@@ -16,7 +16,10 @@ public class MailSender {
 
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             threads[i].start();
-            threads[i].join();
+        }
+
+        for (Thread thread : threads) {
+            thread.join();
         }
 
         System.out.println("Все письма отправлены");
