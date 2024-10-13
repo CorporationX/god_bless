@@ -13,7 +13,7 @@ public class Main {
         School hogvarts = new School("Hogvarts");
         List<Student> studentsHogvarts = hogvarts.getStudents();
 
-        hogvarts.addStudentsFromJSON("D:\\javaprojects\\faang_school\\src\\main\\java\\electronicDiary_35235\\students_test_data.json");
+        hogvarts.addStudentsFromJSON("C:\\students_test_data.json");
         hogvarts.calculateAverageScore(studentsHogvarts)
                 .forEach((k, v) -> System.out.println("Предмет: " + k + " " + Math.round(v)));
 
