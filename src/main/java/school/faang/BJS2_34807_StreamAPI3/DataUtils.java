@@ -1,6 +1,8 @@
 package school.faang.BJS2_34807_StreamAPI3;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,17 +13,25 @@ import java.util.stream.IntStream;
 public class DataUtils {
     public static Set<List<String>> findMutualFriends(Map<String, List<String>> peopleFriends) {
         Set<List<String>> mutualFriendsPairs = new HashSet<>();
+        List<String> persons = new ArrayList<>(peopleFriends.keySet());
 
-        peopleFriends.forEach((person, personFriends) ->
-                personFriends.stream()
-                        .flatMap(personFriend -> peopleFriends.get(personFriend).stream())
-                        .filter(friendOfFriend -> !friendOfFriend.equals(person) && !personFriends.contains(friendOfFriend))
-                        .forEach(friendOfFriend -> {
-                            List<String> mutualFriendsPair = Arrays.asList(person, friendOfFriend);
-                            mutualFriendsPair.sort(String::compareTo);
-                            mutualFriendsPairs.add(mutualFriendsPair);
+        Map<String, Set<String>> peopleFriendsSets = new HashMap<>();
+        peopleFriends.forEach((person, personFriends) -> peopleFriendsSets.put(person, new HashSet<>(personFriends)));
+
+        IntStream.range(0, persons.size() - 1)
+                .forEach(i -> IntStream.range(i + 1, persons.size())
+                        .forEach(j -> {
+                            String firstPerson = persons.get(i);
+                            String secondPerson = persons.get(j);
+                            if (!peopleFriendsSets.get(firstPerson).contains(secondPerson)) {
+                                Set<String> personFriends = new HashSet<>(peopleFriendsSets.get(firstPerson));
+                                personFriends.retainAll(peopleFriendsSets.get(secondPerson));
+                                if (!personFriends.isEmpty()) {
+                                    mutualFriendsPairs.add(Arrays.asList(firstPerson, secondPerson));
+                                }
+                            }
                         })
-        );
+                );
 
         return mutualFriendsPairs;
     }

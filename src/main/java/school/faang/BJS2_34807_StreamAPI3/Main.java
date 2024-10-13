@@ -15,7 +15,7 @@ public class Main {
         peopleFriends.put("David", Arrays.asList("Bob", "Charlie"));
 
         Set<List<String>> mutualFriends = DataUtils.findMutualFriends(peopleFriends);
-        System.out.println("Mutual Friends: " + mutualFriends);
+        System.out.println("People who have mutual friends: " + mutualFriends);
 
         List<Employee> employees = Arrays.asList(
                 new Employee("Alice", 70000, "Sales"),
