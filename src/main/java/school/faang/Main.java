@@ -1,32 +1,34 @@
 package school.faang;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class Main {
+
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        Image originalImage = new Image("original.jpg", "Orig");
 
-        List<Email> emails = Arrays.asList(
-                new Email("Letter 1", "Dear diary.... ", true),
-                new Email("Letter 2", "Rock and stone!!!!! ", true),
-                new Email("Spam", "Spam text", false)
-        );
+        FilterProcessor filterProcessor = new FilterProcessor();
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        Function<Image, Image> grayscaleFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Filter: grayscale");
+        Function<Image, Image> sepiaFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Filter: sepia");
+        Function<Image, Image> vignetteFilter = (image) ->
+                new Image(image.getName(), image.getDescription() + " | Filter: vignette");
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        Image grayscaleImage = filterProcessor.applyFilter(originalImage, grayscaleFilter);
+        System.out.println(grayscaleImage.getDescription());
 
-        Function<Email, String> toUpperCase = email -> {
-            email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
-        };
+        Image sepiaImage = filterProcessor.applyFilter(grayscaleImage, sepiaFilter);
+        System.out.println(sepiaImage.getDescription());
 
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        Image vignetteImage = filterProcessor.applyFilter(sepiaImage, vignetteFilter);
+        System.out.println(vignetteImage.getDescription());
+
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(grayscaleFilter, vignetteFilter);
+        Image combinedImage = filterProcessor.applyFilter(originalImage, combinedFilter);
+        System.out.println(combinedImage.getDescription());
     }
+
 
 }
