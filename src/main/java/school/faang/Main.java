@@ -1,32 +1,19 @@
 package school.faang;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        Character frodo = new Character("Frodo");
+        Item ring = new Item("The One Ring", 1000);
+        InventoryManager manager = new InventoryManager();
 
-        List<Email> emails = Arrays.asList(
-                new Email("Letter 1", "Dear diary.... ", true),
-                new Email("Letter 2", "Rock and stone!!!!! ", true),
-                new Email("Spam", "Spam text", false)
-        );
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " был добавлен в инвентарь."));
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        manager.removeItem(frodo, (item) -> item.getName().equals("The One Ring"));
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
+        manager.addItem(frodo, ring, (item) -> System.out.println(item.getName() + " снова добавлен."));
+        manager.updateItem(frodo, (item) -> item.getName().equals("The One Ring"), (item) -> new Item(item.getName(), item.getValue() * 2));
 
-        Function<Email, String> toUpperCase = email -> {
-            email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
-        };
-
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getValue()));
     }
 
 }
