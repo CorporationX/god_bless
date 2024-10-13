@@ -1,12 +1,14 @@
 package school.faang.m1s2.bjs2_34700_meta;
 
-import java.util.List;
+import java.util.Set;
 
 public class Main {
 
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
-        notificationManager.getBanWords().addAll(List.of("trump", "twitter"));
+
+        notificationManager.addFilter("politics", Set.of("trump", "biden"));
+        notificationManager.addFilter("business", Set.of("twitter", "meta"));
 
         Notification emailNotification = new Notification("email", "You're now registered in system");
         Notification smsNotification = new Notification("sms", "Transaction successful");
@@ -25,8 +27,8 @@ public class Main {
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
 
-        notificationManager.sendNotification(new Notification("sms", "Trump for president!"));
-        notificationManager.sendNotification(new Notification("email", "Join Twitter, we're better"));
+        notificationManager.sendNotification(new Notification("sms", "Trump for president!"), "politics");
+        notificationManager.sendNotification(new Notification("email", "Join Twitter, we're better"), "business");
 
         notificationManager.sendNotification(new Notification("telepathy", "Your mind is clear"));
     }
