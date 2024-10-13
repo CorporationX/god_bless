@@ -10,11 +10,11 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> list) {
-        return list.stream().max(Integer::compare).orElseThrow();
+        return list.stream().max(Integer::compare).orElseThrow(NullPointerException::new);
     }
 
     public static double findAverage(List<Integer> list) {
-        return list.stream().mapToInt(num -> num).average().orElseThrow();
+        return list.stream().mapToInt(num -> num).average().orElseThrow(NullPointerException::new);
     }
 
     public static int countStringsStartingWith(List<String> list, char chr) {
@@ -34,7 +34,7 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> list, int min) {
-        return list.stream().filter(num -> num >= min).min(Integer::compare).orElseThrow();
+        return list.stream().filter(num -> num >= min).min(Integer::compare).orElseThrow(NullPointerException::new);
     }
 
     public static List<Integer> convertToLengths(List<String> list) {
