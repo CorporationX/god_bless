@@ -2,9 +2,10 @@ package recommendation_system;
 
 import lombok.AllArgsConstructor;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -12,6 +13,7 @@ public class RecommendationService {
     private List<UserProfile> userProfiles;
     private List<Product> products;
     private List<ProductOrder> productOrders;
+    private static final int MAX_LIST_SIZE = 5;
 
 
     /**
@@ -22,12 +24,12 @@ public class RecommendationService {
      * @return - A list of products that match the user's interests.
      */
     public List<Product> recommendProductsByInterests(int userId) {
-        UserProfile user = findUserById(userId);
-        if (user == null) {
-            return Collections.emptyList();
+        Optional<UserProfile> user = findUserById(userId);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
         }
         return products.stream()
-                .filter(product -> hasCommonInterests(user, product))
+                .filter(product -> hasCommonInterests(user.get(), product))
                 .toList();
     }
 
@@ -38,25 +40,29 @@ public class RecommendationService {
      * @param userId - The ID of the user to find the most popular products for.
      * @return - A list of the 5 most popular products, sorted by popularity in descending order.
      */
-    public List<Product> recommendPopularProductsAmongSimilarUsers(int userId) {
-        UserProfile user = findUserById(userId);
-        if (user == null) {
-            return Collections.emptyList();
+    public List<Optional<Product>> recommendPopularProductsAmongSimilarUsers(int userId) {
+        Optional<UserProfile> user = findUserById(userId);
+        if (user.isEmpty()) {
+            throw new IllegalArgumentException("User not found");
         }
 
         List<UserProfile> similarUsers = userProfiles.stream()
-                .filter(u -> u.getGender().equals(user.getGender()) &&
-                        u.getAge() == user.getAge() &&
-                        u.getLocation().equals(user.getLocation()))
+                .filter(u -> u.getGender().equals(user.get().getGender()) &&
+                        u.getAge() == user.get().getAge() &&
+                        u.getLocation().equals(user.get().getLocation()))
                 .toList();
 
+        Set<Integer> similarUserIds = similarUsers.stream()
+                .map(UserProfile::getUserId)
+                .collect(Collectors.toSet());
+
         Map<String, Long> productOrderCount = productOrders.stream()
-                .filter(order -> similarUsers.stream().anyMatch(u -> u.getUserId() == order.getUserId()))
+                .filter(order -> similarUserIds.contains(order.getUserId()))
                 .collect(Collectors.groupingBy(ProductOrder::getProductId, Collectors.counting()));
 
         return productOrderCount.entrySet().stream()
                 .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
-                .limit(5)
+                .limit(MAX_LIST_SIZE)
                 .map(entry -> findProductById(Integer.parseInt(entry.getKey())))
                 .toList();
     }
@@ -69,16 +75,14 @@ public class RecommendationService {
      * @return - The category that the user has ordered the most products from, or null if the user has not ordered any products.
      */
     public String recommendDiscountCategory(int userId) {
-        List<ProductOrder> userOrders = productOrders.stream()
+        Map<String, Long> categoryCount = productOrders.stream()
                 .filter(order -> order.getUserId() == userId)
-                .toList();
-
-        Map<String, Long> categoryCount = userOrders.stream()
                 .map(order -> {
-                    Product product = findProductById(Integer.parseInt(order.getProductId()));
-                    return product != null ? product.getCategory() : "Unknown";
+                    Optional<Product> product = findProductById(Integer.parseInt(order.getProductId()));
+                    return product.isPresent() ? product.get().getCategory() : "Unknown";
                 })
                 .collect(Collectors.groupingBy(category -> category, Collectors.counting()));
+
 
         return categoryCount.entrySet().stream()
                 .max(Map.Entry.comparingByValue())
@@ -92,11 +96,10 @@ public class RecommendationService {
      * @param userId - The ID of the user to find.
      * @return - The user with the given ID, or null if the user is not found.
      */
-    private UserProfile findUserById(int userId) {
+    private Optional<UserProfile> findUserById(int userId) {
         return userProfiles.stream()
                 .filter(user -> user.getUserId() == userId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
 
@@ -106,11 +109,10 @@ public class RecommendationService {
      * @param productId - The ID of the product to find.
      * @return - The product with the given ID, or null if the product is not found.
      */
-    Product findProductById(int productId) {
+    private Optional<Product> findProductById(int productId) {
         return products.stream()
                 .filter(product -> product.getProductId() == productId)
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
     /**
