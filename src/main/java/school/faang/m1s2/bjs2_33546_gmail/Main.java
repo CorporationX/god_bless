@@ -3,7 +3,6 @@ package school.faang.m1s2.bjs2_33546_gmail;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class Main {
@@ -22,13 +21,17 @@ public class Main {
 
         Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
 
-        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
-        Function<Email, String> toLowerCase = email -> email.getBody().toLowerCase();
+        Consumer<Email> toUpperCase = email -> email.setBody(email.getBody().toUpperCase());
+        Consumer<Email> toLowerCase = email -> email.setBody(email.getBody().toLowerCase());
 
         emailProcessor.processEmails(emails, filterImportant, printEmail, toUpperCase);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+
+        System.out.println();
 
         emailProcessor.processEmails(emails, filterNotImportant, printEmail, toLowerCase);
+
+        System.out.println();
+        System.out.println("Full list:");
         emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 }
