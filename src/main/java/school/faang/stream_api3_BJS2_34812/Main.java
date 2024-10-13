@@ -28,12 +28,11 @@ public class Main {
         int listFrom = 1;
         int listTo = 200;
 
-        processor.findNonFriendsWithCommonFriends(friends)
+        processor.findCommonFriends(friends)
                 .forEach((list) -> System.out.println(Arrays.toString(list)));
         System.out.println(processor.findAverageSalary(employees));
         System.out.println(processor.findNumPalindromes(listFrom, listTo));
         System.out.println(processor.findStringPalindromes("abac"));
         System.out.println(processor.findPerfectNumbers(listFrom, listTo));
-
     }
 }

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class StreamProcessor {
 
-    public List<String[]> findNonFriendsWithCommonFriends(Map<String, List<String>> users) {
+    public List<String[]> findCommonFriends(Map<String, List<String>> users) {
         Set<String> friendships = users.entrySet().stream()
                 .flatMap(entry -> entry.getValue().stream()
                         .map(friend -> {
@@ -39,10 +39,8 @@ public class StreamProcessor {
 
     public Map<String, Double> findAverageSalary(List<Employee> employees) {
         return employees.stream()
-                .collect(Collectors.groupingBy(Employee::getDepartment))
-                .entrySet().stream()
-                .collect(Collectors.toMap(Map.Entry::getKey, (entry) -> entry.getValue().stream()
-                        .mapToInt(Employee::getSalary).average().orElse(0)));
+                .collect(Collectors.groupingBy(Employee::getDepartment
+                        , Collectors.averagingDouble(Employee::getSalary)));
     }
 
     public List<Integer> findNumPalindromes(int from, int to) {
