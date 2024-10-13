@@ -7,6 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Droid {
     private String name;
+    private static final int ALPHABET_LENGTH = 26;
 
     public void sendMessage(Droid droid, String msg, int encryptKey) {
         String encryptMsg = encryptMessage(msg, encryptKey);
@@ -20,8 +21,12 @@ public class Droid {
             StringBuilder encryptedMsg = new StringBuilder();
             for (char ch : msg.toCharArray()) {
                 if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMsg.append((char) ((ch - base + key) % 26 + base));
+                    char encrypted = (char) (ch + key);
+                    if ((Character.isLowerCase(ch) && encrypted > 'z') || (Character.isUpperCase(ch) && encrypted > 'Z')) {
+                        encryptedMsg.append((char) ((ch - (ALPHABET_LENGTH - key))));
+                    } else {
+                        encryptedMsg.append(encrypted);
+                    }
                 } else {
                     encryptedMsg.append(ch);
                 }
@@ -32,19 +37,6 @@ public class Droid {
     }
 
     String decryptMessage(String message, int key) {
-        DroidMessageEncryptor decrypt = ((msg, encryptKey) ->
-        {
-            StringBuilder encryptedMsg = new StringBuilder();
-            for (char ch : msg.toCharArray()) {
-                if (Character.isLetter(ch)) {
-                    char base = Character.isLowerCase(ch) ? 'a' : 'A';
-                    encryptedMsg.append((char) ((ch - base - key + 26) % 26 + base));
-                } else {
-                    encryptedMsg.append(ch);
-                }
-            }
-            return encryptedMsg.toString();
-        });
-        return decrypt.encryptMessage(message, key);
+        return encryptMessage(message, ALPHABET_LENGTH - key);
     }
 }
