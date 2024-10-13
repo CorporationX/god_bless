@@ -1,8 +1,5 @@
 package school.faang;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public abstract class Character {
     protected String name;
     protected int levelOfPower;
@@ -47,14 +44,16 @@ public abstract class Character {
                 if (enemyWarrior.getLevelOfHealth() == 0) {
                     System.out.println("Enemy is dead");
                 }
-                enemyWarrior.setLevelOfHealth(enemyWarrior.getLevelOfHealth() - this.getLevelOfPower());
+                enemyWarrior.setLevelOfHealth(enemyWarrior.getLevelOfHealth() -
+                        this.getLevelOfPower());
             }
             if (enemy instanceof Archer) {
                 Archer enemyArcher = (Archer) enemy;
                 if (enemyArcher.getLevelOfHealth() == 0) {
                     System.out.println("Enemy is dead");
                 }
-                enemyArcher.setLevelOfHealth(enemyArcher.getLevelOfHealth() - this.getLevelOfPower());
+                enemyArcher.setLevelOfHealth(enemyArcher.getLevelOfHealth() -
+                        this.getLevelOfPower());
             }
         }
 
@@ -104,11 +103,13 @@ public abstract class Character {
         public void attack(Character enemy) {
             if (enemy instanceof Warrior) {
                 Warrior enemyWarrior = (Warrior) enemy;
-                enemyWarrior.setLevelOfHealth(enemyWarrior.getLevelOfHealth() - this.levelOfAgility);
+                enemyWarrior.setLevelOfHealth(enemyWarrior.getLevelOfHealth() -
+                        this.levelOfAgility);
             }
             if (enemy instanceof Archer) {
                 Archer enemyArcher = (Archer) enemy;
-                enemyArcher.setLevelOfHealth(enemyArcher.getLevelOfHealth() - this.levelOfAgility);
+                enemyArcher.setLevelOfHealth(enemyArcher.getLevelOfHealth() -
+                        this.levelOfAgility);
             }
         }
 
