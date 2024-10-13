@@ -1,10 +1,12 @@
 package school.faang.BJS2_33785;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Item {
 
     private String name;

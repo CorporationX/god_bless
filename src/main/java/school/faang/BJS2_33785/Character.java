@@ -1,7 +1,6 @@
 package school.faang.BJS2_33785;
 
 import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 
