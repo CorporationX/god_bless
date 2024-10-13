@@ -15,7 +15,6 @@ public class BigBangTheory {
         Task task_3 = new Task("Говард", "разработка инструментов");
         Task task_4 = new Task("Раджеш", "анализ данных");
 
-
         ExecutorService executorService = Executors.newFixedThreadPool(FIXED_THREADS);
 
         executorService.execute(task_1);
