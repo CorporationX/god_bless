@@ -13,7 +13,7 @@ import java.util.List;
 public class JsonReader {
     public List<Student> readJsonFromFile(@NonNull String fileName) {
         ObjectMapper objectMapper = new ObjectMapper();
-        try(BufferedReader br= new BufferedReader (new InputStreamReader( new FileInputStream(fileName), StandardCharsets.UTF_8))) {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(fileName)))) {
             return objectMapper.readValue(br, new TypeReference<>() {
             });
         } catch (IOException e) {
