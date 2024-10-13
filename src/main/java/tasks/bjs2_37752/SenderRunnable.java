@@ -22,6 +22,19 @@ public class SenderRunnable implements Runnable {
     }
 
     private void emulateMessageSending(int mailNumber) {
-        System.out.println("Поток : " + threadId + ". Номер Сообщение : " + mailNumber + ".  : Успешно отправлено");
+
+        try {
+            if (mailNumber == 1055) {
+                throw new InterruptedException("Поток : " + threadId + ". Ошибка при отправке сообщения");
+            }
+
+            if (mailNumber == 1906) {
+                Thread.sleep(5 * 60 * 1000);
+            }
+
+            System.out.println("Поток : " + threadId + ". Номер Сообщение : " + mailNumber + ".  : Успешно отправлено");
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

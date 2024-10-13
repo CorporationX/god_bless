@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class MailSender {
     private static final int THREAD_AMOUNT = 5;
     private static final int MAIL_COUNT = 200;
+    private static final int TIMEOUT_THREAD = 30*1000;
 
     public static void main(String[] args) {
         System.out.println("Выполнение с потоками созданными в цикле:");
@@ -39,7 +40,7 @@ public class MailSender {
 
         for (Thread thread : threads) {
             try {
-                thread.join();
+                thread.join(TIMEOUT_THREAD);
             } catch (InterruptedException e) {
                 System.out.println("Поток был прерван: " + thread.getId());
                 Thread.currentThread().interrupt();
@@ -62,7 +63,7 @@ public class MailSender {
         executorService.shutdown();
 
         try {
-            if (!executorService.awaitTermination(30, TimeUnit.SECONDS)) {
+            if (!executorService.awaitTermination(TIMEOUT_THREAD, TimeUnit.MILLISECONDS)) {
                 System.out.println("Завершение ExecutorService заняло слишком много времени.");
                 executorService.shutdownNow();
             }
