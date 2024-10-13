@@ -7,9 +7,9 @@ import java.util.function.Predicate;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> importantFilter,
-                              Consumer<Email> printEmail, Function<Email, String> toUpperCase){
+                              Consumer<Email> printEmail, Function<Email, String> toUpperCase) {
         emails.forEach((n) -> {
-            if(importantFilter.test(n)){
+            if (importantFilter.test(n)) {
                 toUpperCase.apply(n);
                 printEmail.accept(n);
             }
