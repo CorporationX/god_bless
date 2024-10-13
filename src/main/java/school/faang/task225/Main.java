@@ -16,13 +16,16 @@ public class Main {
             String str = String.format("%s %f", s, d);
             System.out.println(str);
         });
+        System.out.println();
 
         System.out.println(StudentService.getHardest(studentList));
+        System.out.println();
 
         StudentService.getFinalGrade("Олег", "Сидоров", studentList).forEach((s, d) -> {
             String str = String.format("%s %d", s, d);
             System.out.println(str);
         });
+        System.out.println();
 
         StudentService.printAllInfoAboutStudent(studentList);
     }
