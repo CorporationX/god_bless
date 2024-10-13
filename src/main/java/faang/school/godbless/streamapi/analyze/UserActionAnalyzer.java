@@ -10,17 +10,12 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
-
-        var map = actions.stream()
-                .collect(Collectors.groupingBy(a -> a, Collectors.counting()));
-
         return actions.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting())).entrySet().stream()
                 .sorted(((o1, o2) -> Long.compare(o2.getValue(), o1.getValue())))
                 .limit(10)
                 .map(Map.Entry::getKey)
                 .toList();
-
     }
 
     public static List<String> topPopularHashtags (List<UserAction> actions) {
