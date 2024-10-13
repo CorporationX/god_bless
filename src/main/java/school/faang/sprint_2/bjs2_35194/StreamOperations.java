@@ -44,12 +44,11 @@ public class StreamOperations {
     }
 
     public List<String> filterByAlphabetSortByLength(List<String> strings, String alphabet) {
+        Set<String> alphabetSet = Set.of(alphabet.split(""));
+
         return strings.stream()
-                .filter(s ->
-                        s.length() == Arrays.stream(s.split(""))
-                                .filter(alphabet::contains)
-                                .count())
-                .sorted(Comparator.comparingInt(String::length))
+                .filter(s -> Arrays.stream(s.split(""))
+                        .allMatch(alphabetSet::contains))
                 .toList();
     }
 }

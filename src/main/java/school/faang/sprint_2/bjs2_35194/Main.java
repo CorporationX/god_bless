@@ -10,7 +10,7 @@ public class Main {
         StreamOperations streamOperations = new StreamOperations();
 
         int targetSum = 7;
-        String alphabet = "bcdefghijklmnopqrstuvwxyz";
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
         List<Integer> numbers = asList(1, 2, 3, 4, 5, 6, 9, 145);
         List<String> fruits = List.of("apple", "banana", "cherry", "date", "fig", "grape");
         Map<String, String> countries = Map.of(
