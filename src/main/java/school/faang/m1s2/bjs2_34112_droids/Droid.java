@@ -6,7 +6,12 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Droid {
+    private static final int ALPHABET_LENGHT = 26;
+    private static final int FIRST_CHAR_OF_ALPHABET = 97;
+    private static final int LAST_CHAR_OF_ALPHABET = 122;
+
     private final String name;
+
 
     public void sendMessage(Droid droid, String message, int key) {
         String encryptedMessage = encryptMessage(message, key, (m, k) -> cryptWithCaesarCipher(m, k, true));
@@ -37,27 +42,28 @@ public class Droid {
         for (int i = 0; i < message.length(); i++) {
             if (Character.isUpperCase(originalArray[i])) {
                 originalArray[i] = Character.toLowerCase(originalArray[i]);
-                originalArray[i] = charConvertor(originalArray[i], key);
+                originalArray[i] = convertChar(originalArray[i], key);
                 originalArray[i] = Character.toUpperCase(originalArray[i]);
             } else {
-                originalArray[i] = charConvertor(originalArray[i], key);
+                originalArray[i] = convertChar(originalArray[i], key);
             }
         }
         return new String(originalArray);
     }
 
-    private char charConvertor(char c, int key) {
-        if (Character.isLetter(c)) {
-            char modified = (char) (c + key % 26);
-            if (modified >= 97 && modified <= 122) {
+    private char convertChar(char character, int key) {
+        key = key % ALPHABET_LENGHT;
+        if (Character.isLetter(character)) {
+            char modified = (char) (character + key);
+            if (modified >= FIRST_CHAR_OF_ALPHABET && modified <= LAST_CHAR_OF_ALPHABET) {
                 return modified;
-            } else if (modified > 122) {
-                return (char) (96 + (modified - 122));
-            } else if (modified < 97) {
-                return (char) (123 - (97 - modified));
+            } else if (modified > LAST_CHAR_OF_ALPHABET) {
+                return (char) ((FIRST_CHAR_OF_ALPHABET - 1) + (modified - LAST_CHAR_OF_ALPHABET));
+            } else if (modified < FIRST_CHAR_OF_ALPHABET) {
+                return (char) ((LAST_CHAR_OF_ALPHABET + 1) - (FIRST_CHAR_OF_ALPHABET - modified));
             }
         }
-        return c;
+        return character;
     }
 }
 

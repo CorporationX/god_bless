@@ -9,7 +9,7 @@ public class Main {
 
         String message1 = "Join the Rebellion!";
         String message2 = "The Death Star is operational!";
-        int encryptionKey1 = 3;
+        int encryptionKey1 = 323746;
         int encryptionKey2 = 7;
 
         r2d2.sendMessage(c3po, message1, encryptionKey1);
