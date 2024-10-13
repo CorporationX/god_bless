@@ -3,25 +3,20 @@ import school.faang.spell.services.SpellCaster;
 
 public class Main {
     public static void main(String[] args) {
-        SpellCaster spellCaster = new SpellCaster();
+        String result = ErrorHandler.withErrorHandling(
+                () -> RemoteService.call("someParam"),
+                e -> {  // Обработка ошибки
+                    System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                    return "DEFAULT";
+                }
+        );
 
-        String alohomora = "Alohomora";
-        String lumos = "Lumos";
-        String expelliarmus = "Expelliarmus";
+        System.out.println(result);
+    }
 
-        String fly = "Fly";
-        String grow = "Grow";
-
-        System.out.println("Пример из самой задачи: ");
-
-        spellCaster.cast(alohomora, (spell) -> "The door is unlocked by " + spell);
-        spellCaster.cast(lumos, (spell) -> "A beam of light is created by " + spell);
-        spellCaster.cast(expelliarmus, (spell) -> "The opponent is disarmed by " + spell);
-
-        System.out.println("===============================");
-
-        spellCaster.cast(fly, (spell) -> "The apple is flyed by " + spell);
-        spellCaster.cast(grow,(spell) -> "The tree is grown by " + spell);
-
+    public static class RemoteService {
+        public static String call(String param) throws Exception {
+            throw new Exception("Сервис недоступен");
+        }
     }
 }
