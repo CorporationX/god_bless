@@ -11,10 +11,6 @@ public class ListUtility {
     }
 
     public static Set<List<Integer>> findPairsWithSpecificSum(@NonNull List<Integer> numbers, int sum) {
-        if (numbers.size() <= 1) {
-            return new HashSet<>();
-        }
-
         var uniqueNumbers = new HashSet<>(numbers);
         return numbers.stream()
                 .filter(n -> uniqueNumbers.contains(sum - n))

@@ -8,8 +8,8 @@ public class Main {
         System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 2, 3, 4, 5, 6, 7), 7));
         System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1), 1));
         System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 2), 1));
-        System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 1), 2));
-        System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 2, 3, 1), 2));
+        System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 2), 2));
+        System.out.println(ListUtility.findPairsWithSpecificSum(List.of(1, 2, 3), 2));
 
 
         System.out.println(ListUtility.getSortedCapitals(Map.of("Russia", "Moscow", "USA", "Washington", "Germany", "Berlin")));
