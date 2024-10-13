@@ -5,25 +5,25 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class Droid {
     private String name;
+    private static final int ALPHABET_LENGTH = 26;
+    private static final char UPPERCASE_BASE = 'A';
+    private static final char LOWERCASE_BASE = 'a';
 
-    public String encryptWithCaesar(String message, int key) {
-        DroidMessageEncryptor caesarEncryptor = (msg, k) -> {
-            StringBuilder result = new StringBuilder();
-            for (char c : msg.toCharArray()) {
-                if (Character.isLetter(c)) {
-                    char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    result.append((char) ((c - base + k) % 26 + base));
-                } else {
-                    result.append(c);
-                }
+    private static final DroidMessageEncryptor CAESAR_ENCRYPTOR = (msg, k) -> {
+        StringBuilder result = new StringBuilder();
+        for (char c : msg.toCharArray()) {
+            if (Character.isLetter(c)) {
+                char base = Character.isUpperCase(c) ? UPPERCASE_BASE : LOWERCASE_BASE;
+                result.append((char) ((c - base + k) % ALPHABET_LENGTH + base));
+            } else {
+                result.append(c);
             }
-            return result.toString();
-        };
-        return encryptMessage(caesarEncryptor, message, key);
-    }
+        }
+        return result.toString();
+    };
 
     public String encryptMessage(DroidMessageEncryptor droidMessageEncryptor, String message, int key) {
-        return droidMessageEncryptor.Message(message, key);
+        return droidMessageEncryptor.message(message, key);
     }
 
     public String decryptWithCaesar(String message, int key) {
@@ -35,11 +35,11 @@ public class Droid {
     }
 
     public String decryptMessage(DroidMessageEncryptor droidMessageEncryptor, String message, int key) {
-        return droidMessageEncryptor.Message(message, key);
+        return droidMessageEncryptor.message(message, key);
     }
 
     public void sendMessage(Droid recipient, String message, int key) {
-        String encryptedMessage = encryptWithCaesar(message, key);
+        String encryptedMessage = CAESAR_ENCRYPTOR.message(message, key);
         recipient.receiveMessage(encryptedMessage);
     }
 
@@ -52,19 +52,15 @@ public class Droid {
         Droid c3po = new Droid("C3PO");
         Droid bb8 = new Droid("BB-8");
 
-        // Оригинальные сообщения
         String message1 = "Join the Rebellion!";
         String message2 = "The Death Star is operational!";
-        int encryptionKey1 = 3; // Ключ шифрования для первого сообщения
-        int encryptionKey2 = 7; // Ключ шифрования для второго сообщения
+        int encryptionKey1 = 3;
+        int encryptionKey2 = 7;
 
-        // R2D2 отправляет сообщение C3PO
         r2d2.sendMessage(c3po, message1, encryptionKey1);
 
-        // C3PO отвечает R2D2
         c3po.sendMessage(r2d2, message2, encryptionKey2);
 
-        // BB-8 отправляет сообщение C3PO
         bb8.sendMessage(c3po, "The mission is complete.", encryptionKey1);
     }
 }
