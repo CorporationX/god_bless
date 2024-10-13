@@ -20,6 +20,13 @@ public class Main {
         System.out.println("Топ-5 популярных хэштегов: " + topHashtags);
         System.out.println("Топ-3 комментаторов за последний месяц: " + topCommenters);
         System.out.println("Процент действий по типам: " + actionPercentages);
+
+        /* Code result
+        Топ-10 активных пользователей: [Bob, Alice, Charlie, Dave, Eve]
+        Топ-5 популярных хэштегов: [#update, #feature, #conference, #Java, #newfeature]
+        Топ-3 комментаторов за последний месяц: [Charlie, Bob, Eve]
+        Процент действий по типам: {post=26.53061224489796, like=26.53061224489796, share=20.408163265306122, comment=26.53061224489796}
+         */
     }
 
     private static List<UserAction> getActions() {
