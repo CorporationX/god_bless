@@ -18,11 +18,11 @@ public class Character {
         this.inventory.add(inventory);
     }
 
-    public void r(Item inventory) {
+    public void removeItem(Item inventory) {
         this.inventory.remove(inventory);
     }
 
-    public void x(int i, Item inventory) {
-        this.inventory.set(i, inventory);
+    public void updateItem(int index, Item inventory) {
+        this.inventory.set(index, inventory);
     }
 }
