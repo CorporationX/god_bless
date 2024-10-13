@@ -18,7 +18,3 @@ public class EmailProcessor {
                 .forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 }
-
-
-
-
