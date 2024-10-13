@@ -20,10 +20,15 @@ public class TriangleAreaCalculator {
         double semiPerimeterMinusSideB = subtract.apply(semiperimeter).apply(b);
         double semiPerimeterMinusSideC = subtract.apply(semiperimeter).apply(c);
 
-        double underTheRoot = multiply.apply(semiperimeter)
-                .apply(multiply.apply(semiPerimeterMinusSideA)
-                        .apply(multiply.apply(semiPerimeterMinusSideB)
-                                .apply(semiPerimeterMinusSideC)));
+        double underTheRoot = multiply
+                .apply(semiperimeter)
+                .apply(multiply
+                        .apply(semiPerimeterMinusSideA)
+                        .apply(multiply.
+                                apply(semiPerimeterMinusSideB)
+                                .apply(semiPerimeterMinusSideC)
+                        )
+                );
 
         return squareRoot.apply(underTheRoot);
     }
