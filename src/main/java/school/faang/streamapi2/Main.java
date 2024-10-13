@@ -17,27 +17,14 @@ public class Main {
 
         System.out.println("Initial list of numbers:" + nums);
         System.out.println("Expected sum: 6");
-        System.out.println("Solution Traditional Approach: " + findUniquePairsTraditionalWay(nums, 6));
-        System.out.println("Task 1 - Solution with Streams: " + findUniquePairsStream(nums, 6));
+        System.out.println("Task 1 - Solution with Streams: " + findUniquePairs(nums, 6));
         System.out.println("Task 2 - Capitals: " + getCapitalsSortedByCountries(countryAndCapital));
         System.out.println("Task 3 - Char Filter and Sort by length: " + filterAndSort(strings, 'a'));
         System.out.println("Task 4 - Binary Conversion: " + convertToBinary(nums));
         System.out.println("Task 5 - Alphabet Filter and Sort by length: " + filterAndSort(strings, alphabet));
     }
 
-    public static Set<List<Integer>> findUniquePairsTraditionalWay(List<Integer> nums, int result) {
-        Set<List<Integer>> pairs = new HashSet<>();
-        for (int i = 0; i < nums.size(); i++) {
-            for (int j = i + 1; j < nums.size(); j++) {
-                if (nums.get(i) + nums.get(j) == result) {
-                    pairs.add(List.of(nums.get(i), nums.get(j)));
-                }
-            }
-        }
-        return pairs;
-    }
-
-    public static Set<List<Integer>> findUniquePairsStream(List<Integer> nums, int result) {
+    public static Set<List<Integer>> findUniquePairs(List<Integer> nums, int result) {
         Set<Integer> uniqueNumbers = new HashSet<>(nums);
         List<Integer> halfOfResultValue = nums.stream().filter(n -> (n * 2 == result)).toList();
         if (halfOfResultValue.size() == 1) {
