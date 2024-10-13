@@ -7,14 +7,14 @@ import java.util.Objects;
 
 @Getter
 @Setter
-   public class Student {
-        private int id;
-        private String name;
+public class Student {
+    private int id;
+    private String name;
 
-        public Student(int id, String name) {
-            this.id = id;
-            this.name = name;
-        }
+    public Student(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -22,6 +22,7 @@ import java.util.Objects;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
         return id == student.id && Objects.equals(name, student.name);
+
     }
 
     @Override
