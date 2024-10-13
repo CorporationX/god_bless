@@ -37,19 +37,8 @@ public class ListOperations {
 
     public static List<String> getBinaryDigit(List<Integer> numbers) {
         return numbers.stream()
-                .map(number -> {
-                    int boost = number;
-                    String binaries = "";
-                    while (boost != 0) {
-                        if (boost % 2 == 1) {
-                            binaries += "1";
-                        } else {
-                            binaries += "0";
-                        }
-                        boost /= 2;
-                    }
-                    return binaries;
-                }).collect(Collectors.toList());
+                .map(Integer::toBinaryString)
+                .collect(Collectors.toList());
     }
 
     public static List<String> getFilteredAndSortedByLength(List<String> words, String alphabet) {
