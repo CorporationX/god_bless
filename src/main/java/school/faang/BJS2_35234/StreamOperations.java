@@ -10,17 +10,15 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class StreamOperations {
-    public static Set<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
-        Set<List<Integer>> pairs = new HashSet<>();
+    public static List<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
         Set<Integer> viewedNumbers = new HashSet<>(numbers);
 
-        pairs = numbers.stream()
+        return numbers.stream()
                 .filter(number -> viewedNumbers.contains(target - number))
                 .map(number -> Arrays.asList(number, target - number))
                 .peek(Collections::sort)
-                .collect(Collectors.toSet());
-
-        return pairs;
+                .distinct()
+                .toList();
     }
 
     public static List<String> getCapitalCities(Map<String, String> countries) {
