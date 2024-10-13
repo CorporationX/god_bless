@@ -22,7 +22,7 @@ public class EncryptorUtil {
         try {
             return encryptor.encrypt(message, secretKey);
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException(e);
         }
     }
 }

@@ -4,16 +4,16 @@ import lombok.Data;
 
 import javax.crypto.SecretKey;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 
 @Data
-public class Droid implements DroidMessageHandler {
+public class Droid {
     private String name;
 
     private DroidMessageHandler messageHandler;
 
     public Droid(String name) {
         this.name = name;
-        messageHandler = this;
     }
 
     public void sendMessage(Droid to, String message, SecretKey secretKey) {
@@ -28,17 +28,12 @@ public class Droid implements DroidMessageHandler {
     }
 
     private void receiveMessage(Droid from, byte[] message, SecretKey secretKey) {
-        if (Objects.nonNull(message) && Objects.nonNull(secretKey) && Objects.nonNull(from) && Objects.nonNull(messageHandler)) {
+        if (Objects.nonNull(message) && Objects.nonNull(secretKey) && Objects.nonNull(from)) {
             byte[] decryptedMessage = EncryptorUtil.decryptMessage(message, secretKey);
 
-            if (Objects.nonNull(decryptedMessage)) {
-                messageHandler.handleMessage(from, new String(decryptedMessage));
+            if (Objects.nonNull(decryptedMessage) && Objects.nonNull(messageHandler)) {
+                messageHandler.handleMessage(from, this, new String(decryptedMessage));
             }
         }
-    }
-
-    @Override
-    public void handleMessage(Droid from, String message) {
-        System.out.printf("Дроид %s получил и расшифровал сообщение от %s: %s%n", this.getName(), from.getName(), message);
     }
 }
