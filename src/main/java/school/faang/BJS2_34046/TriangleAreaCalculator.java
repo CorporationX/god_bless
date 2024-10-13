@@ -10,26 +10,28 @@ public class TriangleAreaCalculator {
     Function<Double, Double> squareRoot = Math::sqrt;
 
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
-        if (isValidTriangle(a, b, c)) {
-            double semiperimeter = divide.apply(add.apply(add.apply(a).apply(b)).apply(c)).apply(2.0);
-
-            double semiPerimeterMinusSideA = subtract.apply(semiperimeter).apply(a);
-            double semiPerimeterMinusSideB = subtract.apply(semiperimeter).apply(b);
-            double semiPerimeterMinusSideC = subtract.apply(semiperimeter).apply(c);
-
-            double underTheRoot = multiply.apply(semiperimeter).apply(multiply.apply(semiPerimeterMinusSideA)
-                    .apply(multiply.apply(semiPerimeterMinusSideB).apply(semiPerimeterMinusSideC)));
-
-            return squareRoot.apply(underTheRoot);
+        if (!isValidTriangle(a, b, c)) {
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
+        double perimeter = add.apply(add.apply(a).apply(b)).apply(c);
+        double semiperimeter = divide.apply(perimeter).apply(2.0);
+
+        double semiPerimeterMinusSideA = subtract.apply(semiperimeter).apply(a);
+        double semiPerimeterMinusSideB = subtract.apply(semiperimeter).apply(b);
+        double semiPerimeterMinusSideC = subtract.apply(semiperimeter).apply(c);
+
+        double underTheRoot = multiply.apply(semiperimeter)
+                .apply(multiply.apply(semiPerimeterMinusSideA)
+                        .apply(multiply.apply(semiPerimeterMinusSideB)
+                                .apply(semiPerimeterMinusSideC)));
+
+        return squareRoot.apply(underTheRoot);
     }
 
     private boolean isValidTriangle(double a, double b, double c) {
         if (a <= 0 || b <= 0 || c <= 0) {
             throw new IllegalArgumentException("Треугольник с такими сторонами не может существовать");
         }
-
         if (add.apply(a).apply(b) <= c ||
                 add.apply(a).apply(c) <= b ||
                 add.apply(b).apply(c) <= a) {
