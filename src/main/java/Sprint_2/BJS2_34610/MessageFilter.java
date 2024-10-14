@@ -1,5 +1,6 @@
 package Sprint_2.BJS2_34610;
 
+@FunctionalInterface
 public interface MessageFilter {
-    boolean Filter (String message);
+    boolean filter (String message);
 }
