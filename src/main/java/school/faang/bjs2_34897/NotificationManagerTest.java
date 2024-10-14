@@ -1,4 +1,5 @@
 package school.faang.bjs2_34897;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
