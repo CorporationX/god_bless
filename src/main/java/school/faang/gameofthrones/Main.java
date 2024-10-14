@@ -15,7 +15,25 @@ public class Main {
         houses.put("Baratheon", new House("Baratheon", "A crowned black stag on a gold field"));
         houses.put("Targaryen", new House("Targaryen", "A red three-headed dragon on a black field"));
 
+        // Test the program
+        printAllHouses(houses);
+        addNewHouse(houses, new House("Greyjoy", "A golden kraken on a black field"));
+        System.out.println("\nAfter adding Greyjoy:");
+        printAllHouses(houses);
 
+        removeHouse(houses, "Lannister");
+        System.out.println("\nAfter removing Lannister:");
+        printAllHouses(houses);
+
+        System.out.println("\nInformation about Stark:");
+        findHouseSigil(houses, "Stark");
+
+        // Interactive test via user input
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter a house name to get its sigil:");
+        String houseName = scanner.nextLine();
+        findHouseSigil(houses, houseName);
+    }
         // Method to add a new house
         public static void addNewHouse (Map < String, House > houses, House house){
             houses.put(house.getName(), house);
