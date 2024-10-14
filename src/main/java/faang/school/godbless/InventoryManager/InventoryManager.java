@@ -11,18 +11,21 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> predicate) {
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            if (predicate.test(character.getInventory().get(i))) {
-                character.removeItem(character.getInventory().get(i));
+        for (Item item : character.getInventory()) {
+            if (predicate.test(item)) {
+                character.removeItem(item);
+                return;
             }
         }
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> function) {
-        for (int i = 0; i < character.getInventory().size(); i++) {
-            if (predicate.test(character.getInventory().get(i))) {
-                character.updateItem(i, function.apply(character.getInventory().get(i)));
+        int index = 0;
+        for (Item item : character.getInventory()) {
+            if (predicate.test(item)) {
+                character.updateItem(index, function.apply(item));
             }
+            index++;
         }
     }
 
