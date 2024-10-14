@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.uniquepairs;
 
 import java.util.List;
 import java.util.Map;

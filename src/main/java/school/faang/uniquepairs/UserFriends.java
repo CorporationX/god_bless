@@ -1,14 +1,10 @@
-package school.faang;
+package school.faang.uniquepairs;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-// Дмитрий (Сергей, Андрей), Никита (Артем, Евгений), Оля (Сергей, Андрей)
-
 
 public class UserFriends {
     public static Set<List<String>> findUniquePairs(Map<String, List<String>> groupedByFriends) {
@@ -19,13 +15,11 @@ public class UserFriends {
                     Set<String> strangers = new HashSet<>(groupedByFriends.keySet());
                     strangers.removeAll(Set.of(friends, person));
                     strangers.forEach(stranger -> {
-                        groupedByFriends.get(stranger).forEach(strangerFriend -> {
-                            if (friends.contains(strangerFriend)) {
-                                uniquePairs.add(Stream.of(person, stranger)
-                                        .sorted()
-                                        .toList());
-                            }
-                        });
+                        groupedByFriends.get(stranger).stream()
+                                .filter(friends::contains)
+                                .map(strangerFriend -> Stream.of(person, stranger)
+                                .sorted()
+                                .toList()).forEach(uniquePairs::add);
                     });
                 });
         return uniquePairs;
