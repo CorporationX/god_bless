@@ -1,9 +1,7 @@
 package school.faang.sprint_2.StreamApi2;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -14,9 +12,8 @@ public class Operations {
     public static Set<List<Integer>> findPairs(List<Integer> numbers, int sum) {
         Set<List<Integer>> pairs = new HashSet<>();
         Set<Integer> set = new HashSet<>(numbers);
-
         pairs = numbers.stream()
-                .filter(num -> set.contains(sum - num))
+                .filter(num -> set.contains(sum - num) && num != sum - num)
                 .map(num -> Arrays.asList(num, sum - num))
                 .peek(list -> Collections.sort(list))
                 .collect(Collectors.toSet());
@@ -28,9 +25,9 @@ public class Operations {
         return setCountry.stream().sorted(Map.Entry.comparingByKey()).map(entry -> entry.getValue()).toList();
     }
 
-    public static List<String> sortString(List<String> strings, char ch) {
+    public static List<String> sortString(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(string -> string.startsWith(String.valueOf(ch)) && !string.isEmpty())
+                .filter(string -> string.startsWith(String.valueOf(symbol)) && !string.isEmpty())
                 .sorted((s1, s2) -> s1.length() - s2.length())
                 .toList();
     }
@@ -39,8 +36,8 @@ public class Operations {
         return numbers.stream().map(num -> Integer.toBinaryString(num)).toList();
     }
 
-    public static List<String> filterAndSortByLength(List<String> strings, String alfavit) {
-        String regex = "^[" + alfavit + "]+$";
+    public static List<String> filterAndSortByLength(List<String> strings, String alphabet) {
+        String regex = "^[" + alphabet + "]+$";
         return strings.stream()
                 .filter(string -> string.matches(regex))
                 .sorted((s1, s2) -> s1.length() - s2.length())

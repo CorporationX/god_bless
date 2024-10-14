@@ -20,6 +20,8 @@ public class Main {
         String alfavit = "abcdefghijklmnopqrstuvwxyz";
 
         System.out.println("уникальные пары чисел: " + Operations.findPairs(numbers, 7));
+        System.out.println("уникальные пары чисел 2: " + Operations.findPairs(numbers, 6));
+        System.out.println("уникальные пары чисел 3: " + Operations.findPairs(numbers, 12));
         System.out.println("отсортированные страны: " + Operations.sortCity(main.countryMap));
         System.out.println("отсортированные строки: " + Operations.sortString(strings, 'a'));
         System.out.println("Преобразование чисел в двоичный формат: " + Operations.convertToBinary(numbers));
