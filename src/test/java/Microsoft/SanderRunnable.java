@@ -1,6 +1,6 @@
 package Microsoft;
 
-public class SanderRunnable implements Runnable{
+public class SanderRunnable implements Runnable {
     private int startindex;
     private int endindex;
 
@@ -18,7 +18,9 @@ public class SanderRunnable implements Runnable{
     }
 
     @Override
-    public void run (){
-        System.out.println("letter sent ");
+    public void run() {
+        for (int i = startindex + 1; i <= endindex; i++) {
+            System.out.println("Send letter № " + i+" letter sent by stream number"+ Thread.currentThread().getName());
+        }
     }
 }
