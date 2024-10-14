@@ -19,6 +19,9 @@ public class Main {
                 new User("Ian Lewis", 35, "Uber", "New York"),
                 new User("Jenna Hall", 27, "Google", "London")
         );
+
         System.out.println(User.groupUsers(userList));
     }
 }
+
+

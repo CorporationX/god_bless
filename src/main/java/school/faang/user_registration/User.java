@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+
 public class User {
     private static final Set<String> VALID_JOBS = Set.of("Google", "Uber", "Amazon");
     private static final Set<String> VALID_ADDRESSES = Set.of("London", "New York", "Amsterdam");
@@ -17,6 +18,12 @@ public class User {
     private String placeOfWork;
     private String address;
 
+    public int getAge() {
+        return age;
+    }
+
+    public User(String name, int age, String placeOfWork, String address) {
+
     public User(String name, int age, String placeOfWork, String address) {
         validateUser(name, age, placeOfWork, address);
         this.name = name;
@@ -25,7 +32,7 @@ public class User {
         this.address = address;
     }
 
-    private boolean validateUser(String name, int age, String placeOfWork, String address) {
+   private boolean validateUser(String name, int age, String placeOfWork, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name should not be empty");
         }
@@ -80,4 +87,3 @@ public class User {
                 '}';
     }
 }
-
