@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public abstract class Creature {
+public abstract class Unit {
     private int power;
 }
