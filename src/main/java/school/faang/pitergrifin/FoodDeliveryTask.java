@@ -6,7 +6,7 @@ import java.util.Random;
 
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable{
-    private static final int MAX_TIME_FOR_DELIVERY = 5;
+    private static final int MAX_TIME_FOR_DELIVERY = 5000;
     private String character;
     private int foodAmount;
 
