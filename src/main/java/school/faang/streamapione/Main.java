@@ -2,6 +2,7 @@ package school.faang.streamapione;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
                 "Even numbers sum " + StreamUtils.calculateEvenNumbersSum(numbers)
         );
         System.out.println(
-                "Max: " + StreamUtils.findMaxNumber(numbers)
+                "Max: " + StreamUtils.findMaxNumber(numbers).orElseThrow(NoSuchElementException::new)
         );
         System.out.println(
                 "Average: " + StreamUtils.calculateAverageValue(numbers)
@@ -31,7 +32,8 @@ public class Main {
                 "Are all numbers even? " + StreamUtils.checkNumbers(numbers, n -> n % 2 == 0)
         );
         System.out.println(
-                "The smallest number greater than 4: " + StreamUtils.findMinGreaterThan(numbers, 4)
+                "The smallest number greater than 4: " +
+                        StreamUtils.findMinGreaterThan(numbers, 4).orElseThrow(NoSuchElementException::new)
         );
         System.out.println(
                 "String lengths: " + StreamUtils.convertStringsToLengths(strings)

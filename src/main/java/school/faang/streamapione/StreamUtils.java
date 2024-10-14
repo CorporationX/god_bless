@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 @UtilityClass
@@ -16,10 +17,10 @@ public class StreamUtils {
         return numbers.stream().filter(number -> number % 2 == 0).reduce(0, Integer::sum);
     }
 
-    public int findMaxNumber(List<Integer> numbers) {
+    public Optional<Integer> findMaxNumber(List<Integer> numbers) {
         Objects.requireNonNull(numbers, "numbers cannot be null");
 
-        return numbers.stream().max(Integer::compare).orElse(0);
+        return numbers.stream().max(Integer::compare);
     }
 
     public double calculateAverageValue(List<Integer> numbers) {
@@ -54,10 +55,10 @@ public class StreamUtils {
         return numbers.stream().allMatch(predicate);
     }
 
-    public int findMinGreaterThan(List<Integer> numbers, int threshold) {
+    public Optional<Integer> findMinGreaterThan(List<Integer> numbers, int threshold) {
         Objects.requireNonNull(numbers, "numbers cannot be null");
 
-        return numbers.stream().filter(number -> number > threshold).min(Integer::compare).orElse(threshold);
+        return numbers.stream().filter(number -> number > threshold).min(Integer::compare);
     }
 
     public List<Integer> convertStringsToLengths(List<String> strings) {
