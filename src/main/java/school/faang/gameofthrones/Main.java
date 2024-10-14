@@ -1,4 +1,5 @@
 package school.faang.gameofthrones;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -16,6 +17,13 @@ public class Main {
 
 
         // Method to add a new house
-        public static void addNewHouse(Map<String, House> houses, House house) {
+        public static void addNewHouse (Map < String, House > houses, House house){
             houses.put(house.getName(), house);
         }
+
+        // Method to remove a house by name
+        public static void removeHouse (Map < String, House > houses, String houseName){
+            houses.remove(houseName);
+        }
+    }
+}
