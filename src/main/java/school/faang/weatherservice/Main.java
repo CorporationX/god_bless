@@ -34,6 +34,7 @@ public class Main {
         String city = scanner.nextLine();
         getWeather(city);
     }
+
     // Method to get weather data for a city, using cache
     public static WeatherData getWeather(String city) {
         WeatherData weatherData = weatherCache.get(city);
