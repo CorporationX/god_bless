@@ -1,8 +1,6 @@
 package bjs2_33407;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -15,11 +13,12 @@ public class StreamOperations {
 
     public static Set<List<Integer>> findUniquePairsEqualTarget(List<Integer> numbers,
                                                                 int target) {
-        Set<List<Integer>> uniquePairs = new HashSet<>();
+        Set<List<Integer>> uniquePairs;
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
 
         uniquePairs = numbers.stream()
-                .filter(num -> uniqueNumbers.contains(target - num))
+                .filter(num -> uniqueNumbers.contains(target - num) &&
+                        (num != target - num || Collections.frequency(numbers, num) > 1))
                 .map(num -> Arrays.asList(num, target - num))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
@@ -34,9 +33,9 @@ public class StreamOperations {
                 .toList();
     }
 
-    public static List<String> filterAndSort(List<String> words, char ch) {
+    public static List<String> filterAndSort(List<String> words, char charToStartWith) {
         return words.stream()
-                .filter(word -> word.startsWith(Character.toString(ch)))
+                .filter(word -> word.startsWith(Character.toString(charToStartWith)))
                 .sorted(Comparator.comparingInt(String::length))
                 .toList();
     }

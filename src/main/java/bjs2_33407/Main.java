@@ -14,7 +14,7 @@ public class Main {
                 "Germany", "Berlin"
         );
 
-        System.out.println(StreamOperations.findUniquePairsEqualTarget(inputNums, 7));
+        System.out.println(StreamOperations.findUniquePairsEqualTarget(inputNums, 12));
         System.out.println(StreamOperations.getSortedCountryCapitals(countryToCapital));
         System.out.println(StreamOperations.filterAndSort(inputStrs, 'a'));
         System.out.println(StreamOperations.toBinary(inputNums));
