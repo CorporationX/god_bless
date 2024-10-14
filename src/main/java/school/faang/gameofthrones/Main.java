@@ -13,3 +13,9 @@ public class Main {
         houses.put("Lannister", new House("Lannister", "A golden lion on a crimson field"));
         houses.put("Baratheon", new House("Baratheon", "A crowned black stag on a gold field"));
         houses.put("Targaryen", new House("Targaryen", "A red three-headed dragon on a black field"));
+
+
+        // Method to add a new house
+        public static void addNewHouse(Map<String, House> houses, House house) {
+            houses.put(house.getName(), house);
+        }
