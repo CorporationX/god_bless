@@ -4,23 +4,23 @@ import java.util.NoSuchElementException;
 import java.util.function.Consumer;
 
 public class ValidatorNotificationManager {
-     void validateNotNull(Object object, ErrMessageValidate errMessage) {
+    public void validateNotNull(Object object, String errMessage) {
         if (object == null) {
-            throw new IllegalArgumentException(errMessage.name());
+            throw new IllegalArgumentException(errMessage);
         }
     }
 
-     void validateRegisterHandler(TypeNotification typeNotification, Consumer<Notification> handler) {
-        validateNotNull(typeNotification, ErrMessageValidate.TYPE_NOTIFICATION_IS_NULL);
-        validateNotNull(handler, ErrMessageValidate.HANDLER_IS_NULL);
+    public void validateRegisterHandler(TypeNotification typeNotification, Consumer<Notification> handler) {
+        validateNotNull(typeNotification, ErrMessagesValidate.TYPE_NOTIFICATION_IS_NULL);
+        validateNotNull(handler, ErrMessagesValidate.HANDLER_IS_NULL);
     }
 
-     void validateSendNotification(Notification notification) {
-        validateNotNull(notification, ErrMessageValidate.NOTIFICATION_IS_NULL);
+    public void validateSendNotification(Notification notification) {
+        validateNotNull(notification, ErrMessagesValidate.NOTIFICATION_IS_NULL);
 
         TypeNotification typeNotification = notification.getType();
         if (typeNotification == null) {
-            throw new NoSuchElementException(ErrMessageValidate.TYPE_NOTIFICATION_IS_NULL.name());
+            throw new NoSuchElementException(ErrMessagesValidate.TYPE_NOTIFICATION_IS_NULL);
         }
     }
 }

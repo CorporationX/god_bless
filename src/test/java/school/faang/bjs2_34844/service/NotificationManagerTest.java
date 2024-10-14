@@ -18,11 +18,11 @@ class NotificationManagerTest {
 
         IllegalArgumentException illegalArgumentExceptionTypeNull = assertThrows(IllegalArgumentException.class,
                 () -> notificationManager.registerHandler(null, consumer));
-        assertEquals(ErrMessageValidate.TYPE_NOTIFICATION_IS_NULL.name(), illegalArgumentExceptionTypeNull.getMessage());
+        assertEquals(ErrMessagesValidate.TYPE_NOTIFICATION_IS_NULL, illegalArgumentExceptionTypeNull.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionHandlerNull = assertThrows(IllegalArgumentException.class,
                 () -> notificationManager.registerHandler(push, null));
-        assertEquals(ErrMessageValidate.HANDLER_IS_NULL.name(), illegalArgumentExceptionHandlerNull.getMessage());
+        assertEquals(ErrMessagesValidate.HANDLER_IS_NULL, illegalArgumentExceptionHandlerNull.getMessage());
 
         notificationManager.registerHandler(push, consumer);
 
@@ -37,11 +37,11 @@ class NotificationManagerTest {
     @Test
     void sendNotification() {
         IllegalArgumentException illegalArgumentException = assertThrows(IllegalArgumentException.class, () -> notificationManager.sendNotification(null));
-        assertEquals(ErrMessageValidate.NOTIFICATION_IS_NULL.name(), illegalArgumentException.getMessage());
+        assertEquals(ErrMessagesValidate.NOTIFICATION_IS_NULL, illegalArgumentException.getMessage());
 
         Notification notificationTypeNull = new Notification(null, "Your order has been successfully placed");
         NoSuchElementException noSuchElementException = assertThrows(NoSuchElementException.class, () -> notificationManager.sendNotification(notificationTypeNull));
-        assertEquals(ErrMessageValidate.TYPE_NOTIFICATION_IS_NULL.name(), noSuchElementException.getMessage());
+        assertEquals(ErrMessagesValidate.TYPE_NOTIFICATION_IS_NULL, noSuchElementException.getMessage());
 
 
         TypeNotification typeNotificationForRegister = TypeNotification.EMAIL;
