@@ -17,7 +17,7 @@ public class Knight {
         this.name = name;
     }
 
-    public void addTrial(String name, Trial trial) {
+    public void addTrial(Trial trial) {
         trials.add(trial);
         trial.setKnightName(name);
     }

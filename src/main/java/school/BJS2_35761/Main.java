@@ -15,10 +15,10 @@ public class Main {
         Trial trial_2 = new Trial("Прыжки через скакалку");
         Trial trial_3 = new Trial("Бег на 5 км");
         Trial trial_4 = new Trial("Прыжки в воду");
-        knight_1.addTrial("Рома", trial_1);
-        knight_1.addTrial("Рома", trial_2);
-        knight_2.addTrial("Костя", trial_3);
-        knight_2.addTrial("Костя", trial_4);
+        knight_1.addTrial(trial_1);
+        knight_1.addTrial(trial_2);
+        knight_2.addTrial(trial_3);
+        knight_2.addTrial(trial_4);
 
         ExecutorService fixedThreadPool = Executors.newFixedThreadPool(SIZE_OF_THREADS);
 
