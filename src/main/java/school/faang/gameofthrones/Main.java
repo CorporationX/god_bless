@@ -25,5 +25,15 @@ public class Main {
         public static void removeHouse (Map < String, House > houses, String houseName){
             houses.remove(houseName);
         }
+
+        // Method to find a house and print its sigil by name
+        public static void findHouseSigil (Map < String, House > houses, String houseName){
+            House house = houses.get(houseName);
+            if (house != null) {
+                System.out.println("House: " + house.getName() + " - Sigil: " + house.getSigil());
+            } else {
+                System.out.println("House " + houseName + " not found.");
+            }
+        }
     }
 }
