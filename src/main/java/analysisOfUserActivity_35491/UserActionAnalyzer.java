@@ -29,7 +29,8 @@ public class UserActionAnalyzer {
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions, int limit) {
-        int lastMonth = LocalDate.now().minusMonths(1).getMonthValue();
+        final int monthsAgo = 1;
+        int lastMonth = LocalDate.now().minusMonths(monthsAgo).getMonthValue();
 
         return actions.stream()
                 .filter(action -> action.getActionDate().getMonthValue() == lastMonth

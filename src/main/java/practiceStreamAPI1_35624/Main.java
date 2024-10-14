@@ -19,8 +19,5 @@ public class Main {
         System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
         System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 5));
         System.out.println("Длины строк: " + ListOperations.convertToLengths(words));
-
-
     }
-
 }

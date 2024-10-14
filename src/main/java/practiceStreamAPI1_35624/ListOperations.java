@@ -59,6 +59,4 @@ public class ListOperations {
                 .map(String::length)
                 .toList();
     }
-
-
 }

@@ -1,6 +1,5 @@
 package analysisOfUserActivity_35491;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -15,5 +14,4 @@ public class UserAction {
     private String actionType;
     private LocalDate actionDate;
     private String content;
-
 }
