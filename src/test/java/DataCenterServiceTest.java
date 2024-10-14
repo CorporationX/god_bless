@@ -1,6 +1,10 @@
-package school.faang.optimizingdc;
-
 import org.junit.jupiter.api.Test;
+import school.faang.optimizingdc.DataCenter;
+import school.faang.optimizingdc.DataCenterService;
+import school.faang.optimizingdc.LoadBalancingOptimizationStrategy;
+import school.faang.optimizingdc.ResourceRequest;
+import school.faang.optimizingdc.Server;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class DataCenterServiceTest {
