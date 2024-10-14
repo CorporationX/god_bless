@@ -11,6 +11,23 @@ public class Droid {
     private String name;
 
     public String encryptMessage(String message, int key) {
+        return caesarCipher(message, key);
+    }
+
+    public String decryptMessage(String message, int key) {
+        return caesarCipher(message, -key);
+    }
+
+    public void sendMessage(Droid recipient, String message, int key) {
+        System.out.println(name + " sent message to " + recipient.getName() + ": " + encryptMessage(message, key));
+        recipient.receiveMessage(encryptMessage(message, key), key);
+    }
+
+    public void receiveMessage(String message, int key) {
+        System.out.println(name + " received message from: " + decryptMessage(message, key));
+    }
+
+    private String caesarCipher (String message, int key) {
         int shift = key % 26;
         DroidMessageEncryptor encryptor = (m, k) -> {
             StringBuilder sb = new StringBuilder();
@@ -30,18 +47,5 @@ public class Droid {
             return sb.toString();
         };
         return encryptor.encrypt(message, key);
-    }
-
-    public String decryptMessage(String message, int key) {
-        return encryptMessage(message, -key);
-    }
-
-    public void sendMessage(Droid recipient, String message, int key) {
-        System.out.println(name + " sent message to " + recipient.getName() + ": " + encryptMessage(message, key));
-        recipient.receiveMessage(encryptMessage(message, key), key);
-    }
-
-    public void receiveMessage(String message, int key) {
-        System.out.println(name + " received message from: " + decryptMessage(message, key));
     }
 }
