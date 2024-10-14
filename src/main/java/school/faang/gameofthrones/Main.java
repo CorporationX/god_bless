@@ -35,5 +35,14 @@ public class Main {
                 System.out.println("House " + houseName + " not found.");
             }
         }
+
+        // Method to print all houses and their sigils
+        public static void printAllHouses(Map<String, House> houses){
+            for (Map.Entry<String, House> entry : houses.entrySet()) {
+                House house = entry.getValue();
+                System.out.println("House: " + house.getName() + " - Sigil: " + house.getSigil());
+            }
+        }
+
     }
 }
