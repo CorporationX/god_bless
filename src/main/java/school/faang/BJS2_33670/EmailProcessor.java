@@ -8,12 +8,8 @@ import java.util.stream.Collectors;
 
 public class EmailProcessor {
     public void processEmails(List<Email> emails, Predicate<Email> filter, Function<Email, String> transformer, Consumer<Email> processor) {
-        List<Email> filteredEmails = emails.stream()
+        emails.stream()
             .filter(filter)
-            .collect(Collectors.toList());
-        for (Email email : filteredEmails) {
-            String transformedEmail = transformer.apply(email);
-            processor.accept(email);
-        }
+            .forEach(processor);
     }
 }
