@@ -1,0 +1,68 @@
+[
+    {
+        "position": "UX/UI Designer",
+        "requirements": [
+            "Java",
+            "SQL",
+            "HTML"
+        ],
+        "salary": 92439,
+        "location": "Berlin",
+        "datePosted": "2022-02-20"
+    },
+    {
+        "position": "UX/UI Designer",
+        "requirements": [
+            "Java",
+            "SQL",
+            "HTML"
+        ],
+        "salary": 92439,
+        "location": "Berlin",
+        "datePosted": "2022-02-25"
+    },
+    {
+        "position": "Cloud Architect",
+        "requirements": [
+            "CSS",
+            "Docker",
+            "JavaScript"
+        ],
+        "salary": 97487,
+        "location": "Paris",
+        "datePosted": "2022-01-02"
+    },
+    {
+        "position": "Cloud Architect",
+        "requirements": [
+            "CSS",
+            "Docker",
+            "JavaScript"
+        ],
+        "salary": 97487,
+        "location": "Paris",
+        "datePosted": "2022-01-02"
+    },
+    {
+        "position": "Database Administrator",
+        "requirements": [
+            "JavaScript",
+            "SQL",
+            "HTML"
+        ],
+        "salary": 192565,
+        "location": "Sydney",
+        "datePosted": "2022-02-13"
+    },
+    {
+        "position": "DevOps Engineer",
+        "requirements": [
+            "HTML",
+            "Node.js",
+            "AWS"
+        ],
+        "salary": 54520,
+        "location": "New York",
+        "datePosted": "2022-02-01"
+    }
+]
