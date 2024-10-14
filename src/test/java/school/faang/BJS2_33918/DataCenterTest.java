@@ -25,7 +25,7 @@ public class DataCenterTest {
 
     @Test
     void subtractionTest() {
-        int result = DataCenter.calculate(NUMBERS, (a, b) -> (int) a - (int) b);
+        int result = DataCenter.calculate(NUMBERS, (a, b) -> a - b);
 
         assertEquals(-13, result);
     }
