@@ -2,10 +2,12 @@ package school.faang.BJS2_35306_RecomendationSystem;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class ProductOrder {
     private int userId;
