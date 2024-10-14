@@ -2,16 +2,13 @@ package beautifulErrors;
 
 public class Main {
     public static void main(String[] args) {
+        RemoteService remoteService = new RemoteService();
         String result = ErrorHandler.withErrorHandling(
                 () -> {
-                    try {
-                        return RemoteService.call("someParam");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
+                    return remoteService.call("someParam");
                 },
                 e -> {
-                    System.out.println("Ошибка при вызове сервиса, возвращаем дефолтное значение");
+                    System.out.printf("Ошибка %s, при вызове сервиса, возвращаем дефолтное значение%n", e.getMessage());
                     return "DEFAULT";
                 }
         );
