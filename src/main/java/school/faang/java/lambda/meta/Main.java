@@ -19,18 +19,12 @@ public class Main {
         main.notifications.add(new Notification("SMS", "Test SMS 1"));
         main.notifications.add(new Notification("Email", "Test Email 1"));
 
-        System.out.println("=== Init version 1.0 ==== ");
+        System.out.print("\\nn=== Init version 1.0 ==== ");
         main.notifications.forEach(notification -> main.notificationManager.sendNotification(notification));
 
-        System.out.println("=== Extra version 2.1 ==== ");
-        main.notifications.forEach(notification -> main.notificationManager.sendNotification(
-                main.translationManager.translateMessage(notification)));
-
-        System.out.println("=== Extra version 2.2 ==== ");
-        main.notifications.forEach(notification -> {
-            Notification tempNotification = main.translationManager.translateMessage(notification);
-            main.notificationManager.sendNotification(tempNotification);
-        });
+        System.out.print("\n\n=== Extra version 2.0 ==== ");
+        main.notifications.forEach(notification ->
+                main.notificationManager.sendNotification(main.translationManager.translateMessage(notification)));
     }
 
     public void addSMS() {
