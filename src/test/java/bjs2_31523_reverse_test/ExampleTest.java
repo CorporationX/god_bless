@@ -2,7 +2,7 @@ package bjs2_31523_reverse_test;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_31523_Reverse.Example;
+import school.faang.m1s1.bjs2_31523_Reverse.Example;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 

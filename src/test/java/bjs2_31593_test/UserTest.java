@@ -2,7 +2,7 @@ package bjs2_31593_test;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_31593_collecting_users.User;
+import school.faang.m1s1.bjs2_31593_collecting_users.User;
 
 import java.util.ArrayList;
 import java.util.List;
