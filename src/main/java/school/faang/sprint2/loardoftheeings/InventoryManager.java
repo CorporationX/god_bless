@@ -24,7 +24,7 @@ public class InventoryManager {
             System.out.println("предмет не найдино");
             return;
         }
-        character.getInventory().remove(rawItem);
+        character.getInventory().removeIf(itemPredicate);
         System.out.println("Предмет" + rawItem.getName() + "был удален из инвентара" + character);
     }
 
