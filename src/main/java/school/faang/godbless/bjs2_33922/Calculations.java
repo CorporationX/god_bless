@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Calculations {
-    public static int calculate(@NonNull List<Integer> numbers, Calculator<Integer> calculator) throws IllegalArgumentException {
+    public static int calculate(@NonNull List<Integer> numbers, Calculator<Integer> calculator) {
         if (numbers.isEmpty()) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("numbers can not be empty");
         }
         return IntStream.range(1, numbers.size()).map(numbers::get).reduce(numbers.get(0), calculator::doOperation);
     }
