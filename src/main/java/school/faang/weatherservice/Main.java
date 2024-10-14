@@ -24,4 +24,11 @@ public class Main {
         }
     }
 
+    // Method to update weather data in the cache for a specific city
+    public static void updateWeatherData(String city, double temperature, int humidity) {
+        WeatherData newWeatherData = new WeatherData(city, temperature, humidity);
+        weatherCache.put(city, newWeatherData);
+        System.out.println("Updated weather for " + city + ": " + newWeatherData);
+    }
+
 }
