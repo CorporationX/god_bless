@@ -1,80 +1,98 @@
 package school.faang.bjs2_34897;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import java.util.function.Consumer;
+
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.fail;
+
 public class NotificationManagerTest {
+
+    private NotificationManager manager;
 
     @BeforeEach
     public void setUp() {
-        // Clear the handlers and filters before each test
-        NotificationManager.clearHandlers();
-        NotificationManager.clearFiltersAndTransformers();
+        manager = new NotificationManager();
     }
 
-    // Test registering handlers and sending notifications
     @Test
     public void testRegisterHandlerAndSendNotification() {
         Notification emailNotification = new Notification("Email", "Welcome to our service!");
 
-        // Register a handler for "Email"
-        NotificationManager.registerHandler("Email", (notification) -> {
-            assertEquals("Welcome to our service!", notification.getMessage());
-            System.out.println("Sending email: " + notification.getMessage());
+        manager.registerHandler("Email", (notification) -> {
+            assertThat(notification.getMessage(), is("Welcome to our service!"));
         });
 
-        // Send email notification and trigger the handler
-        NotificationManager.sendNotification(emailNotification);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        manager.sendNotification(emailNotification);
+
+        assertThat(outContent.toString(), containsString("Welcome to our service!"));
+
+        System.setOut(System.out);
     }
 
-    // Test content filtering
     @Test
     public void testContentFilter() {
         Notification spamNotification = new Notification("Email", "This is spam, ignore it.");
 
-        // Register a handler
-        NotificationManager.registerHandler("Email", (notification) -> {
+        manager.registerHandler("Email", (notification) -> {
             fail("This notification should be blocked by the filter");
         });
 
-        // Register a content filter to block spam
-        NotificationManager.registerContentFilter((notification) -> {
+        manager.registerContentFilter((notification) -> {
             return !notification.getMessage().toLowerCase().contains("spam");
         });
 
-        // Send spam notification, should be blocked
-        NotificationManager.sendNotification(spamNotification);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        manager.sendNotification(spamNotification);
+
+        assertThat(outContent.toString(), containsString("Notification blocked"));
+
+        System.setOut(System.out);
     }
 
-    // Test content transformation
     @Test
     public void testContentTransformer() {
         Notification urgentNotification = new Notification("Push", "This is an urgent message.");
 
-        // Register a handler for "Push"
-        NotificationManager.registerHandler("Push", (notification) -> {
-            assertEquals("This is an important message.", notification.getMessage());
-            System.out.println("Send push notification: " + notification.getMessage());
+        manager.registerHandler("Push", (notification) -> {
+            assertThat(notification.getMessage(), is("This is an important message."));
         });
 
-        // Register content transformer to replace "urgent" with "important"
-        NotificationManager.registerContentTransformer((notification) -> {
+        manager.registerContentTransformer((notification) -> {
             String modifiedMessage = notification.getMessage().replace("urgent", "important");
             return new Notification(notification.getType(), modifiedMessage);
         });
 
-        // Send push notification, should be transformed
-        NotificationManager.sendNotification(urgentNotification);
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        manager.sendNotification(urgentNotification);
+
+        assertThat(outContent.toString(), containsString("important message"));
+
+        System.setOut(System.out);
     }
 
-    // Test handler for an unregistered notification type
     @Test
     public void testUnregisteredNotificationHandler() {
         Notification unregisteredNotification = new Notification("Unknown", "No handler for this");
 
-        // Expecting no handler to be found for "Unknown"
-        NotificationManager.sendNotification(unregisteredNotification);
-        // No exception thrown and no output expected for unregistered type
+        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outContent));
+
+        manager.sendNotification(unregisteredNotification);
+
+        assertThat(outContent.toString(), containsString("No one found"));
+
+        System.setOut(System.out);
     }
 }
