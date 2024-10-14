@@ -19,13 +19,11 @@ public class Calculations {
         return calculate(nums, Integer::sum);
     }
 
-
     public static void main(String[] args) {
         Calculations calculations = new Calculations();
         List<Integer> listOfNums = List.of(1, 2, 3, 4, 5);
 
         System.out.println(calculations.sum(listOfNums));
         System.out.println(calculations.product(listOfNums));
-
     }
 }
