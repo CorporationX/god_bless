@@ -1,14 +1,17 @@
 package school.BJS2_35761;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 public class Trial implements Runnable {
-
+    @Setter
     private String knightName;
     private String trialName;
+
+    public Trial(String trialName) {
+        this.trialName = trialName;
+    }
 
     @Override
     public void run() {
