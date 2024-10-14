@@ -57,5 +57,4 @@ public class DataCenterServiceTest {
         assertEquals(50, server1.getLoad());
         assertEquals(50, server2.getLoad());
     }
-
 }
