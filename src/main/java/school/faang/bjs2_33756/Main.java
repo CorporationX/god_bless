@@ -17,7 +17,7 @@ public class Main {
         inventoryManager.addItem(legolas, bow, item -> System.out.println("Item " + item.getName() + " add to inventory"));
         inventoryManager.addItem(legolas, arrow, item -> System.out.println("Item " + item.getName() + " add to inventory"));
 
-        inventoryManager.removeItem(legolas, arrow, item -> item.getQuantity() == 0);
+        inventoryManager.removeItem(legolas, item -> item.getQuantity() == 0);
 
         inventoryManager.updateItem(
                 frodo,

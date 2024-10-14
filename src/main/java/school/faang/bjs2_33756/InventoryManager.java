@@ -11,15 +11,16 @@ public class InventoryManager {
         consumer.accept(item);
     }
 
-    public void removeItem(Character character, Item item, Predicate<Item> predicate) {
+    public void removeItem(Character character, Predicate<Item> predicate) {
         character.getInventory().removeIf(predicate);
     }
 
     public void updateItem(Character character, Predicate<Item> predicate, Function<Item, Item> updater) {
-        character.getInventory().forEach(i -> {
-            if (predicate.test(i)) {
-                updater.apply(i);
+        for (int i = 0; i < character.getInventory().size(); i++) {
+            Item item = character.getInventory().get(i);
+            if (predicate.test(item)) {
+                character.getInventory().set(i,updater.apply(item));
             }
-        });
+        }
     }
 }
