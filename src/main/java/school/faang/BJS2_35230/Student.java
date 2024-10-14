@@ -13,6 +13,7 @@ public class Student {
     private String firstName;
     private String lastName;
     private Map<String, List<Integer>> subjects;
+
     public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
