@@ -23,8 +23,6 @@ public class User {
     }
 
     public User(String name, int age, String placeOfWork, String address) {
-
-    public User(String name, int age, String placeOfWork, String address) {
         validateUser(name, age, placeOfWork, address);
         this.name = name;
         this.age = age;
@@ -32,7 +30,7 @@ public class User {
         this.address = address;
     }
 
-   private boolean validateUser(String name, int age, String placeOfWork, String address) {
+    private boolean validateUser(String name, int age, String placeOfWork, String address) {
         if (name.isEmpty()) {
             throw new IllegalArgumentException("The name should not be empty");
         }
@@ -47,10 +45,6 @@ public class User {
         }
 
         return false;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     public static Map<Integer, List<User>> groupUsers(List<User> users) {
