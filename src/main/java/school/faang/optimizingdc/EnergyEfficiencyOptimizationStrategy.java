@@ -1,5 +1,7 @@
 package school.faang.optimizingdc;
 
+import java.util.List;
+
 public class EnergyEfficiencyOptimizationStrategy implements OptimizationStrategy {
     @Override
     public void optimize(DataCenter dataCenter) {
