@@ -2,6 +2,7 @@ package school.faang.StreamAPI1;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class ListOperations {
@@ -10,11 +11,13 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        return numbers.stream().max(Comparator.naturalOrder()).get();
+        return numbers.stream().max(Comparator.naturalOrder())
+                .orElseThrow(() -> new NoSuchElementException("Cписок пуст"));
     }
 
     public static double findAverage(List<Integer> numbers) {
-        return numbers.stream().mapToDouble(Integer::doubleValue).average().getAsDouble();
+        return numbers.stream().mapToDouble(Integer::doubleValue).average().
+                orElseThrow(() -> new NoSuchElementException("Cписок пуст"));
     }
 
     public static int countStringsStartingWith(List<String> strings, char chr) {
@@ -34,7 +37,8 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int num) {
-        return numbers.stream().filter(n -> n > num).min(Comparator.naturalOrder()).get();
+        return numbers.stream().filter(n -> n > num).min(Comparator.naturalOrder())
+                .orElseThrow(() -> new NoSuchElementException("Элемент не найден"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
