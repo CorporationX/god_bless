@@ -18,7 +18,7 @@ public class StudentManagementSystem {
         Map<String, List<Integer>> allGrades = new HashMap<>();
 
         for (Student student : students) {
-            for (Map.Entry<String, List<Integer>> entry : student.subjects.entrySet()) {
+            for (Map.Entry<String, List<Integer>> entry : student.getSubjects().entrySet()) {
                 String subject = entry.getKey();
                 List<Integer> grades = entry.getValue();
                 allGrades.computeIfAbsent(subject, k -> new ArrayList<>()).addAll(grades);
@@ -34,9 +34,9 @@ public class StudentManagementSystem {
 
     public Map<String, Integer> getFinalGrades(List<Student> students, String firstName, String lastName) {
         return students.stream()
-                .filter(s -> s.firstName.equals(firstName) && s.lastName.equals(lastName))
+                .filter(s -> s.getFirstName().equals(firstName) && s.getLastName().equals(lastName))
                 .findFirst()
-                .map(student -> student.subjects.entrySet().stream()
+                .map(student -> student.getSubjects().entrySet().stream()
                         .collect(Collectors.toMap(
                                 Map.Entry::getKey,
                                 entry -> (int) Math.round(entry.getValue().stream().mapToInt(Integer::intValue).average().orElse(0.0))
@@ -55,7 +55,7 @@ public class StudentManagementSystem {
     public void printPerformanceTable(List<Student> students) {
         System.out.printf("%-20s", "ФИО");
         Set<String> allSubjects = students.stream()
-                .flatMap(s -> s.subjects.keySet().stream())
+                .flatMap(s -> s.getSubjects().keySet().stream())
                 .collect(Collectors.toSet());
 
         for (String subject : allSubjects) {
@@ -64,12 +64,12 @@ public class StudentManagementSystem {
         System.out.printf("| %-10s | %-20s%n", "%", "Итоговая оценка");
 
         for (Student student : students) {
-            System.out.printf("%-20s", student.firstName + " " + student.lastName);
+            System.out.printf("%-20s", student.getFirstName() + " " + student.getLastName());
             Map<String, Double> avgGrades = new HashMap<>();
             double overallAvg = 0;
 
             for (String subject : allSubjects) {
-                List<Integer> grades = student.subjects.getOrDefault(subject, Collections.emptyList());
+                List<Integer> grades = student.getSubjects().getOrDefault(subject, Collections.emptyList());
                 double avg = grades.stream().mapToInt(Integer::intValue).average().orElse(0);
                 avgGrades.put(subject, avg);
                 overallAvg += avg;
@@ -84,6 +84,7 @@ public class StudentManagementSystem {
 
     public List<Student> loadStudentsFromJson(String filePath) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(Paths.get(filePath).toFile(), new TypeReference<List<Student>>(){});
+        return objectMapper.readValue(Paths.get(filePath).toFile(), new TypeReference<List<Student>>() {
+        });
     }
 }

@@ -11,7 +11,7 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 class Student {
-    String firstName;
-    String lastName;
-    Map<String, List<Integer>> subjects;
+    private String firstName;
+    private String lastName;
+    private Map<String, List<Integer>> subjects;
 }
