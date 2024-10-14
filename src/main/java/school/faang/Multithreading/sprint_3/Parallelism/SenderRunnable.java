@@ -1,8 +1,8 @@
 package school.faang.Multithreading.sprint_3.Parallelism;
 
 public class SenderRunnable implements Runnable {
-    int startIndex;
-    int endIndex;
+    private final int startIndex;
+    private final int endIndex;
 
     public SenderRunnable(int startIndex, int endIndex){
         this.startIndex = startIndex;
@@ -11,6 +11,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run(){
-        System.out.println("Письмо отправлено");
+        for (int i = startIndex; i< endIndex; i++) {
+            System.out.println("Письмо отправлено: " + i);
+        }
     }
 }
