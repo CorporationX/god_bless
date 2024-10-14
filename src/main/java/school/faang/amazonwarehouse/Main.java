@@ -43,3 +43,17 @@ public class Main {
 
         return productMap;
     }
+
+    // Method to print products grouped by category
+    public static void printGroupedProducts(Map<String, List<Product>> groupedProducts) {
+        for (Map.Entry<String, List<Product>> entry : groupedProducts.entrySet()) {
+            String category = entry.getKey();
+            List<Product> productList = entry.getValue();
+
+            System.out.println("Category: " + category);
+            for (Product product : productList) {
+                System.out.println(" - " + product.getName() + " (ID: " + product.getId() + ")");
+            }
+        }
+    }
+}
