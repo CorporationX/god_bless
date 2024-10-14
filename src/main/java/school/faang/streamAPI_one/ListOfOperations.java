@@ -16,7 +16,7 @@ public class ListOfOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .mapToInt(Integer::intValue)
-                .max().orElse(0);
+                .max().orElseThrow(() -> new IllegalArgumentException("List is empty"));
     }
 
     public static double findAverage(List<Integer> numbers) {
