@@ -23,7 +23,7 @@ public class King {
         executor.shutdown();
 
         try {
-            if(executor.awaitTermination(MAX_TIME_WAIT, TimeUnit.SECONDS)) {
+            if(!executor.awaitTermination(MAX_TIME_WAIT, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
