@@ -14,9 +14,10 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final SecureRandom random = new SecureRandom();
     private static final int POOL_SIZE = 5;
-    private static final ScheduledExecutorService service = Executors.newScheduledThreadPool(POOL_SIZE);
     private List<Room> rooms;
     private List<Food> collectedFoods = new ArrayList<>();
+    private static final int MIN_COUNT_ROOMS = 2;
+
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -28,7 +29,7 @@ public class House {
      * immediately without doing anything.
      */
     public void collectFood() {
-        if (rooms.size() < 2) {
+        if (rooms.size() < MIN_COUNT_ROOMS) {
             throw new IllegalArgumentException("The house must have at least 2 rooms");
         }
 
@@ -58,6 +59,8 @@ public class House {
     }
 
     public static void main(String[] args) {
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(POOL_SIZE);
+        
         House house = new House(
                 List.of(
                         new Room(
