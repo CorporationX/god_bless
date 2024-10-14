@@ -14,11 +14,8 @@ public class MatrixOperations {
     }
 
     public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
-        if (flipDirection == FlipDirection.HORIZONTAL) {
-            return transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[x].length - y - 1));
-        } else if (flipDirection == FlipDirection.VERTICAL) {
-            return transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - x - 1 ,y));
-        }
-        return null;
+        return flipDirection == FlipDirection.HORIZONTAL
+                ? transformMatrix(matrix, (x, y) -> new Coordinates(x, matrix[x].length - y - 1))
+                : transformMatrix(matrix, (x, y) -> new Coordinates(matrix.length - x - 1 ,y));
     }
 }
