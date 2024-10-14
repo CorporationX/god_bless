@@ -34,7 +34,7 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> numbers, int num) {
-        return numbers.stream().filter(n -> n > 4).min(Comparator.naturalOrder()).get();
+        return numbers.stream().filter(n -> n > num).min(Comparator.naturalOrder()).get();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
