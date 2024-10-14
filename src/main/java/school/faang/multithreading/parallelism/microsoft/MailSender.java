@@ -1,13 +1,10 @@
 package school.faang.multithreading.parallelism.microsoft;
 
-import lombok.SneakyThrows;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class MailSender {
-    @SneakyThrows
-    public void send(int countMails, int batchSize) {
+    public void send(int countMails, int batchSize) throws InterruptedException {
         if (countMails < batchSize) {
             throw new IllegalArgumentException();
         }
@@ -20,13 +17,9 @@ public class MailSender {
             thread.start();
         }
 
-        threads.forEach(thread -> {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-        });
+        for (Thread thread : threads) {
+            thread.join();
+        }
 
         System.out.println("Все письма отправлены");
     }
