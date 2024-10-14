@@ -15,7 +15,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .orElse(0);
+                .orElseThrow(() -> new NullPointerException("Вы ввели неверные данные!"));
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -55,7 +55,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(s -> s > i)
                 .min(Comparator.naturalOrder())
-                .get();
+                .orElseThrow(() -> new NullPointerException("Вы ввели неверные данные!"));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
