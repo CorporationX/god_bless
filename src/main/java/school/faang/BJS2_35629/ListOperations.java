@@ -10,20 +10,20 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number % 2 == 0)
                 .reduce(Integer::sum)
-                .orElse(-1);
+                .orElseThrow();
     }
 
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .max(Comparator.naturalOrder())
-                .orElse(-1);
+                .orElseThrow();
     }
 
     public static double findAverage(List<Integer> numbers) {
         return numbers.stream()
                 .mapToDouble(Integer::doubleValue)
                 .average()
-                .orElse(-1);
+                .orElse(0.0);
     }
 
     public static int countStringsStartingWith(List<String> strings, char startWith) {
@@ -53,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(number -> number > thresholdNumber)
                 .min(Comparator.naturalOrder())
-                .orElse(-1);
+                .orElseThrow();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
