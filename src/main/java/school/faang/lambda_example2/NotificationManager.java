@@ -5,15 +5,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class NotificationManager {
-    Map<String, Consumer<Notification>> notifications = new HashMap<>();
+    private Map<String, Consumer<Notification>> handlersByNotificationId = new HashMap<>();
 
 
     public void registerHandler(String notificationId, Consumer<Notification> notification) {
-        notifications.putIfAbsent(notificationId, notification);
+        handlersByNotificationId.putIfAbsent(notificationId, notification);
     }
 
     public void sendNotification(Notification notificationName) {
-        Consumer<Notification> handler = notifications.get(notificationName.getType());
+        Consumer<Notification> handler = handlersByNotificationId.get(notificationName.getType());
         if (handler != null) {
             handler.accept(notificationName);
         }
