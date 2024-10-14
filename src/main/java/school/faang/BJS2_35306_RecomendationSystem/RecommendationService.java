@@ -1,13 +1,17 @@
 package school.faang.BJS2_35306_RecomendationSystem;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class RecommendationService {
     private static final int TOP_SIMILAR_USERS_PRODUCTS_LIMIT = 5;
@@ -44,39 +48,51 @@ public class RecommendationService {
     }
 
     public List<Product> getRecommendationProducts(int userId) {
-        return usersByIds.get(userId).getInterests().stream()
-                .flatMap(interest -> productsByTags.get(interest).stream().distinct())
+        return Optional.ofNullable(usersByIds.get(userId))
+                .map(UserProfile::getInterests)
+                .orElse(Collections.emptyList())
+                .stream()
+                .flatMap(interest -> productsByTags.getOrDefault(interest, Collections.emptyList()).stream())
+                .distinct()
                 .toList();
     }
 
     public List<Product> getTopProductsAmongSimilarUsers(int userId) {
-        UserProfile userProfile = usersByIds.get(userId);
+        return Optional.ofNullable(usersByIds.get(userId))
+                .map(userProfile -> {
+                    Set<UserProfile> usersWithSameAge = usersByAge.get(userProfile.getAge());
+                    Set<UserProfile> usersWithSameGender = usersByGender.get(userProfile.getGender());
+                    Set<UserProfile> usersWithSameLocation = usersByLocation.get(userProfile.getLocation());
 
-        Set<UserProfile> usersWithSameAge = usersByAge.get(userProfile.getAge());
-        Set<UserProfile> usersWithSameGender = usersByGender.get(userProfile.getGender());
-        Set<UserProfile> usersWithSameLocation = usersByLocation.get(userProfile.getLocation());
-
-        return usersWithSameAge.stream()
-                .filter(usersWithSameGender::contains)
-                .filter(usersWithSameLocation::contains)
-                .flatMap(user ->
-                        ordersByUsersIds.get(user.getUserId()).stream()
-                                .map(order -> productsByIds.get(order.getProductId()))
-                )
-                .collect(Collectors.groupingBy(
-                        product -> product,
-                        Collectors.counting())
-                )
-                .entrySet().stream()
-                .sorted(Map.Entry.<Product, Long>comparingByValue().reversed())
-                .limit(TOP_SIMILAR_USERS_PRODUCTS_LIMIT)
-                .map(Map.Entry::getKey)
-                .toList();
+                    return usersWithSameAge.stream()
+                            .filter(user ->
+                                    usersWithSameGender.contains(user)
+                                    && usersWithSameLocation.contains(user)
+                                    && user.getUserId() != userId
+                            )
+                            .flatMap(user -> getProductsFromOrders(user.getUserId()))
+                            .collect(Collectors.groupingBy(
+                                    product -> product,
+                                    Collectors.counting())
+                            )
+                            .entrySet().stream()
+                            .sorted(Map.Entry.<Product, Long>comparingByValue().reversed())
+                            .limit(TOP_SIMILAR_USERS_PRODUCTS_LIMIT)
+                            .map(Map.Entry::getKey)
+                            .toList();
+                })
+                .orElse(Collections.emptyList());
     }
 
     public Optional<String> getCategoryWithDiscount(int userId) {
-        return ordersByUsersIds.get(userId).stream()
-                .map(order -> productsByIds.get(order.getProductId()).getCategory())
+        return Optional.ofNullable(ordersByUsersIds.get(userId))
+                .stream()
+                .flatMap(orderList -> orderList.stream()
+                        .map(order -> productsByIds.get(order.getProductId()))
+                        .filter(Objects::nonNull)
+                        .map(Product::getCategory)
+                        .filter(Objects::nonNull)
+                )
                 .collect(Collectors.groupingBy(
                         category -> category,
                         Collectors.counting()
@@ -86,6 +102,11 @@ public class RecommendationService {
                 .limit(TOP_CATEGORY_LIMIT)
                 .map(Map.Entry::getKey)
                 .findFirst();
+    }
+
+    private Stream<Product> getProductsFromOrders(int userId) {
+        return ordersByUsersIds.getOrDefault(userId, Collections.emptyList()).stream()
+                .map(order -> productsByIds.get(order.getProductId()));
     }
 
     private void initializeUsers() {
