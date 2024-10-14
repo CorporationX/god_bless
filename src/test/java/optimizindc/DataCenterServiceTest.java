@@ -1,4 +1,4 @@
-package optimizingdc;
+package optimizindc;
 
 import org.junit.jupiter.api.Test;
 import school.faang.optimizingdc.DataCenter;
