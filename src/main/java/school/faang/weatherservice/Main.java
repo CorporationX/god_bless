@@ -9,6 +9,31 @@ public class Main {
     private static final Map<String, WeatherData> weatherCache = new HashMap<>();
     private static final WeatherService weatherService = new WeatherService();
 
+    public static void main(String[] args) {
+        // Add some initial data
+        updateWeatherData("Winterfell", 2.5, 85);
+        updateWeatherData("King's Landing", 25.0, 50);
+
+        // Test various functionalities
+        getWeather("Winterfell");
+        getWeather("Dragonstone");
+        printAllCities();
+
+        // Update weather data for a city
+        updateWeatherData("Dragonstone", 10.5, 60);
+        getWeather("Dragonstone");
+
+        // Remove weather data for a city
+        removeWeatherData("Winterfell");
+        System.out.println("\nAfter removing Winterfell:");
+        printAllCities();
+
+        // User interaction for dynamic testing
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nEnter a city to get its weather:");
+        String city = scanner.nextLine();
+        getWeather(city);
+    }
     // Method to get weather data for a city, using cache
     public static WeatherData getWeather(String city) {
         WeatherData weatherData = weatherCache.get(city);
