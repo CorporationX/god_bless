@@ -9,7 +9,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 public class House {
-    private static final List<Food> FOOD_STORE = new ArrayList<>();
+    private final List<Food> foodStock = new ArrayList<>();
     private List<Room> rooms;
 
     public void collectFood() {
@@ -21,13 +21,17 @@ public class House {
             System.out.println(Thread.currentThread().getName() + " is searching " + r.getName());
             if (!r.getFood().isEmpty()) {
                 System.out.println("Food in " + r.getName() + ": " + r.getFood());
-                FOOD_STORE.addAll(r.getFood());
+                foodStock.addAll(r.getFood());
                 System.out.println(Thread.currentThread().getName() + " gathers: " + r.getFood());
                 r.getFood().clear();
-                System.out.println("Food stock: " + FOOD_STORE + "\n");
+                System.out.println("Food stock: " + foodStock + "\n");
             } else {
                 System.out.println("There is no food in " + r.getName() + "\n");
             }
         });
+    }
+
+    public boolean isFoodLeft() {
+        return getRooms().stream().allMatch(r -> r.getFood().isEmpty());
     }
 }

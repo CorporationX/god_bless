@@ -7,7 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    public static final int N_THREADS = 5;
+    private static final int N_THREADS = 5;
+
     public static void main(String[] args) {
         House house = new House(Arrays.asList(
                 new Room("Kitchen", new ArrayList<>(Arrays.asList(
@@ -23,18 +24,24 @@ public class Main {
         ScheduledExecutorService service = Executors.newScheduledThreadPool(N_THREADS);
 
         for (int i = 0; i < N_THREADS; i++) {
-            service.scheduleAtFixedRate(() -> {
-                if (house.getRooms().stream().allMatch(r -> r.getFood().isEmpty())) {
-                    service.shutdown();
-                    System.out.println("All food gathered");
-                } else {
-                    house.collectFood();
-                }
-            }, 0, 5, TimeUnit.SECONDS);
+            if (!house.isFoodLeft()) {
+                service.scheduleAtFixedRate(() -> house.collectFood(), 0, 5, TimeUnit.SECONDS);
+            }
         }
 
         try {
-            if (!service.awaitTermination(2, TimeUnit.MINUTES)) {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (house.isFoodLeft()) {
+            service.shutdown();
+            System.out.println("All food gathered");
+        }
+
+        try {
+            if (!service.awaitTermination(5, TimeUnit.MINUTES)) {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
@@ -42,3 +49,4 @@ public class Main {
         }
     }
 }
+
