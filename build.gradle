@@ -2,8 +2,8 @@ plugins {
     id 'java'
 }
 
-group = "faang.school"
-version = "1.0"
+group = 'your_group_name'
+version = '1.0'
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
@@ -11,17 +11,15 @@ repositories {
 }
 
 dependencies {
+    // JUnit Jupiter for unit testing
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-    implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("ch.qos.logback:logback-classic:1.4.6")
-    implementation("org.projectlombok:lombok:1.18.26")
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    // Assertions (for additional flexible assertion)
+    testImplementation 'org.hamcrest:hamcrest:2.2'
 
-    testImplementation("org.assertj:assertj-core:3.24.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:5.9.2")
+    // Mockito (optional, in case you need mocking)
+    testImplementation 'org.mockito:mockito-core:5.2.0'
 }
 
 test {
