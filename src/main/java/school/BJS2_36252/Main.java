@@ -2,7 +2,6 @@ package school.BJS2_36252;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Main {
 
@@ -14,8 +13,8 @@ public class Main {
         List<CashierThread> cashierThreads = new ArrayList<>();
 
         for (int i = 0; i < customers.length; i++) {
-            int cashier = new Random().nextInt(4) + 1;
-            CashierThread cashierThread = new CashierThread(cashier, customers[i]);
+            int cashierId = i+1;
+            CashierThread cashierThread = new CashierThread(cashierId, customers[i]);
             cashierThreads.add(cashierThread);
         }
         for (CashierThread cashierThread : cashierThreads) {
