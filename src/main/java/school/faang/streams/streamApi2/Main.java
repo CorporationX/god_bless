@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(findUniquePairsOfNumbers(List.of(1, 2, 3, 4, 5, 6), 7));
+        System.out.println(findUniquePairsOfNumbers(List.of(6), 12));
 
         Map<String, String> map = new HashMap<>() {{
             put("Russia", "Moscow");
@@ -24,11 +24,11 @@ public class Main {
         System.out.println(filterAndSortingStrings(Arrays.asList("apple", "banana", "avocado", "apricot"), 'a'));
     }
 
-    public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> numbers, int num) {
+    public static Set<List<Integer>> findUniquePairsOfNumbers(List<Integer> numbers, int sum) {
         Set<Integer> set = new HashSet<>(numbers);
         return set.stream()
-                .filter(x -> set.contains(num - x))
-                .map(x -> Arrays.asList(x, num - x))
+                .filter(x -> set.contains(sum - x) && sum - x != x)
+                .map(x -> Arrays.asList(x, sum - x))
                 .peek(Collections::sort)
                 .collect(Collectors.toSet());
     }
@@ -40,9 +40,9 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filterAndSortingStrings(List<String> strings, char ch) {
+    public static List<String> filterAndSortingStrings(List<String> strings, char symbol) {
         return strings.stream()
-                .filter(s -> s.charAt(0) == ch)
+                .filter(s -> s.charAt(0) == symbol)
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
