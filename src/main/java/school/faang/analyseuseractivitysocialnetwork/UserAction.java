@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @Data
 public class UserAction {
 
-    int id;
-    String name;
-    String actionType;
-    LocalDate actionDate;
-    String content;
+    private int id;
+    private String name;
+    private String actionType;
+    private LocalDate actionDate;
+    private String content;
 
 }
