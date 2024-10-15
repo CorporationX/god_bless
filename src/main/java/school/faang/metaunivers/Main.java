@@ -18,15 +18,19 @@ public class Main {
         );
 
         // Sending notifications
-        Notification emailNotification = new Notification("email", "Your account has been successfully + " +
-                " + activated.");
-        Notification smsNotification = new Notification("sms", "You have successfully changed your  + " +
-                " + password.");
+        Notification emailNotification = new Notification("email", "Your account has been successfully " +
+                " activated.");
+        Notification smsNotification = new Notification("sms", "You have successfully changed your " +
+                " password.");
         Notification pushNotification = new Notification("push", "New post from user: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+
+        // Sending notification without handler
+        Notification unknownNotification = new Notification("unknown", "This type is not registered.");
+        notificationManager.sendNotification(unknownNotification);
     }
 }
 
