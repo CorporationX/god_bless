@@ -53,7 +53,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(x -> x > limit)
                 .min(Integer::compareTo)
-                .orElseThrow(() -> new NoSuchElementException("No such a number "));
+                .orElseThrow(() -> new NoSuchElementException("No number less than " + limit));
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
