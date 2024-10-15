@@ -10,7 +10,6 @@ import java.util.Objects;
 @Getter
 @Setter
 @AllArgsConstructor
-
 public class Subject {
     private final int id;
     private final String name;
