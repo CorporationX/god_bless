@@ -24,9 +24,9 @@ public class Witcher {
         Monster monster8 = new Monster("Кикимора", new Location(65, 20));
         Monster monster9 = new Monster("Призрак", new Location(70, 80));
         Monster monster10 = new Monster("Эндриага", new Location(85, 75));
-        List<Monster> monstersByCity1 = new ArrayList<>(Arrays.asList(monster1, monster4, monster3, monster8));
-        List<Monster> monstersByCity2 = new ArrayList<>(Arrays.asList(monster2, monster6, monster9, monster8));
-        List<Monster> monstersByCity3 = new ArrayList<>(Arrays.asList(monster7, monster10, monster5, monster2));
+        List<Monster> monstersByCity1 = new ArrayList<>(Arrays.asList(monster1, monster2, monster3, monster4));
+        List<Monster> monstersByCity2 = new ArrayList<>(Arrays.asList(monster5, monster6, monster7, monster8));
+        List<Monster> monstersByCity3 = new ArrayList<>(Arrays.asList(monster9, monster10, monster2, monster3));
         City city1 = new City("Новиград", new Location(43, 132));
         City city2 = new City("Оксенфурт", new Location(55, 73));
         City city3 = new City("Вижима", new Location(41, 44));

@@ -12,20 +12,23 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        int cityLocationX = city.getLocation().getX();
-        int cityLocationY = city.getLocation().getY();
-        double distanceToCity = Math.sqrt(Math.pow(-cityLocationX, 2) + Math.pow(-cityLocationY, 2));
-        double minDistanceFromCityToMonster = Integer.MAX_VALUE;
-        String monsterName = null;
-        for (Monster monster : monsters) {
-            double distance = Math.sqrt(Math.pow(cityLocationX - monster.getLocation().getX(), 2) + Math.pow(cityLocationY - monster.getLocation().getY(), 2));
-            if (distance < minDistanceFromCityToMonster) {
-                minDistanceFromCityToMonster = distance;
-                monsterName = monster.getName();
-            }
-        }
+        double distanceToCity = distanceToCIty(city);
+        Monster monsterWithMinDistance = monsters.stream().min((monster1, monster2) -> {
+            double distanceToMonster1 = distanceToMonsterFromCity(city, monster1);
+            double distanceToMonster2 = distanceToMonsterFromCity(city, monster2);
+            return Double.compare(distanceToMonster1, distanceToMonster2);
+        }).get();
+        double minDistanceFromCityToMonster = distanceToMonsterFromCity(city, monsterWithMinDistance);
         System.out.printf("Расстояние до города %s равно %f, расстояние от этого города до ближайшего монстра %s равно %f",
-                getCity().getName(), distanceToCity, monsterName, minDistanceFromCityToMonster);
+                getCity().getName(), distanceToCity, monsterWithMinDistance.getName(), minDistanceFromCityToMonster);
         System.out.println();
+    }
+
+    private double distanceToCIty(City city) {
+        return Math.sqrt(Math.pow(city.getLocation().getX(), 2) + Math.pow(city.getLocation().getY(), 2));
+    }
+
+    private double distanceToMonsterFromCity(City city, Monster monster) {
+        return Math.sqrt(Math.pow(city.getLocation().getX() - monster.getLocation().getX(), 2) + Math.pow(city.getLocation().getY() - monster.getLocation().getY(), 2));
     }
 }
