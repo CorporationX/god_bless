@@ -1,17 +1,15 @@
 package school.faang.handleExceptions;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
-        String result = ErrorHandler.withErrorHandling(
-                () -> {
-                    try {
-                        return RemoteService.call("params");
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                },
+        RemoteService remoteService = new RemoteService();
+        ErrorHandler errorHandler = new ErrorHandler();
+        String result = errorHandler.withErrorHandling(
+                () -> remoteService.call("params"),
                 e -> {
-                    System.out.println("Remote service errer");
+                    System.out.println("Returning default value : " + e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
                     return "DEFAULT";
                 }
         );
@@ -19,8 +17,8 @@ public class Main {
     }
 
     public static class RemoteService {
-        public static String call(String param) throws Exception {
-            throw new Exception("Remote service error");
+        public String call(String param) {
+            throw new IllegalStateException("Remote service error");
         }
     }
 }
