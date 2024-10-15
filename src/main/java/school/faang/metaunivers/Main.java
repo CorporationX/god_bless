@@ -17,6 +17,12 @@ public class Main {
                 (notification) -> System.out.println("Sending push notification: " + notification.getMessage())
         );
 
+        // Sending notifications
+        Notification emailNotification = new Notification("email", "Your account has been successfully + " +
+                " + activated.");
+        Notification smsNotification = new Notification("sms", "You have successfully changed your  + " +
+                " + password.");
+        Notification pushNotification = new Notification("push", "New post from user: JohnDoe");
 
     }
 }
