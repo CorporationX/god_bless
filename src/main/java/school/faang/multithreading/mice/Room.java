@@ -2,23 +2,32 @@ package school.faang.multithreading.mice;
 
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
 
+@Getter
 public class Room {
 
-  private String name;
-  private List<Food> foodList = new ArrayList<>();
+  private final String name;
+  private final List<Food> foodList = new ArrayList<>();
 
-  public Room(String name, List<Food> foodList) {
+  public Room(String name) {
     this.name = name;
-    this.foodList = foodList;
   }
 
-  public void addFood(List<Food> food) {
-    foodList.addAll(food);
+  public boolean hasFood() {
+    return !foodList.isEmpty();
   }
 
-  public void removeFood() {
-    foodList = new ArrayList<>();
+  public void addFoodPack(List<String> food) {
+    foodList.addAll(food.stream().map(Food::new).toList());
   }
 
+  public void removeFood(int index) {
+    foodList.remove(index);
+  }
+
+  @Override
+  public String toString() {
+    return name;
+  }
 }

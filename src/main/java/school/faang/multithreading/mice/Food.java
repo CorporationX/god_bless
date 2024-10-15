@@ -1,9 +1,9 @@
 package school.faang.multithreading.mice;
 
-import lombok.AllArgsConstructor;
+public record Food(String name) {
 
-@AllArgsConstructor
-public class Food {
-
-  private final String name;
+  @Override
+  public String toString() {
+    return name;
+  }
 }
