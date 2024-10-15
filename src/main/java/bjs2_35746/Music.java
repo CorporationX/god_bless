@@ -3,7 +3,6 @@ package bjs2_35746;
 import java.util.List;
 
 public class Music {
-    private static final int TOTAL_THREADS = 4;
 
     public static void main(String[] args) throws InterruptedException {
         Player player = new Player();
