@@ -24,6 +24,9 @@ public class Main {
                 " + password.");
         Notification pushNotification = new Notification("push", "New post from user: JohnDoe");
 
+        notificationManager.sendNotification(emailNotification);
+        notificationManager.sendNotification(smsNotification);
+        notificationManager.sendNotification(pushNotification);
     }
 }
 
