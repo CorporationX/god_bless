@@ -24,7 +24,7 @@ public class Army {
         List<Future<Integer>> futures = new ArrayList<>();
 
         int batchSize = (int) Math.ceil((double) creations.size() / NUMBER_OF_BATCH);
-        for (int i = 0; i < creations.size(); i += batchSize) {
+        for (int i = 0; i < creations.size(); i++) {
             int startIndx = i * batchSize;
             int endIndx = Math.min(i + batchSize, creations.size());
 
