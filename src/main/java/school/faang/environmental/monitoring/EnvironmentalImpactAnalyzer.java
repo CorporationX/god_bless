@@ -14,7 +14,9 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class EnvironmentalImpactAnalyzer {
     public static final String ERROR_EMPTY_LIST = "Невозможно выполнить операцию, если список пустой";
+
     private final CompanyRepository companyRepo;
+    private final StatisticsAggregator statisticsAggregator;
 
     public void emissionsReport(String fileName, int idCompany, LocalDate currDate) throws IOException {
         List<EnvironmentalImpact> impacts = CompanyDataLoader.csvToEnvironmentalImpacts(fileName);
@@ -40,7 +42,6 @@ public class EnvironmentalImpactAnalyzer {
     }
 
     public void printTopGasEmitters(String fileName, LocalDate currDate) throws IOException {
-        //TODO подумать как можно вынести это, в отдельный метод
         List<EnvironmentalImpact> impacts = CompanyDataLoader.csvToEnvironmentalImpacts(fileName);
         DateRange dateRange = new DateRange(currDate.minusYears(1), currDate);
 
@@ -62,25 +63,21 @@ public class EnvironmentalImpactAnalyzer {
                         entry2.getValue().getTotalVolOverYear(),
                         entry1.getValue().getTotalVolOverYear()))
                 .limit(3)
-                .forEach(entry -> {
-                    System.out.printf("%-15s %-18.2f %-23.2f %-23.2f%n",
-                            entry.getKey(),
-                            entry.getValue().getTotalVolOverYear(),
-                            entry.getValue().getAvgVolOverMonth(),
-                            entry.getValue().getMinVolOverMonth());
-                });
+                .forEach(entry ->
+                        System.out.printf("%-15s %-18.2f %-23.2f %-23.2f%n",
+                                entry.getKey(),
+                                entry.getValue().getTotalVolOverYear(),
+                                entry.getValue().getAvgVolOverMonth(),
+                                entry.getValue().getMinVolOverMonth())
+                );
     }
 
     public void printEmissionsPerEmployee(String fileName, LocalDate currDate) throws IOException {
         List<EnvironmentalImpact> impacts = CompanyDataLoader.csvToEnvironmentalImpacts(fileName);
         DateRange dateRange = new DateRange(currDate.minusYears(1), currDate);
 
-        Map<String, Double> companyToImpact = impacts.stream()
-                .filter(impact -> dateRange.isDateInRange(impact.getDate()))
-                .collect(Collectors.groupingBy(
-                        impact -> companyRepo.getCompany(impact.getCompanyId()).getCompanyName(),
-                        Collectors.summingDouble(EnvironmentalImpact::getVolume)
-                ));
+        Map<String, Double> companyToImpact = statisticsAggregator.totalEmissionByCompany(impacts, dateRange,
+                EmissionType.GAS_EMISSION);
 
         Map<String, Integer> companyToEmployeesCount = companyRepo.employeesCountByCompany(
                 new ArrayList<>(companyToImpact.keySet()));
@@ -95,16 +92,14 @@ public class EnvironmentalImpactAnalyzer {
                     employeesCount,
                     totalEmission / employeesCount);
         });
-
     }
 
     private static Map<Month, Double> getTotalEmissionByMonth(List<EnvironmentalImpact> impacts) {
-        Map<Month, Double> totalEmissionByMonth = impacts.stream()
+        return impacts.stream()
                 .collect(Collectors.groupingBy(
                         impact -> impact.getDate().getMonth(),
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
-        return totalEmissionByMonth;
     }
 
     private EmissionStatistic getEmissionStatisticForCompany(List<EnvironmentalImpact> impacts) {

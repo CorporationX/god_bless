@@ -22,11 +22,13 @@ public class Main {
         companyRepository.addCompanies(companies);
         StatisticsAggregator statisticsAggregator = new StatisticsAggregator(companyRepository);
         Map<String, Double> totalEmissionByCompany = statisticsAggregator.totalEmissionByCompany(impacts,
-                LocalDate.of(2023, 1, 9),
-                LocalDate.of(2023, 2, 6), EmissionType.GAS_EMISSION);
+                new DateRange(
+                        LocalDate.of(2023, 1, 9),
+                        LocalDate.of(2023, 2, 6)),
+                EmissionType.GAS_EMISSION);
         totalEmissionByCompany.forEach((k, v) -> System.out.println(k + ": " + v));
 
-        EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer(companyRepository);
+        EnvironmentalImpactAnalyzer analyzer = new EnvironmentalImpactAnalyzer(companyRepository, statisticsAggregator);
         System.out.println("\nОбъем выбросов парниковых газов Google по месяцам за последний год");
         analyzer.emissionsReport(PATH, 101, LocalDate.of(2023, 1, 1));
 
