@@ -4,10 +4,9 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -30,13 +29,15 @@ import java.util.zip.DataFormatException;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.toList;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
-import static ru.kraiush.spring.BJS2_27254.common.Constants.Common.BASE_PACKAGE;
 
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     private static final int STACK_TRACE_DEEP = 10;
+
+    @Value("BASE_PACKAGE")
+    private String BASE_PACKAGE;
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -58,7 +59,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(ElementNotFoundException.class)
     public ErrorResponse handleNotFoundException(ElementNotFoundException ex) {
-        log.error("Failed to find the requested element"  + ex);
+        log.error("Failed to find the requested element" + ex);
         return new ErrorResponse("Failed to find the requested element - " + ex.getMessage());
     }
 
@@ -76,14 +77,6 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.FORBIDDEN)
-    @ExceptionHandler(AccessDeniedException.class)
-    public Object handleAccessDeniedException(
-            Exception ex, WebRequest request) {
-        log.error("Access denied" + ex);
-        return new ErrorResponse("Access denied - " + ex.getMessage());
-    }
-
     @ResponseStatus(HttpStatus.CONFLICT)
     @ExceptionHandler(ElementAlreadyExistsException.class)
     public ErrorResponse handleResourceAlreadyExistsException(ElementAlreadyExistsException ex) {
@@ -97,11 +90,12 @@ public class GlobalExceptionHandler {
         log.error("Mismatch argument type" + ex);
         return new ErrorResponse("Mismatch argument type - " + ex.getMessage());
     }
+
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ErrorResponse handleAllUncaughtException(
             Exception ex,
-            WebRequest request){
+            WebRequest request) {
         log.error("Unknown error occurred", ex);
         return new ErrorResponse("Unknown error occurred - " + ex.getMessage());
     }

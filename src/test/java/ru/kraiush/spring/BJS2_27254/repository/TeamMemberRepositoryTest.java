@@ -3,15 +3,11 @@ package ru.kraiush.spring.BJS2_27254.repository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.jdbc.datasource.init.ScriptUtils;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.jdbc.Sql;
 import ru.kraiush.spring.BJS2_27254.domain.model.Role;
-import ru.kraiush.spring.BJS2_27254.domain.model.User;
+import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -25,56 +21,54 @@ import static org.junit.jupiter.api.Assertions.*;
         "spring.test.database.replace=NONE",
         "spring.datasource.url= jdbc:postgresql://localhost:5432/werewolf"
 })
-class UserRepositoryTest {
+class TeamMemberRepositoryTest {
 
     @Autowired
-    UserRepository repository;
-
-    @BeforeAll
-    static void setup(@Autowired DataSource dataSource) throws SQLException {
-        try (Connection conn = dataSource.getConnection()) {
-            ScriptUtils.executeSqlScript(conn, new ClassPathResource("scripts/INIT_MEMBER_PHONE.sql"));
-        }
-    }
+    TeamMemberRepository repository;
 
     @Test
     @Order(1)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void shouldReturnMembers() {
-        List<User> members = repository.findAll();
+        List<TeamMember> members = repository.findAll();
         assertThat(members.size() >= 4);
     }
 
     @Test
     @Order(2)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void shouldReturnOneMember() {
-        Optional<User> member = repository.findById(987222l);
+        Optional<TeamMember> member = repository.findById(987222l);
         assertNotNull(member.get());
     }
 
     @Test
     @Order(3)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void findMemberByName() {
-        Optional<User> member = repository.findByUsername("Athena");
+        Optional<TeamMember> member = repository.findByName("Nemesis");
         assertNotNull(member.get());
     }
 
     @Test
     @Order(4)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void createMember() {
-        User member = createUser();
-        User saveMember = repository.save(member);
-        Optional<User> optionalMember = repository.findById(saveMember.getId());
+        TeamMember member = createTeamMember();
+        TeamMember saveMember = repository.save(member);
+        Optional<TeamMember> optionalMember = repository.findById(saveMember.getId());
         assertThat(optionalMember.get()).isNotNull();
-        assertThat(optionalMember.get().getUsername().equals("Artemis"));
+        assertThat(optionalMember.get().getName().equals("Poseidon"));
     }
 
     @DisplayName("Should increment the size of list after save")
     @Test
     @Order(5)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void shouldIncrementSizeListAfterSave() {
         int initialSize = repository.findAll().size();
-        User member = createUser();
-        User saveMember = repository.save(member);
+        TeamMember member = createTeamMember();
+        TeamMember saveMember = repository.save(member);
         assertEquals(initialSize + 1, repository.findAll().size());
         assertNotEquals(repository.findAll().size(), 0);
     }
@@ -82,17 +76,26 @@ class UserRepositoryTest {
     @DisplayName("Should update ann item")
     @Test
     @Order(6)
+    @Sql("/scripts/INIT_MEMBER_PHONE.sql")
     void shouldUpdateMember() {
-        Optional<User> memberOptional = repository.findById(987777L);
+        Optional<TeamMember> memberOptional = repository.findById(987777L);
         if (memberOptional.isPresent()) {
-            memberOptional.get().setUsername("Hermes");
-            User member = repository.save(memberOptional.get());
-            assertEquals(member.getUsername(), "Hermes");
+            memberOptional.get().setName("Appolon");
+            TeamMember member = repository.save(memberOptional.get());
+            assertEquals(member.getName(), "Appolon");
         }
     }
 
-    private static User createUser() {
-        return new User(3876l, "Artemis", true, "nika@olymp.gc", "Olympus", 17, LocalDateTime.now(), Role.ROLE_USER, "password");
+    private static TeamMember createTeamMember() {
+        return TeamMember.builder()
+                .id(3876l)
+                .name("Artemis")
+                .gender(false)
+                .email("artemis@olymp.gc")
+                .location("Olympus")
+                .age(1797)
+                .lastDate(LocalDateTime.now())
+                .role(Role.ROLE_USER)
+                .build();
     }
-
 }

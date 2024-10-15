@@ -11,19 +11,17 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-        ddl-auto: create-drop
+        ddl-auto: update
     properties:
         hibernate:
             dialect: org.hibernate.dialect.PostgreSQLDialect
             format_sql: true
             default_schema: public
 
-token:
-  signing:
-    key: 53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855
+BASE_PACKAGE: ru.kraiush.*
 
 logging:
   level:
     root: ERROR
     org.springframework.web: ERROR
-    org.hibernate: DEBUG
+    org.hibernate: ERROR

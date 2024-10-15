@@ -1,31 +1,30 @@
 package ru.kraiush.spring.BJS2_27254.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.kraiush.spring.BJS2_27254.domain.dto.UserDto;
-import ru.kraiush.spring.BJS2_27254.domain.model.Role;
-import ru.kraiush.spring.BJS2_27254.domain.model.User;
-import ru.kraiush.spring.BJS2_27254.service.UserServiceFulfil;
+import ru.kraiush.spring.BJS2_27254.domain.dto.TeamMemberDto;
+import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
+import ru.kraiush.spring.BJS2_27254.exception.DataValidationException;
+import ru.kraiush.spring.BJS2_27254.service.TeamMemberServiceFulfil;
 import ru.kraiush.spring.BJS2_27254.util.MapperUtil;
 
+import java.nio.file.AccessDeniedException;
 import java.util.List;
+import java.util.Optional;
 
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class TeamController {
 
-    private static final Logger log = LoggerFactory.getLogger(TeamController.class);
+    private final TeamMemberServiceFulfil service;
 
-    private final UserServiceFulfil service;
-
-    @Autowired
-    public TeamController(UserServiceFulfil service) {
+    public TeamController(TeamMemberServiceFulfil service) {
         this.service = service;
     }
+
+    private String username = "Hercules";
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -33,69 +32,62 @@ public class TeamController {
     }
 
     @GetMapping(value = "/members")
-    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get all users")
-    public List<UserDto> findAll() {
-        log.info("load All users");
-        List<User> members = service.findAll();
-        return MapperUtil.convertList(members, UserDto.class);
+    public List<TeamMemberDto> findAll() {
+        String role = service.findRoleByName(username);
+        if (role.equals("ROLE_USER") || role.equals("ROLE_OWNER") || role.equals("ROLE_TEAMLEAD")) {
+            log.info("load All users");
+            List<TeamMember> members = service.findAll();
+            return MapperUtil.convertList(members, TeamMemberDto.class);
+        } else
+            throw new DataValidationException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 
     @GetMapping(value = "/members/{id}")
-    @PreAuthorize("hasRole('USER')")
     @Operation(summary = "Get a user by Id")
-    public UserDto getUser(@PathVariable("id") long id) {
-        log.info("load user by id: ", id);
-        User member = service.findById(id);
-        return MapperUtil.convertClass(member, UserDto.class);
+    public TeamMemberDto getTeamMember(@PathVariable("id") long id) throws AccessDeniedException {
+        String role = service.findRoleByName(username);
+        if (role.equals("ROLE_USER") || role.equals("ROLE_OWNER") || role.equals("ROLE_TEAMLEAD")) {
+            log.info("load user by id: ", id);
+            Optional<TeamMember> member = service.findById(id);
+            return MapperUtil.convertClass(member.get(), TeamMemberDto.class);
+        } else
+            throw new AccessDeniedException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 
     @PostMapping(value = "/members")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Create a user")
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        log.info("create user: ", userDto);
-        User user = MapperUtil.convertClass(userDto, User.class);
-        User userCreated = service.create(user);
-        return MapperUtil.convertClass(userCreated, UserDto.class);
+    public TeamMemberDto createTeamMember(@RequestBody TeamMemberDto userDto) {
+        String role = service.findRoleByName(username);
+        if (role.equals("ROLE_OWNER") || role.equals("ROLE_TEAMLEAD")) {
+            log.info("create user: ", userDto);
+            TeamMember user = MapperUtil.convertClass(userDto, TeamMember.class);
+            TeamMember userCreated = service.create(user);
+            return MapperUtil.convertClass(userCreated, TeamMemberDto.class);
+        } else
+            throw new DataValidationException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 
-    @PutMapping(value = "/members")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
+    @PutMapping(value = "/members/{id}")
     @Operation(summary = "Update a user")
-    public void updateUser(@RequestBody UserDto userDto) throws Exception {
-        log.info("start update user: ", userDto);
-        User user = MapperUtil.convertClass(userDto, User.class);
-        service.update(user);
-    }
-
-    @PutMapping(value = "/members/updateRole")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
-    @Operation(summary = "Change a role for a user")
-    public void changeRole(@RequestBody UserDto userDto, Role role) throws Exception {
-        log.info("change role for user: ", userDto);
-        User user = MapperUtil.convertClass(userDto, User.class);
-        service.changeRole(user, role);
+    public TeamMemberDto updateTeamMember(@PathVariable("id") long id, @RequestBody TeamMemberDto userDto) {
+        String role = service.findRoleByName(username);
+        if (role.equals("ROLE_OWNER") || role.equals("ROLE_TEAMLEAD")) {
+            log.info("start update user: ", userDto);
+            TeamMember user = MapperUtil.convertClass(userDto, TeamMember.class);
+            TeamMember userUpdated = service.update(user);
+            return MapperUtil.convertClass(userUpdated, TeamMemberDto.class);
+        } else
+            throw new DataValidationException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 
     @DeleteMapping(value = "/members/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('OWNER')")
     @Operation(summary = "Delete a user")
-    public void delete(@PathVariable long id) throws Exception {
-        service.deleteById(id);
-    }
-
-    @GetMapping("/members/admin")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Available only to authorized users with the ADMIN role")
-    public String exampleAdmin() {
-        return "Hello, admin!";
-    }
-
-    @GetMapping("/members/get-admin")
-    @PreAuthorize("hasRole('USER')")
-    @Operation(summary = "Get the ADMIN role")
-    public void getAdmin() {
-        service.getAdmin();
+    public void delete(@PathVariable long id) {
+        String role = service.findRoleByName(username);
+        if (role.equals("ROLE_OWNER") || role.equals("ROLE_TEAMLEAD")) {
+            service.deleteById(id);
+        } else
+            throw new DataValidationException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 }
