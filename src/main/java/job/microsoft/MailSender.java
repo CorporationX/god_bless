@@ -1,7 +1,7 @@
 package job.microsoft;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         int threadCount = 5;
         int mailQueue = 1000;
