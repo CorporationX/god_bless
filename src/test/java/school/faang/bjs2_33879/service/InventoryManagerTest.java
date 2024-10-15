@@ -1,13 +1,13 @@
 package school.faang.bjs2_33879.service;
 
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_33879.constants.ErrMessageValidate;
 import school.faang.bjs2_33879.model.Character;
 import school.faang.bjs2_33879.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,15 +24,15 @@ class InventoryManagerTest {
         Consumer<Item> additionalAction = System.out::println;
         IllegalArgumentException exceptionCharacterNull = assertThrows(IllegalArgumentException.class,
                 () -> inventoryManager.addItem(null, amulet, additionalAction));
-        assertEquals(ErrMessageValidate.CHARACTER_IS_NULL, exceptionCharacterNull.getMessage());
+        assertEquals("character cannot be null", exceptionCharacterNull.getMessage());
 
         IllegalArgumentException exceptionItemNull = assertThrows(IllegalArgumentException.class,
                 () -> inventoryManager.addItem(alaric, null, additionalAction));
-        assertEquals(ErrMessageValidate.ITEM_IS_NULL, exceptionItemNull.getMessage());
+        assertEquals("item cannot be null", exceptionItemNull.getMessage());
 
         IllegalArgumentException exceptionAdditionalActionNull = assertThrows(IllegalArgumentException.class,
                 () -> inventoryManager.addItem(alaric, amulet, null));
-        assertEquals(ErrMessageValidate.ADDITIONAL_ACTION_IS_NULL, exceptionAdditionalActionNull.getMessage());
+        assertEquals("additional action cannot be null", exceptionAdditionalActionNull.getMessage());
 
         List<Item> itemsCorrectResult = List.of(amulet);
         inventoryManager.addItem(alaric, amulet, additionalAction);
@@ -50,13 +50,29 @@ class InventoryManagerTest {
     void removeItem() {
         Character alaric = new Character("Alaric");
         Item amulet = new Item("Amulet of the Fallen King", 1500);
+        Predicate<Item> removeConditionFalse = item -> item.getValue() < 1000;
 
         inventoryManager.addItem(alaric, amulet, System.out::println);
 
-        Predicate<Item> removeConditionFalse = item -> item.getValue() < 1000;
-        //TODO: Сделать проверку исключений
+        IllegalArgumentException exceptionCharacterNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.removeItem(null, amulet, removeConditionFalse));
+        assertEquals("character cannot be null", exceptionCharacterNull.getMessage());
+
+        IllegalArgumentException exceptionItemNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.removeItem(alaric, null, removeConditionFalse));
+        assertEquals("item cannot be null", exceptionItemNull.getMessage());
+
+        IllegalArgumentException exceptionConditionNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.removeItem(alaric, amulet, null));
+        assertEquals("condition cannot be null", exceptionConditionNull.getMessage());
+
+        Character testCharacterInventoryNull = new Character("Test");
+        IllegalStateException exceptionInventoryNull = assertThrows(IllegalStateException.class,
+                () -> inventoryManager.removeItem(testCharacterInventoryNull, amulet, removeConditionFalse));
+        assertEquals("list items cannot be null", exceptionInventoryNull.getMessage());
+
         List<Item> inventory = alaric.getInventory();
-        inventoryManager.removeItem(alaric,amulet,removeConditionFalse);
+        inventoryManager.removeItem(alaric, amulet, removeConditionFalse);
         assertFalse(inventory.isEmpty());
 
         Predicate<Item> removeConditionTrue = item -> item.getValue() > 1000;
@@ -69,8 +85,40 @@ class InventoryManagerTest {
 
     @Test
     void updateItem() {
-        //TODO: Сделать проверку исключений
-        //TODO: Сделать проверку логики
+        Character alaric = new Character("Alaric");
+        Item amulet = new Item("Amulet of the Fallen King", 1500);
+        Item amuletCorrectResult = new Item("Amulet of the Fallen King", 3000);
+        Predicate<Item> updConditionTrue = item -> item.getValue() > 1000;
+        Predicate<Item> updConditionFalse = item -> item.getValue() > 2000;
+        Function<Item, Item> updateAction = item -> new Item(item.getName(), item.getValue() * 2);
 
+        inventoryManager.addItem(alaric, amulet, System.out::println);
+
+        IllegalArgumentException exceptionCharacterNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.updateItem(null, updConditionTrue, updateAction));
+        assertEquals("character cannot be null", exceptionCharacterNull.getMessage());
+
+        IllegalArgumentException exceptionUpdConditionNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.updateItem(alaric, null, updateAction));
+        assertEquals("condition cannot be null", exceptionUpdConditionNull.getMessage());
+
+        IllegalArgumentException exceptionUpdActionNull = assertThrows(IllegalArgumentException.class,
+                () -> inventoryManager.updateItem(alaric, updConditionTrue, null));
+        assertEquals("update action cannot be null", exceptionUpdActionNull.getMessage());
+
+        Character testCharacterInventoryNull = new Character("Test");
+        IllegalStateException exceptionInventoryNull = assertThrows(IllegalStateException.class,
+                () -> inventoryManager.updateItem(testCharacterInventoryNull, updConditionTrue, updateAction));
+        assertEquals("list items cannot be null", exceptionInventoryNull.getMessage());
+
+        List<Item> inventory = alaric.getInventory();
+
+        inventoryManager.updateItem(alaric,updConditionFalse,updateAction);
+        Item amuletResultForConditionFalse = inventory.get(0);
+        assertEquals(amulet,amuletResultForConditionFalse);
+
+        inventoryManager.updateItem(alaric,updConditionTrue,updateAction);
+        Item amuletResultForConditionTrue = inventory.get(0);
+        assertEquals(amuletCorrectResult,amuletResultForConditionTrue);
     }
 }
