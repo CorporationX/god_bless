@@ -8,8 +8,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RecommendationServiceTest {
@@ -52,8 +54,8 @@ class RecommendationServiceTest {
 
     @Test
     void recommendProductsByInterests_UserNotFound_ReturnsEmptyList() {
-        List<Product> recommendedProducts = recommendationService.recommendProductsByInterests(999);
-        assertTrue(recommendedProducts.isEmpty());
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->  recommendationService.recommendProductsByInterests(999));
+        assertEquals("User not found", exception.getMessage());
     }
 
     @Test
@@ -66,29 +68,29 @@ class RecommendationServiceTest {
 
     @Test
     void recommendPopularProductsAmongSimilarUsers_UserFound_ReturnsTop5Products() {
-        List<Product> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(1);
+        List<Optional<Product>> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(1);
         assertEquals(2, recommendedProducts.size());
-        assertTrue(recommendedProducts.stream().anyMatch(product -> product.getName().equals("Сноуборд")));
-        assertTrue(recommendedProducts.stream().anyMatch(product -> product.getName().equals("Кулинарная книга")));
+        assertTrue(recommendedProducts.stream().anyMatch(product -> product.get().getName().equals("Сноуборд")));
+        assertTrue(recommendedProducts.stream().anyMatch(product -> product.get().getName().equals("Кулинарная книга")));
     }
 
     @Test
     void recommendPopularProductsAmongSimilarUsers_UserNotFound_ReturnsEmptyList() {
-        List<Product> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(999);
-        assertTrue(recommendedProducts.isEmpty());
+        Throwable exception = assertThrows(IllegalArgumentException.class, () ->  recommendationService.recommendPopularProductsAmongSimilarUsers(999));
+        assertEquals("User not found", exception.getMessage());
     }
 
     @Test
     void recommendPopularProductsAmongSimilarUsers_SimilarUsersFound_ReturnsTop5Products() {
-        List<Product> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(1);
+        List<Optional<Product>> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(1);
         assertEquals(2, recommendedProducts.size());
-        assertTrue(recommendedProducts.stream().anyMatch(product -> product.getName().equals("Сноуборд")));
-        assertTrue(recommendedProducts.stream().anyMatch(product -> product.getName().equals("Кулинарная книга")));
+        assertTrue(recommendedProducts.stream().anyMatch(product -> product.get().getName().equals("Сноуборд")));
+        assertTrue(recommendedProducts.stream().anyMatch(product -> product.get().getName().equals("Кулинарная книга")));
     }
 
     @Test
     void recommendPopularProductsAmongSimilarUsers_NoOrders_ReturnsEmptyList() {
-        List<Product> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(3);
+        List<Optional<Product>> recommendedProducts = recommendationService.recommendPopularProductsAmongSimilarUsers(3);
         assertTrue(recommendedProducts.isEmpty());
     }
 
