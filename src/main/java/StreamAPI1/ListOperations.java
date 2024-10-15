@@ -12,13 +12,9 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> numbers) {
-        Optional<Integer> maxNumber = numbers.stream()
-                .max(Integer::compareTo);
-        if (maxNumber.isPresent()) {
-            return maxNumber.get();
-        } else {
-            return 0;
-        }
+        return numbers.stream()
+                .max(Integer::compareTo)
+                .orElseThrow();
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -59,7 +55,7 @@ public class ListOperations {
         return numbers.stream()
                 .filter(n -> n > number)
                 .min(Integer::compareTo)
-                .orElse(0);
+                .orElseThrow();
     }
 
     public static List<Integer> convertToLengths(List<String> strings) {
