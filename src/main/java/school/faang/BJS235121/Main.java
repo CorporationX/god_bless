@@ -37,8 +37,9 @@ public class Main {
     }
 
     public static List<String> getCitiesFromCountries(Map<String, String> contriesMap) {
-        return contriesMap.values().stream()
-                .sorted()
+        return contriesMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
                 .collect(Collectors.toList());
     }
 
