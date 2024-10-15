@@ -11,64 +11,54 @@ public class ListOperations {
                 .reduce(0, Integer::sum);
     }
 
-    public static String findMax(List<Integer> numbers) {
-        return String.valueOf(
-                numbers.stream()
-                        .max(Comparator.naturalOrder())
-        );
+    public static int findMax(List<Integer> numbers) {
+        return numbers.stream()
+                .max(Comparator.naturalOrder())
+                .orElse(0);
     }
 
-    public static String findAverage(List<Integer> numbers) {
-        return String.valueOf(
+    public static double findAverage(List<Integer> numbers) {
+        return
                 numbers.stream()
                         .map(n -> (double) n / numbers.size())
                         .reduce(Double::sum)
-
-        );
+                        .orElse(0.0);
     }
 
-    public static String countStringsStartingWith(List<String> strings, char a) {
-        return String.valueOf(
-                strings.stream()
-                        .filter(str -> str.toLowerCase().charAt(0) == a)
-                        .count()
-        );
+    public static int countStringsStartingWith(List<String> strings, char a) {
+        return (int) strings.stream()
+                .filter(str -> str.toLowerCase().charAt(0) == a)
+                .count();
     }
 
     public static String filterStringsContainingSubstring(List<String> strings, String an) {
-        return String.valueOf(
-                strings.stream()
-                        .filter(str -> str.toLowerCase().contains(an))
-                        .count()
-        );
-    }
-
-    public static String sortByLength(List<String> strings) {
         return strings.stream()
-                .sorted(Comparator.comparing(String::length))
+                .filter(str -> str.toLowerCase().contains(an))
                 .toList()
                 .toString();
     }
 
-    public static String allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
-        return String.valueOf(numbers.stream()
-                .allMatch(predicate)
-        );
+    public static List<String> sortByLength(List<String> strings) {
+        return strings.stream()
+                .sorted(Comparator.comparing(String::length))
+                .toList();
     }
 
-    public static String findMinGreaterThan(List<Integer> numbers, int i) {
-        return String.valueOf(
-                numbers.stream()
-                        .filter(number -> number > i)
-                        .min(Comparator.naturalOrder())
-        );
+    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
+        return numbers.stream()
+                .allMatch(predicate);
     }
 
-    public static String convertToLengths(List<String> strings) {
-        return String.valueOf(
-                strings.stream()
+    public static int findMinGreaterThan(List<Integer> numbers, int i) {
+        return numbers.stream()
+                .filter(number -> number > i)
+                .min(Comparator.naturalOrder())
+                .orElse(0);
+    }
+
+    public static List<Integer> convertToLengths(List<String> strings) {
+        return strings.stream()
                         .map(String::length)
-                        .toList()
-        );
+                        .toList();
     }
 }
