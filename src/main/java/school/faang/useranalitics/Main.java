@@ -60,10 +60,11 @@ public class Main {
                 new UserAction(4, "Dave", "share", LocalDate.of(2024, 10, 19), "")
         );
 
-        List<Integer> topUsers = UserActionAnalyzer.getTopActiveUsers(actions);
-        List<String> topHashtags = UserActionAnalyzer.getTopPopularHashtags(actions);
-        List<Integer> topCommenters = UserActionAnalyzer.getTopCommentersLastMonth(actions);
-        Map<String, Double> actionPercentages = UserActionAnalyzer.getActionTypePercentages(actions);
+        UserActionAnalyzer analyzer = new UserActionAnalyzer();
+        List<Integer> topUsers = analyzer.getTopActiveUsers(actions);
+        List<String> topHashtags = analyzer.getTopPopularHashtags(actions);
+        List<Integer> topCommenters = analyzer.getTopCommentersLastMonth(actions);
+        Map<String, Double> actionPercentages = analyzer.getActionTypePercentages(actions);
 
         System.out.println("Top-10 active users: " + topUsers);
         System.out.println("Top-5 popular hashtags: " + topHashtags);

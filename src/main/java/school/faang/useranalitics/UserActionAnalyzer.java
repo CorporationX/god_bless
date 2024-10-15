@@ -1,7 +1,5 @@
 package school.faang.useranalitics;
 
-import lombok.experimental.UtilityClass;
-
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -10,7 +8,6 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@UtilityClass
 public class UserActionAnalyzer {
 
     public List<Integer> getTopActiveUsers(List<UserAction> actions) {
