@@ -6,15 +6,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        int threadPool = 3;
+        int threadPool = 5;
         House house = new House();
         house.init();
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(threadPool);
-        service.scheduleAtFixedRate(house::collectFood, 0, 4, TimeUnit.SECONDS);
-        service.schedule(() -> {
+        service.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+        if (!service.awaitTermination(threadPool, TimeUnit.MINUTES)) {
             service.shutdown();
             System.out.println("Общая еда: " + house.getCollectedFood());
-        }, 1, TimeUnit.MINUTES);
+        }
     }
 }
