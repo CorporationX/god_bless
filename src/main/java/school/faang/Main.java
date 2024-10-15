@@ -1,24 +1,32 @@
 package school.faang;
-
-import school.faang.email.services.Email;
-import school.faang.email.services.EmailProcessor;
+import school.faang.invetory.Character;
+import school.faang.invetory.InventoryManager;
+import school.faang.invetory.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        List<Email> emails = Arrays.asList(
-                new Email("Work", "Why aren't u here yet?", true),
-                new Email("Stuff", "Lol dude, just check this", false),
-                new Email("Family", "You're going to be a father.", true),
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+        Item soulOfAChampion = new Item("Soul of a Champion", 2500);
+        Item gotthardTwinswords = new Item("Gotthard Twinswords", 10000);
+        Item hollowslayerGreatsword = new Item("Hollowslayer Greatsword", 15000);
+
+        Character anri  = new Character("Anri", new ArrayList<>());
+        Character siegward = new Character("Siegward", new ArrayList<>(Arrays.asList(hollowslayerGreatsword)));
+        InventoryManager manager = new InventoryManager();
+
+
+        manager.addItem(
+                anri ,
+                soulOfAChampion,
+                (item) -> System.out.println(anri.getName() + " подобрал " + item.getName())
+        );
+        manager.addItem(
+                siegward ,
+                gotthardTwinswords,
+                (item) -> System.out.println(siegward.getName() + " подобрал " + item.getName())
+
         );
         Predicate<Email> importantFilter = email -> email.isImpotant();
         Consumer<Email> printEmail = email ->
@@ -28,12 +36,18 @@ public class Main {
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         EmailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
+        manager.removeItem(
+                siegward ,
+                (item) -> item.getName().equals("Hollowslayer Greatsword")
+        );
 
-        System.out.println("==================");
+        manager.updateItem(
+                siegward ,
+                (item) -> item.getName().equals("Gotthard Twinswords"),
+                (item) -> new Item(item.getName(), item.getValue() * 5)
+        );
 
-        emails.forEach(email -> System.out.println(
-                "Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()
-        ));
-  }
+        anri .getInventory().forEach(item -> System.out.println(anri.getName() + ":" + item.getName() + " : " + item.getValue()));
+        siegward .getInventory().forEach(item -> System.out.println(siegward.getName() + ":" + item.getName() + " : " + item.getValue()));
+    }
 }
