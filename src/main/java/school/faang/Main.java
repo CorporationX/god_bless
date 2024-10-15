@@ -10,6 +10,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
+
         Method method = new Method();
 
         List<Integer> numbers= new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7));
