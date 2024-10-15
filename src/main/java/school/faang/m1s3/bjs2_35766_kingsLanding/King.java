@@ -17,20 +17,20 @@ public class King {
         arthur.addTrial(new Trial("Arthur", "Swimming with sharks"));
         arthur.addTrial(new Trial("Arthur", "Riding through flames"));
 
-        ExecutorService robert_service = Executors.newFixedThreadPool(1);
-        ExecutorService arthur_service = Executors.newFixedThreadPool(1);
+        ExecutorService robertService = Executors.newFixedThreadPool(1);
+        ExecutorService arthurService = Executors.newFixedThreadPool(1);
 
-        robert.startTrials(robert_service);
-        arthur.startTrials(arthur_service);
+        robert.startTrials(robertService);
+        arthur.startTrials(arthurService);
 
-        robert_service.shutdown();
-        arthur_service.shutdown();
+        robertService.shutdown();
+        arthurService.shutdown();
 
         try {
-            if (!(robert_service.awaitTermination(40, TimeUnit.SECONDS) &&
-                    arthur_service.awaitTermination(40, TimeUnit.SECONDS))) {
-                robert_service.shutdownNow();
-                arthur_service.shutdownNow();
+            if (!(robertService.awaitTermination(40, TimeUnit.SECONDS) &&
+                    arthurService.awaitTermination(40, TimeUnit.SECONDS))) {
+                robertService.shutdownNow();
+                arthurService.shutdownNow();
                 System.out.println("The knights perished");
             }
         } catch (InterruptedException e) {
