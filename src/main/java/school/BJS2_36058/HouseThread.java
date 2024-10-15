@@ -14,7 +14,7 @@ public class HouseThread implements Runnable {
 
     public void run() {
         try {
-            house.collectFood();
+          house.collectFood();
         } finally {
             if (house.isAll()) {
                 latch.countDown();

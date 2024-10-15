@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
 
         final int SCHEDULED_THREADS = 5;
 
@@ -17,18 +17,15 @@ public class Main {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(SCHEDULED_THREADS);
         for (int i = 0; i < SCHEDULED_THREADS; i++) {
-            executorService.scheduleAtFixedRate(new HouseThread(house, latch), 0, 30, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(new HouseThread(house, latch), 0, 5, TimeUnit.SECONDS);
         }
         try {
             latch.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-        if (house.isAll()) {
-            System.out.println("Еда собрана из всех комнат!");
-            executorService.shutdown();
-        }
+        executorService.shutdown();
+        System.out.println("Еда собрана из всех комнат!");
     }
 }
 
