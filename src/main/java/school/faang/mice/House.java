@@ -29,9 +29,11 @@ public class House {
     private void collectFood(ScheduledExecutorService executor, House house) {
         List<Room> rooms = house.getRooms();
         List<Food> collectedFood = house.getCollectedFood();
+
         Random random = new Random();
         Room room1 = rooms.get(random.nextInt(rooms.size()));
         Room room2 = rooms.get(random.nextInt(rooms.size()));
+
         if (room1.hasFood()) {
             collectedFood.addAll(room1.removeAllFood());
         }
@@ -39,6 +41,7 @@ public class House {
         if (room2.hasFood()) {
             collectedFood.addAll(room2.removeAllFood());
         }
+
         allFoodCollected(executor, house);
     }
 
@@ -56,6 +59,7 @@ public class House {
         Food sandwich = new Food("sandwich");
         Food apple = new Food("apple");
         Food meat = new Food("meat");
+
         Room room1 = new Room(new ArrayList<>() {{
             add(cheese);
             add(milk);
@@ -79,6 +83,7 @@ public class House {
             add(cheese);
             add(meat);
         }});
+
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
