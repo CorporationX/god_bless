@@ -9,9 +9,11 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int COUNT_THREADS = 5;
     private static final int INITIAL_DELAY = 0;
-    private static final int PERIOD = 1;
+    private static final int PERIOD = 30;
+    private static final int AWAITING_TIME = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+
+    public static void main(String[] args) {
         List<Room> rooms = new ArrayList<>();
 
         Room livingRoom = new Room(new ArrayList<>());
@@ -38,12 +40,24 @@ public class Main {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(COUNT_THREADS);
         executorService.scheduleAtFixedRate(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
 
-        while (!house.isFoodCollected()) {
-            Thread.sleep(1000);
-        }
-        executorService.shutdown();
+        try {
+            while (!house.isFoodCollected()) {
+                System.out.println("Food collecting");
+            }
+            executorService.shutdownNow();
+            System.out.println("All food collected");
+            System.out.println(house.getCollectedFood());
 
-        System.out.println("All food collected");
-        System.out.println(house.getCollectedFood());
+            if (!executorService.awaitTermination(AWAITING_TIME, TimeUnit.MINUTES)) {
+                System.out.println("Timeout occurred, forcing shutdown");
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Interrupted while waiting");
+            executorService.shutdownNow();
+        }
     }
 }
+
+
+
