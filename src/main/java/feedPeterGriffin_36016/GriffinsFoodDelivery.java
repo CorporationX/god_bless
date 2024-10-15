@@ -18,7 +18,7 @@ public class GriffinsFoodDelivery {
 
         executor.shutdown();
         try {
-            if(!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("Ёще не всем доставлена еда");
                 executor.shutdownNow();
             }
