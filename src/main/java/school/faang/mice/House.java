@@ -46,7 +46,7 @@ public class House {
     }
 
     private void allFoodCollected(ScheduledExecutorService executor, House house) {
-        if (house.collectedFood.size() == ALL_FOOD_SIZE) {
+        if (house.getCollectedFood().size() == ALL_FOOD_SIZE) {
             executor.shutdown();
             System.out.printf("Еда в доме %s собрана!", house.getName());
         }
