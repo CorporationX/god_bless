@@ -6,21 +6,18 @@ import java.util.stream.IntStream;
 public class ListOperation {
   public static List<List<Integer>> findUniquePairNumbersWithSum(List<Integer> numbers, int value) {
     Map<Integer, Integer> map = new HashMap<>();
+    List<List<Integer>> result = new ArrayList<>();
 
-    return IntStream.range(0, numbers.size())
-        .mapToObj(i -> {
+    IntStream.range(0, numbers.size())
+        .forEach(i -> {
           if (map.containsKey(value - numbers.get(i))) {
-            List<Integer> list = new ArrayList<>();
-            list.add(numbers.get(i));
-            list.add(numbers.get(map.get(value - numbers.get(i))));
-            return list;
+            List<Integer> pair = Arrays.asList(numbers.get(i), map.get(value - numbers.get(i)));
+            result.add(pair);
           } else {
             map.put(numbers.get(i), i);
           }
-          return null;
-        })
-        .filter(Objects::nonNull)
-        .toList();
+        });
+    return result;
   }
 
   public static List<String> sortCountriesAndGetCapitals(Map<String, String> countriesAndCapitals) {
