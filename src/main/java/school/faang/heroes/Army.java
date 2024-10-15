@@ -11,7 +11,6 @@ public class Army {
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        int totalUnits = units.size();
         int totalPower = 0;
 
         List<PowerCalculator> calculators = new ArrayList<>();
