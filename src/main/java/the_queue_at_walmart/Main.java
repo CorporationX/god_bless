@@ -6,6 +6,13 @@ import java.util.Random;
 
 public class Main {
     private static Random random = new Random();
+    
+    /**
+     * Runs the simulation. Creates a few customers with items and creates a number of cashiers equal to the number of customers.
+     * Each customer is given to a cashier, and the cashiers are started.
+     *
+     * @param args ignored
+     */
     public static void main(String[] args) {
         List<List<Items>> customers = List.of(
                 List.of(new Items("Coke", 1, 20), new Items("Tomatos", 5, 30)),

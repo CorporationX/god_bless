@@ -14,6 +14,12 @@ public class CashierThread extends Thread {
     private int cashierId;
     private List<Items> customerItems;
 
+    /**
+     * Processes the customer items on the cashier.
+     * <p>
+     * The {@link #customerItems} are processed and the total price and total quantity
+     * are printed.
+     */
     public void run() {
         AtomicInteger itemsQuantity = new AtomicInteger();
         AtomicInteger itemsPrice = new AtomicInteger();
