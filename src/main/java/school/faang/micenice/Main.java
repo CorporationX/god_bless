@@ -10,12 +10,10 @@ public class Main {
         house.initialize();
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_SIZE);
-        executor.scheduleAtFixedRate(() -> {
-            house.collectFood();
-            if (house.allFoodCollected()) {
-                executor.shutdown();
-                System.out.println("All the food is collected.");
-            }
-        }, 0, 3, TimeUnit.SECONDS);
+        while (!house.allFoodCollected()) {
+            executor.scheduleAtFixedRate(house::collectFood, 0, 5, TimeUnit.SECONDS);
+        }
+        executor.shutdown();
+        System.out.println("The food is collected");
     }
 }
