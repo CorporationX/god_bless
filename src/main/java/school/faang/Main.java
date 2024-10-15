@@ -1,24 +1,23 @@
 package school.faang;
 
-import school.faang.email.services.Email;
-import school.faang.email.services.EmailProcessor;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
+import school.faang.instagram.services.FilterProcessor;
+import school.faang.instagram.services.Image;
+
 import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        List<Email> emails = Arrays.asList(
-                new Email("Work", "Why aren't u here yet?", true),
-                new Email("Stuff", "Lol dude, just check this", false),
-                new Email("Family", "You're going to be a father.", true),
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
+        Image original = new Image("original.jpg", "Оригинал");
+        FilterProcessor filterProcessor = new FilterProcessor();
+
+        Function<Image, Image> blackAndWhiteFilter = (image) -> new Image(
+                image.getName(),
+                image.getDescription() + " | Фильтр: черно-белый"
+        );
+        Function<Image, Image> sepiaFilter = (image) -> new Image(
+                image.getName(),
+                image.getDescription() + " | Фильтр: сепия"
         );
         Predicate<Email> importantFilter = email -> email.isImpotant();
         Consumer<Email> printEmail = email ->
@@ -28,12 +27,16 @@ public class Main {
 
         Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
         EmailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
+        Function<Image, Image> vignette = (image) -> new Image(
+                image.getName(),
+                image.getDescription() + " | Фильтр: виньетка"
+        );
 
-        System.out.println("==================");
+        Image blackAndWhiteImage = filterProcessor.applyFilter(original, blackAndWhiteFilter);
+        System.out.println(blackAndWhiteImage.getDescription());
 
-        emails.forEach(email -> System.out.println(
-                "Тема: " + email.getSubject() +
-                ", Тело письма: " + email.getBody()
-        ));
-  }
+        Function<Image, Image> combinedFilter = filterProcessor.combineFilters(sepiaFilter, vignette);
+        Image combinedImage = filterProcessor.applyFilter(original, combinedFilter);
+        System.out.println(combinedImage.getDescription());
+    }
 }
