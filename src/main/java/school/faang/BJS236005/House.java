@@ -8,7 +8,7 @@ import java.util.Random;
 
 @Data
 public class House {
-    private final List<Room> rooms = new ArrayList<>();
+    private List<Room> rooms = new ArrayList<>();
     private List<Food> collectedFood = new ArrayList<>();
     private Random random = new Random();
 
