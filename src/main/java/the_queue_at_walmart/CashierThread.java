@@ -1,6 +1,5 @@
 package the_queue_at_walmart;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,11 +7,17 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
-@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class CashierThread extends Thread {
     private int cashierId;
     private List<Items> customerItems;
+    private int itemsPrice = 0;
+    private int itemsQuantity = 0;
+
+    public CashierThread(int cashierId, List<Items> customerItems) {
+        this.cashierId = cashierId;
+        this.customerItems = customerItems;
+    }
 
     /**
      * Processes the customer items on the cashier.
@@ -21,16 +26,10 @@ public class CashierThread extends Thread {
      * are printed.
      */
     public void run() {
-        AtomicInteger itemsQuantity = new AtomicInteger();
-        AtomicInteger itemsPrice = new AtomicInteger();
-
         customerItems.forEach(item -> {
             System.out.printf("Cashier %d: %s%n", cashierId, item.getName());
-            itemsPrice.addAndGet(item.getPrice());
-            itemsQuantity.addAndGet(item.getPrice());
+            itemsPrice += item.getPrice();
+            itemsQuantity += item.getQuantity();
         });
-
-        System.out.printf("Cashier %d: Total price: %d%n", cashierId, itemsPrice.get());
-        System.out.printf("Cashier %d: Total quantity: %d%n", cashierId, itemsQuantity.get());
     }
 }
