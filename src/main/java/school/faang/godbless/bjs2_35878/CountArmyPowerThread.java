@@ -1,19 +1,19 @@
 package school.faang.godbless.bjs2_35878;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class CountArmyPowerThread extends Thread {
-    private List<Fighter> fighters = new ArrayList<>();
+    private final List<Fighter> fighters = new ArrayList<>();
+    @Getter
     private int power;
 
     public void addUnit(Fighter fighter) {
         fighters.add(fighter);
     }
 
-    public int getPower() {
-        return power;
-    }
 
     @Override
     public void start() {
