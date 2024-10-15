@@ -52,10 +52,9 @@ public class UserActionAnalyzer {
 
         list.stream().
                 collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting())).entrySet()
-                .forEach(entry -> result.put(entry.getKey(), entry.getValue() / (double) list.size()));
-
-        result.replaceAll((key, value) -> (double) Math.round((value) * 100));
-
+                .forEach(entry -> result.put(
+                        entry.getKey(),
+                        (double) Math.round(entry.getValue() / (double) list.size() * 100)));
         return result;
     }
 }
