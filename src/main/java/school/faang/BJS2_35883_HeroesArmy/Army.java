@@ -20,7 +20,7 @@ public class Army {
         List<Thread> startedThreads = new ArrayList<>();
 
         heroes.forEach(hero -> {
-            Thread threadForHero = new Thread(new PowerCalculator(hero, totalPower));
+            Thread threadForHero = new Thread(new HeroPowerCalculator(hero, totalPower));
             startedThreads.add(threadForHero);
             threadForHero.start();
         });
