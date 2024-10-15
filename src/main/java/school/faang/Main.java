@@ -1,5 +1,4 @@
 package school.faang;
-
 import school.faang.invetory.Character;
 import school.faang.invetory.InventoryManager;
 import school.faang.invetory.Item;
@@ -27,8 +26,16 @@ public class Main {
                 siegward ,
                 gotthardTwinswords,
                 (item) -> System.out.println(siegward.getName() + " подобрал " + item.getName())
-        );
 
+        );
+        Predicate<Email> importantFilter = email -> email.isImpotant();
+        Consumer<Email> printEmail = email ->
+                System.out.println("Обработано письмо: " + email.getSubject());
+
+        System.out.println("==================");
+
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        EmailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
         manager.removeItem(
                 siegward ,
                 (item) -> item.getName().equals("Hollowslayer Greatsword")
