@@ -1,7 +1,6 @@
 package school.faang.bjs2_33737.sevice;
 
 import org.junit.jupiter.api.Test;
-import school.faang.bjs2_33737.constans.ErrMessagesValidate;
 import school.faang.bjs2_33737.model.Email;
 
 import java.util.List;
@@ -27,19 +26,19 @@ class EmailProcessorTest {
 
         IllegalArgumentException illegalArgumentExceptionEmailsNull = assertThrows(IllegalArgumentException.class,
                 () -> emailProcessor.processEmails(null, emailFilter, emailUpdateBody, processedEmail));
-        assertEquals(ErrMessagesValidate.EMAILS_IS_NULL, illegalArgumentExceptionEmailsNull.getMessage());
+        assertEquals("the emails list cannot be null", illegalArgumentExceptionEmailsNull.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionEmailFilterNull = assertThrows(IllegalArgumentException.class,
                 () -> emailProcessor.processEmails(emails, null, emailUpdateBody, processedEmail));
-        assertEquals(ErrMessagesValidate.EMAIL_FILTER_IS_NULL, illegalArgumentExceptionEmailFilterNull.getMessage());
+        assertEquals("the email filter cannot be null", illegalArgumentExceptionEmailFilterNull.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionEmailUpdateBodyNull = assertThrows(IllegalArgumentException.class,
                 () -> emailProcessor.processEmails(emails, emailFilter, null, processedEmail));
-        assertEquals(ErrMessagesValidate.EMAIL_BODY_TRANSFORMER_IS_NULL, illegalArgumentExceptionEmailUpdateBodyNull.getMessage());
+        assertEquals("the email body transformer cannot be null", illegalArgumentExceptionEmailUpdateBodyNull.getMessage());
 
         IllegalArgumentException illegalArgumentExceptionEmailProcessorNull = assertThrows(IllegalArgumentException.class,
                 () -> emailProcessor.processEmails(emails, emailFilter, emailUpdateBody, null));
-        assertEquals(ErrMessagesValidate.EMAIL_PROCESSOR_IS_NULL, illegalArgumentExceptionEmailProcessorNull.getMessage());
+        assertEquals("the email processor cannot be null", illegalArgumentExceptionEmailProcessorNull.getMessage());
 
         emailProcessor.processEmails(emails, emailFilter, emailUpdateBody, processedEmail);
         Email resultEmail = emails.get(0);
