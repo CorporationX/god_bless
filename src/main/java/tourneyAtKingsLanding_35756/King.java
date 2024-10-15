@@ -21,7 +21,7 @@ public class King {
 
         executor.shutdown();
         try {
-            if(!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("Испытания окончены");
                 executor.shutdownNow();
             }
