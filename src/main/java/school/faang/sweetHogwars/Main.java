@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.sweetHogwars;
 
 public class Main {
     public static void main(String[] args) {
