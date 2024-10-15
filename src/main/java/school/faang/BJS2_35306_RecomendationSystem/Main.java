@@ -5,9 +5,9 @@ import java.util.Optional;
 
 public class Main {
     private static final JsonLoader JSON_LOADER = new JsonLoader();
-    private static final String USERS_PROFILES_FILE_PATH = "src/main/files/user_profiles.json";
-    private static final String PRODUCTS_FILE_PATH = "src/main/files/products.json";
-    private static final String PRODUCTS_ORDERS_FILE_PATH = "src/main/files/product_orders.json";
+    private static final String USERS_PROFILES_FILE_PATH = "src/main/files/RecomendationSystem/user_profiles.json";
+    private static final String PRODUCTS_FILE_PATH = "src/main/files/RecomendationSystem/products.json";
+    private static final String PRODUCTS_ORDERS_FILE_PATH = "src/main/files/RecomendationSystem/product_orders.json";
 
     public static void main(String[] args) {
         List<UserProfile> users = JSON_LOADER.loadJson(USERS_PROFILES_FILE_PATH, UserProfile.class);
