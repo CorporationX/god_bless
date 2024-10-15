@@ -1,6 +1,10 @@
 package school.faang.godbless.bjs2_35878;
 
 import org.junit.jupiter.api.Test;
+import school.faang.godbless.bjs2_35878.units.Archer;
+import school.faang.godbless.bjs2_35878.units.Assassin;
+import school.faang.godbless.bjs2_35878.units.Mage;
+import school.faang.godbless.bjs2_35878.units.Swordsman;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

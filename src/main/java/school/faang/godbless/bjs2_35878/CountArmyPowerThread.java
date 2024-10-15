@@ -1,6 +1,7 @@
 package school.faang.godbless.bjs2_35878;
 
 import lombok.Getter;
+import school.faang.godbless.bjs2_35878.units.Fighter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,6 @@ public class CountArmyPowerThread extends Thread {
     public void addUnit(Fighter fighter) {
         fighters.add(fighter);
     }
-
 
     @Override
     public void start() {

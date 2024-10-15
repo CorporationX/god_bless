@@ -1,5 +1,7 @@
 package school.faang.godbless.bjs2_35878;
 
+import school.faang.godbless.bjs2_35878.units.Fighter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -50,4 +52,6 @@ public class Army {
             return thread.getPower();
         }).sum();
     }
+
+
 }

@@ -1,4 +1,4 @@
-package school.faang.godbless.bjs2_35878;
+package school.faang.godbless.bjs2_35878.units;
 
 public class Archer extends Fighter {
     public Archer(int power) {
