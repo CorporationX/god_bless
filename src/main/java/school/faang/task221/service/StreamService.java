@@ -15,14 +15,19 @@ public class StreamService {
     }
 
     public static int maxNumber(List<Integer> list) {
+        if ((list.size()==0)){
+            throw new RuntimeException("Список пуст");
+        }
         return list.stream()
                 .max(Integer::compareTo)
                 .orElse(0);
     }
 
     public static double avg(List<Integer> list) {
-        int count = list.stream().mapToInt(Integer::intValue).sum();
-        return count / list.size();
+        return list.stream()
+                .mapToInt(Integer::intValue)
+                .average()
+                .orElse(0);
     }
 
     public static int countStringWithSimilarStart(List<String> list, String startWith) {
@@ -51,9 +56,14 @@ public class StreamService {
     }
 
     public static int findSmallestNumber(List<Integer> list, int number) {
+        if ((list.size()==0)){
+            throw new RuntimeException("Список пуст");
+        }
+
         return list.stream()
                 .filter(listNumber -> listNumber > number)
-                .min(Integer::compareTo).orElse(0);
+                .min(Integer::compareTo)
+                .orElse(0);
     }
 
     public static List<Integer> getListOfStringsSize(List<String> list) {
