@@ -7,10 +7,10 @@ public class Main {
         Item ring = new Item("The One Ring", 1000);
         InventoryManager manager = new InventoryManager();
 
-        manager.addItem(ring, frodo, item -> System.out.println(item.getName() + " was added to the inventory"));
-        manager.removeItem(frodo, item -> item.getName().equals("The One Ring"));
+        frodo.addItem(ring, frodo, item -> System.out.println(item.getName() + " was added to the inventory"));
+        frodo.removeItem(frodo, item -> item.getName().equals("The One Ring"));
 
-        manager.addItem(ring, frodo, item -> System.out.println(item.getName() + " again added to the inventory"));
+        frodo.addItem(ring, frodo, item -> System.out.println(item.getName() + " again added to the inventory"));
         manager.updateItem(frodo, item -> item.getName().equals("The One Ring"), item -> new Item(item.getName(), item.getPrice() * 2));
 
         frodo.getInventory().forEach(item -> System.out.println(item.getName() + ": " + item.getPrice()));
