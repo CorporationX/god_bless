@@ -4,4 +4,5 @@ public class Mage extends Character {
     public Mage(int strength) {
         super(strength);
     }
+
 }

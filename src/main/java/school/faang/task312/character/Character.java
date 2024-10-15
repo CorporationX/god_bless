@@ -8,3 +8,4 @@ import lombok.Data;
 public abstract class Character {
     int strength;
 }
+

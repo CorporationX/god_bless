@@ -4,4 +4,5 @@ public class Archer extends Character {
     public Archer(int strength) {
         super(strength);
     }
+
 }

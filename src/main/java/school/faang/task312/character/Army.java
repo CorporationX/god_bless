@@ -26,4 +26,6 @@ public class Army {
     public void addUnit(Character character) {
         characters.add(character);
     }
+
+
 }

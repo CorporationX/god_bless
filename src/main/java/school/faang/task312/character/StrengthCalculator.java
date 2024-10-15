@@ -12,4 +12,5 @@ public class StrengthCalculator implements Callable<Integer> {
     public Integer call() throws Exception {
         return character.getStrength();
     }
+
 }
