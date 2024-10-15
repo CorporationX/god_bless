@@ -2,6 +2,7 @@ package job.microsoft;
 
 public class MailSender {
     public static void main(String[] args) throws InterruptedException {
+
         int threadCount = 5;
         int mailQueue = 1000;
         int mailPerThread = mailQueue / threadCount;
@@ -11,9 +12,12 @@ public class MailSender {
             int startIndex = i * mailPerThread;
             int endIndex = startIndex + mailPerThread;
             threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
-            threads[i].start();
-            threads[i].join();
+            try {
+                threads[i].start();
+                threads[i].join();
+            } catch (Exception e) {
+                System.out.println("Ошибка запуска потока " + e.getMessage());
+            }
         }
-
     }
 }

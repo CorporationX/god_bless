@@ -17,9 +17,7 @@ public class SenderRunnable implements java.lang.Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Message sended" + i);
+            System.out.println("Message sended " + i);
         }
     }
-
-
 }
