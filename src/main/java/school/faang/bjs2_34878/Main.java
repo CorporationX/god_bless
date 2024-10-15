@@ -15,5 +15,7 @@ public class Main {
 
         Image finalImage = processor2.applyFilter(image, combinedFilter);
         System.out.println("After combining Filters ; "+ finalImage.getDescription());
+
+        //conflicts dealing now
     }
 }
