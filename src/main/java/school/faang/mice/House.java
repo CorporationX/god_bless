@@ -38,7 +38,7 @@ public class House {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
         scheduler.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if (house.rooms.isEmpty()) {
+            if (house.getRooms().isEmpty()) {
                 latch.countDown();
             }
         }, 0, 30, TimeUnit.SECONDS);
