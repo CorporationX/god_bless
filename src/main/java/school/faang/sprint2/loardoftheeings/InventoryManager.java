@@ -13,19 +13,8 @@ public class InventoryManager {
     }
 
     public void removeItem(Character character, Predicate<Item> itemPredicate) {
-        Item rawItem = null;
-        for (Item item : character.getInventory()) {
-            if (itemPredicate.test(item)) {
-                rawItem = item;
-                break;
-            }
-        }
-        if (rawItem == null) {
-            System.out.println("предмет не найдино");
-            return;
-        }
         character.getInventory().removeIf(itemPredicate);
-        System.out.println("Предмет" + rawItem.getName() + "был удален из инвентара" + character);
+        System.out.println("Предмет" + itemPredicate + "был удален из инвентара" + character);
     }
 
     public void updateItem(Character character, Predicate<Item> itemPredicate, Function<Item, Item> itemUpdate) {
