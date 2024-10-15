@@ -17,9 +17,7 @@ public class House {
     private static final int ALL_FOOD_SIZE = 15;
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
-    
     private final String name;
-
 
     public static void main(String[] args) {
         House tomHouse = new House("tomHouse");
