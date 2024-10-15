@@ -1,6 +1,9 @@
 package school.faang.BJS2_32428;
 
 import org.junit.jupiter.api.Test;
+import school.faang.firstStream.BJS2_32428.House;
+import school.faang.firstStream.BJS2_32428.Main;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class HousesTest {

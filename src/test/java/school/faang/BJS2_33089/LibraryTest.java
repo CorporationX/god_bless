@@ -2,6 +2,8 @@ package school.faang.BJS2_33089;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import school.faang.firstStream.BJS2_33089.Book;
+import school.faang.firstStream.BJS2_33089.Library;
 
 import static org.junit.jupiter.api.Assertions.*;
 

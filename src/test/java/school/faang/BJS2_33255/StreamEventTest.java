@@ -1,6 +1,8 @@
 package school.faang.BJS2_33255;
 
 import org.junit.jupiter.api.Test;
+import school.faang.firstStream.BJS2_33255.Main;
+import school.faang.firstStream.BJS2_33255.StreamEvent;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;

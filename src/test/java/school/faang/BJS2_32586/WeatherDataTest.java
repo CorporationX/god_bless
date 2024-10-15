@@ -1,6 +1,9 @@
 package school.faang.BJS2_32586;
 
 import org.junit.jupiter.api.Test;
+import school.faang.firstStream.BJS2_32586.City;
+import school.faang.firstStream.BJS2_32586.Main;
+import school.faang.firstStream.BJS2_32586.WeatherData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
