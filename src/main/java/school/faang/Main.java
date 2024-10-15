@@ -1,5 +1,6 @@
 package school.faang;
 
+
 import school.faang.instagram.services.FilterProcessor;
 import school.faang.instagram.services.Image;
 
@@ -18,7 +19,14 @@ public class Main {
                 image.getName(),
                 image.getDescription() + " | Фильтр: сепия"
         );
+        Predicate<Email> importantFilter = email -> email.isImpotant();
+        Consumer<Email> printEmail = email ->
+                System.out.println("Обработано письмо: " + email.getSubject());
 
+        System.out.println("==================");
+
+        Function<Email, String> toUpperCase = email -> email.getBody().toUpperCase();
+        EmailProcessor.processEmails(emails, importantFilter, toUpperCase, printEmail);
         Function<Image, Image> vignette = (image) -> new Image(
                 image.getName(),
                 image.getDescription() + " | Фильтр: виньетка"
