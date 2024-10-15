@@ -26,12 +26,12 @@ public class Main {
             }
         });
 
-        int total_revenue = Arrays.stream(cashiers).
+        int totalRevenue = Arrays.stream(cashiers).
                 mapToInt(CashierThread::getTotalMoneyEarned).
                 sum();
 
         System.out.println("Work is done");
-        System.out.printf("%d customers served, $%d total revenue", customers.length, total_revenue);
+        System.out.printf("%d customers served, $%d total revenue", customers.length, totalRevenue);
 
     }
 }
