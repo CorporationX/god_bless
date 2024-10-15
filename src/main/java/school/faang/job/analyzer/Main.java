@@ -15,11 +15,11 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Main {
-    public static final String PATH = "src/main/resources/vacancies.json";
+    public static final String PATH_TO_VACANCIES = "src/main/resources/data_input/vacancies.json";
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) throws IOException {
-        Path path = Paths.get(PATH);
+        Path path = Paths.get(PATH_TO_VACANCIES);
         try (Stream<String> lines = Files.lines(path)) {
             String inputStrings = lines
                     .collect(Collectors.joining());

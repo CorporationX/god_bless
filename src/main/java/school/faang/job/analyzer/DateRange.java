@@ -5,7 +5,6 @@ import lombok.Getter;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.function.Supplier;
 
 @Getter
 @AllArgsConstructor
@@ -40,14 +39,10 @@ public class DateRange implements Comparable<DateRange> {
 
     @Override
     public String toString() {
-        return defineToStringFunc().get();
-    }
-
-    private Supplier<String> defineToStringFunc() {
         return switch (granularity) {
-            case DAILY -> startDate::toString;
-            case WEEKLY -> () -> startDate.toString() + " - " + endDate.toString();
-            case MONTHLY -> () -> startDate.getMonth().toString();
+            case DAILY -> startDate.toString();
+            case WEEKLY -> startDate.toString() + " - " + endDate.toString();
+            case MONTHLY -> startDate.getMonth().toString();
         };
     }
 

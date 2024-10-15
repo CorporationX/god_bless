@@ -1,7 +1,6 @@
 package school.faang.job.analyzer;
 
 import java.time.LocalDate;
-import java.util.Comparator;
 import java.util.IntSummaryStatistics;
 import java.util.List;
 import java.util.Map;
@@ -15,25 +14,29 @@ public class DataAnalyzer {
     public static final int SALARY_RANGE_DELTA = 50000;
 
     public List<String> mostPopularRequirements(List<Job> jobs) {
-        Map<String, Long> requirementToMentionCount = jobs.stream()
+        return jobs.stream()
                 .flatMap(job -> job.getRequirements().stream())
                 .collect(Collectors.groupingBy(
                         Function.identity(),
                         Collectors.counting()
-                ));
-        return getTopBy(requirementToMentionCount, 5,
-                (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+                )).entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public List<String> mostPopularPositions(List<Job> jobs) {
-        Map<String, Long> positionToJobCount = jobs.stream()
+        return jobs.stream()
                 .map(Job::getPosition)
                 .collect(Collectors.groupingBy(
                         Function.identity(),
                         Collectors.counting()
-                ));
-        return getTopBy(positionToJobCount, 5,
-                (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+                )).entrySet().stream()
+                .sorted(Map.Entry.<String,Long>comparingByValue().reversed())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public Map<Range, List<Job>> groupingBySalaryRange(List<Job> jobs) {
@@ -61,13 +64,16 @@ public class DataAnalyzer {
     }
 
     public List<String> mostPopularLocations(List<Job> jobs) {
-        Map<String, Long> locationToJobCount = jobs.stream()
+        return jobs.stream()
                 .map(Job::getLocation)
                 .collect(Collectors.groupingBy(
                         Function.identity(),
-                        Collectors.counting()));
-        return getTopBy(locationToJobCount, 5,
-                (entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+                        Collectors.counting())
+                ).entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public Map<DateRange, JobStatistic> analyzeTrends(List<Job> jobs, LocalDate startDate,
@@ -103,15 +109,6 @@ public class DataAnalyzer {
     private List<Job> getJobsInDateRange(List<Job> jobs, LocalDate startDate, LocalDate endDate) {
         return jobs.stream()
                 .filter(job -> DateRange.isDateInRange(job.getDatePosted(), startDate, endDate))
-                .toList();
-    }
-
-    private static <K, V> List<K> getTopBy(Map<K, V> requirementToMentionCount, int topSize,
-                                           Comparator<Map.Entry<K, V>> comparator) {
-        return requirementToMentionCount.entrySet().stream()
-                .sorted(comparator)
-                .limit(topSize)
-                .map(Map.Entry::getKey)
                 .toList();
     }
 }

@@ -9,6 +9,11 @@ import java.util.Set;
 import java.util.Stack;
 
 public class JobScraper {
+    private static final char QUOTATION_MARK = '"';
+    private static final char COMMA = ',';
+    private static final char CLOSED_BRACE = '}';
+    private static final char CLOSED_BRACKET = ']';
+    private static final char OPEN_BRACKET = '[';
     private static final Set<Character> PARSING_KEYS = Set.of(':', '[', ']');
 
     public static Job parseToJob(String json) {
@@ -18,13 +23,13 @@ public class JobScraper {
         String value;
         for (int i = 1; i < json.length(); i++) {
             char c = json.charAt(i);
-            if (c == '"' && stack.isEmpty() || PARSING_KEYS.contains(c)) {
+            if (c == QUOTATION_MARK && stack.isEmpty() || PARSING_KEYS.contains(c)) {
                 stack.push(i);
-            } else if (c == ',' || c == '}' || i == json.length() - 1) {
-                if (json.charAt(stack.peek()) == '[') {
+            } else if (c == COMMA || c == CLOSED_BRACE || i == json.length() - 1) {
+                if (json.charAt(stack.peek()) == OPEN_BRACKET) {
                     continue;
                 }
-                if (json.charAt(stack.peek()) == ']') {
+                if (json.charAt(stack.peek()) == CLOSED_BRACKET) {
                     stack.pop();
                     stack.pop();
                 }
