@@ -32,8 +32,9 @@ public class Main {
     }
 
     private static List<String> sortCountriesGetCapitals(Map<String, String> countries) {
-        return countries.values().stream()
-                .sorted()
+        return countries.entrySet().stream()
+                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .map(Map.Entry::getValue)
                 .toList();
     }
 
