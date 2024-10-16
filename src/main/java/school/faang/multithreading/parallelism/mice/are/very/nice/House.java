@@ -1,12 +1,14 @@
 package school.faang.multithreading.parallelism.mice.are.very.nice;
 
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 @Getter
 public class House {
     private List<Room> rooms;
@@ -20,7 +22,7 @@ public class House {
                 .filter(Room::hasFood)
                 .toList();
         if (roomsWithFood.isEmpty()) {
-            System.out.println("Нет еды для сбора");
+            log.info("Нет еды для сбора");
             return Collections.emptyList();
         }
         if (roomsWithFood.size() == 1) {

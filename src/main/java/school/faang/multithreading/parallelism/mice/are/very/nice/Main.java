@@ -1,14 +1,17 @@
 package school.faang.multithreading.parallelism.mice.are.very.nice;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
     private final static int THREAD_POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Food food1 = new Food("Food1");
         Food food2 = new Food("Food2");
         Food food3 = new Food("Food3");
@@ -46,18 +49,17 @@ public class Main {
         executor.scheduleAtFixedRate(
                 () -> {
                     List<Food> foods = house.collectFood();
-                    System.out.println("Поток: " + Thread.currentThread().getName() + " собрал еду: " + foods);
+                    log.info("Поток: {} собрал еду: {}", Thread.currentThread().getName(), foods);
                 },
                 0, 30, TimeUnit.SECONDS
         );
-        executor.schedule(
-                () -> {
-                    executor.shutdown();
-                    boolean noFoodInHose = house.getRooms().stream()
-                            .noneMatch(Room::hasFood);
-                    System.out.println("В доме " + (noFoodInHose ? "не осталось еды" : "есть еда"));
-                },
-                2, TimeUnit.MINUTES
-        );
+
+        executor.schedule(executor::shutdown, 2, TimeUnit.MINUTES);
+
+        if (executor.awaitTermination(3, TimeUnit.MINUTES)) {
+            boolean noFoodInHouse = house.getRooms().stream()
+                    .noneMatch(Room::hasFood);
+            log.info("В доме {}", noFoodInHouse ? "не осталось еды" : "есть еда");
+        }
     }
 }
