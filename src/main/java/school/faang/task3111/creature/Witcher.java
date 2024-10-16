@@ -24,23 +24,23 @@ public class Witcher {
             monstersNearSecondCity.add(new Monster("Monstre№" + i, new Location(random.nextInt(180), random.nextInt(180))));
         }
 
-        CityWorker firstCityWorker = new CityWorker(firstCity,monstersNearFirstCity);
-        CityWorker secondCityWorker = new CityWorker(secondCity,monstersNearSecondCity);
+        CityWorker firstCityWorker = new CityWorker(firstCity, monstersNearFirstCity);
+        CityWorker secondCityWorker = new CityWorker(secondCity, monstersNearSecondCity);
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
         executor.submit(firstCityWorker);
         executor.submit(secondCityWorker);
 
         executor.shutdown();
-            try {
-                if(!executor.awaitTermination(1, TimeUnit.MINUTES)){
-                    executor.shutdownNow();
-                    System.out.println("Something went wrong, shut down task now");
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Something went wrong");
-                throw new RuntimeException(e.getMessage());
+        try {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+                System.out.println("Something went wrong, shut down task now");
             }
+        } catch (InterruptedException e) {
+            System.out.println("Something went wrong");
+            throw new RuntimeException(e.getMessage());
+        }
         System.out.println("Оптимальные расстояния найдены!");
     }
 }

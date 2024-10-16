@@ -5,6 +5,7 @@ import school.faang.task3111.city.City;
 import school.faang.task3111.city.Location;
 
 import java.util.List;
+
 @AllArgsConstructor
 public class CityWorker implements Runnable {
     City city;
