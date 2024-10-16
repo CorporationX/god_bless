@@ -9,7 +9,7 @@ public class MailSender {
         int batchSize = 200;
         List<Thread> allThreads = new ArrayList<>();
 
-        for (int i = 0; i < 1000; i+=200) {
+        for (int i = 0; i < 1000; i += batchSize) {
             SenderRunnable senderRunnable = new SenderRunnable(i, i + batchSize);
             Thread thread = new Thread(senderRunnable);
             thread.start();
@@ -17,7 +17,7 @@ public class MailSender {
         }
 
         for (Thread thread : allThreads) {
-            try{
+            try {
                 thread.join();
             } catch (InterruptedException e) {
                 System.out.println("Thread is interrupted");
