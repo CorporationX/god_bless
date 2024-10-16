@@ -59,6 +59,8 @@ public class House {
         try {
             if (executor.awaitTermination(MAX_WAIT_TIME, TimeUnit.SECONDS)) {
                 System.out.println("Еда в доме собрана!");
+            } else if (house.isAllRoomsCollected()) {
+                System.out.println("Хоть время и вышло, но вся еда была собрана!");
             } else {
                 System.out.println("Не вся еда была собрана!");
             }
@@ -90,6 +92,10 @@ public class House {
                     }
             )
         );
+    }
+
+    public boolean isAllRoomsCollected() {
+        return uncheckedRooms.isEmpty();
     }
 
     private synchronized Optional<Room> getRandomRoom() {
