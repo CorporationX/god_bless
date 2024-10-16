@@ -33,7 +33,7 @@ public class Main {
 
     private static List<String> sortCountriesGetCapitals(Map<String, String> countries) {
         return countries.entrySet().stream()
-                .sorted(Comparator.comparing(Map.Entry::getKey))
+                .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
                 .toList();
     }
