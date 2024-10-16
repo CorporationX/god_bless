@@ -17,8 +17,7 @@ public class Chore implements Runnable {
             Thread.sleep(new Random().nextInt(5000 - 1000) + 1000);
             System.out.printf("Задача %s выполнена в потоке %s%n", chore, Thread.currentThread().getName());
         } catch (InterruptedException e) {
-            System.out.printf("Ошибка выполнения задачи %s в потоке %s%n", chore, Thread.currentThread().getName());
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Ошибка выполнения задачи %s в потоке %s%n".formatted(chore, Thread.currentThread().getName()));
         }
     }
 }
