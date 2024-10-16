@@ -1,17 +1,17 @@
-package school.faang.Sprint2.Meta;
-
 public class Main {
     public static void main(String[] args) {
 
         NotificationManager notificationManager = getNotificationManager();
 
-        Notification emailNotification = new Notification("email", "Ваша учетная запись успешно активирована");
         Notification smsNotification = new Notification("sms", "Вы успешно изменили свой пароль");
         Notification pushNotification = new Notification("push", "Новый пост от пользователя: JohnDoe");
+        Notification emailNotification = new Notification("email", "Новый пост от пользователя: JohnDoe");
+        Notification callNotification = new Notification("call", "Новый пост от пользователя: JohnDoe");
 
         notificationManager.sendNotification(emailNotification);
         notificationManager.sendNotification(smsNotification);
         notificationManager.sendNotification(pushNotification);
+        notificationManager.sendNotification(callNotification);
     }
 
     private static NotificationManager getNotificationManager() {

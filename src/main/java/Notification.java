@@ -1,12 +1,10 @@
-package school.faang.Sprint2.Meta;
-
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
+@Data
 @Getter
-
 public class Notification {
     private String type;
     private String message;
