@@ -7,6 +7,8 @@ import java.util.concurrent.TimeUnit;
 public class King {
     private static final int THREAD_POOL_SIZE = 2;
     private static final int MAX_TIME_WAIT = 100;
+    private static final int TIME_SLEEP = 2000;
+
     public static void main(String[] args) {
         Knight first = new Knight("First");
         Knight second = new Knight("Second");
@@ -17,17 +19,20 @@ public class King {
         second.addTrial(new Trial("Second", "Second_trial"));
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        first.startTrials(executor);
-        second.startTrials(executor);
 
-        executor.shutdown();
+        executor.submit(() -> first.startTrials(executor));
+        executor.submit(() -> second.startTrials(executor));
 
         try {
-            if(!executor.awaitTermination(MAX_TIME_WAIT, TimeUnit.SECONDS)) {
+            Thread.sleep(TIME_SLEEP);
+
+            executor.shutdown();
+
+            if(executor.awaitTermination(MAX_TIME_WAIT, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            executor.shutdownNow();
+            throw new RuntimeException(e);
         }
     }
 }
