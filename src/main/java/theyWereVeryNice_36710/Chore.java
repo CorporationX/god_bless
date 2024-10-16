@@ -10,6 +10,7 @@ public record Chore(String chore) implements Runnable {
             System.out.println("--------Задание \"" + chore + "\" выполнено---------");
         } catch (InterruptedException e) {
             System.out.println("Задание \"" + chore + "\" было прервано.");
+            e.printStackTrace();
         }
     }
 }
