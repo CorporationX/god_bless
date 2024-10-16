@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 public class MailSender {
-  public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
     List<Message> messages = new ArrayList<>();
     Random random = new Random();
 
@@ -32,8 +32,13 @@ public class MailSender {
     }
 
     for (int i = 0; i < numberOfThreads; i++) {
-      threads[i].join();
+      try {
+        threads[i].join();
+      } catch (InterruptedException e) {
+        System.err.printf("Ошибка при ожидании завершения потока: %s", e.getMessage());
+      }
     }
+
 
     System.out.println("Все сообщения отправленны!!!");
   }
