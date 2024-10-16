@@ -12,10 +12,10 @@ public class MailSendler {
         for (int i = 0; i < threadsCount; i++) {
             int start = i * batchSize;
             int end = (i + 1) * batchSize;
-            threads [i] =new Thread(new SanderRunnable(start,end));
+            threads[i] = new Thread(new SanderRunnable(start, end));
             threads[i].start();
         }
-        for(Thread thread :threads){
+        for (Thread thread : threads) {
             try {
                 thread.join();
             } catch (InterruptedException e) {
