@@ -16,6 +16,6 @@ public class SenderRunnable implements Runnable{
     @Override
     public void run() {
         IntStream.range(startIndex, endIndex)
-                .forEach(i -> System.out.println("Mail sent: " + i));
+                .forEach(i -> System.out.println(Thread.currentThread().getName() + " : " + "Mail sent: " + i));
     }
 }

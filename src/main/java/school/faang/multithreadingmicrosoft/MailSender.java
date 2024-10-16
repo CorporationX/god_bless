@@ -1,10 +1,11 @@
 package school.faang.multithreadingmicrosoft;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalMails = 1000;
         int quantityThread = 5;
         int packet = totalMails / quantityThread;
@@ -18,9 +19,13 @@ public class MailSender {
             threadList.get(i).start();
         }
 
-        for (Thread thread : threadList) {
-            thread.join();
+        try {
+            for (Thread thread : threadList) {
+                thread.join();
+            }
+            System.out.println("All sent!!!");
+        } catch (InterruptedException e) {
+            System.out.println(Arrays.toString(e.getStackTrace()));
         }
-        System.out.println("All sent!!!");
     }
 }
