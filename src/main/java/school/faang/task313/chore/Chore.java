@@ -12,7 +12,7 @@ public class Chore implements Runnable {
             Thread.sleep(3000);
             System.out.println(Thread.currentThread().getName() + " " + chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e.getMessage());
         }
     }
 }

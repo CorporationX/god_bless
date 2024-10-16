@@ -8,5 +8,4 @@ import java.util.concurrent.Executors;
 @Data
 public class WeasleyFamily {
     private String[] chores = new String[]{"помыть посуду", "подмести пол", "приготовить ужин"};
-    private ExecutorService service = Executors.newCachedThreadPool();
 }
