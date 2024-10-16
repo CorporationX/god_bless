@@ -30,7 +30,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Thread has been interrupted" + e.getMessage(), e);
             }
         }
         return unitsPower.entrySet().stream().mapToInt(Map.Entry::getValue).sum();
