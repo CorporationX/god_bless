@@ -10,13 +10,9 @@ public class House {
     Random random = new Random();
 
     public void collectFood() {
-        boolean flag = false;
-        for (Room room : roomsList) {
-            if (!room.foodList().isEmpty()) {
-                flag = true;
-                break;
-            }
-        }
+
+        boolean flag = roomsList.stream().anyMatch(room -> !room.foodList().isEmpty());
+
         if (flag) {
             int i = 0;
             while (i < 2) {

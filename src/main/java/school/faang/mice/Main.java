@@ -9,8 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int POOL_SIZE = 5;
 
-    public static void main(String[] args) throws InterruptedException {
-
+    public static void main(String[] args) {
 
         List<Food> foodList1 = new ArrayList<>(List.of(
                 new Food("Bread"),
@@ -48,20 +47,23 @@ public class Main {
         house.roomsList.add(new Room(foodList3));
         house.roomsList.add(new Room(foodList4));
         house.roomsList.add(new Room(foodList5));
-        house.roomsList.add(new Room(foodList1));
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(POOL_SIZE);
 
         for (int i = 0; i < POOL_SIZE; i++) {
-            scheduler.scheduleAtFixedRate(() ->
-                    house.collectFood(), 0, 30, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
-        scheduler.schedule(() -> {
-            scheduler.shutdown();
-        }, 20, TimeUnit.SECONDS);
+        scheduler.shutdown();
+
         try {
-            if (scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (scheduler.awaitTermination(60, TimeUnit.SECONDS) &&
+                    (house.roomsList.stream().allMatch(room -> room.foodList().isEmpty()))) {
                 System.out.println("Foods collected");
             } else {
                 System.out.println("Waiting time expired.  Forcing shutdown.");
