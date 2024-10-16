@@ -29,6 +29,7 @@ public class WeasleyFamily {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            e.printStackTrace();
             executor.shutdownNow();
         }
     }
