@@ -13,7 +13,7 @@ public class Chore implements Runnable{
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new IllegalStateException("Interrupted while doing the chore: " + chore, e);
+            throw new IllegalStateException(String.format("Interrupted while doing the chore: %s\n", chore), e);
         }
         System.out.printf("Thread with name '%s' has completed the chore: %s\n", Thread.currentThread().getName(), chore);
     }
