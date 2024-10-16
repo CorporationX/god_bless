@@ -13,20 +13,19 @@ public class Main {
     public static void main(String[] args) throws IOException {
         File jsonFile = new File(PATH_TO_FILE);
         ObjectMapper objectMapper = new ObjectMapper();
-        PerformanceAnalysisService PerfAnalyzer = new PerformanceAnalysisService();
+        PerformanceAnalysisService perfAnalyzer = new PerformanceAnalysisService();
         List<Student> students = objectMapper.readValue(jsonFile, new TypeReference<>() {
         });
         System.out.println("Отчет об успеваемости: ");
-        PerfAnalyzer.printPerformanceTable(students);
+        perfAnalyzer.printPerformanceTable(students);
 
         System.out.println("Средняя оценка по каждому предмету: ");
-        System.out.println(PerfAnalyzer.averageMarkBySubject(students));
+        System.out.println(perfAnalyzer.averageMarkBySubject(students));
 
-        var student = students.get(0);
         System.out.println("Итоговые оценки по всем предметам Олега Сидорова: ");
-        System.out.println(PerfAnalyzer.finalMarkBySubject(students,
-                student.getFirstName(), student.getLastName()));
+        System.out.println(perfAnalyzer.finalMarkBySubject(students,
+                "Олег", "Сидоров"));
 
-        System.out.println("Самый сложный предмет: " + PerfAnalyzer.findMostDifficultSubject(students));
+        System.out.println("Самый сложный предмет: " + perfAnalyzer.findMostDifficultSubject(students));
     }
 }

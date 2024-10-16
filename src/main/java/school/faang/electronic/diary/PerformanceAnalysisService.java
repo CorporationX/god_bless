@@ -29,8 +29,17 @@ public class PerformanceAnalysisService {
     }
 
     public Map<String, Integer> finalMarkBySubject(List<Student> students, String firstName, String lastname) {
+        if (students == null || students.isEmpty()) {
+            throw new IllegalArgumentException("список студентов не может быть пустым");
+        }
+        if (firstName == null || firstName.isEmpty()) {
+            throw new IllegalArgumentException("имя не может быть пустым");
+        }
+        if (lastname == null || lastname.isEmpty()) {
+            throw new IllegalArgumentException("фамилия не может быть пустой");
+        }
         return students.stream()
-                .filter(student -> student.getFirstName().equals(firstName) && student.getLastName().equals(lastname))
+                .filter(student -> firstName.equals(student.getFirstName()) && lastname.equals(student.getLastName()))
                 .limit(1)
                 .flatMap(student -> student.getCourses().entrySet().stream())
                 .collect(Collectors.toMap(
@@ -38,7 +47,7 @@ public class PerformanceAnalysisService {
                         entry -> (int) Math.round(entry.getValue().stream()
                                 .mapToInt(Integer::intValue)
                                 .average()
-                                .orElseThrow(() -> new IllegalArgumentException("У студента нет оценок по предмету"))),
+                                .orElse(0.0)),
                         (mark1, mark2) -> (int) Math.round((mark1 + mark2) / 2.0)
                 ));
     }
@@ -58,7 +67,7 @@ public class PerformanceAnalysisService {
         System.out.printf("| %-5s | %-15s%n", "%", "Итоговая оценка");
 
         for (Student student : students) {
-            System.out.printf("%-19s ", student.getFirstName() + " " + student.getLastName());
+            System.out.printf("%-19s ", student);
 
             Map<String, Integer> subjectToFinalMark = finalMarkBySubject(students,
                     student.getFirstName(), student.getLastName());
