@@ -5,7 +5,7 @@ import lombok.Getter;
 public class PowerCalculator implements Runnable {
     Warrior warrior;
     @Getter
-    int power;
+    private int power;
 
     public PowerCalculator(Warrior warrior) {
         this.warrior = warrior;
