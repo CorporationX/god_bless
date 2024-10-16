@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final int THREAD_POOL_SIZE = 5;
     private static final long DELAY = 0;
-    private static final long PERIOD = 5;
+    private static final long PERIOD = 30;
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
     private final String name;
