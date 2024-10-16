@@ -4,7 +4,7 @@ package school.faang.Sprint2.Instagram;
 import java.util.function.Function;
 
 public class Main {
-    public static void main (String[] args) {
+    public static void main(String[] args) {
         Image originalImage = new Image("original.jpg", "Оригинальное изображение");
 
         FilterProcessor filterProcessor = new FilterProcessor();
