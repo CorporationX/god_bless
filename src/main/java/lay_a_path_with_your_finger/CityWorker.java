@@ -17,16 +17,16 @@ public class CityWorker implements Runnable {
      */
     @Override
     public void run() {
-        var city_location = city.getLocation();
-        var distance_of_city = calculateDistance(city_location, THE_WITCHERS_CASTLE);
+        var cityLocation = city.getLocation();
+        var distanceOfCity = calculateDistance(cityLocation, THE_WITCHERS_CASTLE);
 
         monsters.forEach(monster -> {
-            double monster_distance = calculateDistance(monster.getLocation(), city_location);
-            monster.setDistanceFromCity(monster_distance);
+            double monsterDistance = calculateDistance(monster.getLocation(), cityLocation);
+            monster.setDistanceFromCity(monsterDistance);
         });
 
-        monsters.stream().filter(monster -> monster.getDistanceFromCity() <= distance_of_city).forEach(monster -> {
-            System.out.printf("Расстояние от замка до мостра - %s: %.2f%n", monster.getName(), monster.getDistanceFromCity() + distance_of_city);
+        monsters.stream().filter(monster -> monster.getDistanceFromCity() <= distanceOfCity).forEach(monster -> {
+            System.out.printf("Расстояние от замка до мостра - %s: %.2f%n", monster.getName(), monster.getDistanceFromCity() + distanceOfCity);
         });
     }
 
