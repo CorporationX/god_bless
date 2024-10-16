@@ -11,6 +11,4 @@ public class Pairs {
         this.firstNum = firstNum;
         this.secondNum = secondNum;
     }
-
-
 }
