@@ -28,10 +28,10 @@ public class Main {
 
     House house = new House(rooms);
 
+    ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
+    scheduledExecutorService.scheduleAtFixedRate(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
 
-    try (ScheduledExecutorService scheduledExecutorService = Executors.newScheduledThreadPool(THREAD_POOL_SIZE)) {
-      scheduledExecutorService.scheduleAtFixedRate(house::collectFood, INITIAL_DELAY, PERIOD, TimeUnit.SECONDS);
-
+    try {
       while (!house.allFoodCollected()) {
         Thread.sleep(100);
       }
