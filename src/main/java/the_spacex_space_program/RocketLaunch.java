@@ -8,6 +8,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -52,7 +53,10 @@ public class RocketLaunch {
     public static void planRocketLaunches(List<RocketLaunch> launches) throws InterruptedException {
         long start = System.currentTimeMillis();
 
-        for (RocketLaunch launch : launches) {
+        List<RocketLaunch> mutableLaunches = new ArrayList<>(launches);
+        mutableLaunches.sort(Comparator.comparing(RocketLaunch::getLaunchTime));
+
+        for (RocketLaunch launch : mutableLaunches) {
             executorService.submit(() -> {
                 LocalDateTime launchDateTime = Instant.ofEpochMilli(launch.getLaunchTime())
                         .atZone(ZoneId.systemDefault())
