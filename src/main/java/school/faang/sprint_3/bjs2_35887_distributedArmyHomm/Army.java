@@ -15,7 +15,8 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println("Поток был прерван во время ожидания завершения: " + e.getMessage());
+                thread.interrupt();
             }
         }
 

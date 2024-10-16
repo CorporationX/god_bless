@@ -1,7 +1,7 @@
 package school.faang.sprint_3.bjs2_35887_distributedArmyHomm;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         Army army = new Army();
         army.addUnit(new Archer());
         army.addUnit(new Swordsman());
