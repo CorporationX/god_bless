@@ -19,10 +19,7 @@ public class Room {
         foods.add(food);
     }
 
-    public void removeAllFood(List<Food> collectedFoods) {
-        for (Food food : collectedFoods) {
-            foods.remove(food);
-        }
+    public void removeAllFood() {
         foods.clear();
     }
 

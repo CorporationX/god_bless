@@ -19,10 +19,10 @@ public class House {
         Room livingroom = new Room("Гостиная");
         Room badroom = new Room("Спальня");
         Room hall = new Room("Спальня");
-        Room gamesRoom = new Room("Игровая ");
+        Room garage = new Room("Гараж");
+        Room gamesRoom = new Room("Игровая");
 
-
-        house.initializeHouse(house, kitchen, livingroom, badroom, hall, gamesRoom);
+        house.initializeHouse(house, kitchen, livingroom, badroom, hall, gamesRoom, garage);
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         executor.scheduleAtFixedRate(() -> {
@@ -30,44 +30,17 @@ public class House {
             if(house.allFoodCollected()){
                 executor.shutdown();
             }
-            System.out.println(Thread.currentThread().getName() + " собрал еду: " + house.allFood);
-
         }, 0, TIME_COllECT, TimeUnit.SECONDS);
 
 
-//            executor.shutdown();
-//
-//        try {
-//            if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
-//                System.out.println("Сбор еды завершен");
-//            }
-//        } catch (InterruptedException e) {
-//            System.out.println("Сбор еды не смог завершиться");
-//            executor.shutdownNow();
-//        }
-
-
-//        house.initializeHouse(house, kitchen, livingroom, badroom, hall, gamesRoom);
-//
-//        System.out.println(kitchen.getFoods() + "кухня");
-//        System.out.println(livingroom.getFoods() + "гос");
-//        System.out.println(badroom.getFoods() + "спал");
-//        System.out.println(hall.getFoods() + "hall");
-//        System.out.println(gamesRoom.getFoods() + "игр");
-//
-//        System.out.println();
-//        house.collectFood();
-//
-//        System.out.println();
-//
-//        System.out.println(kitchen.getFoods() + "кухня");
-//        System.out.println(livingroom.getFoods() + "гос");
-//        System.out.println(badroom.getFoods() + "спал");
-//        System.out.println(hall.getFoods() + "hall");
-//        System.out.println(gamesRoom.getFoods() + "игр");
-//
-//        System.out.println();
-//        house.allFood.forEach(System.out::println);
+        try {
+            if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
+                System.out.println("Сбор еды завершен");
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Сбор еды не смог завершиться");
+            executor.shutdownNow();
+        }
 
     }
 
@@ -76,19 +49,21 @@ public class House {
         rooms.add(room);
     }
 
-    public void initializeHouse(House house, Room kitchen, Room livingroom, Room badroom, Room hall, Room gamesRoom) {
+    public void initializeHouse(House house, Room kitchen, Room livingroom, Room badroom, Room hall, Room gamesRoom, Room garage) {
         kitchen.addFood(new Food("Apple"));
         kitchen.addFood(new Food("Bread"));
         livingroom.addFood(new Food("Cherry"));
         livingroom.addFood(new Food("Lemon"));
         badroom.addFood(new Food("Banana"));
-        hall.addFood(new Food("Cherry"));
+        hall.addFood(new Food("Kivy"));
         hall.addFood(new Food("Egg"));
+        garage.addFood(new Food("Tomato"));
         gamesRoom.addFood(new Food("Pizza"));
         house.addRoom(kitchen);
         house.addRoom(livingroom);
         house.addRoom(badroom);
         house.addRoom(hall);
+        house.addRoom(garage);
         house.addRoom(gamesRoom);
     }
 
@@ -100,8 +75,8 @@ public class House {
         if (rooms.size() < 2) return;
 
         if (room1.hasFood() && room2.hasFood() && !room1.equals(room2)) {
-            System.out.println(Thread.currentThread().getName() + " собирает еду из двух случайных комнат: "
-                    + room1.getName() + ", " + room2.getName());
+//            System.out.println(Thread.currentThread().getName() + " собирает еду из двух случайных комнат: "
+//                    + room1.getName() + ", " + room2.getName());
 
             List<Food> foodsRoom1 = room1.getFoods();
             List<Food> foodsRoom2 = room2.getFoods();
@@ -110,17 +85,17 @@ public class House {
             allFood.addAll(foodsRoom2);
 
 
-            room1.removeAllFood(foodsRoom1);
-            room2.removeAllFood(foodsRoom2);
+            room1.removeAllFood();
+            room2.removeAllFood();
 
-
-            System.out.println(Thread.currentThread().getName() + " завершил сбор еды" + allFood);
-        } else if (room1.equals(room2)) {
-            System.out.println(Thread.currentThread().getName() + " Сбор еды не производится в одной и той же комнате: "
-                    + room1.getName() + ", " + room2.getName());
-        } else {
-            System.out.println(Thread.currentThread().getName() + " Еда не собрана, комнаты уже опустошены: "
-                    + room1.getName() + ", " + room2.getName());
+//
+            System.out.println(Thread.currentThread().getName() + " собрал еду" + allFood);
+//        } else if (room1.equals(room2)) {
+//            System.out.println(Thread.currentThread().getName() + " Сбор еды не производится в одной и той же комнате: "
+//                    + room1.getName() + ", " + room2.getName());
+//        } else {
+//            System.out.println(Thread.currentThread().getName() + " Еда не собрана, комнаты уже опустошены: "
+//                    + room1.getName() + ", " + room2.getName());
         }
 
     }
