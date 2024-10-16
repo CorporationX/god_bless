@@ -1,5 +1,6 @@
 package school.faang.bjs2_33879.service;
 
+import lombok.NonNull;
 import school.faang.bjs2_33879.model.Character;
 import school.faang.bjs2_33879.model.Item;
 
@@ -12,8 +13,7 @@ import java.util.function.Predicate;
 public class InventoryManager {
     private final ValidatorInventoryManager validator = new ValidatorInventoryManager();
 
-    public void addItem(Character character, Item item, Consumer<Item> additionalAction) {
-        validator.validateAddItem(character, item, additionalAction);
+    public void addItem(@NonNull Character character, @NonNull Item item, @NonNull Consumer<Item> additionalAction) {
 
         List<Item> inventory = character.getInventory();
         if (inventory == null) {
@@ -25,8 +25,8 @@ public class InventoryManager {
         additionalAction.accept(item);
     }
 
-    public void removeItem(Character character, Item item, Predicate<Item> deletionCondition) {
-        validator.validateRemoveItem(character, item, deletionCondition);
+    public void removeItem(@NonNull Character character, @NonNull Item item, @NonNull Predicate<Item> deletionCondition) {
+        validator.validateInventoryNotNull(character);
 
         if (deletionCondition.test(item)) {
             List<Item> inventory = character.getInventory();
@@ -37,8 +37,8 @@ public class InventoryManager {
         }
     }
 
-    public void updateItem(Character character, Predicate<Item> updCondition, Function<Item, Item> updateAction) {
-        validator.validateUpdateItem(character, updCondition, updateAction);
+    public void updateItem(@NonNull Character character, @NonNull Predicate<Item> updCondition, @NonNull Function<Item, Item> updateAction) {
+        validator.validateInventoryNotNull(character);
 
         List<Item> inventory = character.getInventory();
         for (Item item : inventory) {
