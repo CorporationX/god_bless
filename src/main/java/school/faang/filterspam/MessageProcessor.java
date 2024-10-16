@@ -1,7 +1,10 @@
 package school.faang.filterspam;
 
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@NoArgsConstructor
 public class MessageProcessor {
 
     public boolean processMessage(String message, List<MessageFilter> filters) {
