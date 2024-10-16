@@ -6,21 +6,21 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
 
-    final static int FIXED_THREADS = 4;
+    private final static int FIXED_THREADS = 4;
 
     public static void main(String[] args) {
 
-        Task task_1 = new Task("Шелдон", "подготовка теории");
-        Task task_2 = new Task("Леонард", "моделирование эксперимента");
-        Task task_3 = new Task("Говард", "разработка инструментов");
-        Task task_4 = new Task("Раджеш", "анализ данных");
+        Task task1 = new Task("Шелдон", "подготовка теории");
+        Task task2 = new Task("Леонард", "моделирование эксперимента");
+        Task task3 = new Task("Говард", "разработка инструментов");
+        Task task4 = new Task("Раджеш", "анализ данных");
 
         ExecutorService executorService = Executors.newFixedThreadPool(FIXED_THREADS);
 
-        executorService.execute(task_1);
-        executorService.execute(task_2);
-        executorService.execute(task_3);
-        executorService.execute(task_4);
+        executorService.execute(task1);
+        executorService.execute(task2);
+        executorService.execute(task3);
+        executorService.execute(task4);
 
         executorService.shutdown();
 
