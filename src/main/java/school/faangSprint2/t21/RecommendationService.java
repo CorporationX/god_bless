@@ -16,8 +16,8 @@ public class RecommendationService {
 
     public RecommendationService(List<UserProfile> userProfiles, List<Product> products, List<ProductOrder> productOrders) {
         this.userProfiles = userProfiles;
-        this.products = filterValidProducts(products); // Фильтруем только валидные продукты
-        this.productOrders = filterValidOrders(productOrders, this.products); // Фильтруем заказы с существующими продуктами
+        this.products = filterValidProducts(products);
+        this.productOrders = filterValidOrders(productOrders, this.products);
         this.productMap = this.products.stream()
                 .collect(Collectors.toMap(Product::getProductId, p -> p));
     }
