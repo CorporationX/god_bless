@@ -20,7 +20,8 @@ public class WeasleyFamily {
                 System.out.println("Все сломалось!");
             }
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Произошла ошибка при выполнении задачи ", e);
         }
     }
 }

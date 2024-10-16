@@ -13,7 +13,8 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Произошла ошибка при выполнении задачи ", e);
         }
 
         System.out.println("Задача '" + chore + "' выполнена!");
