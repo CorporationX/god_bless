@@ -52,6 +52,4 @@ public class Army {
             return thread.getPower();
         }).sum();
     }
-
-
 }
