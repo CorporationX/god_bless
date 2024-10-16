@@ -11,7 +11,7 @@ public class GriffinsFoodDelivery {
             ExecutorService service = Executors.newFixedThreadPool(3);
             String[] charactersName = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
             for (String name : charactersName) {
-                service.submit(new FoodDeliveryTask(name, new Random().nextInt(100)));
+                service.submit(new FoodDeliveryTask(name, new Random().nextInt(100) + 1));
             }
             service.awaitTermination(5, TimeUnit.SECONDS);
             service.shutdown();
