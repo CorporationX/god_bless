@@ -13,10 +13,10 @@ public class TriangleAreaCalculator {
 
     // Метод для вычисления площади треугольника
     public Double calculateTriangleArea(double a, double b, double c) throws IllegalArgumentException {
-        if (a<=0 || b<=0 || c<=0 ||
-        add.apply(a).apply(b)<=c || add.apply(a).apply(c)<=b || add.apply(b).apply(c)<=a
+        if (a <= 0 || b <= 0 || c <= 0 ||
+                add.apply(a).apply(b) <= c || add.apply(a).apply(c) <= b || add.apply(b).apply(c) <= a
         ) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Such a triangle cannot exist");
         }
         Double halfPerimeter = divide.apply(
                 add.apply(
