@@ -1,10 +1,7 @@
 package spaceX_36290;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,22 +27,23 @@ public class RocketLaunch {
         }
     }
 
-    public void planRocketLaunches(List<RocketLaunch> launches){
+    public void planRocketLaunches(List<RocketLaunch> launches) {
         long start = System.currentTimeMillis();
         ExecutorService executorService = Executors.newSingleThreadExecutor();
-        for(RocketLaunch rocket : launches){
-                executorService.execute(() -> {
-                    try {
-                        Thread.sleep(rocket.launchTime);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                    rocket.launch();
-                });
+        for (RocketLaunch rocket : launches) {
+            executorService.execute(() -> {
+                try {
+                    Thread.sleep(rocket.launchTime);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                rocket.launch();
+            });
         }
+
         executorService.shutdown();
         try {
-            if(!executorService.awaitTermination(1, TimeUnit.MINUTES)){
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("Ракеты не все запустились!");
                 executorService.shutdownNow();
             }
@@ -55,9 +53,6 @@ public class RocketLaunch {
         }
         long end = System.currentTimeMillis();
         System.out.println("Время работы программы: " + (end - start) + " мс");
-
-
-
     }
 }
 
