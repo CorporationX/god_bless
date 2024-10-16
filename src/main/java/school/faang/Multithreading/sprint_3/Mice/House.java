@@ -75,8 +75,8 @@ public class House {
         if (rooms.size() < 2) return;
 
         if (room1.hasFood() && room2.hasFood() && !room1.equals(room2)) {
-            System.out.println(Thread.currentThread().getName() + " собирает еду из двух случайных комнат: "
-                    + room1.getName() + ", " + room2.getName());
+//            System.out.println(Thread.currentThread().getName() + " собирает еду из двух случайных комнат: "
+//                    + room1.getName() + ", " + room2.getName());
 
             List<Food> foodsRoom1 = room1.getFoods();
             List<Food> foodsRoom2 = room2.getFoods();
