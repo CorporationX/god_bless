@@ -35,7 +35,7 @@ public class Filter {
     //TODO Для закомментированного кода IDEA выдает предупреждение для result - "Reassigned local variable".
     // Стоит ли тут что-то с этим делать и зачем?
     // Чтобы не ругалась, переписал на Stream API и lambda
-    public static String obscureForbiddenWords(String message) {
+    private static String obscureForbiddenWords(String message) {
 //        String result = message;
 //        for (String word : FORBIDDEN_WORDS) {
 //            result = message.replaceAll(String.format(FORBIDDEN_WORD_REGEX, word), "***");
@@ -46,7 +46,7 @@ public class Filter {
                 .reduce(message, (result, word) -> result.replaceAll(String.format(FORBIDDEN_WORD_REGEX, word), "***"));
     }
 
-    public static String obscureSensitiveInfo(String message) {
+    private static String obscureSensitiveInfo(String message) {
         return message.replaceAll(SENSITIVE_INFO_REGEX, "password: ***");
     }
 }
