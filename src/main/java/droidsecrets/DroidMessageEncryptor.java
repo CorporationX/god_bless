@@ -1,5 +1,6 @@
 package droidsecrets;
 
+@FunctionalInterface
 public interface DroidMessageEncryptor {
-    String encryptAndDecrypt(String message, int encryptKey);
+    String apply(String message, int encryptKey);
 }
