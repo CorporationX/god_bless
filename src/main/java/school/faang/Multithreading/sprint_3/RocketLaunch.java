@@ -2,9 +2,7 @@ package school.faang.Multithreading.sprint_3;
 
 import lombok.Getter;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,79 +11,72 @@ import java.util.concurrent.TimeUnit;
 @Getter
 public class RocketLaunch {
     private String name;
-    private LocalTime launchTime;
+    private long launchTime;
 
     public RocketLaunch() {
-
     }
 
-    public RocketLaunch(String name, LocalTime launchTime) {
+    public RocketLaunch(String name, LocalDateTime launchTime) {
         validateParameters(name, launchTime);
 
         this.name = name;
-        this.launchTime = launchTime;
+        this.launchTime = launchTime.atZone(java.time.ZoneId.systemDefault()).toInstant().toEpochMilli();
     }
 
-    private void validateParameters(String name, LocalTime launchTime) {
+    private void validateParameters(String name, LocalDateTime launchTime) {
         if (name.isEmpty() || name.isBlank()) {
             throw new IllegalArgumentException("Ракета без имени");
-//        }else if(launchTime < 0){
-//            throw new IllegalArgumentException("Некорректное время запуска");
         }
     }
 
-
     public void planRocketLaunches(List<RocketLaunch> launches) {
+        long startTime = System.currentTimeMillis();
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        List<RocketLaunch> finishedLaunches = new ArrayList<>();
 
         for (RocketLaunch rocketLaunch : launches) {
-//            long millis =  rocketLaunch.getLaunchTime().getSecond() * 1000;
-            executor.execute(rocketLaunch::launch);
-            finishedLaunches.add(rocketLaunch);
-//            try {
-//                Thread.sleep(millis);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            executor.submit(() -> {
+                long waitTime = rocketLaunch.getLaunchTime() - startTime;
+                try {
+                    if (waitTime > 0) {
+                        Thread.sleep(waitTime);
+                    }
+                    rocketLaunch.launch();
+                } catch (InterruptedException e) {
+                    System.err.println("Операция была прервана ракетой " + this.name + ": " + e.getMessage());
+                    Thread.currentThread().interrupt();
+                }
+            });
         }
 
-        for (RocketLaunch finishedLaunch : finishedLaunches) {
-            launches.remove(finishedLaunch);
-        }
+        executor.shutdown();
+        awaitTermination(executor);
 
-        if (completedLaunches(launches)) {
-            executor.shutdown();
-            awaitTermination(executor);
-            System.out.println(System.currentTimeMillis());
-        }
+        long endTime = System.currentTimeMillis();
+        System.out.println("Время выполнения планирования запусков: " + (endTime - startTime) + " мс");
     }
 
     public void launch() {
         try {
-            System.out.print(Thread.currentThread().getName());
-            Thread.sleep(1000 * 3);
+            Thread.sleep(1000);
+            System.out.println("Ракета " + this.name + " запускается");
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Ракета " + this.name + " запускается");
-    }
-
-    private boolean completedLaunches(List<RocketLaunch> launches) {
-        return launches.isEmpty();
-    }
-
-    private void awaitTermination(ExecutorService executor) {
-        try {
-            if (executor.awaitTermination(60, TimeUnit.SECONDS)) {
-                System.out.println("Все запуски завершены.");
-            } else {
-                System.out.println("Некоторые запуски не завершились в указанный срок.");
-            }
-        } catch (InterruptedException e) {
-            System.err.println("Ошибка при ожидании завершения задач: " + e.getMessage());
+            System.err.println("Операция была прервана ракетой " + this.name + ": " + e.getMessage());
             Thread.currentThread().interrupt();
         }
     }
 
+    private void awaitTermination(ExecutorService executor) {
+        try {
+            if (executor.awaitTermination(60, TimeUnit.MINUTES)) {
+                System.out.println("Все запуски завершены.");
+            } else {
+                System.out.println("Некоторые запуски не завершились в указанный срок(час)");
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.err.println("Ошибка при ожидании завершения задач: " + e.getMessage());
+            executor.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
+    }
 }
