@@ -21,7 +21,7 @@ public class WeasleyFamily {
         });
         pool.shutdown();
         if (pool.awaitTermination(Long.MAX_VALUE, TimeUnit.MILLISECONDS)) {
-            throw new RuntimeException("Interrupt before chores pool terminated");
+            throw new IllegalStateException("Interrupt before chores pool terminated");
         }
     }
 }
