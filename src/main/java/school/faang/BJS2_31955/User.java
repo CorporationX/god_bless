@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.BJS2_31955;
 
 import lombok.Data;
 
@@ -14,20 +14,29 @@ import java.util.Set;
 public class User {
     public static final Set<String> VALID_JOBS = new HashSet<>(Arrays.asList("Google", "Uber", "Amazon"));
     public static final Set<String> VALID_ADDRESSES = new HashSet<>(Arrays.asList("London", "New York", "Amsterdam"));
+    public static final int AGE = 18;
     private String name;
     private int age;
     private String work;
     private String address;
 
     public User(String name, int age, String address, String work) throws IllegalArgumentException {
-        if (
-                name.isEmpty() ||
-                        age < 18 ||
-                        !VALID_ADDRESSES.contains(address) ||
-                        !VALID_JOBS.contains(work)
-        ) {
-            throw new IllegalArgumentException("Введенные параметры не соответствуют стандарту");
+        if (name.isEmpty()) {
+            throw new IllegalArgumentException("Поле с именем не может быть пустым");
         }
+
+        if (age < AGE) {
+            throw new IllegalArgumentException("Вы должны быть совершеннолетним");
+        }
+
+        if (!VALID_ADDRESSES.contains(address)) {
+            throw new IllegalArgumentException("Данного города нет в списке предложенных");
+        }
+
+        if (!VALID_JOBS.contains(work)) {
+            throw new IllegalArgumentException("Данной компании нет в списке предложенных");
+        }
+
         this.name = name;
         this.age = age;
         this.address = address;
