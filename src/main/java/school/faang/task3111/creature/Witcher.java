@@ -12,6 +12,8 @@ import java.util.concurrent.TimeUnit;
 
 public class Witcher {
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+
         City firstCity = new City("Вызима", new Location(35, 40));
         City secondCity = new City("Ринда", new Location(123, 90));
 
@@ -42,5 +44,6 @@ public class Witcher {
             throw new RuntimeException(e.getMessage());
         }
         System.out.println("Оптимальные расстояния найдены!");
+        System.out.println(System.currentTimeMillis()-startTime);
     }
 }
