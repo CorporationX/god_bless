@@ -7,6 +7,11 @@ public class Player {
     private final Object lock;
     private String isPlaying;
 
+    public Player(Object lock, String isPlaying) {
+        this.lock = lock;
+        this.isPlaying = isPlaying;
+    }
+
     public void play() {
         synchronized (lock) {
             System.out.println("Хочу включить плеер. Прошлое действие было: " + getIsPlaying());
