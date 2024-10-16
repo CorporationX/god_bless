@@ -10,10 +10,10 @@ public class Main {
 
         GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        Thread thread_1 = new Thread(() -> {
+        Thread thread1 = new Thread(() -> {
             Arrays.stream(pathToFile).forEach(path -> googlePhotosAutoUploader.onNewPhotoAdded(path));
         });
-        Thread thread_2 = new Thread(() -> {
+        Thread thread2 = new Thread(() -> {
             try {
                 googlePhotosAutoUploader.startAutoUpload();
             } catch (InterruptedException e) {
@@ -21,8 +21,8 @@ public class Main {
             }
         });
 
-        thread_1.start();
-        thread_2.start();
+        thread1.start();
+        thread2.start();
 
     }
 }
