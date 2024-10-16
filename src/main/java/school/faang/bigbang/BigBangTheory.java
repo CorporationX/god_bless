@@ -6,8 +6,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
+    public static final int THREAD_PULL_COUNT = 4;
+
     public static void main(String[] args) {
-        final int THREAD_PULL_COUNT = 4;
         List<Task> tasks = List.of(
                 new Task("Sheldon", "Theoretical analysis"),
                 new Task("Leonard", "Experiment design"),
@@ -24,6 +25,8 @@ public class BigBangTheory {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            System.out.println("Thread execution has been unexpectedly interrupted. Closing running tasks. ");
+            e.printStackTrace();
             executor.shutdownNow();
         }
         System.out.println("All tasks were closed now");

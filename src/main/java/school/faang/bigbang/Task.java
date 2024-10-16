@@ -17,7 +17,8 @@ public class Task implements Runnable {
             System.out.println(name + " completed task: " + task);
         } catch (InterruptedException e) {
             System.out.println("Task interrupted: " + task);
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            throw new IllegalStateException(e);
         }
     }
 }
