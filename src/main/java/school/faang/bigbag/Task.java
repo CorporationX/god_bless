@@ -7,7 +7,7 @@ public record Task(String name, String task) implements Runnable {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Ошибка при вызове: Thread.sleep(1000)", e);
         }
     }
 }
