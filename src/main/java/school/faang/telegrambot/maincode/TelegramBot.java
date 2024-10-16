@@ -1,7 +1,5 @@
 package school.faang.telegrambot.maincode;
 
-import java.sql.Timestamp;
-
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
@@ -12,9 +10,27 @@ public class TelegramBot {
         this.lastRequestTime = System.currentTimeMillis();
     }
 
-    public void sendMessage(String message) {
-        System.out.println("Имитация отправки сообщения через стрим апи");
-        long startTime = System.currentTimeMillis();
+    public synchronized void sendMessage(String message) {
+        long currentTime = System.currentTimeMillis();
+        long timeElapsed = lastRequestTime - currentTime;
 
+        try {
+            if (timeElapsed < 1000) {
+                requestCounter++;
+                if (requestCounter == REQUEST_LIMIT) {
+                    wait(1000 - timeElapsed);
+                    requestCounter = 0;
+                }
+            } else {
+                requestCounter = 1;
+                lastRequestTime = System.currentTimeMillis();
+                notifyAll();
+            }
+
+            System.out.println("Send message " + message);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
