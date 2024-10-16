@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         List<Chore> chores = List.of(
                 new Chore("Wash dishes"),
                 new Chore("Make the bed"),
