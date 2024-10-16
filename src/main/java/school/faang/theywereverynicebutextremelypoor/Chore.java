@@ -14,8 +14,8 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new IllegalStateException("Задача была прервана: " + chore, e);
         }
-        System.out.println(Thread.currentThread().getName() + " завершил выполнение задачи" + chore);
+        System.out.println(Thread.currentThread().getName() + " завершил выполнение задачи " + chore);
     }
 }
