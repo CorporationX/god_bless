@@ -6,9 +6,9 @@ import java.util.concurrent.TimeUnit;
 
 public class BigBangTheory {
 
-    public static void main(String[] args) {
+    final static int FIXED_THREADS = 4;
 
-        final int FIXED_THREADS = 4;
+    public static void main(String[] args) {
 
         Task task_1 = new Task("Шелдон", "подготовка теории");
         Task task_2 = new Task("Леонард", "моделирование эксперимента");
