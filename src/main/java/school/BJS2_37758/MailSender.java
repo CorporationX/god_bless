@@ -15,7 +15,6 @@ public class MailSender {
             int end = countOfEmailsPerThread * (i + 1);
             threads[i] = new Thread(new SenderRunnable(start, end));
         }
-
         for (Thread thread : threads) {
             thread.start();
         }
