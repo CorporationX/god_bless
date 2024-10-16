@@ -67,7 +67,9 @@ public class House {
             System.out.printf("Список собранной еды: %s\n", house.getCollectedFoodstuff());
         } catch (InterruptedException e) {
             executor.shutdownNow();
-            throw new IllegalStateException("Сбор еды был прерван. Executor service прекращает свою работу.", e);
+            throw new IllegalStateException("Произошло прерывание во время ожидания завершения задач. " +
+                    "Сбор еды был прерван, и Executor service прекращает свою работу.", e
+            );
         }
     }
 
