@@ -1,7 +1,6 @@
 package queueAtWalmart_36257;
 
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class CashierThread extends Thread {
@@ -50,15 +49,16 @@ public class CashierThread extends Thread {
 
     @Override
     public void run() {
+        int totalPrice = 0;
         System.out.println("Кассир " + cashierId + " приступил к обслуживанию покупателя с " + customerItems.length + " товарами:");
         for (int item : customerItems) {
+            totalPrice += item;
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
-        System.out.println("Кассир " + cashierId + " завершил обслуживание покупателя. "
-                + customerItems.length + " товаров  составляет " + Arrays.stream(customerItems).sum() + "rub.");
+        System.out.println("Кассир " + cashierId + " завершил обслуживание покупателя: " + customerItems.length + " товаров  составляет " + totalPrice + "rub.");
     }
 }
