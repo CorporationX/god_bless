@@ -13,7 +13,12 @@ public class Main {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println(thread.getName() + " Прерван!");
+                Thread.currentThread().interrupt();
+            }
         }
         System.out.println("Все задачи выполнены!");
     }
