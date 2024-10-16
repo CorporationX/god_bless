@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Player {
-    private final String lock;
+    private final Object lock;
     private String isPlaying;
 
     public void play() {
