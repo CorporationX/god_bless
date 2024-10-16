@@ -24,7 +24,7 @@ public class Main {
         log.info("Начинаем параллельное выполнение задач");
         IntStream.range(0, THREAD_POOL_SIZE).forEach(i -> {
             int start = i * batchSize;
-            int end = (i == THREAD_POOL_SIZE - 1) ? persons.size() : (i + 1) * batchSize;
+            int end = (i == THREAD_POOL_SIZE - 1) ? persons.size() : (i + 1) * batchSize - 1;
             List<Person> batch = persons.subList(start, end);
             executor.submit(new PersonInfoPrinter(batch));
         });
