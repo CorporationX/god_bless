@@ -9,12 +9,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 @Getter
 public class House {
+    public static final int CALL_FREQUENCY = 2;
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFoods = new ArrayList<>();
+    private final AtomicInteger roomsViewedCount = new AtomicInteger(0);
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
@@ -38,10 +41,10 @@ public class House {
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(5);
         scheduler.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if (house.getRooms().isEmpty()) {
+            if (house.getRoomsViewedCount().get() == house.getRooms().size()) {
                 latch.countDown();
             }
-        }, 0, 30, TimeUnit.SECONDS);
+        }, 0, CALL_FREQUENCY, TimeUnit.SECONDS);
 
         latch.await();
         System.out.println("Еда в доме собрана!");
@@ -57,12 +60,17 @@ public class House {
         Room firstRoom = rooms.get(randomIndexes[0]);
         Room secondRoom = rooms.get(randomIndexes[1]);
 
-        collectedFoods.addAll(firstRoom.getFoods());
-        rooms.remove(firstRoom);
-        System.out.println("Еда из комнаты собрана");
-
-        collectedFoods.addAll(secondRoom.getFoods());
-        rooms.remove(secondRoom);
-        System.out.println("Еда из комнаты собрана");
+        if (firstRoom.hasFood()) {
+            collectedFoods.addAll(firstRoom.getFoods());
+            firstRoom.removeAllFood();
+            roomsViewedCount.incrementAndGet();
+            System.out.println("Еда из комнаты собрана");
+        }
+        if (secondRoom.hasFood()) {
+            collectedFoods.addAll(secondRoom.getFoods());
+            secondRoom.removeAllFood();
+            System.out.println("Еда из комнаты собрана");
+            roomsViewedCount.incrementAndGet();
+        }
     }
 }

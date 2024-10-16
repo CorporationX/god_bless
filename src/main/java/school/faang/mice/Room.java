@@ -9,4 +9,12 @@ import java.util.List;
 @AllArgsConstructor
 public class Room {
     private List<Food> foods;
+
+    public boolean hasFood() {
+        return !foods.isEmpty();
+    }
+
+    public void removeAllFood() {
+        foods.clear();
+    }
 }
