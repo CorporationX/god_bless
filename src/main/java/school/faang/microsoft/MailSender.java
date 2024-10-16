@@ -1,12 +1,9 @@
 package school.faang.microsoft;
 
-import lombok.SneakyThrows;
-
 public class MailSender {
     private static final int MESSAGES_NUMBER = 1000;
     private static final int THREADS_NUMBER = 5;
 
-    @SneakyThrows
     public static void main(String[] args) {
         int batch_size = MESSAGES_NUMBER / THREADS_NUMBER;
         Thread[] threads = new Thread[THREADS_NUMBER];
@@ -18,7 +15,11 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("All the threads completed their work.");
     }
