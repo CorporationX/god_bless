@@ -3,7 +3,7 @@ package school.faangSprint3.t02;
 import lombok.Data;
 
 @Data
-class PowerCalculator implements Runnable {
+public class PowerCalculator implements Runnable {
     private Unit unit;
     private int power;
 

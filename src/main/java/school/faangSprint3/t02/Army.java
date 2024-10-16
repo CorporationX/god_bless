@@ -3,7 +3,7 @@ package school.faangSprint3.t02;
 import java.util.ArrayList;
 import java.util.List;
 
-class Army {
+public class Army {
     private List<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit unit) {
