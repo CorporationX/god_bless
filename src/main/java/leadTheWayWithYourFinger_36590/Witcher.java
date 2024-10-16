@@ -14,21 +14,18 @@ public class Witcher {
     public static void main(String[] args) {
 
         Random random = new Random();
-        int maxCount = Math.max(COUNT_CITIES, COUNT_MONSTERS);
         List<Monster> monsters = new ArrayList<>();
         List<City> cities = new ArrayList<>();
 
-        for (int i = 0; i < maxCount; i++) {
-            if (i < COUNT_CITIES) {
-                cities.add(new City("city" + i,
-                        new Location(random.nextInt(1000), random.nextInt(1000)))
-                );
-            }
-            if (i < COUNT_MONSTERS) {
-                monsters.add(new Monster("monster" + i,
-                        new Location(random.nextInt(1000), random.nextInt(1000)))
-                );
-            }
+        for (int i = 0; i < COUNT_CITIES; i++) {
+            cities.add(new City("city" + i,
+                    new Location(random.nextInt(1000), random.nextInt(1000)))
+            );
+        }
+        for (int i = 0; i < COUNT_MONSTERS; i++) {
+            monsters.add(new Monster("monster" + i,
+                    new Location(random.nextInt(1000), random.nextInt(1000)))
+            );
         }
 
         ExecutorService executorService = Executors.newFixedThreadPool(COUNT_CITIES);
