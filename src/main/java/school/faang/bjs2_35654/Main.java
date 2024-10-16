@@ -27,11 +27,11 @@ public class Main {
     }
 
     public static int findMaxElementOfList(List<Integer> list) {
-        return list.stream().mapToInt(Integer::intValue).max().orElse(0);
+        return list.stream().mapToInt(Integer::intValue).max().orElseThrow();
     }
 
     public static double findArithmeticAverage(List<Integer> list) {
-        return list.stream().mapToDouble(Integer::doubleValue).average().orElse(0);
+        return list.stream().mapToDouble(Integer::doubleValue).average().orElseThrow();
     }
 
     public static int getSumStringsStartingWithSoecificChar(List<String> list, char specificChar) {
@@ -51,7 +51,7 @@ public class Main {
     }
 
     public static int findMinElementInListGreaterThanGivenNumber(List<Integer> list, int number) {
-        return list.stream().sorted().filter(n -> n > number).findAny().orElse(0);
+        return list.stream().sorted().filter(n -> n > number).findAny().orElseThrow();
     }
 
     public static List<Integer> convertListOfStringsToListOfTheirLength(List<String> list) {
