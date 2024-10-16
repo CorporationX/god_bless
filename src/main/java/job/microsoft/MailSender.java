@@ -10,13 +10,15 @@ public class MailSender {
         Thread[] threads = new Thread[threadCount];
         for (int i = 0; i < threadCount; i++) {
             int startIndex = i * mailPerThread;
-            int endIndex = startIndex + mailPerThread;
-            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
             try {
+                int endIndex = startIndex + mailPerThread;
+                threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
                 threads[i].start();
                 threads[i].join();
             } catch (Exception e) {
-                System.out.println("Ошибка запуска потока " + e.getMessage());
+                System.out.println("Ошибка: " + e.getMessage());
+            } catch (OutOfMemoryError e) {
+                System.out.println("Недостаточно памяти для создания нового потока " + e.getMessage());
             }
         }
     }
