@@ -13,7 +13,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(800);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Поток был прерван", e);
         }
     }
 }

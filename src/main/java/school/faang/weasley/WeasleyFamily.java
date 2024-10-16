@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WeasleyFamily {
-    List<Chore> chroes = new ArrayList<>();
+    private List<Chore> chroes = new ArrayList<>();
+
     public void addChroe(Chore chore) {
         chroes.add(chore);
+    }
+
+    public List<Chore> getChroes() {
+        return chroes;
     }
 }
