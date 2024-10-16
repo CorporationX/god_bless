@@ -1,4 +1,4 @@
-package school.faang.Multithreading.sprint_3;
+package school.faang.Multithreading.sprint_3.SpaceX;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
