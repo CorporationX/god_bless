@@ -1,7 +1,9 @@
 package bjs2_35735;
 
 import lombok.AllArgsConstructor;
+import lombok.ToString;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -12,11 +14,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@ToString
 public class House {
     private static final int TOTAL_THREADS = 5;
+    private Random random = new Random();
 
     private List<Room> rooms;
     private List<Food> collectedFood = new ArrayList<>();
+
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -25,23 +30,23 @@ public class House {
     public static void main(String[] args) throws InterruptedException {
         List<Food> firstRoomFood = new ArrayList<>() {
             {
-                new Food("Nachos");
-                new Food("Cookies");
+                add(new Food("Nachos"));
+                add(new Food("Cookies"));
             }
         };
 
         List<Food> secondRoomFood = new ArrayList<>() {
             {
-                new Food("Bread");
-                new Food("Meatballs");
+                add(new Food("Bread"));
+                add(new Food("Meatballs"));
             }
         };
 
         List<Food> thirdRoomFood = new ArrayList<>() {
             {
-                new Food("Rice");
-                new Food("Chicken");
-                new Food("Broccoli");
+                add(new Food("Rice"));
+                add(new Food("Chicken"));
+                add(new Food("Broccoli"));
             }
         };
 
@@ -57,7 +62,8 @@ public class House {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(TOTAL_THREADS);
         executorService.scheduleAtFixedRate(() -> house.collectFood(roomAmountToSelect),
                 0, 30, TimeUnit.SECONDS);
-        Thread.sleep(120000);
+
+        while (!house.isFoodCollected(rooms)) {}
         executorService.shutdown();
     }
 
@@ -70,7 +76,12 @@ public class House {
         System.out.println("All the food has been collected!");
     }
 
-    public Set<Room> selectRandomRooms(int roomAmountToSelect) {
+    public boolean isFoodCollected(List<Room> rooms) {
+        return rooms.stream()
+                .allMatch(room -> room.getFood().isEmpty());
+    }
+
+    private Set<Room> selectRandomRooms(int roomAmountToSelect) {
 
         if (roomAmountToSelect < 0) {
             System.out.println("Selected negative amount of rooms. Returning empty set");
@@ -82,7 +93,6 @@ public class House {
             return new HashSet<>(rooms);
         }
 
-        Random random = new Random();
         Set<Room> selectedRooms = new HashSet<>();
 
         while (roomAmountToSelect != 0) {
