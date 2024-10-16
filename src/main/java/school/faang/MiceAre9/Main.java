@@ -9,19 +9,20 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         House house = getHouse();
 
         ScheduledExecutorService service = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
 
-        service.scheduleAtFixedRate(() -> {
-            house.collectFood();
-            System.out.println("Totally collected: " + house.getCollectedFood());
-        }, 0, 30, TimeUnit.SECONDS);
+        service.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
 
-        if (house.allFoodCollected()) {
+        if (!service.awaitTermination(5, TimeUnit.MINUTES)){
             service.shutdown();
-            System.out.println("All foods collected!");
+            System.out.println("Total food collected: " + house.getCollectedFood());
+        }
+
+        if (house.allFoodCollected()){
+            System.out.println("All food collected");
         }
     }
 
