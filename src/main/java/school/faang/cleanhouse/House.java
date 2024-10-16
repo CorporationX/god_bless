@@ -39,12 +39,7 @@ public class House {
     }
 
     public boolean allFoodCollected() {
-        for (Room room : rooms) {
-            if (room.hasFood()) {
-                return false;
-            }
-        }
-        return true;
+        return rooms.stream().noneMatch(Room::hasFood);
     }
 
     public static void main(String[] args) throws InterruptedException {
@@ -64,6 +59,9 @@ public class House {
 
         if (executor.awaitTermination(MAX_TIME_WAIT, TimeUnit.SECONDS)) {
             System.out.println("Еда в доме собрана!");
+        } else {
+            System.out.println("Не успели собрать всю еду");
+            executor.shutdownNow();
         }
     }
 }
