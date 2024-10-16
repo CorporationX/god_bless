@@ -27,7 +27,7 @@ public class User {
 
     private void checkVariables() {
         if (name.isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
+            throw new IllegalArgumentException("name не может быть пустым");
         }
         if (age < MINIMUM_AGE) {
             throw new IllegalArgumentException("Возраст не может быть меньше 18");
