@@ -17,7 +17,7 @@ public class WeasleyFamily {
         try {
             if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-                System.out.println("We are fucked!");
+                System.out.println("Все сломалось!");
             }
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());

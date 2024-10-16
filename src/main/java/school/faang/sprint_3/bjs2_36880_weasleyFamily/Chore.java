@@ -13,7 +13,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
 
         System.out.println("Задача '" + chore + "' выполнена!");
