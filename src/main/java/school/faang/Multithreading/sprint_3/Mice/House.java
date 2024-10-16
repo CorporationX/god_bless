@@ -8,10 +8,11 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class House {
-    public static final int TIME_COllECT = 5;
-    private final List<Room> rooms = new ArrayList<>();
-    private final List<Food> allFood = new ArrayList<>();
+    public static final int TIME_COllECT = 1;
+    public static final int POOL_THREAD = 5;
 
+    private final List<Room> rooms = new ArrayList<>();
+    private final List<Food> collectedFood = new ArrayList<>();
 
     public static void main(String[] args) {
         House house = new House();
@@ -27,23 +28,20 @@ public class House {
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         executor.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if(house.allFoodCollected()){
+            if (house.allFoodCollected()) {
                 executor.shutdown();
             }
-        }, 0, TIME_COllECT, TimeUnit.SECONDS);
-
+        }, POOL_THREAD, TIME_COllECT, TimeUnit.SECONDS);
 
         try {
             if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
-                System.out.println("Сбор еды завершен");
+                System.out.println("Сбор еды завершен " + house.collectedFood);
             }
         } catch (InterruptedException e) {
             System.out.println("Сбор еды не смог завершиться");
             executor.shutdownNow();
         }
-
     }
-
 
     public void addRoom(Room room) {
         rooms.add(room);
@@ -75,29 +73,15 @@ public class House {
         if (rooms.size() < 2) return;
 
         if (room1.hasFood() && room2.hasFood() && !room1.equals(room2)) {
-//            System.out.println(Thread.currentThread().getName() + " собирает еду из двух случайных комнат: "
-//                    + room1.getName() + ", " + room2.getName());
-
             List<Food> foodsRoom1 = room1.getFoods();
             List<Food> foodsRoom2 = room2.getFoods();
 
-            allFood.addAll(foodsRoom1);
-            allFood.addAll(foodsRoom2);
-
+            collectedFood.addAll(foodsRoom1);
+            collectedFood.addAll(foodsRoom2);
 
             room1.removeAllFood();
             room2.removeAllFood();
-
-//
-            System.out.println(Thread.currentThread().getName() + " собрал еду" + allFood);
-//        } else if (room1.equals(room2)) {
-//            System.out.println(Thread.currentThread().getName() + " Сбор еды не производится в одной и той же комнате: "
-//                    + room1.getName() + ", " + room2.getName());
-//        } else {
-//            System.out.println(Thread.currentThread().getName() + " Еда не собрана, комнаты уже опустошены: "
-//                    + room1.getName() + ", " + room2.getName());
         }
-
     }
 
     public boolean allFoodCollected() {

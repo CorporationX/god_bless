@@ -8,7 +8,7 @@ import lombok.ToString;
 public class Food {
     private final String name;
 
-    public Food(String name){
+    public Food(String name) {
         this.name = name;
     }
 }
