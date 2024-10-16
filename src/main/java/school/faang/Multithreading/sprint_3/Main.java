@@ -1,11 +1,21 @@
 package school.faang.Multithreading.sprint_3;
 
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class Main {
     public static void main(String[] args) {
-        List<RocketLaunch> launches = Arrays.asList(new RocketLaunch("Сфера", 5), new RocketLaunch("Звезда", 3),
-                new RocketLaunch("Победа", 6), n);
+        RocketLaunch rocketLaunch = new RocketLaunch();
+        List<RocketLaunch> launches = Arrays.asList(
+//                new RocketLaunch("Сфера", LocalTime.now().plusSeconds(5).getSecond() * 1000),
+                new RocketLaunch("Звезда", LocalTime.now().plusSeconds(2)),
+                new RocketLaunch("Победа", LocalTime.now().plusSeconds(15)),
+                new RocketLaunch("Солнце", LocalTime.now().plusSeconds(5))
+        );
+
+        rocketLaunch.planRocketLaunches(launches);
+
     }
 }
