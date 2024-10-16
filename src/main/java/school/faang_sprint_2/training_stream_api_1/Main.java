@@ -3,6 +3,7 @@ package school.faang_sprint_2.training_stream_api_1;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.function.Predicate;
 
 public class Main {
@@ -32,7 +33,8 @@ public class Main {
 
         public static int findMax(List<Integer> numbers) {
             return numbers.stream()
-                    .max(Integer::compareTo).orElseThrow();
+                    .max(Integer::compareTo)
+                    .orElseThrow(() -> new NoSuchElementException("No maximum value found"));
         }
 
         public static double findAverage(List<Integer> numbers) {
@@ -64,7 +66,7 @@ public class Main {
             return numbers.stream()
                     .filter(number -> number > givenNumber)
                     .min(Integer::compareTo)
-                    .orElseThrow();
+                    .orElseThrow(() -> new NoSuchElementException("No element greater than " + givenNumber));
         }
 
         public static List<Integer> convertToLengths(List<String> strings) {
