@@ -39,15 +39,17 @@ public class House {
             number2 = random.nextInt(rooms.size());
         }
 
-        Room room1 = rooms.get(number1);
-        Room room2 = rooms.get(number2);
+        synchronized (this) {
+            Room room1 = rooms.get(number1);
+            Room room2 = rooms.get(number2);
 
-        if (room1.hasFood()) {
-            collectedFood.addAll(room1.removeAllFood());
-        }
+            if (room1.hasFood()) {
+                collectedFood.addAll(room1.removeAllFood());
+            }
 
-        if (room2.hasFood()) {
-            collectedFood.addAll(room2.removeAllFood());
+            if (room2.hasFood()) {
+                collectedFood.addAll(room2.removeAllFood());
+            }
         }
 
         allFoodCollected(executor, house);
@@ -56,7 +58,7 @@ public class House {
     private void allFoodCollected(ScheduledExecutorService executor, House house) {
         if (house.getRooms().stream().filter(Room::hasFood).toList().isEmpty()) {
             executor.shutdown();
-            System.out.printf("Еда в доме %s собрана!", house.getName());
+            System.out.printf("Еда в доме %s собрана! Количество собранной еды: %s %n", house.getName(), collectedFood.size());
         }
     }
 
