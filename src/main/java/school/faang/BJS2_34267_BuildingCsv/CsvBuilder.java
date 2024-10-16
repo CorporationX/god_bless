@@ -8,7 +8,7 @@ public class CsvBuilder {
         VectorJoiner<String> vectorJoiner = vector -> String.join(", ", vector);
         MatrixJoiner<String> matrixJoiner = matrix ->
                 matrix.stream()
-                .map(vectorJoiner::join)
+                        .map(vectorJoiner::join)
                         .collect(Collectors.joining("\n"));
         return matrixJoiner.join(table);
     }
