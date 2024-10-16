@@ -17,4 +17,11 @@ public class AnalyticsProcessor {
         }
         return result;
     }
+    public static int product(List<Integer> nums) {
+        return calculate(nums, (a, b) -> a * b);
+    }
+
+    public static int sum(List<Integer> nums) {
+        return calculate(nums, Integer::sum);
+    }
 }
