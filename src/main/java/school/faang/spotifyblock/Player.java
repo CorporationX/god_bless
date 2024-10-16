@@ -2,10 +2,10 @@ package school.faang.spotifyblock;
 
 import lombok.Getter;
 
-@Getter
 public class Player {
 
     private final Object lock = new Object();
+    @Getter
     private String isPlaying;
 
     public void play(){
