@@ -15,8 +15,8 @@ public class Game {
     }
 
     @SneakyThrows
-    public void update(boolean increaseScore, boolean reduceLive) {
-        if (increaseScore) {
+    public void update(boolean isIncreaseScore, boolean isReduceLife) {
+        if (isIncreaseScore) {
             synchronized (scoreLock) {
                 if (lives == 0) {
                     return;
@@ -26,7 +26,7 @@ public class Game {
             }
         }
 
-        if (reduceLive) {
+        if (isReduceLife) {
             synchronized (livesLock) {
                 if (lives > 0) {
                     lives--;
