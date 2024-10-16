@@ -35,7 +35,10 @@ public class Army {
 
         service.shutdown();
 
-        while (!service.isTerminated()) {}
+        if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
+            System.out.println("Something went wrong");
+            service.shutdownNow();
+        }
 
         return totalPower;
     }
