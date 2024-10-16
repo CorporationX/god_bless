@@ -1,6 +1,6 @@
 package school.faang.calculator.maincode;
 
 @FunctionalInterface
-public interface Calculator<T> {
-    T calculate(T a, T b);
+public interface Calculator {
+     int calculate(int a, int b);
 }
