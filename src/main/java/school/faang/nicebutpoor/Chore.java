@@ -16,9 +16,8 @@ public class Chore implements Runnable {
             Thread.sleep(5000);
             System.out.println("Thread: " + threadName + " - Task finished: " + chore);
         } catch (InterruptedException e) {
-            System.out.println("Thread interrupted: " + threadName + " - Task NOT finished: " + chore);
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
+            throw new IllegalStateException("Thread interrupted: " + threadName + " - Task NOT finished: " + chore);
         }
-
     }
 }
