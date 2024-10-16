@@ -12,9 +12,8 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        while (endIndex > startIndex) {
-            System.out.println("Letter with index " + startIndex + " was sent");
-            startIndex++;
+        for (int i = 0; i < endIndex - startIndex; i++) {
+            System.out.println("Letter with index " + (startIndex + i) + " was sent");
         }
     }
 }
