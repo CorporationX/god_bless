@@ -9,7 +9,7 @@ public class PowerCalculator extends Thread {
     private final List<Warrior> warriors;
 
     @Getter
-    int result;
+    private int result;
 
     public PowerCalculator(List<Warrior> warriors) {
         this.warriors = warriors;

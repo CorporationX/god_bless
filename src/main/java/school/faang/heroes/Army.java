@@ -17,7 +17,6 @@ public class Army {
     public int calculateTotalPower() {
 
         List<PowerCalculator> threads = new ArrayList<>();
-
         for (int i = 0; i < armyList.size(); i++) {
             PowerCalculator calculator = new PowerCalculator(armyList.subList(i, i + 1));
             threads.add(calculator);
@@ -31,6 +30,7 @@ public class Army {
                 totalPower += calc.getResult();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
+                throw new IllegalStateException("The thread was interrupted while computing power", e);
             }
         }
         return totalPower;
