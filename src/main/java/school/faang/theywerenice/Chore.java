@@ -15,7 +15,7 @@ public class Chore implements Runnable{
         try {
             Thread.sleep(2500);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Не получилось задержать поток с ошибкой: " + e.getMessage());
         }
 
         System.out.println("Закончил с " + choreName);
