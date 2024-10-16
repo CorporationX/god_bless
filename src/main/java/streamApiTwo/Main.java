@@ -14,24 +14,22 @@ public class Main {
         List<String> strings = List.of("apple", "banana", "cherry", "date", "fig", "grape");
 
         Main main = new Main();
-        main.uniquePairsOfNumbers(numbers, 6);
+        main.uniquePairsOfNumbers(numbers, 13);
         main.capitalsOfSortedCountry(countryAndCapital);
         main.filterAndSortStrings(fruit, 'a');
         main.sortByAlphabetAndLength(strings);
         main.convertNumbersToBinary(numbers);
     }
 
-    public void uniquePairsOfNumbers(List<Integer> numbers, int k) {
-        List<int[]> pair = numbers.stream()
-                .filter(n -> n < k - n)
-                .map(n -> new int[]{n, k - n})
-                .toList();
-
-        List<String> result = pair.stream()
-                .map(p -> "(%d, %d)".formatted(p[0], p[1]))
-                .toList();
-
-        System.out.println(result);
+    public void uniquePairsOfNumbers(List<Integer> numbers, int targetNumber) {
+        Set<Integer> checkNums = new HashSet<>();
+        System.out.println(
+                numbers.stream()
+                        .peek(checkNums::add)
+                        .filter(n -> checkNums.contains(targetNumber - n))
+                        .map(n -> "(%d, %d)".formatted(n, targetNumber - n))
+                        .toList()
+        );
     }
 
     public void capitalsOfSortedCountry(Map<String, String> countries) {
