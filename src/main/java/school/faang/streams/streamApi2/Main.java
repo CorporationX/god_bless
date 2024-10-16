@@ -40,9 +40,9 @@ public class Main {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filterAndSortingStrings(List<String> strings, char symbol) {
+    public static List<String> filterAndSortingStrings(List<String> strings, char firstChar) {
         return strings.stream()
-                .filter(s -> s.charAt(0) == symbol)
+                .filter(s -> s.charAt(0) == firstChar)
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
