@@ -9,14 +9,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Method {
-    public static Set<List<Integer>> searchPairs(List<Integer> numbers, int point) {
-        Set<List<Integer>> pairs = new HashSet<>();
+    public static Set<Pairs> searchPairs(List<Integer> numbers, int point) {
+        Set<Pairs> pairs = new HashSet<>();
         Set<Integer> seen = new HashSet<>();
         for (int num : numbers) {
             int complement = point - num;
             if (seen.contains(complement)) {
-                List<Integer> pair = Arrays.asList(num, complement);
-                pair.sort(Integer::compareTo);
+                Pairs pair = new Pairs(num, complement);
                 pairs.add(pair);
             }
             seen.add(num);
