@@ -4,45 +4,35 @@ import lombok.Getter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 @Getter
 public class House {
 
     private List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
-    int countOfCleanRooms = 0;
+    private volatile CountDownLatch latch;
 
-    public boolean isAll() {
-        if (countOfCleanRooms == rooms.size()) {
-            return true;
-        }
-        return false;
+    public House(CountDownLatch latch) {
+        this.latch = latch;
     }
 
-    public void initialize() {
-        for (int i = 1; i < 9; i++) {
-            rooms.add(new Room("Номер комнаты: " + i));
-        }
+    public boolean isAll() {
         for (Room room : rooms) {
-            for (int i = 0; i < 10; i++) {
-                room.addFood(new Food("Еда номер: " + i));
+            if (!room.hasFood()) {
+                return true;
             }
         }
+        return false;
     }
 
     public void collectFood() {
         Random rand = new Random();
         Room room1 = rooms.get(rand.nextInt(rooms.size()));
         Room room2 = rooms.get(rand.nextInt(rooms.size()));
-        synchronized (collectedFood) {
-            if (room1.hasFood()) {
-                room1.getFoods(collectedFood);
-                countOfCleanRooms++;
-            }
-            if (room2.hasFood()) {
-                room2.getFoods(collectedFood);
-                countOfCleanRooms++;
-            }
+        if (room1.hasFood() || room2.hasFood()) {
+            room1.getFoods(collectedFood, this);
+            room2.getFoods(collectedFood, this);
         }
     }
 }

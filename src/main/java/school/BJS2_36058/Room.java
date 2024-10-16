@@ -21,14 +21,17 @@ public class Room {
         foods.remove(food);
     }
 
-    public void getFoods(List<Food> collectedFoods) {
-        if (this.hasFood()) {
-            foods.forEach(x -> collectedFoods.add(x));
-            foods.clear();
-            System.out.printf("Еда собрана из комнаты: " + name);
-            System.out.println();
-        } else {
-            System.out.println("Не найдено еды в комнате: " + name);
+    public void getFoods(List<Food> collectedFoods, House house) {
+        synchronized (foods) {
+            if (this.hasFood()) {
+                foods.forEach(x -> collectedFoods.add(x));
+                foods.clear();
+                house.getLatch().countDown();
+                System.out.printf("Еда собрана из комнаты: " + name);
+                System.out.println();
+            } else {
+                System.out.println("Не найдено еды в комнате: " + name);
+            }
         }
     }
 
