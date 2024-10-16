@@ -1,5 +1,7 @@
 package school.faang.task2102;
 
+import java.util.List;
+
 public class Main {
     private static final String EMAIL_NOTIFICATION = "email";
     private static final String SMS_NOTIFICATION = "sms";
@@ -19,24 +21,23 @@ public class Main {
     }
 
     private static void registerHandlers(NotificationManager notificationManager) {
-        //TODO норм не ставить () в lambda, если параметр только один?
         notificationManager.registerHandler(EMAIL_NOTIFICATION,
-                (notification) -> System.out.println("Sending email notification: " + notification.getMessage()));
+                notification -> System.out.println("Sending email notification: " + notification.message()));
         notificationManager.registerHandler(SMS_NOTIFICATION,
-                notification -> System.out.println("Sending SMS notification: " + notification.getMessage()));
+                notification -> System.out.println("Sending SMS notification: " + notification.message()));
         notificationManager.registerHandler(PUSH_NOTIFICATION,
-                notification -> System.out.println("Sending push notification: " + notification.getMessage()));
+                notification -> System.out.println("Sending push notification: " + notification.message()));
     }
 
     private static void registerFilters(NotificationManager notificationManager) {
-        notificationManager.registerFilter(EMAIL_NOTIFICATION, Filter::filterMessageContent);
-        notificationManager.registerFilter(SMS_NOTIFICATION, Filter::filterMessageContent);
-        notificationManager.registerFilter(PUSH_NOTIFICATION, Filter::filterMessageContent);
+        notificationManager.registerFilters(EMAIL_NOTIFICATION, List.of(FilterType.SENSITIVE));
+        notificationManager.registerFilters(SMS_NOTIFICATION, List.of(FilterType.FORBIDDEN, FilterType.SENSITIVE));
+        notificationManager.registerFilters(PUSH_NOTIFICATION, List.of(FilterType.FORBIDDEN));
     }
 
     private static void sendNotifications(NotificationManager notificationManager) {
         notificationManager.sendNotification(new Notification(EMAIL_NOTIFICATION, "Hello, your password: mysecret123."));
-        notificationManager.sendNotification(new Notification(SMS_NOTIFICATION, "This is a bad word: niger."));
+        notificationManager.sendNotification(new Notification(SMS_NOTIFICATION, "This is a bad word: niger. Password: mysecret123."));
         notificationManager.sendNotification(new Notification(PUSH_NOTIFICATION, "User used inappropriate word: shit."));
         notificationManager.sendNotification(new Notification(FAX_NOTIFICATION, "New fax"));
     }
