@@ -28,7 +28,7 @@ public class BigBangTheory {
                 System.out.println("Experiment failed!");
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread has been interrupted" + e.getMessage(), e);
         }
 
         System.out.println("Experiment has ended!");
