@@ -8,7 +8,7 @@ public class Operations {
     public static Set<List<Integer>> findUniquePairs(List<Integer> numbers, int compare) {
         Set<Integer> set = new HashSet<>(numbers);
         return set.stream()
-                .filter((num) -> set.contains(compare - num))
+                .filter((num) -> set.contains(compare - num) && numbers.contains(compare - num))
                 .map((num) -> new ArrayList<>(Arrays.asList(num, compare - num)))
                 .collect(Collectors.toSet());
     }
