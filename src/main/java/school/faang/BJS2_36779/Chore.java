@@ -7,19 +7,20 @@ public class Chore implements Runnable {
     private String chore;
     private int time;
 
-    public Chore(String chore) {
+    public Chore(String chore, int time) {
         this.chore = chore;
+        this.time = time * 1000;
     }
 
     @Override
     public void run() {
         try {
             String name = Thread.currentThread().getName();
-            System.out.println(name + " выполниться через: " + 30 + " секунд");
-            Thread.sleep(30000);
-            System.out.println(chore + " ---  завершино");
+            System.out.println(name + " выполниться через: " + time / 1000 + " секунд");
+            Thread.sleep(time);
+            System.out.println(chore + " ---  завершено");
         } catch (InterruptedException e) {
-            System.out.println(chore + " --- в другой раз");
+            System.out.println(chore);
         }
     }
 }

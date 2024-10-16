@@ -9,15 +9,14 @@ import java.util.concurrent.TimeUnit;
 
 @Data
 public class WeasleyFamily {
-    private List<String> chores;
+    private List<Chore> chores;
 
-    public WeasleyFamily(List<String> chores) throws InterruptedException {
+    public WeasleyFamily(List<Chore> chores) throws InterruptedException {
         this.chores = chores;
 
         ExecutorService executor = Executors.newCachedThreadPool();
 
-        for (String task : chores) {
-            Chore chore = new Chore(task);
+        for (Chore chore : chores) {
             executor.execute(chore);
         }
 
@@ -25,6 +24,8 @@ public class WeasleyFamily {
 
         try {
             if (!executor.awaitTermination(20, TimeUnit.SECONDS)) {
+                System.out.println("==================================");
+                System.out.println("На завтра останется: ");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {

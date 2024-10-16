@@ -1,17 +1,15 @@
 package school.faang.BJS2_36779;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        List<String> chores = new ArrayList<>(Arrays.asList(
-                "Помыть пол",
-                "Забрать палочку из магазина",
-                "Приготовить обед",
-                "Найти коросту"
-        ));
+        List<Chore> chores = new ArrayList<>();
+        chores.add(new Chore("Помыть пол", 25));
+        chores.add(new Chore("Забрать палочку из магазина", 10));
+        chores.add(new Chore("Приготовить обед", 5));
+        chores.add(new Chore("Найти коросту", 5));
 
         WeasleyFamily weasleyFamily = new WeasleyFamily(chores);
     }
