@@ -12,9 +12,9 @@ public class Main {
         ExecutorService service = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         for (int i = 0; i < 100; i++) {
-            boolean randomIncreaseScore = Math.random() < 0.5;
-            boolean randomReduceLive = Math.random() < 0.5;
-            service.submit(() -> game.update(randomIncreaseScore, randomReduceLive));
+            boolean isIncreaseScore = Math.random() < 0.5;
+            boolean isReduceLife = Math.random() < 0.5;
+            service.submit(() -> game.update(isIncreaseScore, isReduceLife));
         }
 
         service.shutdown();
