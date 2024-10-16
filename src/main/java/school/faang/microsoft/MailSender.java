@@ -24,6 +24,6 @@ public class MailSender {
             }
         });
 
-        System.out.println("All threads have finished execution");
+        System.out.println("All threads have finished execution.");
     }
 }
