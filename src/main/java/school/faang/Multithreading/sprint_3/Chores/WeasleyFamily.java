@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    String[] chores = new String[]{"помыть посуду", "подмести пол", "приготовить ужин"};
+    private final String[] chores = new String[]{"помыть посуду", "подмести пол", "приготовить ужин"};
 
     public void doChore() throws InterruptedException {
         ExecutorService executor = Executors.newCachedThreadPool();
