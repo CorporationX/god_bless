@@ -14,6 +14,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
+            e.printStackTrace();
             System.out.println("Записываем сообщение в логи" + e.getMessage());
         }
     }
