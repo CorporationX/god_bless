@@ -13,8 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     private static final int THREAD_POOL_SIZE = 5;
     private static final long DELAY = 0;
-    private static final long PERIOD = 30;
-    private static final int ALL_FOOD_SIZE = 15;
+    private static final long PERIOD = 5;
     private final List<Room> rooms = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
     private final String name;
@@ -23,16 +22,25 @@ public class House {
         House tomHouse = new House("tomHouse");
         tomHouse.initializeHouse();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
-        executor.scheduleAtFixedRate(() -> tomHouse.collectFood(executor, tomHouse), DELAY, PERIOD, TimeUnit.SECONDS);
+        for(int i = 0; i < THREAD_POOL_SIZE; i++) {
+            executor.scheduleAtFixedRate(() -> tomHouse.collectFood(executor, tomHouse), DELAY, PERIOD, TimeUnit.SECONDS);
+        }
     }
 
     private void collectFood(ScheduledExecutorService executor, House house) {
         List<Room> rooms = house.getRooms();
         List<Food> collectedFood = house.getCollectedFood();
 
+        int number1 = 0;
+        int number2 = 0;
         Random random = new Random();
-        Room room1 = rooms.get(random.nextInt(rooms.size()));
-        Room room2 = rooms.get(random.nextInt(rooms.size()));
+        while(number1 == number2) {
+            number1 = random.nextInt(rooms.size());
+            number2 = random.nextInt(rooms.size());
+        }
+
+        Room room1 = rooms.get(number1);
+        Room room2 = rooms.get(number2);
 
         if (room1.hasFood()) {
             collectedFood.addAll(room1.removeAllFood());
@@ -46,7 +54,7 @@ public class House {
     }
 
     private void allFoodCollected(ScheduledExecutorService executor, House house) {
-        if (house.getCollectedFood().size() == ALL_FOOD_SIZE) {
+        if (house.getRooms().stream().filter(Room::hasFood).toList().isEmpty()) {
             executor.shutdown();
             System.out.printf("Еда в доме %s собрана!", house.getName());
         }
@@ -83,10 +91,18 @@ public class House {
             add(cheese);
             add(meat);
         }});
+        Room room5 = new Room(new ArrayList<>() {{
+            add(cheese);
+            add(meat);
+            add(sandwich);
+            add(apple);
+            add(pie);
+        }});
 
         rooms.add(room1);
         rooms.add(room2);
         rooms.add(room3);
         rooms.add(room4);
+        rooms.add(room5);
     }
 }
