@@ -9,6 +9,7 @@ import java.util.Random;
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
 
+    private final String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
     private String name;
     private int foodAmount;
 
@@ -30,7 +31,6 @@ public class FoodDeliveryTask implements Runnable {
     }
 
     private String getFoodType() {
-        String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
         return foodTypes[new Random().nextInt(foodTypes.length)];
     }
 }

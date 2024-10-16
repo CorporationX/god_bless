@@ -6,9 +6,9 @@ import java.util.concurrent.Executors;
 
 public class GriffinsFoodDelivery {
 
-    public static void main(String[] args) {
+    private static final int NUMBER_OF_THREADS = 3;
 
-        final int NUMBER_OF_THREADS = 3;
+    public static void main(String[] args) {
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
