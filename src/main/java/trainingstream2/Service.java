@@ -1,7 +1,5 @@
 package trainingstream2;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -10,14 +8,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Service {
-    public static Set<List<Integer>> findUniquePairs(List<Integer> numbers, int transmittedNumber) {
+    public static Set<PairOfNumbers> findUniquePairs(List<Integer> numbers, int transmittedNumber) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
-        Set<List<Integer>> pairs = uniqueNumbers.stream()
+        return uniqueNumbers.stream()
                 .filter(number -> uniqueNumbers.contains(transmittedNumber - number))
-                .map(number -> Arrays.asList(number, transmittedNumber - number))
-                .peek(Collections::sort)
+                .map(number -> new PairOfNumbers(number, transmittedNumber - number))
+                .peek(PairOfNumbers::sortPairOfNumbers)
                 .collect(Collectors.toSet());
-        return pairs;
     }
 
     public static List<String> getSortedCapitals(Map<String, String> capitalCityByCountry) {
