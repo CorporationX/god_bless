@@ -1,17 +1,22 @@
 package school.faang.multithreading.cachedpool;
 
 import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
 
 @AllArgsConstructor
 public class Chore implements Runnable {
 
   private String chore;
 
-  @SneakyThrows
+
   @Override
   public void run() {
-    System.out.println("Executing " + chore.toUpperCase() + " with " + Thread.currentThread().getName());
-    Thread.sleep(3000);
+    System.out.println(
+        "Executing " + chore.toUpperCase() + " with " + Thread.currentThread().getName());
+    try {
+      Thread.sleep(3000);
+    } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();
+      System.out.println(Thread.currentThread().getName() + " .. interrupted");
+    }
   }
 }

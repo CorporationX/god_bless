@@ -1,5 +1,6 @@
 package school.faang.multithreading.cachedpool;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -7,6 +8,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+
+  public static final int MAX_WAITING_TIME = 5;
 
   public static void main(String[] args) throws InterruptedException {
     WeasleyFamily family = new WeasleyFamily();
@@ -22,13 +25,13 @@ public class Main {
 
     executor.shutdown();
 
-    boolean done = true;
-    while (!executor.isTerminated()) {
-      done = executor.awaitTermination(1, TimeUnit.SECONDS);
-      System.out.println("tasks have been completed: " + done);
+    if (!executor.awaitTermination(MAX_WAITING_TIME, TimeUnit.SECONDS)) {
+      executor.shutdownNow();
+      if (!executor.awaitTermination(MAX_WAITING_TIME, TimeUnit.SECONDS)) {
+        System.out.println("the pool did not terminate");
+      }
     }
-    System.out.println("tasks completed: " + done);
-    executor.shutdownNow();
   }
 
 }
+
