@@ -1,6 +1,7 @@
 package school.faang.BJS2_35260;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -11,24 +12,12 @@ import java.util.stream.Collectors;
 public class ListOperations {
 
     // Найдите уникальные пары чисел
-    public static List<int[]> findUniquePairs(List<Integer> numbers, int target) {
-        Set<Integer> seen = new HashSet<>();
-        Set<String> uniquePairs = new HashSet<>();
-        List<int[]> result = new ArrayList<>();
-
-        for (int number : numbers) {
-            int complement = target - number;
-            if (seen.contains(complement)) {
-                int[] pair = new int[]{Math.min(number, complement), Math.max(number, complement)};
-                String pairKey = pair[0] + "," + pair[1];
-                if (!uniquePairs.contains(pairKey)) {
-                    result.add(pair);
-                    uniquePairs.add(pairKey);
-                }
-            }
-            seen.add(number);
-        }
-        return result;
+    public static List<List<Integer>> findUniquePairs(List<Integer> numbers, int target) {
+        return numbers.stream()
+                .flatMap(i -> numbers.stream()
+                        .filter(j -> i < j && i + j == target)
+                        .map(j -> Arrays.asList(i, j)))
+                .toList();
     }
 
     // Отсортируйте страны и выведите столицы

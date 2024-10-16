@@ -10,9 +10,9 @@ public class Main {
         // Найдите уникальные пары чисел
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int target = 7;
-        List<int[]> pairs = ListOperations.findUniquePairs(numbers, target);
+        List<List<Integer>> pairs = ListOperations.findUniquePairs(numbers, target);
         System.out.println("Уникальные пары: " + pairs.stream()
-                .map(pair -> "(" + pair[0] + ", " + pair[1] + ")")
+                .map(pair -> "(" + pair.get(0) + ", " + pair.get(1) + ")")
                 .collect(Collectors.joining(", ")));
 
         // Отсортируйте страны и выведите столицы
