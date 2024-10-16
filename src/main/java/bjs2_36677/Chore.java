@@ -1,7 +1,7 @@
 package bjs2_36677;
 
 public class Chore implements Runnable {
-    String chore;
+    private String chore;
 
     public Chore(String chore) {
         this.chore = chore;
@@ -13,7 +13,7 @@ public class Chore implements Runnable {
             Thread.sleep(1000);
             System.out.println(Thread.currentThread().getName() + ": " + chore);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 }

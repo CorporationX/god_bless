@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WeasleyFamily {
-    List<String> chores;
+    private List<String> chores;
 
     public WeasleyFamily(List<String> chores) {
         this.chores = chores;
