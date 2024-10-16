@@ -12,6 +12,7 @@ public class Chore implements Runnable {
             System.out.println("Chore: \"" + chore + "\" start execute with: " + Thread.currentThread().getName());
             Thread.sleep(1500);
         } catch (InterruptedException e) {
+            e.printStackTrace();
             System.out.println("Chore: \"" + chore + "\" was interrupted");
         }
     }
