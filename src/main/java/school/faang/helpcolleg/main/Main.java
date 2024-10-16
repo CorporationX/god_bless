@@ -15,7 +15,7 @@ public class Main {
 
     private static int batchSize = PERSON_COUNT / THREAD_COUNT;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         List<Person> persons = new ArrayList<>();
 
         for (int i = 0; i < PERSON_COUNT; i++) {
@@ -35,15 +35,17 @@ public class Main {
 
             List<Person> batch = persons.subList(startIndex, endIndex);
 
-            executor.submit(new PersonInfoPrinter(batch));
+            executor.execute(new PersonInfoPrinter(batch));
         }
 
         executor.shutdown();
 
-        if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
-            System.out.println("Все задачи заверешены");
-        } else {
-            System.out.println("Завершение не удалось");
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            executor.shutdownNow();
         }
     }
 }
