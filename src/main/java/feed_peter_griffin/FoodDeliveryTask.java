@@ -1,18 +1,32 @@
 package feed_peter_griffin;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Random;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
     private static final Random random = new Random();
     private static final int MIN_DELAY = 1;
     private static final int MAX_DELAY = 5;
+    private String foodType = null;
+
+    public FoodDeliveryTask(String character, int foodAmount) {
+        this.character = character;
+        this.foodAmount = foodAmount;
+    }
+
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
+    }
+
+    public String getFoodType() {
+        return foodType;
+    }
 
     private static final String[] FOOD_TYPES = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
 
@@ -25,17 +39,17 @@ public class FoodDeliveryTask implements Runnable {
      */
     @Override
     public void run() {
-        String foodType = getFoodType();
+        String randomFoodType = getRandomFoodType();
 
-        System.out.printf("%s gets %d %s\n", character, foodAmount, foodType);
+        setFoodType(randomFoodType);
+
+        System.out.printf("%s gets %d %s\n", character, foodAmount, randomFoodType);
 
         try {
             Thread.sleep(random.nextInt(MAX_DELAY - MIN_DELAY) + MIN_DELAY);
         } catch (InterruptedException e) {
-            throw new IllegalArgumentException(e);
+            throw new IllegalStateException(e);
         }
-
-        System.out.printf("%s eats %d %s\n", character, foodAmount, foodType);
     }
 
     /**
@@ -43,7 +57,7 @@ public class FoodDeliveryTask implements Runnable {
      *
      * @return A food type.
      */
-    private String getFoodType() {
+    private String getRandomFoodType() {
         return FOOD_TYPES[new Random().nextInt(FOOD_TYPES.length)];
     }
 }
