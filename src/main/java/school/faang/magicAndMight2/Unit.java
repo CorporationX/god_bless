@@ -6,7 +6,7 @@ import lombok.ToString;
 @Getter
 @ToString
 public abstract class Unit {
-    protected int power;
+    private final int power;
 
     public Unit(int power) {
         this.power = power;
