@@ -26,13 +26,13 @@ public class Army {
             thread.start();
         }
 
-        threads.forEach(th -> {
+        threads.forEach(thread -> {
             try {
-                th.join();
+                thread.join();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            totalPower += th.getPower();
+            totalPower += thread.getPower();
         });
 
         return totalPower;
