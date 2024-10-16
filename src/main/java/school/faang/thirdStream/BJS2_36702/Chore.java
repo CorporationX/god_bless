@@ -14,6 +14,7 @@ public class Chore implements Runnable {
             System.out.println("Задание '" + chore + "' выполнено!");
         } catch (InterruptedException e) {
             System.out.println("Выполнение задачи '" + chore + "' было превано");
+            e.printStackTrace();
         }
     }
 }
