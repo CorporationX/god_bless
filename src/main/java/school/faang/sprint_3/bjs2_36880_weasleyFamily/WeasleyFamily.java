@@ -20,7 +20,7 @@ public class WeasleyFamily {
                 System.out.println("We are fucked!");
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 }
