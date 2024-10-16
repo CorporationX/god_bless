@@ -2,7 +2,9 @@ package school.faang.weasleychores;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 @AllArgsConstructor
 public class Chore implements  Runnable{
@@ -16,6 +18,7 @@ public class Chore implements  Runnable{
             System.out.println("Chore " + chore + " is done");
         } catch (InterruptedException e) {
             System.out.println("The chore " + chore + " was interrupted");
+            log.error("Caught exception: ", e);
         }
     }
 }
