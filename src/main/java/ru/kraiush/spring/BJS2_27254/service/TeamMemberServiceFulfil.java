@@ -1,5 +1,6 @@
 package ru.kraiush.spring.BJS2_27254.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
@@ -12,13 +13,10 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class TeamMemberServiceFulfil implements TeamMemberService {
 
     private final TeamMemberRepository repository;
-
-    public TeamMemberServiceFulfil(TeamMemberRepository repository) {
-        this.repository = repository;
-    }
 
     @Override
     public List<TeamMember> findAll() {
@@ -74,12 +72,12 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
     }
 
     @Override
-    public String findRoleByName(String name) {
-        TeamMember member = getByTeamMemberName(name);
-        if (member == null) {
+    public String findRoleById(Long userID) {
+        Optional<TeamMember> memberOptional = findById(userID);
+        if (memberOptional.isEmpty()) {
             log.info("No member found!");
         }
-        return repository.findRoleByName(name);
+        return repository.findRoleById(userID);
     }
 
     @Override
@@ -90,4 +88,6 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         } else
             repository.deleteAll();
     }
+
+
 }

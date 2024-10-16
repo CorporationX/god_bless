@@ -18,7 +18,7 @@ public interface TeamMemberRepository extends JpaRepository<TeamMember, Long> {
 
     @Transactional(readOnly = true)
     @Query(
-            value = "SELECT m.role FROM members m WHERE m.name = :dummy",
+            value = "SELECT m.role FROM members m WHERE m.id = :dummy",
             nativeQuery = true)
-    String findRoleByName(@Param("dummy") String name);
+    String findRoleById(@Param("dummy") Long id);
 }

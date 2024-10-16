@@ -1,4 +1,3 @@
-
 INSERT INTO members(id, name, gender, email, location, age, last_date, role)
 VALUES (987111, 'Hermes', true, 'hermes@gmail.com', 'Greece', 3333, CURRENT_TIMESTAMP, 'ROLE_USER'),
        (987222, 'Nemesis', false, 'nemesis@gmail.com', 'Rome', 17, CURRENT_TIMESTAMP, 'ROLE_FAKE'),

@@ -23,5 +23,5 @@ BASE_PACKAGE: ru.kraiush.*
 logging:
   level:
     root: ERROR
-    org.springframework.web: ERROR
+    org.springframework.web: DEBUG
     org.hibernate: ERROR

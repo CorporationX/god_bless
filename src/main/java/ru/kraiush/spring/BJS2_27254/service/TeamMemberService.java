@@ -14,7 +14,7 @@ public interface TeamMemberService {
 
     TeamMember update(TeamMember item);
 
-    String findRoleByName(String name);
+    String findRoleById(Long userID);
 
     void deleteById(long id);
 
