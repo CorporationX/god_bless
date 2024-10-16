@@ -22,9 +22,7 @@ public class WeasleyFamily {
 
     public void doChores() {
         ExecutorService executor = Executors.newCachedThreadPool();
-        chores.forEach(chore -> {
-            executor.execute(new Chore(chore));
-        });
+        chores.forEach(chore -> executor.execute(new Chore(chore)));
         executor.shutdown();
         try {
             if (executor.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -35,7 +33,7 @@ public class WeasleyFamily {
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
-            System.err.printf("Interrupted while waiting for chores to finish. Shutting down executor now.\n%s", e.getMessage());
+            throw new IllegalStateException("Interrupted while waiting for chores to finish. Shutting down executor now.", e);
         }
     }
 }
