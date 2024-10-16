@@ -23,7 +23,7 @@ public class WeasleyFamily {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread has been interrupted" + e.getMessage(), e);
         }
     }
 }
