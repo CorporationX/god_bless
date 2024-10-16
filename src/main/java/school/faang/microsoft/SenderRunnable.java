@@ -1,16 +1,8 @@
 package school.faang.microsoft;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
-@Data
-@AllArgsConstructor
-public class SenderRunnable implements Runnable {
-    private final int startIndex;
-    private final int endIndex;
-
+public record SenderRunnable(int startIndex, int endIndex) implements Runnable {
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex; i <= endIndex; i++) {
             System.out.println("The letter has been sent: " + i);
         }
     }
