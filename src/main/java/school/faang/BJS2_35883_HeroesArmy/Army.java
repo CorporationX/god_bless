@@ -29,7 +29,13 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
+                throw new IllegalStateException(
+                        String.format(
+                                "Thread %s was interrupted while waiting for it to finish",
+                                Thread.currentThread().getName()
+                        ),
+                        e
+                );
             }
         });
 
