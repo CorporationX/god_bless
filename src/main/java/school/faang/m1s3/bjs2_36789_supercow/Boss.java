@@ -12,6 +12,7 @@ import java.util.Random;
 public class Boss {
     private final int maxPlayers;
     private final List<Player> currentPlayers = new ArrayList<>();
+    private Random random = new Random();
 
     protected void joinBattle(Player player) {
         synchronized (currentPlayers) {
@@ -30,7 +31,7 @@ public class Boss {
 
     public void killPlayer() {
         synchronized (currentPlayers) {
-            int playerIndex = new Random().nextInt(currentPlayers.size());
+            int playerIndex = random.nextInt(currentPlayers.size());
             System.out.println(currentPlayers.get(playerIndex).getName() + " is killed!");
             currentPlayers.remove(playerIndex);
             currentPlayers.notify();
