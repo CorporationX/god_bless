@@ -6,14 +6,17 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int THREADS_COUNT = 5;
+    private static final int PERIOD = 30;
+
     public static void main(String[] args) {
         House house = new House();
         house.getRooms().addAll(getRooms());
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(THREADS_COUNT);
 
         for (int i = 0; i < 5; i++) {
-            executorService.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(house::collectFood, 0, PERIOD, TimeUnit.SECONDS);
         }
 
         executorService.shutdown();
