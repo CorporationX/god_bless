@@ -1,8 +1,7 @@
-package school.faang;
+package school.faang.ironThrone;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.w3c.dom.ls.LSOutput;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,8 @@
-package school.faang;
+package school.faang.ironThrone;
 
 import lombok.Getter;
 import lombok.Setter;
+import school.faang.ironThrone.House;
 
 @Getter
 @Setter
