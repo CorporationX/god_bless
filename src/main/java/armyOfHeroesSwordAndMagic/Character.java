@@ -4,9 +4,9 @@ import lombok.Data;
 
 @Data
 public abstract class Character {
-    protected int power;
+    public int power;
 
-    protected Character(int power) {
+    public Character(int power) {
         this.power = power;
     }
 }
