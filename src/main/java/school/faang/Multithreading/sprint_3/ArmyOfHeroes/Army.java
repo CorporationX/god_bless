@@ -15,7 +15,7 @@ public class Army {
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> powerCharacters = new ArrayList<>();
 
-        for(Character character: armyList){
+        for (Character character : armyList) {
             PowerCalculator calculator = new PowerCalculator(character);
             threads.add(new Thread(calculator));
             powerCharacters.add(calculator);
@@ -23,6 +23,7 @@ public class Army {
 
         for (Thread thread : threads) {
             thread.start();
+
             try {
                 thread.join();
             } catch (InterruptedException e) {

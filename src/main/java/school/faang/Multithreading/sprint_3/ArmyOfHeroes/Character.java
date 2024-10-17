@@ -14,7 +14,7 @@ public class Character {
         }
     }
 
-    public int getPower(){
+    public int getPower() {
         return power;
     }
 }
