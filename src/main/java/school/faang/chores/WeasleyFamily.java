@@ -7,6 +7,7 @@ import java.util.concurrent.Executors;
 
 public class WeasleyFamily {
     public static void main(String[] args) {
+
         List<String> chores = new ArrayList<>(List.of(
                 "Wash dishes",
                 "Drink beer",
