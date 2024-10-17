@@ -1,15 +1,19 @@
 package school.faang.mice;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Log4j2
 public class Main {
     private static final int POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws InterruptedException {
 
         List<Food> foodList1 = new ArrayList<>(List.of(
                 new Food("Bread"),
@@ -53,24 +57,21 @@ public class Main {
         for (int i = 0; i < POOL_SIZE; i++) {
             scheduler.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
         }
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (!house.roomsList.stream().allMatch(room -> room.foodList().isEmpty())) {
+            Thread.sleep(1000);
         }
 
         scheduler.shutdown();
-
         try {
-            if (scheduler.awaitTermination(60, TimeUnit.SECONDS) &&
-                    (house.roomsList.stream().allMatch(room -> room.foodList().isEmpty()))) {
+            if (scheduler.awaitTermination(60, TimeUnit.SECONDS)) {
                 System.out.println("Foods collected");
             } else {
                 System.out.println("Waiting time expired.  Forcing shutdown.");
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            log.error("Thread" + Thread.currentThread().getName() + "was interrupted", e);
+            throw new IllegalStateException("Thread" + Thread.currentThread().getName() + "was interrupted", e);
         }
     }
 }
