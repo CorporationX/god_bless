@@ -31,4 +31,17 @@ public class UserActionAnalyzer {
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
+
+    public static List<String> topCommentersLastMonth(List<UserAction> actions) {
+        LocalDate oneMonthAgo = LocalDate.now().minus(1, ChronoUnit.MONTHS);
+        return actions.stream()
+                .filter(action -> "comment".equalsIgnoreCase(action.getActionType()) && action.getActionDate().isAfter(oneMonthAgo))
+                .collect(Collectors.groupingBy(UserAction::getUserName, Collectors.counting()))
+                .entrySet().stream()
+                .sorted((a, b) -> Long.compare(b.getValue(), a.getValue()))
+                .limit(3)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+    }
+
 }
