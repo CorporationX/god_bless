@@ -2,18 +2,21 @@ package school.faang.BJS2_37791_WorkingInMicrosoft;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class MailSender {
+    private static final int MAILS_COUNT = 1000;
+    private static final int THREADS_COUNT = 5;
+
     public static void main(String[] args) {
+        int packageSize = MAILS_COUNT / THREADS_COUNT;
         List<Thread> threads = new ArrayList<>();
 
-        IntStream.iterate(1, startIndex -> startIndex <= 801, startIndex -> startIndex + 200)
-                        .forEach(startIndex -> {
-                            Thread thread = new Thread(new SenderRunnable(startIndex, startIndex + 199));
-                            threads.add(thread);
-                            thread.start();
-                        });
+        for (int startIndex = 1; startIndex < MAILS_COUNT; startIndex += packageSize) {
+            int endIndex = startIndex + packageSize - 1;
+            Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads.add(thread);
+            thread.start();
+        }
 
         threads.forEach(thread -> {
             try {
