@@ -29,7 +29,7 @@ public class Army {
             try {
                 totalPower+=future.get();
             } catch (ExecutionException e) {
-                throw new RuntimeException(e);
+                throw new InterruptedException("Something went wrong");
             }
         }
 
