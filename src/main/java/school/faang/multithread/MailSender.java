@@ -1,28 +1,19 @@
 package school.faang.multithread;
 
 public class MailSender {
+    private static final Integer NUMBER_OF_THREADS = 5;
+
     public static void main(String[] args) {
-        Thread thread1 = new Thread(new SenderRunnable(1, 200));
-        Thread thread2 = new Thread(new SenderRunnable(201, 400));
-        Thread thread3 = new Thread(new SenderRunnable(401, 600));
-        Thread thread4 = new Thread(new SenderRunnable(601, 800));
-        Thread thread5 = new Thread(new SenderRunnable(801, 100));
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
-
-        try {
-            thread1.join();
-            thread2.join();
-            thread3.join();
-            thread4.join();
-            thread5.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        for (int i = 0; i < NUMBER_OF_THREADS; i++){
+            Thread thread = new Thread(new SenderRunnable(1, 200));
+            thread.start();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new IllegalStateException("Ошибка в работе потока: " + e.getMessage());
+            }
         }
+
 
         System.out.println("Все письма отправлены.");
     }
