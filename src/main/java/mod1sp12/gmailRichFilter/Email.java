@@ -1,0 +1,12 @@
+package mod1sp12.gmailRichFilter;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Email {
+    private String subject;
+    private String body;
+    private boolean isImportant;
+}

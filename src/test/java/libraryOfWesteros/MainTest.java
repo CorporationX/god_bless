@@ -1,5 +1,7 @@
 package libraryOfWesteros;
 
+import mod1sp12.libraryOfWesteros.Book;
+import mod1sp12.libraryOfWesteros.Main;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

@@ -1,5 +1,6 @@
 package userRegistration;
 
+import mod1sp12.userRegistration.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

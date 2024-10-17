@@ -1,5 +1,7 @@
 package abstractionAbstraction;
 
+import mod1sp12.abstractionAbstraction.Archer;
+import mod1sp12.abstractionAbstraction.Warrior;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
