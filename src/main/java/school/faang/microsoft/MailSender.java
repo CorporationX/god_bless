@@ -12,8 +12,12 @@ public class MailSender {
         executorService.execute(new SenderRunnable(1, 200));
 
         List<Thread> threads = new ArrayList<>();
+
+        int allTasks = 1000;
+        int tasksForOneIteration = 200;
         int firstCount = 0;
-        for (int i = 200; i <= 1000; i += 200) {
+
+        for (int i = tasksForOneIteration; i <= allTasks; i += tasksForOneIteration) {
             threads.add(new Thread(new SenderRunnable(firstCount, i)));
         }
 
@@ -21,15 +25,14 @@ public class MailSender {
             thread.start();
         }
 
-        try {
-            for (Thread thread : threads) {
+        for (Thread thread : threads) {
+            try {
                 thread.join();
+                System.out.println("Все письма отправлены");
+            } catch (InterruptedException e) {
+                throw new IllegalStateException("Поток был прерван", e);
             }
-            System.out.println("Все письма отправлены");
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
         }
-
         executorService.shutdown();
     }
 }
