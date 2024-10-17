@@ -18,5 +18,4 @@ public class Main {
         int totalPower = army.calculateTotalPower();
         System.out.println("Общая сила армии: " + totalPower);
     }
-
 }

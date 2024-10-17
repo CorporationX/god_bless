@@ -4,5 +4,4 @@ public class Swordsman extends Character {
     public Swordsman(int strength) {
         super(strength);
     }
-
 }
