@@ -1,9 +1,6 @@
 package school.faang.m1s3.bjs2_37080_broforce;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,18 +14,6 @@ public class Main {
 
         Game game = new Game(players);
 
-        ExecutorService gameService = Executors.newFixedThreadPool(game.getPlayerList().size());
-
-        game.startGame(gameService);
-
-        try {
-            if (!gameService.awaitTermination(30, TimeUnit.SECONDS)) {
-                gameService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            throw new IllegalStateException("Thread has been interrupted " + e.getMessage(), e);
-        }
-
-        game.gameOver();
+        game.startGame();
     }
 }

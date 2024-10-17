@@ -6,21 +6,30 @@ import lombok.RequiredArgsConstructor;
 import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 @RequiredArgsConstructor
 @Getter
 public class Game {
+    private static final double HIT_PROBABILITY = 0.33;
+
     private int scoreTotal = 0;
     private int livesTotal = 0;
-    private Object lockScoreTotal = new Object();
-    private Object lockLivesTotal = new Object();
+    private final Object lockScoreTotal = new Object();
+    private final Object lockLivesTotal = new Object();
     private final List<Player> playerList;
 
-    public void startGame(ExecutorService service) {
+    public void startGame() {
+        ExecutorService service = Executors.newFixedThreadPool(playerList.size());
+
         livesTotal = playerList.stream().mapToInt(Player::getLives).sum();
         playerList.forEach(player ->
                 service.execute(() -> gamePlay(player)));
+
         service.shutdown();
+        checkServiceTermination(service);
+        gameOver();
     }
 
     public void gameOver() {
@@ -48,7 +57,7 @@ public class Game {
     }
 
     private void update(Player player) {
-        if (player.checkIsInjured()) {
+        if (checkIsInjured()) {
             synchronized (lockLivesTotal) {
                 player.setLives(player.getLives() - 1);
                 livesTotal -= 1;
@@ -64,4 +73,19 @@ public class Game {
             }
         }
     }
+
+    private void checkServiceTermination(ExecutorService service) {
+        try {
+            if (!service.awaitTermination(30, TimeUnit.SECONDS)) {
+                service.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Thread has been interrupted " + e.getMessage(), e);
+        }
+    }
+
+    private boolean checkIsInjured() {
+        return Math.random() < HIT_PROBABILITY;
+    }
 }
+

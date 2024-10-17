@@ -11,9 +11,4 @@ public class Player {
     private final String name;
     private int lives = 5;
     private int score = 0;
-
-    boolean checkIsInjured() {
-        return Math.random() < 0.33;
-    }
-
 }
