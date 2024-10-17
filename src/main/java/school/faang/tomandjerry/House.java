@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 @Data
 public class House {
     public static final int CORE_POOL_SIZE = 5;
-    private List<Room> rooms;
     private static List<Food> collectedFood = new ArrayList<>();
+    private List<Room> rooms;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
