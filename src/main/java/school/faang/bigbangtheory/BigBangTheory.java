@@ -16,10 +16,10 @@ public class BigBangTheory {
                 new Task("Раджеш", "анализ данных"));
 
         for (Task task : tasks) {
-            executorService.awaitTermination(1, TimeUnit.SECONDS);
             executorService.execute(task);
         }
 
         executorService.shutdown();
+        executorService.awaitTermination(8, TimeUnit.SECONDS);
     }
 }

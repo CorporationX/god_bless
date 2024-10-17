@@ -13,7 +13,7 @@ public class Task implements Runnable {
     public void run() {
         System.out.println(name + " начал выполнять задачу " + task);
         try {
-            Thread.sleep(2000);
+            Thread.sleep(8000);
         } catch (InterruptedException e) {
             throw new IllegalStateException("Поток был прерван", e);
         }
