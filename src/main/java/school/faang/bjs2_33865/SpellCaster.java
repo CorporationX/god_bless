@@ -11,5 +11,5 @@ public class SpellCaster implements SpellAction {
         return execute(spellName);
     }
 
-
+//just coment to make push to github
 }
