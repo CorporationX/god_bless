@@ -1,21 +1,25 @@
 package school.faang.sprint_3.bjs2_36099_miceAreVeryNice;
 
-import lombok.AllArgsConstructor;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-@AllArgsConstructor
 public class House {
     private static final int THREAD_POOL_SIZE = 5;
-    private List<Room> rooms;
+    private final List<Room> rooms;
+    private static final Random RANDOM = new Random();
+
+    public House(List<Room> rooms) {
+        this.rooms = rooms;
+    }
 
     public static void main(String[] args) {
-        List<Food> collectedFood = new ArrayList<>();
+        List<Food> collectedFood = Collections.synchronizedList(new ArrayList<>());
+
         House house = new House(HouseInitializer.getFiveRandomRooms());
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
@@ -31,17 +35,17 @@ public class House {
         try {
             if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
-                System.out.println("Все пошло не по плану!");
+                System.out.println("Все пошло не по плану! Глушим потоки!");
             }
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Произошла ошибка при остановке потоков.", e);
         }
     }
 
     private List<Food> collectFood() {
-        Random random = new Random();
-        Room firstRandomRoom = rooms.get(random.nextInt(rooms.size()));
-        Room secondRandomRoom = rooms.get(random.nextInt(rooms.size()));
+        Room firstRandomRoom = rooms.get(RANDOM.nextInt(rooms.size()));
+        Room secondRandomRoom = rooms.get(RANDOM.nextInt(rooms.size()));
         List<Room> roomsToCollect = List.of(firstRandomRoom, secondRandomRoom);
         List<Food> collectedFood = new ArrayList<>();
 

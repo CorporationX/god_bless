@@ -6,5 +6,5 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public class Food {
-    String foodType;
+    private String foodType;
 }
