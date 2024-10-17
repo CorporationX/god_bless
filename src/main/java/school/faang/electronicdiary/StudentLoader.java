@@ -1,15 +1,20 @@
 package school.faang.electronicdiary;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
 public class StudentLoader {
 
     public static List<Student> loadStudents(String filePath) throws IOException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        return Arrays.asList(objectMapper.readValue(new File( "src/main/resources/students_test_data.json"), Student[].class));
+        Gson gson = new Gson();
+        try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/students_test_data.json"))) {
+            Student[] students = gson.fromJson(reader, Student[].class);
+            return Arrays.asList(students);
+        }
     }
 }
