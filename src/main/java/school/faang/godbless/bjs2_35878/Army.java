@@ -20,11 +20,11 @@ public class Army {
                     thread.addUnit(fighter);
                     thread.start();
                     return thread;
-                }).mapToInt(thread -> {
+                }).toList().stream().mapToInt(thread -> {
                     try {
                         thread.join();
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        throw new IllegalStateException("Interrupted when join thread");
                     }
                     return thread.getPower();
                 }).sum();
@@ -47,7 +47,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Interrupted when join thread");
             }
             return thread.getPower();
         }).sum();
