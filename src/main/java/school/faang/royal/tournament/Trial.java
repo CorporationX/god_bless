@@ -3,6 +3,7 @@ package school.faang.royal.tournament;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -19,7 +20,7 @@ public class Trial implements Runnable {
             TimeUnit.SECONDS.sleep(durationTrialInSeconds);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
-            e.printStackTrace();
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         System.out.println("Рыцарь " + knightName + " завершил испытание " + trialName);
     }
