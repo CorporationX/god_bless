@@ -5,15 +5,16 @@ import java.util.List;
 
 public class GooglePhotosAutoUploader {
     private List<String> photosToUpload = new ArrayList<>();
+    private final Object lock = new Object();
 
     public void startAutoUpload() {
         new Thread(() -> {
             while (true) {
-                synchronized (photosToUpload) {
+                synchronized (lock) {
                     if (photosToUpload.isEmpty()) {
                         try {
                             System.out.println("Ожидание фото");
-                            photosToUpload.wait();
+                            lock.wait();
                         } catch (InterruptedException e) {
                             System.out.println("Ошибка загрузки фото");
                         }
@@ -25,10 +26,10 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (photosToUpload) {
+        synchronized (lock) {
             photosToUpload.add(photoPath);
             System.out.println("Фото добавлено " + photoPath);
-            photosToUpload.notify();
+            lock.notify();
         }
     }
 
