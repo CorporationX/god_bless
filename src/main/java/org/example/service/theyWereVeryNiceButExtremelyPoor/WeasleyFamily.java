@@ -1,22 +1,25 @@
 package org.example.service.theyWereVeryNiceButExtremelyPoor;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 import org.example.model.theyWereVeryNiceButExtremelyPoor.Chore;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Getter
+@AllArgsConstructor
 public class WeasleyFamily {
-    private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
-    public static List<Chore> works = new ArrayList<>();
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private List<Chore> works;
 
-    public static void addChore(Chore chore) {
+    public void addChore(Chore chore) {
         works.add(chore);
     }
 
-    public static void gettingStartTheWorks(List<Chore> chores) {
-        chores.forEach(EXECUTOR_SERVICE::submit);
-        EXECUTOR_SERVICE.shutdown();
+    public void gettingStartTheWorks(List<Chore> chores) {
+        chores.forEach(executorService::submit);
+        executorService.shutdown();
     }
 }
