@@ -45,4 +45,22 @@ public class ListOperations {
                 .sorted(Comparator.comparingInt(String::length))
                 .collect(Collectors.toList());
     }
+
+    public static boolean allMatchCondition(List<Integer> numbers, Predicate<Integer> predicate) {
+        return numbers.stream()
+                .allMatch(predicate);
+    }
+
+    public static int findMinGreaterThan(List<Integer> numbers, int threshold) {
+        return numbers.stream()
+                .filter(n -> n > threshold)
+                .min(Integer::compareTo)
+                .orElseThrow(() -> new IllegalArgumentException("No element greater than the threshold"));
+    }
+
+    public static List<Integer> convertToLengths(List<String> strings) {
+        return strings.stream()
+                .map(String::length)
+                .collect(Collectors.toList());
+    }
 }
