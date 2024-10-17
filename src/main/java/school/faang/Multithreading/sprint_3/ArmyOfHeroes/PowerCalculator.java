@@ -2,7 +2,7 @@ package school.faang.Multithreading.sprint_3.ArmyOfHeroes;
 
 public class PowerCalculator implements Runnable {
    private final Character character;
-   int power;
+   private int power;
 
    public PowerCalculator(Character character){
        this.character = character;

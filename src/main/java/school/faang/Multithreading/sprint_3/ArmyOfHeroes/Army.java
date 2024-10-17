@@ -12,19 +12,17 @@ public class Army {
 
     public int calculateTotalPower() {
         int totalPower = 0;
-        int allCharacter = armyList.size();
-        Thread[] threads = new Thread[allCharacter];
+        List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> powerCharacters = new ArrayList<>();
 
-        for (int i = 0; i < allCharacter; i++) {
-            Character character = armyList.get(i);
+        for(Character character: armyList){
             PowerCalculator calculator = new PowerCalculator(character);
-            threads[i] = new Thread(calculator);
+            threads.add(new Thread(calculator));
             powerCharacters.add(calculator);
-            threads[i].start();
         }
 
         for (Thread thread : threads) {
+            thread.start();
             try {
                 thread.join();
             } catch (InterruptedException e) {
