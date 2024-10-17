@@ -5,7 +5,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Music {
-    public static final int THREADS_COUNT = 5;
+    private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) {
         Player player = new Player();
@@ -23,7 +23,8 @@ public class Music {
                 System.out.println("Что-то не так, дергаем стоп-кран!");
             }
         } catch (InterruptedException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            throw new RuntimeException("Текущий поток был прерван во время ожидания завершения другого потока", e);
         }
     }
 }
