@@ -19,10 +19,11 @@ public class FoodDeliveryTask implements Runnable {
 
     @Override
     public void run() {
+        int randomNumForThread = new Random().nextInt(1000, 5000);
         String food = getFoodType();
         System.out.println(character + " reciev " + foodAmount + " " + food);
         try {
-            Thread.sleep(new Random().nextInt(1000, 5000));
+            Thread.sleep(randomNumForThread);
         } catch (InterruptedException e) {
             throw new IllegalStateException("Поток был прерван", e);
         }
