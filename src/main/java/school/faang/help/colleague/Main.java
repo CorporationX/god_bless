@@ -2,6 +2,7 @@ package school.faang.help.colleague;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -39,7 +40,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("Не удалось напечатать информацию про всех сотрудников " + e.getMessage());
-            e.printStackTrace();
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 }
