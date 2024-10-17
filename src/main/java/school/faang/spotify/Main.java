@@ -24,7 +24,7 @@ public class Main {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Thread has been interrupted " + e.getMessage());
             }
         });
     }
