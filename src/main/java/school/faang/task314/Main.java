@@ -6,22 +6,27 @@ import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private static final int N_THREAD = 5;
+    private static final int NUMBET_OF_THREAD = 5;
 
     public static void main(String[] args) throws InterruptedException {
         House house = new House();
         house.initialize();
 
-        ScheduledThreadPoolExecutor threadPool = new ScheduledThreadPoolExecutor(N_THREAD);
+        ScheduledThreadPoolExecutor scheduledPool = new ScheduledThreadPoolExecutor(NUMBET_OF_THREAD);
 
-        for (int i = 0; i < N_THREAD; i++) {
-            threadPool.scheduleWithFixedDelay(house::collectFood, 0, 1, TimeUnit.SECONDS);
-        }
-        while (!house.isAllFoodCollected()) {
-            Thread.sleep(5000);
+        for (int i = 0; i < NUMBET_OF_THREAD; i++) {
+            scheduledPool.scheduleWithFixedDelay(house::collectFood, 0, 1, TimeUnit.SECONDS);
         }
 
-        threadPool.shutdown();
+        try {
+            if (!scheduledPool.awaitTermination(2, TimeUnit.MINUTES)) {
+                scheduledPool.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
+
+        scheduledPool.shutdown();
         System.out.println("Еда в доме собрана!");
     }
 }
