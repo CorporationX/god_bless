@@ -7,7 +7,6 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
-
         List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
         int targetSum = 7;
         List<Pair> pairs = UniquePairsFinder.findUniquePairs(numbers, targetSum);
