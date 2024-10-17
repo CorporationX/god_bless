@@ -1,6 +1,7 @@
 package school.faang.sreamapione;
 
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -31,5 +32,17 @@ public class ListOperations {
         return (int) strings.stream()
                 .filter(s -> s.startsWith(String.valueOf(c)))
                 .count();
+    }
+
+    public static List<String> filterStringsContainingSubstring(List<String> strings, String substring) {
+        return strings.stream()
+                .filter(s -> s.contains(substring))
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> sortByLength(List<String> strings) {
+        return strings.stream()
+                .sorted(Comparator.comparingInt(String::length))
+                .collect(Collectors.toList());
     }
 }
