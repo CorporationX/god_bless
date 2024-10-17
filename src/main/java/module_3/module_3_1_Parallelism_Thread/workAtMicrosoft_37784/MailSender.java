@@ -1,4 +1,4 @@
-package workAtMicrosoft_37784;
+package module_3.module_3_1_Parallelism_Thread.workAtMicrosoft_37784;
 
 public class MailSender {
     public static void main(String[] args) {

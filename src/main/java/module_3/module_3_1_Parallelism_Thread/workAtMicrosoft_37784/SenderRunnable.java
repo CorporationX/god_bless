@@ -1,4 +1,4 @@
-package workAtMicrosoft_37784;
+package module_3.module_3_1_Parallelism_Thread.workAtMicrosoft_37784;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
