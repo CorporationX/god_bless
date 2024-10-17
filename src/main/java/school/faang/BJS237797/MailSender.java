@@ -13,7 +13,6 @@ public class MailSender {
             Thread thread = new Thread(new SenderRunnable(startIndex, endIndex));
             threads.add(thread);
         }
-
         threads.forEach(Thread::start);
         threads.forEach(thread -> {
             try {
@@ -22,7 +21,6 @@ public class MailSender {
                 e.printStackTrace();
             }
         });
-
         System.out.println("Все сообщения отправлены");
     }
 }
