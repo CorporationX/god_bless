@@ -1,4 +1,4 @@
-package feedPeterGriffin_36016;
+package module_3.module_3_1_Parallelism_Thread.feedPeterGriffin_36016.feedPeterGriffin_36016;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
