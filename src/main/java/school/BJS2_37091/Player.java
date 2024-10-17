@@ -1,18 +1,20 @@
 package school.BJS2_37091;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public class Player {
 
+    private Game game;
+    @Getter
     private String name;
     private int helth;
     private int score;
 
-    public String getName() {
-        return name;
+    public Player(String name, int helth, int score) {
+        this.name = name;
+        this.helth = helth;
+        this.score = score;
     }
 
     public void uppScore() {
@@ -21,10 +23,11 @@ public class Player {
 
     public void downHelth() {
         helth--;
+
     }
 
     public boolean checkLife() {
-        if (helth == 0) {
+        if (helth > 0) {
             return true;
         } else return false;
     }

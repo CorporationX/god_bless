@@ -27,9 +27,15 @@ public class Main {
         players.add(player4);
         players.add(player5);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(players.size());
         for (Player player : players) {
-            executorService.scheduleAtFixedRate(() -> game.update(player), 0, 5, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(() -> {
+                try {
+                    game.update(player);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }, 0, 1, TimeUnit.SECONDS);
         }
         try {
             latch.await();
@@ -37,6 +43,8 @@ public class Main {
             e.printStackTrace();
         }
         executorService.shutdown();
+        game.endGame();
+
     }
 
 }
