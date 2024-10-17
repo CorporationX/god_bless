@@ -1,7 +1,6 @@
-package Tom_Jerry;
+package tom_Jerry;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final int THREAD_POOL_SIZE = 5;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         Food apple = new Food("apple");
         Food orang = new Food("ogang");
         Food lime = new Food("lime");
@@ -21,36 +20,43 @@ public class Main {
         Food milk = new Food("milk");
 
         Room bedroom = new Room();
-        bedroom.initialize(apple);
-        bedroom.initialize(orang);
+        bedroom.addFood(apple);
+        bedroom.addFood(orang);
 
         Room dineroom = new Room();
-        dineroom.initialize(lime);
-        dineroom.initialize(carrot);
-        dineroom.initialize(milk);
+        dineroom.addFood(lime);
+        dineroom.addFood(carrot);
+        dineroom.addFood(milk);
 
         Room kitchen = new Room();
-        kitchen.initialize(potate);
-        kitchen.initialize(cabage);
-        kitchen.initialize(bread);
+        kitchen.addFood(potate);
+        kitchen.addFood(cabage);
+        kitchen.addFood(bread);
 
         Room bathroom = new Room();
 
         House house = new House();
-        house.initializeHouse(bathroom);
-        house.initializeHouse(bedroom);
-        house.initializeHouse(kitchen);
-        house.initializeHouse(dineroom);
+        house.addRoom(bathroom);
+        house.addRoom(bedroom);
+        house.addRoom(kitchen);
+        house.addRoom(dineroom);
 
         ScheduledExecutorService executorServicehed = Executors.newScheduledThreadPool(THREAD_POOL_SIZE);
         executorServicehed.scheduleAtFixedRate(() -> {
             house.collectFood();
-            System.out.println("Tho rooms cleaned "+Thread.currentThread().getName());
-        if (house.allFoodCollected()) {
-            System.out.println("The house is clean");
-            executorServicehed.shutdown();
+            System.out.println(Thread.currentThread().getName());
+        }, 0, 5, TimeUnit.SECONDS);
+        while (true) {
+            if (house.allFoodCollected()) {
+                System.out.println("Food in the house has been collected");
+                executorServicehed.shutdown();
+                break;
             }
-        },0, 10, TimeUnit.SECONDS);
-
-}
+        }
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            System.out.println("Tasks not completed");
+        }
+    }
 }

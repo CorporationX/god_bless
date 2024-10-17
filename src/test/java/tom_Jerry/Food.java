@@ -1,4 +1,4 @@
-package Tom_Jerry;
+package tom_Jerry;
 
 public class Food {
     private String food;
