@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import ru.kraiush.spring.BJS2_27254.config.context.UserContext;
 import ru.kraiush.spring.BJS2_27254.domain.dto.TeamMemberDto;
 import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
 import ru.kraiush.spring.BJS2_27254.exception.DataValidationException;
@@ -17,10 +18,16 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api")
-@RequiredArgsConstructor
 public class TeamController {
 
     private final TeamMemberServiceFulfil service;
+    private UserContext context;
+    private Long userId;
+
+    public TeamController(TeamMemberServiceFulfil service, UserContext context) {
+        this.service = service;
+        this.context = context;
+    }
 
     @GetMapping("/welcome")
     public String welcome() {
@@ -29,7 +36,8 @@ public class TeamController {
 
     @GetMapping(value = "/members")
     @Operation(summary = "Get all users")
-    public List<TeamMemberDto> findAll(@RequestHeader("X-User-ID") Long userId) {
+    public List<TeamMemberDto> findAll() {
+        userId = context.getUserId();
         if (userId == null) {
             log.info("No users Id found");
             return null;
@@ -45,7 +53,8 @@ public class TeamController {
 
     @GetMapping(value = "/members/{id}")
     @Operation(summary = "Get a user by Id")
-    public TeamMemberDto getTeamMember(@RequestHeader("X-User-ID") Long userId, @PathVariable("id") long id) throws AccessDeniedException {
+    public TeamMemberDto getTeamMember(@PathVariable("id") long id) throws AccessDeniedException {
+        userId = context.getUserId();
         if (userId == null) {
             log.info("No users Id found");
             return null;
@@ -61,7 +70,8 @@ public class TeamController {
 
     @PostMapping(value = "/members")
     @Operation(summary = "Create a user")
-    public TeamMemberDto createTeamMember(@RequestHeader("X-User-ID") Long userId, @RequestBody TeamMemberDto userDto) {
+    public TeamMemberDto createTeamMember(@RequestBody TeamMemberDto userDto) {
+        userId = context.getUserId();
         if (userId == null) {
             log.info("No users Id found");
             return null;
@@ -78,7 +88,8 @@ public class TeamController {
 
     @PutMapping(value = "/members")
     @Operation(summary = "Update a user")
-    public TeamMemberDto updateTeamMember(@RequestHeader("X-User-ID") Long userId, @RequestBody TeamMemberDto userDto) {
+    public TeamMemberDto updateTeamMember(@RequestBody TeamMemberDto userDto) {
+        userId = context.getUserId();
         if (userId == null) {
             log.info("No users Id found");
             return null;
@@ -95,7 +106,8 @@ public class TeamController {
 
     @DeleteMapping(value = "/members/{id}")
     @Operation(summary = "Delete a user")
-    public void delete(@RequestHeader("X-User-ID") Long userId, @PathVariable long id) {
+    public void delete(@PathVariable long id) {
+        userId = context.getUserId();
         if (userId == null) {
             log.info("No users Id found");
         }
