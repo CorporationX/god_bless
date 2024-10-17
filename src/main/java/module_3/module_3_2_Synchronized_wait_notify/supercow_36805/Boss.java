@@ -1,6 +1,7 @@
 package module_3.module_3_2_Synchronized_wait_notify.supercow_36805;
 
 import lombok.Data;
+import lombok.NonNull;
 
 @Data
 public class Boss {
@@ -21,16 +22,15 @@ public class Boss {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            currentPlayers++;
-            System.out.println(player.getName() + " присоединился к бою.");
         }
+        currentPlayers++;
+        System.out.println(player.getName() + " присоединился к бою.");
+
     }
 
-    public synchronized void leaveBattle(Player player) {
+    public synchronized void leaveBattle(@NonNull Player player) {
         currentPlayers--;
         System.out.println(player.getName() + " покинул поле сражения.");
         notify();
     }
-
-
 }
