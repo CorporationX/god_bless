@@ -10,13 +10,7 @@ public class PowerCalculator extends Thread {
 
     @Override
     public void run() {
-        if (warrior instanceof Archer) {
-            result = ((Archer) warrior).getPower();
-        } else if (warrior instanceof Swordsman) {
-            result = ((Swordsman) warrior).getPower();
-        } else if (warrior instanceof Mag) {
-            result = ((Mag) warrior).getPower();
-        }
+        result = warrior.getPower();
     }
 
     public int getResult() {
