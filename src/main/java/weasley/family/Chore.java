@@ -1,5 +1,7 @@
 package weasley.family;
 
+import java.util.concurrent.TimeUnit;
+
 public class Chore implements Runnable {
     private final String chore;
 
@@ -14,10 +16,11 @@ public class Chore implements Runnable {
         System.out.println(threadName + " запустился и выполняет задачу " + chore);
 
         try {
-            Thread.sleep(2000);
+            TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException error) {
-            System.err.println(threadName + " прервался.");
-            Thread.currentThread().interrupt();
+            System.err.println(threadName + " был прерван во время выполнения задачи: " + chore);
+            error.printStackTrace();
+            throw new IllegalStateException(threadName + "был прерван во время выполнения задачи: " + chore, error);
         }
 
         System.out.println(threadName + " обработал задачу " + chore);
