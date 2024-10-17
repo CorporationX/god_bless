@@ -2,13 +2,13 @@ package ru.kraiush.BJS2_35499;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
+    private static final String PUNCTUATION_EXCEPT_HASH_REGEX = "[\\p{Punct}&&[^#]]+$";
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
         return actions.stream()
@@ -23,7 +23,7 @@ public class UserActionAnalyzer {
     public static List<String> topPopularHashtags(List<UserAction> actions) {
         return actions.stream()
                 .filter(action -> action.getContent() != null && action.getActionType().equals("post") || action.getActionType().equals("comment"))
-                .flatMap(action -> Arrays.stream(action.getContent().replaceAll("[\\p{Punct}&&[^#]]+$", "").split("\\s+")))
+                .flatMap(action -> Arrays.stream(action.getContent().replaceAll(PUNCTUATION_EXCEPT_HASH_REGEX, "").split("\\s+")))
                 .filter(word -> word.startsWith("#"))
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()))
                 .entrySet().stream()
