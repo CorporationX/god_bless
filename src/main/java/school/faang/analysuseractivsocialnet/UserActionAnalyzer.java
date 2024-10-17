@@ -44,4 +44,15 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
+    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        long totalActions = actions.size();
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        entry -> (entry.getValue() / (double) totalActions) * 100
+                ));
+    }
 }
+
