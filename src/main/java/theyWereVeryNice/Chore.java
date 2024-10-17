@@ -14,7 +14,7 @@ public class Chore implements Runnable {
             Thread.sleep(2000);
             System.out.println("Задача " + chore + " выполнена!");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Method sleep returned error" + e.getMessage(), e);
         }
     }
 }
