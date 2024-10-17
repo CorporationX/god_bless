@@ -1,14 +1,13 @@
 package school.faang.multithreadingcachedthreadpool;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class WeasleyFamily {
-    ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
-    List<Chore> chores = new ArrayList<>();
+    private final ExecutorService executorService = java.util.concurrent.Executors.newCachedThreadPool();
+    private final List<Chore> chores = new ArrayList<>();
 
     public void addChore(Chore chore) {
         chores.add(chore);
@@ -26,7 +25,7 @@ public class WeasleyFamily {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            e.printStackTrace();
             executorService.shutdownNow();
         }
     }

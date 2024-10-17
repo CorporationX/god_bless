@@ -27,6 +27,7 @@ public class Chore implements Runnable {
             System.out.println(Thread.currentThread().getName() + "Chore: " + getChore() + " - end");
         } catch (InterruptedException e) {
             System.out.println(Thread.currentThread().getName() + " - crashed");
+            e.printStackTrace();
         }
     }
 }
