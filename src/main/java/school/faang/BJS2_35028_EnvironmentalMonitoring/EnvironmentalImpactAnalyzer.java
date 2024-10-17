@@ -14,6 +14,7 @@ public class EnvironmentalImpactAnalyzer {
 
     private StatisticsAggregator statisticsAggregator;
     private Map<Integer, Company> companiesByIds;
+    private Map<String, Company> companiesByNames;
     private LocalDate todayDate;
 
     static {
@@ -22,7 +23,11 @@ public class EnvironmentalImpactAnalyzer {
 
     public EnvironmentalImpactAnalyzer(List<Company> companies, LocalDate todayDate) {
         companiesByIds = new HashMap<>();
-        companies.forEach(company -> companiesByIds.put(company.getId(), company));
+        companiesByNames = new HashMap<>();
+        companies.forEach(company -> {
+            companiesByIds.put(company.getId(), company);
+            companiesByNames.put(company.getCompanyName(), company);
+        });
 
         this.todayDate = todayDate;
         statisticsAggregator = new StatisticsAggregator(companiesByIds);
@@ -69,8 +74,8 @@ public class EnvironmentalImpactAnalyzer {
                         entry -> getImpactsVolumesByMonths(filteredImpacts, impact -> impact.getCompanyId() == entry.getKey())
                 ));
 
-        System.out.printf("%-15s %-20s %-25s %s\n", "Company", "Total(" + impactType + ")",
-                "Avg(" + impactType + ")/month", "Min(" + impactType + ")/month"
+        System.out.printf("%-15s %-20s %-25s %s\n", "Company", String.format("Total (%s)", impactType),
+                String.format("Avg (%s)", impactType), String.format("Min (%s)", impactType)
         );
         topCompaniesStats.forEach((companyName, companyStats) -> {
             double volumesSum = calculateVolumesSum(companyStats);
@@ -80,10 +85,28 @@ public class EnvironmentalImpactAnalyzer {
         });
     }
 
+    public void printVolumePerEmployee(String csvFilePath, String impactType) {
+        List<EnvironmentalImpact> impacts = DATA_LOADER.loadFromCsv(csvFilePath, EnvironmentalImpact.class);
+        List<EnvironmentalImpact> filteredImpacts = filterByTypeAndDate(impacts, impactType, todayDate, MONTHS_COUNT);
+
+        LocalDate oneYearAgoDate = todayDate.minusMonths(MONTHS_COUNT);
+        Map<String, Double> totalVolumesByCompanies =
+                statisticsAggregator.getTotalVolumesByCompanies(oneYearAgoDate, todayDate, filteredImpacts, impactType);
+
+        System.out.printf("%-15s %-20s %-10s %s\n", "Company", String.format("Total(%s)", impactType),
+                "Employees", String.format("%s_PerEmployee", impactType)
+        );
+        totalVolumesByCompanies.forEach((companyName, totalVolumes) -> {
+            int companyEmployeesCount = companiesByNames.get(companyName).getTotalEmployees();
+            double volumesPerEmployee = totalVolumes / companyEmployeesCount;
+            System.out.printf("%-15s %-20.2f %-10d %.2f\n", companyName, totalVolumes, companyEmployeesCount, volumesPerEmployee);
+        });
+    }
+
     private Map<String, Double> getImpactsVolumesByMonths(List<EnvironmentalImpact> impacts) {
         return getImpactsVolumesByMonths(impacts, impact -> true);
     }
-    
+
     private Map<String, Double> getImpactsVolumesByMonths(
             List<EnvironmentalImpact> impacts, Predicate<EnvironmentalImpact> condition) {
         return impacts.stream()
