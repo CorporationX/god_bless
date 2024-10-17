@@ -19,33 +19,29 @@ public class Main {
         List<String> newPhotos = new ArrayList<>(List.of("photo1", "photo2", "photo3"));
 
         newPhotos.forEach(photo ->
-                addPhotoService.execute(() -> uploader.oneNewPhotoAdded(photo))
+                addPhotoService.execute(() -> uploader.addNewPhoto(photo))
         );
 
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread has been interrupted " + e.getMessage(), e);
         }
 
         newPhotos = new ArrayList<>(List.of("photo4", "photo5", "photo6"));
 
         newPhotos.forEach(photo ->
-                addPhotoService.execute(() -> uploader.oneNewPhotoAdded(photo))
+                addPhotoService.execute(() -> uploader.addNewPhoto(photo))
         );
 
-        addPhotoService.shutdown();
-
         try {
-            if (!uploaderService.awaitTermination(10, TimeUnit.SECONDS)
-                    && addPhotoService.awaitTermination(20, TimeUnit.SECONDS)) {
+            if (!(uploaderService.awaitTermination(10, TimeUnit.SECONDS)
+                    && addPhotoService.awaitTermination(20, TimeUnit.SECONDS))) {
                 uploaderService.shutdownNow();
                 addPhotoService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            System.out.println("Process was interrupted " + e.getMessage());
-            uploaderService.shutdownNow();
-            addPhotoService.shutdownNow();
+            throw new IllegalStateException("Thread has been interrupted " + e.getMessage(), e);
         }
     }
 }

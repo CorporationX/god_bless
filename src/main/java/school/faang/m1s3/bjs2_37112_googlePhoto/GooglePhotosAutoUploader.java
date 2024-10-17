@@ -14,14 +14,14 @@ public class GooglePhotosAutoUploader {
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
-                    System.out.println("Process was interrupted" + e.getMessage());
+                    System.out.println("Process was interrupted " + e.getMessage());
                 }
             }
             uploadPhotos();
         }
     }
 
-    public void oneNewPhotoAdded(String photoPath) {
+    public void addNewPhoto(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             lock.notify();
