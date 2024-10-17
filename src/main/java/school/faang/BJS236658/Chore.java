@@ -13,6 +13,7 @@ public class Chore implements Runnable {
             Thread.sleep(2000);
             System.out.println(chore + " Выполнено!");
         } catch (InterruptedException e) {
+            e.printStackTrace();
             System.out.println(chore + " Была прервана!");
         }
     }
