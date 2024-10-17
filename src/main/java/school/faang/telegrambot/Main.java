@@ -8,6 +8,7 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 8;
     private static final int TIME_TO_WORK = 100;
     private static final int COUNT_MESSAGE = 30;
+
     public static void main(String[] args) {
         TelegramBot telegramBot = new TelegramBot();
 

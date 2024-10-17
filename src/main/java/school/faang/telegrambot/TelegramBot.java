@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 public class TelegramBot {
     private static final int REQUEST_LIMIT = 5;
     private static final int TIME_LIMIT = 1000;
+
     private int requestCounter;
     private LocalDateTime lastRequestTime;
 
