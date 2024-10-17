@@ -3,7 +3,7 @@ package school.faang.task311.sender;
 public class MailSender {
     private static int mailSize = 200;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args){
         Thread[] pull  = new Thread[5];
 
         for (int i = 0; i < 5; i++) {
@@ -12,8 +12,12 @@ public class MailSender {
             pull[i]=thread;
         }
 
-        for(Thread t : pull){
-            t.join();
+        for(Thread thread : pull){
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new IllegalStateException(e.getMessage());
+            }
         }
     }
 }
