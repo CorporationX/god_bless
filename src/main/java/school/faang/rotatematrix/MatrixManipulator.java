@@ -1,5 +1,7 @@
 package school.faang.rotatematrix;
 
+import java.util.Arrays;
+
 public class MatrixManipulator {
     public static int[][] transformMatrix(int[][] matrix, MatrixTransformer transformer) {
         int rows = matrix.length;
@@ -31,5 +33,29 @@ public class MatrixManipulator {
         }
 
         return transformMatrix(matrix, transformer);
+    }
+
+    public static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            System.out.println(Arrays.toString(row));
+        }
+    }
+
+    public static void main(String[] args) {
+        int[][] originalMatrix = {
+                {1, 2},
+                {3, 4}
+        };
+
+        System.out.println("Original Matrix:");
+        printMatrix(originalMatrix);
+
+        int[][] horizontalFlipped = flipMatrix(originalMatrix, FlipDirection.HORIZONTAL);
+        System.out.println("\nHorizontal Flip:");
+        printMatrix(horizontalFlipped);
+
+        int[][] verticalFlipped = flipMatrix(originalMatrix, FlipDirection.VERTICAL);
+        System.out.println("\nVertical Flip:");
+        printMatrix(verticalFlipped);
     }
 }
