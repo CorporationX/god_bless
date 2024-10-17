@@ -11,8 +11,12 @@ public class RocketLaunch {
     private String name;
     private LocalDateTime launchTime;
 
-    public void launch() throws InterruptedException {
-        Thread.sleep(1000);
+    public void launch() {
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Запущена ракета: " + name);
     }
 }
