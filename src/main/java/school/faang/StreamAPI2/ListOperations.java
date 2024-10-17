@@ -11,14 +11,16 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static Set<List<Integer>> UniquePairs(List<Integer> numbers, int targetNum){
-        Set<List<Integer>> pairs = new HashSet<>();
-        Set<Integer> set = new HashSet<>(numbers);
-        set.addAll(numbers);
-        pairs = numbers.stream().filter(n -> set.contains(targetNum - n)).map(n -> Arrays.asList(n, targetNum - n))
-                .peek(Collections::sort)
-                .collect(Collectors.toSet());
-        return pairs;
+    public static Map<Integer, Integer> UniquePairs(List<Integer> numbers, int sum){
+        return numbers.stream()
+                .filter(num -> numbers.contains(sum - num))
+                .filter(num -> num < sum - num)
+                .collect(Collectors.toMap(
+                                num -> num,
+                                num -> sum - num,
+                                (num1, num2) -> num1
+                        )
+                );
     }
 
     public static List<String> capitals(Map<String, String> map){
