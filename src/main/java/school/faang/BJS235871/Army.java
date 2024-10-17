@@ -9,19 +9,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Army {
     private final List<Character> army = new ArrayList<>();
+    private final static int THREAD_POOL = 5;
 
     public void addUnit(Character character) {
         army.add(character);
     }
 
     public int calculateTotalPower() throws InterruptedException {
-        int threadPool = 5;
         AtomicInteger sumPower = new AtomicInteger();
-        ExecutorService service = Executors.newFixedThreadPool(threadPool);
+        ExecutorService service = Executors.newFixedThreadPool(THREAD_POOL);
         for (Character character : army) {
             service.submit(() -> sumPower.addAndGet(character.getPower()));
         }
-        if (!service.awaitTermination(threadPool, TimeUnit.SECONDS)) {
+        if (!service.awaitTermination(THREAD_POOL, TimeUnit.SECONDS)) {
             service.shutdown();
         }
         return sumPower.get();

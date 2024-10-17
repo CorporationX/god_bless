@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class Character {
-    protected int power;
+    private int power;
 }
