@@ -1,6 +1,5 @@
 package school.faang.tomandjerry;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -23,9 +22,6 @@ public class Room {
     }
 
     public boolean hasFood() {
-        if (foodInRoom.isEmpty()) {
-            return true;
-        }
-        return false;
+        return !foodInRoom.isEmpty();
     }
 }

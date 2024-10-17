@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class House {
     public static final int CORE_POOL_SIZE = 5;
     private List<Room> rooms;
-    private List<Food> collectedFood = new ArrayList<>();
+    private static List<Food> collectedFood = new ArrayList<>();
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -25,11 +25,13 @@ public class House {
                 , "peanut butter", "meat", "peaches", "cheese", "cupcakes", "lemon", "bananas"};
         Random random = new Random();
         int randomCountOfRooms = random.nextInt(1, 11);
-        int randomCountOfFoods = random.nextInt(1, 11);
         for (int i = 0; i < randomCountOfRooms; i++) {
             Room room = new Room();
+            int randomCountOfFoods = random.nextInt(1, 11);
+
             for (int j = 0; j < randomCountOfFoods; j++) {
-                room.addFood(new Food(foods[j]));
+                String someFood = foods[random.nextInt(foods.length)];
+                room.addFood(new Food(someFood));
             }
             initializedRooms.add(room);
         }
@@ -41,14 +43,15 @@ public class House {
         System.out.println("Count of rooms in the house: " + house.getRooms().size());
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
         for (int i = 0; i < house.getRooms().size(); i++) {
-            scheduler.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+            scheduler.scheduleAtFixedRate(() -> {
+                house.collectFood();
+                if (house.allFoodCollected()) {
+                    scheduler.shutdown();
+                    System.out.println("The food in the house is collected");
+                }
+            }, 0, 30, TimeUnit.SECONDS);
         }
-
-        if (house.allFoodCollected()) {
-            scheduler.shutdown();
-            System.out.println("The food in the house is collected");
-        }
-        house.getCollectedFood().forEach(System.out::println);
+        System.out.println("Collected food: " + collectedFood);
     }
 
     public void collectFood() {
@@ -61,11 +64,13 @@ public class House {
         }
         firstRoom.removeAllFood(firstRoom.getFoodInRoom());
         secondRoom.removeAllFood(secondRoom.getFoodInRoom());
+        this.getRooms().remove(firstRoom);
+        this.getRooms().remove(secondRoom);
     }
 
     public boolean allFoodCollected() {
         for (Room room : rooms) {
-            if (!room.hasFood()) {
+            if (room.hasFood()) {
                 return false;
             }
         }
