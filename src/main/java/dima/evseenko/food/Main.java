@@ -21,11 +21,12 @@ public class Main {
 
         executorService.shutdown();
 
-        while (true) {
-            if (executorService.isTerminated()) {
+        try {
+            if (executorService.awaitTermination(100, TimeUnit.SECONDS)) {
                 System.out.println("Еда в доме собрана!");
-                break;
             }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Произошла ошибка при сборе еды!", e);
         }
     }
 
