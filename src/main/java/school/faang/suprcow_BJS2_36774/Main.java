@@ -1,5 +1,9 @@
 package school.faang.suprcow_BJS2_36774;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -9,49 +13,23 @@ public class Main {
         Player player3 = new Player("Robert");
         Player player4 = new Player("Joe");
 
-        Thread thread1 = new Thread(() -> {
-            try {
-                player1.startBattle(boss);
-                Thread.sleep(500);
-                player1.endBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        List<Player> players = new ArrayList<>(Arrays.asList(player1, player2, player3, player4));
+        List<Thread> threads = new ArrayList<>();
 
-        Thread thread2 = new Thread(() -> {
-            try {
-                player2.startBattle(boss);
-                Thread.sleep(3000);
-                player2.endBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
+        for (Player player : players) {
+            threads.add(new Thread(() -> {
+                try {
+                    player.startBattle(boss);
+                    Thread.sleep(500);
+                    player.endBattle(boss);
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }));
+        }
 
-        Thread thread3 = new Thread(() -> {
-            try {
-                player3.startBattle(boss);
-                Thread.sleep(3000);
-                player3.endBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        Thread thread4 = new Thread(() -> {
-            try {
-                player4.startBattle(boss);
-                Thread.sleep(3000);
-                player4.endBattle(boss);
-            } catch (InterruptedException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
+        for (Thread thread : threads) {
+            thread.start();
+        }
     }
 }
