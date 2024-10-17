@@ -22,6 +22,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             System.out.println("Остановка главного потока.");
+            e.printStackTrace();
             service.shutdownNow();
         }
     }
