@@ -38,8 +38,9 @@ public class Main {
 
         try {
             Thread.sleep(20000);
+
         } catch (InterruptedException e) {
-            throw new RuntimeException();
+            throw new IllegalStateException("sleep method returned error" + e.getMessage(), e);
         }
 
         if (house.isAllFoodCollected()) {
@@ -52,7 +53,7 @@ public class Main {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException();
+            throw new IllegalStateException(e.getMessage(), e);
         }
 
         System.out.println("Вывод комнат: ");

@@ -27,10 +27,10 @@ public class House {
         }
         for (Room selectedRoom : SELECTED_ROOM) {
             System.out.println("Поток " + Thread.currentThread().getName() + " использует метод collectFood");
-            if (!selectedRoom.getFoods().isEmpty()) {
+            if (!selectedRoom.isEmptyRoom()) {
                 System.out.println("Собираемая еда в комнате " + selectedRoom.getName() + ": " + selectedRoom.getFoods());
                 collectedFood.addAll(selectedRoom.getFoods());
-                selectedRoom.setFoods(List.of());
+                selectedRoom.clearRoom();
                 System.out.println("Еда в комнате " + selectedRoom.getName() + " собрана.");
                 System.out.println();
             }

@@ -10,4 +10,12 @@ import java.util.List;
 public class Room {
     private String name;
     private List<Food> foods;
+
+    public boolean isEmptyRoom() {
+        return this.getFoods().isEmpty();
+    }
+
+    public void clearRoom() {
+        this.getFoods().clear();
+    }
 }
