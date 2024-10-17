@@ -27,7 +27,6 @@ public class CommonFriendsFinder {
                     List<String> otherFriends = otherEntry.getValue();
 
                     if (!person.equals(otherPerson) && !friends.contains(otherPerson)) {
-                        // Check if they have common friends
                         Set<String> commonFriends = new HashSet<>(friends);
                         commonFriends.retainAll(otherFriends);
 
@@ -35,7 +34,6 @@ public class CommonFriendsFinder {
                             Pair newPair = new Pair(person, otherPerson);
                             Pair reversePair = new Pair(otherPerson, person);
 
-                            // Add unique pairs only
                             if (!checkedPairs.contains(reversePair)) {
                                 result.add(newPair);
                                 checkedPairs.add(newPair);

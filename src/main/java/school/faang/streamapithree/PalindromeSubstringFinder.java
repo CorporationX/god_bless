@@ -9,9 +9,7 @@ public class PalindromeSubstringFinder {
         List<String> palindromicSubstrings = new ArrayList<>();
 
         for (int i = 0; i < input.length(); i++) {
-            // Expand around center for odd-length palindromes
             findPalindromes(input, i, i, palindromicSubstrings);
-            // Expand around center for even-length palindromes
             findPalindromes(input, i, i + 1, palindromicSubstrings);
         }
 
