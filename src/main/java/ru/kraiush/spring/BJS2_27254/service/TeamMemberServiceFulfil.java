@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
-import ru.kraiush.spring.BJS2_27254.exception.ElementAlreadyExistsException;
-import ru.kraiush.spring.BJS2_27254.exception.ElementNotFoundException;
+import ru.kraiush.spring.BJS2_27254.exception.ResourceAlreadyExistsException;
+import ru.kraiush.spring.BJS2_27254.exception.ResourceNotFoundException;
 import ru.kraiush.spring.BJS2_27254.repository.TeamMemberRepository;
 
 import java.util.List;
@@ -33,7 +33,7 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         if (optionalMember.isPresent()) {
             return optionalMember;
         } else
-            throw new ElementNotFoundException("NO PARTY PRESENT WITH ID = " + id);
+            throw new ResourceNotFoundException("NO OBJECT PRESENT WITH ID = " + id);
     }
 
     public TeamMember create(TeamMember user) {
@@ -42,13 +42,13 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         if (existingTeamMember == null) {
             return repository.save(user);
         } else
-            throw new ElementAlreadyExistsException("PARTY WITH SUCH EMAIL ALREADY EXISTS - " + user.getId());
+            throw new ResourceAlreadyExistsException("OBJECT WITH SUCH EMAIL ALREADY EXISTS - " + user.getId());
     }
 
     public TeamMember getByTeamMemberName(String name) {
         return repository.findByName(name)
                 .orElseThrow(
-                        () -> new ElementNotFoundException("NO PARTY PRESENT WITH NAME - " + name));
+                        () -> new ResourceNotFoundException("NO OBJECT PRESENT WITH NAME - " + name));
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         TeamMember existingTeamMember = repository.findById(user.getId())
                 .orElse(null);
         if (existingTeamMember == null)
-            throw new ElementNotFoundException("NO SUCH USER EXISTS!");
+            throw new ResourceNotFoundException("NO SUCH USER EXISTS!");
         else
             return repository.save(user);
     }
@@ -66,7 +66,7 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         TeamMember existingTeamMember = repository.findById(id)
                 .orElse(null);
         if (existingTeamMember == null)
-            throw new ElementNotFoundException("NO SUCH PARTY EXISTS!");
+            throw new ResourceNotFoundException("NO SUCH OBJECT EXISTS!");
         else
             repository.deleteById(id);
     }
@@ -88,6 +88,4 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
         } else
             repository.deleteAll();
     }
-
-
 }

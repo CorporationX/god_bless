@@ -16,8 +16,7 @@ public class ErrorResponse {
     private LocalDateTime timestamp;
 
     private String url;
-    private int status;
-    private String error;
+    private String errorCode;
     private String message;
 
     public ErrorResponse(String message) {

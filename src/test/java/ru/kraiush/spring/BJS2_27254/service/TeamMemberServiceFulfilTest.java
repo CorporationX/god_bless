@@ -11,7 +11,7 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 import ru.kraiush.spring.BJS2_27254.domain.model.Role;
 import ru.kraiush.spring.BJS2_27254.domain.model.TeamMember;
-import ru.kraiush.spring.BJS2_27254.exception.ElementAlreadyExistsException;
+import ru.kraiush.spring.BJS2_27254.exception.ResourceAlreadyExistsException;
 import ru.kraiush.spring.BJS2_27254.repository.TeamMemberRepository;
 
 import java.time.LocalDateTime;
@@ -70,17 +70,17 @@ class TeamMemberServiceFulfilTest {
 
     @DisplayName("JUnit test for create method for existing element which throws exception")
     @Test
-    public void givenExistingEmail_whenSaveTeamMember_thenThrowsException() {
+    public void givenExistingMembersEmail_whenSaveTeamMember_thenThrowsException() {
         given(repository.findByEmail(user.getEmail()))
                 .willReturn(Optional.of(user));
-        assertThrows(ElementAlreadyExistsException.class, () -> {
+        assertThrows(ResourceAlreadyExistsException.class, () -> {
             service.create(user);
         });
     }
 
     @DisplayName("JUnit test should return empty if the id is not found")
     @Test
-    void shouldThrowExceptionWhenNotFoundById() {
+    void shouldReturnEmptyWhenNotFoundById() {
         when(repository.findById(any(Long.class)))
                 .thenReturn(Optional.empty());
         assertThat(repository.findById(666l).isEmpty());

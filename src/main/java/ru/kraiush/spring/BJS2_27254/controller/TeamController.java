@@ -76,9 +76,9 @@ public class TeamController {
             throw new DataValidationException("ACCESS IS DENIED FOR SUCH A MEMBER ROLE = " + role);
     }
 
-    @PutMapping(value = "/members/{id}")
+    @PutMapping(value = "/members")
     @Operation(summary = "Update a user")
-    public TeamMemberDto updateTeamMember(@RequestHeader("X-User-ID") Long userId, @PathVariable("id") long id, @RequestBody TeamMemberDto userDto) {
+    public TeamMemberDto updateTeamMember(@RequestHeader("X-User-ID") Long userId, @RequestBody TeamMemberDto userDto) {
         if (userId == null) {
             log.info("No users Id found");
             return null;

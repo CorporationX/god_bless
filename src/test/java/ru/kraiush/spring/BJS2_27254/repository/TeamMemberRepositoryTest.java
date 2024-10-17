@@ -25,6 +25,7 @@ class TeamMemberRepositoryTest {
 
     @Autowired
     TeamMemberRepository repository;
+
     @Test
     @DisplayName("JUnit test for get all members operation")
     @Order(1)
