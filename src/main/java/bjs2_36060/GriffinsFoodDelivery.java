@@ -15,7 +15,7 @@ public class GriffinsFoodDelivery {
     public static final int MAX_FOOD_AMOUNT = 50;
     public static final int MIN_FOOD_AMOUNT = 1;
 
-    public static void main(String[] args) throws InterruptedException, ExecutionException, TimeoutException {
+    public static void main(String[] args){
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
         Random random = new Random();
 
@@ -26,7 +26,15 @@ public class GriffinsFoodDelivery {
             service.execute(task);
         }));
 
-        submit.get(MAX_TIME_LIMIT, TimeUnit.SECONDS);
+        try {
+            submit.get(MAX_TIME_LIMIT, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (TimeoutException e) {
+            e.printStackTrace();
+        }
         service.shutdown();
     }
 }

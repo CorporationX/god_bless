@@ -6,7 +6,7 @@ public class FoodDeliveryTask implements Runnable {
     private String character;
     private int foodAmount;
     private Random random;
-    String[] foodTypes;
+    private String[] foodTypes;
 
 
     public FoodDeliveryTask(String character, int foodAmount) {
@@ -28,7 +28,7 @@ public class FoodDeliveryTask implements Runnable {
             Thread.sleep(getRandomDelay());
             System.out.println(character + " eats " + foodAmount + " " + foodType);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
