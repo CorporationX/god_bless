@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
     public static final List<UserAction> DATA_TESTING = Arrays.asList(
@@ -59,19 +60,50 @@ public class UserActionAnalyzer {
     );
 
     public static List<String> topActiveUsers(List<UserAction> actions) {
-        return null;
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(10)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 
 
     public static List<String> topPopularHashtags(List<UserAction> actions) {
-        return null;
+        return actions.stream()
+                .filter(ua -> ua.getType().equals("post") || ua.getType().equals("comment"))
+                .flatMap(ua -> Arrays.stream(ua.getContent().split(" ")))
+                .filter(content -> content.startsWith("#"))
+                .collect(Collectors.groupingBy(content -> content.substring(1), Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(5)
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
     }
 
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
-        return null;
+        return actions.stream()
+                .filter(ua -> ua.getType().equals("comment"))
+                .filter(ua -> ua.getActionDate().isAfter(LocalDate.now().minusMonths(1)))
+                .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
+                .entrySet().stream()
+                .sorted(Map.Entry.<String, Long>comparingByValue().reversed())
+                .limit(3)
+                .map(Map.Entry::getKey)
+                .toList();
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-        return null;
+        long totalActions = actions.size();
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getType, Collectors.counting()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        value -> (double) value.getValue() / totalActions * 100
+                ));
     }
 }
