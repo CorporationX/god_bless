@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
+
 @Getter
 @AllArgsConstructor
 @Slf4j
@@ -18,6 +20,7 @@ public class Task implements Runnable {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         System.out.println("Задача " + taskName + " завершена!");
     }
