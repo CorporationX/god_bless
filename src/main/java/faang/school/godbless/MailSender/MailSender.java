@@ -1,18 +1,15 @@
 package faang.school.godbless.MailSender;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MailSender {
     public static void main(String[] args) {
-        List<Thread> listThread = new ArrayList<>(Arrays.asList(
-                new Thread(new SenderRunnable(1, 200)),
-                new Thread(new SenderRunnable(200, 400)),
-                new Thread(new SenderRunnable(400, 600)),
-                new Thread(new SenderRunnable(600, 800)),
-                new Thread(new SenderRunnable(800, 1000)))
-        );
+        List<Thread> listThread = new ArrayList<>();
+        for (int i = 1, indexTwo = 1; i <= 5; i++) {
+            listThread.add(new Thread(new SenderRunnable(indexTwo, 200 * i)));
+            indexTwo = 200 * i;
+        }
         for (Thread thread : listThread) {
             thread.start();
         }
