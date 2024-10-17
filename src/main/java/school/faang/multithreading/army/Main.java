@@ -11,9 +11,6 @@ public class Main {
     army.addUnit(new Mage(20));
     army.addUnit(new Swordsman(40));
 
-    int totalPower = army.calculateTotalPower();
-    System.out.println("Army total power: " + totalPower);
-
+    System.out.println("Army total power: " + army.calculateTotalPower());
   }
-
 }

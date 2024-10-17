@@ -1,14 +1,8 @@
 package school.faang.multithreading.army;
 
-import lombok.AllArgsConstructor;
+public class Archer extends Unit {
 
-@AllArgsConstructor
-public class Archer implements Powerable {
-
-  private int power;
-
-  @Override
-  public int getPower() {
-    return power;
+  public Archer(int power) {
+    super(power);
   }
 }
