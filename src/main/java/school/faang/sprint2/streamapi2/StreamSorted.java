@@ -30,8 +30,9 @@ public class StreamSorted {
         List<String> output1 = octal(input1);
         System.out.println(output1);
 
-        List<String> dictionary = Arrays.asList("apple", "banana", "cherry", "date", "fig", "grape");
-        List<String> fileAndSort = filterAndSortStrings(dictionary);
+        List<String> dictionary = Arrays.asList("apple", "banana", "adf", "cherry", "date", "fig", "grape");
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
+        List<String> fileAndSort = filterAndSortStrings(dictionary, alphabet);
         System.out.println(fileAndSort);
     }
 
@@ -48,10 +49,10 @@ public class StreamSorted {
     }
 
     public static List<String> getSortedCapital(Map<String, String> countries) {
-        return countries.entrySet().stream()// g
-                .sorted(Map.Entry.comparingByKey())//сортируем по ключ (страна)
-                .map(Map.Entry::getValue) // извлекаем столыца
-                .collect(Collectors.toList()); // собираем список
+        return countries.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
 
     }
 
@@ -74,8 +75,8 @@ public class StreamSorted {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> filterAndSortStrings(List<String> strings) {
-        String regex = "[a-zA-Z]+";
+    public static List<String> filterAndSortStrings(List<String> strings, String alphabets) {
+        String regex = "[" + alphabets + "]+";
         return strings.stream()
                 .filter(s -> s.matches(regex))
                 .sorted(Comparator.comparingInt(String::length))
