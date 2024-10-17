@@ -19,14 +19,14 @@ public class MailSender {
             threads.add(thread);
         }
 
-        try {
-            for (Thread thread : threads) {
+        for (Thread thread : threads) {
+            try {
                 thread.join();
+            } catch (InterruptedException e) {
+                log.error("Письмо не было отправлено " + e.getMessage());
+                e.printStackTrace();
             }
-            System.out.println("Отправка писем завершена успешно!");
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-            e.printStackTrace();
         }
+        System.out.println("Отправка писем завершена!");
     }
 }
