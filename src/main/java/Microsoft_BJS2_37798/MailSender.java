@@ -16,6 +16,8 @@ public class MailSender {
             try {
                 threads[i].join();
             } catch (InterruptedException e) {
+                // for the moment I don't know how work with logs, but on the almost all portals use
+                // logs for catch exception, so I guess its better way use now logs
                 e.printStackTrace();
             }
         }
