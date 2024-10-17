@@ -1,7 +1,8 @@
-package school.faang;
+package school.faang.supercow;
 
 import lombok.Getter;
 import lombok.Setter;
+import school.faang.supercow.Boss;
 
 @Getter
 @Setter

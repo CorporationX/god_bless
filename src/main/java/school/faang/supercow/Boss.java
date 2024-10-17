@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.supercow;
 
 import lombok.Getter;
 import lombok.Setter;
