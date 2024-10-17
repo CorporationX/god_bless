@@ -1,7 +1,10 @@
 package school.faang.you_work_for_microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalMessages = 1000;
         int threadsCount = 5;
         int batchSize = totalMessages / threadsCount;
@@ -15,7 +18,12 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("There is a problem with a thread connected to join() method", e);
+                e.printStackTrace();
+            }
         }
         System.out.println("All the emails has been send!");
     }

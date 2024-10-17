@@ -9,7 +9,7 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
+        for (int i = startIndex; i < endIndex + 1; i++) {
             System.out.println("Email has been sent successfully: " + i);
         }
     }
