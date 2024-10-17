@@ -28,7 +28,7 @@ public class Army {
                 thread.join();
                 totalPower += thread.getPower();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Ошибка вычисления силы в потоке %s".formatted(thread.getName()));
             }
         }
 
