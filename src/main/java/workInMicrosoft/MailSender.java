@@ -8,7 +8,7 @@ public class MailSender {
     public static void main(String[] args) throws InterruptedException {
         Thread[] threads = new Thread[threadAmount];
         for (int i = 0; i < threadAmount; i++) {
-            Thread thread = new Thread(new SenderRunnable((i * batchSize) + 1, ((i + 1) * batchSize) + 1));
+            Thread thread = new Thread(new SenderRunnable((i * batchSize) + 1, ((i + 1) * batchSize)));
             threads[i] = thread;
             thread.start();
         }
