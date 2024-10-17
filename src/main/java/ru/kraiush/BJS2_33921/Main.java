@@ -10,7 +10,7 @@ public class Main {
         System.out.println(sum(nums));
     }
 
-    public static <T extends Number> T calculate(List<T> nums, Calculator<T> calculator) throws IllegalArgumentException {
+    public static <T extends Number> T calculate(List<T> nums, Calculator<T> calculator) {
         if (nums.isEmpty()) {
             throw new IllegalArgumentException("The list is empty");
         }
