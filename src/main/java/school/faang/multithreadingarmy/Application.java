@@ -18,8 +18,6 @@ public class Application {
             System.out.println("All power: " + totalPower);
         } catch (InterruptedException e) {
             System.out.println("Crash: " + Arrays.toString(e.getStackTrace()));
-            throw new RuntimeException(e);
         }
-
     }
 }
