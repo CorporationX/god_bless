@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    private final List<Unit> UNITS = new ArrayList<>();
+    private final List<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit unit) {
-        UNITS.add(unit);
+        units.add(unit);
     }
 
     public int calculateTotalPower() throws InterruptedException {
@@ -15,7 +15,7 @@ public class Army {
         List<Thread> threads = new ArrayList<>();
         List<PowerCalculator> tasks = new ArrayList<>();
 
-        for (Unit unit : UNITS) {
+        for (Unit unit : units) {
             PowerCalculator calculator = new PowerCalculator(unit);
             tasks.add(calculator);
             Thread thread = new Thread(calculator);

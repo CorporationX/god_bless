@@ -3,16 +3,16 @@ package school.faang.distributed_army;
 import lombok.Getter;
 
 public class PowerCalculator implements Runnable {
-    private final Unit UNIT;
+    private final Unit unit;
     @Getter
     private int power;
 
-    public PowerCalculator(Unit UNIT) {
-        this.UNIT = UNIT;
+    public PowerCalculator(Unit unit) {
+        this.unit = unit;
     }
 
     @Override
     public void run() {
-        this.power = UNIT.getPower();
+        this.power = unit.getPower();
     }
 }
