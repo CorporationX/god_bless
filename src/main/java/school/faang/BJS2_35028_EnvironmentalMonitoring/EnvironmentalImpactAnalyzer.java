@@ -108,9 +108,9 @@ public class EnvironmentalImpactAnalyzer {
     }
 
     private Map<String, Double> getImpactsVolumesByMonths(
-            List<EnvironmentalImpact> impacts, Predicate<EnvironmentalImpact> condition) {
+            List<EnvironmentalImpact> impacts, Predicate<EnvironmentalImpact> impactFilter) {
         return impacts.stream()
-                .filter(condition)
+                .filter(impactFilter)
                 .collect(Collectors.groupingBy(
                         impact -> DateFormatter.getYearAndMonth(impact.getDate()),
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
