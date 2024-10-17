@@ -8,14 +8,15 @@ import java.util.Random;
 @Data
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
+    private static Random random = new Random();
 
     private String character;
     private int foodAmount;
-    private static Random random = new Random();
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        int foodIndex = random.nextInt(foodTypes.length);
+        return foodTypes[foodIndex];
     }
 
     public void run() {
