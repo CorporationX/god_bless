@@ -16,7 +16,7 @@ public class Army {
             try {
                 calculatorThread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException("Ошибка в работе потока: " + e.getMessage());
             }
 
             power += calculatorThread.getPower();
