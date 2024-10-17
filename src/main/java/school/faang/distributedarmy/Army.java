@@ -26,9 +26,8 @@ public class Army {
             try {
                 calculator.join();
             } catch (InterruptedException e) {
-                log.error("Caught exception: ", e);
+                log.error("Thread was interrupted while waiting for calculator to finish: ", e);
                 e.printStackTrace();
-                throw new IllegalStateException("Thread was interrupted while waiting for calculator to finish.");
             }
             resultPower += calculator.getTotalPower();
         }
