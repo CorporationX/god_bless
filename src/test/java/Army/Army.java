@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
-    List<Warrior> army = new ArrayList<>();
+    private List<Warrior> army = new ArrayList<>();
 
     public void addWarrior(Warrior warrior) {
         army.add(warrior);
