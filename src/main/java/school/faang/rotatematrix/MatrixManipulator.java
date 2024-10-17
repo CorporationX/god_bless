@@ -15,4 +15,21 @@ public class MatrixManipulator {
 
         return newMatrix;
     }
+
+    public static int[][] flipMatrix(int[][] matrix, FlipDirection flipDirection) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
+        MatrixTransformer transformer;
+
+        if (flipDirection == FlipDirection.HORIZONTAL) {
+            // Define transformer for horizontal flip
+            transformer = (row, col) -> new Coordinates(row, cols - col - 1);
+        } else {
+            // Define transformer for vertical flip
+            transformer = (row, col) -> new Coordinates(rows - row - 1, col);
+        }
+
+        return transformMatrix(matrix, transformer);
+    }
 }
