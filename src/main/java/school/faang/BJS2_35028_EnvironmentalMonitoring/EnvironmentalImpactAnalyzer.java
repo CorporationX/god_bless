@@ -1,12 +1,11 @@
 package school.faang.BJS2_35028_EnvironmentalMonitoring;
 
 import java.time.LocalDate;
-import java.util.AbstractMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class EnvironmentalImpactAnalyzer {
     private static final CompanyDataLoader DATA_LOADER;
@@ -29,7 +28,7 @@ public class EnvironmentalImpactAnalyzer {
         statisticsAggregator = new StatisticsAggregator(companiesByIds);
     }
 
-    public void printCompanyImpactsStatsByMonths(String csvFilePath, int companyId, String impactType) {
+    public void printCompanyImpactsVolumesByMonths(String csvFilePath, int companyId, String impactType) {
         if (!companiesByIds.containsKey(companyId)) {
             throw new IllegalArgumentException("There is no company with such id");
         }
@@ -37,11 +36,12 @@ public class EnvironmentalImpactAnalyzer {
         String companyName = companiesByIds.get(companyId).getCompanyName();
 
         List<EnvironmentalImpact> impacts = DATA_LOADER.loadFromCsv(csvFilePath, EnvironmentalImpact.class);
-        Stream<EnvironmentalImpact> filteredImpacts =
-                filterByTypeAndDate(impacts, impactType, todayDate, MONTHS_COUNT)
-                .filter(impact -> impact.getCompanyId() == companyId);
-        Map<String, Double> companyEmissionsByMonths = getImpactsStatsByMonths(filteredImpacts);
-        double monthlyTotalsSum = calculateValuesSum(companyEmissionsByMonths);
+        List<EnvironmentalImpact> filteredImpacts =
+                filterByTypeAndDate(impacts, impactType, todayDate, MONTHS_COUNT).stream()
+                        .filter(impact -> impact.getCompanyId() == companyId)
+                        .toList();
+        Map<String, Double> companyEmissionsByMonths = getImpactsVolumesByMonths(filteredImpacts);
+        double monthlyTotalsSum = calculateVolumesSum(companyEmissionsByMonths);
 
         System.out.printf("%s: %s\n", "Company name", companyName);
         System.out.printf("%s: %s\n", "Today's date", todayDate);
@@ -54,74 +54,73 @@ public class EnvironmentalImpactAnalyzer {
 
     public void printTopCompaniesByMetric(String csvFilePath, LocalDate date, String impactType) {
         List<EnvironmentalImpact> impacts = DATA_LOADER.loadFromCsv(csvFilePath, EnvironmentalImpact.class);
-        Stream<EnvironmentalImpact> filteredImpacts = filterByTypeAndDate(impacts, impactType, date, MONTHS_COUNT);
+        List<EnvironmentalImpact> filteredImpacts = filterByTypeAndDate(impacts, impactType, date, MONTHS_COUNT);
 
-        Map<String, Map<String, Double>> topCompaniesStats = filteredImpacts
+        Map<String, Map<String, Double>> topCompaniesStats = filteredImpacts.stream()
                 .collect(Collectors.groupingBy(
-                        impact -> companiesByIds.get(impact.getCompanyId()).getCompanyName(),
-                        Collectors.collectingAndThen(
-                                Collectors.toList(),
-                                companyImpacts -> getImpactsStatsByMonths(companyImpacts.stream())
-                        )
+                        EnvironmentalImpact::getCompanyId,
+                        Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ))
                 .entrySet().stream()
-                .sorted((firstCompany, secondCompany) ->
-                        Double.compare(
-                                calculateValuesSum(secondCompany.getValue()),
-                                calculateValuesSum(firstCompany.getValue())
-                        )
-                )
+                .sorted(Map.Entry.<Integer, Double>comparingByValue().reversed())
                 .limit(TOP_COMPANIES_BY_METRIC_LIMIT)
                 .collect(Collectors.toMap(
-                        Map.Entry::getKey,
-                        Map.Entry::getValue
+                        entry -> companiesByIds.get(entry.getKey()).getCompanyName(),
+                        entry -> getImpactsVolumesByMonths(filteredImpacts, impact -> impact.getCompanyId() == entry.getKey())
                 ));
 
         System.out.printf("%-15s %-20s %-25s %s\n", "Company", "Total(" + impactType + ")",
                 "Avg(" + impactType + ")/month", "Min(" + impactType + ")/month"
         );
         topCompaniesStats.forEach((companyName, companyStats) -> {
-            double monthlyStatsSum = calculateValuesSum(companyStats);
-            double monthlyStatsAverage = calculateValuesAverage(companyStats);
-            double monthlyStatsMin = getMinValue(companyStats);
-            System.out.printf("%-15s %-20.2f %-25.2f %.2f\n", companyName, monthlyStatsSum, monthlyStatsAverage, monthlyStatsMin);
+            double volumesSum = calculateVolumesSum(companyStats);
+            double volumesAverage = calculateVolumesAverage(companyStats);
+            double monthlyVolumesMin = getMonthlyVolumesMin(companyStats);
+            System.out.printf("%-15s %-20.2f %-25.2f %.2f\n", companyName, volumesSum, volumesAverage, monthlyVolumesMin);
         });
     }
 
-    private Map<String, Double> getImpactsStatsByMonths(Stream<EnvironmentalImpact> impacts) {
-        return impacts
+    private Map<String, Double> getImpactsVolumesByMonths(List<EnvironmentalImpact> impacts) {
+        return getImpactsVolumesByMonths(impacts, impact -> true);
+    }
+    
+    private Map<String, Double> getImpactsVolumesByMonths(
+            List<EnvironmentalImpact> impacts, Predicate<EnvironmentalImpact> condition) {
+        return impacts.stream()
+                .filter(condition)
                 .collect(Collectors.groupingBy(
                         impact -> DateFormatter.getYearAndMonth(impact.getDate()),
-                        Collectors.summingDouble(EnvironmentalImpact::getVolume))
-                );
+                        Collectors.summingDouble(EnvironmentalImpact::getVolume)
+                ));
     }
 
-    private Stream<EnvironmentalImpact> filterByTypeAndDate(
+    private List<EnvironmentalImpact> filterByTypeAndDate(
             List<EnvironmentalImpact> impacts, String impactType, LocalDate date, int monthsCount
     ) {
         LocalDate oneYearAgoDate = date.minusMonths(monthsCount);
         return impacts.stream()
                 .filter(impact ->
                         impact.getDate().isAfter(oneYearAgoDate)
-                        && impact.getDate().isBefore(date)
-                        && impactType.equals(impact.getType())
-                );
+                                && impact.getDate().isBefore(date)
+                                && impactType.equals(impact.getType())
+                )
+                .toList();
     }
 
-    private <T extends Number> double calculateValuesSum(Map<?, T> inputMap) {
+    private <T extends Number> double calculateVolumesSum(Map<?, T> inputMap) {
         return inputMap.values().stream()
                 .mapToDouble(Number::doubleValue)
                 .sum();
     }
 
-    private <T extends Number> double calculateValuesAverage(Map<?, T> inputMap) {
+    private <T extends Number> double calculateVolumesAverage(Map<?, T> inputMap) {
         return inputMap.values().stream()
                 .mapToDouble(Number::doubleValue)
                 .average()
                 .orElseThrow(() -> new IllegalStateException("Unable to calculate average value"));
     }
 
-    private <T extends Number> double getMinValue(Map<?, T> inputMap) {
+    private <T extends Number> double getMonthlyVolumesMin(Map<?, T> inputMap) {
         return inputMap.values().stream()
                 .mapToDouble(Number::doubleValue)
                 .min()
