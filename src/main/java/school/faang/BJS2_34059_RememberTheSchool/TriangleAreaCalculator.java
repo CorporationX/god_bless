@@ -14,11 +14,14 @@ public class TriangleAreaCalculator {
 
         double perimeter = add.apply(add.apply(a).apply(b)).apply(c);
         double halfPerimeter = divide.apply(perimeter).apply(2.0);
+
         double halfPerimeterMinusA = subtract.apply(halfPerimeter).apply(a);
         double halfPerimeterMinusB = subtract.apply(halfPerimeter).apply(b);
         double halfPerimeterMinusC = subtract.apply(halfPerimeter).apply(c);
-        double triangleAreaSquare =
-                multiply.apply(halfPerimeter).apply(multiply.apply(multiply.apply(halfPerimeterMinusA).apply(halfPerimeterMinusB)).apply(halfPerimeterMinusC));
+
+        double areaFirstPart = multiply.apply(halfPerimeterMinusA).apply(halfPerimeterMinusB);
+        double areaSecondPart = multiply.apply(halfPerimeter).apply(halfPerimeterMinusC);
+        double triangleAreaSquare = multiply.apply(areaFirstPart).apply(areaSecondPart);
         return squareRoot.apply(triangleAreaSquare);
     }
 
