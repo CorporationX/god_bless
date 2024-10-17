@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
-        int quantityOfUsers = 70;
+    public static void main(String[] args) throws InterruptedException {
+        int quantityOfUsers = 30;
 
         List<String> listOfTheRoles = new ArrayList<>();
         listOfTheRoles.add("лорд");
@@ -33,6 +33,8 @@ public class Main {
                         try {
                             user.joinHouse(listOfTheHouses.get(preferedHouse),
                                     user.getPreferedRole());
+                            Thread.sleep(user.getTimeOfBeengInTheHouse());
+                            user.leaveHouse(user.getHouse());
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }

@@ -11,8 +11,8 @@ public class User {
     private House house;
     private String preferedRole;
     private String takedRole;
-    private static final int TIME_BETWEEN_ATTEMPTS = 300;
-    private static final int TIME_OF_BEENG_IN_THE_HOUSE = 20;
+    private int timeBetweenAttempts = 300;
+    private int timeOfBeengInTheHouse = 20;
 
     public User(String name, String preferedRole) {
         this.name = name;
@@ -22,28 +22,24 @@ public class User {
     public void joinHouse(House house, String role)
                                                  throws InterruptedException {
         synchronized (house) {
-            if (house.getAccessibleRoles().contains(role)) {
-                this.house = house;
-                this.takedRole = role;
+            while (!house.getAccessibleRoles().contains(role)) {
                 System.out.println("Дом " + house.getName() +
-                        " принял игрока " + this.name + " в роли " + role);
-                house.addRole(this);
-
-                house.wait(TIME_OF_BEENG_IN_THE_HOUSE);
-                this.leaveHouse(house);
-            } else {
-                while (!house.getAccessibleRoles().contains(role)) {
-                    System.out.println("Дом " + house.getName() +
                         " не может принять игрока " + this.name +
                         " в роли " + role);
-                    house.wait(TIME_BETWEEN_ATTEMPTS);
-                }
+                house.wait(timeBetweenAttempts);
             }
+            this.house = house;
+            this.takedRole = role;
+            System.out.println("Дом " + house.getName() +
+                    " принял игрока " + this.name + " в роли " + role);
+            house.addRole(this);
         }
     }
 
     public void leaveHouse(House house) {
-        synchronized (house.getAccessibleRoles()) {
+        synchronized (house) {
+            System.out.println("игрок "  + this.name + " освобождает роль " +
+                    this.takedRole + " в доме " + house.getName());
             house.removeRole(this);
             takedRole = null;
             house.notifyAll();

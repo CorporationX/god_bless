@@ -20,15 +20,13 @@ public class House {
     }
 
     public void addRole(User user) {
-        this.quantityOfAccessibleRoles --;
+        this.quantityOfAccessibleRoles--;
         this.accessibleRoles.remove(user.getPreferedRole());
     }
 
     public void removeRole(User user) {
-        quantityOfAccessibleRoles ++;
+        quantityOfAccessibleRoles++;
         accessibleRoles.add(user.getTakedRole());
-        System.out.println("игрок "  + user.getName() + " освобождает роль " +
-                                     user.getTakedRole() + " в доме " + name);
     }
 
 }
