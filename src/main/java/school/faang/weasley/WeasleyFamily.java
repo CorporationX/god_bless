@@ -1,21 +1,23 @@
 package school.faang.weasley;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
+@Slf4j
 public class WeasleyFamily {
-    private final List<String> CHORES = new ArrayList<>();
+    private final List<String> chores = new ArrayList<>();
 
     public void addChore(String chore) {
-        CHORES.add(chore);
+        chores.add(chore);
     }
 
     public void executeTasks() {
         ExecutorService executor = Executors.newCachedThreadPool();
-        for (String task : CHORES) {
+        for (String task : chores) {
             Chore chore = new Chore(task);
             executor.execute(chore);
         }
@@ -28,7 +30,8 @@ public class WeasleyFamily {
                 System.out.println("All chores have been completed successfully!");
             }
         } catch (InterruptedException e) {
-            System.out.println("Execution was interrupted.");
+            log.debug("Execution was interrupted.", e);
+            e.printStackTrace();
             executor.shutdownNow();
             Thread.currentThread().interrupt();
         }
