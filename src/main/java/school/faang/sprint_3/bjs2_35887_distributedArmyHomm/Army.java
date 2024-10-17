@@ -8,17 +8,22 @@ public class Army {
 
     public int calculateTotalPower() {
         List<Integer> unitsPower = new ArrayList<>();
+        List<Thread> threads = new ArrayList<>();
 
-        for (Unit unit : army) {
+        army.forEach(unit -> {
             Thread thread = new Thread(new PowerCalculator(unit, unitsPower));
+            threads.add(thread);
             thread.start();
+        });
+
+        threads.forEach(thread -> {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                System.out.println("Поток был прерван во время ожидания завершения: " + e.getMessage());
-                thread.interrupt();
+                e.printStackTrace();
+                throw new RuntimeException("Текущий поток был прерван во время ожидания другого потока", e);
             }
-        }
+        });
 
         return unitsPower.stream()
                 .mapToInt(i -> i)
