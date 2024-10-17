@@ -18,15 +18,18 @@ public class House {
             while (i < 2) {
                 i++;
                 int roomNumber = random.nextInt(roomsList.size());
-                List<Food> temporaryFoodList = roomsList.get(roomNumber).foodList();
+                Room room = roomsList.get(roomNumber);
+                synchronized (room) {
+                    List<Food> temporaryFoodList = room.foodList();
 
-                if (temporaryFoodList.isEmpty()) {
-                    continue;
+                    if (temporaryFoodList.isEmpty()) {
+                        continue;
+                    }
+                    synchronized (collectedFood) {
+                        collectedFood.addAll(temporaryFoodList);
+                    }
+                    roomsList.get(roomNumber).foodList().clear();
                 }
-                synchronized (collectedFood) {
-                    collectedFood.addAll(temporaryFoodList);
-                }
-                roomsList.get(roomNumber).foodList().clear();
             }
         }
     }
