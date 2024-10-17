@@ -15,7 +15,7 @@ public class Task implements Runnable {
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
-            throw new RuntimeException("Task has been interrupted");
+            throw new IllegalStateException("Task has been interrupted");
         }
         System.out.println(name + " : " + task + " finished");
     }
