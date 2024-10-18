@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Getter
@@ -37,9 +38,7 @@ public class RecommendationService {
     public List<Product> findTopProductsForSimilarUsers(int userId) {
         UserProfile currUser = findUserById(userId);
         List<UserProfile> similarUsers = users.stream()
-                .filter(user -> user.getAge() == currUser.getAge() &&
-                        user.getGender().equals(currUser.getGender()) &&
-                        user.getLocation().equals(currUser.getLocation()))
+                .filter(currUser::similar)
                 .toList();
 
         List<ProductOrder> similarProducts = orders.stream()
@@ -57,7 +56,7 @@ public class RecommendationService {
         Map<Integer, Product> productIdToProduct = products.stream()
                 .collect(Collectors.toMap(
                         Product::getProductId,
-                        product -> product
+                        Function.identity()
                 ));
         return productIdToCount.entrySet().stream()
                 .sorted(Map.Entry.<Integer, Long>comparingByValue().reversed())

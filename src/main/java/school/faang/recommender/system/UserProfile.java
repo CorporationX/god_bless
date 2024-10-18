@@ -15,4 +15,13 @@ public class UserProfile {
     private int age;
     private String location;
     private List<String> interests;
+
+    public boolean similar(UserProfile other) {
+        if (other == null) {
+            return false;
+        }
+        return this.getAge() == other.getAge() &&
+                this.getGender().equals(other.getGender()) &&
+                this.getLocation().equals(other.getLocation());
+    }
 }
