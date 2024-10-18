@@ -17,7 +17,7 @@ public class Game {
     }
 
     public boolean update(Player player) {
-        synchronized (lockForLives) {
+        synchronized (lockForScore) {
             if (random.nextBoolean()) {
                 score++;
                 player.uppScore();

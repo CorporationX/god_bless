@@ -10,9 +10,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
+    private static final int NUMBER_OF_THREADS = 5;
+
     public static void main(String[] args) {
 
-        CountDownLatch latch = new CountDownLatch(5);
+        CountDownLatch latch = new CountDownLatch(NUMBER_OF_THREADS);
 
         Game game = new Game(latch);
 
@@ -28,8 +30,7 @@ public class Main {
         players.add(player4);
         players.add(player5);
 
-
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
 
         for (Player player : players) {
             AtomicBoolean shouldContinue = new AtomicBoolean(true);
