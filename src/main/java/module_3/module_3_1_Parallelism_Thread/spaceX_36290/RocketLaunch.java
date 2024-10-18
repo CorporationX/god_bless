@@ -1,4 +1,4 @@
-package spaceX_36290;
+package module_3.module_3_1_Parallelism_Thread.spaceX_36290;
 
 import lombok.NoArgsConstructor;
 
