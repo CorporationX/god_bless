@@ -1,7 +1,6 @@
 package module_3.module_3_2_Synchronized_wait_notify.ironThrone_37084;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Main {
