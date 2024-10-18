@@ -16,7 +16,7 @@ public class User {
     private String name;
     private int age;
     private String placeOfWork;
-    private String addres
+    private String address;
    
     public User(String name, int age, String placeOfWork, String address) {
         validateUser(name, age, placeOfWork, address);
