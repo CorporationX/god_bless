@@ -16,7 +16,7 @@ public class Chore implements Runnable {
             Thread.sleep(2000);
             System.out.println(Thread.currentThread().getName() + ": Выполнено");
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("В процессе выполнения задачи " + chore + " произошла ошибка : " + e.getMessage());
         }
     }
 }

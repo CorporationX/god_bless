@@ -25,7 +25,7 @@ public class WeasleyFamily {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("В процессе работы программы произошла ошибка : " + e.getMessage());
         }
     }
 }
