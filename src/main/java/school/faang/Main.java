@@ -5,7 +5,7 @@ import school.faang.Fighter.Mage;
 import school.faang.Fighter.Swordsman;
 
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException{
         Army army = new Army();
         army.addUnit(new Archer());
         army.addUnit(new Swordsman());
