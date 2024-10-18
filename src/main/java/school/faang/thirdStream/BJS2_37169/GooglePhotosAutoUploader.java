@@ -14,15 +14,17 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                System.out.println("Нет новых фотографий для загрузки. Переход в режим ожидания...");
-                try {
-                    lock.wait();
-                    uploadPhotos();
-                } catch (InterruptedException e) {
-                    System.out.println("Работа загрузчика была прервана");
-                    e.printStackTrace();
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    System.out.println("Нет новых фотографий для загрузки. Переход в режим ожидания...");
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("Работа загрузчика была прервана");
+                        e.printStackTrace();
+                    }
                 }
+                uploadPhotos();
             }
         }
     }
