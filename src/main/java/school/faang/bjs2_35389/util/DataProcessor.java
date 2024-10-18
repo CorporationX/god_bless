@@ -6,14 +6,16 @@ import lombok.NonNull;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class DataProcessor {
     public List<PairInteger> findUniquePairsSumOfWhichEqualTo(@NonNull List<Integer> numbers, int sum) {
+        AtomicLong count = new AtomicLong(0);
         return numbers.stream()
-                .flatMap(integer -> numbers.stream()
-                        .filter(integer2 -> integer + integer2 == sum)
-                        .filter(integer3 -> integer <= integer3)
-                        .map(integer4 -> new PairInteger(integer, integer4)))
+                .flatMap(firstNumberPair -> numbers.stream()
+                        .skip(count.incrementAndGet())
+                        .filter(secondNumberPair -> firstNumberPair + secondNumberPair == sum)
+                        .map(secondNumberPair -> new PairInteger(firstNumberPair, secondNumberPair)))
                 .distinct()
                 .toList();
     }

@@ -10,7 +10,7 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         DataProcessor dataProcessor = new DataProcessor();
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = Arrays.asList(6, 1, 3, 5, 7, 2, 4);
         int targetSum = 7;
         System.out.println(dataProcessor.findUniquePairsSumOfWhichEqualTo(numbers, targetSum));
         //[(1, 6), (2, 5), (3, 4)]
