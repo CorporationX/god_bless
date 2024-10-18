@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class City {
+public class City implements Locatable {
     private String name;
     private Location location;
 }

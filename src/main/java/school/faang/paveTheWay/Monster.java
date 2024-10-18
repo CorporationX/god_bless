@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class Monster {
+public class Monster implements Locatable {
     private String name;
     private Location location;
 }
