@@ -1,6 +1,7 @@
 package school.BJS2_36058;
 
 import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +33,8 @@ public class Room {
             } else {
                 System.out.println("Не найдено еды в комнате: " + name);
             }
+            System.out.println("Ой, комната " + name + " занята кем-то, пойду-ка от сюда в другие места прекрасные");
+            house.collectFood();
         }
     }
 

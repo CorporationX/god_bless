@@ -28,10 +28,9 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (house.isAll()) {
-            executorService.shutdown();
-            System.out.println("Еда собрана из всех комнат!");
-        }
+        executorService.shutdown();
+        System.out.println("Еда собрана из всех комнат!");
+
     }
 
     private static void initializeHouse(House house) {
