@@ -15,9 +15,10 @@ public class User {
 
     public void joinHouse(@NonNull House house) {
         synchronized (house) {
-            if (house.getCountAvailableRoles() == 0) {
+            if (house.getCountAvailableRoles() <= 0) {
                 System.out.println("Доступный ролей пока нет. Пользователь " + name + " ждет...");
                 try {
+                    System.out.println(name + " waiting ...");
                     house.wait();
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
@@ -26,14 +27,22 @@ public class User {
 
             this.house = house;
             house.addRole(this);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
     public void leaveHouse(@NonNull House house) {
         synchronized (house) {
-            house.removeRole(this);
-            System.out.println("Пользователь " + name + " покинул дом ");
-            this.house = null;
+            if (role != null) {
+                house.removeRole(this);
+                System.out.println("Пользователь " + name + " покинул дом ");
+                this.house = null;
+                house.notifyAll();
+            }
         }
     }
 }

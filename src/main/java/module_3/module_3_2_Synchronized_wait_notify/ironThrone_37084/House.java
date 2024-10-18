@@ -4,31 +4,30 @@ import lombok.Data;
 import lombok.NonNull;
 
 import java.util.List;
+import java.util.Random;
 
 @Data
 public class House {
     private final List<String> roles;
     private int countAvailableRoles;
+    Random random = new Random();
 
-    public House(@NonNull List<String> roles) {
+    public House(@NonNull List<String> roles, int countAvailableRoles) {
         this.roles = roles;
-        countAvailableRoles = roles.size();
+        this.countAvailableRoles = countAvailableRoles;
     }
 
     public void addRole(@NonNull User user) {
-        user.setRole(roles.get(countAvailableRoles - 1));
-        System.out.println("Пользователь " + user.getName() + " получил роль " + user.getRole());
-        --countAvailableRoles;
-        System.out.println("Уведомлением всем: роль " + user.getRole() + " занята. Количество доступных ролей: " + countAvailableRoles);
-        notifyAll();
+        if (countAvailableRoles > 0) {
+            user.setRole(roles.get(random.nextInt(0, roles.size() - 1)));
+            --countAvailableRoles;
+            System.out.println("Пользователь " + user.getName() + " получил роль " + user.getRole());
+        }
     }
 
-
     public void removeRole(@NonNull User user) {
-        roles.add(user.getRole());
         ++countAvailableRoles;
-        System.out.println("Уведомление всем: роль \"" + roles.get(roles.size() - 1) + "\" свободна. Количество доступных ролей: " + countAvailableRoles);
+        System.out.println("Уведомление всем: роль \"" + user.getRole() + "\" свободна. Количество доступных ролей: " + countAvailableRoles);
         user.setRole(null);
-        notifyAll();
     }
 }
