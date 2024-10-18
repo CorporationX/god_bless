@@ -12,7 +12,7 @@ public class StatisticsAggregator {
                 .filter(impact -> impact.getDate().compareTo(startDate) >= 0 && impact.getDate().compareTo(endDate) <= 0)
                 .filter(impact -> impact.getType().equals(type))
                 .collect(Collectors.groupingBy(
-                        impact -> String.valueOf(impact.getCompanyId()), // Placeholder for company name
+                        impact -> String.valueOf(impact.getCompanyId()),
                         Collectors.summingDouble(EnvironmentalImpact::getVolume)
                 ));
     }

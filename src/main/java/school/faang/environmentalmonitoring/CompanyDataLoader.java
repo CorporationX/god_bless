@@ -12,7 +12,7 @@ public class CompanyDataLoader {
 
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            br.readLine(); // Skip header line
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 int id = Integer.parseInt(values[0]);

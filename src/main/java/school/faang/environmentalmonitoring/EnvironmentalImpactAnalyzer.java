@@ -12,7 +12,7 @@ public class EnvironmentalImpactAnalyzer {
 
     public void analyzeCompanyEmissions(String filename, int companyId) {
         List<EnvironmentalImpact> impacts = companyDataLoader.loadEnvironmentalImpactData(filename);
-        String currentDate = "2023.02.15"; // Simulate current date
+        String currentDate = "2023.02.15";
         List<EnvironmentalImpact> lastYearEmissions = impacts.stream()
                 .filter(impact -> impact.getCompanyId() == companyId &&
                         impact.getDate().compareTo(currentDate) >= 0 &&
@@ -21,7 +21,7 @@ public class EnvironmentalImpactAnalyzer {
 
         double totalEmissions = lastYearEmissions.stream().mapToDouble(EnvironmentalImpact::getVolume).sum();
 
-        System.out.println("Company Name: " + "CompanyName"); // Placeholder for company name
+        System.out.println("Company Name: " + "CompanyName");
         System.out.println("Today's date: " + currentDate);
         System.out.println("Month\tGasEmission");
 
