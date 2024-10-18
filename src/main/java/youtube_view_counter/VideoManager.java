@@ -1,15 +1,15 @@
 package youtube_view_counter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class VideoManager {
-    private final Map<String, Integer> viewsMap = new HashMap<>();
+    private final Map<String, Integer> viewsMap = new ConcurrentHashMap<>();
 
     /**
      * Increments the view count for a video.
