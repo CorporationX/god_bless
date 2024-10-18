@@ -37,7 +37,7 @@ public class StreamApi3 {
     public static List<Integer> findPalindrome(int leftBorder, int rightBorder) {
         return IntStream.rangeClosed(leftBorder, rightBorder)
                 .filter(number -> String.valueOf(number)
-                        .equals(new StringBuilder(String.valueOf(number))))
+                        .equals(new StringBuilder(String.valueOf(number)).reverse().toString()))
                 .boxed()
                 .toList();
     }
