@@ -13,6 +13,7 @@ public class Chor implements Runnable {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             System.out.println("the task " + task + " was interrupted");
+            e.printStackTrace();
         }
     }
 
