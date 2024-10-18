@@ -1,7 +1,9 @@
 package school.faang.multithreading.synchron.bro.force;
 
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class Game {
     private int score;
     private int lives;
@@ -13,22 +15,23 @@ public class Game {
     }
 
     @SneakyThrows
-    public void update(boolean increaseScore, boolean reduceLive) {
-        if (increaseScore) {
+    public void update(boolean isIncreaseScore, boolean isReduceLife) {
+        if (isIncreaseScore) {
             synchronized (scoreLock) {
                 if (lives == 0) {
                     return;
                 }
                 score++;
-                System.out.println("Победа! Ваш счет: " + score);
+                log.info("Победа! Ваш счет: {}", score);
             }
         }
 
-        if (reduceLive) {
+        if (isReduceLife) {
             synchronized (livesLock) {
                 if (lives > 0) {
                     lives--;
-                    System.out.println("Потеряна жизнь. Осталось жизней: " + lives);
+                    System.out.println();
+                    log.info("Потеряна жизнь. Осталось жизней: {}", lives);
                     if (lives == 0) {
                         gameOver();
                     }
@@ -38,6 +41,6 @@ public class Game {
     }
 
     private void gameOver() {
-        System.out.println("Игра окончена. Ваш финальный счет: " + score);
+        log.info("Игра окончена. Ваш финальный счет: {}", score);
     }
 }
