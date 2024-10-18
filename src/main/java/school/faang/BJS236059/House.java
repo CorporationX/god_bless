@@ -18,7 +18,7 @@ public class House {
         this.roomList = roomList;
     }
 
-    public void collectFood() {
+    public synchronized void collectFood() {
         Random random = new Random();
         Room firstRoom = roomList.get(random.nextInt(roomList.size()));
         Room secondRoom;
@@ -60,7 +60,7 @@ public class House {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
 
         for (int i = 0; i < 5; i++) {
-            executorService.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
+            executorService.scheduleAtFixedRate(house::collectFood, 0, 5, TimeUnit.SECONDS);
         }
 
         executorService.schedule(() -> {
