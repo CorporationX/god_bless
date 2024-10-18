@@ -15,10 +15,9 @@ public class Main {
         List<List<Item>> allPurchases = getLists();
 
         CashierThread[] cashiers = new CashierThread[allPurchases.size()];
-        Random random = new Random();
 
         for (int i = 0; i < allPurchases.size(); i++) {
-            int cashierId = random.nextInt(numCashiers) + 1;
+            int cashierId = (i % numCashiers) + 1;
             cashiers[i] = new CashierThread(cashierId, allPurchases.get(i));
         }
         for (CashierThread cashier : cashiers) {
