@@ -16,8 +16,10 @@ public class Main {
 
         service.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
 
+        service.shutdown();
+
         if (!service.awaitTermination(5, TimeUnit.MINUTES)){
-            service.shutdown();
+            service.shutdownNow();
             System.out.println("Total food collected: " + house.getCollectedFood());
         }
 
@@ -36,7 +38,6 @@ public class Main {
         Room room3 = new Room("Room 3", foods3);
 
 
-        House house = new House(new ArrayList<>(List.of(room1, room2, room3)));
-        return house;
+        return new House(new ArrayList<>(List.of(room1, room2, room3)));
     }
 }
