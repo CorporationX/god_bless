@@ -35,7 +35,9 @@ public class Army {
                 threadFighter.join();
                 totalPower += threadFighter.getResult();
             } catch (InterruptedException e) {
-
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted, restoring the interrupt status.");
+                break;
             }
         }
 
