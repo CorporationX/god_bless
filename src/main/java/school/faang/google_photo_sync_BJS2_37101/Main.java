@@ -7,7 +7,7 @@ public class Main {
 
         Thread threadUploader = new Thread(googlePhotosAutoUploader::startAutoUpload);
         Thread threadAdder = new Thread(() ->
-                googlePhotosAutoUploader.oneNewPhotoAdded("C:/photos/vacation/photo3.jpg"));
+                googlePhotosAutoUploader.onNewPhotoAdded("C:/photos/vacation/photo3.jpg"));
 
         threadUploader.start();
         threadAdder.start();

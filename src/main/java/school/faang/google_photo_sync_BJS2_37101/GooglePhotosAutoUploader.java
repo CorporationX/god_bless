@@ -21,7 +21,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void oneNewPhotoAdded(String photoPath) {
+    public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
             lock.notify();
