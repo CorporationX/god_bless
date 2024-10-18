@@ -1,5 +1,7 @@
 package school.faang.sprint_3.bjs2_36099_miceAreVeryNice;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class House {
     private static final int THREAD_POOL_SIZE = 5;
     private final List<Room> rooms;
@@ -38,8 +41,8 @@ public class House {
                 System.out.println("Все пошло не по плану! Глушим потоки!");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Произошла ошибка при остановке потоков.", e);
+            log.error("Произошла ошибка при остановке потоков.");
+            throw new RuntimeException(e);
         }
     }
 
