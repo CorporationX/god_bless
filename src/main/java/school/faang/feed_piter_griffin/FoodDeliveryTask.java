@@ -10,17 +10,20 @@ import java.util.Random;
 public class FoodDeliveryTask implements Runnable {
     private final String character;
     private final int foodAmount;
+    private final static int ONE_SECOND_SLEEP_TIME = 1000;
+    private final static int FOUR_SECOND_SLEEP_TIME = 4000;
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        int randomFoodTypeIndex = new Random().nextInt(foodTypes.length);
+        return foodTypes[randomFoodTypeIndex];
     }
 
     @Override
     public void run() {
         String foodType = getFoodType();
         System.out.println(character + " is getting " + foodAmount + " " + foodType);
-        int sleepTime = 1000 + new Random().nextInt(4000);
+        int sleepTime = ONE_SECOND_SLEEP_TIME + new Random().nextInt(FOUR_SECOND_SLEEP_TIME);
         try {
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
