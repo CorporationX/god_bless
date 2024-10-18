@@ -2,6 +2,7 @@ package school.faang.tamagotchi;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class Main {
     public static void main(String[] args){
@@ -18,11 +19,16 @@ public class Main {
 
         controller.deleteTamagochi(tamagotchiVlads.get(2));
 
+        List<Runnable> runnables = new ArrayList<>();
+        runnables.add(controller::feedAll);
+        runnables.add(controller::playAll);
+        runnables.add(controller::cleanAll);
+        runnables.add(controller::sleepAll);
+
         List<Thread> threads = new ArrayList<>();
-        threads.add(new Thread(controller::feedAll));
-        threads.add(new Thread(controller::playAll));
-        threads.add(new Thread(controller::cleanAll));
-        threads.add(new Thread(controller::sleepAll));
+        for (Runnable runnable : runnables) {
+            threads.add(new Thread(runnable));
+        }
 
         threads.forEach(Thread::start);
 
