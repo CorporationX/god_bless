@@ -1,4 +1,4 @@
-package school.faang.miceverynice;
+package school.faang.mice;
 
 import lombok.extern.log4j.Log4j2;
 

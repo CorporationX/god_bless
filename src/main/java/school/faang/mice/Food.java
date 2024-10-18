@@ -1,4 +1,4 @@
-package school.faang.miceverynice;
+package school.faang.mice;
 
 public record Food(String name) {
 }
