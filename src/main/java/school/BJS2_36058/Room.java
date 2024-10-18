@@ -33,9 +33,9 @@ public class Room {
             } else {
                 System.out.println("Не найдено еды в комнате: " + name);
             }
-            System.out.println("Ой, комната " + name + " занята кем-то, пойду-ка от сюда в другие места прекрасные");
-            house.collectFood();
         }
+        System.out.println("Ой, комната " + name + " занята кем-то, пойду-ка от сюда в другие места прекрасные");
+        house.collectFood();
     }
 
     public boolean hasFood() {
