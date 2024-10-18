@@ -25,9 +25,18 @@ public class Army {
         List<ThreadFighter> threadFighters = new ArrayList<>();
 
         for (Fighter fighter : fighterList) {
-            ThreadFighter thread = new ThreadFighter(fighter, () -> fighter.getPower());
+            ThreadFighter thread = new ThreadFighter(fighter);
             threadFighters.add(thread);
             thread.start();
+        }
+
+        for (ThreadFighter threadFighter : threadFighters) {
+            try {
+                threadFighter.join();
+                totalPower += threadFighter.getResult();
+            } catch (InterruptedException e) {
+
+            }
         }
 
         return totalPower;

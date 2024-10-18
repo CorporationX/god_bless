@@ -12,4 +12,9 @@ public class ThreadFighter extends Thread{
         this.fighter = fighter;
     }
 
+    @Override
+    public void run(){
+        result = fighter.getPower();
+    }
+
 }
