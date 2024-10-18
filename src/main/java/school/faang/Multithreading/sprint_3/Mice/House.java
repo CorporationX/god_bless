@@ -8,7 +8,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class House {
-    public static final int TIME_COllECT = 1;
+    public static final int TIME_COLLECT = 1;
+    public static final int TiME_CHECK_ALL_FOOD = 5;
     public static final int POOL_THREAD = 5;
 
     private final List<Room> rooms = new ArrayList<>();
@@ -25,22 +26,19 @@ public class House {
 
         house.initializeHouse(house, kitchen, livingroom, badroom, hall, gamesRoom, garage);
 
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_THREAD);
         executor.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if (house.allFoodCollected()) {
-                executor.shutdown();
-            }
-        }, POOL_THREAD, TIME_COllECT, TimeUnit.SECONDS);
+            System.out.println(Thread.currentThread().getName() + " " + house.collectedFood);
+        }, 0, TIME_COLLECT, TimeUnit.SECONDS);
 
-        try {
-            if (executor.awaitTermination(5, TimeUnit.MINUTES)) {
+
+        executor.scheduleAtFixedRate(() -> {
+            if (house.isAllFoodCollected()) {
+                executor.shutdown();
                 System.out.println("Сбор еды завершен " + house.collectedFood);
             }
-        } catch (InterruptedException e) {
-            System.out.println("Сбор еды не смог завершиться");
-            executor.shutdownNow();
-        }
+        }, 0, TiME_CHECK_ALL_FOOD, TimeUnit.SECONDS);
     }
 
     public void addRoom(Room room) {
@@ -84,7 +82,7 @@ public class House {
         }
     }
 
-    public boolean allFoodCollected() {
+    public boolean isAllFoodCollected() {
         return rooms.stream().noneMatch(Room::hasFood);
     }
 }
