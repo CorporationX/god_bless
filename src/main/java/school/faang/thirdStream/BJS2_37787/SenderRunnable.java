@@ -1,4 +1,4 @@
-package school.faang.BJS2_37787;
+package school.faang.thirdStream.BJS2_37787;
 
 public class SenderRunnable implements Runnable {
     private final int startIndex;

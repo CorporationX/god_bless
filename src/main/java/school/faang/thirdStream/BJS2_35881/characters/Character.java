@@ -1,4 +1,4 @@
-package school.faang.BJS2_35881.characters;
+package school.faang.thirdStream.BJS2_35881.characters;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

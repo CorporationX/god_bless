@@ -1,6 +1,6 @@
-package school.faang.BJS2_35881;
+package school.faang.thirdStream.BJS2_35881;
 
-import school.faang.BJS2_35881.characters.Character;
+import school.faang.thirdStream.BJS2_35881.characters.Character;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,8 +1,8 @@
-package school.faang.BJS2_35881;
+package school.faang.thirdStream.BJS2_35881;
 
-import school.faang.BJS2_35881.characters.Archer;
-import school.faang.BJS2_35881.characters.Mage;
-import school.faang.BJS2_35881.characters.Swordsman;
+import school.faang.thirdStream.BJS2_35881.characters.Archer;
+import school.faang.thirdStream.BJS2_35881.characters.Mage;
+import school.faang.thirdStream.BJS2_35881.characters.Swordsman;
 
 public class Main {
     public static void main(String[] args) {
