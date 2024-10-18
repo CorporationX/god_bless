@@ -21,7 +21,9 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(RANDOM.nextInt(2000));
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(
+                    String.format("Thread %s was interrupted", Thread.currentThread().getName()), e
+            );
         }
         System.out.println("Completed chore: " + chore + " in thread: " + Thread.currentThread().getName());
     }
