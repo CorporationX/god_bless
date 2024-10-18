@@ -21,9 +21,15 @@ public class Army {
     }
 
     public int calculateTotalPower() {
-        ThreadFighter[] threadFighters = new ThreadFighter[fighterList.size()];
+        int totalPower = 0;
+        List<ThreadFighter> threadFighters = new ArrayList<>();
+
         for (Fighter fighter : fighterList) {
-                threadFighters(fighter)
+            ThreadFighter thread = new ThreadFighter(fighter);
+            threadFighters.add(thread);
+            thread.start();
         }
+
+        return totalPower;
     }
 }
