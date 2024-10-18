@@ -8,6 +8,7 @@ public class GriffinsFoodDelivery {
     private static final int THREAD_POOL_SIZE = 3;
 
     public static void main(String[] args) {
+        Random rnd = new Random();
         ExecutorService executorService = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         String[] characters = {
@@ -21,7 +22,7 @@ public class GriffinsFoodDelivery {
         };
 
         for (String character : characters) {
-        int foodAmount = new Random().nextInt(1, 51);
+            int foodAmount = rnd.nextInt(1, 51);
             executorService.execute(new FoodDeliveryTask(character, foodAmount));
         }
 
