@@ -1,4 +1,4 @@
-package leadTheWayWithYourFinger_36590;
+package module_3.module_3_1_Parallelism_Thread.leadTheWayWithYourFinger_36590;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

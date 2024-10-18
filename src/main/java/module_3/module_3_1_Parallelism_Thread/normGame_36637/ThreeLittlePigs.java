@@ -1,4 +1,4 @@
-package normGame_36637;
+package module_3.module_3_1_Parallelism_Thread.normGame_36637;
 
 public class ThreeLittlePigs {
     public static void main(String[] args) {

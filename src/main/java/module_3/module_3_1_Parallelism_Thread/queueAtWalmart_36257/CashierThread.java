@@ -1,4 +1,4 @@
-package queueAtWalmart_36257;
+package module_3.module_3_1_Parallelism_Thread.queueAtWalmart_36257;
 
 
 import java.util.Random;

@@ -1,4 +1,4 @@
-package normGame_36637;
+package module_3.module_3_1_Parallelism_Thread.normGame_36637;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
