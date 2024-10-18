@@ -1,32 +1,30 @@
 package school.faang;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        int lettersStack = 1000;
+        int threadCol = 5;
+        int batchSize = lettersStack / threadCol;
+        Thread[] threads = new Thread[threadCol];
 
-        List<Email> emails = Arrays.asList(
-                new Email("Letter 1", "Dear diary.... ", true),
-                new Email("Letter 2", "Rock and stone!!!!! ", true),
-                new Email("Spam", "Spam text", false)
-        );
+        for (int i = 0; i < threadCol; i++) {
+            int startIndex = (i * batchSize) + 1;
+            int endIndex = ((i + 1) * batchSize) + 1;
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads[i].start();
+        }
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted, restoring the interrupt status.");
+                break;
+            }
+        }
 
-        Predicate<Email> importantFilter = email -> email.isImportant();
+        System.out.println("All letters was sent");
 
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-
-        Function<Email, String> toUpperCase = email -> {
-            email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
-        };
-
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
     }
 
 }
