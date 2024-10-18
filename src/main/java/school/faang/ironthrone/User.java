@@ -10,7 +10,7 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House house) {
+    public void joinHouse(House house) {
         synchronized (house) {
             try {
                 while (house.getCountRoles() == 0) {
@@ -27,7 +27,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (house) {
             System.out.println(name + " покидает дом и освобождает роль " + role);
             house.removeRole(role);

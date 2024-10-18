@@ -10,6 +10,7 @@ import java.util.Random;
 public class House {
     private List<String> roles;
     private Integer countRoles;
+    private Random random = new Random();
 
     public House(List<String> roles) {
         this.roles = new ArrayList<>(roles);
@@ -17,7 +18,7 @@ public class House {
     }
 
     public String addRole() {
-        String role = roles.get(new Random().nextInt(roles.size()));
+        String role = roles.get(random.nextInt(roles.size()));
 
         roles.remove(role);
         countRoles--;

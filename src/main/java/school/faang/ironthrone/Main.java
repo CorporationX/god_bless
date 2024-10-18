@@ -10,6 +10,7 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 4;
     private static final int TIME_TO_WAIT = 1000;
     private static final int TIME_TO_WORK = 100;
+
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
         List<String> roles = List.of("Маг", "Войн");
