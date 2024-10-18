@@ -36,7 +36,7 @@ public class House {
         executor.scheduleAtFixedRate(() -> {
             if (house.isAllFoodCollected()) {
                 executor.shutdown();
-                System.out.println("Сбор еды завершен " + house.collectedFood);
+                System.out.println("Сбор еды завершен " + Thread.currentThread().getName() + " " + house.collectedFood);
             }
         }, 0, TiME_CHECK_ALL_FOOD, TimeUnit.SECONDS);
     }
