@@ -37,6 +37,7 @@ public class Main {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
+            e.printStackTrace();
             service.shutdownNow();
         }
     }
