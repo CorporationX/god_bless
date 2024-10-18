@@ -16,7 +16,7 @@ public class House {
         this.rooms = rooms;
     }
 
-    public void collectFood() {
+    public synchronized void collectFood() {
         int firstRandomNumber = (int) (Math.random() * rooms.size());
         int secondRandomNumber = firstRandomNumber;
         while (secondRandomNumber == firstRandomNumber) {

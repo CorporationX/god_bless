@@ -56,14 +56,22 @@ public class Main {
 
         ScheduledExecutorService executor =
                     Executors.newScheduledThreadPool(5);
-        executor.scheduleAtFixedRate(
-                house::collectFood,0, 30, TimeUnit.SECONDS);
+        for (int i = 0; i < 5; i++) {
+            executor.scheduleAtFixedRate(
+                    house::collectFood,0, 30, TimeUnit.SECONDS);
+        }
+        //executor.shutdown();
+        //boolean b =
+        //        executor.awaitTermination(200, TimeUnit.SECONDS);
+
+
+        //if (b) {
+            System.out.println("Еда в доме собрана!");
+            System.out.println("Количество собранной еды составляет " +
+                    house.getCollectedFood().size() + " ништяков");
+        //}
 
         executor.shutdown();
-        boolean b = executor.awaitTermination(30, TimeUnit.SECONDS);
-        if (b) {
-            System.out.println("Еда в доме собрана!");
-        }
     }
 
 }
