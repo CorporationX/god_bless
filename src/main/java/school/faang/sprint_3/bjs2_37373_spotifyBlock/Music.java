@@ -1,9 +1,12 @@
 package school.faang.sprint_3.bjs2_37373_spotifyBlock;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Music {
     private static final int THREADS_COUNT = 5;
 
@@ -23,8 +26,8 @@ public class Music {
                 System.out.println("Что-то не так, дергаем стоп-кран!");
             }
         } catch (InterruptedException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Текущий поток был прерван во время ожидания завершения другого потока", e);
+            log.error("Поток был прерван во время ожидания завершения другого потока.");
+            throw new RuntimeException(e);
         }
     }
 }
