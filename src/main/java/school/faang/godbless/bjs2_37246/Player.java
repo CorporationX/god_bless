@@ -1,10 +1,7 @@
 package school.faang.godbless.bjs2_37246;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NonNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -22,6 +19,10 @@ public class Player {
 
     public void play() {
         synchronized (lock) {
+            if (isPlaying) {
+                System.out.println("Already playing");
+                return;
+            }
             isPlaying = true;
             System.out.println("Playing track " + tracks.get(currentTrackIndex).getName());
         }
@@ -29,6 +30,10 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
+            if (!isPlaying) {
+                System.out.println("Already paused");
+                return;
+            }
             isPlaying = false;
             System.out.println("Paused");
         }
