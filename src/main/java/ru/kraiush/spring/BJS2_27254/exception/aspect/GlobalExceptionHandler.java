@@ -22,7 +22,6 @@ import org.w3c.dom.events.EventException;
 import ru.kraiush.spring.BJS2_27254.domain.dto.ErrorDto;
 import ru.kraiush.spring.BJS2_27254.domain.model.ErrorResponse;
 import ru.kraiush.spring.BJS2_27254.exception.DataValidationException;
-import ru.kraiush.spring.BJS2_27254.exception.EmailAlreadyExistsException;
 import ru.kraiush.spring.BJS2_27254.exception.ResourceAlreadyExistsException;
 import ru.kraiush.spring.BJS2_27254.exception.ResourceNotFoundException;
 
@@ -46,7 +45,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @Value("BASE_PACKAGE")
     private String BASE_PACKAGE;
 
-    @Override
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatusCode status,
@@ -70,7 +69,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponse("DATA FORMAT ERROR - " + ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(ResourceNotFoundException.class)
     public ErrorResponse handleResourceNotFoundException(ResourceNotFoundException ex,
                                                          WebRequest webRequest) {
@@ -80,20 +79,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ex.getMessage(),
                 webRequest.getDescription(false),
                 "RESOURSE NOT FOUND"
-        );
-    }
-
-    @ResponseStatus(value = HttpStatus.CONFLICT)
-    @ExceptionHandler(EmailAlreadyExistsException.class)
-    public ErrorResponse handleEmailAlreadyExistsException(EmailAlreadyExistsException ex,
-                                                           WebRequest webRequest) {
-
-        log.error("Such email already exist" + ex);
-        return new ErrorResponse(
-                LocalDateTime.now(),
-                ex.getMessage(),
-                webRequest.getDescription(false),
-                "USER EMAIL ALREADY EXISTS"
         );
     }
 
@@ -117,7 +102,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponse("DATA VALIDATION ERROR - " + ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(EntityNotFoundException.class)
     public ErrorResponse notFoundEntityException(EntityNotFoundException ex) {
         log.error("Entity not found" + ex);
@@ -132,7 +117,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ErrorResponse("ACCESS DENIED - " + ex.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ErrorResponse mismatchTypeException(MethodArgumentTypeMismatchException ex) {
         log.error("Mismatch argument type" + ex);
@@ -155,7 +140,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(EventException.class)
-    public ResponseEntity<ErrorDto> handleException(final HttpServletRequest request, final Exception ex) {
+    public ResponseEntity<ErrorDto> handleEventException(final HttpServletRequest request, final Exception ex) {
+
         val trace = stream(ex.getStackTrace())
                 .filter(source -> source.getClassName().startsWith(BASE_PACKAGE))
                 .map(StackTraceElement::toString)

@@ -37,47 +37,45 @@ public class TeamMemberServiceFulfil implements TeamMemberService {
     }
 
     public TeamMember create(TeamMember user) {
-        TeamMember existingTeamMember = repository.findByEmail(user.getEmail())
-                .orElse(null);
-        if (existingTeamMember == null) {
-            return repository.save(user);
-        } else
-            throw new ResourceAlreadyExistsException("OBJECT WITH SUCH EMAIL ALREADY EXISTS - " + user.getId());
-    }
-
-    public TeamMember getByTeamMemberName(String name) {
-        return repository.findByName(name)
-                .orElseThrow(
-                        () -> new ResourceNotFoundException("NO OBJECT PRESENT WITH NAME - " + name));
+        Optional<TeamMember> existingUser = repository.findByName(user.getName());
+        if (existingUser.isPresent()) {
+            throw new ResourceAlreadyExistsException("SUCH OBJECT ALREADY EXISTS- " + user.getName());
+        } else {
+            Optional<TeamMember> existingUserEmail = repository.findByEmail(user.getEmail());
+            if (existingUserEmail.isPresent()) {
+                throw new ResourceAlreadyExistsException("OBJECT WITH SUCH EMAIL ALREADY EXISTS - " + user.getEmail());
+            } else
+                return repository.save(user);
+        }
     }
 
     @Override
     public TeamMember update(TeamMember user) {
-        TeamMember existingTeamMember = repository.findById(user.getId())
+        TeamMember existingUser = repository.findById(user.getId())
                 .orElse(null);
-        if (existingTeamMember == null)
-            throw new ResourceNotFoundException("NO SUCH USER EXISTS!");
+        if (existingUser == null)
+            throw new ResourceNotFoundException("NO SUCH OBJECT EXISTS!");
         else
             return repository.save(user);
     }
 
     @Override
-    public void deleteById(long id) {
-        TeamMember existingTeamMember = repository.findById(id)
-                .orElse(null);
-        if (existingTeamMember == null)
-            throw new ResourceNotFoundException("NO SUCH OBJECT EXISTS!");
-        else
-            repository.deleteById(id);
+    public String findRoleById(Long id) {
+        Optional<TeamMember> memberOptional = findById(id);
+        if (memberOptional.isEmpty()) {
+            log.info("No such role found!");
+        }
+        return repository.findRoleById(id);
     }
 
     @Override
-    public String findRoleById(Long userID) {
-        Optional<TeamMember> memberOptional = findById(userID);
-        if (memberOptional.isEmpty()) {
-            log.info("No member found!");
-        }
-        return repository.findRoleById(userID);
+    public void deleteById(long id) {
+        TeamMember existingUser = repository.findById(id)
+                .orElse(null);
+        if (existingUser == null)
+            throw new ResourceNotFoundException("NO SUCH OBJECT EXISTS WIT ID - " + id);
+        else
+            repository.deleteById(id);
     }
 
     @Override
