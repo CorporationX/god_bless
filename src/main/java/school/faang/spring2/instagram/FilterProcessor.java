@@ -1,4 +1,4 @@
-package school.faang.Sprint2.Instagram;
+package school.faang.spring2.instagram;
 
 import java.util.function.Function;
 
