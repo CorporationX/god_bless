@@ -13,19 +13,15 @@ public class Main {
         controller.add(vlad1);
         controller.add(vlad2);
 
-        Thread thread1 = new Thread(() -> {
+        Runnable tasks = () -> {
             controller.feedAll();
             controller.playAll();
             controller.cleanAll();
             controller.sleepAll();
-        });
+        };
 
-        Thread thread2 = new Thread(() -> {
-            controller.feedAll();
-            controller.playAll();
-            controller.cleanAll();
-            controller.sleepAll();
-        });
+        Thread thread1 = new Thread(tasks);
+        Thread thread2 = new Thread(tasks);
 
         thread1.start();
         thread2.start();
