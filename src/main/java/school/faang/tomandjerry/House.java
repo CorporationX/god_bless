@@ -1,19 +1,21 @@
 package school.faang.tomandjerry;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Data
 public class House {
     public static final int CORE_POOL_SIZE = 5;
-    private static List<Food> collectedFood = new ArrayList<>();
+    private List<Food> collectedFood = new ArrayList<>();
     private List<Room> rooms;
+    private boolean allFoodCollected = false;
 
     public House(List<Room> rooms) {
         this.rooms = rooms;
@@ -38,23 +40,27 @@ public class House {
         return initializedRooms;
     }
 
-    public static void main(String[] args) {
-        House house = new House(initialization());
-        System.out.println("Count of rooms in the house: " + house.getRooms().size());
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(CORE_POOL_SIZE);
+    public void  assigningTasksToThreads(ScheduledExecutorService scheduler, House house) {
         for (int i = 0; i < house.getRooms().size(); i++) {
             scheduler.scheduleAtFixedRate(() -> {
                 house.collectFood();
-                if (house.allFoodCollected()) {
-                    scheduler.shutdown();
-                    System.out.println("The food in the house is collected");
-                }
-            }, 0, 30, TimeUnit.SECONDS);
+            }, 0, 1, TimeUnit.SECONDS);
         }
-        System.out.println("Collected food: " + collectedFood);
+        while (!allFoodCollected()) {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("Caught exception: ", e);
+            }
+        }
+        scheduler.shutdown();
     }
 
     public void collectFood() {
+        if (rooms == null || rooms.isEmpty()) {
+            allFoodCollected = true;
+        }
         Random random = new Random();
         Room firstRoom = rooms.get(random.nextInt(rooms.size()));
         Room secondRoom = rooms.get(random.nextInt(rooms.size()));
@@ -69,8 +75,9 @@ public class House {
     }
 
     public boolean allFoodCollected() {
-        for (Room room : rooms) {
-            if (room.hasFood()) {
+        List<Room> roomsForCheck = new ArrayList<>(rooms);
+        for (Room room : roomsForCheck) {
+            if (room != null && room.hasFood()) {
                 return false;
             }
         }
