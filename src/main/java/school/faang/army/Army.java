@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Army {
 
-    public final List<Unit> units = new ArrayList<>();
+    private final List<Unit> units = new ArrayList<>();
 
     public int calculateTotalPower() throws InterruptedException {
         List<PowerCalculator> tasks = new ArrayList<>();
