@@ -3,7 +3,6 @@ package school.faang.StreamAPI2;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,16 +10,10 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ListOperations {
-    public static Map<Integer, Integer> UniquePairs(List<Integer> numbers, int sum){
-        return numbers.stream()
-                .filter(num -> numbers.contains(sum - num))
-                .filter(num -> num < sum - num)
-                .collect(Collectors.toMap(
-                                num -> num,
-                                num -> sum - num,
-                                (num1, num2) -> num1
-                        )
-                );
+    public static Set<List<Integer>> UniquePairs(List<Integer> numbers, int sum){
+        Set<Integer> numberSet = new HashSet<>(numbers);
+        return numbers.stream().filter(n -> numberSet.contains(sum - n)).map(n -> Arrays.asList(n, sum - n))
+                .peek(Collections::sort).collect(Collectors.toSet());
     }
 
     public static List<String> capitals(Map<String, String> map){
