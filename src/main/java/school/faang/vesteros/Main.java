@@ -25,17 +25,17 @@ public class Main {
         }
     }
 
-    public static void addBook(Map<Book, String> map, Book book, String shelf) {
-        map.put(book, shelf);
+    public static void addBook(Map<Book, String> bookAndShelf, Book book, String shelf) {
+        bookAndShelf.put(book, shelf);
     }
 
-    public static void removeBook(Map<Book, String> map, String name, String author, int year) {
+    public static void removeBook(Map<Book, String> bookAndShelf, String name, String author, int year) {
         Book book = new Book(name, author, year);
-        map.remove(book);
+        bookAndShelf.remove(book);
     }
 
-    public static void findBook(Map<Book, String> map, String name, String author, int year) {
-        map.forEach((book, shelf) -> {
+    public static void findBook(Map<Book, String> bookAndShelf, String name, String author, int year) {
+        bookAndShelf.forEach((book, shelf) -> {
             if (book.getTitle().equals(name) && book.getAuthor().equals(author) && book.getYear() == year) {
                 System.out.println("Search result - " + book + " - " + shelf);
             }
