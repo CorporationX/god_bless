@@ -1,19 +1,16 @@
 package school.faang.streamapithree;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PalindromeNumbersFinder {
 
     public static List<Integer> findPalindromesInRange(int start, int end) {
-        List<Integer> palindromes = new ArrayList<>();
-
-        for (int i = start; i <= end; i++) {
-            if (isPalindrome(i)) {
-                palindromes.add(i);
-            }
-        }
-        return palindromes;
+        return IntStream.rangeClosed(start, end)
+                .filter(PalindromeNumbersFinder::isPalindrome)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     private static boolean isPalindrome(int number) {
