@@ -1,34 +1,32 @@
 package school.BJS2_37070;
 
+import lombok.Getter;
+
 import java.util.List;
 import java.util.Random;
 
 public class House {
 
-    private List<String> role;
+    private List<String> roles;
+    @Getter
     private int availableRole;
 
-    public House(List<String> role) {
-        this.role = role;
-        availableRole = role.size();
+    public House(List<String> roles) {
+        this.roles = roles;
+        availableRole = roles.size();
     }
 
-    public String addRole() throws InterruptedException {
+    public String addRole(){
         Random random = new Random();
-        if (availableRole == 0) {
-            wait();
-        }
         availableRole--;
-        return role.get(random.nextInt(role.size() - 1));
+        String role = roles.get(random.nextInt(roles.size()));
+        roles.remove(role);
+        return role;
     }
 
-    public void removeRole() {
-        if (availableRole < role.size())
-            availableRole++;
-        notifyAll();
-    }
-
-    public int getAvailableRole() {
-        return availableRole;
+    public void removeRole(User user) {
+        String role = user.getRole();
+        roles.add(role);
+        availableRole++;
     }
 }
