@@ -26,11 +26,10 @@ public class Game {
         }
         synchronized (lockForLives) {
             if (random.nextBoolean()) {
-                if (!player.checkLife()) {
-                    System.out.println("Уменьшаем очки здоровья игрока " + player.getName() + ". Здоровье равно: " + player.getHelth());
-                    player.downHelth();
-                    lives++;
-                } else if (player.checkLife()) {
+                System.out.println("Уменьшаем очки здоровья игрока " + player.getName() + ". Здоровье равно: " + player.getHelth());
+                player.downHelth();
+                lives++;
+                if (player.checkLife()) {
                     System.out.println("Выбывает игрок " + player.getName());
                     latch.countDown();
                     return true;
