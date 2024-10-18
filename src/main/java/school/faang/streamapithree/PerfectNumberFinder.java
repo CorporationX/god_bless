@@ -1,31 +1,23 @@
 package school.faang.streamapithree;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class PerfectNumberFinder {
 
     public static List<Integer> findPerfectNumbersInRange(int start, int end) {
-        List<Integer> perfectNumbers = new ArrayList<>();
-
-        for (int i = start; i <= end; i++) {
-            if (isPerfect(i)) {
-                perfectNumbers.add(i);
-            }
-        }
-        return perfectNumbers;
+        return IntStream.rangeClosed(start, end)
+                .filter(PerfectNumberFinder::isPerfect)
+                .boxed()
+                .collect(Collectors.toList());
     }
 
     private static boolean isPerfect(int number) {
-        int sum = 0;
-
-        for (int i = 1; i <= number / 2; i++) {
-            if (number % i == 0) {
-                sum += i;
-            }
-        }
+        int sum = IntStream.rangeClosed(1, number / 2)
+                .filter(i -> number % i == 0)
+                .sum();
 
         return sum == number;
     }
 }
-
