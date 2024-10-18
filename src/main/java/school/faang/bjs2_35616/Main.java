@@ -12,6 +12,10 @@ public class Main {
     public static void main(String[] args) {
         List<UserAction> actions = getList();
         System.out.println(UserActionAnalyzer.topActiveUsers(actions));
+        //[Alice, Bob, Charlie, Dave, Eve]
+
+
+
     }
 
     private static List<UserAction> getList() {
