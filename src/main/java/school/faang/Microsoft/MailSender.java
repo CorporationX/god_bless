@@ -9,7 +9,7 @@ public class MailSender {
     private static final int TOTAL_MESSAGES = 1000;
     private static final int THREADS_COUNT = 5;
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
         ExecutorService executorService = Executors.newFixedThreadPool(THREADS_COUNT);
         int batchSize = TOTAL_MESSAGES / THREADS_COUNT;
@@ -22,9 +22,13 @@ public class MailSender {
 
         executorService.shutdown();
 
-        if (!executorService.awaitTermination(10, TimeUnit.SECONDS)){
-            System.out.println("Something went wrong");
-            executorService.shutdownNow();
+        try {
+            if (!executorService.awaitTermination(10, TimeUnit.SECONDS)){
+                System.out.println("Something went wrong");
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException("Something went wrong " + e);
         }
         System.out.println("Done!!!");
 
