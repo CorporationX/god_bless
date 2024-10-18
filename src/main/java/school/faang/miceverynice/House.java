@@ -1,4 +1,4 @@
-package school.faang.mice;
+package school.faang.miceverynice;
 
 import java.util.ArrayList;
 import java.util.List;
