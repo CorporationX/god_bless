@@ -14,11 +14,15 @@ public class King {
         Knight knightOfSwords = new Knight("Knight of Swords");
         Knight knightOfCups = new Knight("Knight of cups");
 
-        knightOfSwords.addTrial(new Trial(knightOfSwords.getName(), "Trial of The Tempest Winds"));
-        knightOfSwords.addTrial(new Trial(knightOfSwords.getName(), "Trial of the Blades of Conflict"));
-        knightOfCups.addTrial(new Trial(knightOfCups.getName(), "Trial of Mirror Lake"));
-        knightOfCups.addTrial(new Trial(knightOfCups.getName(), "Trial of the Heart's Labyrinth"));
+        Trial trialOfTheTempestWinds = new Trial("Trial of The Tempest Winds");
+        Trial trialOfTheBladesOfConflict = new Trial("Trial of the Blades of Conflict");
+        Trial trialOfMirrorLake = new Trial("Trial of Mirror Lake");
+        Trial trialOfTheHeartsOfTheLabyrinth = new Trial("Trial of the Heart's Labyrinth");
 
+        knightOfSwords.addTrial(trialOfTheTempestWinds);
+        knightOfSwords.addTrial(trialOfTheBladesOfConflict);
+        knightOfCups.addTrial(trialOfMirrorLake);
+        knightOfCups.addTrial(trialOfTheHeartsOfTheLabyrinth);
 
         ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
         knightOfCups.startTrials(executor);

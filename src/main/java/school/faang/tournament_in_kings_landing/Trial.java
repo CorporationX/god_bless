@@ -1,14 +1,19 @@
 package school.faang.tournament_in_kings_landing;
 
-import lombok.RequiredArgsConstructor;
+
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
-@RequiredArgsConstructor
 @Slf4j
 public class Trial implements Runnable {
-    private final String knightName;
+    @Setter
+    private String knightName;
     private final String trialName;
     private static final int SLEEP_TIME = 2000;
+
+    public Trial(String name){
+        this.trialName = name;
+    }
 
     @Override
     public void run() {
@@ -21,6 +26,5 @@ public class Trial implements Runnable {
             log.error("Exception in threads connected to sleep() method has occurred", e);
             e.printStackTrace();
         }
-
     }
 }

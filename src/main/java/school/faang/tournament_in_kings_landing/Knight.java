@@ -11,10 +11,11 @@ import java.util.concurrent.ExecutorService;
 public class Knight {
     @Getter
     private final String name;
-    List<Trial> trials = new ArrayList<>();
+    private final List<Trial> trials = new ArrayList<>();
 
     public void addTrial(Trial trial) {
         trials.add(trial);
+        trial.setKnightName(this.name);
     }
 
     public void startTrials(ExecutorService executorService) {
