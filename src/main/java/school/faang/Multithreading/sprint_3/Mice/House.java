@@ -27,11 +27,11 @@ public class House {
         house.initializeHouse(house, kitchen, livingroom, badroom, hall, gamesRoom, garage);
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(POOL_THREAD);
+
         executor.scheduleAtFixedRate(() -> {
             house.collectFood();
             System.out.println(Thread.currentThread().getName() + " " + house.collectedFood);
         }, 0, TIME_COLLECT, TimeUnit.SECONDS);
-
 
         executor.scheduleAtFixedRate(() -> {
             if (house.isAllFoodCollected()) {
