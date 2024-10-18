@@ -151,12 +151,14 @@ public class House {
 
                 System.out.println(threadName + " собирает еду из комнат: " + randomRoomOne.getName() + " и " + randomRoomTwo.getName());
 
-
                 List<Food> grabbedFoodFromRoomOne = grabFoodFromRoom(randomRoomOne);
                 List<Food> grabbedFoodFromRoomTwo = grabFoodFromRoom(randomRoomTwo);
 
                 grabbedFood.addAll(grabbedFoodFromRoomOne);
                 grabbedFood.addAll(grabbedFoodFromRoomTwo);
+
+                System.out.println(threadName + " собрал еду: " + grabbedFoodFromRoomOne + " из " + randomRoomOne.getName() + " и " + grabbedFoodFromRoomTwo + " из " + randomRoomTwo.getName());
+
             }
         } catch (Exception error) {
             System.err.println("Ошибка при сборе еды: " + error.getMessage());
