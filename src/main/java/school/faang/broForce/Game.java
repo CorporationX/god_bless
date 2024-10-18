@@ -15,20 +15,21 @@ public class Game {
 
   public void update(boolean isScoredPoints, boolean isLosesLife) {
     synchronized (scoreLock) {
-      synchronized (livesLock) {
-        if (isScoredPoints) {
-          score++;
-          System.out.printf("очки увеличенны -> %s\n", score);
-        }
-
-        if(isLosesLife) {
-          lives--;
-          System.out.printf("жизни уменьшенны -> %s\n", lives);
-        }
-
-        if(lives == 0) gameOver();
+      if (isScoredPoints) {
+        score++;
+        System.out.printf("очки увеличенны -> %s\n", score);
       }
     }
+
+    synchronized (livesLock) {
+      if (isLosesLife) {
+        lives--;
+        System.out.printf("жизни уменьшенны -> %s\n", lives);
+      }
+
+      if (lives == 0) gameOver();
+    }
+
   }
 
   private void gameOver() {
