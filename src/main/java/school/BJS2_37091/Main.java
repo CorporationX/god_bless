@@ -6,6 +6,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Main {
 
@@ -15,11 +16,11 @@ public class Main {
 
         Game game = new Game(latch);
 
-        Player player1 = new Player("Рома",10,0);
-        Player player2 = new Player("Костя",10,0);
-        Player player3 = new Player("Вика",10,0);
-        Player player4 = new Player("Денис",10,0);
-        Player player5 = new Player("Миша",10,0);
+        Player player1 = new Player("Рома", 10, 0);
+        Player player2 = new Player("Костя", 10, 0);
+        Player player3 = new Player("Вика", 10, 0);
+        Player player4 = new Player("Денис", 10, 0);
+        Player player5 = new Player("Миша", 10, 0);
         List<Player> players = new ArrayList<>();
         players.add(player1);
         players.add(player2);
@@ -27,15 +28,20 @@ public class Main {
         players.add(player4);
         players.add(player5);
 
-        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(players.size());
+
+        ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);
+
         for (Player player : players) {
-            executorService.scheduleAtFixedRate(() -> {
-                try {
-                    game.update(player);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+            AtomicBoolean shouldContinue = new AtomicBoolean(true);
+            Runnable task = () -> {
+                if (shouldContinue.get()) {
+                    boolean result = game.update(player);
+                    if (result) {
+                        shouldContinue.set(false);
+                    }
                 }
-            }, 0, 1, TimeUnit.SECONDS);
+            };
+            executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
         }
         try {
             latch.await();
@@ -44,7 +50,5 @@ public class Main {
         }
         executorService.shutdown();
         game.endGame();
-
     }
-
 }
