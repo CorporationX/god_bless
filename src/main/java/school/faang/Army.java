@@ -23,7 +23,7 @@ public class Army {
     public int calculateTotalPower() {
         ThreadFighter[] threadFighters = new ThreadFighter[fighterList.size()];
         for (Fighter fighter : fighterList) {
-
+                threadFighters(fighter)
         }
     }
 }
