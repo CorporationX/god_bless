@@ -1,4 +1,4 @@
-package school.faang.Multithreading.sprint_4.Spotify;
+package school.faang.Multithreading.sprint_3.Spotify;
 
 public class Player {
     private final Object lock = new Object();
