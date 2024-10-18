@@ -5,7 +5,7 @@
 
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">
-            <Layout type="PatternLayout" pattern="%m %n" />
+         <Layout type="PatternLayout" pattern="%m %n"/>
         </Console>
         <RollingFile name="rollingFile"
                      fileName="logs/log4j2.log"
