@@ -25,7 +25,7 @@ public class Army {
         List<ThreadFighter> threadFighters = new ArrayList<>();
 
         for (Fighter fighter : fighterList) {
-            ThreadFighter thread = new ThreadFighter(fighter);
+            ThreadFighter thread = new ThreadFighter(fighter, () -> fighter.getPower());
             threadFighters.add(thread);
             thread.start();
         }

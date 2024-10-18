@@ -4,7 +4,7 @@ import lombok.Getter;
 import school.faang.Fighter.Fighter;
 
 @Getter
-public class ThreadFighter {
+public class ThreadFighter extends Thread{
     private Fighter fighter;
     private int result;
 
@@ -12,7 +12,4 @@ public class ThreadFighter {
         this.fighter = fighter;
     }
 
-    public void run() {
-        result = fighter.getPower();
-    }
 }
