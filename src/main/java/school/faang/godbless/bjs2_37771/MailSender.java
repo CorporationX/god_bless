@@ -1,8 +1,7 @@
 package school.faang.godbless.bjs2_37771;
 
-
 public class MailSender {
-    public static void sendMail(int threadsNumber, int mailNumber) {
+    public static void sendMail(int threadsNumber, int mailNumber) throws InterruptedException {
         int batch = mailNumber / threadsNumber;
         int startIndex = 0;
         Thread[] threads = new Thread[threadsNumber];
@@ -17,11 +16,7 @@ public class MailSender {
         lastThread.start();
         threads[threadsNumber - 1] = lastThread;
         for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            thread.join();
         }
         System.out.println("All mail is sent");
     }
