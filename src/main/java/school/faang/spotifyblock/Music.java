@@ -14,7 +14,6 @@ public class Music {
         thread2.start();
         thread3.start();
         thread4.start();
-        player.ge
         try {
             thread1.join();
             thread2.join();
