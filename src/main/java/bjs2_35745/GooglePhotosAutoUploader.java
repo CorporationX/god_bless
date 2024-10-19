@@ -17,11 +17,9 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
-        synchronized (lock) {
-            photosToUpload.clear();
-            System.out.println("All the photos were uploaded!");
-        }
+    private void uploadPhotos() {
+        photosToUpload.clear();
+        System.out.println("All the photos were uploaded!");
     }
 
     public void onNewPhotoAdded(String photoPath) {
