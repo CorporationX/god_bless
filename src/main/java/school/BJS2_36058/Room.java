@@ -1,14 +1,17 @@
 package school.BJS2_36058;
 
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Room {
     @Getter
     private String name;
     private List<Food> foods = new ArrayList<>();
+    private final Lock lock = new ReentrantLock();
 
     public Room(String name) {
         this.name = name;
@@ -22,20 +25,20 @@ public class Room {
         foods.remove(food);
     }
 
-    public void getFoods(List<Food> collectedFoods, House house) {
-        synchronized (foods) {
-            if (this.hasFood()) {
-                foods.forEach(x -> collectedFoods.add(x));
-                foods.clear();
-                house.getLatch().countDown();
-                System.out.printf("Еда собрана из комнаты: " + name);
-                System.out.println();
-            } else {
-                System.out.println("Не найдено еды в комнате: " + name);
+    public void getFoods(List<Food> collectedFoods, CountDownLatch latch) {
+        if (lock.tryLock()) {
+            try {
+                    foods.forEach(x -> collectedFoods.add(x));
+                    foods.clear();
+                    latch.countDown();
+                    System.out.printf("Еда собрана из комнаты: " + name);
+                    System.out.println();
+            } finally {
+                lock.unlock();
             }
+        } else {
+            System.out.println("Ой, комната " + name + " занята кем-то, пойду в другие места!");
         }
-        System.out.println("Ой, комната " + name + " занята кем-то, пойду-ка от сюда в другие места прекрасные");
-        house.collectFood();
     }
 
     public boolean hasFood() {

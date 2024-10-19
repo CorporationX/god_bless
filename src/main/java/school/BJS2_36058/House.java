@@ -22,10 +22,10 @@ public class House {
         Room room1 = rooms.get(rand.nextInt(rooms.size()));
         Room room2 = rooms.get(rand.nextInt(rooms.size()));
         if (room1.hasFood()) {
-            room1.getFoods(collectedFood, this);
+            room1.getFoods(collectedFood, latch);
         }
         if (room2.hasFood()) {
-            room2.getFoods(collectedFood, this);
+            room2.getFoods(collectedFood, latch);
         }
     }
 }
