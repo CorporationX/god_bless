@@ -1,32 +1,28 @@
 package school.faang.googlephoto;
 
+import lombok.extern.log4j.Log4j2;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
+@Log4j2
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
 
-        ReentrantLock lock = new ReentrantLock();
+        List<String> photosToUpload = new ArrayList<>(List.of("photo1", "photo2"));
+        GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader(photosToUpload);
 
-        List<String> photosToUpload = new ArrayList<>();//(List.of("photo1", "photo2"));
-
-           GooglePhotosAutoUploader uploader = new GooglePhotosAutoUploader(lock, photosToUpload);
-
-               Thread uploadThread = new Thread(() -> {
+        Thread uploadThread = new Thread(() -> {
             while (true) {
                 uploader.startAutoUpload();
                 try {
                     Thread.sleep(5000);
                 } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    System.out.println("Upload thread interrupted.");
-                    break;
+                    log.error("Thread" + Thread.currentThread().getName() + "was interrupted", e);
+                    System.out.println("Thread uploadThread was interrupted");
                 }
             }
         });
-
 
         Thread addPhotosThread = new Thread(() -> {
             try {
@@ -37,19 +33,22 @@ public class Main {
                     Thread.sleep(3000); // Simulate delay before adding another photo
                 }
             } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-                System.out.println("Adding photos thread interrupted.");
+                log.error("Thread" + Thread.currentThread().getName() + "was interrupted", e);
+                throw new IllegalStateException("Thread" + Thread.currentThread().getName() + "was interrupted", e);
             }
         });
 
-        // Start both threads
         uploadThread.start();
         addPhotosThread.start();
-
-        // Wait for both threads to finish
-        addPhotosThread.join();
-        uploadThread.interrupt(); // Interrupt the upload thread after adding photos
-
+        try {
+            addPhotosThread.join();
+            Thread.sleep(3000);
+            uploadThread.interrupt();
+            uploadThread.join();
+        } catch (InterruptedException e) {
+            log.error("Thread" + Thread.currentThread().getName() + "was interrupted", e);
+            throw new IllegalStateException("Thread" + Thread.currentThread().getName() + "was interrupted", e);
+        }
         System.out.println("Main thread finished.");
     }
 }
