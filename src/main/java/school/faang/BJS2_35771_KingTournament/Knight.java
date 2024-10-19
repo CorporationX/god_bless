@@ -31,7 +31,7 @@ public class Knight {
         ExecutorService service = Executors.newFixedThreadPool(trialsCount);
         trials.forEach(service::submit);
         service.shutdown();
-        if (service.awaitTermination(TERMINATION_WAIT_SECONDS, TimeUnit.SECONDS)) {
+        if (!service.awaitTermination(TERMINATION_WAIT_SECONDS, TimeUnit.SECONDS)) {
             service.shutdownNow();
         }
     }
