@@ -26,7 +26,7 @@ public class Main {
             int totalPower = army.calculateTotalPower();
             System.out.println("Общая сила армии: " + totalPower);
         } catch (InterruptedException e) {
-            LOGGER.log(Level.SEVERE, "Ошибка в главном потоке программы", e);
+            LOGGER.log(Level.WARNING, "Ошибка в главном потоке программы", e);
             throw e;
         }
     }
