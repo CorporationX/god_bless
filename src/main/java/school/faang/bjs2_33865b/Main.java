@@ -11,5 +11,5 @@ public class Main {
         System.out.println(spellCaster.cast("Healing Wave!!"));
     }
 }
-
+//kak menya besit github
 
