@@ -16,7 +16,7 @@ public class PersonInfoPrinter implements Runnable {
         IntStream.range(startIndex, endIndexExclusive)
                         .forEach(index ->
                                 System.out.printf(
-                                        "Name: %s, surname: %s, age: %d, workplace: %s",
+                                        "Name: %s, surname: %s, age: %d, workplace: %s\n",
                                         persons.get(index).getName(), persons.get(index).getSurname(),
                                         persons.get(index).getAge(), persons.get(index).getWorkplace()
                                 ));
