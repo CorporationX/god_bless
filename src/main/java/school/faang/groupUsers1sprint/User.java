@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.groupUsers1sprint;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
