@@ -9,5 +9,13 @@ public class GriffinsFoodDelivery {
         ExecutorService executorService = Executors.newFixedThreadPool(3);
 
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
+
+        for (String character : characterNames) {
+            int foodAmount = new Random().nextInt(100) + 1; // Random food amount between 1 and 100
+            FoodDeliveryTask task = new FoodDeliveryTask(character, foodAmount);
+            executorService.submit(task);
+        }
+
+        executorService.shutdown();
     }
 }
