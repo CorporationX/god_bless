@@ -18,11 +18,8 @@ public class Main {
 
         controller.deleteTamagochi(tamagotchiVlads.get(2));
 
-        List<Runnable> runnables = new ArrayList<>();
-        runnables.add(controller::feedAll);
-        runnables.add(controller::playAll);
-        runnables.add(controller::cleanAll);
-        runnables.add(controller::sleepAll);
+        List<Runnable> runnables = List.of(controller::feedAll, controller::playAll,
+                                                                    controller::cleanAll, controller::sleepAll);
 
         List<Thread> threads = new ArrayList<>();
         for (Runnable runnable : runnables) {
