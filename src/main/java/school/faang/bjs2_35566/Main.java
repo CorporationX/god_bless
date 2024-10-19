@@ -1,5 +1,6 @@
 package school.faang.bjs2_35566;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -64,6 +65,8 @@ public class Main {
         );
 
         System.out.println(DataAnalyzer.topActiveUsers(actions));
-
+        System.out.println(DataAnalyzer.topPopularHashtags(actions));
+        System.out.println(DataAnalyzer.topCommenters(actions));
+        System.out.println(DataAnalyzer.actionPercentages(actions));
     }
 }
