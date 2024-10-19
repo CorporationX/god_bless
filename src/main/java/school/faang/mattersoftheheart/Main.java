@@ -11,8 +11,8 @@ public class Main {
     private static final int THREAD_POOL_SIZE = 5;
     private static final long DELAY = 0;
     private static final long PERIOD = 30;
-    public static final long TIMEOUT = PERIOD + 2;
-    private static final long WORKING_CHAT_PERIOD = 5;
+    private static final long TIMEOUT = PERIOD + 2;
+    private static final long WORKING_CHAT_PERIOD = 300;
 
     public static void main(String[] args) {
         ChatManager chatManager = new ChatManager(registerUsers());
@@ -21,12 +21,37 @@ public class Main {
         for (User user : chatManager.getUserList().getOnlineUsers()) {
             executorService.scheduleAtFixedRate(() -> {
                 chatManager.startChat(user);
-                chatting();
+                pause(PERIOD);
                 chatManager.endChat(user);
             }, DELAY, PERIOD, TimeUnit.SECONDS);
         }
 
         closeChat(executorService);
+    }
+
+    private static void closeChat(ScheduledExecutorService executorService) {
+        pause(WORKING_CHAT_PERIOD);
+        log.info("Чат закрывается...");
+        executorService.shutdown();
+        try {
+            if (executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+                log.info("Чат закрыт!");
+            } else {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private static void pause(long timeInSeconds) {
+        try {
+            TimeUnit.SECONDS.sleep(timeInSeconds);
+        } catch (InterruptedException e) {
+            log.error(e.getMessage());
+            Thread.currentThread().interrupt();
+        }
     }
 
     private static UserList registerUsers() {
@@ -46,30 +71,5 @@ public class Main {
         userList.addUser(bred);
         userList.addUser(kate);
         return userList;
-    }
-
-    private static void chatting() {
-        try {
-            TimeUnit.SECONDS.sleep(PERIOD);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-            Thread.currentThread().interrupt();
-        }
-    }
-
-    private static void closeChat(ScheduledExecutorService executorService) {
-        try {
-            TimeUnit.MINUTES.sleep(WORKING_CHAT_PERIOD);
-            log.info("Чат закрывается...");
-            executorService.shutdown();
-            if (executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
-                log.info("Чат закрыт!");
-            } else {
-                executorService.shutdownNow();
-            }
-        } catch (InterruptedException e) {
-            log.error(e.getMessage());
-            Thread.currentThread().interrupt();
-        }
     }
 }

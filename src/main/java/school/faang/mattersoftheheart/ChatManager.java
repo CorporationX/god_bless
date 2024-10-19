@@ -29,7 +29,7 @@ public class ChatManager {
     }
 
     public synchronized void endChat(User user) {
-        Optional<Chat> chatOptional = chats.stream().filter(chat -> chat.user1().equals(user)).findAny();
+        Optional<Chat> chatOptional = chats.stream().filter(chat -> chat.user1().equals(user)).findFirst();
         if (chatOptional.isPresent()) {
             chats.remove(chatOptional.get());
             chatOptional.get().user1().setLookingForChat(true);

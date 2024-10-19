@@ -7,10 +7,10 @@ import java.util.Optional;
 public class UserList {
     private final List<User> users = new ArrayList<>();
 
-    public synchronized Optional<User> findCompanionForUser(User user) {
+    public Optional<User> findCompanionForUser(User user) {
         return getOnlineUsers().stream()
                 .filter(companion -> !companion.equals(user))
-                .findAny();
+                .findFirst();
     }
 
     public List<User> getOnlineUsers() {
