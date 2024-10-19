@@ -14,7 +14,8 @@ public class Main {
         System.out.println(UserActionAnalyzer.topActiveUsers(actions));
         //[Alice, Bob, Charlie, Dave, Eve]
 
-
+        System.out.println(UserActionAnalyzer.topPopularHashtags(actions));
+        //[#update, #feature, #conference, #Java, #newfeature]
 
     }
 
@@ -63,7 +64,7 @@ public class Main {
                 new UserAction(3, "Charlie", ActionType.COMMENT, LocalDate.of(2024, 10, 11), "Sharing my thoughts on the #update."),
                 new UserAction(5, "Eve", ActionType.POST, LocalDate.of(2024, 10, 12), "What a great #feature this update brings!"),
                 new UserAction(2, "Bob", ActionType.LIKE, LocalDate.of(2024, 10, 13), ""),
-                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2024, 10, 14), "#feature works really well."),
+                new UserAction(4, "Dave", ActionType.COMMENT, LocalDate.of(2024, 10, 14), "#feature  works really well."),
                 new UserAction(1, "Alice", ActionType.POST, LocalDate.of(2024, 10, 15), "The #feature saved me a lot of time."),
                 new UserAction(3, "Charlie", ActionType.LIKE, LocalDate.of(2024, 10, 16), ""),
                 new UserAction(5, "Eve", ActionType.SHARE, LocalDate.of(2024, 10, 17), ""),
