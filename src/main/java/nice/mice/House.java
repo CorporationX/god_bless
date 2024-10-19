@@ -14,10 +14,6 @@ public class House {
     private List<Room> roomList;
     private List<Food> collectedFood;
 
-    public void addRoom(Room room) {
-        roomList.add(room);
-    }
-
     public void collectFood() {
         Random random = new Random();
         Room room1 = roomList.get(random.nextInt(roomList.size()));
