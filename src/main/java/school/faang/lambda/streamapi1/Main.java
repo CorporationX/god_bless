@@ -3,6 +3,7 @@ package school.faang.lambda.streamapi1;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class Main {
@@ -15,7 +16,7 @@ public class Main {
         System.out.printf("\n1. Найдено сумму четных чисел в списке: %d",
                 m.getSumPositiveNumbersInList(m.initListIntegers()));
         System.out.printf("\n2. Найдено максимальный элемент в списке чисел: %d",
-                m.getMaxNumberInList(m.initListIntegers()));
+                m.getMaxNumberInList(m.initListIntegers()).orElse(null));
         System.out.printf("\n3. Найдено среднее значение чисел в списке: %f",
                 m.getAverageNumberOfElementsInList(m.initListIntegers()));
         System.out.printf("\n4. Найдено количество строк, начинающихся с определённого символа: %d",
@@ -27,7 +28,7 @@ public class Main {
         System.out.printf("\n7. Проверено, все ли элементы списка удовлетворяют определённому условию : %b",
                 m.isAllItemsAreCondition(m.initListIntegers(), integer -> integer > 0));
         System.out.printf("\n8. Найдено наименьший элемент в списке, который больше заданного числа: %d",
-                m.getMinValueForItemsMoreConstant(m.initListIntegers(), 3));
+                m.getMinValueForItemsMoreConstant(m.initListIntegers(), 3).orElse(null));
         System.out.printf("\n9. Преобразовано список строк в список их длин: %s",
                 m.getTransferListStringLengthToListInteger(m.initListString()));
     }
@@ -39,11 +40,10 @@ public class Main {
                 .reduce(0, Integer::sum);
     }
 
-    public Integer getMaxNumberInList(List<Integer> inputList) {
+    public Optional<Integer> getMaxNumberInList(List<Integer> inputList) {
         return inputList
                 .stream()
-                .max(Comparator.comparingInt(o -> o))
-                .get();
+                .max(Comparator.comparingInt(o -> o));
     }
 
     public double getAverageNumberOfElementsInList(List<Integer> inputList) {
@@ -83,12 +83,11 @@ public class Main {
                 .count() == inputList.size();
     }
 
-    public int getMinValueForItemsMoreConstant(List<Integer> inputList, int condition) {
+    public Optional<Integer> getMinValueForItemsMoreConstant(List<Integer> inputList, int condition) {
         return inputList
                 .stream()
                 .filter(integer -> integer > condition)
-                .min(Comparator.comparingInt(o -> o))
-                .get();
+                .min(Comparator.comparingInt(o -> o));
     }
 
     public List<Integer> getTransferListStringLengthToListInteger(List<String> inputList) {
