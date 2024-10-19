@@ -29,6 +29,5 @@ public class House {
     public void removeRole(String role) {
         roles.add(role);
         countRoles++;
-        this.notifyAll();
     }
 }
