@@ -22,7 +22,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos() {
+    private void uploadPhotos() {
         System.out.println("Фотографии загружаются на сервер:" + photosToUpload);
         photosToUpload.clear();
         System.out.println("Фотографии загружены на сервер и удалены локально:" + photosToUpload);
