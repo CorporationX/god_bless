@@ -11,7 +11,7 @@ public class GriffinsFoodDelivery {
         String[] characterNames = {"Peter", "Lois", "Meg", "Chris", "Stewie"};
 
         for (String character : characterNames) {
-            int foodAmount = new Random().nextInt(100) + 1; // Random food amount between 1 and 100
+            int foodAmount = new Random().nextInt(100) + 1;
             FoodDeliveryTask task = new FoodDeliveryTask(character, foodAmount);
             executorService.submit(task);
         }
