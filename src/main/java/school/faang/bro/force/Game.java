@@ -17,18 +17,18 @@ public class Game {
         }
         synchronized (scoreLock) {
             synchronized (livesLock) {
-                if (lives == 0) {
+                if (lives <= 0) {
                     gameOver();
                     return;
                 }
                 if (update.isScoredPoints()) {
                     score++;
-                    System.out.println("прибавили очко: " + score);
+                    System.out.println("Общее кол-во очков увеличено: " + score);
                 }
                 if (update.isSpentLives()) {
                     lives--;
-                    System.out.println("потратили жизнь: " + lives);
-                    if (lives == 0) {
+                    System.out.println("Общее кол-во жизней уменьшено: " + lives);
+                    if (lives <= 0) {
                         gameOver();
                     }
                 }
