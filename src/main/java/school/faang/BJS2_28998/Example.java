@@ -14,22 +14,20 @@ public class Example {
         }
 
         System.out.println(Arrays.toString(nums));
-
         nums = reverse(nums);
-
         System.out.println(Arrays.toString(nums));
-
-
     }
+
     public static int[] reverse(int[] nums) {
 
-        if(nums == null || nums.length == 0)
+        if (nums == null || nums.length == 0) {
             return nums;
+        }
 
         int[] reversed = new int[nums.length];
         int j = nums.length - 1;
 
-        for(int i =0; i < nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             reversed[j] = nums[i];
             j--;
         }
