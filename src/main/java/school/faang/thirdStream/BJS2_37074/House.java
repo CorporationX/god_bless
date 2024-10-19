@@ -13,7 +13,7 @@ public class House {
     private final String name;
     private final Set<Role> availableRoles = new ConcurrentSkipListSet<>(List.of(Role.values()));
 
-    public synchronized void removeRole(Role role) {
+    public void removeRole(Role role) {
         availableRoles.remove(role);
     }
 

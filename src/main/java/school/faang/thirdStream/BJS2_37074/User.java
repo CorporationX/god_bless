@@ -30,7 +30,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         if (Objects.isNull(this.house) || Objects.isNull(this.role)) {
             throw new IllegalArgumentException("Вы еще не вступили ни в какой дом");
         }
