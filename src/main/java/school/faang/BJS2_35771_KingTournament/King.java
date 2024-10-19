@@ -3,6 +3,7 @@ package school.faang.BJS2_35771_KingTournament;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class King {
     private static final int THREAD_POOL_SIZE = 2;
@@ -18,11 +19,11 @@ public class King {
         secondKnight.addTrial(new Trial(secondKnight.getName(), "Solving riddles with a talking frog"));
 
         ExecutorService service = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
-        boolean firstKnightSuccess = service.submit(firstKnight::startTrials).get();
-        boolean secondKnightSuccess = service.submit(secondKnight::startTrials).get();
+        Future<Boolean> firstKnightSuccess = service.submit(firstKnight::startTrials);
+        Future<Boolean> secondKnightSuccess = service.submit(secondKnight::startTrials);
 
         service.shutdown();
-        if (firstKnightSuccess && secondKnightSuccess) {
+        if (firstKnightSuccess.get() && secondKnightSuccess.get()) {
             System.out.println("All knights completed their trials successfully.");
         } else {
             System.out.println("Not all knights completed their trials in time. Some tasks were forcibly terminated.");
