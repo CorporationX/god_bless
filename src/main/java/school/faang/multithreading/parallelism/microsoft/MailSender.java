@@ -1,6 +1,5 @@
 package school.faang.multithreading.parallelism.microsoft;
 
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -8,7 +7,6 @@ import java.util.List;
 
 @Slf4j
 public class MailSender {
-    @SneakyThrows
     public void send(int countMails, int batchSize) {
         if (countMails < batchSize) {
             throw new IllegalArgumentException("countMails can't be smaller than batchSize");
@@ -23,7 +21,11 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         log.info("Все письма отправлены");
