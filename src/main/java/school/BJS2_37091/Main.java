@@ -2,7 +2,6 @@ package school.BJS2_37091;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,10 +32,17 @@ public class Main {
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
 
+        List<ScheduledFuture<?>> futures = new ArrayList<>();
+
         for (Player player : players) {
-            CancellableTask task = new CancellableTask(player, game);
+            Runnable task = () -> {
+                boolean result = game.update(player);
+                if (result) {
+                    futures.get(players.indexOf(player)).cancel(false);
+                }
+            };
             ScheduledFuture<?> future = executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
-            task.setFuture(future);
+            futures.add(future);
         }
 
         try {

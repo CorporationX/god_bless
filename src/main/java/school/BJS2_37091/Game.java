@@ -1,6 +1,5 @@
 package school.BJS2_37091;
 
-
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
