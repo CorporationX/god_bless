@@ -1,5 +1,6 @@
 package miceAreVeryNice;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -10,23 +11,23 @@ public class Main {
 
     public static void main(String[] args) {
         House house = new House(List.of(
-                new Room("Hall", List.of(
+                new Room("Hall", new ArrayList<>(List.of(
                         new Food("Cheese"), new Food("Cherry")
-                )),
-                new Room("Bedroom", List.of(
+                ))),
+                new Room("Bedroom", new ArrayList<>(List.of(
                         new Food("Sausage"), new Food("Bread")
-                )),
-                new Room("Bathroom", List.of(
+                ))),
+                new Room("Bathroom", new ArrayList<>(List.of(
                         new Food("Mice"), new Food("Banana"), new Food("Fish")
-                )),
-                new Room("Kitchen", List.of(
+                ))),
+                new Room("Kitchen", new ArrayList<>(List.of(
                         new Food("Egg"), new Food("Cucumber"), new Food("Rice"),
                         new Food("Apple"), new Food("Grapes")
-                )),
-                new Room("Larder", List.of(
+                ))),
+                new Room("Larder", new ArrayList<>(List.of(
                         new Food("Ham"), new Food("Pizza"), new Food("Avocado"),
                         new Food("Melon"), new Food("Pear")
-                ))
+                )))
         ));
 
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(5);

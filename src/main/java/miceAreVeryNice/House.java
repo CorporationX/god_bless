@@ -10,7 +10,7 @@ import java.util.Random;
 public class House {
 
     private static final int MAX_ROOM_SELECTED = 2;
-    private static final List<Room> SELECTED_ROOM = new ArrayList<>();
+    private final List<Room> selectedRoom = new ArrayList<>();
     private final List<Food> collectedFood = new ArrayList<>();
     private final List<Room> rooms;
 
@@ -18,14 +18,14 @@ public class House {
         this.rooms = rooms;
     }
 
-    public void collectFood() {
+    public synchronized void collectFood() {
         if (isAllFoodCollected()) {
             return;
         }
         for (int i = 0; i < MAX_ROOM_SELECTED; i++) {
-            SELECTED_ROOM.add(rooms.get(new Random().nextInt(rooms.size())));
+            selectedRoom.add(rooms.get(new Random().nextInt(rooms.size())));
         }
-        for (Room selectedRoom : SELECTED_ROOM) {
+        for (Room selectedRoom : selectedRoom) {
             System.out.println("Поток " + Thread.currentThread().getName() + " использует метод collectFood");
             if (!selectedRoom.isEmptyRoom()) {
                 System.out.println("Собираемая еда в комнате " + selectedRoom.getName() + ": " + selectedRoom.getFoods());
