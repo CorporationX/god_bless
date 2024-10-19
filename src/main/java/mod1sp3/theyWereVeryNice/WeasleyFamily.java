@@ -1,4 +1,4 @@
-package theyWereVeryNice;
+package mod1sp3.theyWereVeryNice;
 
 import java.util.ArrayList;
 import java.util.List;

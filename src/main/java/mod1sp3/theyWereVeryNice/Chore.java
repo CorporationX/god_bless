@@ -1,4 +1,4 @@
-package theyWereVeryNice;
+package mod1sp3.theyWereVeryNice;
 
 public class Chore implements Runnable {
     private String chore;
