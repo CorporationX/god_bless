@@ -17,4 +17,12 @@ public class Player {
     public boolean isAlive() {
         return lives > 0;
     }
+
+    public void incrementScore() {
+        score++;
+    }
+
+    public void decrementLives() {
+        lives--;
+    }
 }

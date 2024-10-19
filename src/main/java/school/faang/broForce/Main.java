@@ -14,7 +14,7 @@ public class Main {
         Player pitch = new Player("Pitch", 2);
         Player bowser = new Player("Bowser", 5);
         List<Player> players = List.of(mario, luigino, pitch, bowser);
-        game.addLotsPlayers(players);
+        game.addPlayers(players);
 
         ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
         executor.submit(() -> {

@@ -17,27 +17,30 @@ public class Game {
         players.add(player);
     }
 
-    public void addLotsPlayers(List<Player> playerList) {
+    public void addPlayers(List<Player> playerList) {
         players.addAll(playerList);
     }
 
     public boolean update() {
         Player currentPlayer = players.get(random.nextInt(players.size()));
-        boolean alive = currentPlayer.isAlive();
         boolean earnedPoints = random.nextInt(10) < 5;
         boolean lostLife = random.nextInt(10) < 2;
 
+        boolean alive;
+        synchronized (liveLock) {
+            alive = currentPlayer.isAlive();
+        }
         if (alive) {
             synchronized (scoreLock) {
                 if (earnedPoints) {
-                    currentPlayer.setScore(currentPlayer.getScore() + 1);
+                    currentPlayer.incrementScore();
                     score++;
                     System.out.println(currentPlayer.getName() + " scored, now having " + currentPlayer.getScore());
                 }
             }
             synchronized (liveLock) {
                 if (lostLife) {
-                    currentPlayer.setLives(currentPlayer.getLives() - 1);
+                    currentPlayer.decrementLives();
                     lives++;
                     System.out.println(currentPlayer.getName() + " lost life, now having " + currentPlayer.getLives());
                     if (players.stream().noneMatch(Player::isAlive)) {
