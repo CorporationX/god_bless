@@ -6,9 +6,6 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,7 +42,7 @@ public class House {
 
         room1.getFoodList().clear();
         room2.getFoodList().clear();
-        
+
         collectedFood.addAll(collected);
 
         System.out.println("Collected food from " + room1 + " and " + room2 + ": " + collected);
