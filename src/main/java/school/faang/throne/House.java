@@ -10,7 +10,7 @@ import java.util.List;
 @ToString
 public class House {
     private final String houseName;
-    private final List<String> roles = new ArrayList<>();
+    private final List<Role> roles = new ArrayList<>();
     private int numRoles;
 
     public House(String houseName, int numRoles) {
@@ -18,7 +18,7 @@ public class House {
         this.numRoles = numRoles;
     }
 
-    public synchronized boolean addRole(String role) {
+    public synchronized boolean addRole(Role role) {
         if (numRoles > 0) {
             roles.add(role);
             numRoles--;
@@ -29,10 +29,16 @@ public class House {
         }
     }
 
-    public synchronized void removeRole(String role) {
+    public synchronized void removeRole(Role role) {
         roles.remove(role);
         numRoles++;
         System.out.println(role + " is now free. Roles left: " + numRoles);
         notifyAll();
+    }
+
+    enum Role {
+        HOMEOWNER,
+        HOUSEKEEPER,
+        COOK
     }
 }

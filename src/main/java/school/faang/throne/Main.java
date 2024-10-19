@@ -7,6 +7,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static school.faang.throne.House.Role.COOK;
+import static school.faang.throne.House.Role.HOMEOWNER;
+import static school.faang.throne.House.Role.HOUSEKEEPER;
+
 public class Main {
     private static final Random random = new Random();
     private static final int NUM_THREADS = 5;
@@ -14,7 +18,7 @@ public class Main {
     public static void main(String[] args) {
         House house = new House("Throne House", 2);
         List<String> names = List.of("John", "Emily", "Michael");
-        List<String> roles = List.of("Homeowner", "housekeeper", "cook");
+        List<House.Role> roles = List.of(COOK, HOMEOWNER, HOUSEKEEPER);
         List<User> users = new ArrayList<>();
         for (int i=0; i<names.size(); i++) {
             User user = new User(names.get(i), roles.get(i));
