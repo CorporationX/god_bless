@@ -1,4 +1,4 @@
-package school.faang.Sprint2.exeptions;
+package school.faang.spring2.exeptions;
 
 @FunctionalInterface
 public interface throwableSupplier<T> {

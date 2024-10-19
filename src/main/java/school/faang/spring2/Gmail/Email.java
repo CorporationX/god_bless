@@ -1,4 +1,4 @@
-package school.faang.Sprint2.Gmail;
+package school.faang.spring2.Gmail;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
