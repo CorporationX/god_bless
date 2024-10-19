@@ -4,10 +4,13 @@ import school.faang.bjs2_35616.model.ActionType;
 import school.faang.bjs2_35616.model.Pair;
 import school.faang.bjs2_35616.model.UserAction;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
     public static List<String> topActiveUsers(List<UserAction> actions) {
@@ -49,25 +52,33 @@ public class UserActionAnalyzer {
                 .toList();
     }
 
-    //                .flatMap(originalUserAction -> {
-//                    String[] split = originalUserAction.getContent().split("[^\\w#]+");
-//                    return Arrays.stream(split)
-//                            .filter(word -> word.matches("#[A-Za-z0-9]+"))
-//                            .map(hashtag -> {
-//                                long countContentByHashtag = actions.stream()
-//                                        .filter(userAction -> userAction.getContent().contains(hashtag))
-//                                        .count();
-//                                return new Pair<>(countContentByHashtag, hashtag);
-//                            }).toList();
-//
-//                })
     public static List<String> topCommentersLastMonth(List<UserAction> actions) {
-
-        return null;
+        return actions.stream()
+                .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
+                .filter(userAction -> ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) >= 0 &&
+                        ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) <= 30)
+                .map(originalUserAction -> {
+                    Long countActionCommentByUser = actions.stream()
+                            .filter(userAction -> userAction.getActionType().equals(ActionType.COMMENT))
+                            .filter(userAction -> ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) >= 0 &&
+                                    ChronoUnit.DAYS.between(userAction.getActionDate(), LocalDate.now()) <= 30)
+                            .filter(comparedUserAction -> originalUserAction.getUserId() == comparedUserAction.getUserId())
+                            .count();
+                    return new Pair<>(countActionCommentByUser, originalUserAction.getUserName());
+                })
+                .distinct()
+                .sorted(Comparator.comparing(Pair::getOne, Comparator.reverseOrder()))
+                .limit(3)
+                .map(Pair::getTwo)
+                .toList();
     }
 
-    public Map<String, Double> actionTypePercentages(List<UserAction> actions) {
-
-        return null;
+    public static Map<String, Double> actionTypePercentages(List<UserAction> actions) {
+        return actions.stream()
+                .collect(Collectors.groupingBy(UserAction::getActionType))
+                .entrySet().stream()
+                .collect(Collectors.toMap(actionTypeListEntry -> actionTypeListEntry.getKey().name(),
+                        actionTypeListEntry -> Math.round((((double) actionTypeListEntry.getValue().size() / actions.size()) * 100) * 10) / 10.0
+                ));
     }
 }
