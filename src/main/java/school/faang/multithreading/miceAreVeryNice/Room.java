@@ -9,13 +9,16 @@ import java.util.List;
 @Getter
 public class Room {
     private List<Food> foodList;
+    private int number;
 
     public boolean hasFood() {
         return !foodList.isEmpty();
     }
 
-    public void removeAllFood() {
+    public List<Food> collectFood() {
+        List<Food> food = foodList;
         foodList.clear();
+        return food;
     }
 
 }
