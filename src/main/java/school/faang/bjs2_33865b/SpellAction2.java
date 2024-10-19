@@ -7,5 +7,4 @@ public interface SpellAction2 {
     public interface SpellAction {
         String execute(String spellName);
     }
-
 }

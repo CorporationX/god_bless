@@ -10,5 +10,4 @@ public class SpellCaster2 implements SpellAction2 {
     public String cast(String spellName) {
         return execute(spellName);
     }
-
 }
