@@ -1,10 +1,9 @@
 package school.faang.meta2sprint;
 
-import java.util.function.Consumer;
-
 public class Main {
     public static void main(String[] args) {
         NotificationManager notificationManager = new NotificationManager();
+
         notificationManager.registerHandler("email",
                 (notification) -> System.out.println("Отправка по электронной почте: "
                         + notification.getMessage()));

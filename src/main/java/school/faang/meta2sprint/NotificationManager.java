@@ -12,10 +12,10 @@ public class NotificationManager {
     }
 
     public void sendNotification(Notification notificationObject) {
-        for (Map.Entry<String, Consumer<Notification>> entryPair : map.entrySet()) {
-            if (notificationObject.getType().equals(entryPair.getKey())) {
-                System.out.println(entryPair.toString());
-            }
+        Consumer<Notification> consumer = map.get(notificationObject.getType());
+        if (consumer != null) {
+            consumer.accept(notificationObject);
         }
     }
 }
+
