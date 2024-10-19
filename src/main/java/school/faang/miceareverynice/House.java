@@ -33,7 +33,6 @@ public class House {
             return;
         }
 
-        // Randomly select two different rooms
         Random random = new Random();
         Room room1 = rooms.get(random.nextInt(rooms.size()));
         Room room2;
@@ -41,6 +40,14 @@ public class House {
             room2 = rooms.get(random.nextInt(rooms.size()));
         } while (room1 == room2);
 
+        List<Food> collected = Stream.concat(room1.getFoodList().stream(), room2.getFoodList().stream())
+                .collect(Collectors.toList());
 
+        room1.getFoodList().clear();
+        room2.getFoodList().clear();
+        
+        collectedFood.addAll(collected);
+
+        System.out.println("Collected food from " + room1 + " and " + room2 + ": " + collected);
     }
 }
