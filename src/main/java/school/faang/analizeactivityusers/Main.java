@@ -57,9 +57,9 @@ public class Main {
                 new UserAction(4, "Dave", "share", LocalDate.of(2024, 10, 19), "")
         );
 
-        System.out.println("Топ-10 активных пользователей: " + UserActionAnalyzer.topActiveUsers(actions));
-        System.out.println("Топ-5 популярных хэштегов: "  + UserActionAnalyzer.topPopularHashtags(actions));
-        System.out.println("Топ-3 комментаторов за последний месяц: " + UserActionAnalyzer.topCommentersLastMonth(actions));
+        System.out.println("Топ-10 активных пользователей: " + UserActionAnalyzer.topTenActiveUsers(actions));
+        System.out.println("Топ-5 популярных хэштегов: "  + UserActionAnalyzer.topFivePopularHashtags(actions));
+        System.out.println("Топ-3 комментаторов за последний месяц: " + UserActionAnalyzer.topThreeCommentersLastMonth(actions));
         System.out.println(UserActionAnalyzer.actionTypePercentages(actions));
 
     }

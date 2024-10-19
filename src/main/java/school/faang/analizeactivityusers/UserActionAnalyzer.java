@@ -3,12 +3,13 @@ package school.faang.analizeactivityusers;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class UserActionAnalyzer {
-    public static List<String> topActiveUsers(List<UserAction> list) {
+    public static List<String> topTenActiveUsers(List<UserAction> list) {
         return list.stream()
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
                 .entrySet().stream()
@@ -18,7 +19,7 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> topPopularHashtags(List<UserAction> list) {
+    public static List<String> topFivePopularHashtags(List<UserAction> list) {
         return list.stream()
                 .collect(Collectors.groupingBy(UserAction::getContent, Collectors.counting()))
                 .entrySet().stream()
@@ -28,7 +29,7 @@ public class UserActionAnalyzer {
                 .collect(Collectors.toList());
     }
 
-    public static List<String> topCommentersLastMonth(List<UserAction> list) {
+    public static List<String> topThreeCommentersLastMonth(List<UserAction> list) {
         return list.stream()
                 .filter(action -> "comment".equals(action.getActionType()))
                 .collect(Collectors.groupingBy(UserAction::getName, Collectors.counting()))
@@ -40,14 +41,21 @@ public class UserActionAnalyzer {
     }
 
     public static Map<String, Double> actionTypePercentages(List<UserAction> list) {
-        double onePercent = list.size() / 100.0;
+        Map<String, Double> mapOfActionTypePercentages = new HashMap<>();
 
-        return list.stream()
+        if (list.isEmpty()) {
+            System.out.println("Массив пустой");
+        } else {
+
+        double onePercent = list.size() / 100.0;
+        mapOfActionTypePercentages = list.stream()
                 .collect(Collectors.groupingBy(UserAction::getActionType, Collectors.counting()))
                 .entrySet().stream()
                 .collect(Collectors.toMap(
                         Map.Entry::getKey,
                         entry -> entry.getValue() / onePercent
                 ));
+        }
+        return mapOfActionTypePercentages;
     }
 }
