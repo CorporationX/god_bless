@@ -50,7 +50,8 @@ public class Witcher {
                     System.out.printf("Nearest monster is %s. It can be reached from %s city.%n",
                             entry.getKey().getMonster().getName(),
                             entry.getKey().getCity().getName());
-                    System.out.printf("It is %.0f miles from your location%n", entry.getValue());
+                    System.out.printf("It is %.0f miles from your location.%n", entry.getValue());
+                    System.out.println("Don't forget to toss a coin to your witcher!");
                 });
     }
 }
