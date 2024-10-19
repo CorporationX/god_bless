@@ -1,6 +1,7 @@
 package school.faang.bjs2_35254;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Main {
 
@@ -45,7 +47,10 @@ public class Main {
     }
 
     public static List<String> getListOfCapital(Map<String, String> mapper) {
-        return mapper.values().stream().sorted().toList();
+        return mapper.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .toList();
     }
 
     public static List<String> filterAndSortRows(List<String> list, char symbol) {
