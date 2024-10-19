@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -33,17 +34,11 @@ public class Main {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(NUMBER_OF_THREADS);
 
         for (Player player : players) {
-            AtomicBoolean shouldContinue = new AtomicBoolean(true);
-            Runnable task = () -> {
-                if (shouldContinue.get()) {
-                    boolean result = game.update(player);
-                    if (result) {
-                        shouldContinue.set(false);
-                    }
-                }
-            };
-            executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+            CancellableTask task = new CancellableTask(player, game);
+            ScheduledFuture<?> future = executorService.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
+            task.setFuture(future);
         }
+
         try {
             latch.await();
         } catch (InterruptedException e) {

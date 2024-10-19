@@ -1,12 +1,16 @@
 package school.BJS2_37091;
 
+import lombok.Setter;
+
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ScheduledFuture;
 
 public class Game {
 
     private int score;
     private int lives;
+    private Player player;
     private CountDownLatch latch;
     private Object lockForScore = new Object();
     private Object lockForLives = new Object();
