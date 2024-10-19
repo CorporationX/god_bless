@@ -1,7 +1,6 @@
-package school.faang.registr_user;
+package school.faang.sprint1.registr_user;
 
 import java.util.Scanner;
-import java.util.Set;
 
 public class Main {
 

@@ -1,4 +1,4 @@
-package school.faang.registr_user;
+package school.faang.sprint1.registr_user;
 
 import java.util.Set;
 
