@@ -26,13 +26,16 @@ public class Knight {
     }
 
     @SneakyThrows
-    public void startTrials() {
+    public boolean startTrials() {
         int trialsCount = trials.size();
         ExecutorService service = Executors.newFixedThreadPool(trialsCount);
         trials.forEach(service::submit);
         service.shutdown();
         if (!service.awaitTermination(TERMINATION_WAIT_SECONDS, TimeUnit.SECONDS)) {
             service.shutdownNow();
+            return false;
+        } else {
+            return true;
         }
     }
 }
