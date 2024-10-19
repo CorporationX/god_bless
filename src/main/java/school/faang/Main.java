@@ -2,31 +2,21 @@ package school.faang;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 public class Main {
     public static void main(String[] args) {
-        EmailProcessor emailProcessor = new EmailProcessor();
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<String> strings = Arrays.asList("apple", "banana", "cherry", "date");
 
-        List<Email> emails = Arrays.asList(
-                new Email("Letter 1", "Dear diary.... ", true),
-                new Email("Letter 2", "Rock and stone!!!!! ", true),
-                new Email("Spam", "Spam text", false)
-        );
-
-        Predicate<Email> importantFilter = email -> email.isImportant();
-
-        Consumer<Email> printEmail = email -> System.out.println("Обработано письмо: " + email.getSubject());
-
-        Function<Email, String> toUpperCase = email -> {
-            email.setBody(email.getBody().toUpperCase());
-            return email.getBody();  // Возвращает преобразованный текст
-        };
-
-        emailProcessor.processEmails(emails, importantFilter, printEmail, toUpperCase);
-        emails.forEach(email -> System.out.println("Тема: " + email.getSubject() + ", Тело письма: " + email.getBody()));
+        System.out.println("Сумма четных чисел: " + ListOperations.sumOfEvenNumbers(numbers));
+        System.out.println("Максимум: " + ListOperations.findMax(numbers));
+        System.out.println("Среднее: " + ListOperations.findAverage(numbers));
+        System.out.println("Количество строк, начинающихся на 'a': " + ListOperations.countStringsStartingWith(strings, 'a'));
+        System.out.println("Строки, содержащие 'an': " + ListOperations.filterStringsContainingSubstring(strings, "an"));
+        System.out.println("Отсортированные по длине строки: " + ListOperations.sortByLength(strings));
+        System.out.println("Все ли числа чётные? " + ListOperations.allMatchCondition(numbers, n -> n % 2 == 0));
+        System.out.println("Наименьшее число больше 4: " + ListOperations.findMinGreaterThan(numbers, 4));
+        System.out.println("Длины строк: " + ListOperations.convertToLengths(strings));
     }
 
 }
