@@ -1,4 +1,4 @@
-package sprint2.exceptions;
+package school.faang.Sprint2.exeptions;
 
 public class Main {
     public static void main(String[] args) {

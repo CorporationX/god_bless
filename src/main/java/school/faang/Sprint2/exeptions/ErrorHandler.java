@@ -1,7 +1,6 @@
-package sprint2.exceptions;
+package school.faang.Sprint2.exeptions;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class ErrorHandler {
     public static <T> T withErrorHandling(throwableSupplier<T> action, Function<Exception, T> errorHandler) {

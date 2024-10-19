@@ -1,4 +1,4 @@
-package sprint2.exceptions;
+package school.faang.Sprint2.exeptions;
 
 @FunctionalInterface
 public interface throwableSupplier<T> {
