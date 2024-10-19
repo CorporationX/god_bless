@@ -10,7 +10,7 @@ public class UserList {
     public Optional<User> findCompanionForUser(User user) {
         return getOnlineUsers().stream()
                 .filter(companion -> !companion.equals(user))
-                .findFirst();
+                .findAny();
     }
 
     public List<User> getOnlineUsers() {
