@@ -1,4 +1,4 @@
-package googlePhotoSync_37136;
+package module_3.module_3_2_Synchronized_wait_notify.googlePhotoSync_37136;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
