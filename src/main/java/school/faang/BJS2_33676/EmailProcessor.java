@@ -10,10 +10,8 @@ public class EmailProcessor {
 
     public void processEmails(List<Email> emails, Predicate<Email> filterEmail,
                               Consumer<Email> processEmail, Function<Email,String> modifyEmail) {
+        emails.removeIf(filterEmail.negate());
         for (Email email : emails) {
-            if (filterEmail.test(email)) {
-                email.setSubject("Attention!!! " + email.getSubject());
-            }
             processEmail.accept(email);
             modifyEmail.apply(email);
         }

@@ -2,7 +2,7 @@ package school.faang.BJS2_33676;
 
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -14,11 +14,10 @@ public class Main {
         System.setOut(new PrintStream(System.out, true, StandardCharsets.UTF_8));
 
         EmailProcessor emailProcessor = new EmailProcessor();
-        List<Email> emails = Arrays.asList(
-                new Email("Письмо 1", "Текст письма 1", false),
-                new Email("Письмо 2", "Текст письма 2", true),
-                new Email("Спам", "Текст спама", false)
-        );
+        List<Email> emails = new LinkedList<>();
+        emails.add(new Email("Письмо 1", "Текст письма 1", false));
+        emails.add(new Email("Письмо 2", "Текст письма 2", true));
+        emails.add(new Email("Спам", "Текст спама", false));
 
         Predicate<Email> filter = email -> email.isImportant();
         Consumer<Email> printEmail = email -> System.out.println("Письмо " + email.getSubject() + " обработано");
