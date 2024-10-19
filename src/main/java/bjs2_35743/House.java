@@ -4,28 +4,31 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
-import java.util.Map;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 @ToString
 public class House {
-    private Map<String, Integer> availableRoles;
+    private List<Role> availableRoles;
     private int availableRolesAmount;
 
-    public synchronized void addRole(String role) {
-        availableRoles.put(role, availableRoles.getOrDefault(role, 0) + 1);
+    public synchronized void addRole(Role role) {
+        availableRoles.add(role);
         availableRolesAmount++;
         notify();
     }
 
-    public synchronized void removeRole(String role) {
-        if (!availableRoles.containsKey(role) || availableRoles.get(role) == 0) {
+    public synchronized void removeRole(Role role) {
+        if (!availableRoles.contains(role)) {
             System.out.println("No role to remove");
             return;
         }
-        availableRoles.put(role, availableRoles.get(role) - 1);
+        availableRoles.remove(role);
         availableRolesAmount--;
     }
 
+    public boolean addUserWithRole(Role role) {
+        return availableRolesAmount != 0;
+    }
 }

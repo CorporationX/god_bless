@@ -8,11 +8,11 @@ import lombok.ToString;
 public class User {
     private final String name;
     private House house;
-    private String role;
+    private Role role;
 
-    public synchronized void joinHouse(House house, String role) throws InterruptedException {
+    public synchronized void joinHouse(House house, Role role) throws InterruptedException {
         synchronized (house) {
-            if (house.getAvailableRolesAmount() == 0) {
+            if (!house.addUserWithRole(role)) {
                 house.wait();
             }
             house.removeRole(role);

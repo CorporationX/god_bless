@@ -15,14 +15,16 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executorService = Executors.newFixedThreadPool(TOTAL_THREADS);
 
-        Map<String, Integer> roles = new HashMap<>() {{
-            put("Mage", 2);
-            put("Swordsman", 1);
-            put("Lord", 1);
+        List<Role> availableRoles = new ArrayList<>() {{
+            add(Role.Swordsman);
+            add(Role.Mage);
+            add(Role.Lord);
+            add(Role.Mage);
+            add(Role.Mage);
         }};
-        int availableRolesAmount = roles.values().stream()
-                .reduce(0, (sum, num) -> sum += num);
-        House house = new House(roles, availableRolesAmount);
+
+        int availableRolesAmount = 5;
+        House house = new House(availableRoles, availableRolesAmount);
 
         User jeff = new User("Jeff");
         User john = new User("John");
@@ -30,11 +32,11 @@ public class Main {
         User josh = new User("Josh");
         User jane = new User("Jane");
         ;
-        userJoinHouseExecutorService(executorService, jeff, house, "Swordsman");
-        userJoinHouseExecutorService(executorService, john, house, "Mage");
-        userJoinHouseExecutorService(executorService, jack, house, "Lord");
-        userJoinHouseExecutorService(executorService, josh, house, "Mage");
-        userJoinHouseExecutorService(executorService, jane, house, "Mage");
+        userJoinHouseExecutorService(executorService, jeff, house, Role.Swordsman);
+        userJoinHouseExecutorService(executorService, john, house, Role.Mage);
+        userJoinHouseExecutorService(executorService, jack, house, Role.Lord);
+        userJoinHouseExecutorService(executorService, josh, house, Role.Mage);
+        userJoinHouseExecutorService(executorService, jane, house, Role.Mage);
         executorService.submit(josh::leaveHouse);
 
         executorService.shutdown();
@@ -46,7 +48,7 @@ public class Main {
     }
 
     public static void userJoinHouseExecutorService(ExecutorService executorService, User user,
-                                                    House house, String role) {
+                                                    House house, Role role) {
         executorService.submit(() -> {
             try {
                 user.joinHouse(house, role);
