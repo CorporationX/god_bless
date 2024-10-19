@@ -1,20 +1,21 @@
 package school.faang.thirdStream.BJS2_37117;
 
+import com.github.javafaker.Faker;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
     public static void main(String[] args) {
-        Game game = new Game();
+        Faker faker = new Faker();
 
-        for (int i = 0; i < 10; i++) {
-            boolean earnedPoints = Math.random() > 0.5;
-            boolean lostLife = Math.random() > 0.7;
+        List<Player> players = new ArrayList<>();
 
-            game.update(earnedPoints, lostLife);
-
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < 5; i++) {
+            players.add(new Player(faker.superhero().name()));
         }
+
+        Game game = new Game(players);
+        game.startGame();
     }
 }
