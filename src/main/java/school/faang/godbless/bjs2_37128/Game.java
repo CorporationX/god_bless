@@ -5,13 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Slf4j
 public class Game {
-    private final Lock scoreLock = new ReentrantLock();
-    private final Lock livesLock = new ReentrantLock();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
     private final Set<Player> players = new HashSet<>();
     private int score;
     private int lives;
@@ -28,22 +26,16 @@ public class Game {
         }
 
         if (type == UpdateType.LOOSE_LIFE) {
-            livesLock.lock();
-            try {
+            synchronized (livesLock) {
                 player.setLives(player.getLives() - 1);
                 lives--;
                 log.info("Player {} looses their life. Total lives of the team: {}", player.getName(), lives);
-            } finally {
-                livesLock.unlock();
             }
         } else {
-            scoreLock.lock();
-            try {
+            synchronized (scoreLock) {
                 player.setScore(player.getScore() + 1);
                 score++;
                 log.info("Player {} scored a point", player.getName());
-            } finally {
-                scoreLock.unlock();
             }
         }
 
