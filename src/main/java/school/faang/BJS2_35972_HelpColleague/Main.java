@@ -19,8 +19,9 @@ public class Main {
         int personsAmount = persons.size();
         int batchSize = personsAmount / THREAD_POOL_SIZE;
 
-        for (int index = START_INDEX; index < personsAmount; index += batchSize) {
-            service.submit(new PersonInfoPrinter(persons, index, index + batchSize));
+        for (int startIndex = START_INDEX; startIndex < personsAmount; startIndex += batchSize) {
+            int endIndex = Math.min(startIndex + batchSize, personsAmount);
+            service.submit(new PersonInfoPrinter(persons, startIndex, endIndex));
         }
 
         service.shutdown();
