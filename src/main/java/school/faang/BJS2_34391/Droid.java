@@ -14,7 +14,7 @@ public class Droid {
             for (char c : msg.toCharArray()) {
                 if (Character.isLetter(c)) {
                     char base = Character.isUpperCase(c) ? 'A' : 'a';
-                    encrypted.append((char) (((c - base + k) % 26) + base)); // Исправлено
+                    encrypted.append((char) (((c - base + k) % 26) + base));
                 } else {
                     encrypted.append(c);
                 }
@@ -41,7 +41,7 @@ public class Droid {
     }
 
     public void sendMessage(Droid receiver, String message, int key) {
-        String encryptedMessage = encryptMessage(message, key); // Исправлено
+        String encryptedMessage = encryptMessage(message, key);
         System.out.println(name + " отправил зашифрованное сообщение " + receiver.getName() + ": " + encryptedMessage);
         receiver.receiveMessage(encryptedMessage, key);
     }
