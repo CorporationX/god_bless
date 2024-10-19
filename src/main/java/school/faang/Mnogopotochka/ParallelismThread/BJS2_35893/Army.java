@@ -22,6 +22,15 @@ public class Army {
             thread.start();
         });
 
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println("Thread was interrupted: " + e.getMessage());
+            }
+        }
+
         return calculators.stream()
                 .mapToInt(PowerCalculator::getPower)
                 .sum();
