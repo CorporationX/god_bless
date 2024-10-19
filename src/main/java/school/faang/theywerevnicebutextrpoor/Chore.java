@@ -10,7 +10,6 @@ public class Chore implements Runnable {
     public void run() {
         try {
             System.out.println(Thread.currentThread().getName() + " is performing the task: " + chore);
-            // Simulate task execution
             Thread.sleep(2000); // Delay of 2 seconds to show task execution
             System.out.println(Thread.currentThread().getName() + " has completed the task: " + chore);
         } catch (InterruptedException e) {
