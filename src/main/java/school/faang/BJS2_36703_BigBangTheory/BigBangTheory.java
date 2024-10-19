@@ -31,9 +31,9 @@ public class BigBangTheory {
 
         try {
             if (service.awaitTermination(TERMINATION_WAIT_SECONDS, TimeUnit.SECONDS)) {
-                System.out.println("All the tasks have been correctly finished.");
+                System.out.println("All tasks were completed correctly.");
             } else {
-                System.out.println("Not all tasks have been correctly finished. Shutting down executor service.");
+                System.out.println("Not all tasks were completed correctly. Shutting down executor service.");
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
