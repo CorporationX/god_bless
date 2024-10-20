@@ -1,20 +1,18 @@
 package school.faang;
 
-import school.faang.Fighter.Archer;
-import school.faang.Fighter.Mage;
-import school.faang.Fighter.Swordsman;
-
 public class Main {
-    public static void main(String[] args){
-        Army army = new Army();
-        for (int i = 0; i < 2; i++) {
-            army.addUnit(new Mage());
-            army.addUnit(new Archer());
-        }
-        army.addUnit(new Swordsman());
+    public static void main(String[] args) {
+        GooglePhotosAutoUploader googlePhotosAutoUploader = new GooglePhotosAutoUploader();
 
-        int totalPower = army.calculateTotalPower();
-        System.out.println("Army strength " + totalPower);
+        Thread threadUpload1 = new Thread(() -> googlePhotosAutoUploader.startAutoUpload());
+        Thread threadUpload2 = new Thread(() -> googlePhotosAutoUploader.startAutoUpload());
+        Thread threadAdd1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Photo1"));
+        Thread threadAdd2 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Photo2"));
+        threadUpload1.start();
+        threadUpload2.start();
+        threadAdd1.start();
+        threadAdd2.start();
+
     }
 
 }
