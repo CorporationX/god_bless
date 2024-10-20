@@ -20,7 +20,7 @@ public class Army {
         fighterList.add(fighter);
     }
 
-    public int calculateTotalPower() throws InterruptedException{
+    public int calculateTotalPower() {
         int totalPower = 0;
         List<ThreadFighter> threadFighters = new ArrayList<>();
 
@@ -31,8 +31,12 @@ public class Army {
         }
 
         for (ThreadFighter threadFighter : threadFighters) {
+            try {
                 threadFighter.join();
-                totalPower += threadFighter.getResult();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            totalPower += threadFighter.getResult();
         }
 
         return totalPower;
