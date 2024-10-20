@@ -1,8 +1,8 @@
 package school.faang.BJS237069;
 
 public class Main {
-    private final static int SCORE = 10;
-    private final static int LIVES = 5;
+    private static final int SCORE = 10;
+    private static final int LIVES = 5;
 
     public static void main(String[] args) {
         Game game = new Game(SCORE, LIVES);
