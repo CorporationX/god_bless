@@ -24,7 +24,7 @@ public class Main {
         threadPool.scheduleAtFixedRate(() -> {
             if (house.isAllFoodCollected()) {
                 threadPool.shutdownNow();
-                System.out.println(house.collectFood());
+                house.collectFood().stream().map(Food::toString).forEach(System.out::print);
                 System.out.println("All food are collected");
                 house.rooms().stream().filter(room -> !room.hasFood()).forEach(System.out::println);
             }
