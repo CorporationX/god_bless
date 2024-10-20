@@ -14,6 +14,7 @@ public class MasterCardService {
     private static final int TIME_TO_SLEEP_PAYMENT = 10_000;
     private static final int TIME_TO_SLEEP_ANALYTICS = 1_000;
     private static final int MAX_TIME_WORK = 10;
+    private static final int THREADS_COUNT = 2;
 
     public int collectPayment() {
         log.info("Начинаем оплату...");
@@ -38,10 +39,10 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+        ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
         Future<Integer> collectPaymentFuture = executor.submit(this::collectPayment);
 
-        CompletableFuture<Integer> analysticCompletableFuture = CompletableFuture.supplyAsync(this::sendAnalytics);
+        CompletableFuture<Integer> analysticCompletableFuture = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
         Integer resultAnalystic = analysticCompletableFuture.join();
         log.info("Аналитика отправлена: {}", resultAnalystic);
 
