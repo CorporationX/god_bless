@@ -6,17 +6,24 @@ import java.util.stream.Stream;
 
 public class Army {
     private List<Unit> army = new ArrayList<>();
-    private ArmyThread[] threads = new ArmyThread[4];
+    private List<ArmyThread> threads;
 
     public void addUnit(Unit unit) {
         army.add(unit);
     }
 
     private void distributeTask() {
-        int groupSize = army.size() / threads.length;
-        for (int i = 0; i < threads.length; i++) {
-            threads[i] = new ArmyThread(army.subList(i * groupSize, (i+1) * groupSize));
-            threads[i].start();
+        int numberOfThreads = Math.min(army.size(), 4);
+        threads = new ArrayList<>(numberOfThreads);
+        int groupSize = (int) Math.ceil((double) army.size() / numberOfThreads);
+
+        for (int i = 0; i < numberOfThreads; i++) {
+            int start = i * groupSize;
+            int end = Math.min(start + groupSize, army.size());
+            if (start < army.size()) {
+                threads.add(new ArmyThread(army.subList(start, end)));
+                threads.get(i).start();
+            }
         }
     }
 
@@ -25,6 +32,6 @@ public class Army {
         for (ArmyThread thread : threads) {
             thread.join();
         }
-        return Stream.of(threads).mapToInt(ArmyThread::getResult).sum();
+        return threads.stream().mapToInt(ArmyThread::getResult).sum();
     }
 }
