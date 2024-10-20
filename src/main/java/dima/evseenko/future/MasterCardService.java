@@ -30,10 +30,10 @@ public class MasterCardService {
     public void doAll() throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();
 
-        CompletableFuture.supplyAsync(this::sendAnalytics, executorService)
-                .thenAccept(result -> System.out.printf("Аналитика отправлена: %s%n", result));
-
+        CompletableFuture<Integer> analyticsResult = CompletableFuture.supplyAsync(this::sendAnalytics, executorService);
         Future<Integer> paymentResult = executorService.submit(this::collectPayment);
+
+        System.out.printf("Аналитика отправлена: %s%n", analyticsResult.get());
         System.out.printf("Платеж выполнен: %s%n", paymentResult.get());
 
         executorService.shutdown();
