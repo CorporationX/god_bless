@@ -11,8 +11,7 @@ public class PersonInfoPrinter implements Runnable {
     @Override
     public void run() {
         for (Person person : people) {
-            System.out.printf("Person Name - %s, Surname - %s, Place of work - %s\n"
-                    , person.getName(), person.getSurname(), person.getWorkPalace());
+            System.out.println(person);
         }
     }
 }
