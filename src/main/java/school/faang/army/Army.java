@@ -24,13 +24,13 @@ public class Army {
             powersOfFighters.add(calculator);
         }
 
-        for (Thread thread : threads) {
-            try {
+        try {
+            for (Thread thread : threads) {
                 thread.start();
                 thread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
 
         for (ArmyRunnableCalculator calculator : powersOfFighters) {
