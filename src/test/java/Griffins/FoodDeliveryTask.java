@@ -3,8 +3,12 @@ package Griffins;
 import java.util.Random;
 
 public class FoodDeliveryTask implements Runnable {
+    private final int DELAY = 5000;
+    private final int MINIMUM_DELAY = 1000;
+
     private String character;
     private int foodAmmount;
+    private Random random = new Random();
 
     public FoodDeliveryTask(String character, int foodAmmount) {
         this.character = character;
@@ -13,15 +17,15 @@ public class FoodDeliveryTask implements Runnable {
 
     private String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        int index = random.nextInt(foodTypes.length);
+        return foodTypes[index];
     }
 
     public void run() {
-        Random random = new Random();
         String foodType = getFoodType();
         try {
             System.out.println(this.character + " receives " + this.foodAmmount + " " + this.getFoodType());
-            Thread.sleep(random.nextInt(5000) + 1000);
+            Thread.sleep(random.nextInt(DELAY) + MINIMUM_DELAY);
             System.out.println(this.character + " eat " + this.foodAmmount + " " + this.getFoodType()
                     + Thread.currentThread().getName());
         } catch (InterruptedException e) {
