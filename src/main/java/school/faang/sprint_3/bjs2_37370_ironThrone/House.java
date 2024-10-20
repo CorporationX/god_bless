@@ -7,9 +7,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Slf4j
-@Getter
 public class House {
+    @Getter
+    private final Object lock = new Object();
     private final Set<String> availableRoles = new HashSet<>();
+    @Getter
     private final String name;
 
     public House(String name, Set<String> roles) {
@@ -18,10 +20,20 @@ public class House {
     }
 
     public void addAvailableRole(String role) {
-        availableRoles.add(role);
+        synchronized (lock) {
+            availableRoles.add(role);
+        }
     }
 
     public void removeAvailableRole(String role) {
-        availableRoles.remove(role);
+        synchronized (lock) {
+            availableRoles.remove(role);
+        }
+    }
+
+    public Set<String> getAvailableRoles() {
+        synchronized (lock) {
+            return Set.copyOf(availableRoles);
+        }
     }
 }

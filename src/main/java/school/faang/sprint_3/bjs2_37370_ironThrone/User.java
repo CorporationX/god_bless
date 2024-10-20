@@ -18,11 +18,11 @@ public class User {
     }
 
     public void joinHouse(House house) {
-        synchronized (house.getAvailableRoles()) {
+        synchronized (house.getLock()) {
             while (house.getAvailableRoles().isEmpty()) {
                 try {
                     log.info("{} waiting free role in {}", name, house.getName());
-                    house.getAvailableRoles().wait();
+                    house.getLock().wait();
                 } catch (InterruptedException e) {
                     log.error("An error occurred while waiting for a free role.", e);
                     throw new RuntimeException(e);
@@ -39,12 +39,12 @@ public class User {
     }
 
     public void leaveHouse() {
-        synchronized (house.getAvailableRoles()) {
+        synchronized (house.getLock()) {
             if (this.house != null && this.roleName != null) {
                 house.addAvailableRole(roleName);
                 log.info("{} leaves {} and vacates the role {}.\nAvailable roles count {}.", name, house.getName(),
                         roleName, house.getAvailableRoles().size());
-                house.getAvailableRoles().notifyAll();
+                house.getLock().notifyAll();
                 setHouseAndRole(null, null);
             }
         }

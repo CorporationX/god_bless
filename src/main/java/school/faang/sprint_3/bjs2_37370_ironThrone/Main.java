@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int THREADS_COUNT = 5;
+    private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) {
         Set<String> roles = Set.of("Lord", "Knight", "Maester");
