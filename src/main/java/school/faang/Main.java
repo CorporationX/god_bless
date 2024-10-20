@@ -1,20 +1,22 @@
 package school.faang;
 
-import school.faang.Fighter.Archer;
-import school.faang.Fighter.Mage;
-import school.faang.Fighter.Swordsman;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
-    public static void main(String[] args){
-        Army army = new Army();
-        for (int i = 0; i < 2; i++) {
-            army.addUnit(new Mage());
-            army.addUnit(new Archer());
-        }
-        army.addUnit(new Swordsman());
+    public static void main(String[] args) {
+        Boss boss = new Boss();
 
-        int totalPower = army.calculateTotalPower();
-        System.out.println("Army strength " + totalPower);
+        List<Thread> threads = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            int playerId = i+1;
+            threads.add(new Thread(() -> new Player("player" + playerId).startBattle(boss)));
+        }
+        threads.forEach(Thread::start);
+
+
     }
 
 }
