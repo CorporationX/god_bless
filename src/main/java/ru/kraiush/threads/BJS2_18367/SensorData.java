@@ -13,6 +13,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 public class SensorData {
+
     private int substationId;
     private int sensorId;
     private List<Double> listSensorData = new ArrayList<>();

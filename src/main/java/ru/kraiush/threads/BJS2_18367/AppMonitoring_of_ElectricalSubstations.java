@@ -13,7 +13,7 @@ public class AppMonitoring_of_ElectricalSubstations {
         final List<Substation> listSubstations = new ArrayList();
         final List<SensorData> listSensorsData = new ArrayList<>();
         final MonitoringSystem monitor = new MonitoringSystem(listSubstations);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
+        final ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
 
         for (int i = 0; i < 3; i++) {
             listSubstations.add(new Substation(i, listSensorsData));

@@ -7,12 +7,14 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class MonitoringSystem implements Runnable {
 
-    private final List<Substation> listSubstations;
-    private final ConcurrentHashMap<Integer, ArrayList<Double>> mapSubstationsData = new ConcurrentHashMap<>();
-    private final ArrayList<ArrayList<Double>> sublist = new ArrayList<>();
+    private List<Substation> listSubstations;
+    private ConcurrentHashMap<Integer, ArrayList<Double>> mapSubstationsData;
+    private ArrayList<ArrayList<Double>> sublist;
 
     public MonitoringSystem(List<Substation> listSubstations) {
         this.listSubstations = listSubstations;
+        mapSubstationsData =new ConcurrentHashMap<>();
+        sublist = new ArrayList<>();
     }
 
     @Override

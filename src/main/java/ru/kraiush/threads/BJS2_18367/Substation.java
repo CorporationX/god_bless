@@ -16,14 +16,16 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Substation implements Runnable {
 
     private int id;
-    private List<Sensor> listSensors = new ArrayList<>();
+    private List<Sensor> listSensors;
     private double data;
-    private ConcurrentHashMap<Integer, Double> mapCurrentSensorsData = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<Integer, Double> mapCurrentSensorsData;
     private List<SensorData> listSensorsData;
 
     public Substation(int id, List<SensorData> listSensorsData) {
         this.id = id;
         this.listSensorsData = listSensorsData;
+        listSensors = new ArrayList<>();
+        mapCurrentSensorsData = new ConcurrentHashMap<>();
     }
 
     @Override
