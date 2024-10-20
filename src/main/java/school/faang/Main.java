@@ -1,7 +1,7 @@
 package school.faang;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int lettersStack = 1000;
         int threadCol = 5;
         int batchSize = lettersStack / threadCol;
@@ -14,7 +14,11 @@ public class Main {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
         System.out.println("All letters was sent");
