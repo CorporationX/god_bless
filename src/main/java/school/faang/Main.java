@@ -6,8 +6,8 @@ public class Main {
 
         Thread threadUpload1 = new Thread(() -> googlePhotosAutoUploader.startAutoUpload());
         Thread threadUpload2 = new Thread(() -> googlePhotosAutoUploader.startAutoUpload());
-        Thread threadAdd1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("c"));
-        Thread threadAdd2 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("e"));
+        Thread threadAdd1 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Photo1"));
+        Thread threadAdd2 = new Thread(() -> googlePhotosAutoUploader.onNewPhotoAdded("Photo2"));
         threadUpload1.start();
         threadUpload2.start();
         threadAdd1.start();
