@@ -8,12 +8,11 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 @Slf4j
 public class Witcher {
-    private static final Logger logger = Logger.getLogger(Witcher.class.getName());
     private final static int COUNT_THREADS = 5;
+    private final static int AWAITING_TIME = 60;
 
     private final List<City> cityList = new ArrayList<>(Arrays.asList(
             new City("Camelot", new Location(10.0, 20.0)),
@@ -36,6 +35,8 @@ public class Witcher {
     }
 
     public void executeOnMultithreading() {
+        final double GET_SECOND = 1000;
+
         ExecutorService executorService = Executors.newFixedThreadPool(COUNT_THREADS);
         long startTime = System.currentTimeMillis();
 
@@ -45,10 +46,10 @@ public class Witcher {
 
         executorService.shutdown();
         try {
-            if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
+            if (executorService.awaitTermination(AWAITING_TIME, TimeUnit.SECONDS)) {
                 long endTime = System.currentTimeMillis();
-                logger.info(String.format("Total execution time: %.2f seconds",
-                        (endTime - startTime) / 1000.0));
+                log.info(String.format("Total execution time: %.2f seconds",
+                        (endTime - startTime) / GET_SECOND));
             } else {
                 System.out.println("Execution interacted");
             }
@@ -59,15 +60,10 @@ public class Witcher {
 
     public void executeOnOneThread() {
         double startTimeOnOneThread = System.currentTimeMillis();
-        Thread thread = new Thread(() -> cityList.forEach(city -> new CityWorker(city, monsterList)));
-        thread.start();
-        try {
-            thread.join();
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
-        }
+        cityList.forEach(city -> new CityWorker(city, monsterList));
         double endTimeOnOneThread = System.currentTimeMillis();
-        logger.info(String.format("Total execution time one thread: %.2f seconds",
+
+        log.info(String.format("Total execution time one thread: %.2f seconds",
                 (endTimeOnOneThread - startTimeOnOneThread)));
     }
 }

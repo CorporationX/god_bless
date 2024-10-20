@@ -4,15 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Slf4j
 @Data
 @AllArgsConstructor
 public class CityWorker implements Runnable {
-    private static final Logger logger = Logger.getLogger(CityWorker.class.getName());
     private static final double START_LOCATION_X = 0.0;
     private static final double START_LOCATION_Y = 0.0;
 
@@ -22,17 +19,13 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        List<Double> distances = new ArrayList<>();
-        for (Monster monster : monsterList) {
-            distances.add(calculateDistance(city.getLocation(), monster.getLocation()));
-        }
-
-        double closestMonster = distances.stream()
-                .mapToDouble(Double::doubleValue)
-                .min()
+        double closestMonster = monsterList.stream()
+                .map(monster -> calculateDistance(city.getLocation(), monster.getLocation()))
+                .min(Double::compareTo)
                 .orElse(0.0);
+
         double distanceToCity = calculateDistance(witcherCastle, city.getLocation());
-        logger.info(String.format("Дистанция до города: %.2f, Дистанция до ближайшего монстра: %.2f",
+        log.info(String.format("Дистанция до города: %.2f, Дистанция до ближайшего монстра: %.2f",
                 distanceToCity, closestMonster));
     }
 
