@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 
 @Slf4j
 public class Main {
-    public static final int THREADS_COUNT = 5;
+    private static final int THREADS_COUNT = 5;
 
     public static void main(String[] args) {
         TelegramBot bot = new TelegramBot();
@@ -30,7 +30,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("An error occurred while threads shutting down", e);
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 }

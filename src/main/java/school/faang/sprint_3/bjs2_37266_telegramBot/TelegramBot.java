@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TelegramBot {
-    public static final int REQUEST_LIMIT = 5;
+    private static final int REQUEST_LIMIT = 5;
     private int requestCounter;
     private long lastRequestTime;
 
@@ -26,7 +26,7 @@ public class TelegramBot {
                     Thread.sleep(1000 - timeDelta);
                 } catch (InterruptedException e) {
                     log.error("An error occurred while sleeping", e);
-                    throw new RuntimeException(e);
+                    throw new IllegalStateException(e);
                 }
                 requestCounter = 0;
             }
