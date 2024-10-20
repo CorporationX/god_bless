@@ -11,27 +11,23 @@ public class Game {
         score = 0;
     }
 
-    public void update(Update update) {
+    public synchronized void update(Update update) {
         if (update == null) {
             return;
         }
-        synchronized (scoreLock) {
-            synchronized (livesLock) {
-                if (lives <= 0) {
-                    gameOver();
-                    return;
-                }
-                if (update.isScoredPoints()) {
-                    score++;
-                    System.out.println("Общее кол-во очков увеличено: " + score);
-                }
-                if (update.isSpentLives()) {
-                    lives--;
-                    System.out.println("Общее кол-во жизней уменьшено: " + lives);
-                    if (lives <= 0) {
-                        gameOver();
-                    }
-                }
+        if (lives <= 0) {
+            gameOver();
+            return;
+        }
+        if (update.isScoredPoints()) {
+            score++;
+            System.out.println("Общее кол-во очков увеличено: " + score);
+        }
+        if (update.isSpentLives()) {
+            lives--;
+            System.out.println("Общее кол-во жизней уменьшено: " + lives);
+            if (lives <= 0) {
+                gameOver();
             }
         }
     }
