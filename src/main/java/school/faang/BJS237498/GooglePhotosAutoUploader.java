@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GooglePhotosAutoUploader {
-    private static final Object lock = new Object();
-    private static final List<String> photosToUpload = new ArrayList<>();
+    private final Object lock = new Object();
+    private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoUpload() {
         while (true) {
