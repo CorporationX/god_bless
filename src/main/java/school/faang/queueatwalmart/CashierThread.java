@@ -11,7 +11,6 @@ public class CashierThread extends Thread {
 
     @Override
     public void run() {
-        // Simulating the cashier processing each item for the customer
         int totalItems = customerItems.length;
         int totalCost = Arrays.stream(customerItems).sum();
 
@@ -20,7 +19,7 @@ public class CashierThread extends Thread {
         Arrays.stream(customerItems).forEach(item -> {
             try {
                 System.out.println("Cashier " + cashierId + " processed item priced at $" + item);
-                Thread.sleep(100); // Simulate time taken to process each item
+                Thread.sleep(100);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Cashier " + cashierId + " was interrupted while processing.");
