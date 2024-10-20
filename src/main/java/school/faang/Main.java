@@ -11,7 +11,7 @@ public class Main {
         List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
-            int playerId = i;
+            int playerId = i+1;
             threads.add(new Thread(() -> new Player("player" + playerId).startBattle(boss)));
         }
         threads.forEach(Thread::start);
