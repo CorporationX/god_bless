@@ -17,9 +17,9 @@ public class Main {
         executorService.shutdown();
         try {
             if (executorService.awaitTermination(60, TimeUnit.SECONDS)) {
-                System.out.println("All battles have been finished successfully!");
+                System.out.println("All battles have ended successfully!");
             } else {
-                System.out.println("All battles have been finished successfully! Shutting down executor service!");
+                System.out.println("All battles have ended successfully! Shutting down executor service!");
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {

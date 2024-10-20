@@ -41,10 +41,6 @@ public class Boss {
         }
     }
 
-    public void shutdownService() {
-        service.shutdown();
-    }
-
     private void startBattle() {
         System.out.println("The battle has started!");
         try {
@@ -55,13 +51,17 @@ public class Boss {
                     e
             );
         } finally {
-            System.out.println("The battle has ended! Current players leave the battle!");
             resetBattle();
         }
     }
 
+    public void shutdownService() {
+        service.shutdown();
+    }
+
     private void resetBattle() {
         synchronized (lock) {
+            System.out.println("The battle is over! Current players leave the battle!");
             currentPlayers = 0;
             lock.notifyAll();
         }
