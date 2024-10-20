@@ -36,7 +36,10 @@ public class House {
     }
 
     public void removeRole(User user) {
-        roleList.add(user.getRole());
-        roleCounter = roleList.size();
+
+            roleList.add(user.getRole());
+            roleCounter = roleList.size();
+
+
     }
 }
