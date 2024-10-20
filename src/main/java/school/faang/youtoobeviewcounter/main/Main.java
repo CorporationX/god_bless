@@ -18,7 +18,7 @@ public class Main {
             String videoId = "video_" + i;
 
             for (int j = 0; j < THREAD_COUNT / VIDEO_COUNT; j++) {
-                executor.submit(() -> {
+                executor.execute(() -> {
                     videoManager.addView(videoId);
                     System.out.println("Видео " + videoId
                             + "просмотров " + videoManager.getViewCount(videoId));
@@ -33,6 +33,7 @@ public class Main {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
+            e.printStackTrace();
             executor.shutdownNow();
         }
     }
