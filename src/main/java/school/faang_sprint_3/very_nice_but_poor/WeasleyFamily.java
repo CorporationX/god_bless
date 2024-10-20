@@ -26,8 +26,7 @@ public class WeasleyFamily {
                 System.out.println("Tasks wasn't done in time" + timeForTasks + "minutes, shutdown now");
                 executorService.shutdownNow();
             }
-        } catch (
-                InterruptedException e) {
+        } catch (InterruptedException e) {
             System.out.println("Main thread was interrupted, then shutdown now");
             executorService.shutdownNow();
         }
