@@ -17,7 +17,7 @@ public class Kingdom {
         if (rand.nextBoolean()) {
             return "Сообщение \"" + message + "\" было отправлено из королевства: " + name;
         } else {
-            throw new Exception();
+            throw new Exception("Произошла ошибка при отправке сообщения");
         }
     }
 

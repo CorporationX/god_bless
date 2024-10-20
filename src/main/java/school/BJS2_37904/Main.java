@@ -9,7 +9,8 @@ public class Main {
         Kingdom kingdom = new Kingdom("Москва");
         Kingdom kingdom2 = new Kingdom("Екатеринбург");
 
-        sendRaven(kingdom, kingdom2).handle((result, ex) -> {
+        CompletableFuture<String> resultOfSendRaven =  sendRaven(kingdom, kingdom2);
+        resultOfSendRaven.handle((result, ex) -> {
             if (ex != null) {
                 System.out.printf("Ворон не доставил письмо из королевства %s в королевство %s", kingdom.getName(), kingdom2.getName());
                 System.out.println();
