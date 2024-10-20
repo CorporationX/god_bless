@@ -2,7 +2,7 @@ package school.faang.microsoft;
 
 public class MailSender {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args)  {
         int totalMsg = 1000;
         int numberOfThreads = 5;
         int batchSize = totalMsg / numberOfThreads;
@@ -13,10 +13,13 @@ public class MailSender {
             threads[i] = new Thread(new SenderRunnable(start, end));
             threads[i].start();
         }
-        for (Thread thread : threads) {
-            thread.join();
+        try {
+            for (Thread thread : threads) {
+                thread.join();
+            }
+        } catch (InterruptedException e){
+            e.printStackTrace();
         }
         System.out.println("All mails have sent");
     }
-
 }
