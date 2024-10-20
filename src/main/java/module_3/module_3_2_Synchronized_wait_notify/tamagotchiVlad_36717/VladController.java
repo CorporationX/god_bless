@@ -2,6 +2,8 @@ package module_3.module_3_2_Synchronized_wait_notify.tamagotchiVlad_36717;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,17 +11,18 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 public class VladController {
-
+    private static final Logger LOG = LoggerFactory.getLogger(VladController.class);
     private final Set<TamagochiVlad> tamagochiVlads = new HashSet<>();
+
 
     public void addVlad(TamagochiVlad tamagochiVlad) {
         tamagochiVlads.add(tamagochiVlad);
-        System.out.println(tamagochiVlad.getName() + " добавлен!\n");
+        LOG.info("{} добавлен!", tamagochiVlad.getName());
     }
 
     public void removeVlad(TamagochiVlad tamagochiVlad) {
         tamagochiVlads.remove(tamagochiVlad);
-        System.out.println(tamagochiVlad.getName() + " удален!\n");
+        LOG.info("{} удален!", tamagochiVlad.getName());
     }
 
     public void feedAll() {
