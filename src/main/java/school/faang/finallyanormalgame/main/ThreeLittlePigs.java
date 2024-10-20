@@ -19,6 +19,7 @@ public class ThreeLittlePigs {
             thread2.join();
             thread3.join();
         } catch (InterruptedException e) {
+            System.out.println("Возникла ошибка при попытке дождаться следующего потока");
             e.printStackTrace();
         }
 
