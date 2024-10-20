@@ -20,7 +20,7 @@ public class Boss {
     public void joinBattle(Player player) {
         synchronized (lock) {
             while (currentPlayers >= maxPlayers) {
-                System.out.println("There are no free places to participate in the battle!");
+                System.out.printf("There are no free places for %s to participate in the battle!\n", player.getName());
                 try {
                     lock.wait();
                 } catch (InterruptedException e) {
