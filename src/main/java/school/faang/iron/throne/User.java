@@ -3,9 +3,6 @@ package school.faang.iron.throne;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.Random;
-
 @Getter
 @Slf4j
 public class User {
@@ -22,12 +19,8 @@ public class User {
             throw new IllegalArgumentException("house не может быть null");
         }
         this.house = house;
-        Random random = new Random();
-        synchronized (house) {
-            List<String> availableRoles = house.getAvailableRoles();
-            role = availableRoles.get(random.nextInt(availableRoles.size()));
-            house.addRole(name, role);
-        }
+        String receivedRole = house.addRole(name);
+        this.role = receivedRole;
     }
 
     public void leaveHouse() {
@@ -35,5 +28,6 @@ public class User {
             throw new IllegalArgumentException("пользователь " + name + " не принадлежит никакому из домов");
         }
         house.removeRole(name);
+        this.role = null;
     }
 }
