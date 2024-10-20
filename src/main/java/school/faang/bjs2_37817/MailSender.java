@@ -1,5 +1,8 @@
 package school.faang.bjs2_37817;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
 
     public static void main(String[] args) throws InterruptedException {
@@ -20,6 +23,6 @@ public class MailSender {
             thread.join();
         }
 
-        System.out.println("All messages have been sent!");
+        log.info("All messages have been sent!");
     }
 }
