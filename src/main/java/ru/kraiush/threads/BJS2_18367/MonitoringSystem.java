@@ -8,13 +8,14 @@ import java.util.concurrent.ConcurrentHashMap;
 public class MonitoringSystem implements Runnable {
 
     private List<Substation> listSubstations;
-    private ConcurrentHashMap<Integer, ArrayList<Double>> mapSubstationsData = new ConcurrentHashMap<>();
-    private ArrayList<ArrayList<Double>> sublist = new ArrayList<>();
+    private ConcurrentHashMap<Integer, ArrayList<Double>> mapSubstationsData;
+    private ArrayList<ArrayList<Double>> sublist;
 
     public MonitoringSystem(List<Substation> listSubstations) {
         this.listSubstations = listSubstations;
+        mapSubstationsData =new ConcurrentHashMap<>();
+        sublist = new ArrayList<>();
     }
-
 
     @Override
     public void run() {
@@ -27,7 +28,7 @@ public class MonitoringSystem implements Runnable {
 
             Double average = Substation.calculatingAverages(listSubstations.get(i).getListSensorsData(), i);
 
-            if (sublist.size() == 0 || sublist.size() < listSubstations.size()) {
+            if (sublist.isEmpty() || sublist.size() < listSubstations.size()) {
                 ArrayList<Double> arr = new ArrayList<>();
                 arr.add(average);
                 sublist.add(arr);
