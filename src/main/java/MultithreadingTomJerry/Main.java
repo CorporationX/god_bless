@@ -19,7 +19,7 @@ public class Main {
                 if (house.allFoodsCollected()) {
                     exec.shutdown();
                 }
-            }, 3, 30, TimeUnit.SECONDS);
+            }, 0, 30, TimeUnit.SECONDS);
         }
         if (house.allFoodsCollected()) {
             System.out.println("All foods collected!");

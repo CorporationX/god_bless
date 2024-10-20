@@ -60,7 +60,7 @@ public class House {
         Room room1 = rooms.get(random.nextInt(rooms.size()));
         Room room2 = rooms.get(random.nextInt(rooms.size()));
 
-        while (room1 == room2) {
+        while (room1.equals(room2)) {
             room2 = rooms.get(random.nextInt(rooms.size()));
         }
 
