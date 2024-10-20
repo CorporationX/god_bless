@@ -17,7 +17,7 @@ public class VladController {
         tamagotchiVlads.remove(vlad);
     }
 
-    public void feedAll() {
+    public synchronized void feedAll() {
         tamagotchiVlads.stream().forEach(vlad -> {
             try {
                 vlad.feed(vlad.getTamagotchiVladName());
@@ -26,7 +26,7 @@ public class VladController {
             }
         });
     }
-    public void playAll() {
+    public synchronized void playAll() {
         tamagotchiVlads.stream().forEach(vlad -> {
             try {
                 vlad.play(vlad.getTamagotchiVladName());
@@ -35,7 +35,7 @@ public class VladController {
             }
         });
     }
-    public void cleanAll() {
+    public synchronized void cleanAll() {
         tamagotchiVlads.stream().forEach(vlad -> {
             try {
                 vlad.clean(vlad.getTamagotchiVladName());
@@ -44,7 +44,7 @@ public class VladController {
             }
         });
     }
-    public void sleepAll() {
+    public synchronized void sleepAll() {
         tamagotchiVlads.stream().forEach(vlad -> {
             try {
                 vlad.sleep(vlad.getTamagotchiVladName());
