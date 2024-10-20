@@ -1,20 +1,28 @@
 package school.faang;
 
-import school.faang.Fighter.Archer;
-import school.faang.Fighter.Mage;
-import school.faang.Fighter.Swordsman;
-
 public class Main {
-    public static void main(String[] args){
-        Army army = new Army();
-        for (int i = 0; i < 2; i++) {
-            army.addUnit(new Mage());
-            army.addUnit(new Archer());
-        }
-        army.addUnit(new Swordsman());
+    public static void main(String[] args) {
+        int lettersStack = 1000;
+        int threadCol = 5;
+        int batchSize = lettersStack / threadCol;
+        Thread[] threads = new Thread[threadCol];
 
-        int totalPower = army.calculateTotalPower();
-        System.out.println("Army strength " + totalPower);
+        for (int i = 0; i < threadCol; i++) {
+            int startIndex = (i * batchSize) + 1;
+            int endIndex = ((i + 1) * batchSize) + 1;
+            threads[i] = new Thread(new SenderRunnable(startIndex, endIndex));
+            threads[i].start();
+        }
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        System.out.println("All letters was sent");
+
     }
 
 }
