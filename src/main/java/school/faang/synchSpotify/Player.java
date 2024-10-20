@@ -1,8 +1,8 @@
 package school.faang.synchSpotify;
 
 public class Player {
-    final Object lock = new Object();
-    boolean isPlaying = false;
+    private final Object lock = new Object();
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized (lock) {
