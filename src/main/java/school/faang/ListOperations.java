@@ -19,7 +19,7 @@ public class ListOperations {
     public static int findMax(List<Integer> numbers) {
         return numbers.stream()
                 .reduce(Integer::max)
-                .get();
+                .orElseThrow(NoSuchElementException::new);
     }
 
     public static double findAverage(List<Integer> numbers) {
@@ -59,7 +59,7 @@ public class ListOperations {
                 .orElseThrow(NoSuchElementException::new);
     }
 
-    public static List<Integer> convertToLengths(List<String> strings){
+    public static List<Integer> convertToLengths(List<String> strings) {
         return strings.stream()
                 .map(String::length)
                 .collect(Collectors.toList());
