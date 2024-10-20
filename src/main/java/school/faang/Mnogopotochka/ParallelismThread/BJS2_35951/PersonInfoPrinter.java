@@ -19,12 +19,6 @@ public class PersonInfoPrinter implements Runnable {
             logger.warn("Person list is empty or null");
             return;
         }
-        personList.forEach(person -> System.out.println(
-                        "ID: " + person.getId() +
-                        " Name: " + person.getName() +
-                        ", Surname: " + person.getSurname() +
-                        ", Age: " + person.getAge() +
-                        ", Workplace: " + person.getWorkplace()
-        ));
+        personList.forEach(System.out::println);
     }
 }

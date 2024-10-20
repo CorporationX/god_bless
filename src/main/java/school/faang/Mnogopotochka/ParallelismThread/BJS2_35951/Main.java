@@ -13,15 +13,17 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
     private static final int NUMBER_THREAD_POOL = 10;
+    private static final int MAX_AGE = 10;
+    private static final int MIN_AGE = 10;
     private static List<Person> persons = new ArrayList<>();
     private static Random random = new Random();
 
     public static void main(String[] args) {
         addPerson();
-        amountPersonsOneStream();
+        printPersonInfoInParallel();
     }
 
-    public static void amountPersonsOneStream(){
+    public static void printPersonInfoInParallel(){
         ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_THREAD_POOL);
         int chunkSize = persons.size() / NUMBER_THREAD_POOL;
         for (int i = 0; i < NUMBER_THREAD_POOL; i++){
@@ -48,7 +50,7 @@ public class Main {
                     i,
                     getRandomElement(PersonInfo.name),
                     getRandomElement(PersonInfo.surnames),
-                    random.nextInt(18, 60),
+                    random.nextInt(MIN_AGE, MAX_AGE),
                     getRandomElement(PersonInfo.workplaces)
             ));
         }
