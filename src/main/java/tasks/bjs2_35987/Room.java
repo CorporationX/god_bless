@@ -11,15 +11,13 @@ public class Room {
     private String name;
     private List<Food> foods;
 
-    public synchronized List<Food> collectFoods() {
-        System.out.println("Поток " + Thread.currentThread().getId() + " собирает продукты из комнаты " + name);
+    public List<Food> collectFoods() {
         List<Food> collectedFood = new ArrayList<>(foods);
         foods.clear();
-        System.out.println("Поток " + Thread.currentThread().getId() + " собрал продукты из комнаты " + name);
         return collectedFood;
     }
 
-    public synchronized boolean hasFood() {
+    public boolean hasFood() {
         return !foods.isEmpty();
     }
 }
