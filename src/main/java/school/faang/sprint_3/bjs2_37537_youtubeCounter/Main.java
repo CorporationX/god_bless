@@ -8,8 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int THREADS_COUNT = 100;
-    public static final int VIDEOS_COUNT = 10;
+    private static final int THREADS_COUNT = 100;
+    private static final int VIDEOS_COUNT = 10;
 
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
@@ -26,7 +26,7 @@ public class Main {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     log.error("An error occurred while adding the view and getting views count", e);
-                    throw new RuntimeException(e);
+                    throw new IllegalStateException(e);
                 }
             }
         }
@@ -38,7 +38,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("An error occurred while waiting for the threads to complete.", e);
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
     }
 }
