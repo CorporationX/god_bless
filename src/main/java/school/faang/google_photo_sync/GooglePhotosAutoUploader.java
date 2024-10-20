@@ -7,14 +7,13 @@ import java.util.List;
 
 @Slf4j
 public class GooglePhotosAutoUploader {
-    private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
 
     public void startAutoLoad() {
-        synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
+        synchronized (photosToUpload) {
+            if (photosToUpload.isEmpty()) {
                 try {
-                    lock.wait();
+                    photosToUpload.wait();
                 } catch (InterruptedException e) {
                     log.error("Thread exception connected to wait() method occurred", e);
                     e.printStackTrace();
@@ -25,9 +24,9 @@ public class GooglePhotosAutoUploader {
     }
 
     public void onNewPhotoAdded(String photoPath) {
-        synchronized (lock) {
+        synchronized (photosToUpload) {
             photosToUpload.add(photoPath);
-            lock.notify();
+            photosToUpload.notify();
         }
     }
 
