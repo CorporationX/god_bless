@@ -11,6 +11,7 @@ public class Music {
         Thread thread6 = new Thread(() -> player.previous());
         Thread thread7 = new Thread(() -> player.play());
         Thread thread8 = new Thread(() -> player.play());
+        Thread thread9 = new Thread(() -> player.pause());
 
         thread1.start();
         thread2.start();
@@ -20,5 +21,6 @@ public class Music {
         thread6.start();
         thread7.start();
         thread8.start();
+        thread9.start();
     }
 }
