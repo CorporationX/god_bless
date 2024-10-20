@@ -1,4 +1,4 @@
-package school.faang.streamAPI;
+package school.faang.streamapi2;
 
 import java.time.LocalDate;
 import java.util.Arrays;
