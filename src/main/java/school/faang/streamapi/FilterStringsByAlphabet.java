@@ -1,25 +1,17 @@
-package school.faang.streamAPI;
+package school.faang.streamapi;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FilterStringsByAlphabet {
     public static List<String> filterStringsByAlphabet(List<String> strings, String alphabet) {
         List<String> validStrings = new ArrayList<>();
+        String regex = "[" + alphabet + "]+";
 
-        for (String str : strings) {
-            boolean isValid = true;
-            for (char c : str.toCharArray()) {
-                if (alphabet.indexOf(c) == -1) {
-                    isValid = false;
-                    break;
-                }
-            }
-            if (isValid) {
-                validStrings.add(str);
-            }
-        }
-
-        validStrings.sort(Comparator.comparingInt(String::length));
+        validStrings = strings.stream()
+                .filter(s -> s.matches(regex))
+                .sorted((s1, s2) -> s1.length() - s2.length())
+                .collect(Collectors.toList());
         return validStrings;
     }
 

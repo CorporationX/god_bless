@@ -1,11 +1,14 @@
-package school.faang.streamAPI;
+package school.faang.streamapi;
 
 import java.util.*;
 
 public class CountryCapitals {
+
     public static List<String> sortCountriesAndCapitals(Map<String, String> countryCapitalMap) {
-        List<String> capitals = new ArrayList<>(countryCapitalMap.values());
-        Collections.sort(capitals);
+        List<String> capitals = new ArrayList<>();
+        capitals = countryCapitalMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue).toList();
         return capitals;
     }
 
