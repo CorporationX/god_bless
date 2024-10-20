@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    final static int THREAD_POOL = 4;
+    private static final int THREAD_POOL = 4;
 
     public static void main(String[] args) {
         Player player = new Player(false);
