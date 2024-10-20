@@ -19,7 +19,7 @@ public class Main {
             messages.add("Hello Java_" + i);
         }
 
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
+        ExecutorService executorService = Executors.newFixedThreadPool(3);
         messages.forEach(message -> executorService.submit(() -> telegramBot.sendMessage(message)));
         executorService.shutdown();
         try {

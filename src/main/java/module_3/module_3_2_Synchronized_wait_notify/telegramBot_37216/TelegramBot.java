@@ -15,31 +15,32 @@ public class TelegramBot {
     private LocalDateTime lastRequestTime;
 
     public TelegramBot() {
-        this.requestCounter = 1;
+        this.requestCounter = 0;
         this.lastRequestTime = LocalDateTime.now();
     }
 
     public synchronized void sendMessage(String message) {
         LocalDateTime currentTime = LocalDateTime.now();
         Duration duration = Duration.between(lastRequestTime, currentTime);
-        logger.info("Время между запросами: {}", duration);
+        System.out.println("Время между запросами: " + duration.toMillis());
         if (duration.toMillis() < 1000) {
             requestCounter++;
         } else {
-            requestCounter = 1;
+            requestCounter = 0;
             lastRequestTime = currentTime;
         }
-        if (requestCounter > REQUEST_LIMIT) {
+        if (requestCounter >= REQUEST_LIMIT) {
+            System.out.println();
             long waitTime = 1000 - duration.toMillis();
+            System.out.println("Спим: " + waitTime);
             try {
                 Thread.sleep(waitTime);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            requestCounter = 1;
+            requestCounter = 0;
             lastRequestTime = LocalDateTime.now();
         }
-        logger.info("Сообщение отправлено: {}", message);
-        System.out.println();
+        System.out.println("Сообщение отправлено: " + message);
     }
 }
