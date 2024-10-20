@@ -1,15 +1,20 @@
 package school.faang.BJS2_36862_Supercow;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Boss {
     private static final int BATTLE_DURATION = 5_000;
 
     private int maxPlayers;
     private int currentPlayers;
     private Object lock;
+    ExecutorService service;
 
     public Boss(int maxPlayers) {
         this.maxPlayers = maxPlayers;
         lock = new Object();
+        service = Executors.newSingleThreadExecutor();
     }
 
     public void joinBattle(Player player) {
@@ -31,22 +36,32 @@ public class Boss {
             currentPlayers++;
             System.out.printf("Player %s has joined the battle.\n", player.getName());
             if (currentPlayers == maxPlayers) {
-                startBattle();
+                service.submit(this::startBattle);
             }
         }
     }
 
+    public void shutdownService() {
+        service.shutdown();
+    }
+
     private void startBattle() {
-        System.out.println("The battle has been started!");
+        System.out.println("The battle has started!");
         try {
             Thread.sleep(BATTLE_DURATION);
         } catch (InterruptedException e) {
             throw new IllegalStateException(
-                    String.format("Thread %s was interrupted while its execution!", Thread.currentThread().getName()),
+                    String.format("Battle thread %s was interrupted while its execution!", Thread.currentThread().getName()),
                     e
             );
         } finally {
-            System.out.println("The battle has been ended! Current players leave the battle!");
+            System.out.println("The battle has ended! Current players leave the battle!");
+            resetBattle();
+        }
+    }
+
+    private void resetBattle() {
+        synchronized (lock) {
             currentPlayers = 0;
             lock.notifyAll();
         }
