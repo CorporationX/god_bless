@@ -7,5 +7,4 @@ import lombok.AllArgsConstructor;
 @Data
 public class Swordsman {
     private int power;
-
 }

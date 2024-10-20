@@ -7,6 +7,4 @@ import lombok.AllArgsConstructor;
 @Data
 public class Archer {
     private int power;
-
-
 }

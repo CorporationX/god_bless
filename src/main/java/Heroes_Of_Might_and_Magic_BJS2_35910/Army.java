@@ -21,8 +21,12 @@ public class Army {
         int totalPower = 0;
 
         for (PowerCalculatorThread thread : threads) {
-            thread.join();
-            totalPower += thread.getResult();
+            try {
+                thread.join();
+                totalPower += thread.getResult();
+            } catch (InterruptedException e) {
+                System.out.println("Thread was interrupted" + e.getMessage());
+            }
         }
         return totalPower;
     }
