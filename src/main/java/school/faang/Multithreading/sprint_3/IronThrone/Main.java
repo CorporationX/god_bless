@@ -24,37 +24,35 @@ public class Main {
 
         ExecutorService executor = Executors.newFixedThreadPool(5);
 
-        executor.execute(() ->  mage.joinHouse(stark, "Маг"));
-        executor.execute(() -> doctor.joinHouse(stark, "Лекарь" ));
-        executor.execute(() ->  knight.joinHouse(stark, "Рыцарь"));
+        executor.execute(() -> mage.joinHouse(stark, "Маг"));
+        executor.execute(() -> doctor.joinHouse(stark, "Лекарь"));
+        executor.execute(() -> knight.joinHouse(stark, "Рыцарь"));
         executor.execute(() -> {
             wifeLord.joinHouse(stark, "Лорд");
+
             try {
                 Thread.sleep(1000 * 2);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            try {
-                wifeLord.leaveHouse(stark);
-            } catch (RuntimeException e){
-                e.printStackTrace();
-            }
+
+            wifeLord.leaveHouse(stark);
         });
         executor.execute(() -> lord.leaveHouse(stark));
-        executor.execute(() ->  doterLord.joinHouse(stark,"Лорд"));
+        executor.execute(() -> doterLord.joinHouse(stark, "Лорд"));
 
         executor.shutdown();
+
         try {
-           if( executor.awaitTermination(5, TimeUnit.SECONDS)){
-               System.out.println("Добавление всех пользователей завершено");
-               executor.shutdownNow();
-           } else {
-               System.out.println("Что то пошло не так");
-               executor.shutdownNow();
-           }
+            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+                System.out.println("Добавление всех пользователей завершено");
+                executor.shutdownNow();
+            } else {
+                System.out.println("Что то пошло не так");
+                executor.shutdownNow();
+            }
         } catch (InterruptedException e) {
             System.out.println("Операция была прервана " + e.getMessage());
         }
-
     }
 }
