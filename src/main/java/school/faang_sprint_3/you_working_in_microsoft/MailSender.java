@@ -17,11 +17,7 @@ public class MailSender {
         }
 
         for (var thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                throw new ThreadInterruptException(Thread.currentThread().getName() + " interrupted");
-            }
+            ExceptionHandler.threadJoin(thread);
         }
         System.out.println("Successfully completed");
     }
