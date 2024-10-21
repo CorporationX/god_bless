@@ -1,10 +1,13 @@
 package school.faang.multithreadintomandjerry;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Application {
     private static final int THREAD_QUANTITY = 5;
     private static final int INITIAL_DELAY = 0;
@@ -13,7 +16,6 @@ public class Application {
     public static void main(String[] args) {
         CountDownLatch cdl = new CountDownLatch(House.QUANTITY_ROOMS);
         House house = new House(cdl);
-        house.init();
 
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(THREAD_QUANTITY);
         for (int i = 0; i < THREAD_QUANTITY; i++) {
@@ -27,6 +29,7 @@ public class Application {
             e.printStackTrace();
         }
         scheduler.shutdown();
-        System.out.println(house.getCollectedFoods());
+
+        log.info("Foods count: {}, all foods: {} ", house.getCollectedFoods().size(), house.getCollectedFoods());
     }
 }

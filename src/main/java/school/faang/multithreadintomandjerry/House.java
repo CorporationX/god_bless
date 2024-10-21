@@ -3,6 +3,7 @@ package school.faang.multithreadintomandjerry;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -11,13 +12,16 @@ import java.util.concurrent.CountDownLatch;
 public class House {
     public static final int QUANTITY_ROOMS = 8;
     private static final int QUANTITY_ROOMS_SELECTED = 2;
-    private final List<Room> rooms = new ArrayList<>();
+    private final List<Room> rooms = Collections.synchronizedList(new ArrayList<>());
     private final List<Food> collectedFoods = new ArrayList<>();
+
+    private final Object lock = new Object();
 
     CountDownLatch cdl;
 
     public House(CountDownLatch cdl) {
         this.cdl = cdl;
+        init();
     }
 
     public void collectFood() {
@@ -43,6 +47,13 @@ public class House {
         for (int i = 0; i < QUANTITY_ROOMS; i++) {
             addRoom(generateFoods(i + 1));
         }
+
+        int count = 0;
+        for (Room room : rooms) {
+            log.info("room name: {}, room foods: {}", room.getName(), room.getFoods());
+            count += room.getFoods().size();
+        }
+        log.info("count: {}", count);
     }
 
     private Room generateFoods(int num) {
@@ -61,10 +72,12 @@ public class House {
             return result;
         }
 
-        return rooms.stream()
-                .filter(Room::hasFood)
-                .limit(QUANTITY_ROOMS_SELECTED)
-                .toList();
+        synchronized (lock) {
+            return rooms.stream()
+                    .filter(Room::hasFood)
+                    .limit(QUANTITY_ROOMS_SELECTED)
+                    .toList();
+        }
     }
 
     private void addRoom(Room room) {
