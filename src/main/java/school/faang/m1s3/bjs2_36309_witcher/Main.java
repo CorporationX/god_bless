@@ -28,20 +28,5 @@ public class Main {
         geralt.questLocator(knownCities, monsters);
 
         System.out.println("Execution time 5 threads: " + (System.currentTimeMillis() - startProgram) + " ms");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 }

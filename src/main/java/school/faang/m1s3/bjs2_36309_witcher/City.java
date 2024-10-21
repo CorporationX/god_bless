@@ -1,15 +1,14 @@
 package school.faang.m1s3.bjs2_36309_witcher;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-public class City extends Location{
+public class City {
     private final String name;
+    private final Location location;
 
     public City(String name) {
-        super();
+        location = new Location();
         this.name = name;
     }
 }

@@ -18,9 +18,9 @@ public class CityWorker implements Runnable {
 
     @Override
     public void run() {
-        double distanceToCity = calculateDistance(witcher.getWitcherLocation(), city);
+        double distanceToCity = calculateDistance(witcher.getWitcherLocation(), city.getLocation());
         monsters.stream()
-                .collect(Collectors.toMap(m -> m, m -> calculateDistance(city, m)))
+                .collect(Collectors.toMap(m -> m, m -> calculateDistance(city.getLocation(), m.getLocation())))
                 .entrySet()
                 .stream()
                 .sorted(Map.Entry.comparingByValue())
