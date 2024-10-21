@@ -4,7 +4,6 @@ public class GameSimulation {
     public static void main(String[] args) {
         Game game = new Game();
 
-
         Thread gameThread1 = new Thread(() -> runGameLoop(game));
         Thread gameThread2 = new Thread(() -> runGameLoop(game));
         Thread gameThread3 = new Thread(() -> runGameLoop(game));
