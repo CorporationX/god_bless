@@ -1,7 +1,6 @@
 package ru.kraiush.threads.BJS2_18367;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -11,10 +10,10 @@ public class AppMonitoring_of_ElectricalSubstations {
 
     public static void main(String[] args) {
 
-        List<Substation> listSubstations = new ArrayList();
-        List<SensorData> listSensorsData = new ArrayList<>();
-        MonitoringSystem monitor = new MonitoringSystem(listSubstations);
-        ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
+        final List<Substation> listSubstations = new ArrayList();
+        final List<SensorData> listSensorsData = new ArrayList<>();
+        final MonitoringSystem monitor = new MonitoringSystem(listSubstations);
+        final ScheduledExecutorService executor = Executors.newScheduledThreadPool(4);
 
         for (int i = 0; i < 3; i++) {
             listSubstations.add(new Substation(i, listSensorsData));
