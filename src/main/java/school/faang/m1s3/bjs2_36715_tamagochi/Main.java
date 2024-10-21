@@ -1,14 +1,19 @@
 package school.faang.m1s3.bjs2_36715_tamagochi;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
+    public static int NUM_VLADS = 12;
+
     public static void main(String[] args) {
         VladController vladController = new VladController();
 
-        for (int i = 1; i < 12; i++) {
+        for (int i = 1; i < NUM_VLADS; i++) {
             vladController.addTamagotchi(new TamagotchiVlad("Vlad_" + i));
         }
         vladController.deleteTamagotchi("Vlad_11");
@@ -28,12 +33,10 @@ public class Main {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new IllegalStateException("Thread has been interrupted " + e.getMessage(), e);
+            log.error("Thread has been interrupted {}", e.getMessage(), e);
         }
 
         System.out.println();
         System.out.println("Vlad is happy to say your code is great!");
-
-
     }
 }
