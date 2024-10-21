@@ -1,4 +1,4 @@
-package miceAreVeryNice;
+package mod1sp3.miceAreVeryNice;
 
 import lombok.Data;
 
