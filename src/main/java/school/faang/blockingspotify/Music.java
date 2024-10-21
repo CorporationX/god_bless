@@ -15,5 +15,19 @@ public class Music {
                 new Thread(() -> player.play(), "User 5"),
                 new Thread(() -> player.pause(), "User 6")
         );
+
+        userActions.forEach(Thread::start);
+
+        userActions.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                System.out.println(thread.getName() + " was interrupted.");
+            }
+        });
+
+        System.out.println("All user actions have been processed.");
     }
 }
+
