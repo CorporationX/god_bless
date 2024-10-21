@@ -21,7 +21,6 @@ public class Main {
                 scheduler.shutdownNow();
             }
         } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
             e.printStackTrace();
             log.error("Caught exception: ", e);
         }
