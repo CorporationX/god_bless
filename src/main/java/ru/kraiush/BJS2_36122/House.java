@@ -21,7 +21,7 @@ public class House {
     public void collectFood() {
         Random random = new Random();
         int countRooms = 2;
-        while (countRooms != 0 && !allFoodCollected()) {
+        while (countRooms != 0 && !isAllFoodCollected()) {
             int randomRoom = random.nextInt(rooms.size());
             List<Food> foodOfRandomRoom = rooms.get(randomRoom).getFood();
             if (!foodOfRandomRoom.isEmpty()) {
@@ -33,7 +33,7 @@ public class House {
         }
     }
 
-    public boolean allFoodCollected() {
+    public boolean isAllFoodCollected() {
         for (Room room : rooms) {
             if (!room.getFood().isEmpty()) {
                 return false;

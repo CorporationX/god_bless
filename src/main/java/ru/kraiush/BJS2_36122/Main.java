@@ -43,7 +43,7 @@ public class Main {
         ScheduledExecutorService executorService = Executors.newScheduledThreadPool(POOL_SIZE);
         executorService.scheduleAtFixedRate(() -> {
             house.collectFood();
-            if (house.allFoodCollected()) {
+            if (house.isAllFoodCollected()) {
                 executorService.shutdown();
                 System.out.println("All food was collected!");
             }
