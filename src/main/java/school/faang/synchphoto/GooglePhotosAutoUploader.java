@@ -22,16 +22,15 @@ public class GooglePhotosAutoUploader {
     public void onNewPhotoAdded(String photoPath) {
         synchronized (lock) {
             photosToUpload.add(photoPath);
+            log.info("{} !!!!!! Photo added !!!!!!", photoPath);
             lock.notify();
         }
     }
 
     private void photosToUpload() {
-        synchronized (lock) {
-            photosToUpload.forEach(
-                    photo -> log.info("{} !!!!!! loaded !!!!!!", photo)
-            );
-            photosToUpload.clear();
-        }
+        photosToUpload.forEach(
+                photo -> log.info("{} !!!!!! Photo loaded !!!!!!", photo)
+        );
+        photosToUpload.clear();
     }
 }
