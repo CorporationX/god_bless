@@ -44,7 +44,6 @@ public class User implements Runnable {
             synchronized (userHouse) {
                 System.out.println(name + " leaves home and vacates the position " + chosenPosition);
                 userHouse.removePosition(chosenPosition);
-                userHouse.notifyAll();
             }
         }
     }

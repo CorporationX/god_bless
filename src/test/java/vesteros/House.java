@@ -13,11 +13,7 @@ public class House {
         this.positions = positions;
         this.vacantPositionsCount = positions.size();
     }
-
-    public List<String> getPositions() {
-        return positions;
-    }
-
+    
     public synchronized int getvacantPositionsCount() {
         return vacantPositionsCount;
     }
