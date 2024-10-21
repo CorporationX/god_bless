@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public record Player(String name) {
 
-
     public void startBattle(Boss boss) {
         boss.joinBattle(this);
         fighting();
