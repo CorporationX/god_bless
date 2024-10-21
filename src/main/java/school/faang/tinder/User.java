@@ -15,8 +15,15 @@ public class User {
     @Setter
     private boolean isOnline;
 
-    @Setter
     private boolean isLookingForChat;
+
+    public void switchLookingForChat() {
+        isLookingForChat = !isLookingForChat;
+    }
+
+    public boolean isInterlocutorCandidate(User user) {
+        return !this.equals(user) && user.isLookingForChat() && user.isOnline;
+    }
 
     @Override
     public String toString() {

@@ -1,6 +1,5 @@
 package school.faang.tinder;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -8,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Stream;
 
 @Getter
 public class Chat {
@@ -24,26 +24,41 @@ public class Chat {
         userMessages.put(user2, new ArrayList<>());
     }
 
-    public synchronized boolean sendMessage(Message message) {
-        validateMessage(message);
-        System.out.println("Пользователь " + message.getMessageOwner() +
-                " отправил сообщение: " + message.getContent());
-        return userMessages.get(message.getMessageOwner()).add(message);
+    public synchronized Message sendMessage(String content, User messageOwner) {
+        validateMessageContent(content);
+        validateMessageOwner(messageOwner);
+        System.out.println("Пользователь " + messageOwner +
+                " отправил сообщение: " + content);
+        Message message = new Message(messageOwner, content, chatId);
+        userMessages.get(messageOwner).add(message);
+        return message;
     }
 
-    public synchronized boolean removeMessage(Message message) {
+    public synchronized void removeMessage(Message message) {
         validateMessage(message);
-        System.out.println("Пользователь " + message.getMessageOwner() +
-                " удалил сообщение: " + message.getContent());
-        return userMessages.get(message.getMessageOwner()).remove(message);
+        System.out.println("Пользователь " + message.messageOwner() +
+                " удалил сообщение: " + message.content());
+        userMessages.get(message.messageOwner()).remove(message);
     }
 
     private void validateMessage(Message message) {
         if (message == null) {
-            throw new IllegalArgumentException("Message не может быть null");
+            throw new IllegalArgumentException("message не может быть null");
         }
-        if (!userMessages.containsKey(message.getMessageOwner())) {
-            throw new IllegalArgumentException("Пользователь " + message.getMessageOwner()
+    }
+
+    private void validateMessageContent(String message) {
+        if (message == null) {
+            throw new IllegalArgumentException("message не может быть null");
+        }
+    }
+
+    private void validateMessageOwner(User messageOwner) {
+        if (messageOwner == null) {
+            throw new IllegalArgumentException("messageOwner не может быть null");
+        }
+        if (!userMessages.containsKey(messageOwner)) {
+            throw new IllegalArgumentException("Пользователь " + messageOwner.getName()
                     + " не является участником чата");
         }
     }

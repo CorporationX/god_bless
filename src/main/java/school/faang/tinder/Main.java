@@ -1,10 +1,13 @@
 package school.faang.tinder;
 
+import lombok.extern.slf4j.Slf4j;
 import school.faang.tinder.exceptions.UserAlreadyInChatException;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Slf4j
 public class Main {
 
     public static void main(String[] args) {
@@ -25,20 +28,21 @@ public class Main {
         ExecutorService executor = Executors.newFixedThreadPool(userList.getSize());
         for (User user : userList.getUsers()) {
             executor.submit(() -> {
-                int chatId = 0;
                 try {
-                    chatId = chatManager.startChat(user);
-                } catch (UserAlreadyInChatException e) {
-                    throw new RuntimeException(e);
-                }
-                try {
+                    int chatId = chatManager.startChat(user);
+                    Chat chat = chatManager.getChat(chatId);
+                    var message = chat.sendMessage("Hello World!", user);
+                    chat.removeMessage(message);
                     Thread.sleep(5_000);
+                    chatManager.endChat(chatId);
+                } catch (UserAlreadyInChatException e) {
+                    log.error(user + " уже находится в чате");
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    log.error(e.getMessage());
+                    log.error(Arrays.toString(e.getStackTrace()));
                 }
-                chatManager.endChat(chatId);
             });
         }
-
+        executor.shutdown();
     }
 }
