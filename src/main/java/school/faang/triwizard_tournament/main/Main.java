@@ -5,7 +5,6 @@ import school.faang.triwizard_tournament.main_code.Student;
 import school.faang.triwizard_tournament.main_code.Task;
 import school.faang.triwizard_tournament.main_code.Tournament;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
