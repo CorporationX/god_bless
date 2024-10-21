@@ -37,9 +37,7 @@ public class MasterCardService {
         try {
             int paymentsResult = analiticsFuture.get();
             System.out.println("Платеж выполнен " + paymentsResult);
-        } catch (InterruptedException e) {
-            throw new RuntimeException("Возникла ошибка при попытке платежа " + e);
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException("Возникла ошибка при попытке платежа " + e);
         }
 
