@@ -1,9 +1,11 @@
 package school.faang_sprint_3.you_working_in_microsoft;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class MailSender {
 
     public static void main(String[] args) {
-
         var lettersAmount = 1000;
         var threadsAmount = 5;
         var partition = lettersAmount / threadsAmount;
@@ -17,8 +19,13 @@ public class MailSender {
         }
 
         for (var thread : threads) {
-            ExceptionHandler.threadJoin(thread);
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                log.error("An exception occurred", e);
+                throw new ThreadInterruptException("Thread interrupted" + e.getMessage());
+            }
         }
-        System.out.println("Successfully completed");
+        log.info("Successfully finished");
     }
 }
