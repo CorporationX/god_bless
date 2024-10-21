@@ -1,6 +1,7 @@
 package school.faang.iron_throne_at_any_cost;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -19,9 +20,10 @@ public class Main {
         houses.add(secondHouse);
         houses.add(thirdHouse);
 
-        firstHouse.addRole(Role.LORD, Role.KNIGHT, Role.MAGE);
-        secondHouse.addRole(Role.LORD, Role.KNIGHT, Role.MAGE);
-        thirdHouse.addRole(Role.LORD, Role.KNIGHT, Role.MAGE);
+        List<Role> roles = new ArrayList<>(Arrays.asList(Role.KNIGHT, Role.LORD, Role.MAGE));
+        firstHouse.addRole(roles);
+        secondHouse.addRole(roles);
+        thirdHouse.addRole(roles);
 
         Random random = new Random();
 
@@ -35,7 +37,7 @@ public class Main {
                 try {
                     user.joinHouse(assignedHouse);
                     Thread.sleep(random.nextInt(10000));
-                    user.leaveHouse();
+                    user.leaveHouse(user.getHouse());
                 } catch (InterruptedException e) {
                     throw new IllegalArgumentException("Thread has been interrupted " + e.getMessage());
                 }
