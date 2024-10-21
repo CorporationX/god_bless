@@ -19,12 +19,16 @@ public class House {
         availableRoles.addAll(roleInHouseList);
     }
 
-    public synchronized void removeAvailableRole(String role) {
-        availableRoles.remove(role);
+    public void removeAvailableRole(String role) {
+        synchronized (lock) {
+            availableRoles.remove(role);
+        }
     }
 
-    public synchronized void addAvailableRole(String role) {
-        availableRoles.add(role);
-        lock.notify();
+    public void addAvailableRole(String role) {
+        synchronized (lock) {
+            availableRoles.add(role);
+            lock.notify();
+        }
     }
 }

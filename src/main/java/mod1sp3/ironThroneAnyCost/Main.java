@@ -22,6 +22,7 @@ public class Main {
         executorService.submit(() -> secondUser.joinHouse(houseStark, "Wizard"));
         executorService.submit(() ->  thirdUser.joinHouse(houseStark, "Knight"));
         executorService.submit(() -> fourthUser.joinHouse(houseStark, "Lord"));
+
         try {
             Thread.sleep(8000);
         } catch (InterruptedException e) {
