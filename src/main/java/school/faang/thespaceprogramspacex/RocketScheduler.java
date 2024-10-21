@@ -34,9 +34,5 @@ public class RocketScheduler {
         } catch (InterruptedException e) {
             executor.shutdownNow();
         }
-
-        long endTime = System.currentTimeMillis();
-        System.out.println("Total scheduling process took: " + (endTime - startTime) + "ms");
-
     }
 }
