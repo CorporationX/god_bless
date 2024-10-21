@@ -9,7 +9,7 @@ public class MasterCardService {
             return 10_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException("Ошибка попытки платежа " + e);
         }
     }
 
@@ -19,7 +19,7 @@ public class MasterCardService {
             return 1_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
+            throw new RuntimeException("ошибка отправки аналитики " + e);
         }
     }
 
@@ -38,9 +38,9 @@ public class MasterCardService {
             int paymentsResult = analiticsFuture.get();
             System.out.println("Платеж выполнен " + paymentsResult);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Возникла ошибка при попытке платежа " + e);
         } catch (ExecutionException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Возникла ошибка при попытке платежа " + e);
         }
 
         service.shutdown();
@@ -50,6 +50,7 @@ public class MasterCardService {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
+            System.out.println("Ошибка при попытке завершения программы" + e);
             e.printStackTrace();
             service.shutdownNow();
         }
