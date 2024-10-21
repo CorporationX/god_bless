@@ -1,15 +1,18 @@
 package school.faang.BJS237069;
 
 public class Main {
-    private static final int SCORE = 10;
-    private static final int LIVES = 5;
+    private static final int BEGINNING_SCORE = 10;
+    private static final int BEGINNING_LIVES = 5;
+    private static final double CHANCE_TO_EARN = 0.5;
+    private static final double CHANCE_TO_LOST_LIVE = 0.6;
+    private static final int WINNING_GAME_SCORE = 20;
 
     public static void main(String[] args) {
-        Game game = new Game(SCORE, LIVES);
+        Game game = new Game(BEGINNING_SCORE, BEGINNING_LIVES);
 
-        while (game.getLives() != 0 || game.getScore() > 20) {
-            boolean earnedScore = Math.random() > 0.5;
-            boolean lostLives = Math.random() > 0.6;
+        while (game.getLives() != 0 || game.getScore() > WINNING_GAME_SCORE) {
+            boolean earnedScore = Math.random() > CHANCE_TO_EARN;
+            boolean lostLives = Math.random() > CHANCE_TO_LOST_LIVE;
             game.update(earnedScore, lostLives);
             try {
                 Thread.sleep(2000);
