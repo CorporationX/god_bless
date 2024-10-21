@@ -27,11 +27,16 @@ public class VideoManagerTest {
         executorService.shutdown();
         try {
             if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
-                executorService.shutdownNow(); // Force shutdown if tasks are not completed within 1 minute
+                executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
             executorService.shutdownNow();
             Thread.currentThread().interrupt();
+        }
+
+        for (int i = 0; i < NUM_VIDEOS; i++) {
+            String videoId = "video_" + i;
+            System.out.println("Final Views for " + videoId + ": " + videoManager.getViewCount(videoId));
         }
     }
 }
