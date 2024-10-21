@@ -2,9 +2,11 @@ package school.faang.m1s3.bjs2_36282_spacex;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalTime;
 
+@Slf4j
 @Getter
 @RequiredArgsConstructor
 public class RocketLaunch {
@@ -15,8 +17,8 @@ public class RocketLaunch {
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            throw new IllegalStateException("Thread was interrupted" + e.getMessage(), e);
+            log.error("Thread was interrupted" + e.getMessage(), e);
         }
-        System.out.println(name + " was launched");
+        System.out.printf("%s was launched%n", name);
     }
 }
