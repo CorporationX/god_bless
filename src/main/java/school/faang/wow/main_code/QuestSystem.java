@@ -29,6 +29,7 @@ public class QuestSystem {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
+            System.out.println("Ошибка при попытке завершить программу");
             e.printStackTrace();
             service.shutdownNow();
         }
