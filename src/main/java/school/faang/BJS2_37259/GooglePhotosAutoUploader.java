@@ -12,7 +12,7 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
 
     private static final Logger log = LoggerFactory.getLogger(GooglePhotosAutoUploader.class);
-    private Object lock = new Object();
+    private final Object lock = new Object();
 
     @Getter
     private final List<String> photosToUpload = new ArrayList<>();
