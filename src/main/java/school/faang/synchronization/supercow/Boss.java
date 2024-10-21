@@ -26,9 +26,6 @@ public class Boss {
         System.out.println(player.getName() + " finished fight");
         notify();
     }
-
-
-
 }
 
 
