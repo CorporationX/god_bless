@@ -5,22 +5,21 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private final static int NUM_THREADS = 100;
-    private final static int NUM_VIDEOS = 10;
+    private static final int NUM_THREADS = 100;
+    private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
         VideoManager videoManager = new VideoManager();
         ExecutorService executorService = Executors.newFixedThreadPool(NUM_THREADS);
         for (int i = 0; i < NUM_VIDEOS; i++) {
-            String video = "video " + (i + 1);
-            videoManager.getViewsMap().put(video, 0);
+            String videoId = "video " + (i + 1);
+            videoManager.getViewsMap().put(videoId, 0);
+
             for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
-                int numberOfVideo = i + 1;
-                executorService.submit(() -> {
+                executorService.execute(() -> {
                     synchronized (videoManager) {
-                        videoManager.addView("video " + numberOfVideo);
-                        System.out.println("Просмотров на видео <video " + numberOfVideo + ">: " +
-                                videoManager.getViewCount("video " + numberOfVideo));
+                        videoManager.addView(videoId);
+                        System.out.println("Просмотров на видео <"+ videoId + ">: " + videoManager.getViewCount(videoId));
                     }
                 });
             }
