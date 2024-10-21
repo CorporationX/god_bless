@@ -31,7 +31,7 @@ public class Army {
                             return future.get();
                         } catch (InterruptedException | ExecutionException e) {
                             e.printStackTrace();
-                            return 0;
+                            return -1;
                         }
                     })
                     .sum();

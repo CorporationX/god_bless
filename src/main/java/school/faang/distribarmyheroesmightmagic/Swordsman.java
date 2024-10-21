@@ -1,15 +1,8 @@
 package school.faang.distribarmyheroesmightmagic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Swordsman implements Unit {
-    private int power;
-
-    @Override
-    public int getPower() {
-        return power;
+public class Swordsman extends Unit {
+    public Swordsman(int power) {
+        super(power);
     }
 }
+

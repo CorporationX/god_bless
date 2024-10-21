@@ -1,15 +1,7 @@
 package school.faang.distribarmyheroesmightmagic;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-
-@Getter
-@AllArgsConstructor
-public class Archer implements Unit {
-    private int power;
-
-    @Override
-    public int getPower() {
-        return power;
+public class Archer extends Unit {
+    public Archer(int power) {
+        super(power);
     }
 }
