@@ -1,37 +1,32 @@
 package mod1sp3.tamagotchiVlad;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 public class Main {
+
+    public static final int THREAD_AMOUNT = 10;
 
     public static void main(String[] args) throws InterruptedException {
         VladController vladController = new VladController();
-
         TamagotchiVlad firstVlad = new TamagotchiVlad();
         TamagotchiVlad secondVlad = new TamagotchiVlad();
-
         vladController.addNewTamogotchi(firstVlad);
         vladController.addNewTamogotchi(secondVlad);
 
-        firstVlad.updateStatus();
-        System.out.println();
-        secondVlad.updateStatus();
+        ExecutorService executorService = Executors.newFixedThreadPool(THREAD_AMOUNT);
+        executorService.execute(vladController::playAll);
+        executorService.execute(vladController::cleanAll);
+        executorService.execute(vladController::sleepAll);
+        executorService.execute(vladController::feedAll);
 
-        Thread firstThread = new Thread(vladController::playAll);
-        Thread secondThread = new Thread(vladController::cleanAll);
-        Thread thirdThread = new Thread(vladController::feedAll);
-        Thread fourthThread = new Thread(vladController::sleepAll);
-
-        firstThread.start();
-        secondThread.start();
-        thirdThread.start();
-        fourthThread.start();
-
-        firstThread.join();
-        secondThread.join();
-        thirdThread.join();
-        fourthThread.join();
-
-        firstVlad.updateStatus();
-        System.out.println();
-        secondVlad.updateStatus();
+        try {
+            if (executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e.getMessage(), e);
+        }
     }
 }

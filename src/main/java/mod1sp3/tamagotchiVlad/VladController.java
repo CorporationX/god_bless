@@ -1,8 +1,11 @@
 package mod1sp3.tamagotchiVlad;
 
+import lombok.Data;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 public class VladController {
     private final List<TamagotchiVlad> tamagotchiVladList = new ArrayList<>();
 
