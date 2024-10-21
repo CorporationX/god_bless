@@ -18,16 +18,11 @@ public class Main {
         CompletableFuture<Player> player2Quest1 = questSystem.startQuest(player2, mediumQuest);
         CompletableFuture<Player> player3Quest1 = questSystem.startQuest(player3, hardQuest);
         CompletableFuture<Player> player4Quest1 = questSystem.startQuest(player4, easyQuest);
-        CompletableFuture<Player> player1Quest2 = questSystem.startQuest(player1, mediumQuest);
-        CompletableFuture<Player> player2Quest2 = questSystem.startQuest(player2, easyQuest);
-        CompletableFuture<Player> player4Quest2 = questSystem.startQuest(player4, hardQuest);
 
         player1Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player3Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player4Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player1Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player4Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        questSystem.shutdown();
     }
 }
