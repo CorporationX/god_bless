@@ -1,9 +1,11 @@
 package school.faang.BJS2_35991_FeedPeterGriffin;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+@Slf4j
 @AllArgsConstructor
 public class FoodDeliveryTask implements Runnable {
     private static final int MILLISECONDS_IN_SECOND = 1000;
@@ -18,16 +20,20 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         String food = getFoodType();
         int sleepTime = ThreadLocalRandom.current().nextInt(MIN_SLEEP_TIME_SECONDS, MAX_SLEEP_TIME_SECONDS + 1) * MILLISECONDS_IN_SECOND;
-        System.out.printf("%s gets %d in amount of %s.\n", character, foodAmount, food);
+        log.info("{} gets {} in amount of {}.", character, foodAmount, food);
         try {
             Thread.sleep(sleepTime);
         } catch (InterruptedException e) {
+            log.error(
+                    String.format("The thread %s was interrupted while its execution!", Thread.currentThread().getName()),
+                    e
+            );
             throw new IllegalStateException(
                     String.format("The thread %s was interrupted while its execution!", Thread.currentThread().getName()),
                     e
             );
         }
-        System.out.printf("%s eats %d in amount of %s.\n", character, foodAmount, food);
+        log.info("{} eats {} in amount of {}.", character, foodAmount, food);
     }
 
     private String getFoodType() {
