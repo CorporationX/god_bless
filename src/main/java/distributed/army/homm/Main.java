@@ -7,9 +7,10 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         List<Unit> units = new ArrayList<>();
 
-        addUnits(units, Archer.class, 25, 2);
-        addUnits(units, Swordsman.class, 50, 3);
-        addUnits(units, Mage.class, 75, 1);
+        Object[][] unitParams = {{Archer.class, 25, 2}, {Swordsman.class, 50, 3}, {Mage.class, 75, 1}};
+        for (Object[] parameter : unitParams) {
+            addUnits(units, (Class<? extends Unit>) parameter[0], (int) parameter[1], (int) parameter[2]);
+        }
 
         Army army = new Army(units);
         int totalPower = army.calculateTotalPower();
