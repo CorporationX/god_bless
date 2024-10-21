@@ -1,7 +1,7 @@
-package school.faang.BlockSpotify;
+package school.faang.blockSpotify;
 
 public class Player {
-    static final Object lock = new Object();
+    private final Object lock = new Object();
 
     private boolean isPlaying = false;
 

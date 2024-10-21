@@ -1,4 +1,4 @@
-package school.faang.BlockSpotify;
+package school.faang.blockSpotify;
 
 import java.util.ArrayList;
 import java.util.List;
