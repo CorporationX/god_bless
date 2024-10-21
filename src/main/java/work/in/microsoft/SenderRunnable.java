@@ -9,8 +9,14 @@ public class SenderRunnable implements Runnable {
 
     @Override
     public void run() {
-        for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("Mail sent: " + i);
+        try {
+            for (int i = startIndex; i < endIndex; i++) {
+                System.out.println("Mail sent: " + i);
+            }
+        } catch (Exception e) {
+            System.err.println("Exception " + e + ", startIndex: " + startIndex + ", endIndex: " + endIndex);
+            e.printStackTrace();
         }
+
     }
 }
