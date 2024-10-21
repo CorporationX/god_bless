@@ -11,6 +11,9 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Game {
 
+    private static final double PROBABILITY_OF_GETTING_POINTS = 0.5;
+    private static final double PROBABILITY_OF_LOOSING_LIFE = 0.3;
+
     private final List<Bro> bros;
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
@@ -45,8 +48,8 @@ public class Game {
    }
 
    private void update(Bro bro) {
-        boolean isAddedScore = Math.random() > 0.5;
-        boolean isLostLife = Math.random() > 0.7;
+        boolean isAddedScore = Math.random() < PROBABILITY_OF_GETTING_POINTS;
+        boolean isLostLife = Math.random() < PROBABILITY_OF_LOOSING_LIFE;
 
         if (isAddedScore) {
             log.info("{} added score", bro);
