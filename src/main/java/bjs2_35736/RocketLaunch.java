@@ -25,7 +25,7 @@ public class RocketLaunch {
                     Thread.sleep(launch.getLaunchTime());
                     launch.launch();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("имитируем логирование");
                 }
             });
         }
@@ -41,7 +41,8 @@ public class RocketLaunch {
     }
 
     private void launch() throws InterruptedException {
-        Thread.sleep(1000);
+        long millisToSleep = 1000;
+        Thread.sleep(millisToSleep);
         System.out.printf("Rocket %s was launched!\n", name);
     }
 }
