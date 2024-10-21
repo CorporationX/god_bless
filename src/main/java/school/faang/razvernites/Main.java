@@ -1,6 +1,6 @@
 package school.faang.razvernites;
 
-import static school.faang.Example.reverse;
+import static school.faang.razvernites.Example.reverse;
 
 public class Main {
     public static void main(String[] args) {
