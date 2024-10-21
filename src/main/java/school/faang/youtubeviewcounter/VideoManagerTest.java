@@ -23,5 +23,15 @@ public class VideoManagerTest {
                 });
             }
         }
+
+        executorService.shutdown();
+        try {
+            if (!executorService.awaitTermination(1, TimeUnit.MINUTES)) {
+                executorService.shutdownNow(); // Force shutdown if tasks are not completed within 1 minute
+            }
+        } catch (InterruptedException e) {
+            executorService.shutdownNow();
+            Thread.currentThread().interrupt();
+        }
     }
 }
