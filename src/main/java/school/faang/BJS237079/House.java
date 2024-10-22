@@ -15,7 +15,7 @@ public class House {
         this.availableRoleCount = roles.size();
     }
 
-    public synchronized String addRole() {
+    public String addRole() {
         if (!availableRoles.isEmpty()) {
             String role = availableRoles.remove(availableRoles.size() - 1);
             availableRoleCount--;
@@ -24,13 +24,13 @@ public class House {
         return null;
     }
 
-    public synchronized void removeRole(String role) {
+    public void removeRole(String role) {
         availableRoles.add(role);
         availableRoleCount ++;
         notifyAll();
     }
 
-    public synchronized int getAvailableRolesInHouse() {
+    public int getAvailableRolesInHouse() {
         return availableRoleCount;
     }
 }

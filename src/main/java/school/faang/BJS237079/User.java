@@ -9,13 +9,14 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House house) throws InterruptedException {
-            while (house.getAvailableRoleCount() == 0) {
-                System.out.println(name + " ждет, пока освободиться роль в доме");
-                house.wait();
-            }
+    public void joinHouse(House house) throws InterruptedException {
+           synchronized (house) {
+               while (house.getAvailableRoleCount() == 0) {
+                   System.out.println(name + " ждет, пока освободиться роль в доме");
+                   house.wait();
+               }
+           }
             role = house.addRole();
-
             if (role != null) {
                 System.out.println(name + " выбрал роль: " + role);
             }
