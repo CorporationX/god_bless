@@ -20,7 +20,7 @@ public class Tournament {
                 calculationAndScoringOfTaskDifficulty(school, task);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                log.error("A sleeping thread is interrupted by another thread: ", e);
+                log.error("A sleeping thread is interrupted by another thread: {}", e);
             }
             return school;
         }, executor);
@@ -48,10 +48,10 @@ public class Tournament {
         if (random.nextBoolean()) {
             school.getTeam()
                     .forEach(student -> student.addPoints(task.getReward()));
-            System.out.println("The " + school.getName() + " team is doing the " + task.getName() + " task" +
-                    " and earns " + school.getTotalPoints() + " points");
+            log.info("The {} team is doing the {} task" +
+                    " and earns {} points", school.getName(), task.getName(), school.getTotalPoints());
         } else {
-            System.out.println("The " + school.getName() + " team failed to complete the task " + task.getName());
+            log.info("The {} team failed to complete the task {}", school.getName(), task.getName());
         }
     }
 

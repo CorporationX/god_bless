@@ -1,8 +1,11 @@
 package school.faang.triwizardtournament;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
     public static void main(String[] args) {
         Tournament tournament = new Tournament();
@@ -29,11 +32,11 @@ public class Main {
             int hogwartPoints = hogwarts.getTotalPoints();
             int beauxbatonsPoints = beauxbatons.getTotalPoints();
             if (hogwartPoints > beauxbatonsPoints) {
-                System.out.println("The " + hogwarts.getName() + " team won with a total of " + hogwartPoints +
-                        " points! Congratulations to the winner!");
+                log.info("The {} team won with a total of {} points! Congratulations to the winner!",
+                        hogwarts.getName(), hogwartPoints);
             } else {
-                System.out.println("The " + beauxbatons.getName() + " team won with a total of " + hogwartPoints +
-                        " points! Congratulations to the winner!");
+                log.info("The {} team won with a total of {} points! Congratulations to the winner!",
+                        beauxbatons.getName(), beauxbatonsPoints);
             }
         });
         tournament.shutdown();
