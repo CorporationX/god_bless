@@ -1,7 +1,7 @@
 package school.faang.sprint3.workinmicrosoft;
 
 public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         int totalMassages = 1000;
         int threadCount = 5;
         int batchSize = totalMassages / threadCount;
@@ -14,7 +14,11 @@ public class MailSender {
             threads[i].start();
         }
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
         System.out.println("Все письмо отправлены");
     }
