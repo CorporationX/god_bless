@@ -3,8 +3,9 @@ package school.faang.wow;
 import java.util.concurrent.*;
 
 public class QuestSystem {
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
+
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
         CompletableFuture<Player> completableFuture = CompletableFuture
                 .supplyAsync(() -> {
                     System.out.println("Квест " + quest.getName() + " начался...");
