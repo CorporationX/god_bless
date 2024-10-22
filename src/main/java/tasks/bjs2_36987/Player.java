@@ -15,8 +15,8 @@ public class Player {
     private static final int MAX_DELAY = 10000;
     private String name;
 
-    public void startBattle(Boss boss) {
-        boss.joinBattle(this);
+    public void startBattle(Game game) {
+        game.joinBattle(this);
         System.out.println(name + " вступил в сражение с боссом");
 
         try {
@@ -25,7 +25,7 @@ public class Player {
             throw new IllegalStateException("В процессе выполнения произошла ошибка : " + e.getMessage());
         }
 
-        boss.leaveBattle(this);
+        game.leaveBattle(this);
         System.out.println(name + " погиб в сражение с боссом");
     }
 }
