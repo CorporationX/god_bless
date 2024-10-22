@@ -2,12 +2,14 @@ package school.faang.program_spacex_BJS2_36267;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @Getter
 @AllArgsConstructor
 public class RacketLaunch {
@@ -15,10 +17,11 @@ public class RacketLaunch {
     private int launchTime;
 
     public void launch() {
+        final int SLEEP_TIME = 1000;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(SLEEP_TIME);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
+            log.warn("Thread sleep interrupted for rocket: {}", name, e);
         }
         System.out.printf("Rocket: %s is launching\n", name);
     }
@@ -31,7 +34,7 @@ public class RacketLaunch {
             try {
                 Thread.sleep(racketLaunch.getLaunchTime());
             } catch (InterruptedException e) {
-                throw new RuntimeException(e.getMessage());
+                log.warn("Thread sleep interrupted ", e);
             }
             executorService.execute(racketLaunch::launch);
         }
@@ -53,7 +56,7 @@ public class RacketLaunch {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e.getMessage());
+            log.warn("Thread interrupted ", e);
         }
     }
 }
