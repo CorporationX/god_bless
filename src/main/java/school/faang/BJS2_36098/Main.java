@@ -35,7 +35,7 @@ public class Main {
 
         executor.schedule(() -> {
             if (!executor.isShutdown()) {
-                executor.shutdown();
+                executor.shutdownNow();
                 System.out.println("Принудительное завершение работы через 2 минуты.");
             }
 
