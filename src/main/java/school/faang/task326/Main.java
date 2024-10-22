@@ -29,11 +29,11 @@ public class Main {
         ExecutorService service = Executors.newFixedThreadPool(5);
 
         Stream.of(firstUser, secondUser, thirdUser)
-                .forEach(U -> service.submit(() -> {
+                .forEach(user -> service.submit(() -> {
                     try {
-                        U.joinHouse(targaryen);
+                        user.joinHouse(targaryen);
                         Thread.sleep(3000);
-                        U.leaveHouse();
+                        user.leaveHouse();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
