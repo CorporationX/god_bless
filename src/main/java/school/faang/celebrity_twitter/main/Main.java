@@ -18,10 +18,8 @@ public class Main {
         CompletableFuture<Void> future5 = subscriptionSystem.followAccount(account);
 
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(future1, future2, future3, future4, future5)
-                        .thenRun(() -> System.out.println("количество подписчиков у " + account.getUsername() +
-                                " " + account.getFolowers()));
-
-
+                .thenRun(() -> System.out.println("количество подписчиков у " + account.getUsername() +
+                        " " + account.getFolowers()));
 
         allFutures.join();
     }
