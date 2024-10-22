@@ -24,11 +24,12 @@ public class User {
         synchronized (house) {
             while (!house.isHasAvailableRoles()) {
                 try {
+                    log.info("User {} is waiting for an available role in the house {}", name, house.getName());
                     house.wait();
                 } catch (InterruptedException e) {
                     log.error(
-                            "Thread {} of user {} was interrupted when calling wait on House object",
-                            name, Thread.currentThread().getName(),
+                            "Thread {} of user {} was interrupted while waiting for an available role in the house {}.",
+                            Thread.currentThread().getName(), name, house.getName(),
                             e
                     );
                 }
@@ -38,11 +39,14 @@ public class User {
     }
 
     public void leaveHouse() {
-        if (this.house != null) {
+        if (house != null) {
             synchronized (house) {
                 house.removeRole(this);
+                log.info("User {} left the house {}, notifying others...", name, house.getName());
                 house.notify();
             }
+            house = null;
+            role = null;
         }
     }
 }
