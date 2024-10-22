@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Game {
-    private static final int GAME_STEPS = 100;
+    private static final int GAME_STEPS_LIMIT = 100;
     private static final int DEFAULT_LIVES_AMOUNT = 10;
     private static final int THREAD_POOL_SIZE = 4;
     private static final int AWAIT_TERMINATION = 10;
@@ -34,7 +34,7 @@ public class Game {
 
     public void start() {
         lives = DEFAULT_LIVES_AMOUNT;
-        for (int i = 0; i < GAME_STEPS; i++) {
+        for (int i = 0; i < GAME_STEPS_LIMIT; i++) {
             if (lives <= 0) {
                 break;
             }
