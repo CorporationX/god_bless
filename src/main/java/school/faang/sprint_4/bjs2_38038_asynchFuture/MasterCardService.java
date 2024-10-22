@@ -59,7 +59,7 @@ public class MasterCardService {
             }
         } catch (InterruptedException e) {
             log.error("An error occurred while shutting down executor.", e);
-            throw new RuntimeException();
+            throw new RuntimeException(e);
         }
     }
 }
