@@ -11,7 +11,7 @@ public class Army {
         heroes.add(hero);
     }
 
-    public int calculateTotalPower() throws InterruptedException {
+    public int calculateTotalPower(){
         AtomicInteger totalPower = new AtomicInteger();
         List<HeroPowerCalculator> threads = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                System.out.println(e.getMessage());
             }
             totalPower.addAndGet(thread.getTotalPower());
         });
