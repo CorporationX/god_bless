@@ -1,15 +1,21 @@
 package sprint_4.sprint_4_1_async_future.tournamentTriwizard_39044;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Slf4j
 public class Main {
+
     public static void main(String[] args) {
-        Tournament tournament = new Tournament(2);
+        Tournament tournament = new Tournament();
 
         // Создание школ
-        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0), new Student("Hermione", 5, 0));
-        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0), new Student("Gabrielle", 6, 0));
+        List<Student> hogwartsTeam = List.of(new Student("Harry", 5, 0),
+                new Student("Hermione", 5, 0));
+        List<Student> beauxbatonsTeam = List.of(new Student("Fleur", 6, 0),
+                new Student("Gabrielle", 6, 0));
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
@@ -23,5 +29,9 @@ public class Main {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask);
         // Обработка результатов всех заданий и определение победителя
+        allTasks.thenRun(() -> {
+            School winSchool = hogwarts.getTotalPoints() > beauxbatons.getTotalPoints() ? hogwarts : beauxbatons;
+            log.info("{} wins the tournament", winSchool.getName());
+        }).join();
     }
 }
