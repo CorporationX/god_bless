@@ -4,8 +4,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Game {
-    public final Object scoreLock = new Object();
-    public final Object livesLock = new Object();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
 
     private int score = 0;
     private int lives = 10;
@@ -16,14 +16,14 @@ public class Game {
                 score++;
                 log.info("Earn point:{}", score);
             }
-            synchronized (livesLock) {
-                if (looseLive) {
-                    lives--;
-                    log.info("Loose live:{}", lives);
-                }
-            }
-            gameOver();
         }
+        synchronized (livesLock) {
+            if (looseLive) {
+                lives--;
+                log.info("Loose live:{}", lives);
+            }
+        }
+        gameOver();
     }
 
     private void gameOver() {
