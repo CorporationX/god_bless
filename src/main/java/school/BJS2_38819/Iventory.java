@@ -19,12 +19,13 @@ public class Iventory {
     public CompletableFuture<Item> combineItems(CompletableFuture<Item> item1, CompletableFuture<Item> item2) {
         System.out.println("Предмет для комбинирования 1: " + item1.join().getName());
         System.out.println("Предмет для комбинирования 2: " + item2.join().getName());
-        return item1.thenCombine(item2, (x, y) -> new Item("Супер пупер крутетсткая штука", x.getPower() + y.getPower()));
+        return item1.thenCombine(item2, (itemToCombine1, itemToCombine2) -> new Item("Супер пупер крутетсткая штука",
+                itemToCombine1.getPower() + itemToCombine2.getPower()));
     }
 
     public void addNewItem(CompletableFuture<Item> newItem) {
-        newItem.thenCompose(item -> CompletableFuture.runAsync(() -> addItem(item))).join();
-        System.out.println("Добавлен предмет: " + newItem.join().getName());
+        newItem.thenCompose(item -> CompletableFuture.runAsync(() -> addItem(item))
+                .thenAccept(result -> System.out.println("Добавлен предмет: " + item.getName())));
     }
 
     public CompletableFuture<Item> getItemFromChest() {
