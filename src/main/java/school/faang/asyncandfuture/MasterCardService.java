@@ -6,9 +6,9 @@ import java.util.concurrent.*;
 
 @Data
 public class MasterCardService {
+    private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     public void doAll() throws ExecutionException, InterruptedException, TimeoutException {
-        ExecutorService executorService = Executors.newFixedThreadPool(3);
         Future<Integer> payment = executorService.submit(MasterCardService::collectPayment);
         CompletableFuture<Integer> analytic = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executorService);
 
