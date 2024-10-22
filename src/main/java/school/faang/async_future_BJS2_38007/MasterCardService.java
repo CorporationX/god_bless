@@ -14,24 +14,23 @@ public class MasterCardService {
     }
 
     private int collectPayment() {
-        int emulation_execution = 10_000;
+        final int TIME_EXECUTION_PAYMENT = 10_000;
         try {
-            Thread.sleep(emulation_execution);
+            Thread.sleep(TIME_EXECUTION_PAYMENT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return emulation_execution;
+        return TIME_EXECUTION_PAYMENT;
     }
 
     private int sendAnalytics() {
-        int emulation_execution = 1000;
+        final int TIME_EXECUTION_ANALYTICS = 1000;
         try {
-            Thread.sleep(emulation_execution);
+            Thread.sleep(TIME_EXECUTION_ANALYTICS);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new RuntimeException();
         }
-        return emulation_execution;
+        return TIME_EXECUTION_ANALYTICS;
     }
 
     public void doAll() {
