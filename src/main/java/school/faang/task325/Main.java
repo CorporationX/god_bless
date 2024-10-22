@@ -12,7 +12,7 @@ public class Main {
     private static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
-        ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS);
+        ExecutorService service = Executors.newFixedThreadPool(NUM_THREADS/NUM_VIDEOS);
         for (int i = 0; i < NUM_VIDEOS; i++) {
             int finalI = i;
             for (int x = 0; x < NUM_THREADS / NUM_VIDEOS; x++) {
@@ -36,7 +36,7 @@ public class Main {
                 service.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("Потоки не завершились в отведенное время");
         }
     }
 }
