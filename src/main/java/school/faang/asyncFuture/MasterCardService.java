@@ -7,10 +7,12 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class MasterCardService {
+    private static final int TIME_TO_COLLECT_PAYMENT = 10_000;
+    private static final int TIME_TO_SEND_ANALYTICS = 1_000;
 
     public static int collectPayment(Payment payment) {
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(TIME_TO_COLLECT_PAYMENT);
             return payment.getMoneyAmount();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -20,7 +22,7 @@ public class MasterCardService {
 
     public static void sendAnalytics(List<Payment> payments) {
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(TIME_TO_SEND_ANALYTICS);
             Map<String, Double> avgMoney = payments.stream()
                     .collect(Collectors.groupingBy(Payment::getType,
                             Collectors.averagingDouble(Payment::getMoneyAmount)));
