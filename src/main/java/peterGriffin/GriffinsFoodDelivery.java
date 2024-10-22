@@ -21,7 +21,7 @@ public class GriffinsFoodDelivery {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new IllegalStateException(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
     }
 }

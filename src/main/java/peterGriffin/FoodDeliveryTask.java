@@ -15,16 +15,18 @@ public class FoodDeliveryTask implements Runnable {
     public void run() {
         String foodType = getFoodType();
         System.out.println(character + " получает " + foodAmount + " " + foodType);
+        int randomDelay = new Random().nextInt(1,5) * 1000;
         try {
-            Thread.sleep(new Random().nextInt(1, 6) * 1000L);
+            Thread.sleep(randomDelay);
         } catch (InterruptedException e) {
-            throw new IllegalStateException(e.getMessage(), e);
+            throw new RuntimeException(e);
         }
         System.out.println(character + " ест " + foodAmount + " " + foodType);
     }
 
     public String getFoodType() {
         String[] foodTypes = {"pizza", "burger", "hot dog", "chicken wings", "taco"};
-        return foodTypes[new Random().nextInt(foodTypes.length)];
+        int randomFoodType = new Random().nextInt(foodTypes.length);
+        return foodTypes[randomFoodType];
     }
 }
