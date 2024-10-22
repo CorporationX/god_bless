@@ -1,10 +1,9 @@
 package school.faang_sprint_3.army_of_heroes_sword_magic;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+@Getter
 public class PowerCalculator implements Runnable {
-
     private final Unit unit;
     private int power;
 

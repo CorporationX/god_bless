@@ -1,14 +1,11 @@
 package school.faang_sprint_3.army_of_heroes_sword_magic;
 
-import lombok.Data;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@Data
 public class Army {
-    private List<Unit> units = new ArrayList<>();
+    private final List<Unit> units = new ArrayList<>();
 
     public void addUnit(Unit unit) {
         units.add(unit);

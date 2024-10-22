@@ -1,9 +1,7 @@
 package school.faang_sprint_3.army_of_heroes_sword_magic;
 
 public class Main {
-
     public static void main(String[] args) throws InterruptedException {
-
         Army army = new Army();
         army.addUnit(new Archer(25));
         army.addUnit(new Archer(25));
