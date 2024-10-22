@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -15,12 +16,19 @@ public class MasterCardService {
     private static final long WAIT_TIME_COLLECT_PAYMENT = 10_000;
     private static final long WAIT_TIME_SEND_ANALYTICS = 1_000;
     private static final int COUNT_THREADS_POOL = 2;
+    private static final long WAIT_TIME_TERMINATION = 60;
 
     public void doAll() {
         ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREADS_POOL);
         Future<Integer> future_1 =  executor.submit(this::collectPayment);
-        CompletableFuture.supplyAsync(this::sendAnalytics)
-                .thenAccept(num -> LOG.info("Analytics sent: {}", num));
+        CompletableFuture<Integer> future_2 =  CompletableFuture.supplyAsync(this::sendAnalytics);
+
+        try {
+            int numAnalytic = future_2.join();
+            LOG.info("Analytics sent: {}", numAnalytic);
+        }catch (CompletionException e){
+            LOG.warn("Analytics don't sent, error: {}", e.getMessage());
+        }
 
         try {
             int payment = future_1.get();
@@ -31,12 +39,13 @@ public class MasterCardService {
 
         executor.shutdown();
         try {
-            if(!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+            if(!executor.awaitTermination(WAIT_TIME_TERMINATION, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
-                LOG.info("MasterCardService is completed");
+                LOG.warn("Executor did not terminate in the specified time: {} seconds", WAIT_TIME_TERMINATION);
             }
         } catch (InterruptedException e) {
             executor.shutdownNow();
+            LOG.warn("Executor interrupted during termination.");
         }
     }
 
