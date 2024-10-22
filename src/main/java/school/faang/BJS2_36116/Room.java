@@ -10,6 +10,11 @@ import java.util.List;
 @NoArgsConstructor
 public class Room {
     private List<Food> foodList = new ArrayList<>();
+    private int id;
+
+    public Room(int id) {
+        this.id = id;
+    }
 
     public void addFood(Food food) {
         foodList.add(food);
