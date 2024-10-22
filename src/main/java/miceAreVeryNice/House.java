@@ -16,13 +16,16 @@ public class House {
     }
 
     private void processRandomRoom() {
-        Room room = rooms.get(new Random().nextInt(rooms.size()));
-        collectedFoods.addAll(room.getFoods());
-        room.clearFoods();
+        if (!rooms.isEmpty()) {
+            Room room = rooms.get(new Random().nextInt(rooms.size()));
+            collectedFoods.addAll(room.collectFood());
+        }
     }
 
     public void addRoom(Room room) {
-        rooms.add(room);
+        if (!rooms.isEmpty()) {
+            rooms.add(room);
+        }
     }
 
 }
