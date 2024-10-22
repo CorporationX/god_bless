@@ -56,7 +56,7 @@ public class Game {
 
     private void update(boolean isGotScore, boolean isLostLife) {
         synchronized (scoreLock) {
-            if (isGotScore) {
+            if (isGotScore && lives > 0) {
                 log.info("The score has been increased by 1!");
                 score++;
             }
