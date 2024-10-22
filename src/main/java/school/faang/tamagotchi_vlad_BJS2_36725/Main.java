@@ -7,17 +7,18 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         final int AWAITING_TIME = 3;
+        final int TAMAGOCHIES_QUANTITY = 7;
 
         VladController controller  = new VladController();
-        controller.addTamagochi(new TamagochiVlad());
-        controller.addTamagochi(new TamagochiVlad());
-        controller.addTamagochi(new TamagochiVlad());
-        controller.addTamagochi(new TamagochiVlad());
+
+        for (int i = 0; i < TAMAGOCHIES_QUANTITY; i++) {
+            controller.addTamagochi(new TamagochiVlad("Vlad " + i));
+        }
 
         ExecutorService executorService = Executors.newCachedThreadPool();
+
         executorService.submit(controller::feedAllTamagochi);
         executorService.submit(controller::playAllTamagochi);
-        executorService.submit(() -> controller.addTamagochi(new TamagochiVlad()));
         executorService.submit(controller::cleanAllTamagochi);
         executorService.submit(() -> controller.deleteTamagochi(controller.getAllTamagochies().get(0)));
         executorService.submit(controller::sleepAllTamagochi);
