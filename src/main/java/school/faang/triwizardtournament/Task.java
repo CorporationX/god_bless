@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class Task {
     private String name;
-    private String difficulty;
+    private DifficultyLevels difficulty;
     private int reward;
 }

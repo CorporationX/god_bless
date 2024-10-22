@@ -28,15 +28,15 @@ public class Tournament {
 
     public void calculationAndScoringOfTaskDifficulty(School school, Task task) throws InterruptedException {
         switch (task.getDifficulty()) {
-            case "Easy":
+            case EASY:
                 Thread.sleep(EASY_DIFFICULTY);
                 isTeamCompletedTask(school, task);
                 break;
-            case "Medium":
+            case MEDIUM:
                 Thread.sleep(MEDIUM_DIFFICULTY);
                 isTeamCompletedTask(school, task);
                 break;
-            case "Hard":
+            case HARD:
                 Thread.sleep(HARD_DIFFICULTY);
                 isTeamCompletedTask(school, task);
                 break;

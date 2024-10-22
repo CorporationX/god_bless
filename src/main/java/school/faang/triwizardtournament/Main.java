@@ -15,9 +15,9 @@ public class Main {
         School hogwarts = new School("Hogwarts", hogwartsTeam);
         School beauxbatons = new School("Beauxbatons", beauxbatonsTeam);
 
-        Task task1 = new Task("Fighting the Dragon", "Easy", 50);
-        Task task2 = new Task("Rescuing a prisoner underwater", "Medium", 100);
-        Task task3 = new Task("Passing the Labyrinth ", "Hard", 150);
+        Task task1 = new Task("Fighting the Dragon", DifficultyLevels.EASY, 50);
+        Task task2 = new Task("Rescuing a prisoner underwater", DifficultyLevels.MEDIUM, 100);
+        Task task3 = new Task("Passing the Labyrinth ", DifficultyLevels.HARD, 150);
 
         CompletableFuture<School> hogwartsTask1 = tournament.startTask(hogwarts, task1);
         CompletableFuture<School> beauxbatonsTask1 = tournament.startTask(beauxbatons, task1);
