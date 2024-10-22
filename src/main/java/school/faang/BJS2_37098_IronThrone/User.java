@@ -1,18 +1,13 @@
 package school.faang.BJS2_37098_IronThrone;
 
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
 public class User {
     private String name;
-
-    @Setter
     private House house;
-
-    @Setter
     private String role;
 
     public User(String name) {
@@ -34,7 +29,8 @@ public class User {
                     );
                 }
             }
-            house.addRole(this);
+            role = house.addRole(this);
+            this.house = house;
         }
     }
 

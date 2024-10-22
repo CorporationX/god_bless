@@ -22,12 +22,11 @@ public class House {
         return !availableRoles.isEmpty();
     }
 
-    public void addRole(User user) {
+    public String addRole(User user) {
         int randomRoleIndex = ThreadLocalRandom.current().nextInt(availableRoles.size());
         String randomAvailableRole = availableRoles.remove(randomRoleIndex);
-        user.setRole(randomAvailableRole);
-        user.setHouse(this);
         log.info("User {} has joined house {} as role {}", user.getName(), name, randomAvailableRole);
+        return randomAvailableRole;
     }
 
     public void removeRole(User user) {
