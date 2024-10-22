@@ -1,17 +1,29 @@
 package youWorkMicrosoft;
 
-public class MailSender {
-    public static void main(String[] args) throws InterruptedException {
-        Thread thread1 = new Thread(new SenderRunnable(1, 200));
-        Thread thread2 = new Thread(new SenderRunnable(201, 400));
-        Thread thread3 = new Thread(new SenderRunnable(401, 600));
-        Thread thread4 = new Thread(new SenderRunnable(601, 800));
-        Thread thread5 = new Thread(new SenderRunnable(801, 1000));
+import java.util.ArrayList;
+import java.util.List;
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
+public class MailSender {
+    private static final List<Thread> THREADS = new ArrayList<>();
+
+    public static void main(String[] args) {
+        int countThread = 5;
+        int numbedMessages = 1000000;
+
+        for (int i = 0; i < countThread; i++) {
+            int range = numbedMessages / countThread;
+            SenderRunnable senderRunnable = new SenderRunnable(i * range + 1, (i + 1) * range);
+            Thread thread = new Thread(senderRunnable);
+            THREADS.add(thread);
+            thread.start();
+        }
+
+        THREADS.forEach(thread -> {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        });
     }
 }
