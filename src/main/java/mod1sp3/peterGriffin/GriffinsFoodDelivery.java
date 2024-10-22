@@ -1,4 +1,4 @@
-package peterGriffin;
+package mod1sp3.peterGriffin;
 
 import java.util.Arrays;
 import java.util.Random;

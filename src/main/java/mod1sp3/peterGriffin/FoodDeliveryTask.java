@@ -1,4 +1,4 @@
-package peterGriffin;
+package mod1sp3.peterGriffin;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
