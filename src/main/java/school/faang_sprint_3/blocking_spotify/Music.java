@@ -1,17 +1,18 @@
 package school.faang_sprint_3.blocking_spotify;
 
+import java.util.concurrent.Executors;
+
 public class Music {
+    public static final int THREAD_POOL_SIZE = 4;
 
     public static void main(String[] args) {
-        Player player = new Player();
-        var thread1 = new Thread(player::play);
-        var thread2 = new Thread(player::pause);
-        var thread3 = new Thread(player::skip);
-        var thread4 = new Thread(player::previous);
+        var player = new Player();
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
+        var threadPool = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
+        threadPool.submit(player::play);
+        threadPool.submit(player::pause);
+        threadPool.submit(player::skip);
+        threadPool.submit(player::previous);
+        threadPool.shutdown();
     }
 }

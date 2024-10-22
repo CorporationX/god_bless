@@ -1,8 +1,5 @@
 package school.faang_sprint_3.blocking_spotify;
 
-import lombok.Data;
-
-@Data
 public class Player {
 
     private final Object lock = new Object();
