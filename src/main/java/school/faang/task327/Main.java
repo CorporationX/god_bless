@@ -11,27 +11,17 @@ public class Main {
     public static void main(String[] args) {
         VladController vladController = new VladController();
 
-        TamagotchiVlad firstVlad = new TamagotchiVlad("Vlad 1");
-        TamagotchiVlad secondVlad = new TamagotchiVlad("Vlad 2");
-
-        vladController.addVlad(firstVlad);
-        vladController.addVlad(secondVlad);
+        for (int i = 0; i < 25; i++) {
+            vladController.addVlad(new TamagotchiVlad("vlad" + i));
+        }
 
         ExecutorService service = Executors.newFixedThreadPool(5);
 
-        service.submit(firstVlad::sleep);
-        service.submit(firstVlad::play);
-        service.submit(() -> System.out.println(firstVlad.getName() + " " + firstVlad.getState()));
+        service.execute(vladController::sleepAll);
+        service.execute(vladController::cleanAll);
+        service.execute(vladController::feedAll);
+        service.execute(vladController::cleanAll);
 
-        service.submit(secondVlad::clean);
-        service.submit(secondVlad::feed);
-        service.submit(() -> System.out.println(secondVlad.getName() + " " + secondVlad.getState()));
-
-        service.submit(() -> {
-            vladController.sleepAll();
-            System.out.println(firstVlad.getName() + " " + firstVlad.getState());
-            System.out.println(secondVlad.getName() + " " + secondVlad.getState());
-        });
         service.shutdown();
 
         try {
