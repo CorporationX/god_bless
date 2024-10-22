@@ -3,7 +3,6 @@ package school.faang.BJS2_36827;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -26,7 +25,7 @@ public class WeasleyFamily {
         ExecutorService threadPool = Executors.newCachedThreadPool();
 
         for(Chore chore:choreList){
-            threadPool.submit(chore::run);
+            threadPool.submit(chore);
         }
         threadPool.shutdown();
     }
