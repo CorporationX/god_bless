@@ -1,11 +1,11 @@
 package school.faang.multithreading.blockingSpotify;
 
 public class Player {
-    private final Object LOCK = new Object();
+    private final Object lock = new Object();
     private boolean isPlaying = false;
 
     public void play() {
-        synchronized (LOCK) {
+        synchronized (lock) {
             if (!isPlaying) {
                 isPlaying = true;
                 System.out.println("Player is playing");
@@ -17,7 +17,7 @@ public class Player {
     }
 
     public void pause() {
-        synchronized (LOCK) {
+        synchronized (lock) {
             if (isPlaying) {
                 isPlaying = false;
                 System.out.println("Player is paused");
@@ -28,13 +28,13 @@ public class Player {
     }
 
     public void skip() {
-        synchronized (LOCK) {
+        synchronized (lock) {
             System.out.println("Song is skipped");
         }
     }
 
     public void previous() {
-        synchronized (LOCK) {
+        synchronized (lock) {
             System.out.println("Song is previous");
         }
     }
