@@ -32,10 +32,10 @@ public class ChatManager {
     public synchronized void endChat(User user) {
         Optional<Chat> chatOptional = chats.stream().filter(chat -> chat.user1().equals(user)).findFirst();
         chatOptional.ifPresent(chat -> {
-            chats.remove(chatOptional.get());
-            chatOptional.get().user1().setLookingForChat(true);
-            chatOptional.get().user2().setLookingForChat(true);
-            log.info("{} and {} end chatting", user.getName(), chatOptional.get().user2().getName());
+            chats.remove(chat);
+            chat.user1().setLookingForChat(true);
+            chat.user2().setLookingForChat(true);
+            log.info("{} and {} end chatting", user.getName(), chat.user2().getName());
             notifyAll();
         });
     }
