@@ -10,7 +10,6 @@ public class QuestSystem {
                 Thread.sleep(quest.getDifficulty() * 1000L);
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                throw new RuntimeException(e);
             }
             return player;
         });
