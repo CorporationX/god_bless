@@ -14,7 +14,7 @@ public class Main {
             String videoId = "video" + i;
             for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
                 service.submit(() -> {
-                    videoManager.addView(videoId); // Добавляем просмотр
+                    videoManager.addView(videoId);
                     System.out.println("Video " + videoId + " views: " + videoManager.getViewCount(videoId));
                 });
             }
