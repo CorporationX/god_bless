@@ -14,6 +14,7 @@ public class WeasleyFamily {
         for (String chore : chores) {
             executor.execute(new Chore(chore));
         }
+
         executor.shutdown();
 
         try {
