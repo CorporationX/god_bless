@@ -1,91 +1,18 @@
 package org.example.model.powerOfTheArmy;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        List<Warrior> warriors = List.of(
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69),
-                new Archer(20), new Swordsman(50), new Mage(60),
-                new Archer(22), new Swordsman(55), new Mage(66),
-                new Archer(24), new Swordsman(60), new Mage(63),
-                new Archer(26), new Swordsman(51), new Mage(43),
-                new Archer(20), new Swordsman(53), new Mage(52),
-                new Archer(22), new Swordsman(51), new Mage(59),
-                new Archer(24), new Swordsman(53), new Mage(64),
-                new Archer(26), new Swordsman(57), new Mage(60),
-                new Archer(24), new Swordsman(58), new Mage(67),
-                new Archer(25), new Swordsman(50), new Mage(69)
-        );
+        List<Warrior> warriors = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Random random = new Random();
+            warriors.add(new Archer(random.nextInt(100)));
+            warriors.add(new Swordsman(random.nextInt(100)));
+            warriors.add(new Mage(random.nextInt(100)));
+        }
         Army army = new Army(warriors);
 
         System.out.println(army.calculateTotalPower());

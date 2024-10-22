@@ -29,7 +29,7 @@ public class Army {
             try {
                 thread.join();
             } catch (InterruptedException e) {
-                throw new IllegalStateException(e.getMessage());
+                System.out.println(e.getMessage());
             }
         });
 
