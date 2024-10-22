@@ -17,6 +17,8 @@ public class Game {
     private int maxPlayers;
     private ScheduledExecutorService battleTask;
     private ScheduledExecutorService addingPlayerTask;
+    private final int MAX_BATTLE_TIME = 1;
+    private final TimeUnit BATTLE_TIME_UNIT = TimeUnit.MINUTES;
 
     public Game(int maxBattlingPlayers, int maxPlayers, int bossHealth) {
         this.maxBattlingPlayers = maxBattlingPlayers;
@@ -40,7 +42,7 @@ public class Game {
         game.battleTask.scheduleWithFixedDelay(game::battle, 1, 1, TimeUnit.SECONDS);
 
         try {
-            if (game.battleTask.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (game.battleTask.awaitTermination(game.MAX_BATTLE_TIME, game.BATTLE_TIME_UNIT)) {
                 game.endBattle();
                 game.showBattleResult();
             } else {
