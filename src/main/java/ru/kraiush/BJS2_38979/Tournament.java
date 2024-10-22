@@ -21,12 +21,9 @@ public class Tournament {
 
     public CompletableFuture<School> getWinningSchool(List<CompletableFuture<School>> schools) {
         return CompletableFuture.allOf(schools.toArray(new CompletableFuture[0]))
-                .thenApply(school -> {
-                    return schools.stream()
-                            .map(CompletableFuture::join)
-                            .reduce((school1, school2) -> school1.getTotalPoints() > school2.getTotalPoints() ? school1 : school2)
-                            .orElse(null);
-
-                });
+                .thenApply(school -> schools.stream()
+                        .map(CompletableFuture::join)
+                        .reduce((school1, school2) -> school1.getTotalPoints() > school2.getTotalPoints() ? school1 : school2)
+                        .orElse(null));
     }
 }
