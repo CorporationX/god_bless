@@ -14,15 +14,14 @@ public class Main {
         Player player3 = new Player("Ruslan", 10, 2450);
         Player player4 = new Player("Maksim", 3, 365);
 
-        CompletableFuture<Player> player1Quest1 = questSystem.startQuest(player1, easyQuest);
-        CompletableFuture<Player> player2Quest1 = questSystem.startQuest(player2, mediumQuest);
-        CompletableFuture<Player> player3Quest1 = questSystem.startQuest(player3, hardQuest);
-        CompletableFuture<Player> player4Quest1 = questSystem.startQuest(player4, easyQuest);
+        CompletableFuture<Void> player1Quest = questSystem.startQuest(player1, easyQuest);
+        CompletableFuture<Void> player2Quest = questSystem.startQuest(player2, mediumQuest);
+        CompletableFuture<Void> player3Quest = questSystem.startQuest(player3, hardQuest);
+        CompletableFuture<Void> player4Quest = questSystem.startQuest(player4, easyQuest);
 
-        player1Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player2Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player3Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-        player4Quest1.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
+        CompletableFuture<Void> allQuests = CompletableFuture.allOf(player1Quest, player2Quest, player3Quest, player4Quest);
+        allQuests.join();
+
         questSystem.shutdown();
     }
 }
