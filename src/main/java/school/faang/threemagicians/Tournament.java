@@ -5,10 +5,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Tournament {
+    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
 
     public CompletableFuture<School> startTask(School school, Task task){
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-
         CompletableFuture<School> completableFuture = CompletableFuture.supplyAsync(() -> {
             System.out.println("Выполнение задачи...");
             try {
