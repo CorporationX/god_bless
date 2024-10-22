@@ -1,26 +1,26 @@
 package school.faang.spotify;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class Music {
     public static void main(String[] args) {
         Player player = new Player();
-        Thread thread1 = new Thread(() -> player.play());
-        Thread thread2 = new Thread(() -> player.pause());
-        Thread thread3 = new Thread(() -> player.play());
-        Thread thread4 = new Thread(() -> player.skip());
-        Thread thread5 = new Thread(() -> player.play());
-        Thread thread6 = new Thread(() -> player.previous());
-        Thread thread7 = new Thread(() -> player.play());
-        Thread thread8 = new Thread(() -> player.play());
-        Thread thread9 = new Thread(() -> player.pause());
+        List<Thread> threads = new ArrayList<>();
 
-        thread1.start();
-        thread2.start();
-        thread3.start();
-        thread4.start();
-        thread5.start();
-        thread6.start();
-        thread7.start();
-        thread8.start();
-        thread9.start();
+        for (int i = 0; i < 5; i++) {
+            threads.add(new Thread(() -> player.play()));
+        }
+
+        threads.add(new Thread(() -> player.pause()));
+        threads.add(new Thread(() -> player.skip()));
+        threads.add(new Thread(() -> player.previous()));
+
+        Collections.shuffle(threads);
+
+        for (Thread thread : threads) {
+            thread.start();
+        }
     }
 }
