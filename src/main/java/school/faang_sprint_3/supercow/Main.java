@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        var boss = new Boss();
+        var boss = new Boss(2);
         var archer = new Player("Archer");
         var druid = new Player("Druid");
         var sorcery = new Player("Sorcery");

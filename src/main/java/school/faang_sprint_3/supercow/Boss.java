@@ -4,8 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Boss {
-    private final int maxPlayers = 2;
+    private final int maxPlayers;
     private int currentPlayersCount = 0;
+
+    public Boss(int maxPlayers) {
+        this.maxPlayers = maxPlayers;
+    }
 
     public synchronized void joinBattle(Player player) {
         if (currentPlayersCount < maxPlayers) {
