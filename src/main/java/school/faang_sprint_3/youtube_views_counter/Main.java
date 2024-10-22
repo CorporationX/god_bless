@@ -12,6 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
         var manager = new VideoManager();
+
         var threadPool = Executors.newFixedThreadPool(NUM_THREADS);
         for (int i = 0; i < NUM_VIDEOS; i++) {
             String videoId = "video-" + i;
@@ -32,7 +33,7 @@ public class Main {
             }
         } catch (InterruptedException e) {
             log.error("Main thread interrupted", e);
-            throw new ThreadInterruptException("Main thread interrupted: " + e.getMessage());
+            throw new IllegalStateException("Main thread interrupted: " + e.getMessage());
         }
     }
 
