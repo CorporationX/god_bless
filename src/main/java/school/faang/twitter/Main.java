@@ -10,12 +10,13 @@ public class Main {
         TwitterSubscriptionSystem twitterSubscriptionSystem = new TwitterSubscriptionSystem();
         TwitterAccount twitterAccount = new TwitterAccount("Star", 0);
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>();
+        List<CompletableFuture<Void>> futures = new ArrayList<>(COUNT_FOLLOWERS);
         for (int i = 0; i < COUNT_FOLLOWERS; i++) {
             futures.add(twitterSubscriptionSystem.followAccount(twitterAccount));
         }
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        twitterSubscriptionSystem.shutdown();
 
         System.out.println("Количество подписчиков: " + twitterAccount.getFollowers());
     }
