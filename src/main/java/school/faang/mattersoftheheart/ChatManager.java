@@ -17,10 +17,11 @@ public class ChatManager {
         if (user.isLookingForChat()) {
             Optional<User> companionOptional = userList.findCompanionForUser(user);
             if (companionOptional.isPresent()) {
-                log.info("{} and {} start chatting", user.getName(), companionOptional.get().getName());
-                Chat chat = new Chat(user, companionOptional.get());
+                User companion = companionOptional.get();
+                log.info("{} and {} start chatting", user.getName(), companion.getName());
+                Chat chat = new Chat(user, companion);
                 user.setLookingForChat(false);
-                companionOptional.get().setLookingForChat(false);
+                companion.setLookingForChat(false);
                 chats.add(chat);
             } else {
                 waitForChat(user);
@@ -30,13 +31,13 @@ public class ChatManager {
 
     public synchronized void endChat(User user) {
         Optional<Chat> chatOptional = chats.stream().filter(chat -> chat.user1().equals(user)).findFirst();
-        if (chatOptional.isPresent()) {
+        chatOptional.ifPresent(chat -> {
             chats.remove(chatOptional.get());
             chatOptional.get().user1().setLookingForChat(true);
             chatOptional.get().user2().setLookingForChat(true);
             log.info("{} and {} end chatting", user.getName(), chatOptional.get().user2().getName());
             notifyAll();
-        }
+        });
     }
 
     private synchronized void waitForChat(User user) {
