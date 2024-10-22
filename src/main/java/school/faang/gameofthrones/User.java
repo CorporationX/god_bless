@@ -15,7 +15,7 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(@NonNull House house, Role role) {
+    public void joinHouse(@NonNull House house, Role role) {
         synchronized (house) {
             while (house.getCurrentNumOfAvailableRoles() == 0 || !house.getAvailableRoles().contains(role)) {
                 try {
@@ -35,7 +35,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse(@NonNull House house) {
+    public void leaveHouse(@NonNull House house) {
         synchronized (house) {
             if (this.house != null && this.role != null) {
                 house.addRole(this.role);

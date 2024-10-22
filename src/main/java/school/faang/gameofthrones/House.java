@@ -16,17 +16,13 @@ public class House {
         this.currentNumOfAvailableRoles = availableRoles.size();
     }
 
-    public void addRole(Role role) {
-        synchronized (this) {
-            availableRoles.add(role);
-            currentNumOfAvailableRoles++;
-        }
+    public synchronized void addRole(Role role) {
+        availableRoles.add(role);
+        currentNumOfAvailableRoles++;
     }
 
-    public void removeRole(Role role) {
-        synchronized (this) {
-            availableRoles.remove(role);
-            currentNumOfAvailableRoles--;
-        }
+    public synchronized void removeRole(Role role) {
+        availableRoles.remove(role);
+        currentNumOfAvailableRoles--;
     }
 }
