@@ -20,21 +20,19 @@ public class OrderProcessor {
 
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Void>> futures = orders.stream()
+                .filter(order -> order.getStatus() != CANCELED)
                 .map(this::processOrder)
                 .toList();
 
-        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
-                .thenRun(() -> log.info("Processed orders: {}", totalProcessedOrders.get()))
-                .join();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0])).join();
+        log.info("Processed orders: {}", totalProcessedOrders.get());
     }
 
     public CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             sleepThread();
-            if (order.getStatus() != CANCELED) {
-                order.setStatus(PROCESSED);
-                totalProcessedOrders.incrementAndGet();
-            }
+            order.setStatus(PROCESSED);
+            totalProcessedOrders.incrementAndGet();
         });
     }
 
