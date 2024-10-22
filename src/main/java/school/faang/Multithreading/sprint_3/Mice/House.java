@@ -33,12 +33,20 @@ public class House {
             System.out.println(Thread.currentThread().getName() + " " + house.collectedFood);
         }, 0, TIME_COLLECT, TimeUnit.SECONDS);
 
-        executor.scheduleAtFixedRate(() -> {
+//        executor.scheduleAtFixedRate(() -> {
+//            if (house.isAllFoodCollected()) {
+//                executor.shutdown();
+//                System.out.println("Сбор еды завершен " + Thread.currentThread().getName() + " " + house.collectedFood);
+//            }
+//        }, 0, TiME_CHECK_ALL_FOOD, TimeUnit.SECONDS);
+
+        while (true) {
             if (house.isAllFoodCollected()) {
                 executor.shutdown();
                 System.out.println("Сбор еды завершен " + Thread.currentThread().getName() + " " + house.collectedFood);
+                break;
             }
-        }, 0, TiME_CHECK_ALL_FOOD, TimeUnit.SECONDS);
+        }
     }
 
     public void addRoom(Room room) {
