@@ -9,6 +9,7 @@ import java.time.ZoneOffset;
 @Data
 @AllArgsConstructor
 public class RocketLaunch {
+    private static final int TIME_TO_WORK = 1000;
     private String name;
     private LocalDateTime timeToStart;
 
@@ -22,11 +23,12 @@ public class RocketLaunch {
             }
             System.out.println(LocalDateTime.now() + ": Ракета " + name + " запускается " + Thread.currentThread().getName());
 
-            Thread.sleep(1000);
+            Thread.sleep(TIME_TO_WORK);
 
             System.out.println(LocalDateTime.now() + ": Ракета " + name + " запущена " + Thread.currentThread().getName());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток прерван " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 }

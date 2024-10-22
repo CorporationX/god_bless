@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
+    private static final int MAX_TIME_WORK = 200;
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
@@ -18,14 +19,15 @@ public class Main {
         executor.shutdown();
 
         try {
-            if (executor.awaitTermination(200, TimeUnit.SECONDS)) {
+            if (executor.awaitTermination(MAX_TIME_WORK, TimeUnit.SECONDS)) {
                 System.out.println("Программа завершена");
             } else {
                 System.out.println("Программа завершена принудительно");
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println("Поток прерван " + e.getMessage());
+            Thread.currentThread().interrupt();
         }
     }
 
