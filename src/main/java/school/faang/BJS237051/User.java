@@ -14,7 +14,7 @@ public class User {
         this.name = name;
     }
 
-    public synchronized void joinHouse(House newHouse) {
+    public void joinHouse(House newHouse) {
         synchronized (newHouse) {
             try {
                 while (newHouse.getAvailableRoleCount() < 1) {
@@ -31,7 +31,7 @@ public class User {
         }
     }
 
-    public synchronized void leaveHouse() {
+    public void leaveHouse() {
         synchronized (house) {
             System.out.println(name + " отрекается от дома и роли " + role);
             house.removeRole(role);

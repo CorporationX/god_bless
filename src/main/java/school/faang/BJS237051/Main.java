@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
-    private static final int THREAD_POOL = 4;
+    private static final int THREAD_POOL_SIZE = 4;
 
     public static void main(String[] args) {
         List<User> users = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Main {
         users.add(new User("Робб"));
         users.add(new User("Рикон"));
 
-        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL);
+        ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
         for (User user : users) {
             executor.submit(() -> {
