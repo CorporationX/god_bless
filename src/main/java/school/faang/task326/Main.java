@@ -40,11 +40,11 @@ public class Main {
                 }));
 
         Stream.of(fourthUser, fifthUser, sixthUser, seventhUser)
-                .forEach(U -> service.submit(() -> {
+                .forEach(user -> service.submit(() -> {
                     try {
-                        U.joinHouse(baratheon);
+                        user.joinHouse(baratheon);
                         Thread.sleep(3000);
-                        U.leaveHouse();
+                        user.leaveHouse();
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
