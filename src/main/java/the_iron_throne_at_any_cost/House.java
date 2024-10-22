@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-class House {
+public class House {
     private final String houseName;
     private final List<String> availableRoles;
     private int currentAvailableRoles;
@@ -25,7 +25,7 @@ class House {
      * @param role The role to add to the house.
      * @return true if the role was added, false otherwise.
      */
-    public synchronized boolean addRole(String role) {
+    public boolean addRole(String role) {
         if (currentAvailableRoles > 0 && availableRoles.contains(role)) {
             availableRoles.remove(role);
             currentAvailableRoles--;

@@ -52,8 +52,6 @@ public class User {
             synchronized (joinedHouse) {
                 System.out.println(userName + " покидает дом " + joinedHouse.getHouseName() + " и освобождает роль " + chosenRole);
                 joinedHouse.removeRole(chosenRole);
-                joinedHouse = null;
-                chosenRole = null;
             }
         }
     }
