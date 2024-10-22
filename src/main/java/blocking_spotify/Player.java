@@ -12,7 +12,6 @@ public class Player {
         synchronized (lock) {
             System.out.println("Playing...");
             isPlaying = true;
-            lock.notify();
         }
     }
 
