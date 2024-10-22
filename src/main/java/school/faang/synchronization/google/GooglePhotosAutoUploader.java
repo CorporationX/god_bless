@@ -11,7 +11,7 @@ public class GooglePhotosAutoUploader {
         synchronized (lock) {
             if (photosToUpload.isEmpty()) {
                 try {
-                    wait();
+                    lock.wait();
                 } catch (InterruptedException e) {
                     System.out.println("Uploading is interrupted");
                 }
