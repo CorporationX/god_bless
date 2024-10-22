@@ -13,7 +13,7 @@ public class OrderProcessor {
         System.out.println("Processed all orders! Total processed orders: " + totalProcessedOrders);
     }
 
-    public CompletableFuture<Void> processOrder(Order order) {
+    private CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
                 long millisToSleep = 1000;
