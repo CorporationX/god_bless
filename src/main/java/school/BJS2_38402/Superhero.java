@@ -5,8 +5,8 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public class Superhero implements Comparable<Superhero> {
-
+public class Superhero {
+    @Getter
     private String name;
     private int strength;
     private int agility;
@@ -15,8 +15,14 @@ public class Superhero implements Comparable<Superhero> {
         return strength + agility;
     }
 
+    public Superhero battleSuperheroes(Superhero superhero) {
+        return sumOfStrengthAndAgility() >= superhero.sumOfStrengthAndAgility() ? this : superhero;
+    }
+
     @Override
-    public int compareTo(Superhero o) {
-        return sumOfStrengthAndAgility() - o.sumOfStrengthAndAgility();
+    public String toString() {
+        return "Superhero{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
