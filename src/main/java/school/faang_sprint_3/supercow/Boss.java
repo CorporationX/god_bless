@@ -6,19 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 public class Boss {
-    public static final int MAX_PLAYERS = 2;
-
-    public static int currentPlayersCount = 0;
+    private final int maxPlayers = 2;
+    private int currentPlayersCount = 0;
 
     public synchronized void joinBattle(Player player) {
-        if (currentPlayersCount < MAX_PLAYERS) {
+        if (currentPlayersCount < maxPlayers) {
             currentPlayersCount++;
         } else {
             try {
                 wait();
             } catch (InterruptedException e) {
                 log.error("An exception occurred during wait()", e);
-                throw new ThreadInterruptException("Thread was interrupted");
+                throw new IllegalStateException("Thread was interrupted");
             }
         }
         endTheBattle(player);

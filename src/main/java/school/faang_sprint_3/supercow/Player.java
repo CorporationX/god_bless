@@ -15,7 +15,7 @@ public record Player(String name) {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("An exception occurred while fighting", e);
-            throw new ThreadInterruptException("Thread is interrupted" + e.getMessage());
+            throw new IllegalStateException("Thread is interrupted" + e.getMessage());
         }
     }
 }
