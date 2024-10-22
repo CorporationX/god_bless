@@ -15,7 +15,7 @@ public class Room {
     }
 
     public List<Food> collectFood() {
-        List<Food> result = foods;
+        List<Food> result = new ArrayList<>(foods);
         foods.clear();
         return result;
     }
