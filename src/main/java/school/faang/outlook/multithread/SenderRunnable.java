@@ -12,7 +12,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i < endIndex; i++) {
-            System.out.println("The letter is sent " + 1);
+            System.out.println("The letter is sent " + i);
         }
     }
 }
