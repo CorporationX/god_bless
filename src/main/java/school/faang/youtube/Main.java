@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class Main {
-    public static final int NUM_THREADS = 100;
+    public static final int NUM_THREADS = 24;
     public static final int NUM_VIDEOS = 10;
 
     public static void main(String[] args) {
@@ -28,7 +28,7 @@ public class Main {
         for (int i = 0; i < NUM_VIDEOS; i++) {
             videoManager.addView(videos[i]);
         }
-        for (int j = 0; j < NUM_THREADS / NUM_VIDEOS; j++) {
+        for (int j = 0; j < NUM_THREADS; j++) {
             int finalJ = j;
             executorService.submit(() -> {
                 videoManager.addView(videos[finalJ]);
