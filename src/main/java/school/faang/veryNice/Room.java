@@ -2,27 +2,25 @@ package school.faang.veryNice;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import lombok.Getter;
+@Getter
 public class Room {
-    private List<Food> foodList;
-
-    public Room() {
-        foodList = new ArrayList<>();
+    private final String name;
+    private final List<Food> foodList = new ArrayList<>();
+    public Room(String name) {
+        this.name = name;
     }
-
-    public void addFood(Food food) {
-        foodList.add(food);
-    }
-
-    public List<Food> getFoodList() {
-        return foodList;
-    }
-
-    public void removeFood(Food food) {
-        foodList.remove(food);
-    }
-
     public boolean hasFood() {
         return !foodList.isEmpty();
+    }
+    public void addFoodPack(List<String> food) {
+        foodList.addAll(food.stream().map(Food::new).toList());
+    }
+    public void removeFood(int index) {
+        foodList.remove(index);
+    }
+    @Override
+    public String toString() {
+        return name;
     }
 }
