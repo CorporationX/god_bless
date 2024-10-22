@@ -5,8 +5,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class Task {
+public class Student {
     private String name;
-    private int difficulty;
-    private int reward;
+    private int year;
+    private int points;
+
+    public void addPoints(int points){
+        this.points += points;
+    }
 }
