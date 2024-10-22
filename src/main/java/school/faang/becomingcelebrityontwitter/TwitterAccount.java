@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class TwitterAccount {
-    private String username; // Уникальное имя учетной записи Twitter
-    private int followers; // Количество подписчиков
+    private String username;
+    private int followers;
 }
 
