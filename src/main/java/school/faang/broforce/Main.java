@@ -3,7 +3,7 @@ package school.faang.broforce;
 public class Main {
 
     private final static int LIVES = 3;
-    private final static int COUNT_THREADS = 8;
+    private final static int COUNT_THREADS = 13;
     public static void main(String[] args) {
         Game game = new Game(LIVES);
 

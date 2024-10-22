@@ -3,10 +3,8 @@ package school.faang.broforce;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-
 public class Game {
     private int score;
-
     private int lives;
     private final Object scoreLock = new Object();
     private final Object liveLock = new Object();
@@ -18,7 +16,7 @@ public class Game {
         this.lives = initialLives;
     }
 
-    public void update() {
+    public synchronized void update() {
         if (isGameOver.get()) {
             return;
         }
