@@ -1,7 +1,6 @@
 package school.BJS2_38327;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -11,26 +10,21 @@ public class Factorial {
     private static final int MAX_INT_FACTORIAL = 12;
     private static final int MAX_LONG_FACTORIAL = 19;
 
-
     public static void main(String[] args) {
 
         List<Integer> numbers = Arrays.asList(5, 2, 7, 2, 1, 8, 21);
 
-        List<CompletableFuture<BigInteger>> itog = factorials(numbers);
-
-        itog.stream().forEach(number -> System.out.println(number.join()));
-
+        factorials(numbers);
     }
 
     private static int factorialInt(int n) {
-        if (n > 0 && n <= MAX_INT_FACTORIAL) {
-            if (n <= 1) {
-                return 1;
-            } else {
-                return n * factorialInt(n - 1);
-            }
+        if (n > MAX_INT_FACTORIAL || n < 0) {
+            throw new IllegalArgumentException("Некорректное число для factorialInt");
+        }
+        if (n <= 1) {
+            return 1;
         } else {
-            throw new IllegalArgumentException("Число больше MAX_INT_FACTORIAL");
+            return n * factorialInt(n - 1);
         }
     }
 
@@ -61,18 +55,16 @@ public class Factorial {
         return null;
     }
 
-    private static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
-        List<CompletableFuture<BigInteger>> listOfBigInteger = new ArrayList<>();
-        numbers.stream().forEach(number -> {
+    private static void factorials(List<Integer> numbers) {
+        numbers.forEach(number -> {
             CompletableFuture<BigInteger> numberInFactorials = CompletableFuture.supplyAsync(() -> {
-                if (number <= MAX_INT_FACTORIAL) {
+                if (number > 0 && number <= MAX_INT_FACTORIAL) {
                     return new BigInteger(String.valueOf(factorialInt(number)));
-                } else if (number > MAX_INT_FACTORIAL + 1 && number <= MAX_LONG_FACTORIAL) {
+                } else if (number <= MAX_LONG_FACTORIAL) {
                     return new BigInteger(String.valueOf(factorialLong(number)));
                 } else return factorialBig(number);
             });
-            listOfBigInteger.add(numberInFactorials);
+            System.out.println(numberInFactorials.join());
         });
-        return listOfBigInteger;
     }
 }
