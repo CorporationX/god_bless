@@ -15,6 +15,8 @@ public class Main {
             futures.add(subscriptionSystem.followAccount(account));
         }
 
+        subscriptionSystem.getExecutor().shutdown();
+
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
                 .thenRun(() -> System.out.println("Followers count: " + account.getFollowers()));
     }
