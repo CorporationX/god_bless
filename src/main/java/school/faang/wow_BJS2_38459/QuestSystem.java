@@ -7,7 +7,7 @@ import java.util.concurrent.Executors;
 public class QuestSystem {
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        long toSecond = 1000;
+        int toSecond = 1000;
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         return CompletableFuture.supplyAsync(() -> {
