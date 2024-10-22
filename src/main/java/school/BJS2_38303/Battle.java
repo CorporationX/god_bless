@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 
 public class Battle {
 
-    Random rand = new Random();
+    private Random rand = new Random();
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
         ExecutorService service = Executors.newSingleThreadExecutor();
