@@ -44,7 +44,7 @@ public class Main {
         executor.shutdown();
 
         try {
-            if (executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (executor.awaitTermination(6, TimeUnit.SECONDS)) {
                 System.out.println("Добавление всех пользователей завершено");
                 executor.shutdownNow();
             } else {

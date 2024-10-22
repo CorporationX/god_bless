@@ -21,40 +21,16 @@ public class User {
     }
 
     public void joinHouse(House house, String role) {
-        synchronized (house.getLockLeaveHouse()) {
-            while ((house.getRoleCounter() == 0 && house.getRoleList().isEmpty()) || !house.getRoleList().contains(role)) {
-                System.out.println("Свободных ролей " + house.getRoleList() + " нет для пользователя " + name);
+        house.addRole(role, this);
 
-                try {
-                    house.getLockLeaveHouse().wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Операция была прервана " + e.getMessage());
-                }
-            }
-        }
-
-        synchronized (house.getLockHouse()) {
-            house.addRole(role);
-
-            this.house = house;
-            this.role = role;
-
-            System.out.println("Пользователь " + this.name + " присоединился к дому " + this.house.getName() + " c еще "
-                    + this.house.getRoleCounter() + " " + this.house.getRoleList() + " доступными местами \t\t с ролью " + this.role);
-        }
+        this.house = house;
+        this.role = role;
     }
 
     public void leaveHouse(House house) {
-        synchronized (house.getLockLeaveHouse()) {
-            house.removeRole(this);
+        house.removeRole(this);
 
-            this.house = null;
-            this.role = null;
-
-            System.out.println(name + " изгнан из дома " + house.getName() + "\t свободных мест "
-                    + house.getRoleCounter() + " " + house.getRoleList());
-
-            house.getLockLeaveHouse().notifyAll();
-        }
+        this.house = null;
+        this.role = null;
     }
 }
