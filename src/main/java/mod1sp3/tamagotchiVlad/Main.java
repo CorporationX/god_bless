@@ -1,9 +1,12 @@
 package mod1sp3.tamagotchiVlad;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class Main {
 
     public static final int THREAD_AMOUNT = 10;
@@ -26,7 +29,8 @@ public class Main {
                 executorService.shutdownNow();
             }
         } catch (InterruptedException e) {
-            throw new IllegalStateException(e.getMessage(), e);
+            log.error("An error occurred while threads shutting down", e);
+            throw new IllegalStateException(e);
         }
     }
 }
