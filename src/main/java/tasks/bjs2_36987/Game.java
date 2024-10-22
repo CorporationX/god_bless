@@ -39,7 +39,7 @@ public class Game {
                 player.startBattle(game), 1, TimeUnit.SECONDS)
         );
 
-        game.battleTask.scheduleWithFixedDelay(game::battle, 1, 1, TimeUnit.SECONDS);
+        game.battleTask.scheduleWithFixedDelay(game::battle, 2, 1, TimeUnit.SECONDS);
 
         try {
             if (game.battleTask.awaitTermination(game.MAX_BATTLE_TIME, game.BATTLE_TIME_UNIT)) {
