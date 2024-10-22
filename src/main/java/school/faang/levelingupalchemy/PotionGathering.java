@@ -13,6 +13,7 @@ public class PotionGathering {
                 new Potion("Stamina Potion", 4)
         );
 
+        gatherAllIngredients(potions);
     }
 
     public static void gatherAllIngredients(List<Potion> potions) {
