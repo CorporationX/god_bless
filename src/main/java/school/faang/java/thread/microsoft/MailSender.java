@@ -28,6 +28,6 @@ public class MailSender {
             }
         });
 
-        System.out.println("\nAll 1000 Emails send");
+        System.out.println("\nAll 1000 Emails sent");
     }
 }

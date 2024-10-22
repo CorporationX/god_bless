@@ -10,7 +10,7 @@ public class SenderRunnable implements Runnable {
     @Override
     public void run() {
         for (int i = startIndex; i <= endIndex; i++) {
-            System.out.printf("\nEmail send: %s", MailSender.listEmails.get(i));
+            System.out.printf("\nSending email ... : %s", MailSender.listEmails.get(i));
         }
     }
 }
