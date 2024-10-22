@@ -13,9 +13,32 @@ public class PotionGathering {
                 new Potion("Stamina Potion", 4)
         );
 
-        gatherAllIngredients(potions);
     }
 
-    public static void gatherAllIngredients(List<Potion> potions) {}
+    public static void gatherAllIngredients(List<Potion> potions) {
+        AtomicInteger totalIngredients = new AtomicInteger(0);
 
+        List<CompletableFuture<Void>> futures = potions.stream()
+                .map(potion -> CompletableFuture.supplyAsync(() -> gatherIngredients(potion))
+                        .thenAccept(ingredients -> {
+                            totalIngredients.addAndGet(ingredients);
+                            System.out.println("Collected " + ingredients + " ingredients for " + potion.getName());
+                        })
+                ).collect(Collectors.toList());
+
+        CompletableFuture<Void> allTasks = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
+
+        allTasks.thenRun(() -> System.out.println("Total ingredients gathered: " + totalIngredients.get()))
+                .join();
+    }
+
+    public static int gatherIngredients(Potion potion) {
+        try {
+            System.out.println("Gathering ingredients for " + potion.getName() + "...");
+            Thread.sleep(potion.getRequiredIngredients() * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return potion.getRequiredIngredients();
+    }
 }
