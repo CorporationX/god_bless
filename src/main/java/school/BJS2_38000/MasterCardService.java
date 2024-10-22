@@ -7,9 +7,12 @@ import java.util.concurrent.Future;
 
 public class MasterCardService {
 
+    private static final int TIME_FOR_PAYMENT = 10000;
+    private static final int TIME_FOR_ANALYTICS = 1000;
+
     private static int collectPayment() {
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(TIME_FOR_PAYMENT);
             return 10_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -19,7 +22,7 @@ public class MasterCardService {
 
     private static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(TIME_FOR_ANALYTICS);
             return 1_000;
         } catch (InterruptedException e) {
             e.printStackTrace();
