@@ -2,14 +2,13 @@ package school.faang.might.magic.distributed;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class Army {
     private List<Unit> army = new ArrayList<>();
     private List<ArmyThread> threads;
 
-    public void addUnit(Unit unit) {
-        army.add(unit);
+    public void addUnit(Unit... unit) {
+        army.addAll(List.of(unit));
     }
 
     private void distributeTask() {
