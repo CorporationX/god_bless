@@ -15,12 +15,13 @@ public class Knight {
         this.name = name;
     }
 
-    public void addTrial(Trial trial){
+    public void addTrial(Trial trial) {
         trials.add(trial);
     }
-    public void startTrial(ExecutorService executor){
-        for (Trial t : trials){
-            executor.submit(t);
+
+    public void startTrial(ExecutorService executor) {
+        for (Trial t : trials) {
+            executor.execute(t);
         }
     }
 }
