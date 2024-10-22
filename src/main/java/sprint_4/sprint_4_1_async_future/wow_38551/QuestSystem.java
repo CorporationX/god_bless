@@ -43,7 +43,7 @@ public class QuestSystem {
         try {
             if (!this.executor.awaitTermination(WAIT_TIME_TERMINATION, TimeUnit.SECONDS)) {
                 this.executor.shutdownNow();
-                log.warn("Executor did not terminate in the specified time: {} seconds", "WAIT_TIME_TERMINATION");
+                log.warn("Executor did not terminate in the specified time: {} seconds", WAIT_TIME_TERMINATION);
             }
         } catch (InterruptedException e) {
             this.executor.shutdownNow();
