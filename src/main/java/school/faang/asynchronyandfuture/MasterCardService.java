@@ -37,10 +37,10 @@ public class MasterCardService {
 
         try {
             int analyticsResult = analyticsFuture.get();
-            System.out.println("Аналитика отправлена: " + analyticsResult);
+            System.out.println("The analysis has been sent: " + analyticsResult);
 
             int paymentResult = paymentFuture.get();
-            System.out.println("Платеж выполнен: " + paymentResult);
+            System.out.println("The payment has been completed: " + paymentResult);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         } finally {
