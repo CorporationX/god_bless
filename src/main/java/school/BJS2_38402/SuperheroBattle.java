@@ -8,8 +8,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 
 public class SuperheroBattle {
-    List<Superhero> superheroes;
-    ExecutorService service;
+    private List<Superhero> superheroes;
+    private ExecutorService service;
 
     public SuperheroBattle(List<Superhero> superheroes, ExecutorService service) {
         this.superheroes = superheroes;
@@ -17,19 +17,18 @@ public class SuperheroBattle {
     }
 
     public void battle() {
-        List<Superhero> listOfHeroes = superheroes;
-        while (listOfHeroes.size() > 1) {
-            List<Future<Superhero>> listOfBattleResult = runCompetitions(listOfHeroes);
-            listOfHeroes.clear();
+        while (superheroes.size() > 1) {
+            List<Future<Superhero>> listOfBattleResult = runCompetitions(superheroes);
+            superheroes.clear();
             listOfBattleResult.stream().forEach(hero -> {
                 try {
-                    listOfHeroes.add(hero.get());
+                    superheroes.add(hero.get());
                 } catch (InterruptedException | ExecutionException e) {
                     e.printStackTrace();
                 }
             });
         }
-        System.out.println("Победитель межгалактической битвы является: " + listOfHeroes.get(0).getName());
+        System.out.println("Победитель межгалактической битвы является: " + superheroes.get(0).getName());
         service.shutdown();
     }
 

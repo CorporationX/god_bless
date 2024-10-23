@@ -22,8 +22,8 @@ public class Main {
         superheroes.add(hulk);
         superheroes.add(spiderMan);
 
-        ExecutorService service = Executors.newFixedThreadPool(superheroes.size());
-        SuperheroBattle superheroBattle = new SuperheroBattle(superheroes,service);
+        ExecutorService service = Executors.newFixedThreadPool(superheroes.size() / 2 + 1);
+        SuperheroBattle superheroBattle = new SuperheroBattle(superheroes, service);
         superheroBattle.battle();
 
     }
