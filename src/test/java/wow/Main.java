@@ -1,6 +1,8 @@
 package wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) {
@@ -27,5 +29,15 @@ public class Main {
         player3Quest2.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points"));
 
         CompletableFuture.allOf(player1Quest, player2Quest, player3Quest, player1Quest2, player2Quest2, player3Quest2).join();
+        ExecutorService questExecutor =  questSystem.getQuestExecutor();
+        questExecutor.shutdown();
+        try {
+            if(!questExecutor.awaitTermination(20, TimeUnit.SECONDS)){
+                questExecutor.shutdownNow();
+            }
+        }catch (InterruptedException e){
+            questExecutor.shutdownNow();
+            e.printStackTrace();
+        }
     }
 }
