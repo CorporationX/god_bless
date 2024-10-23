@@ -6,10 +6,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
 public class User {
-    private String name;
+    private final String name;
     private volatile boolean isOnline;
     private volatile boolean isLookingForChat;
-    private final ReentrantLock lock = new ReentrantLock();
 
     public User(String name) {
         this.name = name;
@@ -21,25 +20,15 @@ public class User {
         return isOnline;
     }
 
-    public void setOnline(boolean online) {
-        lock.lock();
-        try {
-            isOnline = online;
-        } finally {
-            lock.unlock();
-        }
+    public synchronized void setOnline(boolean online) {
+        isOnline = online;
     }
 
     public boolean isLookingForChat() {
         return isLookingForChat;
     }
 
-    public void setLookingForChat(boolean lookingForChat) {
-        lock.lock();
-        try {
-            isLookingForChat = lookingForChat;
-        } finally {
-            lock.unlock();
-        }
+    public synchronized void setLookingForChat(boolean lookingForChat) {
+        isLookingForChat = lookingForChat;
     }
 }
