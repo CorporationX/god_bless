@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Slf4j
-@Getter
 @AllArgsConstructor
 public abstract class PigThread extends Thread {
     private static final int MILLISECONDS_IN_SECOND = 1_000;
@@ -19,7 +18,7 @@ public abstract class PigThread extends Thread {
 
     @Override
     public void run() {
-        log.info("{} started building a house out of {}", getPigName(), getMaterial());
+        log.info("{} started building a house out of {}", pigName, material);
         int buildingDuration =
                 ThreadLocalRandom.current().nextInt(BUILDING_DURATION_SEC_MIN, BUILDING_DURATION_SEC_MAX) * MILLISECONDS_IN_SECOND;
         try {
@@ -31,6 +30,6 @@ public abstract class PigThread extends Thread {
                     e
             );
         }
-        log.info("{} finished building a house out of {}", getPigName(), getMaterial());
+        log.info("{} finished building a house out of {}", pigName, material);
     }
 }
