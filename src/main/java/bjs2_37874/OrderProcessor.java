@@ -5,7 +5,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class OrderProcessor {
-    private AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
 
     public void processAllOrders(List<Order> orders) {
         List<CompletableFuture<Void>> ordersFutures = orders.stream().map(this::processOrder).toList();
@@ -16,13 +16,12 @@ public class OrderProcessor {
     private CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                long millisToSleep = 1000;
-                Thread.sleep(millisToSleep);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
 
-            order.setStatus("Processed");
+            order.setStatus(OrderStatus.Processed);
             totalProcessedOrders.getAndIncrement();
         });
     }

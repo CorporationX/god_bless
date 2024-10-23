@@ -8,10 +8,10 @@ import lombok.Setter;
 @Setter
 public class Order {
     private final int id;
-    private String status;
+    private OrderStatus status;
 
     public Order(int id) {
         this.id = id;
-        status = "Processing";
+        status = OrderStatus.Processing;
     }
 }
