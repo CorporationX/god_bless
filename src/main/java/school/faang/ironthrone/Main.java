@@ -1,4 +1,4 @@
-package school.faang.ironThrone;
+package school.faang.ironthrone;
 
 import java.util.ArrayList;
 import java.util.List;

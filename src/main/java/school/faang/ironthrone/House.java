@@ -1,8 +1,7 @@
-package school.faang.ironThrone;
+package school.faang.ironthrone;
 
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
