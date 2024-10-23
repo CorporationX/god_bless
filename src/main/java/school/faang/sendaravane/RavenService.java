@@ -12,6 +12,13 @@ public class RavenService {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+
+            if (ThreadLocalRandom.current().nextInt(100) < 30) {
+                throw new RuntimeException("Raven failed to deliver the message!");
+            }
+
+            sender.sendMessage(receiver);
+            return "Message successfully delivered from " + sender.getName() + " to " + receiver.getName();
+        });
     }
 }
