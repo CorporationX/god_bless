@@ -14,7 +14,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalArgumentException("Что-то пошло не так при вызове Thread.sleep().");
         }
         System.out.println(Thread.currentThread().getName() + " выполнил: " + chore);
     }
