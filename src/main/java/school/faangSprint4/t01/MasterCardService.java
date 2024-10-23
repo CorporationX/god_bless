@@ -17,7 +17,7 @@ public class MasterCardService {
 
         try {
             Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
             Integer analyticsResult = analyticsFuture.join();
             System.out.println("Аналитика отправлена: " + analyticsResult);
             Integer paymentResult = paymentFuture.get();
