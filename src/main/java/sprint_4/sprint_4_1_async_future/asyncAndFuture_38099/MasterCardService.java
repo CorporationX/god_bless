@@ -18,20 +18,21 @@ public class MasterCardService {
     private static final int COUNT_THREADS_POOL = 2;
     private static final long WAIT_TIME_TERMINATION = 60;
 
+    private final ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREADS_POOL);
+
     public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(COUNT_THREADS_POOL);
-        Future<Integer> future_1 =  executor.submit(this::collectPayment);
-        CompletableFuture<Integer> future_2 =  CompletableFuture.supplyAsync(this::sendAnalytics);
+        Future<Integer> paymentFuture =  executor.submit(this::collectPayment);
+        CompletableFuture<Integer> analyticsFuture =  CompletableFuture.supplyAsync(this::sendAnalytics);
 
         try {
-            int numAnalytic = future_2.join();
+            int numAnalytic = analyticsFuture.join();
             LOG.info("Analytics sent: {}", numAnalytic);
         }catch (CompletionException e){
             LOG.warn("Analytics don't sent, error: {}", e.getMessage());
         }
 
         try {
-            int payment = future_1.get();
+            int payment = paymentFuture.get();
             LOG.info("Payment collected: {}", payment);
         } catch (InterruptedException | ExecutionException e) {
             LOG.warn("Payment don't collect, error: {}", e.getMessage());
