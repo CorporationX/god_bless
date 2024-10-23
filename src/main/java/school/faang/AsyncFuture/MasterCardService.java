@@ -27,7 +27,7 @@ public class MasterCardService {
 
     public void doAll(){
         CompletableFuture.supplyAsync(MasterCardService::sendAnalytics)
-                .thenAccept(e -> System.out.println("Analytics sent: " + e)).join();
+                .thenAccept(e -> System.out.println("Analytics sent: " + e));
         CompletableFuture.supplyAsync(MasterCardService::collectPayment)
                 .thenAccept(e -> System.out.println("Payment collected: " + e)).join();
     }
