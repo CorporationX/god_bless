@@ -13,25 +13,10 @@ public class Main {
 
         List<String> exceptions = new ArrayList<>();
 
-        List<CompletableFuture<Void>> futures = new ArrayList<>(List.of(
-                Kingdom.sendRaven(kingdom1, kingdom2).handle((message, ex) -> {
-                    if (ex != null) {
-                        exceptions.add(ex.getMessage());
-                    }
-                    return null;
-                }),
-                Kingdom.sendRaven(kingdom3, kingdom1).handle((message, ex) -> {
-                    if (ex != null) {
-                        exceptions.add(ex.getMessage());
-                    }
-                    return null;
-                }),
-                Kingdom.sendRaven(kingdom4, kingdom3).handle((message, ex) -> {
-                    if (ex != null) {
-                        exceptions.add(ex.getMessage());
-                    }
-                    return null;
-                })
+        List<CompletableFuture<String>> futures = new ArrayList<>(List.of(
+                Kingdom.sendRaven(kingdom1, kingdom2).handle((message, ex) -> checkExceptionExistence(ex, exceptions)),
+                Kingdom.sendRaven(kingdom3, kingdom1).handle((message, ex) -> checkExceptionExistence(ex, exceptions)),
+                Kingdom.sendRaven(kingdom4, kingdom3).handle((message, ex) -> checkExceptionExistence(ex, exceptions))
         ));
 
         CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
@@ -40,5 +25,12 @@ public class Main {
                         exceptions.forEach(System.out::println);
                     }
                 });
+    }
+
+    private static String checkExceptionExistence(Throwable ex, List<String> exceptions) {
+        if (ex != null) {
+            exceptions.add(ex.getMessage());
+        }
+        return null;
     }
 }
