@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.Sprints.Multithreading_Parallelism.you_work_at_microsoft;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
