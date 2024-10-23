@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        final int TIMEOUT = 10;
         House house = new House(
                 new Room(new Food("cheeseburger"), new Food("loaded fries"), new Food("spicy hot dog")),
                 new Room(new Food("double cheeseburger"), new Food("garlic fries"), new Food("chili hot dog")),
@@ -21,10 +22,11 @@ public class Main {
 
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
         executor.scheduleAtFixedRate(house::collectFood, 0, 30, TimeUnit.SECONDS);
-
-        TimeUnit.SECONDS.sleep(10);
+        TimeUnit.SECONDS.sleep(TIMEOUT);
 
         executor.shutdown();
-        if (executor.isShutdown()) { System.out.println("All foods were collected"); }
+        if (executor.awaitTermination(TIMEOUT, TimeUnit.SECONDS)) {
+            System.out.println("All foods were collected");
+        }
     }
 }

@@ -16,11 +16,13 @@ public class House {
     }
 
     public void collectFood() {
-        while (!rooms.isEmpty()) {
-            Room room1 = rooms.get(new Random().nextInt(rooms.size()));
-            Room room2 = rooms.get(new Random().nextInt(rooms.size()));
+        Random random = new Random();
 
-            while (room1 == room2) { room2 = rooms.get(new Random().nextInt(rooms.size())); }
+        while (!rooms.isEmpty()) {
+            Room room1 = rooms.get(random.nextInt(rooms.size()));
+            Room room2 = rooms.get(random.nextInt(rooms.size()));
+
+            while (room1 == room2) { room2 = rooms.get(random.nextInt(rooms.size())); }
 
             collectedFood.addAll(room1.getFoods());
             System.out.println(Thread.currentThread().getName() + " collects food from the room 1");
