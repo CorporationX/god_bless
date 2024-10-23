@@ -9,21 +9,25 @@ public class GooglePhotosAutoUploader {
 
     public void startAutoUpload() {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
-                try {
-                    System.out.println("Wait for photos to upload");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println(e.getMessage());
+            while (true) {
+                if (photosToUpload.isEmpty()) {
+                    try {
+                        System.out.println("Wait for photos to be given");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    uploadPhotos();
+                    lock.notify();
                 }
             }
-            uploadPhotos();
         }
     }
 
     private void uploadPhotos() {
         for (String photo : photosToUpload) {
-            System.out.println(photo + " загружено на сервер Google");
+            System.out.println(photo + " uploaded on Google server");
         }
         photosToUpload.clear();
     }
