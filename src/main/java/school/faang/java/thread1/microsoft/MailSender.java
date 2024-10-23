@@ -1,4 +1,4 @@
-package school.faang.java.thread.microsoft;
+package school.faang.java.thread1.microsoft;
 
 import java.util.ArrayList;
 import java.util.List;

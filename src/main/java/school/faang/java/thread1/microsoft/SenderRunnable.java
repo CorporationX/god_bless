@@ -1,4 +1,4 @@
-package school.faang.java.thread.microsoft;
+package school.faang.java.thread1.microsoft;
 
 import lombok.Data;
 
