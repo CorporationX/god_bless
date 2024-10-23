@@ -11,7 +11,7 @@ public class ListOperations {
     }
 
     public static int findMax(List<Integer> list) {
-        return list.stream().max(Comparator.naturalOrder()).get();
+        return list.stream().mapToInt(Integer::intValue).max().orElse(Integer.MAX_VALUE);
     }
 
     public static double findAverage(List<Integer> list) {
@@ -36,7 +36,7 @@ public class ListOperations {
     }
 
     public static int findMinGreaterThan(List<Integer> list, int number) {
-        return list.stream().filter(e -> e > number).min(Comparator.naturalOrder()).get();
+        return list.stream().filter(e -> e > number).mapToInt(Integer::intValue).min().orElseThrow();
     }
 
     public static List<Integer> convertToLengths(List<String> list) {
