@@ -23,7 +23,7 @@ public class GooglePhotosAutoUploader {
                     List<String> pathList = new ArrayList<>(photosToUpload);
                     log.info("Загрузка данных на сервер");
                     pathList.forEach(path -> {
-                        uploadPhotos(path);
+                        uploadPhoto(path);
                         log.info("Загружено: {}", path);
                     });
                 }
@@ -43,7 +43,7 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    public void uploadPhotos(String photoPath) {
+    public void uploadPhoto(String photoPath) {
         if (photoPath == null || photoPath.isEmpty()) {
             log.warn("Путь к фотографии не может быть пустым или null");
             return;
