@@ -20,7 +20,7 @@ public class TelegramBot {
 
     public synchronized void sendMessage(String message) {
         Duration timeSinceLastRequest = Duration.between(lastRequestTime, LocalDateTime.now());
-        if (timeSinceLastRequest.compareTo(Duration.ofSeconds(1)) < 0) {
+        if (timeSinceLastRequest.getSeconds() <= 1) {
             requestCounter++;
             if (requestCounter >= REQUEST_LIMIT) {
                 System.out.println("Превышено число запросов в секунду");
