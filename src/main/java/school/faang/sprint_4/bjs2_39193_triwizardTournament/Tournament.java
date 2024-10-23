@@ -2,16 +2,15 @@ package school.faang.sprint_4.bjs2_39193_triwizardTournament;
 
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.TreeMap;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
@@ -20,7 +19,7 @@ public class Tournament {
     private final ExecutorService executor = Executors.newCachedThreadPool();
 
     public void startTournament(List<School> schools, List<Task> tasks) {
-        List<CompletableFuture<School>> futureSchools = new CopyOnWriteArrayList<>();
+        List<CompletableFuture<School>> futureSchools = new ArrayList<>();
         schools.forEach(school ->
                 tasks.forEach(task -> {
                     CompletableFuture<School> futureSchool = startTask(school, task);
@@ -35,15 +34,12 @@ public class Tournament {
         String taskName = task.getName();
         String schoolName = school.getName();
         double mastery = school.getAverageMastery();
-        Semaphore semaphore = school.getSemaphore();
 
         return CompletableFuture.supplyAsync(() -> {
             try {
-                semaphore.acquire();
                 log.info("School {} team started task '{}', it will take '{}' seconds",
                         schoolName, taskName, difficulty);
                 Thread.sleep(difficulty * 1000L);
-
                 if (isSuccess(mastery)) {
                     school.addReward(task);
                     log.info("School {} completed task {} successfully!", schoolName, taskName);
@@ -54,8 +50,6 @@ public class Tournament {
             } catch (InterruptedException e) {
                 log.error("An error occurred while task in progress.", e);
                 throw new IllegalStateException(e);
-            } finally {
-                semaphore.release();
             }
         }, executor);
     }

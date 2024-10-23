@@ -21,7 +21,9 @@ public class Main {
         List<Student> durmstrangTeam = List.of(
                 new Student("Viktor", 7, 80),
                 new Student("Krum", 7, 90),
-                new Student("Igor", 7, 70));
+                new Student("Igor", 7, 70),
+                new Student("Dmitry", 7, 75),
+                new Student("Elena", 7, 85));
         List<Student> beauxbatonsTeam = List.of(
                 new Student("Roger", 6, 60),
                 new Student("Colette", 6, 65),
@@ -30,7 +32,10 @@ public class Main {
                 new Student("Léon", 6, 68));
         List<Student> hogwartsTeam = List.of(
                 new Student("Ron", 5, 50),
-                new Student("Ginny", 5, 58));
+                new Student("Ginny", 5, 58),
+                new Student("Harry", 5, 95),
+                new Student("Hermione", 5, 98),
+                new Student("Neville", 5, 60));
 
         List<School> schools = List.of(
                 new School("Durmstang", durmstrangTeam),

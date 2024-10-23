@@ -5,13 +5,10 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Semaphore;
 
 @AllArgsConstructor
 public class School {
     private final List<Student> team = new ArrayList<>();
-    @Getter
-    private final Semaphore semaphore;
     @Getter
     private final double averageMastery;
     @Getter
@@ -20,7 +17,6 @@ public class School {
     public School(String name, List<Student> students) {
         this.name = name;
         team.addAll(students);
-        semaphore = new Semaphore(students.size());
         averageMastery = students.stream()
                 .map(Student::getMastery)
                 .mapToInt(Integer::intValue)
