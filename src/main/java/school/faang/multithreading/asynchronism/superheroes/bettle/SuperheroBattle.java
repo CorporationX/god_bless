@@ -20,8 +20,7 @@ public class SuperheroBattle {
                 .map(pair -> executor.submit(() -> {
                     Superhero superhero1 = pair.getLeft();
                     Superhero superhero2 = pair.getRight();
-                    Superhero winner = battle(superhero1, superhero2);
-                    return winner;
+                    return battle(superhero1, superhero2);
                 }))
                 .collect(Collectors.toList());
     }
@@ -29,7 +28,6 @@ public class SuperheroBattle {
     private Superhero battle(Superhero superhero1, Superhero superhero2) {
         int power1 = calculatePower(superhero1);
         int power2 = calculatePower(superhero2);
-
         return power1 == power2
                 ? chooseRandomWinner(superhero1, superhero2)
                 : (power1 > power2 ? superhero1 : superhero2);
