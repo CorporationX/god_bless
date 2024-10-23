@@ -26,10 +26,15 @@ public class NotificationManager {
                 try {
                     Thread.sleep(TIME_TO_WORK);
                     addNotification(new Notification(id, message));
+                    throw new InterruptedException();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    throw new IllegalStateException("Поток был прерван " + e);
                 }
-            }, executor);
+            }, executor)
+                .exceptionally(exception -> {
+                    System.out.println("Произошла ошибка " + exception.getMessage());
+                    throw new IllegalArgumentException(exception);
+                });
     }
 
     public void shutdown() {

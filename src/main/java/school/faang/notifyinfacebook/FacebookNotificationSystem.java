@@ -12,8 +12,12 @@ public class FacebookNotificationSystem {
                 .mapToObj(i -> manager.fetchNotification(i, "Сообщение " + i))
                 .toList();
 
-        CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
-        allFutures.join();
+        CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]))
+                .exceptionally(exception -> {
+                    System.out.println("Произошла ошибка " + exception.getMessage());
+                    return null;
+                })
+                .join();
 
         manager.shutdown();
 
