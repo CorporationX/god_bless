@@ -18,17 +18,13 @@ public class User {
     }
 
     public void joinHouse() throws InterruptedException {
-        synchronized (house) {
-            role = house.removeRole();
-            log.info("User {} has joined the house and now has a role {}", name, role);
-        }
+        role = house.removeRole();
+        log.info("User {} has joined the house and now has a role {}", name, role);
     }
 
     public void leaveHouse() {
-        synchronized (house) {
-            house.addRole(role);
-            role = null;
-            log.info("User {} has left the house and now has no role", name);
-        }
+        house.addRole(role);
+        role = null;
+        log.info("User {} has left the house and now has no role", name);
     }
 }
