@@ -16,7 +16,7 @@ public class Inventory {
     }
 
     public Item combineItems(Item item1, Item item2) {
-        return new Item(item1.combineName(item2), item1.combineType(item2), item1.combinePower(item2));
+        return item1.combineWith(item2);
     }
 
     public void initializeRandomItems(int numItems) {
@@ -41,7 +41,7 @@ public class Inventory {
                 .toList();
     }
 
-    public synchronized CompletableFuture<Item> getItemByTypeAndRemove(ItemType type) {
+    public CompletableFuture<Item> getItemByTypeAndRemove(ItemType type) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(1_000);

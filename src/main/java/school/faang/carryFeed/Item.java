@@ -27,4 +27,8 @@ public class Item {
     public int combinePower(Item item) {
         return this.power + item.getPower();
     }
+
+    public Item combineWith(Item item) {
+        return new Item(combineName(item), combineType(item), combinePower(item));
+    }
 }
