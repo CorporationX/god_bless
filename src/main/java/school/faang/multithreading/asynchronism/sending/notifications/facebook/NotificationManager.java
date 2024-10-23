@@ -17,7 +17,14 @@ public class NotificationManager {
 
     public CompletableFuture<Void> fetchNotification(Integer id, String message) {
         return CompletableFuture.runAsync(
-                () -> addNotification(new Notification(id, message)), executor);
+                () -> {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                    addNotification(new Notification(id, message));
+                }, executor);
     }
 
     public void shutdown() {
