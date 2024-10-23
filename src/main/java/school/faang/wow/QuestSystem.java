@@ -1,9 +1,10 @@
 package school.faang.wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
         System.out.println("Starting quest for Player: " + player.getName());
         return CompletableFuture.supplyAsync(() -> {
             try {
@@ -14,6 +15,6 @@ public class QuestSystem {
             }
             player.addExperience();
             return player;
-        });
+        }, executor);
     }
 }
