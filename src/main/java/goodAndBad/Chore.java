@@ -13,7 +13,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(3_00);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
 
         System.out.printf("Конец: %s - %s \n", Thread.currentThread().getName(), chore);

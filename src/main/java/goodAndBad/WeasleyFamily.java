@@ -7,9 +7,9 @@ import java.util.concurrent.Executors;
 
 public class WeasleyFamily {
     private final List<Chore> chores = new ArrayList<>();
+    private final ExecutorService pollTreads = Executors.newCachedThreadPool();
 
     public void execute() {
-        ExecutorService pollTreads = Executors.newCachedThreadPool();
         chores.forEach(pollTreads::execute);
         pollTreads.shutdown();
     }
