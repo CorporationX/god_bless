@@ -21,6 +21,7 @@ public class Main {
             System.out.println("Побежитель в первом поединке " + firstFight.get().getName());
             System.out.println("Побежитель во втором поединке " + secondFight.get().getName());
             System.out.println("Побежитель в третьем поединке " + thirdFight.get().getName());
+            Battle.shutdown();
         } catch (InterruptedException | ExecutionException e) {
             throw new RuntimeException(e.getMessage());
         }
