@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.Sprints.Multithreading_Synchronization.spotify_blocking;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
