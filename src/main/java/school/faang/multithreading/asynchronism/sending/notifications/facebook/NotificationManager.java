@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class NotificationManager {
     private static final int THREADS_COUNT = 5;
+    private static final int TIME_TO_SLEEP = 1000;
     private final ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
 
     private List<Notification> notifications = new ArrayList<>();
@@ -19,7 +20,7 @@ public class NotificationManager {
         return CompletableFuture.runAsync(
                 () -> {
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(TIME_TO_SLEEP);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
