@@ -54,7 +54,7 @@ public class Tournament implements AutoCloseable {
     public void close() {
         executor.shutdown();
         try {
-            if (executor.awaitTermination(1, TimeUnit.MINUTES)) {
+            if (!executor.awaitTermination(1, TimeUnit.MINUTES)) {
                 executor.shutdownNow();
             }
         } catch (InterruptedException e) {
