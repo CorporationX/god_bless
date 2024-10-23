@@ -8,7 +8,7 @@ public class MailSender {
 
         Thread[] threads = new Thread[eachThread];
 
-        for (int i = 0; i < totalMessages; i++) {
+        for (int i = 0; i < threadCounter; i++) {
             int start = i * eachThread;
             int end = (i + 1) * eachThread;
             threads[i] = new Thread(new SenderRunnable(start, end));
