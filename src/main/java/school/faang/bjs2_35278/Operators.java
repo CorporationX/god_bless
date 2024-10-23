@@ -6,35 +6,26 @@ import java.util.stream.Collectors;
 public class Operators {
     public static List<int[]> uniqPairs(int[] numbers, int target) {
         Set<Integer> numbersFromTheList = new HashSet<>();
-        Set<String> uniqPairs = new HashSet<>();
-        List<int[]> result = new ArrayList<>();
-
-        for (int listNumbers : numbers) {
-            int findMissingAmount = target - listNumbers;
-
-            if (numbersFromTheList.contains(findMissingAmount)) {
-                int[] pair = new int[]{Math.min(listNumbers, findMissingAmount), Math.max(listNumbers, findMissingAmount)};
-                String pairString = pair[0] + " ; " + pair[1];
-
-                if (!uniqPairs.contains(pairString)) {
-                    result.add(pair);
-                    uniqPairs.add(pairString);
-                }
-            }
-            numbersFromTheList.add(listNumbers);
-        }
-        return result;
+        return Arrays.stream(numbers)
+                .filter(number -> numbersFromTheList.add(target - number))
+                .mapToObj(number -> new int[]{number, target - number})
+                .filter(pair -> Arrays.stream(numbers).anyMatch(n -> n == pair[1]))
+                .distinct()
+                .collect(Collectors.toList());
     }
 
     public static List<String> countriesCapitals(Map<String, String> countriesCapitalMap) {
-        List<String> sortCoutries = new ArrayList<>(countriesCapitalMap.keySet());
-        Collections.sort(sortCoutries);
-
-        List<String> sortCapitals = new ArrayList<>();
-        for (String country : sortCoutries) {
-            sortCapitals.add(countriesCapitalMap.get(country));
-        }
-        return sortCapitals;
+//        List<String> sortCoutries = new ArrayList<>(countriesCapitalMap.keySet());
+//        Collections.sort(sortCoutries);
+//
+//        List<String> sortCapitals = new ArrayList<>();
+//        for (String country : sortCoutries) {
+//            sortCapitals.add(countriesCapitalMap.get(country));
+//        }
+        return countriesCapitalMap.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .map(Map.Entry::getValue)
+                .collect(Collectors.toList());
     }
 
     public static List<String> sortedAndFiltered(List<String> listOfNames, char characterLookingFor) {
