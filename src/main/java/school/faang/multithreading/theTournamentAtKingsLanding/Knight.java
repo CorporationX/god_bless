@@ -20,12 +20,9 @@ public class Knight {
         trials.add(trial);
     }
 
-    public void startTrials() {
-        ExecutorService executor = Executors.newCachedThreadPool();
-
+    public void startTrials(ExecutorService executor) {
         for (Trial trial : trials) {
             executor.execute(trial);
         }
-        executor.shutdown();
     }
 }

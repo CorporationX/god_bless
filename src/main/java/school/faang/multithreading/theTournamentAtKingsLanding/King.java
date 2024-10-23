@@ -12,12 +12,12 @@ public class King {
         knight1.addTrial(new Trial(knight1.getName(), "trial1"));
         knight1.addTrial(new Trial(knight1.getName(), "trial2"));
 
-        knight2.addTrial(new Trial(knight1.getName(), "trial3"));
-        knight2.addTrial(new Trial(knight1.getName(), "trial4"));
+        knight2.addTrial(new Trial(knight2.getName(), "trial3"));
+        knight2.addTrial(new Trial(knight2.getName(), "trial4"));
 
         ExecutorService executor = Executors.newFixedThreadPool(2);
-        executor.execute(knight1::startTrials);
-        executor.execute(knight2::startTrials);
+        knight1.startTrials(executor);
+        knight2.startTrials(executor);
 
         executor.shutdown();
         executor.awaitTermination(1, TimeUnit.MINUTES);
