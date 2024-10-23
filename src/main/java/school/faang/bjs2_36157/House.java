@@ -12,10 +12,6 @@ public class House {
     private final List<Room> rooms = new ArrayList<>();
 
     public void addRooms(List<Room> rooms) {
-        if (rooms.size() % 2 != 0) {
-            throw new IllegalStateException("Odd number of rooms");
-        } else {
-            this.rooms.addAll(rooms);
-        }
+        this.rooms.addAll(rooms);
     }
 }

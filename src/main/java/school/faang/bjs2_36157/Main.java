@@ -27,10 +27,20 @@ public class Main {
         foodsForRoom4.add(new Food("Peanut butter"));
         foodsForRoom4.add(new Food("Marmalade"));
 
+        List<Food> foodsForRoom5 = new ArrayList<>();
+        foodsForRoom4.add(new Food("Сheesecake"));
+        foodsForRoom4.add(new Food("Cake"));
+
+        List<Food> foodsForRoom6 = new ArrayList<>();
+        foodsForRoom4.add(new Food("Strawberry"));
+        foodsForRoom4.add(new Food("Blueberry"));
+
         rooms.add(new Room(foodsForRoom1));
         rooms.add(new Room(foodsForRoom2));
         rooms.add(new Room(foodsForRoom3));
         rooms.add(new Room(foodsForRoom4));
+        rooms.add(new Room(foodsForRoom5));
+        rooms.add(new Room(foodsForRoom6));
 
         House house = new House();
         house.addRooms(rooms);

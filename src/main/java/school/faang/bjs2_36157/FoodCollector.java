@@ -27,10 +27,13 @@ public class FoodCollector {
 
     public void executeCollectFood() {
         scheduler = Executors.newScheduledThreadPool(THREAD_QUANTITY);
-        scheduler.scheduleAtFixedRate(this::collectFood, 0, 30, TimeUnit.SECONDS);
+
+        for (int i = 0; i < THREAD_QUANTITY; i++) {
+            scheduler.scheduleAtFixedRate(this::collectFood, 0, 10, TimeUnit.SECONDS);
+        }
     }
 
-    private void collectFood() {
+    private synchronized void collectFood() {
         Collections.shuffle(house.getRooms());
         log.info("Get two random rooms...");
 
@@ -40,8 +43,11 @@ public class FoodCollector {
                 .subList(0, 2)
                 .forEach(room -> {
                     log.info("Select room with foods: " + room);
-                    collectedFood.addAll(room.getFoodList());
-                    log.info("Add foods in collection: " + room.getFoodList());
+
+                    synchronized (collectedFood) {
+                        collectedFood.addAll(room.getFoodList());
+                        log.info("Add foods in collection: " + room.getFoodList());
+                    }
                     room.getFoodList().clear();
                     log.info("Clear food in room: " + room);
                 });
