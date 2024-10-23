@@ -30,7 +30,7 @@ public class MasterCardService {
         ExecutorService executor = Executors.newFixedThreadPool(2);
         Future<Integer> futurePayment = executor.submit(this::collectPayment);
 
-        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics);
+        CompletableFuture<Integer> futureAnalytics = CompletableFuture.supplyAsync(this::sendAnalytics, executor);
         futureAnalytics.thenAccept(result -> System.out.println("Analytics: " + result));
 
         try {
@@ -39,7 +39,6 @@ public class MasterCardService {
             e.printStackTrace();
             throw new IllegalStateException("Do All task - Payment thread interrupted");
         }
-
         executor.shutdown();
     }
 }
