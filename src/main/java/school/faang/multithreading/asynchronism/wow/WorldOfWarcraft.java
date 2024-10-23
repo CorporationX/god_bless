@@ -30,6 +30,7 @@ public class WorldOfWarcraft {
         try {
             executorService.awaitTermination(MAX_TIME_WORK, TimeUnit.SECONDS);
         } catch (InterruptedException e) {
+            log.error("Произошла ошибка: {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
