@@ -27,8 +27,7 @@ public class MasterCardService {
         }
     }
 
-    public void doAll() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
+    public void doAll(ExecutorService executor) {
         Future<Integer> futureResult = executor.submit(() -> collectPayment());
 
         CompletableFuture<Void> analyticsFuture = CompletableFuture.supplyAsync(() -> sendAnalytics())
