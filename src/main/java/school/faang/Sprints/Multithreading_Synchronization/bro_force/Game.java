@@ -1,4 +1,4 @@
-package school.faang;
+package school.faang.Sprints.Multithreading_Synchronization.bro_force;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
