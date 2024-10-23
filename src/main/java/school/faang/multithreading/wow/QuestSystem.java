@@ -1,9 +1,10 @@
 package school.faang.multithreading.wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 System.out.println("Player " + player.getName() + " starting quest " + quest.getName());
@@ -13,6 +14,6 @@ public class QuestSystem {
                 throw new RuntimeException(e);
             }
             return player;
-        });
+        }, executor);
     }
 }
