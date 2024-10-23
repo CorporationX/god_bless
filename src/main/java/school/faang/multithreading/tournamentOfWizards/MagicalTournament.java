@@ -1,6 +1,8 @@
 package school.faang.multithreading.tournamentOfWizards;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -32,15 +34,9 @@ public class MagicalTournament {
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(hogwartsTask, beauxbatonsTask, witchcraftRecipesTask)
                 .thenRun(() -> {
-                    int maxPoints = Integer.MIN_VALUE;
-                    School winningSchool = null;
-                    for (School school : schools) {
-                        if (school.getTotalPoints() > maxPoints) {
-                            maxPoints = school.getTotalPoints();
-                            winningSchool = school;
-                        }
-                    }
-                    System.out.println("School: " + winningSchool.getName() + " won tournament!");
+                    Optional<School> winningSchool = schools.stream()
+                            .max(Comparator.comparing(School::getTotalPoints));
+                    winningSchool.ifPresent(school -> System.out.println("School: " + school.getName() + " won tournament!"));
                 });
     }
 }
