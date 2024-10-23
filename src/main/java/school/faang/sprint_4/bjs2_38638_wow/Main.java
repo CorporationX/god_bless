@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executors;
 
 @Slf4j
 public class Main {
@@ -26,7 +25,7 @@ public class Main {
                 new Quest("Hunt the Shadow Beast", 8, 180),
                 new Quest("Retrieve the Sacred Artifact", 9, 130)));
 
-        QuestSystem questSystem = new QuestSystem(Executors.newCachedThreadPool());
+        QuestSystem questSystem = new QuestSystem();
         List<CompletableFuture<Player>> questedPlayers = new ArrayList<>();
 
         players.forEach(player ->

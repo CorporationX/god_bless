@@ -3,8 +3,6 @@ package school.faang.sprint_4.bjs2_38638_wow;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.concurrent.Semaphore;
-
 @Slf4j
 @Getter
 public class Player {
@@ -13,13 +11,11 @@ public class Player {
     private final String name;
     private int level;
     private int exp;
-    private final Semaphore semaphore;
 
     public Player(String name) {
         this.name = name;
         level = 1;
         exp = 0;
-        semaphore = new Semaphore(MAX_QUESTS_AT_TIME);
     }
 
     public void addExperience(int exp) {

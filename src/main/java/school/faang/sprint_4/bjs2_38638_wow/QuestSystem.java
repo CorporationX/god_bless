@@ -5,32 +5,21 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
-    ExecutorService executor;
+    private final ExecutorService executor;
 
-    public QuestSystem(ExecutorService executor) {
-        this.executor = executor;
+    public QuestSystem() {
+        executor = Executors.newCachedThreadPool();
     }
 
     public CompletableFuture<Player> startQuesting(Player player, List<Quest> quests) {
-        Semaphore semaphore = player.getSemaphore();
 
         List<CompletableFuture<Void>> completedQuests = quests.stream()
-                .map(quest -> CompletableFuture.runAsync(() -> {
-                    try {
-                        semaphore.acquire();
-                        startQuest(player, quest);
-                    } catch (InterruptedException e) {
-                        log.error("An error occurred on quest limiting by semaphore", e);
-                        throw new IllegalStateException(e);
-                    } finally {
-                        semaphore.release();
-                    }
-                }, executor))
+                .map(quest -> CompletableFuture.runAsync(() -> startQuest(player, quest), executor))
                 .toList();
 
         return CompletableFuture.allOf(completedQuests.toArray(new CompletableFuture[0]))
