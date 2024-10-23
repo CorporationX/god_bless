@@ -31,6 +31,8 @@ public class Main {
 
         CompletableFuture.allOf(player1Quest, player2Quest).join();
         System.out.println("All quests have been completed.");
+
+        questSystem.shutdown();
     }
 }
 
