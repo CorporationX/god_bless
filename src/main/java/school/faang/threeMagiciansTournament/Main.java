@@ -20,12 +20,13 @@ public class Main {
         hogwartsFuture.thenRun(() -> System.out.println("Hogwarts results: " + hogwarts.getTotalPoints()));
         beauxbatonsFuture.thenRun(() -> System.out.println("Beauxbatons results: " + beauxbatons.getTotalPoints()));
         allTasks.thenRun(() -> {
+            System.out.println("Hogwarts results: " + hogwarts.getTotalPoints());
+            System.out.println("Beauxbatons results: " + beauxbatons.getTotalPoints());
             if (hogwarts.compareResults(beauxbatons)) {
                 System.out.println(hogwarts.getName() + " wins the tournament!");
             } else {
                 System.out.println(beauxbatons.getName() + " wins the tournament!");
             }
-        });
-        allTasks.join();
+        }).join();
     }
 }
