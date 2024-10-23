@@ -45,42 +45,30 @@ public class VladController {
     }
 
     private static void feedAll() {
-        synchronized (tamagotchiVladList) {
             tamagotchiVladList.forEach(TamagotchiVlad::feed);
-        }
     }
 
     private static void playAll() {
-        synchronized (tamagotchiVladList) {
             tamagotchiVladList.forEach(TamagotchiVlad::play);
-        }
     }
 
     private static void cleanAll() {
-        synchronized (tamagotchiVladList) {
             tamagotchiVladList.forEach(TamagotchiVlad::clean);
-        }
     }
 
     private static void sleepAll() {
-        synchronized (tamagotchiVladList) {
             tamagotchiVladList.forEach(TamagotchiVlad::sleep);
-        }
     }
 
     private static void addTamagotchiVlad(String name) {
         validateName(name);
-        synchronized (tamagotchiVladList) {
-            tamagotchiVladList.add(new TamagotchiVlad(name));
-        }
+        tamagotchiVladList.add(new TamagotchiVlad(name));
         log.info("{} добавлен в список", name);
     }
 
     private static void removeTamagotchiVlad(String name) {
         validateName(name);
-        synchronized (tamagotchiVladList) {
-            tamagotchiVladList.removeIf(tamagochi -> tamagochi.getName().equals(name));
-        }
+        tamagotchiVladList.removeIf(tamagochi -> tamagochi.getName().equals(name));
         log.info("{} удален из списка", name);
     }
 
