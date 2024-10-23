@@ -1,4 +1,4 @@
-package school.faang.multithreading.asynchronism.superheroes.bettle;
+package school.faang.multithreading.asynchronism.superheroes.battle;
 
 import org.apache.commons.lang3.tuple.Pair;
 

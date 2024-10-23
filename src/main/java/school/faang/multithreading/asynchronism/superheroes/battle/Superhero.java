@@ -1,4 +1,4 @@
-package school.faang.multithreading.asynchronism.superheroes.bettle;
+package school.faang.multithreading.asynchronism.superheroes.battle;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

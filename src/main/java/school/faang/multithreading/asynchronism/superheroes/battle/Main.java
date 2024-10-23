@@ -1,4 +1,4 @@
-package school.faang.multithreading.asynchronism.superheroes.bettle;
+package school.faang.multithreading.asynchronism.superheroes.battle;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.tuple.Pair;
