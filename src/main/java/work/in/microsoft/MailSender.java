@@ -16,7 +16,11 @@ public class MailSender {
         }
 
         for (Thread thread : threads) {
-            thread.join();
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.err.println("The thread has been interrupted: " + e.getMessage());
+            }
         }
 
         System.out.println("All mails were sent");
