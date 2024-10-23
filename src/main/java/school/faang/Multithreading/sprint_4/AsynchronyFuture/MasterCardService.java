@@ -8,7 +8,6 @@ import java.util.concurrent.Future;
 
 
 public class MasterCardService {
-
     public final static long TIME_COLLECT = 10_000;
     public final static long TIME_ANALYSIS = 1_000;
 
