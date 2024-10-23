@@ -1,6 +1,6 @@
 package bjs2_37879;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.List;
 
 public class Main {
 
@@ -13,7 +13,10 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", 10, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", 8, 100);
 
-        questSystem.processPlayerQuest(player1, quest1);
-        questSystem.processPlayerQuest(player2, quest2);
+        PlayerQuest playerQuest1 = new PlayerQuest(player1, quest1);
+        PlayerQuest playerQuest2 = new PlayerQuest(player2, quest2);
+        List<PlayerQuest> playerQuests = List.of(playerQuest1, playerQuest2);
+
+        questSystem.processAllPlayerQuests(playerQuests);
     }
 }
