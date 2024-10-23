@@ -9,26 +9,25 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class QuestSystem {
-    ExecutorService executor = Executors.newCachedThreadPool();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
 
-    public void startQuest(Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         if (player.getLevel() < quest.getDifficulty()) {
             log.info("Игрок {} не готов для задания {}! Выберите другое задание", player.getName(), quest.getName());
+            return null;
         } else {
-            CompletableFuture.supplyAsync(() -> {
-                        log.info("Игрок {} проходит задание {}\n", player.getName(), quest.getName());
-                        try {
-                            Thread.sleep(quest.getDifficulty() * 1000L);
-                        } catch (InterruptedException e) {
-                            log.error("Поток был прерван", e);
-                        }
-                        player.addExperience(quest.getReward());
-                        player.upgradeLevel(quest.getDifficulty());
+            return CompletableFuture.supplyAsync(() -> {
+                log.info("Игрок {} проходит задание {}\n", player.getName(), quest.getName());
+                try {
+                    Thread.sleep(quest.getDifficulty() * 1000L);
+                } catch (InterruptedException e) {
+                    log.error("Поток был прерван", e);
+                }
+                player.addExperience(quest.getReward());
+                player.upgradeLevel(quest.getDifficulty());
 
-                        return player;
-                    }, executor)
-                    .thenAccept(playerResult -> log.info("{} выполнил задание и теперь имеет {} очков опыта и {} уровень.\n"
-                            , player.getName(), player.getExp(), player.getLevel()));
+                return player;
+            }, executor);
         }
     }
 
