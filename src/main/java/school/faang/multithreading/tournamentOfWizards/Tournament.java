@@ -10,6 +10,7 @@ public class Tournament {
             try {
                 System.out.println("Students of " + school.getName() + " are started to complete the task: " + task.getName());
                 Thread.sleep(1000 * task.getDifficulty());
+                System.out.println("Students of " + school.getName() + " success completed the task: " + task.getName());
                 school.awardPointsToAllStudents(task);
             } catch (InterruptedException e) {
                 System.out.println("Students of " + school.getName() + " interrupted the task");
