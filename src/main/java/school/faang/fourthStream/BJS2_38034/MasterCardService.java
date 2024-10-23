@@ -12,14 +12,13 @@ public class MasterCardService {
     private final ExecutorService executor = Executors.newFixedThreadPool(THREADS_COUNT);
 
     public void doAll() {
-        CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
+        CompletableFuture<Void> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor)
                 .thenAccept(analytics ->
                         System.out.println("Аналитика отправлена: " + analytics))
                 .exceptionally(e -> {
                     System.err.println("Не удалось отправить аналитику: " + e.getMessage());
                     return null;
-                })
-                .join();
+                });
 
         Future<Integer> payment = executor.submit(MasterCardService::collectPayment);
 
@@ -42,6 +41,8 @@ public class MasterCardService {
             Thread.currentThread().interrupt();
             System.err.println("Поток прерван: " + e.getMessage());
         }
+
+        analyticsFuture.join();
     }
 
     private static int collectPayment() {
