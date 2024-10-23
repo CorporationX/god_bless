@@ -16,7 +16,7 @@ public class OrderProcessor {
     private CompletableFuture<Void> processOrder(Order order) {
         return CompletableFuture.runAsync(() -> {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(1_000);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
