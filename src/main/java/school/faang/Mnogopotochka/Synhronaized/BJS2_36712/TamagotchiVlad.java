@@ -11,24 +11,30 @@ public class TamagotchiVlad {
     private static final Logger log = LoggerFactory.getLogger(TamagotchiVlad.class);
     private final Object lock = new Object();
     private String name;
+    private String state;
 
-    public synchronized void feed(){
-        log.info("{} eat", getName());
-        log.info("{} tookOver", getName());
+    public TamagotchiVlad(String name) {
+        this.name = name;
+        this.state = "neutral";
     }
 
-    public synchronized void play(){
-        log.info("{} play", getName());
-        log.info("{} played", getName());
+    public synchronized void feed() {
+        state = "full";
+        log.info("{} eat, current state: {}", getName(), state);
     }
 
-    public synchronized void clean(){
-        log.info("{} clean", getName());
-        log.info("{} haveAWash", getName());
+    public synchronized void play() {
+        state = "playing";
+        log.info("{} play, current state: {}", getName(), state);
     }
 
-    public synchronized void sleep(){
-        log.info("{} sleep", getName());
-        log.info("{} getSomeSleep", getName());
+    public synchronized void clean() {
+        state = "clean";
+        log.info("{} clean, current state: {}", getName(), state);
+    }
+
+    public synchronized void sleep() {
+        state = "sleeping";
+        log.info("{} sleep, current state: {}", getName(), state);
     }
 }
