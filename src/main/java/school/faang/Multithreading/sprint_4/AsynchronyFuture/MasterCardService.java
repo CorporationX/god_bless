@@ -6,7 +6,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+
 public class MasterCardService {
+
+    public final static long TIME_COLLECT = 10_000;
+    public final static long TIME_ANALYSIS = 1_000;
 
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
@@ -28,8 +32,8 @@ public class MasterCardService {
 
     private static int collectPayment() {
         try {
-            Thread.sleep(10_000);
-            return 10_000;
+            Thread.sleep(TIME_COLLECT);
+            return (int) TIME_COLLECT;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -38,8 +42,8 @@ public class MasterCardService {
 
     private static int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
-            return 1_000;
+            Thread.sleep(TIME_ANALYSIS);
+            return (int) TIME_ANALYSIS;
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException();
