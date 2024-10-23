@@ -5,7 +5,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
 public class SquareCalculator {
-
     public static Long fanOutFanIn(List<SquareRequest> requests, ResultConsumer resultConsumer) {
         List<CompletableFuture<Void>> futures = requests.stream()
                 .map(request -> CompletableFuture.runAsync(() -> request.longTimeSquare(resultConsumer)))
