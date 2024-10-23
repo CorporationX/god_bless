@@ -10,9 +10,13 @@ import java.util.concurrent.TimeUnit;
 public class MasterCardService {
     private final int THREAD_POOL_SIZE = 5;
 
+    private final int timeOfCollectPayment = 10_000;
+    private final int timeOfSendAnalytics = 1_000;
+
     private int collectPayment() {
+
         try {
-            Thread.sleep(10_000);
+            Thread.sleep(timeOfCollectPayment);
         } catch (InterruptedException e) {
             throw new IllegalStateException("Failed to collect payment " + e.getMessage(), e);
         }
@@ -21,7 +25,7 @@ public class MasterCardService {
 
     private int sendAnalytics() {
         try {
-            Thread.sleep(1_000);
+            Thread.sleep(timeOfSendAnalytics);
         } catch (InterruptedException e) {
             throw new IllegalStateException("Failed to send analytics " + e.getMessage(), e);
         }
