@@ -12,7 +12,14 @@ import java.util.concurrent.TimeoutException;
 
 @Slf4j
 public class MasterCardService {
+    private final ExecutorService executor;
+
+    public MasterCardService(int poolSize) {
+        this.executor = Executors.newFixedThreadPool(poolSize);
+    }
+
     public static int collectPayment() {
+        log.info("collectPayment is running on: " + Thread.currentThread().getName());
         try {
             Thread.sleep(10000);
             return 10000;
@@ -24,6 +31,7 @@ public class MasterCardService {
     }
 
     public static int sendAnalytics() {
+        log.info("sendAnalytics is running on: " + Thread.currentThread().getName());
         try {
             Thread.sleep(1000);
             return 1000;
@@ -35,14 +43,12 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
-        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics);
-        Integer analyticsResult = analyticsFuture.join();
-        log.info("Analytics has been sent: " + analyticsResult);
-        Integer paymentResult;
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
+        analyticsFuture.thenAccept(analyticsResult -> log.info("Analytics has been sent: " + analyticsResult));
         try {
-            paymentResult = paymentFuture.get(12, TimeUnit.SECONDS);
+            Integer paymentResult = paymentFuture.get(12, TimeUnit.SECONDS);
+            log.info("Payment has been completed: " + paymentResult);
         } catch (InterruptedException e) {
             log.error("Payment task was interrupted", e);
             Thread.currentThread().interrupt();
@@ -53,12 +59,15 @@ public class MasterCardService {
         } catch (TimeoutException e) {
             log.error("Payment task timed out after waiting for 12 seconds", e);
             throw new RuntimeException("Payment process timed out", e);
+        } finally {
+            shutDownExecutor();
         }
-        log.info("Payment has been completed: " + paymentResult);
+    }
 
+    private void shutDownExecutor() {
         executor.shutdown();
         try {
-            if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
+            if (!executor.awaitTermination(30, TimeUnit.SECONDS)) {
                 log.warn("Executor did not terminate in the specific time. Forcing shutdown...");
                 executor.shutdownNow();
             }
