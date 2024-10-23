@@ -14,7 +14,7 @@ public class Chore implements Runnable {
         try {
             TimeUnit.SECONDS.sleep(5);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Thread was interrupted unexpectedly during sleep");
         }
         System.out.println("Task: " + chore + " " + Thread.currentThread().getName() + " completed");
     }

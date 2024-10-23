@@ -5,8 +5,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Main {
+
     public static void main(String[] args) {
-        WeasleyFamily weasleyFamily = new WeasleyFamily();
+        String[] choresWeasleyFamily = createChores();
+        WeasleyFamily weasleyFamily = new WeasleyFamily(choresWeasleyFamily);
         String[] chores = weasleyFamily.getChores();
         ExecutorService executorService = Executors.newCachedThreadPool();
 
@@ -15,5 +17,20 @@ public class Main {
                 .forEach(executorService::execute);
 
         executorService.shutdown();
+    }
+
+    private static String[] createChores() {
+        return new String[]{
+                "Wash the dishes",
+                "Sweep the floor",
+                "Prepare dinner",
+                "Vacuum the carpet",
+                "Laundry",
+                "Clean the bathroom",
+                "Take out the trash",
+                "Water the plants",
+                "Dust the furniture",
+                "Organize the closet"
+        };
     }
 }
