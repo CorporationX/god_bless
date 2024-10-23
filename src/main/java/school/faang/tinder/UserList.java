@@ -1,12 +1,18 @@
 package school.faang.tinder;
 
+import lombok.AllArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import static school.faang.tinder.ChatManager.INCORRECT_LOOKING_FOR_CHAT_STATE_MESSAGE;
+
+@AllArgsConstructor
 public class UserList {
     private final List<User> users = new ArrayList<>();
+    private final ChatManager chatManager;
 
     public List<User> getOnlineUsers() {
         return users.stream()
@@ -14,11 +20,19 @@ public class UserList {
                 .toList();
     }
 
-    public void addUser(User user) {
+    public synchronized void addUser(User user) {
         users.add(user);
+        System.out.println(user.getName() + " был добавлен в список");
+        notifyAll();
     }
 
-    public void removeUser(User user) {
+    public synchronized void removeUser(User user) {
+        if (chatManager.isInAnyChat(user)) {
+            Chat chat = chatManager.getChatByUser(user).orElseThrow(
+                    () -> new IllegalStateException(INCORRECT_LOOKING_FOR_CHAT_STATE_MESSAGE +
+                            user.getName()));
+            chatManager.endChat(chat.getChatId());
+        }
         users.remove(user);
     }
 

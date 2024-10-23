@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 @Getter
 public class Chat {
@@ -39,6 +38,10 @@ public class Chat {
         System.out.println("Пользователь " + message.messageOwner() +
                 " удалил сообщение: " + message.content());
         userMessages.get(message.messageOwner()).remove(message);
+    }
+
+    public boolean containsUser(User user) {
+        return userMessages.containsKey(user);
     }
 
     private void validateMessage(Message message) {
