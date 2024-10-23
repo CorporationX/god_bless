@@ -30,24 +30,9 @@ public class GooglePhotosAutoUploader {
         }
     }
 
-    //Случалась ситуация, когда два потока отработали onNewPhotoAdded()
-    //и в это время два других были в wait в startAutoUpload().
-    //Получилось, что после notify один вывел две фотографии, а другой пустой список,
-    //поэтому дважды спрашиваю, но уже в uploadPhotos(). Можно это сделать более красиво?
-
     private void uploadPhotos() {
-        synchronized (lock) {
             System.out.println(Thread.currentThread().getName() + " job");
             photosToUpload.forEach(System.out::println);
-            if (photosToUpload.isEmpty()) {
-                try {
-                    System.out.println(Thread.currentThread().getName() + " waiting");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }
             photosToUpload.clear();
-        }
     }
 }
