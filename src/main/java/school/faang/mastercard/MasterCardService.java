@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
 
@@ -33,14 +34,17 @@ public class MasterCardService {
     public void doAll() {
         ExecutorService executorService = Executors.newFixedThreadPool(2);
 
-        CompletableFuture.supplyAsync(() -> (sendAnalytics()), executorService)
-                .thenAccept((resalt) -> System.out.println("Аналитика отправлена: " + resalt)).join();
+        CompletableFuture<Void> completableFuture = CompletableFuture.supplyAsync(() -> (sendAnalytics()), executorService)
+                .thenAccept((resalt) -> System.out.println("Аналитика отправлена: " + resalt));
 
         Future<Integer> pay = executorService.submit(() -> (collectPayment()));
         while (pay.isDone()) {
         }
+        executorService.awaitTermination(1, TimeUnit.SECONDS);
         System.out.println("Платеж выполнен: " + pay.get());
+        completableFuture.join();
         executorService.shutdown();
+
     }
 }
 
