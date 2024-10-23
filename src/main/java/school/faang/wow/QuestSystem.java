@@ -6,7 +6,7 @@ public class QuestSystem {
     private final ExecutorService executorService = Executors.newFixedThreadPool(3);
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
-        CompletableFuture<Player> completableFuture = CompletableFuture
+        return CompletableFuture
                 .supplyAsync(() -> {
                     System.out.println("Квест " + quest.getName() + " начался...");
                     try {
@@ -18,9 +18,5 @@ public class QuestSystem {
                     player.setExperience(player.getExperience() + 1);
                     return player;
                 }, executorService);
-
-        executorService.shutdown();
-
-        return completableFuture;
     }
 }
