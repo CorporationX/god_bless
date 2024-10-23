@@ -8,15 +8,6 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class Launcher {
-    private static final Launcher INSTANCE = new Launcher();
-
-    private Launcher() {
-    }
-
-    public static Launcher getInstance() {
-        return INSTANCE;
-    }
-
     public void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService pool = Executors.newSingleThreadExecutor();
         long methodStartTime = System.currentTimeMillis();

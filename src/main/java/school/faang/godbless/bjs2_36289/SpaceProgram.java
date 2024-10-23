@@ -11,6 +11,6 @@ public class SpaceProgram {
                 new RocketLaunch("Rocket4", 1500),
                 new RocketLaunch("Rocket5", 4000)
         );
-        Launcher.getInstance().planRocketLaunches(launches);
+        new Launcher().planRocketLaunches(launches);
     }
 }
