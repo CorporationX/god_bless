@@ -3,7 +3,7 @@ package school.faang.WOW;
 import java.util.concurrent.CompletableFuture;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         QuestSystem questSystem = new QuestSystem();
 
         Player player1 = new Player("Thrall", 10, 250);
