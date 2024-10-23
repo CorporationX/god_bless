@@ -38,11 +38,13 @@ public class MagicalTournament {
                 } else {
                     System.out.println("It's a tie!");
                 }
-                allTasks.join();
 
             } catch (InterruptedException | ExecutionException e) {
                 log.error("Something went wrong " + e);
             }
         });
+        hogwartsTask.join();
+        beauxbatonsTask.join();
+        tournament.shutDown();
     }
 }

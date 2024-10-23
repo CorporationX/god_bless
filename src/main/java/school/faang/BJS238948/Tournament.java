@@ -9,9 +9,9 @@ import java.util.concurrent.Executors;
 @Slf4j
 public class Tournament {
     private static final int THREADS = 3;
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
 
     public CompletableFuture<School> startTask(School school, Task task) {
-        ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
         CompletableFuture<School> completableFuture = CompletableFuture.supplyAsync(() -> school, executorService);
         completableFuture.thenApply(sch -> {
             try {
@@ -23,7 +23,10 @@ public class Tournament {
             }
             return school;
         });
-        completableFuture.thenRun(executorService::shutdown);
         return completableFuture;
+    }
+
+    public void shutDown() {
+        executorService.shutdown();
     }
 }
