@@ -1,11 +1,15 @@
 package school.faang.wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) {
 
-        QuestSystem questSystem = new QuestSystem();
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+
+        QuestSystem questSystem = new QuestSystem(executorService);
 
         Player player1 = new Player("Thrall", 10, 250);
         Player player2 = new Player("Sylvanas", 12, 450);
@@ -25,5 +29,7 @@ public class Main {
 
         player1Quest.join();
         player2Quest.join();
+
+        questSystem.shutdown();
     }
 }

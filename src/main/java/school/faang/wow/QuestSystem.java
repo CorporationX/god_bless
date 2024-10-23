@@ -1,8 +1,15 @@
 package school.faang.wow;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
+
+    private final ExecutorService executor;
+
+    public QuestSystem(ExecutorService executor) {
+        this.executor = executor;
+    }
 
     public CompletableFuture<Player> startQuest(Player player, Quest quest) {
         return CompletableFuture.supplyAsync(() -> {
@@ -15,7 +22,11 @@ public class QuestSystem {
             player.addExperience(quest.getReward());
             System.out.println(player.getName() + " completed the quest " + quest.getName());
             return player;
-        });
+        }, executor);
+    }
+
+    public void shutdown() {
+        executor.shutdown();
     }
 }
 
