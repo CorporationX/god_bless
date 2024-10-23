@@ -2,8 +2,6 @@ package dima.evseenko.wow;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -15,14 +13,10 @@ public class Main {
         Quest quest1 = new Quest("Defeat the Lich King", Difficulty.HARD, 150);
         Quest quest2 = new Quest("Retrieve the Sword of Azeroth", Difficulty.MEDIUM, 100);
 
-        ExecutorService executorService = Executors.newCachedThreadPool();
-
-        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1, executorService);
-        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2, executorService);
+        CompletableFuture<Player> player1Quest = questSystem.startQuest(player1, quest1);
+        CompletableFuture<Player> player2Quest = questSystem.startQuest(player2, quest2);
 
         player1Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
         player2Quest.thenAccept(player -> System.out.println(player.getName() + " has completed the quest and now has " + player.getExperience() + " experience points."));
-
-        executorService.shutdown();
     }
 }

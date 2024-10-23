@@ -1,27 +1,30 @@
 package dima.evseenko.wow;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest, Executor executor) {
-        return CompletableFuture.supplyAsync(() -> {
+    private ExecutorService executor = Executors.newCachedThreadPool();
+
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+        if (executor.isShutdown()) {
+            executor = Executors.newCachedThreadPool();
+        }
+
+        CompletableFuture<Player> future = CompletableFuture.supplyAsync(() -> {
             try {
                 player.setExperience(player.getExperience() + quest.getReward());
-                Thread.sleep(getQuestCompleteTime(quest));
+                Thread.sleep(quest.getDifficulty().getQuestCompleteTime());
                 return player;
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 throw new IllegalStateException("Ошибка при выполнении квеста %s игроком %s!".formatted(quest.getName(), player.getName()), e);
             }
         }, executor);
-    }
 
-    private int getQuestCompleteTime(Quest quest) {
-        return switch (quest.getDifficulty()) {
-            case EASY -> 1000;
-            case MEDIUM -> 2000;
-            case HARD -> 3000;
-        };
+        executor.shutdown();
+
+        return future;
     }
 }
