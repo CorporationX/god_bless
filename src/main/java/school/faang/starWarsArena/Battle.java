@@ -5,7 +5,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 public class Battle {
-    public static final int NUM_THREADS = 5;
+    private static final int NUM_THREADS = 5;
     private final ExecutorService executor = Executors.newFixedThreadPool(NUM_THREADS);
 
     public Future<Robot> fight(Robot robot1, Robot robot2) {
@@ -22,7 +22,8 @@ public class Battle {
                     return Math.random() > 0.5 ? robot1 : robot2;
                 }
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
+                throw new IllegalStateException("Fight got interrupted.");
             }
         });
     }
