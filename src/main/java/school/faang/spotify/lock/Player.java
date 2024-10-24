@@ -1,8 +1,8 @@
 package school.faang.spotify.lock;
 
 public class Player {
-    private String lock = "lock object";
-    boolean isPlaying = false;
+    private final Object lock = new Object();
+    private boolean isPlaying = false;
 
     public void play() {
         synchronized(lock) {
