@@ -9,11 +9,11 @@ public class GooglePhotosAutoUploader {
 
     public void startToUpload() throws InterruptedException {
         synchronized (lock) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
+                System.out.println("В папке нет фотографий");
                 lock.wait();
-            } else {
-                uploadPhotos();
             }
+            uploadPhotos();
         }
     }
 

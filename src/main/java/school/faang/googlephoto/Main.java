@@ -16,7 +16,7 @@ public class Main {
             googlePhoto.onNewPhotoAdded("new photo3.jpg");
         });
 
-        thread2.start();
         thread.start();
+        thread2.start();
     }
 }
