@@ -22,7 +22,7 @@ public class NotificationManager {
                 CompletableFuture.allOf(notificationFutures.toArray(CompletableFuture[]::new))
                         .thenRun(() -> {
                             notifications.forEach(notification ->
-                                    System.out.println(notification.getMessage()));
+                                    System.out.println("id " + notification.getId() + " message " + notification.getMessage()));
                         });
 
         allNotificationFutures.join();
