@@ -23,5 +23,3 @@ public class StarWarsArena {
         battle.serviceShutdown();
     }
 }
-
-
