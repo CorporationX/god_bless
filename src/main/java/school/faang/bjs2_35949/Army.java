@@ -9,24 +9,26 @@ public class Army {
         this.soldierList = new ArrayList<>();
     }
 
-    public void addSoldier(Soldier newSoldier) {
-        soldierList.add(newSoldier);
-    }
-
     public List<Soldier> getSoldierList() {
         return soldierList;
     }
-    public  void addSoldier (Soldier soldierType, int count){
-        for (int i = 0; i < count; i++){
-            soldierList.add(soldierType);
+
+    public void addSoldier(Soldier soldierType, int count) {
+        for (int i = 0; i < count; i++) {
+            try {
+                Soldier newSoldier = soldierType.getClass().getDeclaredConstructor().newInstance();
+                soldierList.add(newSoldier);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
     public int calculateTotalPower(int numberOfThreads) throws InterruptedException {
         int totalPower = 0;
         int size = soldierList.size();
         int step = size / numberOfThreads;
         List<SoldierPowerCalculator> calculators = new ArrayList<>();
-        List<Thread> threads = new ArrayList<>();
 
         for (int i = 0; i < numberOfThreads; i++) {
             int start = i * step;
@@ -35,15 +37,13 @@ public class Army {
             calculators.add(calculator);
 
             Thread thread = new Thread(calculator);
-            threads.add(thread);
             thread.start();
-        }
-        for (Thread threadLine : threads) {
-            threadLine.join();
+            thread.join();
         }
         for (SoldierPowerCalculator calculateArmyPower : calculators) {
             totalPower += calculateArmyPower.getTotalPower();
         }
+
         return totalPower;
     }
 }
