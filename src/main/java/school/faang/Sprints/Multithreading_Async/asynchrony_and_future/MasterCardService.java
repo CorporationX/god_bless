@@ -29,18 +29,19 @@ public class MasterCardService {
 
     public void doAll() {
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future<Integer> future1 = executor.submit(() -> collectPayment());
-        CompletableFuture.supplyAsync(() -> sendAnalytics())
-                .thenAccept(result -> System.out.println("Analytics was sent " + result))
-                .thenAccept(s -> {
-                    try {
-                        System.out.println("Payment is completed " + future1.get());
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    } catch (ExecutionException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+        Future<Integer> collectPaymentFuture = executor.submit(() -> collectPayment());
+        CompletableFuture<Integer> sendAnalyticsFuture = CompletableFuture.supplyAsync(() -> sendAnalytics());
+
+        Integer sendResult = sendAnalyticsFuture.join();
+        System.out.println("Analytics was sent " + sendResult);
+        try {
+            Integer collectResult = collectPaymentFuture.get();
+            System.out.println("Payment is completed " + collectResult);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
+        }
         executor.shutdown();
     }
 
