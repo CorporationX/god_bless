@@ -7,12 +7,13 @@ public record Kingdom(String name) {
     private static final double FAILURE_CHANCE = 0.3;
     private static final int DELIVERY_TIME = 5_000;
 
-    public void sendMessage(Kingdom receiver) {
+    public void sendMessage(Kingdom receiver) throws Exception {
         log.info("Сообщение отправлено из {} в {}", name, receiver.name);
         sleep();
         if (Math.random() < FAILURE_CHANCE) {
-            log.error("Сообщение не доставлено из {} в {}", name, receiver.name);
+            throw new Exception("Сообщение не доставлено из " + name + " в " + receiver.name);
         }
+        log.info("Сообщение успешно доставлено из " + name + " в " + receiver.name());
     }
 
     private void sleep() {

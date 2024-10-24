@@ -14,7 +14,13 @@ public class RavenService {
 
 
     public CompletableFuture<Void> sendRaven(Kingdom sender, Kingdom receiver) {
-        return CompletableFuture.runAsync(() -> sender.sendMessage(receiver), EXECUTOR)
+        return CompletableFuture.runAsync(() -> {
+                    try {
+                        sender.sendMessage(receiver);
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                }, EXECUTOR)
                 .handle((result, exception) -> {
                     if (exception != null) {
                         log.error("Ошибка: {}", exception.getMessage());
