@@ -15,7 +15,7 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(3);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException("Поток был попытан прервать в течение периода выполнения.");
         }
     }
 }

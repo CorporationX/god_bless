@@ -1,10 +1,12 @@
 package school.faang.cashedpoolthread;
 
-public class WeasleyFamily {
-    static String[] chores = new String[]{"помыть посуду", "подмести пол", "приготовить ужин"};
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-    public static String[] getChores() {
-        return chores;
-    }
+@Data
+@AllArgsConstructor
+public class WeasleyFamily {
+    private String[] chores;
+
 }
 
