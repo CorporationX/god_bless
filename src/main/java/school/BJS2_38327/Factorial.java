@@ -13,7 +13,7 @@ public class Factorial {
 
     public static void main(String[] args) {
 
-        List<Integer> numbers = Arrays.asList(5, 2, 7, 2, 1, 8, 21);
+        List<Integer> numbers = Arrays.asList(2, 5, 12, 13, 18, 22, 25);
 
         factorials(numbers);
     }
@@ -33,12 +33,12 @@ public class Factorial {
         if (n > MAX_LONG_FACTORIAL) {
             throw new IllegalArgumentException("Число больше MAX_LONG_FACTORIAL");
         }
-        int result = n;
+        long result = n;
         while (n > MAX_INT_FACTORIAL + 1) {
             result = (n - 1) * result;
             n--;
         }
-        return (long) result * factorialInt(MAX_INT_FACTORIAL);
+        return result * factorialInt(MAX_INT_FACTORIAL);
     }
 
     private static BigInteger factorialBig(int n) {
@@ -47,7 +47,7 @@ public class Factorial {
         }
         BigInteger result = new BigInteger(String.valueOf(n));
         while (n > MAX_LONG_FACTORIAL + 1) {
-            result = result.multiply(result.subtract(BigInteger.ONE));
+            result = result.multiply(new BigInteger(String.valueOf(n - 1)));
             n--;
         }
         BigInteger bigIntegerOfFactorialLong = new BigInteger(String.valueOf(factorialLong(MAX_LONG_FACTORIAL)));
@@ -55,16 +55,27 @@ public class Factorial {
     }
 
     private static void factorials(List<Integer> numbers) {
-        List<CompletableFuture<BigInteger>> futures = new ArrayList<>();
+        List<CompletableFuture<Pair<Integer, BigInteger>>> futures = new ArrayList<>();
         numbers.forEach(number -> {
-            futures.add(CompletableFuture.supplyAsync(() -> {
-                if (number > 0 && number <= MAX_INT_FACTORIAL) {
-                    return new BigInteger(String.valueOf(factorialInt(number)));
-                } else if (number <= MAX_LONG_FACTORIAL) {
-                    return new BigInteger(String.valueOf(factorialLong(number)));
-                } else return factorialBig(number);
-            }));
+            futures.add(CompletableFuture.supplyAsync(() -> factorialСalculation(number)));
         });
-        futures.forEach(future -> future.thenAccept(System.out::println));
+        futures.forEach(future -> future.thenAccept(futureResult -> {
+            System.out.printf("Факториал числа %d равен: %d \n", futureResult.getKey(), futureResult.getValue());
+        }));
+    }
+
+    private static Pair<Integer, BigInteger> factorialСalculation(int number) {
+        try {
+            if (number > 0 && number <= MAX_INT_FACTORIAL) {
+                return new Pair<>(number, new BigInteger(String.valueOf(factorialInt(number))));
+            } else if (number <= MAX_LONG_FACTORIAL) {
+                return new Pair<>(number, new BigInteger(String.valueOf(factorialLong(number))));
+            } else {
+                return new Pair<>(number, factorialBig(number));
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage() + " " + number);
+        }
+        return null;
     }
 }
