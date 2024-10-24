@@ -13,7 +13,7 @@ public class Kingdom {
 
     private String name;
 
-    public String sendMessage(Kingdom receiver) throws Exception {
+    public String sendMessage(Kingdom receiver) {
         try {
             Thread.sleep(TIME_SEND_MESSAGE);
         } catch (InterruptedException e) {
@@ -22,7 +22,7 @@ public class Kingdom {
         }
 
         if (Math.random() < 0.3) {
-            throw new Exception("Ворон не смог доставить сообщение из " + name + " в " + receiver.getName());
+            throw new RuntimeException("Ворон не смог доставить сообщение из " + name + " в " + receiver.getName());
         }
 
         return name + " отправило сообщение получателю в " + receiver.getName();

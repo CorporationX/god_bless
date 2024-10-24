@@ -31,7 +31,5 @@ public class Application {
                     return null;
                 })
                 .join();
-
-        ravenService.shutdown();
     }
 }
