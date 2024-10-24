@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 public class MasterCardService {
     private static int collectPayment() {
@@ -31,7 +32,7 @@ public class MasterCardService {
         ExecutorService service = Executors.newSingleThreadExecutor();
         Future<Integer> future = service.submit(MasterCardService::sendAnalytics);
 
-        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::collectPayment);
+        CompletableFuture<Integer> completableFuture = CompletableFuture.supplyAsync(MasterCardService::collectPayment, service);
 
         try {
             System.out.println("Аналитика отправлена: " + future.get());
@@ -40,6 +41,13 @@ public class MasterCardService {
         }
         System.out.println("Платеж выполнен: " + completableFuture.join());
 
-        service.shutdownNow();
+        service.shutdown();
+        try {
+            if (!service.awaitTermination(1, TimeUnit.HOURS)) {
+                System.out.println("Ошибка");
+            }
+        } catch (InterruptedException e) {
+            throw new IllegalStateException(e.getMessage());
+        }
     }
 }
