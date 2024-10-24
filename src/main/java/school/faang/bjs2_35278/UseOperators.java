@@ -21,7 +21,7 @@ public class UseOperators {
 
         System.out.println(filteredAndSortedWords);
 
-        List<Integer> integerList = Arrays.asList(1, 2, 3, 4); // Renamed from 'numbers' to 'integerList'
+        List<Integer> integerList = Arrays.asList(1, 2, 3, 4);
         List<String> binaryNumbers = convertToBinary(integerList);
 
         System.out.println(binaryNumbers);
@@ -41,7 +41,7 @@ public class UseOperators {
         List<String> capitals = countriesCapitals(countryCapitalMap);
         System.out.println(capitals);
 
-        int[] numberArray = {1, 2, 3, 4, 5, 6}; // Renamed from 'numbers' to 'numberArray'
+        int[] numberArray = {1, 2, 3, 4, 5, 6};
         int target = 7;
 
         List<int[]> pairs = uniqPairs(numberArray, target);

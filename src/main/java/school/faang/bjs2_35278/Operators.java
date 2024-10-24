@@ -15,13 +15,7 @@ public class Operators {
     }
 
     public static List<String> countriesCapitals(Map<String, String> countriesCapitalMap) {
-//        List<String> sortCoutries = new ArrayList<>(countriesCapitalMap.keySet());
-//        Collections.sort(sortCoutries);
-//
-//        List<String> sortCapitals = new ArrayList<>();
-//        for (String country : sortCoutries) {
-//            sortCapitals.add(countriesCapitalMap.get(country));
-//        }
+
         return countriesCapitalMap.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(Map.Entry::getValue)
