@@ -45,14 +45,13 @@ public class Factorial {
         if (n < MAX_LONG_FACTORIAL) {
             throw new IllegalArgumentException("Некорректное число для расчета factorialBig");
         }
-        int result = n;
+        BigInteger result = new BigInteger(String.valueOf(n));
         while (n > MAX_LONG_FACTORIAL + 1) {
-            result = (n - 1) * result;
+            result = result.multiply(result.subtract(BigInteger.ONE));
             n--;
         }
-        BigInteger int1 = new BigInteger(String.valueOf(factorialLong(MAX_LONG_FACTORIAL)));
-        BigInteger int2 = new BigInteger(String.valueOf(result));
-        return int1.multiply(int2);
+        BigInteger bigIntegerOfFactorialLong = new BigInteger(String.valueOf(factorialLong(MAX_LONG_FACTORIAL)));
+        return bigIntegerOfFactorialLong.multiply(result);
     }
 
     private static void factorials(List<Integer> numbers) {
