@@ -19,7 +19,7 @@ public class RocketLaunch {
         try {
             Thread.sleep(1000);
             System.out.println("Ракета " + name + " запущена в " +
-                    LocalDateTime.now().toString());
+                    LocalDateTime.now());
         } catch (InterruptedException e) {
             System.err.println("Запуск прерван: " + e.getMessage());
         }
