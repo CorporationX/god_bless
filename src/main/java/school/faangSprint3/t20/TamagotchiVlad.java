@@ -12,7 +12,7 @@ public class TamagotchiVlad {
         state = "сыт";
         System.out.println(name + " ест. Его состояние: " + state);
         try {
-            Thread.sleep(1000); // Имитация времени выполнения действия
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
