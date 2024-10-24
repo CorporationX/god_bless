@@ -13,7 +13,7 @@ import java.util.stream.LongStream;
 @Slf4j
 public class Calculator {
     private static final ExecutorService EXECUTOR = Executors.newCachedThreadPool();
-    private static final long N = 1000;
+    private static final long THRESHOLD = 1000;
     private static final long TERMINATION_SECONDS = 30;
 
     public void launch() {
@@ -21,7 +21,7 @@ public class Calculator {
         ResultConsumer resultConsumer = new ResultConsumer(0L);
 
         Long sum = fanOutFanIn(requests, resultConsumer);
-        log.info("Сумма квадратов чисел от 1 до {}: {}", N, sum);
+        log.info("Сумма квадратов чисел от 1 до {}: {}", THRESHOLD, sum);
     }
 
     public void shutdown() {
@@ -50,7 +50,7 @@ public class Calculator {
     }
 
     private List<SquareRequest> createList() {
-        return LongStream.rangeClosed(1, N)
+        return LongStream.rangeClosed(1, THRESHOLD)
                 .mapToObj(SquareRequest::new)
                 .collect(Collectors.toList());
     }
