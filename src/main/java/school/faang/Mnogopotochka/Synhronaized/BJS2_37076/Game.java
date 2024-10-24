@@ -5,14 +5,14 @@ import org.slf4j.LoggerFactory;
 
 public class Game {
     private static final Logger log = LoggerFactory.getLogger(Game.class);
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
+    private final Object scoreLock = new Object();
+    private final Object livesLock = new Object();
     private int score = 0;
     private int lives = 10;
 
-    public void update(Player player, boolean event){
-        if(event) {
-            synchronized (lock1) {
+    public void update(Player player, boolean isScoreEvent){
+        if(isScoreEvent) {
+            synchronized (scoreLock) {
                 score++;
                 log.info("Iгрок: {} заработал 1 очко, общее число {}",player.getName(), score);
                 if(score >= 10){
@@ -20,7 +20,7 @@ public class Game {
                 }
             }
         } else {
-            synchronized (lock2) {
+            synchronized (livesLock) {
                 lives--;
                 log.info("Iгрок: {} потерял 1 очко здоровья , общее число {}",player.getName(), lives);
                 if(lives <= 0){
