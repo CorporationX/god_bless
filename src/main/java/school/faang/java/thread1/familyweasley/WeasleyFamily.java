@@ -7,9 +7,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class WeasleyFamily {
-    public static int RANDOM_RANGE = 100;
-    ExecutorService executors;
-    List<String> chores;
+    public static final int RANDOM_RANGE = 100;
+    private ExecutorService executors;
+    private List<String> chores;
 
     public void workExecutors() {
         initClassData();

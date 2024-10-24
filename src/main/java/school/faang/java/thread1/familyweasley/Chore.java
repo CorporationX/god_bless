@@ -16,7 +16,15 @@ public class Chore implements Runnable {
         try {
             Thread.sleep(workingTime);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            String message = "EFW-0001" +
+                    "Data (" +
+                    numberInQueue + " | " +
+                    chore + " | " +
+                    workingTime + " | " +
+                    Thread.currentThread().getName() + ")\n" +
+                    "\nException: InterruptedException\n" +
+                    e.getMessage() + "\n";
+            throw new IllegalStateException(message);
         }
         System.out.printf("\nEnd ====>>> Number: %d === A task name: %s. === Working time: %d === Current thread name: %s", numberInQueue, chore, workingTime, Thread.currentThread().getName());
     }
