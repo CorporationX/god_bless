@@ -11,10 +11,13 @@ public class Tournament {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println(Thread.currentThread().getName() +
-                    " " + school.getName() +
-                    " " + task.getReward());
-            school.getStudentList().stream().forEach(student -> student.addPoints(task.getReward()));
+
+            school.getStudentList().stream().forEach(student -> {
+                System.out.println(Thread.currentThread().getName() +
+                        " " + student.getName() +
+                        " + " + task.getReward() + " points");
+                student.addPoints(task.getReward());
+            });
             return school;
         });
     }
