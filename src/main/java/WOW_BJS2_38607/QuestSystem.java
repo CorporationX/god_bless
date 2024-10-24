@@ -1,9 +1,10 @@
 package WOW_BJS2_38607;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
 
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+    public CompletableFuture<Player> startQuest(Player player, Quest quest, ExecutorService executor) {
         return CompletableFuture.supplyAsync(() -> {
             player.getReward(quest.getReward());
             try {
@@ -12,6 +13,6 @@ public class QuestSystem {
                 e.printStackTrace();
             }
             return player;
-        });
+        }, executor);
     }
 }
