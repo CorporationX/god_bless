@@ -5,17 +5,16 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 
 public class MasterCardService {
     private static final Logger logger = LoggerFactory.getLogger(MasterCardService.class);
 
-    ExecutorService executor = Executors.newSingleThreadExecutor();
-    Future<Integer> collectResult = executor.submit(this::collectPayment);
-    CompletableFuture<Integer> sendResult = CompletableFuture.supplyAsync(this::sendAnalytics);
-
-    public MasterCardService() {}
+    public MasterCardService() {
+    }
 
     public int collectPayment() {
         logger.info("Начат процесс оплаты");
@@ -42,8 +41,19 @@ public class MasterCardService {
     }
 
     public void doAll() throws ExecutionException, InterruptedException {
-        System.out.println("Аналитика отправлена: " + sendResult.join());
-        System.out.println("Платеж выполнен: " + collectResult.get());
-        executor.shutdown();
+        ExecutorService paymentExecutor = Executors.newSingleThreadExecutor();
+        ExecutorService analyticsExecutor = Executors.newFixedThreadPool(2);
+
+        try {
+            CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(this::sendAnalytics, analyticsExecutor);
+            Future<Integer> paymentFuture = paymentExecutor.submit(this::collectPayment);
+            System.out.println("Аналитика отправлена: " + analyticsFuture.join());
+            System.out.println("Платеж выполнен: " + paymentFuture.get());
+        } catch (Exception e) {
+            logger.error("Ошибка при выполнении операций", e);
+        } finally {
+            paymentExecutor.shutdown();
+            analyticsExecutor.shutdown();
+        }
     }
 }
