@@ -5,8 +5,8 @@ public class Main {
         DesignResources designResources = new DesignResources();
         MarketingResources marketingResources = new MarketingResources();
 
-        MarketingDepartment marketing = new MarketingDepartment(designResources,marketingResources);
-        DesignDepartment design = new DesignDepartment(marketingResources,designResources);
+        MarketingDepartment marketing = new MarketingDepartment(marketingResources, designResources);
+        DesignDepartment design = new DesignDepartment(designResources, marketingResources);
 
         Thread marketingThread = new Thread(marketing);
         Thread designThread = new Thread(design);

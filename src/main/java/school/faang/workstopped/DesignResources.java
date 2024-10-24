@@ -2,29 +2,30 @@ package school.faang.workstopped;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class DesignResources {
     private final List<String> files = new ArrayList<>();
-    private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public List<String> readFiles() {
-        lock.readLock().lock();
+
+    public void addFile(String file) {
+        lock.writeLock().lock();
         try {
-            System.out.println("Reading files from Design Resources");
-            return new ArrayList<>(files);
+            files.add(file);
+            System.out.println("Design resource added: " + file);
         } finally {
-            lock.readLock().unlock();
+            lock.writeLock().unlock();
         }
     }
 
-    public void addFile(String fileName) {
-        lock.writeLock().lock();
+    public List<String> getFiles() {
+        lock.readLock().lock(); // Блокировка для чтения
         try {
-            System.out.println("Adding file to Design Resources: " + fileName);
-            files.add(fileName);
+            return new ArrayList<>(files);
         } finally {
-            lock.writeLock().unlock();
+            lock.readLock().unlock();
         }
     }
 }

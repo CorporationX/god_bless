@@ -1,30 +1,28 @@
 package school.faang.workstopped;
 
-public class DesignDepartment implements Runnable {
-    private final MarketingResources marketingResources;
-    private final DesignResources designResources;
+import java.util.List;
 
-    public DesignDepartment(MarketingResources marketingResources, DesignResources designResources) {
-        this.marketingResources = marketingResources;
+public class DesignDepartment implements Runnable {
+    private final DesignResources designResources;
+    private final MarketingResources marketingResources;
+
+    // Конструктор для инициализации зависимостей
+    public DesignDepartment(DesignResources designResources, MarketingResources marketingResources) {
         this.designResources = designResources;
+        this.marketingResources = marketingResources;
     }
 
     @Override
     public void run() {
-        synchronized (marketingResources) {
-            System.out.println("Design Department: Trying to read from Marketing Resources...");
-            marketingResources.readFiles();
+        // Чтение маркетинговых ресурсов
+        System.out.println("Design is reading marketing resources...");
+        List<String> marketingFiles = marketingResources.getFiles();
+        marketingFiles.forEach(file -> System.out.println("Marketing File: " + file));
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-
-            synchronized (designResources) {
-                System.out.println("Design Department: Writing to Design Resources...");
-                designResources.addFile("New Product Design");
-            }
-        }
+        // Запись данных в ресурсы дизайна
+        System.out.println("Design is adding a file to its resources...");
+        designResources.addFile("Design Sketch");
+        System.out.println("Design has successfully added 'Design Sketch' to its resources.");
     }
 }
+

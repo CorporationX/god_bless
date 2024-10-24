@@ -1,30 +1,28 @@
 package school.faang.workstopped;
 
-public class MarketingDepartment implements Runnable {
-    private final DesignResources designResources;
-    private final MarketingResources marketingResources;
+import java.util.List;
 
-    public MarketingDepartment(DesignResources designResources, MarketingResources marketingResources) {
-        this.designResources = designResources;
+public class MarketingDepartment implements Runnable {
+    private final MarketingResources marketingResources;
+    private final DesignResources designResources;
+
+    // Конструктор для инициализации зависимостей
+    public MarketingDepartment(MarketingResources marketingResources, DesignResources designResources) {
         this.marketingResources = marketingResources;
+        this.designResources = designResources;
     }
 
     @Override
     public void run() {
-        synchronized (designResources) {
-            System.out.println("Marketing Department: Trying to read from Design Resources...");
-            designResources.readFiles();
+        // Чтение данных из ресурсов дизайна
+        System.out.println("Marketing is reading design resources...");
+        List<String> designFiles = designResources.getFiles(); // Получаем список дизайн-файлов
+        designFiles.forEach(file -> System.out.println("Design File: " + file)); // Печатаем названия файлов
 
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-
-            synchronized (marketingResources) {
-                System.out.println("Marketing Department: Writing to Marketing Resources...");
-                marketingResources.addFile("Marketing Analysis Report");
-            }
-        }
+        // Запись данных в маркетинговые ресурсы
+        System.out.println("Marketing is adding a file to its resources...");
+        marketingResources.addFile("Marketing Analysis"); // Добавляем новый файл в маркетинговые ресурсы
+        System.out.println("Marketing has successfully added 'Marketing Analysis' to its resources.");
     }
 }
+
