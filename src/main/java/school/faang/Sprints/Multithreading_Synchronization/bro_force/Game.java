@@ -23,19 +23,24 @@ public class Game {
         }
 
         synchronized (livesLock) {
+            if (lives == 0) {
+                gameOver();
+            }
+
             if (lostLife) {
                 System.out.println(Thread.currentThread().getName() + " lives " + lives + " -1");
                 lives--;
             }
-
-            if (lives == 0) {
-                gameOver();
-            }
         }
     }
 
-    public void gameOver() {
+    private synchronized void gameOver() {
         System.out.println("GAME OVER");
-        isGame = false;
+        try {
+            isGame = false;
+            wait();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
