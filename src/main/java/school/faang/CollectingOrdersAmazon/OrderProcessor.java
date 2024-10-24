@@ -23,6 +23,7 @@ public class OrderProcessor {
                         .runAsync(() -> processOrder(order), executorService)
                         .exceptionally(e -> {
                             log.error("Обработка заказа завершилась неудачно: {}", e.getMessage());
+                            executorService.shutdownNow();
                             throw new IllegalStateException(e);
                         }))
                 .toList();
