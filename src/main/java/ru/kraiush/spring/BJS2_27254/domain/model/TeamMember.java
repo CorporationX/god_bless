@@ -43,8 +43,7 @@ public class TeamMember {
     private Role role;
 
     @OneToMany(
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
+            cascade = CascadeType.MERGE
     )
     @JoinColumn(name = "member_id")
     private List<Phone> phones;

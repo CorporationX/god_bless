@@ -22,10 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.AdditionalMatchers.and;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.willDoNothing;
-import static org.mockito.Mockito.*;
+import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @MockitoSettings(strictness = Strictness.LENIENT)
@@ -59,7 +56,7 @@ class TeamMemberServiceFulfilTest {
         given(repository.findByEmail(user.getEmail()))
                 .willReturn(Optional.empty());
         given(repository.save(user)).willReturn(user);
-        TeamMember savedTeamMember = service.create(user);
+        var savedTeamMember = service.create(user);
         assertThat(savedTeamMember).isNotNull();
         assertThat(repository.findByEmail("abra@cada.bra").isEmpty());
         assertThat(repository.findByName("Nika")).isNotNull();
@@ -89,7 +86,7 @@ class TeamMemberServiceFulfilTest {
     @DisplayName("JUnit test for getAllTeamMembers method")
     @Test
     public void whenGetAllTeamMembers_thenReturnTeamMembersList() {
-        TeamMember user2 = TeamMember.builder()
+        var user2 = TeamMember.builder()
                 .id(7876l)
                 .name("Aloe")
                 .gender(false)
@@ -101,7 +98,7 @@ class TeamMemberServiceFulfilTest {
                 .build();
 
         given(repository.findAll()).willReturn(List.of(user, user2));
-        List<TeamMember> userList = service.findAll();
+        var userList = service.findAll();
         assertThat(userList).isNotNull();
         assertThat(userList.size()).isEqualTo(2);
     }
