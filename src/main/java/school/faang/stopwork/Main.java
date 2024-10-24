@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 public class Main {
     private final static int THREAD_COUNT_POOL = 2;
     private final static int MAX_TIME_WORK = 100;
+
     public static void main(String[] args) {
         MarketingResources marketingResources = new MarketingResources(List.of("4", "5", "6"));
         DesignResources designResources = new DesignResources(List.of("1", "2", "3"));

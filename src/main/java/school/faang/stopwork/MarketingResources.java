@@ -20,7 +20,7 @@ public class MarketingResources {
         }
     }
 
-    public synchronized List<String> getFiles() {
+    public List<String> getFiles() {
         lock.readLock().lock();
         try {
             return files;
