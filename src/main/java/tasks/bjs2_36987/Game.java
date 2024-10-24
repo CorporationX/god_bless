@@ -55,32 +55,39 @@ public class Game {
     }
 
     private void battle() {
-        synchronized (battlingPlayers) {
-            boss.takeDamage(battlingPlayers.size());
+        synchronized (boss) {
+            synchronized (battlingPlayers) {
+                boss.takeDamage(battlingPlayers.size());
+            }
 
             if (isBattleOver())
                 endBattle();
         }
     }
 
-    public synchronized void joinBattle(Player player) {
-        while (battlingPlayers.size() >= maxBattlingPlayers) {
-            try {
-                player.wait();
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+    public void joinBattle(Player player) {
+        synchronized (battlingPlayers) {
+            while (battlingPlayers.size() >= maxBattlingPlayers) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
-        }
 
-        if (!boss.isDead()) {
-            battlingPlayers.add(player);
+            if (!boss.isDead()) {
+                battlingPlayers.add(player);
+            }
         }
     }
 
-    public synchronized void leaveBattle(Player player) {
-        if (!boss.isDead()) {
-            deadPlayers.add(player);
-            battlingPlayers.remove(player);
+    public void leaveBattle(Player player) {
+        synchronized (battlingPlayers) {
+            if (!boss.isDead()) {
+                deadPlayers.add(player);
+                battlingPlayers.remove(player);
+                notify();
+            }
         }
     }
 

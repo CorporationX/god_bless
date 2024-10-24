@@ -12,7 +12,7 @@ import java.util.Random;
 public class Player {
     private static final Random RANDOM = new Random();
     private static final int MIN_DELAY = 2000;
-    private static final int MAX_DELAY = 10000;
+    private static final int MAX_DELAY = 20000;
     private String name;
 
     public void startBattle(Game game) {
@@ -25,7 +25,7 @@ public class Player {
             throw new IllegalStateException("В процессе выполнения произошла ошибка : " + e.getMessage());
         }
 
-        game.leaveBattle(this);
         System.out.println(name + " погиб в сражение с боссом");
+        game.leaveBattle(this);
     }
 }
