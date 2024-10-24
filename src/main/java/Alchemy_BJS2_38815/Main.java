@@ -9,7 +9,6 @@ public class Main {
                 new Potion("Mana Potion", 3),
                 new Potion("Stamina Potion", 4)
         );
-
-        Potion.gatherAllIngredients(potions);
+        PotionGathering.gatherAllIngredients(potions);
     }
 }
