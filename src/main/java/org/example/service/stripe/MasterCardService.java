@@ -6,20 +6,20 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class MasterCardService {
     private static final int COLLECT_PAYMENT_TIME = 10000;
     private static final int SEND_ANALYTIC_TIME = 1000;
 
-    public void collectPayment() {
+    public String collectPayment() {
         boolean isCollected = process(COLLECT_PAYMENT_TIME, "payment");
         if (isCollected) {
             log.info("Payment was successful!");
+            return "Payment was successful!";
         } else {
             log.info("Payment wasn't successful!");
+            return "Payment wasn't successful!";
         }
     }
 
@@ -29,8 +29,8 @@ public class MasterCardService {
             log.info("Analytics successfully sent!");
             return "Analytics successfully sent!";
         } else {
-            log.info("Analytics successfully sent!");
-            return "Analytics successfully sent!";
+            log.info("Analytics wasn't sent!");
+            return "Analytics wasn't sent!";
         }
     }
 
@@ -46,16 +46,22 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-        Future<?> paymentResult = executor.submit(this::collectPayment);
-        CompletableFuture<?> sendAnalyticResult = CompletableFuture.supplyAsync(this::sendAnalytics);
+        ExecutorService executorSendAnalytic = Executors.newFixedThreadPool(2);
 
-        try {
-            sendAnalyticResult.get();
-            paymentResult.get();
-        } catch (InterruptedException | ExecutionException e) {
-            log.info(e.getMessage());
-        }
-        executor.shutdown();
+        CompletableFuture<String> paymentResult = CompletableFuture.supplyAsync(this::collectPayment, executorSendAnalytic);
+        CompletableFuture<String> sendAnalyticResult = CompletableFuture.supplyAsync(this::sendAnalytics, executorSendAnalytic);
+
+        CompletableFuture<Void> processFuture = CompletableFuture.allOf(paymentResult, sendAnalyticResult);
+        processFuture.join();
+
+        processFuture.thenRun(() -> {
+            try {
+                paymentResult.get();
+                sendAnalyticResult.get();
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        executorSendAnalytic.shutdown();
     }
 }
