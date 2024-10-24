@@ -1,48 +1,46 @@
 package school.faang.BJS2_37127;
 
 public class User implements Runnable {
-    private final String username;
+    private final String name;
     private final House house;
     private String chosenRole;
 
-    public User(String username, House house) {
-        this.username = username;
+    public User(String name, House house) {
+        this.name = name;
         this.house = house;
     }
 
-    public void joinHouse(String role) {
+    public void joinHouse() throws InterruptedException {
         synchronized (house) {
-            while (house.getCurrentAvailableRoles() == 0 || !house.addRole(role)) {
-                try {
-                    System.out.println(username + " ждет, пока освободится роль " + role + ".");
-                    house.wait();
-                } catch (InterruptedException e) {
-                    System.out.println(username + " был прерван.");
-                    e.printStackTrace();
-                }
+            while (house.getAvailableRoleCount() == 0) {
+                System.out.println(name + " ждет, пока освободится роль в доме.");
+                house.wait();
             }
-            chosenRole = role;
-            System.out.println(username + " присоединился к дому с ролью " + role + ".");
+            String role = house.addRole();
+            if (role != null) {
+                chooseRole(role);
+                System.out.println(name + " выбрал роль: " + role);
+            }
         }
     }
 
     public void leaveHouse() {
-        synchronized (house) {
-            if (chosenRole != null) {
-                house.removeRole(chosenRole);
-                System.out.println(username + " покинул дом и освободил роль " + chosenRole + ".");
-                chosenRole = null;
-            }
-        }
+        System.out.println(name + " покидает дом и освобождает роль: " + chosenRole);
+        house.removeRole(chosenRole);
+        chosenRole = null;
+    }
+
+    private void chooseRole(String role) {
+        chosenRole = role;
     }
 
     @Override
     public void run() {
-        joinHouse("Рыцарь");
         try {
+            joinHouse();
             Thread.sleep(2000);
         } catch (InterruptedException e) {
-            System.out.println(username + " был прерван во время пребывания в доме.");
+            System.out.println(name + " был прерван.");
             e.printStackTrace();
         } finally {
             leaveHouse();

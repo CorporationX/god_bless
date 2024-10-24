@@ -1,35 +1,32 @@
 package school.faang.BJS2_37127;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class House {
     private final List<String> availableRoles;
-    private int currentAvailableRoles;
+    @Getter
+    private int availableRoleCount;
 
     public House(List<String> roles) {
-        this.availableRoles = new ArrayList<>(roles);
-        this.currentAvailableRoles = roles.size();
+        availableRoles = new ArrayList<>(roles);
+        availableRoleCount = roles.size();
     }
 
-    public synchronized boolean addRole(String role) {
-        if (currentAvailableRoles > 0 && availableRoles.contains(role)) {
-            currentAvailableRoles--;
-            availableRoles.remove(role);
-            System.out.println("Роль " + role + " занята.");
-            return true;
+    public synchronized String addRole() {
+        if (availableRoleCount > 0) {
+            availableRoleCount--;
+            return availableRoles.remove(0);
         }
-        return false;
+        return null;
     }
 
     public synchronized void removeRole(String role) {
-        currentAvailableRoles++;
         availableRoles.add(role);
-        System.out.println("Роль " + role + " освобождена.");
+        availableRoleCount++;
         notifyAll();
     }
 
-    public int getCurrentAvailableRoles() {
-        return currentAvailableRoles;
-    }
 }
