@@ -17,7 +17,8 @@ public class Order {
 
     public enum Status {
         NEW,
-        DONE
+        DONE,
+        CANCELLED,
     }
 
     public void setStatus(Status status) {

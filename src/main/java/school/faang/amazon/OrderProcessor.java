@@ -32,6 +32,7 @@ public class OrderProcessor implements AutoCloseable {
                 Thread.sleep(random.nextInt(MAX_PROCESSING_TIME));
             } catch (InterruptedException e) {
                 log.error("Caught exception", e);
+                order.setStatus(Order.Status.CANCELLED);
                 throw new IllegalStateException(
                         String.format("Thread %s interrupted", Thread.currentThread().getName()), e
                 );
