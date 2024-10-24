@@ -5,6 +5,7 @@ import school.faang.sprint_4.bjs2_38983_twitterCelebrity.account_manager.Account
 import school.faang.sprint_4.bjs2_38983_twitterCelebrity.account_manager.TwitterAccount;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -12,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class TwitterSubscriptionSystem {
-    ExecutorService executor = Executors.newCachedThreadPool();
-    AccountManager manager = new AccountManager();
+    private final ExecutorService executor = Executors.newCachedThreadPool();
+    private final AccountManager manager = new AccountManager();
 
     public List<CompletableFuture<Void>> createUsers(List<String> usersToCreate) {
         return usersToCreate.stream()
@@ -21,7 +22,7 @@ public class TwitterSubscriptionSystem {
                 .toList();
     }
 
-    private List<CompletableFuture<Void>> subscribeToList(TwitterAccount follower, List<TwitterAccount> targets) {
+    private List<CompletableFuture<Void>> subscribeToSet(TwitterAccount follower, Set<TwitterAccount> targets) {
         return targets.stream()
                 .filter(target -> !follower.equals(target))
                 .map(target -> CompletableFuture.runAsync(() -> manager.follow(follower, target), executor))
@@ -29,11 +30,11 @@ public class TwitterSubscriptionSystem {
     }
 
     public List<CompletableFuture<Void>> subscribeEveryoneOnEveryone() {
-        List<TwitterAccount> allAccounts = manager.getAllAccounts();
+        Set<TwitterAccount> allAccounts = manager.getAllAccounts();
 
         return allAccounts.stream()
                 .map(follower -> CompletableFuture.runAsync(() ->
-                        CompletableFuture.allOf(subscribeToList(follower, allAccounts).
+                        CompletableFuture.allOf(subscribeToSet(follower, allAccounts).
                                 toArray(new CompletableFuture[0])), executor))
                 .toList();
     }

@@ -3,32 +3,29 @@ package school.faang.sprint_4.bjs2_38983_twitterCelebrity.account_manager;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TwitterAccount {
+    @EqualsAndHashCode.Include
     private final String username;
-    private final List<TwitterAccount> followers = new CopyOnWriteArrayList<>();
+    private final Set<TwitterAccount> followers = ConcurrentHashMap.newKeySet();
 
     TwitterAccount(String username) {
         this.username = username;
     }
 
     boolean addFollower(TwitterAccount account) {
-        if (!followers.contains(account)) {
-            followers.add(account);
-            return true;
-        }
-        return false;
+        return followers.add(account);
     }
 
     String getUsername() {
         return username;
     }
 
-    List<TwitterAccount> getFollowers() {
-        return List.copyOf(followers);
+    Set<TwitterAccount> getFollowers() {
+        return Set.copyOf(followers);
     }
 }
