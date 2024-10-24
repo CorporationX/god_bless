@@ -3,7 +3,7 @@ package broForce;
 public class Game {
     private int score;
     private int lives;
-    private boolean gameOver = false;
+    private volatile boolean gameOver = false;
 
     private final Object scoreLock = new Object();
     private final Object livesLock = new Object();
