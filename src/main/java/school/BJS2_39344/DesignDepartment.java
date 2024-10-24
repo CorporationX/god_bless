@@ -22,6 +22,7 @@ public class DesignDepartment implements Runnable {
 //        }
         System.out.println("Читаем данные из маркетинг ресурсов");
         List<String> listFromMarketing = marketingResources.getList();
+        System.out.println(listFromMarketing);
         System.out.println("Добавляют файл в лист дизайна");
         designResources.addNameOfFile("Файл номер 1");
     }

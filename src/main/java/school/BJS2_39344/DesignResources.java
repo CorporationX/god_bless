@@ -10,16 +10,11 @@ public class DesignResources {
     private final List<String> namesOfFiles = new ArrayList<>();
     private final ReadWriteLock lock = new ReentrantReadWriteLock();
 
-    public synchronized List<String> getList() {
-        lock.readLock().lock();
-        try {
-            return namesOfFiles;
-        } finally {
-            lock.readLock().unlock();
-        }
+    public List<String> getList() {
+        return new ArrayList<>(namesOfFiles);
     }
 
-    public synchronized void addNameOfFile(String name) {
+    public void addNameOfFile(String name) {
         lock.writeLock().lock();
         try {
             namesOfFiles.add(name);
