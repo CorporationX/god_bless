@@ -17,7 +17,7 @@ public class RocketLaunch {
 
     public void launch() {
         try {
-            Thread.sleep(1000); // Задержка в 1 секунду
+            Thread.sleep(1000);
             System.out.println("Ракета " + name + " запущена в " +
                     LocalDateTime.now().toString());
         } catch (InterruptedException e) {
