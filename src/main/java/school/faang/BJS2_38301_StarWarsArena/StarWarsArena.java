@@ -32,12 +32,11 @@ public class StarWarsArena {
         }
 
         CompletableFuture.allOf(winnerByBattle.values().toArray(new CompletableFuture[0]))
-                .thenRun(
-                        () -> winnerByBattle.forEach((pair, winner) ->
-                                log.info("The winner of fight battle ({}) is {}", pair, winner.join().getName())
-                        )
-                ).join();
-
-        battle.shutdownExecutor();
+                .thenRun(() -> {
+                    winnerByBattle.forEach((pair, winner) ->
+                            log.info("The winner of fight battle ({}) is {}", pair, winner.join().getName())
+                    );
+                    battle.shutdownExecutor();
+                }).join();
     }
 }
