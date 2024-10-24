@@ -11,20 +11,16 @@ public class StarWarsArena {
         Robot c3po = new Robot("C-3PO", 4, 8);
         Robot bb8 = new Robot("BB-8", 6, 6);
 
-        Future<Robot> winnerFuture1 = battle.fight(r2d2, c3po);
-        Future<Robot> winnerFuture2 = battle.fight(c3po, bb8);
-        Future<Robot> winnerFuture3 = battle.fight(r2d2, bb8);
+        handleBattle(battle, r2d2, c3po, "first");
+        handleBattle(battle, c3po, bb8, "second");
+        handleBattle(battle, r2d2, bb8, "third");
+    }
 
+    private static void handleBattle(Battle battle, Robot robot1, Robot robot2, String battleName) {
+        Future<Robot> winnerFuture = battle.fight(robot1, robot2);
         try {
-            Robot winner1 = winnerFuture1.get();
-            System.out.println("The winner of the first battle is: " + winner1.getName());
-
-            Robot winner2 = winnerFuture2.get();
-            System.out.println("The winner of the second battle is: " + winner2.getName());
-
-            Robot winner3 = winnerFuture3.get();
-            System.out.println("The winner of the third battle is: " + winner3.getName());
-
+            Robot winner = winnerFuture.get();
+            System.out.println("The winner of the " + battleName + " battle is: " + winner.getName());
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
