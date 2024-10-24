@@ -43,7 +43,7 @@ public class MasterCardService {
 
         service.shutdown();
         try {
-            if (!service.awaitTermination(1, TimeUnit.HOURS)) {
+            if (!service.awaitTermination(1, TimeUnit.MINUTES)) {
                 System.out.println("Ошибка");
             }
         } catch (InterruptedException e) {
