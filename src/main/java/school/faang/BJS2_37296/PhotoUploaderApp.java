@@ -14,6 +14,7 @@ public class PhotoUploaderApp {
                 uploader.onNewPhotoAdded("photo2.jpg");
                 Thread.sleep(1000);
                 uploader.onNewPhotoAdded("photo3.jpg");
+                uploader.stopAutoUpload();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 System.out.println("Поток добавления фотографий был прерван.");

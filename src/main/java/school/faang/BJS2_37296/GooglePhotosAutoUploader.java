@@ -6,18 +6,23 @@ import java.util.List;
 public class GooglePhotosAutoUploader {
     private final Object lock = new Object();
     private final List<String> photosToUpload = new ArrayList<>();
+    private boolean isUploading = true;
 
     public void startAutoUpload() {
         synchronized (lock) {
-            while (photosToUpload.isEmpty()) {
-                try {
-                    System.out.println("Нет фотографий для загрузки. Ожидание...");
-                    lock.wait();
-                } catch (InterruptedException e) {
-                    System.out.println("Поток загрузки был прерван.");
+            while (isUploading) {
+                while (photosToUpload.isEmpty() && isUploading) {
+                    try {
+                        System.out.println("Нет фотографий для загрузки. Ожидание...");
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        System.out.println("Поток загрузки был прерван.");
+                        e.printStackTrace();
+                    }
                 }
+                if (!isUploading) break;
+                uploadPhotos();
             }
-            uploadPhotos();
         }
     }
 
@@ -30,13 +35,18 @@ public class GooglePhotosAutoUploader {
     }
 
     private void uploadPhotos() {
+        System.out.println("Начинается загрузка фотографий...");
+        for (String photo : photosToUpload) {
+            System.out.println("Загружается: " + photo);
+        }
+        photosToUpload.clear();
+        System.out.println("Все фотографии загружены.");
+    }
+
+    public void stopAutoUpload() {
         synchronized (lock) {
-            System.out.println("Начинается загрузка фотографий...");
-            for (String photo : photosToUpload) {
-                System.out.println("Загружается: " + photo);
-            }
-            photosToUpload.clear();
-            System.out.println("Все фотографии загружены.");
+            isUploading = false;
+            lock.notifyAll();
         }
     }
 }
