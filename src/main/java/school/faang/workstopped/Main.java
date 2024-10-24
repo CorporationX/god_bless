@@ -5,11 +5,11 @@ public class Main {
         DesignResources designResources = new DesignResources();
         MarketingResources marketingResources = new MarketingResources();
 
-        MarketingDepartment marketingDepartment = new MarketingDepartment(designResources, marketingResources);
-        DesignDepartment designDepartment = new DesignDepartment(marketingResources, designResources);
+        MarketingDepartment marketing = new MarketingDepartment(designResources,marketingResources);
+        DesignDepartment design = new DesignDepartment(marketingResources,designResources);
 
-        Thread marketingThread = new Thread(marketingDepartment);
-        Thread designThread = new Thread(designDepartment);
+        Thread marketingThread = new Thread(marketing);
+        Thread designThread = new Thread(design);
 
         marketingThread.start();
         designThread.start();
