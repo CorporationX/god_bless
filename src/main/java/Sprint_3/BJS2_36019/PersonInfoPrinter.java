@@ -5,9 +5,8 @@ import java.util.List;
 public class PersonInfoPrinter implements Runnable {
     private List<Person> personList;
 
-
-    public PersonInfoPrinter(List<Person> personLise) {
-        this.personList = personLise;
+    public PersonInfoPrinter(List<Person> personList) {
+        this.personList = personList;
     }
 
     @Override

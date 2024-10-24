@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class Main {
@@ -12,20 +11,16 @@ public class Main {
         List<Person> persons = new ArrayList<Person>();
 
         for (int i = 0; i < 10000; i++) {
-            String name = i + "имя";
-            String surname = i + "Фамилия";
-            String workplace = i + "Место работы";
+            String name = i + " имя";
+            String surname = i + " Фамилия";
+            String workplace = i + " Место работы";
             persons.add(new Person(name, surname, workplace));
         }
-        PersonInfoPrinter printer = new PersonInfoPrinter(persons);
 
         int numThreads = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(numThreads);
 
-        // Размер части списка для каждого потока
         int partitionSize = persons.size() / numThreads;
-
-        //Разделение списка на части и выполнение каждой части в отдельном потоке
 
         for (int i = 0; i < numThreads; i++) {
             int fromIndex = i * partitionSize;
@@ -43,6 +38,6 @@ public class Main {
         } catch (InterruptedException e) {
             executorService.shutdownNow();
         }
-
+        System.out.println("Все " + numThreads + " потоков выполнены. ");
     }
 }
