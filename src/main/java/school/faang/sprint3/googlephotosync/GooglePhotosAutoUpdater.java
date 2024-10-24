@@ -13,7 +13,7 @@ public class GooglePhotosAutoUpdater {
 
     public void startAutoUpload() {
         synchronized (loc) {
-            if (photosToUpload.isEmpty()) {
+            while (photosToUpload.isEmpty()) {
                 try {
                     loc.wait();
                 } catch (InterruptedException e) {
