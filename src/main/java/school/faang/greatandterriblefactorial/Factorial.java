@@ -3,8 +3,8 @@ package school.faang.greatandterriblefactorial;
 import java.math.BigInteger;
 
 public class Factorial {
-    private static final int MAX_INT_FACTORIAL = 12;
-    private static final int MAX_LONG_FACTORIAL = 19;
+    protected static final int MAX_INT_FACTORIAL = 12;
+    protected static final int MAX_LONG_FACTORIAL = 19;
 
     public static int factorialInt(int n) throws IllegalArgumentException {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
