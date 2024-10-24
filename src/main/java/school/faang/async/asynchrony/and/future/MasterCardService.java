@@ -2,14 +2,11 @@ package school.faang.async.asynchrony.and.future;
 
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 @Slf4j
 public class MasterCardService {
@@ -42,9 +39,8 @@ public class MasterCardService {
         try {
             sendAnalyticsFuture.get();
             paymentDataFuture.get(1, TimeUnit.MINUTES);
-        } catch (InterruptedException | ExecutionException | TimeoutException e) {
-            log.error(e.getMessage());
-            log.error(Arrays.toString(e.getStackTrace()));
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
         } finally {
             executor.shutdown();
         }
