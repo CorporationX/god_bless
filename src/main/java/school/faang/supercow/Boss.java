@@ -12,7 +12,7 @@ public class Boss {
         while (currentPlayers >= maxPlayers) {
             try {
                 System.out.println("Lobby is full for now. Please wait your turn to join the battle\n");
-                wait();
+                this.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -26,7 +26,7 @@ public class Boss {
         if (currentPlayers > 0) {
             currentPlayers--;
             System.out.println(player.getName() + " has left the battle.\n");
-            notify();
+            this.notify();
         }
     }
 }
