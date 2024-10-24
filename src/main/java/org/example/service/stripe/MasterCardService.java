@@ -9,8 +9,8 @@ import java.util.concurrent.Executors;
 
 @Slf4j
 public class MasterCardService {
-    private static final int COLLECT_PAYMENT_TIME = 10000;
-    private static final int SEND_ANALYTIC_TIME = 1000;
+    private static final int COLLECT_PAYMENT_TIME = 1000;
+    private static final int SEND_ANALYTIC_TIME = 10000;
 
     public String collectPayment() {
         boolean isCollected = process(COLLECT_PAYMENT_TIME, "payment");
@@ -46,22 +46,14 @@ public class MasterCardService {
     }
 
     public void doAll() {
-        ExecutorService executorSendAnalytic = Executors.newFixedThreadPool(2);
+        ExecutorService executorSendAnalytic = Executors.newFixedThreadPool(1);
+
+        CompletableFuture<String> sendAnalyticResult = CompletableFuture.supplyAsync(this::sendAnalytics, executorSendAnalytic);
+        sendAnalyticResult.join();
 
         CompletableFuture<String> paymentResult = CompletableFuture.supplyAsync(this::collectPayment, executorSendAnalytic);
-        CompletableFuture<String> sendAnalyticResult = CompletableFuture.supplyAsync(this::sendAnalytics, executorSendAnalytic);
+        paymentResult.join();
 
-        CompletableFuture<Void> processFuture = CompletableFuture.allOf(paymentResult, sendAnalyticResult);
-        processFuture.join();
-
-        processFuture.thenRun(() -> {
-            try {
-                paymentResult.get();
-                sendAnalyticResult.get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        });
         executorSendAnalytic.shutdown();
     }
 }
