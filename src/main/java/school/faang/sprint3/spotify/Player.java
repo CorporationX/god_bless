@@ -2,15 +2,15 @@ package school.faang.sprint3.spotify;
 
 public class Player {
     private final Object lock = new Object();
-    private String isPlaying = "";
+    private boolean isPlaying = false;
 
 
     public void play() {
         synchronized (lock) {
-            if (isPlaying.equals("Music is playing")) {
+            if (isPlaying) {
                 System.out.println("Music already playing");
             } else {
-                isPlaying = "Music is playing";
+                isPlaying = true;
                 System.out.println("Play");
             }
         }
@@ -18,10 +18,10 @@ public class Player {
 
     public void pause() {
         synchronized (lock) {
-            if (isPlaying.equals("Music is paused")) {
+            if (!isPlaying) {
                 System.out.println("Music already paused");
             } else {
-                isPlaying = "Music is paused";
+                isPlaying = false;
                 System.out.println("Pause");
             }
         }
@@ -29,15 +29,13 @@ public class Player {
 
     public void skip() {
         synchronized (lock) {
-            isPlaying = "Pressed skip";
-            System.out.println("Skip");
+            System.out.println("Pressed skip");
         }
     }
 
     public void previous() {
         synchronized (lock) {
-            isPlaying = "Pressed previous";
-            System.out.println("Previous");
+            System.out.println("Pressed previous");
         }
     }
 }
