@@ -12,40 +12,41 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class TwitterSubscriptionSystem {
-    public static void main(String[] args) {
-        AccountManager manager = new AccountManager();
-        ExecutorService executor = Executors.newCachedThreadPool();
+    ExecutorService executor = Executors.newCachedThreadPool();
+    AccountManager manager = new AccountManager();
 
-        List<String> usersToCreate = List.of(
-                "Alice", "Bob", "Charlie", "David", "Eve", "Frank", "Uma", "Heidi", "Ivan", "Judy",
-                "Mallory", "Uma", "Olivia", "Charlie", "Quentin", "Rupert", "Sybil", "Trent", "Uma", "Victor"
-        );
-
-        List<CompletableFuture<Void>> accountCreateTasks = usersToCreate.stream()
+    public List<CompletableFuture<Void>> createUsers(List<String> usersToCreate) {
+        return usersToCreate.stream()
                 .map(user -> CompletableFuture.runAsync(() -> manager.createTwitterAccount(user), executor))
                 .toList();
+    }
 
-        CompletableFuture.allOf(accountCreateTasks.toArray(new CompletableFuture[0])).thenRun(() -> {
-            List<TwitterAccount> allAccounts = manager.getAllAccounts();
+    private List<CompletableFuture<Void>> subscribeToList(TwitterAccount follower, List<TwitterAccount> targets) {
+        return targets.stream()
+                .filter(target -> !follower.equals(target))
+                .map(target -> CompletableFuture.runAsync(() -> manager.follow(follower, target), executor))
+                .toList();
+    }
 
-            List<CompletableFuture<Void>> everyoneSubscribeTasks = allAccounts.stream()
-                    .map(follower -> CompletableFuture.runAsync(() -> {
-                        List<CompletableFuture<Void>> subscriptionTasks = allAccounts.stream()
-                                .filter(target -> !follower.equals(target))
-                                .map(target -> CompletableFuture.runAsync(() ->
-                                        manager.follow(follower, target), executor))
-                                .toList();
+    public List<CompletableFuture<Void>> subscribeEveryoneOnEveryone() {
+        List<TwitterAccount> allAccounts = manager.getAllAccounts();
 
-                        CompletableFuture.allOf(subscriptionTasks.toArray(new CompletableFuture[0])).join();
-                    }, executor))
-                    .toList();
+        return allAccounts.stream()
+                .map(follower -> CompletableFuture.runAsync(() ->
+                        CompletableFuture.allOf(subscribeToList(follower, allAccounts).
+                                toArray(new CompletableFuture[0])), executor))
+                .toList();
+    }
 
-            CompletableFuture.allOf(everyoneSubscribeTasks.toArray(new CompletableFuture[0])).thenRun(() ->
-                    allAccounts.forEach(account ->
-                            log.info("Account with username '{}', has '{}' followers.",
-                                    manager.getAccountUsername(account), manager.getFollowersCount(account)))).join();
-        }).join();
+    public void printAllUsers() {
+        manager.getAllAccounts().forEach(account -> {
+            String username = manager.getAccountUsername(account);
+            long followersCount = manager.getFollowersCount(account);
+            log.info("User '{}' has {} followers.", username, followersCount);
+        });
+    }
 
+    public void shutdown() {
         executor.shutdown();
         try {
             if (!executor.awaitTermination(5, TimeUnit.SECONDS)) {
