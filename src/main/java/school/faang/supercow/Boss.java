@@ -1,7 +1,9 @@
 package school.faang.supercow;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 public class Boss {
     private String name;
@@ -27,6 +29,7 @@ public class Boss {
             currentPlayers++;
             System.out.println(player.getName() + " присоединился к бивте с " + getName());
             printSlots();
+            log.info("");
         }
     }
 
