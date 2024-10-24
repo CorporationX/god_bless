@@ -1,17 +1,20 @@
 package MultithreadingSpotify;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Music {
+    private static final int numberOfThreads = 4;
     public static void main(String[] args) {
         Player player = new Player();
 
-        Thread t1 = new Thread(() -> player.play());
-        Thread t2 = new Thread(() -> player.skip());
-        Thread t3 = new Thread(() -> player.pause());
-        Thread t4 = new Thread(() -> player.previous());
-
-        t1.start();
-        t2.start();
-        t3.start();
-        t4.start();
+        ExecutorService exec = Executors.newFixedThreadPool(numberOfThreads);
+        exec.submit(() -> {
+            player.play();
+            player.skip();
+            player.pause();
+            player.previous();
+        });
+        exec.shutdown();
     }
 }
