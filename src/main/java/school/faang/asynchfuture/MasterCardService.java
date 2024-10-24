@@ -1,16 +1,17 @@
 package school.faang.asynchfuture;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 @Slf4j
+@AllArgsConstructor
 public class MasterCardService {
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor;
 
     public static int collectPayment() {
         try {
@@ -35,7 +36,7 @@ public class MasterCardService {
     public void doAll() {
         Future<Integer> paymentFuture = executor.submit(MasterCardService::collectPayment);
 
-        CompletableFuture<Integer> analyticsFuture =  CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, Executors.newCachedThreadPool());
+        CompletableFuture<Integer> analyticsFuture = CompletableFuture.supplyAsync(MasterCardService::sendAnalytics, executor);
 
         log.info("Sent analytics: {}", analyticsFuture.join());
 
@@ -46,7 +47,5 @@ public class MasterCardService {
         }
 
         log.info("It's ok");
-
-        executor.shutdownNow();
     }
 }
