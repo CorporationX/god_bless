@@ -19,7 +19,7 @@ public class Factorial {
     }
 
     private static int factorialInt(int n) {
-        if (n > MAX_INT_FACTORIAL || n < 0) {
+        if (n < 0 || n > MAX_INT_FACTORIAL) {
             throw new IllegalArgumentException("Некорректное число для factorialInt");
         }
         if (n <= 1) {
@@ -31,7 +31,7 @@ public class Factorial {
 
     private static long factorialLong(int n) {
         if (n > MAX_LONG_FACTORIAL) {
-            throw new IllegalArgumentException("Число больше MAX_LONG_FACTORIAL");
+            throw new IllegalArgumentException("Некорректное число для factorialLong");
         }
         long result = n;
         while (n > MAX_INT_FACTORIAL + 1) {
@@ -66,7 +66,9 @@ public class Factorial {
 
     private static Pair<Integer, BigInteger> factorialСalculation(int number) {
         try {
-            if (number > 0 && number <= MAX_INT_FACTORIAL) {
+            if (number < 0) {
+                throw new IllegalArgumentException("Введенное число меньше нуля:");
+            } else if (number > 0 && number <= MAX_INT_FACTORIAL) {
                 return new Pair<>(number, new BigInteger(String.valueOf(factorialInt(number))));
             } else if (number <= MAX_LONG_FACTORIAL) {
                 return new Pair<>(number, new BigInteger(String.valueOf(factorialLong(number))));
