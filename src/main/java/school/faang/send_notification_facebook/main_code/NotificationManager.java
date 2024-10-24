@@ -33,12 +33,13 @@ public class NotificationManager {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new RuntimeException("Ошибка при попытке добавить уведомление" + e);
             }
 
             Notification notification = new Notification(id, message);
 
             addNotification(notification);
+            System.out.println("Добавлено уведомление " + notification.getMessage());
 
             return notification;
         });
