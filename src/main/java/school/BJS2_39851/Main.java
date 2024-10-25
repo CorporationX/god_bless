@@ -8,23 +8,30 @@ public class Main {
 
     private static final int SIZE_OF_THREADS = 30;
     private static final int MAX_SUM_OF_TRANSACTION = 1000;
+    private static final int COUNT_OF_ACCOUNTS = 50;
 
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Bank bank = new Bank();
         Random rand = new Random();
 
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < COUNT_OF_ACCOUNTS; i++) {
             bank.addAccounts(i, new Account(i, rand.nextInt(MAX_SUM_OF_TRANSACTION)));
         }
         ExecutorService service = Executors.newFixedThreadPool(SIZE_OF_THREADS);
 
-        for (int i = 0 ; i < SIZE_OF_THREADS; i++) {
-            int fromAccount = rand.nextInt(SIZE_OF_THREADS);
-            int toAccount = rand.nextInt(SIZE_OF_THREADS);
+        for (int i = 0; i < SIZE_OF_THREADS; i++) {
+            int fromAccount = rand.nextInt(COUNT_OF_ACCOUNTS);
+            int toAccount = rand.nextInt(COUNT_OF_ACCOUNTS);
             double amount = rand.nextInt(MAX_SUM_OF_TRANSACTION);
             if (fromAccount != toAccount) {
-                service.execute(() -> bank.transfer(fromAccount, toAccount, amount));
+                service.execute(() -> {
+                    boolean result = bank.transfer(fromAccount, toAccount, amount);
+                    if (result) {
+
+                        System.out.printf("Перевод %.0f c аккаунта %s на аккаунт %s прошел успешно \n", amount, fromAccount, toAccount);
+                    } else System.out.printf("Перевод %.0f c аккаунта %s на аккаунт %s отменен \n", amount, fromAccount, toAccount);
+                });
             }
         }
 
@@ -39,4 +46,5 @@ public class Main {
         System.out.println(bank.getTotalBalance());
 
     }
+
 }

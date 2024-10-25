@@ -2,12 +2,14 @@ package school.BJS2_39851;
 
 import lombok.Getter;
 
+import java.util.concurrent.locks.ReentrantLock;
+
 public class Account {
 
     private int id;
-    @Getter
     private double balance;
-    private final Object lock = new Object();
+    @Getter
+    private final ReentrantLock lock = new ReentrantLock();
 
     public Account(int id, double balance) {
         this.id = id;
@@ -15,14 +17,31 @@ public class Account {
     }
 
     public void deposit(double amount) {
-        synchronized (lock) {
-            balance += amount;
-        }
-    }
-    public void withdraw(double amount) {
-        synchronized (lock) {
-            balance -= amount;
+        if (lock.tryLock()) {
+            try {
+                balance += amount;
+            } finally {
+                lock.unlock();
+            }
         }
     }
 
+    public void withdraw(double amount) {
+        if (lock.tryLock()) {
+            try {
+                balance -= amount;
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+
+    public double getBalance() {
+        lock.lock();
+        try {
+            return balance;
+        } finally {
+            lock.unlock();
+        }
+    }
 }
