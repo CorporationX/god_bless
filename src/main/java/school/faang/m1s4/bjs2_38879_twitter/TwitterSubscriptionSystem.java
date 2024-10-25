@@ -16,10 +16,10 @@ public class TwitterSubscriptionSystem {
     private static final int TERMINATION_TIME = 300;
     private final ExecutorService serviceFixedPool = Executors.newFixedThreadPool(N_POOLS);
 
-    public void addManyFollowers(int num_followers, TwitterAccount account) {
+    public void addManyFollowers(int numFollowers, TwitterAccount account) {
         List<CompletableFuture<Void>> futures = new ArrayList<>();
 
-        for (int i = 1; i < num_followers + 1; i++) {
+        for (int i = 1; i < numFollowers + 1; i++) {
             System.out.printf("%d : %s : Follower #%d wants to follow %s%n",
                     Thread.currentThread().getId(), LocalTime.now(), i, account.getUsername());
             futures.add(followAccount(account));
@@ -30,7 +30,7 @@ public class TwitterSubscriptionSystem {
 
         System.out.println();
         allTasksDone.thenRun(() -> System.out.printf("%d : %s : Session ended. Total followers: %d%n",
-                Thread.currentThread().getId(), LocalTime.now(), account.getFollowers().get()));
+                Thread.currentThread().getId(), LocalTime.now(), account.getFollowers()));
     }
 
     private CompletableFuture<Void> followAccount(TwitterAccount account) {
@@ -38,9 +38,9 @@ public class TwitterSubscriptionSystem {
     }
 
     private void addFollower(TwitterAccount account) {
-        account.getFollowers().incrementAndGet();
+        int followersUpdate = account.incrementFollowers();
         System.out.printf("%d : %s New follower added. Total followers: %d%n",
-                Thread.currentThread().getId(), LocalTime.now(), account.getFollowers().get());
+                Thread.currentThread().getId(), LocalTime.now(), followersUpdate);
     }
 
     private void shutdownPool() {
