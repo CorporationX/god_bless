@@ -5,10 +5,10 @@ import java.util.concurrent.CompletableFuture;
 import java.util.stream.IntStream;
 
 public class FacebookNotificationSystem {
-    public static void main(String[] args) {
-        final int RANGE_FROM = 0;
-        final int RANGE_TO = 10;
+    private static final int RANGE_FROM = 0;
+    private static final int RANGE_TO = 10;
 
+    public static void main(String[] args) {
         NotificationManager manager = new NotificationManager();
 
         List<CompletableFuture<Void>> futures = IntStream.range(RANGE_FROM, RANGE_TO)
@@ -17,6 +17,8 @@ public class FacebookNotificationSystem {
 
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
         allFutures.join();
+
+        manager.getExecutor().shutdown();
 
         manager.printNotifications();
     }

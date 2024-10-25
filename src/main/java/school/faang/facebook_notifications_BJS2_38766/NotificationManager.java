@@ -1,12 +1,18 @@
 package school.faang.facebook_notifications_BJS2_38766;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+@Getter
 public class NotificationManager {
+    private static final int CREATING_TIME = 3000;
+
+    private final ExecutorService executor = Executors.newCachedThreadPool();
     private List<Notification> notifications = new ArrayList<>();
 
     public synchronized void addNotification(Notification notification) {
@@ -14,10 +20,7 @@ public class NotificationManager {
     }
 
     public synchronized CompletableFuture<Void> fetchNotification(int id, String message) {
-        final int CREATING_TIME = 3000;
-
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        CompletableFuture<Void> result = CompletableFuture.runAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
                     try {
                         Thread.sleep(CREATING_TIME);
                     } catch (InterruptedException e) {
@@ -26,8 +29,6 @@ public class NotificationManager {
                     addNotification(new Notification(id, message));
                 }, executor
         );
-        executor.shutdown();
-        return result;
     }
 
     public void printNotifications() {
