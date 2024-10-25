@@ -2,8 +2,15 @@ package pumping_alchemy;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class PotionGathering {
+    private static final int MAX_THREADS = 3;
+    private static final int MAX_TIME_AWAIT = 30;
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(MAX_THREADS);
+
     /**
      * The main method initializes a list of potions and triggers the asynchronous gathering of their ingredients.
      *
@@ -17,7 +24,13 @@ public class PotionGathering {
                 new Potion("Stamina Potion", 4)
         );
 
-        gatherAllIngredients(potions);
+        gatherAllIngredients(potions, executorService);
+
+        executorService.shutdown();
+
+        if (!executorService.awaitTermination(MAX_TIME_AWAIT, TimeUnit.SECONDS)) {
+            executorService.shutdownNow();
+        }
     }
 
     /**
@@ -28,7 +41,7 @@ public class PotionGathering {
      * @param potion the potion whose ingredients are to be gathered
      * @return a future that will contain the number of collected ingredients
      */
-    private static CompletableFuture<Integer> gatherIngredients(Potion potion) {
+    private static CompletableFuture<Integer> gatherIngredients(Potion potion, ExecutorService executorService) {
         return CompletableFuture.supplyAsync(() -> {
             try {
                 System.out.println("Gathering ingredients for " + potion.getName());
@@ -38,7 +51,7 @@ public class PotionGathering {
             }
             System.out.println("Collected " + potion.getRequiredIngredients() + " ingredients for " + potion.getName());
             return potion.getRequiredIngredients();
-        });
+        }, executorService);
     }
 
     /**
@@ -46,9 +59,9 @@ public class PotionGathering {
      *
      * @param potions the list of potions to gather ingredients for
      */
-    public static void gatherAllIngredients(List<Potion> potions) {
+    public static void gatherAllIngredients(List<Potion> potions, ExecutorService executorService) {
         List<CompletableFuture<Integer>> futures = potions.stream()
-                .map(PotionGathering::gatherIngredients)
+                .map(potion -> gatherIngredients(potion, executorService))
                 .toList();
 
         CompletableFuture<Void> allTasks = CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
