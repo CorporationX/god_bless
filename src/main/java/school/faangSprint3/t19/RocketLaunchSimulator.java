@@ -1,6 +1,9 @@
 package school.faangSprint3.t19;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -8,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 public class RocketLaunchSimulator {
     public static void main(String[] args) {
         List<RocketLaunch> launches = new ArrayList<>();
@@ -18,25 +22,23 @@ public class RocketLaunchSimulator {
 
         long startTime = System.currentTimeMillis();
 
-        System.out.println("Начало планирования запусков: " +
-                LocalDateTime.now());
+        log.info("Начало планирования запусков: {}", LocalDateTime.now());
 
         planRocketLaunches(launches);
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println("\n Общее время выполнения: " +
-                (endTime - startTime) + " миллисекунд");
+        log.info("\n Общее время выполнения: {} миллисекунд", endTime - startTime);
     }
 
     public static void planRocketLaunches(List<RocketLaunch> launches) {
         ExecutorService executor = Executors.newSingleThreadExecutor();
 
         try {
-            launches.sort(Comparator.comparingLong(RocketLaunch::getLaunchTime));
+            launches.sort(Comparator.comparing(RocketLaunch::getLaunchTime));
 
             for (RocketLaunch launch : launches) {
-                long delay = Math.max(0, launch.getLaunchTime() - System.currentTimeMillis());
+                long delay = Math.max(0, launch.getLaunchTime().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() - System.currentTimeMillis());
 
                 executor.execute(() -> {
                     try {
@@ -45,7 +47,7 @@ public class RocketLaunchSimulator {
                         }
                         launch.launch();
                     } catch (InterruptedException e) {
-                        System.err.println("Ошибка планирования: " + e.getMessage());
+                        RocketLaunchSimulator.log.error("Ошибка планирования: {}", e.getMessage());
                     }
                 });
             }
@@ -54,7 +56,7 @@ public class RocketLaunchSimulator {
             try {
                 executor.awaitTermination(1, TimeUnit.HOURS);
             } catch (InterruptedException e) {
-                System.err.println("Ожидание прервано: " + e.getMessage());
+                RocketLaunchSimulator.log.error("Ожидание прервано: {}", e.getMessage());
             }
         }
     }
