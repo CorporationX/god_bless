@@ -17,24 +17,26 @@ import java.util.concurrent.Executors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationManager {
-    List<Notification> notifications = new ArrayList<>();
+    ExecutorService executorService = Executors.newFixedThreadPool(5);
+    private List<Notification> notifications = new ArrayList<>();
 
     public synchronized void addNotification(Notification notification) {
         this.notifications.add(notification);
     }
 
     public CompletableFuture<Void> fetchNotification(int id, String message) {
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-        return CompletableFuture.supplyAsync(() -> {
+        return CompletableFuture.runAsync(() -> {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                log.info(e.getMessage());
+                log.error(e.getMessage(), e);
             }
             Notification notification = new Notification(id, message);
             addNotification(notification);
-            executorService.shutdown();
-            return null;
         }, executorService);
+    }
+
+    public void shutdownPoolThreads() {
+        executorService.shutdown();
     }
 }
