@@ -11,16 +11,16 @@ import java.util.stream.Collectors;
 
 @Slf4j
 public class OrderProcessor {
-    private static final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
+    private final AtomicInteger totalProcessedOrders = new AtomicInteger(0);
     private static final int THREADS = 2;
-    private static final ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(THREADS);
 
     public void processOrder(Order order) {
         log.info("Обработка заказа, пожалуйста подождите");
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+            log.error("Проблема с обработкой заказа ", e);
         }
         int total = order.getId();
         totalProcessedOrders.addAndGet(total);
