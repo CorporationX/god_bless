@@ -15,15 +15,13 @@ public class Main {
 
         for (int i = 0; i < results.size(); ++i) {
             int index = i;
-            new Thread(() -> {
-                try {
-                    BigInteger factorial = results.get(index).get();
-                    System.out.println("Факториал числа " + numbers.get(index) + " = " + factorial);
-                    counter.incrementAndGet();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }).start();
+            results.get(index).thenAccept(factorial -> {
+                System.out.println("Факториал числа " + numbers.get(index) + " = " + factorial);
+                counter.incrementAndGet();
+            }).exceptionally(ex -> {
+                ex.printStackTrace();
+                return null;
+            });
         }
 
         int awaitCounter = 0;
