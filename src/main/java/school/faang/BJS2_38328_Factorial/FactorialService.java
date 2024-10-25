@@ -11,7 +11,7 @@ import java.util.stream.IntStream;
 @Slf4j
 public class FactorialService {
     public static void main(String[] args) {
-        List<Integer> numbers = Arrays.asList(0, 1, 5, 10, 12, 15, 19, 20);
+        List<Integer> numbers = Arrays.asList(0, 1, 5, 10, 12, 15, 19, 20, 25, 30, 50, 100);
         List<CompletableFuture<BigInteger>> futures = Factorial.factorials(numbers);
 
         CompletableFuture<Void> allFutures = CompletableFuture.allOf(
@@ -23,5 +23,6 @@ public class FactorialService {
         );
 
         allFutures.join();
+        Factorial.shutdownExecutor();
     }
 }

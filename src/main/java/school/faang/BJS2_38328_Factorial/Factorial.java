@@ -11,6 +11,10 @@ public class Factorial {
     private static final int MAX_LONG_FACTORIAL = 19;
     private static final ExecutorService executor = Executors.newFixedThreadPool(15);
 
+    public static void shutdownExecutor() {
+        executor.shutdown();
+    }
+
     public static List<CompletableFuture<BigInteger>> factorials(List<Integer> numbers) {
         return numbers.stream()
                 .map(number -> CompletableFuture.supplyAsync(() -> factorialBig(number)))
@@ -44,10 +48,33 @@ public class Factorial {
             return BigInteger.valueOf(factorialLong(n));
         }
         BigInteger factorialResult = BigInteger.valueOf(factorialLong(MAX_LONG_FACTORIAL));
-        for (int i = MAX_LONG_FACTORIAL + 1; i <= n; i++) {
-            factorialResult = factorialResult.multiply(BigInteger.valueOf(i));
+        return updateFactorial(factorialResult, MAX_LONG_FACTORIAL + 1, n).join();
+    }
+
+    private static CompletableFuture<BigInteger> updateFactorial(BigInteger initial, int floor, int ceiling) {
+        int length = ceiling - floor + 1;
+        if (length < 3) {
+            return CompletableFuture.supplyAsync(() -> initial.multiply(rangeProduct(floor, ceiling)), executor);
+        } else {
+            int mid1 = floor + length / 3;
+            int mid2 = floor + 2 * length / 3;
+
+            CompletableFuture<BigInteger> part1 = CompletableFuture.supplyAsync(() -> rangeProduct(floor, mid1 - 1), executor);
+            CompletableFuture<BigInteger> part2 = CompletableFuture.supplyAsync(() -> rangeProduct(mid1, mid2 - 1), executor);
+            CompletableFuture<BigInteger> part3 = CompletableFuture.supplyAsync(() -> rangeProduct(mid2, ceiling), executor);
+
+            return part1.thenCombine(part2, BigInteger::multiply)
+                    .thenCombine(part3, BigInteger::multiply)
+                    .thenApply(initial::multiply);
         }
-        return factorialResult;
+    }
+
+    private static BigInteger rangeProduct(int floor, int ceiling) {
+        BigInteger product = BigInteger.valueOf(1);
+        for (int i = floor; i <= ceiling; i++) {
+            product = product.multiply(BigInteger.valueOf(i));
+        }
+        return product;
     }
 
     private static void validateInputNumberRange(int n, int maxValue) {
