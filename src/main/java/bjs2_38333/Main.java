@@ -14,13 +14,11 @@ public class Main {
         Random random = new Random();
         List<Future<Robot>> winners = new ArrayList<>();
         Battle battle = new Battle();
-        List<Robot> robots = List.of(
-                new Robot("robot1", random.nextInt(100), random.nextInt(100)),
-                new Robot("robot2", random.nextInt(100), random.nextInt(100)),
-                new Robot("robot3", random.nextInt(100), random.nextInt(100)),
-                new Robot("robot4", random.nextInt(100), random.nextInt(100)),
-                new Robot("robot5", random.nextInt(100), random.nextInt(100)),
-                new Robot("robot6", random.nextInt(100), random.nextInt(100)));
+        List<Robot> robots = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            robots.add(new Robot("robot_" + i, random.nextInt(100), random.nextInt(100)));
+        }
 
         int left = 0;
         int right = robots.size() - 1;
