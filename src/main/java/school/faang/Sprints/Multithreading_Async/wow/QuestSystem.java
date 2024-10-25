@@ -8,7 +8,7 @@ public class QuestSystem {
             try {
                 Thread.sleep(quest.getDifficulty() * 1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                throw new IllegalStateException(e);
             }
             System.out.println(Thread.currentThread().getName() + " " +
                     player.getName() + " has completed the quest: + "
