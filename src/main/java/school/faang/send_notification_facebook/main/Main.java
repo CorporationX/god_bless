@@ -7,5 +7,7 @@ public class Main {
         NotificationManager manager = new NotificationManager();
 
         manager.fetchAllNotifications();
+
+        manager.shutdown();
     }
 }

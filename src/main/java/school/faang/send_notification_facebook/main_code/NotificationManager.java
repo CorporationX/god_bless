@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class NotificationManager {
     private static final int THREAD_COUNT = 5;
@@ -49,5 +50,18 @@ public class NotificationManager {
             return notification;
         }, executor);
         return notificationFuture;
+    }
+
+    public void shutdown() {
+        executor.shutdown();
+
+        try {
+            if (!executor.awaitTermination(2, TimeUnit.MINUTES)) {
+                executor.shutdownNow();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Ошибка при попытке закрыть пулл потоков");
+            executor.shutdownNow();
+        }
     }
 }
