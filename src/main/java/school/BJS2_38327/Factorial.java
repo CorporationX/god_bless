@@ -20,7 +20,7 @@ public class Factorial {
 
     private static int factorialInt(int n) {
         if (n < 0 || n > MAX_INT_FACTORIAL) {
-            throw new IllegalArgumentException("Некорректное число для factorialInt");
+            throw new IllegalArgumentException("Некорректное число для factorialInt" + n);
         }
         if (n <= 1) {
             return 1;
@@ -31,7 +31,7 @@ public class Factorial {
 
     private static long factorialLong(int n) {
         if (n > MAX_LONG_FACTORIAL) {
-            throw new IllegalArgumentException("Некорректное число для factorialLong");
+            throw new IllegalArgumentException("Некорректное число для factorialLong" + n);
         }
         long result = n;
         while (n > MAX_INT_FACTORIAL + 1) {
@@ -43,7 +43,7 @@ public class Factorial {
 
     private static BigInteger factorialBig(int n) {
         if (n < MAX_LONG_FACTORIAL) {
-            throw new IllegalArgumentException("Некорректное число для расчета factorialBig");
+            throw new IllegalArgumentException("Некорректное число для расчета factorialBig" + n);
         }
         BigInteger result = new BigInteger(String.valueOf(n));
         while (n > MAX_LONG_FACTORIAL + 1) {
