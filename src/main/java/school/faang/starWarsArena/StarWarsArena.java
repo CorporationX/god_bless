@@ -13,11 +13,14 @@ public class StarWarsArena {
 
         Future<Robot> winnerFuture = battle.fight(r2d2, bb8);
 
+        Robot winner = null;
         try {
-            Robot winner = winnerFuture.get();
-            System.out.println("Победитель битвы: " + winner.getName());
+            winner = winnerFuture.get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        }
+        if (winner != null) {
+            System.out.println(winner.getName() + " победил!");
         }
 
         battle.serviceShutdown();
