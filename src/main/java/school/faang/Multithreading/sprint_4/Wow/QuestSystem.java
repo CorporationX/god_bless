@@ -6,8 +6,8 @@ import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 public class QuestSystem {
-    public CompletableFuture<Player> startQuest(Player player, Quest quest){
-        CompletableFuture<Player> futureQuest = CompletableFuture.supplyAsync(() ->{
+    public CompletableFuture<Player> startQuest(Player player, Quest quest) {
+        CompletableFuture<Player> futureQuest = CompletableFuture.supplyAsync(() -> {
 
             try {
                 Thread.sleep(1000L * quest.getDifficulty());
@@ -22,6 +22,4 @@ public class QuestSystem {
         });
         return futureQuest;
     }
-
-
 }
