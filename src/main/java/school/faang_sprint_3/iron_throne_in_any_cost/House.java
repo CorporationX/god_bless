@@ -1,13 +1,11 @@
 package school.faang_sprint_3.iron_throne_in_any_cost;
 
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.List;
 import java.util.Optional;
 
 @Getter
-@ToString
 public class House {
     private final String title;
     private final List<Role> roles;
@@ -34,5 +32,10 @@ public class House {
         roles.get(roles.indexOf(role)).setAvailable(true);
         currentAvailableRoles++;
         notifyAll();
+    }
+
+    @Override
+    public String toString() {
+        return title + " current available roles: " + currentAvailableRoles;
     }
 }
