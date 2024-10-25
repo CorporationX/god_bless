@@ -7,9 +7,9 @@ public class AmazonOrderProcessing {
         OrderProcessor processor = new OrderProcessor();
 
         List<Order> orders = List.of(
-                new Order(1, "New"),
-                new Order(2, "New"),
-                new Order(3, "New")
+                new Order(1, OrderStatus.PENDING),
+                new Order(2, OrderStatus.PENDING),
+                new Order(3, OrderStatus.PENDING)
         );
 
         processor.processAllOrders(orders);
