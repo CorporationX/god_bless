@@ -8,7 +8,7 @@ public class Main {
         OrderProcessor processor = new OrderProcessor();
 
         List<Order> orders = new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 100; i++) {
             orders.add(new Order());
         }
 
