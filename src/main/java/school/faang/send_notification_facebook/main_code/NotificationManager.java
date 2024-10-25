@@ -3,8 +3,13 @@ package school.faang.send_notification_facebook.main_code;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class NotificationManager {
+    private static final int THREAD_COUNT = 5;
+
+    private ExecutorService executor = Executors.newFixedThreadPool(THREAD_COUNT);
     private List<Notification> notifications = new ArrayList<>();
 
     public synchronized void addNotification(Notification notification) {
@@ -33,7 +38,7 @@ public class NotificationManager {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
-                throw new RuntimeException("Ошибка при попытке добавить уведомление" + e);
+                throw new IllegalArgumentException("Ошибка при попытке добавить уведомление" + e);
             }
 
             Notification notification = new Notification(id, message);
@@ -42,7 +47,7 @@ public class NotificationManager {
             System.out.println("Добавлено уведомление " + notification.getMessage());
 
             return notification;
-        });
+        }, executor);
         return notificationFuture;
     }
 }
